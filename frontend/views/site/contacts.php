@@ -1,0 +1,134 @@
+<?php
+use yii\filters\AccessControl;
+use yii\web\User;
+use dosamigos\ckeditor\CKEditorInline;
+/* @var $this yii\web\View */
+?>
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
+use yii\bootstrap\Button;
+use yii\bootstrap\Dropdown;
+use yii\bootstrap\Carousel;
+use common\models\Partners;
+use yii\helpers\BaseUrl;
+
+use yii\jui\Slider;
+
+$this->title = 'Контакты';
+?>
+<div class="container" id="partners-main">
+    <div class="container" id="partners-main-left-back">
+        <div id="partners-main-left">
+            <div id="partners-main-left-cont">
+                <?
+                $run = new Partners();
+                $check = $run->GetId($_SERVER['HTTP_HOST']);
+                $checks = $run->GetAllowCat($check);
+                foreach ($catdata as $value) {
+                    if (in_array(intval($value['categories_id']), $checks)) {
+                        $catdataallow[] = $value;
+                    }
+                }
+                for ($i = 0; $i < count($catdataallow); $i++) {
+                    $row = $catdataallow[$i];
+                    if (empty($arr_cat[$row['parent_id']])) {
+                        $arr_cat[$row['parent_id']] = $row;
+                    }
+                    $arr_cat[$row['parent_id']][] = $row;
+                }
+                foreach ($categories as $value) {
+                    $catnamearr[$value['categories_id']] = $value['categories_name'];
+                }
+                function view_cat($arr, $parent_id = 0, $catnamearr, $allow_cat)
+                {
+                    if (empty($arr[$parent_id])) {
+                        return;
+                    } else {
+                        if ($parent_id !== 0) {
+                            $style = 'style="display: none;"';
+                        }
+                        echo '<ul id="accordion" class="accordion" ' . $style . '">';
+                        for ($i = 0; $i < count($arr[$parent_id]); $i++) {
+                            $catdesc = $arr[$parent_id][$i]['categories_id'];
+                            if (!$arr[$parent_id][$i] == '') {
+                                echo '<li class=""><div class="link data-j" data-j="on" data-cat="' . $catdesc . '">' . $catnamearr["$catdesc"] . '</div>';
+                                view_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
+                                echo '</li>';
+                            }
+                        }
+                        echo '</ul>';
+                    }
+                }
+
+                ?>
+                <div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
+                </div><?
+                view_cat($arr_cat, 0, $catnamearr, $check);
+                ?>
+            </div>
+            <div id="filters">
+                <div id="price-lable" style="display:none;">
+                    Цена
+                </div>
+
+                <div id="min-price" class="btn" style="display:none">0</div>
+                <div style="display:none" id="max-price" class="btn">10000</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="partners-main-right-back">
+        <div id="partners-main-right" class="bside">
+
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}?>
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div><h1>Общая информация</h1></div>
+                    <ul>
+                        <div class="item-font">
+
+                            Справочная: +7 (495) 771-80-00<br>
+
+
+                            Справки по документам: +7 (495) 771-81-00<br>
+
+
+                            Факс: +7 (495) 771-80-02
+
+
+                        </div>
+                        <div class="solo">
+                            <div class="item-font">
+
+                                Электронная почта: <a href="mailto:office@minsvyaz.ru">office@minsvyaz.ru</a><br>
+
+
+                                Твиттер:
+                                <a target="_blank" href="https://twitter.com/minsvyaz_news">
+                                    @minsvyaz_news
+                                </a><br>
+                                Facebook:
+                                <a target="_blank" href="https://www.facebook.com/minsvyaz?fref=ts">
+                                    Minsvyaz
+                                </a></div>
+                        </div>
+
+                        <div class="item-font">
+                            Адрес:&nbsp;125375, г. Москва, ул. Тверская, д. 7
+                        </div>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
+            <button class="save">Сохранить</button>
+        <?}?>
+
+</div>
+    </div>

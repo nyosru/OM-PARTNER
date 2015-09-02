@@ -1,0 +1,674 @@
+<?php
+namespace frontend\controllers;
+use common\models\User;
+use Yii;
+use common\models\CustomersInfo;
+use common\models\Customers;
+use common\models\AddressBook;
+use common\models\PartnersUsersInfo;
+use common\models\LoginForm;
+use frontend\models\PasswordResetRequestForm;
+use frontend\models\ResetPasswordForm;
+use frontend\models\SignupForm;
+use frontend\models\ContactForm;
+use yii\base\InvalidParamException;
+use yii\helpers\BaseUrl;
+use yii\web\BadRequestHttpException;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use common\models\PartnersCatDescription;
+use common\models\PartnersCategories;
+use common\models\PartnersProductsToCategories;
+use yii\data\SqlDataProvider;
+use yii\db\ActiveRecord;
+use yii\data\ArrayDataProvider;
+use common\models\PartnersOrders;
+use common\models\Partners;
+use common\models\Countries;
+use common\models\Zones;
+use common\models\Manufacturers;
+use common\models\Orders;
+/**
+ * Site controller
+ */
+
+class SiteController extends Controller
+{
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail'],
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['saveorder'],
+                        'allow' => true,
+                        'roles' => ['register', 'admin'],
+                    ],
+                    [
+                        'actions' => ['requestadress'],
+                        'allow' => true,
+                        'roles' => ['register', 'admin'],
+                    ],
+                    [
+                        'actions' => ['productinfo'],
+                        'allow' => true,
+                        'roles' => ['?','@'],
+                    ],
+                    [
+                        'actions' => ['lk'],
+                        'allow' => true,
+                        'roles' => ['register', 'admin'],
+                    ],
+                    [
+                        'actions' => ['requestorders', 'admin'],
+                        'allow' => true,
+                        'roles' => ['register'],
+                    ],
+                    [
+                        'actions' => ['requestemail', 'admin'],
+                        'allow' => true,
+                        'roles' => ['register'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+        ];
+    }
+
+    private function id_partners()
+    {
+        $run = new Partners();
+        $check = $run->GetId($_SERVER['HTTP_HOST']);
+        return $check;
+    }
+
+
+
+    public function actionRequest()
+    {
+        $cat = Yii::$app->request->getQueryParam('cat');
+        $chcat = explode('.', $cat);
+        $run = new Partners();
+        $check = $run -> GetId($_SERVER['HTTP_HOST']);
+        $checks = $run -> GetAllowCat($check);
+
+
+
+
+
+       $cat = str_replace('.', ',', $cat);
+        $start_price = Yii::$app->request->getQueryParam('start_price', 0);
+        $end_price = Yii::$app->request->getQueryParam('end_price', 1000000);
+        $prod_attr_query = Yii::$app->request->getQueryParam('prod_attr_query', '');
+        $count = Yii::$app->request->getQueryParam('count', 20);
+        $page = Yii::$app->request->getQueryParam('page', 0);
+        $start_arr= $page*$count;
+        $sort = Yii::$app->request->getQueryParam('sort', 0);
+        if($sort == 'undefined'){
+            $sort = 10;
+        }
+        $searchword = Yii::$app->request->getQueryParam('searchword', '');
+        if($searchword == '') {
+            $categoriess = new PartnersCategories();
+            $catdata = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All();
+            $categoriesd = new PartnersCatDescription();
+            $categories = $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All();
+
+            foreach ($categories as $value) {
+                $catnamearr[$value['categories_id']] = $value['categories_name'];
+            }
+            foreach ($catdata as $value) {
+                $catdatas[$value[categories_id]] = $value[parent_id];
+            }
+
+            $chpu = Requrscat($catdatas, $chcat[0], $catnamearr);
+        }
+
+        switch ($sort) {
+            case 0:
+                $order = '`products_date_added` ASC';
+                break;
+           case 1:
+                $order =  '`products_price` ASC';
+                break;
+            case 2:
+                $order = '`products_name` ASC';
+                break;
+            case 3:
+                $order =  '`products_model` ASC';
+                break;
+            case 4:
+                $order = '`products_viewed` ASC';
+                break;
+            case 10:
+                $order = '`products_date_added` DESC';
+               break;
+            case 11:
+                $order =  '`products_price` DESC';
+                break;
+            case 12:
+                $order = '`products_name` DESC';
+                break;
+            case 13:
+                $order =  '`products_model` DESC';
+                break;
+            case 14:
+                $order = '`products_viewed` DESC';
+                break;
+       }
+$type = '';
+        $man = new Manufacturers();
+        $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+        foreach($hide_man as $value){
+            $list[] = $value[manufacturers_id];
+        }
+        $hide_man = implode(',' , $list);
+       if($prod_attr_query == '' && $searchword == ''){
+           $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products.removable != 1   and products.products_quantity > 0   and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')  ',[':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
+           $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price and products.removable != 1   and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
+            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')     and products.products_quantity > 0    and products.removable != 1    and products_status=1 and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
+           $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1   and products.products_quantity > 0    and products.removable != 1    and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.') ',[':start_price' => $start_price, ':end_price' => $end_price])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
+       }elseif($prod_attr_query != '' && $searchword == '') {
+            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products.removable != 1      and products.products_quantity > 0     and products_status=1 and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
+           $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0      and products.removable != 1   and products_price <= :end_price and products_price >= :start_price and options_values_id IN (:prod_attr_query) and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->orderBy($order)->count();
+           $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products_status=1    and products.products_quantity > 0   and products.removable != 1      and options_values_id IN (:prod_attr_query)   and products.manufacturers_id NOT IN ('.$hide_man.')', [':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
+            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1      and products.products_quantity > 0    and products_price <= :end_price and products_price >= :start_price  and products.removable != 1   and options_values_id IN (:prod_attr_query)   and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
+       }elseif(preg_match("/^[0-9]+$/", $searchword)){
+           $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
+           $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and products_price >= :start_price and products.products_model=:searchword    and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
+           $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1     and products_status=1 and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
+           $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1      and products_price >= :start_price  and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
+
+       }elseif(preg_match("/^[a-zа-я]+$/iu", $searchword)){
+           $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
+           $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->JoinWith('productsDescription')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and products_price >= :start_price and products_description.products_name=:searchword    and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
+           $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1     and products_status=1 and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
+           $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1      and products_price >= :start_price  and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
+
+       }
+
+        $count_arr = count($data);
+        if($start_arr + $count <= $count_arr ) {
+            $end_arr = $start_arr + $count;
+        }else{$end_arr =$start_arr + $count_arr; }
+        if(count($productattrib)>0) {
+        }else{$productattrib = 'none';}
+        if($price_max > 0) {
+        }else{$price_max = 'none';}
+        if(isset($data[0])){
+        }else{  $data = 'Не найдено!';}
+        $countfilt = count($data);
+        $start = $start_arr;
+       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+
+      return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat, $searchword, $type, $hide_man, $chpu) ;
+
+       }
+    public function actionIndex()
+    {
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriesd = new PartnersCatDescription();
+        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
+
+        $man = new Manufacturers();
+        $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+        foreach($hide_man as $value){
+            $list[] = $value[manufacturers_id];
+        }
+        $hide_man = implode(',' , $list);
+        $products = '75359852,95833167,95848445';
+        $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        if(isset($dataproducts[0])){
+        }else{  $dataproducts = 'Не найдено!';}
+
+
+        $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
+        if(isset($newproducts[0])){
+        }else{  $newproducts = 'Не найдено!';}
+
+        return $this->render('index', ['categories' => $cat, 'catdata' => $categories, 'dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
+    }
+
+    public function actionLogin()
+    {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+    public function actionCatalog()
+    {
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriesd = new PartnersCatDescription();
+        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
+
+        $man = new Manufacturers();
+        $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+        foreach($hide_man as $value){
+            $list[] = $value[manufacturers_id];
+        }
+        $hide_man = implode(',' , $list);
+        $products = '75359852,95833167,95848445';
+        $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        if(isset($dataproducts[0])){
+        }else{  $dataproducts = 'Не найдено!';}
+
+
+        $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
+        if(isset($newproducts[0])){
+        }else{  $newproducts = 'Не найдено!';}
+
+        return $this->render('catalog', ['categories' => $cat, 'catdata' => $categories, 'dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
+    }
+
+    public function actionAbout()
+    {
+        return $this->render('about');
+    }
+    public function actionLk()
+    {
+        return $this->render('lk');
+    }
+
+    public function actionContacts()
+    {
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriesd = new PartnersCatDescription();
+        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
+
+
+
+        return $this->render('contacts', ['categories' => $cat, 'catdata' => $categories]);
+    }
+
+    public function actionDelivery()
+    {
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriesd = new PartnersCatDescription();
+        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
+
+
+
+        return $this->render('delivery', ['categories' => $cat, 'catdata' => $categories]);
+    }
+
+    public function actionPaying()
+    {
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriesd = new PartnersCatDescription();
+        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
+
+
+
+        return $this->render('paying', ['categories' => $cat, 'catdata' => $categories]);
+    }
+
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRequestPasswordReset()
+    {
+        $model = new PasswordResetRequestForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
+
+                return $this->goHome();
+            } else {
+                Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+            }
+        }
+
+        return $this->render('requestPasswordResetToken', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionResetPassword($token)
+    {
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->getSession()->setFlash('success', 'New password was saved.');
+
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRequestorders()
+    {
+        $id = Yii::$app->user->identity->getId();
+        $model = new PartnersOrders();
+
+        $check = $this->id_partners();
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $query = $model->find()->where(['partners_id' => $check, 'user_id'=> $id])->asArray()->all();
+        $check = array();
+        foreach ($query as $key => $value) {
+            $query[$key]['order'] = unserialize($value['order']);
+            unset($query[$key]['order'][ship]);
+            $query[$key]['delivery'] = unserialize($value['delivery']);
+            if($value['orders_id'] != '' and $value['orders_id'] != NULL){$check[]= $value['orders_id'];};
+        }
+
+        if(count($check) > 1){
+            $checkstr = implode(',', $check);
+        }elseif(count($check) == 1){
+            $checkstr = $check[0];
+        }
+        if($checkstr != '') {
+            $orders = new Orders();
+            // $query[ordersatus] = $checkstr;
+            $ordersatusn = $orders->find()->select('orders.`orders_id`, orders.`orders_status`, orders.`delivery_lastname`, orders.`delivery_name`,orders.`delivery_otchestvo`, orders.`delivery_postcode`, orders.`delivery_state`, orders.`delivery_country`, orders.`delivery_state`, orders.`delivery_city`, orders.`delivery_street_address`, orders.`customers_telephone`')->where('orders.`orders_id` IN (' . $checkstr . ')')->joinWith('products')->joinWith('productsAttr')->asArray()->all();
+            foreach ($query as $key => $value) {
+                $query[ordersatus][$ordersatusn[$key][orders_id]] = $ordersatusn[$key];
+            }
+        }
+
+        return $query;
+    }
+
+    public function actionSaveorder()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = new PartnersOrders();
+        $order = Yii::$app->request->post('order');
+        $order[ship] = Yii::$app->request->post('ship');
+        $userdata = Yii::$app->request->post('user');
+        $run = new Partners();
+        $check = $run->GetId($_SERVER['HTTP_HOST']);
+        $userModel = Yii::$app->user->identity;
+        $model->partners_id = $check;
+        $model->user_id = $userModel->getId();
+        $user = new PartnersUsersInfo();
+        $user->scenario = $order[ship];
+        if($user::findOne($userModel->getId())){
+            $user = $user::findOne($userModel->getId());
+            $user->scenario = $order[ship];
+            if($userdata[pasportser] != '') {
+                $user->pasportser = $userdata[pasportser];
+            }
+            if($userdata[pasportnum] != '') {
+                $user->pasportnum = $userdata[pasportnum];
+            }
+            if($userdata[pasportdate] != '') {
+                $user->pasportdate = $userdata[pasportdate];
+            }
+            if($userdata[pasportwhere] != '') {
+                $user->pasportwhere = $userdata[pasportwhere];
+            }
+
+        }else{
+            $user->id = $userModel->getId();
+            $user->name = $userdata[name];
+            $user->secondname = $userdata[secondname];
+            $user->lastname = $userdata[lastname];
+            $user->country = $userdata[country];
+            $user->state = $userdata[state];
+            $user->city = $userdata[city];
+            $user->adress = $userdata[adress];
+            $user->postcode = $userdata[postcode];
+            $user->telephone = $userdata[telephone];
+            $user->pasportser = $userdata[pasportser];
+            $user->pasportnum = $userdata[pasportnum];
+            $user->pasportdate = $userdata[pasportdate];
+            $user->pasportwhere = $userdata[pasportwhere];
+        }
+        if($user->validate()){
+            $user->save('false');
+            $id = $userModel->getId();
+            $model->delivery = serialize($user);
+            $model->order = serialize($order);
+            $model->status = 1;
+            $model->create_date = date("Y-m-d H:i:s");
+            $model->update_date = date("Y-m-d H:i:s");
+            if ($model->save()) {
+                $username = User::findOne($id)->username;
+                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id])
+                    ->setFrom('support@'.$_SERVER['HTTP_HOST'])
+                    ->setTo($username)
+                    ->setSubject('Заказ на сайте '.$_SERVER['HTTP_HOST'])
+                    ->send();
+return ['id' => $model->id, 'order'=> unserialize($model->order)];
+            } else {
+                return false;
+            }
+         }else{
+
+        }
+
+    }
+
+
+
+    public function actionRequestadress()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $userModel = Yii::$app->user->identity;
+        $user = PartnersUsersInfo::findOne($userModel->getId());
+        $ship = Yii::$app->request->post('ship');
+        $userdatafilt = new PartnersUsersInfo();
+        $userdatalable = $userdatafilt->attributeLabels();
+        $userdatafilt = $userdatafilt->scenarios();
+        $userdatafilt = $userdatafilt[$ship];
+        $result = [];
+        if($user->customers_id != ''){
+            $usercustomers = Customers::findOne($user->customers_id);
+            $useradressbook = AddressBook::findOne($usercustomers->delivery_adress_id);
+            $usercountry = Countries::findOne($useradressbook->entry_country_id)->countries_name;
+            $userstate = Zones::findOne($useradressbook->entry_zone_id)->zone_name;
+            $entryarr = array('name' => $useradressbook->entry_firstname, 'lastname' => $useradressbook->entry_lastname, 'secondname' => $useradressbook->otchestvo, 'country' => $usercountry , 'state' => $userstate , 'city' => $useradressbook->entry_city, 'adress' => $useradressbook->entry_street_address, 'postcode' => $useradressbook->entry_postcode, 'telephone' =>$usercustomers->customers_telephone, 'pasportser' => $useradressbook->pasport_seria, 'pasportnum' =>$useradressbook->pasport_nomer, 'pasportdate' =>$useradressbook->pasport_kogda_vidan, 'pasportwhere' =>$useradressbook->pasport_kem_vidan);
+            foreach($userdatafilt as $value){
+                $result[][$value][$userdatalable[$value]] = $entryarr[$value];
+            }
+            return $result;
+
+        }else{
+            $useradressdata = new PartnersUsersInfo();
+            $useradressdata = $useradressdata->findOne($userModel->getId());
+            $entryarr = array('name' => $useradressdata->name, 'lastname' => $useradressdata->lastname, 'secondname' => $useradressdata->secondname, 'country' => $useradressdata->country, 'state' => $useradressdata->state, 'city' => $useradressdata->city, 'adress' => $useradressdata->adress, 'postcode' => $useradressdata->postcode, 'telephone' =>$useradressdata->telephone, 'pasportser' => $useradressdata->pasportser,  'pasportnum' => $useradressdata->pasportnum, 'pasportdate' =>$useradressdata->pasportdate, 'pasportwhere' =>$useradressdata->pasportwhere);
+            foreach($userdatafilt as $value){
+                $result[][$value][$userdatalable[$value]] = $entryarr[$value];
+            }
+
+            return $result;
+        }
+
+    }
+
+    public function actionCountryrequest(){
+        $country_data = new Countries();
+        $data = $country_data->find()->select('countries_id as id, countries_name as title')->asArray()->all();
+        $result['response']= ['count' => count($data)  , 'items' => $data];
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $result;
+    }
+
+    public function actionRequestemail(){
+        return Yii::$app->user->identity->username;
+    }
+    public function actionZonesrequest($id){
+        $zones_data = new Zones();
+        $data= $zones_data->find()->select('zone_id as id, zone_name as title')->where(['zone_country_id'=> intval($id)])->asArray()->all();
+        $result['response']= ['count' => count($data)  , 'items' => $data];
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $result;
+    }
+    public function actionShippingfields($id){
+        $model = new PartnersUsersInfo();
+        $result = $model->getScenario($id);
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $result;
+    }
+
+    public function actionProductinfo(){
+        if(Yii::$app->request->isPost){
+            $id = Yii::$app->request->post('id');
+        }else{
+            $id = Yii::$app->request->getQueryParam('id');
+        }
+
+        $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id',[':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $data;
+    }
+    public function actionImagepreview()
+    {
+        $src = Yii::$app->request->getQueryParam('src');
+       //$src = urldecode($src);
+        $src = str_replace('[[[[]]]]',' ', $src);
+        $src = str_replace('[[[[','(', $src);
+        $src = str_replace(']]]]',')', $src);
+        $filename = $src;
+        $split = explode('/', $src);
+        if(count($split) > 1 ) {
+            $file = array_splice($split, -1,1);
+            $file = explode('.', $file[0]);
+            $ras = array_splice($file, -1,1);
+            $namefile = base64_encode(implode('', $file));
+            $dir = implode('/', $split).'/';
+        }else{
+            $file = $split[0];
+            $file = explode('.',$file);
+            $ras = array_splice($file, -1,1);
+            $namefile =  base64_encode(implode('', $file));
+            $dir = '';
+        }
+        if(!file_exists(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0])) {
+            if (!is_dir(Yii::getAlias('@webroot/images/') . $dir)) {
+                mkdir(Yii::getAlias('@webroot/images/') . $dir);
+            }
+            $image = imagecreatefromjpeg('http://odezhda-master.ru/images/'.$filename);
+            $width = imagesx($image);
+            $height = imagesy($image);
+            $original_aspect = $width / $height;
+            if ($original_aspect > 1.3) {
+                $thumb_width = 300;
+                $thumb_height = 180;
+            } elseif ($original_aspect < 0.7) {
+                $thumb_width = 180;
+                $thumb_height = 300;
+            } else {
+                $thumb_width = 200;
+                $thumb_height = 200;
+            }
+            $thumb_aspect = $thumb_width / $thumb_height;
+            if ($original_aspect >= $thumb_aspect) {
+                $new_height = $thumb_height;
+                $new_width = $width / ($height / $thumb_height);
+            } else {
+                $new_width = $thumb_width;
+                $new_height = $height / ($width / $thumb_width);
+            }
+            $thumb = imagecreatetruecolor($thumb_width, $thumb_height);
+            imagecopyresampled($thumb,
+                $image,
+                0 - ($new_width - $thumb_width) / 2,
+                0 - ($new_height - $thumb_height) / 2,
+                0, 0,
+                $new_width, $new_height,
+                $width, $height);
+            imagejpeg($thumb, Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0], 80);
+        }
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type: image/jpeg');
+        $headers->add('Content-Disposition: attachment; filename="'.Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0].'"');
+        return   file_get_contents(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0]);
+    }
+}
+function Requrscat($arr, $firstval, $catnamearr){
+    static $chpu;
+    static $item;
+    $item = $firstval;
+    while($arr[$item] != '0'){
+        $chpu[] = $catnamearr[$item];
+       $item =  $arr[$item];
+    }
+    $chpu[] = $catnamearr[$item];
+    return array_reverse($chpu);
+}
