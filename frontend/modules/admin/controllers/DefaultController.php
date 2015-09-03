@@ -149,7 +149,11 @@ class DefaultController extends Controller
                         $userOM->pasport_seria = $userparam[pasportser];
                         $userOM->pasport_nomer = $userparam[pasportnum];
                         $userOM->pasport_kem_vidan = $userparam[pasportwhere];
-                        $userOM->pasport_kogda_vidan = $userparam[pasportdate];
+                       if(isset($userparam[pasportdate])) {
+                           $userOM->pasport_kogda_vidan = $userparam[pasportdate];
+                       }else{
+                           $userOM->pasport_kogda_vidan = date();
+                       }
                         $userOM->entry_postcode = $userparam[postcode];
                         $userOM->entry_gender = 'M';
                         $userOM->entry_country_id = $entrycountry['id'];
