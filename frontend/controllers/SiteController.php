@@ -125,6 +125,9 @@ class SiteController extends Controller
     {
         $cat = Yii::$app->request->getQueryParam('cat');
         $chcat = explode('.', $cat);
+        foreach($chcat as $valcat){
+            $valcat = intval($valcat);
+        }
         $run = new Partners();
         $check = $run -> GetId($_SERVER['HTTP_HOST']);
         $checks = $run -> GetAllowCat($check);
@@ -134,13 +137,13 @@ class SiteController extends Controller
 
 
        $cat = str_replace('.', ',', $cat);
-        $start_price = Yii::$app->request->getQueryParam('start_price', 0);
-        $end_price = Yii::$app->request->getQueryParam('end_price', 1000000);
-        $prod_attr_query = Yii::$app->request->getQueryParam('prod_attr_query', '');
-        $count = Yii::$app->request->getQueryParam('count', 20);
-        $page = Yii::$app->request->getQueryParam('page', 0);
-        $start_arr= $page*$count;
-        $sort = Yii::$app->request->getQueryParam('sort', 0);
+        $start_price =  intval(Yii::$app->request->getQueryParam('start_price', 0));
+        $end_price =  intval(Yii::$app->request->getQueryParam('end_price', 1000000));
+        $prod_attr_query =  intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
+        $count =  intval(Yii::$app->request->getQueryParam('count', 20));
+        $page =  intval(Yii::$app->request->getQueryParam('page', 0));
+        $start_arr=  intval($page*$count);
+        $sort = intval(Yii::$app->request->getQueryParam('sort', 0));
         if($sort == 'undefined'){
             $sort = 10;
         }
