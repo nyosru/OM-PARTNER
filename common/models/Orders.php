@@ -90,7 +90,7 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customers_id', 'customers_groups_id', 'customers_address_format_id', 'delivery_adress_id', 'delivery_address_format_id', 'billing_address_format_id', 'buh_orders_id', 'nomer_akt', 'orders_status', 'orders_storage', 'seats_count', 'default_provider', 'seller_id'], 'integer'],
+            [['customers_id', 'customers_groups_id', 'customers_address_format_id', 'delivery_adress_id', 'delivery_address_format_id', 'billing_address_format_id', 'buh_orders_id', 'nomer_akt', 'orders_status', 'orders_storage', 'seats_count', 'default_provider', 'seller_id', 'site_side_email_flag'], 'integer'],
             [['customers_name', 'customers_street_address', 'customers_city', 'customers_postcode', 'customers_country', 'customers_telephone', 'customers_email_address', 'delivery_name', 'delivery_street_address', 'delivery_city', 'delivery_postcode', 'delivery_country', 'billing_name', 'billing_street_address', 'billing_city', 'billing_postcode', 'billing_country', 'payment_method'], 'required'],
             [['delivery_pasport_kem_vidan', 'payment_info'], 'string'],
             [['delivery_pasport_kogda_vidan', 'last_modified', 'date_purchased', 'date_akt', 'orders_date_finished'], 'safe'],
@@ -181,6 +181,7 @@ class Orders extends \yii\db\ActiveRecord
             'seller_id' => 'Seller ID',
             'orders_discont' => 'Orders Discont',
             'orders_discont_comment' => 'Orders Discont Comment',
+            'site_side_email_flag' => 'flags e-mail'
         ];
     }
     public function GetId()

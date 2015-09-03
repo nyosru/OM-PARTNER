@@ -292,7 +292,8 @@ class DefaultController extends Controller
                 $orders->date_purchased = date("Y-m-d h:i:s");
                 $orders->date_akt = date("Y-m-d h:i:s");
                 $orders->payment_info = '';
-                $orders->orders_status = 1;
+                $orders->orders_status = 100;
+                $orders->site_side_email_flag = 0;
                 $orders->default_provider = $userCustomer->default_provider;
                 $orders->payment_method = 'Оплата <font size="4" color="red">Для физических лиц</font>';
                 $buh_id = Orders::find()->where(['default_provider' => $userCustomer->default_provider])->orderBy('orders_id DESC')->one();
