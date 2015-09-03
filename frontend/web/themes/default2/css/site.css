@@ -307,6 +307,7 @@
 
     #partners-main {
         width: 1280px;
+        min-height: 800px;
     }
 
     #partners-main-left-back {
