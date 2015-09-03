@@ -2,14 +2,10 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-         'dsn' => 'mysql:host=10.0.0.6;dbname=odezhdaegorov',
-          'username' => 'odezhdaegorov',
-         'password' => 'Sda23hGRT',
-         'charset' => 'utf8',
-       // 'dsn' => 'mysql:host=localhost;dbname=1214',
-      //  'username' => 'root',
-      //  'password' => 'mysql',
-      //  'charset' => 'utf8',
+         'dsn' => '',
+          'username' => '',
+         'password' => '',
+         'charset' => '',
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
