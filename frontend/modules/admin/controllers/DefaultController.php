@@ -205,8 +205,10 @@ class DefaultController extends Controller
                             return false;
                         }
                     } else {
+
                         $newuserpartnerscastid = PartnersUsersInfo::findOne($userparam[id]);
                         $customer_id = $newuserpartnerscastid->customers_id;
+
                     }
                 }
 
@@ -233,7 +235,6 @@ class DefaultController extends Controller
                 $partnerorder = unserialize($orderforsavedata->order);
                 $ship = $partnerorder[ship];
                 unset($partnerorder[ship]);
-                //  $partnerdelivery = unserialize($orderforsavedata->delivery); //may-be понадобится для сверки адреса
                 $orders->ur_or_fiz = 'f';
                 $orders->customers_id = $userCustomer->customers_id;
                 $orders->customers_name = $userCustomer->customers_firstname . ' ' . $userCustomer->customers_lastname;

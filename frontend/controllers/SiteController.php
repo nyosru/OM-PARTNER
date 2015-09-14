@@ -125,18 +125,17 @@ class SiteController extends Controller
     {
         $cat = Yii::$app->request->getQueryParam('cat');
         $chcat = explode('.', $cat);
-        foreach($chcat as $valcat){
-            $valcat = intval($valcat);
-        }
+
         $run = new Partners();
         $check = $run -> GetId($_SERVER['HTTP_HOST']);
         $checks = $run -> GetAllowCat($check);
 
-
-
-
-
-       $cat = str_replace('.', ',', $cat);
+$cats=[];
+        foreach($chcat as $key => $valcat){
+           if(preg_match("/^[0-9]+$/", $valcat)){
+               $cats[$key] = $valcat;
+           }}
+        $cat = implode(",", $cats);
         $start_price =  intval(Yii::$app->request->getQueryParam('start_price', 0));
         $end_price =  intval(Yii::$app->request->getQueryParam('end_price', 1000000));
         $prod_attr_query =  intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
@@ -478,11 +477,34 @@ $type = '';
             if($userdata[pasportnum] != '') {
                 $user->pasportnum = $userdata[pasportnum];
             }
-            if($userdata[pasportdate] != '') {
+            if($userdata[pasportdate] != '' ) {
                 $user->pasportdate = $userdata[pasportdate];
             }
             if($userdata[pasportwhere] != '') {
                 $user->pasportwhere = $userdata[pasportwhere];
+            }
+            if($user->customers_id > 0) {
+                $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
+                if ($check_passport_customer->pasport_seria == NULL) {
+                    $check_passport_customer->pasport_seria = $userdata[pasportser];
+
+                }
+                if ($check_passport_customer->pasport_nomer == NULL) {
+                    $check_passport_customer->pasport_nomer = $userdata[pasportnum];
+
+                }
+                if ($check_passport_customer->pasport_kem_vidan == NULL) {
+                    $check_passport_customer->pasport_kem_vidan = $userdata[pasportwhere];
+
+                }
+                if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
+                    $check_passport_customer->pasport_kogda_vidan =  $userdata[pasportdate] ;
+
+                }
+                $check_passport_customer->entry_gender = 'M';
+                if($check_passport_customer->update()){
+                }else{
+                }
             }
 
         }else{
@@ -502,6 +524,8 @@ $type = '';
             $user->pasportwhere = $userdata[pasportwhere];
         }
         if($user->validate()){
+
+
             $user->save('false');
             $id = $userModel->getId();
             $model->delivery = serialize($user);
@@ -668,10 +692,16 @@ function Requrscat($arr, $firstval, $catnamearr){
     static $chpu;
     static $item;
     $item = $firstval;
-    while($arr[$item] != '0'){
-        $chpu[] = $catnamearr[$item];
-       $item =  $arr[$item];
+    if(isset($arr[$item])) {
+        while ($arr[$item] != '0') {
+            if (isset($catnamearr[$item])) {
+                $chpu[] = $catnamearr[$item];
+                $item = $arr[$item];
+            }
+        }
+        if (isset($catnamearr[$item])) {
+            $chpu[] = $catnamearr[$item];
+        }
     }
-    $chpu[] = $catnamearr[$item];
     return array_reverse($chpu);
 }

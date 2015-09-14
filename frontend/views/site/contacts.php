@@ -2,6 +2,8 @@
 use yii\filters\AccessControl;
 use yii\web\User;
 use dosamigos\ckeditor\CKEditorInline;
+use common\models\PartnersUsersInfo;
+use common\models\AddressBook;
 /* @var $this yii\web\View */
 ?>
 <?php
@@ -132,3 +134,4 @@ $this->title = 'Контакты';
 
 </div>
     </div>
+

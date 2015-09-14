@@ -2460,6 +2460,13 @@
         padding: 8px;
         font-weight: 400;
     }
+
+    .haserror{
+        border: 1px solid red;
+    }
+    .hassucces{
+        border: 1px solid green;
+    }
 }
     /**
     @media (max-width: 1280px){
