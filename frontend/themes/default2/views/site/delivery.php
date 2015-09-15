@@ -13,7 +13,7 @@ use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
 use common\models\Partners;
 use yii\helpers\BaseUrl;
-
+use dosamigos\ckeditor\CKEditorInline;
 use yii\jui\Slider;
 $this -> title = 'Доставка';
 ?>
@@ -74,6 +74,8 @@ $this -> title = 'Доставка';
     </div>
     <div class="container-fluid" id="partners-main-right-back">
         <div id="partners-main-right" class="bside">
+
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}?>
 
             <div class="delivery-box">
                 <h1>Куда изволите доставить?</h1>
@@ -178,7 +180,9 @@ $this -> title = 'Доставка';
                     </tbody></table>
                 Удачных покупок на Lapana.ru.
             </div>
-
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
+                <button class="save">Сохранить</button>
+            <?}?>
 
         </div>
     </div>

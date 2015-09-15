@@ -130,6 +130,19 @@ $this->title = 'Контакты';
         </div>
         <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
             <button class="save">Сохранить</button>
+            <script>
+                $(document).on('click', '.save', function() {
+                 $html = $('bside').html();
+                    $.post(
+                        "/site/savehtml",
+                        { html: $html,
+                          page: document.location.href},
+                        onAjaxSuccessinfo
+                    );
+
+
+                });
+                </script>
         <?}?>
 
 </div>

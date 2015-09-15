@@ -439,6 +439,26 @@ $(document).on('click', '.save-user-profile', function() {
         $('[data-name="adress"]').addClass('haserror');
     }
 
+
+
+    if($('[data-name="pasportwhere"]').val() != '' && $('[data-name="pasportwhere"]').val() != undefined){
+        str = $('[data-name="pasportwhere"]').val();
+    }else{
+        str = $('[data-name="pasportwhere"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportwhere"]').val() == '' || $('[data-name="pasportwhere"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportwhere"]').removeClass('haserror');
+        $('[data-name="pasportwhere"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportwhere"]').addClass('haserror');
+        $('[data-name="pasportwhere"]').removeClass('hassucces');
+    }
+
+
+
     regname = /^[0-9\s]+$/i;
 
     if($('[data-name="postcode"]').val() != '' && $('[data-name="postcode"]').val() != undefined){
@@ -460,6 +480,38 @@ $(document).on('click', '.save-user-profile', function() {
         $('[data-name="postcode"]').removeClass('hassucces');
     }
 
+    if($('[data-name="pasportser"]').val() != '' && $('[data-name="pasportser"]').val() != undefined){
+        str = $('[data-name="pasportser"]').val();
+    }else{
+        str = $('[data-name="pasportser"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportser"]').val() == '' || $('[data-name="pasportser"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportser"]').removeClass('haserror');
+        $('[data-name="pasportser"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportser"]').addClass('haserror');
+        $('[data-name="pasportser"]').removeClass('hassucces');
+    }
+
+    if($('[data-name="pasportnum"]').val() != '' && $('[data-name="pasportnum"]').val() != undefined){
+        str = $('[data-name="pasportnum"]').val();
+    }else{
+        str = $('[data-name="pasportnum"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportnum"]').val() == '' || $('[data-name="pasportnum"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportnum"]').removeClass('haserror');
+        $('[data-name="pasportnum"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportnum"]').addClass('haserror');
+        $('[data-name="pasportnum"]').removeClass('hassucces');
+    }
+
     regname = /^[0-9\)\(\-\+]+$/i;
 
     if($('[data-name="telephone"]').val() != '' && $('[data-name="telephone"]').val() != undefined){
@@ -476,6 +528,23 @@ $(document).on('click', '.save-user-profile', function() {
     }else{
         $('[data-name="telephone"]').addClass('haserror');
         $('[data-name="telephone"]').removeClass('hassucces');
+    }
+
+    regname = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/i;
+    if($('[data-name="pasportdate"]').val() != '' && $('[data-name="pasportdate"]').val() != undefined){
+        str = $('[data-name="pasportdate"]').val();
+    }else{
+        str = $('[data-name="pasportdate"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportdate"]').val() == '' || $('[data-name="pasportdate"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportdate"]').removeClass('haserror');
+        $('[data-name="pasportdate"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportdate"]').addClass('haserror');
+        $('[data-name="pasportdate"]').removeClass('hassucces');
     }
 
 
@@ -548,78 +617,16 @@ $(document).on('click', '.save-user-profile', function() {
             {
                 user: $userdataarr
             },
-            onAjaxSuccess
+            alert('Данные сохранены')
         );
     }
-    function onAjaxSuccess(data) {
-        if (data != 0) {
-           alert('cool');
-        }
 
-
-    }
 });
+function onAjaxSuccesssaveuserprofile() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 $(document).on('click', '.btn-end-order', function() {
     $('#modal-cart').dialog('close');
 

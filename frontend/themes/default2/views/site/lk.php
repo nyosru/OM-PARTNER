@@ -123,6 +123,64 @@ $this -> title = 'Личный кабинет';
 
         });
             $('.bside').append($inner);
+
+            $(document).on('click focus', '[data-name=country]', function() {
+                $('#country-drop').show();
+
+            });
+            $(document).on('click', '#country', function() {
+                $('[data-name=country]').val($(this).text());
+                $('[data-name=country]').attr('data-country', this.getAttribute('country'));
+                $('#country-drop').hide();
+                $.ajax({
+                    type: "GET",
+                    url: "/site/zonesrequest",
+                    data: 'id='+this.getAttribute('data-country'),
+                    dataType:"json",
+                    success: function(out2) {
+
+                        $inner = '';
+                        $.each(out2.response.items, function(){
+                            $inner += '<li data-state="'+this.id+'" id="state">'+this.title+'</li>';
+                        });
+                        $('#state-drop').remove();
+                        $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">'+$inner+'</ul>');
+                        $('[data-name=state]').attr('autocomplete', 'off');
+                    }
+                });
+            });
+            $(document).on('click focus', '[data-name=state]', function() {
+                $('#state-drop').show();
+
+            });
+            $(document).on('click', '#state', function() {
+                $('[data-name=state]').attr('data-state', this.getAttribute('state'));
+                $('[data-name=state]').val($(this).text());
+                $('#state-drop').hide();
+
+            });
+            $(document).on('keyup', '[data-name=country]', function() {
+                $filtCountryArr = $(this).siblings('ul').children();
+                $search = this.value;
+                $.each($filtCountryArr, function(){
+                    if(this.textContent.toLowerCase().indexOf($search.toLowerCase())+1){
+                        $(this).show();
+                    }else{
+                        $(this).hide();
+                    }
+                });
+            });
+            $(document).on('keyup', '[data-name=state]', function() {
+                $filtCountryArr = $(this).siblings('ul').children();
+                $search = this.value;
+                $.each($filtCountryArr, function(){
+                    if(this.textContent.toLowerCase().indexOf($search.toLowerCase())+1){
+                        $(this).show();
+                    }else{
+                        $(this).hide();
+                    }
+                });
+            });
         }
 
     });

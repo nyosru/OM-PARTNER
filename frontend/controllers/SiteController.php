@@ -43,7 +43,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile'],
+                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -81,14 +81,19 @@ class SiteController extends Controller
                         'roles' => ['register', 'admin'],
                     ],
                     [
-                        'actions' => ['requestorders', 'admin'],
+                        'actions' => ['requestorders'],
                         'allow' => true,
                         'roles' => ['register'],
                     ],
                     [
-                        'actions' => ['requestemail', 'admin'],
+                        'actions' => ['requestemail'],
                         'allow' => true,
                         'roles' => ['register'],
+                    ],
+                    [
+                        'actions' => ['savehtml'],
+                        'allow' => true,
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -608,10 +613,10 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
         $model->partners_id = $check;
         $model->user_id = $userModel->getId();
         $user = new PartnersUsersInfo();
-        $user->scenario = 'flat1_flat1';
+        $user->scenario = 'flat2_flat2';
         if($user::findOne($userModel->getId())){
             $user = $user::findOne($userModel->getId());
-            $user->scenario = 'flat1_flat1';
+            $user->scenario = 'flat2_flat2';
             if($userdata[pasportser] != '') {
                 $user->pasportser = $userdata[pasportser];
             }
@@ -841,7 +846,14 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
         $headers->add('Content-Disposition: attachment; filename="'.Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0].'"');
         return   file_get_contents(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0]);
     }
+
+    public function actionSavehtml(){
+
+    }
 }
+
+
+
 function Requrscat($arr, $firstval, $catnamearr){
     static $chpu;
     static $item;
