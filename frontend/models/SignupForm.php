@@ -3,6 +3,7 @@ namespace frontend\models;
 
 use common\models\User;
 use common\models\Partners;
+use common\models\Customers;
 use common\models\PartnersUsersInfo;
 use yii\web\IdentityInterface;
 use yii\base\Model;
@@ -44,7 +45,8 @@ class SignupForm extends Model
             ['email', 'required', 'message' => 'Это обязательное поле.'],
             ['email', 'email'],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Этот e-mail уже используется'],
-
+            ['email', 'validateUserEmail'],
+           // ['email', 'unique', 'targetClass' => '\common\models\Customers', 'message' => 'Этот e-mail уже используется'],
             ['password', 'required', 'message' => 'Это обязательное поле.'],
             ['password', 'string', 'min' => 8, 'message' => 'Минимум 8 знаков'],
         ];
@@ -68,6 +70,8 @@ class SignupForm extends Model
             $user->generateAuthKey();
             $user->id_partners = $id_partners;
             $user->role = 'register';
+
+
             if ($user->save()) {
               $auth = Yii::$app->authManager;
               $auth->assign($auth->getRole('register'), $user->getId());
@@ -78,6 +82,16 @@ class SignupForm extends Model
                     ->send();
                 return $user;
             }
+        }
+    }
+    public function validateUserEmail()
+    {
+        $userCustomer = new Customers();
+        $check_email = $userCustomer->find()->where(['customers_email_address' => $this->email])->asArray()->one();
+        if(!$check_email){
+            return true;
+        }else {
+            $this->addError('email', 'Почтовый адрес уже используется в системе');
         }
     }
 }

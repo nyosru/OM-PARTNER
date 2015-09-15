@@ -104,7 +104,7 @@ $(document).on('change', '#shipping-confirm', function() {
 
 $(document).on('click', '.save-order2', function() {
 
-    var regname = /^[a-zа-яё\-]+$/i;
+    var regname = /^[a-zа-яё\-\s]+$/i;
     var m;
 
     if($('[data-name="name"]').val() != '' && $('[data-name="name"]').val() != undefined){
@@ -160,7 +160,7 @@ $(document).on('click', '.save-order2', function() {
 
 
 
-    regname = /^[a-zа-яё0-9\-]+$/i;
+    regname = /^[a-zа-яё0-9\-\s]+$/i;
 
     if($('[data-name="city"]').val() != '' && $('[data-name="city"]').val() != undefined){
         str = $('[data-name="city"]').val();
@@ -180,7 +180,7 @@ $(document).on('click', '.save-order2', function() {
     }
 
 
-    regname = /^[a-zа-яё0-9\-\,\.]+$/i;
+    regname = /^[a-zа-яё0-9\-\,\.\s]+$/i;
 
     if($('[data-name="adress"]').val() != '' && $('[data-name="adress"]').val() != undefined){
         str = $('[data-name="adress"]').val();
@@ -198,14 +198,17 @@ $(document).on('click', '.save-order2', function() {
         $('[data-name="adress"]').addClass('haserror');
     }
 
-    regname = /^[0-9]+$/i;
+    regname = /^[0-9\s]+$/i;
 
     if($('[data-name="postcode"]').val() != '' && $('[data-name="postcode"]').val() != undefined){
         str = $('[data-name="postcode"]').val();
     }else{
         str = $('[data-name="postcode"]').text();
     }
-    if (m = regname.exec(str) !== null) {
+
+console.log(str.length);
+
+    if (m = regname.exec(str) !== null && str.length < 10) {
         if (m.index === regname.lastIndex) {
             regname.lastIndex++;
         }
@@ -216,7 +219,7 @@ $(document).on('click', '.save-order2', function() {
         $('[data-name="postcode"]').removeClass('hassucces');
     }
 
-    regname = /^[0-9\)\(\-]+$/i;
+    regname = /^[0-9\)\(\-\+]+$/i;
 
     if($('[data-name="telephone"]').val() != '' && $('[data-name="telephone"]').val() != undefined){
         str = $('[data-name="telephone"]').val();
@@ -316,6 +319,13 @@ $(document).on('click', '.save-order2', function() {
 
 
 }
+
+
+
+
+
+
+
     function onAjaxSuccess(data) {
         if (data != 0) {
             localStorage.removeItem('cart-om');
@@ -328,6 +338,288 @@ $(document).on('click', '.save-order2', function() {
 
     }
 });
+
+
+
+
+
+$(document).on('click', '.save-user-profile', function() {
+
+    var regname = /^[a-zа-яё\-\s]+$/i;
+    var m;
+
+    if($('[data-name="name"]').val() != '' && $('[data-name="name"]').val() != undefined){
+        str = $('[data-name="name"]').val();
+    }else{
+        str = $('[data-name="name"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="name"]').removeClass('haserror');
+        $('[data-name="name"]').addClass('hassucces');
+    }else{
+        $('[data-name="name"]').removeClass('hassucces');
+        $('[data-name="name"]').addClass('haserror');
+    }
+
+    if($('[data-name="secondname"]').val() != '' && $('[data-name="secondname"]').val() != undefined){
+        str = $('[data-name="secondname"]').val();
+    }else{
+        str = $('[data-name="secondname"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="secondname"]').removeClass('haserror');
+        $('[data-name="secondname"]').addClass('hassucces');
+    }else{
+        $('[data-name="secondname"]').removeClass('hassucces');
+        $('[data-name="secondname"]').addClass('haserror');
+    }
+
+    if($('[data-name="lastname"]').val() != '' && $('[data-name="lastname"]').val() != undefined){
+        str = $('[data-name="lastname"]').val();
+    }else{
+        str = $('[data-name="lastname"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="lastname"]').removeClass('haserror');
+        $('[data-name="lastname"]').addClass('hassucces');
+    }else{
+        $('[data-name="lastname"]').removeClass('hassucces');
+        $('[data-name="lastname"]').addClass('haserror');
+    }
+
+
+
+    regname = /^[a-zа-яё0-9\-\s]+$/i;
+
+    if($('[data-name="city"]').val() != '' && $('[data-name="city"]').val() != undefined){
+        str = $('[data-name="city"]').val();
+    }else{
+        str = $('[data-name="city"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="city"]').removeClass('haserror');
+        $('[data-name="city"]').addClass('hassucces');
+    }else{
+        $('[data-name="city"]').removeClass('hassucces');
+        $('[data-name="city"]').addClass('haserror');
+    }
+
+
+    regname = /^[a-zа-яё0-9\-\,\.\s]+$/i;
+
+    if($('[data-name="adress"]').val() != '' && $('[data-name="adress"]').val() != undefined){
+        str = $('[data-name="adress"]').val();
+    }else{
+        str = $('[data-name="adress"]').text();
+    }
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="adress"]').removeClass('haserror');
+        $('[data-name="adress"]').addClass('hassucces');
+    }else{
+        $('[data-name="adress"]').removeClass('hassucces');
+        $('[data-name="adress"]').addClass('haserror');
+    }
+
+    regname = /^[0-9\s]+$/i;
+
+    if($('[data-name="postcode"]').val() != '' && $('[data-name="postcode"]').val() != undefined){
+        str = $('[data-name="postcode"]').val();
+    }else{
+        str = $('[data-name="postcode"]').text();
+    }
+
+    console.log(str.length);
+
+    if (m = regname.exec(str) !== null && str.length < 10) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="postcode"]').removeClass('haserror');
+        $('[data-name="postcode"]').addClass('hassucces');
+    }else{
+        $('[data-name="postcode"]').addClass('haserror');
+        $('[data-name="postcode"]').removeClass('hassucces');
+    }
+
+    regname = /^[0-9\)\(\-\+]+$/i;
+
+    if($('[data-name="telephone"]').val() != '' && $('[data-name="telephone"]').val() != undefined){
+        str = $('[data-name="telephone"]').val();
+    }else{
+        str = $('[data-name="telephone"]').text();
+    }
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="telephone"]').removeClass('haserror');
+        $('[data-name="telephone"]').addClass('hassucces');
+    }else{
+        $('[data-name="telephone"]').addClass('haserror');
+        $('[data-name="telephone"]').removeClass('hassucces');
+    }
+
+
+    $check = 0;
+    if($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined){
+        str = $('[data-name="country"]').val();
+    }else{
+        str = $('[data-name="country"]').text();
+    }
+
+    $country = $("[data-country]");
+
+    $.each($country, function(){
+        if(str == $(this).html() ) {
+            $check = 1;
+        }
+    });
+    if($check == 1 ){
+        $('[data-name="country"]').removeClass('haserror');
+        $('[data-name="country"]').addClass('hassucces');
+    }else{
+        $('[data-name="country"]').addClass('haserror');
+        $('[data-name="country"]').removeClass('hassucces');
+    }
+
+
+
+    $check = 0;
+    $errstate = $('[data-state]');
+    console.log($errstate.length);
+    if($errstate.length > 1) {
+        if ($('[data-name="state"]').val() != '' && $('[data-name="state"]').val() != undefined) {
+            str = $('[data-name="state"]').val();
+        } else {
+            str = $('[data-name="state"]').text();
+        }
+
+        $state = $("[data-state]");
+
+        $.each($state, function () {
+            if (str == $(this).html()) {
+                $check = 1;
+            }
+        });
+
+
+        if ($check == 1) {
+            $('[data-name="state"]').removeClass('haserror');
+            $('[data-name="state"]').addClass('hassucces');
+        } else {
+            $('[data-name="state"]').addClass('haserror');
+            $('[data-name="state"]').removeClass('hassucces');
+        }
+
+    }
+    $error = $('.haserror');
+    if($error.length == 0 ) {
+        $userdata = $('.info-item');
+        $userdataarr = new Object();
+        $.each($userdata, function () {
+            $name_attr = this.getAttribute('data-name');
+            if ($userdataarr[$name_attr] = $(this).val() != '') {
+                $userdataarr[$name_attr] = $(this).val();
+            } else {
+                $userdataarr[$name_attr] = $(this).text();
+            }
+        });
+        $.post(
+            "/site/saveuserprofile",
+            {
+                user: $userdataarr
+            },
+            onAjaxSuccess
+        );
+    }
+    function onAjaxSuccess(data) {
+        if (data != 0) {
+           alert('cool');
+        }
+
+
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).on('click', '.btn-end-order', function() {
     $('#modal-cart').dialog('close');
 
@@ -422,8 +714,14 @@ $(document).on('click', '.cart', function() {
     });
 
     if(JSON.parse(localStorage.getItem('cart-om'))) {
+        if(document . location . hash == ''){
+            $urlhash = '#';
+        }else{
+            $urlhash = document . location . hash;
+        }
+
         if ($('[data-method="post"]').attr('href') == '/site/lk' && $i.length > 0) {
-            $(".ui-dialog-title").html('Ваша корзина. <span class="cart-auth"><a class="save-order" href="'+document . location . hash+'">Оформить заказ</a></span>');
+            $(".ui-dialog-title").html('Ваша корзина. <span class="cart-auth"><a class="save-order" href="'+$urlhash+'">Оформить заказ</a></span>');
         } else if ($i.length > 0) {
             $(".ui-dialog-title").html('Ваша корзина.<span class="cart-auth"><a class="auth-order" href="/site/login">Купить</a></span>');
         }
@@ -1062,7 +1360,7 @@ function onAjaxSuccessinfo(data)
             $attrval = '';
         }
         if($attrval != null && $attrval  != '') {
-            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <span  data-name="'+$attr+'" class="info-item">' + $attrval + '</span></div>';
+            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input  data-name="'+$attr+'" class="info-item" data-name="'+$attr+'" value="' + $attrval + '"></input></div>';
         }else{
             $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input class="info-item" data-name="'+$attr+'" placeholder="'+$attrlable+'"></input></div>';
         }
@@ -1127,7 +1425,7 @@ function onAjaxSuccessinfo(data)
     });
 
 
-    $(document).on('click', '[data-name=country]', function() {
+    $(document).on('click focus', '[data-name=country]', function() {
         $('#country-drop').show();
 
     });
@@ -1152,7 +1450,7 @@ function onAjaxSuccessinfo(data)
             }
         });
     });
-    $(document).on('click', '[data-name=state]', function() {
+    $(document).on('click focus', '[data-name=state]', function() {
         $('#state-drop').show();
 
     });

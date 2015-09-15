@@ -120,6 +120,7 @@ class DefaultController extends Controller
 
     public function actionDelegate()
     {
+       // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $data = intval(Yii::$app->request->post('id'));
@@ -195,14 +196,14 @@ class DefaultController extends Controller
                                     $newuserpartnerscastid->customers_id = $customer_id;
                                     $newuserpartnerscastid->update();
                                 } else {
-                                    return false;
+                                    return $userCustomerInfo;
                                 }
                             } else {
 
-                                return false;
+                                return $userCustomer;
                             }
                         } else {
-                            return false;
+                            return $userOM;
                         }
                     } else {
 
@@ -374,7 +375,7 @@ class DefaultController extends Controller
                     $neworderpartner->update_date = date("Y-m-d H:i:s");
                     $neworderpartner->update();
                 } else {
-                    return false;
+                   print_r($userOM);
                 }
             } else {
                 return false;

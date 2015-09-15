@@ -46,7 +46,7 @@ class LoginForm extends Model
         }else{
             $run = new Partners();
             $check = $run->GetId($_SERVER['HTTP_HOST']);
-            if(intval($user->id_partners) !==  intval($check)){
+            if(intval($user->id_partners) !=  intval($check)){
                 $this->addError('password', 'Incorrect username or password.');
             }
         }
