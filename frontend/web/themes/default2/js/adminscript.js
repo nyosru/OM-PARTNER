@@ -53,7 +53,16 @@ $(document).on('click', '.orders', function() {
         async : true,
        // dataType : 'json',
         success : function($data) {
-            console.log($data);
+            $statusarr =  new Object();
+            $statusarr[100] = 'Принят в обработку';
+            $statusarr[1] = 'Ожидает проверки';
+            $statusarr[2] = 'Ждём оплаты';
+            $statusarr[3] = 'Оплачен';
+            $statusarr[4] = 'Оплачен - Доставляется';
+            $statusarr[5] = 'Оплачен - Доставлен';
+            $statusarr[6] = 'Отменён';
+            $statusarr[11] = 'Сборка';
+            $statusarr[0] = 'Спецпредложение';
             if($data.ordersatus != undefined) {
                 $orders = $data.ordersatus;
                 delete $data.ordersatus;
@@ -83,7 +92,7 @@ $(document).on('click', '.orders', function() {
                     }
                 }
                 else if(this['orders_id'] > 0){
-                    $status = '<div class="admin-order-status2">'+$dataorderinfo.orders_status+'</div>';
+                    $status = '<div class="admin-order-status2">'+$statusarr[$dataorderinfo.orders_status]+'</div>';
                     $adress += '<div><div id="user-country"><b>Страна: </b>'+$dataadress['country']+'</div><div id="user-state"><b>Область/регион: </b>'+$dataadress['state']+'</div><div id="user-city"><b>Город: </b>'+$dataadress['city']+'</div><div id="user-adress"><b>Адрес: </b>'+$dataadress['adress']+'</div><div id="user-postcode"><b>Почтовый код: </b>'+$dataadress['postcode']+'</div><div id="user-lastname"><b>Фамилия: </b>'+$dataadress['lastname']+'</div><div id="user-name"><b>Имя: </b>'+$dataadress['name']+'</div><div id="user-secondname"><b>Отчество: </b>'+$dataadress['secondname']+'</div><div id="user-telephone"><b>Телефон: </b>'+$dataadress['telephone']+'</div><div id="user-pasportser"><b>Серия паспорта: </b>'+$dataadress['pasportser']+'</div><div id="user-pasportnum"><b>Номер паспорта: </b>'+$dataadress['pasportnum']+'</div><div id="user-pasportwhere"><b>Кем выдан: </b>'+$dataadress['pasportwhere']+'</div><div id="user-pasportdate"><b>Когда выдан: </b>'+$dataadress['pasportdate']+'</div></div>';
                     $prod_content = '';
                     $resultprice = 0;
