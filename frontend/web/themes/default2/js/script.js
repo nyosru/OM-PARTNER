@@ -738,11 +738,13 @@ $(document).on('click', '.cart', function() {
 });
 $(document).on('click', '.cart-lable', function() {
     $cart_add_obj = $(this).siblings().filter('.size-desc');
+    $checkzero = 0;
     $.each($cart_add_obj, function() {
         var $item = new Object();
         $item_add = $(this).children('input')[0];
         $item.cart = [];
         if ($item_add.value != '' && $item_add.value != '0' ) {
+            $checkzero = 1;
             $($(this).parent().parent())
                 .clone()
                 .css({'position' : 'absolute', 'z-index' : '11100', top: $(this).parent().parent().offset()['top'], left: $(this).parent().parent().offset()['left']})
@@ -790,6 +792,9 @@ $(document).on('click', '.cart-lable', function() {
 
         }
     });
+    if($checkzero == 0){
+        alert('Укажите количество');
+    }
 
 });
 

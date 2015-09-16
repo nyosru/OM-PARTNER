@@ -66,7 +66,7 @@ $this -> title = 'Личный кабинет';
             });
             $('.userinfo').html('');
             $('.userinfo').html($inner+'<button class="save-order2 btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Подтвердить заказ</button>');
-            $inner +='<button class="save-user-profile btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Сохранить</button>';
+            $inner +='<button class="btn btn-sm btn-info" id="profile-orders" style="bottom: 0px; position: relative; float: right;">Оставить без изменений</button><button class="save-user-profile btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Сохранить</button>';
             $('.ui-dialog-titlebar').hide();
             $.ajax({
                 type: "GET",
