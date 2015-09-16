@@ -15,6 +15,7 @@ use common\models\Partners;
 use yii\helpers\BaseUrl;
 use dosamigos\ckeditor\CKEditorInline;
 use yii\jui\Slider;
+use common\models\PartnersConfig;
 
 $this -> title = 'Оплата';
 ?>
@@ -76,12 +77,35 @@ $this -> title = 'Оплата';
     <div class="container-fluid" id="partners-main-right-back">
         <div id="partners-main-right" class="bside">
 
-            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}?>
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}
+            $data = new PartnersConfig();
+            $run = new Partners();
+            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            $page = 'paying';
+            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+            if($data){
+                echo $data->value;
+            }else{?>
 
 
+НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
 
+            <?}?>
             <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
-                <button class="save">Сохранить</button>
+                <button class="savehtml">Сохранить</button>
+                <script>
+                    $(document).on('click', '.savehtml', function() {
+                        $html = $('.cke_editable').html();
+
+                        console.log($html);
+                        $.post(
+                            "/site/savehtml",
+                            { html: $html,
+                                page: 'paying'}
+                        );
+                        alert('Изменения сохранены');
+                    });
+                </script>
             <?}?>
 
         </div>

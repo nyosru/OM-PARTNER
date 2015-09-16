@@ -29,6 +29,7 @@ use common\models\Countries;
 use common\models\Zones;
 use common\models\Manufacturers;
 use common\models\Orders;
+use common\models\PartnersConfig;
 /**
  * Site controller
  */
@@ -83,12 +84,12 @@ class SiteController extends Controller
                     [
                         'actions' => ['requestorders'],
                         'allow' => true,
-                        'roles' => ['register'],
+                        'roles' => ['register', 'admin'],
                     ],
                     [
                         'actions' => ['requestemail'],
                         'allow' => true,
-                        'roles' => ['register'],
+                        'roles' => ['register', 'admin'],
                     ],
                     [
                         'actions' => ['savehtml'],
@@ -848,6 +849,30 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
     }
 
     public function actionSavehtml(){
+        $html = mysql_real_escape_string(htmlspecialchars($_POST['html']));
+        $page = mysql_real_escape_string(htmlspecialchars($_POST['page']));
+        $data = new PartnersConfig();
+        $run = new Partners();
+        $check = $run->GetId($_SERVER['HTTP_HOST']);
+
+        $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+if($data) {
+    $data->partners_id = $check;
+    $data->type = $page;
+    $data->value = $html;
+    $data->active = 1;
+}else{
+    $data = new PartnersConfig();
+    $data->partners_id = $check;
+    $data->type = $page;
+    $data->value = $html;
+    $data->active = 1;
+}
+        if($data->save()){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 }
