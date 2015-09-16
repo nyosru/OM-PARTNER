@@ -29,6 +29,7 @@ use common\models\Countries;
 use common\models\Zones;
 use common\models\Manufacturers;
 use common\models\Orders;
+use common\models\PartnersConfig;
 /**
  * Site controller
  */
@@ -43,7 +44,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail'],
+                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -52,6 +53,11 @@ class SiteController extends Controller
                     ],
                     [
                         'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['saveuserprofile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -76,14 +82,19 @@ class SiteController extends Controller
                         'roles' => ['register', 'admin'],
                     ],
                     [
-                        'actions' => ['requestorders', 'admin'],
+                        'actions' => ['requestorders'],
                         'allow' => true,
-                        'roles' => ['register'],
+                        'roles' => ['register', 'admin'],
                     ],
                     [
-                        'actions' => ['requestemail', 'admin'],
+                        'actions' => ['requestemail'],
                         'allow' => true,
-                        'roles' => ['register'],
+                        'roles' => ['register', 'admin'],
+                    ],
+                    [
+                        'actions' => ['savehtml'],
+                        'allow' => true,
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -125,22 +136,24 @@ class SiteController extends Controller
     {
         $cat = Yii::$app->request->getQueryParam('cat');
         $chcat = explode('.', $cat);
+
         $run = new Partners();
         $check = $run -> GetId($_SERVER['HTTP_HOST']);
         $checks = $run -> GetAllowCat($check);
 
-
-
-
-
-       $cat = str_replace('.', ',', $cat);
-        $start_price = Yii::$app->request->getQueryParam('start_price', 0);
-        $end_price = Yii::$app->request->getQueryParam('end_price', 1000000);
-        $prod_attr_query = Yii::$app->request->getQueryParam('prod_attr_query', '');
-        $count = Yii::$app->request->getQueryParam('count', 20);
-        $page = Yii::$app->request->getQueryParam('page', 0);
-        $start_arr= $page*$count;
-        $sort = Yii::$app->request->getQueryParam('sort', 0);
+$cats=[];
+        foreach($chcat as $key => $valcat){
+           if(preg_match("/^[0-9]+$/", $valcat)){
+               $cats[$key] = $valcat;
+           }}
+        $cat = implode(",", $cats);
+        $start_price =  intval(Yii::$app->request->getQueryParam('start_price', 0));
+        $end_price =  intval(Yii::$app->request->getQueryParam('end_price', 1000000));
+        $prod_attr_query =  intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
+        $count =  intval(Yii::$app->request->getQueryParam('count', 20));
+        $page =  intval(Yii::$app->request->getQueryParam('page', 0));
+        $start_arr=  intval($page*$count);
+        $sort = intval(Yii::$app->request->getQueryParam('sort', 0));
         if($sort == 'undefined'){
             $sort = 10;
         }
@@ -454,6 +467,7 @@ $type = '';
 
     public function actionSaveorder()
     {
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $order = Yii::$app->request->post('order');
@@ -475,11 +489,74 @@ $type = '';
             if($userdata[pasportnum] != '') {
                 $user->pasportnum = $userdata[pasportnum];
             }
-            if($userdata[pasportdate] != '') {
+            if($userdata[pasportdate] != '' ) {
                 $user->pasportdate = $userdata[pasportdate];
             }
             if($userdata[pasportwhere] != '') {
                 $user->pasportwhere = $userdata[pasportwhere];
+            }
+            if($user->customers_id > 0) {
+                $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
+                if ($check_passport_customer->pasport_seria == NULL) {
+                    $check_passport_customer->pasport_seria = $userdata[pasportser];
+
+                }
+                if ($check_passport_customer->pasport_nomer == NULL) {
+                    $check_passport_customer->pasport_nomer = $userdata[pasportnum];
+
+                }
+                if ($check_passport_customer->pasport_kem_vidan == NULL) {
+                    $check_passport_customer->pasport_kem_vidan = $userdata[pasportwhere];
+
+                }
+                if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
+                    $check_passport_customer->pasport_kogda_vidan =  $userdata[pasportdate] ;
+
+                }
+                $check_passport_customer->entry_gender = 'M';
+
+                $country = new Countries();
+                $zones = new Zones();
+
+                $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $userdata['country']])->asArray()->one();
+                $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userdata['state']])->asArray()->one();
+
+                $check_passport_customer->entry_firstname = $userdata[name];
+                $check_passport_customer->entry_lastname = $userdata[lastname];
+                $check_passport_customer->entry_city = $userdata[city];
+                $check_passport_customer->entry_street_address = $userdata[adress];
+                $check_passport_customer->otchestvo =  $userdata[secondname];
+                $check_passport_customer->entry_postcode =  $userdata[postcode];
+                $check_passport_customer->entry_country_id = $entrycountry['id'];
+                $check_passport_customer->entry_zone_id = $entryzones['id'];
+
+                $user->id = $userModel->getId();
+                $user->name = $userdata[name];
+                $user->secondname = $userdata[secondname];
+                $user->lastname = $userdata[lastname];
+                $user->country = $userdata[country];
+                $user->state = $userdata[state];
+                $user->city = $userdata[city];
+                $user->adress = $userdata[adress];
+                $user->postcode = $userdata[postcode];
+                $user->telephone = $userdata[telephone];
+
+
+                if($check_passport_customer->update() && $user->update()){
+                }else{
+                }
+            }else{
+                $user->id = $userModel->getId();
+                $user->name = $userdata[name];
+                $user->secondname = $userdata[secondname];
+                $user->lastname = $userdata[lastname];
+                $user->country = $userdata[country];
+                $user->state = $userdata[state];
+                $user->city = $userdata[city];
+                $user->adress = $userdata[adress];
+                $user->postcode = $userdata[postcode];
+                $user->telephone = $userdata[telephone];
+                $user->update();
             }
 
         }else{
@@ -499,6 +576,8 @@ $type = '';
             $user->pasportwhere = $userdata[pasportwhere];
         }
         if($user->validate()){
+
+
             $user->save('false');
             $id = $userModel->getId();
             $model->delivery = serialize($user);
@@ -522,6 +601,114 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
         }
 
     }
+
+
+    public function actionSaveuserprofile()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $model = new PartnersOrders();
+        $userdata = Yii::$app->request->post('user');
+        $run = new Partners();
+        $check = $run->GetId($_SERVER['HTTP_HOST']);
+        $userModel = Yii::$app->user->identity;
+        $model->partners_id = $check;
+        $model->user_id = $userModel->getId();
+        $user = new PartnersUsersInfo();
+        $user->scenario = 'flat2_flat2';
+        if($user::findOne($userModel->getId())){
+            $user = $user::findOne($userModel->getId());
+            $user->scenario = 'flat2_flat2';
+            if($userdata[pasportser] != '') {
+                $user->pasportser = $userdata[pasportser];
+            }
+            if($userdata[pasportnum] != '') {
+                $user->pasportnum = $userdata[pasportnum];
+            }
+            if($userdata[pasportdate] != '' ) {
+                $user->pasportdate = $userdata[pasportdate];
+            }
+            if($userdata[pasportwhere] != '') {
+                $user->pasportwhere = $userdata[pasportwhere];
+            }
+            if($user->customers_id > 0) {
+                $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
+                if ($check_passport_customer->pasport_seria == NULL) {
+                    $check_passport_customer->pasport_seria = $userdata[pasportser];
+                }
+                if ($check_passport_customer->pasport_nomer == NULL) {
+                    $check_passport_customer->pasport_nomer = $userdata[pasportnum];
+                }
+                if ($check_passport_customer->pasport_kem_vidan == NULL) {
+                    $check_passport_customer->pasport_kem_vidan = $userdata[pasportwhere];
+                }
+                if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
+                    $check_passport_customer->pasport_kogda_vidan =  $userdata[pasportdate] ;
+                }
+                $check_passport_customer->entry_gender = 'M';
+                $country = new Countries();
+                $zones = new Zones();
+                $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $userdata['country']])->asArray()->one();
+                $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userdata['state']])->asArray()->one();
+                $check_passport_customer->entry_firstname = $userdata[name];
+                $check_passport_customer->entry_lastname = $userdata[lastname];
+                $check_passport_customer->entry_city = $userdata[city];
+                $check_passport_customer->entry_street_address = $userdata[adress];
+                $check_passport_customer->otchestvo =  $userdata[secondname];
+                $check_passport_customer->entry_postcode =  $userdata[postcode];
+                $check_passport_customer->entry_country_id = $entrycountry['id'];
+                $check_passport_customer->entry_zone_id = $entryzones['id'];
+                $user->id = $userModel->getId();
+                $user->name = $userdata[name];
+                $user->secondname = $userdata[secondname];
+                $user->lastname = $userdata[lastname];
+                $user->country = $userdata[country];
+                $user->state = $userdata[state];
+                $user->city = $userdata[city];
+                $user->adress = $userdata[adress];
+                $user->postcode = $userdata[postcode];
+                $user->telephone = $userdata[telephone];
+                if($check_passport_customer->update() && $user->update()){
+                }else{
+                }
+            }else{
+                $user->id = $userModel->getId();
+                $user->name = $userdata[name];
+                $user->secondname = $userdata[secondname];
+                $user->lastname = $userdata[lastname];
+                $user->country = $userdata[country];
+                $user->state = $userdata[state];
+                $user->city = $userdata[city];
+                $user->adress = $userdata[adress];
+                $user->postcode = $userdata[postcode];
+                $user->telephone = $userdata[telephone];
+                $user->update();
+            }
+        }else{
+            $user->id = $userModel->getId();
+            $user->name = $userdata[name];
+            $user->secondname = $userdata[secondname];
+            $user->lastname = $userdata[lastname];
+            $user->country = $userdata[country];
+            $user->state = $userdata[state];
+            $user->city = $userdata[city];
+            $user->adress = $userdata[adress];
+            $user->postcode = $userdata[postcode];
+            $user->telephone = $userdata[telephone];
+            $user->pasportser = $userdata[pasportser];
+            $user->pasportnum = $userdata[pasportnum];
+            $user->pasportdate = $userdata[pasportdate];
+            $user->pasportwhere = $userdata[pasportwhere];
+        }
+        if($user->validate()){
+            $user->save('false');
+            $id = $userModel->getId();
+        }else{
+
+        }
+
+    }
+
+
 
 
 
@@ -660,15 +847,52 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
         $headers->add('Content-Disposition: attachment; filename="'.Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0].'"');
         return   file_get_contents(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0]);
     }
+
+    public function actionSavehtml(){
+        $html = mysql_real_escape_string(htmlspecialchars($_POST['html']));
+        $page = mysql_real_escape_string(htmlspecialchars($_POST['page']));
+        $data = new PartnersConfig();
+        $run = new Partners();
+        $check = $run->GetId($_SERVER['HTTP_HOST']);
+
+        $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+if($data) {
+    $data->partners_id = $check;
+    $data->type = $page;
+    $data->value = $html;
+    $data->active = 1;
+}else{
+    $data = new PartnersConfig();
+    $data->partners_id = $check;
+    $data->type = $page;
+    $data->value = $html;
+    $data->active = 1;
 }
+        if($data->save()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+}
+
+
+
 function Requrscat($arr, $firstval, $catnamearr){
     static $chpu;
     static $item;
     $item = $firstval;
-    while($arr[$item] != '0'){
-        $chpu[] = $catnamearr[$item];
-       $item =  $arr[$item];
+    if(isset($arr[$item])) {
+        while ($arr[$item] != '0') {
+            if (isset($catnamearr[$item])) {
+                $chpu[] = $catnamearr[$item];
+                $item = $arr[$item];
+            }
+        }
+        if (isset($catnamearr[$item])) {
+            $chpu[] = $catnamearr[$item];
+        }
     }
-    $chpu[] = $catnamearr[$item];
     return array_reverse($chpu);
 }

@@ -37,7 +37,12 @@ class Partners extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
+
+
+
+
+
+/**
      * @inheritdoc
      */
     public function attributeLabels()

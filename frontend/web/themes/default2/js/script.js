@@ -103,22 +103,209 @@ $(document).on('change', '#shipping-confirm', function() {
 });
 
 $(document).on('click', '.save-order2', function() {
+
+    var regname = /^[a-zа-яё\-\s]+$/i;
+    var m;
+
+    if($('[data-name="name"]').val() != '' && $('[data-name="name"]').val() != undefined){
+        str = $('[data-name="name"]').val();
+    }else{
+        str = $('[data-name="name"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="name"]').removeClass('haserror');
+        $('[data-name="name"]').addClass('hassucces');
+    }else{
+        $('[data-name="name"]').removeClass('hassucces');
+        $('[data-name="name"]').addClass('haserror');
+    }
+
+    if($('[data-name="secondname"]').val() != '' && $('[data-name="secondname"]').val() != undefined){
+        str = $('[data-name="secondname"]').val();
+    }else{
+        str = $('[data-name="secondname"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="secondname"]').removeClass('haserror');
+        $('[data-name="secondname"]').addClass('hassucces');
+    }else{
+        $('[data-name="secondname"]').removeClass('hassucces');
+        $('[data-name="secondname"]').addClass('haserror');
+    }
+
+    if($('[data-name="lastname"]').val() != '' && $('[data-name="lastname"]').val() != undefined){
+        str = $('[data-name="lastname"]').val();
+    }else{
+        str = $('[data-name="lastname"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="lastname"]').removeClass('haserror');
+        $('[data-name="lastname"]').addClass('hassucces');
+    }else{
+        $('[data-name="lastname"]').removeClass('hassucces');
+        $('[data-name="lastname"]').addClass('haserror');
+    }
+
+
+
+    regname = /^[a-zа-яё0-9\-\s]+$/i;
+
+    if($('[data-name="city"]').val() != '' && $('[data-name="city"]').val() != undefined){
+        str = $('[data-name="city"]').val();
+    }else{
+        str = $('[data-name="city"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="city"]').removeClass('haserror');
+        $('[data-name="city"]').addClass('hassucces');
+    }else{
+        $('[data-name="city"]').removeClass('hassucces');
+        $('[data-name="city"]').addClass('haserror');
+    }
+
+
+    regname = /^[a-zа-яё0-9\-\,\.\s]+$/i;
+
+    if($('[data-name="adress"]').val() != '' && $('[data-name="adress"]').val() != undefined){
+        str = $('[data-name="adress"]').val();
+    }else{
+        str = $('[data-name="adress"]').text();
+    }
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="adress"]').removeClass('haserror');
+        $('[data-name="adress"]').addClass('hassucces');
+    }else{
+        $('[data-name="adress"]').removeClass('hassucces');
+        $('[data-name="adress"]').addClass('haserror');
+    }
+
+    regname = /^[0-9\s]+$/i;
+
+    if($('[data-name="postcode"]').val() != '' && $('[data-name="postcode"]').val() != undefined){
+        str = $('[data-name="postcode"]').val();
+    }else{
+        str = $('[data-name="postcode"]').text();
+    }
+
+console.log(str.length);
+
+    if (m = regname.exec(str) !== null && str.length < 10) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="postcode"]').removeClass('haserror');
+        $('[data-name="postcode"]').addClass('hassucces');
+    }else{
+        $('[data-name="postcode"]').addClass('haserror');
+        $('[data-name="postcode"]').removeClass('hassucces');
+    }
+
+    regname = /^[0-9\)\(\-\+]+$/i;
+
+    if($('[data-name="telephone"]').val() != '' && $('[data-name="telephone"]').val() != undefined){
+        str = $('[data-name="telephone"]').val();
+    }else{
+        str = $('[data-name="telephone"]').text();
+    }
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="telephone"]').removeClass('haserror');
+        $('[data-name="telephone"]').addClass('hassucces');
+    }else{
+        $('[data-name="telephone"]').addClass('haserror');
+        $('[data-name="telephone"]').removeClass('hassucces');
+    }
+
+
+    $check = 0;
+    if($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined){
+        str = $('[data-name="country"]').val();
+    }else{
+        str = $('[data-name="country"]').text();
+    }
+
+    $country = $("[data-country]");
+
+    $.each($country, function(){
+        if(str == $(this).html() ) {
+            $check = 1;
+        }
+    });
+    if($check == 1 ){
+    $('[data-name="country"]').removeClass('haserror');
+    $('[data-name="country"]').addClass('hassucces');
+    }else{
+    $('[data-name="country"]').addClass('haserror');
+    $('[data-name="country"]').removeClass('hassucces');
+    }
+
+
+
+    $check = 0;
+    $errstate = $('[data-state]');
+    console.log($errstate.length);
+    if($errstate.length > 1) {
+        if ($('[data-name="state"]').val() != '' && $('[data-name="state"]').val() != undefined) {
+            str = $('[data-name="state"]').val();
+        } else {
+            str = $('[data-name="state"]').text();
+        }
+
+        $state = $("[data-state]");
+
+        $.each($state, function () {
+            if (str == $(this).html()) {
+                $check = 1;
+            }
+        });
+
+
+        if ($check == 1) {
+            $('[data-name="state"]').removeClass('haserror');
+            $('[data-name="state"]').addClass('hassucces');
+        } else {
+            $('[data-name="state"]').addClass('haserror');
+            $('[data-name="state"]').removeClass('hassucces');
+        }
+
+    }
+    $error = $('.haserror');
+    if($error.length == 0 ) {
     $(this).remove();
     $item = JSON.parse(localStorage.getItem('cart-om'));
     $userdata = $('.info-item');
     $userdataarr = new Object();
-    $.each($userdata, function(){
-       $name_attr =  this.getAttribute('data-name');
+    $.each($userdata, function () {
+        $name_attr = this.getAttribute('data-name');
 
-        if($userdataarr[$name_attr] = $(this).val() != ''){
+        if ($userdataarr[$name_attr] = $(this).val() != '') {
             $userdataarr[$name_attr] = $(this).val();
-        }else{
+        } else {
             $userdataarr[$name_attr] = $(this).text();
         }
 
     });
- //   $('#modal-cart').html('Ваш заказ №');
-  //  $("#modal-cart").dialog('close')
     $.post(
         "/site/saveorder",
         {
@@ -130,21 +317,316 @@ $(document).on('click', '.save-order2', function() {
         onAjaxSuccess
     );
 
-    function onAjaxSuccess(data)
-    {
-      if(data != 0){
-          console.log(data)
-          localStorage.removeItem('cart-om');
-          $(".cart-count").html('0');
-          $(".cart-price").html('0');
-          $('#modal-cart').html('<div style="padding: 10px; text-align: center; height: 100%; line-height: 40px;"><div>Ваш заказ № '+data.id+' ожидает подтверждения менеджером магазина.</div><div> Статус  заказа вы можете проверить вашем личном кабинете. </div><div class="btn btn-info btn-end-order" style="background: rgb(0, 255, 204) none repeat scroll 0% 0%; color: rgb(68, 68, 68);">Продолжить покупки</div></div>');
 
-         // $("#modal-cart").dialog('close')
-      }
+}
+
+
+
+
+
+
+
+    function onAjaxSuccess(data) {
+        if (data != 0) {
+            localStorage.removeItem('cart-om');
+            $(".cart-count").html('0');
+            $(".cart-price").html('0');
+            $('#modal-cart').html('<div style="padding: 10px; text-align: center; height: 100%; line-height: 40px;"><div>Ваш заказ № ' + data.id + ' ожидает подтверждения менеджером магазина.</div><div> Статус  заказа вы можете проверить вашем личном кабинете. </div><div class="btn btn-info btn-end-order" style="background: rgb(0, 255, 204) none repeat scroll 0% 0%; color: rgb(68, 68, 68);">Продолжить покупки</div></div>');
+
+        }
 
 
     }
 });
+
+
+
+
+
+$(document).on('click', '.save-user-profile', function() {
+
+    var regname = /^[a-zа-яё\-\s]+$/i;
+    var m;
+
+    if($('[data-name="name"]').val() != '' && $('[data-name="name"]').val() != undefined){
+        str = $('[data-name="name"]').val();
+    }else{
+        str = $('[data-name="name"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="name"]').removeClass('haserror');
+        $('[data-name="name"]').addClass('hassucces');
+    }else{
+        $('[data-name="name"]').removeClass('hassucces');
+        $('[data-name="name"]').addClass('haserror');
+    }
+
+    if($('[data-name="secondname"]').val() != '' && $('[data-name="secondname"]').val() != undefined){
+        str = $('[data-name="secondname"]').val();
+    }else{
+        str = $('[data-name="secondname"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="secondname"]').removeClass('haserror');
+        $('[data-name="secondname"]').addClass('hassucces');
+    }else{
+        $('[data-name="secondname"]').removeClass('hassucces');
+        $('[data-name="secondname"]').addClass('haserror');
+    }
+
+    if($('[data-name="lastname"]').val() != '' && $('[data-name="lastname"]').val() != undefined){
+        str = $('[data-name="lastname"]').val();
+    }else{
+        str = $('[data-name="lastname"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="lastname"]').removeClass('haserror');
+        $('[data-name="lastname"]').addClass('hassucces');
+    }else{
+        $('[data-name="lastname"]').removeClass('hassucces');
+        $('[data-name="lastname"]').addClass('haserror');
+    }
+
+
+
+    regname = /^[a-zа-яё0-9\-\s]+$/i;
+
+    if($('[data-name="city"]').val() != '' && $('[data-name="city"]').val() != undefined){
+        str = $('[data-name="city"]').val();
+    }else{
+        str = $('[data-name="city"]').text();
+    }
+
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="city"]').removeClass('haserror');
+        $('[data-name="city"]').addClass('hassucces');
+    }else{
+        $('[data-name="city"]').removeClass('hassucces');
+        $('[data-name="city"]').addClass('haserror');
+    }
+
+
+    regname = /^[a-zа-яё0-9\-\,\.\s]+$/i;
+
+    if($('[data-name="adress"]').val() != '' && $('[data-name="adress"]').val() != undefined){
+        str = $('[data-name="adress"]').val();
+    }else{
+        str = $('[data-name="adress"]').text();
+    }
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="adress"]').removeClass('haserror');
+        $('[data-name="adress"]').addClass('hassucces');
+    }else{
+        $('[data-name="adress"]').removeClass('hassucces');
+        $('[data-name="adress"]').addClass('haserror');
+    }
+
+
+
+    if($('[data-name="pasportwhere"]').val() != '' && $('[data-name="pasportwhere"]').val() != undefined){
+        str = $('[data-name="pasportwhere"]').val();
+    }else{
+        str = $('[data-name="pasportwhere"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportwhere"]').val() == '' || $('[data-name="pasportwhere"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportwhere"]').removeClass('haserror');
+        $('[data-name="pasportwhere"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportwhere"]').addClass('haserror');
+        $('[data-name="pasportwhere"]').removeClass('hassucces');
+    }
+
+
+
+    regname = /^[0-9\s]+$/i;
+
+    if($('[data-name="postcode"]').val() != '' && $('[data-name="postcode"]').val() != undefined){
+        str = $('[data-name="postcode"]').val();
+    }else{
+        str = $('[data-name="postcode"]').text();
+    }
+
+    console.log(str.length);
+
+    if (m = regname.exec(str) !== null && str.length < 10) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="postcode"]').removeClass('haserror');
+        $('[data-name="postcode"]').addClass('hassucces');
+    }else{
+        $('[data-name="postcode"]').addClass('haserror');
+        $('[data-name="postcode"]').removeClass('hassucces');
+    }
+
+    if($('[data-name="pasportser"]').val() != '' && $('[data-name="pasportser"]').val() != undefined){
+        str = $('[data-name="pasportser"]').val();
+    }else{
+        str = $('[data-name="pasportser"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportser"]').val() == '' || $('[data-name="pasportser"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportser"]').removeClass('haserror');
+        $('[data-name="pasportser"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportser"]').addClass('haserror');
+        $('[data-name="pasportser"]').removeClass('hassucces');
+    }
+
+    if($('[data-name="pasportnum"]').val() != '' && $('[data-name="pasportnum"]').val() != undefined){
+        str = $('[data-name="pasportnum"]').val();
+    }else{
+        str = $('[data-name="pasportnum"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportnum"]').val() == '' || $('[data-name="pasportnum"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportnum"]').removeClass('haserror');
+        $('[data-name="pasportnum"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportnum"]').addClass('haserror');
+        $('[data-name="pasportnum"]').removeClass('hassucces');
+    }
+
+    regname = /^[0-9\)\(\-\+]+$/i;
+
+    if($('[data-name="telephone"]').val() != '' && $('[data-name="telephone"]').val() != undefined){
+        str = $('[data-name="telephone"]').val();
+    }else{
+        str = $('[data-name="telephone"]').text();
+    }
+    if (m = regname.exec(str) !== null) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="telephone"]').removeClass('haserror');
+        $('[data-name="telephone"]').addClass('hassucces');
+    }else{
+        $('[data-name="telephone"]').addClass('haserror');
+        $('[data-name="telephone"]').removeClass('hassucces');
+    }
+
+    regname = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/i;
+    if($('[data-name="pasportdate"]').val() != '' && $('[data-name="pasportdate"]').val() != undefined){
+        str = $('[data-name="pasportdate"]').val();
+    }else{
+        str = $('[data-name="pasportdate"]').text();
+    }
+    if (m = regname.exec(str) !== null || $('[data-name="pasportdate"]').val() == '' || $('[data-name="pasportdate"]').val() == undefined ) {
+        if (m.index === regname.lastIndex) {
+            regname.lastIndex++;
+        }
+        $('[data-name="pasportdate"]').removeClass('haserror');
+        $('[data-name="pasportdate"]').addClass('hassucces');
+    }else{
+        $('[data-name="pasportdate"]').addClass('haserror');
+        $('[data-name="pasportdate"]').removeClass('hassucces');
+    }
+
+
+    $check = 0;
+    if($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined){
+        str = $('[data-name="country"]').val();
+    }else{
+        str = $('[data-name="country"]').text();
+    }
+
+    $country = $("[data-country]");
+
+    $.each($country, function(){
+        if(str == $(this).html() ) {
+            $check = 1;
+        }
+    });
+    if($check == 1 ){
+        $('[data-name="country"]').removeClass('haserror');
+        $('[data-name="country"]').addClass('hassucces');
+    }else{
+        $('[data-name="country"]').addClass('haserror');
+        $('[data-name="country"]').removeClass('hassucces');
+    }
+
+
+
+    $check = 0;
+    $errstate = $('[data-state]');
+    console.log($errstate.length);
+    if($errstate.length > 1) {
+        if ($('[data-name="state"]').val() != '' && $('[data-name="state"]').val() != undefined) {
+            str = $('[data-name="state"]').val();
+        } else {
+            str = $('[data-name="state"]').text();
+        }
+
+        $state = $("[data-state]");
+
+        $.each($state, function () {
+            if (str == $(this).html()) {
+                $check = 1;
+            }
+        });
+
+
+        if ($check == 1) {
+            $('[data-name="state"]').removeClass('haserror');
+            $('[data-name="state"]').addClass('hassucces');
+        } else {
+            $('[data-name="state"]').addClass('haserror');
+            $('[data-name="state"]').removeClass('hassucces');
+        }
+
+    }
+    $error = $('.haserror');
+    if($error.length == 0 ) {
+        $userdata = $('.info-item');
+        $userdataarr = new Object();
+        $.each($userdata, function () {
+            $name_attr = this.getAttribute('data-name');
+            if ($userdataarr[$name_attr] = $(this).val() != '') {
+                $userdataarr[$name_attr] = $(this).val();
+            } else {
+                $userdataarr[$name_attr] = $(this).text();
+            }
+        });
+        $.post(
+            "/site/saveuserprofile",
+            {
+                user: $userdataarr
+            },
+            alert('Данные сохранены')
+        );
+    }
+
+});
+function onAjaxSuccesssaveuserprofile() {
+
+
+
+}
 $(document).on('click', '.btn-end-order', function() {
     $('#modal-cart').dialog('close');
 
@@ -239,8 +721,14 @@ $(document).on('click', '.cart', function() {
     });
 
     if(JSON.parse(localStorage.getItem('cart-om'))) {
+        if(document . location . hash == ''){
+            $urlhash = '#';
+        }else{
+            $urlhash = document . location . hash;
+        }
+
         if ($('[data-method="post"]').attr('href') == '/site/lk' && $i.length > 0) {
-            $(".ui-dialog-title").html('Ваша корзина. <span class="cart-auth"><a class="save-order" href="'+document . location . hash+'">Оформить заказ</a></span>');
+            $(".ui-dialog-title").html('Ваша корзина. <span class="cart-auth"><a class="save-order" href="'+$urlhash+'">Оформить заказ</a></span>');
         } else if ($i.length > 0) {
             $(".ui-dialog-title").html('Ваша корзина.<span class="cart-auth"><a class="auth-order" href="/site/login">Купить</a></span>');
         }
@@ -475,11 +963,9 @@ $(document).on('click', '.data-j', function() {
                 $headbside += '<div id="partners-main-right">';
                 $headbside += '<div id="products-counter">' + data[4] + '-' + data[5] + ' из ' + data[1] +'</div>';
                 $headbside += '<div id="products-pager"></div>';
-             //   $url = new_url(new_suburl(split_url($url), '#!cat', data[16].join('/')));
                 $headbside += '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog'+new_url(new_suburl(split_url($url), 'count', '20'))+'">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog'+new_url(new_suburl(split_url($url), 'count', '40'))+'">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog'+new_url(new_suburl(split_url($url), 'count', '60'))+'">60</a> </div>';
                 $headbside += '<div id="sort-order"><div  class="header-sort sort" data="'+data[11]+'">Сортировать по </div>';
-                //  '<div class="header-sort-item">дате <a class="sort data-j arrow-down" data="0" href="#"></a><a class="sort data-j arrow-up" data="10" href="#"></a></div><div class="header-sort-item">цене<a class="sort data-j arrow-down" data="1" href="#"></a><a class="sort data-j arrow-up" data="11" href="#"></a></div><div class="header-sort-item"> названию<a class="sort data-j arrow-up" data="2" href="#"></a><a class="sort data-j arrow-down" data="12" href="#"></a></div><div class="header-sort-item"> модели<a class="sort data-j arrow-up" data="3" href="#"></a><a class="sort data-j arrow-down" data="13" href="#"></a></div><div class="header-sort-item">популярности<a class="sort data-j arrow-up" data="4" href="#"></a><a class="sort data-j arrow-down" data="14" href="#"></a> </div>' + '</div>';
-                $sortorder = [['дате',0,10],['цене',1,11],['названию',2,12],['модели',3,13],['популярности',4,14]];
+                  $sortorder = [['дате',0,10],['цене',1,11],['названию',2,12],['модели',3,13],['популярности',4,14]];
                 $.each($sortorder, function(){
 
                     if(data[11] == this[1]){
@@ -623,25 +1109,10 @@ $(document).on('click', '.data-j', function() {
                     $(this).html('<a href="'+$url+'">'+$html+'</a>');
                 }
             });
-
-
-            //if(history.pushState) {
-            //    history.pushState(null, null, new_url(new_suburl(split_url($url), '#!cat', data[16].join('-'))))      }
-            //else {
-            //    document.location.hash = new_url(new_suburl(split_url($url), '#!cat', data[16].join('-')))  }
-
-
-
-
             if(history.pushState) {
                 history.pushState(null, null, '/site/catalog/'+data[16].join('/')+'/'+new_url(split_url($url)))      }
             else {
                 document.location.hash = '/site/catalog'+data[16].join('/')+'/'+new_url(split_url($url))  }
-
-
-
-            //alert('На этой странице  '+$('div').length+' divов');
-            // $('div').attr('style', 'border:1px solid red; margin:3px');
         }
     });
 
@@ -656,9 +1127,6 @@ $('[data-cat]').on('click', function() {
     $(".page-checked").removeClass('page-checked');
 
 });
-//$(document).on('click', '.index-card', function() {
-//
-//});
 $(document).on('ready', function() {
 
     $amount_prod = 0;
@@ -770,9 +1238,7 @@ $(document).on('click', '#profile-orders', function() {
         data : 'cat=1',
         cache : false,
         async : true,
-        // dataType : 'json',
         success : function($data) {
-console.log($data);
             $orders = $data.ordersatus;
             delete $data.ordersatus;
             $('.bside').html('');
@@ -893,12 +1359,15 @@ function onAjaxSuccessinfo(data)
     $inner = '';
     data.splice(0,1);
     $.each(data, function(index){
-        $attr = Object.getOwnPropertyNames(this); //англ код свойства
+        $attr = Object.getOwnPropertyNames(this);
         $attrlableobj = Object.getOwnPropertyDescriptor(this, $attr).value;
-        $attrlable = Object.getOwnPropertyNames($attrlableobj); // русский код своства
+        $attrlable = Object.getOwnPropertyNames($attrlableobj);
         $attrval = Object.getOwnPropertyDescriptor($attrlableobj, $attrlable).value;
+        if($attr == 'pasportdate' && $attrval == '0000-00-00'){
+            $attrval = '';
+        }
         if($attrval != null && $attrval  != '') {
-            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <span  data-name="'+$attr+'" class="info-item">' + $attrval + '</span></div>';
+            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input  data-name="'+$attr+'" class="info-item" data-name="'+$attr+'" value="' + $attrval + '"></input></div>';
         }else{
             $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input class="info-item" data-name="'+$attr+'" placeholder="'+$attrlable+'"></input></div>';
         }
@@ -925,7 +1394,45 @@ function onAjaxSuccessinfo(data)
 
         }
     });
-    $(document).on('click', '[data-name=country]', function() {
+    var str = '';
+    if($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined){
+        str = $('[data-name="country"]').val();
+    }else{
+        str = $('[data-name="country"]').text();
+    }
+
+    $country = $("[data-country]");
+    $check = '';
+
+    $.each($country, function(){
+        if(str == $(this).html() ) {
+            console.log(this);
+            $check = this.getAttribute('data-country');
+        }
+    });
+
+
+    $.ajax({
+        type: "GET",
+        url: "/site/zonesrequest",
+        data: 'id='+$check,
+        dataType:"json",
+        success: function(out2) {
+
+            $inner = '';
+            $.each(out2.response.items, function(){
+                $inner += '<li data-state="'+this.id+'" id="state">'+this.title+'</li>';
+            });
+            $('#state-drop').remove();
+            $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">'+$inner+'</ul>');
+            $('[data-name=state]').attr('autocomplete', 'off');
+
+
+        }
+    });
+
+
+    $(document).on('click focus', '[data-name=country]', function() {
         $('#country-drop').show();
 
     });
@@ -936,7 +1443,7 @@ function onAjaxSuccessinfo(data)
         $.ajax({
             type: "GET",
             url: "/site/zonesrequest",
-            data: 'id='+this.dataset.country,
+            data: 'id='+this.getAttribute('data-country'),
             dataType:"json",
             success: function(out2) {
 
@@ -950,7 +1457,7 @@ function onAjaxSuccessinfo(data)
             }
         });
     });
-    $(document).on('click', '[data-name=state]', function() {
+    $(document).on('click focus', '[data-name=state]', function() {
         $('#state-drop').show();
 
     });

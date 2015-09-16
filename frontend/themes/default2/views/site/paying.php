@@ -13,8 +13,10 @@ use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
 use common\models\Partners;
 use yii\helpers\BaseUrl;
-
+use dosamigos\ckeditor\CKEditorInline;
 use yii\jui\Slider;
+use common\models\PartnersConfig;
+
 $this -> title = 'Оплата';
 ?>
 <div class="container" id="partners-main">
@@ -75,19 +77,36 @@ $this -> title = 'Оплата';
     <div class="container-fluid" id="partners-main-right-back">
         <div id="partners-main-right" class="bside">
 
-
-            <div class="catalog-item">
-                <h1 class="page_header_text">Способы оплаты</h1>
-                <ul>
-                    <li>Оплата заказов производится при получении наличными деньгами.</li>
-                    <li>В <a href="/help/pickup#tab1" target="_blank">пунктах самовывоза LAPANA.RU</a> – Вы оплачиваете только  стоимость заказа. Услуги доставки не оплачиваются, если у Вас есть VIP-карта LAPANA.RU.</li>
-                    <li>При получении заказа в <a href="/help/pickup#tab2" target="_blank">Пункте Выдачи СДЭК</a>, дополнительно к стоимости заказа, Вы оплачиваете стоимость доставки.</li>
-                    <li>Если Вам необходима доставка «до двери» - оплату товара и услуг доставки Вы производите курьеру (СДЭК или курьер Лапана).</li>
-                    <li>Доставка Почтой России - оплачиваете наложенный платеж наличными при получении заказа.</li>
-                </ul>    </div>
-
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}
+            $data = new PartnersConfig();
+            $run = new Partners();
+            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            $page = 'paying';
+            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+            if($data){
+                echo $data->value;
+            }else{?>
 
 
+НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
+
+            <?}?>
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
+                <button class="savehtml">Сохранить</button>
+                <script>
+                    $(document).on('click', '.savehtml', function() {
+                        $html = $('.cke_editable').html();
+
+                        console.log($html);
+                        $.post(
+                            "/site/savehtml",
+                            { html: $html,
+                                page: 'paying'}
+                        );
+                        alert('Изменения сохранены');
+                    });
+                </script>
+            <?}?>
 
         </div>
     </div>

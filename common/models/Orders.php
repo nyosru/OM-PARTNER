@@ -181,7 +181,7 @@ class Orders extends \yii\db\ActiveRecord
             'seller_id' => 'Seller ID',
             'orders_discont' => 'Orders Discont',
             'orders_discont_comment' => 'Orders Discont Comment',
-            'site_side_email_flag' => 'flags e-mail'
+            'site_side_email_flag' => 'site_side_email_flag'
         ];
     }
     public function GetId()

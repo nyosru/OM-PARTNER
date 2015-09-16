@@ -54,8 +54,12 @@ $(document).on('click', '.orders', function() {
        // dataType : 'json',
         success : function($data) {
             console.log($data);
-            $orders = $data.ordersatus;
-            delete $data.ordersatus;
+            if($data.ordersatus != undefined) {
+                $orders = $data.ordersatus;
+                delete $data.ordersatus;
+            }else{
+                $orders = '';
+            }
             $('.bside').html('');
             $inner = '<div class="admin-orders-row"><div class="admin-orders-num">№ п/п</div><div class="admin-orders-id">Идентификатор</div><div class="admin-orders-name">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div></div>';
             $innercount = '';

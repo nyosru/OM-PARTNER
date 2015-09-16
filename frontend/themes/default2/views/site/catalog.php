@@ -161,6 +161,9 @@ $this -> title = 'Партнеры';
 
     $url = '';
     $url = document.location.hash;
+    if($url.toLowerCase().indexOf('#!')){
+        window.location('/');
+    }
     $url_data = split_url(document.location .hash);
     console.log($url_data);
     $cat = $url_data['#!cat'][1];
@@ -395,6 +398,9 @@ $this -> title = 'Партнеры';
 
                     $url_obj[$val] = $value;
                     return $url_obj;
+                }
+                if(strpos(Yii::$app->request->getQueryString(), '#!') === FALSE){
+                    header('Location: http://'.$_SERVER['HTTP_HOST']);
                 }
                 $url_data = split_url(str_replace('_escaped_fragment_=', '#!', Yii::$app->request->getQueryString()));
                 $cat = $url_data['#!cat'][1];

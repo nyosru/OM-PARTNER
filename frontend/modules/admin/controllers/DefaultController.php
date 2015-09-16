@@ -120,6 +120,7 @@ class DefaultController extends Controller
 
     public function actionDelegate()
     {
+       // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $data = intval(Yii::$app->request->post('id'));
@@ -149,7 +150,11 @@ class DefaultController extends Controller
                         $userOM->pasport_seria = $userparam[pasportser];
                         $userOM->pasport_nomer = $userparam[pasportnum];
                         $userOM->pasport_kem_vidan = $userparam[pasportwhere];
-                        $userOM->pasport_kogda_vidan = $userparam[pasportdate];
+                       if(isset($userparam[pasportdate])) {
+                           $userOM->pasport_kogda_vidan = $userparam[pasportdate];
+                       }else{
+                           $userOM->pasport_kogda_vidan = date();
+                       }
                         $userOM->entry_postcode = $userparam[postcode];
                         $userOM->entry_gender = 'M';
                         $userOM->entry_country_id = $entrycountry['id'];
@@ -191,18 +196,20 @@ class DefaultController extends Controller
                                     $newuserpartnerscastid->customers_id = $customer_id;
                                     $newuserpartnerscastid->update();
                                 } else {
-                                    return false;
+                                    return $userCustomerInfo;
                                 }
                             } else {
 
-                                return false;
+                                return $userCustomer;
                             }
                         } else {
-                            return false;
+                            return $userOM;
                         }
                     } else {
+
                         $newuserpartnerscastid = PartnersUsersInfo::findOne($userparam[id]);
                         $customer_id = $newuserpartnerscastid->customers_id;
+
                     }
                 }
 
@@ -229,7 +236,6 @@ class DefaultController extends Controller
                 $partnerorder = unserialize($orderforsavedata->order);
                 $ship = $partnerorder[ship];
                 unset($partnerorder[ship]);
-                //  $partnerdelivery = unserialize($orderforsavedata->delivery); //may-be понадобится для сверки адреса
                 $orders->ur_or_fiz = 'f';
                 $orders->customers_id = $userCustomer->customers_id;
                 $orders->customers_name = $userCustomer->customers_firstname . ' ' . $userCustomer->customers_lastname;
@@ -369,7 +375,7 @@ class DefaultController extends Controller
                     $neworderpartner->update_date = date("Y-m-d H:i:s");
                     $neworderpartner->update();
                 } else {
-                    return false;
+                   print_r($userOM);
                 }
             } else {
                 return false;

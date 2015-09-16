@@ -2,6 +2,8 @@
 use yii\filters\AccessControl;
 use yii\web\User;
 use dosamigos\ckeditor\CKEditorInline;
+use common\models\PartnersUsersInfo;
+use common\models\AddressBook;
 /* @var $this yii\web\View */
 ?>
 <?php
@@ -14,7 +16,7 @@ use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
 use common\models\Partners;
 use yii\helpers\BaseUrl;
-
+use common\models\PartnersConfig;
 use yii\jui\Slider;
 
 $this->title = 'Контакты';
@@ -83,52 +85,39 @@ $this->title = 'Контакты';
     <div class="container-fluid" id="partners-main-right-back">
         <div id="partners-main-right" class="bside">
 
-            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}?>
-
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div><h1>Общая информация</h1></div>
-                    <ul>
-                        <div class="item-font">
-
-                            Справочная: +7 (495) 771-80-00<br>
-
-
-                            Справки по документам: +7 (495) 771-81-00<br>
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}
+            $data = new PartnersConfig();
+            $run = new Partners();
+            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            $page = 'contacts';
+            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+            if($data){
+                echo $data->value;
+            }else{?>
 
 
-                            Факс: +7 (495) 771-80-02
+                НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
+            <?}?>
 
 
-                        </div>
-                        <div class="solo">
-                            <div class="item-font">
-
-                                Электронная почта: <a href="mailto:office@minsvyaz.ru">office@minsvyaz.ru</a><br>
-
-
-                                Твиттер:
-                                <a target="_blank" href="https://twitter.com/minsvyaz_news">
-                                    @minsvyaz_news
-                                </a><br>
-                                Facebook:
-                                <a target="_blank" href="https://www.facebook.com/minsvyaz?fref=ts">
-                                    Minsvyaz
-                                </a></div>
-                        </div>
-
-                        <div class="item-font">
-                            Адрес:&nbsp;125375, г. Москва, ул. Тверская, д. 7
-                        </div>
-
-
-                    </ul>
-                </div>
-            </div>
-        </div>
         <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
-            <button class="save">Сохранить</button>
+            <button class="savehtml">Сохранить</button>
+            <script>
+                $(document).on('click', '.savehtml', function() {
+                 $html = $('.cke_editable').html();
+
+                    console.log($html);
+                    $.post(
+                        "/site/savehtml",
+                        { html: $html,
+                          page: 'contacts'}
+                    );
+                    alert('Изменения сохранены');
+
+                });
+                </script>
         <?}?>
 
 </div>
     </div>
+
