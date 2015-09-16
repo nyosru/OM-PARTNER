@@ -1204,7 +1204,7 @@ $(document).on('ready', function() {
 
 $(document).on('click', '#profile-info', function() {
     $('.bside').html('');
-    $('.bside').html('<div id="card"><i class="fa fa-street-view"></i><div id="profile-lastname-info"></div><div id="profile-name-info"></div><div id="profile-secondname-info"></div></div> <div id="card"><i class="fa fa-envelope"></i> <i class="fa fa-phone"></i><div id="profile-telephone-info"></div><div id="profile-email-info"></div></div> <div id="card"><i class="fa fa-cart-arrow-down"></i></div> <div id="card" style="width: calc(100% / 3 * 2 - 10px);"><i class="fa fa-globe"></i><div id="YMaps"></div></div></div> ');
+    $('.bside').html('<div id="card"><i class="fa fa-street-view"></i><div id="profile-lastname-info"></div><div id="profile-name-info"></div><div id="profile-secondname-info"></div></div> <div id="card"><i class="fa fa-envelope"></i> <i class="fa fa-phone"></i><div id="profile-telephone-info"></div><div id="profile-email-info"></div></div></div> ');
     $.post(
         "/site/requestadress",
         { ship: 'flat1_flat1'},
@@ -1244,6 +1244,16 @@ $(document).on('click', '#profile-orders', function() {
             $('.bside').html('');
             $inner = '<div class="orders-row-profile"><div class="orders-num-header">№п/п</div><div class="orders-id-header">Идентификатор</div><div class="orders-name-header">Заказчик</div><div class="orders-data-header">Заказ</div><div class="order-adress-header">Адрес</div><div class="order-status-header">Статус</div></div>';
             $innercount = '';
+            $statusarr =  new Object();
+            $statusarr[100] = 'Принят в обработку';
+            $statusarr[1] = 'Ожидает проверки';
+            $statusarr[2] = 'Ждём оплаты';
+            $statusarr[3] = 'Оплачен';
+            $statusarr[4] = 'Оплачен - Доставляется';
+            $statusarr[5] = 'Оплачен - Доставлен';
+            $statusarr[6] = 'Отменён';
+            $statusarr[11] = 'Сборка';
+            $statusarr[0] = 'Спецпредложение';
             $.each($data,function() {
 
                 $innerdata = '';
@@ -1266,7 +1276,7 @@ $(document).on('click', '#profile-orders', function() {
                     }
                 }
                 else if(this['orders_id'] > 0){
-                    $status = '<div class="order-status2">'+$dataorderinfo.orders_status+'</div>';
+                    $status = '<div class="order-status2">'+$statusarr[$dataorderinfo.orders_status]+'</div>';
                     $adress += '<div><div id="user-country"><b>Страна: </b>'+$dataadress['country']+'</div><div id="user-state"><b>Область/регион: </b>'+$dataadress['state']+'</div><div id="user-city"><b>Город: </b>'+$dataadress['city']+'</div><div id="user-adress"><b>Адрес: </b>'+$dataadress['adress']+'</div><div id="user-postcode"><b>Почтовый код: </b>'+$dataadress['postcode']+'</div><div id="user-lastname"><b>Фамилия: </b>'+$dataadress['lastname']+'</div><div id="user-name"><b>Имя: </b>'+$dataadress['name']+'</div><div id="user-secondname"><b>Отчество: </b>'+$dataadress['secondname']+'</div><div id="user-telephone"><b>Телефон: </b>'+$dataadress['telephone']+'</div><div id="user-pasportser"><b>Серия паспорта: </b>'+$dataadress['pasportser']+'</div><div id="user-pasportnum"><b>Номер паспорта: </b>'+$dataadress['pasportnum']+'</div><div id="user-pasportwhere"><b>Кем выдан: </b>'+$dataadress['pasportwhere']+'</div><div id="user-pasportdate"><b>Когда выдан: </b>'+$dataadress['pasportdate']+'</div></div>';
                     $prod_content = '';
                     $resultprice = 0;
@@ -1317,6 +1327,7 @@ $(document).on('click', '#profile-orders', function() {
                 }else{
                     $status = '<div class="order-status3">Неопределен</div>';
                 }
+
                 $inner +='<div class="orders-row-profile"><div class="orders-num">'+($innercount++)+'</div><div class="orders-id">'+this['id']+'</div><div class="orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div data-toggle="'+$innercount+'" class="orders-data-phantom"></div><div data-toggle="'+$innercount+'" class="orders-adress-phantom"></div>'+$status+'</div><div data-toggle="'+$innercount+'" class="orders-data modal"><div style="padding: 10px; overflow:auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$innerdata+'</div></div><div data-toggle="'+$innercount+'" class="order-adress modal"><div style="box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); background: rgb(251, 251, 251) none repeat scroll 0% 0%; border-radius: 3px; padding: 14px;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$adress+'</div></div>';
             });
 

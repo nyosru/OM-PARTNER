@@ -33,7 +33,7 @@ $(document).on('click', '.users', function() {
         dataType : 'json',
         success : function($data) {
            $('.bside').html('');
-            $inner = '<div class="admin-users-row"><div class="admin-users-num">№ п/п</div><div class="admin-users-name">Логин</div><div class="admin-users-mail">E-mail</div><div class="admin-users-date-reg">Зарегистрирован</div><div class="admin-users-date-update">Профиль обновлен</div></div>';
+            $inner = '<div class="admin-users-row"><div class="admin-users-num-header">№ п/п</div><div class="admin-users-name-header">Логин</div><div class="admin-users-mail-header">E-mail</div><div class="admin-users-date-reg-header">Зарегистрирован</div><div class="admin-users-date-update-header">Профиль обновлен</div></div>';
             $innercount = '';
            $.each($data,function(){
                $inner +='<div class="admin-users-row"><div class="admin-users-num">'+($innercount++)+'</div><div class="admin-users-name">'+this['username']+'</div><div class="admin-users-mail">'+this['email']+'</div><div class="admin-users-date-reg">'+timeConverter(this['created_at'])+'</div><div class="admin-users-date-update">'+timeConverter(this['updated_at'])+'</div></div>';
@@ -53,7 +53,16 @@ $(document).on('click', '.orders', function() {
         async : true,
        // dataType : 'json',
         success : function($data) {
-            console.log($data);
+            $statusarr =  new Object();
+            $statusarr[100] = 'Принят в обработку';
+            $statusarr[1] = 'Ожидает проверки';
+            $statusarr[2] = 'Ждём оплаты';
+            $statusarr[3] = 'Оплачен';
+            $statusarr[4] = 'Оплачен - Доставляется';
+            $statusarr[5] = 'Оплачен - Доставлен';
+            $statusarr[6] = 'Отменён';
+            $statusarr[11] = 'Сборка';
+            $statusarr[0] = 'Спецпредложение';
             if($data.ordersatus != undefined) {
                 $orders = $data.ordersatus;
                 delete $data.ordersatus;
@@ -61,7 +70,7 @@ $(document).on('click', '.orders', function() {
                 $orders = '';
             }
             $('.bside').html('');
-            $inner = '<div class="admin-orders-row"><div class="admin-orders-num">№ п/п</div><div class="admin-orders-id">Идентификатор</div><div class="admin-orders-name">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div></div>';
+            $inner = '<div class="admin-orders-row"><div class="admin-orders-num-header">№ п/п</div><div class="admin-orders-id-header">Идентификатор</div><div class="admin-orders-name-header">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div></div>';
             $innercount = '';
             $.each($data,function() {
 
@@ -83,7 +92,7 @@ $(document).on('click', '.orders', function() {
                     }
                 }
                 else if(this['orders_id'] > 0){
-                    $status = '<div class="admin-order-status2">'+$dataorderinfo.orders_status+'</div>';
+                    $status = '<div class="admin-order-status2">'+$statusarr[$dataorderinfo.orders_status]+'</div>';
                     $adress += '<div><div id="user-country"><b>Страна: </b>'+$dataadress['country']+'</div><div id="user-state"><b>Область/регион: </b>'+$dataadress['state']+'</div><div id="user-city"><b>Город: </b>'+$dataadress['city']+'</div><div id="user-adress"><b>Адрес: </b>'+$dataadress['adress']+'</div><div id="user-postcode"><b>Почтовый код: </b>'+$dataadress['postcode']+'</div><div id="user-lastname"><b>Фамилия: </b>'+$dataadress['lastname']+'</div><div id="user-name"><b>Имя: </b>'+$dataadress['name']+'</div><div id="user-secondname"><b>Отчество: </b>'+$dataadress['secondname']+'</div><div id="user-telephone"><b>Телефон: </b>'+$dataadress['telephone']+'</div><div id="user-pasportser"><b>Серия паспорта: </b>'+$dataadress['pasportser']+'</div><div id="user-pasportnum"><b>Номер паспорта: </b>'+$dataadress['pasportnum']+'</div><div id="user-pasportwhere"><b>Кем выдан: </b>'+$dataadress['pasportwhere']+'</div><div id="user-pasportdate"><b>Когда выдан: </b>'+$dataadress['pasportdate']+'</div></div>';
                     $prod_content = '';
                     $resultprice = 0;
