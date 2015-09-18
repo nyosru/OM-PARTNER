@@ -399,9 +399,7 @@ $this -> title = 'Партнеры';
                     $url_obj[$val] = $value;
                     return $url_obj;
                 }
-                if(strpos(Yii::$app->request->getQueryString(), '#!') === FALSE){
-                    header('Location: http://'.$_SERVER['HTTP_HOST']);
-                }
+
                 $url_data = split_url(str_replace('_escaped_fragment_=', '#!', Yii::$app->request->getQueryString()));
                 $cat = $url_data['#!cat'][1];
                 $count = $url_data['count'][1];

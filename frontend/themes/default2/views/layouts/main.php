@@ -11,9 +11,6 @@ use common\models\Partners;
 /* @var $content string */
 $run = new Partners();
 $check = $run->GetId($_SERVER['HTTP_HOST']);
-
-
-
 if($check == ''){
     die;
 }
@@ -56,7 +53,7 @@ AppAsset::register($this);
             ]);
 
         ?>
-        <div class="col-lg-5 navbar-form navbar-left" role="search" style="width: 30%;">
+        <div class="col-lg-5 navbar-form navbar-left" role="search" style="width: 26%;">
             <div class="form-group" style="width: 100%; display: table;">
                 <input type="text" id="search" class="form-control" placeholder="Введите артикул или название" style="width: 100%; background: rgb(89, 89, 89) none repeat scroll 0% 0%; border: 1px solid rgb(89, 89, 89);color: #fff;">
             </div>

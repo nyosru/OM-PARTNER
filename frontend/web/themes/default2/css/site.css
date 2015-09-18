@@ -1350,48 +1350,58 @@
     }
 
     .admin-users-num {
+        display: block;
         float: left;
-        margin: 5px;
-        background: #F8DBB7;
-        padding: 5px;
-        width: 5%;
         text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
     }
 
     .admin-users-name {
+        display: block;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
-        padding: 5px;
-        width: 28%;
         text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        overflow: hidden;
+        width: calc(100% / 4 - 10px);
     }
 
     .admin-users-mail {
+        display: block;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
-        padding: 5px;
-        width: 20%;
         text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
     }
 
     .admin-users-date-reg {
+        display: block;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
-        padding: 5px;
-        width: 20%;
         text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        overflow: hidden;
+        width: calc(100% / 5 - 10px);
     }
 
     .admin-users-date-update {
+        display: block;
+        border: 1px solid #838383;
+        overflow: hidden;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
+        margin: 0px 1px;
         padding: 5px;
-        width: 20%;
         text-align: center;
+        width: calc(100% / 5 - 10px);
     }
 
     .admin-users-row {
@@ -1408,30 +1418,36 @@
     }
 
     .admin-orders-num {
+        display: block;
+        border: 1px solid #838383;
+        overflow: hidden;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
+        margin: 0px 1px;
         padding: 5px;
-        width: 5%;
+        width: calc(100% / 9 - 10px);
         text-align: center;
     }
 
     .admin-orders-id {
+        display: block;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
-        padding: 5px;
-        width: 10%;
         text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        overflow: hidden;
+        width: calc(100% / 6 - 10px);
     }
 
     .admin-orders-name {
+        display: block;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
-        padding: 5px;
-        width: 35%;
         text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        overflow: hidden;
+        width: calc(100% / 3 - 10px);
     }
 
     .admin-orders-data {
@@ -1443,43 +1459,52 @@
     }
 
     .admin-orders-data-phantom {
-        float: left;
-        margin: 5px;
-        padding: 10px 21px 0px 0px;
-        width: 10%;
         cursor: pointer;
-        height: 30px;
+        height: 32px;
+        background: url("eye.png") no-repeat scroll 50% 100% / contain;
+        display: block;
+        float: left;
         text-align: center;
-        background: rgb(248, 219, 183) url("eye.png") no-repeat scroll 50% 100% / contain;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
     }
 
     .admin-order-status {
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
+        margin: 0px 1px;
         padding: 5px;
-        width: 20%;
         text-align: center;
-        cursor: pointer;
+        display: block;
+        border: 1px solid #838383;
+        overflow: hidden;
+        width: calc(100% / 5 - 10px);
     }
 
     .admin-order-status2 {
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
+        margin: 0px 1px;
         padding: 5px;
-        width: 20%;
         text-align: center;
-        cursor: pointer;
+        display: block;
+        border: 1px solid #838383;
+        overflow: hidden;
+        width: calc(100% / 5 - 10px);
     }
 
     .admin-order-status-header {
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
+        margin: 0px 1px;
+        background: #FFBF08 none repeat scroll 0% 0%;
         padding: 5px;
-        width: 20%;
         text-align: center;
+        display: block;
+        border: 1px solid #838383;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        width: calc(100% / 5 - 10px);
     }
 
     .admin-orders-prodid {
@@ -1490,6 +1515,43 @@
         width: 15%;
     }
 
+    .admin-orders-num-header{
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
+    }
+
+    .admin-orders-id-header{
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
+        width: calc(100% / 6 - 10px);
+    }
+    .admin-orders-name-header{
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
+        width: calc(100% / 3 - 10px);
+    }
     .admin-orders-prodmodel {
         float: left;
         background: #9EDAA1 none repeat scroll 0% 0%;
@@ -1515,12 +1577,16 @@
     }
 
     .admin-orders-data-head {
+        display: block;
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
-        padding: 5px;
         text-align: center;
-        width: 10%;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
     }
 
     #partners-sign-right {
@@ -1538,11 +1604,15 @@
 
     .admin-order-adress-header {
         float: left;
-        margin: 5px;
-        background: #F8DBB7 none repeat scroll 0% 0%;
+        margin: 0px 1px;
+        background: #FFBF08 none repeat scroll 0% 0%;
         padding: 5px;
-        width: 10%;
+        width: calc(100% / 9 - 10px);
         text-align: center;
+        display: block;
+        border: 1px solid #838383;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
 
     }
 
@@ -1559,13 +1629,17 @@
     }
 
     .admin-orders-adress-phantom {
-        float: left;
-        margin: 5px;
-        padding: 5px;
-        width: 10%;
         cursor: pointer;
-        background: #F8DBB7 url("eye.png") no-repeat scroll 50% 100% / contain;
-        height: 30px;
+        height: 32px;
+        background: url("eye.png") no-repeat scroll 50% 100% / contain;
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
     }
 
     #country-drop {
@@ -2471,6 +2545,66 @@
         position: absolute;
         right: 0px;
         bottom: -10px;
+    }
+    .admin-users-num-header{
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
+    }
+    .admin-users-name-header{
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
+        width: calc(100% / 4 - 10px);
+    }
+    .admin-users-mail-header{
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
+    }
+    .admin-users-date-reg-header{
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #838383;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        overflow: hidden;
+        width: calc(100% / 5 - 10px);
+    }
+    .admin-users-date-update-header{
+        display: block;
+        border: 1px solid #838383;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        float: left;
+        margin: 0px 1px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        padding: 5px;
+        text-align: center;
+        width: calc(100% / 5 - 10px);
     }
 }
     /**

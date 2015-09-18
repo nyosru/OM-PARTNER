@@ -33,7 +33,7 @@ $(document).on('click', '.users', function() {
         dataType : 'json',
         success : function($data) {
            $('.bside').html('');
-            $inner = '<div class="admin-users-row"><div class="admin-users-num">№ п/п</div><div class="admin-users-name">Логин</div><div class="admin-users-mail">E-mail</div><div class="admin-users-date-reg">Зарегистрирован</div><div class="admin-users-date-update">Профиль обновлен</div></div>';
+            $inner = '<div class="admin-users-row"><div class="admin-users-num-header">№ п/п</div><div class="admin-users-name-header">Логин</div><div class="admin-users-mail-header">E-mail</div><div class="admin-users-date-reg-header">Зарегистрирован</div><div class="admin-users-date-update-header">Профиль обновлен</div></div>';
             $innercount = '';
            $.each($data,function(){
                $inner +='<div class="admin-users-row"><div class="admin-users-num">'+($innercount++)+'</div><div class="admin-users-name">'+this['username']+'</div><div class="admin-users-mail">'+this['email']+'</div><div class="admin-users-date-reg">'+timeConverter(this['created_at'])+'</div><div class="admin-users-date-update">'+timeConverter(this['updated_at'])+'</div></div>';
@@ -46,9 +46,23 @@ $(document).on('click', '.users', function() {
     });
 });
 $(document).on('click', '.orders', function() {
+    $pagenav = 0;
+    if($('[data-page-nav]').length > 0) {
+        $page = $('[data-page-nav]');
+        $page =  parseInt($page[0].getAttribute('data-page-nav'));
+    }else{
+        $page = 0;
+    }
+
+    if(this.getAttribute('class').indexOf('nav-next') != -1){
+        $page += 1;
+
+    }else if(this.getAttribute('class').indexOf('nav-prev')!= -1){
+        $page += -1;
+    }
     $.ajax({
         url : "/admin/default/requestorders",
-        data : 'cat=1',
+        data : 'cat=1&nav='+$pagenav+'&page='+$page,
         cache : false,
         async : true,
        // dataType : 'json',
@@ -66,11 +80,13 @@ $(document).on('click', '.orders', function() {
             if($data.ordersatus != undefined) {
                 $orders = $data.ordersatus;
                 delete $data.ordersatus;
+                $page = $data.page;
+                delete $data.page;
             }else{
                 $orders = '';
             }
             $('.bside').html('');
-            $inner = '<div class="admin-orders-row"><div class="admin-orders-num">№ п/п</div><div class="admin-orders-id">Идентификатор</div><div class="admin-orders-name">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div></div>';
+            $inner = '<div class="admin-orders-row"><div class="admin-orders-num-header">№ п/п</div><div class="admin-orders-id-header">Идентификатор</div><div class="admin-orders-name-header">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div></div>';
             $innercount = '';
             $.each($data,function() {
 
@@ -143,9 +159,13 @@ $(document).on('click', '.orders', function() {
                 }else{
                     $status = '<div class="admin-order-status3">Неопределен</div>';
                 }
-                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+($innercount++)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></div>'+$status+'</div>';
+                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+(($innercount++)+$page*10)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></div>'+$status+'</div>';
             });
-            $('.bside').append($inner);
+
+            $pager = '';
+            $pager += ' <div data-page="" class="page orders nav-prev btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="#"></a></i></div> ';
+            $pager += ' <div data-page="" class="page  orders nav-next  btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="#"></a></i></div> ';
+            $('.bside').append('<div data-page-nav="'+$page+'">'+$inner+$pager+'</div>');
 
         }
     });

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en" />
+        <link href="./assets/ae884737/css/bootstrap.css" rel="stylesheet">
+<link href="./assets/6b1de530/style.css" rel="stylesheet">
+<script src="./assets/e9162f40/jquery.js"></script>
+<script src="./assets/ae884737/js/bootstrap.js"></script>
+<script src="./assets/e2cbda01/jssearch.js"></script>    <title>OM-PARTNERS</title>
+</head>
+<body>
+
+<div class="wrap">
+    <nav id="w948" class="navbar-inverse navbar-fixed-top navbar" role="navigation"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w948-collapse"><span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span></button><a class="navbar-brand" href="./index.html">OM-PARTNERS</a></div><div id="w948-collapse" class="collapse navbar-collapse"><ul id="w949" class="navbar-nav nav"><li><a href="./index.html">Class reference</a></li></ul><div class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+  </div>
+</div>
+</div></nav>
+    <div id="search-resultbox" style="display: none;" class="modal-content">
+        <ul id="search-results">
+        </ul>
+    </div>
+
+    
+<div class="row">
+    <div class="col-md-3">
+                <div id="navigation" class="list-group"><a class="list-group-item" href="#navigation-931" data-toggle="collapse" data-parent="#navigation">app\modules\Calendar <b class="caret"></b></a><div id="navigation-931" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-calendar-calendar.html">Calendar</a></div>
+<a class="list-group-item" href="#navigation-932" data-toggle="collapse" data-parent="#navigation">app\modules\Orders <b class="caret"></b></a><div id="navigation-932" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-orders-orders.html">Orders</a></div>
+<a class="list-group-item" href="#navigation-933" data-toggle="collapse" data-parent="#navigation">app\modules\Users <b class="caret"></b></a><div id="navigation-933" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-users-users.html">Users</a></div>
+<a class="list-group-item" href="#navigation-934" data-toggle="collapse" data-parent="#navigation">app\modules\admin\controllers <b class="caret"></b></a><div id="navigation-934" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-admin-controllers-defaultcontroller.html">DefaultController</a></div>
+<a class="list-group-item" href="#navigation-935" data-toggle="collapse" data-parent="#navigation">app\modules\calendar\controllers <b class="caret"></b></a><div id="navigation-935" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-calendar-controllers-defaultcontroller.html">DefaultController</a></div>
+<a class="list-group-item" href="#navigation-936" data-toggle="collapse" data-parent="#navigation">app\modules\orders\controllers <b class="caret"></b></a><div id="navigation-936" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-orders-controllers-defaultcontroller.html">DefaultController</a></div>
+<a class="list-group-item" href="#navigation-937" data-toggle="collapse" data-parent="#navigation">app\modules\partners <b class="caret"></b></a><div id="navigation-937" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-partners-partners.html">Partners</a></div>
+<a class="list-group-item" href="#navigation-938" data-toggle="collapse" data-parent="#navigation">app\modules\partners\controllers <b class="caret"></b></a><div id="navigation-938" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-partners-controllers-defaultcontroller.html">DefaultController</a></div>
+<a class="list-group-item" href="#navigation-939" data-toggle="collapse" data-parent="#navigation">app\modules\partners\models <b class="caret"></b></a><div id="navigation-939" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-partners-models-partners.html">Partners</a>
+<a class="list-group-item" href="./app-modules-partners-models-partnerscatdescription.html">PartnersCatDescription</a>
+<a class="list-group-item" href="./app-modules-partners-models-partnerscategories.html">PartnersCategories</a></div>
+<a class="list-group-item" href="#navigation-940" data-toggle="collapse" data-parent="#navigation">app\modules\users\controllers <b class="caret"></b></a><div id="navigation-940" class="submenu panel-collapse collapse"><a class="list-group-item" href="./app-modules-users-controllers-defaultcontroller.html">DefaultController</a></div>
+<a class="list-group-item" href="#navigation-941" data-toggle="collapse" data-parent="#navigation">backend\assets <b class="caret"></b></a><div id="navigation-941" class="submenu panel-collapse collapse"><a class="list-group-item" href="./backend-assets-adminlteasset.html">AdminLteAsset</a>
+<a class="list-group-item" href="./backend-assets-appasset.html">AppAsset</a></div>
+<a class="list-group-item" href="#navigation-942" data-toggle="collapse" data-parent="#navigation">backend\controllers <b class="caret"></b></a><div id="navigation-942" class="submenu panel-collapse collapse"><a class="list-group-item" href="./backend-controllers-sitecontroller.html">SiteController</a></div>
+<a class="list-group-item" href="#navigation-943" data-toggle="collapse" data-parent="#navigation">common\models <b class="caret"></b></a><div id="navigation-943" class="submenu panel-collapse collapse"><a class="list-group-item" href="./common-models-addressbook.html">AddressBook</a>
+<a class="list-group-item" href="./common-models-admincompanies.html">AdminCompanies</a>
+<a class="list-group-item" href="./common-models-countries.html">Countries</a>
+<a class="list-group-item" href="./common-models-customers.html">Customers</a>
+<a class="list-group-item" href="./common-models-customersinfo.html">CustomersInfo</a>
+<a class="list-group-item" href="./common-models-loginform.html">LoginForm</a>
+<a class="list-group-item" href="./common-models-manufacturers.html">Manufacturers</a>
+<a class="list-group-item" href="./common-models-orders.html">Orders</a>
+<a class="list-group-item" href="./common-models-ordershistory.html">OrdersHistory</a>
+<a class="list-group-item" href="./common-models-ordersproducts.html">OrdersProducts</a>
+<a class="list-group-item" href="./common-models-ordersproductsattributes.html">OrdersProductsAttributes</a>
+<a class="list-group-item" href="./common-models-ordersstatus.html">OrdersStatus</a>
+<a class="list-group-item" href="./common-models-orderstotal.html">OrdersTotal</a>
+<a class="list-group-item" href="./common-models-partners.html">Partners</a>
+<a class="list-group-item" href="./common-models-partnerscatdescription.html">PartnersCatDescription</a>
+<a class="list-group-item" href="./common-models-partnerscategories.html">PartnersCategories</a>
+<a class="list-group-item" href="./common-models-partnersconfig.html">PartnersConfig</a>
+<a class="list-group-item" href="./common-models-partnersorders.html">PartnersOrders</a>
+<a class="list-group-item" href="./common-models-partnersproducts.html">PartnersProducts</a>
+<a class="list-group-item" href="./common-models-partnersproductsattributes.html">PartnersProductsAttributes</a>
+<a class="list-group-item" href="./common-models-partnersproductsdescription.html">PartnersProductsDescription</a>
+<a class="list-group-item" href="./common-models-partnersproductsoptionval.html">PartnersProductsOptionVal</a>
+<a class="list-group-item" href="./common-models-partnersproductstocategories.html">PartnersProductsToCategories</a>
+<a class="list-group-item" href="./common-models-partnersusersinfo.html">PartnersUsersInfo</a>
+<a class="list-group-item" href="./common-models-user.html">User</a>
+<a class="list-group-item" href="./common-models-zones.html">Zones</a></div>
+<a class="list-group-item" href="#navigation-944" data-toggle="collapse" data-parent="#navigation">frontend\assets <b class="caret"></b></a><div id="navigation-944" class="submenu panel-collapse collapse"><a class="list-group-item" href="./frontend-assets-appasset.html">AppAsset</a></div>
+<a class="list-group-item" href="#navigation-945" data-toggle="collapse" data-parent="#navigation">frontend\controllers <b class="caret"></b></a><div id="navigation-945" class="submenu panel-collapse collapse"><a class="list-group-item" href="./frontend-controllers-sitecontroller.html">SiteController</a></div>
+<a class="list-group-item" href="#navigation-946" data-toggle="collapse" data-parent="#navigation">frontend\models <b class="caret"></b></a><div id="navigation-946" class="submenu panel-collapse collapse"><a class="list-group-item" href="./frontend-models-contactform.html">ContactForm</a>
+<a class="list-group-item" href="./frontend-models-passwordresetrequestform.html">PasswordResetRequestForm</a>
+<a class="list-group-item" href="./frontend-models-resetpasswordform.html">ResetPasswordForm</a>
+<a class="list-group-item" href="./frontend-models-signupform.html">SignupForm</a></div>
+<a class="list-group-item" href="#navigation-947" data-toggle="collapse" data-parent="#navigation">frontend\widgets <b class="caret"></b></a><div id="navigation-947" class="submenu panel-collapse collapse"><a class="list-group-item" href="./frontend-widgets-alert.html">Alert</a></div></div>    </div>
+    <div class="col-md-9 api-content" role="main">
+        <h1>Class Reference</h1>
+
+<table class="summaryTable docIndex table table-bordered table-striped table-hover">
+    <colgroup>
+        <col class="col-package" />
+        <col class="col-class" />
+        <col class="col-description" />
+    </colgroup>
+    <tr>
+        <th>Class</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><a href="app-modules-calendar-calendar.html">app\modules\Calendar\Calendar</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-orders-orders.html">app\modules\Orders\Orders</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-users-users.html">app\modules\Users\Users</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-admin-controllers-defaultcontroller.html">app\modules\admin\controllers\DefaultController</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-calendar-controllers-defaultcontroller.html">app\modules\calendar\controllers\DefaultController</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-orders-controllers-defaultcontroller.html">app\modules\orders\controllers\DefaultController</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-partners-partners.html">app\modules\partners\Partners</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-partners-controllers-defaultcontroller.html">app\modules\partners\controllers\DefaultController</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-partners-models-partners.html">app\modules\partners\models\Partners</a></td>
+        <td>This is the model class for table "partners".</td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-partners-models-partnerscatdescription.html">app\modules\partners\models\PartnersCatDescription</a></td>
+        <td>This is the model class for table "categories_description".</td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-partners-models-partnerscategories.html">app\modules\partners\models\PartnersCategories</a></td>
+        <td>This is the model class for table "categories".</td>
+    </tr>
+    <tr>
+        <td><a href="app-modules-users-controllers-defaultcontroller.html">app\modules\users\controllers\DefaultController</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="backend-assets-adminlteasset.html">backend\assets\AdminLteAsset</a></td>
+        <td>AdminLte AssetBundle</td>
+    </tr>
+    <tr>
+        <td><a href="backend-assets-appasset.html">backend\assets\AppAsset</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="backend-controllers-sitecontroller.html">backend\controllers\SiteController</a></td>
+        <td>Site controller</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-addressbook.html">common\models\AddressBook</a></td>
+        <td>This is the model class for table "address_book".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-admincompanies.html">common\models\AdminCompanies</a></td>
+        <td>This is the model class for table "admin_companies".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-countries.html">common\models\Countries</a></td>
+        <td>This is the model class for table "countries".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-customers.html">common\models\Customers</a></td>
+        <td>This is the model class for table "customers".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-customersinfo.html">common\models\CustomersInfo</a></td>
+        <td>This is the model class for table "customers_info".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-loginform.html">common\models\LoginForm</a></td>
+        <td>Login form</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-manufacturers.html">common\models\Manufacturers</a></td>
+        <td>This is the model class for table "manufacturers".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-orders.html">common\models\Orders</a></td>
+        <td>This is the model class for table "orders".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-ordershistory.html">common\models\OrdersHistory</a></td>
+        <td>This is the model class for table "orders_history".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-ordersproducts.html">common\models\OrdersProducts</a></td>
+        <td>This is the model class for table "orders_products".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-ordersproductsattributes.html">common\models\OrdersProductsAttributes</a></td>
+        <td>This is the model class for table "orders_products_attributes".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-ordersstatus.html">common\models\OrdersStatus</a></td>
+        <td>This is the model class for table "orders_status".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-orderstotal.html">common\models\OrdersTotal</a></td>
+        <td>This is the model class for table "orders_total".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partners.html">common\models\Partners</a></td>
+        <td>This is the model class for table "partners".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnerscatdescription.html">common\models\PartnersCatDescription</a></td>
+        <td>This is the model class for table "categories_description".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnerscategories.html">common\models\PartnersCategories</a></td>
+        <td>This is the model class for table "categories".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersconfig.html">common\models\PartnersConfig</a></td>
+        <td>This is the model class for table "partners".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersorders.html">common\models\PartnersOrders</a></td>
+        <td>This is the model class for table "partners_orders".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersproducts.html">common\models\PartnersProducts</a></td>
+        <td>This is the model class for table "products".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersproductsattributes.html">common\models\PartnersProductsAttributes</a></td>
+        <td>This is the model class for table "products_attributes".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersproductsdescription.html">common\models\PartnersProductsDescription</a></td>
+        <td>This is the model class for table "products_description".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersproductsoptionval.html">common\models\PartnersProductsOptionVal</a></td>
+        <td>This is the model class for table "products_options_values".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersproductstocategories.html">common\models\PartnersProductsToCategories</a></td>
+        <td>This is the model class for table "products_to_categories".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-partnersusersinfo.html">common\models\PartnersUsersInfo</a></td>
+        <td>This is the model class for table "partners_users_info".</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-user.html">common\models\User</a></td>
+        <td>Модель пользователя</td>
+    </tr>
+    <tr>
+        <td><a href="common-models-zones.html">common\models\Zones</a></td>
+        <td>This is the model class for table "zones".</td>
+    </tr>
+    <tr>
+        <td><a href="frontend-assets-appasset.html">frontend\assets\AppAsset</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><a href="frontend-controllers-sitecontroller.html">frontend\controllers\SiteController</a></td>
+        <td>Контроллер сайта</td>
+    </tr>
+    <tr>
+        <td><a href="frontend-models-contactform.html">frontend\models\ContactForm</a></td>
+        <td>ContactForm is the model behind the contact form.</td>
+    </tr>
+    <tr>
+        <td><a href="frontend-models-passwordresetrequestform.html">frontend\models\PasswordResetRequestForm</a></td>
+        <td>Password reset request form</td>
+    </tr>
+    <tr>
+        <td><a href="frontend-models-resetpasswordform.html">frontend\models\ResetPasswordForm</a></td>
+        <td>Password reset form</td>
+    </tr>
+    <tr>
+        <td><a href="frontend-models-signupform.html">frontend\models\SignupForm</a></td>
+        <td>Signup form</td>
+    </tr>
+    <tr>
+        <td><a href="frontend-widgets-alert.html">frontend\widgets\Alert</a></td>
+        <td>Alert widget renders a message from session flash. All flash messages are displayed
+in the sequence they were assigned using setFlash. You can set message as following:</td>
+    </tr>
+</table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*<![CDATA[*/
+    $("a.toggle").on('click', function () {
+        var $this = $(this);
+        if ($this.hasClass('properties-hidden')) {
+            $this.text($this.text().replace(/Show/,'Hide'));
+            $this.parents(".summary").find(".inherited").show();
+            $this.removeClass('properties-hidden');
+        } else {
+            $this.text($this.text().replace(/Hide/,'Show'));
+            $this.parents(".summary").find(".inherited").hide();
+            $this.addClass('properties-hidden');
+        }
+
+        return false;
+    });
+    /*
+     $(".sourceCode a.show").toggle(function () {
+     $(this).text($(this).text().replace(/show/,'hide'));
+     $(this).parents(".sourceCode").find("div.code").show();
+     },function () {
+     $(this).text($(this).text().replace(/hide/,'show'));
+     $(this).parents(".sourceCode").find("div.code").hide();
+     });
+     $("a.sourceLink").click(function () {
+     $(this).attr('target','_blank');
+     });
+     */
+    /*]]>*/
+</script>
+
+
+</div>
+
+<footer class="footer">
+        <p class="pull-right"><small>Page generated on Fri, 18 Sep 2015 13:10:08 +0000</small></p>
+    Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
+
+<script type="text/javascript">jQuery(document).ready(function () {
+    var shiftWindow = function () { scrollBy(0, -50) };
+    if (location.hash) shiftWindow();
+    window.addEventListener("hashchange", shiftWindow);
+var element = document.createElement("script");
+element.src = "./jssearch.index.js";
+document.body.appendChild(element);
+
+var searchBox = $('#searchbox');
+
+// search when typing in search field
+searchBox.on("keyup", function(event) {
+    var query = $(this).val();
+
+    if (query == '' || event.which == 27) {
+        $('#search-resultbox').hide();
+        return;
+    } else if (event.which == 13) {
+        var selectedLink = $('#search-resultbox a.selected');
+        if (selectedLink.length != 0) {
+            document.location = selectedLink.attr('href');
+            return;
+        }
+    } else if (event.which == 38 || event.which == 40) {
+        $('#search-resultbox').show();
+
+        var selected = $('#search-resultbox a.selected');
+        if (selected.length == 0) {
+            $('#search-results').find('a').first().addClass('selected');
+        } else {
+            var next;
+            if (event.which == 40) {
+                next = selected.parent().next().find('a').first();
+            } else {
+                next = selected.parent().prev().find('a').first();
+            }
+            if (next.length != 0) {
+                var resultbox = $('#search-results');
+                var position = next.position();
+
+//              TODO scrolling is buggy and jumps around
+//                resultbox.scrollTop(Math.floor(position.top));
+//                console.log(position.top);
+
+                selected.removeClass('selected');
+                next.addClass('selected');
+            }
+        }
+
+        return;
+    }
+    $('#search-resultbox').show();
+    $('#search-results').html('<li><span class="no-results">No results</span></li>');
+
+    var result = jssearch.search(query);
+
+    if (result.length > 0) {
+        var i = 0;
+        var resHtml = '';
+
+        for (var key in result) {
+            if (i++ > 20) {
+                break;
+            }
+            resHtml = resHtml +
+            '<li><a href="' + result[key].file.u.substr(3) +'"><span class="title">' + result[key].file.t + '</span>' +
+            '<span class="description">' + result[key].file.d + '</span></a></li>';
+        }
+        $('#search-results').html(resHtml);
+    }
+});
+
+// hide the search results on ESC
+$(document).on("keyup", function(event) { if (event.which == 27) { $('#search-resultbox').hide(); } });
+// hide search results on click to document
+$(document).bind('click', function (e) { $('#search-resultbox').hide(); });
+// except the following:
+searchBox.bind('click', function(e) { e.stopPropagation(); });
+$('#search-resultbox').bind('click', function(e) { e.stopPropagation(); });
+
+});</script></body>
+</html>
