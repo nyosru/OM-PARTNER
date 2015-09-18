@@ -81,9 +81,18 @@ class DefaultController extends Controller
     {
         $model = new PartnersOrders();
         $check = $this->id_partners();
+        $page = intval(Yii::$app->request->getQueryParam('page'));
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $query = $model->find()->where(['partners_id' => $check])->asArray()->all();
+        $count = $model->find()->where(['partners_id' => $check])->count();
+        if($count <= $page*10){
+            $page = $page-1;}
+        $query = $model->find()->where(['partners_id' => $check])->limit(10)->offset($page*10)->asArray()->all();
+
+
+
         $orders_status_arr = OrdersStatus::find()->asArray()->all();
+
+
         foreach($orders_status_arr as $valueos){
             $orders_status[$valueos[0]] = $valueos[1];
         }
@@ -114,7 +123,14 @@ class DefaultController extends Controller
                 $query[ordersatus][$ordersatusn[$key][orders_status]] =  $ordersatusn[$key];
             }
         }
+        if($count <= ($page)*10){
+            $query[page] = $count/10;
+        }elseif($page < 1 ){
+            $query[page] = 0;
 
+        }else{
+            $query[page] = $page;
+        }
         return $query;
     }
 
@@ -291,7 +307,13 @@ class DefaultController extends Controller
                 $orders->billing_street_address = $userOM->entry_street_address;
                 $orders->billing_postcode = $userOM->entry_postcode;
                 $orders->billing_address_format_id = 1;
-                $orders->customers_referer_url = '{"Partner":' . $partner_id . ',"User":' . $partner_user_id . '}';
+
+                $validkey = '';
+                $char="QWERTYUPASDFGHJKLZXCVBNMqwertyuopasdfghjkzxcvbnm123456789";
+                $site = $_SERVER['HTTP_HOST'];
+                while(strlen($validkey) < 20){$validkey.=$char[mt_rand(0,strlen($char))];}
+
+                $orders->customers_referer_url = '{"Partner":' . $partner_id . ',"User":' . $partner_user_id .',"Key":"'.$validkey.'","Site":"'.$site.'"}';
                 $orders->currency = 'RUR';
                 $orders->currency_value = '1.000000';
                 $orders->last_modified = date("Y-m-d h:i:s");
@@ -386,4 +408,5 @@ class DefaultController extends Controller
 
 }
 }
+
 }

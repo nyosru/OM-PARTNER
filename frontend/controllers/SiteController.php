@@ -31,7 +31,7 @@ use common\models\Manufacturers;
 use common\models\Orders;
 use common\models\PartnersConfig;
 /**
- * Site controller
+ * Контроллер сайта
  */
 
 class SiteController extends Controller
@@ -44,7 +44,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml'],
+                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -95,6 +95,11 @@ class SiteController extends Controller
                         'actions' => ['savehtml'],
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'actions' => ['chstatusorder'],
+                        'allow' => true,
+                        'roles' => ['@', '?'],
                     ],
                 ],
             ],
@@ -176,34 +181,34 @@ $cats=[];
 
         switch ($sort) {
             case 0:
-                $order = '`products_date_added` ASC';
+                $order = ["products_date_added" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
            case 1:
-                $order =  '`products_price` ASC';
+                $order =  ["products_price" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 2:
-                $order = '`products_name` ASC';
+                $order = ["products_name" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 3:
-                $order =  '`products_model` ASC';
+                $order =  ["products_model" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 4:
-                $order = '`products_viewed` ASC';
+                $order = ["products_viewed" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 10:
-                $order = '`products_date_added` DESC';
+                $order = ["products_date_added" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                break;
             case 11:
-                $order =  '`products_price` DESC';
+                $order =  ["products_price" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 12:
-                $order = '`products_name` DESC';
+                $order = ["products_name" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 13:
-                $order =  '`products_model` DESC';
+                $order =  ["products_model" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 14:
-                $order = '`products_viewed` DESC';
+                $order = ["products_viewed" => SORT_DESC, 'products_options_values_name' => SORT_ASC];
                 break;
        }
 $type = '';
@@ -220,7 +225,7 @@ $type = '';
            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1   and products.products_quantity > 0    and products.removable != 1    and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.') ',[':start_price' => $start_price, ':end_price' => $end_price])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
        }elseif($prod_attr_query != '' && $searchword == '') {
             $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products.removable != 1      and products.products_quantity > 0     and products_status=1 and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-           $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0      and products.removable != 1   and products_price <= :end_price and products_price >= :start_price and options_values_id IN (:prod_attr_query) and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->orderBy($order)->count();
+           $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0      and products.removable != 1   and products_price <= :end_price and products_price >= :start_price and options_values_id IN (:prod_attr_query) and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->count();
            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products_status=1    and products.products_quantity > 0   and products.removable != 1      and options_values_id IN (:prod_attr_query)   and products.manufacturers_id NOT IN ('.$hide_man.')', [':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
             $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1      and products.products_quantity > 0    and products_price <= :end_price and products_price >= :start_price  and products.removable != 1   and options_values_id IN (:prod_attr_query)   and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
        }elseif(preg_match("/^[0-9]+$/", $searchword)){
@@ -436,10 +441,15 @@ $type = '';
     {
         $id = Yii::$app->user->identity->getId();
         $model = new PartnersOrders();
+        $page = intval(Yii::$app->request->getQueryParam('page'));
 
         $check = $this->id_partners();
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $query = $model->find()->where(['partners_id' => $check, 'user_id'=> $id])->asArray()->all();
+        $count = $model->find()->where(['partners_id' => $check, 'user_id'=> $id])->count();
+        if($count < ($page)*10){
+            $page = $page-1;}
+        $query = $model->find()->where(['partners_id' => $check, 'user_id'=> $id])->limit(10)->offset($page*10)->asArray()->all();
+
         $check = array();
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
@@ -460,6 +470,14 @@ $type = '';
             foreach ($query as $key => $value) {
                 $query[ordersatus][$ordersatusn[$key][orders_id]] = $ordersatusn[$key];
             }
+        }
+        if($count < ($page)*10){
+            $query[page] = $count/10;
+        }elseif($page < 1 ){
+            $query[page] = 0;
+
+        }else{
+            $query[page] = $page;
         }
 
         return $query;
@@ -849,8 +867,10 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
     }
 
     public function actionSavehtml(){
-        $html = mysql_real_escape_string(htmlspecialchars($_POST['html']));
-        $page = mysql_real_escape_string(htmlspecialchars($_POST['page']));
+        $html =  addslashes($_POST['html']);
+        $page =  addslashes($_POST['page']);
+//        $html =$_POST['html'];
+//        $page = $_POST['page'];
         $data = new PartnersConfig();
         $run = new Partners();
         $check = $run->GetId($_SERVER['HTTP_HOST']);
@@ -869,6 +889,25 @@ if($data) {
     $data->active = 1;
 }
         if($data->save()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public function actionChstatusorder()
+    {
+        $id = intval(Yii::$app->request->getQueryParam('id'));
+        $key =  Yii::$app->request->getQueryParam('key');
+        $status =  intval(Yii::$app->request->getQueryParam('status'));
+
+        $order = new Orders();
+        $orderdata = $order->find()->where(['orders_id'=>$id])->asArray()->one();
+        $data = $orderdata[customers_referer_url];
+        $data = json_decode($data);
+        if($key == $data->Key && isset($key) && $key != ''){
+          mail('desure85@gmail.com', 'изменение статуса', 'сработало изменение статуса заказа '.$id.' на'.$status);
             return true;
         }else{
             return false;

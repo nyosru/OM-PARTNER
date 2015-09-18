@@ -1237,15 +1237,31 @@ $(document).on('click', '#profile-info', function() {
     }
 });
 
-$(document).on('click', '#profile-orders', function() {
+$(document).on('click', '.profile-orders', function() {
+    $pagenav = 0;
+    if($('[data-page-nav]').length > 0) {
+        $page = $('[data-page-nav]');
+        $page =  parseInt($page[0].getAttribute('data-page-nav'));
+    }else{
+        $page = 0;
+    }
+
+    if(this.getAttribute('class').indexOf('nav-next') != -1){
+        $page += 1;
+
+    }else if(this.getAttribute('class').indexOf('nav-prev')!= -1){
+        $page += -1;
+    }
     $.ajax({
         url : "/site/requestorders/",
-        data : 'cat=1',
+        data : 'cat=1&nav='+$pagenav+'&page='+$page,
         cache : false,
         async : true,
         success : function($data) {
             $orders = $data.ordersatus;
             delete $data.ordersatus;
+            $page = $data.page;
+            delete $data.page;
             $('.bside').html('');
             $inner = '<div class="orders-row-profile"><div class="orders-num-header">№п/п</div><div class="orders-id-header">Идентификатор</div><div class="orders-name-header">Заказчик</div><div class="orders-data-header">Заказ</div><div class="order-adress-header">Адрес</div><div class="order-status-header">Статус</div></div>';
             $innercount = '';
@@ -1259,8 +1275,9 @@ $(document).on('click', '#profile-orders', function() {
             $statusarr[6] = 'Отменён';
             $statusarr[11] = 'Сборка';
             $statusarr[0] = 'Спецпредложение';
-            $.each($data,function() {
 
+
+            $.each($data,function() {
                 $innerdata = '';
                 $adress = '';
                 $dataq = this.order;
@@ -1333,10 +1350,14 @@ $(document).on('click', '#profile-orders', function() {
                     $status = '<div class="order-status3">Неопределен</div>';
                 }
 
-                $inner +='<div class="orders-row-profile"><div class="orders-num">'+($innercount++)+'</div><div class="orders-id">'+this['id']+'</div><div class="orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div data-toggle="'+$innercount+'" class="orders-data-phantom"></div><div data-toggle="'+$innercount+'" class="orders-adress-phantom"></div>'+$status+'</div><div data-toggle="'+$innercount+'" class="orders-data modal"><div style="padding: 10px; overflow:auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$innerdata+'</div></div><div data-toggle="'+$innercount+'" class="order-adress modal"><div style="box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); background: rgb(251, 251, 251) none repeat scroll 0% 0%; border-radius: 3px; padding: 14px;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$adress+'</div></div>';
+                $inner +='<div class="orders-row-profile"><div class="orders-num">'+(($innercount++)+($page*10))+'</div><div class="orders-id">'+this['id']+'</div><div class="orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div data-toggle="'+$innercount+'" class="orders-data-phantom"></div><div data-toggle="'+$innercount+'" class="orders-adress-phantom"></div>'+$status+'</div><div data-toggle="'+$innercount+'" class="orders-data modal"><div style="padding: 10px; overflow:auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$innerdata+'</div></div><div data-toggle="'+$innercount+'" class="order-adress modal"><div style="box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); background: rgb(251, 251, 251) none repeat scroll 0% 0%; border-radius: 3px; padding: 14px;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$adress+'</div></div>';
             });
 
-            $('.bside').append('<div style="display:table; width:100%; margin-top: 6px;">'+$inner+'</div>');
+            $pager = '';
+            $pager += ' <div data-page="" class="page profile-orders nav-prev btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="#"></a></i></div> ';
+            $pager += ' <div data-page="" class="page  profile-orders nav-next  btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="#"></a></i></div> ';
+
+            $('.bside').append('<div style="display:table; width:100%; margin-top: 6px;" data-page-nav="'+$page+'">'+$inner+$pager+'</div>');
 
 
 
@@ -1373,8 +1394,24 @@ function onAjaxSuccessinfo(data)
 {
 
     $inner = '';
+
+
     data.splice(0,1);
     $.each(data, function(index){
+        $tooltip = new Object();
+        $tooltip['name'] = 'Допустимые символы а-я,a-z,-,пробел';
+        $tooltip['secondname'] = 'Допустимые символы а-я,a-z,-,пробел';
+        $tooltip['lastname'] = 'Допустимые символы а-я,a-z,-,пробел';
+        $tooltip['country'] = 'Выберите из списка';
+        $tooltip['state'] = 'Выберите из списка';
+        $tooltip['city'] = 'Допустимые символы а-я,a-z,0-9,-,пробел';
+        $tooltip['adress'] = 'Допустимые символы а-я,a-z,0-9,-,пробел,.,,';
+        $tooltip['postcode'] = 'Допустимые символы 0-9, пробел';
+        $tooltip['telephone'] = 'Допустимые символы 0-9,-,пробел,),(,+';
+        $tooltip['pasportser'] = 'Допустимые символы 0-9, пробел';
+        $tooltip['pasportnum'] = 'Допустимые символы 0-9, пробел';
+        $tooltip['pasportdate'] = 'Введите в формате ГГГГ-ММ-ДД(2015-12-31)';
+        $tooltip['pasportwhere'] = 'Допустимые символы а-я,a-z,0-9,-,пробел,.,,';
         $attr = Object.getOwnPropertyNames(this);
         $attrlableobj = Object.getOwnPropertyDescriptor(this, $attr).value;
         $attrlable = Object.getOwnPropertyNames($attrlableobj);
@@ -1383,9 +1420,9 @@ function onAjaxSuccessinfo(data)
             $attrval = '';
         }
         if($attrval != null && $attrval  != '') {
-            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input  data-name="'+$attr+'" class="info-item" data-name="'+$attr+'" value="' + $attrval + '"></input></div>';
+            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input title="'+$tooltip[$attr]+'" data-placement="top" data-toggle="tooltip" data-name="'+$attr+'" class="info-item" data-name="'+$attr+'" value="' + $attrval + '"></input></div>';
         }else{
-            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input class="info-item" data-name="'+$attr+'" placeholder="'+$attrlable+'"></input></div>';
+            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input title="'+$tooltip[$attr]+'" data-placement="top" data-toggle="tooltip" class="info-item" data-name="'+$attr+'" placeholder="'+$attrlable+'"></input></div>';
         }
 
 

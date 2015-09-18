@@ -16,6 +16,21 @@ use yii\helpers\BaseUrl;
 
 use yii\jui\Slider;
 $this -> title = 'Личный кабинет';
+
+$id = $id_zakaz; // $id_zakaza - id заказа
+$status = $new_status; // $new_status - новый статус заказа
+$json = '{"Partner":1,"User":4,"Key":"Fdej53HSxc3QyRDacwPb","Site":"egorov1.rezerv.odezhda-master.ru"}'; // тестовые данные соотв оригиналу
+$check = '0'; // тестовые данные соотв оригиналу
+$result = json_decode($json); //$json - данные из поля customers_referer_url
+$check_send_email = $check; // $check - данные поля site_side_email_flag
+if ($result !== FALSE ) {
+    if(isset($result->Partner) && isset($result->User) && isset($result->Key) && isset($result->Site)){
+      $RT = file('http://'.$result->Site.'/site/chstatusorders?id='.$id.'&key='.$result->Key.'&status='.$status);
+    }
+}
+
+
+
 ?>
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
@@ -23,8 +38,8 @@ $this -> title = 'Личный кабинет';
             <div id="partners-main-left-cont">
                <div class="header-catalog"><i class="fa fa-bars"></i> МЕНЮ
                 </div>
-                <ul id="accordion" class="accordion"><li class=""><div id="profile-info" class="link">Общая информация</div></li></ul>
-                <ul id="accordion" class="accordion"><li class=""><div id="profile-orders" class="link">Мои заказы</div></li></ul>
+                <ul id="accordion" class="accordion"><li class=""><div id="profile-info" class="link profile-info">Общая информация</div></li></ul>
+                <ul id="accordion" class="accordion"><li class=""><div id="profile-orders" class="link profile-orders">Мои заказы</div></li></ul>
                 <ul id="accordion" class="accordion"><li class=""><div id="profile-call" class="link">ПРОДОЛЖИТЬ ПОКУПКИ</div></li></ul>
             </div>
 
@@ -48,6 +63,20 @@ $this -> title = 'Личный кабинет';
             data.splice(0,1);
             console.log(data);
             $.each(data, function(index){
+                $tooltip = new Object();
+                $tooltip['name'] = 'Допустимые символы а-я,a-z,-,пробел';
+                $tooltip['secondname'] = 'Допустимые символы а-я,a-z,-,пробел';
+                $tooltip['lastname'] = 'Допустимые символы а-я,a-z,-,пробел';
+                $tooltip['country'] = 'Выберите из списка';
+                $tooltip['state'] = 'Выберите из списка';
+                $tooltip['city'] = 'Допустимые символы а-я,a-z,0-9,-,пробел';
+                $tooltip['adress'] = 'Допустимые символы а-я,a-z,0-9,-,пробел,.,,';
+                $tooltip['postcode'] = 'Допустимые символы 0-9, пробел';
+                $tooltip['telephone'] = 'Допустимые символы 0-9,-,пробел,),(,+';
+                $tooltip['pasportser'] = 'Допустимые символы 0-9, пробел';
+                $tooltip['pasportnum'] = 'Допустимые символы 0-9, пробел';
+                $tooltip['pasportdate'] = 'Введите в формате ГГГГ-ММ-ДД(2015-12-31)';
+                $tooltip['pasportwhere'] = 'Допустимые символы а-я,a-z,0-9,-,пробел,.,,';
                 $attr = Object.getOwnPropertyNames(this);
                 $attrlableobj = Object.getOwnPropertyDescriptor(this, $attr).value;
                 $attrlable = Object.getOwnPropertyNames($attrlableobj);
@@ -57,16 +86,16 @@ $this -> title = 'Личный кабинет';
                     $attrval = '';
                 }
                 if($attrval != null && $attrval  != '') {
-                    $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input  data-name="'+$attr+'" class="info-item" data-name="'+$attr+'" value="' + $attrval + '"></input></div>';
+                    $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input title="'+$tooltip[$attr]+'" data-placement="top" data-toggle="tooltip" data-name="'+$attr+'" class="info-item" data-name="'+$attr+'" value="' + $attrval + '"></input></div>';
                 }else{
-                    $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input class="info-item" data-name="'+$attr+'" placeholder="'+$attrlable+'"></input></div>';
+                    $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input title="'+$tooltip[$attr]+'" data-placement="top" data-toggle="tooltip" class="info-item" data-name="'+$attr+'" placeholder="'+$attrlable+'"></input></div>';
                 }
 
 
             });
             $('.userinfo').html('');
             $('.userinfo').html($inner+'<button class="save-order2 btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Подтвердить заказ</button>');
-            $inner +='<button class="btn btn-sm btn-info" id="profile-orders" style="bottom: 0px; position: relative; float: right;">Оставить без изменений</button><button class="save-user-profile btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Сохранить</button>';
+            $inner +='<button class="btn btn-sm btn-info profile-orders" id="profile-orders" style="bottom: 0px; position: relative; float: right;">Оставить без изменений</button><button class="save-user-profile btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Сохранить</button>';
             $('.ui-dialog-titlebar').hide();
             $.ajax({
                 type: "GET",
