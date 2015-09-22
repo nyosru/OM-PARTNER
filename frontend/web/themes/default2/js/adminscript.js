@@ -68,8 +68,8 @@ $(document).on('click', '.orders', function() {
        // dataType : 'json',
         success : function($data) {
             $statusarr =  new Object();
-            $statusarr[100] = 'Принят в обработку';
-            $statusarr[1] = 'Ожидает проверки';
+            $statusarr[100] = 'Обработка заказа';
+            $statusarr[1] = 'Обработка заказа';
             $statusarr[2] = 'Ждём оплаты';
             $statusarr[3] = 'Оплачен';
             $statusarr[4] = 'Оплачен - Доставляется';

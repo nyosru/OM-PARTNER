@@ -151,6 +151,11 @@ $cats=[];
            if(preg_match("/^[0-9]+$/", $valcat)){
                $cats[$key] = $valcat;
            }}
+        if(count($cats) > 480){
+            $cats = array_chunk($cats, 480);
+        $cats = $cats[0];
+        }
+
         $cat = implode(",", $cats);
         $start_price =  intval(Yii::$app->request->getQueryParam('start_price', 0));
         $end_price =  intval(Yii::$app->request->getQueryParam('end_price', 1000000));
@@ -605,7 +610,10 @@ $type = '';
             $model->update_date = date("Y-m-d H:i:s");
             if ($model->save()) {
                 $username = User::findOne($id)->username;
-                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id])
+                $orders_delivery = ' ';
+                $site_name = $run->GetNamePartner($run->GetId($_SERVER['HTTP_HOST']));
+                $date_order = date("m.d.Y");
+                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site'=> $_SERVER[HTTP_HOST], 'site_name'=> $site_name, 'date_order'=> $date_order])
                     ->setFrom('support@'.$_SERVER['HTTP_HOST'])
                     ->setTo($username)
                     ->setSubject('Заказ на сайте '.$_SERVER['HTTP_HOST'])
@@ -907,10 +915,22 @@ if($data) {
         $data = $orderdata[customers_referer_url];
         $data = json_decode($data);
         if($key == $data->Key && isset($key) && $key != ''){
-          mail('desure85@gmail.com', 'изменение статуса', 'сработало изменение статуса заказа '.$id.' на'.$status);
-            return true;
+
+            $new_tok_order = Orders::findOne($id);
+            $validkey = '';
+            $char="QWERTYUPASDFGHJKLZXCVBNMqwertyuopasdfghjkzxcvbnm123456789";
+            while(strlen($validkey) < 20){$validkey.=$char[mt_rand(0,strlen($char))];}
+            $new_tok_order->customers_referer_url = '{"Partner":"' . $data->Partner . '","User":"' . $data->User .'","Key":"'.$validkey.'","Site":"'.$data->Site.'"}';
+            if($new_tok_order->update()){
+if($status == 2) {
+
+}
+               return '1';
+           }else{
+               return '0';
+           }
         }else{
-            return false;
+            return '0';
         }
 
     }

@@ -74,14 +74,14 @@ $(document).on('click', '.cart-image', function() {
     $('.image').attr('style', 'display:block;');
 });
 $(document).on('click', '#image-img, .image', function() {
-   $('.image').attr('style', 'display:none;');
+    $('.image').attr('style', 'display:none;');
 });
 $(document).on('click', '.close-descript', function() {
     $('#prod-card-info').dialog('close');
 });
 
 $(document).on('click', '.save-order', function() {
-        $('#modal-cart').html('<div class="shipping">Cпособ доставки <select id="shipping-confirm"><option class="shipping-confirm-option" value="flat2_flat2">Бесплатная доставка до ТК ЖелДорЭкспедиция</option><option class="shipping-confirm-option" value="flat1_flat1">Бесплатная доставка до ТК Деловые Линии</option><option class="shipping-confirm-option"  value="flat3_flat3">Бесплатная доставка до ТК ПЭК</option><option class="shipping-confirm-option"  value="flat7_flat7">Почта ЕМС России</option></select></div><div class="userinfo"></div>');
+    $('#modal-cart').html('<div class="shipping">Cпособ доставки <select id="shipping-confirm"><option class="shipping-confirm-option" value="flat2_flat2">Бесплатная доставка до ТК ЖелДорЭкспедиция</option><option class="shipping-confirm-option" value="flat1_flat1">Бесплатная доставка до ТК Деловые Линии</option><option class="shipping-confirm-option"  value="flat3_flat3">Бесплатная доставка до ТК ПЭК</option><option class="shipping-confirm-option"  value="flat7_flat7">Почта ЕМС России</option></select></div><div class="userinfo"></div>');
     $.post(
         "/site/requestadress",
         { ship: $('#shipping-confirm option:selected').val()},
@@ -206,7 +206,7 @@ $(document).on('click', '.save-order2', function() {
         str = $('[data-name="postcode"]').text();
     }
 
-console.log(str.length);
+    console.log(str.length);
 
     if (m = regname.exec(str) !== null && str.length < 10) {
         if (m.index === regname.lastIndex) {
@@ -253,11 +253,11 @@ console.log(str.length);
         }
     });
     if($check == 1 ){
-    $('[data-name="country"]').removeClass('haserror');
-    $('[data-name="country"]').addClass('hassucces');
+        $('[data-name="country"]').removeClass('haserror');
+        $('[data-name="country"]').addClass('hassucces');
     }else{
-    $('[data-name="country"]').addClass('haserror');
-    $('[data-name="country"]').removeClass('hassucces');
+        $('[data-name="country"]').addClass('haserror');
+        $('[data-name="country"]').removeClass('hassucces');
     }
 
 
@@ -292,33 +292,33 @@ console.log(str.length);
     }
     $error = $('.haserror');
     if($error.length == 0 ) {
-    $(this).remove();
-    $item = JSON.parse(localStorage.getItem('cart-om'));
-    $userdata = $('.info-item');
-    $userdataarr = new Object();
-    $.each($userdata, function () {
-        $name_attr = this.getAttribute('data-name');
+        $(this).remove();
+        $item = JSON.parse(localStorage.getItem('cart-om'));
+        $userdata = $('.info-item');
+        $userdataarr = new Object();
+        $.each($userdata, function () {
+            $name_attr = this.getAttribute('data-name');
 
-        if ($userdataarr[$name_attr] = $(this).val() != '') {
-            $userdataarr[$name_attr] = $(this).val();
-        } else {
-            $userdataarr[$name_attr] = $(this).text();
-        }
+            if ($userdataarr[$name_attr] = $(this).val() != '') {
+                $userdataarr[$name_attr] = $(this).val();
+            } else {
+                $userdataarr[$name_attr] = $(this).text();
+            }
 
-    });
-    $.post(
-        "/site/saveorder",
-        {
-            order: $item.cart,
-            ship: $('#shipping-confirm option:selected')[0].value,
-            user: $userdataarr
+        });
+        $.post(
+            "/site/saveorder",
+            {
+                order: $item.cart,
+                ship: $('#shipping-confirm option:selected')[0].value,
+                user: $userdataarr
 
-        },
-        onAjaxSuccess
-    );
+            },
+            onAjaxSuccess
+        );
 
 
-}
+    }
 
 
 
@@ -765,12 +765,12 @@ $(document).on('click', '.cart-lable', function() {
             }
             x = 0;
             if($item.cart.length >0){
-            $.each($item.cart , function() {
-                if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
-                  this[4] = parseInt(this[4])+parseInt($item_add.value);
-                x = 1;
-                }
-            });
+                $.each($item.cart , function() {
+                    if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
+                        this[4] = parseInt(this[4])+parseInt($item_add.value);
+                        x = 1;
+                    }
+                });
             }else{
                 $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname')];
             }
@@ -873,52 +873,52 @@ function split_url($url) {
     $url_arr = $url.split('&');
     $arr_sub = new Object();
     $.each($url_arr, function () {
-       $spl =  this.split('=');
+        $spl =  this.split('=');
         $arr_sub[$spl[0]] = $spl;
     });
     return $arr_sub;
 }
 function new_suburl($url_obj, $val ,$new_var) {
-$value = $url_obj[$val];
+    $value = $url_obj[$val];
     $value[1] = $new_var;
-   $url_obj[$val] =  $value;
+    $url_obj[$val] =  $value;
     return $url_obj;
 }
 $(document).on('click', '.data-j', function() {
     if(this.getAttribute('class').indexOf('index-card') != -1){
         $cat = this.getAttribute('data-cat');
-    $(".link[data-cat=" + $cat + "]").attr('data', 'checked');
+        $(".link[data-cat=" + $cat + "]").attr('data', 'checked');
     }
     if(this.getAttribute('class').indexOf('index-sort') != -1){
         $cat = this.getAttribute('data-cat');
         $(".link").attr('data', 'checked');
     }
-  $cat = [];
-  if($('#search').val() == ''){
-    $cat = $('[data=checked]');
-    $que = [];
-    $datasub2 = [];
-    $.each($cat, function() {
-        $datasub = $(this).siblings("ul").children('li').children('div');
-        $que.push(this.getAttribute('data-cat'));
-        $.each($datasub, function(){
-            $datasub2 = $(this).siblings("ul").children('li').children('div');
+    $cat = [];
+    if($('#search').val() == ''){
+        $cat = $('[data=checked]');
+        $que = [];
+        $datasub2 = [];
+        $.each($cat, function() {
+            $datasub = $(this).siblings("ul").children('li').children('div');
             $que.push(this.getAttribute('data-cat'));
-            $.each($datasub2, function(){
+            $.each($datasub, function(){
+                $datasub2 = $(this).siblings("ul").children('li').children('div');
                 $que.push(this.getAttribute('data-cat'));
-            })
+                $.each($datasub2, function(){
+                    $que.push(this.getAttribute('data-cat'));
+                })
+            });
         });
-    });
-      $cat = $que.join('.');
-      $searchword = '';
-  }else{
-      $link = $('.link');
-      $.each($link , function(){
-          $cat.push(this.getAttribute('data-cat'));
-      });
-      $cat.join('.');
-      $searchword = $('#search').val();
-  }
+        $cat = $que.join('.');
+        $searchword = '';
+    }else{
+        $link = $('.link');
+        $.each($link , function(){
+            $cat.push(this.getAttribute('data-cat'));
+        });
+        $cat.join('.');
+        $searchword = $('#search').val();
+    }
     $count = $('.count-checked').text();
     $min_price = $('#min-price').val();
     $sort = $('.sort-checked').attr('data');
@@ -970,7 +970,7 @@ $(document).on('click', '.data-j', function() {
                 $headbside += '<div id="products-pager"></div>';
                 $headbside += '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog'+new_url(new_suburl(split_url($url), 'count', '20'))+'">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog'+new_url(new_suburl(split_url($url), 'count', '40'))+'">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog'+new_url(new_suburl(split_url($url), 'count', '60'))+'">60</a> </div>';
                 $headbside += '<div id="sort-order"><div  class="header-sort sort" data="'+data[11]+'">Сортировать по </div>';
-                  $sortorder = [['дате',0,10],['цене',1,11],['названию',2,12],['модели',3,13],['популярности',4,14]];
+                $sortorder = [['дате',0,10],['цене',1,11],['названию',2,12],['модели',3,13],['популярности',4,14]];
                 $.each($sortorder, function(){
 
                     if(data[11] == this[1]){
@@ -1108,9 +1108,9 @@ $(document).on('click', '.data-j', function() {
 
             $.each($('.link'), function(){
                 if($(this).children('a').length == 0){
-                $(this).html('<a href="'+$url+'">'+$(this).html()+'</a>');
+                    $(this).html('<a href="'+$url+'">'+$(this).html()+'</a>');
                 }else{
-                  $html =   $(this).children('a').html()
+                    $html =   $(this).children('a').html()
                     $(this).html('<a href="'+$url+'">'+$html+'</a>');
                 }
             });
@@ -1175,7 +1175,7 @@ $(document).on('ready', function() {
 
             var $el = e.data.el;
             $this = $(this);
-                $next = $this.next();
+            $next = $this.next();
 
             $next.slideToggle();
             $this.parents().show();
@@ -1193,16 +1193,16 @@ $(document).on('ready', function() {
 
 
 
-        var HeaderTop = $('.navbar').offset().top;
-        $(window).scroll(function(){
-            if( $(window).scrollTop() > HeaderTop ) {
-                $('.navbar').addClass('fixedbar');
-                $('.cart-dialog-info').addClass('fixedbar');
-            } else {
-                $('.navbar').removeClass('fixedbar');
-                $('.cart-dialog-info').removeClass('fixedbar');
-            }
-        });
+    var HeaderTop = $('.navbar').offset().top;
+    $(window).scroll(function(){
+        if( $(window).scrollTop() > HeaderTop ) {
+            $('.navbar').addClass('fixedbar');
+            $('.cart-dialog-info').addClass('fixedbar');
+        } else {
+            $('.navbar').removeClass('fixedbar');
+            $('.cart-dialog-info').removeClass('fixedbar');
+        }
+    });
 
 
 });
@@ -1218,10 +1218,10 @@ $(document).on('click', '#profile-info', function() {
     );
     function  onAjaxProfileSuccessinfo(data) {
         if(data[1].name.Имя != undefined){
-        $('#profile-name-info').html(data[1].name.Имя);
-        $('#profile-secondname-info').html(data[2].secondname.Отчество);
-        $('#profile-lastname-info').html(data[3].lastname.Фамилия);
-            }else{
+            $('#profile-name-info').html(data[1].name.Имя);
+            $('#profile-secondname-info').html(data[2].secondname.Отчество);
+            $('#profile-lastname-info').html(data[3].lastname.Фамилия);
+        }else{
             $('#profile-name-info').html('Нет данных');
         }
         $('#profile-telephone-info').html(data[9].telephone.Телефон);
@@ -1266,8 +1266,8 @@ $(document).on('click', '.profile-orders', function() {
             $inner = '<div class="orders-row-profile"><div class="orders-num-header">№п/п</div><div class="orders-id-header">Идентификатор</div><div class="orders-name-header">Заказчик</div><div class="orders-data-header">Заказ</div><div class="order-adress-header">Адрес</div><div class="order-status-header">Статус</div></div>';
             $innercount = '';
             $statusarr =  new Object();
-            $statusarr[100] = 'Принят в обработку';
-            $statusarr[1] = 'Ожидает проверки';
+            $statusarr[100] = 'Обработка заказа';
+            $statusarr[1] = 'Обработка заказа';
             $statusarr[2] = 'Ждём оплаты';
             $statusarr[3] = 'Оплачен';
             $statusarr[4] = 'Оплачен - Доставляется';
@@ -1283,9 +1283,9 @@ $(document).on('click', '.profile-orders', function() {
                 $dataq = this.order;
                 $dataadress = this.delivery;
                 $dataordersnum = this.orders_id;
-             if($orders != undefined) {
-                 $dataorderinfo = $orders[$dataordersnum];
-             }
+                if($orders != undefined) {
+                    $dataorderinfo = $orders[$dataordersnum];
+                }
                 if (this['orders_id'] == undefined ) {
                     $status = '<div class="order-status"><div>Ожидание подтверждения администратором</div></div>';
                     if (this.order != undefined) {

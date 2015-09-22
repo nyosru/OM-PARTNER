@@ -4,9 +4,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $user common\models\User */
 
-$user=unserialize($user);
-$order=unserialize($order);
-unset($order[ship]);
+//$user=unserialize($user);
+//$order=unserialize($order);
+//unset($order[ship]);
 ?>
 
 <html><head></head><body><div style="width: 100%; height: 100%;">
@@ -27,7 +27,7 @@ unset($order[ship]);
     </div>
 
     <div style="margin-left: 12%; margin-top: 30px; font-size: 1.5em; font-family: verdana;">
-        Здравствуйте, <?= $user->name?>  <?= $user->secondname?>
+        Здравствуйте, <-- <?= $user->name?>  <?= $user->secondname?> -->
     </div>
     <div style="margin-left: 12%; margin-top: 10px; font-family: verdana;">
         Спасибо, за то что воспользовались услугами нашего магазина
@@ -39,7 +39,7 @@ unset($order[ship]);
                 Ваш заказ
             </div>
             <div style="border-right: 1px solid rgb(0, 255, 204); height: 25px;">
-               № <?= $id?>  от <?= $date_order?>
+                № <?= $id?>  от <?= $date_order?>
             </div>
         </div>
         <div>
@@ -58,34 +58,34 @@ unset($order[ship]);
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">Цена</td>
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">Сумма</td>
         </tr>
-            <? foreach($order as $key => $value){
-                $value[5] = str_replace(')',']]]]', $value[5]);
-                $value[5] = str_replace(' ','[[[[]]]]', $value[5]);
-                $value[5] = str_replace('(','[[[[', $value[5]);
+        <? foreach($order as $key => $value){
+            $value[5] = str_replace(')',']]]]', $value[5]);
+            $value[5] = str_replace(' ','[[[[]]]]', $value[5]);
+            $value[5] = str_replace('(','[[[[', $value[5]);
 
 
-                ?>
+            ?>
 
-        <tr>
-            <td style="width: 60%;">
-                <img src="<?= $site?><?= '/site/imagepreview?src='.$value[5]?>" width="200" height="200" />
-            </td>
+            <tr>
+                <td style="width: 60%;">
+                    <img src="<?= $site?><?= '/site/imagepreview?src='.$value[5]?>" width="200" height="200" />
+                </td>
 
-            <td style="text-align: center;">
-                <?=$value[4]?>
-            </td>
+                <td style="text-align: center;">
+                    <?=$value[4]?>
+                </td>
 
-            <td style="text-align: center;">
-               <?=$value[3]?>
-            </td>
+                <td style="text-align: center;">
+                    <?=$value[3]?>
+                </td>
 
-            <td style="text-align: center;">
-                <?=(intval($value[4])*intval($value[3]))?> Руб.
-                <?php
-                $orders_total = $orders_total+(intval($value[4])*intval($value[3]));
-                ?>
-            </td>
-        </tr>
+                <td style="text-align: center;">
+                    <?=(intval($value[4])*intval($value[3]))?> Руб.
+                    <?php
+                    $orders_total = $orders_total+(intval($value[4])*intval($value[3]));
+                    ?>
+                </td>
+            </tr>
         <?}?>
         </tbody></table>
     <div style="margin: auto; background: rgb(0, 255, 204) none repeat scroll 0% 0%; height: 40px; font-size: 25px; font-family: verdana; padding-top: 6px; text-align: right; width: calc(80% - 80px); padding-right: 80px; color: azure; font-weight: 600;">

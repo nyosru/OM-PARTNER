@@ -31,7 +31,7 @@ class Partners extends \yii\db\ActiveRecord
     {
         return [
 
-            [['allow_cat', 'allow_prod'], 'string'],
+            [['allow_cat', 'allow_prod', 'banks_details'], 'string'],
             [['name', 'domain', 'template'], 'string', 'max' => 45],
             [['customers_id'],'integer']
         ];
@@ -52,6 +52,7 @@ class Partners extends \yii\db\ActiveRecord
             'name' => 'Name',
             'domain' => 'Domain',
             'template' => 'Template',
+            'banks_details' => 'Banks_Details',
             'allow_cat' => 'Allow Cat',
             'allow_prod' => 'Allow Prod',
             'customers_id' => 'Customer id'
