@@ -6,7 +6,7 @@ return [
           'username' => '',
          'password' => '',
          'charset' => 'utf8',
-       // 'dsn' => 'mysql:host=localhost;dbname=1214',
+       // 'dsn' => 'mysql:host=localhost;dbname=1214',     //
       //  'username' => 'root',
       //  'password' => 'mysql',
       //  'charset' => 'utf8',
