@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * Модель пользователя
  *
  * @property integer $id
  * @property string $username
@@ -27,7 +27,10 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     /**
-     * @inheritdoc
+     * Возвращает имя таблицы
+     *
+     *
+     * @return string
      */
     public static function tableName()
     {
@@ -72,7 +75,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Находит пользователя по id
      *
      * @param string $username
      * @return static|null
@@ -83,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by password reset token
+     * Находит пользователя по токену сброса пароля
      *
      * @param string $token password reset token
      * @return static|null
@@ -149,9 +152,9 @@ class User extends ActiveRecord implements IdentityInterface
 
 
     /**
-     * Validates password
+     * Валидация пароля
      *
-     * @param string $password password to validate
+     * @param string $password пароль для валидации
      * @return boolean if password provided is valid for current user
      */
     public function validatePassword($password)

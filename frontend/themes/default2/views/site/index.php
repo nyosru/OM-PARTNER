@@ -15,7 +15,7 @@ use common\models\Partners;
 use yii\helpers\BaseUrl;
 
 use yii\jui\Slider;
-$this -> title = 'Партнеры';
+
 ?>
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
@@ -25,6 +25,7 @@ $this -> title = 'Партнеры';
                 $run = new Partners();
                 $check = $run -> GetId($_SERVER['HTTP_HOST']);
                 $checks = $run -> GetAllowCat($check);
+                $this -> title = $run->GetNamePartner($check);
                 foreach ($catdata as $value) {
                     if (in_array(intval($value['categories_id']), $checks)) {
                         $catdataallow[] = $value;

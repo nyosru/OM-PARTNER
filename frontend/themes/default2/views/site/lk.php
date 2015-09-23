@@ -61,7 +61,7 @@ if ($result !== FALSE ) {
         function  onAjaxProfileSuccessinfo(data) {
             $inner = '';
             data.splice(0,1);
-            console.log(data);
+
             $.each(data, function(index){
                 $tooltip = new Object();
                 $tooltip['name'] = 'Допустимые символы а-я,a-z,-,пробел';
@@ -126,7 +126,7 @@ if ($result !== FALSE ) {
 
             $.each($country, function(){
                 if(str == $(this).html() ) {
-                    console.log(this);
+
                     $check = this.getAttribute('data-country');
                 }
             });

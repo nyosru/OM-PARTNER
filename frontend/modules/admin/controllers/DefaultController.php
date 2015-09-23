@@ -86,7 +86,7 @@ class DefaultController extends Controller
         $count = $model->find()->where(['partners_id' => $check])->count();
         if($count <= $page*10){
             $page = $page-1;}
-        $query = $model->find()->where(['partners_id' => $check])->limit(10)->offset($page*10)->asArray()->all();
+        $query = $model->find()->where(['partners_id' => $check])->limit(1000)->offset($page*10)->asArray()->all();
 
 
 
@@ -123,8 +123,8 @@ class DefaultController extends Controller
                 $query[ordersatus][$ordersatusn[$key][orders_status]] =  $ordersatusn[$key];
             }
         }
-        if($count <= ($page)*10){
-            $query[page] = $count/10;
+        if($count <= $page*10){
+            $page = $page-1;;
         }elseif($page < 1 ){
             $query[page] = 0;
 
@@ -320,7 +320,7 @@ class DefaultController extends Controller
                 $orders->date_purchased = date("Y-m-d h:i:s");
                 $orders->date_akt = date("Y-m-d h:i:s");
                 $orders->payment_info = '';
-                $orders->orders_status = 100;
+                $orders->orders_status = 1;
                 $orders->site_side_email_flag = 0;
                 $orders->default_provider = $userCustomer->default_provider;
                 $orders->payment_method = 'Оплата <font size="4" color="red">Для физических лиц</font>';

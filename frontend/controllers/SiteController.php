@@ -1,5 +1,7 @@
 <?php
 namespace frontend\controllers;
+use common\models\OrdersProducts;
+use common\models\PartnersProducts;
 use common\models\User;
 use Yii;
 use common\models\CustomersInfo;
@@ -151,6 +153,11 @@ $cats=[];
            if(preg_match("/^[0-9]+$/", $valcat)){
                $cats[$key] = $valcat;
            }}
+        if(count($cats) > 480){
+            $cats = array_chunk($cats, 480);
+        $cats = $cats[0];
+        }
+
         $cat = implode(",", $cats);
         $start_price =  intval(Yii::$app->request->getQueryParam('start_price', 0));
         $end_price =  intval(Yii::$app->request->getQueryParam('end_price', 1000000));
@@ -605,7 +612,10 @@ $type = '';
             $model->update_date = date("Y-m-d H:i:s");
             if ($model->save()) {
                 $username = User::findOne($id)->username;
-                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id])
+                $orders_delivery = ' ';
+                $site_name = $run->GetNamePartner($run->GetId($_SERVER['HTTP_HOST']));
+                $date_order = date("m.d.Y");
+                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site'=> $_SERVER[HTTP_HOST], 'site_name'=> $site_name, 'date_order'=> $date_order])
                     ->setFrom('support@'.$_SERVER['HTTP_HOST'])
                     ->setTo($username)
                     ->setSubject('Заказ на сайте '.$_SERVER['HTTP_HOST'])
@@ -907,10 +917,44 @@ if($data) {
         $data = $orderdata[customers_referer_url];
         $data = json_decode($data);
         if($key == $data->Key && isset($key) && $key != ''){
-          mail('desure85@gmail.com', 'изменение статуса', 'сработало изменение статуса заказа '.$id.' на'.$status);
-            return true;
+
+            $new_tok_order = Orders::findOne($id);
+            $validkey = '';
+            $char="QWERTYUPASDFGHJKLZXCVBNMqwertyuopasdfghjkzxcvbnm123456789";
+            while(strlen($validkey) < 20){$validkey.=$char[mt_rand(0,strlen($char))];}
+            $new_tok_order->customers_referer_url = '{"Partner":"' . $data->Partner . '","User":"' . $data->User .'","Key":"'.$validkey.'","Site":"'.$data->Site.'"}';
+            if($new_tok_order->update()){
+if($status == 2) {
+
+
+
+    $model_order_partner = PartnersOrders::findOne(['orders_id'=>$new_tok_order->id]);
+    $date_order = explode(' ', $model_order_partner->create_date);
+    $date_order = $date_order[0];
+    $partners_id = $model_order_partner->partners_id;
+    $partners = Partners::findOne($partners_id);
+    $site = $partners->domain;
+    $site_name = $partners->name;
+    $orders = new Orders();
+    $query = $orders->find()->select('orders.`orders_id`, orders.`orders_status`, orders.`delivery_lastname`, orders.`delivery_name`,orders.`delivery_otchestvo`, orders.`delivery_postcode`, orders.`delivery_state`, orders.`delivery_country`, orders.`delivery_state`, orders.`delivery_city`, orders.`delivery_street_address`, orders.`customers_telephone`')->where('orders.`orders_id` IN (' . $model_order_partner->orders_id . ')')->joinWith('products')->joinWith('productsAttr')->asArray()->one();
+
+    $prodarr = [];
+    foreach($query[products] as $value){
+    $prodarr[] = $value[products_id];
+
+    }
+    Yii::$app->mailer->compose(['html' => 'order-ch-status'], ['model'=>$model_order_partner,'order' => $query, 'id' => $model_order_partner->id, 'site' => $site, 'site_name' => $site_name, 'date_order' => $date_order])
+        ->setFrom('support@' . $site)
+        ->setTo($new_tok_order->customers_email_address)
+        ->setSubject('Заказ на сайте ' . $site)
+        ->send();
+}
+               return '1';
+           }else{
+               return '0';
+           }
         }else{
-            return false;
+            return '0';
         }
 
     }
