@@ -1275,11 +1275,6 @@ $(document).on('click', '.profile-orders', function() {
             $statusarr[6] = 'Отменён';
             $statusarr[11] = 'Сборка';
             $statusarr[0] = 'Спецпредложение';
-<<<<<<< HEAD
-            $.each($data,function() {
-=======
->>>>>>> unstable-v.0.1
-
 
             $.each($data,function() {
                 $innerdata = '';
@@ -1354,11 +1349,11 @@ $(document).on('click', '.profile-orders', function() {
                     $status = '<div class="order-status3">Неопределен</div>';
                 }
 
-<<<<<<< HEAD
+
                 $inner +='<div class="orders-row-profile"><div class="orders-num">'+($innercount++)+'</div><div class="orders-id">'+this['id']+'</div><div class="orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div data-toggle="'+$innercount+'" class="orders-data-phantom"></div><div data-toggle="'+$innercount+'" class="orders-adress-phantom"></div>'+$status+'</div><div data-toggle="'+$innercount+'" class="orders-data modal"><div style="padding: 10px; overflow:auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$innerdata+'</div></div><div data-toggle="'+$innercount+'" class="order-adress modal"><div style="box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); background: rgb(251, 251, 251) none repeat scroll 0% 0%; border-radius: 3px; padding: 14px;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$adress+'</div></div>';
-=======
+
                 $inner +='<div class="orders-row-profile"><div class="orders-num">'+(($innercount++)+($page*10))+'</div><div class="orders-id">'+this['id']+'</div><div class="orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div data-toggle="'+$innercount+'" class="orders-data-phantom"></div><div data-toggle="'+$innercount+'" class="orders-adress-phantom"></div>'+$status+'</div><div data-toggle="'+$innercount+'" class="orders-data modal"><div style="padding: 10px; overflow:auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$innerdata+'</div></div><div data-toggle="'+$innercount+'" class="order-adress modal"><div style="box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); background: rgb(251, 251, 251) none repeat scroll 0% 0%; border-radius: 3px; padding: 14px;"><div data-toggle="'+$innercount+'" id="close">x</div>'+$adress+'</div></div>';
->>>>>>> unstable-v.0.1
+
             });
 
             $pager = '';
