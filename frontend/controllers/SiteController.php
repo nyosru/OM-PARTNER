@@ -872,7 +872,6 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
         $headers->add('Content-Type: image/jpeg');
-        $headers->add('Content-Disposition: attachment; filename="'.Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0].'"');
         return   file_get_contents(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0]);
     }
 
