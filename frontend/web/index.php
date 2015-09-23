@@ -1,7 +1,7 @@
 <?php
 
 
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_DEBUG') or define('YII_DEBUG', false);
 //defined('YII_ENV') or define('YII_ENV', 'dev');
 
 require(__DIR__ . '/../../vendor/autoload.php');
@@ -21,7 +21,6 @@ $config = yii\helpers\ArrayHelper::merge(
 
 $application = new yii\web\Application($config);
 use common\models\Partners;
-use yii\base\Theme;
 $run = new Partners();
 $check = $run->GetId($_SERVER['HTTP_HOST']);
 if($check == ''){
