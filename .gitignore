@@ -219,3 +219,6 @@ common/config/main-local.php
 frontend/web/assets
 backend/web/assets
 frontend/web/images
+frontend/config
+backend/config
+common/config
