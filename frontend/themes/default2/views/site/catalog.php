@@ -165,7 +165,7 @@ $this -> title = 'Партнеры';
         window.location('/');
     }
     $url_data = split_url(document.location .hash);
-    console.log($url_data);
+
     $cat = $url_data['#!cat'][1];
     $count = $url_data . count[1];
     $min_price = $url_data . start_price[1];
@@ -181,7 +181,7 @@ $this -> title = 'Партнеры';
             async : true,
             dataType : 'json',
             success : function (data) {
-                    console . log(data);
+
                     $('body') . removeClass('some');
                     $('link') . removeClass('some');
                     $('.preload') . remove();

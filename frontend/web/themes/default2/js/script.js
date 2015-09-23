@@ -206,7 +206,7 @@ $(document).on('click', '.save-order2', function() {
         str = $('[data-name="postcode"]').text();
     }
 
-    console.log(str.length);
+
 
     if (m = regname.exec(str) !== null && str.length < 10) {
         if (m.index === regname.lastIndex) {
@@ -264,7 +264,7 @@ $(document).on('click', '.save-order2', function() {
 
     $check = 0;
     $errstate = $('[data-state]');
-    console.log($errstate.length);
+
     if($errstate.length > 1) {
         if ($('[data-name="state"]').val() != '' && $('[data-name="state"]').val() != undefined) {
             str = $('[data-name="state"]').val();
@@ -467,7 +467,7 @@ $(document).on('click', '.save-user-profile', function() {
         str = $('[data-name="postcode"]').text();
     }
 
-    console.log(str.length);
+
 
     if (m = regname.exec(str) !== null && str.length < 10) {
         if (m.index === regname.lastIndex) {
@@ -574,7 +574,7 @@ $(document).on('click', '.save-user-profile', function() {
 
     $check = 0;
     $errstate = $('[data-state]');
-    console.log($errstate.length);
+
     if($errstate.length > 1) {
         if ($('[data-name="state"]').val() != '' && $('[data-name="state"]').val() != undefined) {
             str = $('[data-name="state"]').val();
@@ -1459,7 +1459,6 @@ function onAjaxSuccessinfo(data)
 
     $.each($country, function(){
         if(str == $(this).html() ) {
-            console.log(this);
             $check = this.getAttribute('data-country');
         }
     });

@@ -196,4 +196,5 @@ class Orders extends \yii\db\ActiveRecord
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
     }
+
 }

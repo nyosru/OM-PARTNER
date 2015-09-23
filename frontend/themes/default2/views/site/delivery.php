@@ -95,7 +95,7 @@ $this -> title = 'Доставка';
                     $(document).on('click', '.savehtml', function() {
                         $html = $('.cke_editable').html();
 
-                        console.log($html);
+
                         $.post(
                             "/site/savehtml",
                             { html: $html,
