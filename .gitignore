@@ -216,3 +216,6 @@ pip-log.txt
 .mr.developer.cfg
 common/config/main.php
 common/config/main-local.php
+frontend/web/assets
+backend/web/assets
+frontend/web/images
