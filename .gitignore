@@ -222,3 +222,10 @@ frontend/web/images
 frontend/config
 backend/config
 common/config
+.idea/.name
+.idea/misc.xml
+.idea/OM-PARTNER.iml
+.idea/encodings.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
