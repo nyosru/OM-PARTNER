@@ -89,11 +89,16 @@ $(document).on('click', '.orders', function() {
             $inner = '<div class="admin-orders-row"><div class="admin-orders-num-header">№ п/п</div><div class="admin-orders-id-header">Идентификатор</div><div class="admin-orders-name-header">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div></div>';
             $innercount = '';
             $.each($data,function() {
-
+if(this != 0 ){
                 $innerdata = '';
                 $adress = '';
                 $dataq = this.order;
-                $dataadress = this.delivery;
+               if(this.delivery == undefined){
+                   $dataadress = '';
+               }else{
+                   $dataadress = this.delivery;
+               }
+
                 $dataordersnum = this.orders_id;
                 $dataorderinfo = $orders[$dataordersnum];
                 if (this['orders_id'] == undefined ) {
@@ -159,8 +164,8 @@ $(document).on('click', '.orders', function() {
                 }else{
                     $status = '<div class="admin-order-status3">Неопределен</div>';
                 }
-                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+(($innercount++)+$page*10)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+this.delivery.lastname+' '+this.delivery.name+' '+this.delivery.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></div>'+$status+'</div>';
-            });
+                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+(($innercount++)+$page*10)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+$dataadress.lastname+' '+$dataadress.name+' '+$dataadress.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></div>'+$status+'</div>';
+            }});
 
             $pager = '';
             $pager += ' <div data-page="" class="page orders nav-prev btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="#"></a></i></div> ';
