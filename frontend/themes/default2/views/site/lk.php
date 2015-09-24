@@ -16,21 +16,6 @@ use yii\helpers\BaseUrl;
 
 use yii\jui\Slider;
 $this -> title = 'Личный кабинет';
-
-$id = $id_zakaz; // $id_zakaza - id заказа
-$status = $new_status; // $new_status - новый статус заказа
-$json = '{"Partner":1,"User":4,"Key":"Fdej53HSxc3QyRDacwPb","Site":"egorov1.rezerv.odezhda-master.ru"}'; // тестовые данные соотв оригиналу
-$check = '0'; // тестовые данные соотв оригиналу
-$result = json_decode($json); //$json - данные из поля customers_referer_url
-$check_send_email = $check; // $check - данные поля site_side_email_flag
-if ($result !== FALSE ) {
-    if(isset($result->Partner) && isset($result->User) && isset($result->Key) && isset($result->Site)){
-      $RT = file('http://'.$result->Site.'/site/chstatusorders?id='.$id.'&key='.$result->Key.'&status='.$status);
-    }
-}
-
-
-
 ?>
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
