@@ -17,6 +17,7 @@ use yii\helpers\BaseUrl;
 use yii\jui\Slider;
 $this -> title = 'Личный кабинет';
 ?>
+
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
