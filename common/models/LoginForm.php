@@ -42,14 +42,19 @@ class LoginForm extends Model
     {
         $user = $this->getUser();
         if (!$user) {
-            $this->addError('password', 'Incorrect username or password.');
+            $this->addError('password', 'Не соответствует пара логин- пароль');
         }else{
             $run = new Partners();
             $check = $run->GetId($_SERVER['HTTP_HOST']);
+
             if(intval($user->id_partners) !=  intval($check)){
-                $this->addError('password', 'Incorrect username or password.');
+                $this->addError('password', 'Не соответствует пара логин - пароль.');
+            }else{
+                return true;
             }
-        }
+
+
+    }
     }
 
     /**
@@ -77,9 +82,13 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
-        }
+            $userq = new User();
+            $run = new Partners();
+            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            $this->_user =  $userq->find()->where(['username' =>$this->username, 'id_partners'=> $check])->all();
 
-        return $this->_user;
+        }
+        $user = $this->_user;
+        return $user[0];
     }
 }

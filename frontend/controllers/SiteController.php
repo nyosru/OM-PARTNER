@@ -942,9 +942,11 @@ if($status == 2) {
     $prodarr[] = $value[products_id];
 
     }
+    $mail = explode('@@@', $new_tok_order->customers_email_address);
+    $mail = $mail[1];
     Yii::$app->mailer->compose(['html' => 'order-ch-status'], ['model'=>$model_order_partner,'order' => $query, 'id' => $model_order_partner->id, 'site' => $site, 'site_name' => $site_name, 'date_order' => $date_order])
         ->setFrom('support@' . $site)
-        ->setTo($new_tok_order->customers_email_address)
+        ->setTo($mail)
         ->setSubject('Заказ на сайте ' . $site)
         ->send();
 }

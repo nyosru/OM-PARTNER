@@ -146,9 +146,7 @@ class DefaultController extends Controller
             $userdata = new PartnersUsersInfo();
             $ordersparam = $ordersdata->find()->where(['id' => $data])->asArray()->one();
             $userparam = $userdata->find()->where(['id' => $ordersparam['user_id']])->asArray()->one();
-            $userpartnersparam = $userpartnerdata->find()->select('email')->where(['id' => $ordersparam['user_id']])->asArray()->one();
-
-
+            $userpartnersparam = $userpartnerdata->find()->select('email,id_partners')->where(['id' => $ordersparam['user_id']])->asArray()->one();
                 if ($userparam['customer_id'] == '') {
                     $country = new Countries();
                     $zones = new Zones();
@@ -156,7 +154,9 @@ class DefaultController extends Controller
                     $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userparam['state']])->asArray()->one();
                     $userOM = new AddressBook();
                     $userCustomer = new Customers();
-                    $check_email = $userCustomer->find()->where(['customers_email_address' => $userpartnersparam[email]])->asArray()->one();
+                    $partner = Partners::findOne($userpartnersparam[id_partners]);
+                    $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom'.$partner->id.'@@@'.$userpartnersparam[email]])->asArray()->one();
+
                     if (!$check_email) {
                         $userOM->entry_firstname = $userparam[name];
                         $userOM->entry_lastname = $userparam[lastname];
@@ -178,7 +178,7 @@ class DefaultController extends Controller
                         if ($userOM->save()) {
                             $userCustomer->customers_firstname = $userparam[name];
                             $userCustomer->customers_lastname = $userparam[lastname];
-                            $userCustomer->customers_email_address = $userpartnersparam[email];
+                            $userCustomer->customers_email_address = 'partnerom'.$partner->id.'@@@'.$userpartnersparam[email];
                             $userCustomer->customers_default_address_id = $userOM->GetId();
                             $userCustomer->customers_selected_template = '1';
                             $userCustomer->customers_telephone = $userparam[telephone];

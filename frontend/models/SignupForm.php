@@ -44,9 +44,7 @@ class SignupForm extends Model
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required', 'message' => 'Это обязательное поле.'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Этот e-mail уже используется'],
             ['email', 'validateUserEmail'],
-           // ['email', 'unique', 'targetClass' => '\common\models\Customers', 'message' => 'Этот e-mail уже используется'],
             ['password', 'required', 'message' => 'Это обязательное поле.'],
             ['password', 'string', 'min' => 8, 'message' => 'Минимум 8 знаков'],
         ];
@@ -59,7 +57,6 @@ class SignupForm extends Model
      */
     public function signup()
     {
-
         if ($this->validate()) {
             $user = new User();
             $partners = new Partners();
@@ -70,8 +67,6 @@ class SignupForm extends Model
             $user->generateAuthKey();
             $user->id_partners = $id_partners;
             $user->role = 'register';
-
-
             if ($user->save()) {
               $auth = Yii::$app->authManager;
               $auth->assign($auth->getRole('register'), $user->getId());
@@ -87,11 +82,16 @@ class SignupForm extends Model
     public function validateUserEmail()
     {
         $userCustomer = new Customers();
-        $check_email = $userCustomer->find()->where(['customers_email_address' => $this->email])->asArray()->one();
-        if(!$check_email){
+        $partners = new Partners();
+        $id_partners = $partners->GetId($_SERVER[HTTP_HOST]);
+        $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom'.$id_partners.'@@@'.$this->email])->asArray()->one();
+        $userCustomer = new User();
+        $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners'=>$id_partners])->asArray()->one();
+        if(!$check_email && !$check_part_email){
             return true;
         }else {
             $this->addError('email', 'Почтовый адрес уже используется в системе');
         }
     }
+
 }
