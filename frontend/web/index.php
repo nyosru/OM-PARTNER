@@ -25,6 +25,8 @@ $run = new Partners();
 $check = $run->GetId($_SERVER['HTTP_HOST']);
 if($check == ''){
     die;
+
+
 }else{
     define('THEMES', $run->GetTemplate($check));
 }
