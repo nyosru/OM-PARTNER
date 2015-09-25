@@ -1193,14 +1193,14 @@ $(document).on('ready', function() {
 
 
 
-    var HeaderTop = $('.navbar').offset().top;
+    var HeaderTop = $('.navbar-header').offset().top;
     $(window).scroll(function(){
         if( $(window).scrollTop() > HeaderTop ) {
             $('.navbar').addClass('fixedbar');
-            $('.cart-dialog-info').addClass('fixedbar');
+            $('.cart-dialog-info').addClass('fixeddialog');
         } else {
             $('.navbar').removeClass('fixedbar');
-            $('.cart-dialog-info').removeClass('fixedbar');
+            $('.cart-dialog-info').removeClass('fixeddialog');
         }
     });
 

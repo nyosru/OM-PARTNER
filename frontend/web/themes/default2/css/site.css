@@ -2606,6 +2606,14 @@
         text-align: center;
         width: calc(100% / 5 - 10px);
     }
+    .fixeddialog{
+        position: fixed !important;
+        left: calc(100% / 2 - 300px) !important;
+        top: 90px !important;
+        background: #fff;
+        border-radius: 3px;
+        box-shadow: 1px 1px 5px #848484;
+    }
 }
     /**
     @media (max-width: 1280px){
