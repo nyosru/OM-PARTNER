@@ -374,6 +374,30 @@ $type = '';
         return $this->render('delivery', ['categories' => $cat, 'catdata' => $categories]);
     }
 
+    public function actionOfferta()
+    {
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriesd = new PartnersCatDescription();
+        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
+
+
+
+        return $this->render('offerta', ['categories' => $cat, 'catdata' => $categories]);
+    }
+    public function actionFaq()
+    {
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriesd = new PartnersCatDescription();
+        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
+
+
+
+        return $this->render('faq', ['categories' => $cat, 'catdata' => $categories]);
+    }
     public function actionPaying()
     {
         $categoriess = new PartnersCategories();
