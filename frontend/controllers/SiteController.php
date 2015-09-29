@@ -396,7 +396,7 @@ $type = '';
 
 
 
-        return $this->render('faq', ['categories' => $cat, 'catdata' => $categories]);
+        return $this->render('faqpage', ['categories' => $cat, 'catdata' => $categories]);
     }
     public function actionPaying()
     {
