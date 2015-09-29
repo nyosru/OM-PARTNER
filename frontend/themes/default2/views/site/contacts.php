@@ -89,7 +89,7 @@ $this->title = 'Контакты';
             $page = 'contacts';
             $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
             if($data){
-                echo $data->value;
+                echo stripcslashes($data->value);
             }else{?>
 
 
