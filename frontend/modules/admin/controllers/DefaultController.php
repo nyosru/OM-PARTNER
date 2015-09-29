@@ -228,8 +228,8 @@ class DefaultController extends Controller
                 }
 
             if (intval($self) !== 0) {
-                $run = new Partners();
-                $check = $run->GetId($_SERVER['HTTP_HOST']);
+
+                $check = Yii::$app->params[constantapp]['APP_ID'];
                 $custompartnersid = Partners::findOne($check);
                 $customer_id_delivery = $custompartnersid->customers_id;
             }
