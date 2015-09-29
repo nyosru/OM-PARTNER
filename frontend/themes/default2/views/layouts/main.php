@@ -9,15 +9,7 @@ use frontend\widgets\Alert;
 use common\models\Partners;
 /* @var $this \yii\web\View */
 /* @var $content string */
-$run = new Partners();
-$check = $run->GetId($_SERVER['HTTP_HOST']);
-if($check == ''){
-    die;
-}
-$name = $run->GetNamePartner($check);
-$template = $run->GetTemplate($check);
 AppAsset::register($this);
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -30,28 +22,22 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <?php $this->head();
-    $this -> registerCssFile('/themes/'.$template.'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-
-
-
+    $this -> registerCssFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
     ?>
-
 </head>
 <body>
     <?php $this->beginBody() ?>
     <div class="container" style="position: relative; display: block; padding: 10px 0px 0px;"><p class="pull-right"><a class="top-link" href="/site/paying">Оплата</a> <a class="top-link" href="/site/delivery">Доставка</a> <a class="top-link" href="/site/contacts">Контакты</a></p></div>
     <div class="wrap">
-
         <?php
             NavBar::begin([
-                'brandLabel' => $name,
-                'brandUrl' => Yii::$app->homeUrl,
+                'brandLabel' => Yii::$app->params[constantapp]['APP_NAME'],
+                'brandUrl' => '/',
                 'options' => [
                     'class' => 'navbar-inverse',
                     'style' => 'margin-top:0px; position: relative;'
                 ],
             ]);
-
         ?>
         <div class="col-lg-5 navbar-form navbar-left" role="search" style="width: 26%;">
             <div class="form-group" style="width: 100%; display: table;">
@@ -62,11 +48,9 @@ AppAsset::register($this);
         </div>
         <div class="modal-cart" id="modal-cart"> </div><<ul class="nav navbar-nav navbar-left cart" ><i class="fa fa-cart-arrow-down fa-3x"></i><span class="cart-count"></span><span class="cart-price"></span></ul>
         <?
-
             $menuItems = [];
         if(Yii::$app->user->can('admin')){
             $menuItems[] = ['label' => 'Админ', 'url' => ['/admin']];
-
         }
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
@@ -83,24 +67,17 @@ AppAsset::register($this);
                     'linkOptions' => ['data-method' => 'post']
                 ];
             }
-
-
-
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
             ]);
-
             NavBar::end();
         ?>
-
-        
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
-       
     </div>
    <div style="height: 60px"></div>
     <footer class="footer">
@@ -111,17 +88,8 @@ AppAsset::register($this);
         <p class="pull-right"><a href="/site/paying">Оплата</a><a href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
         </div>
     </footer>
-
-
-
-
-
-
-
-
-
     <?php
-    $this -> registerJsFile('/themes/'.$template.'/js/script.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    $this -> registerJsFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/js/script.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
     $this->endBody();
    ;?>
 </body>

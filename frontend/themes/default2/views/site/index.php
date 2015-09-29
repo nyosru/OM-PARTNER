@@ -22,10 +22,9 @@ use yii\jui\Slider;
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
                 <?
-                $run = new Partners();
-                $check = $run -> GetId($_SERVER['HTTP_HOST']);
-                $checks = $run -> GetAllowCat($check);
-                $this -> title = $run->GetNamePartner($check);
+                $check = Yii::$app->params[constantapp]['APP_ID'];
+                $checks = Yii::$app->params[constantapp]['APP_CAT'];
+                $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
                 foreach ($catdata as $value) {
                     if (in_array(intval($value['categories_id']), $checks)) {
                         $catdataallow[] = $value;

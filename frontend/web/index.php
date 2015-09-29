@@ -1,7 +1,7 @@
 <?php
 
 
-defined('YII_DEBUG') or define('YII_DEBUG', false);
+defined('YII_DEBUG') or define('YII_DEBUG', true);
 //defined('YII_ENV') or define('YII_ENV', 'dev');
 
 require(__DIR__ . '/../../vendor/autoload.php');
@@ -20,18 +20,22 @@ $config = yii\helpers\ArrayHelper::merge(
 );
 
 $application = new yii\web\Application($config);
+
+
+
 use common\models\Partners;
 $run = new Partners();
 $check = $run->GetId($_SERVER['HTTP_HOST']);
 if($check == ''){
     die;
-
-
 }else{
-    define('THEMES', $run->GetTemplate($check));
+    $application->params[constantapp]['APP_CAT'] =  $run -> GetAllowCat($check);
+    $application->params[constantapp]['APP_NAME'] =   $run->GetNamePartner($check);
+    $application->params[constantapp]['APP_ID'] =  $run -> GetId($_SERVER['HTTP_HOST']);
+    $application->params[constantapp]['APP_THEMES'] =  $run->GetTemplate($check);
 }
-$application->setViewPath('@app/themes/'.THEMES.'/views');
-$application->setLayoutPath('@app/themes/'.THEMES.'/views/layouts');
+$application->setViewPath('@app/themes/'.$application->params[constantapp]['APP_THEMES'].'/views');
+$application->setLayoutPath('@app/themes/'.$application->params[constantapp]['APP_THEMES'].'/views/layouts');
 
 
 $application->run();

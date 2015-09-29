@@ -132,9 +132,7 @@ class SiteController extends Controller
 
     private function id_partners()
     {
-        $run = new Partners();
-        $check = $run->GetId($_SERVER['HTTP_HOST']);
-        return $check;
+        return Yii::$app->params[constantapp]['APP_ID'];
     }
 
 
@@ -143,10 +141,8 @@ class SiteController extends Controller
     {
         $cat = Yii::$app->request->getQueryParam('cat');
         $chcat = explode('.', $cat);
-
-        $run = new Partners();
-        $check = $run -> GetId($_SERVER['HTTP_HOST']);
-        $checks = $run -> GetAllowCat($check);
+        $check = Yii::$app->params[constantapp]['APP_ID'];
+        $checks = Yii::$app->params[constantapp]['APP_CAT'];
 
 $cats=[];
         foreach($chcat as $key => $valcat){
@@ -498,8 +494,7 @@ $type = '';
         $order = Yii::$app->request->post('order');
         $order[ship] = Yii::$app->request->post('ship');
         $userdata = Yii::$app->request->post('user');
-        $run = new Partners();
-        $check = $run->GetId($_SERVER['HTTP_HOST']);
+        $check = Yii::$app->params[constantapp]['APP_ID'];
         $userModel = Yii::$app->user->identity;
         $model->partners_id = $check;
         $model->user_id = $userModel->getId();
@@ -613,7 +608,7 @@ $type = '';
             if ($model->save()) {
                 $username = User::findOne($id)->username;
                 $orders_delivery = ' ';
-                $site_name = $run->GetNamePartner($run->GetId($_SERVER['HTTP_HOST']));
+                $site_name = Yii::$app->params[constantapp]['APP_NAME'];
                 $date_order = date("m.d.Y");
                 Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site'=> $_SERVER[HTTP_HOST], 'site_name'=> $site_name, 'date_order'=> $date_order])
                     ->setFrom('support@'.$_SERVER['HTTP_HOST'])
@@ -636,8 +631,7 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $userdata = Yii::$app->request->post('user');
-        $run = new Partners();
-        $check = $run->GetId($_SERVER['HTTP_HOST']);
+        $check = Yii::$app->params[constantapp]['APP_ID'];
         $userModel = Yii::$app->user->identity;
         $model->partners_id = $check;
         $model->user_id = $userModel->getId();
@@ -881,8 +875,7 @@ return ['id' => $model->id, 'order'=> unserialize($model->order)];
 //        $html =$_POST['html'];
 //        $page = $_POST['page'];
         $data = new PartnersConfig();
-        $run = new Partners();
-        $check = $run->GetId($_SERVER['HTTP_HOST']);
+        $check = Yii::$app->params[constantapp]['APP_ID'];
 
         $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
 if($data) {

@@ -9,16 +9,15 @@ use frontend\widgets\Alert;
 use common\models\Partners;
 /* @var $this \yii\web\View */
 /* @var $content string */
-$run = new Partners();
-$check = $run->GetId($_SERVER['HTTP_HOST']);
+
+$check = Yii::$app->params[constantapp]['APP_ID'];
 
 
 
 if($check == ''){
     die;
 }
-$name = $run->GetNamePartner($check);
-$template = $run->GetTemplate($check);
+$name = Yii::$app->params[constantapp]['APP_NAME'];
 AppAsset::register($this);
 
 ?>
@@ -32,8 +31,8 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <?php $this->head();
-    $this -> registerCssFile('/themes/'.$template.'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-    $this -> registerJsFile('/themes/'.$template.'/js/adminscript.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    $this -> registerCssFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    $this -> registerJsFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/js/adminscript.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
 
 
     ?>
@@ -41,13 +40,12 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="container" style="position: relative; display: block; padding: 10px 0px 0px;"><p class="pull-right"><a href="#">Оплата</a> <a href="#">Доставка</a> <a href="#">Контакты</a></p></div>
 <div class="wrap">
 
     <?php
     NavBar::begin([
-        'brandLabel' => $name,
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' =>  Yii::$app->params[constantapp]['APP_NAME'],
+        'brandUrl' => '/',
         'options' => [
             'class' => 'navbar-inverse',
             'style' => 'margin-top:0px; position: relative;'
@@ -97,7 +95,6 @@ AppAsset::register($this);
     <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid rgb(2, 243, 200);">
     <div class="container">
         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
-        <p class="pull-right"><a href="#">Оплата</a> <a href="#">Доставка</a> <a href="#">Контакты</a></p>
     </div>
 </footer>
 

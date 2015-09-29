@@ -1,21 +1,18 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use common\models\Partners;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ResetPasswordForm */
 
-$this->title = 'Reset password';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Сброс пароля';
 ?>
-<div class="site-reset-password">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="" id="partners-main">
 
-    <p>Please choose your new password:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
+    <div class="container-fluid" id="partners-main-right-back">
+        <div id="" class="bside">
             <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <div class="form-group">
@@ -24,4 +21,5 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-</div>
+
+

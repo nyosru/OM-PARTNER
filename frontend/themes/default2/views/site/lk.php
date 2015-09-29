@@ -15,6 +15,7 @@ use common\models\Partners;
 use yii\helpers\BaseUrl;
 
 use yii\jui\Slider;
+
 $this -> title = 'Личный кабинет';
 ?>
 

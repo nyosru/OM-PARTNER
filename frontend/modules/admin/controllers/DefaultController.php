@@ -48,9 +48,7 @@ class DefaultController extends Controller
 
     private function id_partners()
     {
-        $run = new Partners();
-        $check = $run->GetId($_SERVER['HTTP_HOST']);
-        return $check;
+        return Yii::$app->params[constantapp]['APP_ID'];
     }
 
     public function actions()

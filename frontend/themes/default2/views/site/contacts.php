@@ -26,9 +26,7 @@ $this->title = 'Контакты';
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
                 <?
-                $run = new Partners();
-                $check = $run->GetId($_SERVER['HTTP_HOST']);
-                $checks = $run->GetAllowCat($check);
+                $checks = Yii::$app->params[constantapp]['APP_CAT'];
                 foreach ($catdata as $value) {
                     if (in_array(intval($value['categories_id']), $checks)) {
                         $catdataallow[] = $value;
@@ -87,8 +85,7 @@ $this->title = 'Контакты';
 
             <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}
             $data = new PartnersConfig();
-            $run = new Partners();
-            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            $check = Yii::$app->params[constantapp]['APP_ID'];
             $page = 'contacts';
             $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
             if($data){

@@ -1,5 +1,5 @@
 <?php
-use Yii;
+
 use frontend\controllers\SiteController;
 use yii\filters\AccessControl;
 use yii\web\User;
@@ -14,16 +14,15 @@ use yii\bootstrap\Carousel;
 use common\models\Partners;
 use yii\helpers\BaseUrl;
 use yii\jui\Slider;
-$this -> title = 'Партнеры';
+
+$this -> title = Yii::$app->params[constantapp]['APP_NAME'];
 ?>
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
                 <?
-                $run = new Partners();
-                $check = $run -> GetId($_SERVER['HTTP_HOST']);
-                $checks = $run -> GetAllowCat($check);
+                $checks = Yii::$app->params[constantapp]['APP_CAT'];
                 foreach ($catdata as $value) {
                     if (in_array(intval($value['categories_id']), $checks)) {
                         $catdataallow[] = $value;
