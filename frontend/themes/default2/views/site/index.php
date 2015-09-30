@@ -66,7 +66,7 @@ use yii\jui\Slider;
                         for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                             $catdesc = $arr[$parent_id][$i]['categories_id'];
                             if (!$arr[$parent_id][$i] == '') {
-                               // array_push($str_load_cat, $catdesc )  ;
+                                // array_push($str_load_cat, $catdesc )  ;
                                 echo  $catdesc.'.';
                                 load_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
                             }
@@ -89,16 +89,16 @@ use yii\jui\Slider;
     </div>
     <div class="container-fluid" id="partners-main-right-back">
         <div id="partners-main-right" class="bside">
-<? if(true){?>
-           <div id="main-index">
-               <div id="index-card-5" class="data-j index-card" data-cat="1720"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 1720, $catnamearr, $check);?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/7.jpg"></a></div>
-               <div id="index-card-6" class="data-j index-card" data-cat="2008"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 2008, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/1.jpg"></a></div>
-               <div id="index-card-6" class="data-j index-card" data-cat="2047"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 2047, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/2.jpg"></a></div>
-               <div id="index-card-6" class="data-j index-card" data-cat="1762"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 1762, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/5.jpg"></a></div>
-               <div id="index-card-3" class="sort data-j index-sort" data="10"><a href="/site/catalog#!cat=<?  load_cat($arr_cat, 932, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/6.jpg"></a></div>
-               <div id="index-card-6" class="data-j index-card" data-cat="1836"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 1836, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/3.jpg"></a></div>
-               <div id="index-card-6" class="data-j index-card" data-cat="2066"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 2066, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/4.jpg"></a></div>
-           </div>
+            <? if(true){?>
+            <div id="main-index">
+                <div id="index-card-5" class="data-j index-card" data-cat="1720"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 1720, $catnamearr, $check);?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/7.jpg"></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="2008"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 2008, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/1.jpg"></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="2047"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 2047, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/2.jpg"></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="1762"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 1762, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/5.jpg"></a></div>
+                <div id="index-card-3" class="sort data-j index-sort" data="10"><a href="/site/catalog#!cat=<?  load_cat($arr_cat, 932, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/6.jpg"></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="1836"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 1836, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/3.jpg"></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="2066"><a href="/site/catalog#!cat=<? load_cat($arr_cat, 2066, $catnamearr, $check)?>&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/4.jpg"></a></div>
+            </div>
 
             <div id="main-spec">
 
@@ -159,9 +159,9 @@ use yii\jui\Slider;
             </div>
         </div>
     </div>
-<?}else{?>
+    <?}else{?>
 
 
 
 
-<?}?>
+    <?}?>
