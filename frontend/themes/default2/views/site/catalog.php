@@ -399,6 +399,7 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
                     return $url_obj;
                 }
 
+
                 $url_data = split_url(str_replace('_escaped_fragment_=', '#!', Yii::$app->request->getQueryString()));
                 $cat = $url_data['#!cat'][1];
                 $count = $url_data['count'][1];
@@ -447,16 +448,11 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
                         }
                         $pager .= ' <a data-page="'.intval($data[10]).'" class="page data-j" href="#">'.(intval($data[10])+1).'</a> ';
                         $pager .= 'из '.$countpager;
-
                         $pager .= ' <div data-page="'.($natpage - 1).'" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="/site/catalog'.new_url(new_suburl(split_url($url), 'page', ($natpage - 1))).'"></a></i></div> ';
                         $pager .= ' <div data-page="'.($nextpage+1).'" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="/site/catalog'.new_url(new_suburl(split_url($url), 'page', ($nextpage+1))).'"></a></i></div> ';
-
-
                         $topnav = '<div id="products-pager">Страница: '.$pager.'</div>';
                         $downnav = '<div id="products-pager-down">Страница: '.$pager.'</div>';
-
                     }
-
                     $headbside .= $topnav;
 
                     $headbside .= '<div id="products-pager"></div>';
@@ -477,7 +473,6 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
                 //  '<div class="header-sort-item">дате <a class="sort data-j arrow-down" data="0" href="#"></a><a class="sort data-j arrow-up" data="10" href="#"></a></div><div class="header-sort-item">цене<a class="sort data-j arrow-down" data="1" href="#"></a><a class="sort data-j arrow-up" data="11" href="#"></a></div><div class="header-sort-item"> названию<a class="sort data-j arrow-up" data="2" href="#"></a><a class="sort data-j arrow-down" data="12" href="#"></a></div><div class="header-sort-item"> модели<a class="sort data-j arrow-up" data="3" href="#"></a><a class="sort data-j arrow-down" data="13" href="#"></a></div><div class="header-sort-item">популярности<a class="sort data-j arrow-up" data="4" href="#"></a><a class="sort data-j arrow-down" data="14" href="#"></a> </div>' + '</div>';
                 $sortorder = [['дате',0,10],['цене',1,11],['названию',2,12],['модели',3,13],['популярности',4,14]];
                 foreach($sortorder as $value){
-
                     if(intval($data[11]) == intval($value[1])){
                         $dataord = $value[2];
                         $arrow = 'caret-up';
@@ -493,16 +488,11 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
                     if($value[1] == $data[11] || $value[2] == $data[11]){
                         $headbside .= '<div class="header-sort-item-active"><a class="'.$class.'" href="/site/catalog'.new_url(new_suburl(split_url($url), 'sort', $dataord)).'" data="'.$dataord.'" href="#">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
                     }else{
-
                         $headbside .= '<div class="header-sort-item"><a class="'.$class.'" data="'.$dataord.'" href="/site/catalog'.new_url(new_suburl(split_url($url), 'sort', $dataord)).'">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
                     }
-
-
                 }
                     $headbside .= '</div></div>';
                echo $headbside;
-
-
                     $innerhtml ='';
 foreach($data[0] as $value) {
     $product = $value->products;
@@ -519,31 +509,13 @@ foreach($data[0] as $value) {
     $product->products_image = str_replace(')',']]]]', $product->products_image);
     $product->products_image = str_replace(' ','[[[[]]]]' , $product->products_image);
     $product->products_image = str_replace('(','[[[[', $product->products_image);
-
     $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card"><div data-prod="'.$product->products_id.'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product->products_image.');"><meta itemprop="image" content="/site/imagepreview?src='.$product->products_image.'"></div><div itemprop="name" class="name">'.$description->products_name.'</div><div itemprop="url" class="model">Артикул '.$product->products_model.'</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">'.intval($product->products_price).'</b> руб.</div><div itemprop="description id="prod-info" data-prod="'.$product->products_id.'">Инфо</div><span>'.$attr_html.'</span></div>';
-
-
 }
-
 echo $innerhtml;
-
 echo $downnav;
-
-
-
-
-
-
             }else {
                    echo 'Нет результатов';
                 }
-
-
-
-
-
-
-
             }?>
         </div>
     </div>

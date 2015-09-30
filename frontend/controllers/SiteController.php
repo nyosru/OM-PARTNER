@@ -278,7 +278,7 @@ $type = '';
         }
         $hide_man = implode(',' , $list);
         $products = '75359852,95833167,95848445';
-        $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(3)->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
         if(isset($dataproducts[0])){
         }else{  $dataproducts = 'Не найдено!';}
 
