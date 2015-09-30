@@ -40,7 +40,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="container" style="position: relative; display: block; padding: 10px 0px 0px;"><p class="pull-right"><a href="#">Оплата</a> <a href="#">Доставка</a> <a href="#">Контакты</a></p></div>
+<div class="container" style="position: relative; display: block; padding: 10px 0px 0px;"></div>
 <div class="wrap">
 
     <?php
@@ -96,7 +96,6 @@ AppAsset::register($this);
     <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid rgb(2, 243, 200);">
     <div class="container">
         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
-        <p class="pull-right"><a href="#">Оплата</a> <a href="#">Доставка</a> <a href="#">Контакты</a></p>
     </div>
 </footer>
 

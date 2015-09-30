@@ -16,7 +16,7 @@ use yii\helpers\BaseUrl;
 use dosamigos\ckeditor\CKEditorInline;
 use yii\jui\Slider;
 use common\models\PartnersConfig;
-$this -> title = 'Офферта';
+$this -> title = 'Оферта';
 
 ?>
 <div class="container" id="partners-main">
