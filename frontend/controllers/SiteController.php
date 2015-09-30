@@ -941,9 +941,6 @@ if($data) {
             $new_tok_order->customers_referer_url = '{"Partner":"' . $data->Partner . '","User":"' . $data->User .'","Key":"'.$validkey.'","Site":"'.$data->Site.'"}';
             if($new_tok_order->update()){
 if($status == 2) {
-
-
-
     $model_order_partner = PartnersOrders::findOne(['orders_id'=>$new_tok_order->id]);
     $date_order = explode(' ', $model_order_partner->create_date);
     $date_order = $date_order[0];

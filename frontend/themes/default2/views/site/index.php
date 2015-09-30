@@ -135,16 +135,13 @@ use yii\jui\Slider;
                     $product[products_image] = str_replace(' ','[[[[]]]]', $product[products_image]);
                     $product[products_image] = str_replace('(','[[[[', $product[products_image]);
 
-                    $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="'.$product[products_id].'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product[products_image].');"></div><div class="name">'.$description[products_name].'</div><div class="model">Арт.'.$product[products_model].'</div><div class="price"><b>'.intval($product[products_price]).'</b> руб.</div><div id="prod-info" data-prod="'.$product[products_id].'">Инфо</div><span>'.$attr_html.'</span></div>';
+                    $outer .= '<div  class="container-fluid float" id="index-card-1"><div data-prod="'.$product[products_id].'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product[products_image].');"></div><div class="name">'.$description[products_name].'</div><div class="model">Арт.'.$product[products_model].'</div><div class="price"><b>'.intval($product[products_price]).'</b> руб.</div><div id="prod-info" data-prod="'.$product[products_id].'">Инфо</div><span>'.$attr_html.'</span></div>';
                     echo $outer;
                 }
 
 
                 ?>
             </div>
-
-<a href="http://egorov1.rezerv.odezhda-master.ru/site/catalog/%D0%90%D0%BA%D1%81%D0%B5%D1%81%D1%81%D1%83%D0%B0%D1%80%D1%8B/#!cat=932.938.939.940.1113.1275.1310.1313.1424.1576.1622&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=undefined&searchword="></a>
-
         </div>
     </div>
 <?}else{?>
