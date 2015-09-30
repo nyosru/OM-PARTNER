@@ -59,14 +59,14 @@ use yii\jui\Slider;
                     }
                 }
                 function load_cat($arr, $parent_id = 0, $catnamearr, $allow_cat) {
-                    static $str_load_cat = [];
+                    static $str_load_cat = Array();
                     if (empty($arr[$parent_id])) {
-                        return implode('.',$str_load_cat);
+                        return ;
                     } else {
                         for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                             $catdesc = $arr[$parent_id][$i]['categories_id'];
                             if (!$arr[$parent_id][$i] == '') {
-                               array_push($str_load_cat, $catdesc )  ;
+                               // array_push($str_load_cat, $catdesc )  ;
                                 echo  $catdesc.'.';
                                 load_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
                             }
