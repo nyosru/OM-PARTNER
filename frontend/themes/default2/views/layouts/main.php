@@ -86,7 +86,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid #00FFCC;">
         <div class="container">
         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
-        <p class="pull-right"><a href="/site/offerta">Офферта</a><a href="/site/paying">Оплата</a><a href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
+        <p class="pull-right"><a href="/site/offerta">Оферта</a><a href="/site/paying">Оплата</a><a href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
         </div>
     </footer>
     <?php
