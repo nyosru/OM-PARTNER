@@ -136,7 +136,32 @@ class SiteController extends Controller
         return Yii::$app->params[constantapp]['APP_ID'];
     }
 
+    private function categories_for_partners(){
+     $dependency = new DbDependency([
+         'sql' => 'SELECT MAX(last_modified) FROM {{%categories}}',
+     ]);
+     $catdataarr = Yii::$app->db->cache(
+         function ($db) {
+             $categoriess = new PartnersCategories();
+             $categoriesd = new PartnersCatDescription();
+             return [$categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All(), $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All()];
+         }, 3600, $dependency
+     );
+     return $catdataarr;
+    }
 
+    private function hide_manufacturers_for_partners(){
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(last_modified) FROM {{%manufacturers}}',
+        ]);
+        $hide_man = Yii::$app->db->cache(
+            function ($db) {
+                $man = new Manufacturers();
+                return $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+            }, 3600, $dependency
+        );
+        return $hide_man;
+    }
 
     public function actionRequest()
     {
@@ -145,7 +170,7 @@ class SiteController extends Controller
         $check = Yii::$app->params[constantapp]['APP_ID'];
         $checks = Yii::$app->params[constantapp]['APP_CAT'];
 
-$cats=[];
+        $cats=[];
         foreach($chcat as $key => $valcat){
            if(preg_match("/^[0-9]+$/", $valcat)){
                $cats[$key] = $valcat;
@@ -168,19 +193,16 @@ $cats=[];
         }
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
         if($searchword == '') {
-            $categoriess = new PartnersCategories();
-            $catdata = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All();
-            $categoriesd = new PartnersCatDescription();
-            $categories = $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All();
-
+            $catdataarr = $this->categories_for_partners();
+            $catdata = $catdataarr[0];
+            $categories = $catdataarr[1];
             foreach ($categories as $value) {
                 $catnamearr[$value['categories_id']] = $value['categories_name'];
             }
             foreach ($catdata as $value) {
                 $catdatas[$value[categories_id]] = $value[parent_id];
             }
-
-            $chpu = Requrscat($catdatas, $chcat[0], $catnamearr);
+            $chpu = $this->Requrscat($catdatas, $chcat[0], $catnamearr);
         }
 
         switch ($sort) {
@@ -215,9 +237,8 @@ $cats=[];
                 $order = ["products_viewed" => SORT_DESC, 'products_options_values_name' => SORT_ASC];
                 break;
        }
-$type = '';
-        $man = new Manufacturers();
-        $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+        $type = '';
+        $hide_man = $this->hide_manufacturers_for_partners();
         foreach($hide_man as $value){
             $list[] = $value[manufacturers_id];
         }
@@ -245,7 +266,6 @@ $type = '';
            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1      and products_price >= :start_price  and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
 
        }
-
         $count_arr = count($data);
         if($start_arr + $count <= $count_arr ) {
             $end_arr = $start_arr + $count;
@@ -258,36 +278,16 @@ $type = '';
         }else{  $data = 'Не найдено!';}
         $countfilt = count($data);
         $start = $start_arr;
-       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat, $searchword, $type, $hide_man, $chpu) ;
+    }
 
-
-      return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat, $searchword, $type, $hide_man, $chpu) ;
-
-       }
     public function actionIndex()
     {
-        $dependency = new DbDependency([
-            'sql' => 'SELECT MAX(last_modified) FROM {{%categories}}',
-        ]);
-        $categoriesarr = Yii::$app->db->cache(
-            function ($db) {
-                $categoriess = new PartnersCategories();
-                $categoriesd = new PartnersCatDescription();
-                return [$categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All(), $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All()];
-            }, 3600, $dependency
-        );
+        $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-        $dependency = new DbDependency([
-            'sql' => 'SELECT MAX(last_modified) FROM {{%manufacturers}}',
-        ]);
-        $hide_man = Yii::$app->db->cache(
-            function ($db) {
-                $man = new Manufacturers();
-                return $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
-            }, 3600, $dependency
-        );
-
+        $hide_man = $this->hide_manufacturers_for_partners();
         foreach($hide_man as $value){
             $list[] = $value[manufacturers_id];
         }
@@ -331,14 +331,10 @@ $type = '';
     }
     public function actionCatalog()
     {
-        $categoriess = new PartnersCategories();
-        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
-
-        $categoriesd = new PartnersCatDescription();
-        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
-
-        $man = new Manufacturers();
-        $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+        $categoriesarr = $this->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
+        $hide_man = $this->hide_manufacturers_for_partners();
         foreach($hide_man as $value){
             $list[] = $value[manufacturers_id];
         }
@@ -367,64 +363,39 @@ $type = '';
 
     public function actionContacts()
     {
-        $categoriess = new PartnersCategories();
-        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
-
-        $categoriesd = new PartnersCatDescription();
-        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
-
-
-
+        $categoriesarr = $this->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
         return $this->render('contacts', ['categories' => $cat, 'catdata' => $categories]);
     }
 
     public function actionDelivery()
     {
-        $categoriess = new PartnersCategories();
-        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
-
-        $categoriesd = new PartnersCatDescription();
-        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
-
-
-
+        $categoriesarr = $this->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
         return $this->render('delivery', ['categories' => $cat, 'catdata' => $categories]);
     }
 
     public function actionOfferta()
     {
-        $categoriess = new PartnersCategories();
-        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
-
-        $categoriesd = new PartnersCatDescription();
-        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
-
-
-
+        $categoriesarr = $this->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
         return $this->render('offerta', ['categories' => $cat, 'catdata' => $categories]);
     }
     public function actionFaq()
     {
-        $categoriess = new PartnersCategories();
-        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
-
-        $categoriesd = new PartnersCatDescription();
-        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
-
-
-
+        $categoriesarr = $this->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
         return $this->render('faqpage', ['categories' => $cat, 'catdata' => $categories]);
     }
     public function actionPaying()
     {
-        $categoriess = new PartnersCategories();
-        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
-
-        $categoriesd = new PartnersCatDescription();
-        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
-
-
-
+        $categoriesarr = $this->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
         return $this->render('paying', ['categories' => $cat, 'catdata' => $categories]);
     }
 
@@ -438,12 +409,10 @@ $type = '';
                 }
             }
         }
-
         return $this->render('signup', [
             'model' => $model,
         ]);
     }
-
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
@@ -456,7 +425,6 @@ $type = '';
                 Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
             }
         }
-
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
         ]);
@@ -529,7 +497,6 @@ $type = '';
 
     public function actionSaveorder()
     {
-
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $order = Yii::$app->request->post('order');
@@ -656,16 +623,13 @@ $type = '';
                     ->setTo($username)
                     ->setSubject('Заказ на сайте '.$_SERVER['HTTP_HOST'])
                     ->send();
-return ['id' => $model->id, 'order'=> unserialize($model->order)];
+                return ['id' => $model->id, 'order'=> unserialize($model->order)];
             } else {
                 return false;
             }
          }else{
-
         }
-
     }
-
 
     public function actionSaveuserprofile()
     {
@@ -990,24 +954,25 @@ if($status == 2) {
         }
 
     }
-}
-
-
-
-function Requrscat($arr, $firstval, $catnamearr){
-    static $chpu;
-    static $item;
-    $item = $firstval;
-    if(isset($arr[$item])) {
-        while ($arr[$item] != '0') {
+    private function Requrscat($arr, $firstval, $catnamearr){
+        static $chpu;
+        static $item;
+        $item = $firstval;
+        if(isset($arr[$item])) {
+            while ($arr[$item] != '0') {
+                if (isset($catnamearr[$item])) {
+                    $chpu[] = $catnamearr[$item];
+                    $item = $arr[$item];
+                }
+            }
             if (isset($catnamearr[$item])) {
                 $chpu[] = $catnamearr[$item];
-                $item = $arr[$item];
             }
         }
-        if (isset($catnamearr[$item])) {
-            $chpu[] = $catnamearr[$item];
-        }
+        return array_reverse($chpu);
     }
-    return array_reverse($chpu);
+
 }
+
+
+
