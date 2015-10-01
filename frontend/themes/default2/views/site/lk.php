@@ -7,7 +7,6 @@ use yii\web\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
-use yii\widgets\Pjax;
 use yii\bootstrap\Button;
 use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;

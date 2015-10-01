@@ -7,7 +7,6 @@ use yii\web\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
-use yii\widgets\Pjax;
 use yii\bootstrap\Button;
 use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
@@ -75,6 +74,7 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
             <?
             $check_ygbot = Yii::$app->request->getQueryParam('_escaped_fragment_', NULL);
             if($check_ygbot == NULL) {?>
+
                 <script >
     var cSpeed = 9;
     var cWidth = 64;
@@ -160,11 +160,10 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
 
     $url = '';
     $url = document.location.hash;
-    if($url.toLowerCase().indexOf('#!')){
-        window.location('/');
-    }
+//    if($url.toLowerCase().indexOf('#!')){
+//        window.location('/');
+//    }
     $url_data = split_url(document.location .hash);
-
     $cat = $url_data['#!cat'][1];
     $count = $url_data . count[1];
     $min_price = $url_data . start_price[1];
