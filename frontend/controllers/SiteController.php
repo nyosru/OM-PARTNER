@@ -4,6 +4,7 @@ use common\models\OrdersProducts;
 use common\models\PartnersProducts;
 use common\models\User;
 use Yii;
+use yii\caching\DbDependency;
 use common\models\CustomersInfo;
 use common\models\Customers;
 use common\models\AddressBook;
@@ -265,20 +266,37 @@ $type = '';
        }
     public function actionIndex()
     {
-        $categoriess = new PartnersCategories();
-        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(last_modified) FROM {{%categories}}',
+        ]);
+        $categoriesarr = Yii::$app->db->cache(
+            function ($db) {
+                $categoriess = new PartnersCategories();
+                $categoriesd = new PartnersCatDescription();
+                return [$categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All(), $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All()];
+            }, 3600, $dependency
+        );
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(last_modified) FROM {{%manufacturers}}',
+        ]);
+        $hide_man = Yii::$app->db->cache(
+            function ($db) {
+                $man = new Manufacturers();
+                return $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+            }, 3600, $dependency
+        );
 
-        $categoriesd = new PartnersCatDescription();
-        $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
-
-        $man = new Manufacturers();
-        $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
         foreach($hide_man as $value){
             $list[] = $value[manufacturers_id];
         }
         $hide_man = implode(',' , $list);
-        $products = '75359852,95833167,95848445';
-        $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(3)->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        $products = '960192894,95833167,95848445';
+
+        $dataproducts = new PartnersProductsToCategories;
+        $dataproducts->find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(3)->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+
         if(isset($dataproducts[0])){
         }else{  $dataproducts = 'Не найдено!';}
 
@@ -286,8 +304,7 @@ $type = '';
         $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
         if(isset($newproducts[0])){
         }else{  $newproducts = 'Не найдено!';}
-
-        return $this->render('index', ['categories' => $cat, 'catdata' => $categories, 'dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
+        return $this->render('indexpage', ['categories' => $cat, 'catdata' => $categories, 'dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
     }
 
     public function actionLogin()
