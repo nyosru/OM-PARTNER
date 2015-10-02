@@ -823,7 +823,7 @@ class SiteController extends Controller
             if (!is_dir(Yii::getAlias('@webroot/images/') . $dir)) {
               $new_dir = '';
                 foreach($split as $value){
-                  $new_dir .= $value;
+                  $new_dir .= $value.'/';
                   mkdir(Yii::getAlias('@webroot/images/') . $new_dir);
               }
 
