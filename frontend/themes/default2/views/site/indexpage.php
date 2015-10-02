@@ -13,6 +13,9 @@ use yii\bootstrap\Carousel;
 use common\models\Partners;
 use yii\helpers\BaseUrl;
 use yii\jui\Slider;
+use yii\caching\DbDependency;
+use common\models\PartnersCategories;
+use common\models\PartnersCatDescription;
 use common\models\Manufacturers;
 use common\models\PartnersProductsToCategories;
 
@@ -48,10 +51,14 @@ function load_cat($arr, $parent_id = 0, $catnamearr, $allow_cat) {
         }
     }
 }
-if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI], array('duration'=>36000))) {?>
+?>
 
-
+<? if ($this->beginCache('partner-index'.hash( 'crc32b' , md5( $_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] ) ), array('duration'=>3600))) {?>
 <div class="container" id="partners-main">
+
+    <?
+
+    ?>
 
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
@@ -177,4 +184,4 @@ if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI],
         </div>
     </div>
 
-     <?  $this->endCache(); }?>
+<?  $this->endCache(); }?>

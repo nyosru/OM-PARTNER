@@ -243,6 +243,9 @@ class SiteController extends Controller
             $list[] = $value[manufacturers_id];
         }
         $hide_man = implode(',' , $list);
+
+
+
        if($prod_attr_query == '' && $searchword == ''){
            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products.removable != 1   and products.products_quantity > 0   and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')  ',[':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
            $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price and products.removable != 1   and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
@@ -797,7 +800,7 @@ class SiteController extends Controller
     public function actionImagepreview()
     {
         $src = Yii::$app->request->getQueryParam('src');
-       //$src = urldecode($src);
+        $src = urldecode($src);
         $src = str_replace('[[[[]]]]',' ', $src);
         $src = str_replace('[[[[','(', $src);
         $src = str_replace(']]]]',')', $src);
@@ -808,7 +811,7 @@ class SiteController extends Controller
             $file = explode('.', $file[0]);
             $ras = array_splice($file, -1,1);
             $namefile = base64_encode(implode('', $file));
-            $dir = implode('/', $split).'/';
+            $dir  = $split;
         }else{
             $file = $split[0];
             $file = explode('.',$file);
@@ -818,7 +821,11 @@ class SiteController extends Controller
         }
         if(!file_exists(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0])) {
             if (!is_dir(Yii::getAlias('@webroot/images/') . $dir)) {
-                mkdir(Yii::getAlias('@webroot/images/') . $dir);
+              $new_dir = '';
+                foreach($dir as $value){
+                  $new_dir .= $value;
+                  mkdir(Yii::getAlias('@webroot/images/') . $new_dir);
+              }
             }
             $image = imagecreatefromjpeg('http://odezhda-master.ru/images/'.$filename);
             $width = imagesx($image);
