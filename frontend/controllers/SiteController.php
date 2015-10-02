@@ -295,10 +295,10 @@ class SiteController extends Controller
         $products = '960192894,95833167,95848445';
 
         $dataproducts = new PartnersProductsToCategories;
-        $dataproducts->find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(3)->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        $dataproducts = $dataproducts->find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(3)->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
 
         if(isset($dataproducts[0])){
-        }else{  $dataproducts = 'Не найдено!';}
+        }else{  $dataproducts = "Не найдено";}
 
 
         $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
@@ -877,8 +877,6 @@ class SiteController extends Controller
     public function actionSavehtml(){
         $html =  addslashes($_POST['html']);
         $page =  addslashes($_POST['page']);
-//        $html =$_POST['html'];
-//        $page = $_POST['page'];
         $data = new PartnersConfig();
         $check = Yii::$app->params[constantapp]['APP_ID'];
 
