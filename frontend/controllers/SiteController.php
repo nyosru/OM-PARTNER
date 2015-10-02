@@ -826,7 +826,9 @@ class SiteController extends Controller
                   $new_dir .= $value;
                   mkdir(Yii::getAlias('@webroot/images/') . $new_dir);
               }
+                $dir = implode('/', $dir).'/';
             }
+
             $image = imagecreatefromjpeg('http://odezhda-master.ru/images/'.$filename);
             $width = imagesx($image);
             $height = imagesy($image);
