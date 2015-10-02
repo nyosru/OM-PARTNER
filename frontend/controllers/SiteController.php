@@ -811,7 +811,7 @@ class SiteController extends Controller
             $file = explode('.', $file[0]);
             $ras = array_splice($file, -1,1);
             $namefile = base64_encode(implode('', $file));
-            $dir  = $split;
+            $dir = implode('/', $split).'/';
         }else{
             $file = $split[0];
             $file = explode('.',$file);
@@ -822,11 +822,11 @@ class SiteController extends Controller
         if(!file_exists(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0])) {
             if (!is_dir(Yii::getAlias('@webroot/images/') . $dir)) {
               $new_dir = '';
-                foreach($dir as $value){
+                foreach($split as $value){
                   $new_dir .= $value;
                   mkdir(Yii::getAlias('@webroot/images/') . $new_dir);
               }
-                $dir = implode('/', $dir).'/';
+
             }
 
             $image = imagecreatefromjpeg('http://odezhda-master.ru/images/'.$filename);
