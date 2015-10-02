@@ -287,24 +287,8 @@ class SiteController extends Controller
         $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-        $hide_man = $this->hide_manufacturers_for_partners();
-        foreach($hide_man as $value){
-            $list[] = $value[manufacturers_id];
-        }
-        $hide_man = implode(',' , $list);
-        $products = '960192894,95833167,95848445';
 
-        $dataproducts = new PartnersProductsToCategories;
-        $dataproducts = $dataproducts->find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(3)->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
-
-        if(isset($dataproducts[0])){
-        }else{  $dataproducts = "Не найдено";}
-
-
-        $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
-        if(isset($newproducts[0])){
-        }else{  $newproducts = 'Не найдено!';}
-        return $this->render('indexpage', ['categories' => $cat, 'catdata' => $categories, 'dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
+        return $this->render('indexpage', ['categories' => $cat, 'catdata' => $categories]);
     }
 
     public function actionLogin()
