@@ -23,18 +23,22 @@ $config = yii\helpers\ArrayHelper::merge(
 $application = new yii\web\Application($config);
 
 
-
 use common\models\Partners;
-$run = new Partners();
-$check = $run->GetId($_SERVER['HTTP_HOST']);
-if($check == ''){
-    die;
-}else{
-    $application->params[constantapp]['APP_CAT'] =  $run -> GetAllowCat($check);
-    $application->params[constantapp]['APP_NAME'] =   $run->GetNamePartner($check);
-    $application->params[constantapp]['APP_ID'] =  $run -> GetId($_SERVER['HTTP_HOST']);
-    $application->params[constantapp]['APP_THEMES'] =  $run->GetTemplate($check);
-}
+    $partner = Yii::$app->db->cache(
+        function ($db) {
+            $run = new Partners();
+            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            if($check == ''){
+                die;
+            }else{
+              return['APP_CAT' => $run -> GetAllowCat($check), 'APP_NAME' =>  $run->GetNamePartner($check), 'APP_ID' =>  $run -> GetId($_SERVER['HTTP_HOST']), 'APP_THEMES' =>  $run->GetTemplate($check)];
+
+            }    }, 3600
+    );
+$application->params[constantapp]['APP_CAT'] = $partner['APP_CAT'];
+$application->params[constantapp]['APP_NAME'] = $partner['APP_NAME'];
+$application->params[constantapp]['APP_ID'] = $partner['APP_ID'];
+$application->params[constantapp]['APP_THEMES'] = $partner['APP_THEMES'];
 $application->setViewPath('@app/themes/'.$application->params[constantapp]['APP_THEMES'].'/views');
 $application->setLayoutPath('@app/themes/'.$application->params[constantapp]['APP_THEMES'].'/views/layouts');
 
