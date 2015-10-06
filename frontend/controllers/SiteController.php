@@ -276,26 +276,15 @@ class SiteController extends Controller
                $data =  $data[data];
            }
        }elseif(preg_match("/^[0-9]+$/", $searchword)){
-
            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-
            $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and products_price >= :start_price and products.products_model=:searchword    and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
-
            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1     and products_status=1 and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
-
            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1      and products_price >= :start_price  and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
-
-
        }elseif(preg_match("/^[a-zа-я]+$/iu", $searchword)){
-
            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-
            $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->JoinWith('productsDescription')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and products_price >= :start_price and products_description.products_name=:searchword    and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
-
            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1     and products_status=1 and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
-
            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1      and products_price >= :start_price  and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
-
        }
         $count_arr = count($data);
         if($start_arr + $count <= $count_arr ) {
@@ -318,7 +307,6 @@ class SiteController extends Controller
         $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-
         return $this->render('indexpage', ['categories' => $cat, 'catdata' => $categories]);
     }
 
@@ -362,12 +350,24 @@ class SiteController extends Controller
         }
         $hide_man = implode(',' , $list);
         $products = '75359852,95833167,95848445';
-        $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        $data = Yii::$app->cache->get(urlencode('dataprod-'.Yii::$app->params[constantapp]['APP_ID']));
+        if ($data === false) {
+            $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
+            Yii::$app->cache->set(urlencode('dataprod-'.Yii::$app->params[constantapp]['APP_ID']), ['dataproducts' => $dataproducts], 86400);
+        }else{
+            $dataproducts = $data[dataproducts];
+        }
         if(isset($dataproducts[0])){
         }else{  $dataproducts = 'Не найдено!';}
 
+        $data = Yii::$app->cache->get(urlencode('newproducts-'.Yii::$app->params[constantapp]['APP_ID']));
+        if ($data === false) {
+            $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
+            Yii::$app->cache->set(urlencode('newproducts-'.Yii::$app->params[constantapp]['APP_ID']), ['newproducts' => $newproducts], 86400);
+        }else{
+            $newproducts = $data[newproducts];
+        }
 
-        $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
         if(isset($newproducts[0])){
         }else{  $newproducts = 'Не найдено!';}
 
