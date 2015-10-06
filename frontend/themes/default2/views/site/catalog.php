@@ -517,6 +517,6 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
 //                   echo 'Нет результатов';
 //                }
 //            }?>
-<!--        </div>-->
-<!--    </div>-->
+        </div>
+    </div>
     <?  $this->endCache(); }?>
