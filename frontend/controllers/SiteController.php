@@ -797,10 +797,18 @@ class SiteController extends Controller
     }
 
     public function actionCountryrequest(){
-        $country_data = new Countries();
-        $data = $country_data->find()->select('countries_id as id, countries_name as title')->asArray()->all();
+
+        $data = Yii::$app->cache->get(urlencode('data_country-'.Yii::$app->params[constantapp]['APP_ID']));
+        if ($data === false) {
+            $country_data = new Countries();
+            $data = $country_data->find()->select('countries_id as id, countries_name as title')->asArray()->all();
+            Yii::$app->cache->set(urlencode('data_country-'.Yii::$app->params[constantapp]['APP_ID']), ['data_country' => $data], 86400);
+        }else{
+            $data = $data[data_country];
+        }
         $result['response']= ['count' => count($data)  , 'items' => $data];
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
         return $result;
     }
 
@@ -808,9 +816,16 @@ class SiteController extends Controller
         return Yii::$app->user->identity->username;
     }
     public function actionZonesrequest($id){
-        $zones_data = new Zones();
-        $data= $zones_data->find()->select('zone_id as id, zone_name as title')->where(['zone_country_id'=> intval($id)])->asArray()->all();
-        $result['response']= ['count' => count($data)  , 'items' => $data];
+
+        $data = Yii::$app->cache->get(urlencode('zones_data-'.Yii::$app->params[constantapp]['APP_ID']));
+        if ($data === false) {
+            $zones_data = new Zones();
+            $data= $zones_data->find()->select('zone_id as id, zone_name as title')->where(['zone_country_id'=> intval($id)])->asArray()->all();
+            Yii::$app->cache->set(urlencode('zones_data-'.Yii::$app->params[constantapp]['APP_ID']), ['zones_data' => $data], 86400);
+        }else{
+            $data = $data[zones_data];
+        }
+          $result['response']= ['count' => count($data)  , 'items' => $data];
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $result;
     }
@@ -827,7 +842,6 @@ class SiteController extends Controller
         }else{
             $id = Yii::$app->request->getQueryParam('id');
         }
-
         $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id',[':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $data;
