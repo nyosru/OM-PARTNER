@@ -248,7 +248,7 @@ class SiteController extends Controller
         $hide_man = implode(',' , $list);
 
         if($prod_attr_query == '' && $searchword == ''){
-            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1   and products.products_quantity > 0    and products.removable != 1    and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.') ',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->asArray()->one();
+            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1   and products.products_quantity > 0    and products.removable != 1    and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.') ',[':start_price' => $start_price, ':end_price' => $end_price])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->limit($count)->offset($start_arr)->asArray()->one();
             $dependency = new DbDependency([
                 'sql' =>   $x   ]);
             $data = Yii::$app->cache->get(urlencode('first'.$cat.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$order));
