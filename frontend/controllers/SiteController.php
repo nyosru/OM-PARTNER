@@ -256,8 +256,9 @@ class SiteController extends Controller
         if($prod_attr_query == '' && $searchword == ''){
            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->limit($count)->offset($start_arr)->asArray()->one();
        if(!isset($x)){
-           $dependency = new DbDependency([
-               'sql' => $x]);
+           $dependency = new ChainedDependency([
+               'data' => PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->limit($count)->offset($start_arr)->one()
+           ]);
        }else {
            $dependency = new DbDependency([
                'sql' => 'SELECT 1']);
@@ -280,7 +281,8 @@ class SiteController extends Controller
             $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->limit($count)->offset($start_arr)->asArray()->one();
             if(!isset($x)){
                 $dependency = new DbDependency([
-                    'sql' => $x]);
+                    'sql' => PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->limit($count)->offset($start_arr)->one()
+                ]);
             }else {
                 $dependency = new DbDependency([
                     'sql' => 'SELECT 1']);
