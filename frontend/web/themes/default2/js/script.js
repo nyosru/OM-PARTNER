@@ -905,11 +905,15 @@ $(document).on('click', '.data-j', function() {
                 $datasub2 = $(this).siblings("ul").children('li').children('div');
                 $que.push(this.getAttribute('data-cat'));
                 $.each($datasub2, function(){
+                    $datasub3 = $(this).siblings("ul").children('li').children('div');
                     $que.push(this.getAttribute('data-cat'));
-                })
+                    $.each($datasub3, function(){
+                        $que.push(this.getAttribute('data-cat'));
+                    });
+                });
             });
         });
-        $cat = $que.join('.');
+          $cat = $que.join('.');
         $searchword = '';
     }else{
         $link = $('.link');
