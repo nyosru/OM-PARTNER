@@ -53,7 +53,7 @@ function load_cat($arr, $parent_id = 0, $catnamearr, $allow_cat) {
 }
 ?>
 
-<?  if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] , array('duration'=>600))) {?>
+<? // if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] , array('duration'=>600))) {?>
 <div class="container" id="partners-main">
 
     <?
@@ -184,4 +184,4 @@ function load_cat($arr, $parent_id = 0, $catnamearr, $allow_cat) {
         </div>
     </div>
 
-<?   $this->endCache(); }?>
+<?  // $this->endCache(); }?>
