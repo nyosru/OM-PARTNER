@@ -217,7 +217,7 @@ class SiteController extends Controller
 
         switch ($sort) {
             case 0:
-                $order = ["products_last_modified" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
+                $order = ["products_date_added" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
            case 1:
                 $order =  ["products_price" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
@@ -232,7 +232,7 @@ class SiteController extends Controller
                 $order = ["products_viewed" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 10:
-                $order = ["products_last_modified" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
+                $order = ["products_date_added" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                break;
             case 11:
                 $order =  ["products_price" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
