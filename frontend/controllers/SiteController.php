@@ -256,11 +256,12 @@ class SiteController extends Controller
         if($prod_attr_query == '' && $searchword == ''){
            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->limit($count)->offset($start_arr)->asArray()->one();
        if(!isset($x)){
-           $x = false;
+           $x = 'yuiop';
        }
             $dependency = new ExpressionDependency([
                 'data' =>   $x    ]);
             $data = Yii::$app->cache->get(urlencode('first'.$cat.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort));
+
            if ($data === false) {
                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products.removable != 1   and products.products_quantity > 0   and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')  ',[':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price and products.removable != 1   and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->count();
