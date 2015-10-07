@@ -152,7 +152,7 @@ class SiteController extends Controller
              $categoriess = new PartnersCategories();
              $categoriesd = new PartnersCatDescription();
              return [$categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All(), $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All()];
-         }, 3600, $dependency
+         }, 86400, $dependency
      );
      return $catdataarr;
     }
@@ -165,7 +165,7 @@ class SiteController extends Controller
             function ($db) {
                 $man = new Manufacturers();
                 return $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
-            }, 3600, $dependency
+            }, 86400, $dependency
         );
         return $hide_man;
     }
@@ -269,7 +269,7 @@ class SiteController extends Controller
                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price and products.removable != 1   and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->count();
                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')     and products.products_quantity > 0    and products.removable != 1    and products_status=1 and products.manufacturers_id NOT IN ('.$hide_man.') ')->asArray()->one();
                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1   and products.products_quantity > 0    and products.removable != 1    and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.') ',[':start_price' => $start_price, ':end_price' => $end_price])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
-               Yii::$app->cache->set(urlencode('first'.$cat.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'data' => $data ], 3600);
+               Yii::$app->cache->set(urlencode('first'.$cat.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'data' => $data ], 86400);
            }else{
                $productattrib = $data[productattrib];
                $count_arrs = $data[count_arrs];
@@ -291,7 +291,7 @@ class SiteController extends Controller
                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0      and products.removable != 1   and products_price <= :end_price and products_price >= :start_price and options_values_id IN (:prod_attr_query) and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->count();
                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products_status=1    and products.products_quantity > 0   and products.removable != 1      and options_values_id IN (:prod_attr_query)   and products.manufacturers_id NOT IN ('.$hide_man.')', [':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1      and products.products_quantity > 0    and products_price <= :end_price and products_price >= :start_price  and products.removable != 1   and options_values_id IN (:prod_attr_query)   and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
-               Yii::$app->cache->set(urlencode('two'.$cat.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$prod_attr_query.'-'.$sort), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'data' => $data ], 3600, $dependency);
+               Yii::$app->cache->set(urlencode('two'.$cat.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$prod_attr_query.'-'.$sort), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'data' => $data ], 86400, $dependency);
            }else{
                $productattrib = $data[productattrib];
                $count_arrs = $data[count_arrs];
@@ -825,7 +825,7 @@ class SiteController extends Controller
         if ($data === false) {
             $country_data = new Countries();
             $data = $country_data->find()->select('countries_id as id, countries_name as title')->asArray()->all();
-            Yii::$app->cache->set(urlencode('data_country-'.Yii::$app->params[constantapp]['APP_ID']), ['data_country' => $data], 3600);
+            Yii::$app->cache->set(urlencode('data_country-'.Yii::$app->params[constantapp]['APP_ID']), ['data_country' => $data], 86400);
         }else{
             $data = $data[data_country];
         }
@@ -844,7 +844,7 @@ class SiteController extends Controller
         if ($data === false) {
             $zones_data = new Zones();
             $data= $zones_data->find()->select('zone_id as id, zone_name as title')->where(['zone_country_id'=> intval($id)])->asArray()->all();
-            Yii::$app->cache->set(urlencode('zones_data-'.Yii::$app->params[constantapp]['APP_ID']), ['zones_data' => $data], 3600);
+            Yii::$app->cache->set(urlencode('zones_data-'.Yii::$app->params[constantapp]['APP_ID']), ['zones_data' => $data], 86400);
         }else{
             $data = $data[zones_data];
         }
