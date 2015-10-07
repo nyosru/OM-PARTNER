@@ -198,6 +198,9 @@ class SiteController extends Controller
         if($sort == 'undefined'){
             $sort = 10;
         }
+        if($page == 'undefined'){
+            $page = 0;
+        }
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
         if($searchword == '') {
             $catdataarr = $this->categories_for_partners();
