@@ -256,7 +256,7 @@ class SiteController extends Controller
         if($prod_attr_query == '' && $searchword == ''){
            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->limit($count)->offset($start_arr)->asArray()->one();
        if(!isset($x)){
-           $x = true;
+           $x = false;
        }
             $dependency = new ExpressionDependency([
                 'data' =>   $x    ]);
