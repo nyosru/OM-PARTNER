@@ -16,7 +16,7 @@ use yii\jui\Slider;
 
 $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
 ?>
-<?if ($this->beginCache('partner-index'.hash( 'crc32b' , md5( $_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] ) ), array('duration'=>3600))) {?>
+<?if ($this->beginCache('partner-index'.hash( 'crc32b' , md5( $_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] ) ), array('duration'=>600))) {?>
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
