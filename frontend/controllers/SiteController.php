@@ -182,10 +182,10 @@ class SiteController extends Controller
            if(preg_match("/^[0-9]+$/", $valcat)){
                $cats[$key] = $valcat;
            }}
-        if(count($cats) > 480){
-            $cats = array_chunk($cats, 480);
-        $cats = $cats[0];
-        }
+//        if(count($cats) > 480){
+//            $cats = array_chunk($cats, 480);
+//        $cats = $cats[0];
+//        }
 
         $cat = implode(",", $cats);
         $start_price =  intval(Yii::$app->request->getQueryParam('start_price', 0));
