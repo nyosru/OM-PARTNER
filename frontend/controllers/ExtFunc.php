@@ -19,7 +19,10 @@ class ExtFunc
                 }
             }
         }
-         $str_load_cat[] =  $parent_id;
+         if($parent_id != 0){
+             $str_load_cat[] =  $parent_id;
+         }
+
         return  $str_load_cat;
     }
 
