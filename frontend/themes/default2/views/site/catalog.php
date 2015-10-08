@@ -130,9 +130,6 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
 
     $url = '';
     $url = document.location.hash;
-//    if($url.toLowerCase().indexOf('#!')){
-//        window.location('/');
-//    }
     $url_data = split_url(document.location .hash);
     $cat = $url_data['#!cat'][1];
     $count = $url_data . count[1];
@@ -301,11 +298,8 @@ $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
                         $('#size-slide') . html('');
                         $('#filter-button') . html('');
                     }
-                data[12] . split(',');
-                $.each(data[12] . split(','), function ()
-                    {
-                        $("[data-cat=" + this + "]") . attr('data', 'checked');
-                    });
+
+                        $("[data-cat=" + data[12] + "]") . attr('data', 'checked');
 
                 $.each($('.link'), function () {
                     if ($(this) . children('a') . length == 0) {

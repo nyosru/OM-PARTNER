@@ -895,32 +895,10 @@ $(document).on('click', '.data-j', function() {
     }
     $cat = [];
     if($('#search').val() == ''){
-        $cat = $('[data=checked]');
-        $que = [];
-        $datasub2 = [];
-        $.each($cat, function() {
-            $datasub = $(this).siblings("ul").children('li').children('div');
-            $que.push(this.getAttribute('data-cat'));
-            $.each($datasub, function(){
-                $datasub2 = $(this).siblings("ul").children('li').children('div');
-                $que.push(this.getAttribute('data-cat'));
-                $.each($datasub2, function(){
-                    $datasub3 = $(this).siblings("ul").children('li').children('div');
-                    $que.push(this.getAttribute('data-cat'));
-                    $.each($datasub3, function(){
-                        $que.push(this.getAttribute('data-cat'));
-                    });
-                });
-            });
-        });
-          $cat = $que.join('.');
+        $cat = $('[data=checked]').attr('data-cat');
         $searchword = '';
     }else{
-        $link = $('.link');
-        $.each($link , function(){
-            $cat.push(this.getAttribute('data-cat'));
-        });
-        $cat.join('.');
+        $cat = '0';
         $searchword = $('#search').val();
     }
     $count = $('.count-checked').text();
@@ -1105,10 +1083,9 @@ $(document).on('click', '.data-j', function() {
                 $('#size-slide').html('');
                 $('#filter-button').html('');
             }
-            data[12].split(',');
-            $.each(data[12].split(','), function() {
-                $("[data-cat=" + this + "]").attr('data', 'checked');
-            });
+
+                $("[data-cat=" + data[12] + "]").attr('data', 'checked');
+
 
             $.each($('.link'), function(){
                 if($(this).children('a').length == 0){
