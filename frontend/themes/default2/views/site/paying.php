@@ -15,7 +15,8 @@ use yii\helpers\BaseUrl;
 use dosamigos\ckeditor\CKEditorInline;
 use yii\jui\Slider;
 use common\models\PartnersConfig;
-
+use frontend\controllers\ExtFunc;
+$functions = new ExtFunc();
 $this -> title = 'Оплата';
 ?>
 <div class="container" id="partners-main">
@@ -23,44 +24,11 @@ $this -> title = 'Оплата';
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
                 <?
-                $check = Yii::$app->params[constantapp]['APP_ID'];
                 $checks = Yii::$app->params[constantapp]['APP_CAT'];
-                foreach ($catdata as $value) {
-                    if (in_array(intval($value['categories_id']), $checks)) {
-                        $catdataallow[] = $value;
-                    }
-                }
-                for ($i = 0; $i < count($catdataallow); $i++) {
-                    $row = $catdataallow[$i];
-                    if (empty($arr_cat[$row['parent_id']])) {
-                        $arr_cat[$row['parent_id']] = $row;
-                    }
-                    $arr_cat[$row['parent_id']][] = $row;
-                }
-                foreach ($categories as $value) {
-                    $catnamearr[$value['categories_id']] = $value['categories_name'];
-                }
-                function view_cat($arr, $parent_id = 0, $catnamearr, $allow_cat) {
-                    if (empty($arr[$parent_id])) {
-                        return;
-                    } else {
-                        if ($parent_id !== 0) {$style = 'style="display: none;"';
-                        }
-                        echo '<ul id="accordion" class="accordion" ' . $style . '">';
-                        for ($i = 0; $i < count($arr[$parent_id]); $i++) {
-                            $catdesc = $arr[$parent_id][$i]['categories_id'];
-                            if (!$arr[$parent_id][$i] == '') {
-                                echo '<li class=""><div class="link data-j" data-j="on" data-cat="' . $catdesc . '">' . $catnamearr["$catdesc"] .'</div>';
-                                view_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
-                                echo '</li>';
-                            }
-                        }
-                        echo '</ul>';
-                    }
-                }
+                $cat_array = $functions->reformat_cat_array($catdata, $categories, $checks)
                 ?><div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
                 </div><?
-                view_cat($arr_cat, 0, $catnamearr, $check);
+                $functions->view_cat($cat_array[cat], 0, $cat_array[name], $check);
                 ?>
             </div>
             <div id="filters">
