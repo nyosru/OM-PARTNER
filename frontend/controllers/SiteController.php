@@ -38,6 +38,7 @@ use common\models\Orders;
 use common\models\PartnersConfig;
 use yii\caching\Cache;
 use yii\caching\Dependency;
+use frontend\controllers\ExtFunc;
 /**
  * Контроллер сайта
  */
