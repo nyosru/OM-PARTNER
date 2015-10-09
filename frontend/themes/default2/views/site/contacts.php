@@ -70,7 +70,7 @@ $this->title = 'Контакты';
 
 
                     $.post(
-                        "/site/savehtml",
+                        '/site/savehtml',
                         { html: $html,
                           page: 'contacts'}
                     );

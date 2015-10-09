@@ -40,7 +40,7 @@ $this -> title = 'Личный кабинет';
 
         $('.bside').html('');
         $.post(
-            "/site/requestadress",
+            '/site/requestadress',
             { ship: 'flat1_flat1'},
 
             onAjaxProfileSuccessinfo
@@ -85,10 +85,10 @@ $this -> title = 'Личный кабинет';
             $inner +='<button class="btn btn-sm btn-info profile-orders" id="profile-orders" style="bottom: 0px; position: relative; float: right;">Оставить без изменений</button><button class="save-user-profile btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Сохранить</button>';
             $('.ui-dialog-titlebar').hide();
             $.ajax({
-                type: "GET",
-                url: "/site/countryrequest",
+                type: 'GET',
+                url: '/site/countryrequest',
                 data: '',
-                dataType:"json",
+                dataType:'json',
                 success: function(out) {
 
                     $inner = '';
@@ -108,7 +108,7 @@ $this -> title = 'Личный кабинет';
                 str = $('[data-name="country"]').text();
             }
 
-            $country = $("[data-country]");
+            $country = $('[data-country]');
             $check = '';
 
             $.each($country, function(){
@@ -120,10 +120,10 @@ $this -> title = 'Личный кабинет';
 
 
             $.ajax({
-                type: "GET",
-                url: "/site/zonesrequest",
+                type: 'GET',
+                url: '/site/zonesrequest',
                 data: 'id='+$check,
-                dataType:"json",
+                dataType:'json',
                 success: function(out2) {
 
                     $inner = '';
@@ -149,10 +149,10 @@ $this -> title = 'Личный кабинет';
                 $('[data-name=country]').attr('data-country', this.getAttribute('country'));
                 $('#country-drop').hide();
                 $.ajax({
-                    type: "GET",
-                    url: "/site/zonesrequest",
+                    type: 'GET',
+                    url: '/site/zonesrequest',
                     data: 'id='+this.getAttribute('data-country'),
-                    dataType:"json",
+                    dataType:'json',
                     success: function(out2) {
 
                         $inner = '';

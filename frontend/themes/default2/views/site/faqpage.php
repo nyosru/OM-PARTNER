@@ -64,7 +64,7 @@ $this -> title = 'F.A.Q.';
 
 
                         $.post(
-                            "/site/savehtml",
+                            '/site/savehtml',
                             { html: $html,
                                 page: 'faq'}
                         );

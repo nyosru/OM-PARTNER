@@ -64,7 +64,7 @@ $this -> title = 'Оферта';
 
 
                         $.post(
-                            "/site/savehtml",
+                            '/site/savehtml',
                             { html: $html,
                                 page: 'offerta'}
                         );

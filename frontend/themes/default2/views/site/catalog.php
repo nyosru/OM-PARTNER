@@ -140,7 +140,7 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
     $sort = $url_data . sort[1];
     $searchword = $url_data . searchword[1];
         $.ajax({
-            url : "/site/request",
+            url : '/site/request',
             data : 'cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword,
             cache : false,
             async : true,
@@ -182,10 +182,10 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
 
                     });
                     $('.bside') . prepend($headbside);
-                    $('.header-sort-item:first') . attr('style', "border-left:none;");
-                    $('.header-sort-item:last') . attr('style', "border-right:none;");
-                    $('.header-sort-item-active') . next() . attr('style', "border-left:none;");
-                    $('.header-sort-item-active') . prev() . attr('style', "border-right:none;");
+                    $('.header-sort-item:first') . attr('style', 'border-left:none;');
+                    $('.header-sort-item:last') . attr('style', 'border-right:none;');
+                    $('.header-sort-item-active') . next() . attr('style', 'border-left:none;');
+                    $('.header-sort-item-active') . prev() . attr('style', 'border-right:none;');
 
                     $('.sort[data=' + data[11] + ']').addClass('sort-checked');
 
@@ -225,7 +225,7 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         })
                     });
                     if (data[9] != '') {
-                            $("[data-size=" + data[9] + "]").addClass('size-checked');
+                            $('[data-size=' + data[9] + ']').addClass('size-checked');
                     }
 
                     $('#filter-button') . html('<div style="clear: both;padding: 10px 20px;"><div class="btn btn-info btn-sm data-j addfilter" style="float: left">Применить</div><div class="btn btn-danger btn-sm data-j reset" style="float: right">Сбросить</div></div>');
@@ -279,9 +279,9 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         $('#products-pager') . html('Страница: ' + $pager);
                         $('.bside') . append('<div id="products-pager-down">Страница: ' + $pager + '</div>');
                     }
-                    $("[data-page=" + $page + "]") . addClass('page-checked');
+                    $('[data-page=' + $page + ']') . addClass('page-checked');
                     $ert = $cat;
-                    $(".slider") . slider({
+                    $('.slider') . slider({
                         animate : true,
                         range : true,
                         values : [data[7], data[8]],
@@ -299,7 +299,7 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         $('#filter-button') . html('');
                     }
 
-                        $("[data-cat=" + data[12] + "]") . attr('data', 'checked');
+                        $('[data-cat=' + data[12] + ']') . attr('data', 'checked');
 
                 $.each($('.link'), function () {
                     if ($(this) . children('a') . length == 0) {

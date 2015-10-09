@@ -212,38 +212,38 @@ class SiteController extends Controller
         $catdataw = $categoriesarr[1];
         $categoriesarr = $this->ExtFuncLoad()->reformat_cat_array($categories, $catdataw, $checks );
 
-        $cat = implode(",", $this->ExtFuncLoad()->load_cat($categoriesarr['cat'] ,  $cat_start ,$categoriesarr['name'], $checks));
+        $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'] ,  $cat_start ,$categoriesarr['name'], $checks));
 
         switch ($sort) {
             case 0:
-                $order = ["products_date_added" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
+                $order = ['products_date_added' => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
            case 1:
-                $order =  ["products_price" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
+                $order =  ['products_price' => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 2:
-                $order = ["products_name" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
+                $order = ['products_name' => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 3:
-                $order =  ["products_model" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
+                $order =  ['products_model' => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 4:
-                $order = ["products_viewed" => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
+                $order = ['products_viewed' => SORT_ASC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 10:
-                $order = ["products_date_added" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
+                $order = ['products_date_added' => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                break;
             case 11:
-                $order =  ["products_price" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
+                $order =  ['products_price' => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 12:
-                $order = ["products_name" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
+                $order = ['products_name' => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 13:
-                $order =  ["products_model" => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
+                $order =  ['products_model' => SORT_DESC, 'products_options_values_name' => SORT_ASC ];
                 break;
             case 14:
-                $order = ["products_viewed" => SORT_DESC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_viewed' => SORT_DESC, 'products_options_values_name' => SORT_ASC];
                 break;
        }
         $type = '';
@@ -292,12 +292,12 @@ class SiteController extends Controller
                $price_max = $data['price_max'];
                $data =  $data['data'];
            }
-       }elseif(preg_match("/^[0-9]+$/", $searchword)){
+       }elseif(preg_match('/^[0-9]+$/', $searchword)){
            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
            $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and products_price >= :start_price and products.products_model=:searchword    and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1     and products_status=1 and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1      and products_price >= :start_price  and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
-       }elseif(preg_match("/^[a-zа-я]+$/iu", $searchword)){
+       }elseif(preg_match('/^[a-zа-я]+$/iu', $searchword)){
            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
            $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->JoinWith('productsDescription')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and products_price >= :start_price and products_description.products_name=:searchword    and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1     and products_status=1 and products_description.products_name=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
@@ -649,13 +649,13 @@ class SiteController extends Controller
             $model->delivery = serialize($user);
             $model->order = serialize($order);
             $model->status = 1;
-            $model->create_date = date("Y-m-d H:i:s");
-            $model->update_date = date("Y-m-d H:i:s");
+            $model->create_date = date('Y-m-d H:i:s');
+            $model->update_date = date('Y-m-d H:i:s');
             if ($model->save()) {
                 $username = User::findOne($id)->username;
                 $orders_delivery = ' ';
                 $site_name = Yii::$app->params['constantapp']['APP_NAME'];
-                $date_order = date("m.d.Y");
+                $date_order = date('m.d.Y');
                 Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site'=> $_SERVER['HTTP_HOST'], 'site_name'=> $site_name, 'date_order'=> $date_order])
                     ->setFrom('support@'.$_SERVER['HTTP_HOST'])
                     ->setTo($username)
@@ -933,30 +933,33 @@ class SiteController extends Controller
     }
 
     public function actionSavehtml(){
-        $html =  addslashes($_POST['html']);
-        $page =  addslashes($_POST['page']);
-        $data = new PartnersConfig();
-        $check = Yii::$app->params['constantapp']['APP_ID'];
+        if(isset($_POST['html']) && isset($_POST['page'])) {
+            $html = addslashes($_POST['html']);
+            $page = addslashes($_POST['page']);
+            $data = new PartnersConfig();
+            $check = Yii::$app->params['constantapp']['APP_ID'];
 
-        $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
-if($data) {
-    $data->partners_id = $check;
-    $data->type = $page;
-    $data->value = $html;
-    $data->active = 1;
-}else{
-    $data = new PartnersConfig();
-    $data->partners_id = $check;
-    $data->type = $page;
-    $data->value = $html;
-    $data->active = 1;
-}
-        if($data->save()){
-            return true;
+            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+            if ($data) {
+                $data->partners_id = $check;
+                $data->type = $page;
+                $data->value = $html;
+                $data->active = 1;
+            } else {
+                $data = new PartnersConfig();
+                $data->partners_id = $check;
+                $data->type = $page;
+                $data->value = $html;
+                $data->active = 1;
+            }
+            if ($data->save()) {
+                return true;
+            } else {
+                return false;
+            }
         }else{
             return false;
         }
-
     }
 
     public function actionChstatusorder()
@@ -973,7 +976,7 @@ if($data) {
 
             $new_tok_order = Orders::findOne($id);
             $validkey = '';
-            $char="QWERTYUPASDFGHJKLZXCVBNMqwertyuopasdfghjkzxcvbnm123456789";
+            $char='QWERTYUPASDFGHJKLZXCVBNMqwertyuopasdfghjkzxcvbnm123456789';
             while(strlen($validkey) < 20){$validkey.=$char[mt_rand(0,strlen($char))];}
             $new_tok_order->customers_referer_url = '{"Partner":"' . $data->Partner . '","User":"' . $data->User .'","Key":"'.$validkey.'","Site":"'.$data->Site.'"}';
             if($new_tok_order->update()){

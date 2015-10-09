@@ -64,7 +64,7 @@ $this -> title = 'Доставка';
 
 
                         $.post(
-                            "/site/savehtml",
+                            '/site/savehtml',
                             { html: $html,
                                 page: 'delivery'}
                         );
