@@ -1,5 +1,5 @@
 <?php
-
+ob_start("ob_gzhandler");
 
 defined('YII_DEBUG') or define('YII_DEBUG', false);
 defined('YII_ENV') or define('YII_ENV', 'prod');
@@ -44,3 +44,4 @@ $application->setLayoutPath('@app/themes/'.$application->params[constantapp]['AP
 
 
 $application->run();
+ob_end_flush();
