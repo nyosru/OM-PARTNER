@@ -15,19 +15,19 @@ use yii\helpers\BaseUrl;
 use yii\jui\Slider;
 use frontend\controllers\ExtFunc;
 $functions = new ExtFunc();
-$this -> title = Yii::$app->params[constantapp]['APP_NAME'];
+$this -> title = Yii::$app->params['constantapp']['APP_NAME'];
 ?>
-<?if ($this->beginCache('partner-index'.hash( 'crc32b' , md5( $_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] ) ), array('duration'=>600))) {?>
+<?if ($this->beginCache('partner-index'.hash( 'crc32b' , md5( $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ) ), array('duration'=>600))) {?>
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
                 <?
-                $checks = Yii::$app->params[constantapp]['APP_CAT'];
+                $checks = Yii::$app->params['constantapp']['APP_CAT'];
                 $cat_array = $functions->reformat_cat_array($catdata, $categories, $checks)
                 ?><div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
                 </div><?
-                $functions->view_cat($cat_array[cat], 0, $cat_array[name], $check);
+                $functions->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
                 ?>
             </div>
             <div id="filters">

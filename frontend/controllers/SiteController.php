@@ -142,7 +142,7 @@ class SiteController extends Controller
 
     private function id_partners()
     {
-        return Yii::$app->params[constantapp]['APP_ID'];
+        return Yii::$app->params['constantapp']['APP_ID'];
     }
 
     private function categories_for_partners(){
@@ -177,8 +177,8 @@ class SiteController extends Controller
     public function actionRequest()
     {
         $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
-        $check = Yii::$app->params[constantapp]['APP_ID'];
-        $checks = Yii::$app->params[constantapp]['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
         $start_price =  intval(Yii::$app->request->getQueryParam('start_price', 0));
         $end_price =  intval(Yii::$app->request->getQueryParam('end_price', 1000000));
         $prod_attr_query =  intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
@@ -201,7 +201,7 @@ class SiteController extends Controller
                 $catnamearr[$value['categories_id']] = $value['categories_name'];
             }
             foreach ($catdata as $value) {
-                $catdatas[$value[categories_id]] = $value[parent_id];
+                $catdatas[$value['categories_id']] = $value['parent_id'];
             }
         $chpu = $this->Requrscat($catdatas, $cat_start, $catnamearr);
 
@@ -212,7 +212,7 @@ class SiteController extends Controller
         $catdataw = $categoriesarr[1];
         $categoriesarr = $this->ExtFuncLoad()->reformat_cat_array($categories, $catdataw, $checks );
 
-        $cat = implode(",", $this->ExtFuncLoad()->load_cat($categoriesarr[cat] ,  $cat_start ,$categoriesarr[name], $checks));
+        $cat = implode(",", $this->ExtFuncLoad()->load_cat($categoriesarr['cat'] ,  $cat_start ,$categoriesarr['name'], $checks));
 
         switch ($sort) {
             case 0:
@@ -249,16 +249,16 @@ class SiteController extends Controller
         $type = '';
         $hide_man = $this->hide_manufacturers_for_partners();
         foreach($hide_man as $value){
-            $list[] = $value[manufacturers_id];
+            $list[] = $value['manufacturers_id'];
         }
         $hide_man = implode(',' , $list);
 
         if($prod_attr_query == '' && $searchword == ''){
            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->limit($count)->offset($start_arr)->asArray()->one();
-       if(!isset($x[products_last_modified])){
+       if(!isset($x['products_last_modified'])){
            $checkcache = '0000-00-00';
        }else {
-           $checkcache = $x[products_last_modified];
+           $checkcache = $x['products_last_modified'];
 
        }
             $data = Yii::$app->cache->get(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort));
@@ -273,10 +273,10 @@ class SiteController extends Controller
                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1   and products.products_quantity > 0    and products.removable != 1    and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.') ',[':start_price' => $start_price, ':end_price' => $end_price])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
                Yii::$app->cache->set(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'data' => $data, 'checkcache' => $checkcache]);
            }else{
-               $productattrib = $data[productattrib];
-               $count_arrs = $data[count_arrs];
-               $price_max = $data[price_max];
-               $data =  $data[data];
+               $productattrib = $data['productattrib'];
+               $count_arrs = $data['count_arrs'];
+               $price_max = $data['price_max'];
+               $data =  $data['data'];
            }
        }elseif($prod_attr_query != '' && $searchword == '') {
            $data = Yii::$app->cache->get(urlencode('two'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$prod_attr_query.'-'.$sort.'-'.$searchword));
@@ -287,10 +287,10 @@ class SiteController extends Controller
                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1      and products.products_quantity > 0    and products_price <= :end_price and products_price >= :start_price  and products.removable != 1   and options_values_id IN (:prod_attr_query)   and products.manufacturers_id NOT IN ('.$hide_man.')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
                Yii::$app->cache->set(urlencode('two'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$prod_attr_query.'-'.$sort.'-'.$searchword), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'data' => $data ], 86400);
            }else{
-               $productattrib = $data[productattrib];
-               $count_arrs = $data[count_arrs];
-               $price_max = $data[price_max];
-               $data =  $data[data];
+               $productattrib = $data['productattrib'];
+               $count_arrs = $data['count_arrs'];
+               $price_max = $data['price_max'];
+               $data =  $data['data'];
            }
        }elseif(preg_match("/^[0-9]+$/", $searchword)){
            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products.products_model=:searchword   and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
@@ -363,26 +363,26 @@ class SiteController extends Controller
         $cat = $categoriesarr[1];
         $hide_man = $this->hide_manufacturers_for_partners();
         foreach($hide_man as $value){
-            $list[] = $value[manufacturers_id];
+            $list[] = $value['manufacturers_id'];
         }
         $hide_man = implode(',' , $list);
         $products = '75359852,95833167,95848445';
-        $data = Yii::$app->cache->get(urlencode('dataprod-'.Yii::$app->params[constantapp]['APP_ID']));
+        $data = Yii::$app->cache->get(urlencode('dataprod-'.Yii::$app->params['constantapp']['APP_ID']));
         if ($data === false) {
             $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->JoinWith('productsAttributesDescr')->asArray()->all();
-            Yii::$app->cache->set(urlencode('dataprod-'.Yii::$app->params[constantapp]['APP_ID']), ['dataproducts' => $dataproducts], 3600);
+            Yii::$app->cache->set(urlencode('dataprod-'.Yii::$app->params['constantapp']['APP_ID']), ['dataproducts' => $dataproducts], 3600);
         }else{
-            $dataproducts = $data[dataproducts];
+            $dataproducts = $data['dataproducts'];
         }
         if(isset($dataproducts[0])){
         }else{  $dataproducts = 'Не найдено!';}
 
-        $data = Yii::$app->cache->get(urlencode('newproducts-'.Yii::$app->params[constantapp]['APP_ID']));
+        $data = Yii::$app->cache->get(urlencode('newproducts-'.Yii::$app->params['constantapp']['APP_ID']));
         if ($data === false) {
             $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id`'])->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
-            Yii::$app->cache->set(urlencode('newproducts-'.Yii::$app->params[constantapp]['APP_ID']), ['newproducts' => $newproducts], 3600);
+            Yii::$app->cache->set(urlencode('newproducts-'.Yii::$app->params['constantapp']['APP_ID']), ['newproducts' => $newproducts], 3600);
         }else{
-            $newproducts = $data[newproducts];
+            $newproducts = $data['newproducts'];
         }
           if(isset($newproducts[0])){
         }else{  $newproducts = 'Не найдено!';}
@@ -503,7 +503,7 @@ class SiteController extends Controller
         $check = array();
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
-            unset($query[$key]['order'][ship]);
+            unset($query[$key]['order']['ship']);
             $query[$key]['delivery'] = unserialize($value['delivery']);
             if($value['orders_id'] != '' and $value['orders_id'] != NULL){$check[]= $value['orders_id'];};
         }
@@ -518,16 +518,16 @@ class SiteController extends Controller
             // $query[ordersatus] = $checkstr;
             $ordersatusn = $orders->find()->select('orders.`orders_id`, orders.`orders_status`, orders.`delivery_lastname`, orders.`delivery_name`,orders.`delivery_otchestvo`, orders.`delivery_postcode`, orders.`delivery_state`, orders.`delivery_country`, orders.`delivery_state`, orders.`delivery_city`, orders.`delivery_street_address`, orders.`customers_telephone`')->where('orders.`orders_id` IN (' . $checkstr . ')')->joinWith('products')->joinWith('productsAttr')->asArray()->all();
             foreach ($query as $key => $value) {
-                $query[ordersatus][$ordersatusn[$key][orders_id]] = $ordersatusn[$key];
+                $query['ordersatus'][$ordersatusn[$key]['orders_id']] = $ordersatusn[$key];
             }
         }
         if($count < ($page)*10){
-            $query[page] = $count/10;
+            $query['page'] = $count/10;
         }elseif($page < 1 ){
-            $query[page] = 0;
+            $query['page'] = 0;
 
         }else{
-            $query[page] = $page;
+            $query['page'] = $page;
         }
 
         return $query;
@@ -538,45 +538,45 @@ class SiteController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $order = Yii::$app->request->post('order');
-        $order[ship] = Yii::$app->request->post('ship');
+        $order['ship'] = Yii::$app->request->post('ship');
         $userdata = Yii::$app->request->post('user');
-        $check = Yii::$app->params[constantapp]['APP_ID'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
         $userModel = Yii::$app->user->identity;
         $model->partners_id = $check;
         $model->user_id = $userModel->getId();
         $user = new PartnersUsersInfo();
-        $user->scenario = $order[ship];
+        $user->scenario = $order['ship'];
         if($user::findOne($userModel->getId())){
             $user = $user::findOne($userModel->getId());
-            $user->scenario = $order[ship];
-            if($userdata[pasportser] != '') {
-                $user->pasportser = $userdata[pasportser];
+            $user->scenario = $order['ship'];
+            if($userdata['pasportser'] != '') {
+                $user->pasportser = $userdata['pasportser'];
             }
-            if($userdata[pasportnum] != '') {
-                $user->pasportnum = $userdata[pasportnum];
+            if($userdata['pasportnum'] != '') {
+                $user->pasportnum = $userdata['pasportnum'];
             }
-            if($userdata[pasportdate] != '' ) {
-                $user->pasportdate = $userdata[pasportdate];
+            if($userdata['pasportdate'] != '' ) {
+                $user->pasportdate = $userdata['pasportdate'];
             }
-            if($userdata[pasportwhere] != '') {
-                $user->pasportwhere = $userdata[pasportwhere];
+            if($userdata['pasportwhere'] != '') {
+                $user->pasportwhere = $userdata['pasportwhere'];
             }
             if($user->customers_id > 0) {
                 $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
                 if ($check_passport_customer->pasport_seria == NULL) {
-                    $check_passport_customer->pasport_seria = $userdata[pasportser];
+                    $check_passport_customer->pasport_seria = $userdata['pasportser'];
 
                 }
                 if ($check_passport_customer->pasport_nomer == NULL) {
-                    $check_passport_customer->pasport_nomer = $userdata[pasportnum];
+                    $check_passport_customer->pasport_nomer = $userdata['pasportnum'];
 
                 }
                 if ($check_passport_customer->pasport_kem_vidan == NULL) {
-                    $check_passport_customer->pasport_kem_vidan = $userdata[pasportwhere];
+                    $check_passport_customer->pasport_kem_vidan = $userdata['pasportwhere'];
 
                 }
                 if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
-                    $check_passport_customer->pasport_kogda_vidan =  $userdata[pasportdate] ;
+                    $check_passport_customer->pasport_kogda_vidan =  $userdata['pasportdate'] ;
 
                 }
                 $check_passport_customer->entry_gender = 'M';
@@ -587,25 +587,25 @@ class SiteController extends Controller
                 $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $userdata['country']])->asArray()->one();
                 $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userdata['state']])->asArray()->one();
 
-                $check_passport_customer->entry_firstname = $userdata[name];
-                $check_passport_customer->entry_lastname = $userdata[lastname];
-                $check_passport_customer->entry_city = $userdata[city];
-                $check_passport_customer->entry_street_address = $userdata[adress];
-                $check_passport_customer->otchestvo =  $userdata[secondname];
-                $check_passport_customer->entry_postcode =  $userdata[postcode];
+                $check_passport_customer->entry_firstname = $userdata['name'];
+                $check_passport_customer->entry_lastname = $userdata['lastname'];
+                $check_passport_customer->entry_city = $userdata['city'];
+                $check_passport_customer->entry_street_address = $userdata['adress'];
+                $check_passport_customer->otchestvo =  $userdata['secondname'];
+                $check_passport_customer->entry_postcode =  $userdata['postcode'];
                 $check_passport_customer->entry_country_id = $entrycountry['id'];
                 $check_passport_customer->entry_zone_id = $entryzones['id'];
 
                 $user->id = $userModel->getId();
-                $user->name = $userdata[name];
-                $user->secondname = $userdata[secondname];
-                $user->lastname = $userdata[lastname];
-                $user->country = $userdata[country];
-                $user->state = $userdata[state];
-                $user->city = $userdata[city];
-                $user->adress = $userdata[adress];
-                $user->postcode = $userdata[postcode];
-                $user->telephone = $userdata[telephone];
+                $user->name = $userdata['name'];
+                $user->secondname = $userdata['secondname'];
+                $user->lastname = $userdata['lastname'];
+                $user->country = $userdata['country'];
+                $user->state = $userdata['state'];
+                $user->city = $userdata['city'];
+                $user->adress = $userdata['adress'];
+                $user->postcode = $userdata['postcode'];
+                $user->telephone = $userdata['telephone'];
 
 
                 if($check_passport_customer->update() && $user->update()){
@@ -613,33 +613,33 @@ class SiteController extends Controller
                 }
             }else{
                 $user->id = $userModel->getId();
-                $user->name = $userdata[name];
-                $user->secondname = $userdata[secondname];
-                $user->lastname = $userdata[lastname];
-                $user->country = $userdata[country];
-                $user->state = $userdata[state];
-                $user->city = $userdata[city];
-                $user->adress = $userdata[adress];
-                $user->postcode = $userdata[postcode];
-                $user->telephone = $userdata[telephone];
+                $user->name = $userdata['name'];
+                $user->secondname = $userdata['secondname'];
+                $user->lastname = $userdata['lastname'];
+                $user->country = $userdata['country'];
+                $user->state = $userdata['state'];
+                $user->city = $userdata['city'];
+                $user->adress = $userdata['adress'];
+                $user->postcode = $userdata['postcode'];
+                $user->telephone = $userdata['telephone'];
                 $user->update();
             }
 
         }else{
             $user->id = $userModel->getId();
-            $user->name = $userdata[name];
-            $user->secondname = $userdata[secondname];
-            $user->lastname = $userdata[lastname];
-            $user->country = $userdata[country];
-            $user->state = $userdata[state];
-            $user->city = $userdata[city];
-            $user->adress = $userdata[adress];
-            $user->postcode = $userdata[postcode];
-            $user->telephone = $userdata[telephone];
-            $user->pasportser = $userdata[pasportser];
-            $user->pasportnum = $userdata[pasportnum];
-            $user->pasportdate = $userdata[pasportdate];
-            $user->pasportwhere = $userdata[pasportwhere];
+            $user->name = $userdata['name'];
+            $user->secondname = $userdata['secondname'];
+            $user->lastname = $userdata['lastname'];
+            $user->country = $userdata['country'];
+            $user->state = $userdata['state'];
+            $user->city = $userdata['city'];
+            $user->adress = $userdata['adress'];
+            $user->postcode = $userdata['postcode'];
+            $user->telephone = $userdata['telephone'];
+            $user->pasportser = $userdata['pasportser'];
+            $user->pasportnum = $userdata['pasportnum'];
+            $user->pasportdate = $userdata['pasportdate'];
+            $user->pasportwhere = $userdata['pasportwhere'];
         }
         if($user->validate()){
 
@@ -654,9 +654,9 @@ class SiteController extends Controller
             if ($model->save()) {
                 $username = User::findOne($id)->username;
                 $orders_delivery = ' ';
-                $site_name = Yii::$app->params[constantapp]['APP_NAME'];
+                $site_name = Yii::$app->params['constantapp']['APP_NAME'];
                 $date_order = date("m.d.Y");
-                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site'=> $_SERVER[HTTP_HOST], 'site_name'=> $site_name, 'date_order'=> $date_order])
+                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site'=> $_SERVER['HTTP_HOST'], 'site_name'=> $site_name, 'date_order'=> $date_order])
                     ->setFrom('support@'.$_SERVER['HTTP_HOST'])
                     ->setTo($username)
                     ->setSubject('Заказ на сайте '.$_SERVER['HTTP_HOST'])
@@ -674,7 +674,7 @@ class SiteController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $userdata = Yii::$app->request->post('user');
-        $check = Yii::$app->params[constantapp]['APP_ID'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
         $userModel = Yii::$app->user->identity;
         $model->partners_id = $check;
         $model->user_id = $userModel->getId();
@@ -683,86 +683,86 @@ class SiteController extends Controller
         if($user::findOne($userModel->getId())){
             $user = $user::findOne($userModel->getId());
             $user->scenario = 'flat2_flat2';
-            if($userdata[pasportser] != '') {
-                $user->pasportser = $userdata[pasportser];
+            if($userdata['pasportser'] != '') {
+                $user->pasportser = $userdata['pasportser'];
             }
-            if($userdata[pasportnum] != '') {
-                $user->pasportnum = $userdata[pasportnum];
+            if($userdata['pasportnum'] != '') {
+                $user->pasportnum = $userdata['pasportnum'];
             }
-            if($userdata[pasportdate] != '' ) {
-                $user->pasportdate = $userdata[pasportdate];
+            if($userdata['pasportdate'] != '' ) {
+                $user->pasportdate = $userdata['pasportdate'];
             }
-            if($userdata[pasportwhere] != '') {
-                $user->pasportwhere = $userdata[pasportwhere];
+            if($userdata['pasportwhere'] != '') {
+                $user->pasportwhere = $userdata['pasportwhere'];
             }
             if($user->customers_id > 0) {
                 $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
                 if ($check_passport_customer->pasport_seria == NULL) {
-                    $check_passport_customer->pasport_seria = $userdata[pasportser];
+                    $check_passport_customer->pasport_seria = $userdata['pasportser'];
                 }
                 if ($check_passport_customer->pasport_nomer == NULL) {
-                    $check_passport_customer->pasport_nomer = $userdata[pasportnum];
+                    $check_passport_customer->pasport_nomer = $userdata['pasportnum'];
                 }
                 if ($check_passport_customer->pasport_kem_vidan == NULL) {
-                    $check_passport_customer->pasport_kem_vidan = $userdata[pasportwhere];
+                    $check_passport_customer->pasport_kem_vidan = $userdata['pasportwhere'];
                 }
                 if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
-                    $check_passport_customer->pasport_kogda_vidan =  $userdata[pasportdate] ;
+                    $check_passport_customer->pasport_kogda_vidan =  $userdata['pasportdate'] ;
                 }
                 $check_passport_customer->entry_gender = 'M';
                 $country = new Countries();
                 $zones = new Zones();
                 $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $userdata['country']])->asArray()->one();
                 $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userdata['state']])->asArray()->one();
-                $check_passport_customer->entry_firstname = $userdata[name];
-                $check_passport_customer->entry_lastname = $userdata[lastname];
-                $check_passport_customer->entry_city = $userdata[city];
-                $check_passport_customer->entry_street_address = $userdata[adress];
-                $check_passport_customer->otchestvo =  $userdata[secondname];
-                $check_passport_customer->entry_postcode =  $userdata[postcode];
+                $check_passport_customer->entry_firstname = $userdata['name'];
+                $check_passport_customer->entry_lastname = $userdata['lastname'];
+                $check_passport_customer->entry_city = $userdata['city'];
+                $check_passport_customer->entry_street_address = $userdata['adress'];
+                $check_passport_customer->otchestvo =  $userdata['secondname'];
+                $check_passport_customer->entry_postcode =  $userdata['postcode'];
                 $check_passport_customer->entry_country_id = $entrycountry['id'];
                 $check_passport_customer->entry_zone_id = $entryzones['id'];
                 $user->id = $userModel->getId();
-                $user->name = $userdata[name];
-                $user->secondname = $userdata[secondname];
-                $user->lastname = $userdata[lastname];
-                $user->country = $userdata[country];
-                $user->state = $userdata[state];
-                $user->city = $userdata[city];
-                $user->adress = $userdata[adress];
-                $user->postcode = $userdata[postcode];
-                $user->telephone = $userdata[telephone];
+                $user->name = $userdata['name'];
+                $user->secondname = $userdata['secondname'];
+                $user->lastname = $userdata['lastname'];
+                $user->country = $userdata['country'];
+                $user->state = $userdata['state'];
+                $user->city = $userdata['city'];
+                $user->adress = $userdata['adress'];
+                $user->postcode = $userdata['postcode'];
+                $user->telephone = $userdata['telephone'];
                 if($check_passport_customer->update() && $user->update()){
                 }else{
                 }
             }else{
                 $user->id = $userModel->getId();
-                $user->name = $userdata[name];
-                $user->secondname = $userdata[secondname];
-                $user->lastname = $userdata[lastname];
-                $user->country = $userdata[country];
-                $user->state = $userdata[state];
-                $user->city = $userdata[city];
-                $user->adress = $userdata[adress];
-                $user->postcode = $userdata[postcode];
-                $user->telephone = $userdata[telephone];
+                $user->name = $userdata['name'];
+                $user->secondname = $userdata['secondname'];
+                $user->lastname = $userdata['lastname'];
+                $user->country = $userdata['country'];
+                $user->state = $userdata['state'];
+                $user->city = $userdata['city'];
+                $user->adress = $userdata['adress'];
+                $user->postcode = $userdata['postcode'];
+                $user->telephone = $userdata['telephone'];
                 $user->update();
             }
         }else{
             $user->id = $userModel->getId();
-            $user->name = $userdata[name];
-            $user->secondname = $userdata[secondname];
-            $user->lastname = $userdata[lastname];
-            $user->country = $userdata[country];
-            $user->state = $userdata[state];
-            $user->city = $userdata[city];
-            $user->adress = $userdata[adress];
-            $user->postcode = $userdata[postcode];
-            $user->telephone = $userdata[telephone];
-            $user->pasportser = $userdata[pasportser];
-            $user->pasportnum = $userdata[pasportnum];
-            $user->pasportdate = $userdata[pasportdate];
-            $user->pasportwhere = $userdata[pasportwhere];
+            $user->name = $userdata['name'];
+            $user->secondname = $userdata['secondname'];
+            $user->lastname = $userdata['lastname'];
+            $user->country = $userdata['country'];
+            $user->state = $userdata['state'];
+            $user->city = $userdata['city'];
+            $user->adress = $userdata['adress'];
+            $user->postcode = $userdata['postcode'];
+            $user->telephone = $userdata['telephone'];
+            $user->pasportser = $userdata['pasportser'];
+            $user->pasportnum = $userdata['pasportnum'];
+            $user->pasportdate = $userdata['pasportdate'];
+            $user->pasportwhere = $userdata['pasportwhere'];
         }
         if($user->validate()){
             $user->save('false');
@@ -814,13 +814,13 @@ class SiteController extends Controller
 
     public function actionCountryrequest(){
 
-        $data = Yii::$app->cache->get(urlencode('data_country-'.Yii::$app->params[constantapp]['APP_ID']));
+        $data = Yii::$app->cache->get(urlencode('data_country-'.Yii::$app->params['constantapp']['APP_ID']));
         if ($data === false) {
             $country_data = new Countries();
             $data = $country_data->find()->select('countries_id as id, countries_name as title')->asArray()->all();
-            Yii::$app->cache->set(urlencode('data_country-'.Yii::$app->params[constantapp]['APP_ID']), ['data_country' => $data], 86400);
+            Yii::$app->cache->set(urlencode('data_country-'.Yii::$app->params['vconstantapp']['APP_ID']), ['data_country' => $data], 86400);
         }else{
-            $data = $data[data_country];
+            $data = $data['data_country'];
         }
         $result['response']= ['count' => count($data)  , 'items' => $data];
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -833,13 +833,13 @@ class SiteController extends Controller
     }
     public function actionZonesrequest($id){
 
-        $data = Yii::$app->cache->get(urlencode('zones_data-'.Yii::$app->params[constantapp]['APP_ID']));
+        $data = Yii::$app->cache->get(urlencode('zones_data-'.Yii::$app->params['constantapp']['APP_ID']));
         if ($data === false) {
             $zones_data = new Zones();
             $data= $zones_data->find()->select('zone_id as id, zone_name as title')->where(['zone_country_id'=> intval($id)])->asArray()->all();
-            Yii::$app->cache->set(urlencode('zones_data-'.Yii::$app->params[constantapp]['APP_ID']), ['zones_data' => $data], 86400);
+            Yii::$app->cache->set(urlencode('zones_data-'.Yii::$app->params['constantapp']['APP_ID']), ['zones_data' => $data], 86400);
         }else{
-            $data = $data[zones_data];
+            $data = $data['zones_data'];
         }
           $result['response']= ['count' => count($data)  , 'items' => $data];
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -936,7 +936,7 @@ class SiteController extends Controller
         $html =  addslashes($_POST['html']);
         $page =  addslashes($_POST['page']);
         $data = new PartnersConfig();
-        $check = Yii::$app->params[constantapp]['APP_ID'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
 
         $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
 if($data) {
@@ -967,7 +967,7 @@ if($data) {
 
         $order = new Orders();
         $orderdata = $order->find()->where(['orders_id'=>$id])->asArray()->one();
-        $data = $orderdata[customers_referer_url];
+        $data = $orderdata['customers_referer_url'];
         $data = json_decode($data);
         if($key == $data->Key && isset($key) && $key != ''){
 
@@ -989,8 +989,8 @@ if($status == 2) {
     $query = $orders->find()->select('orders.`orders_id`, orders.`orders_status`, orders.`delivery_lastname`, orders.`delivery_name`,orders.`delivery_otchestvo`, orders.`delivery_postcode`, orders.`delivery_state`, orders.`delivery_country`, orders.`delivery_state`, orders.`delivery_city`, orders.`delivery_street_address`, orders.`customers_telephone`')->where('orders.`orders_id` IN (' . $model_order_partner->orders_id . ')')->joinWith('products')->joinWith('productsAttr')->asArray()->one();
 
     $prodarr = [];
-    foreach($query[products] as $value){
-    $prodarr[] = $value[products_id];
+    foreach($query['products'] as $value){
+    $prodarr[] = $value['products_id'];
 
     }
     $mail = explode('@@@', $new_tok_order->customers_email_address);

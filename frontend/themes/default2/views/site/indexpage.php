@@ -21,19 +21,19 @@ use common\models\PartnersProductsToCategories;
 use frontend\controllers\ExtFunc;
 $functions = new ExtFunc();
 
-if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] , array('duration'=>600))) {?>
+if ($this->beginCache('partner-index'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] , array('duration'=>600))) {?>
     <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
                 <?
-                $check = Yii::$app->params[constantapp]['APP_ID'];
-                $checks = Yii::$app->params[constantapp]['APP_CAT'];
-                $this -> title = Yii::$app->params[constantapp]['APP_NAME'];
+                $check = Yii::$app->params['constantapp']['APP_ID'];
+                $checks = Yii::$app->params['constantapp']['APP_CAT'];
+                $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                 $cat_array = $functions->reformat_cat_array($catdata, $categories, $checks)
                 ?><div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
                 </div><?
-                $functions->view_cat($cat_array[cat], 0, $cat_array[name], $check);
+                $functions->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
                 ?>
             </div>
 
@@ -64,7 +64,7 @@ if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] 
                 $man = new Manufacturers();
                 $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
                 foreach($hide_man as $value){
-                    $list[] = $value[manufacturers_id];
+                    $list[] = $value['manufacturers_id'];
                 }
                 $hide_man = implode(',' , $list);
                 $products = '960192894,95833167,95848445';
@@ -77,21 +77,21 @@ if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] 
                 }else{  $newproducts = 'Не найдено!';}
                 foreach($dataproducts as $value){
                     $outer = '';
-                    $product = $value[products];
-                    $description = $value[productsDescription];
-                    $attr_desc = $value[productsAttributesDescr];
+                    $product = $value['products'];
+                    $description = $value['productsDescription'];
+                    $attr_desc = $value['productsAttributesDescr'];
                     $attr_html = '<div class="cart-lable">В корзину</div>';
                     if(count($attr_desc) > 0){
                         foreach($attr_desc as $value_attr){
-                            $attr_html .= '<div class="size-desc"><div><div class="lable-item">'.$value_attr[products_options_values_name].'</div></div><input id="input-count" data-prod="'.$product[products_id].'" data-model="'.$product[products_model].'" data-price="'.$product[products_price].'" data-image="'.$product[products_image].'" data-attrname="'.$value_attr[products_options_values_name].'" data-attr="'.$value_attr[products_options_values_id].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                            $attr_html .= '<div class="size-desc"><div><div class="lable-item">'.$value_attr['products_options_values_name'].'</div></div><input id="input-count" data-prod="'.$product['products_id'].'" data-model="'.$product['products_model'].'" data-price="'.$product['products_price'].'" data-image="'.$product['products_image'].'" data-attrname="'.$value_attr['products_options_values_name'].'" data-attr="'.$value_attr['products_options_values_id'].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
                         }
                     }else{
-                        $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="'.$product[products_id].'" data-model="'.$product[products_model].'" data-price="'.$product[products_price].'" data-image="'.$product[products_image].'" data-attrname="'.$value_attr[products_options_values_name].'" data-attr="'.$value_attr[products_options_values_id].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                        $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="'.$product['products_id'].'" data-model="'.$product['products_model'].'" data-price="'.$product['products_price'].'" data-image="'.$product['products_image'].'" data-attrname="'.$value_attr['products_options_values_name'].'" data-attr="'.$value_attr['products_options_values_id'].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
                     }
-                    $product[products_image] = str_replace(')',']]]]', $product[products_image]);
-                    $product[products_image] = str_replace(' ','[[[[]]]]', $product[products_image]);
-                    $product[products_image] = str_replace('(','[[[[', $product[products_image]);
-                    $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="'.$product[products_id].'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product[products_image].');"></div><div class="name">'.$description[products_name].'</div><div class="model">Арт.'.$product[products_model].'</div><div class="price"><b>'.intval($product[products_price]).'</b> руб.</div><div id="prod-info" data-prod="'.$product[products_id].'">Инфо</div><span>'.$attr_html.'</span></div>';
+                    $product['products_image'] = str_replace(')',']]]]', $product['products_image']);
+                    $product['products_image'] = str_replace(' ','[[[[]]]]', $product['products_image']);
+                    $product['products_image'] = str_replace('(','[[[[', $product['products_image']);
+                    $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="'.$product['products_id'].'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product['products_image'].');"></div><div class="name">'.$description['products_name'].'</div><div class="model">Арт.'.$product['products_model'].'</div><div class="price"><b>'.intval($product['products_price']).'</b> руб.</div><div id="prod-info" data-prod="'.$product['products_id'].'">Инфо</div><span>'.$attr_html.'</span></div>';
                     echo $outer;
                 }
                 ?>
@@ -101,21 +101,21 @@ if ($this->beginCache('partner-index'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI] 
                 <?
                 foreach($newproducts as $value){
                     $outer = '';
-                    $product = $value[products];
-                    $description = $value[productsDescription];
-                    $attr_desc = $value[productsAttributesDescr];
+                    $product = $value['products'];
+                    $description = $value['productsDescription'];
+                    $attr_desc = $value['productsAttributesDescr'];
                     $attr_html = '<div class="cart-lable">В корзину</div>';
                     if(count($attr_desc) > 0){
                         foreach($attr_desc as $value_attr){
-                            $attr_html .= '<div class="size-desc"><div><div class="lable-item">'.$value_attr[products_options_values_name].'</div></div><input id="input-count" data-prod="'.$product[products_id].'" data-model="'.$product[products_model].'" data-price="'.$product[products_price].'" data-image="'.$product[products_image].'" data-attrname="'.$value_attr[products_options_values_name].'" data-attr="'.$value_attr[products_options_values_id].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                            $attr_html .= '<div class="size-desc"><div><div class="lable-item">'.$value_attr['products_options_values_name'].'</div></div><input id="input-count" data-prod="'.$product['products_id'].'" data-model="'.$product['products_model'].'" data-price="'.$product['products_price'].'" data-image="'.$product['products_image'].'" data-attrname="'.$value_attr['products_options_values_name'].'" data-attr="'.$value_attr['products_options_values_id'].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
                         }
                     }else{
-                        $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="'.$product[products_id].'" data-model="'.$product[products_model].'" data-price="'.$product[products_price].'" data-image="'.$product[products_image].'" data-attrname="'.$value_attr[products_options_values_name].'" data-attr="'.$value_attr[products_options_values_id].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                        $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="'.$product['products_id'].'" data-model="'.$product['products_model'].'" data-price="'.$product['products_price'].'" data-image="'.$product['products_image'].'" data-attrname="'.$value_attr['products_options_values_name'].'" data-attr="'.$value_attr['products_options_values_id'].'" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
                     }
-                    $product[products_image] = str_replace(')',']]]]', $product[products_image]);
-                    $product[products_image] = str_replace(' ','[[[[]]]]', $product[products_image]);
-                    $product[products_image] = str_replace('(','[[[[', $product[products_image]);
-                    $outer .= '<div  class="container-fluid float" id="index-card-1"><div data-prod="'.$product[products_id].'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product[products_image].');"></div><div class="name">'.$description[products_name].'</div><div class="model">Арт.'.$product[products_model].'</div><div class="price"><b>'.intval($product[products_price]).'</b> руб.</div><div id="prod-info" data-prod="'.$product[products_id].'">Инфо</div><span>'.$attr_html.'</span></div>';
+                    $product['products_image'] = str_replace(')',']]]]', $product['products_image']);
+                    $product['products_image'] = str_replace(' ','[[[[]]]]', $product['products_image']);
+                    $product['products_image'] = str_replace('(','[[[[', $product['products_image']);
+                    $outer .= '<div  class="container-fluid float" id="index-card-1"><div data-prod="'.$product['products_id'].'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product['products_image'].');"></div><div class="name">'.$description['products_name'].'</div><div class="model">Арт.'.$product['products_model'].'</div><div class="price"><b>'.intval($product['products_price']).'</b> руб.</div><div id="prod-info" data-prod="'.$product['products_id'].'">Инфо</div><span>'.$attr_html.'</span></div>';
                     echo $outer;
                 }
                 ?>

@@ -24,11 +24,11 @@ $this -> title = 'Оплата';
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
                 <?
-                $checks = Yii::$app->params[constantapp]['APP_CAT'];
+                $checks = Yii::$app->params['constantapp']['APP_CAT'];
                 $cat_array = $functions->reformat_cat_array($catdata, $categories, $checks)
                 ?><div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
                 </div><?
-                $functions->view_cat($cat_array[cat], 0, $cat_array[name], $check);
+                $functions->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
                 ?>
             </div>
             <div id="filters">
@@ -45,7 +45,7 @@ $this -> title = 'Оплата';
 
             <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}
             $data = new PartnersConfig();
-            $check = Yii::$app->params[constantapp]['APP_ID'];
+            $check = Yii::$app->params['constantapp']['APP_ID'];
             $page = 'paying';
             $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
             if($data){

@@ -23,7 +23,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head();
-    $this -> registerCssFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    $this -> registerCssFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
     ?>
 </head>
 <body>
@@ -32,7 +32,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => Yii::$app->params[constantapp]['APP_NAME'],
+                'brandLabel' => Yii::$app->params['constantapp']['APP_NAME'],
                 'brandUrl' => '/',
                 'options' => [
                     'class' => 'navbar-inverse',
@@ -90,7 +90,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         </div>
     </footer>
     <?php
-    $this -> registerJsFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/js/script.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    $this -> registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/js/script.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
     $this->endBody();
    ;?>
 </body>
