@@ -83,7 +83,11 @@ class LoginForm extends Model
         if ($this->_user === false) {
             $userq = new User();
             $run = new Partners();
-            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            if($_SERVER['HTTP_HOST'] == 'globaladmin.egorov.odezhda-master.ru' || $_SERVER['HTTP_HOST'] == 'globaladmin.partnerom.odezhda-master.ru'){
+                $check = 0;
+            }else{
+                $check = $run->GetId($_SERVER['HTTP_HOST']);
+            }
             $this->_user =  $userq->find()->where(['username' =>$this->username, 'id_partners'=> $check])->all();
 
         }
