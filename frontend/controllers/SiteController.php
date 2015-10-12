@@ -372,7 +372,7 @@ class SiteController extends Controller
         $cat = $categoriesarr[1];
 
 
-        return $this->render('catalog', ['categories' => $cat, 'catdata' => $categories);
+        return $this->render('catalog', ['categories' => $cat, 'catdata' => $categories]);
     }
 
     public function actionAbout()
