@@ -925,9 +925,10 @@ class SiteController extends Controller
                 $width, $height);
             imagejpeg($thumb, Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0], 80);
         }
-        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
         $headers = Yii::$app->response->headers;
-        $headers->add('Content-Type', 'image/jpeg');
+        $headers->add('Content-Type', 'image/jpg');
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+
         return   file_get_contents(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0]);
     }
 
