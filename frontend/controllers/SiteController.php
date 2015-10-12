@@ -817,7 +817,7 @@ class SiteController extends Controller
         if ($data === false) {
             $country_data = new Countries();
             $data = $country_data->find()->select('countries_id as id, countries_name as title')->asArray()->all();
-            Yii::$app->cache->set(urlencode('data_country-'.Yii::$app->params['vconstantapp']['APP_ID']), ['data_country' => $data], 86400);
+            Yii::$app->cache->set(urlencode('data_country-'.Yii::$app->params['constantapp']['APP_ID']), ['data_country' => $data], 86400);
         }else{
             $data = $data['data_country'];
         }
