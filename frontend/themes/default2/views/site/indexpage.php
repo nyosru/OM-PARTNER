@@ -50,13 +50,13 @@ if ($this->beginCache('partner-index'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_UR
     <div class="container-fluid" id="partners-main-right-back">
         <div id="partners-main-right" class="bside">
             <div id="main-index">
-                <div id="index-card-5" class="data-j index-card" data-cat="1720"><a href="/site/catalog#!cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/7.jpg"></a></div>
-                <div id="index-card-6" class="data-j index-card" data-cat="2008"><a href="/site/catalog#!cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/1.jpg"></a></div>
-                <div id="index-card-6" class="data-j index-card" data-cat="2047"><a href="/site/catalog#!cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/2.jpg"></a></div>
-                <div id="index-card-6" class="data-j index-card" data-cat="1762"><a href="/site/catalog#!cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/5.jpg"></a></div>
-                <div id="index-card-3" class="sort data-j index-sort" data="10"><a href="/site/catalog#!cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/6.jpg"></a></div>
-                <div id="index-card-6" class="data-j index-card" data-cat="1836"><a href="/site/catalog#!cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/3.jpg"></a></div>
-                <div id="index-card-6" class="data-j index-card" data-cat="2066"><a href="/site/catalog#!cat=2066&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img src="/images/banners/4.jpg"></a></div>
+                <div id="index-card-5" class="data-j index-card" data-cat="1720"><img src="/images/banners/7.jpg"><a href="/site/catalog#!cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="2008"><img src="/images/banners/1.jpg"><a href="/site/catalog#!cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="2047"><img src="/images/banners/2.jpg"><a href="/site/catalog#!cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="1762"><img src="/images/banners/5.jpg"><a href="/site/catalog#!cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
+                <div id="index-card-3" class="sort data-j index-sort" data="10"><img src="/images/banners/6.jpg"><a href="/site/catalog#!cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="1836"><img src="/images/banners/3.jpg"><a href="/site/catalog#!cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
+                <div id="index-card-6" class="data-j index-card" data-cat="2066"><img src="/images/banners/4.jpg"><a href="/site/catalog#!cat=2066&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
             </div>
             <div id="main-spec">
                 <div id="index-card-4">Специальные предложения</div>
