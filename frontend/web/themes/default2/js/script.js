@@ -937,12 +937,10 @@ $(document).on('click', '.data-j', function() {
         async : true,
         dataType : 'json',
         success : function(data) {
-
             $('body').removeClass('some');
             $('link').removeClass('some');
             $('.preload').remove();
             if (data[0] != 'Не найдено!') {
-
                 $('.bside').html("");
                 $('#size-slide').html("");
                 $('#filters').html(' <div id="price-lable">Цена</div>От <input id="min-price" value="0" class="btn" /> До<input id="max-price" class="btn" /> Руб.<div class="price-slide"><div class="slider"></div> </div><div id="size-slide"></div><div type="button" id="filter-button"></div> ');
@@ -954,7 +952,6 @@ $(document).on('click', '.data-j', function() {
                 $headbside += '<div id="sort-order"><div  class="header-sort sort" data="'+data[11]+'">Сортировать по </div>';
                 $sortorder = [['дате',0,10],['цене',1,11],['названию',2,12],['модели',3,13],['популярности',4,14]];
                 $.each($sortorder, function(){
-
                     if(data[11] == this[1]){
                         $dataord = this[2];
                         $arrow = 'caret-up';
@@ -965,11 +962,8 @@ $(document).on('click', '.data-j', function() {
                     if(this[1] == data[11] || this[2] == data[11]){
                         $headbside += '<div class="header-sort-item-active"><a class="sort data-j" href="/site/catalog'+new_url(new_suburl(split_url($url), 'sort', $dataord))+'" data="'+$dataord+'" href="#">'+this[0]+'</a> <i class="fa fa-'+$arrow+'"> </i></div>';
                     }else{
-
                         $headbside += '<div class="header-sort-item"><a class="sort data-j" data="'+$dataord+'" href="/site/catalog'+new_url(new_suburl(split_url($url), 'sort', $dataord))+'">'+this[0]+'</a> <i class="fa fa-'+$arrow+'"> </i></div>';
                     }
-
-
                 });
                 $('.bside').prepend($headbside);
                 $('.header-sort-item:first').attr('style',"border-left:none;");
