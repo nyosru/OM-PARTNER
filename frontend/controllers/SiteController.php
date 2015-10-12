@@ -937,6 +937,7 @@ class SiteController extends Controller
         }
         $headers = Yii::$app->response->headers;
         $headers->add('Content-Type', 'image/jpg');
+        $headers->add('Cache-Control', 'max-age=68200');
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
 
         return   file_get_contents(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0]);
