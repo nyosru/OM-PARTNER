@@ -255,10 +255,10 @@ class SiteController extends Controller
 
         if($prod_attr_query == '' && $searchword == ''){
            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
-       if(!isset($x['products_last_modified'])){
+       if(!isset($x['products_last_modifieds'])){
            $checkcache = '0000-00-00';
        }else {
-           $checkcache = $x['products_last_modified'];
+           $checkcache = $x['products_last_modifieds'];
 
        }
             $data = Yii::$app->cache->get(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
