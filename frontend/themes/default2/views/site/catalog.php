@@ -46,7 +46,7 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
        //     if($check_ygbot == NULL) {?>
 
                 <script >
-                    $.(document).on('ready', function(){
+
     var cSpeed = 9;
     var cWidth = 64;
     var cHeight = 64;
@@ -331,7 +331,7 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
             }
         });
 
-                    });
+
     </script >
 
 <!--    --><?// }else{
