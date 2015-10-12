@@ -266,7 +266,6 @@ class SiteController extends Controller
                  Yii::$app->cache->delete(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort));
             }
            if ($data === false || $checkcache != $data['checkcache']) {
-
                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')  and products.removable != 1   and products.products_quantity > 0   and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')  ',[':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price and products.removable != 1   and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->count();
                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')     and products.products_quantity > 0    and products.removable != 1    and products_status=1 and products.manufacturers_id NOT IN ('.$hide_man.') ')->asArray()->one();
@@ -866,10 +865,10 @@ class SiteController extends Controller
     {
         $src = Yii::$app->request->getQueryParam('src');
         $src = urldecode($src);
+        $filename = $src;
         $src = str_replace('[[[[]]]]',' ', $src);
         $src = str_replace('[[[[','(', $src);
         $src = str_replace(']]]]',')', $src);
-        $filename = $src;
         $split = explode('/', $src);
         if(count($split) > 1 ) {
             $file = array_splice($split, -1,1);
