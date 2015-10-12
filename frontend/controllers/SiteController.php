@@ -866,10 +866,9 @@ class SiteController extends Controller
         $src = Yii::$app->request->getQueryParam('src');
         $action = Yii::$app->request->getQueryParam('action', 'none');
         $src = urldecode($src);
-        $src = str_replace('zzzzazzzz',' ', $src);
-        $src = str_replace('zzazz','(', $src);
-        $src = str_replace('zzazz',')', $src);
-        $filename = $src;
+        $filename = str_replace('zzzzazzzz',' ', $src);
+        $filename = str_replace('zzazz','(', $src);
+        $filename = str_replace('zzazz',')', $src);
         $split = explode('/', $src);
         if(count($split) > 1 ) {
             $file = array_splice($split, -1,1);
