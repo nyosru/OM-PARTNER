@@ -42,7 +42,7 @@ class LoginForm extends Model
     {
         $user = $this->getUser();
         if (!$user) {
-            $this->addError('password', '45Не соответствует пара логин- пароль');
+            $this->addError('password', 'Не соответствует пара логин- пароль');
         }else{
             $run = new Partners();
             $check = $run->GetId($_SERVER['HTTP_HOST']);
