@@ -884,7 +884,7 @@ function new_suburl($url_obj, $val ,$new_var) {
     $url_obj[$val] =  $value;
     return $url_obj;
 }
-$(document).on('click', '.data-j', function() {
+$(document).on('click ready', '.data-j', function() {
     if(this.getAttribute('class').indexOf('index-card') != -1){
         $cat = this.getAttribute('data-cat');
         $(".link[data-cat=" + $cat + "]").attr('data', 'checked');
