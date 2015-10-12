@@ -156,7 +156,7 @@ class SiteController extends Controller
              $categoriess = new PartnersCategories();
              $categoriesd = new PartnersCatDescription();
              return [$categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All(), $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All()];
-         }, 86400, $dependency
+         }, 3600, $dependency
      );
      return $catdataarr;
     }
