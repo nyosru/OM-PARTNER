@@ -864,6 +864,7 @@ class SiteController extends Controller
     public function actionImagepreview()
     {
         $src = Yii::$app->request->getQueryParam('src');
+        $action = Yii::$app->request->getQueryParam('action', 'none');
         $src = urldecode($src);
         $filename = $src;
         $src = str_replace('[[[[]]]]',' ', $src);
@@ -883,7 +884,7 @@ class SiteController extends Controller
             $namefile =  base64_encode(implode('', $file));
             $dir = '';
         }
-        if(!file_exists(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0])) {
+        if(!file_exists(Yii::getAlias('@webroot/images/').$dir.$namefile.'.'.$ras[0]) || $action == 'refresh') {
             if (!is_dir(Yii::getAlias('@webroot/images/') . $dir)) {
               $new_dir = '';
                 foreach($split as $value){
