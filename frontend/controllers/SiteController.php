@@ -262,7 +262,7 @@ class SiteController extends Controller
 
        }
             $data = Yii::$app->cache->get(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort));
-            if(isset($data) && $checkcache != $data['checkcache']){
+            if(isset($data) && $checkcache !== $data['checkcache']){
                  Yii::$app->cache->delete(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-'.$start_arr.'-'.$sort));
             }
            if ($data === false || $checkcache !== $data['checkcache']) {
