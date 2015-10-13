@@ -9,6 +9,7 @@ use frontend\widgets\Alert;
 use common\models\Partners;
 use rmrevin\yii\fontawesome;
 use dosamigos\ckeditor\CKEditorInline;
+use common\models\PartnersConfig;
 /* @var $this \yii\web\View */
 /* @var $content string */
 AppAsset::register($this);
