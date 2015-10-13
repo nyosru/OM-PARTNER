@@ -246,39 +246,6 @@ class SiteController extends Controller
                 $order = ['products_ordered' => SORT_DESC];
                 break;
        }
-        switch ($sort) {
-            case 0:
-                $orders = ['products_date_added' => SORT_ASC];
-                break;
-            case 1:
-                $orders =  ['products_price' => SORT_ASC];
-                break;
-            case 2:
-                $orders = ['products_name' => SORT_ASC];
-                break;
-            case 3:
-                $orders =  ['products_model' => SORT_ASC];
-                break;
-            case 4:
-                $orders = ['products_ordered' => SORT_ASC];
-                break;
-            case 10:
-                $orders = ['products_date_added' => SORT_DESC];
-                break;
-            case 11:
-                $orders =  ['products_price' => SORT_DESC];
-                break;
-            case 12:
-                $orders = ['products_name' => SORT_DESC];
-                break;
-            case 13:
-                $orders =  ['products_model' => SORT_DESC];
-                break;
-            case 14:
-                $orders = ['products_ordered' => SORT_DESC];
-                break;
-        }
-
 
         $type = '';
         $hide_man = $this->hide_manufacturers_for_partners();
@@ -287,14 +254,13 @@ class SiteController extends Controller
         }
         $hide_man = implode(',' , $list);
         if($prod_attr_query == '' && $searchword == ''){
-            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('productsDescription')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
+            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
             if(!isset($x['products_last_modifieds'])){
                 $checkcache = '0000-00-00';
             }else {
                 $checkcache = $x['products_last_modifieds'];
-
             }
-            $key = Yii::$app->cache->buildKey(urlencode('first--'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
+            $key = Yii::$app->cache->buildKey('first--'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort);
             $dataque = Yii::$app->cache->get($key);
             if(isset($dataque) && $checkcache !== $dataque['checkcache']){
                 Yii::$app->cache->delete($key);
@@ -302,7 +268,7 @@ class SiteController extends Controller
             if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
             $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->asArray()->all();
             foreach($prod as $values){
-                $keyprod = Yii::$app->cache->buildKey(urlencode($values['prod']));
+                $keyprod = Yii::$app->cache->buildKey($values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
                 if(isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 600){
                     $data[] =  $dataprod['data'];
