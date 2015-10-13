@@ -919,7 +919,7 @@ $(document).on('click ready', '.data-j', function() {
 
     $prodatrquery = $check.join(',');
     if ($count == '') {
-        $count = 100
+        $count = 20;
     }
     $('body').addClass('some');
     $('link').addClass('some');
