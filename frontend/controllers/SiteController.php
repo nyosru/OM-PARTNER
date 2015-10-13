@@ -292,7 +292,7 @@ class SiteController extends Controller
             $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->distinct()->orderBy($orders)->asArray()->all();
             foreach($prod as $values){
                 $dataprod = Yii::$app->cache->get(urlencode('prod-'.$values['prod']));
-                if(isset($dataprod) && $dataprod['last'] == $values['last']){
+                if(isset($dataprod) && $dataprod['last'] === $values['last']){
                     $data[] =  $dataprod['data'];
                 }else{
                     $nodata[] = $values['prod'];
@@ -303,7 +303,7 @@ class SiteController extends Controller
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->distinct()->asArray()->all();
 
                 foreach($datar as $valuesr){
-              //      Yii::$app->cache->delete(urlencode('prod-'.$valuesr['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
+                   Yii::$app->cache->delete(urlencode('prod-'.$valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                     Yii::$app->cache->set(urlencode('prod-'.$valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                 $data[] = $valuesr;
                 }
