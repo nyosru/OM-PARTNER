@@ -304,7 +304,7 @@ class SiteController extends Controller
 
                 foreach($datar as $valuesr){
                    Yii::$app->cache->delete(urlencode('prod-'.$valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                    Yii::$app->cache->set(urlencode('prod-'.$valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
+                    Yii::$app->cache->set(urlencode('prod-'.$valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']], 86400);
                 $data[] = $valuesr;
                 }
             }
