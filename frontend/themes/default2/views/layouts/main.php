@@ -88,7 +88,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid #00FFCC;">
         <div class="container">
         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
-
+<div style="margin:auto;">
             <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}
             $data = new PartnersConfig();
             $check = Yii::$app->params['constantapp']['APP_ID'];
@@ -118,7 +118,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     });
                 </script>
             <?}?>
-
+</div>
         <p class="pull-right"><a href="/site/offerta">Оферта</a> <a href="/site/paying">Оплата</a> <a href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
         </div>
     </footer>
