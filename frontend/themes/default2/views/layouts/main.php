@@ -8,6 +8,7 @@ use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 use common\models\Partners;
 use rmrevin\yii\fontawesome;
+use dosamigos\ckeditor\CKEditorInline;
 /* @var $this \yii\web\View */
 /* @var $content string */
 AppAsset::register($this);
@@ -86,6 +87,37 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid #00FFCC;">
         <div class="container">
         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
+
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::begin(['preset' => 'standart']);}
+            $data = new PartnersConfig();
+            $check = Yii::$app->params['constantapp']['APP_ID'];
+            $page = 'counter';
+            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+            if($data){
+                echo stripcslashes($data->value);
+            }else{?>
+
+
+                НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
+            <?}?>
+            <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
+                <button class="savehtml">Сохранить</button>
+                <script>
+                    $(document).on('click', '.savehtml', function() {
+                        $html = $('.cke_editable').html();
+
+
+                        $.post(
+                            '/site/savehtml',
+                            { html: $html,
+                                page: 'counter'}
+                        );
+                        alert('Изменения сохранены');
+
+                    });
+                </script>
+            <?}?>
+
         <p class="pull-right"><a href="/site/offerta">Оферта</a> <a href="/site/paying">Оплата</a> <a href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
         </div>
     </footer>
