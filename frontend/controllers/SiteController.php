@@ -287,7 +287,7 @@ class SiteController extends Controller
         }
         $hide_man = implode(',' , $list);
         if($prod_attr_query == '' && $searchword == ''){
-            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->distinct()->JoinWith('productsDescription')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
+            $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('productsDescription')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
             if(!isset($x['products_last_modifieds'])){
                 $checkcache = '0000-00-00';
             }else {
@@ -299,7 +299,7 @@ class SiteController extends Controller
                 Yii::$app->cache->delete(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
             }
             if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
-            $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->groupBy(['products.`products_id` DESC'])->distinct()->asArray()->all();
+            $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->groupBy(['products.`products_id` DESC'])->asArray()->all();
             foreach($prod as $values){
                 $dataprod = Yii::$app->cache->get(urlencode($values['prod']));
                 if(isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 3600){
@@ -311,7 +311,7 @@ class SiteController extends Controller
             if(isset($nodata)  && count($nodata) > 0){
                 $prodarr = implode(',', $nodata);
 
-                $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->asArray()->all();
+                $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
 
                 foreach($datar as $valuesr){
                    Yii::$app->cache->delete(urlencode($valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
