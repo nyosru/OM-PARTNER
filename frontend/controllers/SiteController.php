@@ -294,21 +294,21 @@ class SiteController extends Controller
                 $checkcache = $x['products_last_modifieds'];
 
             }
-            $dataque = Yii::$app->cache->get(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
+            $dataque = Yii::$app->cache->get(urlencode('first--'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
             if(isset($dataque) && $checkcache !== $dataque['checkcache']){
-                Yii::$app->cache->delete(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
+                Yii::$app->cache->delete(urlencode('first--'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
             }
             if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
             $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->groupBy(['products.`products_id` DESC'])->asArray()->all();
             foreach($prod as $values){
                 $dataprod = Yii::$app->cache->get(urlencode($values['prod']));
-                if(isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 3600){
+                if(isset($dataprod) && (date($dataprod['last']) - date($values['last'])) == 0){
                     $data[] =  $dataprod['data'];
                 }else{
                     $nodata[] = $values['prod'];
                 }
             }
-            if(isset($nodata)  && count($nodata) == 0){
+            if(isset($nodata)  && count($nodata) > 0){
                 $prodarr = implode(',', $nodata);
 
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
@@ -322,7 +322,7 @@ class SiteController extends Controller
                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')  ',[':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price  and (products_image IS NOT NULL)   and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->count();
                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')     and products.products_quantity > 0     and (products_image IS NOT NULL)   and products_status=1 and products.manufacturers_id NOT IN ('.$hide_man.') ')->asArray()->one();
-                Yii::$app->cache->set(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort), ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'checkcache' => $checkcache]);
+                Yii::$app->cache->set(urlencode('first--'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort), ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'checkcache' => $checkcache]);
            }else{
                $productattrib =$dataque['productattrib'];
                $count_arrs = $dataque['count_arrs'];
