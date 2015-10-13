@@ -314,8 +314,7 @@ class SiteController extends Controller
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
 
                 foreach($datar as $valuesr){
-                   Yii::$app->cache->delete(urlencode($valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                    Yii::$app->cache->set(urlencode($valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']], 86400);
+                        Yii::$app->cache->set(urlencode($valuesr['products']['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                 $data[] = $valuesr;
                 }
             }
