@@ -297,7 +297,7 @@ class SiteController extends Controller
             $key = Yii::$app->cache->buildKey(urlencode('first--'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort));
             $dataque = Yii::$app->cache->get($key);
             if(isset($dataque) && $checkcache !== $dataque['checkcache']){
-                Yii::$app->cache->deleteValue($key);
+                Yii::$app->cache->delete($key);
             }
             if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
             $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->groupBy(['products.`products_id` DESC'])->asArray()->all();
@@ -316,7 +316,7 @@ class SiteController extends Controller
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
 
                 foreach($datar as $valuesr){
-                    Yii::$app->cache->deleteValue($keyprod);
+                    Yii::$app->cache->delete($keyprod);
                         Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                 $data[] = $valuesr;
                 }
