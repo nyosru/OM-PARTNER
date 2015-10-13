@@ -293,7 +293,7 @@ class SiteController extends Controller
 
 
 
-            $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->groupBy(['products.`products_id` DESC'])->distinct()->orderBy($orders)->asArray()->all();
+            $prod =  PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN ('.$cat.')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 1 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN ('.$hide_man.'))',[':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->groupBy(['products.`products_id` DESC'])->distinct()->asArray()->all();
 
 
 
