@@ -304,6 +304,7 @@ class SiteController extends Controller
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->asArray()->all();
 
                 foreach($datar as $valuesr){
+                    Yii::$app->cache->delete(urlencode('prod-'.$valuesr['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                     Yii::$app->cache->set(urlencode('prod-'.$valuesr['products_id']), ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                 $data[] = $valuesr;
                 }
@@ -323,14 +324,12 @@ class SiteController extends Controller
                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id','products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')  ',[':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price  and (products_image IS NOT NULL)   and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.')',[':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->count();
                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')     and products.products_quantity > 0     and (products_image IS NOT NULL)   and products_status=1 and products.manufacturers_id NOT IN ('.$hide_man.') ')->asArray()->one();
-//              $data = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN ('.$cat.') and products_status=1   and products.products_quantity > 0    and products.removable != 1    and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN ('.$hide_man.') ',[':start_price' => $start_price, ':end_price' => $end_price])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
-               Yii::$app->cache->set(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'checkcache' => $checkcache]);
+                  Yii::$app->cache->set(urlencode('first-'.$cat_start.'-'.$hide_man.'-'.$start_price.'-'.$end_price.'-'.$count.'-page'.$page.'-'.$sort), ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' =>  $price_max, 'checkcache' => $checkcache]);
            }else{
                $productattrib =$dataque['productattrib'];
                $count_arrs = $dataque['count_arrs'];
                $price_max = $dataque['price_max'];
-//               $data =  $data['data'];
-           }
+             }
        }elseif($prod_attr_query != '' && $searchword == '') {
             $x =  PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->distinct()->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
             if(!isset($x['products_last_modifieds'])){
