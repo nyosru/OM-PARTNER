@@ -308,7 +308,7 @@ class SiteController extends Controller
                     $nodata[] = $values['prod'];
                 }
             }
-            if(isset($nodata)  && count($nodata) > 0){
+            if(isset($nodata)  && count($nodata) == 0){
                 $prodarr = implode(',', $nodata);
 
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN ('.$prodarr.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
