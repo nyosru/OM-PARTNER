@@ -281,7 +281,7 @@ class SiteController extends Controller
                     $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                     $dataprod = Yii::$app->cache->get($keyprod);
                     if (isset($dataprod) && (date($dataprod['last']) - date($values['last'])) == 0) {
-                        if(isset($values['lock'])){
+                        if(isset($dataprod['lock'])){
                             Yii::$app->cache->set($keyprod, ['data' => $dataprod['data'], 'last' => $dataprod['last']]);
                         }
                         $data[] = $dataprod['data'];
