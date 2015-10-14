@@ -280,8 +280,8 @@ class SiteController extends Controller
                 foreach ($prod as $values) {
                     $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                     $dataprod = Yii::$app->cache->get($keyprod);
-                    if (isset($dataprod) && (date($values['last'] - date($dataprod['last']))) < 600) {
-                        $data[] =  $values['prod'];
+                    if (isset($dataprod) && (date($values['last'] - date($dataprod['last']))) == 0) {
+                        $data[] =  $dataprod['data'];
                     }else {
                         $nodata[] = $values['prod'];
                         }
