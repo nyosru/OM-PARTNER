@@ -190,34 +190,34 @@ class SiteController extends Controller
 
         switch ($sort) {
             case 0:
-                $order = ['products_date_added' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 1:
-                $order = ['products_price' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_price' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 2:
-                $order = ['products_name' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_name' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 3:
                 $order = ['products_model' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 4:
-                $order = ['products_ordered' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_ordered' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 10:
-                $order = ['products_date_added' => SORT_DESC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 11:
-                $order = ['products_price' => SORT_DESC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_price' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 12:
-                $order = ['products_name' => SORT_DESC, 'products_options_values_name' => SORT_ASC];
+                $order = ['products_name' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 13:
-                $order = ['products_model' => SORT_DESC];
+                $order = ['products_model' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
             case 14:
-                $order = ['products_ordered' => SORT_DESC];
+                $order = ['products_ordered' => SORT_DESC, 'products.products_id' => SORT_ASC,'products_options_values_name' => SORT_ASC];
                 break;
         }
 
