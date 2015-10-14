@@ -257,119 +257,90 @@ class SiteController extends Controller
         foreach ($hide_man as $value) {
             $list[] = $value['manufacturers_id'];
         }
+        $init_key = 'first--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-page' . $page . '-' . $sort;
+        $arfilt = $arfilt_attr = [':start_price' => $start_price, ':end_price' => $end_price];
+        $arfilt_pricemax = array();
         $hide_man = implode(',', $list);
-        if ($prod_attr_query == '' && $searchword == '') {
-            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
-            if (!isset($x['products_last_modifieds'])) {
-                $checkcache = '0000-00-00';
-            } else {
-                $checkcache = $x['products_last_modifieds'];
-            }
-            $key = Yii::$app->cache->buildKey('first--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-page' . $page . '-' . $sort);
-            $dataque = Yii::$app->cache->get($key);
-            if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
-                Yii::$app->cache->delete($key);
-            }
-            if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
-                $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN (' . $cat . ')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', [':start_price' => $start_price, ':end_price' => $end_price])->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->asArray()->all();
-                foreach ($prod as $values) {
-                    $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
-                    $dataprod = Yii::$app->cache->get($keyprod);
-                    if (isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 3600) {
-                        $data[] = $dataprod['data'];
-                    } else {
-                        $nodata[] = $values['prod'];
-                    }
-                }
-                if (isset($nodata) && count($nodata) > 0) {
-                    $prodarr = implode(',', $nodata);
-
-                    $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
-
-                    foreach ($datar as $valuesr) {
-                        $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products']['products_id']);
-                        Yii::$app->cache->delete($keyprod);
-                        Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                        $data[] = $valuesr;
-                    }
-                }
-                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', [':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price  and (products_image IS NOT NULL)   and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price])->groupBy(['products.`products_id` DESC'])->count();
-                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')     and products.products_quantity > 0     and (products_image IS NOT NULL)   and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ')->asArray()->one();
-                Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
-            } else {
-                $productattrib = $dataque['productattrib'];
-                $count_arrs = $dataque['count_arrs'];
-                $price_max = $dataque['price_max'];
-                $data = $dataque['data'];
-            }
-        } elseif ($prod_attr_query != '' && $searchword == '') {
-            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
-            if (!isset($x['products_last_modifieds'])) {
-                $checkcache = '0000-00-00';
-            } else {
-                $checkcache = $x['products_last_modifieds'];
-            }
-            $key = Yii::$app->cache->buildKey('two--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-page' . $page . '-' . $sort.'-'.$prod_attr_query);
-            $dataque = Yii::$app->cache->get($key);
-            if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
-                Yii::$app->cache->delete($key);
-            }
-            if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
-                $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where(' ( categories_id IN (' . $cat . ')) and (products_status = 1) and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) and options_values_id IN (:prod_attr_query) and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->asArray()->all();
-                foreach ($prod as $values) {
-                    $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
-                    $dataprod = Yii::$app->cache->get($keyprod);
-                    if (isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 3600) {
-                        $data[] = $dataprod['data'];
-                    } else {
-                        $nodata[] = $values['prod'];
-                    }
-                }
-                if (isset($nodata) && count($nodata) > 0) {
-                    $prodarr = implode(',', $nodata);
-
-                    $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
-
-                    foreach ($datar as $valuesr) {
-                        $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products']['products_id']);
-                        Yii::$app->cache->delete($keyprod);
-                        Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                        $data[] = $valuesr;
-                    }
-                }
-                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', [':start_price' => $start_price, ':end_price' => $end_price])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1  and products.products_quantity > 0   and products_price <= :end_price  and (products_image IS NOT NULL)   and options_values_id = :prod_attr_query  and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price, ':prod_attr_query' => $prod_attr_query])->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributes')->count();
-                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')     and products.products_quantity > 0     and (products_image IS NOT NULL)  and options_values_id = :prod_attr_query  and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ',[':prod_attr_query' => $prod_attr_query])->JoinWith('productsAttributes')->asArray()->one();
-                Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
-            } else {
-                $productattrib = $dataque['productattrib'];
-                $count_arrs = $dataque['count_arrs'];
-                $price_max = $dataque['price_max'];
-                $data = $dataque['data'];
-            }
-        } elseif (preg_match('/^[0-9]+$/', $searchword)) {
-            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1    and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and products.products_model=:searchword   and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-            $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and products_price >= :start_price and products.products_model=:searchword    and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
-            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1     and products_status=1 and products.products_model=:searchword   and products.manufacturers_id NOT IN (' . $hide_man . ')', [':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
-            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1      and products_price >= :start_price  and products.products_model=:searchword   and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => $searchword])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
-        } elseif (preg_match('/^[a-zа-я ]+$/iu', $searchword) && strlen($searchword) > 3) {
-            $searchword = mb_strtolower($searchword, mb_detect_encoding($searchword));
-            $valsearchin = explode(' ', $searchword);
-            if (count($valsearchin) > 1) {
-                foreach ($valsearchin as $search) {
-                    if ($search != '') {
-                        $valsearch[] = trim($search);
-                    }
-                }
-
-                $searchword = implode('|', $valsearch);
-            }
-            $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('products.removable != 1   and (products_image IS NOT NULL)   and products.products_quantity > 0      and products_status=1 and products_price <= :end_price and products_price >= :start_price and  LOWER(products_description.products_name)  RLIKE :searchword   and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => '(' . $searchword . ')+'])->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-            $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->JoinWith('productsDescription')->where('products_status=1    and products.products_quantity > 0       and products_price <= :end_price  and products.removable != 1  and (products_image IS NOT NULL)  and products_price >= :start_price and  LOWER(products_description.products_name) RLIKE :searchword    and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => '(' . $searchword . ')+'])->groupBy(['products.`products_id` DESC'])->orderBy('`products_price` DESC')->count();
-            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('products.products_quantity > 0    and products.removable != 1    and (products_image IS NOT NULL)   and products_status=1 and  LOWER(products_description.products_name) RLIKE :searchword   and products.manufacturers_id NOT IN (' . $hide_man . ')', [':searchword' => '(' . $searchword . ')+'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
-            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_status=1 and products.products_price <= :end_price     and products.products_quantity > 0   and products.removable != 1     and (products_image IS NOT NULL)   and products_price >= :start_price  and LOWER(products_description.products_name) RLIKE :searchword   and products.manufacturers_id NOT IN (' . $hide_man . ')', [':start_price' => $start_price, ':end_price' => $end_price, ':searchword' => '(' . $searchword . ')+'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->orderBy($order)->limit($count)->offset($start_arr)->asArray()->all();
+        if ($prod_attr_query != ''){
+            $prod_attr_query_filt = ' and options_values_id = :prod_attr_query ';
+            $arfilt[':prod_attr_query'] =  $prod_attr_query;
+            $arfilt_pricemax[':prod_attr_query'] =  $prod_attr_query;
+            $init_key .= '-'.$prod_attr_query;
+        }else{
+            $prod_search_query_filt = '';
         }
+        if ($searchword != ''){
+            if(preg_match('/^[0-9]+$/', $searchword)){
+                $arfilt[':searchword'] =  $searchword;
+                $arfilt_pricemax[':searchword'] =  $searchword;
+                $prod_search_query_filt = '  and products.products_model=:searchword ' ;
+                $init_key .= '-'.$searchword;
+            }elseif(preg_match('/^[a-zа-я ]+$/iu', $searchword)){
+                $searchword = mb_strtolower($searchword, mb_detect_encoding($searchword));
+                $valsearchin = explode(' ', $searchword);
+                if (count($valsearchin) > 1) {
+                    foreach ($valsearchin as $search) {
+                        if ($search != '') {
+                            $valsearch[] = trim($search);
+                        }
+                    }
+
+                    $searchword = implode('|', $valsearch);
+                }
+                $arfilt[':searchword'] =  $searchword;
+                $arfilt_pricemax[':searchword'] =  $searchword;
+                $prod_search_query_filt = ' and  LOWER(products_description.products_name) RLIKE :searchword ';
+                $init_key .= '-'.$searchword;
+            }
+        }else{
+            $prod_search_query_filt = '';
+        }
+
+            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
+            if (!isset($x['products_last_modifieds'])) {
+                $checkcache = '0000-00-00';
+            } else {
+                $checkcache = $x['products_last_modifieds'];
+            }
+            $key = Yii::$app->cache->buildKey( $init_key );
+            $dataque = Yii::$app->cache->get($key);
+            if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
+                Yii::$app->cache->delete($key);
+            }
+            if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
+                $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) '.$prod_search_query_filt.$prod_attr_query_filt.' and (products_image IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->asArray()->all();
+                foreach ($prod as $values) {
+                    $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
+                    $dataprod = Yii::$app->cache->get($keyprod);
+                    if (isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 3600) {
+                        $data[] = $dataprod['data'];
+                    } else {
+                        $nodata[] = $values['prod'];
+                    }
+                }
+                if (isset($nodata) && count($nodata) > 0) {
+                    $prodarr = implode(',', $nodata);
+
+                    $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
+
+                    foreach ($datar as $valuesr) {
+                        $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products']['products_id']);
+                        Yii::$app->cache->delete($keyprod);
+                        Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
+                        $data[] = $valuesr;
+                    }
+                }
+                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', $arfilt_attr)->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
+                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1  and products.products_quantity > 0 '.$prod_search_query_filt.$prod_attr_query_filt.'  and products_price <= :end_price  and (products_image IS NOT NULL)   and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')', $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributes')->JoinWith('productsDescription')->count();
+                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  '.$prod_search_query_filt.$prod_attr_query_filt.'  and products.products_quantity > 0     and (products_image IS NOT NULL)   and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ', $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->asArray()->one();
+                Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
+            } else {
+                $productattrib = $dataque['productattrib'];
+                $count_arrs = $dataque['count_arrs'];
+                $price_max = $dataque['price_max'];
+                $data = $dataque['data'];
+            }
+
         $count_arr = count($data);
         if ($start_arr + $count <= $count_arr) {
             $end_arr = $start_arr + $count;
