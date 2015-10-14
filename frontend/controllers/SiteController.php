@@ -281,12 +281,10 @@ class SiteController extends Controller
                     $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                     $dataprod = Yii::$app->cache->get($keyprod);
                     if (isset($dataprod) && (date($values['last'] - date($dataprod['last']))) < 600) {
-                        $data[] = $dataprod['data'];
+                        $data[] =  $values['prod'];
                     }else {
                         $nodata[] = $values['prod'];
                         }
-
-
                 }
                 if (isset($nodata) && count($nodata) > 0) {
                     $prodarr = implode(',', $nodata);
