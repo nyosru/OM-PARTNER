@@ -226,7 +226,7 @@ class SiteController extends Controller
         foreach ($hide_man as $value) {
             $list[] = $value['manufacturers_id'];
         }
-        $init_key = 'first--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-page' . $page . '-' . $sort;
+        $init_key = 'first--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $arfilt = $arfilt_attr = [':start_price' => $start_price, ':end_price' => $end_price];
         $arfilt_pricemax = array();
         $hide_man = implode(',', $list);
