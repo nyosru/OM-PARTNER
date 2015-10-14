@@ -281,7 +281,7 @@ class SiteController extends Controller
                 foreach ($prod as $values) {
                     $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                     $dataprod = Yii::$app->cache->get($keyprod);
-                    if (isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 3600) {
+                    if (isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 60) {
                         $data[] = $dataprod['data'];
                     } else {
                         $nodata[] = $values['prod'];
@@ -496,7 +496,6 @@ class SiteController extends Controller
             $page = $page - 1;
         }
         $query = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->limit(10)->offset($page * 10)->asArray()->all();
-     //   $query = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->asArray()->all();
 
         $check = array();
         foreach ($query as $key => $value) {
