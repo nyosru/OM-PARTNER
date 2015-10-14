@@ -148,13 +148,9 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
             dataType : 'json',
             success : function (data) {
 
-                    $('body') . removeClass('some');
-                    $('link') . removeClass('some');
-                    $('.preload') . remove();
+
                     if (data[0] != 'Не найдено!') {
 
-                        $('.bside') . html("");
-                        $('#size-slide') . html("");
                         $('#filters') . html(' <div id="price-lable">Цена</div>От <input id="min-price" value="0" class="btn" /> До<input id="max-price" class="btn" /> Руб.<div class="price-slide"><div class="slider"></div> </div><div id="size-slide"></div><div type="button" id="filter-button"></div> ');
                         $headbside = '';
                         $headbside += '<div id="partners-main-right">';
@@ -182,6 +178,11 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
 
 
                     });
+                        $('body') . removeClass('some');
+                        $('link') . removeClass('some');
+                        $('.preload') . remove();
+                        $('.bside') . html("");
+                        $('#size-slide') . html("");
                     $('.bside') . prepend($headbside);
                     $('.header-sort-item:first') . attr('style', 'border-left:none;');
                     $('.header-sort-item:last') . attr('style', 'border-right:none;');
