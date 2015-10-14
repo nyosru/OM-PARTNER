@@ -274,17 +274,25 @@ class SiteController extends Controller
             $key = Yii::$app->cache->buildKey( $init_key );
             $dataque = Yii::$app->cache->get($key);
             if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
-                Yii::$app->cache->delete($key);
-            }
+                 }
             if ($dataque === false || ($checkcache !== $dataque['checkcache'])) {
                 $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) '.$prod_search_query_filt.$prod_attr_query_filt.' and (products_image IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->orderBy($order)->asArray()->all();
                 foreach ($prod as $values) {
                     $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                     $dataprod = Yii::$app->cache->get($keyprod);
                     if (isset($dataprod) && (date($dataprod['last']) - date($values['last'])) == 0) {
+                        if(isset($values['lock'])){
+                            Yii::$app->cache->set($keyprod, ['data' => $dataprod['data'], 'last' => $dataprod['last']]);
+                        }
                         $data[] = $dataprod['data'];
-                    } else {
-                        $nodata[] = $values['prod'];
+                    } elseif(isset($dataprod) && (date($dataprod['last']) - date($values['last'])) > 0 && isset($values['lock'])){
+                        $data[] = $dataprod['data'];
+                    }else {
+                        if(isset($dataprod['data'])){
+                            Yii::$app->cache->set($keyprod, ['data' => $dataprod['data'], 'last' => $dataprod['last'], 'lock' => 1]);
+
+                        }
+                           $nodata[] = $values['prod'];
                     }
                 }
                 if (isset($nodata) && count($nodata) > 0) {
@@ -294,8 +302,7 @@ class SiteController extends Controller
 
                     foreach ($datar as $valuesr) {
                         $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products']['products_id']);
-                        Yii::$app->cache->delete($keyprod);
-                        Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
+                          Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                         $data[] = $valuesr;
                     }
                 }
