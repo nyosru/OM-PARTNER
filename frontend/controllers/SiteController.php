@@ -487,16 +487,16 @@ class SiteController extends Controller
     {
         $id = Yii::$app->user->identity->getId();
         $model = new PartnersOrders();
-      //  $page = intval(Yii::$app->request->getQueryParam('page'));
+        $page = intval(Yii::$app->request->getQueryParam('page'));
 
         $check = $this->id_partners();
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $count = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->count();
-//        if ($count < ($page) * 10) {
-//            $page = $page - 1;
-//        }
-      //  $query = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->limit(10)->offset($page * 10)->asArray()->all();
-        $query = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->asArray()->all();
+        if ($count < ($page) * 10) {
+            $page = $page - 1;
+        }
+        $query = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->limit(10)->offset($page * 10)->asArray()->all();
+     //   $query = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->asArray()->all();
 
         $check = array();
         foreach ($query as $key => $value) {
