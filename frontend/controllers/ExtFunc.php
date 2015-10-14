@@ -1,8 +1,12 @@
 <?php
 
 namespace frontend\controllers;
-
- use yii\web\Controller;
+use Yii;
+use yii\web\Controller;
+use common\models\PartnersCategories;
+use yii\caching\DbDependency;
+use common\models\Manufacturers;
+use common\models\PartnersCatDescription;
 
 class ExtFunc
 {
@@ -65,5 +69,35 @@ class ExtFunc
         return ['cat' => $arr_cat, 'name' => $catnamearr];
     }
 
+
+    public function hide_manufacturers_for_partners()
+    {
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(last_modified) FROM {{%manufacturers}}',
+        ]);
+        $hide_man = Yii::$app->db->cache(
+            function ($db) {
+                $man = new Manufacturers();
+                return $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+            }, 86400, $dependency
+        );
+        return $hide_man;
+    }
+    public function categories_for_partners()
+    {
+
+
+        $dependency = new DbDependency([
+            'sql' => 'SELECT MAX(last_modified) FROM {{%categories}}',
+        ]);
+        $catdataarr = Yii::$app->db->cache(
+            function ($db) {
+                $categoriess = new PartnersCategories();
+                $categoriesd = new PartnersCatDescription();
+                return [$categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All(), $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All()];
+            }, 3600, $dependency
+        );
+        return $catdataarr;
+    }
 
 }

@@ -148,37 +148,6 @@ class SiteController extends Controller
         return Yii::$app->params['constantapp']['APP_ID'];
     }
 
-    private function categories_for_partners()
-    {
-
-
-        $dependency = new DbDependency([
-            'sql' => 'SELECT MAX(last_modified) FROM {{%categories}}',
-        ]);
-        $catdataarr = Yii::$app->db->cache(
-            function ($db) {
-                $categoriess = new PartnersCategories();
-                $categoriesd = new PartnersCatDescription();
-                return [$categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All(), $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All()];
-            }, 3600, $dependency
-        );
-        return $catdataarr;
-    }
-
-    private function hide_manufacturers_for_partners()
-    {
-        $dependency = new DbDependency([
-            'sql' => 'SELECT MAX(last_modified) FROM {{%manufacturers}}',
-        ]);
-        $hide_man = Yii::$app->db->cache(
-            function ($db) {
-                $man = new Manufacturers();
-                return $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
-            }, 86400, $dependency
-        );
-        return $hide_man;
-    }
-
     public function actionRequest()
     {
         $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
@@ -199,7 +168,7 @@ class SiteController extends Controller
         }
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
         if ($searchword == '') {
-            $catdataarr = $this->categories_for_partners();
+            $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
             $catdata = $catdataarr[0];
             $categories = $catdataarr[1];
             foreach ($categories as $value) {
@@ -212,7 +181,7 @@ class SiteController extends Controller
 
 
         }
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $catdataw = $categoriesarr[1];
         $categoriesarr = $this->ExtFuncLoad()->reformat_cat_array($categories, $catdataw, $checks);
@@ -253,7 +222,7 @@ class SiteController extends Controller
         }
 
         $type = '';
-        $hide_man = $this->hide_manufacturers_for_partners();
+        $hide_man = $this->ExtFuncLoad()->hide_manufacturers_for_partners();
         foreach ($hide_man as $value) {
             $list[] = $value['manufacturers_id'];
         }
@@ -367,7 +336,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
         return $this->render('indexpage', ['categories' => $cat, 'catdata' => $categories]);
@@ -405,7 +374,7 @@ class SiteController extends Controller
 
     public function actionCatalog()
     {
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
 
@@ -425,7 +394,7 @@ class SiteController extends Controller
 
     public function actionContacts()
     {
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
         return $this->render('contacts', ['categories' => $cat, 'catdata' => $categories]);
@@ -433,7 +402,7 @@ class SiteController extends Controller
 
     public function actionDelivery()
     {
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
         return $this->render('delivery', ['categories' => $cat, 'catdata' => $categories]);
@@ -441,7 +410,7 @@ class SiteController extends Controller
 
     public function actionOfferta()
     {
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
         return $this->render('offerta', ['categories' => $cat, 'catdata' => $categories]);
@@ -449,7 +418,7 @@ class SiteController extends Controller
 
     public function actionFaq()
     {
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
         return $this->render('faqpage', ['categories' => $cat, 'catdata' => $categories]);
@@ -457,7 +426,7 @@ class SiteController extends Controller
 
     public function actionPaying()
     {
-        $categoriesarr = $this->categories_for_partners();
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
         return $this->render('paying', ['categories' => $cat, 'catdata' => $categories]);

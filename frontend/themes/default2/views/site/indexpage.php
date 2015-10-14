@@ -61,16 +61,10 @@ $functions = new ExtFunc();
             <div id="main-spec">
                 <div id="index-card-4">Специальные предложения</div>
                 <?
-                $man = new Manufacturers();
-                $hide_man = $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
-                foreach($hide_man as $value){
-                    $list[] = $value['manufacturers_id'];
-                }
-                $hide_man = implode(',' , $list);
+
+                $hide_man =  $functions->hide_manufacturers_for_partners();
                 $products = '960192894,95833167,95848445';
                 $dataproducts = new PartnersProductsToCategories;
-
-
                 $dataproducts = $dataproducts->find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN ('.$hide_man.')  and products.products_model IN ('.$products.')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(3)->distinct()->JoinWith('productsAttributesDescr')->asArray()->all();
 
 
