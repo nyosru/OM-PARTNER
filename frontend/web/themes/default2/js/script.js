@@ -1076,6 +1076,9 @@ $(document).on('click ready', '.data-j', function() {
                 $('.bside').html('Нет Результатов <a class="data-j reset" href="#"> Попробуйте сбросить критерии</a>');
                 $('#size-slide').html('');
                 $('#filter-button').html('');
+                $('body').removeClass('some');
+                $('link').removeClass('some');
+                $('.preload').remove();
             }
 
                 $("[data-cat=" + data[12] + "]").attr('data', 'checked');
