@@ -413,8 +413,8 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         }
                         $pager .= ' <a data-page="'.intval($data[10]).'" class="page data-j" href="#">'.(intval($data[10])+1).'</a> ';
                         $pager .= 'из '.$countpager;
-                        $pager .= ' <div data-page="'.($natpage - 1).'" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="/site/catalog'.new_url(new_suburl(split_url($url), 'page', ($natpage - 1))).'"></a></i></div> ';
-                        $pager .= ' <div data-page="'.($nextpage+1).'" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="/site/catalog'.new_url(new_suburl(split_url($url), 'page', ($nextpage+1))).'"></a></i></div> ';
+                        $pager .= ' <div data-page="'.($natpage - 1).'" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($natpage - 1)))).'"></a></i></div> ';
+                        $pager .= ' <div data-page="'.($nextpage+1).'" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=',new_url(new_suburl(split_url($url), 'page', ($nextpage+1)))).'"></a></i></div> ';
                         $topnav = '<div id="products-pager">Страница: '.$pager.'</div>';
                         $downnav = '<div id="products-pager-down">Страница: '.$pager.'</div>';
                     }
@@ -430,9 +430,9 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         }else{
                             $classcount = 'countdisplay';
                         }
-                      $innercount .=   '<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count=". $countdisp."  href="/site/catalog'.new_url(new_suburl(split_url($url), 'count',  $countdisp)).'">. $countdisp.</a></div>';
+                      $innercount .=   '<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count=". $countdisp."  href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count',  $countdisp))).'">. $countdisp.</a></div>';
                     }
-                $headbside .= '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog'.new_url(new_suburl(split_url($url), 'count', '20')).'">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog'.new_url(new_suburl(split_url($url), 'count', '40')).'">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog'.new_url(new_suburl(split_url($url), 'count', '60')).'">60</a> </div>';
+                $headbside .= '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '20'))).'">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '40'))).'">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '60'))).'">60</a> </div>';
 
                 $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="'.$data[11].'">Сортировать по </div>';
                 //  '<div class="header-sort-item">дате <a class="sort data-j arrow-down" data="0" href="#"></a><a class="sort data-j arrow-up" data="10" href="#"></a></div><div class="header-sort-item">цене<a class="sort data-j arrow-down" data="1" href="#"></a><a class="sort data-j arrow-up" data="11" href="#"></a></div><div class="header-sort-item"> названию<a class="sort data-j arrow-up" data="2" href="#"></a><a class="sort data-j arrow-down" data="12" href="#"></a></div><div class="header-sort-item"> модели<a class="sort data-j arrow-up" data="3" href="#"></a><a class="sort data-j arrow-down" data="13" href="#"></a></div><div class="header-sort-item">популярности<a class="sort data-j arrow-up" data="4" href="#"></a><a class="sort data-j arrow-down" data="14" href="#"></a> </div>' + '</div>';
@@ -451,9 +451,9 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         $class = 'sort data-j';
                     }
                     if($value[1] == $data[11] || $value[2] == $data[11]){
-                        $headbside .= '<div class="header-sort-item-active"><a class="'.$class.'" href="/site/catalog'.new_url(new_suburl(split_url($url), 'sort', $dataord)).'" data="'.$dataord.'" href="#">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
+                        $headbside .= '<div class="header-sort-item-active"><a class="'.$class.'" href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url)), 'sort', $dataord)).'" data="'.$dataord.'" href="#">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
                     }else{
-                        $headbside .= '<div class="header-sort-item"><a class="'.$class.'" data="'.$dataord.'" href="/site/catalog'.new_url(new_suburl(split_url($url), 'sort', $dataord)).'">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
+                        $headbside .= '<div class="header-sort-item"><a class="'.$class.'" data="'.$dataord.'" href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))).'">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
                     }
                 }
                     $headbside .= '</div></div>';

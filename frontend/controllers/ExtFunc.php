@@ -40,7 +40,7 @@ class ExtFunc
              for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                  $catdesc = $arr[$parent_id][$i]['categories_id'];
                  if (!$arr[$parent_id][$i] == '') {
-                     echo '<li class=""><div class="link data-j" data-j="on" data-cat="' . $catdesc . '">' . $catnamearr["$catdesc"] .'</div>';
+                     echo '<li class=""><a href="/site/catalog?_escaped_fragment_=cat=' . $catdesc . '&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a><div class="link data-j" data-j="on" data-cat="' . $catdesc . '">' . $catnamearr["$catdesc"] .'</div>';
                     $this->view_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
                      echo '</li>';
                  }

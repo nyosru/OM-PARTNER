@@ -1086,7 +1086,7 @@ $(document).on('click ready', '.data-j', function() {
                     $(this).html('<a href="'+$url+'">'+$(this).html()+'</a>');
                 }else{
                     $html =   $(this).children('a').html()
-                    $(this).html('<a href="'+$url+'">'+$html+'</a>');
+                    $(this).html('<a href="'+$url+'">'+$(this).text()+'</a>');
                 }
             });
             if(history.pushState) {
