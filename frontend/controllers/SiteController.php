@@ -295,7 +295,7 @@ class SiteController extends Controller
                     foreach ($datar as $valuesr) {
                         $keyprod = Yii::$app->cache->buildKey('product-'.$valuesr['products_id']);
                           Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                        $data[] = $valuesr;
+                        array_unshift($data, $valuesr);
                     }
                 }
                 $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', $arfilt_attr)->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
