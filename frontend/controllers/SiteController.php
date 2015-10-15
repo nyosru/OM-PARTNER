@@ -295,9 +295,10 @@ class SiteController extends Controller
                     foreach ($datar as $valuesr) {
                         $keyprod = Yii::$app->cache->buildKey('product-'.$valuesr['products_id']);
                           Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                        array_unshift($data, $valuesr);
+                        $data[] = $valuesr;
                     }
                 }
+                array_multisort($data, SORT_NUMERIC, SORT_ASC);
                 $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', $arfilt_attr)->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
                 $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1  and products.products_quantity > 0 '.$prod_search_query_filt.$prod_attr_query_filt.'  and products_price <= :end_price  and (products_image IS NOT NULL)   and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')', $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributes')->JoinWith('productsDescription')->count();
                 $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  '.$prod_search_query_filt.$prod_attr_query_filt.'  and products.products_quantity > 0     and (products_image IS NOT NULL)   and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ', $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->asArray()->one();
