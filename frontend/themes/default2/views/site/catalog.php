@@ -131,15 +131,69 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
 
     $url = '';
     $url = document.location.hash;
-    $url_data = split_url(document.location .hash);
-    $cat = $url_data['#!cat'][1];
-    $count = $url_data . count[1];
-    $min_price = $url_data . start_price[1];
-    $max_price = $url_data . end_price[1];
-    $prodatrquery = $url_data . prod_attr_query[1];
-    $page = $url_data . page[1];
-    $sort = $url_data . sort[1];
-    $searchword = $url_data . searchword[1];
+    if(typeof document.location .hash != 'undefined'){
+        $url_data = split_url(document.location .hash);
+    }else{
+        $url_data =  Object;
+    }
+    if(typeof $url_data['#!cat'] != 'undefined') {
+        $cat = $url_data['#!cat'][1];
+    }else{
+
+        $url_data['#!cat'][1] =   $cat = 932;
+
+    }
+    if(typeof $url_data . count != 'undefined'){
+        $count = $url_data . count[1];
+    }else{
+
+        $url_data . count[1] =   $count = 20;
+    }
+
+    if(typeof $url_data . start_price != 'undefined'){
+        $min_price = $url_data . start_price[1];
+    }else{
+
+        $url_data . start_price[1] =  $min_price = 0;
+    }
+
+    if(typeof $url_data . end_price != 'undefined'){
+        $max_price = $url_data . end_price[1];
+    }else{
+
+        $url_data . end_price[1] = $max_price = 1000000;
+    }
+
+    if(typeof $url_data . prod_attr_query != 'undefined'){
+        $prodatrquery = $url_data . prod_attr_query[1];
+    }else{
+
+        $url_data . prod_attr_query[1] = $prodatrquery = '';
+    }
+
+    if(typeof $url_data . page != 'undefined'){
+        $page =$url_data . page[1];
+    }else{
+
+        $url_data . page[1] = $page = 0;
+    }
+    if(typeof $url_data . sort != 'undefined'){
+        $sort = $url_data . sort[1];
+    }else{
+
+        $url_data . sort[1] =  $sort = 10;
+    }
+
+    if(typeof $url_data . searchword != 'undefined'){
+        $searchword = $url_data . searchword[1];
+    }else{
+
+        $url_data . searchword[1] = $searchword = '';
+    }
+
+
+
+
         $.ajax({
             url : '/site/request',
             data : 'cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword,
@@ -366,14 +420,53 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
 
 
                 $url_data = split_url(str_replace('_escaped_fragment_=', '#!', Yii::$app->request->getQueryString()));
-                $cat = $url_data['#!cat'][1];
-                $count = $url_data['count'][1];
-                $min_price = $url_data['start_price'][1];
-                $max_price = $url_data['end_price'][1];
-                $prodatrquery = $url_data['prod_attr_query'][1];
-                $page = $url_data['page'][1];
-                $sort = $url_data['sort'][1];
-                $searchword = $url_data['searchword'][1];
+              if(isset($url_data['#!cat'][1])) {
+                  $cat = $url_data['#!cat'][1];
+              }else{
+                  $cat = 1720;
+              }
+              if(isset($url_data['count'][1])) {
+                  $count = $url_data['count'][1];
+              }else{
+                  $count = 20;
+              }
+              if(isset($url_data['start_price'][1])) {
+                  $min_price = $url_data['start_price'][1];
+              }else{
+                  $min_price = 0;
+              }
+              if(isset($url_data['end_price'][1])) {
+                  $max_price = $url_data['end_price'][1];
+              }else{
+                  $max_price = 20;
+              }
+
+              if(isset($url_data['prod_attr_query'][1])) {
+                  $prodatrquery = $url_data['prod_attr_query'][1];
+              }else{
+                  $prodatrquery = '';
+              }
+
+              if(isset($url_data['page'][1])) {
+                  $page =$url_data['page'][1];
+              }else{
+                  $page  = 0;
+              }
+              if(isset($url_data['sort'][1])) {
+                  $sort  = $url_data['sort'][1];
+              }else{
+                  $sort  = 10;
+              }
+
+              if(isset($url_data['searchword'][1])) {
+                  $searchword  = $url_data['searchword'][1];
+              }else{
+                  $searchword  = 10;
+              }
+
+
+
+
                 $url = '/site/request/?cat='.$cat.'&count='.$count.'&start_price='.$min_price.'&end_price='.$max_price.'&prod_attr_query='.$prodatrquery.'&page='.$page.'&sort='.$sort.'&searchword='.$searchword;
                 $data = file('http://'.$_SERVER[HTTP_HOST].'/site/request/?cat='.$cat.'&count='.$count.'&start_price='.$min_price.'&end_price='.$max_price.'&prod_attr_query='.$prodatrquery.'&page='.$page.'&sort='.$sort.'&searchword='.$searchword);
                 $data = json_decode($data[0]);
