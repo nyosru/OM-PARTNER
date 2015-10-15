@@ -363,56 +363,15 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                     $url_obj[$val] = $value;
                     return $url_obj;
                 }
-
-
                 $url_data = split_url(str_replace('_escaped_fragment_=', '#!', Yii::$app->request->getQueryString()));
-              if(isset($url_data['#!cat'][1])) {
                   $cat = $url_data['#!cat'][1];
-              }else{
-                  $cat = 1720;
-              }
-              if(isset($url_data['count'][1])) {
                   $count = $url_data['count'][1];
-              }else{
-                  $count = 20;
-              }
-              if(isset($url_data['start_price'][1])) {
                   $min_price = $url_data['start_price'][1];
-              }else{
-                  $min_price = 0;
-              }
-              if(isset($url_data['end_price'][1])) {
                   $max_price = $url_data['end_price'][1];
-              }else{
-                  $max_price = 20;
-              }
-
-              if(isset($url_data['prod_attr_query'][1])) {
                   $prodatrquery = $url_data['prod_attr_query'][1];
-              }else{
-                  $prodatrquery = '';
-              }
-
-              if(isset($url_data['page'][1])) {
                   $page =$url_data['page'][1];
-              }else{
-                  $page  = 0;
-              }
-              if(isset($url_data['sort'][1])) {
                   $sort  = $url_data['sort'][1];
-              }else{
-                  $sort  = 10;
-              }
-
-              if(isset($url_data['searchword'][1])) {
                   $searchword  = $url_data['searchword'][1];
-              }else{
-                  $searchword  = 10;
-              }
-
-
-
-
                 $url = '/site/request/?cat='.$cat.'&count='.$count.'&start_price='.$min_price.'&end_price='.$max_price.'&prod_attr_query='.$prodatrquery.'&page='.$page.'&sort='.$sort.'&searchword='.$searchword;
                 $data = file('http://'.$_SERVER[HTTP_HOST].'/site/request/?cat='.$cat.'&count='.$count.'&start_price='.$min_price.'&end_price='.$max_price.'&prod_attr_query='.$prodatrquery.'&page='.$page.'&sort='.$sort.'&searchword='.$searchword);
                 $data = json_decode($data[0]);
@@ -490,7 +449,7 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         $class = 'sort data-j';
                     }
                     if($value[1] == $data[11] || $value[2] == $data[11]){
-                        $headbside .= '<div class="header-sort-item-active"><a class="'.$class.'" href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url)), 'sort', $dataord)).'" data="'.$dataord.'" href="#">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
+                        $headbside .= '<div class="header-sort-item-active"><a class="'.$class.'" href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))).'" data="'.$dataord.'" href="#">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
                     }else{
                         $headbside .= '<div class="header-sort-item"><a class="'.$class.'" data="'.$dataord.'" href="/site/catalog'.str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))).'">'.$value[0].'</a> <i class="fa fa-'.$arrow.'"> </i></div>';
                     }
