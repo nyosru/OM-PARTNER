@@ -363,7 +363,7 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                     $url_obj[$val] = $value;
                     return $url_obj;
                 }
-                $url_data = split_url(str_replace('_escaped_fragment_=', '#!', Yii::$app->request->getQueryString()));
+                $url_data = split_url(str_replace('%26','&', str_replace('_escaped_fragment_=', '#!', Yii::$app->request->getQueryString())));
                   $cat = $url_data['#!cat'][1];
                   $count = $url_data['count'][1];
                   $min_price = $url_data['start_price'][1];
