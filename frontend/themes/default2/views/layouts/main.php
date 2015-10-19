@@ -142,6 +142,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             <img src="//top-fwz1.mail.ru/counter?id=2698708;js=na" style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" />
         </div></noscript>
     <!-- //Rating@Mail.ru counter -->
+    <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter33127188 = new Ya.Metrika({ id:33127188, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script>
 </body>
 </html>
 <?php $this->endPage() ?>
