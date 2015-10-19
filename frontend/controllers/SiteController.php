@@ -332,7 +332,7 @@ class SiteController extends Controller
         }
         $countfilt = count($data);
         $start = $start_arr;
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+       Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu);
     }
 
@@ -347,9 +347,47 @@ class SiteController extends Controller
 
     public function actionTest()
     {
+      //  $filt = Yii::$app->request->post('filt', '.*');
+      //  $key = Yii::$app->cache->buildKey('test_data'.$filt);
+      //  $test = Yii::$app->cache->get($key);
+      //  $search_query = '  ';
+      //  if(!$test) {
+           // $test = PartnersProducts::find()->select('products_name as name')->where('products_status = 1 and  LOWER(products_name) RLIKE :searchword   and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) ',[':searchword' => $filt])->JoinWith('productsDescription')->distinct()->asArray()->all();
+      //  }
+        return $this->render('test');
 
     }
 
+    public function actionSearchword()
+    {
+        $filt =  mb_strtolower(Yii::$app->request->getQueryParam('filt',NULL),  mb_detect_encoding(Yii::$app->request->getQueryParam('filt',NULL)));
+      if($filt != NULL){
+         $query_filt = ' and  LOWER(products_name) RLIKE :searchword ' ;
+         $query_ar =    [':searchword' =>$filt];
+        }else{
+            $query_filt = ' ' ;
+            $query_ar =  [];
+        }
+          $key = Yii::$app->cache->buildKey(urlencode($filt));
+          $test = Yii::$app->cache->get($key);
+          if(isset($test['data'])) {
+              $test  = $test['data'];
+          }else{
+              $test = PartnersProducts::find()->select('products_name as name')->where('products_status = 1 '. $query_filt.'   and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) ',$query_ar )->JoinWith('productsDescription')->distinct()->orderBy(['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC])->asArray()->all();
+              Yii::$app->cache->set($key,['data' => $test], 86400);
+          }
+       // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $testout = '';
+        foreach($test as $value){
+            preg_match('/^[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*('.$filt.')[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*/iu', $value['name'], $output_array);
+          //  preg_match('/^'.$filt.'[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*/iu', $output_array[0], $output_array);
+            $preg[] = mb_strtolower($output_array[0], mb_detect_encoding($output_array[0]));
+         }
+        $preg = array_unique($preg);
+        $testout = implode('/////',$preg);
+        return  $testout ;
+
+    }
 
     public function actionLogin()
     {

@@ -1110,6 +1110,49 @@ $('[data-cat]').on('click', function() {
     $(".page-checked").removeClass('page-checked');
 
 });
+var timer;
+$(document).on( 'keyup', '#search' , function() {
+    clearTimeout(timer);
+     timer = setTimeout(function (){
+        $('.result_search_word').html('');
+        $text = $('#search').val();
+        $text = $text.split(' ');
+        $count = $text.length;
+        $text = $text[$count - 1];
+        if ($text.length > 0) {
+            $.ajax({
+                url: '/site/searchword',
+                data: {'filt': $text},
+                async: false,
+                success: function (data) {
+                    $('.result_search_word').html('');
+                    if(data != ''){
+                    $data = data.split('/////');
+                    $out = '<select style="width:100%">';
+                    $.each($data, function () {
+                        if(this != '') {
+                            $out += '<option class="input_search_word">' + this + '</option>';
+                        }
+                    });
+                    $out += '</select>';
+                    $('.result_search_word').html($out).serialize();
+                }}
+            });
+        }
+    }, 500);
+}).keydown(function(){clearTimeout(timer)});
+$(document).on( 'click', '.input_search_word' , function(){
+    $text = $('#search').val();
+
+    $text = $text.split(' ');
+    $count = $text.length;
+
+    $text[$count-1] =  $(this).val();
+    console.log($text);
+    $('#search').val($text.join(' ',$text));
+
+});
+
 $(document).on('ready', function() {
 
     $amount_prod = 0;
