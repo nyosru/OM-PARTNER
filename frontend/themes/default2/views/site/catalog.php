@@ -318,12 +318,12 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                 else {
                     document.location.hash = '/site/catalog'+data[16].join('/')+'/'+new_url(split_url($url))  }
 
+                document.title = data[16].join('-')+'-'+(data[10]+1);
 
-
-                if(history.pushState) {
-                    history.pushState(null, null, new_url(split_url($url)))      }
-                else {
-                    document.location.hash = new_url(split_url($url))  }
+//                if(history.pushState) {
+//                    history.pushState(null, null, new_url(split_url($url)))      }
+//                else {
+//                    document.location.hash = new_url(split_url($url))  }
 
 
 
@@ -474,6 +474,7 @@ foreach($data[0] as $value) {
     $product->products_image = str_replace('(','[[[[', $product->products_image);
     $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card"><div data-prod="'.$product->products_id.'" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src='.$product->products_image.');"><meta itemprop="image" content="/site/imagepreview?src='.$product->products_image.'"></div><div itemprop="name" class="name">'.$description->products_name.'</div><div itemprop="url" class="model">Артикул '.$product->products_model.'</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">'.intval($product->products_price).'</b> руб.</div><div itemprop="description id="prod-info" data-prod="'.$product->products_id.'">Инфо</div><span>'.$attr_html.'</span></div>';
 }
+ $this->title = implode('-',$data[16]).'-'.(intval($data[10])+1);
 echo $innerhtml;
 echo $downnav;
             }else {

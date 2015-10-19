@@ -1096,6 +1096,7 @@ $(document).on('click ready', '.data-j', function() {
                 history.pushState(null, null, '/site/catalog/'+data[16].join('/')+'/'+new_url(split_url($url)))      }
             else {
                 document.location.hash = '/site/catalog'+data[16].join('/')+'/'+new_url(split_url($url))  }
+            document.title = data[16].join('-')+'-'+(data[10]+1);
         }
     });
 
