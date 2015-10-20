@@ -1153,7 +1153,7 @@ class SiteController extends Controller
                             case 'ы' :
                                 $search = mb_substr($search, 0, $length, $encode);
                                 return $search;
-                            case mb_convert_encoding('и', $encode) :
+                            case 'и':
                                 $search = mb_substr($search, 0, $length, $encode);
                                 return $search;
                             case 'у' :
