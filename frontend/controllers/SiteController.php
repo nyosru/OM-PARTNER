@@ -245,21 +245,28 @@ class SiteController extends Controller
                 $prod_search_query_filt = '  and products.products_model=:searchword ';
                 $init_key .= '-' . $searchword;
             } elseif (preg_match('/^[a-zа-я ]+$/iu', $searchword)) {
-
-                $valsearchin = explode(' ', $searchword);
-                if (count($valsearchin) > 1) {
-                    foreach ($valsearchin as $search) {
-                        if ($search != '') {
-                            $valsearch[] = $this->sklonenie(trim($search));
+                $patternkey = 'pattern-'.urlencode($searchword);
+                $patterndata = Yii::$app->cache->get($patternkey);
+                if(!$patterndata) {
+                    $valsearchin = explode(' ', $searchword);
+                    if (count($valsearchin) > 1) {
+                        foreach ($valsearchin as $search) {
+                            if ($search != '') {
+                                $valsearch[] = $this->sklonenie(trim($search));
+                            }
                         }
+                        $searchword = implode('|', $valsearch);
+                    } else {
+                        $searchword = $this->sklonenie(trim($searchword));
                     }
-                    $searchword = implode('|', $valsearch);
-                } else {
-                    $searchword = $this->sklonenie(trim($searchword));
+                    Yii::$app->cache->set($patternkey, ['data' => $searchword], 86400);
+                }else{
+                    $searchword =  $patterndata['data'];
                 }
+
                 $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')(ами|ями|ов|ев|ей|ам|ям|ах|ях|ою|ею|ом|ем|а|я|о|е|ы|и|у|ю)*[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                 $prod_search_query_filt = ' and  LOWER(products_description.products_name) RLIKE :searchword ';
-                $init_key .= '-' . $searchword;
+                $init_key .= '-' . urlencode($searchword);
             }
         } else {
             $prod_search_query_filt = '';
