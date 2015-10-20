@@ -272,7 +272,7 @@ class SiteController extends Controller
             $checkcache = $x['products_last_modifieds'];
         }
         $key = Yii::$app->cache->buildKey($init_key);
-        //    $dataque = Yii::$app->cache->get($key);
+            $dataque = Yii::$app->cache->get($key);
         if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
             Yii::$app->cache->delete($init_key);
         }
