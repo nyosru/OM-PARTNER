@@ -266,7 +266,7 @@ class SiteController extends Controller
 
                 $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')(ами|ями|ов|ев|ей|ам|ям|ах|ях|ою|ею|ом|ем|а|я|о|е|ы|и|у|ю)*[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                 $prod_search_query_filt = ' and  LOWER(products_description.products_name) RLIKE :searchword ';
-                $init_key .= '-' . urlencode($searchword);
+                $init_key .= '-' . $searchword;
             }
         } else {
             $prod_search_query_filt = '';
