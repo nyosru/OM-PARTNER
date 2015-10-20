@@ -296,6 +296,11 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                         }
                     });
                 } else {
+                        $('body') . removeClass('some');
+                        $('link') . removeClass('some');
+                        $('.preload') . remove();
+                        $('.bside') . html("");
+                        $('#size-slide') . html("");
                         $('.bside') . html('Нет Результатов <a class="data-j reset" href="#"> Попробуйте сбросить критерии</a>');
                         $('#size-slide') . html('');
                         $('#filter-button') . html('');
@@ -312,14 +317,24 @@ $this -> title = Yii::$app->params['constantapp']['APP_NAME'];
                     }
                 });
 
+if(typeof data[16] != 'undefined') {
+    if (history.pushState) {
+        history.pushState(null, null, '/site/catalog/' + data[16].join('/') + '/' + new_url(split_url($url)))
+    }
+    else {
+        document.location.hash = '/site/catalog' + data[16].join('/') + '/' + new_url(split_url($url))
+    }
 
-                if(history.pushState) {
-                    history.pushState(null, null, '/site/catalog/'+data[16].join('/')+'/'+new_url(split_url($url)))      }
-                else {
-                    document.location.hash = '/site/catalog'+data[16].join('/')+'/'+new_url(split_url($url))  }
-
-                document.title = data[16].join('-')+'-'+(data[10]+1);
-
+    document.title = data[16].join('-') + '-' + (data[10] + 1);
+}else{
+    document.title = 'Поиск';
+    if (history.pushState) {
+        history.pushState(null, null, '/site/catalog/поиск/' + new_url(split_url($url)))
+    }
+    else {
+        document.location.hash = '/site/catalog/поиск/' + new_url(split_url($url))
+    }
+}
 //                if(history.pushState) {
 //                    history.pushState(null, null, new_url(split_url($url)))      }
 //                else {

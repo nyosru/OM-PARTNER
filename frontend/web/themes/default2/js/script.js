@@ -1092,11 +1092,24 @@ $(document).on('click ready', '.data-j', function() {
                     $(this).html('<a href="'+$url+'">'+$(this).text()+'</a>');
                 }
             });
-            if(history.pushState) {
-                history.pushState(null, null, '/site/catalog/'+data[16].join('/')+'/'+new_url(split_url($url)))      }
-            else {
-                document.location.hash = '/site/catalog'+data[16].join('/')+'/'+new_url(split_url($url))  }
-            document.title = data[16].join('-')+'-'+(data[10]+1);
+            if(typeof data[16] != 'undefined') {
+                if (history.pushState) {
+                    history.pushState(null, null, '/site/catalog/' + data[16].join('/') + '/' + new_url(split_url($url)))
+                }
+                else {
+                    document.location.hash = '/site/catalog' + data[16].join('/') + '/' + new_url(split_url($url))
+                }
+
+                document.title = data[16].join('-') + '-' + (data[10] + 1);
+            }else{
+                document.title = 'Поиск';
+                if (history.pushState) {
+                    history.pushState(null, null, '/site/catalog/поиск/' + new_url(split_url($url)))
+                }
+                else {
+                    document.location.hash = '/site/catalog/поиск/' + new_url(split_url($url))
+                }
+            }
         }
     });
 
