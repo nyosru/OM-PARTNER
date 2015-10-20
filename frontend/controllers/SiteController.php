@@ -254,10 +254,10 @@ class SiteController extends Controller
                         }
                     }
                     $searchword = implode('|', $valsearch);
-                }else{
+                } else {
                     $searchword = $this->sklonenie(trim($searchword));
                 }
-                $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')+[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
+                $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')(ами|ями|ов|ев|ей|ам|ям|ах|ях|ою|ею|ом|ем|а|я|о|е|ы|и|у|ю)*[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                 $prod_search_query_filt = ' and  LOWER(products_description.products_name) RLIKE :searchword ';
                 $init_key .= '-' . $searchword;
             }
@@ -272,7 +272,7 @@ class SiteController extends Controller
             $checkcache = $x['products_last_modifieds'];
         }
         $key = Yii::$app->cache->buildKey($init_key);
-            $dataque = Yii::$app->cache->get($key);
+        $dataque = Yii::$app->cache->get($key);
         if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
             Yii::$app->cache->delete($init_key);
         }
@@ -376,11 +376,8 @@ class SiteController extends Controller
             $test = PartnersProducts::find()->select('products_name as name')->where('products_status = 1 ' . $query_filt . '   and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) ', $query_ar)->JoinWith('productsDescription')->distinct()->orderBy(['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC])->asArray()->all();
             Yii::$app->cache->set($key, ['data' => $test], 86400);
         }
-        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $testout = '';
         foreach ($test as $value) {
             preg_match('/^[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*(' . $filt . ')[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*/iu', $value['name'], $output_array);
-            //  preg_match('/^'.$filt.'[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*/iu', $output_array[0], $output_array);
             $preg[] = mb_strtolower($output_array[0], mb_detect_encoding($output_array[0]));
         }
         $preg = array_unique($preg);
@@ -1086,88 +1083,98 @@ class SiteController extends Controller
     {
 
         $encode = mb_detect_encoding($search);
-        $search = mb_strtolower($search, $encode);
+        $search = $origsearch =  mb_strtolower($search, $encode);
         $tolength = mb_strlen($search, $encode);
         $length = $tolength - 3;
-        $substr = mb_substr($search, $length, $tolength-$length, $encode);
+        $substr = mb_substr($search, $length, $tolength - $length, $encode);
         switch ($substr) {
             case 'ами':
                 $search = mb_substr($search, 0, $length, $encode);
-                return $search;
+                return $this->checksklonenie($search,$origsearch,$encode);
             case 'ями':
                 $search = mb_substr($search, 0, $length, $encode);
-                return $search;
+                return $this->checksklonenie($search,$origsearch,$encode);
             default:
                 $length = $length + 1;
-                $substr = mb_substr($search, $length, $tolength-$length, $encode);
+                $substr = mb_substr($search, $length, $tolength - $length, $encode);
                 switch ($substr) {
                     case 'ов' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ев' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ей' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this-> checksklonenie($search,$origsearch,$encode);
                     case 'ам' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ям' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ах' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ях' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ою' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ею' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ом' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     case 'ем' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $search;
+                        return $this->checksklonenie($search,$origsearch,$encode);
                     default:
                         $length = $length + 1;
-                        $substr = mb_substr($search, $length, $tolength-$length, $encode);
+                        $substr = mb_substr($search, $length, $tolength - $length, $encode);
                         switch ($substr) {
                             case 'а' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             case 'я' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             case 'о' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             case 'е' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             case 'ы' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             case 'и':
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             case 'у' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             case 'ю' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                             default:
-                                return $search;
+                                return $this->checksklonenie($search,$origsearch,$encode);
                         }
                 }
+
+
         }
 
+    }
+    private function checksklonenie($pattern , $search, $encode='UTF-8')
+    {
+       if(mb_strlen($pattern, $encode) < 3 && !preg_match('/(а|о|э|и|у|ы|е|ё|ю|я)+/iu', $pattern)) {
+           return $search;
+       }else{
+           return $pattern;
+       }
     }
 }
 
