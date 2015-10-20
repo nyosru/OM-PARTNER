@@ -1137,7 +1137,7 @@ class SiteController extends Controller
                     default:
                         $length = $length + 1;
                         $substr = mb_substr($search, $length, $tolength-$length, $encode);
-                        switch (mb_convert_encoding($substr, $encode)) {
+                        switch ($substr) {
                             case 'а' :
                                 $search = mb_substr($search, 0, $length, $encode);
                                 return $search;
