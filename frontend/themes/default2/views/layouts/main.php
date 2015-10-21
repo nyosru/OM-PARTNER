@@ -45,7 +45,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <div class="col-lg-5 navbar-form navbar-left" role="search" style="width: 26%;">
             <div class="form-group" style="width: 100%; display: table;">
                 <input type="text" id="search" class="form-control" placeholder="Введите артикул или название" style="width: 100%; background: rgb(89, 89, 89) none repeat scroll 0% 0%; border: 1px solid rgb(89, 89, 89);color: #fff;">
-            <div class="result_search_word"></div>
+            <div class="result_search_word" style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
             </div>
             <div   class="btn btn-default data-j" style="right: 15px; position: absolute; top: 0px; background: rgb(89, 89, 89) none repeat scroll 0% 0%; border: 1px solid rgb(89, 89, 89);"><i class="fa fa-search"></i>
             </div>

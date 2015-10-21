@@ -982,6 +982,7 @@ $('[data-cat]').on('click', function () {
 });
 
 $(document).on('keyup', '#search', function () {
+    $('.result_search_word').show();
         $('.result_search_word').html('');
         $text = $('#search').val();
         $text = $text.split(' ');
@@ -996,14 +997,15 @@ $(document).on('keyup', '#search', function () {
                     $('.result_search_word').html('');
                     if (data != '') {
                         $data = data.split('/////');
-                        $out = '<select style="width:100%">';
+                        $out = '';
+                        $c = 0;
+                        $innerhtml ='';
+                        $('.result_search_word').html('');
                         $.each($data, function () {
-                            if (this != '') {
-                                $out += '<option class="input_search_word">' + this + '</option>';
-                            }
-                        });
-                        $out += '</select>';
-                        $('.result_search_word').html($out).serialize();
+                           if(this != '') {
+                               $innerhtml += '<div data-raw="' + ($c++) + '" class="input_search_word" style="cursor:pointer;border-top: 1px solid rgb(0, 0, 0);padding: 4px 15px;">' + this + '</div>';
+                           }});
+                        $('.result_search_word').html($innerhtml);
                     }
                 }
             });
@@ -1013,9 +1015,10 @@ $(document).on('click', '.input_search_word', function () {
     $text = $('#search').val();
     $text = $text.split(' ');
     $count = $text.length;
-    $text[$count - 1] = $(this).val();
+    $text[$count - 1] = $(this).text();
     console.log($text);
     $('#search').val($text.join(' ', $text));
+    $('.result_search_word').hide();
 });
 $(document).on('ready', function () {
     $amount_prod = 0;
