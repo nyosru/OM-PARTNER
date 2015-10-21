@@ -980,7 +980,7 @@ $('[data-cat]').on('click', function () {
     $(".page-checked").removeClass('page-checked');
 
 });
-var timer;
+
 $(document).on('keyup', '#search', function () {
         $('.result_search_word').html('');
         $text = $('#search').val();
@@ -991,7 +991,7 @@ $(document).on('keyup', '#search', function () {
             $.ajax({
                 url: '/site/searchword',
                 data: {'filt': $text},
-                async: true,
+                async: false,
                 success: function (data) {
                     $('.result_search_word').html('');
                     if (data != '') {
