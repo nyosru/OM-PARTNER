@@ -991,7 +991,7 @@ $(document).on('keyup', '#search', function () {
             $.ajax({
                 url: '/site/searchword',
                 data: {'filt': $text},
-                async: false,
+                async: true,
                 success: function (data) {
                     $('.result_search_word').html('');
                     if (data != '') {
