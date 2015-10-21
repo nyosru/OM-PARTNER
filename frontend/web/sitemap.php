@@ -1,4 +1,7 @@
 <?
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'prod');
+
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
 require(__DIR__ . '/../../common/config/bootstrap.php');
@@ -10,10 +13,24 @@ $config = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../config/main.php'),
     require(__DIR__ . '/../config/main-local.php')
 );
-
 $application = new yii\web\Application($config);
 
+use common\models\Partners;
+$partner = Yii::$app->db->cache(
+    function ($db) {
+        $run = new Partners();
+        $check = $run->GetId($_SERVER['HTTP_HOST']);
+        if($check == ''){
+            die;
+        }else{
+            return['APP_CAT' => $run -> GetAllowCat($check), 'APP_NAME' =>  $run->GetNamePartner($check), 'APP_ID' =>  $run -> GetId($_SERVER['HTTP_HOST']), 'APP_THEMES' =>  $run->GetTemplate($check)];
 
+        }    }, 3600
+);
+$application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
+$application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
+$application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
+$application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
@@ -32,14 +49,21 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
     $application->layout = false;
     $function = new ExtFunc();
-    $urlarr = $function->categories_for_partners()[0];
-    foreach($urlarr as $value)
+  //  $urlarr = $function->categories_for_partners()[0];
+    $categoriesarr = $function->categories_for_partners();
+    $categories = $categoriesarr[0];
+    $catdataw = $categoriesarr[1];
+    $checks = Yii::$app->params['constantapp']['APP_CAT'];
+    $urlarr = $function->reformat_cat_array($categories, $catdataw, $checks);
+    foreach($urlarr['cat'] as $key => $value)
     {
-        $url = 'http://'.$_SERVER['HTTP_HOST'].'/site/catalog?_escaped_fragment_=cat='.$value[categories_id].'%26count=20%26start_price=%26end_price=1000000%26prod_attr_query=%26page=undefined%27sort=undefined%26searchword=';
+        for($i=0; $i < 5; $i++){
+        $url = 'http://'.$_SERVER['HTTP_HOST'].'/site/catalog?_escaped_fragment_=cat='.$key.'%26count=20%26start_price=%26end_price=1000000%26prod_attr_query=%26page='.$i;
         echo   '<url>';
         echo   '   <loc>'.$url.'</loc>';
         echo   '  <changefreq>hourly</changefreq>';
         echo   ' </url>';
+        }
     }
     ?>
 </urlset>
