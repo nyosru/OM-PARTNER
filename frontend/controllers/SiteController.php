@@ -173,11 +173,7 @@ class SiteController extends Controller
         } else {
             $checkcache = $x['products_last_modifieds'];
         }
-        $hide_man = $this->ExtFuncLoad()->hide_manufacturers_for_partners();
-        foreach ($hide_man as $value) {
-            $list[] = $value['manufacturers_id'];
-        }
-        $init_key = 'first--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
+        $init_key = 'first--' . $cat_start . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         if ($dataque === false || (date($checkcache) - date($dataque['checkcache']) > 1 && $dataque !== FALSE)) {
@@ -233,7 +229,10 @@ class SiteController extends Controller
                 $order = ['products_ordered' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                 break;
         }
-
+            $hide_man = $this->ExtFuncLoad()->hide_manufacturers_for_partners();
+            foreach ($hide_man as $value) {
+                $list[] = $value['manufacturers_id'];
+            }
         $type = '';
            $arfilt = $arfilt_attr = [':start_price' => $start_price, ':end_price' => $end_price];
         $arfilt_pricemax = array();
