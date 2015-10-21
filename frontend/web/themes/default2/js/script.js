@@ -982,8 +982,6 @@ $('[data-cat]').on('click', function () {
 });
 var timer;
 $(document).on('keyup', '#search', function () {
-    clearTimeout(timer);
-    timer = setTimeout(function () {
         $('.result_search_word').html('');
         $text = $('#search').val();
         $text = $text.split(' ');
@@ -993,7 +991,7 @@ $(document).on('keyup', '#search', function () {
             $.ajax({
                 url: '/site/searchword',
                 data: {'filt': $text},
-                async: false,
+                async: true,
                 success: function (data) {
                     $('.result_search_word').html('');
                     if (data != '') {
@@ -1010,9 +1008,6 @@ $(document).on('keyup', '#search', function () {
                 }
             });
         }
-    }, 500);
-}).keydown(function () {
-    clearTimeout(timer)
 });
 $(document).on('click', '.input_search_word', function () {
     $text = $('#search').val();

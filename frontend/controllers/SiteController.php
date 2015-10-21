@@ -375,13 +375,13 @@ class SiteController extends Controller
             $query_filt = ' ';
             $query_ar = [];
         }
-        $key = Yii::$app->cache->buildKey(urlencode($filt));
+        $key = Yii::$app->cache->buildKey('searchfullnamnes');
         $test = Yii::$app->cache->get($key);
         if (isset($test['data'])) {
             $test = $test['data'];
         } else {
-            $test = PartnersProducts::find()->select('products_name as name')->where('products_status = 1 ' . $query_filt . '   and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) ', $query_ar)->JoinWith('productsDescription')->distinct()->orderBy(['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC])->asArray()->all();
-            Yii::$app->cache->set($key, ['data' => $test], 86400);
+            $test = PartnersProducts::find()->select('products_name as name')->where('products_status = 1 and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) ')->JoinWith('productsDescription')->distinct()->orderBy(['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC])->asArray()->all();
+            Yii::$app->cache->set($key, ['data' => $test], 604800);
         }
         foreach ($test as $value) {
             preg_match('/^[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*(' . $filt . ')[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*/iu', $value['name'], $output_array);
