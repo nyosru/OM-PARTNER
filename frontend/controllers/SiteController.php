@@ -283,7 +283,7 @@ class SiteController extends Controller
         if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
             Yii::$app->cache->delete($init_key);
         }
-        if ($dataque === false || (date($checkcache) - date($dataque['checkcache']) < 300 && $dataque !== FALSE)) {
+        if ($dataque === false || (date($checkcache) - date($dataque['checkcache']) > 600 && $dataque !== FALSE)) {
             $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->groupBy(['products.`products_id` DESC'])->orderBy($order)->asArray()->all();
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
