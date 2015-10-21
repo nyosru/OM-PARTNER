@@ -167,6 +167,20 @@ class SiteController extends Controller
             $page = 0;
         }
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('products')->where('categories_id = :cat ',[':cat' => $cat_start])->asArray()->one();
+        if (!isset($x['products_last_modifieds'])) {
+            $checkcache = '0000-00-00';
+        } else {
+            $checkcache = $x['products_last_modifieds'];
+        }
+        $hide_man = $this->ExtFuncLoad()->hide_manufacturers_for_partners();
+        foreach ($hide_man as $value) {
+            $list[] = $value['manufacturers_id'];
+        }
+        $init_key = 'first--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
+        $key = Yii::$app->cache->buildKey($init_key);
+        $dataque = Yii::$app->cache->get($key);
+        if ($dataque === false || (date($checkcache) - date($dataque['checkcache']) > 1 && $dataque !== FALSE)) {
         if ($searchword == '') {
             $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
             $catdata = $catdataarr[0];
@@ -185,7 +199,6 @@ class SiteController extends Controller
         $categories = $categoriesarr[0];
         $catdataw = $categoriesarr[1];
         $categoriesarr = $this->ExtFuncLoad()->reformat_cat_array($categories, $catdataw, $checks);
-
         $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
 
         switch ($sort) {
@@ -222,12 +235,7 @@ class SiteController extends Controller
         }
 
         $type = '';
-        $hide_man = $this->ExtFuncLoad()->hide_manufacturers_for_partners();
-        foreach ($hide_man as $value) {
-            $list[] = $value['manufacturers_id'];
-        }
-        $init_key = 'first--' . $cat_start . '-' . $hide_man . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
-        $arfilt = $arfilt_attr = [':start_price' => $start_price, ':end_price' => $end_price];
+           $arfilt = $arfilt_attr = [':start_price' => $start_price, ':end_price' => $end_price];
         $arfilt_pricemax = array();
         $hide_man = implode(',', $list);
         if ($prod_attr_query != '') {
@@ -272,18 +280,7 @@ class SiteController extends Controller
             $prod_search_query_filt = '';
         }
 
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
-        if (!isset($x['products_last_modifieds'])) {
-            $checkcache = '0000-00-00';
-        } else {
-            $checkcache = $x['products_last_modifieds'];
-        }
-        $key = Yii::$app->cache->buildKey($init_key);
-        $dataque = Yii::$app->cache->get($key);
-        if (isset($dataque) && $checkcache !== $dataque['checkcache']) {
-            Yii::$app->cache->delete($init_key);
-        }
-        if ($dataque === false || (date($checkcache) - date($dataque['checkcache']) > 1 && $dataque !== FALSE)) {
+
             $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->groupBy(['products.`products_id` DESC'])->orderBy($order)->asArray()->all();
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
@@ -308,7 +305,7 @@ class SiteController extends Controller
 
             $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', $arfilt_attr)->orderBy('`products_price` DESC')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
             $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . '  and products_price <= :end_price  and (products_image IS NOT NULL)   and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')', $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributes')->JoinWith('productsDescription')->count();
-            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  ' . $prod_search_query_filt . $prod_attr_query_filt . '  and products.products_quantity > 0     and (products_image IS NOT NULL)   and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ', $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->asArray()->one();
+            $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  ' . $prod_search_query_filt . $prod_attr_query_filt . '  and products.products_quantity > 0     and (products_image IS NOT NULL)   and (products_description IS NOT NULL)  and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ', $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->asArray()->one();
 
             Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
 
