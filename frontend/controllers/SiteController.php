@@ -287,14 +287,13 @@ class SiteController extends Controller
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
-
                 $d1=new \DateTime();
                 $d1->setTimestamp(strtotime(trim($values['last'])));
                 $d2=new \DateTime();
                 $d2->setTimestamp(strtotime(trim($dataprod['last'])));
                 $diff = $d2->diff($d1);
                 $marker = $diff->y+$diff->m+$diff->d+$diff->h;
-                if (isset($dataprod) && $marker == 0 && $diff->i < 5) {
+                if (isset($dataprod) && $marker == 0 && $diff->i < 20) {
                     $data[] = $dataprod['data'];
                 } else {
                     $nodata[] = $values['prod'];
