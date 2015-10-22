@@ -186,8 +186,8 @@ class SiteController extends Controller
         $d2=new \DateTime();
         $d2->setTimestamp(strtotime(trim($dataque['checkcache'])));
         $diff = $d2->diff($d1);
-        $marker = $diff->y+$diff->m+$diff->d+$diff->h;
-        if (!isset($dataque['checkcache']) || $marker !== 0 || $diff->i > 5) {
+        $markers = $diff->y+$diff->m+$diff->d+$diff->h;
+        if (!isset($dataque['checkcache']) || $markers !== 0 || $diff->i > 5) {
 
         if ($searchword == '') {
             $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
@@ -345,7 +345,7 @@ class SiteController extends Controller
         $countfilt = count($data);
         $start = $start_arr;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu, $x['products_last_modified']);
+        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu, $markers);
     }
 
     public function actionIndex()
