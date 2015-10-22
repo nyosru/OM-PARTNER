@@ -848,7 +848,7 @@ $(document).on('click ready', '.data-j', function () {
                 if (data[3].length > 1 && data[3].length <= 30) {
                     $('#size-slide').append('<div id="size-lable">Размеры </div>');
                 } else if (data[3].length > 30) {
-                    $('#size-slide').append('<div id="size-lable"><input id="class-size-filter" style="width:100%;  height: 20px;" placeholder="начните вводить интересующий размер"/></div>');
+                    $('#size-slide').append('<div id="size-lable"><input id="class-size-filter" style="width:100%;  height: 20px;border: none;background: none;text-align: center;" placeholder="начните вводить интересующий размер"/></div>');
                 }
                 $.each(data[3], function () {
                     $attrproducts = this.products_options_values_name;
