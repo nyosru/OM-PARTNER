@@ -27,7 +27,7 @@ class ExtFunc
             $str_load_cat[] =  $parent_id;
         }
 
-        return  $str_load_cat;
+        return array_unique($str_load_cat);
     }
 
     public function view_cat($arr, $parent_id = 0, $catnamearr, $allow_cat) {
@@ -72,15 +72,15 @@ class ExtFunc
 
     public function hide_manufacturers_for_partners()
     {
-        $dependency = new DbDependency([
-            'sql' => 'SELECT MAX(last_modified) FROM {{%manufacturers}}',
-        ]);
-        $hide_man = Yii::$app->db->cache(
-            function ($db) {
-                $man = new Manufacturers();
-                return $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
-            }, 86400, $dependency
-        );
+        $key = Yii::$app->cache->buildKey('hideman');
+        $hide_man = Yii::$app->cache->get($key);
+        if(!isset($hide_man['data'])) {
+            $man = new Manufacturers();
+            $hide_man =  $man->find()->where(['hide_products' => '1'])->select('manufacturers_id')->asArray()->all();
+            Yii::$app->cache->set($key, ['data' =>$hide_man], 86400);
+        }else{
+            $hide_man =  $hide_man['data'];
+        }
         return $hide_man;
     }
     public function categories_for_partners()
@@ -100,4 +100,36 @@ class ExtFunc
         return $data;
     }
 
+    public function full_op_cat()
+    {
+        $key = Yii::$app->cache->buildKey('fullopcatcategories');
+        $data = Yii::$app->cache->get($key);
+        if(!isset($data['data'])) {
+            $checks = Yii::$app->params['constantapp']['APP_CAT'];
+            $categoriess = new PartnersCategories();
+            $categoriesd = new PartnersCatDescription();
+            $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All();
+            $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All();
+            foreach ($f as $value) {
+                if (in_array(intval($value['categories_id']), $checks)) {
+                    $catdataallow[] = $value;
+                }
+            }
+            for ($i = 0; $i < count($catdataallow); $i++) {
+                $row = $catdataallow[$i];
+                if (empty($arr_cat[$row['parent_id']])) {
+                    $arr_cat[$row['parent_id']] = $row;
+                }
+                $arr_cat[$row['parent_id']][] = $row;
+            }
+            foreach ($s as $value) {
+                $catnamearr[$value['categories_id']] = $value['categories_name'];
+            }
+            Yii::$app->cache->set($key,['data'=>['cat'=> $arr_cat, 'name'=>$catnamearr ]]);
+        }else{
+            $arr_cat = $data['data']['cat'];
+            $catnamearr = $data['data']['name'];
+        }
+        return ['cat' => $arr_cat, 'name' => $catnamearr];
+    }
 }
