@@ -292,8 +292,8 @@ class SiteController extends Controller
                 $d2=new \DateTime();
                 $d2->setTimestamp(strtotime(trim($dataprod['last'])));
                 $diff = $d2->diff($d1);
-                $marker = $diff->y+$diff->m+$diff->d+$diff->h+$diff->i;
-                if (isset($dataprod['data']) && $marker == 0) {
+                $marker = $diff->y+$diff->m+$diff->d+$diff->h;
+                if (isset($dataprod['data']) && $marker < 0) {
                     $data[] = $dataprod['data'];
                 } else {
                     $nodata[] = $values['prod'];
