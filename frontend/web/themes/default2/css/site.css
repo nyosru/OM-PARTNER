@@ -885,13 +885,12 @@
     }
 
     .size {
-        padding: 1px 8px;
         box-shadow: 1px 1px 5px 1px #C2D2CF inset;
         color: #4F4F4F;
         height: 22px;
-        margin: 5px 33px;
+        margin: 5px 5px;
         float: left;
-        width: 7%;
+        width: 30%;
         border-radius: 3px;
     }
 
