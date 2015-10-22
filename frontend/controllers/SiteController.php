@@ -186,7 +186,7 @@ class SiteController extends Controller
         $d2=new \DateTime();
         $d2->setTimestamp(strtotime(trim($dataque['checkcache'])));
         $diff = $d2->diff($d1);
-        $marker = $diff->y+$diff->m+$diff->d+$diff->h+$diff->i+$diff->s;
+        $marker = $diff->y+$diff->m+$diff->d+$diff->h+$diff->i;
         if ($dataque === FALSE || $marker > 0 || $diff->s > 20) {
         if ($searchword == '') {
             $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
@@ -293,7 +293,7 @@ class SiteController extends Controller
                 $d2=new \DateTime();
                 $d2->setTimestamp(strtotime(trim($dataprod['last'])));
                 $diff = $d2->diff($d1);
-                $marker = $diff->y+$diff->m+$diff->d+$diff->h+$diff->i+$diff->s;
+                $marker = $diff->y+$diff->m+$diff->d+$diff->h;
                 if (isset($dataprod) && $marker == 0 && $diff->i < 5) {
                     $data[] = $dataprod['data'];
                 } else {
