@@ -187,7 +187,7 @@ class SiteController extends Controller
         $d2->setTimestamp(strtotime(trim($dataque['checkcache'])));
         $diff = $d2->diff($d1);
         $marker = $diff->y+$diff->m+$diff->d+$diff->h;
-        if ($dataque === FALSE || $marker > 0 || $diff->i > 5) {
+        if ($dataque == FALSE || $marker > 0 || $diff->i > 5) {
         if ($searchword == '') {
             $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
             $catdata = $catdataarr[0];
