@@ -178,7 +178,7 @@ class SiteController extends Controller
         } else {
             $checkcache = $x['products_last_modified'];
         }
-        $init_key = 'first--' . $cat_start . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
+        $init_key = $cat_start . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1=new \DateTime();
