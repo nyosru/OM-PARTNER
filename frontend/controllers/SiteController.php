@@ -345,7 +345,7 @@ class SiteController extends Controller
         $countfilt = count($data);
         $start = $start_arr;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu, $checkcache);
+        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu, $x['products_last_modified']);
     }
 
     public function actionIndex()
