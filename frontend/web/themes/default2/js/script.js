@@ -856,7 +856,7 @@ $(document).on('click ready', '.data-j', function () {
                     if ($attrproducts != null && data[3].length <= 30) {
                         $('#size-slide').append('<div data-size="' + $attrproductsid + '" class="size">' + $attrproducts + '</div>');
                     } else if ($attrproducts != null && data[3].length > 30) {
-                        $('#size-slide').append('<div data-size="' + $attrproductsid + '" class="size" style="display:none;" data-toggle="tooltip" data-placement="top" title="' + $attrproducts + '"><i class="fa fa-check"></i><div style="padding: 1% 10%; width: 50px; overflow: hidden; height: 100%;">' + $attrproducts + '</div></div>');
+                        $('#size-slide').append('<div data-size="' + $attrproductsid + '" class="size" style="display:none;" data-toggle="tooltip" data-placement="top" title="' + $attrproducts + '"><i class="fa fa-check"></i><div style="overflow: hidden; height: 100%; width: 100%; padding: 3% 10%;">' + $attrproducts + '</div></div>');
                     }
                 });
                 $(document).on('keyup', '#class-size-filter', function () {
