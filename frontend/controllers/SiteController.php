@@ -176,7 +176,7 @@ class SiteController extends Controller
         $init_key = 'first--' . $cat_start . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
-        if ($dataque === FALSE || $checkcache != $dataque['checkcache']) {
+        if ($dataque === FALSE || (date($checkcache)- date($dataque['checkcache']) > 10) {
         if ($searchword == '') {
             $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
             $catdata = $catdataarr[0];
