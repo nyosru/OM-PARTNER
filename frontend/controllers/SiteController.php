@@ -166,17 +166,28 @@ class SiteController extends Controller
         if ($page == 'undefined') {
             $page = 0;
         }
+        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $catdataw = $categoriesarr[1];
+        $categoriesarr = $this->ExtFuncLoad()->reformat_cat_array($categories, $catdataw, $checks);
+        $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modifieds ')->JoinWith('products')->where('categories_id = :cat ',[':cat' => $cat_start])->asArray()->one();
-        if (!isset($x['products_last_modifieds'])) {
-            $checkcache = '0000-00-00';
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id = :cat ',[':cat' => $cat])->asArray()->one();
+        if (!isset($x['products_last_modified']) && $x['products_last_modified'] != null) {
+            $checkcache = '0000-00-00 00:00:00';
         } else {
-            $checkcache = $x['products_last_modifieds'];
+            $checkcache = $x['products_last_modified'];
         }
         $init_key = 'first--' . $cat_start . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
-        if ($dataque === FALSE || $checkcache != $dataque['checkcache']) {
+        $d1=new \DateTime();
+        $d1->setTimestamp(strtotime(trim($checkcache)));
+        $d2=new \DateTime();
+        $d2->setTimestamp(strtotime(trim($dataque['checkcache'])));
+        $diff = $d2->diff($d1);
+        $marker = $diff->y+$diff->m+$diff->d+$diff->h+$diff->i+$diff->s;
+        if ($dataque === FALSE || $marker > 0 && $diff->s > 20) {
         if ($searchword == '') {
             $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
             $catdata = $catdataarr[0];
@@ -188,15 +199,7 @@ class SiteController extends Controller
                 $catdatas[$value['categories_id']] = $value['parent_id'];
             }
             $chpu = $this->Requrscat($catdatas, $cat_start, $catnamearr);
-
-
         }
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $catdataw = $categoriesarr[1];
-        $categoriesarr = $this->ExtFuncLoad()->reformat_cat_array($categories, $catdataw, $checks);
-        $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
-
         switch ($sort) {
             case 0:
                 $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -284,7 +287,14 @@ class SiteController extends Controller
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
-                if (isset($dataprod) && $values['last'] == $dataprod['last']) {
+
+                $d1=new \DateTime();
+                $d1->setTimestamp(strtotime(trim($values['last'])));
+                $d2=new \DateTime();
+                $d2->setTimestamp(strtotime(trim($dataprod['last'])));
+                $diff = $d2->diff($d1);
+                $marker = $diff->y+$diff->m+$diff->d+$diff->h+$diff->i+$diff->s;
+                if (isset($dataprod) && $marker == 0 && $diff->i < 5) {
                     $data[] = $dataprod['data'];
                 } else {
                     $nodata[] = $values['prod'];
