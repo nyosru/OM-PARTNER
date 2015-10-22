@@ -176,7 +176,7 @@ class SiteController extends Controller
         $init_key = 'first--' . $cat_start . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
-        if ($dataque === FALSE || (date($checkcache) - date($dataque['checkcache']) > 10)) {
+        if ($dataque === FALSE || $checkcache != $dataque['checkcache']) {
         if ($searchword == '') {
             $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
             $catdata = $catdataarr[0];
@@ -284,7 +284,7 @@ class SiteController extends Controller
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
-                if (isset($dataprod) && (date($values['last']) - date($dataprod['last'])) < 1800) {
+                if (isset($dataprod) && $values['last'] == $dataprod['last']) {
                     $data[] = $dataprod['data'];
                 } else {
                     $nodata[] = $values['prod'];
