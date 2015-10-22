@@ -173,7 +173,7 @@ class SiteController extends Controller
         $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id = :cat ',[':cat' => $cat])->asArray()->one();
-        if (!isset($x['products_last_modified']) && $x['products_last_modified'] != null) {
+        if (!isset($x['products_last_modified']) && $x['products_last_modified'] !== null) {
             $checkcache = '0000-00-00 00:00:00';
         } else {
             $checkcache = $x['products_last_modified'];
