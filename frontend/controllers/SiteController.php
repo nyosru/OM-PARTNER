@@ -172,7 +172,9 @@ class SiteController extends Controller
         $categoriesarr = $this->ExtFuncLoad()->reformat_cat_array($categories, $catdataw, $checks);
         $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
+        $start = microtime(true);
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id = :cat ',[':cat' => $cat])->asArray()->one();
+        $timer = microtime(true) - $start;
         if (!isset($x['products_last_modified']) && $x['products_last_modified'] !== null) {
             $checkcache = '0000-00-00 00:00:00';
         } else {
@@ -345,7 +347,7 @@ class SiteController extends Controller
         $countfilt = count($data);
         $start = $start_arr;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu, $diffs);
+        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu, $timer);
     }
 
     public function actionIndex()
