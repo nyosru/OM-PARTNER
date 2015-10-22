@@ -807,6 +807,7 @@ $(document).on('click ready', '.data-j', function () {
         async: true,
         dataType: 'json',
         success: function (data) {
+            console.log(data[17])
             $('body').removeClass('some');
             $('link').removeClass('some');
             $('.preload').remove();
