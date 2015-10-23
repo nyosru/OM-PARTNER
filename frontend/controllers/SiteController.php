@@ -170,21 +170,13 @@ class SiteController extends Controller
         $categoriesarr = $this->ExtFuncLoad()->full_op_cat();
         $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $inkey = Yii::$app->cache->buildKey('startcheck'.$cat);
-        $indata = Yii::$app->cache->get($inkey);
-        if(!isset($indata['data'])){
-            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
-            if (!isset($x['products_last_modified'])) {
-                $checkcache = '0000-00-00 00:00:00';
-            } else {
-                $checkcache = $x['products_last_modified'];
-            }
-            Yii::$app->cache->set($inkey, ['data' => $checkcache], 300);
-        }else{
-            $checkcache = $indata['data'];
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
+        if (!isset($x['products_last_modified'])) {
+            $checkcache = '0000-00-00 00:00:00';
+        } else {
+            $checkcache = $x['products_last_modified'];
         }
-
-          $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
+        $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
