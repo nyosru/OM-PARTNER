@@ -317,6 +317,11 @@
         width: 20%;
     }
 
+    #partners-main-left-back-admin {
+        float: left;
+        height: 100%;
+        width: 15%;
+    }
     #partners-main-left {
         height: 100%;
         overflow: hidden;
@@ -341,7 +346,12 @@
         width: 70%;
         margin-top: -10px;
     }
-
+    #partners-main-right-back-admin {
+        position: relative;
+        float: right;
+        width: 85%;
+        margin-top: -10px;
+    }
     #partners-main-right {
         height: 100%;
         padding: 5px;
@@ -1435,7 +1445,7 @@
         border: 1px solid #838383;
         margin: 0px 1px;
         overflow: hidden;
-        width: calc(100% / 6 - 10px);
+        width: calc(100% / 7 - 10px);
     }
 
     .admin-orders-name {
@@ -1446,7 +1456,7 @@
         border: 1px solid #838383;
         margin: 0px 1px;
         overflow: hidden;
-        width: calc(100% / 3 - 10px);
+        width: calc(100% / 4 - 10px);
     }
 
     .admin-orders-data {
@@ -1482,6 +1492,36 @@
         width: calc(100% / 5 - 10px);
     }
 
+    .admin-orders-navigation{
+        float: left;
+        margin: 0px 1px;
+        padding: 5px;
+        text-align: center;
+        display: block;
+        border: 1px solid #838383;
+        overflow: hidden;
+        width: calc(100% / 9 - 10px);
+    }
+    .admin-orders-navigation-control{
+        border: 1px dotted;
+        margin: 0px 5px;
+        padding: 2px 2px;
+        cursor: pointer;
+    }
+    .admin-orders-navigation-control-inactive {
+        border: 1px solid #FF8508;
+        margin: 0px 5px;
+        background: #FF8508;
+        padding: 2px 2px;
+        color: white;
+    }
+    .admin-orders-navigation-control-active {
+        border: 1px solid #588C37;
+        margin: 0px 5px;
+        background: #588C37;
+        padding: 2px 2px;
+        color: white;
+    }
     .admin-order-status2 {
         float: left;
         margin: 0px 1px;
@@ -1537,7 +1577,7 @@
         border-radius: 3px 3px 0px 0px;
         background: #FFBF08 none repeat scroll 0% 0%;
         overflow: hidden;
-        width: calc(100% / 6 - 10px);
+        width: calc(100% / 7 - 10px);
     }
     .admin-orders-name-header{
         display: block;
@@ -1549,7 +1589,7 @@
         border-radius: 3px 3px 0px 0px;
         background: #FFBF08 none repeat scroll 0% 0%;
         overflow: hidden;
-        width: calc(100% / 3 - 10px);
+        width: calc(100% / 4 - 10px);;
     }
     .admin-orders-prodmodel {
         float: left;
@@ -2512,12 +2552,13 @@
     }
 
     .diax {
-        position: absolute;
-        top: 50%;
-        left: 50%;
         background: #FFF;
         padding: 10px;
         border-radius: 3px;
+        font-size: 20px;
+        height: 160px;
+        text-align: center;
+        line-height: 3;
     }
 
     .auth-order {

@@ -22,6 +22,7 @@ unset($order[ship]);
             <li style="width: calc(18% - 4px); display: block; float: left; text-align: center; color: rgb(216, 216, 216); padding-top: 6px; font-family: verdana; border-right: 1px solid rgb(255, 255, 255); padding-bottom: 5px;"><a style="color: white; text-decoration: none;" href="<?= $site?>/site/catalog#!cat=1903&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Детям</a></li>
             <li style="width: calc(18% - 4px); display: block; float: left; text-align: center; color: rgb(216, 216, 216); padding-top: 6px; font-family: verdana; border-right: 1px solid rgb(255, 255, 255); padding-bottom: 5px;"><a style="color: white; text-decoration: none;" href="<?= $site?>/site/catalog#!cat=2065&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">На дачу</a></li>
             <li style="width: calc(18% - 4px); display: block; float: left; text-align: center; color: rgb(216, 216, 216); padding-top: 6px; font-family: verdana;"><a style="color: white; text-decoration: none;" href="<?= $site?>/site/catalog#!cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Аксесуары</a></li>
+
         </ul>
     </div>
 
@@ -46,58 +47,9 @@ unset($order[ship]);
                 Состояние
             </div>
             <div style="height: 25px;">
-                Ожидает проверки администратором
+                Отменен
             </div>
         </div>
-    </div>
-    <table style="width: 80%; margin: auto;">
-        <tbody><tr style="border-bottom: 1px solid rgb(44, 44, 44);">
-            <td style="width: 60%; border-bottom: 1px solid rgb(44, 44, 44);">   </td>
-            <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">Кол-во</td>
-            <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">Цена</td>
-            <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">Сумма</td>
-        </tr>
-            <? foreach($order as $key => $value){
-                $value[5] = str_replace(')',']]]]', $value[5]);
-                $value[5] = str_replace(' ','[[[[]]]]', $value[5]);
-                $value[5] = str_replace('(','[[[[', $value[5]);
-
-
-                ?>
-
-        <tr>
-            <td style="width: 60%;">
-                <img src="<?= $site?><?= '/site/imagepreview?src='.$value[5]?>" width="200" height="200" />
-            </td>
-
-            <td style="text-align: center;">
-                <?=$value[4]?>
-            </td>
-
-            <td style="text-align: center;">
-               <?=$value[3]?>
-            </td>
-
-            <td style="text-align: center;">
-                <?=(intval($value[4])*intval($value[3]))?> Руб.
-                <?php
-                $orders_total = $orders_total+(intval($value[4])*intval($value[3]));
-                ?>
-            </td>
-        </tr>
-        <?}?>
-        </tbody></table>
-    <div style="margin: auto; background: rgb(0, 255, 204) none repeat scroll 0% 0%; height: 40px; font-size: 25px; font-family: verdana; padding-top: 6px; text-align: right; width: calc(80% - 80px); padding-right: 80px; color: azure; font-weight: 600;">
-        Итого : <?= $orders_total?> руб.
-    </div>
-    <div style="width: 80%; margin: auto;">
-        По доставке
-    </div>
-    <div style="width: 80%; margin: auto;">
-        Адрес доставки: <?=$user->country?>, <?=$user->state?>, <?=$user->city?>, <?=$user->adress?>, <?=$user->postcode?>,
-        <br>
-        Состояние заказа можно отслеживать в <a href="<?= $site.'/site/lk'?>">личном кабинете</a>
-        <br>
     </div>
     <hr style="width: 45%; float: left; margin: 10px 45%; color: rgb(0, 255, 204);">
     <hr style="width: 45%; float: right; margin: 0px 45%; color: rgb(255, 191, 8);">

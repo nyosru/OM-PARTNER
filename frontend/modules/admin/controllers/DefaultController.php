@@ -36,7 +36,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'requestsettings', 'requestusers', 'requestorders', 'delegate'],
+                        'actions' => ['index', 'requestsettings', 'requestusers', 'requestorders', 'delegate', 'cancelorder'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -48,7 +48,7 @@ class DefaultController extends Controller
 
     private function id_partners()
     {
-        return Yii::$app->params[constantapp]['APP_ID'];
+        return Yii::$app->params['constantapp']['APP_ID'];
     }
 
     public function actions()
@@ -64,6 +64,39 @@ class DefaultController extends Controller
 
     public function actionRequestsettings()
     {
+
+    }
+
+    public function actionCancelorder()
+    {
+        $id = Yii::$app->request->post('id');
+        $orders = new PartnersOrders();
+        $orders_data = $orders->findOne($id);
+        print_r($orders_data);
+        echo Yii::$app->params['constantapp']['APP_ID'];
+        if(isset($orders_data)){
+            if(Yii::$app->params['constantapp']['APP_ID'] == $orders_data->partners_id){
+                if($orders_data->orders_id == NULL || $orders_data->orders_id == '' ){
+                    $orders_data->status = 0;
+                    if( $orders_data->update()){
+                        $username = User::findOne($orders_data->user_id)->username;
+                        Yii::$app->mailer->compose(['html' => 'order-cancel'], ['order' => $orders_data->order, 'user' => $orders_data->delivery, 'id' => $orders_data->id, 'site' => $_SERVER['HTTP_HOST'], 'site_name' => Yii::$app->params['constantapp']['APP_NAME'], 'date_order' => $orders_data->create_date])
+                            ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                            ->setTo($username)
+                            ->setSubject('Ваш заказ отменен')
+                            ->send();
+                    }else{
+                        return 'Ошибка обновления статуса заказа';
+                    }
+                }else{
+                    return 'Заказ уже передан в ОМ';
+                }
+            }else{
+               return 'Вы не можете редактировать данный заказ';
+            }
+        }else{
+            return 'Нет такого заказа';
+        }
 
     }
 
@@ -97,7 +130,7 @@ class DefaultController extends Controller
         $check = array();
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
-            unset($query[$key]['order'][ship]);
+            unset($query[$key]['order']['ship']);
             $query[$key]['delivery'] = unserialize($value['delivery']);
             if($value['orders_id'] != '' and $value['orders_id'] != NULL){$check[]= $value['orders_id'];};
 
@@ -115,7 +148,6 @@ class DefaultController extends Controller
            foreach( $ordersatusn as $valuesn){
                 $valuesn = $orders_status;
            }
-
             foreach ($query as $key => $value) {
                 $query[ordersatus][$ordersatusn[$key][orders_id]] = $ordersatusn[$key];
                 $query[ordersatus][$ordersatusn[$key][orders_status]] =  $ordersatusn[$key];
@@ -124,10 +156,10 @@ class DefaultController extends Controller
         if($count <= $page*10){
             $page = $page-1;;
         }elseif($page < 1 ){
-            $query[page] = 0;
+            $query['page'] = 0;
 
         }else{
-            $query[page] = $page;
+            $query['page'] = $page;
         }
         return $query;
     }
@@ -392,6 +424,11 @@ class DefaultController extends Controller
                     $orderstotalprint->save();
                     $neworderpartner = PartnersOrders::findOne($ordersparam[id]);
                     $neworderpartner->orders_id = $orders->GetId();
+                    if($self == 0){
+                        $neworderpartner->status = 20;
+                    }elseif($self == 1){
+                        $neworderpartner->status = 10;
+                    }
                     $neworderpartner->update_date = date("Y-m-d H:i:s");
                     $neworderpartner->update();
                 } else {

@@ -1,9 +1,5 @@
 $(document).on('click', '.settings', function() {
 
-
-
-
-
 });
 
 $(document).on('click', '.admin-orders-data-phantom', function() {
@@ -77,6 +73,7 @@ $(document).on('click', '.orders', function() {
             $statusarr[6] = 'Отменён';
             $statusarr[11] = 'Сборка';
             $statusarr[0] = 'Спецпредложение';
+            $statusinner = '';
             if($data.ordersatus != undefined) {
                 $orders = $data.ordersatus;
                 delete $data.ordersatus;
@@ -86,7 +83,7 @@ $(document).on('click', '.orders', function() {
                 $orders = '';
             }
             $('.bside').html('');
-            $inner = '<div class="admin-orders-row"><div class="admin-orders-num-header">№ п/п</div><div class="admin-orders-id-header">Идентификатор</div><div class="admin-orders-name-header">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div></div>';
+            $inner = '<div class="admin-orders-row"><div class="admin-orders-num-header">№ п/п</div><div class="admin-orders-id-header">Идентификатор</div><div class="admin-orders-name-header">Заказчик</div><div class="admin-orders-data-head">Заказ</div><div class="admin-order-adress-header">Адрес</div><div class="admin-order-status-header">Статус</div><div class="admin-order-adress-header">Управление</div></div>';
             $innercount = '';
             $.each($data,function() {
 if(this != 0 ){
@@ -99,10 +96,29 @@ if(this != 0 ){
                    $dataadress = this.delivery;
                }
 
+    if(this.status == 1) {
+        $status = '<div class="admin-order-status">Новый</div>';
+        $statusinner = '<i class="fa fa-truck admin-orders-navigation-control" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" id="order-to-storage"></i><i id="order-to-user"  data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control"></i><i id="cancel-order" data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control"></i>';
+    }else if(this.status == 0){
+        $status = '<div class="admin-order-status">Отменен</div>';
+        $statusinner = '<i class="fa fa-truck admin-orders-navigation-control-inactive" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" ></i><i   data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control-inactive"></i><i  data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control-inactive"></i>';
+    }else if(this.status == 10){
+        $statusinner = '<i class="fa fa-truck admin-orders-navigation-control-active" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" ></i><i  data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control-inactive"></i><i  data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control-inactive"></i>';
+    }else if(this.status == 20){
+        $statusinner = '<i class="fa fa-truck admin-orders-navigation-control-inactive" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" ></i><i   data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control-active"></i><i  data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control-inactive"></i>';
+    }else{
+        $status = '<div class="admin-order-status">Ошибка</div>';
+        $statusinner = '<i class="fa fa-truck admin-orders-navigation-control" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" ></i><i id="order-to-user"  data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control"></i><i  data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control"></i>';
+    }
+
+
                 $dataordersnum = this.orders_id;
                 $dataorderinfo = $orders[$dataordersnum];
                 if (this['orders_id'] == undefined ) {
-                    $status = '<div class="admin-order-status"><div style="background:#48C04E">Доставка <input type="checkbox" value="0">клиенту</div><div style="background:#48C04E;"><input type="checkbox" value="1">магазину</div></div>';
+
+                 //   $status = '<div class="admin-order-status"><div style="background:#48C04E">Доставка <input type="checkbox" value="0">клиенту</div><div style="background:#48C04E;"><input type="checkbox" value="1">магазину</div></div>';
+
+
                     if (this.order != undefined) {
                         $.each($dataq, function () {
                             $innerdata += '<div style="clear: both;" class="admin-order-show"><div class="admin-orders-prodimg" style="float: left;  max-height: 100px; max-width: 180px; min-height: 100px; min-width: 180px;  background: #fff no-repeat scroll 50% 50% / contain url(http://odezhda-master.ru/images/' + this[5] + ');"></div><div class="admin-orders-prodid">' + this[0] + '</div><div class="admin-orders-prodmodel">' + this[1] + '</div><div class="admin-orders-prodsize">' + this[6] + '</div><div class="admin-orders-prodcount">' + this[4] + '</div></div>';
@@ -162,9 +178,11 @@ if(this != 0 ){
                     $innerdata += '<div class="admin-order-om-wrap" style="height: 100%; width:100%"><div class="admin-order-om-show">'+$dataorderinfo.orders_id+'</div><div class="admin-order-om-adress">'+$dataorderinfo.delivery_country+', '+$dataorderinfo.delivery_state+', '+$dataorderinfo.delivery_city+', '+$dataorderinfo.delivery_street_address+', '+$dataorderinfo.delivery_postcode+'</div><div class="admin-order-om-name">'+$dataorderinfo.delivery_lastname+' '+$dataorderinfo.delivery_name+' '+$dataorderinfo.delivery_otchestvo+'</div><div class="admin-order-om-prod-container">'+$prod_content+'</div></div>';
 
                 }else{
-                    $status = '<div class="admin-order-status3">Неопределен</div>';
+                    $status = '<div class="admin-order-status3">Новый</div>';
+                    $statusinner = '<i class="fa fa-truck admin-orders-navigation-control" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" id="order-to-storage"></i><i id="order-to-user"  data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control"></i><i id="cancel-order" data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control"></i>';
+
                 }
-                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+(($innercount++)+$page*10)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+$dataadress.lastname+' '+$dataadress.name+' '+$dataadress.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></div>'+$status+'</div>';
+                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+(($innercount++)+$page*10)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+$dataadress.lastname+' '+$dataadress.name+' '+$dataadress.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></i></div>'+$status+'<div class="admin-orders-navigation">'+$statusinner+'</div></div>';
             }});
 
             $pager = '';
@@ -176,23 +194,30 @@ if(this != 0 ){
     });
 });
 
-
-
-$(document).on('click', '.admin-order-status', function() {
-    $id = $(this).siblings('div.admin-orders-id')[0].textContent;
-    $self = $(this).children().children('input:checked').val();
-    $where = '';
-    if($self == 1){
-        $where = 'на адрес вашего магазина?';
-    }else{
-        $where = 'на адрес указанный клиентом?';
-
-    }
+$(document).on('click', '#cancel-order', function() {
+    $id = $(this).parent().siblings('div.admin-orders-id')[0].textContent;
     $(".accept").remove();
-    $('html').append('<div class="modal accept"><div class="diax">Вы подтверждаете отправку заказа № '+$id+' '+$where+'<div></div><button class="button-accept-delegate" data-id="'+$id+'" data-where="'+$self+'">yes</button><button class="close-button-accept">no</button></div></div>');
+    $('html').append('<div class="modal accept"><div class="diax">Вы подтверждаете отмену заказа № '+$id+' ?<div></div><button class="button-accept-cancel btn btn-info btn-sm"  style="margin: 20px;" data-id="'+$id+'">да</button><button class="close-button-accept btn btn-danger btn-sm"  style="margin: 20px;">нет</button></div></div>');
     $('.accept').show();
 });
 
+$(document).on('click', '#order-to-storage', function() {
+    $id = $(this).parent().siblings('div.admin-orders-id')[0].textContent;
+    $self = 1;
+    $where = 'на адрес вашего магазина?';
+    $(".accept").remove();
+    $('html').append('<div class="modal accept"><div class="diax">Вы подтверждаете отправку заказа № '+$id+' '+$where+'<div></div><button class="button-accept-delegate btn btn-info btn-sm"  style="margin: 20px;" data-id="'+$id+'" data-where="'+$self+'">да</button><button class="close-button-accept btn btn-danger btn-sm"  style="margin: 20px;">нет</button></div></div>');
+    $('.accept').show();
+});
+
+$(document).on('click', '#order-to-user', function() {
+    $id = $(this).parent().siblings('div.admin-orders-id')[0].textContent;
+    $self = 0;
+    $where = 'на адрес вашего клиента?';
+    $(".accept").remove();
+    $('html').append('<div class="modal accept"><div class="diax">Вы подтверждаете отправку заказа № '+$id+' '+$where+'<div></div><button class="button-accept-delegate btn btn-info btn-sm"  style="margin: 20px;" data-id="'+$id+'" data-where="'+$self+'">да</button><button class="close-button-accept btn btn-danger btn-sm"  style="margin: 20px;">нет</button></div></div>');
+    $('.accept').show();
+});
 $(document).on('click', '.close-button-accept', function() {
     $('.accept').remove();
     $('input:checked').removeAttr('checked');
@@ -231,6 +256,40 @@ $(document).on('click', '.button-accept-delegate', function() {
     });
 
 });
+
+
+$(document).on('click', '.button-accept-cancel', function() {
+    $id = this.getAttribute('data-id');
+    $('.accept').remove();
+    $('input:checked').removeAttr('checked');
+    location.reload();
+    $(this).html('Отправка заказа').addClass('admin-order-status2').removeClass('admin-order-status');
+    $.ajax({
+        type: "POST",
+        url : "/admin/default/cancelorder",
+        data : {
+            id: $id,
+        },
+        cache : false,
+        async : true,
+        dataType : 'json',
+        statuscode :{
+            200 : function() {
+                $('.admin-order-status2').html('ОК');
+            },
+            404 : function() {
+                $('.admin-order-status2').html('Не доступно');
+            },
+            500 : function() {
+                $('.admin-order-status2').html('Ошибка обработки');
+            }
+
+        }
+
+    });
+
+});
+
 
 function timeConverter(UNIX_timestamp){
     var a = new Date(UNIX_timestamp*1000);
