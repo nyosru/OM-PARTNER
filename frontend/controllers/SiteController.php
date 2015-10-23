@@ -167,18 +167,24 @@ class SiteController extends Controller
         if ($page == 'undefined') {
             $page = 0;
         }
-
-        $start = microtime(true);
         $categoriesarr = $this->ExtFuncLoad()->full_op_cat();
         $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
-        if (!isset($x['products_last_modified'])) {
-            $checkcache = '0000-00-00 00:00:00';
-        } else {
-            $checkcache = $x['products_last_modified'];
+        $inkey = Yii::$app->cache->buildKey('startcheck'.$cat);
+        $indata = Yii::$app->cache->get($inkey);
+        if(!isset($indata['data'])){
+            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
+            if (!isset($x['products_last_modified'])) {
+                $checkcache = '0000-00-00 00:00:00';
+            } else {
+                $checkcache = $x['products_last_modified'];
+            }
+            Yii::$app->cache->set($inkey, ['data' => $checkcache], 300);
+        }else{
+            $checkcache = $indata['data'];
         }
-        $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
+
+          $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
         $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
@@ -316,7 +322,6 @@ class SiteController extends Controller
                 }
 
             }
-            $start = microtime(true);
             $statickey = Yii::$app->cache->buildKey('static'.$init_key_static);
             $stats = Yii::$app->cache->get($statickey);
             if(!isset($stats['data'])) {
@@ -329,7 +334,6 @@ class SiteController extends Controller
                 $count_arrs = $stats['data']['count_arrs'];
                 $price_max = $stats['data']['price_max'];
             }
-            $timer = microtime(true) - $start;
             Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
 
 
