@@ -233,7 +233,7 @@ $('[data-navorder='+$id+']').html('Отправка');
     $(this).html('Отправка заказа').addClass('admin-order-status2').removeClass('admin-order-status');
     $.ajax({
         type: "POST",
-        async: false,
+        async: true,
         url : "/admin/default/delegate",
         data : {
             id: $id,
@@ -241,8 +241,13 @@ $('[data-navorder='+$id+']').html('Отправка');
         },
         cache : false,
         dataType : 'json',
-        statuscode: function(data){
-            console.log(data);
+        complete: function(e, xhr,settings){
+            $id = this.data.split('&')[0].split('=')[1];
+            if(e.status === 200){
+                $('[data-navorder='+$id+']').html('Отправлено');
+            }else{
+                $('[data-navorder='+$id+']').html('Ошибка');
+            }
         }
     });
 
