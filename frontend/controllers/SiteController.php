@@ -199,6 +199,8 @@ class SiteController extends Controller
                     $catdatas[$value['categories_id']] = $value['parent_id'];
                 }
                 $chpu = $this->Requrscat($catdatas, $cat_start, $catnamearr);
+            }else{
+                $chpu = ['Каталог'];
             }
             switch ($sort) {
                 case 0:
@@ -357,7 +359,7 @@ class SiteController extends Controller
         $countfilt = count($data);
         $start = $start_arr;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu, $timer);
+        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu);
 
     }
 
