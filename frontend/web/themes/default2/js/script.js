@@ -739,8 +739,8 @@ function split_url($url) {
         $arr_sub[$spl[0]] = $spl;
     });
     return $arr_sub;
-
 }
+
 function new_suburl($url_obj, $val, $new_var) {
     $value = $url_obj[$val];
     $value[1] = $new_var;

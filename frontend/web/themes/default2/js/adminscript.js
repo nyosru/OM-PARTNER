@@ -182,7 +182,7 @@ if(this != 0 ){
                     $statusinner = '<i class="fa fa-truck admin-orders-navigation-control" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" id="order-to-storage"></i><i id="order-to-user"  data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control"></i><i id="cancel-order" data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control"></i>';
 
                 }
-                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+(($innercount++)+$page*10)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+$dataadress.lastname+' '+$dataadress.name+' '+$dataadress.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></i></div>'+$status+'<div class="admin-orders-navigation">'+$statusinner+'</div></div>';
+                $inner +='<div class="admin-orders-row"><div class="admin-orders-num">'+(($innercount++)+$page*10)+'</div><div class="admin-orders-id">'+this['id']+'</div><div class="admin-orders-name">'+$dataadress.lastname+' '+$dataadress.name+' '+$dataadress.secondname+'</div><div class="admin-orders-data-phantom"><div data-tog="'+$innercount+'" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$innerdata+'</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="'+$innercount+'" class="admin-order-adress modal"><div data-tog="'+$innercount+'" id="admclose">x</div>'+$adress+'</div></div></i></div>'+$status+'<div data-navorder="'+this['id']+'" class="admin-orders-navigation">'+$statusinner+'</div></div>';
             }});
 
             $pager = '';
@@ -224,35 +224,26 @@ $(document).on('click', '.close-button-accept', function() {
 
 });
 $(document).on('click', '.button-accept-delegate', function() {
-   $id = this.getAttribute('data-id');
+    $id = this.getAttribute('data-id');
     $self = this.getAttribute('data-where');
+$('[data-navorder='+$id+']').html('Отправка');
     $('.accept').remove();
     $('input:checked').removeAttr('checked');
-    location.reload();
+
     $(this).html('Отправка заказа').addClass('admin-order-status2').removeClass('admin-order-status');
     $.ajax({
         type: "POST",
+        async: false,
         url : "/admin/default/delegate",
         data : {
             id: $id,
             self: $self
         },
         cache : false,
-        async : true,
         dataType : 'json',
-        statuscode :{
-            200 : function() {
-           $('.admin-order-status2').html('ОК');
-        },
-            404 : function() {
-                $('.admin-order-status2').html('Не доступно');
-            },
-            500 : function() {
-                $('.admin-order-status2').html('Ошибка обработки');
-            }
-
+        statuscode: function(data){
+            console.log(data);
         }
-
     });
 
 });
@@ -262,13 +253,13 @@ $(document).on('click', '.button-accept-cancel', function() {
     $id = this.getAttribute('data-id');
     $('.accept').remove();
     $('input:checked').removeAttr('checked');
-    location.reload();
     $(this).html('Отправка заказа').addClass('admin-order-status2').removeClass('admin-order-status');
+    $('[data-navorder='+$id+']').html('Отмена');
     $.ajax({
         type: "POST",
         url : "/admin/default/cancelorder",
         data : {
-            id: $id,
+            id: $id
         },
         cache : false,
         async : true,

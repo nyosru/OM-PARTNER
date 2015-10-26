@@ -10,14 +10,14 @@ use common\models\Partners;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$check = Yii::$app->params[constantapp]['APP_ID'];
+$check = Yii::$app->params['constantapp']['APP_ID'];
 
 
 
 if($check == ''){
     die;
 }
-$name = Yii::$app->params[constantapp]['APP_NAME'];
+$name = Yii::$app->params['constantapp']['APP_NAME'];
 AppAsset::register($this);
 
 ?>
@@ -31,8 +31,8 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <?php $this->head();
-    $this -> registerCssFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-    $this -> registerJsFile('/themes/'.Yii::$app->params[constantapp]['APP_THEMES'].'/js/adminscript.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    $this -> registerCssFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    $this -> registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/js/adminscript.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
 
 
     ?>
