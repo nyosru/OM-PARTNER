@@ -1,4 +1,5 @@
 <?php
+set_time_limit ( 800 );
 ob_start("ob_gzhandler");
 
 defined('YII_DEBUG') or define('YII_DEBUG', false);
