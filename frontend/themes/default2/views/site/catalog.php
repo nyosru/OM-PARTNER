@@ -502,4 +502,5 @@ $this->title = Yii::$app->params['constantapp']['APP_NAME'];
             } ?>
         </div>
     </div>
+    </div>
 <?  }?>
