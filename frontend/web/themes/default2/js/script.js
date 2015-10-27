@@ -950,7 +950,7 @@ $(document).on('click ready', '.data-j', function () {
                 }
             });
 
-                document.title = 'Каталог';
+            document.title = 'Каталог - '+$cat+' Страница - '+(data[10]+1) ;
                 if (history.pushState) {
                     history.pushState(null, null, '/site/catalog/' + new_url(split_url($url)))
                 }
