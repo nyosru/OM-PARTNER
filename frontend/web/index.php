@@ -45,5 +45,5 @@ $application->setLayoutPath('@app/themes/'.$application->params['constantapp']['
 
 
 $application->run();
-echo 'Памяти использовано: ',round(memory_get_usage()/1024/1024,2),' MB';
+echo round(memory_get_usage()/1024/1024,2),' MB';
 ob_end_flush();
