@@ -312,17 +312,6 @@ $this->title = Yii::$app->params['constantapp']['APP_NAME'];
                                 }
                             });
 
-                            if (data[16] != null && typeof (data[16][0] != 'undefined')) {
-
-                                if (history.pushState) {
-                                    history.pushState(null, null, '/site/catalog/' + data[16].join('/') + '/' + new_url(split_url($url)))
-                                }
-                                else {
-                                    document.location.hash = '/site/catalog' + data[16].join('/') + '/' + new_url(split_url($url))
-                                }
-
-                                document.title = data[16].join('-') + '-' + (data[10] + 1);
-                            }else{
                                 document.title = 'Каталог';
                                 if (history.pushState) {
                                     history.pushState(null, null, '/site/catalog/' + new_url(split_url($url)))
@@ -330,7 +319,7 @@ $this->title = Yii::$app->params['constantapp']['APP_NAME'];
                                 else {
                                     document.location.hash = '/site/catalog/' + new_url(split_url($url))
                                 }
-                            }
+
 //                if(history.pushState) {
 //                    history.pushState(null, null, new_url(split_url($url)))      }
 //                else {
