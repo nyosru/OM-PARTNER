@@ -312,7 +312,7 @@ $this->title = Yii::$app->params['constantapp']['APP_NAME'];
                                 }
                             });
 
-                            if (typeof data[16] != 'undefined' && isArray(data[16])) {
+                            if (typeof data[16] != 'undefined' && typeof (data[16][0] != 'undefined')) {
 
                                 if (history.pushState) {
                                     history.pushState(null, null, '/site/catalog/' + data[16].join('/') + '/' + new_url(split_url($url)))
