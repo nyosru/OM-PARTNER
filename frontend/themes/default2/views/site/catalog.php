@@ -47,7 +47,7 @@ $this->title = Yii::$app->params['constantapp']['APP_NAME'];
     <div id="partners-main-right" class="bside">
 <?
 $check_ygbot = Yii::$app->request->getQueryParam('_escaped_fragment_', NULL);
-if ($check_ygbot === NULL) { ?>
+if ($check_ygbot === NULL  && $check_ygbot !='') { ?>
 
     <script>
 
