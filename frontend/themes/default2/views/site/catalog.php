@@ -126,9 +126,12 @@ if ($check_ygbot === NULL) { ?>
 
 
         new imageLoader(cImageSrc, 'startAnimation()');
-
         $url = '';
         $url = document.location.hash;
+        if ($url == null) {
+            {
+                $url = '!#cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=0&sort=10&searchword=';
+            }
         $url_data = split_url(document.location.hash);
         $cat = $url_data['#!cat'][1];
         $count = $url_data.count[1];
@@ -145,10 +148,7 @@ if ($check_ygbot === NULL) { ?>
             async: true,
             dataType: 'json',
             success: function (data) {
-
-
                 if (data[0] != 'Не найдено!') {
-
                     $('#filters').html(' <div id="price-lable">Цена</div>От <input id="min-price" value="0" class="btn" /> До<input id="max-price" class="btn" /> Руб.<div class="price-slide"><div class="slider"></div> </div><div id="size-slide"></div><div type="button" id="filter-button"></div> ');
                     $headbside = '';
                     $headbside += '<div id="partners-main-right">';
