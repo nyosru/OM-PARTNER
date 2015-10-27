@@ -491,7 +491,8 @@ if (!isset($start_url)) {
         echo 'Нет результатов';
     }
 } ?>
-    </div>
-    </div>
-    </div>
+
 <? } ?>
+    </div>
+    </div>
+    </div>
