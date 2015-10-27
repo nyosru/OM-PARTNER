@@ -378,7 +378,7 @@ if(typeof data[16] != 'undefined') {
                     $url_obj[$val] = $value;
                     return $url_obj;
                 }
-              if(Yii::$app->request->getQueryString() !== ''){
+              if(isset(Yii::$app->request->getQueryString())){
                   $start_url = Yii::$app->request->getQueryString();
               }else{
                   $start_url =  '_escaped_fragment_=cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=0&sort=10&searchword=';
