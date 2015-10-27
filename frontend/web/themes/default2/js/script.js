@@ -950,6 +950,7 @@ $(document).on('click ready', '.data-j', function () {
                 }
             });
             if (data[16] != null && typeof (data[16][0] != 'undefined')) {
+
                 if (history.pushState) {
                     history.pushState(null, null, '/site/catalog/' + data[16].join('/') + '/' + new_url(split_url($url)))
                 }
@@ -958,7 +959,15 @@ $(document).on('click ready', '.data-j', function () {
                 }
 
                 document.title = data[16].join('-') + '-' + (data[10] + 1);
-            } else {
+            } else if( typeof (data[16][0] = 'undefined')){
+                if (history.pushState) {
+                    history.pushState(null, null, '/site/catalog/' + data[16] + '/' + new_url(split_url($url)))
+                }
+                else {
+                    document.location.hash = '/site/catalog' + data[16] + '/' + new_url(split_url($url))
+                }
+
+            }else{
                 document.title = 'Поиск';
                 if (history.pushState) {
                     history.pushState(null, null, '/site/catalog/поиск/' + new_url(split_url($url)))
