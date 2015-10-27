@@ -187,21 +187,6 @@ class SiteController extends Controller
         $diffs = $d2->diff($d1);
         $markers = $diffs->y+$diffs->m+$diffs->d+$diffs->h;
         if (!isset($dataque['checkcache']) || $markers != 0 || $diffs->i > 5) {
-
-            if ($searchword == '') {
-                $catdataarr = $this->ExtFuncLoad()->categories_for_partners();
-                $catdata = $catdataarr[0];
-                $categories = $catdataarr[1];
-                foreach ($categories as $value) {
-                    $catnamearr[$value['categories_id']] = $value['categories_name'];
-                }
-                foreach ($catdata as $value) {
-                    $catdatas[$value['categories_id']] = $value['parent_id'];
-                }
-                $chpu = $this->Requrscat($catdatas, $cat_start, $catnamearr);
-            }else{
-                $chpu = ['Каталог'];
-            }
             switch ($sort) {
                 case 0:
                     $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -353,7 +338,7 @@ class SiteController extends Controller
         $countfilt = count($data);
         $start = $start_arr;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man, $chpu);
+        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man);
 
     }
 
