@@ -129,9 +129,9 @@ if ($check_ygbot === NULL) { ?>
         $url = '';
         $url = document.location.hash;
         console.log($url);
-        if ($url == null)
+        if (typeof $url == 'undefined')
             {
-                $url = '!#cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=0&sort=10&searchword=';
+                $url = '#!cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=10&sort=10&searchword==';
             }
         $url_data = split_url(document.location.hash);
         $cat = $url_data['#!cat'][1];
