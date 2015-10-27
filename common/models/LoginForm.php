@@ -41,12 +41,12 @@ class LoginForm extends Model
     public function validatePassword()
     {
         $user = $this->getUser();
-        if (!$user) {
+        if (!$user || !$user->validatePassword($this->password)) {
             $this->addError('password', 'Не соответствует пара логин- пароль');
         }else{
             $run = new Partners();
             $check = $run->GetId($_SERVER['HTTP_HOST']);
-            if(intval($user->id_partners) != intval($check) && intval($user->id_partners) != 0 ){
+            if(intval($user->id_partners) != intval($check) && intval($user->id_partners) != 0 || !$user->validatePassword($this->password)){
                 $this->addError('password', 'Не соответствует пара логин - пароль.');
             }elseif(intval($user->id_partners) == 0){
                 return true;
