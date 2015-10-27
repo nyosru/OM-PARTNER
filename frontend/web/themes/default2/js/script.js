@@ -949,7 +949,7 @@ $(document).on('click ready', '.data-j', function () {
                     $(this).html('<a href="' + $url + '">' + $(this).text() + '</a>');
                 }
             });
-            if (typeof data[16] != 'undefined') {
+            if (typeof data[16] != 'null' && typeof (data[16][0] != 'null')) {
                 if (history.pushState) {
                     history.pushState(null, null, '/site/catalog/' + data[16].join('/') + '/' + new_url(split_url($url)))
                 }
