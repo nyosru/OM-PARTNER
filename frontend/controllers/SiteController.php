@@ -176,8 +176,8 @@ class SiteController extends Controller
         } else {
             $checkcache = $x['products_last_modified'];
         }
-        $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort;
-        $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count;
+        $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort.'-'.$prod_attr_query.'-'.$searchword;
+        $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count.'-'.$prod_attr_query.'-'.$searchword;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1=new \DateTime();
@@ -246,8 +246,6 @@ class SiteController extends Controller
                 $prod_attr_query_filt = ' and options_values_id = :prod_attr_query ';
                 $arfilt[':prod_attr_query'] = $prod_attr_query;
                 $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
-                $init_key .= '-' . $prod_attr_query;
-                $init_key_static .= '-' . $prod_attr_query;
             } else {
                 $prod_search_query_filt = '';
             }
@@ -256,8 +254,6 @@ class SiteController extends Controller
                     $arfilt[':searchword'] = $searchword;
                     $arfilt_pricemax[':searchword'] = $searchword;
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
-                    $init_key .= '-' . $searchword;
-                    $init_key_static .= '-' . $searchword;
                 } elseif (preg_match('/^[a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'pattern-'.urlencode($searchword);
                     $patterndata = Yii::$app->cache->get($patternkey);
@@ -280,8 +276,6 @@ class SiteController extends Controller
 
                     $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')(ами|ями|ов|ев|ей|ам|ям|ах|ях|ою|ею|ом|ем|а|я|о|е|ы|и|у|ю)*[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                     $prod_search_query_filt = ' and  LOWER(products_description.products_name) RLIKE :searchword ';
-                    $init_key .= '-' . $searchword;
-                    $init_key_static .= '-' . $searchword;
                 }
             } else {
                 $prod_search_query_filt = '';
