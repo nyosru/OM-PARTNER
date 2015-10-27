@@ -45,5 +45,4 @@ $application->setLayoutPath('@app/themes/'.$application->params['constantapp']['
 
 
 $application->run();
-echo round(memory_get_usage()/1024/1024,2);
 ob_end_flush();
