@@ -39,8 +39,8 @@ $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
-$application->setViewPath('@app/themes/'.$application->params[constantapp]['APP_THEMES'].'/views');
-$application->setLayoutPath('@app/themes/'.$application->params[constantapp]['APP_THEMES'].'/views/layouts');
+$application->setViewPath('@app/themes/'.$application->params['constantapp']['APP_THEMES'].'/views');
+$application->setLayoutPath('@app/themes/'.$application->params['constantapp']['APP_THEMES'].'/views/layouts');
 
 
 $application->run();

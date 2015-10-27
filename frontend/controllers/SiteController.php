@@ -933,74 +933,14 @@ class SiteController extends Controller
 
     public function actionImagepreview()
     {
+
         $src = Yii::$app->request->getQueryParam('src');
         $action = Yii::$app->request->getQueryParam('action', 'none');
-        $src = urldecode($src);
-        $filename = str_replace('[[[[]]]]', ' ', $src);
-        $filename = str_replace('[[[[', '(', $filename);
-        $filename = str_replace(']]]]', ')', $filename);
-        $split = explode('/', $src);
-        if (count($split) > 1) {
-            $file = array_splice($split, -1, 1);
-            $file = explode('.', $file[0]);
-            $ras = array_splice($file, -1, 1);
-            $namefile = base64_encode(implode('', $file));
-            $dir = implode('/', $split) . '/';
-        } else {
-            $file = $split[0];
-            $file = explode('.', $file);
-            $ras = array_splice($file, -1, 1);
-            $namefile = base64_encode(implode('', $file));
-            $dir = '';
-        }
-        if (!file_exists(Yii::getAlias('@webroot/images/') . $dir . $namefile . '.' . $ras[0]) || $action == 'refresh') {
-            if (!is_dir(Yii::getAlias('@webroot/images/') . $dir)) {
-                $new_dir = '';
-                foreach ($split as $value) {
-                    $new_dir .= $value . '/';
-                    mkdir(Yii::getAlias('@webroot/images/') . $new_dir);
-                }
-
-            }
-
-            $image = imagecreatefromjpeg('http://odezhda-master.ru/images/' . $filename);
-            $width = imagesx($image);
-            $height = imagesy($image);
-            $original_aspect = $width / $height;
-            if ($original_aspect > 1.3) {
-                $thumb_width = 300;
-                $thumb_height = 180;
-            } elseif ($original_aspect < 0.7) {
-                $thumb_width = 180;
-                $thumb_height = 300;
-            } else {
-                $thumb_width = 200;
-                $thumb_height = 200;
-            }
-            $thumb_aspect = $thumb_width / $thumb_height;
-            if ($original_aspect >= $thumb_aspect) {
-                $new_height = $thumb_height;
-                $new_width = $width / ($height / $thumb_height);
-            } else {
-                $new_width = $thumb_width;
-                $new_height = $height / ($width / $thumb_width);
-            }
-            $thumb = imagecreatetruecolor($thumb_width, $thumb_height);
-            imagecopyresampled($thumb,
-                $image,
-                0 - ($new_width - $thumb_width) / 2,
-                0 - ($new_height - $thumb_height) / 2,
-                0, 0,
-                $new_width, $new_height,
-                $width, $height);
-            imagejpeg($thumb, Yii::getAlias('@webroot/images/') . $dir . $namefile . '.' . $ras[0], 80);
-        }
         $headers = Yii::$app->response->headers;
         $headers->add('Content-Type', 'image/jpg');
         $headers->add('Cache-Control', 'max-age=68200');
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-
-        return file_get_contents(Yii::getAlias('@webroot/images/') . $dir . $namefile . '.' . $ras[0]);
+        return $this->ExtFuncLoad()->Imagepreviewcrop('http://odezhda-master.ru/images/', $src, '@webroot/images/',$action);
     }
 
     public function actionSavehtml()

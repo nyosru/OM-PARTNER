@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 
+use common\models\PartnersSettings;
 use common\models\OrdersTotal;
 use common\models\PartnersOrders;
 use common\models\PartnersProducts;
@@ -22,7 +23,7 @@ use common\models\OrdersHistory;
 use common\models\Countries;
 use common\models\Zones;
 use common\models\OrdersStatus;
-
+use frontend\controllers\ExtFunc;
 
 class DefaultController extends Controller
 {
@@ -34,7 +35,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'requestsettings', 'requestusers', 'requestorders', 'delegate', 'cancelorder'],
+                        'actions' => ['index', 'savesettings', 'requestusers', 'requestorders', 'delegate', 'cancelorder','templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -44,6 +45,10 @@ class DefaultController extends Controller
         ];
     }
 
+    private function ExtFuncLoad()
+    {
+        return new ExtFunc();
+    }
     private function id_partners()
     {
         return Yii::$app->params['constantapp']['APP_ID'];
@@ -54,15 +59,22 @@ class DefaultController extends Controller
         $this->layout = 'main';
         return 'Админка';
     }
-
     public function actionIndex()
     {
-        return $this->render('index');
+        $status = Yii::$app->request->getQueryParam('status', 'none');
+        return $this->render('index', ['model' => new PartnersSettings(), 'exception' => $status]);
     }
 
-    public function actionRequestsettings()
+    public function actionSavesettings()
     {
-
+        $model = new PartnersSettings();
+        if ($model->load(Yii::$app->request->post()) && $model->SaveSettings()) {
+            return $this->goBack('/admin?status=200');
+        } elseif($model->load(Yii::$app->request->post()) && !$model->SaveSettings()) {
+            return $this->goBack('/admin?status=404');
+        }else{
+            return $this->goBack('/admin');
+        }
     }
 
     public function actionCancelorder()
@@ -102,6 +114,19 @@ class DefaultController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $query = User::find()->select('username, email, created_at, updated_at')->where('id_partners=' . $check)->asArray()->all();
         return $query;
+    }
+
+    public function actionTemplateimage()
+    {
+        $src = Yii::$app->request->getQueryParam('src');
+        $action = Yii::$app->request->getQueryParam('action', 'none');
+        $template = Yii::$app->request->getQueryParam('template');
+        $path = Yii::getAlias('@app');
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'image/jpg');
+        $headers->add('Cache-Control', 'max-age=68200');
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        return $this->ExtFuncLoad()->Imagepreviewcrop($path, '/themes/'.$template.'/'.$src, '@webroot/images/', $action = 'none');
     }
 
     public function actionRequestorders()

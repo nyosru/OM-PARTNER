@@ -1,5 +1,5 @@
 $(document).on('click', '.settings', function() {
-
+    window.location = '/admin';
 });
 
 $(document).on('click', '.admin-orders-data-phantom', function() {
@@ -35,10 +35,7 @@ $(document).on('click', '.users', function() {
                $inner +='<div class="admin-users-row"><div class="admin-users-num">'+($innercount++)+'</div><div class="admin-users-name">'+this['username']+'</div><div class="admin-users-mail">'+this['email']+'</div><div class="admin-users-date-reg">'+timeConverter(this['created_at'])+'</div><div class="admin-users-date-update">'+timeConverter(this['updated_at'])+'</div></div>';
            });
             $('.bside').append($inner);
-
-
         }
-
     });
 });
 $(document).on('click', '.orders', function() {
