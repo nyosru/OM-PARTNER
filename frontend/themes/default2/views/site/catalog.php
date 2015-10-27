@@ -128,6 +128,7 @@ if ($check_ygbot === NULL) { ?>
         new imageLoader(cImageSrc, 'startAnimation()');
         $url = '';
         $url = document.location.hash;
+        console.log($url);
         if ($url == null)
             {
                 $url = '!#cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=0&sort=10&searchword=';
