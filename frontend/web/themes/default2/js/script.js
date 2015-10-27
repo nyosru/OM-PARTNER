@@ -797,7 +797,7 @@ $(document).on('click ready', '.data-j', function () {
         $urld = '!#'+$urld.replace('?_escaped_fragment_=','!#').split('!#')[1];
         $urld = split_url($urld);
         $cat = $urld['!#cat'][1];
-        console.log($urld);
+
     }
     $url = '#!cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
     $url_data = split_url(document.location.hash);
@@ -808,7 +808,6 @@ $(document).on('click ready', '.data-j', function () {
         async: true,
         dataType: 'json',
         success: function (data) {
-            console.log(data[17])
             $('body').removeClass('some');
             $('link').removeClass('some');
             $('.preload').remove();
@@ -1018,7 +1017,6 @@ $(document).on('click', '.input_search_word', function () {
     $text = $text.split(' ');
     $count = $text.length;
     $text[$count - 1] = $(this).text();
-    console.log($text);
     $('#search').val($text.join(' ', $text));
     $('.result_search_word').hide();
 });
