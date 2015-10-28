@@ -797,7 +797,7 @@ $(document).on('click ready', '.data-j', function () {
         $urld = '!#'+$urld.replace('?_escaped_fragment_=','!#').split('!#')[1];
         $urld = split_url($urld);
         $cat = $urld['!#cat'][1];
-        console.log($urld);
+
     }
     $url = '#!cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
     $url_data = split_url(document.location.hash);
@@ -808,7 +808,6 @@ $(document).on('click ready', '.data-j', function () {
         async: true,
         dataType: 'json',
         success: function (data) {
-            console.log(data[17])
             $('body').removeClass('some');
             $('link').removeClass('some');
             $('.preload').remove();
@@ -950,23 +949,14 @@ $(document).on('click ready', '.data-j', function () {
                     $(this).html('<a href="' + $url + '">' + $(this).text() + '</a>');
                 }
             });
-            if (typeof data[16] != 'undefined') {
-                if (history.pushState) {
-                    history.pushState(null, null, '/site/catalog/' + data[16].join('/') + '/' + new_url(split_url($url)))
-                }
-                else {
-                    document.location.hash = '/site/catalog' + data[16].join('/') + '/' + new_url(split_url($url))
-                }
 
-                document.title = data[16].join('-') + '-' + (data[10] + 1);
-            } else {
-                document.title = 'Поиск';
+            document.title = 'Каталог - '+$cat+' Страница - '+(data[10]+1) ;
                 if (history.pushState) {
-                    history.pushState(null, null, '/site/catalog/поиск/' + new_url(split_url($url)))
+                    history.pushState(null, null, '/site/catalog/' + new_url(split_url($url)))
                 }
                 else {
-                    document.location.hash = '/site/catalog/поиск/' + new_url(split_url($url))
-                }
+                    document.location.hash = '/site/catalog/' + new_url(split_url($url))
+
             }
         }
     });
@@ -1018,7 +1008,6 @@ $(document).on('click', '.input_search_word', function () {
     $text = $text.split(' ');
     $count = $text.length;
     $text[$count - 1] = $(this).text();
-    console.log($text);
     $('#search').val($text.join(' ', $text));
     $('.result_search_word').hide();
 });

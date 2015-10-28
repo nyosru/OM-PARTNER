@@ -1,17 +1,5 @@
 <?php
-
-set_error_handler('err_handler');
-function err_handler($errno, $errmsg, $filename, $linenum)
-{
-    $date = date('Y-m-d H:i:s (T)');
-    $f = fopen('errors.txt', 'a');
-    if (!empty($f)) {
-        $filename = str_replace('../', '', $filename);
-        $err = "$errmsg = $filename = $linenum\r\n";
-        fwrite($f, $err);
-        fclose($f);
-    }
-}
+set_time_limit ( 800 );
 ob_start("ob_gzhandler");
 
 defined('YII_DEBUG') or define('YII_DEBUG', false);
