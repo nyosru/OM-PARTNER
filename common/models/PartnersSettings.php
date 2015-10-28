@@ -13,6 +13,13 @@ class PartnersSettings extends Model
     public $yandex_counter_id;
     public $yandex_counter_activated;
     public $template;
+    public $minimal_order_total_price;
+    public $discount;
+    public $yandex_map;
+    public $google_map;
+    public $contacts;
+
+
     /**
      * @inheritdoc
      */

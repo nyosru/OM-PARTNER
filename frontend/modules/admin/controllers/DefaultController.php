@@ -126,7 +126,7 @@ class DefaultController extends Controller
         $headers->add('Content-Type', 'image/jpg');
         $headers->add('Cache-Control', 'max-age=68200');
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-        return $this->ExtFuncLoad()->Imagepreviewcrop($path, '/themes/'.$template.'/'.$src, '@webroot/images/', $action = 'none');
+        return $this->ExtFuncLoad()->Imagepreviewcrop($path.'/themes/', $template.'/'.$src, '@webroot/images/', $action = 'none');
     }
 
     public function actionRequestorders()

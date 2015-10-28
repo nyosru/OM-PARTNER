@@ -113,6 +113,11 @@ $this->title = 'Админка';
                         'content' => $l3,
 
                     ],
+                    [
+                        'label' => 'Контакты(В разработке)',
+                        'content' => $l3,
+
+                    ],
                 ]]); ?>
 
             <div class="form-group">
