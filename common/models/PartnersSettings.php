@@ -47,7 +47,7 @@ class PartnersSettings extends Model
     public function rules()
     {
         return [
-            [['minorderprice', 'mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice'], 'integer'],
+            [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice'], 'integer'],
             [['template', 'googlemap','yandexmap'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
