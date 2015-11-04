@@ -48,13 +48,16 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     use common\traits\Categories_for_partner;
     use common\traits\Reformat_cat_array;
     $application->layout = false;
-
+class LoadTraitIndex{
+    use Categories_for_partner, Reformat_cat_array;
+}
+    $load_traits = new LoadTraitIndex();
   //  $urlarr = $function->categories_for_partners()[0];
-    $categoriesarr = categories_for_partner();
+    $categoriesarr = $load_traits->categories_for_partners();
     $categories = $categoriesarr[0];
     $catdataw = $categoriesarr[1];
     $checks = Yii::$app->params['constantapp']['APP_CAT'];
-    $urlarr = reformat_cat_array($categories, $catdataw, $checks);
+    $urlarr = $load_traits->reformat_cat_array($categories, $catdataw, $checks);
     foreach($urlarr['cat'] as $key => $value)
     {
         for($i=0; $i < 5; $i++){
