@@ -20,7 +20,6 @@ class PartnersSettings extends Model
     public $yandexmap;
     public $googlemap;
     public $contacts;
-    public $minorderprice;
     /**
      * @inheritdoc
      */
