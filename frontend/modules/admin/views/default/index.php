@@ -90,8 +90,8 @@ $this->title = 'Админка';
             $l3 .= $form->field($model, 'discount[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l3  .= '</div>';
             $l3 .= '<div class="col-md-3">';
-            $l3 .= $form->field($model, 'minorderprice[value]')->label('Минимальная сумма заказа, Руб.');
-            $l3 .= $form->field($model, 'minorderprice[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l3 .= $form->field($model, 'minimalordertotalprice[value]')->label('Минимальная сумма заказа, Руб.');
+            $l3 .= $form->field($model, 'minimalordertotalprice[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l3  .= '</div>';
             $l3  .= '</div>';
 
