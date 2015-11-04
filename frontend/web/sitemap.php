@@ -45,16 +45,16 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     <?php
 
     use Yii;
-    use frontend\controllers\ExtFunc;
-
+    use common\traits\Categories_for_partner;
+    use common\traits\Reformat_cat_array;
     $application->layout = false;
-    $function = new ExtFunc();
+
   //  $urlarr = $function->categories_for_partners()[0];
-    $categoriesarr = $function->categories_for_partners();
+    $categoriesarr = $this->categories_for_partner();
     $categories = $categoriesarr[0];
     $catdataw = $categoriesarr[1];
     $checks = Yii::$app->params['constantapp']['APP_CAT'];
-    $urlarr = $function->reformat_cat_array($categories, $catdataw, $checks);
+    $urlarr = $this->reformat_cat_array($categories, $catdataw, $checks);
     foreach($urlarr['cat'] as $key => $value)
     {
         for($i=0; $i < 5; $i++){
