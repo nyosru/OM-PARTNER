@@ -8,7 +8,9 @@ use common\models\OrdersTotal;
 use common\models\PartnersOrders;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
+use common\traits\Imagepreviewcrop;
 use Yii;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use common\models\User;
@@ -19,15 +21,14 @@ use common\models\CustomersInfo;
 use common\models\Orders;
 use common\models\OrdersProducts;
 use common\models\OrdersProductsAttributes;
-use common\models\OrdersHistory;
 use common\models\Countries;
 use common\models\Zones;
 use common\models\OrdersStatus;
-use frontend\controllers\ExtFunc;
+
 
 class DefaultController extends Controller
 {
-
+use Imagepreviewcrop;
     public function behaviors()
     {
         return [
@@ -35,7 +36,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'savesettings', 'requestusers', 'requestorders', 'delegate', 'cancelorder','templateimage'],
+                        'actions' => ['index', 'savesettings', 'requestusers', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -45,10 +46,7 @@ class DefaultController extends Controller
         ];
     }
 
-    private function ExtFuncLoad()
-    {
-        return new ExtFunc();
-    }
+
     private function id_partners()
     {
         return Yii::$app->params['constantapp']['APP_ID'];
@@ -59,22 +57,114 @@ class DefaultController extends Controller
         $this->layout = 'main';
         return 'Админка';
     }
+
     public function actionIndex()
     {
-        $status = Yii::$app->request->getQueryParam('status', 'none');
-        return $this->render('index', ['model' => new PartnersSettings(), 'exception' => $status]);
+        $model = new PartnersSettings();
+        $paramset = Yii::$app->params['partnersset'];
+        $contacts = Yii::$app->params['partnersset']['contacts'];
+        $model->mailcounter['value'] = $paramset['mailcounter']['value'];
+        $model->mailcounter['active'] = $paramset['mailcounter']['active'];
+        $model->yandexcounter['value'] = $paramset['yandexcounter']['value'];
+        $model->yandexcounter['active'] = $paramset['yandexcounter']['active'];
+        $model->discount['value'] = $paramset['discount']['value'];
+        $model->discount['active'] = $paramset['discount']['active'];
+        $model->minorderprice['value'] = $paramset['minorderprice']['value'];
+        $model->minorderprice['active'] = $paramset['minorderprice']['active'];
+        $model->contacts['adress']['value'] = $contacts['adress']['value'];
+        $model->contacts['adress']['active'] = $contacts['adress']['active'];
+        $model->contacts['telephone']['value'] = $contacts['telephone']['value'];
+        $model->contacts['telephone']['active'] = $contacts['telephone']['active'];
+        $model->contacts['fax']['value'] = $contacts['fax']['value'];
+        $model->contacts['fax']['active'] = $contacts['fax']['active'];
+        $model->contacts['email']['value'] = $contacts['email']['value'];
+        $model->contacts['email']['active'] = $contacts['email']['active'];
+        $model->contacts['graf_work']['activated'] = $contacts['graf_work']['activated'];
+        $model->template = $paramset['template']['value'];
+        $model->contacts['graf_work']['mon']['active'] = $contacts['graf_work']['mon']['active'];
+        $model->contacts['graf_work']['mon']['w']['in'] = $contacts['graf_work']['mon']['w']['in'];
+        $model->contacts['graf_work']['mon']['wm']['in'] = $contacts['graf_work']['mon']['wm']['in'];
+        $model->contacts['graf_work']['mon']['w']['out'] = $contacts['graf_work']['mon']['w']['out'];
+        $model->contacts['graf_work']['mon']['wm']['out'] = $contacts['graf_work']['mon']['wm']['out'];
+        $model->contacts['graf_work']['mon']['o']['active'] = $contacts['graf_work']['mon']['o']['active'];
+        $model->contacts['graf_work']['mon']['o']['in'] = $contacts['graf_work']['mon']['o']['in'];
+        $model->contacts['graf_work']['mon']['om']['in'] = $contacts['graf_work']['mon']['om']['in'];
+        $model->contacts['graf_work']['mon']['o']['out'] = $contacts['graf_work']['mon']['o']['out'];
+        $model->contacts['graf_work']['mon']['om']['out'] = $contacts['graf_work']['mon']['om']['out'];
+        $model->contacts['graf_work']['tue']['active'] = $contacts['graf_work']['tue']['active'];
+        $model->contacts['graf_work']['tue']['w']['in'] = $contacts['graf_work']['tue']['w']['in'];
+        $model->contacts['graf_work']['tue']['wm']['in'] = $contacts['graf_work']['tue']['wm']['in'];
+        $model->contacts['graf_work']['tue']['w']['out'] = $contacts['graf_work']['tue']['w']['out'];
+        $model->contacts['graf_work']['tue']['wm']['out'] = $contacts['graf_work']['tue']['wm']['out'];
+        $model->contacts['graf_work']['tue']['o']['active'] = $contacts['graf_work']['tue']['o']['active'];
+        $model->contacts['graf_work']['tue']['o']['in'] = $contacts['graf_work']['tue']['o']['in'];
+        $model->contacts['graf_work']['tue']['om']['in'] = $contacts['graf_work']['tue']['om']['in'];
+        $model->contacts['graf_work']['tue']['o']['out'] = $contacts['graf_work']['tue']['o']['out'];
+        $model->contacts['graf_work']['tue']['om']['out'] = $contacts['graf_work']['tue']['om']['out'];
+        $model->contacts['graf_work']['wed']['active'] = $contacts['graf_work']['wed']['active'];
+        $model->contacts['graf_work']['wed']['w']['in'] = $contacts['graf_work']['wed']['w']['in'];
+        $model->contacts['graf_work']['wed']['wm']['in'] = $contacts['graf_work']['wed']['wm']['in'];
+        $model->contacts['graf_work']['wed']['w']['out'] = $contacts['graf_work']['wed']['w']['out'];
+        $model->contacts['graf_work']['wed']['wm']['out'] = $contacts['graf_work']['wed']['wm']['out'];
+        $model->contacts['graf_work']['wed']['o']['active'] = $contacts['graf_work']['wed']['o']['active'];
+        $model->contacts['graf_work']['wed']['o']['in'] = $contacts['graf_work']['wed']['o']['in'];
+        $model->contacts['graf_work']['wed']['om']['in'] = $contacts['graf_work']['wed']['om']['in'];
+        $model->contacts['graf_work']['wed']['o']['out'] = $contacts['graf_work']['wed']['o']['out'];
+        $model->contacts['graf_work']['wed']['om']['out'] = $contacts['graf_work']['wed']['om']['out'];
+        $model->contacts['graf_work']['thu']['active'] = $contacts['graf_work']['thu']['active'];
+        $model->contacts['graf_work']['thu']['w']['in'] = $contacts['graf_work']['thu']['w']['in'];
+        $model->contacts['graf_work']['thu']['wm']['in'] = $contacts['graf_work']['thu']['wm']['in'];
+        $model->contacts['graf_work']['thu']['w']['out'] = $contacts['graf_work']['thu']['w']['out'];
+        $model->contacts['graf_work']['thu']['wm']['out'] = $contacts['graf_work']['thu']['wm']['out'];
+        $model->contacts['graf_work']['thu']['o']['active'] = $contacts['graf_work']['thu']['o']['active'];
+        $model->contacts['graf_work']['thu']['o']['in'] = $contacts['graf_work']['thu']['o']['in'];
+        $model->contacts['graf_work']['thu']['om']['in'] = $contacts['graf_work']['thu']['om']['in'];
+        $model->contacts['graf_work']['thu']['o']['out'] = $contacts['graf_work']['thu']['o']['out'];
+        $model->contacts['graf_work']['thu']['om']['out'] = $contacts['graf_work']['thu']['om']['out'];
+        $model->contacts['graf_work']['fri']['active'] = $contacts['graf_work']['fri']['active'];
+        $model->contacts['graf_work']['fri']['w']['in'] = $contacts['graf_work']['fri']['w']['in'];
+        $model->contacts['graf_work']['fri']['wm']['in'] = $contacts['graf_work']['fri']['wm']['in'];
+        $model->contacts['graf_work']['fri']['w']['out'] = $contacts['graf_work']['fri']['w']['out'];
+        $model->contacts['graf_work']['fri']['wm']['out'] = $contacts['graf_work']['fri']['wm']['out'];
+        $model->contacts['graf_work']['fri']['o']['active'] = $contacts['graf_work']['fri']['o']['active'];
+        $model->contacts['graf_work']['fri']['o']['in'] = $contacts['graf_work']['fri']['o']['in'];
+        $model->contacts['graf_work']['fri']['om']['in'] = $contacts['graf_work']['fri']['om']['in'];
+        $model->contacts['graf_work']['fri']['o']['out'] = $contacts['graf_work']['fri']['o']['out'];
+        $model->contacts['graf_work']['fri']['om']['out'] = $contacts['graf_work']['fri']['om']['out'];
+        $model->contacts['graf_work']['sat']['active'] = $contacts['graf_work']['sat']['active'];
+        $model->contacts['graf_work']['sat']['w']['in'] = $contacts['graf_work']['sat']['w']['in'];
+        $model->contacts['graf_work']['sat']['wm']['in'] = $contacts['graf_work']['sat']['wm']['in'];
+        $model->contacts['graf_work']['sat']['w']['out'] = $contacts['graf_work']['sat']['w']['out'];
+        $model->contacts['graf_work']['sat']['wm']['out'] = $contacts['graf_work']['sat']['wm']['out'];
+        $model->contacts['graf_work']['sat']['o']['active'] = $contacts['graf_work']['sat']['o']['active'];
+        $model->contacts['graf_work']['sat']['o']['in'] = $contacts['graf_work']['sat']['o']['in'];
+        $model->contacts['graf_work']['sat']['om']['in'] = $contacts['graf_work']['sat']['om']['in'];
+        $model->contacts['graf_work']['sat']['o']['out'] = $contacts['graf_work']['sat']['o']['out'];
+        $model->contacts['graf_work']['sat']['om']['out'] = $contacts['graf_work']['sat']['om']['out'];
+        $model->contacts['graf_work']['sun']['active'] = $contacts['graf_work']['sun']['active'];
+        $model->contacts['graf_work']['sun']['w']['in'] = $contacts['graf_work']['sun']['w']['in'];
+        $model->contacts['graf_work']['sun']['wm']['in'] = $contacts['graf_work']['sun']['wm']['in'];
+        $model->contacts['graf_work']['sun']['w']['out'] = $contacts['graf_work']['sun']['w']['out'];
+        $model->contacts['graf_work']['sun']['wm']['out'] = $contacts['graf_work']['sun']['wm']['out'];
+        $model->contacts['graf_work']['sun']['o']['active'] = $contacts['graf_work']['sun']['o']['active'];
+        $model->contacts['graf_work']['sun']['o']['in'] = $contacts['graf_work']['sun']['o']['in'];
+        $model->contacts['graf_work']['sun']['om']['in'] = $contacts['graf_work']['sun']['om']['in'];
+        $model->contacts['graf_work']['sun']['o']['out'] = $contacts['graf_work']['sun']['o']['out'];
+        $model->contacts['graf_work']['sun']['om']['out'] = $contacts['graf_work']['sun']['om']['out'];
+        $model->yandexmap['value'] = $paramset['yandexmap']['value'];
+        $model->yandexmap['active'] = $paramset['yandexmap']['active'];
+        $model->googlemap['value'] = $paramset['googlemap']['value'];
+        $model->googlemap['active'] = $paramset['googlemap']['active'];
+        return $this->render('index', ['model' => $model]);
     }
 
     public function actionSavesettings()
     {
         $model = new PartnersSettings();
-        if ($model->load(Yii::$app->request->post()) && $model->SaveSettings()) {
-            return $this->goBack('/admin?status=200');
-        } elseif($model->load(Yii::$app->request->post()) && !$model->SaveSettings()) {
-            return $this->goBack('/admin?status=404');
-        }else{
-            return $this->goBack('/admin');
-        }
+        $model->load($_POST);
+        $model->SaveSet();
+        Yii::$app->params['partnersset'] = $model->LoadSet();
+        return $this->render('index', ['model' => $model, 'exception' => '']);
     }
 
     public function actionCancelorder()
@@ -83,28 +173,28 @@ class DefaultController extends Controller
         $orders = new PartnersOrders();
         $orders_data = $orders->findOne($id);
         if (isset($orders_data) && $orders_data !== 9999) {
-                if (Yii::$app->params['constantapp']['APP_ID'] == $orders_data->partners_id) {
-                    if ($orders_data->orders_id == NULL || $orders_data->orders_id == '') {
-                        $orders_data->status = 0;
-                        if ($orders_data->update()) {
-                            $username = User::findOne($orders_data->user_id)->username;
-                            Yii::$app->mailer->compose(['html' => 'order-cancel'], ['order' => $orders_data->order, 'user' => $orders_data->delivery, 'id' => $orders_data->id, 'site' => $_SERVER['HTTP_HOST'], 'site_name' => Yii::$app->params['constantapp']['APP_NAME'], 'date_order' => $orders_data->create_date])
-                                ->setFrom('support@' . $_SERVER['HTTP_HOST'])
-                                ->setTo($username)
-                                ->setSubject('Ваш заказ отменен')
-                                ->send();
-                        } else {
-                            return 'Ошибка обновления статуса заказа';
-                        }
+            if (Yii::$app->params['constantapp']['APP_ID'] == $orders_data->partners_id) {
+                if ($orders_data->orders_id == NULL || $orders_data->orders_id == '') {
+                    $orders_data->status = 0;
+                    if ($orders_data->update()) {
+                        $username = User::findOne($orders_data->user_id)->username;
+                        Yii::$app->mailer->compose(['html' => 'order-cancel'], ['order' => $orders_data->order, 'user' => $orders_data->delivery, 'id' => $orders_data->id, 'site' => $_SERVER['HTTP_HOST'], 'site_name' => Yii::$app->params['constantapp']['APP_NAME'], 'date_order' => $orders_data->create_date])
+                            ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                            ->setTo($username)
+                            ->setSubject('Ваш заказ отменен')
+                            ->send();
                     } else {
-                        return 'Заказ уже передан в ОМ';
+                        return 'Ошибка обновления статуса заказа';
                     }
                 } else {
-                    return 'Вы не можете редактировать данный заказ';
+                    return 'Заказ уже передан в ОМ';
                 }
             } else {
-                return 'Нет такого заказа';
+                return 'Вы не можете редактировать данный заказ';
             }
+        } else {
+            return 'Нет такого заказа';
+        }
 
     }
 
@@ -126,7 +216,7 @@ class DefaultController extends Controller
         $headers->add('Content-Type', 'image/jpg');
         $headers->add('Cache-Control', 'max-age=68200');
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-        return $this->ExtFuncLoad()->Imagepreviewcrop($path.'/themes/', $template.'/'.$src, '@webroot/images/', $action = 'none');
+        return $this->Imagepreviewcrop($path.'/themes/', $template . '/' . $src, '@webroot/images/', $action = 'none');
     }
 
     public function actionRequestorders()
@@ -151,7 +241,9 @@ class DefaultController extends Controller
         $check = array();
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
+            $discount[$value['orders_id']] = $query[$key]['order']['discount'];
             unset($query[$key]['order']['ship']);
+            unset($query[$key]['order']['discount']);
             $query[$key]['delivery'] = unserialize($value['delivery']);
             if ($value['orders_id'] != '' and $value['orders_id'] != NULL) {
                 $check[] = $value['orders_id'];
@@ -168,13 +260,16 @@ class DefaultController extends Controller
             $orders = new Orders();
             // $query[ordersatus] = $checkstr;
             $ordersatusn = $orders->find()->select('orders.`orders_id`, orders.`orders_status`, orders.`delivery_lastname`, orders.`delivery_name`,orders.`delivery_otchestvo`, orders.`delivery_postcode`, orders.`delivery_state`, orders.`delivery_country`, orders.`delivery_state`, orders.`delivery_city`, orders.`delivery_street_address`, orders.`customers_telephone`')->where('orders.`orders_id` IN (' . $checkstr . ')')->joinWith('products')->joinWith('productsAttr')->asArray()->all();
-            foreach ($ordersatusn as $valuesn) {
-                $valuesn = $orders_status;
-            }
+//            foreach ($ordersatusn as $valuesn) {
+//                $valuesn = $orders_status;
+//            }
             foreach ($query as $key => $value) {
                 $query['ordersatus'][$ordersatusn[$key]['orders_id']] = $ordersatusn[$key];
-                $query['ordersatus'][$ordersatusn[$key]['orders_status']] = $ordersatusn[$key];
-            }
+             //   $query['ordersatus'][$ordersatusn[$key]['orders_status']] = $ordersatusn[$key];
+                if(isset($discount[$ordersatusn[$key]['orders_id']])) {
+                    $query['ordersatus'][$ordersatusn[$key]['orders_id']]['discount'] = $discount[$ordersatusn[$key]['orders_id']];
+                }
+                }
         }
         if ($count <= $page * 10) {
             $page = $page - 1;;
@@ -195,10 +290,11 @@ class DefaultController extends Controller
         $ordersdata = new PartnersOrders();
         $userpartnerdata = new User();
         $userdata = new PartnersUsersInfo();
+        $ordersparamlock = $ordersdata->findOne(['id' => $data]);
         $ordersparam = $ordersdata->find()->where(['id' => $data])->asArray()->one();
-        if ($ordersparam->status !== 9999) {
-            $ordersparam->status = 9999;
-            $ordersparam->update();
+        if ($ordersparamlock->status !== 9999) {
+        $ordersparamlock->status = 9999;
+        $ordersparamlock->update();
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $userparam = $userdata->find()->where(['id' => $ordersparam['user_id']])->asArray()->one();
@@ -232,8 +328,8 @@ class DefaultController extends Controller
                         $userOM->entry_country_id = $entrycountry['id'];
                         $userOM->entry_zone_id = $entryzones['id'];
                         if ($userOM->save()) {
-                            $userCustomer->customers_firstname = $userparam[name];
-                            $userCustomer->customers_lastname = $userparam[lastname];
+                            $userCustomer->customers_firstname = $userparam['name'];
+                            $userCustomer->customers_lastname = $userparam['lastname'];
                             $userCustomer->customers_email_address = 'partnerom' . $partner->id . '@@@' . $userpartnersparam['email'];
                             $userCustomer->customers_default_address_id = $userOM->GetId();
                             $userCustomer->customers_selected_template = '1';
@@ -307,7 +403,9 @@ class DefaultController extends Controller
                     $partner_user_id = $orderforsavedata->user_id;
                     $partnerorder = unserialize($orderforsavedata->order);
                     $ship = $partnerorder['ship'];
+                    $discount = $partnerorder['discount'];
                     unset($partnerorder['ship']);
+                    unset($partnerorder['discount']);
                     $orders->ur_or_fiz = 'f';
                     $orders->customers_id = $userCustomer->customers_id;
                     $orders->customers_name = $userCustomer->customers_firstname . ' ' . $userCustomer->customers_lastname;
@@ -403,7 +501,7 @@ class DefaultController extends Controller
                             $ordersprod->products_price = $proddata['products_price'];
                             $ordersprod->price_coll = $proddata['price_coll'];
                             $ordersprod->products_status = $proddata['products_status'];
-                            $price_total += $price_total + $ordersprod['products_price'] * $ordersprod->products_quantity;
+                            $price_total += intval($price_total) + $ordersprod['products_price'] * $ordersprod->products_quantity;
                             if ($ordersprod->save()) {
                                 if ($proddata['productsAttributes']['products_attributes_id']) {
                                     $ordersprodattr = new OrdersProductsAttributes();

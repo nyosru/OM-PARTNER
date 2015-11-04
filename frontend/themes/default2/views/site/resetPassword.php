@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use common\models\Partners;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */

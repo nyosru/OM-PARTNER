@@ -2,13 +2,22 @@
 
 namespace frontend\controllers;
 
-use common\models\OrdersProducts;
-use common\models\PartnersProducts;
 use common\models\User;
+use common\traits\Categories_for_partner;
+use common\traits\Fullopcat;
+use common\traits\Hide_manufacturers_for_partners;
+use common\traits\Imagepreviewcrop;
+use common\traits\Load_cat;
+use common\traits\Reformat_cat_array;
+use common\traits\View_cat;
+use frontend\controllers\actions\ActionSiteIndex;
+use frontend\controllers\actions\ActionSiteRequest;
+use frontend\controllers\actions\ActionSiteSaveUserProfile;
+use frontend\controllers\actions\ActionSiteSearchword;
 use Yii;
+use yii\base\Exception;
 use yii\caching\ChainedDependency;
 use yii\caching\DbDependency;
-use common\models\CustomersInfo;
 use common\models\Customers;
 use common\models\AddressBook;
 use common\models\PartnersUsersInfo;
@@ -16,7 +25,6 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
-use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
 use yii\caching\ExpressionDependency;
 use yii\helpers\BaseUrl;
@@ -24,8 +32,6 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\PartnersCatDescription;
-use common\models\PartnersCategories;
 use common\models\PartnersProductsToCategories;
 use yii\data\SqlDataProvider;
 use yii\db\ActiveRecord;
@@ -34,25 +40,23 @@ use common\models\PartnersOrders;
 use common\models\Partners;
 use common\models\Countries;
 use common\models\Zones;
-use common\models\Manufacturers;
 use common\models\Orders;
 use common\models\PartnersConfig;
 use yii\caching\Cache;
 use yii\caching\Dependency;
-use frontend\controllers\ExtFunc;
 
 /**
  * Контроллер сайта
  */
 class SiteController extends Controller
 {
+    use Fullopcat, View_cat, Load_cat, Hide_manufacturers_for_partners, Categories_for_partner, Imagepreviewcrop,
+        Reformat_cat_array, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile;
+
     /**
      * @inheritdoc
      */
-    private function ExtFuncLoad()
-    {
-        return new ExtFunc();
-    }
+
 
     public function behaviors()
     {
@@ -148,250 +152,24 @@ class SiteController extends Controller
         return Yii::$app->params['constantapp']['APP_ID'];
     }
 
-    public function actionRequest()
+    public function actionCatpath()
     {
-
-        $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $start_price = intval(Yii::$app->request->getQueryParam('start_price', 0));
-        $end_price = intval(Yii::$app->request->getQueryParam('end_price', 1000000));
-        $prod_attr_query = intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
-        $count = intval(Yii::$app->request->getQueryParam('count', 20));
-        $page = intval(Yii::$app->request->getQueryParam('page', 0));
-        $start_arr = intval($page * $count);
-        $sort = intval(Yii::$app->request->getQueryParam('sort', 10));
-        if ($sort == 'undefined') {
-            $sort = 10;
+        $cat =  intval(Yii::$app->request->getQueryParam('cat'));
+        $catdataarr = $this->categories_for_partners();
+        $catdata = $catdataarr[0];
+        $categories = $catdataarr[1];
+        foreach ($categories as $value) {
+            $catnamearr[$value['categories_id']] = $value['categories_name'];
         }
-        if ($page == 'undefined') {
-            $page = 0;
+        foreach ($catdata as $value) {
+            $catdatas[$value['categories_id']] = $value['parent_id'];
         }
-        $categoriesarr = $this->ExtFuncLoad()->full_op_cat();
-        $cat = implode(',', $this->ExtFuncLoad()->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
-        $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id IN ('.$cat.')')->asArray()->one();
-        if (!isset($x['products_last_modified'])) {
-            $checkcache = '0000-00-00 00:00:00';
-        } else {
-            $checkcache = $x['products_last_modified'];
-        }
-        $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort.'-'.$prod_attr_query.'-'.$searchword;
-        $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count.'-'.$prod_attr_query.'-'.$searchword;
-        $key = Yii::$app->cache->buildKey($init_key);
-        $dataque = Yii::$app->cache->get($key);
-        $d1=new \DateTime();
-        $d1->setTimestamp(strtotime(trim($checkcache)));
-        $d2=new \DateTime();
-        $d2->setTimestamp(strtotime(trim($dataque['checkcache'])));
-        $diffs = $d2->diff($d1);
-        $markers = $diffs->y+$diffs->m+$diffs->d+$diffs->h;
-        if (!isset($dataque['checkcache']) || $markers != 0 || $diffs->i > 5) {
-            switch ($sort) {
-                case 0:
-                    $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 1:
-                    $order = ['products_price' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 2:
-                    $order = ['products_name' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 3:
-                    $order = ['products_model' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 4:
-                    $order = ['products_ordered' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 10:
-                    $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 11:
-                    $order = ['products_price' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 12:
-                    $order = ['products_name' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 13:
-                    $order = ['products_model' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-                case 14:
-                    $order = ['products_ordered' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
-                    break;
-            }
-            $hide_man = $this->ExtFuncLoad()->hide_manufacturers_for_partners();
-            foreach ($hide_man as $value) {
-                $list[] = $value['manufacturers_id'];
-            }
-            $type = '';
-            $arfilt = $arfilt_attr = [':start_price' => $start_price, ':end_price' => $end_price];
-            $arfilt_pricemax = array();
-            $hide_man = implode(',', $list);
-            if ($prod_attr_query != '') {
-                $prod_attr_query_filt = ' and options_values_id = :prod_attr_query ';
-                $arfilt[':prod_attr_query'] = $prod_attr_query;
-                $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
-            } else {
-                $prod_search_query_filt = '';
-            }
-            if ($searchword != '') {
-                if (preg_match('/^[0-9]+$/', $searchword)) {
-                    $arfilt[':searchword'] = $searchword;
-                    $arfilt_pricemax[':searchword'] = $searchword;
-                    $prod_search_query_filt = '  and products.products_model=:searchword ';
-                } elseif (preg_match('/^[a-zа-я ]+$/iu', $searchword)) {
-                    $patternkey = 'pattern-'.urlencode($searchword);
-                    $patterndata = Yii::$app->cache->get($patternkey);
-                    if(!$patterndata) {
-                        $valsearchin = explode(' ', $searchword);
-                        if (count($valsearchin) > 1) {
-                            foreach ($valsearchin as $search) {
-                                if ($search != '') {
-                                    $valsearch[] = $this->sklonenie(trim($search));
-                                }
-                            }
-                            $searchword = implode('|', $valsearch);
-                        } else {
-                            $searchword = $this->sklonenie(trim($searchword));
-                        }
-                        Yii::$app->cache->set($patternkey, ['data' => $searchword], 86400);
-                    }else{
-                        $searchword =  $patterndata['data'];
-                    }
-
-                    $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')(ами|ями|ов|ев|ей|ам|ям|ах|ях|ою|ею|ом|ем|а|я|о|е|ы|и|у|ю)*[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-                    $prod_search_query_filt = ' and  LOWER(products_description.products_name) RLIKE :searchword ';
-                }
-            } else {
-                $prod_search_query_filt = '';
-            }
-
-
-            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and (products_description IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->orderBy($order)->asArray()->all();
-            foreach ($prod as $values) {
-                $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
-                $dataprod = Yii::$app->cache->get($keyprod);
-                $d1=new \DateTime();
-                $d1->setTimestamp(strtotime(trim($values['last'])));
-                $d2=new \DateTime();
-                $d2->setTimestamp(strtotime(trim($dataprod['last'])));
-                $diff = $d2->diff($d1);
-                $marker = $diff->y+$diff->m+$diff->d+$diff->h;
-                if (isset($dataprod['data']) && $marker == 0 && $diff->i < 30) {
-                    $data[] = $dataprod['data'];
-                } else {
-                    $nodata[] = $values['prod'];
-                }
-            }
-            if (isset($nodata) && count($nodata) > 0) {
-                $prodarr = implode(',', $nodata);
-
-                $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
-
-                foreach ($datar as $valuesr) {
-                    $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
-                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                    $data[] = $valuesr;
-                }
-
-            }
-            $statickey = Yii::$app->cache->buildKey('static'.$init_key_static);
-            $stats = Yii::$app->cache->get($statickey);
-            if(!isset($stats['data'])) {
-                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0 and (products_image IS NOT NULL)  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', $arfilt_attr)->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
-                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . '  and products_price <= :end_price  and (products_image IS NOT NULL)  and (products_description IS NOT NULL)  and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')', $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsDescription')->count();
-                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  ' . $prod_search_query_filt . $prod_attr_query_filt . '  and products.products_quantity > 0     and (products_image IS NOT NULL)   and (products_description IS NOT NULL)  and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ', $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->asArray()->one();
-                Yii::$app->cache->set($statickey,['data'=> ['productattrib' => $productattrib, 'count_arrs' =>  $count_arrs, 'price_max' =>  $price_max]], 86400);
-            }else{
-                $productattrib = $stats['data']['productattrib'];
-                $count_arrs = $stats['data']['count_arrs'];
-                $price_max = $stats['data']['price_max'];
-            }
-            Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
-
-
-        } else {
-            $productattrib = $dataque['productattrib'];
-            $count_arrs = $dataque['count_arrs'];
-            $price_max = $dataque['price_max'];
-            $data = $dataque['data'];
-        }
-
-        $count_arr = count($data);
-        if ($start_arr + $count <= $count_arr) {
-            $end_arr = $start_arr + $count;
-        } else {
-            $end_arr = $start_arr + $count_arr;
-        }
-        if (count($productattrib) > 0) {
-        } else {
-            $productattrib = 'none';
-        }
-        if ($price_max > 0) {
-        } else {
-            $price_max = 'none';
-        }
-        if (isset($data[0])) {
-        } else {
-            $data = 'Не найдено!';
-        }
-        $countfilt = count($data);
-        $start = $start_arr;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man);
+        $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
+        return $chpu;
 
     }
 
-    public function actionIndex()
-    {
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        return $this->render('indexpage', ['categories' => $cat, 'catdata' => $categories]);
-    }
-
-
-    public function actionTest()
-    {
-        //  $filt = Yii::$app->request->post('filt', '.*');
-        //  $key = Yii::$app->cache->buildKey('test_data'.$filt);
-        //  $test = Yii::$app->cache->get($key);
-        //  $search_query = '  ';
-        //  if(!$test) {
-        // $test = PartnersProducts::find()->select('products_name as name')->where('products_status = 1 and  LOWER(products_name) RLIKE :searchword   and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) ',[':searchword' => $filt])->JoinWith('productsDescription')->distinct()->asArray()->all();
-        //  }
-        return $this->render('test');
-
-    }
-
-    public function actionSearchword()
-    {
-        $filt = mb_strtolower(Yii::$app->request->getQueryParam('filt', NULL), mb_detect_encoding(Yii::$app->request->getQueryParam('filt', NULL)));
-        $key = Yii::$app->cache->buildKey('searchfullnamnes');
-        $key2 = Yii::$app->cache->buildKey('searchfullnamnes-'.$filt);
-        $testmain = Yii::$app->cache->get($key2);
-        if(!$testmain[data]) {
-            $test = Yii::$app->cache->get($key);
-            if (isset($test['data'])) {
-                $test = $test['data'];
-            } else {
-                $test = PartnersProducts::find()->select('products_name as name')->where('products_status = 1 and (products_image IS NOT NULL) and ( products.products_quantity > 0 ) ')->JoinWith('productsDescription')->distinct()->orderBy(['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC])->asArray()->all();
-                Yii::$app->cache->set($key, ['data' => $test], 604800);
-            }
-            foreach ($test as $value) {
-                preg_match('/^[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*(' . $filt . ')[^\ \_\(\)\,\-\.\'\\\;\:\+\/"?]*/iu', $value['name'], $output_array);
-                $preg[] = mb_strtolower($output_array[0], mb_detect_encoding($output_array[0]));
-            }
-            $preg = array_unique($preg);
-            $testout = implode('/////', $preg);
-            Yii::$app->cache->set($key2, ['data' => $testout], 604800);
-        }else{
-            $testout =   $testmain['data'];
-        }
-
-        return $testout;
-
-    }
 
     public function actionLogin()
     {
@@ -418,17 +196,27 @@ class SiteController extends Controller
 
     public function actionCatalog()
     {
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
+        $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-
-
-        return $this->render('catalog', ['categories' => $cat, 'catdata' => $categories]);
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
+        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+        $this->getView()->params['Chpu'] = '';
+        return $this->render('catalog', ['view' => $view] );
     }
 
     public function actionAbout()
     {
-        return $this->render('about');
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $categoriesarr = $this->categories_for_partners();
+        $categories = $categoriesarr[0];
+        $cat = $categoriesarr[1];
+        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
+        $view = $this->View_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+        return $this->render('about', ['view' => $view]);
     }
 
     public function actionLk()
@@ -438,42 +226,62 @@ class SiteController extends Controller
 
     public function actionContacts()
     {
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
+        $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-        return $this->render('contacts', ['categories' => $cat, 'catdata' => $categories]);
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
+        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+        return $this->render('contacts', ['view' => $view]);
     }
 
     public function actionDelivery()
     {
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
+        $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-        return $this->render('delivery', ['categories' => $cat, 'catdata' => $categories]);
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
+        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+        return $this->render('delivery', ['view' => $view]);
     }
 
     public function actionOfferta()
     {
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
+        $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-        return $this->render('offerta', ['categories' => $cat, 'catdata' => $categories]);
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
+        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+        return $this->render('offerta', ['view' => $view]);
     }
 
     public function actionFaq()
     {
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
+        $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-        return $this->render('faqpage', ['categories' => $cat, 'catdata' => $categories]);
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
+        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+        return $this->render('faqpage', ['view' => $view]);
     }
 
     public function actionPaying()
     {
-        $categoriesarr = $this->ExtFuncLoad()->categories_for_partners();
+        $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
-        return $this->render('paying', ['categories' => $cat, 'catdata' => $categories]);
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
+        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+        return $this->render('paying', ['view' => $view]);
     }
 
     public function actionSignup()
@@ -544,6 +352,8 @@ class SiteController extends Controller
         $check = array();
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
+            $discount[$value['orders_id']] = $query[$key]['order']['discount'];
+            unset($query[$key]['order']['discount']);
             unset($query[$key]['order']['ship']);
             $query[$key]['delivery'] = unserialize($value['delivery']);
             if ($value['orders_id'] != '' and $value['orders_id'] != NULL) {
@@ -562,8 +372,17 @@ class SiteController extends Controller
             $ordersatusn = $orders->find()->select('orders.`orders_id`, orders.`orders_status`, orders.`delivery_lastname`, orders.`delivery_name`,orders.`delivery_otchestvo`, orders.`delivery_postcode`, orders.`delivery_state`, orders.`delivery_country`, orders.`delivery_state`, orders.`delivery_city`, orders.`delivery_street_address`, orders.`customers_telephone`')->where('orders.`orders_id` IN (' . $checkstr . ')')->joinWith('products')->joinWith('productsAttr')->asArray()->all();
             foreach ($query as $key => $value) {
                 $query['ordersatus'][$ordersatusn[$key]['orders_id']] = $ordersatusn[$key];
+                if (isset($discount[$ordersatusn[$key]['orders_id']])) {
+                    foreach ($query['ordersatus'][$ordersatusn[$key]['orders_id']]['products'] as $prkey => $prval) {
+                        $query['ordersatus'][$ordersatusn[$key]['orders_id']]['products'][$prkey]['products_price'] =
+                            intval($query['ordersatus'][$ordersatusn[$key]['orders_id']]['products'][$prkey]['products_price']) +
+                            intval($query['ordersatus'][$ordersatusn[$key]['orders_id']]['products'][$prkey]['products_price']) / 100 *
+                            intval($discount[$ordersatusn[$key]['orders_id']]);
+                    }
+                }
             }
         }
+
         if ($count < ($page) * 10) {
             $query['page'] = $count / 10;
         } elseif ($page < 1) {
@@ -578,242 +397,150 @@ class SiteController extends Controller
 
     public function actionSaveorder()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $model = new PartnersOrders();
-        $order = Yii::$app->request->post('order');
-        $order['ship'] = Yii::$app->request->post('ship');
-        $userdata = Yii::$app->request->post('user');
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $userModel = Yii::$app->user->identity;
-        $model->partners_id = $check;
-        $model->user_id = $userModel->getId();
-        $user = new PartnersUsersInfo();
-        $user->scenario = $order['ship'];
-        if ($user::findOne($userModel->getId())) {
-            $user = $user::findOne($userModel->getId());
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $model = new PartnersOrders();
+            $order = Yii::$app->request->post('order');
+            $order['ship'] = Yii::$app->request->post('ship');
+            $userdata = Yii::$app->request->post('user');
+            $check = Yii::$app->params['constantapp']['APP_ID'];
+            $userModel = Yii::$app->user->identity;
+            $model->partners_id = $check;
+            $model->user_id = $userModel->getId();
+            $user = new PartnersUsersInfo();
             $user->scenario = $order['ship'];
-            if ($userdata['pasportser'] != '') {
+            if ($user::findOne($userModel->getId())) {
+                $user = $user::findOne($userModel->getId());
+                $user->scenario = $order['ship'];
+                if ($userdata['pasportser'] != '') {
+                    $user->pasportser = $userdata['pasportser'];
+                }
+                if ($userdata['pasportnum'] != '') {
+                    $user->pasportnum = $userdata['pasportnum'];
+                }
+                if ($userdata['pasportdate'] != '') {
+                    $user->pasportdate = $userdata['pasportdate'];
+                }
+                if ($userdata['pasportwhere'] != '') {
+                    $user->pasportwhere = $userdata['pasportwhere'];
+                }
+                if ($user->customers_id > 0) {
+                    $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
+                    if ($check_passport_customer->pasport_seria == NULL) {
+                        $check_passport_customer->pasport_seria = $userdata['pasportser'];
+
+                    }
+                    if ($check_passport_customer->pasport_nomer == NULL) {
+                        $check_passport_customer->pasport_nomer = $userdata['pasportnum'];
+
+                    }
+                    if ($check_passport_customer->pasport_kem_vidan == NULL) {
+                        $check_passport_customer->pasport_kem_vidan = $userdata['pasportwhere'];
+
+                    }
+                    if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
+                        $check_passport_customer->pasport_kogda_vidan = $userdata['pasportdate'];
+
+                    }
+                    $check_passport_customer->entry_gender = 'M';
+
+                    $country = new Countries();
+                    $zones = new Zones();
+
+                    $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $userdata['country']])->asArray()->one();
+                    $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userdata['state']])->asArray()->one();
+
+                    $check_passport_customer->entry_firstname = $userdata['name'];
+                    $check_passport_customer->entry_lastname = $userdata['lastname'];
+                    $check_passport_customer->entry_city = $userdata['city'];
+                    $check_passport_customer->entry_street_address = $userdata['adress'];
+                    $check_passport_customer->otchestvo = $userdata['secondname'];
+                    $check_passport_customer->entry_postcode = $userdata['postcode'];
+                    $check_passport_customer->entry_country_id = $entrycountry['id'];
+                    $check_passport_customer->entry_zone_id = $entryzones['id'];
+
+                    $user->id = $userModel->getId();
+                    $user->name = $userdata['name'];
+                    $user->secondname = $userdata['secondname'];
+                    $user->lastname = $userdata['lastname'];
+                    $user->country = $userdata['country'];
+                    $user->state = $userdata['state'];
+                    $user->city = $userdata['city'];
+                    $user->adress = $userdata['adress'];
+                    $user->postcode = $userdata['postcode'];
+                    $user->telephone = $userdata['telephone'];
+
+
+                    if ($check_passport_customer->update() && $user->update()) {
+                    } else {
+                    }
+                } else {
+                    $user->id = $userModel->getId();
+                    $user->name = $userdata['name'];
+                    $user->secondname = $userdata['secondname'];
+                    $user->lastname = $userdata['lastname'];
+                    $user->country = $userdata['country'];
+                    $user->state = $userdata['state'];
+                    $user->city = $userdata['city'];
+                    $user->adress = $userdata['adress'];
+                    $user->postcode = $userdata['postcode'];
+                    $user->telephone = $userdata['telephone'];
+                    $user->update();
+                }
+
+            } else {
+                $user->id = $userModel->getId();
+                $user->name = $userdata['name'];
+                $user->secondname = $userdata['secondname'];
+                $user->lastname = $userdata['lastname'];
+                $user->country = $userdata['country'];
+                $user->state = $userdata['state'];
+                $user->city = $userdata['city'];
+                $user->adress = $userdata['adress'];
+                $user->postcode = $userdata['postcode'];
+                $user->telephone = $userdata['telephone'];
                 $user->pasportser = $userdata['pasportser'];
-            }
-            if ($userdata['pasportnum'] != '') {
                 $user->pasportnum = $userdata['pasportnum'];
-            }
-            if ($userdata['pasportdate'] != '') {
                 $user->pasportdate = $userdata['pasportdate'];
-            }
-            if ($userdata['pasportwhere'] != '') {
                 $user->pasportwhere = $userdata['pasportwhere'];
             }
-            if ($user->customers_id > 0) {
-                $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
-                if ($check_passport_customer->pasport_seria == NULL) {
-                    $check_passport_customer->pasport_seria = $userdata['pasportser'];
-
+            if ($user->validate()) {
+                $user->save('false');
+                $id = $userModel->getId();
+                $model->delivery = serialize($user);
+                if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1 ){
+                $order['discount'] = Yii::$app->params['partnersset']['discount']['value'];}
+                $totalprice = 0;
+                foreach($order as $key => $value){
+                $totalprice += intval($value[3])*intval($value[4]);
                 }
-                if ($check_passport_customer->pasport_nomer == NULL) {
-                    $check_passport_customer->pasport_nomer = $userdata['pasportnum'];
+                if(isset(Yii::$app->params['partnersset']['minorderprice']['value']) && Yii::$app->params['partnersset']['minorderprice']['active'] == 1){
+                  $ch =   intval(Yii::$app->params['partnersset']['minorderprice']['value']);
+                    if($ch  > $totalprice) {
+                        return ['exception' => 'Минимальная сумма заказа ' . intval(Yii::$app->params['partnersset']['minorderprice']['value']) . ' Руб. Сумма вашего заказа ' . $totalprice . ' Руб.'];
+                    }else{
 
-                }
-                if ($check_passport_customer->pasport_kem_vidan == NULL) {
-                    $check_passport_customer->pasport_kem_vidan = $userdata['pasportwhere'];
-
-                }
-                if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
-                    $check_passport_customer->pasport_kogda_vidan = $userdata['pasportdate'];
-
-                }
-                $check_passport_customer->entry_gender = 'M';
-
-                $country = new Countries();
-                $zones = new Zones();
-
-                $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $userdata['country']])->asArray()->one();
-                $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userdata['state']])->asArray()->one();
-
-                $check_passport_customer->entry_firstname = $userdata['name'];
-                $check_passport_customer->entry_lastname = $userdata['lastname'];
-                $check_passport_customer->entry_city = $userdata['city'];
-                $check_passport_customer->entry_street_address = $userdata['adress'];
-                $check_passport_customer->otchestvo = $userdata['secondname'];
-                $check_passport_customer->entry_postcode = $userdata['postcode'];
-                $check_passport_customer->entry_country_id = $entrycountry['id'];
-                $check_passport_customer->entry_zone_id = $entryzones['id'];
-
-                $user->id = $userModel->getId();
-                $user->name = $userdata['name'];
-                $user->secondname = $userdata['secondname'];
-                $user->lastname = $userdata['lastname'];
-                $user->country = $userdata['country'];
-                $user->state = $userdata['state'];
-                $user->city = $userdata['city'];
-                $user->adress = $userdata['adress'];
-                $user->postcode = $userdata['postcode'];
-                $user->telephone = $userdata['telephone'];
-
-
-                if ($check_passport_customer->update() && $user->update()) {
+                    }
+                    }
+                $model->order = serialize($order);
+                $model->status = 1;
+                $model->create_date = date('Y-m-d H:i:s');
+                $model->update_date = date('Y-m-d H:i:s');
+                if ($model->save()) {
+                    $username = User::findOne($id)->username;
+                    $orders_delivery = ' ';
+                    $site_name = Yii::$app->params['constantapp']['APP_NAME'];
+                    $date_order = date('m.d.Y');
+                    Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site' => $_SERVER['HTTP_HOST'], 'site_name' => $site_name, 'date_order' => $date_order])
+                        ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                        ->setTo($username)
+                        ->setSubject('Заказ на сайте ' . $_SERVER['HTTP_HOST'])
+                        ->send();
+                    return ['id' => $model->id, 'order' => unserialize($model->order)];
                 } else {
+                    return false;
                 }
             } else {
-                $user->id = $userModel->getId();
-                $user->name = $userdata['name'];
-                $user->secondname = $userdata['secondname'];
-                $user->lastname = $userdata['lastname'];
-                $user->country = $userdata['country'];
-                $user->state = $userdata['state'];
-                $user->city = $userdata['city'];
-                $user->adress = $userdata['adress'];
-                $user->postcode = $userdata['postcode'];
-                $user->telephone = $userdata['telephone'];
-                $user->update();
             }
-
-        } else {
-            $user->id = $userModel->getId();
-            $user->name = $userdata['name'];
-            $user->secondname = $userdata['secondname'];
-            $user->lastname = $userdata['lastname'];
-            $user->country = $userdata['country'];
-            $user->state = $userdata['state'];
-            $user->city = $userdata['city'];
-            $user->adress = $userdata['adress'];
-            $user->postcode = $userdata['postcode'];
-            $user->telephone = $userdata['telephone'];
-            $user->pasportser = $userdata['pasportser'];
-            $user->pasportnum = $userdata['pasportnum'];
-            $user->pasportdate = $userdata['pasportdate'];
-            $user->pasportwhere = $userdata['pasportwhere'];
-        }
-        if ($user->validate()) {
-
-
-            $user->save('false');
-            $id = $userModel->getId();
-            $model->delivery = serialize($user);
-            $model->order = serialize($order);
-            $model->status = 1;
-            $model->create_date = date('Y-m-d H:i:s');
-            $model->update_date = date('Y-m-d H:i:s');
-            if ($model->save()) {
-                $username = User::findOne($id)->username;
-                $orders_delivery = ' ';
-                $site_name = Yii::$app->params['constantapp']['APP_NAME'];
-                $date_order = date('m.d.Y');
-                Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site' => $_SERVER['HTTP_HOST'], 'site_name' => $site_name, 'date_order' => $date_order])
-                    ->setFrom('support@' . $_SERVER['HTTP_HOST'])
-                    ->setTo($username)
-                    ->setSubject('Заказ на сайте ' . $_SERVER['HTTP_HOST'])
-                    ->send();
-                return ['id' => $model->id, 'order' => unserialize($model->order)];
-            } else {
-                return false;
-            }
-        } else {
-        }
-    }
-
-    public function actionSaveuserprofile()
-    {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $model = new PartnersOrders();
-        $userdata = Yii::$app->request->post('user');
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $userModel = Yii::$app->user->identity;
-        $model->partners_id = $check;
-        $model->user_id = $userModel->getId();
-        $user = new PartnersUsersInfo();
-        $user->scenario = 'flat2_flat2';
-        if ($user::findOne($userModel->getId())) {
-            $user = $user::findOne($userModel->getId());
-            $user->scenario = 'flat2_flat2';
-            if ($userdata['pasportser'] != '') {
-                $user->pasportser = $userdata['pasportser'];
-            }
-            if ($userdata['pasportnum'] != '') {
-                $user->pasportnum = $userdata['pasportnum'];
-            }
-            if ($userdata['pasportdate'] != '') {
-                $user->pasportdate = $userdata['pasportdate'];
-            }
-            if ($userdata['pasportwhere'] != '') {
-                $user->pasportwhere = $userdata['pasportwhere'];
-            }
-            if ($user->customers_id > 0) {
-                $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
-                if ($check_passport_customer->pasport_seria == NULL) {
-                    $check_passport_customer->pasport_seria = $userdata['pasportser'];
-                }
-                if ($check_passport_customer->pasport_nomer == NULL) {
-                    $check_passport_customer->pasport_nomer = $userdata['pasportnum'];
-                }
-                if ($check_passport_customer->pasport_kem_vidan == NULL) {
-                    $check_passport_customer->pasport_kem_vidan = $userdata['pasportwhere'];
-                }
-                if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
-                    $check_passport_customer->pasport_kogda_vidan = $userdata['pasportdate'];
-                }
-                $check_passport_customer->entry_gender = 'M';
-                $country = new Countries();
-                $zones = new Zones();
-                $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $userdata['country']])->asArray()->one();
-                $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $userdata['state']])->asArray()->one();
-                $check_passport_customer->entry_firstname = $userdata['name'];
-                $check_passport_customer->entry_lastname = $userdata['lastname'];
-                $check_passport_customer->entry_city = $userdata['city'];
-                $check_passport_customer->entry_street_address = $userdata['adress'];
-                $check_passport_customer->otchestvo = $userdata['secondname'];
-                $check_passport_customer->entry_postcode = $userdata['postcode'];
-                $check_passport_customer->entry_country_id = $entrycountry['id'];
-                $check_passport_customer->entry_zone_id = $entryzones['id'];
-                $user->id = $userModel->getId();
-                $user->name = $userdata['name'];
-                $user->secondname = $userdata['secondname'];
-                $user->lastname = $userdata['lastname'];
-                $user->country = $userdata['country'];
-                $user->state = $userdata['state'];
-                $user->city = $userdata['city'];
-                $user->adress = $userdata['adress'];
-                $user->postcode = $userdata['postcode'];
-                $user->telephone = $userdata['telephone'];
-                if ($check_passport_customer->update() && $user->update()) {
-                } else {
-                }
-            } else {
-                $user->id = $userModel->getId();
-                $user->name = $userdata['name'];
-                $user->secondname = $userdata['secondname'];
-                $user->lastname = $userdata['lastname'];
-                $user->country = $userdata['country'];
-                $user->state = $userdata['state'];
-                $user->city = $userdata['city'];
-                $user->adress = $userdata['adress'];
-                $user->postcode = $userdata['postcode'];
-                $user->telephone = $userdata['telephone'];
-                $user->update();
-            }
-        } else {
-            $user->id = $userModel->getId();
-            $user->name = $userdata['name'];
-            $user->secondname = $userdata['secondname'];
-            $user->lastname = $userdata['lastname'];
-            $user->country = $userdata['country'];
-            $user->state = $userdata['state'];
-            $user->city = $userdata['city'];
-            $user->adress = $userdata['adress'];
-            $user->postcode = $userdata['postcode'];
-            $user->telephone = $userdata['telephone'];
-            $user->pasportser = $userdata['pasportser'];
-            $user->pasportnum = $userdata['pasportnum'];
-            $user->pasportdate = $userdata['pasportdate'];
-            $user->pasportwhere = $userdata['pasportwhere'];
-        }
-        if ($user->validate()) {
-            $user->save('false');
-            $id = $userModel->getId();
-        } else {
-
-        }
-
     }
 
 
@@ -877,11 +604,11 @@ class SiteController extends Controller
     public function actionZonesrequest($id)
     {
 
-        $data = Yii::$app->cache->get(urlencode('zones_data-' . Yii::$app->params['constantapp']['APP_ID']));
+        $data = Yii::$app->cache->get(urlencode('zones_data-' . $id));
         if ($data === false) {
             $zones_data = new Zones();
             $data = $zones_data->find()->select('zone_id as id, zone_name as title')->where(['zone_country_id' => intval($id)])->asArray()->all();
-            Yii::$app->cache->set(urlencode('zones_data-' . Yii::$app->params['constantapp']['APP_ID']), ['zones_data' => $data], 86400);
+            Yii::$app->cache->set(urlencode('zones_data-' . $id), ['zones_data' => $data], 86400);
         } else {
             $data = $data['zones_data'];
         }
@@ -905,9 +632,21 @@ class SiteController extends Controller
         } else {
             $id = Yii::$app->request->getQueryParam('id');
         }
-        $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        $keyprod = Yii::$app->cache->buildKey('product-' . $id);
+        $data = Yii::$app->cache->get($keyprod);
+        if (!$data) {
+            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        } else {
+            $data = $data['data'];
+        }
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+
+            $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
+
+        }
         return $data;
+
     }
 
     public function actionImagepreview()
@@ -919,7 +658,7 @@ class SiteController extends Controller
         $headers->add('Content-Type', 'image/jpg');
         $headers->add('Cache-Control', 'max-age=68200');
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-        return $this->ExtFuncLoad()->Imagepreviewcrop('http://odezhda-master.ru/images/', $src, '@webroot/images/',$action);
+        return $this->Imagepreviewcrop('http://odezhda-master.ru/images/', $src, '@webroot/images/', $action);
     }
 
     public function actionSavehtml()
@@ -1007,7 +746,7 @@ class SiteController extends Controller
 
     }
 
-    private function Requrscat($arr, $firstval, $catnamearr)
+    public function Requrscat($arr, $firstval, $catnamearr)
     {
         static $chpu;
         static $item;
@@ -1015,12 +754,13 @@ class SiteController extends Controller
         if (isset($arr[$item])) {
             while ($arr[$item] != '0') {
                 if (isset($catnamearr[$item])) {
-                    $chpu[] = $catnamearr[$item];
+                    $chpu[] = ['name' => $catnamearr[$item], 'id' => $item];
+
                     $item = $arr[$item];
                 }
             }
             if (isset($catnamearr[$item])) {
-                $chpu[] = $catnamearr[$item];
+                $chpu[] = ['name' => $catnamearr[$item], 'id' => $item];
             }
         }
         return array_reverse($chpu);
@@ -1030,84 +770,84 @@ class SiteController extends Controller
     {
 
         $encode = mb_detect_encoding($search);
-        $search = $origsearch =  mb_strtolower($search, $encode);
+        $search = $origsearch = mb_strtolower($search, $encode);
         $tolength = mb_strlen($search, $encode);
         $length = $tolength - 3;
         $substr = mb_substr($search, $length, $tolength - $length, $encode);
         switch ($substr) {
             case 'ами':
                 $search = mb_substr($search, 0, $length, $encode);
-                return $this->checksklonenie($search,$origsearch,$encode);
+                return $this->checksklonenie($search, $origsearch, $encode);
             case 'ями':
                 $search = mb_substr($search, 0, $length, $encode);
-                return $this->checksklonenie($search,$origsearch,$encode);
+                return $this->checksklonenie($search, $origsearch, $encode);
             default:
                 $length = $length + 1;
                 $substr = mb_substr($search, $length, $tolength - $length, $encode);
                 switch ($substr) {
                     case 'ов' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ев' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ей' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this-> checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ам' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ям' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ах' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ях' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ою' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ею' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ом' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ем' :
                         $search = mb_substr($search, 0, $length, $encode);
-                        return $this->checksklonenie($search,$origsearch,$encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
                     default:
                         $length = $length + 1;
                         $substr = mb_substr($search, $length, $tolength - $length, $encode);
                         switch ($substr) {
                             case 'а' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             case 'я' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             case 'о' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             case 'е' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             case 'ы' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             case 'и':
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             case 'у' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             case 'ю' :
                                 $search = mb_substr($search, 0, $length, $encode);
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                             default:
-                                return $this->checksklonenie($search,$origsearch,$encode);
+                                return $this->checksklonenie($search, $origsearch, $encode);
                         }
                 }
 
@@ -1115,11 +855,12 @@ class SiteController extends Controller
         }
 
     }
-    private function checksklonenie($pattern , $search, $encode='UTF-8')
+
+    private function checksklonenie($pattern, $search, $encode = 'UTF-8')
     {
-        if(mb_strlen($pattern, $encode) < 3 && !preg_match('/(а|о|э|и|у|ы|е|ё|ю|я)+/iu', $pattern)) {
+        if (mb_strlen($pattern, $encode) < 3 && !preg_match('/(а|о|э|и|у|ы|е|ё|ю|я)+/iu', $pattern)) {
             return $search;
-        }else{
+        } else {
             return $pattern;
         }
     }

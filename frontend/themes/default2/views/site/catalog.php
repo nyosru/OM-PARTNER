@@ -1,6 +1,6 @@
 <?php
 
-use frontend\controllers\SiteController;
+
 use yii\filters\AccessControl;
 use yii\web\User;
 /* @var $this yii\web\View */
@@ -10,26 +10,22 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
-use common\models\Partners;
 use yii\helpers\BaseUrl;
 use yii\jui\Slider;
-use frontend\controllers\ExtFunc;
 
-$functions = new ExtFunc();
+
+
 $this->title = Yii::$app->params['constantapp']['APP_NAME'];
+//print_r($_SERVER);
 ?>
 <? //if ($this->beginCache('partner-index'.hash( 'crc32b' , md5( $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ) ), array('duration'=>600))) {?>
     <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
             <div id="partners-main-left-cont">
-                <?
-                $checks = Yii::$app->params['constantapp']['APP_CAT'];
-                $cat_array = $functions->reformat_cat_array($catdata, $categories, $checks)
-                ?>
                 <div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
                 </div><?
-                $functions->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
+                echo $view;
                 ?>
             </div>
             <div id="filters">
@@ -337,38 +333,38 @@ if(document.location.hash != '') {
     </script>
 
 <?
-function new_url($arr_sub)
-{
-    $new_url = Array();
-    foreach ($arr_sub as $value) {
-        $new_url[] = $value[0] . '=' . $value[1];
-    }
-    return implode('&', $new_url);
-}
 
-function split_url($url)
-{
-    $url_arr = explode('&', $url);
-    $arr_sub = Array();
-    foreach ($url_arr as $value) {
-        $spl = explode('=', $value);
-        $arr_sub[$spl[0]] = $spl;
-    }
-    return $arr_sub;
-}
-
-function new_suburl($url_obj, $val, $new_var)
-{
-    $value = $url_obj[$val];
-    $value[1] = $new_var;
-
-    $url_obj[$val] = $value;
-    return $url_obj;
-}
-
-$start_url = Yii::$app->request->getQueryString();
-if (!isset($start_url) || $start_url == '')
+    function new_url($arr_sub)
     {
+        $new_url = Array();
+        foreach ($arr_sub as $value) {
+            $new_url[] = $value[0] . '=' . $value[1];
+        }
+        return implode('&', $new_url);
+    }
+
+    function split_url($url)
+    {
+        $url_arr = explode('&', $url);
+        $arr_sub = Array();
+        foreach ($url_arr as $value) {
+            $spl = explode('=', $value);
+            $arr_sub[$spl[0]] = $spl;
+        }
+        return $arr_sub;
+    }
+
+    function new_suburl($url_obj, $val, $new_var)
+    {
+        $value = $url_obj[$val];
+        $value[1] = $new_var;
+
+        $url_obj[$val] = $value;
+        return $url_obj;
+    }
+
+    $start_url = Yii::$app->request->getQueryString();
+    if (!isset($start_url) || $start_url == '') {
         $start_url = '_escaped_fragment_=cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=0&sort=10&searchword=';
     }
     $url_data = split_url(str_replace('%26', '&', str_replace('_escaped_fragment_=', '#!', $start_url)));
@@ -419,8 +415,8 @@ if (!isset($start_url) || $start_url == '')
             }
             $pager .= ' <a data-page="' . intval($data[10]) . '" class="page data-j" href="#">' . (intval($data[10]) + 1) . '</a> ';
             $pager .= 'из ' . $countpager;
-            $pager .= ' <div data-page="' . ($natpage - 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($natpage - 1)))) . '"></a></i></div> ';
-            $pager .= ' <div data-page="' . ($nextpage + 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($nextpage + 1)))) . '"></a></i></div> ';
+            $pager .= ' <div data-page="' . ($natpage - 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($natpage - 1)))) . '"></a></i></div> ';
+            $pager .= ' <div data-page="' . ($nextpage + 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($nextpage + 1)))) . '"></a></i></div> ';
             $topnav = '<div id="products-pager">Страница: ' . $pager . '</div>';
             $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
         }
@@ -436,9 +432,9 @@ if (!isset($start_url) || $start_url == '')
             } else {
                 $classcount = 'countdisplay';
             }
-            $innercount .= '<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count=". $countdisp."  href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', $countdisp))) . '">. $countdisp.</a></div>';
+            $innercount .= '<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count=". $countdisp."  href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', $countdisp))) . '">. $countdisp.</a></div>';
         }
-        $headbside .= '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '20'))) . '">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '40'))) . '">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '60'))) . '">60</a> </div>';
+        $headbside .= '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '20'))) . '">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '40'))) . '">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '60'))) . '">60</a> </div>';
 
         $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '">Сортировать по </div>';
         //  '<div class="header-sort-item">дате <a class="sort data-j arrow-down" data="0" href="#"></a><a class="sort data-j arrow-up" data="10" href="#"></a></div><div class="header-sort-item">цене<a class="sort data-j arrow-down" data="1" href="#"></a><a class="sort data-j arrow-up" data="11" href="#"></a></div><div class="header-sort-item"> названию<a class="sort data-j arrow-up" data="2" href="#"></a><a class="sort data-j arrow-down" data="12" href="#"></a></div><div class="header-sort-item"> модели<a class="sort data-j arrow-up" data="3" href="#"></a><a class="sort data-j arrow-down" data="13" href="#"></a></div><div class="header-sort-item">популярности<a class="sort data-j arrow-up" data="4" href="#"></a><a class="sort data-j arrow-down" data="14" href="#"></a> </div>' + '</div>';
@@ -457,9 +453,9 @@ if (!isset($start_url) || $start_url == '')
                 $class = 'sort data-j';
             }
             if ($value[1] == $data[11] || $value[2] == $data[11]) {
-                $headbside .= '<div class="header-sort-item-active"><a class="' . $class . '" href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '" data="' . $dataord . '" href="#">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
+                $headbside .= '<div class="header-sort-item-active"><a class="' . $class . '" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '" data="' . $dataord . '" href="#">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
             } else {
-                $headbside .= '<div class="header-sort-item"><a class="' . $class . '" data="' . $dataord . '" href="/site/catalog' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
+                $headbside .= '<div class="header-sort-item"><a class="' . $class . '" data="' . $dataord . '" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
             }
         }
         $headbside .= '</div></div>';
@@ -484,12 +480,13 @@ if (!isset($start_url) || $start_url == '')
         }
 
 
-            $this->title =  'Каталог - ' .$cat.' - '. (intval($data[10]) + 1);
+        $this->title = 'Каталог - ' . $cat . ' - ' . (intval($data[10]) + 1);
         echo $innerhtml;
         echo $downnav;
     } else {
         echo 'Нет результатов';
-    }
+
+}
  ?>
     </div>
     </div>

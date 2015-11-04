@@ -6,10 +6,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Tabs;
-use frontend\controllers\ExtFunc;
 use yii\bootstrap\Carousel;
 use yii\bootstrap\Alert;
-$function = new ExtFunc();
+use yii\helpers\BaseHtml;
 $this->title = 'Админка';
 
 ?>
@@ -43,23 +42,6 @@ $this->title = 'Админка';
 
 
             <?php
-            if($exception == '200'){
-                echo Alert::widget([
-                    'options' => [
-                        'class' => 'alert-info',
-                    ],
-                    'body' => 'Настройки успешно сохранены',
-                ]);
-            }elseif($exception == '404'){
-                echo Alert::widget([
-                    'options' => [
-                        'class' => 'alert-info',
-                    ],
-                    'body' => 'Ошибка! Настройки не сохранены',
-                ]);
-            }else{
-
-            }
             $form = ActiveForm::begin(['id' => 'partners-settings', 'action'=>'/admin/default/savesettings']);
             $path = Yii::getAlias('@app') . '/themes/';
             $templatedir = opendir($path);
@@ -89,38 +71,178 @@ $this->title = 'Админка';
                     $count++;
                 }
             }
-            $l1 = $form->field($model, 'template')->label('Шаблон')->radioList($output);
-            $l2 = $form->field($model, 'mail_counter_id')->label('Номер счетчика');
-            $l2 .= $form->field($model, 'mail_counter_activated')->checkbox()->label('Включить');
-            $l2 .= $form->field($model, 'yandex_counter_id')->label('Номер счетчика');
-            $l2 .= $form->field($model, 'yandex_counter_activated')->checkbox()->label('Включить');
-            $l3 = 'В разработке';
+            $l1 = '<div style="margin: 10px; height: 100%;">';
+            $l1 .= $form->field($model, 'template')->label('Шаблон')->radioList($output);
+            $l1 .= '</div>';
+            $l2  = '<div style="margin: 10px; height: 100%;">';
+            $l2 .= '<div class="col-md-3">';
+            $l2 .= $form->field($model, 'mailcounter[value]')->label('Mail (не активно)');
+            $l2 .= $form->field($model, 'mailcounter[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l2 .= '</div>';
+            $l2 .= '<div class="col-md-3">';
+            $l2 .= $form->field($model, 'yandexcounter[value]')->label('Yandex (не активно)');
+            $l2 .= $form->field($model, 'yandexcounter[active]',['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l2  .= '</div>';
+            $l2  .= '</div>';
+            $l3  = '<div style="margin: 10px; height: 100%;">';
+            $l3 .= '<div class="col-md-3">';
+            $l3 .= $form->field($model, 'discount[value]')->label('Наценка(в % на все товары магазина)');
+            $l3 .= $form->field($model, 'discount[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l3  .= '</div>';
+            $l3 .= '<div class="col-md-3">';
+            $l3 .= $form->field($model, 'minorderprice[value]')->label('Минимальная сумма заказа, Руб.');
+            $l3 .= $form->field($model, 'minorderprice[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l3  .= '</div>';
+            $l3  .= '</div>';
+
+            $l4  = '<div style="margin: 10px; height: 100%;">';
+            $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
+            $l4 .= '<div class="col-md-3">';
+            $l4 .= $form->field($model, 'contacts[adress][value]')->label('Адрес<br/><br/>')->textInput(['value'=> $contacts['adress']['value']]);
+            $l4 .= $form->field($model, 'contacts[adress][active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-3">';
+            $l4 .= $form->field($model, 'contacts[telephone][value]', ['options'=>['class' => '']])->label('Телефон (Можно указать несколько через запятую)');
+            $l4 .= $form->field($model, 'contacts[telephone][active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-3">';
+            $l4 .= $form->field($model, 'contacts[fax][value]', ['options'=>['class' => '']])->label('Факс (Можно указать несколько через запятую)');
+            $l4 .= $form->field($model, 'contacts[fax][active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-3">';
+            $l4 .= $form->field($model, 'contacts[email][value]', ['options'=>['class' => '']])->label('E-mail (Можно указать несколько через запятую)');
+            $l4 .= $form->field($model, 'contacts[email][active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l4 .= '</div>';
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%;font-size:12px; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
+            $l4 .= $form->field($model, 'contacts[graf_work][activated]', ['options'=>['style' => 'margin: 0px 15px;']])->checkbox()->label('График работы (не активно)');
+            $l4 .= '<div class="col-md-2 graf-day">';
+            $hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
+            $minuts = [00,10,20,30,40,50];
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][active]', ['options'=>['class' => '']])->checkbox()->label('Понедельник');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][w][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][wm][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][w][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][wm][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][o][active]',['options'=>['class' => 'col-md-12']])->checkbox()->label('Обед');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][o][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][om][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][o][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][mon][om][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-2 graf-day">';
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][active]', ['options'=>['class' => '']])->checkbox()->label('Вторник');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][w][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][wm][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][w][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][wm][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][o][active]',['options'=>['class' => 'col-md-12']])->checkbox()->label('Обед');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][o][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][om][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][o][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][tue][om][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-2 graf-day">';
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][active]', ['options'=>['class' => '']])->checkbox()->label('Среда');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][w][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][wm][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][w][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][wm][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][o][active]',['options'=>['class' => 'col-md-12']])->checkbox()->label('Обед');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][o][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][om][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][o][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][wed][om][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-2 graf-day">';
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][active]', ['options'=>['class' => '']])->checkbox()->label('Четверг');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][w][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][wm][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][w][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][wm][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][o][active]',['options'=>['class' => 'col-md-12']])->checkbox()->label('Обед');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][o][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][om][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][o][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][thu][om][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-2 graf-day">';
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][active]', ['options'=>['class' => '']])->checkbox()->label('Пятница');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][w][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][wm][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][w][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][wm][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][o][active]',['options'=>['class' => 'col-md-12']])->checkbox()->label('Обед');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][o][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][om][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][o][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][fri][om][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-2 graf-day">';
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][active]', ['options'=>['class' => '']])->checkbox()->label('Суббота');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][w][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][wm][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][w][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][wm][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][o][active]',['options'=>['class' => 'col-md-12']])->checkbox()->label('Обед');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][o][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][om][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][o][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][sat][om][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-2 graf-day">';
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][active]', ['options'=>['class' => '']])->checkbox()->label('Воскресение');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][w][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][wm][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][w][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][wm][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][o][active]',['options'=>['class' => 'col-md-12']])->checkbox()->label('Обед');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][o][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('C');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][om][in]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][o][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($hours, ['prompt'=>'Ч'])->label('До');
+            $l4 .= $form->field($model, 'contacts[graf_work][sun][om][out]', ['options'=>['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt'=>'М'])->label('_');
+            $l4 .= '</div>';
+            $l4 .= '</div>';
+
+            $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
+            $l4 .= '<div class="col-md-12">';
+            $l4 .= $form->field($model, 'yandexmap[value]')->label('Yandex карта(SID)', ['options'=>['class' => 'col-md-3']]);
+            $l4 .= $form->field($model, 'yandexmap[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l4 .= '</div>';
+            $l4 .= '<div class="col-md-12">';
+            $l4 .= $form->field($model, 'googlemap[value]')->label('Google карта(MID)', ['options'=>['class' => 'col-md-3']]);
+            $l4 .= $form->field($model, 'googlemap[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l4  .= '</div>';
+            $l4  .= '</div>';
+            $l4  .= '</div>';
+
+
             ?>
             <? echo Tabs::widget([
                 'items' => [
                     [
-                        'label' => 'Общие(В разработке)',
+                        'label' => 'Общие',
                         'content' => $l1,
                         'active' => true
                     ],
                     [
-                        'label' => 'Счетчики(В разработке)',
+                        'label' => 'Счетчики',
                         'content' => $l2,
 
                     ],
                     [
-                        'label' => 'Ценовая политика(В разработке)',
+                        'label' => 'Ценовая политика',
                         'content' => $l3,
 
                     ],
                     [
-                        'label' => 'Контакты(В разработке)',
-                        'content' => $l3,
+                        'label' => 'Контакты',
+                        'content' => $l4,
 
                     ],
                 ]]); ?>
 
-            <div class="form-group">
+            <div class="form-group col-md-12">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']) ?>
             </div>
             <?php ActiveForm::end(); ?>

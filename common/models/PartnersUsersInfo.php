@@ -40,7 +40,7 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'name', 'secondname', 'lastname', 'adress', 'city', 'state', 'country', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportwhere', 'pasportdate'], 'required'],
-            [['id', 'customers_id'], 'integer'],
+            [['id', 'customers_id', 'status'], 'integer'],
             [['pasportdate'], 'safe'],
             [['name', 'secondname', 'lastname', 'state', 'country', 'postcode', 'telephone', 'pasportnum', 'pasportser', 'pasportwhere'], 'string', 'max' => 45],
             [['adress'], 'string', 'max' => 100],

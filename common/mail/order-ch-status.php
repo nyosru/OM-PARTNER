@@ -5,7 +5,8 @@ use yii\helpers\Html;
 /* @var $user common\models\User */
 
 
-//unset($order[ship]);
+unset($order['ship']);
+unset($order['discount']);
 ?>
 
 <html><head></head><body><div style="width: 100%; height: 100%;">
@@ -25,7 +26,7 @@ use yii\helpers\Html;
     </div>
 
     <div style="margin-left: 12%; margin-top: 30px; font-size: 1.5em; font-family: verdana;">
-        Здравствуйте, <?= $order[delivery_name]?> <?= $order[delivery_otchestvo]?>
+        Здравствуйте, <?= $order['delivery_name']?> <?= $order['delivery_otchestvo']?>
     </div>
     <div style="margin-left: 12%; margin-top: 10px; font-family: verdana;">
         Спасибо, за то что воспользовались услугами нашего магазина
@@ -57,12 +58,12 @@ use yii\helpers\Html;
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">Цена</td>
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">Сумма</td>
         </tr>
-        <? foreach($order[products] as $value){?>
-<? if($value[first_quant] == $value[products_quantity]){
+        <? foreach($order[''] as $value){?>
+<? if($value['first_quant'] == $value['products_quantity']){
 
             $color = '#A2F5A2';
 
-            }elseif($value[products_quantity] == 0){
+            }elseif($value['products_quantity'] == 0){
                 $color = '#FC8686';
             }else{
                 $color = '#F6F6A6';
@@ -71,8 +72,8 @@ use yii\helpers\Html;
             ?>
         <tr style="background: <?= $color?> none repeat scroll 0% 0%;">
             <td>
-        <?  foreach(unserialize($model[order]) as $asvalue){
-            if($asvalue[0] == $value[products_id]){
+        <?  foreach(unserialize($model['order']) as $asvalue){
+            if($asvalue[0] == $value['products_id']){
                 $asvalue[5] = str_replace(')',']]]]', $asvalue[5]);
                 $asvalue[5] = str_replace(' ','[[[[]]]]', $asvalue[5]);
                 $asvalue[5] = str_replace('(','[[[[', $asvalue[5]);
@@ -88,64 +89,28 @@ break;
 ?>
             </td>
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">
-             <?= $value[first_quant]?>
+             <?= $value['first_quant']?>
 
             </td>
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">
-                <?= $value[products_quantity]?>
+                <?= $value['products_quantity']?>
 
             </td>
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">
-                <?= intval($value[final_price])?> Руб.
+                <?= intval($value['final_price'])?> Руб.
 
             </td>
             <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">
-                <?= intval($value[products_quantity])*intval($value[final_price]) ?> Руб.
-<? $orders_total = $orders_total+(intval($value[products_quantity])*intval($value[final_price]) )?>
+                <?= intval($value['products_quantity'])*intval($value['final_price']) ?> Руб.
+<? $orders_total = $orders_total+(intval($value['products_quantity'])*intval($value['final_price']) )?>
             </td>
         </tr>
 
 
         <?}?>
         <tr>
-
-
-
-
-<!--            <pre>-->
-<!--                --><?// print_r($order);?>
-<!--                --><?// print_r(unserialize($model[order]));?>
-<!--            </pre>-->
         </tr>
-<!--        --><?// foreach($order as $key => $value){
-//            $value[5] = str_replace(')',']]]]', $value[5]);
-//            $value[5] = str_replace(' ','[[[[]]]]', $value[5]);
-//            $value[5] = str_replace('(','[[[[', $value[5]);
-//
-//
-//            ?>
-<!---->
-<!--            <tr>-->
-<!--                <td style="width: 60%;">-->
-<!--                    <img src="--><?//= $site?><!----><?//= '/site/imagepreview?src='.$value[5]?><!--" width="200" height="200" />-->
-<!--                </td>-->
-<!---->
-<!--                <td style="text-align: center;">-->
-<!--                    --><?//=$value[4]?>
-<!--                </td>-->
-<!---->
-<!--                <td style="text-align: center;">-->
-<!--                    --><?//=$value[3]?>
-<!--                </td>-->
-<!---->
-<!--                <td style="text-align: center;">-->
-<!--                    --><?//=(intval($value[4])*intval($value[3]))?><!-- Руб.-->
-<!--                    --><?php
-//                    $orders_total = $orders_total+(intval($value[4])*intval($value[3]));
-//                    ?>
-<!--                </td>-->
-<!--            </tr>-->
-<!--        --><?//}?>
+
         </tbody></table>
     <div style="margin: auto; background: rgb(0, 255, 204) none repeat scroll 0% 0%; height: 40px; font-size: 25px; font-family: verdana; padding-top: 6px; text-align: right; width: calc(80% - 80px); padding-right: 80px; color: azure; font-weight: 600;">
         Итого : <?= $orders_total?> руб.
@@ -154,7 +119,7 @@ break;
         По доставке
     </div>
     <div style="width: 80%; margin: auto;">
-        Адрес доставки:  <?= $order[delivery_country]?>,  <?= $order[delivery_state]?>,  <?= $order[delivery_city]?>,  <?= $order[delivery_street_address]?>,  <?= $order[delivery_postcode]?>
+        Адрес доставки:  <?= $order['delivery_country']?>,  <?= $order['delivery_state']?>,  <?= $order['delivery_city']?>,  <?= $order['delivery_street_address']?>,  <?= $order['delivery_postcode']?>
         <br>
         Состояние заказа можно отслеживать в <a href="<?= $site.'/site/lk'?>">личном кабинете</a>
         <br>

@@ -10,12 +10,10 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
-use common\models\Partners;
 use yii\helpers\BaseUrl;
-
 use yii\jui\Slider;
-use frontend\controllers\ExtFunc;
-$functions = new ExtFunc();
+
+
 $this -> title = 'Личный кабинет';
 ?>
 
