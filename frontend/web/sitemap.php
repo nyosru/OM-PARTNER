@@ -50,11 +50,11 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     $application->layout = false;
 
   //  $urlarr = $function->categories_for_partners()[0];
-    $categoriesarr = $this->categories_for_partner();
+    $categoriesarr = categories_for_partner();
     $categories = $categoriesarr[0];
     $catdataw = $categoriesarr[1];
     $checks = Yii::$app->params['constantapp']['APP_CAT'];
-    $urlarr = $this->reformat_cat_array($categories, $catdataw, $checks);
+    $urlarr = reformat_cat_array($categories, $catdataw, $checks);
     foreach($urlarr['cat'] as $key => $value)
     {
         for($i=0; $i < 5; $i++){
