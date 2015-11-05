@@ -15,7 +15,6 @@ set_time_limit ( 800 );
 //    }
 //}
 ob_start("ob_gzhandler");
-
 defined('YII_DEBUG') or define('YII_DEBUG', false);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 
@@ -55,11 +54,15 @@ $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
 use common\models\PartnersSettings;
+class LoadTraitIndex
+{
+    use \common\traits\ThemeResources;
+}
 $partnersettings = new PartnersSettings();
 $application->params['partnersset'] = $partnersettings->LoadSet();
 $application->setViewPath('@app/themes/'.$application->params['constantapp']['APP_THEMES'].'/views');
 $application->setLayoutPath('@app/themes/'.$application->params['constantapp']['APP_THEMES'].'/views/layouts');
-
-
 $application->run();
+$res = new LoadTraitIndex();
+//print_r($res->ThemeResourcesload());
 ob_end_flush();

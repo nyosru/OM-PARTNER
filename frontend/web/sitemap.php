@@ -51,12 +51,12 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
     $application->layout = false;
 
-    class LoadTraitIndex
+    class LoadTraitSiteMap
     {
         use Categories_for_partner, Reformat_cat_array;
     }
 
-    $load_traits = new LoadTraitIndex();
+    $load_traits = new LoadTraitSiteMap();
     //  $urlarr = $function->categories_for_partners()[0];
     $categoriesarr = $load_traits->categories_for_partners();
     $categories = $categoriesarr[0];
