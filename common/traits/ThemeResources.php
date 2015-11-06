@@ -2,13 +2,18 @@
 namespace common\traits;
 use frontend\assets\AppAsset;
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\web\AssetBundle;
+
 trait ThemeResources
 {
     private $paththemes = '@app/themes';
     private $resourcespath = '@app/themes/resources';
-    public function ThemeResourcesload($identify = 'default2'){
+    public function ThemeResourcesload($identify, $side = 'site'){
+        Yii::$app->assetManager->appendTimestamp = true;
+        Yii::$app->assetManager->linkAssets = true;
         $path = Yii::getAlias($this->paththemes).'/'.$identify.'/template.xml';
-
+        $resourcespath = Yii::getAlias($this->resourcespath);
         if(file_exists($path)) {
             $xmlinfo = simplexml_load_file($path)->resources;
             if($xmlinfo){
@@ -18,12 +23,31 @@ trait ThemeResources
                 if(!$csspath){
                     return ['exception' => 'Подключаемый ресурс css не существует'];
                 }else{
-                  $csspath =  Yii::$app->assetManager->publish($this->resourcespath.'/css');
+                  $csspath =  Yii::$app->assetManager->publish($resourcespath.'/css/'.$csspath.'/'.$side);
+                  $resdir = opendir($csspath[0]);
+                    $css = Array();
+                    if($resdir){
+                        while (false !== ($file = readdir($resdir))) {
+                            if(end(explode('.', $file)) == 'css'){
+                                $css[] = $csspath[1].'/'.$file.'?v='.filemtime($resourcespath.'/css/'.$csspath.'/'.$side.'/'.$file);
+                            };
+                        }
+                    }
                 }
                 if(!$jspath){
                     return ['exception' => 'Подключаемый ресурс js не существует'];
                 }else{
-                  $jspath =  Yii::$app->assetManager->publish($this->resourcespath.'/js');
+
+                  $jspath =  Yii::$app->assetManager->publish($resourcespath.'/js/'.$jspath.'/'.$side);
+                    $resdir = opendir($jspath[0]);
+                    $js = Array();
+                    if($resdir){
+                        while (false !== ($file = readdir($resdir))) {
+                            if(end(explode('.', $file)) == 'js'){
+                                $js[] = $jspath[1].'/'.$file;
+                            };
+                        }
+                    }
                 }
                 if(!$viewpath){
                     return ['exception' => 'Подключаемый ресурс view не существует'];
@@ -31,9 +55,7 @@ trait ThemeResources
 
                 }
                 if($jspath && $viewpath && $csspath) {
-                  Yii::$app->assetManager->publish($this->resourcespath.'/css');
-
-                    return ['view' => (string)$viewpath, 'css' => (string)$csspath, 'js' => (string)$jspath];
+                    return ['view' => (string)$viewpath, 'css' => $css, 'js' => $js];
                 }
             }else{
                 return ['exception' => 'Некоректный формат файла', 'data' => $path];
@@ -42,4 +64,5 @@ trait ThemeResources
             return ['exception' => 'Тема не существует', 'data' => $path];
         }
     }
+
 }

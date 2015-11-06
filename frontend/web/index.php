@@ -60,9 +60,18 @@ class LoadTraitIndex
 }
 $partnersettings = new PartnersSettings();
 $application->params['partnersset'] = $partnersettings->LoadSet();
-$application->setViewPath('@app/themes/'.$application->params['constantapp']['APP_THEMES'].'/views');
-$application->setLayoutPath('@app/themes/'.$application->params['constantapp']['APP_THEMES'].'/views/layouts');
+Yii::$app->assetManager->appendTimestamp = true;
+if(isset($application->params['partnersset']['template']['value'])){
+    $path = new LoadTraitIndex();
+    $theme = $path->ThemeResourcesload($application->params['partnersset']['template']['value'])['view'];
+}else{
+    $theme = $application->params['constantapp']['APP_THEMES'];
+}
+$application->setViewPath('@app/themes/resources/views/'.$theme);
+$application->setLayoutPath('@app/themes/resources/views/'.$theme.'/layouts');
+$asset= new \frontend\assets\AppAsset();
+$asset->LoadAssets(Yii::$app->params['partnersset']['template']['value']);
+$application->params['asset'] = $asset;
 $application->run();
-$res = new LoadTraitIndex();
-//print_r($res->ThemeResourcesload());
 ob_end_flush();
+

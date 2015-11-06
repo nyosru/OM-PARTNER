@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
-    <identifycate>default2</identifycate>
+    <identifycate>default3</identifycate>
     <name>Стандартный шаблон(Зеленый)</name>
     <description>Стандартный набор функционала</description>
     <version>1.0</version>
@@ -30,7 +30,7 @@
             <name>default2</name>
         </js>
         <css>
-            <name>default2</name>
+            <name>default3</name>
         </css>
     </resources>
 </template>

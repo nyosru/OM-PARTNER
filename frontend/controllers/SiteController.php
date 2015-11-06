@@ -645,7 +645,7 @@ class SiteController extends Controller
         $keyprod = Yii::$app->cache->buildKey('product-' . $id);
         $data = Yii::$app->cache->get($keyprod);
         if (!$data) {
-            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
+            $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->one();
         } else {
             $data = $data['data'];
         }
