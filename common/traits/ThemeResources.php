@@ -23,13 +23,13 @@ trait ThemeResources
                 if(!$csspath){
                     return ['exception' => 'Подключаемый ресурс css не существует'];
                 }else{
-                  $csspath =  Yii::$app->assetManager->publish($resourcespath.'/css/'.$csspath.'/'.$side);
-                  $resdir = opendir($csspath[0]);
+                  $csspathpub =  Yii::$app->assetManager->publish($resourcespath.'/css/'.$csspath.'/'.$side);
+                  $resdir = opendir($csspathpub[0]);
                     $css = Array();
                     if($resdir){
                         while (false !== ($file = readdir($resdir))) {
                             if(end(explode('.', $file)) == 'css'){
-                                $css[] = $csspath[1].'/'.$file.'?v='.filemtime($resourcespath.'/css/'.$csspath.'/'.$side.'/'.$file);
+                                $css[] = $csspathpub[1].'/'.$file.'?v='.filemtime($resourcespath.'/css/'.$csspath.'/'.$side.'/'.$file);
                             };
                         }
                     }
@@ -38,13 +38,13 @@ trait ThemeResources
                     return ['exception' => 'Подключаемый ресурс js не существует'];
                 }else{
 
-                  $jspath =  Yii::$app->assetManager->publish($resourcespath.'/js/'.$jspath.'/'.$side);
-                    $resdir = opendir($jspath[0]);
+                  $jspathpub =  Yii::$app->assetManager->publish($resourcespath.'/js/'.$jspath.'/'.$side);
+                    $resdir = opendir($jspathpub[0]);
                     $js = Array();
                     if($resdir){
                         while (false !== ($file = readdir($resdir))) {
                             if(end(explode('.', $file)) == 'js'){
-                                $js[] = $jspath[1].'/'.$file;
+                                $js[] = $jspathpub[1].'/'.$file;
                             };
                         }
                     }
