@@ -191,14 +191,15 @@ trait ActionSiteRequest
             $price_max = 'none';
         }
         if (isset($data[0])) {
+            if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                foreach ($data as $key => $dataval) {
+                    $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
+                }
+            }
         } else {
             $data = 'Не найдено!';
         }
-        if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
-            foreach ($data as $key => $dataval) {
-               $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
-            }
-        }
+
         $countfilt = count($data);
         $start = $start_arr;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
