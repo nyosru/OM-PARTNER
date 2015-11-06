@@ -835,6 +835,21 @@ $(document).on('click', '.data-j', function dataj() {
                     $('.navbred').html($inner.join(' / '));
                 }
             });
+            $state = {
+                cat: $cat,
+                count: $count,
+                start_price: $min_price,
+                end_price: $max_price,
+                prod_attr_query: $prodatrquery,
+                page: $page,
+                sort: $sort,
+                searchword: $searchword
+            };
+
+            $.post(
+                "/site/userstate/",
+                {state: $state}
+            );
             $('body').removeClass('some');
             $('link').removeClass('some');
             $('.preload').remove();
