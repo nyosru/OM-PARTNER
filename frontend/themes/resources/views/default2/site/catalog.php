@@ -1,6 +1,4 @@
 <?php
-
-
 use yii\filters\AccessControl;
 use yii\web\User;
 /* @var $this yii\web\View */
@@ -12,13 +10,8 @@ use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
 use yii\helpers\BaseUrl;
 use yii\jui\Slider;
-
-
-
 $this->title = Yii::$app->params['constantapp']['APP_NAME'];
-//print_r($_SERVER);
 ?>
-<? //if ($this->beginCache('partner-index'.hash( 'crc32b' , md5( $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ) ), array('duration'=>600))) {?>
     <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
@@ -42,7 +35,8 @@ $this->title = Yii::$app->params['constantapp']['APP_NAME'];
     <div class="container-fluid" id="partners-main-right-back">
     <div id="partners-main-right" class="bside">
     <script>
-if(document.location.hash != '') {
+        console.log(document.location.hash);
+if(document.location.hash != undefined) {
     var cSpeed = 9;
     var cWidth = 64;
     var cHeight = 64;
@@ -126,7 +120,6 @@ if(document.location.hash != '') {
     new imageLoader(cImageSrc, 'startAnimation()');
     $url = '';
     $url = document.location.hash;
-    console.log($url);
     if ($url == '') {
         $url = '#!cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=10&sort=10&searchword==';
     }
@@ -331,9 +324,7 @@ if(document.location.hash != '') {
 
 }
     </script>
-
 <?
-
     function new_url($arr_sub)
     {
         $new_url = Array();
@@ -342,7 +333,6 @@ if(document.location.hash != '') {
         }
         return implode('&', $new_url);
     }
-
     function split_url($url)
     {
         $url_arr = explode('&', $url);
