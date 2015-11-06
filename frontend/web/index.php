@@ -15,7 +15,7 @@ set_time_limit ( 800 );
 //    }
 //}
 ob_start("ob_gzhandler");
-defined('YII_DEBUG') or define('YII_DEBUG', false);
+defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 
 
@@ -53,24 +53,35 @@ $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
+
 use common\models\PartnersSettings;
 class LoadTraitIndex
 {
     use \common\traits\ThemeResources;
 }
-$partnersettings = new PartnersSettings();
-$application->params['partnersset'] = $partnersettings->LoadSet();
-Yii::$app->assetManager->appendTimestamp = true;
-if(isset($application->params['partnersset']['template']['value'])){
-    $path = new LoadTraitIndex();
-    $theme = $path->ThemeResourcesload($application->params['partnersset']['template']['value'])['view'];
-}else{
-    $theme = $application->params['constantapp']['APP_THEMES'];
+$temlate_key = Yii::$app->cache->buildKey('tempwawdawddpart44-'.$partner['APP_ID']);
+$template_data = Yii::$app->cache->get($temlate_key);
+if(!$template_data){
+    $partnersettings = new PartnersSettings();
+    $partnerset = $partnersettings->LoadSet();
+    Yii::$app->assetManager->appendTimestamp = true;
+    if(isset( $partnerset['template']['value'])){
+        $path = new LoadTraitIndex();
+        $theme = $path->ThemeResourcesload( $partnerset['template']['value'])['view'];
+    }else{
+        $theme = $application->params['constantapp']['APP_THEMES'];
+    }
+    $asset = new \frontend\assets\AppAsset();
+    $asset->LoadAssets( $partnerset['template']['value']);
+    Yii::$app->cache->set($temlate_key, ['data'=>$asset, 'theme'=>$theme, 'partnerset'=>$partnerset]);
+}else {
+    $asset = $template_data['data'];
+    $theme = $template_data['theme'];
+    $partnerset = $template_data['partnerset'];
 }
-$application->setViewPath('@app/themes/resources/views/'.$theme);
-$application->setLayoutPath('@app/themes/resources/views/'.$theme.'/layouts');
-$asset= new \frontend\assets\AppAsset();
-$asset->LoadAssets(Yii::$app->params['partnersset']['template']['value']);
+$application->params['partnersset'] = $partnerset;
+$application->setViewPath('@app/themes/resources/views/' . $theme);
+$application->setLayoutPath('@app/themes/resources/views/' . $theme . '/layouts');
 $application->params['asset'] = $asset;
 $application->run();
 ob_end_flush();

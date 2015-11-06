@@ -9,6 +9,8 @@ use common\models\PartnersOrders;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
 use common\traits\Imagepreviewcrop;
+use common\traits\ThemeResources;
+use frontend\assets\AppAsset;
 use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
@@ -28,7 +30,7 @@ use common\models\OrdersStatus;
 
 class DefaultController extends Controller
 {
-use Imagepreviewcrop;
+use Imagepreviewcrop, ThemeResources;
     public function behaviors()
     {
         return [
@@ -163,7 +165,18 @@ use Imagepreviewcrop;
         $model = new PartnersSettings();
         $model->load($_POST);
         $model->SaveSet();
-        Yii::$app->params['partnersset'] = $model->LoadSet();
+        $temlate_key = Yii::$app->cache->buildKey('tempwawdawddpart44-'.Yii::$app->params['constantapp']['APP_ID']);
+        $partnersettings = new PartnersSettings();
+        $partnerset = $partnersettings->LoadSet();
+        Yii::$app->assetManager->appendTimestamp = true;
+        if(isset($partnerset['template']['value'])){
+            $theme = $this->ThemeResourcesload($partnerset['template']['value'])['view'];
+        }else{
+            $theme = Yii::$app->params['constantapp']['APP_THEMES'];
+        }
+        $asset = new AppAsset();
+        $asset->LoadAssets($partnerset['template']['value']);
+        Yii::$app->cache->set($temlate_key, ['data'=>$asset, 'theme'=>$theme, 'partnerset'=>$partnerset]);
         return $this->render('index', ['model' => $model, 'exception' => '']);
     }
 
