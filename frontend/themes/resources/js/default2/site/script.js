@@ -60,6 +60,9 @@ $(document).on('click', '.close-descript', function () {
 });
 $(document).on('click', '.save-order', function () {
     $('#modal-cart').html('<div class="shipping">Cпособ доставки <select id="shipping-confirm"><option class="shipping-confirm-option" value="flat2_flat2">Бесплатная доставка до ТК ЖелДорЭкспедиция</option><option class="shipping-confirm-option" value="flat1_flat1">Бесплатная доставка до ТК Деловые Линии</option><option class="shipping-confirm-option"  value="flat3_flat3">Бесплатная доставка до ТК ПЭК</option><option class="shipping-confirm-option"  value="flat7_flat7">Почта ЕМС России</option></select></div><div class="userinfo"></div>');
+    $("html, body").animate({
+        scrollTop: 0
+    }, 600);
     $.post(
         "/site/requestadress",
         {ship: $('#shipping-confirm option:selected').val()},
@@ -580,12 +583,12 @@ $(document).on('click', '.cart', function () {
     $("#modal-cart").dialog({
         position: {my: "center bottom-50", at: "center bottom", of: "#w0"},
         modal: true,
-        dialogClass: "cart-dialog",
+        dialogClass: "cart-dialog max-cart",
         closeText: "X",
-        height: window.screen.height-20,
         width: window.screen.width-20,
         title: "Ваша корзина",
         resizable: false,
+       // dialogClass: 'max-cart cart',
 
     });
     if (JSON.parse(localStorage.getItem('cart-om'))) {

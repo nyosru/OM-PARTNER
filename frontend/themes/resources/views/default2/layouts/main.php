@@ -104,8 +104,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     </div>
     <div style="height: 60px"></div>
     <footer class="footer">
-        <hr style="width: 55%; border: 1px solid rgb(255, 191, 8); position: absolute; right: 1px; top: 15px;">
-        <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid #00FFCC;">
+        <hr class="linebottom1">
+        <hr class="linebottom2">
         <div class="container">
             <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
 

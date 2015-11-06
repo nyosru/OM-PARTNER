@@ -50,8 +50,8 @@ $this->title = 'Контакты';
                 $contacts = Yii::$app->params['partnersset']['contacts'];
                 if ($contacts['adress']['value'] && $contacts['adress']['active'] == 1) {
                     ?>
-                    <div  style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; margin-top: 6px; border-radius: 5px; padding: 5px 10px;">
-                        <div style="float: left; width: 25%; border-right: 2px solid black; margin: 0px 10px;">Адрес
+                    <div class = "contacts-adress">
+                        <div class = "contacts-adress-name">Адрес
                         </div>
                         <div><?= $contacts['adress']['value'] ?></div>
                     </div>
@@ -59,9 +59,8 @@ $this->title = 'Контакты';
                 }
                 if ($contacts['telephone']['value'] && $contacts['telephone']['active'] == 1) {
                     ?>
-                    <div
-                        style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; margin-top: 6px;  border-radius: 5px; padding: 5px 10px;">
-                        <div style="float: left; width: 25%; border-right: 2px solid black; margin: 0px 10px;">Телефоны
+                    <div class = "contacts-telephone">
+                        <div class = "contacts-telephone-name">Телефоны
                         </div>
                         <div><?= $contacts['telephone']['value'] ?></div>
                     </div>
@@ -69,18 +68,16 @@ $this->title = 'Контакты';
                 }
                 if ($contacts['fax']['value'] && $contacts['fax']['active'] == 1) {
                     ?>
-                    <div
-                        style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; margin-top: 6px;  border-radius: 5px; padding: 5px 10px;">
-                        <div style="float: left; width: 25%; border-right: 2px solid black; margin: 0px 10px;">Факсы</div>
+                    <div class = "contacts-fax">
+                        <div class = "contacts-fax-name">Факсы</div>
                         <div><?= $contacts['fax']['value'] ?></div>
                     </div>
                     <?
                 }
                 if ($contacts['email']['value'] && $contacts['email']['active'] == 1) {
                     ?>
-                    <div
-                        style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; margin-top: 6px;  border-radius: 5px; padding: 5px 10px;">
-                        <div style="float: left; width: 25%; border-right: 2px solid black; margin: 0px 10px;">E-mail</div>
+                    <div class = "contacts-email">
+                        <div class = "contacts-email-name">E-mail</div>
                         <div><?= $contacts['email']['value'] ?></div>
                     </div>
                     <?
@@ -89,9 +86,8 @@ $this->title = 'Контакты';
 
                  if (Yii::$app->params['partnersset']['googlemap']['value'] && Yii::$app->params['partnersset']['googlemap']['active'] == 1) {
                     ?>
-                    <div
-                        style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; margin-top: 6px;  border-radius: 5px; padding: 5px 10px;">
-                        <div style="float: left; width: 25%; margin: 0px 10px;">
+                    <div  class = "contacts-googlemap">
+                        <div class = "contacts-googlemap-name">
                             Карта  (Google) </div>
                         <div> <iframe src="https://www.google.com/maps/d/embed?mid=<?= Yii::$app->params['partnersset']['googlemap']['value']?>" width="810" height="400"></iframe>            </div>
                     </div>
@@ -99,9 +95,8 @@ $this->title = 'Контакты';
                 }
             if (Yii::$app->params['partnersset']['yandexmap']['value'] && Yii::$app->params['partnersset']['yandexmap']['active'] == 1) {
                 ?>
-                <div
-                    style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; margin-top: 6px;  border-radius: 5px; padding: 5px 10px;">
-                    <div style="float: left; width: 25%; margin: 0px 10px;">
+                <div  class = "contacts-yandexmap">
+                    <div class = "contacts-yandexmap-name">
                         Карта  (Yandex) </div>
                     <div>   <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=<?= Yii::$app->params['partnersset']['yandexmap']['value'] ?>&width=810&height=400&lang=ru_RU&sourceType=constructor"></script>
                     </div>

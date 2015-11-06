@@ -2260,4 +2260,92 @@
     .navbred {
         margin: 0 100px 0 0
     }
+    .linebottom1{
+        width: 55%;
+        border: 1px solid rgb(255, 191, 8);
+        position: absolute;
+        right: 1px;
+        top: 15px;
+    }
+    .linebottom2{
+        width: 55%;
+        position: absolute;
+        left: 1px;
+        top: 1px;
+        border: 1px solid #00FFCC;
+    }
+    .contacts-adress {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        margin-top: 6px;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .contacts-adress-name {
+        float: left;
+        width: 25%;
+        border-right: 2px solid #000;
+        margin: 0px 10px;
+    }
+    .contacts-telephone {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        margin-top: 6px;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .contacts-telephone-name {
+        float: left;
+        width: 25%;
+        border-right: 2px solid #000;
+        margin: 0px 10px;
+    }
+    .contacts-fax {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        margin-top: 6px;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .contacts-fax-name {
+        float: left;
+        width: 25%;
+        border-right: 2px solid #000;
+        margin: 0px 10px;
+    }
+    .contacts-email {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        margin-top: 6px;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .contacts-email-name {
+        float: left;
+        width: 25%;
+        border-right: 2px solid #000;
+        margin: 0px 10px;
+    }
+    .contacts-googlemap {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        margin-top: 6px;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .contacts-googlemap-name {
+        float: left;
+        width: 25%;
+        margin: 0px 10px;
+    }
+    .contacts-yandexmap {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        margin-top: 6px;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .contacts-yandexmap-name {
+        float: left;
+        width: 25%;
+        margin: 0px 10px;
+    }
+    .banner-card{
+        background: #0FC ;
+    }
+
 }
