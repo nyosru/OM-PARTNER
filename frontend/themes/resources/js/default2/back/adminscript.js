@@ -79,6 +79,12 @@ $(document).on("click", ".orders", function () {
                     $innerdata = "";
                     $adress = "";
                     $dataq = this.order;
+                    if (typeof this.userDecription !== 'undefined') {
+                        $useremail = this.userDescription;
+                    } else {
+                        $useremail = 'E-mail не указан';
+                    }
+                    $useremail = this.userDescription;
                     if (this.delivery == undefined) {
                         $dataadress = ""
                     } else {
@@ -191,7 +197,7 @@ $(document).on("click", ".orders", function () {
                             $statusinner = '<i class="fa fa-truck admin-orders-navigation-control" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" id="order-to-storage"></i><i id="order-to-user"  data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control"></i><i id="cancel-order" data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control"></i>'
                         }
                     }
-                    $inner += '<div class="admin-orders-row"><div class="admin-orders-num">' + (($innercount++) + $page * 10) + '</div><div class="admin-orders-id">' + this["id"] + '</div><div class="admin-orders-name">' + $dataadress.lastname + " " + $dataadress.name + " " + $dataadress.secondname + '</div><div class="admin-orders-data-phantom"><div data-tog="' + $innercount + '" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $innerdata + '</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="' + $innercount + '" class="admin-order-adress modal"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $adress + "</div></div></i></div>" + $status + '<div data-navorder="' + this["id"] + '" class="admin-orders-navigation">' + $statusinner + "</div></div>"
+                    $inner += '<div class="admin-orders-row"><div class="admin-orders-num">' + (($innercount++) + $page * 10) + '</div><div class="admin-orders-id">' + this["id"] + '</div><div class="admin-orders-name">' + $dataadress.lastname + " " + $dataadress.name + " " + $dataadress.secondname + '<br/>' + $useremail + '</div><div class="admin-orders-data-phantom"><div data-tog="' + $innercount + '" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $innerdata + '</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="' + $innercount + '" class="admin-order-adress modal"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $adress + "</div></div></i></div>" + $status + '<div data-navorder="' + this["id"] + '" class="admin-orders-navigation">' + $statusinner + "</div></div>"
                 }
             });
             $pager = "";

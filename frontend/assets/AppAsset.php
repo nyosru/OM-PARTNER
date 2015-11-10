@@ -29,15 +29,21 @@ class AppAsset extends AssetBundle
         'yii\jui\JuiAsset'
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
-    public function LoadCssRes($asset = ''){
-            return $this->ThemeResourcesload($asset)['css'];
+
+    public function LoadCssRes($asset = '', $side)
+    {
+        return $this->ThemeResourcesload($asset, $side)['css'];
     }
-    public function LoadJsRes($asset = ''){
-            return $this->ThemeResourcesload($asset)['js'];
+
+    public function LoadJsRes($asset = '', $side)
+    {
+        return $this->ThemeResourcesload($asset, $side)['js'];
     }
-    public function LoadAssets( $asset = 'default2'){
-        $this->css = $this->LoadCssRes($asset);
-        $this->js = $this->LoadJsRes($asset);
+
+    public function LoadAssets($asset = 'default2', $side = 'site')
+    {
+        $this->css = $this->LoadCssRes($asset, $side);
+        $this->js = $this->LoadJsRes($asset, $side);
         $this->jsOptions = ['position' => \yii\web\View::POS_END];
        return $this;
 

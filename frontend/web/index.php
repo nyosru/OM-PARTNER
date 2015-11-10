@@ -67,22 +67,28 @@ if(!$template_data){
     Yii::$app->assetManager->appendTimestamp = true;
     if(isset( $partnerset['template']['value'])){
         $path = new LoadTraitIndex();
-        $theme = $path->ThemeResourcesload( $partnerset['template']['value'])['view'];
+        $theme = $path->ThemeResourcesload($partnerset['template']['value'], 'site')['view'];
     }else{
         $theme = $application->params['constantapp']['APP_THEMES'];
     }
     $asset = new \frontend\assets\AppAsset();
-    $asset->LoadAssets( $partnerset['template']['value']);
-    Yii::$app->cache->set($temlate_key, ['data'=>$asset, 'theme'=>$theme, 'partnerset'=>$partnerset]);
+
+    $assetsite = $asset->LoadAssets($partnerset['template']['value'], 'site');
+    $adminasset = $asset->LoadAssets($partnerset['template']['value'], 'back');
+    Yii::$app->cache->set($temlate_key, ['data' => $assetsite, 'dataadmin' => $adminasset, 'theme' => $theme, 'partnerset' => $partnerset]);
 }else {
-    $asset = $template_data['data'];
+    $assetsite = $template_data['data'];
+    $adminasset = $template_data['dataadmin'];
     $theme = $template_data['theme'];
     $partnerset = $template_data['partnerset'];
 }
 $application->params['partnersset'] = $partnerset;
 $application->setViewPath('@app/themes/resources/views/' . $theme);
 $application->setLayoutPath('@app/themes/resources/views/' . $theme . '/layouts');
-$application->params['asset'] = $asset;
+$application->params['assetsite'] = $assetsite;
+$application->params['adminasset'] = $adminasset;
 $application->run();
+
+
 ob_end_flush();
 

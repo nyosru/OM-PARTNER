@@ -43,9 +43,13 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                                                        href="/site/contacts">Контакты</a></p></div>
     <div class="wrap">
         <?php
-
+        if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
+            $name = $namecustom;
+        } else {
+            $name = Yii::$app->params['constantapp']['APP_NAME'];
+        }
         NavBar::begin([
-            'brandLabel' => Yii::$app->params['constantapp']['APP_NAME'],
+            'brandLabel' => $name,
             'brandUrl' => '/',
             'options' => [
                 'class' => 'navbar-inverse',
@@ -196,7 +200,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     <?php
  //  $this->registerJsFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/js/script.js', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
     $this->endBody();
-    Yii::$app->params['asset']->registerAssetFiles($this);
+    Yii::$app->params['assetsite']->registerAssetFiles($this);
 
     ?>
     </body>

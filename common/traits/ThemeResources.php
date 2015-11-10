@@ -9,7 +9,9 @@ trait ThemeResources
 {
     private $paththemes = '@app/themes';
     private $resourcespath = '@app/themes/resources';
-    public function ThemeResourcesload($identify, $side = 'site'){
+
+    public function ThemeResourcesload($identify, $side)
+    {
         Yii::$app->assetManager->appendTimestamp = true;
         Yii::$app->assetManager->linkAssets = true;
         $path = Yii::getAlias($this->paththemes).'/'.$identify.'/template.xml';
@@ -44,7 +46,7 @@ trait ThemeResources
                     if($resdir){
                         while (false !== ($file = readdir($resdir))) {
                             if(end(explode('.', $file)) == 'js'){
-                                $js[] = $jspathpub[1].'/'.$file;
+                                $js[] = $jspathpub[1] . '/' . $file . '?v=' . filemtime($resourcespath . '/js/' . $jspath . '/' . $side . '/' . $file);
                             };
                         }
                     }

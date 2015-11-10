@@ -157,6 +157,8 @@ use Imagepreviewcrop, ThemeResources;
         $model->yandexmap['active'] = $paramset['yandexmap']['active'];
         $model->googlemap['value'] = $paramset['googlemap']['value'];
         $model->googlemap['active'] = $paramset['googlemap']['active'];
+        $model->logotype['active'] = $paramset['logotype']['active'];
+        $model->logotype['value'] = $paramset['logotype']['value'];
         return $this->render('index', ['model' => $model]);
     }
 
@@ -175,8 +177,10 @@ use Imagepreviewcrop, ThemeResources;
             $theme = Yii::$app->params['constantapp']['APP_THEMES'];
         }
         $asset = new AppAsset();
-        $asset->LoadAssets($partnerset['template']['value']);
-        Yii::$app->cache->set($temlate_key, ['data'=>$asset, 'theme'=>$theme, 'partnerset'=>$partnerset]);
+        $assetsite = $asset->LoadAssets($partnerset['template']['value'], 'site');
+        $asset = new AppAsset();
+        $adminasset = $asset->LoadAssets($partnerset['template']['value'], 'back');
+        Yii::$app->cache->set($temlate_key, ['data' => $assetsite, 'dataadmin' => $adminasset, 'theme' => $theme, 'partnerset' => $partnerset]);
         return $this->render('index', ['model' => $model, 'exception' => '']);
     }
 
@@ -215,7 +219,7 @@ use Imagepreviewcrop, ThemeResources;
     {
         $check = $this->id_partners();
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $query = User::find()->select('username, email, created_at, updated_at')->where('id_partners=' . $check)->asArray()->all();
+        $query = User::find()->select('id, username, email, created_at, updated_at')->where('id_partners=' . $check)->asArray()->all();
         return $query;
     }
 
@@ -242,7 +246,7 @@ use Imagepreviewcrop, ThemeResources;
         if ($count <= $page * 10) {
             $page = $page - 1;
         }
-        $query = $model->find()->where(['partners_id' => $check])->limit(1000)->offset($page * 10)->asArray()->all();
+        $query = $model->find()->where(['partners_id' => $check])->limit(1000)->offset($page * 10)->joinWith('userDescription')->asArray()->all();
 
 
         $orders_status_arr = OrdersStatus::find()->asArray()->all();
@@ -257,6 +261,7 @@ use Imagepreviewcrop, ThemeResources;
             $discount[$value['orders_id']] = $query[$key]['order']['discount'];
             unset($query[$key]['order']['ship']);
             unset($query[$key]['order']['discount']);
+            $query[$key]['userDescription'] = $query[$key]['userDescription']['email'];
             $query[$key]['delivery'] = unserialize($value['delivery']);
             if ($value['orders_id'] != '' and $value['orders_id'] != NULL) {
                 $check[] = $value['orders_id'];

@@ -20,6 +20,7 @@ class PartnersSettings extends Model
     public $yandexmap;
     public $googlemap;
     public $contacts;
+    public $logotype;
     /**
      * @inheritdoc
      */
@@ -47,7 +48,7 @@ class PartnersSettings extends Model
     {
         return [
             [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice'], 'integer'],
-            [['template', 'googlemap','yandexmap'], 'string'],
+            [['template', 'googlemap', 'yandexmap', 'logotype'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
     }

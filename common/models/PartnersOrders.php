@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\User;
 
 /**
  * This is the model class for table "partners_orders".
@@ -48,4 +49,10 @@ class PartnersOrders extends \yii\db\ActiveRecord
             'orders_id' => 'OrdersID'
         ];
     }
+
+    public function getUserDescription()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
 }

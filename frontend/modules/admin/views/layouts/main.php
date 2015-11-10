@@ -12,13 +12,14 @@ use common\models\Partners;
 
 $check = Yii::$app->params['constantapp']['APP_ID'];
 
-
+AppAsset::register($this);
+rmrevin\yii\fontawesome\AssetBundle::register($this);
 
 if($check == ''){
     die;
 }
 $name = Yii::$app->params['constantapp']['APP_NAME'];
-AppAsset::register($this);
+
 
 ?>
 <?php $this->beginPage() ?>
@@ -31,8 +32,8 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <?php $this->head();
-    $this -> registerCssFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-    $this -> registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/js/adminscript.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    //    $this -> registerCssFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/css/site.css', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+    //    $this -> registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/js/adminscript.js', ['depends'=> ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
 
 
     ?>
@@ -44,6 +45,9 @@ AppAsset::register($this);
 <div class="wrap">
 
     <?php
+    if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
+        $name = $namecustom;
+    }
     NavBar::begin([
         'brandLabel' => $name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -99,7 +103,9 @@ AppAsset::register($this);
     </div>
 </footer>
 
-<?php $this->endBody() ?>
+<?php $this->endBody();
+Yii::$app->params['adminasset']->registerAssetFiles($this); ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>

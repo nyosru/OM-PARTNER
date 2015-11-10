@@ -1756,7 +1756,8 @@
 
     .navbar-brand {
         font-size: 35px !important;
-        color: #dad7d7
+        color: #dad7d7;
+        overflow: hidden;
     }
 
     .addfilter {
