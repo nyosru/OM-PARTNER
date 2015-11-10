@@ -72,8 +72,8 @@ if(!$template_data){
         $theme = $application->params['constantapp']['APP_THEMES'];
     }
     $asset = new \frontend\assets\AppAsset();
-
     $assetsite = $asset->LoadAssets($partnerset['template']['value'], 'site');
+    $asset = new \frontend\assets\AppAsset();
     $adminasset = $asset->LoadAssets($partnerset['template']['value'], 'back');
     Yii::$app->cache->set($temlate_key, ['data' => $assetsite, 'dataadmin' => $adminasset, 'theme' => $theme, 'partnerset' => $partnerset]);
 }else {
