@@ -14,6 +14,8 @@ use frontend\controllers\actions\ActionSiteIndex;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
+use frontend\controllers\actions\CacheUserState;
+use frontend\controllers\actions\CasheUserState;
 use Yii;
 use yii\base\Exception;
 use yii\caching\ChainedDependency;
@@ -51,7 +53,7 @@ use yii\caching\Dependency;
 class SiteController extends Controller
 {
     use Fullopcat, View_cat, Load_cat, Hide_manufacturers_for_partners, Categories_for_partner, Imagepreviewcrop,
-        Reformat_cat_array, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile;
+        Reformat_cat_array, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile, CacheUserState;
 
     /**
      * @inheritdoc
@@ -204,7 +206,8 @@ class SiteController extends Controller
         $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
         $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
         $this->getView()->params['Chpu'] = '';
-        return $this->render('catalog', ['view' => $view] );
+        $state = $this->CasheUserStateGet();
+        return $this->render('catalog', ['view' => $view, 'state' => $state] );
     }
 
     public function actionAbout()

@@ -807,9 +807,9 @@ $(document).on('click', '.data-j', function dataj() {
     if (typeof $cat == 'undefined') {
         $urld = '';
         $urld = document.location.toString();
-        $urld = '!#' + $urld.replace('?_escaped_fragment_=', '!#').split('!#')[1];
+        $urld = '#!' + $urld.replace('?_escaped_fragment_=', '#!').split('#!')[1];
         $urld = split_url($urld);
-        $cat = $urld['!#cat'][1];
+        $cat = $urld['#!cat'][1];
 
     }
     $url = '#!cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
@@ -835,6 +835,21 @@ $(document).on('click', '.data-j', function dataj() {
                     $('.navbred').html($inner.join(' / '));
                 }
             });
+            $state = {
+                cat: $cat,
+                count: $count,
+                start_price: $min_price,
+                end_price: $max_price,
+                prod_attr_query: $prodatrquery,
+                page: $page,
+                sort: $sort,
+                searchword: $searchword
+            };
+
+            $.post(
+                "/site/userstate/",
+                {state: $state}
+            );
             $('body').removeClass('some');
             $('link').removeClass('some');
             $('.preload').remove();
