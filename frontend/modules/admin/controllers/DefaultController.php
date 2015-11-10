@@ -167,7 +167,7 @@ use Imagepreviewcrop, ThemeResources;
         $model = new PartnersSettings();
         $model->load($_POST);
         $model->SaveSet();
-        $temlate_key = Yii::$app->cache->buildKey('tempwawdawddpart44-'.Yii::$app->params['constantapp']['APP_ID']);
+        $temlate_key = Yii::$app->cache->buildKey('templatepartners-' . Yii::$app->params['constantapp']['APP_ID']);
         $partnersettings = new PartnersSettings();
         $partnerset = $partnersettings->LoadSet();
         Yii::$app->assetManager->appendTimestamp = true;

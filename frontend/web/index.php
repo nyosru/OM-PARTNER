@@ -59,7 +59,8 @@ class LoadTraitIndex
 {
     use \common\traits\ThemeResources;
 }
-$temlate_key = Yii::$app->cache->buildKey('tempwawdawddpart44-'.$partner['APP_ID']);
+
+$temlate_key = Yii::$app->cache->buildKey('templatepartners-' . $partner['APP_ID']);
 $template_data = Yii::$app->cache->get($temlate_key);
 if(!$template_data){
     $partnersettings = new PartnersSettings();
