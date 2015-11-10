@@ -172,7 +172,7 @@ use Imagepreviewcrop, ThemeResources;
         $partnerset = $partnersettings->LoadSet();
         Yii::$app->assetManager->appendTimestamp = true;
         if(isset($partnerset['template']['value'])){
-            $theme = $this->ThemeResourcesload($partnerset['template']['value'])['view'];
+            $theme = $this->ThemeResourcesload($partnerset['template']['value'], 'site')['view'];
         }else{
             $theme = Yii::$app->params['constantapp']['APP_THEMES'];
         }
