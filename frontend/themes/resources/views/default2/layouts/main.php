@@ -39,7 +39,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                   $slogan = '';
               }
               ?>
-
             </span>
             <?
             if(isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1){
@@ -47,8 +46,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             }
             ?>
         </p>
-
-
         <p class="pull-right"><a
                 class="top-link" href="/site/faq">FAQ</a> <a class="top-link" href="/site/paying">Оплата</a> <a
                 class="top-link" href="/site/delivery">Доставка</a> <a class="top-link"
