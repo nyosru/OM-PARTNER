@@ -34,8 +34,10 @@ use yii\web\User;
     </div>
 
     <div class="container-fluid" id="partners-main-right-back">
+        <span class="navbredcrump"></span>
         <div id="partners-main-right" class="bside">
-            <div id="main-index">
+
+        <div id="main-index">
                 <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><img src="/images/banners/7.png"><a href="/site/catalog?_escaped_fragment_=cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
                 <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><img src="/images/banners/1.png"><a href="/site/catalog?_escaped_fragment_cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
                 <div id="index-card-6" class="data-j index-card banner-card" data-cat="2047"><img src="/images/banners/2.png"><a href="/site/catalog?_escaped_fragment_cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>

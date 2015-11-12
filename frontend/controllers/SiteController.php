@@ -356,14 +356,16 @@ class SiteController extends Controller
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
             $discount[$value['orders_id']] = $query[$key]['order']['discount'];
-            unset($query[$key]['order']['discount']);
+            $discounttotal[$value['orders_id']] = $query[$key]['order']['discounttotalprice'];
             unset($query[$key]['order']['ship']);
+            unset($query[$key]['order']['discount']);
+            unset($query[$key]['order']['discounttotalprice']);
             $query[$key]['delivery'] = unserialize($value['delivery']);
+            $query[$key]['discounttotal'] = $discounttotal[$value['orders_id']];
             if ($value['orders_id'] != '' and $value['orders_id'] != NULL) {
                 $check[] = $value['orders_id'];
             };
         }
-
         if (count($check) > 1) {
             $checkstr = implode(',', $check);
         } elseif (count($check) == 1) {
@@ -380,9 +382,10 @@ class SiteController extends Controller
                         $query['ordersatus'][$ordersatusn[$key]['orders_id']]['products'][$prkey]['products_price'] =
                             intval($query['ordersatus'][$ordersatusn[$key]['orders_id']]['products'][$prkey]['products_price']) +
                             intval($query['ordersatus'][$ordersatusn[$key]['orders_id']]['products'][$prkey]['products_price']) / 100 *
-                            intval($discount[$ordersatusn[$key]['orders_id']]);
+                            $discount[$ordersatusn[$key]['orders_id']];
                     }
                 }
+
             }
         }
 
@@ -511,11 +514,22 @@ class SiteController extends Controller
                 $id = $userModel->getId();
                 $model->delivery = serialize($user);
                 if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1 ){
-                $order['discount'] = Yii::$app->params['partnersset']['discount']['value'];}
+                    $order['discount'] = Yii::$app->params['partnersset']['discount']['value'];
+                }
+
                 $totalprice = 0;
                 foreach($order as $key => $value){
                 $totalprice += intval($value[3])*intval($value[4]);
                 }
+
+                if (isset(Yii::$app->params['partnersset']['discounttotalorderprice']['value']) && Yii::$app->params['partnersset']['discounttotalorderprice']['active'] == 1) {
+                    foreach (Yii::$app->params['partnersset']['discounttotalorderprice']['value'] as $valuediscont) {
+                        if ($valuediscont['in'] <= $totalprice && $totalprice < $valuediscont['out'] && intval($valuediscont['value']) > 0) {
+                            $order['discounttotalprice'] = $valuediscont['value'];
+                        }
+                    }
+                }
+
                 if(isset(Yii::$app->params['partnersset']['minorderprice']['value']) && Yii::$app->params['partnersset']['minorderprice']['active'] == 1){
                   $ch =   intval(Yii::$app->params['partnersset']['minorderprice']['value']);
                     if($ch  > $totalprice) {
@@ -863,8 +877,6 @@ class SiteController extends Controller
                                 return $this->checksklonenie($search, $origsearch, $encode);
                         }
                 }
-
-
         }
 
     }

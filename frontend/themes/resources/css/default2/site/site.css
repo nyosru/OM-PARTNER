@@ -1845,6 +1845,25 @@
         height: 60px
     }
 
+    .order-show-image {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
+
+    .order-show-model {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
     .orders-num {
         text-align: center;
         width: calc(100% / 9 - 10px);
@@ -1853,6 +1872,25 @@
         float: left
     }
 
+    .order-show-count {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
+
+    .order-show-price {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
     .orders-id, .orders-name {
         width: calc(100% / 6 - 10px);
         display: block;
@@ -1895,21 +1933,13 @@
 
     .orders-data {
         cursor: pointer;
-        margin: auto;
-        height: 300px;
-        width: 780px
+        margin: 10px;
+        height: 100%;
+        width: 100%
     }
 
     .order-show {
-        clear: both;
-        border-radius: 3px;
-        float: left;
-        height: 115px;
-        background: rgba(125, 125, 125, 0);
-        width: 100%;
-        padding: 3px;
-        margin: 5px auto;
-        border: 1px solid #0fc
+
     }
 
     #admclose, #close {
@@ -1917,13 +1947,9 @@
     }
 
     .orders-prodimg {
-        float: left;
-        background: #9EDAA1;
-        margin: 5px;
         padding: 5px;
-        width: 25%;
-        max-width: 180px;
-        min-width: 180px
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
     }
 
     #admclose, #close {
@@ -1932,17 +1958,17 @@
     }
 
     .orders-prodid {
-        margin: 5px;
-        width: 15%;
-        padding: 5px;
-        float: left
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+        float: left;
+        padding: 2%;
     }
 
-    .orders-prodmodel, .orders-prodsize {
+    .orders-prodsize {
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
         float: left;
-        margin: 5px;
-        padding: 5px;
-        width: 20%
+        padding: 2%;
     }
 
     .orders-prodcount {
@@ -1963,6 +1989,14 @@
         height: 100%
     }
 
+    .count-order-position {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 0px);
+        margin: 0px;
+    }
     #index-card-1, #index-card-2, #index-card-3 {
         width: calc(100% / 3 - 10px)
     }
@@ -2098,6 +2132,12 @@
         overflow: hidden
     }
 
+    .order-total-discount {
+        background: #FFBF08 none repeat scroll 0% 0%;
+        text-align: center;
+        width: 100%;
+        margin: 0px;
+    }
     .link > a:hover {
         text-decoration: none !important;
         color: #454545
@@ -2259,7 +2299,7 @@
     }
 
     .navbred {
-        margin: 0 100px 0 0
+        margin: 0px 25px 0px 0px;
     }
     .linebottom1{
         width: 55%;
@@ -2347,6 +2387,20 @@
     }
     .banner-card{
         background: #0FC ;
+    }
+
+    .navbredcrump {
+        display: none;
+        height: 24px;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        font-size: 14px;
+        border: 1px solid #FFBF08;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        padding: 2px 23px;
+        width: calc(100% - 20px);
+        float: left;
+        margin: 12px 10px;
     }
 
 }

@@ -159,6 +159,10 @@ use Imagepreviewcrop, ThemeResources;
         $model->googlemap['active'] = $paramset['googlemap']['active'];
         $model->logotype['active'] = $paramset['logotype']['active'];
         $model->logotype['value'] = $paramset['logotype']['value'];
+        $model->discounttotalorderprice['value'] = $paramset['discounttotalorderprice']['value'];
+        $model->discounttotalorderprice['active'] = $paramset['discounttotalorderprice']['active'];
+        $model->slogan['active'] = $paramset['slogan']['active'];
+        $model->slogan['value'] = $paramset['slogan']['value'];
         return $this->render('index', ['model' => $model]);
     }
 
@@ -259,10 +263,13 @@ use Imagepreviewcrop, ThemeResources;
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
             $discount[$value['orders_id']] = $query[$key]['order']['discount'];
+            $discounttotal[$value['orders_id']] = $query[$key]['order']['discounttotalprice'];
             unset($query[$key]['order']['ship']);
             unset($query[$key]['order']['discount']);
+            unset($query[$key]['order']['discounttotalprice']);
             $query[$key]['userDescription'] = $query[$key]['userDescription']['email'];
             $query[$key]['delivery'] = unserialize($value['delivery']);
+            $query[$key]['discounttotal'] = $discounttotal[$value['orders_id']];
             if ($value['orders_id'] != '' and $value['orders_id'] != NULL) {
                 $check[] = $value['orders_id'];
             };
@@ -424,6 +431,7 @@ use Imagepreviewcrop, ThemeResources;
                     $discount = $partnerorder['discount'];
                     unset($partnerorder['ship']);
                     unset($partnerorder['discount']);
+                    unset($partnerorder['discounttotalprice']);
                     $orders->ur_or_fiz = 'f';
                     $orders->customers_id = $userCustomer->customers_id;
                     $orders->customers_name = $userCustomer->customers_firstname . ' ' . $userCustomer->customers_lastname;

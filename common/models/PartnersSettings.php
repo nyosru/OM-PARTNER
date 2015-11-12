@@ -21,6 +21,8 @@ class PartnersSettings extends Model
     public $googlemap;
     public $contacts;
     public $logotype;
+    public $discounttotalorderprice;
+    public $slogan;
     /**
      * @inheritdoc
      */
@@ -48,13 +50,10 @@ class PartnersSettings extends Model
     {
         return [
             [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice'], 'integer'],
-            [['template', 'googlemap', 'yandexmap', 'logotype'], 'string'],
+            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
     }
-
-
-
     public function ValidateArr()
     {
        if(is_array($this->contacts)){
@@ -62,10 +61,7 @@ class PartnersSettings extends Model
        }else{
            return false;
        }
-
-
     }
-
     public function SaveSet()
     {
         foreach ($this as $key => $value) {

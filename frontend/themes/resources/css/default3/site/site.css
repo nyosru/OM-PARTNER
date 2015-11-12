@@ -6,7 +6,7 @@
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
         padding: 10px 20px;
         color: #272727;
-        background: #a1c258;
+        background: #A1C258;
         border-radius: 4px
     }
 
@@ -258,8 +258,9 @@
 
     .header-catalog {
         height: 40px;
-        font-size: 19px;
         background: #A1C258;
+        font-size: 19px;
+        border: 1px solid #A1C258;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         margin-left: 0;
@@ -627,7 +628,7 @@
     }
 
     .model {
-        color: #a1c258;
+        color: #A1C258;
         font-weight: 600
     }
 
@@ -708,7 +709,7 @@
     }
 
     .size-checked {
-        background: #a1c258
+        background: #A1C258
     }
 
     #size-lable {
@@ -759,7 +760,7 @@
     }
 
     .count-checked {
-        color: #a1c258
+        color: #A1C258
     }
 
     .count {
@@ -896,7 +897,7 @@
     }
 
     .cart {
-        background: 8% 100%/contain no-repeat #a1c258;
+        background: 8% 100%/contain no-repeat #A1C258;
         border-radius: 3px;
         padding: 0 0 0 80px;
         position: relative;
@@ -927,7 +928,6 @@
         border: 1px;
         padding: 0;
         height: 100%
-        position:absolute;
     }
 
     .cart-dialog > .ui-dialog-titlebar {
@@ -1009,7 +1009,7 @@
         right: 0;
         border: none;
         background: 0 0;
-        color: #a1c258
+        color: #A1C258
     }
 
     #modal-cart {
@@ -1295,7 +1295,7 @@
     .admin-order-status-header {
         float: left;
         margin: 0 1px;
-        background: #a1c258;
+        background: #A1C258;
         padding: 5px;
         text-align: center;
         display: block;
@@ -1322,7 +1322,7 @@
         width: calc(100% / 9 - 10px);
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #a1c258;
+        background: #A1C258;
         overflow: hidden
     }
 
@@ -1334,7 +1334,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #a1c258;
+        background: #A1C258;
         overflow: hidden;
         width: calc(100% / 7 - 10px)
     }
@@ -1347,7 +1347,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #a1c258;
+        background: #A1C258;
         overflow: hidden;
         width: calc(100% / 4 - 10px)
     }
@@ -1377,7 +1377,7 @@
         width: calc(100% / 9 - 10px);
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #a1c258;
+        background: #A1C258;
         overflow: hidden
     }
 
@@ -1394,7 +1394,7 @@
     .admin-order-adress-header {
         float: left;
         margin: 0 1px;
-        background: #a1c258;
+        background: #A1C258;
         padding: 5px;
         width: calc(100% / 9 - 10px);
         text-align: center;
@@ -1472,7 +1472,7 @@
     #add-count, #del-count {
         margin: 0 3px;
         padding: 0;
-        background: 0 center #a1c258
+        background: 0 center #A1C258
     }
 
     #add-count {
@@ -1550,7 +1550,7 @@
 
     .prod-info-model {
         float: right;
-        color: #a1c258;
+        color: #A1C258;
         margin: 0 5px
     }
 
@@ -1648,7 +1648,7 @@
     }
 
     .checked-cat {
-        border-left: 5px solid #a1c258
+        border-left: 5px solid #A1C258
     }
 
     .more_cat {
@@ -1716,7 +1716,7 @@
     }
 
     .ui-slider-handle {
-        background: #a1c258 !important;
+        background: #A1C258 !important;
         border: none !important
     }
 
@@ -1733,7 +1733,7 @@
         float: left;
         text-align: center;
         width: calc(100% / 6);
-        border-color: #a1c258;
+        border-color: #A1C258;
         -moz-border-top-colors: none;
         -moz-border-right-colors: none;
         -moz-border-bottom-colors: none;
@@ -1762,8 +1762,8 @@
 
     .addfilter {
         float: left;
-        background: #a1c258;
-        border: 1px solid #a1c258;
+        background: #A1C258;
+        border: 1px solid #A1C258;
         color: #FFF
     }
 
@@ -1786,7 +1786,7 @@
     }
 
     .order-status-header, .orders-num-header {
-        background: #a1c258;
+        background: #A1C258;
         border-radius: 3px 3px 0 0
     }
 
@@ -1829,7 +1829,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #a1c258;
+        background: #A1C258;
         overflow: hidden
     }
 
@@ -1845,6 +1845,25 @@
         height: 60px
     }
 
+    .order-show-image {
+        background: #A1C258 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
+
+    .order-show-model {
+        background: #A1C258 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
     .orders-num {
         text-align: center;
         width: calc(100% / 9 - 10px);
@@ -1853,6 +1872,25 @@
         float: left
     }
 
+    .order-show-count {
+        background: #A1C258 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
+
+    .order-show-price {
+        background: #A1C258 none repeat scroll 0% 0%;
+        border-radius: 3px 3px 0px 0px;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+    }
     .orders-id, .orders-name {
         width: calc(100% / 6 - 10px);
         display: block;
@@ -1895,21 +1933,13 @@
 
     .orders-data {
         cursor: pointer;
-        margin: auto;
-        height: 300px;
-        width: 780px
+        margin: 10px;
+        height: 100%;
+        width: 100%
     }
 
     .order-show {
-        clear: both;
-        border-radius: 3px;
-        float: left;
-        height: 115px;
-        background: rgba(125, 125, 125, 0);
-        width: 100%;
-        padding: 3px;
-        margin: 5px auto;
-        border: 1px solid #a1c258
+
     }
 
     #admclose, #close {
@@ -1917,13 +1947,9 @@
     }
 
     .orders-prodimg {
-        float: left;
-        background: #9EDAA1;
-        margin: 5px;
         padding: 5px;
-        width: 25%;
-        max-width: 180px;
-        min-width: 180px
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
     }
 
     #admclose, #close {
@@ -1932,17 +1958,17 @@
     }
 
     .orders-prodid {
-        margin: 5px;
-        width: 15%;
-        padding: 5px;
-        float: left
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
+        float: left;
+        padding: 2%;
     }
 
-    .orders-prodmodel, .orders-prodsize {
+    .orders-prodsize {
+        width: calc(100% / 4 - 10px);
+        margin: 0px 5px;
         float: left;
-        margin: 5px;
-        padding: 5px;
-        width: 20%
+        padding: 2%;
     }
 
     .orders-prodcount {
@@ -1963,6 +1989,14 @@
         height: 100%
     }
 
+    .count-order-position {
+        background: #A1C258 none repeat scroll 0% 0%;
+        display: block;
+        float: left;
+        text-align: center;
+        width: calc(100% / 4 - 0px);
+        margin: 0px;
+    }
     #index-card-1, #index-card-2, #index-card-3 {
         width: calc(100% / 3 - 10px)
     }
@@ -2098,6 +2132,12 @@
         overflow: hidden
     }
 
+    .order-total-discount {
+        background: #A1C258 none repeat scroll 0% 0%;
+        text-align: center;
+        width: 100%;
+        margin: 0px;
+    }
     .link > a:hover {
         text-decoration: none !important;
         color: #454545
@@ -2144,7 +2184,7 @@
 
     .admin-users-date-reg-header, .admin-users-date-update-header, .admin-users-mail-header, .admin-users-name-header, .admin-users-num-header {
         border: 1px solid #838383;
-        background: #a1c258
+        background: #A1C258
     }
 
     .haserror {
@@ -2235,7 +2275,7 @@
     }
 
     .template-name {
-        background: #a1c258;
+        background: #A1C258;
         padding: 5px
     }
 
@@ -2259,11 +2299,11 @@
     }
 
     .navbred {
-        margin: 0 100px 0 0
+        margin: 0px 25px 0px 0px;
     }
     .linebottom1{
         width: 55%;
-        border: 1px solid #A1C258;
+        border: 1px solid rgb(255, 191, 8);
         position: absolute;
         right: 1px;
         top: 15px;
@@ -2348,4 +2388,19 @@
     .banner-card{
         background: #A1C258 ;
     }
+
+    .navbredcrump {
+        display: none;
+        height: 24px;
+        background: #A1C258 none repeat scroll 0% 0%;
+        font-size: 14px;
+        border: 1px solid #A1C258;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        padding: 2px 23px;
+        width: calc(100% - 20px);
+        float: left;
+        margin: 12px 10px;
+    }
+
 }

@@ -40,8 +40,9 @@ $this->title = 'Админка';
     </div>
     <div class="container-fluid" id="partners-main-right-back-admin">
         <div id="partners-main-right" class="bside">
-
-
+            <!--            --><? //= '<pre>'?>
+            <!--            --><? // print_r($model);?>
+            <!--            --><? //= '</pre>'?>
             <?php
             $form = ActiveForm::begin(['id' => 'partners-settings', 'action'=>'/admin/default/savesettings']);
             $path = Yii::getAlias('@app') . '/themes/';
@@ -82,6 +83,14 @@ $this->title = 'Админка';
             ]);
             $l1 .= $form->field($model, 'logotype[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l1 .= '</div>';
+            $l1 .= '<div class="col-md-12">';
+
+            $l1 .= $form->field($model, 'slogan[value]')->label('Слоган')->input('text')->widget(CKEditor::className(), [
+                'options' => ['rows' => 1],
+                'preset' => 'logo',
+            ]);
+            $l1 .= $form->field($model, 'slogan[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l1 .= '</div>';
 
             $l1 .= '</div>';
 
@@ -96,16 +105,41 @@ $this->title = 'Админка';
             $l2  .= '</div>';
             $l2  .= '</div>';
             $l3  = '<div style="margin: 10px; height: 100%;">';
-            $l3 .= '<div class="col-md-3">';
+            $l3 .= '<div class="col-md-6">';
             $l3 .= $form->field($model, 'discount[value]')->label('Наценка(в % на все товары магазина)');
             $l3 .= $form->field($model, 'discount[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l3  .= '</div>';
-            $l3 .= '<div class="col-md-3">';
+            $l3 .= '<div class="col-md-6">';
             $l3 .= $form->field($model, 'minimalordertotalprice[value]')->label('Минимальная сумма заказа, Руб.');
             $l3 .= $form->field($model, 'minimalordertotalprice[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l3  .= '</div>';
-            $l3  .= '</div>';
+            $l3 .= '<div class="col-md-12">';
+            $l3 .= $form->field($model, 'discounttotalorderprice[rt]')->checkboxList()->label('Скидка по сумме заказа');
 
+            $l3_1 = '<div class="col-md-12">';
+            $l3_1 .= $form->field($model, 'discounttotalorderprice[value][0][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('');
+            $l3_1 .= $form->field($model, 'discounttotalorderprice[value][0][value]', ['options' => ['class' => 'col-md-2']])->label('Скидка, %');
+            $l3_1 .= $form->field($model, 'discounttotalorderprice[value][0][in]', ['options' => ['class' => 'col-md-5']])->label('От, Руб.');
+            $l3_1 .= $form->field($model, 'discounttotalorderprice[value][0][out]', ['options' => ['class' => 'col-md-5']])->label('До, Руб.');
+            $l3_1 .= '</div>';
+            $u = 1;
+            for ($i = 1; $i <= count($model->discounttotalorderprice['value']); $i++) {
+                if ((isset($model->discounttotalorderprice['value'][$i]['value']) && $model->discounttotalorderprice['value'][$i]['value'] !== '') || $i = count($model->discounttotalorderprice['value'])) {
+                    $l3_1 .= '<div class="col-md-12">';
+                    $l3_1 .= $form->field($model, 'discounttotalorderprice[value][' . ($u) . '][active]', ['options' => ['style' => 'position: absolute;  z-index: 99;']])->checkbox()->label('');
+                    $l3_1 .= $form->field($model, 'discounttotalorderprice[value][' . ($u) . '][value]', ['options' => ['class' => 'col-md-2', 'style' => 'margin:0px']])->label('', ['style' => 'display:block']);
+                    $l3_1 .= $form->field($model, 'discounttotalorderprice[value][' . ($u) . '][in]', ['options' => ['class' => 'col-md-5', 'style' => 'margin:0px']])->label('', ['style' => 'display:block']);
+                    $l3_1 .= $form->field($model, 'discounttotalorderprice[value][' . ($u) . '][out]', ['options' => ['class' => 'col-md-5', 'style' => 'margin:0px']])->label('', ['style' => 'display:block']);
+                    $l3_1 .= '</div>';
+                    $u++;
+                }
+            }
+
+            $l3 .= $l3_1;
+            //  $l3 .= $form->field($model, 'discounttotalorderprice[value]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l3 .= $form->field($model, 'discounttotalorderprice[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l3 .= '</div>';
+            $l3 .= '</div>';
             $l4  = '<div style="margin: 10px; height: 100%;">';
             $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
             $l4 .= '<div class="col-md-3">';

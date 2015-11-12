@@ -646,10 +646,10 @@ $(document).on('click', '.cart-lable', function () {
                     }
                 });
             } else {
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname')];
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
             }
             if (x == 0) {
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname')];
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
             }
             $ilocal = JSON.stringify($item);
             localStorage.setItem('cart-om', $ilocal);
@@ -832,7 +832,7 @@ $(document).on('click', '.data-j', function dataj() {
                     $.each(data, function () {
                         $inner.push('<div class=" data-j  navbreditem" data-cat=' + this.id + ' href="#">' + this.name + '</i></div>');
                     });
-                    $('.navbred').html($inner.join(' / '));
+                    $('.navbredcrump').html('Каталог: ' + $inner.join(' / ')).show();
                 }
             });
             $state = {
@@ -924,10 +924,10 @@ $(document).on('click', '.data-j', function dataj() {
                     $attr_html = '<div class="cart-lable">В корзину</div>';
                     if ($attr_desc.length > 0) {
                         $.each($attr_desc, function () {
-                            $attr_html += '<div class="size-desc"><div><div class="lable-item">' + this.products_options_values_name + '</div></div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                            $attr_html += '<div class="size-desc"><div><div class="lable-item">' + this.products_options_values_name + '</div></div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
                         });
                     } else {
-                        $attr_html += '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                        $attr_html += '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
                     }
                     $('.bside').append('<div  class="container-fluid float" id="card" product=""><div data-prod="' + $product.products_id + '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');"></div><div class="name">' + $description.products_name + '</div><div class="model">Арт.' + $product.products_model + '</div><div class="price"><b>' + parseInt($product.products_price) + '</b> руб.</div><div id="prod-info" data-prod="' + $product.products_id + '">Инфо</div><span>' + $attr_html + '</span></div>');
                 });
@@ -1182,6 +1182,7 @@ $(document).on('click', '.profile-orders', function () {
                 $innerdata = '';
                 $adress = '';
                 $dataq = this.order;
+                $datadiscount = this.discounttotal;
                 $dataadress = this.delivery;
                 $dataordersnum = this.orders_id;
                 if ($orders != undefined) {
@@ -1190,9 +1191,31 @@ $(document).on('click', '.profile-orders', function () {
                 if (this['orders_id'] == undefined) {
                     $status = '<div class="order-status"><div>Ожидание подтверждения администратором</div></div>';
                     if (this.order != undefined) {
+                        $innerdata += '<div><div class="order-show-image">Изображение</div><div class="order-show-model">Артикул, наименование</div><div class="order-show-count">Размер x Количество</div><div class="order-show-price">Цена</div></div>';
+                        $totalcountorder = 0;
+                        $totalpriceorder = 0;
+                        $totalpositionorder = 0;
                         $.each($dataq, function () {
-                            $innerdata += '<div style="clear: both;" class="order-show"><div class="orders-prodimg" style="float: left;  max-height: 100px; max-width: 180px; min-height: 100px; min-width: 180px;  background: #fff no-repeat scroll 50% 50% / contain url(http://odezhda-master.ru/images/' + this[5] + ');"></div><div class="orders-prodid">' + this[0] + '</div><div class="orders-prodmodel">' + this[1] + '</div><div class="orders-prodsize">' + this[6] + '</div><div class="orders-prodcount">' + this[4] + '</div></div>';
+                            if (this[7] == 'undefined' || this[7] == '' || typeof this[7] == 'undefined') {
+                                $prodname = 'Не указанно';
+                            } else {
+                                $prodname = this[7];
+                            }
+                            if (this[6] == 'undefined' || this[6] == '') {
+                                $size = 'Без размера';
+                            } else {
+                                $size = this[6];
+                            }
+                            $totalcountorder = $totalcountorder + parseInt(this[4]);
+                            $totalpositionorder = $totalpositionorder + 1;
+                            $totalpriceorder = $totalpriceorder + parseInt(this[3]) * parseInt(this[4]);
+                            $innerdata += '<div style="clear: both;" class="order-show"><div class="orders-prodimg" style="float: left;  max-height: 100px;  min-height: 100px; min-width: 180px;  background: url(/site/imagepreview?src=' + this[5] + ') #fff no-repeat scroll 50% 50% / contain;"></div><div class="orders-prodid"><div>Артикул: ' + this[1] + '</div><div>Наименование: ' + $prodname + '</div></div><div class="orders-prodsize">' + $size + ' x ' + this[4] + '</div><div class="orders-prodsize"><div>Цена за штуку: ' + parseInt(this[3]) + ' Руб.</div><div>Цена позиции: ' + parseInt(this[3]) * parseInt(this[4]) + ' Руб.</div></div></div>';
                         });
+                        $innerdata += '<div style="clear: both;" class="order-show"><div class="count-order-position">Итого: </div><div class="count-order-position">Позиций: ' + $totalpositionorder + '</div><div class="count-order-position">Товаров: ' + $totalcountorder + '</div><div class="count-order-position">Сумма заказа: ' + $totalpriceorder + ' Руб.</div></div>';
+                        if ($datadiscount > 0) {
+                            $totalpriceorder = parseInt($totalpriceorder - $totalpriceorder / 100 * $datadiscount);
+                            $innerdata += '<div style="clear: both;" class="order-show"><div class="count-order-position">Ваша скидка: ' + $datadiscount + '%</div></div><div class="order-total-discount">Сумма заказа c учетом скидки: ' + $totalpriceorder + ' Руб.</div></div>';
+                        }
                         $adress += '<div><div id="user-country"><b>Страна: </b>' + $dataadress['country'] + '</div><div id="user-state"><b>Область/регион: </b>' + $dataadress['state'] + '</div><div id="user-city"><b>Город: </b>' + $dataadress['city'] + '</div><div id="user-adress"><b>Адрес: </b>' + $dataadress['adress'] + '</div><div id="user-postcode"><b>Почтовый код: </b>' + $dataadress['postcode'] + '</div><div id="user-lastname"><b>Фамилия: </b>' + $dataadress['lastname'] + '</div><div id="user-name"><b>Имя: </b>' + $dataadress['name'] + '</div><div id="user-secondname"><b>Отчество: </b>' + $dataadress['secondname'] + '</div><div id="user-telephone"><b>Телефон: </b>' + $dataadress['telephone'] + '</div><div id="user-pasportser"><b>Серия паспорта: </b>' + $dataadress['pasportser'] + '</div><div id="user-pasportnum"><b>Номер паспорта: </b>' + $dataadress['pasportnum'] + '</div><div id="user-pasportwhere"><b>Кем выдан: </b>' + $dataadress['pasportwhere'] + '</div><div id="user-pasportdate"><b>Когда выдан: </b>' + $dataadress['pasportdate'] + '</div></div>';
                     } else {
                         $innerdata = 'Ошибка чтения из базы';
@@ -1239,7 +1262,7 @@ $(document).on('click', '.profile-orders', function () {
                         if (parseInt(this.products_quantity) != 0) {
                             $resultcountpos += 1;
                         }
-                        $prod_content += '<div class="row-prod"><div class="prod-content-raw" ' + $raw_style + '><div class="orders-prodimg" style="float: left;  max-height: 100px; max-width: 180px; min-height: 100px; min-width: 180px;  background: #fff no-repeat scroll 50% 50% / contain url(http://odezhda-master.ru/images/' + $dataq[index][5] + ');"></div><div>' + $prod_stat + '</div></div><div class="colone"><div class="prod-content-count">' + this.products_quantity + 'х' + this.products_name + '</div><div class="prod-content-attr">Размер: ' + $prod_atr + '</div></div><div  class="coltwo"><div class="prod-content-code">' + $dataorderinfo.products[index].products_model + '</div></div><div  class="colthree"><div class="prod-content-price">' + this.products_quantity + 'х' + parseInt($dataorderinfo.products[index].products_price) + ' Руб.</div></div><div class="prod-content-priceallraw">' + (parseInt(this.products_quantity) * parseInt($dataorderinfo.products[index].products_price)) + ' Руб.</div></div>';
+                        $prod_content += '<div class="row-prod"><div class="prod-content-raw" ' + $raw_style + '><div class="orders-prodimg" style="float: left;  max-height: 100px; max-width: 180px; min-height: 100px; min-width: 180px;  background: #fff no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $dataq[index][5] + ');"></div><div>' + $prod_stat + '</div></div><div class="colone"><div class="prod-content-count">' + this.products_quantity + 'х' + this.products_name + '</div><div class="prod-content-attr">Размер: ' + $prod_atr + '</div></div><div  class="coltwo"><div class="prod-content-code">' + $dataorderinfo.products[index].products_model + '</div></div><div  class="colthree"><div class="prod-content-price">' + this.products_quantity + 'х' + parseInt($dataorderinfo.products[index].products_price) + ' Руб.</div></div><div class="prod-content-priceallraw">' + (parseInt(this.products_quantity) * parseInt($dataorderinfo.products[index].products_price)) + ' Руб.</div></div>';
                     });
                     $prod_content += '<div class="result-prod"><div class="old-prod-order"><div>Товаров в наличии: ' + $resultcount + ' позиций: ' + $resultcountpos + '</div><div><font color="red">Новая сумма товаров в заказе: ' + $resultprice + ' Руб.</font></div></div><div class="new-prod-order"><div>Товаров в заказе ' + $oldresultcount + ' позиций: ' + $oldresultcountpos + '</div><div>Сумма товаров в заказе: ' + $oldresultprice + ' Руб.</div></div></div>';
                     $innerdata += '<div class="order-om-wrap" style="height: 100%; width:100%"><div class="order-om-show">' + $dataorderinfo.orders_id + '</div><div class="order-om-adress">' + $dataorderinfo.delivery_country + ', ' + $dataorderinfo.delivery_state + ', ' + $dataorderinfo.delivery_city + ', ' + $dataorderinfo.delivery_street_address + ', ' + $dataorderinfo.delivery_postcode + '</div><div class="order-om-name">' + $dataorderinfo.delivery_lastname + ' ' + $dataorderinfo.delivery_name + ' ' + $dataorderinfo.delivery_otchestvo + '</div><div class="order-om-prod-container">' + $prod_content + '</div></div>';

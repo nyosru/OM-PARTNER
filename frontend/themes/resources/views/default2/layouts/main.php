@@ -31,13 +31,25 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     </head>
     <body>
     <?php $this->beginBody(); ?>
-    <div class="container" style="position: relative; display: block; padding: 10px 0px 0px;"><p class="pull-left"><span class = "navbred"></span>
+    <div class="container" style="position: relative; display: block; padding: 10px 0px 0px;"><p class="pull-left"><span
+                class="navbred">
+              <? if (($slogan = Yii::$app->params['partnersset']['slogan']['value']) !== FALSE && Yii::$app->params['partnersset']['slogan']['active'] == 1) {
+                  echo '<span>' . str_replace('</p>', '', str_replace('<p>', '', $slogan)) . '</span>';
+              } else {
+                  $slogan = '';
+              }
+              ?>
+
+            </span>
             <?
             if(isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1){
                 echo '<span>Телефон горячей линии: '.Yii::$app->params['partnersset']['contacts']['telephone']['value'].'</span>';
             }
             ?>
-        </p><p class="pull-right"><a
+        </p>
+
+
+        <p class="pull-right"><a
                 class="top-link" href="/site/faq">FAQ</a> <a class="top-link" href="/site/paying">Оплата</a> <a
                 class="top-link" href="/site/delivery">Доставка</a> <a class="top-link"
                                                                        href="/site/contacts">Контакты</a></p></div>

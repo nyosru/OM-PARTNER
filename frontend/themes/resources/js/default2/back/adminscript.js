@@ -79,6 +79,8 @@ $(document).on("click", ".orders", function () {
                     $innerdata = "";
                     $adress = "";
                     $dataq = this.order;
+                    $datadiscount = this.discounttotal;
+
                     if (typeof this.userDecription !== 'undefined') {
                         $useremail = this.userDescription;
                     } else {
@@ -113,10 +115,32 @@ $(document).on("click", ".orders", function () {
                     $dataordersnum = this.orders_id;
                     $dataorderinfo = $orders[$dataordersnum];
                     if (this["orders_id"] == undefined) {
+                        $innerdata += '<div><div class="order-show-image">Изображение</div><div class="order-show-model">Артикул, наименование</div><div class="order-show-count">Размер x Количество</div><div class="order-show-price">Цена</div></div>';
+                        $totalcountorder = 0;
+                        $totalpriceorder = 0;
+                        $totalpositionorder = 0;
                         if (this.order != undefined) {
                             $.each($dataq, function () {
-                                $innerdata += '<div style="clear: both;" class="admin-order-show"><div class="admin-orders-prodimg" style="float: left;  max-height: 100px; max-width: 180px; min-height: 100px; min-width: 180px;  background: #fff no-repeat scroll 50% 50% / contain url(http://odezhda-master.ru/images/' + this[5] + ');"></div><div class="admin-orders-prodid">' + this[0] + '</div><div class="admin-orders-prodmodel">' + this[1] + '</div><div class="admin-orders-prodsize">' + this[6] + '</div><div class="admin-orders-prodcount">' + this[4] + "</div></div>"
+                                if (this[7] == 'undefined' || this[7] == '' || typeof this[7] == 'undefined') {
+                                    $prodname = 'Не указанно';
+                                } else {
+                                    $prodname = this[7];
+                                }
+                                if (this[6] == 'undefined' || this[6] == '') {
+                                    $size = 'Без размера';
+                                } else {
+                                    $size = this[6];
+                                }
+                                $totalcountorder = $totalcountorder + parseInt(this[4]);
+                                $totalpositionorder = $totalpositionorder + 1;
+                                $totalpriceorder = $totalpriceorder + parseInt(this[3]) * parseInt(this[4]);
+                                $innerdata += '<div style="clear: both;" class="order-show"><div class="orders-prodimg" style="float: left;  max-height: 100px;  min-height: 100px; min-width: 180px;  background: url(/site/imagepreview?src=' + this[5] + ') #fff no-repeat scroll 50% 50% / contain;"></div><div class="orders-prodid"><div>Артикул: ' + this[1] + '</div><div>Наименование: ' + $prodname + '</div></div><div class="orders-prodsize">' + $size + ' x ' + this[4] + '</div><div class="orders-prodsize"><div>Цена за штуку: ' + parseInt(this[3]) + ' Руб.</div><div>Цена позиции: ' + parseInt(this[3]) * parseInt(this[4]) + ' Руб.</div></div></div>';
                             });
+                            $innerdata += '<div style="clear: both;" class="order-show"><div class="count-order-position">Итого: </div><div class="count-order-position">Позиций: ' + $totalpositionorder + '</div><div class="count-order-position">Товаров: ' + $totalcountorder + '</div><div class="count-order-position">Сумма заказа: ' + $totalpriceorder + ' Руб.</div></div>';
+                            if ($datadiscount > 0) {
+                                $totalpriceorder = parseInt($totalpriceorder - $totalpriceorder / 100 * $datadiscount);
+                                $innerdata += '<div style="clear: both;" class="order-show"><div class="count-order-position">Ваша скидка: ' + $datadiscount + '%</div><div class="order-total-discount">Сумма заказа c учетом скидки: ' + $totalpriceorder + ' Руб.</div></div>';
+                            }
                             $adress += '<div><div id="user-country"><b>Страна: </b>' + $dataadress.country + '</div><div id="user-state"><b>Область/регион: </b>' + $dataadress.state + '</div><div id="user-city"><b>Город: </b>' + $dataadress.city + '</div><div id="user-adress"><b>Адрес: </b>' + $dataadress.adress + '</div><div id="user-postcode"><b>Почтовый код: </b>' + $dataadress.postcode + '</div><div id="user-lastname"><b>Фамилия: </b>' + $dataadress.lastname + '</div><div id="user-name"><b>Имя: </b>' + $dataadress.name + '</div><div id="user-secondname"><b>Отчество: </b>' + $dataadress.secondname + '</div><div id="user-telephone"><b>Телефон: </b>' + $dataadress.telephone + '</div><div id="user-pasportser"><b>Серия паспорта: </b>' + $dataadress.pasportser + '</div><div id="user-pasportnum"><b>Номер паспорта: </b>' + $dataadress.pasportnum + '</div><div id="user-pasportwhere"><b>Кем выдан: </b>' + $dataadress.pasportwhere + '</div><div id="user-pasportdate"><b>Когда выдан: </b>' + $dataadress.pasportdate + "</div></div>"
                         } else {
                             $innerdata = "Ошибка чтения из базы"
@@ -168,8 +192,8 @@ $(document).on("click", ".orders", function () {
                                 $oldresultcountpos += 1;
                                 if ($dataorderinfo.discount > 0) {
                                     $snprice = parseInt($dataorderinfo.products[b].products_price) + (parseInt($dataorderinfo.products[b].products_price) / 100 * parseInt($dataorderinfo.discount));
-                                    $snpricehtml = '<div>С учетом наценки <font color="red">' + this.products_quantity + "x" + $snprice + " Руб.</font></div>";
-                                    $snpricehtmlin = '<p>С учетом наценки <font color="red">' + this.products_quantity * $snprice + " Руб.</font></p>";
+                                    $snpricehtml = '<div>С учетом наценки <font color="red">' + this.products_quantity + "x" + parseInt($snprice) + " Руб.</font></div>";
+                                    $snpricehtmlin = '<p>С учетом наценки <font color="red">' + this.products_quantity * parseInt($snprice) + " Руб.</font></p>";
                                     $resultpricewithdiscount += (parseInt(this.products_quantity) * (parseInt($dataorderinfo.products[b].products_price) + (parseInt($dataorderinfo.products[b].products_price) / 100 * parseInt($dataorderinfo.discount))));
                                     $resultpricewithdiscountolder += (parseInt(this.first_quant) * (parseInt($dataorderinfo.products[b].products_price) + (parseInt($dataorderinfo.products[b].products_price) / 100 * parseInt($dataorderinfo.discount))))
                                 } else {
@@ -184,8 +208,8 @@ $(document).on("click", ".orders", function () {
                                 $prod_content += '<div class="row-prod"><div class="prod-content-raw" ' + $raw_style + '><div class="admin-orders-prodimg" style="float: left;  max-height: 100px; max-width: 180px; min-height: 100px; min-width: 180px;  background: #fff no-repeat scroll 50% 50% / contain url(http://odezhda-master.ru/images/' + $dataq[b][5] + ');"></div><div>' + $prod_stat + '</div></div><div class="colone"><div class="prod-content-count">' + this.products_quantity + "х" + this.products_name + '</div><div class="prod-content-attr">Размер: ' + $prod_atr + '</div></div><div  class="coltwo"><div class="prod-content-code">' + $dataorderinfo.products[b].products_model + '</div></div><div  class="colthree"><div class="prod-content-price">' + this.products_quantity + "х" + parseInt($dataorderinfo.products[b].products_price) + " Руб.</div>" + $snpricehtml + '</div><div class="prod-content-priceallraw">' + (parseInt(this.products_quantity) * parseInt($dataorderinfo.products[b].products_price)) + " Руб." + $snpricehtmlin + "</div></div>"
                             });
                             if ($resultpricewithdiscount > 0) {
-                                $resultpricewithdiscounthtml = "<div>Результирующая наценка составила " + $dataorderinfo.discount + ' %</div><div> Стоимость для клиента с учетом наценки составила <font color="red">' + $resultpricewithdiscount + " Руб.</font></div>";
-                                $resultpricewithdiscountolderhtml = "<div>Результирующая наценка составила " + $dataorderinfo.discount + ' %</div><div> Стоимость для клиента с учетом наценки составила <font color="red">' + $resultpricewithdiscount + " Руб.</font></div>"
+                                $resultpricewithdiscounthtml = "<div>Результирующая наценка составила " + $dataorderinfo.discount + ' %</div><div> Стоимость для клиента с учетом наценки составила <font color="red">' + parseInt($resultpricewithdiscount) + " Руб.</font></div>";
+                                $resultpricewithdiscountolderhtml = "<div>Результирующая наценка составила " + $dataorderinfo.discount + ' %</div><div> Стоимость для клиента с учетом наценки составила <font color="red">' + parseInt($resultpricewithdiscount) + " Руб.</font></div>"
                             } else {
                                 $resultpricewithdiscounthtml = "";
                                 $resultpricewithdiscountolderhtml = ""
