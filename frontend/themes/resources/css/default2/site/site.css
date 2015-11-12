@@ -2392,15 +2392,13 @@
     .navbredcrump {
         display: none;
         height: 24px;
-        background: #FFBF08 none repeat scroll 0% 0%;
         font-size: 14px;
-        border: 1px solid #FFBF08;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+        border-bottom: 1px solid #FFBF08;
         padding: 2px 23px;
         width: calc(100% - 20px);
         float: left;
         margin: 12px 10px;
+        border-top: 1px solid #FFBF08;
     }
 
 }
