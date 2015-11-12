@@ -2403,4 +2403,10 @@
         margin: 12px 10px;
     }
 
+    .phone-index {
+        font-size: 16px;
+        color: #A1C258;
+        font-family: verdana;
+    }
+
 }

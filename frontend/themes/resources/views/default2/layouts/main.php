@@ -42,7 +42,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             </span>
             <?
             if(isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1){
-                echo '<span>Телефон горячей линии: '.Yii::$app->params['partnersset']['contacts']['telephone']['value'].'</span>';
+                echo '<span class="phone-index">' . Yii::$app->params['partnersset']['contacts']['telephone']['value'] . '</span>';
             }
             ?>
         </p>
