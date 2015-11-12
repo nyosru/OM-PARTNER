@@ -114,7 +114,7 @@ $this->title = 'Админка';
             $l3 .= $form->field($model, 'minimalordertotalprice[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l3  .= '</div>';
             $l3 .= '<div class="col-md-12">';
-            $l3 .= $form->field($model, 'discounttotalorderprice[rt]')->checkboxList()->label('Скидка по сумме заказа');
+            $l3 .= $form->field($model, 'discounttotalorderprice[rt]')->checkboxList('', '')->label('Скидка по сумме заказа');
 
             $l3_1 = '<div class="col-md-12">';
             $l3_1 .= $form->field($model, 'discounttotalorderprice[value][0][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('');
