@@ -15,7 +15,7 @@ trait ActionPrintOrders
         $user = Yii::$app->getUser()->id;
         if (!$user) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return ['exception' => 'Вы не авторизованны'];
+            return $this->redirect('/site/login');;
         } else {
             if (($id = intval(Yii::$app->request->getQueryParam('id'))) === false) {
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
