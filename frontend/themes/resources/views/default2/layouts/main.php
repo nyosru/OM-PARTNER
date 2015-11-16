@@ -83,6 +83,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <i class="fa fa-search"></i>
             </div>
         </div>
+
         <div class="modal-cart" id="modal-cart"></div>
 
         <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span

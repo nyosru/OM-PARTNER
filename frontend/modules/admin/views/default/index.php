@@ -13,41 +13,7 @@ use dosamigos\ckeditor\CKEditor;
 $this->title = 'Админка';
 
 ?>
-    <div class="container" id="partners-main">
-    <div class="container" id="partners-main-left-back-admin">
-        <div id="partners-main-left">
-            <div id="partners-main-left-cont">
-                <div class="header-catalog"><i class="fa fa-bars"></i> МЕНЮ
-                </div>
-                <ul id="accordion" class="accordion">
-                    <li class="">
-                        <div class="link settings">Настройки</div>
-                    </li>
-                </ul>
-                <ul id="accordion" class="accordion">
-                    <li class="">
-                        <div class="link users">Пользователи</div>
-                    </li>
-                </ul>
-                <ul id="accordion" class="accordion">
-                    <li class="">
-                        <div class="link orders">Заказы</div>
-                    </li>
-                </ul>
-                <ul id="accordion" class="accordion">
-                    <li class="">
-                        <div class="link news">Новости</div>
-                    </li>
-                </ul>
-            </div>
 
-        </div>
-    </div>
-    <div class="container-fluid" id="partners-main-right-back-admin">
-        <div id="partners-main-right" class="bside">
-            <!--            --><? //= '<pre>'?>
-            <!--            --><? // print_r($model);?>
-            <!--            --><? //= '</pre>'?>
             <?php
             $form = ActiveForm::begin(['id' => 'partners-settings', 'action'=>'/admin/default/savesettings']);
             $path = Yii::getAlias('@app') . '/themes/';
@@ -96,7 +62,11 @@ $this->title = 'Админка';
             ]);
             $l1 .= $form->field($model, 'slogan[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l1 .= '</div>';
+            $l1 .= '<div class="col-md-12">';
 
+            $l1 .= $form->field($model, 'newsonindex[value]')->label('Новости на главной (Укажите количество)')->input('text');
+            $l1 .= $form->field($model, 'newsonindex[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l1 .= '</div>';
             $l1 .= '</div>';
 
             $l2  = '<div style="margin: 10px; height: 100%;">';
@@ -296,8 +266,4 @@ $this->title = 'Админка';
                 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']) ?>
             </div>
             <?php ActiveForm::end(); ?>
-        </div>
-    </div>
 
-<?
-?>

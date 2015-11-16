@@ -1422,11 +1422,24 @@
         float: left;
         text-align: center;
         padding: 5px;
-        width: calc(100% / 16 - 10px);
+        width: calc(100% / 17 - 10px);
         margin: 0px 1px;
         overflow: hidden;
     }
 
+    .admin-orders-adress-phantom {
+        cursor: pointer;
+        height: 32px;
+        background: transparent url("eye.png") no-repeat scroll 50% 100% / contain;
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
+        border: 1px solid #838383;
+    }
     .admin-orders-data-print {
         cursor: pointer;
         height: 32px;
@@ -1435,7 +1448,7 @@
         float: left;
         text-align: center;
         padding: 5px;
-        width: calc(100% / 16 - 10px);
+        width: calc(100% / 17 - 10px);
         margin: 0px 1px;
         overflow: hidden;
         border: 1px solid #838383;
@@ -1449,6 +1462,13 @@
         z-index: 99999
     }
 
+    .admin-news-grid {
+        margin-top: 6px;
+    }
+
+    .admin-news > .pagination {
+        margin: 6px 0px;
+    }
     .order-status, .order-status-header, .orders-adress-phantom, .orders-data-phantom, .orders-id, .orders-name, .orders-num, .orders-num-header {
         border: 1px solid #838383;
         overflow: hidden

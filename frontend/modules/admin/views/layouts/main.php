@@ -91,8 +91,41 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
     <?= Alert::widget() ?>
-    <?= $content ?>
+    <div class="container" id="partners-main">
+        <div class="container" id="partners-main-left-back-admin">
+            <div id="partners-main-left">
+                <div id="partners-main-left-cont">
+                    <div class="header-catalog"><i class="fa fa-bars"></i> МЕНЮ
+                    </div>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link settings">Настройки</div>
+                        </li>
+                    </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link users">Пользователи</div>
+                        </li>
+                    </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link orders">Заказы</div>
+                        </li>
+                    </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link news"><a href="/admin/default/newspage">Новости</a></div>
+                        </li>
+                    </ul>
+                </div>
 
+            </div>
+        </div>
+        <div class="container-fluid" id="partners-main-right-back-admin">
+            <div id="partners-main-right" class="bside">
+                <?= $content ?>
+            </div>
+        </div>
 </div>
 <div style="height: 60px"></div>
 <footer class="footer">

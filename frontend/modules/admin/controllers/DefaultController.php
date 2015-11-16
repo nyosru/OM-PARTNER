@@ -31,7 +31,8 @@ use yii\data\ActiveDataProvider;
 
 class DefaultController extends Controller
 {
-use Imagepreviewcrop, ThemeResources;
+    use Imagepreviewcrop, ThemeResources;
+
     public function behaviors()
     {
         return [
@@ -39,7 +40,7 @@ use Imagepreviewcrop, ThemeResources;
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'newspage', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -164,6 +165,8 @@ use Imagepreviewcrop, ThemeResources;
         $model->discounttotalorderprice['active'] = $paramset['discounttotalorderprice']['active'];
         $model->slogan['active'] = $paramset['slogan']['active'];
         $model->slogan['value'] = $paramset['slogan']['value'];
+        $model->newsonindex['value'] = $paramset['newsonindex']['value'];
+        $model->newsonindex['active'] = $paramset['newsonindex']['active'];
         return $this->render('index', ['model' => $model]);
     }
 
@@ -176,9 +179,9 @@ use Imagepreviewcrop, ThemeResources;
         $partnersettings = new PartnersSettings();
         $partnerset = $partnersettings->LoadSet();
         Yii::$app->assetManager->appendTimestamp = true;
-        if(isset($partnerset['template']['value'])){
+        if (isset($partnerset['template']['value'])) {
             $theme = $this->ThemeResourcesload($partnerset['template']['value'], 'site')['view'];
-        }else{
+        } else {
             $theme = Yii::$app->params['constantapp']['APP_THEMES'];
         }
         $asset = new AppAsset();
@@ -201,6 +204,7 @@ use Imagepreviewcrop, ThemeResources;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return $newsprovider->getModels();
     }
+
     public function actionCancelorder()
     {
         $id = Yii::$app->request->post('id');
@@ -250,7 +254,7 @@ use Imagepreviewcrop, ThemeResources;
         $headers->add('Content-Type', 'image/jpg');
         $headers->add('Cache-Control', 'max-age=68200');
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
-        return $this->Imagepreviewcrop($path.'/themes/', $template . '/' . $src, '@webroot/images/', $action = 'none');
+        return $this->Imagepreviewcrop($path . '/themes/', $template . '/' . $src, '@webroot/images/', $action = 'none');
     }
 
     public function actionRequestorders()
@@ -303,11 +307,11 @@ use Imagepreviewcrop, ThemeResources;
 //            }
             foreach ($query as $key => $value) {
                 $query['ordersatus'][$ordersatusn[$key]['orders_id']] = $ordersatusn[$key];
-             //   $query['ordersatus'][$ordersatusn[$key]['orders_status']] = $ordersatusn[$key];
-                if(isset($discount[$ordersatusn[$key]['orders_id']])) {
+                //   $query['ordersatus'][$ordersatusn[$key]['orders_status']] = $ordersatusn[$key];
+                if (isset($discount[$ordersatusn[$key]['orders_id']])) {
                     $query['ordersatus'][$ordersatusn[$key]['orders_id']]['discount'] = $discount[$ordersatusn[$key]['orders_id']];
                 }
-                }
+            }
         }
         if ($count <= $page * 10) {
             $page = $page - 1;;
@@ -331,8 +335,8 @@ use Imagepreviewcrop, ThemeResources;
         $ordersparamlock = $ordersdata->findOne(['id' => $data]);
         $ordersparam = $ordersdata->find()->where(['id' => $data])->asArray()->one();
         if ($ordersparamlock->status !== 9999) {
-        $ordersparamlock->status = 9999;
-        $ordersparamlock->update();
+            $ordersparamlock->status = 9999;
+            $ordersparamlock->update();
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $userparam = $userdata->find()->where(['id' => $ordersparam['user_id']])->asArray()->one();
@@ -610,4 +614,49 @@ use Imagepreviewcrop, ThemeResources;
         }
     }
 
+    public function actionNewspage()
+    {
+        $model = new PartnersNews();
+        $newsprovider = new ActiveDataProvider([
+            'query' => PartnersNews::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']]),
+            'pagination' => [
+                'defaultPageSize' => 20,
+            ],
+        ]);
+        $load = Yii::$app->request->post();
+        if ($model->load($load)) {
+            $model->date_added = date('Y-m-d h:i:s');
+            $model->date_modified = date('Y-m-d h:i:s');
+            $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
+            if ($model->save()) {
+                return $this->refresh();
+            } else {
+                return $this->refresh();
+            }
+        } else {
+            return $this->render('newspage', ['model' => $newsprovider, 'modelform' => $model]);
+        }
+    }
+
+    public function actionNewsupdate()
+    {
+        if (Yii::$app->request->getQueryParam('id')) {
+            $model = new PartnersNews();
+            $model = $model::findOne(intval(Yii::$app->request->getQueryParam('id')));
+            $load = Yii::$app->request->post();
+            if (isset($load) && $model->load($load)) {
+                $model->date_modified = date('Y-m-d h:i:s');
+                $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
+                if ($model->save()) {
+                    return $this->redirect('/admin/default/newspage');
+                } else {
+                    return $this->redirect('/admin/default/newspage');
+                }
+            } else {
+                return $this->render('newsupdate', ['modelform' => $model]);
+            }
+        } else {
+            return $this->redirect('/admin/default/newspage');
+        }
+    }
 }

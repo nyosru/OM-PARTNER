@@ -23,6 +23,7 @@ class PartnersSettings extends Model
     public $logotype;
     public $discounttotalorderprice;
     public $slogan;
+    public $newsonindex;
     /**
      * @inheritdoc
      */
@@ -49,7 +50,7 @@ class PartnersSettings extends Model
     public function rules()
     {
         return [
-            [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice'], 'integer'],
+            [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex'], 'integer'],
             [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
