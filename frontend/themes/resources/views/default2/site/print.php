@@ -55,7 +55,7 @@ unset($order['discount']);
 unset($order['discounttotalprice']); ?>
 <table class="table table-bordered" width="100%">
     <tr>
-        <td>Изображение</td>
+        <td>№</td>
         <td>Артикул, наименование</td>
         <td>Размер,количество</td>
         <td>Цена</td>
@@ -74,7 +74,7 @@ unset($order['discounttotalprice']); ?>
         $totalcountorder = $totalcountorder + intval($value[4]);
         $totalpositionorder = $totalpositionorder + 1;
         $totalpriceorder = $totalpriceorder + intval($value[3]) * intval($value[4]);
-        $innerdata .= '<tr><td class="" style="width:25%;max-height: 180px;max-width: 180px;" height="180" width="180""><img  src="/site/imagepreview?src=' . $value[5] . '"/></td><td class="" style="width:25%;"><div>Артикул: ' . $value[1] . '</div><div>Наименование: ' . $prodname . '</div></td><td class="" style=" width:25%;">' . $size . ' x ' . $value[4] . '</td><td class="" ><div>Цена за штуку: ' . intval($value[3]) . ' Руб.</div><div>Цена позиции: ' . intval($value[3]) * intval($value[4]) . ' Руб.</div></td></tr>';
+        $innerdata .= '<tr><td class="">' . ($key + 1) . '</td><td class="" style="width:25%;"><div>Артикул: ' . $value[1] . '</div><div>Наименование: ' . $prodname . '</div></td><td class="" style=" width:25%;">' . $size . ' x ' . $value[4] . '</td><td class="" ><div>Цена за штуку: ' . intval($value[3]) . ' Руб.</div><div>Цена позиции: ' . intval($value[3]) * intval($value[4]) . ' Руб.</div></td></tr>';
     }
     $innerdata .= '<table class="table table-bordered"><tr><td class="">Итого: </td><td class="">Позиций: ' . $totalpositionorder . '</td><td class="">Товаров: ' . $totalcountorder . '</td><td class="">Сумма заказа: ' . $totalpriceorder . ' Руб.</td></tr>';
     if ($discount > 0) {
