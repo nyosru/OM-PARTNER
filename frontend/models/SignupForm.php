@@ -20,6 +20,7 @@ class SignupForm extends Model
     public $password;
     public $id_partners;
     public $role;
+    public $captcha;
 //    public $name;
 //    public $secondname;
 //    public $lastname;
@@ -42,8 +43,9 @@ class SignupForm extends Model
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required', 'message' => 'Это обязательное поле.'],
+            ['email, captcha', 'required', 'message' => 'Это обязательное поле.'],
             ['email', 'email'],
+            ['captcha', 'captcha'],
             ['email', 'validateUserEmail'],
             ['password', 'required', 'message' => 'Это обязательное поле.'],
             ['password', 'string', 'min' => 8, 'message' => 'Минимум 8 знаков'],

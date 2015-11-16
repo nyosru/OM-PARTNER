@@ -46,10 +46,14 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             }
             ?>
         </p>
-        <p class="pull-right"><a
-                class="top-link" href="/site/faq">FAQ</a> <a class="top-link" href="/site/paying">Оплата</a> <a
-                class="top-link" href="/site/delivery">Доставка</a> <a class="top-link"
-                                                                       href="/site/contacts">Контакты</a></p></div>
+
+        <p class="pull-right">
+            <a class="top-link" href="/site/news">Новости</a>
+            <a class="top-link" href="/site/faq">FAQ</a>
+            <a class="top-link" href="/site/paying">Оплата</a>
+            <a class="top-link" href="/site/delivery">Доставка</a>
+            <a class="top-link" href="/site/contacts">Контакты</a>
+        </p></div>
     <div class="wrap">
         <?php
         if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {

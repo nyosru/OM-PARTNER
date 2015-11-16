@@ -34,6 +34,11 @@ $this->title = 'Админка';
                         <div class="link orders">Заказы</div>
                     </li>
                 </ul>
+                <ul id="accordion" class="accordion">
+                    <li class="">
+                        <div class="link news">Новости</div>
+                    </li>
+                </ul>
             </div>
 
         </div>

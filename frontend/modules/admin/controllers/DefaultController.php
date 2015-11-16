@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 
+use common\models\PartnersNews;
 use common\models\PartnersSettings;
 use common\models\OrdersTotal;
 use common\models\PartnersOrders;
@@ -26,7 +27,7 @@ use common\models\OrdersProductsAttributes;
 use common\models\Countries;
 use common\models\Zones;
 use common\models\OrdersStatus;
-
+use yii\data\ActiveDataProvider;
 
 class DefaultController extends Controller
 {
@@ -38,7 +39,7 @@ use Imagepreviewcrop, ThemeResources;
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'savesettings', 'requestusers', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -188,6 +189,18 @@ use Imagepreviewcrop, ThemeResources;
         return $this->render('index', ['model' => $model, 'exception' => '']);
     }
 
+    public function actionRequestnews()
+    {
+
+        $newsprovider = new ActiveDataProvider([
+            'query' => PartnersNews::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $newsprovider->getModels();
+    }
     public function actionCancelorder()
     {
         $id = Yii::$app->request->post('id');

@@ -18,9 +18,10 @@ return [
         '/',
         ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
         ['name' => 'colors'],
-        ['name' => 'styles', 'styleSet' => ['logo']],
+        ['name' => 'styles'],
         //  ['name' => 'links'],
         // ['name' => 'others'],
     ],
+    'stylesSet' => 'logo',
     'removeButtons' => 'Smiley,Iframe'
 ];

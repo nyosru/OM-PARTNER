@@ -1415,18 +1415,32 @@
         border-radius: 3px
     }
 
-    .admin-orders-adress-phantom {
+    .admin-orders-data-phantom {
         cursor: pointer;
         height: 32px;
-        background: url(eye.png) 50% 100%/contain no-repeat;
+        background: transparent url("eye.png") no-repeat scroll 50% 100% / contain;
         display: block;
         float: left;
         text-align: center;
         padding: 5px;
+        width: calc(100% / 16 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
+    }
+
+    .admin-orders-data-print {
+        cursor: pointer;
+        height: 32px;
+        background: transparent none no-repeat scroll 50% 100% / contain;
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        width: calc(100% / 16 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
         border: 1px solid #838383;
-        width: calc(100% / 9 - 10px);
-        margin: 0 1px;
-        overflow: hidden
+        font-size: 16px;
     }
 
     #city-drop, #country-drop, #state-drop {
@@ -1900,7 +1914,7 @@
         height: 100%
     }
 
-    .orders-adress-phantom, .orders-data-phantom {
+    .orders-adress-phantom {
         width: calc(100% / 6 - 10px);
         display: block;
         float: left;
@@ -1911,6 +1925,29 @@
         background: url(eye.png) 50% 50% no-repeat
     }
 
+    .orders-data-phantom {
+        width: calc(100% / 12 - 6px);
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0px 1px;
+        height: 100%;
+        background: transparent url("eye.png") no-repeat scroll 50% 50%;
+    }
+
+    .orders-data-print {
+        width: calc(100% / 12 - 6px);
+        display: block;
+        float: left;
+        text-align: center;
+        margin: 0px 1px;
+        height: 100%;
+        background: transparent no-repeat scroll 50% 50%;
+        border: 1px solid #838383;
+        font-size: 25px;
+        padding: 10px;
+    }
     .order-status {
         display: block;
         float: left;
@@ -2403,6 +2440,97 @@
 
     .banner-card {
         background: #A1C258;
+    }
+
+    .admin-news-num-header {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        border: 1px solid #838383;
+        background: #A1C258 none repeat scroll 0% 0%;
+        width: calc(100% / 16 - 10px);
+    }
+
+    .admin-news-name-header {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        border: 1px solid #838383;
+        background: #A1C258 none repeat scroll 0% 0%;
+        width: calc(100% / 3 - 10px);
+    }
+
+    .admin-news-date-added-header {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        border: 1px solid #838383;
+        background: #A1C258 none repeat scroll 0% 0%;
+        width: calc(100% / 7 - 10px);
+    }
+
+    .admin-news-date-update-header {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        border: 1px solid #838383;
+        background: #A1C258 none repeat scroll 0% 0%;
+        width: calc(100% / 7 - 10px);
+    }
+
+    .admin-news-tags-header {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        border: 1px solid #838383;
+        background: #A1C258 none repeat scroll 0% 0%;
+    }
+
+    .admin-news-status-header {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        width: calc(100% / 9 - 10px);
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        border: 1px solid #838383;
+        background: #A1C258 none repeat scroll 0% 0%;
+    }
+
+    .admin-news-controls-header {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0px 1px;
+        border-radius: 3px 3px 0px 0px;
+        overflow: hidden;
+        border: 1px solid #838383;
+        background: #A1C258 none repeat scroll 0% 0%;
+        width: calc(100% / 7.5 - 10px);
     }
 
 }

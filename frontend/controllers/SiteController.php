@@ -10,7 +10,10 @@ use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
 use common\traits\Reformat_cat_array;
 use common\traits\View_cat;
+use frontend\controllers\actions\ActionPrintOrders;
+use frontend\controllers\actions\ActionRequestNews;
 use frontend\controllers\actions\ActionSiteIndex;
+use frontend\controllers\actions\ActionSiteNews;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
@@ -53,7 +56,8 @@ use yii\caching\Dependency;
 class SiteController extends Controller
 {
     use Fullopcat, View_cat, Load_cat, Hide_manufacturers_for_partners, Categories_for_partner, Imagepreviewcrop,
-        Reformat_cat_array, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile, CacheUserState;
+        Reformat_cat_array, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile, CacheUserState,
+        ActionSiteNews, ActionRequestNews, ActionPrintOrders;
 
     /**
      * @inheritdoc

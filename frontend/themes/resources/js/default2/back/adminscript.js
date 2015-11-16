@@ -221,7 +221,7 @@ $(document).on("click", ".orders", function () {
                             $statusinner = '<i class="fa fa-truck admin-orders-navigation-control" data-toggle="tooltip" data-placement="top" title="Доставить в магазин" id="order-to-storage"></i><i id="order-to-user"  data-toggle="tooltip" data-placement="top" title="Доставить клиенту"  class="fa fa-user admin-orders-navigation-control"></i><i id="cancel-order" data-toggle="tooltip" data-placement="top" title="Отмена заказа" class="fa fa-close admin-orders-navigation-control"></i>'
                         }
                     }
-                    $inner += '<div class="admin-orders-row"><div class="admin-orders-num">' + (($innercount++) + $page * 10) + '</div><div class="admin-orders-id">' + this["id"] + '</div><div class="admin-orders-name">' + $dataadress.lastname + " " + $dataadress.name + " " + $dataadress.secondname + '<br/>' + $useremail + '</div><div class="admin-orders-data-phantom"><div data-tog="' + $innercount + '" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $innerdata + '</div></div></div><div class="admin-orders-adress-phantom"><div><div data-tog="' + $innercount + '" class="admin-order-adress modal"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $adress + "</div></div></i></div>" + $status + '<div data-navorder="' + this["id"] + '" class="admin-orders-navigation">' + $statusinner + "</div></div>"
+                    $inner += '<div class="admin-orders-row"><div class="admin-orders-num">' + (($innercount++) + $page * 10) + '</div><div class="admin-orders-id">' + this["id"] + '</div><div class="admin-orders-name">' + $dataadress.lastname + " " + $dataadress.name + " " + $dataadress.secondname + '<br/>' + $useremail + '</div><div class="admin-orders-data-phantom"><div data-tog="' + $innercount + '" class="admin-orders-data  modal"><div style="padding: 10px; overflow: auto; background: rgb(251, 251, 251) none repeat scroll 0% 0%; box-shadow: 0px 0px 7px 1px rgb(180, 180, 180); height: 100%;"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $innerdata + '</div></div></div><div data-toggle="' + $innercount + '" class="admin-orders-data-print"><a href="/site/printorders?id=' + this['id'] + '" target="blank"><i class="fa fa-print"></i></a></div><div class="admin-orders-adress-phantom"><div><div data-tog="' + $innercount + '" class="admin-order-adress modal"><div data-tog="' + $innercount + '" id="admclose">x</div>' + $adress + "</div></div></i></div>" + $status + '<div data-navorder="' + this["id"] + '" class="admin-orders-navigation">' + $statusinner + "</div></div>"
                 }
             });
             $pager = "";
@@ -319,4 +319,22 @@ function timeConverter(j) {
 $(document).on("click", "#admclose", function () {
     $cl = this.getAttribute("data-tog");
     $("[data-tog=" + $cl + "]").modal("hide")
+});
+$(document).on("click", ".news", function () {
+    $.ajax({
+        url: "/admin/default/requestnews",
+        data: "",
+        cache: false,
+        async: true,
+        dataType: "json",
+        success: function (a) {
+            $(".bside").html("");
+            $inner = '<div class="admin-users-row"><div class="admin-news-num-header">№ п/п</div><div class="admin-news-name-header">Заголовок</div><div class="admin-news-date-added-header">Дата добавления</div><div class="admin-news-date-update-header">Дата обновления</div><div class="admin-news-tags-header">Теги</div><div class="admin-news-status-header">Статус</div><div class="admin-news-controls-header">Управление</div></div>';
+            $innercount = "";
+            $.each(a, function () {
+                $inner += '<div class="admin-users-row"><div class="admin-users-num">' + ($innercount++) + '</div><div class="admin-users-name">' + this["username"] + '</div><div class="admin-users-mail">' + this["email"] + '</div><div class="admin-users-date-reg">' + timeConverter(this["created_at"]) + '</div><div class="admin-users-date-update">' + timeConverter(this["updated_at"]) + "</div></div>"
+            });
+            $(".bside").append($inner)
+        }
+    })
 });

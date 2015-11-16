@@ -1414,18 +1414,32 @@
         border-radius: 3px
     }
 
-    .admin-orders-adress-phantom {
+    .admin-orders-data-phantom {
         cursor: pointer;
         height: 32px;
-        background: url(eye.png) 50% 100%/contain no-repeat;
+        background: transparent url("eye.png") no-repeat scroll 50% 100% / contain;
         display: block;
         float: left;
         text-align: center;
         padding: 5px;
+        width: calc(100% / 16 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
+    }
+
+    .admin-orders-data-print {
+        cursor: pointer;
+        height: 32px;
+        background: transparent none no-repeat scroll 50% 100% / contain;
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        width: calc(100% / 16 - 10px);
+        margin: 0px 1px;
+        overflow: hidden;
         border: 1px solid #838383;
-        width: calc(100% / 9 - 10px);
-        margin: 0 1px;
-        overflow: hidden
+        font-size: 16px;
     }
 
     #city-drop, #country-drop, #state-drop {
@@ -1899,7 +1913,7 @@
         height: 100%
     }
 
-    .orders-adress-phantom, .orders-data-phantom {
+    .orders-adress-phantom {
         width: calc(100% / 6 - 10px);
         display: block;
         float: left;
@@ -1910,6 +1924,29 @@
         background: url(eye.png) 50% 50% no-repeat
     }
 
+    .orders-data-phantom {
+        width: calc(100% / 12 - 6px);
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0px 1px;
+        height: 100%;
+        background: transparent url("eye.png") no-repeat scroll 50% 50%;
+    }
+
+    .orders-data-print {
+        width: calc(100% / 12 - 6px);
+        display: block;
+        float: left;
+        text-align: center;
+        margin: 0px 1px;
+        height: 100%;
+        background: transparent no-repeat scroll 50% 50%;
+        border: 1px solid #838383;
+        font-size: 25px;
+        padding: 10px;
+    }
     .order-status {
         display: block;
         float: left;
