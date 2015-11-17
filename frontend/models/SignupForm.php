@@ -43,7 +43,7 @@ class SignupForm extends Model
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
-            ['email, captcha', 'required', 'message' => 'Это обязательное поле.'],
+            ['email', 'required', 'message' => 'Это обязательное поле.'],
             ['email', 'email'],
             ['captcha', 'captcha'],
             ['email', 'validateUserEmail'],
