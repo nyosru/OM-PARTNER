@@ -48,7 +48,7 @@ $this->title = 'Админка';
             $l1 .= $form->field($model, 'template')->label('Шаблон')->radioList($output);
             $l1 .= '<div class="col-md-12">';
 
-            $l1 .= $form->field($model, 'logotype[value]')->label('Логотип')->input('text')->widget(CKEditor::className(), [
+            $l1 .= $form->field($model, 'logotype[value]')->label('Логотип', ['data-toggle' => 'tooltip', 'data-placement' => 'left', 'title' => 'xtuj yb,eln'])->input('text')->widget(CKEditor::className(), [
                 'options' => ['rows' => 1],
                 'preset' => 'logo',
             ]);
@@ -63,12 +63,14 @@ $this->title = 'Админка';
             $l1 .= $form->field($model, 'slogan[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l1 .= '</div>';
             $l1 .= '<div class="col-md-12">';
-
             $l1 .= $form->field($model, 'newsonindex[value]')->label('Новости на главной (Укажите количество)')->input('text');
             $l1 .= $form->field($model, 'newsonindex[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l1 .= '</div>';
+            $l1 .= '<div class="col-md-12">';
+            $l1 .= $form->field($model, 'commentsonindex[value]')->label('Комментарии на главной (Укажите количество)')->input('text');
+            $l1 .= $form->field($model, 'commentsonindex[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l1 .= '</div>';
-
+            $l1 .= '</div>';
             $l2  = '<div style="margin: 10px; height: 100%;">';
             $l2 .= '<div class="col-md-3">';
             $l2 .= $form->field($model, 'mailcounter[value]')->label('Mail (id счетчика)');

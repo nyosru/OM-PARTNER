@@ -2,7 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
-
+use common\models\PartnersComments;
 use common\models\PartnersNews;
 use common\models\PartnersSettings;
 use common\models\OrdersTotal;
@@ -40,7 +40,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'newspage', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'newspage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -167,6 +167,8 @@ class DefaultController extends Controller
         $model->slogan['value'] = $paramset['slogan']['value'];
         $model->newsonindex['value'] = $paramset['newsonindex']['value'];
         $model->newsonindex['active'] = $paramset['newsonindex']['active'];
+        $model->commentsonindex['value'] = $paramset['commentsonindex']['value'];
+        $model->commentsonindex['active'] = $paramset['commentsonindex']['active'];
         return $this->render('index', ['model' => $model]);
     }
 
@@ -638,6 +640,29 @@ class DefaultController extends Controller
         }
     }
 
+    public function actionCommentspage()
+    {
+        $model = new PartnersComments();
+        $newsprovider = new ActiveDataProvider([
+            'query' => PartnersComments::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']]),
+            'pagination' => [
+                'defaultPageSize' => 20,
+            ],
+        ]);
+        $load = Yii::$app->request->post();
+        if ($model->load($load)) {
+            $model->date_added = date('Y-m-d h:i:s');
+            $model->date_modified = date('Y-m-d h:i:s');
+            $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
+            if ($model->save()) {
+                return $this->refresh();
+            } else {
+                return $this->refresh();
+            }
+        } else {
+            return $this->render('commentspage', ['model' => $newsprovider, 'modelform' => $model]);
+        }
+    }
     public function actionNewsupdate()
     {
         if (Yii::$app->request->getQueryParam('id')) {
@@ -657,6 +682,30 @@ class DefaultController extends Controller
             }
         } else {
             return $this->redirect('/admin/default/newspage');
+        }
+    }
+
+    public function actionCommentscontrol()
+    {
+        if (Yii::$app->request->getQueryParam('id')) {
+            $model = new PartnersComments();
+            $model = $model::findOne(intval(Yii::$app->request->getQueryParam('id')));
+            if ($model) {
+                if (Yii::$app->request->getQueryParam('action') == 'add') {
+                    $model->status = 1;
+                } else {
+                    $model->status = 0;
+                }
+                if ($model->save()) {
+                    return $this->redirect('/admin/default/commentspage');
+                } else {
+                    return $this->redirect('/admin/default/commentspage');
+                }
+            } else {
+                return $this->redirect('/admin/default/commentspage');
+            }
+        } else {
+            return $this->redirect('/admin/default/commentspage');
         }
     }
 }

@@ -27,7 +27,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head();
 
-    //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+        //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
         ?>
     </head>
     <body>
@@ -42,7 +42,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
               ?>
             </span>
             <?
-            if(isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1){
+            if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
                 echo '<span class="phone-index">' . Yii::$app->params['partnersset']['contacts']['telephone']['value'] . '</span>';
             }
             ?>
@@ -122,7 +122,24 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div id="partners-main-left">
                     <div id="partners-main-left-cont">
                         <div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
-                        </div><?= Menu::widget(); ?>
+                        </div>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-info" class="link profile-info">Общая информация</div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">Мои заказы</div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-call" class="link">ПРОДОЛЖИТЬ ПОКУПКИ</div>
+                            </li>
+                        </ul>
+
+
                     </div>
                     <div id="filters">
                         <div id="price-lable" style="display:none;">
@@ -237,116 +254,124 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <? } ?>
 
 
-
-
-
                 </div>
             </div>
             <div class="container-fluid" id="partners-main-right-back">
                 <div id="partners-main-right" class="bside">
-        <?= $content ?>
+                    <?= $content ?>
                 </div>
             </div>
 
 
         </div>
-    <div style="height: 60px"></div>
-    <footer class="footer">
-        <hr class="linebottom1">
-        <hr class="linebottom2">
-        <div class="container">
-            <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
+        <div style="height: 60px"></div>
+        <footer class="footer">
+            <hr class="linebottom1">
+            <hr class="linebottom2">
+            <div class="container">
+                <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
 
-            <div style="margin: 0% 25%; float: left;">
-                <?
-                if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {
-                    $mailcounter = Yii::$app->params['partnersset']['mailcounter']['value'];
-                    ?>
-                    <a href="http://top.mail.ru/jump?from=<?= $mailcounter ?>">
-                        <img src="//top-fwz1.mail.ru/counter?id=<?= $mailcounter ?>;t=502;l=1"
-                             style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru"/></a>
-                    <script type="text/javascript">
-                        var _tmr = _tmr || [];
-                        _tmr.push({id: <?= $mailcounter ?>, type: "pageView", start: (new Date()).getTime()});
-                        (function (d, w, id) {
-                            if (d.getElementById(id)) return;
-                            var
-                                ts = d.createElement("script");
-                            ts.type = "text/javascript";
-                            ts.async = true;
-                            ts.id = id;
-                            ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
-                            var
-                                f = function () {
-                                    var
-                                        s = d.getElementsByTagName("script")[0];
-                                    s.parentNode.insertBefore(ts, s);
-                                };
-                            if (w.opera == "[object Opera]") {
-                                d.addEventListener("DOMContentLoaded", f, false);
-                            } else {
-                                f();
-                            }
-                        })(document, window, "topmailru-code");
-                    </script>
-                    <noscript>
-                        <div style="position:absolute;left:-10000px;">
-                            <img src="//top-fwz1.mail.ru/counter?id=' . $mailcounter . ';js=na" style="border:0;"
-                                 height="1" width="1" alt="Рейтинг@Mail.ru"/>
-                        </div>
-                    </noscript>
-                <? } ?>
+                <div style="margin: 0% 25%; float: left;">
+                    <?
+                    if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {
+                        $mailcounter = Yii::$app->params['partnersset']['mailcounter']['value'];
+                        ?>
+                        <a href="http://top.mail.ru/jump?from=<?= $mailcounter ?>">
+                            <img src="//top-fwz1.mail.ru/counter?id=<?= $mailcounter ?>;t=502;l=1"
+                                 style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru"/></a>
+                        <script type="text/javascript">
+                            var _tmr = _tmr || [];
+                            _tmr.push({id: <?= $mailcounter ?>, type: "pageView", start: (new Date()).getTime()});
+                            (function (d, w, id) {
+                                if (d.getElementById(id)) return;
+                                var
+                                    ts = d.createElement("script");
+                                ts.type = "text/javascript";
+                                ts.async = true;
+                                ts.id = id;
+                                ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+                                var
+                                    f = function () {
+                                        var
+                                            s = d.getElementsByTagName("script")[0];
+                                        s.parentNode.insertBefore(ts, s);
+                                    };
+                                if (w.opera == "[object Opera]") {
+                                    d.addEventListener("DOMContentLoaded", f, false);
+                                } else {
+                                    f();
+                                }
+                            })(document, window, "topmailru-code");
+                        </script>
+                        <noscript>
+                            <div style="position:absolute;left:-10000px;">
+                                <img src="//top-fwz1.mail.ru/counter?id=' . $mailcounter . ';js=na" style="border:0;"
+                                     height="1" width="1" alt="Рейтинг@Mail.ru"/>
+                            </div>
+                        </noscript>
+                    <? } ?>
 
-                <?
-                if (isset(Yii::$app->params['partnersset']['yandexcounter']['value']) && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1) {
-                    $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
-                    ?>
-                    <!-- Yandex.Metrika informer -->
-                    <a href="https://metrika.yandex.ru/stat/?id=<?=$yandexcounter?>&amp;from=informer"
-                       target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/<?=$yandexcounter?>/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-                                                           style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:<?=$yandexcounter?>,lang:'ru'});return false}catch(e){}" /></a>
-                    <!-- /Yandex.Metrika informer -->
+                    <?
+                    if (isset(Yii::$app->params['partnersset']['yandexcounter']['value']) && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1) {
+                        $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
+                        ?>
+                        <!-- Yandex.Metrika informer -->
+                        <a href="https://metrika.yandex.ru/stat/?id=<?= $yandexcounter ?>&amp;from=informer"
+                           target="_blank" rel="nofollow"><img
+                                src="https://informer.yandex.ru/informer/<?= $yandexcounter ?>/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+                                style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика"
+                                title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
+                                onclick="try{Ya.Metrika.informer({i:this,id:<?= $yandexcounter ?>,lang:'ru'});return false}catch(e){}"/></a>
+                        <!-- /Yandex.Metrika informer -->
 
-                    <!-- Yandex.Metrika counter -->
-                    <script type="text/javascript">
-                        (function (d, w, c) {
-                            (w[c] = w[c] || []).push(function() {
-                                try {
-                                    w.yaCounter<?=$yandexcounter?> = new Ya.Metrika({
-                                        id:<?=$yandexcounter?>,
-                                        clickmap:true,
-                                        trackLinks:true,
-                                        accurateTrackBounce:true
-                                    });
-                                } catch(e) { }
-                            });
+                        <!-- Yandex.Metrika counter -->
+                        <script type="text/javascript">
+                            (function (d, w, c) {
+                                (w[c] = w[c] || []).push(function () {
+                                    try {
+                                        w.yaCounter<?=$yandexcounter?> = new Ya.Metrika({
+                                            id:<?=$yandexcounter?>,
+                                            clickmap: true,
+                                            trackLinks: true,
+                                            accurateTrackBounce: true
+                                        });
+                                    } catch (e) {
+                                    }
+                                });
 
-                            var n = d.getElementsByTagName("script")[0],
-                                s = d.createElement("script"),
-                                f = function () { n.parentNode.insertBefore(s, n); };
-                            s.type = "text/javascript";
-                            s.async = true;
-                            s.src = "https://mc.yandex.ru/metrika/watch.js";
+                                var n = d.getElementsByTagName("script")[0],
+                                    s = d.createElement("script"),
+                                    f = function () {
+                                        n.parentNode.insertBefore(s, n);
+                                    };
+                                s.type = "text/javascript";
+                                s.async = true;
+                                s.src = "https://mc.yandex.ru/metrika/watch.js";
 
-                            if (w.opera == "[object Opera]") {
-                                d.addEventListener("DOMContentLoaded", f, false);
-                            } else { f(); }
-                        })(document, window, "yandex_metrika_callbacks");
-                    </script>
-                    <noscript><div><img src="https://mc.yandex.ru/watch/<?=$yandexcounter?>" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-                    <!-- /Yandex.Metrika counter -->
-                <? } ?>
+                                if (w.opera == "[object Opera]") {
+                                    d.addEventListener("DOMContentLoaded", f, false);
+                                } else {
+                                    f();
+                                }
+                            })(document, window, "yandex_metrika_callbacks");
+                        </script>
+                        <noscript>
+                            <div><img src="https://mc.yandex.ru/watch/<?= $yandexcounter ?>"
+                                      style="position:absolute; left:-9999px;" alt=""/></div>
+                        </noscript>
+                        <!-- /Yandex.Metrika counter -->
+                    <? } ?>
+                </div>
+                <p class="pull-right"><a href="/site/offerta">Оферта</a> <a href="/site/paying">Оплата</a> <a
+                        href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
             </div>
-            <p class="pull-right"><a href="/site/offerta">Оферта</a> <a href="/site/paying">Оплата</a> <a
-                    href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
-        </div>
-    </footer>
-    <?php
- //  $this->registerJsFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/js/script.js', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-    $this->endBody();
-    Yii::$app->params['assetsite']->registerAssetFiles($this);
+        </footer>
+        <?php
+        //  $this->registerJsFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/js/script.js', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
+        $this->endBody();
+        Yii::$app->params['assetsite']->registerAssetFiles($this);
 
-    ?>
+        ?>
     </body>
     </html>
 <?php $this->endPage() ?>

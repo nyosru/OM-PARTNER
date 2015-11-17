@@ -117,6 +117,11 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                             <div class="link news"><a href="/admin/default/newspage">Новости</a></div>
                         </li>
                     </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link news"><a href="/admin/default/commentspage">Комментарии</a></div>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
