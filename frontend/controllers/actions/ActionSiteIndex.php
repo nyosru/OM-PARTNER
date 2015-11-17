@@ -9,13 +9,6 @@ trait ActionSiteIndex
     public function actionIndex()
     {
         $list = array();
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->View_cat($cat_array['cat'], 0, $cat_array['name'], $check);
         $hide_man = $this->hide_manufacturers_for_partners();
         foreach ($hide_man as $value) {
             $list[] = $value['manufacturers_id'];
@@ -37,7 +30,7 @@ trait ActionSiteIndex
             Yii::$app->cache->set($key, $newproducts, 86400);
         }
 
-        return  $this->render('indexpage', ['view' => $view, 'dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
+        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
     }
 }
 ?>

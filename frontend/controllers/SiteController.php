@@ -203,28 +203,14 @@ class SiteController extends Controller
 
     public function actionCatalog()
     {
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
         $this->getView()->params['Chpu'] = '';
         $state = $this->CasheUserStateGet();
-        return $this->render('catalog', ['view' => $view, 'state' => $state] );
+        return $this->render('catalog', ['state' => $state]);
     }
 
     public function actionAbout()
     {
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->View_cat($cat_array['cat'], 0, $cat_array['name'], $check);
-        return $this->render('about', ['view' => $view]);
+        return $this->render('about');
     }
 
     public function actionLk()
@@ -234,50 +220,24 @@ class SiteController extends Controller
 
     public function actionContacts()
     {
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
-        return $this->render('contacts', ['view' => $view]);
+
+        return $this->render('contacts');
     }
 
     public function actionDelivery()
     {
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
-        return $this->render('delivery', ['view' => $view]);
+
+        return $this->render('delivery');
     }
 
     public function actionOfferta()
     {
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
-        return $this->render('offerta', ['view' => $view]);
+        return $this->render('offerta');
     }
 
     public function actionFaq()
     {
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
-        return $this->render('faqpage', ['view' => $view]);
+        return $this->render('faqpage');
     }
 
     public function actionPaying()
