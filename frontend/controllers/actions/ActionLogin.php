@@ -2,7 +2,7 @@
 namespace frontend\controllers\actions;
 
 use Yii;
-
+use common\models\LoginForm;
 trait ActionLogin
 {
     public function actionLogin()
