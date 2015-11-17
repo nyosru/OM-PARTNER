@@ -8,10 +8,6 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Вход';
 
 ?>
-    <div class="" id="partners-main">
-
-    <div class="container-fluid" id="partners-main-right-back">
-        <div id="" class="bside">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
             <?= $form->field($model, 'username')->label('Логин') ?>
             <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
@@ -28,5 +24,3 @@ $this->title = 'Вход';
                 <?= Html::submitButton('Вход', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
             <?php ActiveForm::end(); ?>
-        </div>
-    </div>

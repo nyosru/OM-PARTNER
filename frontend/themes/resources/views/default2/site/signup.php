@@ -7,10 +7,7 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Регистрация';
 ?>
-<div class="" id="partners-main">
 
-    <div class="container-fluid" id="partners-main-right-back">
-        <div id="" class="bside">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
             <?= $form->field($model, 'email')->label('E-mail') ?>
             <?= $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
@@ -21,8 +18,6 @@ $this->title = 'Регистрация';
                 <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
             <?php ActiveForm::end(); ?>
-        </div>
-    </div>
 
 
 

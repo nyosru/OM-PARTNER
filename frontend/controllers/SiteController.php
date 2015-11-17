@@ -282,14 +282,7 @@ class SiteController extends Controller
 
     public function actionPaying()
     {
-        $categoriesarr = $this->categories_for_partners();
-        $categories = $categoriesarr[0];
-        $cat = $categoriesarr[1];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $cat_array = $this->reformat_cat_array($categories, $cat, $checks);
-        $view = $this->view_cat($cat_array['cat'], 0, $cat_array['name'], $check);
-        return $this->render('paying', ['view' => $view]);
+        return $this->render('paying');
     }
 
     public function actionSignup()
