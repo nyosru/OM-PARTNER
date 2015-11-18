@@ -31,9 +31,11 @@ class CommentsBlock extends \yii\bootstrap\Widget
                 echo '<div>';
                 echo '<span style=" none repeat scroll 0% 0%; padding: 4px 25px; width: 100%; box-shadow: 2px 1px 5px -4px black;">' . $valuecomments->date_modified . '</span><br/>';
                 $userinfoview = new PartnersUsersInfo();
-                $userinfoview = $userinfoview->findOne(Yii::$app->user->id);
+                $userinfoview = $userinfoview->findOne($valuecomments->user_id);
                 if(isset($userinfoview->name) && isset($userinfoview->lastname)) {
                     echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">' . $userinfoview->name . ' ' . $userinfoview->lastname . '</span>';
+                }else{
+                    echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">Роман Колпаков</span>';
                 }
                 $text = $this->trim_tags_text($valuecomments->post, 400);
                 echo '<span style="margin: 0px; display: block; font-style: italic; padding: 0px 0px 10px 20px;"><sup class="fa fa-quote-left" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 2px 0px 5px; display: inline;"></sup>' . $text . '<sub class="fa fa-quote-right" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 0px 0px 3px;"></sub></span>';
@@ -44,22 +46,26 @@ class CommentsBlock extends \yii\bootstrap\Widget
         echo '<div>';
         if (!Yii::$app->user->isGuest) {
             $modelform = new \common\models\PartnersComments();
-            $userinfo = new PartnersUsersInfo();
-            $userinfo = $userinfo->findOne(Yii::$app->user->id);
+            $userinform = new PartnersUsersInfo();
+            if(($userinfo = $userinform->findOne(Yii::$app->user->id)) !== FALSE){
+            }else{
+                $userinfo = new PartnersUsersInfo();
+            }
+
             $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => '/site/newcomments', 'options' => ['style' => 'width: 95%;margin: auto;']]);
             $l1 = '<div>';
             $l1 .= $form->field($modelform, 'post')->label('Текст комментария')->textarea(['rows' => 6, 'style' => 'resize:none;']);
             $l1 .= '</div>';
-            if(!$userinfo->name){
-                $l1 .= '<div>';
-                $l1 .= $form->field($userinfo, 'name')->label('Ваше имя')->input('text');
-                $l1 .= '</div>';
-            }
-            if(!$userinfo->lastname){
-                $l1 .= '<div>';
-                $l1 .= $form->field($userinfo, 'lastname')->label('Ваша фамилия')->input('text');
-                $l1 .= '</div>';
-            }
+//            if(!$userinfo->name){
+//                $l1 .= '<div>';
+//                $l1 .= $form->field($userinfo, 'name')->label('Ваше имя')->input('text');
+//                $l1 .= '</div>';
+//            }
+//            if(!$userinfo->lastname){
+//                $l1 .= '<div>';
+//                $l1 .= $form->field($userinfo, 'lastname')->label('Ваша фамилия')->input('text');
+//                $l1 .= '</div>';
+//            }
             $l1 .= '<div class="form-group">';
             $l1 .= Html::submitButton('отправить', ['class' => 'sendcomments-button btn btn-primary ', 'name' => 'partners-settings-button']);
             $l1 .= '</div>';
