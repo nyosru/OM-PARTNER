@@ -32,7 +32,9 @@ class CommentsBlock extends \yii\bootstrap\Widget
                 echo '<span style=" none repeat scroll 0% 0%; padding: 4px 25px; width: 100%; box-shadow: 2px 1px 5px -4px black;">' . $valuecomments->date_modified . '</span><br/>';
                 $userinfoview = new PartnersUsersInfo();
                 $userinfoview = $userinfoview->findOne(Yii::$app->user->id);
-                echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">' . $userinfoview->name.' '.$userinfoview->lastname . '</span>';
+                if(isset($userinfoview->name) && isset($userinfoview->lastname)) {
+                    echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">' . $userinfoview->name . ' ' . $userinfoview->lastname . '</span>';
+                }
                 $text = $this->trim_tags_text($valuecomments->post, 400);
                 echo '<span style="margin: 0px; display: block; font-style: italic; padding: 0px 0px 10px 20px;"><sup class="fa fa-quote-left" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 2px 0px 5px; display: inline;"></sup>' . $text . '<sub class="fa fa-quote-right" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 0px 0px 3px;"></sub></span>';
                 echo '</div>';

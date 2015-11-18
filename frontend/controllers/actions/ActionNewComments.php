@@ -65,8 +65,7 @@ trait ActionNewComments
                 if ($model->save() && $modeluser->save()) {
                     return $this->goHome();
                 } else {
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return [$modeluser];
+                    return $this->goHome();
                 }
 
 
