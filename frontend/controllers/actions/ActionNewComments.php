@@ -2,8 +2,6 @@
 namespace frontend\controllers\actions;
 
 use common\models\PartnersComments;
-use common\models\PartnersOrders;
-use common\models\User;
 use Yii;
 use yii\data\ActiveDataProvider;
 
