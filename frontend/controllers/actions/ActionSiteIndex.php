@@ -1,11 +1,13 @@
 <?php
 namespace frontend\controllers\actions;
 
+use common\traits\Trim_Tags;
 use Yii;
 use common\models\PartnersProductsToCategories;
 
 trait ActionSiteIndex
 {
+    use Trim_Tags;
     public function actionIndex()
     {
         $list = array();
@@ -29,8 +31,12 @@ trait ActionSiteIndex
             $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN (' . $hide_man . ') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->distinct()->limit(3)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
             Yii::$app->cache->set($key, $newproducts, 86400);
         }
-
-        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts]);
+        if(isset(Yii::$app->params['partnersset']['slogan']['value']) && Yii::$app->params['partnersset']['slogan']['active'] == 1){
+            $title = $this->trim_tags_text(Yii::$app->params['partnersset']['slogan']['value']);
+        }else{
+            $title = Yii::$app->params['constantapp']['APP_NAME'];
+        }
+        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts, 'title'=>$title]);
     }
 }
 ?>
