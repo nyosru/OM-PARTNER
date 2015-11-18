@@ -829,8 +829,10 @@ $(document).on('click', '.data-j', function dataj() {
                 dataType: 'json',
                 success: function (data) {
                     $inner = [];
+                    $title = [];
                     $.each(data, function () {
                         $inner.push('<div class=" data-j  navbreditem" data-cat=' + this.id + ' href="#">' + this.name + '</i></div>');
+                        $title.push(this.name);
                     });
                     $('.navbredcrump').html('Каталог: ' + $inner.join(' / ')).show();
                 }
@@ -987,12 +989,12 @@ $(document).on('click', '.data-j', function dataj() {
                 if ($(this).children('a').length == 0) {
                     $(this).html('<a href="' + $url + '">' + $(this).html() + '</a>');
                 } else {
-                    $html = $(this).children('a').html()
+                    $html = $(this).children('a').html();
                     $(this).html('<a href="' + $url + '">' + $(this).text() + '</a>');
                 }
             });
 
-            document.title = 'Каталог - ' + $cat + ' Страница - ' + (data[10] + 1);
+            document.title = $title.join('-') + ', Страница - ' + (data[10] + 1);
             if (history.pushState) {
                 history.pushState(null, null, '/site/catalog/' + new_url(split_url($url)))
             }

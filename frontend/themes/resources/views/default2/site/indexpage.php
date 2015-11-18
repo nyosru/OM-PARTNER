@@ -11,7 +11,13 @@ use yii\caching\Cache;
 use yii\filters\AccessControl;
 use yii\web\User;
 //if ($this->beginCache('partner-index'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] , array('duration'=>600))) {?>
+<?
+$this->title = $title;
 
+
+
+
+?>
 
         <div id="main-index">
                 <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><img src="/images/banners/7.png"><a href="/site/catalog?_escaped_fragment_=cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a></div>
