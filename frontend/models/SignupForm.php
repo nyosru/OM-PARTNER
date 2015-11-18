@@ -62,7 +62,7 @@ class SignupForm extends Model
         if ($this->validate()) {
             $user = new User();
             $partners = new Partners();
-            $id_partners = $partners->GetId($_SERVER[HTTP_HOST]);
+            $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
             $user->username = $this->email;
             $user->email = $this->email;
             $user->setPassword($this->password);
@@ -73,9 +73,9 @@ class SignupForm extends Model
               $auth = Yii::$app->authManager;
               $auth->assign($auth->getRole('register'), $user->getId());
                 Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
-                    ->setFrom('support@'.$_SERVER[HTTP_HOST])
+                    ->setFrom('support@' . $_SERVER['HTTP_HOST'])
                     ->setTo($user->email)
-                    ->setSubject('Регистрация на сайте '.$_SERVER[HTTP_HOST])
+                    ->setSubject('Регистрация на сайте ' . $_SERVER['HTTP_HOST'])
                     ->send();
                 return $user;
             }
@@ -85,7 +85,7 @@ class SignupForm extends Model
     {
         $userCustomer = new Customers();
         $partners = new Partners();
-        $id_partners = $partners->GetId($_SERVER[HTTP_HOST]);
+        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
         $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom'.$id_partners.'@@@'.$this->email])->asArray()->one();
         $userCustomer = new User();
         $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners'=>$id_partners])->asArray()->one();
