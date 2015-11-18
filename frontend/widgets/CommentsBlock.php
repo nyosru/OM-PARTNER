@@ -46,26 +46,25 @@ class CommentsBlock extends \yii\bootstrap\Widget
         echo '<div>';
         if (!Yii::$app->user->isGuest) {
             $modelform = new \common\models\PartnersComments();
-            $userinform = new PartnersUsersInfo();
-            if(($userinfo = $userinform->findOne(Yii::$app->user->id)) !== FALSE){
-            }else{
+            $userinfo = new PartnersUsersInfo();
+            $userinfo = $userinfo::findOne(['id'=>Yii::$app->user->id]);
+            if(!$userinfo){
                 $userinfo = new PartnersUsersInfo();
             }
-
             $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => '/site/newcomments', 'options' => ['style' => 'width: 95%;margin: auto;']]);
             $l1 = '<div>';
             $l1 .= $form->field($modelform, 'post')->label('Текст комментария')->textarea(['rows' => 6, 'style' => 'resize:none;']);
             $l1 .= '</div>';
-//            if(!$userinfo->name){
-//                $l1 .= '<div>';
-//                $l1 .= $form->field($userinfo, 'name')->label('Ваше имя')->input('text');
-//                $l1 .= '</div>';
-//            }
-//            if(!$userinfo->lastname){
-//                $l1 .= '<div>';
-//                $l1 .= $form->field($userinfo, 'lastname')->label('Ваша фамилия')->input('text');
-//                $l1 .= '</div>';
-//            }
+            if(!$userinfo->name){
+                $l1 .= '<div>';
+                $l1 .= $form->field($userinfo, 'name')->label('Ваше имя')->input('text');
+                $l1 .= '</div>';
+            }
+            if(!$userinfo->lastname){
+                $l1 .= '<div>';
+                $l1 .= $form->field($userinfo, 'lastname')->label('Ваша фамилия')->input('text');
+                $l1 .= '</div>';
+            }
             $l1 .= '<div class="form-group">';
             $l1 .= Html::submitButton('отправить', ['class' => 'sendcomments-button btn btn-primary ', 'name' => 'partners-settings-button']);
             $l1 .= '</div>';
