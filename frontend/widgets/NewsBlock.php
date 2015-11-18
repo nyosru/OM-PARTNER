@@ -2,12 +2,13 @@
 
 namespace frontend\widgets;
 
+use common\traits\Trim_Tags;
 use Yii;
 use yii\helpers\Html;
 
 class NewsBlock extends \yii\bootstrap\Widget
 {
-
+    use Trim_Tags;
     public function init()
     {
         ?>
@@ -29,37 +30,8 @@ class NewsBlock extends \yii\bootstrap\Widget
                 echo '<div>';
                 echo '<span style=" none repeat scroll 0% 0%; padding: 4px 25px; width: 100%; box-shadow: 2px 1px 5px -4px black;">' . $valuenews->date_modified . '</span><br/>';
                 echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-weight: 600">' . $valuenews->name . '</span>';
-                $search = array("'<script[^>]*?>.*?</script>'si",
-                    "'<[\/\!]*?[^<>]*?>'si",
-                    "'([\r\n])[\s]+'",
-                    "'&(quot|#34);'i",
-                    "'&(amp|#38);'i",
-                    "'&(lt|#60);'i",
-                    "'&(gt|#62);'i",
-                    "'&(nbsp|#160);'i",
-                    "'&(iexcl|#161);'i",
-                    "'&(cent|#162);'i",
-                    "'&(pound|#163);'i",
-                    "'&(copy|#169);'i",
-                    "'&#(\d+);'e");
-
-                $replace = array("",
-                    "",
-                    "\\1",
-                    "\"",
-                    "&",
-                    "<",
-                    ">",
-                    " ",
-                    chr(161),
-                    chr(162),
-                    chr(163),
-                    chr(169),
-                    "chr(\\1)");
-
-                $text = preg_replace($search, $replace, $valuenews->post);
-                echo '<span style="padding: 0px 15px; display: block; margin: 0px 10px 10px;">' . mb_substr($text, 0, 180, 'UTF-8') . '...</span> <br/>';
-
+                $text = $this->trim_tags_text($valuenews->post);
+                echo '<span style="padding: 0px 15px; display: block; margin: 0px 10px 10px;">' . $text . '...</span> <br/>';
                 echo '</div>';
             }
             ?></div><?
