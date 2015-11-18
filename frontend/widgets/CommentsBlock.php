@@ -38,12 +38,12 @@ class CommentsBlock extends \yii\bootstrap\Widget
         echo '<div>';
         if (!Yii::$app->user->isGuest) {
             $modelform = new \common\models\PartnersComments();
-            $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => '/site/newcomments']);
+            $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => '/site/newcomments', 'options' => ['style' => 'width: 95%;margin: auto;']]);
             $l1 = '<div>';
             $l1 .= $form->field($modelform, 'post')->label('Текст комментария')->textarea(['rows' => 6, 'style' => 'resize:none;']);
             $l1 .= '</div>';
             $l1 .= '<div class="form-group">';
-            $l1 .= Html::submitButton('отправить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+            $l1 .= Html::submitButton('отправить', ['class' => 'sendcomments-button btn btn-primary ', 'name' => 'partners-settings-button']);
             $l1 .= '</div>';
             echo $l1;
             \yii\bootstrap\ActiveForm::end();

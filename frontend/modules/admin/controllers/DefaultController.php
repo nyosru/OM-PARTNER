@@ -40,7 +40,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'newspage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -639,6 +639,14 @@ class DefaultController extends Controller
             return $this->render('newspage', ['model' => $newsprovider, 'modelform' => $model]);
         }
     }
+
+    public function actionRequestpage()
+    {
+
+        return $this->render('requestpage');
+
+    }
+
 
     public function actionCommentspage()
     {
