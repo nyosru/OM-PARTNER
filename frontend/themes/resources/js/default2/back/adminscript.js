@@ -320,21 +320,3 @@ $(document).on("click", "#admclose", function () {
     $cl = this.getAttribute("data-tog");
     $("[data-tog=" + $cl + "]").modal("hide")
 });
-$(document).on("click", ".news", function () {
-    $.ajax({
-        url: "/admin/default/requestnews",
-        data: "",
-        cache: false,
-        async: true,
-        dataType: "json",
-        success: function (a) {
-            $(".bside").html("");
-            $inner = '<div class="admin-users-row"><div class="admin-news-num-header">№ п/п</div><div class="admin-news-name-header">Заголовок</div><div class="admin-news-date-added-header">Дата добавления</div><div class="admin-news-date-update-header">Дата обновления</div><div class="admin-news-tags-header">Теги</div><div class="admin-news-status-header">Статус</div><div class="admin-news-controls-header">Управление</div></div>';
-            $innercount = "";
-            $.each(a, function () {
-                $inner += '<div class="admin-users-row"><div class="admin-users-num">' + ($innercount++) + '</div><div class="admin-users-name">' + this["username"] + '</div><div class="admin-users-mail">' + this["email"] + '</div><div class="admin-users-date-reg">' + timeConverter(this["created_at"]) + '</div><div class="admin-users-date-update">' + timeConverter(this["updated_at"]) + "</div></div>"
-            });
-            $(".bside").append($inner)
-        }
-    })
-});
