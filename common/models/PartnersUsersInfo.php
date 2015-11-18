@@ -58,6 +58,8 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
             'flat2_flat2' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
             'flat3_flat3' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
             'flat7_flat7' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
+            'commentsuserinfo' => ['id', 'name', 'lastname'],
+
         ];
     }
     /**

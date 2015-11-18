@@ -2471,22 +2471,18 @@
         font-size: 20px;
         font-weight: 600;
     }
-
     .sendcomments-button {
-        background-color: #A1C258;
-        border-color: #A1C258;
-    }
-
+          background-color: #A1C258;
+          border-color: #A1C258;
+      }
     .sendcomments-button:hover {
         background-color: #A1C258;
         border-color: #A1C258;
     }
-
     .sendcomments-button:focus {
         background-color: #A1C258;
         border-color: #A1C258;
     }
-
     .sendcomments-button:active:hover {
         background-color: #A1C258;
         border-color: #A1C258;

@@ -2,7 +2,9 @@
 namespace frontend\controllers\actions;
 
 use common\models\PartnersComments;
+use common\models\PartnersUsersInfo;
 use Yii;
+use yii\base\Exception;
 use yii\data\ActiveDataProvider;
 
 
@@ -46,6 +48,11 @@ trait ActionNewComments
 
             $text = preg_replace($search, $replace, Yii::$app->request->post()['PartnersComments']['post']);
             $model = new PartnersComments();
+            $modeluser = new PartnersUsersInfo();
+            $modeluser = $modeluser::findOne($user);
+            $modeluser->setScenario('commentsuserinfo');
+            $modeluser->name = Yii::$app->request->post()['PartnersUsersInfo']['name'];
+            $modeluser->lastname = Yii::$app->request->post()['PartnersUsersInfo']['lastname'];
             $model->category = 0;
             $model->date_added = date('Y-m-d h:i:s');
             $model->date_modified = date('Y-m-d h:i:s');;
@@ -53,12 +60,15 @@ trait ActionNewComments
             $model->status = 0;
             $model->user_id = Yii::$app->user->getIdentity()->id;
             $model->post = $text;
-            if ($model->save()) {
-                return $this->goHome();
-            } else {
 
-                return $this->goHome();
-            }
+
+                if ($model->save() && $modeluser->save()) {
+                    return $this->goHome();
+                } else {
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return [$modeluser];
+                }
+
 
         }
 

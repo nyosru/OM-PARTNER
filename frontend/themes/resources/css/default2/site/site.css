@@ -2466,22 +2466,18 @@
         font-size: 20px;
         font-weight: 600;
     }
-
     .sendcomments-button {
         background-color: #FFBF08;
         border-color: #FFBF08;
     }
-
     .sendcomments-button:hover {
         background-color: #FFBF08;
         border-color: #FFBF08;
     }
-
     .sendcomments-button:focus {
         background-color: #FFBF08;
         border-color: #FFBF08;
     }
-
     .sendcomments-button:active:hover {
         background-color: #FFBF08;
         border-color: #FFBF08;

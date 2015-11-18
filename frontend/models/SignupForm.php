@@ -62,7 +62,7 @@ class SignupForm extends Model
         if ($this->validate()) {
             $user = new User();
             $partners = new Partners();
-            $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+            $id_partners = $partners->GetId($_SERVER[HTTP_HOST]);
             $user->username = $this->email;
             $user->email = $this->email;
             $user->setPassword($this->password);
@@ -73,9 +73,9 @@ class SignupForm extends Model
               $auth = Yii::$app->authManager;
               $auth->assign($auth->getRole('register'), $user->getId());
                 Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
-                    ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                    ->setFrom('support@'.$_SERVER[HTTP_HOST])
                     ->setTo($user->email)
-                    ->setSubject('Регистрация на сайте ' . $_SERVER['HTTP_HOST'])
+                    ->setSubject('Регистрация на сайте '.$_SERVER[HTTP_HOST])
                     ->send();
                 return $user;
             }

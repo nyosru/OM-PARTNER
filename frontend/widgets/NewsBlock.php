@@ -35,11 +35,11 @@ class NewsBlock extends \yii\bootstrap\Widget
                 $text = $this->trim_tags_text($valuenews->post);
                 echo '<span style="padding: 0px 15px; display: block; margin: 0px 10px 10px;">';
                 Modal::begin([
-                    'header' => $valuenews->name,
-                    'headerOptions' => [
-                        'class' => 'newsmodhead',
+                    'header' =>  $valuenews->name,
+                    'headerOptions'=> [
+                        'class'=>'newsmodhead',
                     ],
-                    'toggleButton' => ['label' => $text . '...',
+                    'toggleButton' => ['label' => $text.'...',
                         'tag' => 'div',
                         'style' => 'cursor:pointer'
                     ],
