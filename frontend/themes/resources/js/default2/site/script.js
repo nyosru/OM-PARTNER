@@ -993,7 +993,6 @@ $(document).on('click', '.data-j', function dataj() {
                     $(this).html('<a href="' + $url + '">' + $(this).text() + '</a>');
                 }
             });
-
             document.title = $title.join('-') + ', Страница - ' + (data[10] + 1);
             if (history.pushState) {
                 history.pushState(null, null, '/site/catalog/' + new_url(split_url($url)))
