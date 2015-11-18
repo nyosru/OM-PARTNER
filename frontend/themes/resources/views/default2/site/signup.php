@@ -9,7 +9,7 @@ $this->title = 'Регистрация';
 ?>
 
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-            <?= $form->field($model, 'email')->label('E-mail') ?>
+<?= $form->field($model, 'email')->label('E-mail'); ?>
             <?= $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
                 'template' => '{image}{input}'
             ])->label('Введите текст на картинке') ?>

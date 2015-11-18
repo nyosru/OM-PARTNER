@@ -43,7 +43,7 @@ class SignupForm extends Model
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
-            ['email, captcha', 'required', 'message' => 'Это обязательное поле.'],
+            ['email', 'required', 'message' => 'Это обязательное поле.'],
             ['email', 'email'],
             ['captcha', 'captcha'],
             ['email', 'validateUserEmail'],
@@ -85,7 +85,7 @@ class SignupForm extends Model
     {
         $userCustomer = new Customers();
         $partners = new Partners();
-        $id_partners = $partners->GetId($_SERVER[HTTP_HOST]);
+        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
         $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom'.$id_partners.'@@@'.$this->email])->asArray()->one();
         $userCustomer = new User();
         $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners'=>$id_partners])->asArray()->one();

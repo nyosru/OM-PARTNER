@@ -210,7 +210,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 foreach ($commentsprovider as $valuecomments) {
                                     echo '<div>';
                                     echo '<span style=" none repeat scroll 0% 0%; padding: 4px 25px; width: 100%; box-shadow: 2px 1px 5px -4px black;">' . $valuecomments->date_modified . '</span><br/>';
-                                    echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-weight: 600">' . $valuecomments->post . '</span>';
+                                    echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%;  font-style: italic;">' . $valuecomments->post . '</span>';
                                     echo '</div>';
                                 }
 
