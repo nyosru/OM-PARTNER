@@ -131,22 +131,13 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                         <div id="min-price" class="btn" style="display:none">0</div>
                         <div style="display:none" id="max-price" class="btn">10000</div>
-
                     </div>
-
                     <? if (isset(Yii::$app->params['partnersset']['newsonindex']['value']) && Yii::$app->params['partnersset']['newsonindex']['active'] == 1) { ?>
                         <?= \frontend\widgets\NewsBlock::widget(); ?>
                     <? } ?>
-
-
                     <? if (isset(Yii::$app->params['partnersset']['commentsonindex']['value']) && Yii::$app->params['partnersset']['commentsonindex']['active'] == 1) { ?>
                         <?= \frontend\widgets\CommentsBlock::widget(); ?>
                     <? } ?>
-
-
-
-
-
                 </div>
             </div>
             <div class="container-fluid" id="partners-main-right-back">

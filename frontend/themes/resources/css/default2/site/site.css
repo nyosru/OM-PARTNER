@@ -2458,4 +2458,13 @@
         border-top: 1px solid #FFBF08;
     }
 
+    .newsmodhead {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        width: 100%;
+        background: #FFBF08 none repeat scroll 0% 0%;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
 }
