@@ -19,7 +19,7 @@ class CommentsBlock extends \yii\bootstrap\Widget
             </div>
         <?
         $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
-        print_r($x);
+
         $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-news-page-' . intval(Yii::$app->request->post('page')));
         if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || $x['date_modified'] !== $commentsprovider['lastupdate']) {
             $commentsprovider = new \yii\data\ActiveDataProvider([
@@ -30,10 +30,10 @@ class CommentsBlock extends \yii\bootstrap\Widget
             ]);
             $commentsprovider = $commentsprovider->getModels();
             Yii::$app->cache->set($key, ['data' => $commentsprovider, 'lastupdate' => $x['date_modified']]);
-            echo 'из таблицы';
+
         } else {
             $commentsprovider = $commentsprovider['data'];
-            echo 'из кэша';
+
         }
         if (!$commentsprovider) {
             echo 'Комментарии отсутствуют';
