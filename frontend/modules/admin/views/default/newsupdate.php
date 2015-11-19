@@ -1,8 +1,4 @@
 <?php
-
-/* @var $this yii\web\View */
-?>
-<?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Tabs;

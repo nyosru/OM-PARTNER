@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use common\models\PartnersComments;
 use common\models\PartnersNews;
+use common\models\PartnersRequest;
 use common\models\PartnersSettings;
 use common\models\OrdersTotal;
 use common\models\PartnersOrders;
@@ -40,7 +41,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 
@@ -643,7 +644,27 @@ class DefaultController extends Controller
     public function actionRequestpage()
     {
 
-        return $this->render('requestpage');
+        $model = new PartnersRequest();
+        $requestprovider = new ActiveDataProvider([
+            'query' => PartnersRequest::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']]),
+            'pagination' => [
+                'defaultPageSize' => 20,
+            ],
+        ]);
+        $load = Yii::$app->request->post();
+        if ($model->load($load)) {
+            $model->date_add = date('Y-m-d h:i:s');
+            $model->date_modify = date('Y-m-d h:i:s');
+            $model->status = 0;
+            $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
+            if ($model->save()) {
+                return $this->refresh();
+            } else {
+                return $this->refresh();
+            }
+        } else {
+            return $this->render('requestpage', ['model' => $requestprovider, 'error' => $model->errors, 'modelform' => $model]);
+        }
 
     }
 
@@ -690,6 +711,30 @@ class DefaultController extends Controller
             }
         } else {
             return $this->redirect('/admin/default/newspage');
+        }
+    }
+
+    public function actionRequestupdate()
+    {
+        $id = Yii::$app->request->getQueryParam('id', 'none');
+        if (isset($id) && $id !== 'none') {
+            $model = new PartnersRequest();
+            $model = $model::findOne(intval(Yii::$app->request->getQueryParam('id')));
+            $load = Yii::$app->request->post();
+            if (isset($load) && $model->load($load)) {
+                $model->date_modified = date('Y-m-d h:i:s');
+                $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
+                if ($model->save()) {
+                    return $this->redirect('/admin/default/requestpage');
+                } else {
+                    return $this->redirect('/admin/default/requestpage');
+                }
+            } else {
+                return $this->render('requestupdate', ['modelform' => $model]);
+            }
+            return $this->render('requestupdate', ['modelform' => $model]);
+        } else {
+            return $this->redirect('/admin/default/requestpage');
         }
     }
 

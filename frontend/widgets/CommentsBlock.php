@@ -2,6 +2,7 @@
 
 namespace frontend\widgets;
 
+use common\models\PartnersComments;
 use common\models\PartnersUsersInfo;
 use common\traits\Trim_Tags;
 use Yii;
@@ -17,13 +18,23 @@ class CommentsBlock extends \yii\bootstrap\Widget
             <div class="header-catalog"> Отзывы о нашем магазине
             </div>
         <?
-        $commentsprovider = new \yii\data\ActiveDataProvider([
-            'query' => \common\models\PartnersComments::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
-            'pagination' => [
-                'defaultPageSize' => intval(Yii::$app->params['partnersset']['commentsonindex']['value']),
-            ],
-        ]);
-        $commentsprovider = $commentsprovider->getModels();
+        $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
+        print_r($x);
+        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-news-page-' . intval(Yii::$app->request->post('page')));
+        if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || $x['date_modified'] !== $commentsprovider['lastupdate']) {
+            $commentsprovider = new \yii\data\ActiveDataProvider([
+                'query' => \common\models\PartnersComments::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
+                'pagination' => [
+                    'defaultPageSize' => intval(Yii::$app->params['partnersset']['commentsonindex']['value']),
+                ],
+            ]);
+            $commentsprovider = $commentsprovider->getModels();
+            Yii::$app->cache->set($key, ['data' => $commentsprovider, 'lastupdate' => $x['date_modified']]);
+            echo 'из таблицы';
+        } else {
+            $commentsprovider = $commentsprovider['data'];
+            echo 'из кэша';
+        }
         if (!$commentsprovider) {
             echo 'Комментарии отсутствуют';
         } else {

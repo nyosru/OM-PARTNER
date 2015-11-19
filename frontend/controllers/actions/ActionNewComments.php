@@ -51,12 +51,14 @@ trait ActionNewComments
             $modeluser = new PartnersUsersInfo();
             $modeluser = $modeluser::findOne(['id'=>$user]);
             if(!$modeluser){
-               $modeluser = new PartnersUsersInfo();
+                $modeluser = new PartnersUsersInfo();
+                $modeluser->setScenario('commentsuserinfo');
+                $modeluser->id = $user;
+                $modeluser->name = Yii::$app->request->post()['PartnersUsersInfo']['name'];
+                $modeluser->lastname = Yii::$app->request->post()['PartnersUsersInfo']['lastname'];
+                $modeluser->save();
+            } else {
             }
-            $modeluser->setScenario('commentsuserinfo');
-            $modeluser->id = $user;
-            $modeluser->name = Yii::$app->request->post()['PartnersUsersInfo']['name'];
-            $modeluser->lastname = Yii::$app->request->post()['PartnersUsersInfo']['lastname'];
             $model->category = 0;
             $model->date_added = date('Y-m-d h:i:s');
             $model->date_modified = date('Y-m-d h:i:s');
@@ -64,11 +66,10 @@ trait ActionNewComments
             $model->status = 0;
             $model->user_id = Yii::$app->user->getIdentity()->id;
             $model->post = $text;
-
-
-                if ($model->save() && $modeluser->save()) {
+            if ($model->save()) {
                     return $this->goHome();
                 } else {
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                     return $modeluser->errors;
                 }
 
