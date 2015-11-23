@@ -34,11 +34,20 @@ class PartnersRequest extends \yii\db\ActiveRecord
         return [
             [['partners_id', 'post', 'date_add', 'date_modify', 'status'], 'required'],
             [['partners_id', 'status', 'supervisor'], 'integer'],
-            [['post', 'comments'], 'string'],
-            [['date_add', 'date_modify'], 'safe']
+            [['post'], 'string'],
+            [['date_add', 'date_modify'], 'safe'],
+            [['comments'], 'ValidateArr']
         ];
     }
 
+    public function ValidateArr()
+    {
+        if (is_array($this->comments)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * @inheritdoc
      */

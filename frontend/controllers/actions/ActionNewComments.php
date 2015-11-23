@@ -58,6 +58,9 @@ trait ActionNewComments
                 $modeluser->lastname = Yii::$app->request->post()['PartnersUsersInfo']['lastname'];
                 $modeluser->save();
             } else {
+                $modeluser->name = Yii::$app->request->post()['PartnersUsersInfo']['name'];
+                $modeluser->lastname = Yii::$app->request->post()['PartnersUsersInfo']['lastname'];
+                $modeluser->save();
             }
             $model->category = 0;
             $model->date_added = date('Y-m-d h:i:s');

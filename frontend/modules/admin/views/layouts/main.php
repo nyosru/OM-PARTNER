@@ -11,7 +11,7 @@ use common\models\Partners;
 /* @var $content string */
 
 $check = Yii::$app->params['constantapp']['APP_ID'];
-
+\dmstr\web\AdminLteAsset::register($this);
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 

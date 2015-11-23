@@ -985,14 +985,6 @@ $(document).on('click', '.data-j', function dataj() {
                 $('.preload').remove();
             }
             $("[data-cat=" + data[12] + "]").attr('data', 'checked');
-            $.each($('.link'), function () {
-                if ($(this).children('a').length == 0) {
-                    $(this).html('<a href="' + $url + '">' + $(this).html() + '</a>');
-                } else {
-                    $html = $(this).children('a').html();
-                    $(this).html('<a href="' + $url + '">' + $(this).text() + '</a>');
-                }
-            });
             document.title = $title.join('-') + ', Страница - ' + (data[10] + 1);
             if (history.pushState) {
                 history.pushState(null, null, '/site/catalog/' + new_url(split_url($url)))

@@ -65,7 +65,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     $urlarr = $load_traits->reformat_cat_array($categories, $catdataw, $checks);
     foreach ($urlarr['cat'] as $key => $value) {
         for ($i = 0; $i < 5; $i++) {
-            $url = 'http://' . $_SERVER['HTTP_HOST'] . '/site/catalog?_escaped_fragment_=cat=' . $key . '%26count=20%26start_price=%26end_price=1000000%26prod_attr_query=%26page=' . $i . '%26sort=undefined%26searchword=';
+            $url = 'http://' . $_SERVER['HTTP_HOST'] . '/site/catalog?_escaped_fragment_=cat=' . $key . '&amp;count=20&amp;start_price=0&amp;end_price=1000000&amp;prod_attr_query=&amp;page=' . $i . '&amp;sort=10&amp;searchword=';
             echo '<url>';
             echo '   <loc>' . $url . '</loc>';
             echo '  <changefreq>hourly</changefreq>';

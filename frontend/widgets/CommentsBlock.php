@@ -66,12 +66,14 @@ class CommentsBlock extends \yii\bootstrap\Widget
             $l1 = '<div>';
             $l1 .= $form->field($modelform, 'post')->label('Текст комментария')->textarea(['rows' => 6, 'style' => 'resize:none;']);
             $l1 .= '</div>';
-            if(!$userinfo->name){
+            if (true) {
+                //   if(!$userinfo->name){
                 $l1 .= '<div>';
                 $l1 .= $form->field($userinfo, 'name')->label('Ваше имя')->input('text');
                 $l1 .= '</div>';
             }
-            if(!$userinfo->lastname){
+            if (true) {
+                // if(!$userinfo->lastname){
                 $l1 .= '<div>';
                 $l1 .= $form->field($userinfo, 'lastname')->label('Ваша фамилия')->input('text');
                 $l1 .= '</div>';
