@@ -604,7 +604,7 @@ class DefaultController extends Controller
                         $neworderpartner->update_date = date("Y-m-d H:i:s");
                         $neworderpartner->update();
                     } else {
-                        print_r($userOM);
+                        //  print_r($userOM);
                     }
                 } else {
                     return false;
@@ -673,7 +673,16 @@ class DefaultController extends Controller
     {
         $model = new PartnersComments();
         $newsprovider = new ActiveDataProvider([
-            'query' => PartnersComments::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']]),
+            'query' => PartnersComments::find()->select([
+                'partners_comments.id',
+                'partners_comments.user_id',
+                'partners_comments.post',
+                'partners_comments.status',
+                'partners_comments.date_added',
+                'partners_users.username',
+            ])->where([
+                'partners_id' => Yii::$app->params['constantapp']['APP_ID']
+            ])->joinWith('user'),
             'pagination' => [
                 'defaultPageSize' => 20,
             ],
@@ -746,7 +755,7 @@ class DefaultController extends Controller
             $model = new PartnersComments();
             $model = $model::findOne(intval(Yii::$app->request->getQueryParam('id')));
             if ($model) {
-                if (Yii::$app->request->getQueryParam('action') == 'add') {
+                if (Yii::$app->request->getQueryParam('action') === 'add') {
                     $model->status = 1;
                 } else {
                     $model->status = 0;

@@ -33,6 +33,17 @@ echo \yii\grid\GridView::widget([
             }
         ],
         [
+            'attribute' => 'username',
+            'label' => 'Пользователь',
+            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+            'contentOptions' => function ($model, $key, $index, $column) {
+                return ['class' => 'tbl_column_name'];
+            },
+            'content' => function ($data) {
+                return $data->user->username;
+            }
+        ],
+        [
             'attribute' => 'post',
             'label' => 'Сообщение',
             'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
