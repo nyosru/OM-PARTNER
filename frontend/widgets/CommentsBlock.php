@@ -49,7 +49,7 @@ class CommentsBlock extends \yii\bootstrap\Widget
                     echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">Роман Колпаков</span>';
                 }
                 $text = $this->trim_tags_text($valuecomments->post, 400);
-                echo '<span style="margin: 0px; display: block; font-style: italic; padding: 0px 0px 10px 20px;"><sup class="fa fa-quote-left" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 2px 0px 5px; display: inline;"></sup>' . $text . '<sub class="fa fa-quote-right" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 0px 0px 3px;"></sub></span>';
+                echo '<span style="margin: 0px; display: block; font-style: italic; padding: 0px 20px 10px;"><sup class="fa fa-quote-left" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 2px 0px 5px; display: inline; margin: 0px 0px 0px -13px;"></sup>' . $text . '<sub class="fa fa-quote-right" style="font-size: 8px; color: rgb(186, 186, 186); padding: 0px 0px 0px 3px;"></sub></span>';
                 echo '</div>';
             }
 
