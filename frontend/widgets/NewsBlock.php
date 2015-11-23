@@ -2,6 +2,7 @@
 
 namespace frontend\widgets;
 
+use common\models\PartnersNews;
 use common\traits\Trim_Tags;
 use Yii;
 use yii\bootstrap\Modal;
@@ -18,13 +19,22 @@ class NewsBlock extends \yii\bootstrap\Widget
         <div class="header-catalog"> НОВОСТИ
         </div>
         <?
-        $newsprovider = new \yii\data\ActiveDataProvider([
+        $x = PartnersNews::find()->select('MAX(`date_modified`) as last_modified ')->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
+        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-newspage-' . (integer)(Yii::$app->request->post('page')).'-set-'.(integer)(Yii::$app->params['partnersset']['newsonindex']['value']));
+        if (($newsprovider = Yii::$app->cache->get($key)) == FALSE || $x['date_modified'] !== $newsprovider['lastupdate']) {
+            $newsprovider = new \yii\data\ActiveDataProvider([
             'query' => \common\models\PartnersNews::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
             'pagination' => [
-                'defaultPageSize' => intval(Yii::$app->params['partnersset']['newsonindex']['value']),
+                'defaultPageSize' => (integer)(Yii::$app->params['partnersset']['newsonindex']['value']),
             ],
         ]);
-        $newsprovider = $newsprovider->getModels();
+            $newsprovider = $newsprovider->getModels();
+            Yii::$app->cache->set($key, ['data' => $newsprovider, 'lastupdate' => $x['date_modified']]);
+        } else {
+            echo 'кэш';
+            $newsprovider = $newsprovider['data'];
+
+        }
         if (!$newsprovider) {
             echo 'Новости отсутствуют';
         } else {

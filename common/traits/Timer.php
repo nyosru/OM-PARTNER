@@ -1,5 +1,5 @@
 <?php
-
+namespace common\traits;
 /**
  * Created by PhpStorm.
  * User: User
