@@ -44,7 +44,7 @@ class CommentsBlock extends \yii\bootstrap\Widget
                 $userinfoview = new PartnersUsersInfo();
                 $userinfoview = $userinfoview->findOne($valuecomments->user_id);
                 if(isset($userinfoview->name) && isset($userinfoview->lastname)) {
-                    echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">' . $userinfoview->name . ' ' . $userinfoview->lastname . '</span>';
+                    echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-weight: 600;">' . $userinfoview->name . ' ' . $userinfoview->lastname . '</span>';
                 }else{
                     echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">Роман Колпаков</span>';
                 }
