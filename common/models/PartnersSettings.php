@@ -22,9 +22,11 @@ class PartnersSettings extends Model
     public $contacts;
     public $logotype;
     public $discounttotalorderprice;
+    public $discountgroup;
     public $slogan;
     public $newsonindex;
     public $commentsonindex;
+    public $discounttotalorder;
     /**
      * @inheritdoc
      */
@@ -52,7 +54,7 @@ class PartnersSettings extends Model
     {
         return [
             [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
-            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice'], 'string'],
+            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
     }

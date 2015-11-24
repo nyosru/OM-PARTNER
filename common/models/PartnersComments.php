@@ -55,7 +55,6 @@ class PartnersComments extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
-
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);

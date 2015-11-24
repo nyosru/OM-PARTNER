@@ -318,7 +318,7 @@ use yii\jui\Slider;
 if(isset($state)){
     $start_url = '_escaped_fragment_=cat='.$state['cat'].'&count='.$state['count'].'&start_price='.$state['start_price'].'&end_price='.$state['end_price'].'&prod_attr_query='.$state['prod_attr_query'].'&page='.$state['page'].'&sort='.$state['sort'].'&searchword='.$state['searchword'];
 }
-$url_data = split_url(str_replace('&amp;', '&', str_replace('%26', '&', str_replace('_escaped_fragment_=', '#!', $start_url))));
+    $url_data = split_url(str_replace('&amp;','&',str_replace('%26', '&', str_replace('_escaped_fragment_=', '#!', $start_url))));
     $cat = $url_data['#!cat'][1];
     $count = $url_data['count'][1];
     $min_price = $url_data['start_price'][1];

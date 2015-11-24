@@ -84,11 +84,9 @@ trait ActionSaveorder
                 $user->adress = $userdata['adress'];
                 $user->postcode = $userdata['postcode'];
                 $user->telephone = $userdata['telephone'];
+                $check_passport_customer->update();
+                $user->update();
 
-
-                if ($check_passport_customer->update() && $user->update()) {
-                } else {
-                }
             } else {
                 $user->id = $userModel->getId();
                 $user->name = $userdata['name'];
@@ -129,23 +127,40 @@ trait ActionSaveorder
 
             $totalprice = 0;
             foreach ($order as $key => $value) {
-                $totalprice += intval($value[3]) * intval($value[4]);
+                $totalprice += (integer)($value[3]) * (integer)($value[4]);
             }
-
+            $order['discounttotalprice'] = 0;
             if (isset(Yii::$app->params['partnersset']['discounttotalorderprice']['value']) && Yii::$app->params['partnersset']['discounttotalorderprice']['active'] == 1) {
                 foreach (Yii::$app->params['partnersset']['discounttotalorderprice']['value'] as $valuediscont) {
-                    if ($valuediscont['in'] <= $totalprice && $totalprice < $valuediscont['out'] && intval($valuediscont['value']) > 0) {
+                    if ($valuediscont['in'] <= $totalprice && $totalprice < $valuediscont['out'] && (integer)($valuediscont['value']) > 0) {
                         $order['discounttotalprice'] = $valuediscont['value'];
                     }
                 }
             }
 
-            if (isset(Yii::$app->params['partnersset']['minorderprice']['value']) && Yii::$app->params['partnersset']['minorderprice']['active'] == 1) {
-                $ch = intval(Yii::$app->params['partnersset']['minorderprice']['value']);
-                if ($ch > $totalprice) {
-                    return ['exception' => 'Минимальная сумма заказа ' . intval(Yii::$app->params['partnersset']['minorderprice']['value']) . ' Руб. Сумма вашего заказа ' . $totalprice . ' Руб.'];
-                } else {
+            if (isset(Yii::$app->params['partnersset']['discounttotalorder']['value']) && Yii::$app->params['partnersset']['discounttotalorder']['active'] == 1) {
+                $user_total_order_price = (integer)Yii::$app->user->identity->total_order;
+                if ($user_total_order_price > 0) {
+                    foreach (Yii::$app->params['partnersset']['discounttotalorder']['value'] as $valuediscontorder) {
+                        if($valuediscontorder['in'] <= $user_total_order_price && $user_total_order_price < $valuediscontorder['out'] && (integer)($valuediscontorder['value']) > 0){
+                            $order['discounttotalprice'] =  max((integer)$valuediscontorder['value'],(integer)$order['discounttotalprice']);
+                        }
+                    }
+                }
+            }
 
+            if (isset(Yii::$app->params['partnersset']['discountgroup']['value'], Yii::$app->user->identity->active_discount) && Yii::$app->params['partnersset']['discountgroup']['active'] == 1) {
+                $user_active_group = (integer)Yii::$app->user->identity->active_discount;
+                if ($user_active_group > 0 && isset(Yii::$app->params['partnersset']['discountgroup']['value'][$user_active_group]['value']) && Yii::$app->params['partnersset']['discountgroup']['value'][$user_active_group]['active'] == 1) {
+                    $order['discounttotalprice'] = max((integer)Yii::$app->params['partnersset']['discountgroup']['value'][$user_active_group]['value'], (integer)$order['discounttotalprice']);
+                }
+            }
+
+
+            if (isset(Yii::$app->params['partnersset']['minorderprice']['value']) && Yii::$app->params['partnersset']['minorderprice']['active'] == 1) {
+                $ch = (integer)(Yii::$app->params['partnersset']['minorderprice']['value']);
+                if ($ch > $totalprice) {
+                    return ['exception' => 'Минимальная сумма заказа ' . (integer)(Yii::$app->params['partnersset']['minorderprice']['value']) . ' Руб. Сумма вашего заказа ' . $totalprice . ' Руб.'];
                 }
             }
             $model->order = serialize($order);
@@ -166,7 +181,6 @@ trait ActionSaveorder
             } else {
                 return false;
             }
-        } else {
         }
     }
 }
