@@ -25,6 +25,7 @@ use frontend\controllers\actions\ActionLogout;
 use frontend\controllers\actions\ActionOfferta;
 use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPrintOrders;
+use frontend\controllers\actions\ActionProduct;
 use frontend\controllers\actions\ActionProductinfo;
 use frontend\controllers\actions\ActionRequestadress;
 use frontend\controllers\actions\ActionRequestemail;
@@ -87,7 +88,7 @@ class SiteController extends Controller
         ActionAbout, ActionLK, ActionContacts, ActionDelivery, ActionOfferta, ActionFaq, ActionPaying, ActionSignup,
         ActionRequestPasswordReset, ActionResetPassword, ActionNewComments, ActionRequestorders, ActionSaveorder,
         ActionRequestadress, ActionCountryrequest, ActionRequestemail, ActionZonesrequest, ActionShippingfields, ActionProductinfo,
-        ActionImagepreview, ActionSavehtml, ActionChstatusorder;
+        ActionImagepreview, ActionSavehtml, ActionChstatusorder, ActionProduct;
 
     /**
      * @inheritdoc
