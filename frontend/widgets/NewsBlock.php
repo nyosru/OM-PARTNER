@@ -31,7 +31,7 @@ class NewsBlock extends \yii\bootstrap\Widget
             $newsprovider = $newsprovider->getModels();
             Yii::$app->cache->set($key, ['data' => $newsprovider, 'lastupdate' => $x['date_modified']]);
         } else {
-            echo 'кэш';
+
             $newsprovider = $newsprovider['data'];
 
         }
