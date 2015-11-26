@@ -20,12 +20,12 @@ class CommentsBlock extends \yii\bootstrap\Widget
         <?
         $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
 
-        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-news-page-' . intval(Yii::$app->request->post('page')));
+        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-news-page-' . (integer)(Yii::$app->request->post('page')));
         if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || $x['date_modified'] !== $commentsprovider['lastupdate']) {
             $commentsprovider = new \yii\data\ActiveDataProvider([
                 'query' => \common\models\PartnersComments::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
                 'pagination' => [
-                    'defaultPageSize' => intval(Yii::$app->params['partnersset']['commentsonindex']['value']),
+                    'defaultPageSize' => (integer)(Yii::$app->params['partnersset']['commentsonindex']['value']),
                 ],
             ]);
             $commentsprovider = $commentsprovider->getModels();
