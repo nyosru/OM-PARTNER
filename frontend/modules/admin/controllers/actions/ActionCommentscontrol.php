@@ -9,7 +9,7 @@ trait ActionCommentscontrol{
     {
         if (Yii::$app->request->getQueryParam('id')) {
             $model = new PartnersComments();
-            $model = $model::findOne(intval(Yii::$app->request->getQueryParam('id')));
+            $model = $model::findOne((integer)(Yii::$app->request->getQueryParam('id')));
             if ($model) {
                 if (Yii::$app->request->getQueryParam('action') === 'add') {
                     $model->status = 1;

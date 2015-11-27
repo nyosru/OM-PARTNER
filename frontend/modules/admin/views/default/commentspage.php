@@ -73,7 +73,7 @@ echo \yii\grid\GridView::widget([
                 return ['class' => 'tbl_column_name'];
             },
             'content' => function ($data) {
-                if ($data->status == '1') {
+                if ($data->status == 1) {
                     return 'Опубликован';
                 } else {
                     return 'Не опубликован';
