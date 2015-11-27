@@ -15,8 +15,10 @@ $this->title = 'Запросы';
 <h2>Комментарии:</h2>
 <div style="border:1px solid black; padding: 10px; margin: 20px 0">
 <?php
+if($model->comments){
 foreach (unserialize($modelform->comments) as $item) {
-   echo $item[who].'<br>',$item[text];
+   echo $item['who'].'<br>',$item['text'];
+}
 }
 echo '</div>';
 $form = ActiveForm::begin(['id' => 'request_add', 'action' => '']);
