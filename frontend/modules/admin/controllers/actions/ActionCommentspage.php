@@ -17,6 +17,7 @@ trait ActionCommentspage{
                 'partners_comments.status',
                 'partners_comments.date_added',
                 'partners_users.username',
+                'partners_comments.relate_id',
             ])->where([
                 'partners_id' => Yii::$app->params['constantapp']['APP_ID']
             ])->joinWith('user'),
