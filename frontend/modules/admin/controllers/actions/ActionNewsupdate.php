@@ -9,7 +9,7 @@ trait ActionNewsupdate{
     {
         if (Yii::$app->request->getQueryParam('id')) {
             $model = new PartnersNews();
-            $model = $model::findOne(intval(Yii::$app->request->getQueryParam('id')));
+            $model = $model::findOne((integer)(Yii::$app->request->getQueryParam('id')));
             $load = Yii::$app->request->post();
             if (isset($load) && $model->load($load)) {
                 $model->date_modified = date('Y-m-d h:i:s');

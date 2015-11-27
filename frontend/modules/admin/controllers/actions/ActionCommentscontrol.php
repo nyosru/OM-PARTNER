@@ -11,14 +11,12 @@ trait ActionCommentscontrol{
             $model = new PartnersComments();
             $model = $model::findOne((integer)(Yii::$app->request->getQueryParam('id')));
             if ($model) {
-                if (!isset($model->relate_id)) {
-                    $model->relate_id = NULL;
-                }
                 if (Yii::$app->request->getQueryParam('action') === 'add') {
                     $model->status = 1;
                 } else {
                     $model->status = 0;
                 }
+                $model->date_modified = date('Y-m-d h:i:s');
                 if ($model->save()) {
                     return $this->redirect('/admin/default/commentspage');
                 } else {
