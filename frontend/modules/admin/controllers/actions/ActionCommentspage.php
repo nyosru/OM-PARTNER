@@ -8,8 +8,7 @@ use yii\data\ActiveDataProvider;
 trait ActionCommentspage{
     public function actionCommentspage()
     {
-        $model = new PartnersComments();
-        $newsprovider = new ActiveDataProvider([
+        $commentssprovider = new ActiveDataProvider([
             'query' => PartnersComments::find()->select([
                 'partners_comments.id',
                 'partners_comments.user_id',
@@ -25,18 +24,9 @@ trait ActionCommentspage{
                 'defaultPageSize' => 20,
             ],
         ]);
-        $load = Yii::$app->request->post();
-        if ($model->load($load)) {
-            $model->date_added = date('Y-m-d h:i:s');
-            $model->date_modified = date('Y-m-d h:i:s');
-            $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
-            if ($model->save()) {
-                return $this->refresh();
-            } else {
-                return $this->refresh();
-            }
-        } else {
-            return $this->render('commentspage', ['model' => $newsprovider, 'modelform' => $model]);
-        }
+
+
+        return $this->render('commentspage', ['model' => $commentssprovider]);
+
     }
 }
