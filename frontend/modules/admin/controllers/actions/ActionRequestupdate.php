@@ -22,6 +22,7 @@ trait ActionRequestupdate{
                 $newcomment['date'] = date('Y-m-d h:i:s');
                 $comments[] = $newcomment;
                 $model->comments = serialize($comments);
+                $model->date_modify = date('Y-m-d h:i:s');
                 $model->save();
 
             } else {
