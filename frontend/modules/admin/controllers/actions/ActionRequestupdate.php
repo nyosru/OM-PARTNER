@@ -19,10 +19,10 @@ trait ActionRequestupdate{
                 $comments = unserialize($model->comments);
                 $newcomment['text'] = $load['PartnersRequest']['comments']['text'];
                 $newcomment['who'] = yii::$app->user->id;
-                $newcomment['date'] = date('Y-m-d h:i:s');
+                $newcomment['date'] = date('Y-m-d H:i:s');
                 $comments[] = $newcomment;
                 $model->comments = serialize($comments);
-                $model->date_modify = date('Y-m-d h:i:s');
+                $model->date_modify = date('Y-m-d H:i:s');
                 $model->save();
 
             } else {
