@@ -10,7 +10,6 @@ use common\traits\Reformat_cat_array;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
-use frontend\controllers\actions\ActionAbout;
 use frontend\controllers\actions\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
 use frontend\controllers\actions\ActionChstatusorder;
@@ -57,7 +56,7 @@ class SiteController extends Controller
 {
     use Trim_Tags, CacheUserState, Fullopcat, Reformat_cat_array, View_cat, Load_cat, Imagepreviewcrop, Categories_for_partner, ThemeResources, Hide_manufacturers_for_partners, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile,
         ActionSiteNews, ActionRequestNews, ActionPrintOrders, ActionCatPath, ActionLogin, ActionLogout, ActionCatalog,
-        ActionAbout, ActionLK, ActionContacts, ActionDelivery, ActionOfferta, ActionFaq, ActionPaying, ActionSignup,
+        ActionLK, ActionContacts, ActionDelivery, ActionOfferta, ActionFaq, ActionPaying, ActionSignup,
         ActionRequestPasswordReset, ActionResetPassword, ActionNewComments, ActionRequestorders, ActionSaveorder,
         ActionRequestadress, ActionCountryrequest, ActionRequestemail, ActionZonesrequest, ActionShippingfields, ActionProductinfo,
         ActionImagepreview, ActionSavehtml, ActionChstatusorder, ActionProduct;
