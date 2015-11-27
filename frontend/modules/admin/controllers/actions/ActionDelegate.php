@@ -95,7 +95,7 @@ trait ActionDelegate{
                                 }
                                 $userCustomerInfo = new CustomersInfo();
                                 $userCustomerInfo->customers_info_id = $customer_id;
-                                $userCustomerInfo->customers_info_date_account_created = date("Y-m-d h:i:s");
+                                $userCustomerInfo->customers_info_date_account_created = date("Y-m-d H:i:s");
                                 if ($userCustomerInfo->save()) {
                                     $newuserpartnerscastid = PartnersUsersInfo::findOne($userparam['id']);
                                     $newuserpartnerscastid->customers_id = $customer_id;
@@ -210,9 +210,9 @@ trait ActionDelegate{
                     $orders->customers_referer_url = '{"Partner":' . $partner_id . ',"User":' . $partner_user_id . ',"Key":"' . $validkey . '","Site":"' . $site . '"}';
                     $orders->currency = 'RUR';
                     $orders->currency_value = '1.000000';
-                    $orders->last_modified = date("Y-m-d h:i:s");
-                    $orders->date_purchased = date("Y-m-d h:i:s");
-                    $orders->date_akt = date("Y-m-d h:i:s");
+                    $orders->last_modified = date("Y-m-d H:i:s");
+                    $orders->date_purchased = date("Y-m-d H:i:s");
+                    $orders->date_akt = date("Y-m-d H:i:s");
                     $orders->payment_info = '';
                     $orders->orders_status = 1;
                     $orders->site_side_email_flag = 0;

@@ -16,7 +16,7 @@ trait ActionCommentscontrol{
                 } else {
                     $model->status = 0;
                 }
-                $model->date_modified = date('Y-m-d h:i:s');
+                $model->date_modified = date('Y-m-d H:i:s');
                 if ($model->save()) {
                     return $this->redirect('/admin/default/commentspage');
                 } else {

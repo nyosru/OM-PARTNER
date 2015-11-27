@@ -12,7 +12,7 @@ trait ActionNewsupdate{
             $model = $model::findOne((integer)(Yii::$app->request->getQueryParam('id')));
             $load = Yii::$app->request->post();
             if (isset($load) && $model->load($load)) {
-                $model->date_modified = date('Y-m-d h:i:s');
+                $model->date_modified = date('Y-m-d H:i:s');
                 $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
                 if ($model->save()) {
                     return $this->redirect('/admin/default/newspage');

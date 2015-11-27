@@ -17,8 +17,8 @@ trait ActionNewspage{
         ]);
         $load = Yii::$app->request->post();
         if ($model->load($load)) {
-            $model->date_added = date('Y-m-d h:i:s');
-            $model->date_modified = date('Y-m-d h:i:s');
+            $model->date_added = date('Y-m-d H:i:s');
+            $model->date_modified = date('Y-m-d H:i:s');
             $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
             if ($model->save()) {
                 return $this->refresh();

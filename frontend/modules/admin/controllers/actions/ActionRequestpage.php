@@ -18,8 +18,8 @@ trait ActionRequestpage{
         ]);
         $load = Yii::$app->request->post();
         if ($model->load($load)) {
-            $model->date_add = date('Y-m-d h:i:s');
-            $model->date_modify = date('Y-m-d h:i:s');
+            $model->date_add = date('Y-m-d H:i:s');
+            $model->date_modify = date('Y-m-d H:i:s');
             $model->status = 0;
             $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
             if ($model->save()) {

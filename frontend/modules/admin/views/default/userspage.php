@@ -51,7 +51,7 @@ echo \yii\grid\GridView::widget([
                 return ['class' => 'tbl_column_name'];
             },
             'content' => function ($data) {
-                return date('Y-m-d h:i:s', $data->created_at);
+                return date('Y-m-d H:i:s', $data->created_at);
             }
         ],
         [
@@ -62,7 +62,7 @@ echo \yii\grid\GridView::widget([
                 return ['class' => 'tbl_column_name'];
             },
             'content' => function ($data) {
-                return date('Y-m-d h:i:s', $data->updated_at);
+                return date('Y-m-d H:i:s', $data->updated_at);
             }
         ],
         [
