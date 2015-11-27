@@ -2,11 +2,14 @@
 namespace frontend\controllers\actions;
 use common\models\PartnersProductsToCategories;
 use Yii;
+
 trait ActionSiteRequest
 {
 
+
     public function actionRequest()
     {
+
 
         $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
         $check = Yii::$app->params['constantapp']['APP_ID'];

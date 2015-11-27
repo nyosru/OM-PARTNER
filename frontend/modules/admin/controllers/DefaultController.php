@@ -1,18 +1,8 @@
 <?php
 
 namespace app\modules\admin\controllers;
-
-use common\models\PartnersComments;
-use common\models\PartnersNews;
-use common\models\PartnersRequest;
-use common\models\PartnersSettings;
-use common\models\OrdersTotal;
-use common\models\PartnersOrders;
-use common\models\PartnersProducts;
-use common\models\PartnersUsersInfo;
 use common\traits\Imagepreviewcrop;
 use common\traits\ThemeResources;
-use frontend\assets\AppAsset;
 use frontend\modules\admin\controllers\actions\ActionCancelorder;
 use frontend\modules\admin\controllers\actions\ActionCommentscontrol;
 use frontend\modules\admin\controllers\actions\ActionCommentspage;
@@ -31,17 +21,6 @@ use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
 use yii\filters\AccessControl;
-use common\models\User;
-use common\models\Partners;
-use common\models\AddressBook;
-use common\models\Customers;
-use common\models\CustomersInfo;
-use common\models\Orders;
-use common\models\OrdersProducts;
-use common\models\OrdersProductsAttributes;
-use common\models\Countries;
-use common\models\Zones;
-use common\models\OrdersStatus;
 use yii\data\ActiveDataProvider;
 
 class DefaultController extends Controller

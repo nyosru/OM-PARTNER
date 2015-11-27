@@ -1,10 +1,12 @@
 <?php
 namespace frontend\controllers\actions;
 
+
 use Yii;
 
 trait   ActionCatPath
 {
+
     public function actionCatpath()
     {
         $cat = intval(Yii::$app->request->getQueryParam('cat'));

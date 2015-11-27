@@ -1,5 +1,4 @@
 <?php
-echo '<div class="cart-lable">В корзину</div>';
 if (count($product['productsAttributesDescr']) > 0) {
     foreach ($product['productsAttributesDescr'] as $item) {
         $date = $product['products.products_date_added'];
@@ -7,7 +6,7 @@ if (count($product['productsAttributesDescr']) > 0) {
             $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $item['products_options_values_name'] . '" data-attr="' . $item['products_options_values_id'] .
             '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
     }
-    $prodinfoattr .= '<div class="cart-lable">В корзину</div>';
+    $prodinfoattr .= '<div class="cart-lable" style="left:400px; bottom:auto">В корзину</div>';
 } else {
     $date = $product['products']['products_date_added'];
     $prodinfoattr .= '<div class="size-desc">+<input id="input-count" data-prod="' . $product['products.products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
@@ -23,6 +22,7 @@ if (count($product['productsAttributesDescr']) > 0) {
 <div class="prod-info-model">Артикул: <?= $product['products']['products_model'] ?></div>
 <div class="prod-info-date">Добавлен:<?= $product['products']['products_date_added'] ?></div>
 <div class="prod-info-desc">Описание: <?= $product['productsDescription']['products_description'] ?></div>
+
 <div class="prod-info-size"><span class="prod-info-attr-lable"></span><?= $prodinfoattr ?></div>
 <div class="prod-info-soc-but" style="display: none">Поделиться</div>
 <div style="z-index: 1060" class="modal bs-example-modal-lg image" tabindex="-1" role="dialog"
@@ -33,3 +33,5 @@ if (count($product['productsAttributesDescr']) > 0) {
         </div>
     </div>
 </div>
+<div class="col-md-12"
+     style="margin-top:40px"><?= \frontend\widgets\CommentsBlock::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?></div>

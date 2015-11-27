@@ -13,7 +13,7 @@ class Timer
     public $timeTimer;
 
     /* Функция запуска таймера */
-    function start()
+    public function start()
     {
         $mtime = microtime();//узнаем текущие время в секундах и милисекундах
         $mtime = explode(' ', $mtime);
@@ -21,7 +21,7 @@ class Timer
         $this->timeTimer[$this->id]['start'] = $mtime;//занесем результат в глобальную переменную
     }
 
-    function stop()
+    public function stop()
     {
         $mtime = microtime();
         $mtime = explode(' ', $mtime);
@@ -30,7 +30,7 @@ class Timer
         $this->timeTimer[$this->id]['result'] = $mtime - $this->timeTimer[$this->id]['start'];
     }
 
-    function get($rand = 5)
+    public function get($rand = 5)
     {
         if ($this->timeTimer[$this->id]['result']) return $this->timeTimer[$this->id]['result'];
         $mtime = microtime();
@@ -40,7 +40,7 @@ class Timer
 
     }
 
-    function __construct($id = '')
+    public function __construct($id = '')
     {
         if (!$id) {
             trigger_error('Wrong parametr input [TIMER]', E_USER_WARNING);

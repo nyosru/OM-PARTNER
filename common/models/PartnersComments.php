@@ -15,6 +15,7 @@ use Yii;
  * @property string $date_added
  * @property string $date_modified
  * @property integer $status
+ * @property integer $relate_id
  */
 class PartnersComments extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class PartnersComments extends \yii\db\ActiveRecord
     {
         return [
             [['partners_id', 'user_id', 'category', 'post', 'date_added', 'date_modified', 'status'], 'required'],
-            [['partners_id', 'user_id', 'category', 'status'], 'integer'],
+            [['partners_id', 'user_id', 'category', 'status', 'relate_id'], 'integer'],
             [['post'], 'string'],
             [['date_added', 'date_modified'], 'safe']
         ];
@@ -49,6 +50,7 @@ class PartnersComments extends \yii\db\ActiveRecord
             'partners_id' => 'Partners ID',
             'user_id' => 'User ID',
             'category' => 'Category',
+            'relate_id' => 'Relate',
             'post' => 'Post',
             'date_added' => 'Date Added',
             'date_modified' => 'Date Modified',

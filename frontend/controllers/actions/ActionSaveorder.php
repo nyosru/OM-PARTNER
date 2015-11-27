@@ -157,10 +157,10 @@ trait ActionSaveorder
             }
 
 
-            if (isset(Yii::$app->params['partnersset']['minorderprice']['value']) && Yii::$app->params['partnersset']['minorderprice']['active'] == 1) {
-                $ch = (integer)(Yii::$app->params['partnersset']['minorderprice']['value']);
+            if (isset(Yii::$app->params['partnersset']['minimalordertotalprice']['value']) && Yii::$app->params['partnersset']['minimalordertotalprice']['active'] == 1) {
+                $ch = (integer)(Yii::$app->params['partnersset']['minimalordertotalprice']['value']);
                 if ($ch > $totalprice) {
-                    return ['exception' => 'Минимальная сумма заказа ' . (integer)(Yii::$app->params['partnersset']['minorderprice']['value']) . ' Руб. Сумма вашего заказа ' . $totalprice . ' Руб.'];
+                    return ['exception' => 'Минимальная сумма заказа ' . (integer)(Yii::$app->params['partnersset']['minimalordertotalprice']['value']) . ' Руб. Сумма вашего заказа ' . $totalprice . ' Руб.'];
                 }
             }
             $model->order = serialize($order);

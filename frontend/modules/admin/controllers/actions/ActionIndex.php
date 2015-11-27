@@ -115,6 +115,8 @@ trait ActionIndex{
         $model->newsonindex['active'] = $paramset['newsonindex']['active'];
         $model->commentsonindex['value'] = $paramset['commentsonindex']['value'];
         $model->commentsonindex['active'] = $paramset['commentsonindex']['active'];
+        $model->transport['value'] = $paramset['transport']['value'];
+        $model->transport['active'] = $paramset['transport']['active'];
         return $this->render('index', ['model' => $model]);
     }
 }

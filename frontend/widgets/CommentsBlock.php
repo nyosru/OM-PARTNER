@@ -11,26 +11,36 @@ use yii\helpers\Html;
 class CommentsBlock extends \yii\bootstrap\Widget
 {
     use Trim_Tags;
+    public $nameblock = [
+        '0' => 'ОТЗЫВЫ О МАГАЗИНЕ',
+        '1' => 'ОТЗЫВЫ О ТОВАРЕ',
+        '2' => 'КОММЕНТАРИИ'
+    ];
+    public $relateID;
+    public $category;
     public function init()
     {
+
         ?>
         <div id="partners-main-left-cont">
-            <div class="header-catalog"> ОТЗЫВЫ О МАГАЗИНЕ
+        <div class="header-catalog"> <?= $this->nameblock[$this->category] ?>
             </div>
         <?
-        $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
 
-        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-news-page-' . (integer)(Yii::$app->request->post('page')));
-        if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || $x['date_modified'] !== $commentsprovider['lastupdate']) {
+        $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['relate_id' => $this->relateID,
+            'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
+
+        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-relateid-' . $this->relateID . '-category-' . $this->category . '-comments-page-' . (integer)(Yii::$app->request->post('page')));
+        if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || !($x['date_modified'] !== $commentsprovider['lastupdate'])) {
             $commentsprovider = new \yii\data\ActiveDataProvider([
-                'query' => \common\models\PartnersComments::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
+                'query' => \common\models\PartnersComments::find()->where(['relate_id' => $this->relateID, 'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID'],
+                    'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
                 'pagination' => [
-                    'defaultPageSize' => (integer)(Yii::$app->params['partnersset']['commentsonindex']['value']),
+                    'defaultPageSize' => intval(Yii::$app->params['partnersset']['commentsonindex']['value']),
                 ],
             ]);
             $commentsprovider = $commentsprovider->getModels();
             Yii::$app->cache->set($key, ['data' => $commentsprovider, 'lastupdate' => $x['date_modified']]);
-
         } else {
             $commentsprovider = $commentsprovider['data'];
 

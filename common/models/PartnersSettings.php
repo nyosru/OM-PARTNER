@@ -27,6 +27,7 @@ class PartnersSettings extends Model
     public $newsonindex;
     public $commentsonindex;
     public $discounttotalorder;
+    public $transport;
     /**
      * @inheritdoc
      */
@@ -54,7 +55,7 @@ class PartnersSettings extends Model
     {
         return [
             [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
-            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup'], 'string'],
+            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup', 'transport'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
     }

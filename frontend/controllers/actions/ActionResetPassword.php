@@ -1,7 +1,10 @@
 <?php
 namespace frontend\controllers\actions;
 
+use frontend\models\ResetPasswordForm;
 use Yii;
+use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
 
 trait ActionResetPassword
 {

@@ -14,7 +14,7 @@ $(document).on('click', '.sort', function () {
     $('.sort-checked').removeClass('sort-checked');
     $(this).addClass('sort-checked');
 });
-$(document).on('click', '#prod-info, #prod-data-img', function () {
+$(document).on('click', '#prod-data-img', function () {
     $.post(
         "/site/productinfo",
         {id: this.getAttribute('data-prod')},
@@ -251,12 +251,14 @@ $(document).on('click', '.save-order2', function () {
                 ship: $('#shipping-confirm option:selected')[0].value,
                 user: $userdataarr
             },
-            onAjaxSuccess
+            onAjaxSuccesssaveorder
         );
     }
-    function onAjaxSuccess(data) {
+    function onAjaxSuccesssaveorder(data) {
+
         if (data.exception) {
-            exception(data.exception);
+            $('#modal-cart').dialog('close');
+            $('.footer').append('<div class="alert-danger alert fade in" style="position: fixed; bottom: 0px; right: 0px; margin: 0px; z-index: 99999; width: 100%; text-align: center; background: rgb(255, 191, 8) none repeat scroll 0% 0%; color: black;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + data.exception + '</div>').show();
         } else if (data != 0) {
             localStorage.removeItem('cart-om');
             $(".cart-count").html('0');
@@ -715,10 +717,7 @@ function continueAnimation() {
         document.getElementById('loaderImage').style.backgroundPosition = (-cXpos) + 'px 0';
     cPreloaderTimeout = setTimeout('continueAnimation()', SECONDS_BETWEEN_FRAMES * 1000);
 }
-function exception(data) {
-    $('[class*=modal]').dialog('close');
-    $('.footer').append('<div class="alert-danger alert fade in" style="position: fixed; bottom: 0px; right: 0px; margin: 0px; z-index: 99999; width: 100%; text-align: center; background: rgb(255, 191, 8) none repeat scroll 0% 0%; color: black;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + data + '</div>').show();
-}
+
 function stopAnimation() {
     clearTimeout(cPreloaderTimeout);
     cPreloaderTimeout = false;
@@ -931,7 +930,7 @@ $(document).on('click', '.data-j', function dataj() {
                     } else {
                         $attr_html += '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
                     }
-                    $('.bside').append('<div  class="container-fluid float" id="card" product=""><div data-prod="' + $product.products_id + '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');"></div><div class="name">' + $description.products_name + '</div><div class="model">Арт.' + $product.products_model + '</div><div class="price"><b>' + parseInt($product.products_price) + '</b> руб.</div><div id="prod-info" data-prod="' + $product.products_id + '">Инфо</div><span>' + $attr_html + '</span></div>');
+                    $('.bside').append('<div  class="container-fluid float" id="card" product=""><div data-prod="' + $product.products_id + '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');"></div><div class="name">' + $description.products_name + '</div><div class="model">Арт.' + $product.products_model + '</div><div class="price"><b>' + parseInt($product.products_price) + '</b> руб.</div><a href="/site/product?id=' + $product.products_id + '"><div id="prod-info" data-prod="' + $product.products_id + '">Инфо</div></a><span>' + $attr_html + '</span></div>');
                 });
                 if (data[5] >= data[1] && data[4] == 0) {
                     $('#products-pager').hide();

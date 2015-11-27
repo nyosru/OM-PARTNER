@@ -1,7 +1,7 @@
 <?php
 namespace frontend\controllers\actions;
 
-use common\traits\Imagepreviewcrop;
+
 use Yii;
 
 trait ActionImagepreview

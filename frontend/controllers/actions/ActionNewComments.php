@@ -8,6 +8,7 @@ use yii\base\Exception;
 use yii\data\ActiveDataProvider;
 
 
+
 trait ActionNewComments
 {
     public function actionNewcomments()
@@ -47,6 +48,8 @@ trait ActionNewComments
                 "chr(\\1)");
 
             $text = preg_replace($search, $replace, Yii::$app->request->post()['PartnersComments']['post']);
+            $relate = preg_replace($search, $replace, Yii::$app->request->post()['PartnersComments']['relate_id']);
+            $category = preg_replace($search, $replace, Yii::$app->request->post()['PartnersComments']['category']);
             $model = new PartnersComments();
             $modeluser = new PartnersUsersInfo();
             $modeluser = $modeluser::findOne(['id'=>$user]);
@@ -62,7 +65,8 @@ trait ActionNewComments
                 $modeluser->lastname = Yii::$app->request->post()['PartnersUsersInfo']['lastname'];
                 $modeluser->save();
             }
-            $model->category = 0;
+            $model->category = $category;
+            $model->relate_id = $relate;
             $model->date_added = date('Y-m-d h:i:s');
             $model->date_modified = date('Y-m-d h:i:s');
             $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
@@ -70,7 +74,11 @@ trait ActionNewComments
             $model->user_id = Yii::$app->user->getIdentity()->id;
             $model->post = $text;
             if ($model->save()) {
+                if (Yii::$app->request->referrer) {
+                    return $this->redirect(Yii::$app->request->referrer);
+                } else {
                     return $this->goHome();
+                }
                 } else {
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                     return $modeluser->errors;

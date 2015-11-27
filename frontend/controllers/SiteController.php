@@ -1,14 +1,14 @@
 <?php
 
 namespace frontend\controllers;
-
-use common\models\User;
 use common\traits\Categories_for_partner;
 use common\traits\Fullopcat;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
 use common\traits\Reformat_cat_array;
+use common\traits\ThemeResources;
+use common\traits\Trim_Tags;
 use common\traits\View_cat;
 use frontend\controllers\actions\ActionAbout;
 use frontend\controllers\actions\ActionCatalog;
@@ -44,46 +44,18 @@ use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
-use frontend\controllers\actions\CasheUserState;
 use Yii;
-use yii\base\Exception;
-use yii\caching\ChainedDependency;
-use yii\caching\DbDependency;
-use common\models\Customers;
-use common\models\AddressBook;
-use common\models\PartnersUsersInfo;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use yii\base\InvalidParamException;
-use yii\caching\ExpressionDependency;
-use yii\helpers\BaseUrl;
-use yii\web\BadRequestHttpException;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\PartnersProductsToCategories;
-use yii\data\SqlDataProvider;
-use yii\db\ActiveRecord;
-use yii\data\ArrayDataProvider;
-use common\models\PartnersOrders;
-use common\models\Partners;
-use common\models\Countries;
-use common\models\Zones;
-use common\models\Orders;
-use common\models\PartnersConfig;
-use yii\caching\Cache;
-use yii\caching\Dependency;
 use frontend\controllers\actions\ActionNewComments;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
 
 /**
  * Контроллер сайта
  */
 class SiteController extends Controller
 {
-    use Fullopcat, View_cat, Load_cat, Hide_manufacturers_for_partners, Categories_for_partner, Imagepreviewcrop,
-        Reformat_cat_array, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile, CacheUserState,
+    use Trim_Tags, CacheUserState, Fullopcat, Reformat_cat_array, View_cat, Load_cat, Imagepreviewcrop, Categories_for_partner, ThemeResources, Hide_manufacturers_for_partners, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile,
         ActionSiteNews, ActionRequestNews, ActionPrintOrders, ActionCatPath, ActionLogin, ActionLogout, ActionCatalog,
         ActionAbout, ActionLK, ActionContacts, ActionDelivery, ActionOfferta, ActionFaq, ActionPaying, ActionSignup,
         ActionRequestPasswordReset, ActionResetPassword, ActionNewComments, ActionRequestorders, ActionSaveorder,

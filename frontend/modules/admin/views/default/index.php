@@ -190,7 +190,7 @@ $this->title = 'Админка';
             $l4 .= '</div>';
             $l4 .= '</div>';
             $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%;font-size:12px; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
-            $l4 .= $form->field($model, 'contacts[graf_work][activated]', ['options' => ['style' => 'margin: 0px 15px;']])->checkbox()->label('График работы');
+            $l4 .= $form->field($model, 'contacts[graf_work][activated]', ['options' => ['style' => 'margin: 0px 15px;']])->checkbox()->label('График работы (не активно)');
             $l4 .= '<div class="col-md-3 graf-day">';
             $hours = ['00' => '00', '01' => '01', '02' => '02', '03' => '03', '04' => '04', '05' => '05', '06' => '06', '07' => '07', '08' => '08', '09' => '09', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23', '24' => '24'];
             $minuts = ['00' => '00', '10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50'];
@@ -291,6 +291,32 @@ $this->title = 'Админка';
             $l4  .= '</div>';
             $l4  .= '</div>';
 
+            $l5 = '<div style="margin: 10px; height: 100%;">';
+            $l5 .= '<div class="col-md-12">';
+            $l5 .= '<label class="control-label">Транспортные компании</label>';
+            $l5_1 = '<div class="col-md-12">';
+            $l5_1 .= $form->field($model, 'transport[value][0][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('');
+
+            $l5_1 .= $form->field($model, 'transport[value][0][value]', ['options' => ['class' => 'col-md-9']])->label('Название');
+            $l5_1 .= $form->field($model, 'transport[value][0][wantpasport]', ['options' => ['class' => 'col-md-3', 'style' => 'position: absolute;  top: 20px; right:0px; z-index: 99;']])->label('Нужен паспорт')->checkbox();
+            $l5_1 .= '</div>';
+            $u = 1;
+            for ($i = 1; $i <= count($model->transport['value']); $i++) {
+                if ((isset($model->transport['value'][$i]['value']) && $model->transport['value'][$i]['value'] !== '') || $i = count($model->transport['value'])) {
+                    $l5_1 .= '<div class="col-md-12">';
+                    $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][active]', ['options' => ['style' => 'position: absolute;  z-index: 99;']])->checkbox()->label('');
+
+                    $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][value]', ['options' => ['class' => 'col-md-9', 'style' => 'margin:0px']])->label('', ['style' => 'display:block']);
+                    $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][wantpassport]', ['options' => ['class' => 'col-md-3', 'style' => 'position: absolute;  top: 0px; right:0px; z-index: 99;']])->checkbox()->label('Нужен паспорт', ['style' => 'display:block']);
+                    $l5_1 .= '</div>';
+                    $u++;
+                }
+            }
+
+            $l5 .= $l5_1;
+            $l5 .= $form->field($model, 'transport[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l5 .= '</div>';
+            $l5 .= '</div>';
 
             ?>
             <? echo Tabs::widget([
@@ -315,6 +341,12 @@ $this->title = 'Админка';
                         'content' => $l4,
 
                     ],
+                    [
+                        'label' => 'Доставка',
+                        'content' => $l5,
+
+                    ],
+
                 ]]); ?>
 
             <div class="form-group col-md-12">

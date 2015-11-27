@@ -1,13 +1,12 @@
 <?php
 namespace frontend\controllers\actions;
 
-use common\traits\Trim_Tags;
+
 use Yii;
 use common\models\PartnersProductsToCategories;
 
 trait ActionSiteIndex
 {
-    use Trim_Tags;
     public function actionIndex()
     {
         $list = array();

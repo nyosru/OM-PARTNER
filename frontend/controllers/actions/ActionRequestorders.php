@@ -12,23 +12,19 @@ trait ActionRequestorders
         $id = Yii::$app->user->identity->getId();
         $model = new PartnersOrders();
         $page = intval(Yii::$app->request->getQueryParam('page'));
-
-        $check = $this->id_partners();
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $count = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->count();
+        $count = $model->find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'user_id' => $id])->count();
         if ($count < ($page) * 10) {
             $page = $page - 1;
         }
-        $query = $model->find()->where(['partners_id' => $check, 'user_id' => $id])->limit(10)->offset($page * 10)->asArray()->all();
+        $query = $model->find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'user_id' => $id])->limit(10)->offset($page * 10)->asArray()->all();
 
         $check = array();
         foreach ($query as $key => $value) {
             $query[$key]['order'] = unserialize($value['order']);
             $discount[$value['orders_id']] = $query[$key]['order']['discount'];
             $discounttotal[$value['orders_id']] = $query[$key]['order']['discounttotalprice'];
-            unset($query[$key]['order']['ship']);
-            unset($query[$key]['order']['discount']);
-            unset($query[$key]['order']['discounttotalprice']);
+            unset($query[$key]['order']['ship'], $query[$key]['order']['discount'], $query[$key]['order']['discounttotalprice']);
             $query[$key]['delivery'] = unserialize($value['delivery']);
             $query[$key]['discounttotal'] = $discounttotal[$value['orders_id']];
             if ($value['orders_id'] != '' and $value['orders_id'] != NULL) {

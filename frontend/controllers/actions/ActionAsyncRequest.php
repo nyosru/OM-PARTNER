@@ -6,7 +6,6 @@ use Yii;
 
 trait ActionAsyncRequest
 {
-
     public function actionAsyncproductppdate()
     {
         $sort = Yii::$app->request->post('sort');

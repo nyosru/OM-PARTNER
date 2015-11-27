@@ -136,7 +136,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <?= \frontend\widgets\NewsBlock::widget(); ?>
                     <? } ?>
                     <? if (isset(Yii::$app->params['partnersset']['commentsonindex']['value']) && Yii::$app->params['partnersset']['commentsonindex']['active'] == 1) { ?>
-                        <?= \frontend\widgets\CommentsBlock::widget(); ?>
+                        <?= \frontend\widgets\CommentsBlock::widget(['category' => '0', 'relateID' => NULL]); ?>
                     <? } ?>
                 </div>
             </div>
