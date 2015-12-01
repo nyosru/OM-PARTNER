@@ -10,6 +10,7 @@ use frontend\modules\admin\controllers\actions\ActionDelegate;
 use frontend\modules\admin\controllers\actions\ActionIndex;
 use frontend\modules\admin\controllers\actions\ActionNewspage;
 use frontend\modules\admin\controllers\actions\ActionNewsupdate;
+use frontend\modules\admin\controllers\actions\ActionOrderUpdate;
 use frontend\modules\admin\controllers\actions\ActionRequestnews;
 use frontend\modules\admin\controllers\actions\ActionRequestorders;
 use frontend\modules\admin\controllers\actions\ActionRequestpage;
@@ -27,7 +28,7 @@ class DefaultController extends Controller
 {
     use Imagepreviewcrop, ThemeResources,ActionIndex,ActionSavesettings,ActionRequestnews,ActionCancelorder,ActionRequestusers,
         ActionTemplateimage,ActionRequestorders,ActionDelegate,ActionNewspage,ActionRequestpage,ActionCommentspage,
-        ActionNewsupdate,ActionRequestupdate,ActionCommentscontrol;
+        ActionNewsupdate, ActionRequestupdate, ActionCommentscontrol, ActionOrderUpdate;
 
     public function behaviors()
     {
@@ -36,7 +37,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'orderupdate', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 

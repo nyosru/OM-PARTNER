@@ -31,7 +31,7 @@ class CommentsBlock extends \yii\bootstrap\Widget
             'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
 
         $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-relateid-' . $this->relateID . '-category-' . $this->category . '-comments-page-' . (integer)(Yii::$app->request->post('page')));
-        if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || !($x['date_modified'] !== $commentsprovider['lastupdate'])) {
+        if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || !($x['last_modified'] !== $commentsprovider['lastupdate'])) {
             $commentsprovider = new \yii\data\ActiveDataProvider([
                 'query' => \common\models\PartnersComments::find()->where(['relate_id' => $this->relateID, 'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID'],
                     'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
@@ -40,7 +40,7 @@ class CommentsBlock extends \yii\bootstrap\Widget
                 ],
             ]);
             $commentsprovider = $commentsprovider->getModels();
-            Yii::$app->cache->set($key, ['data' => $commentsprovider, 'lastupdate' => $x['date_modified']]);
+            Yii::$app->cache->set($key, ['data' => $commentsprovider, 'lastupdate' => $x['last_modified']]);
         } else {
             $commentsprovider = $commentsprovider['data'];
 

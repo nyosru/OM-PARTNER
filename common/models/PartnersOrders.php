@@ -46,13 +46,32 @@ class PartnersOrders extends \yii\db\ActiveRecord
             'order' => 'Order',
             'status' => 'Status',
             'delivery' => 'Delivery',
-            'orders_id' => 'OrdersID'
+
         ];
     }
 
-    public function getUserDescription()
+    public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
+    public function getUserDescription()
+    {
+        return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'user_id']);
+    }
+
+    public function getOMOrders()
+    {
+        return $this->hasOne(Orders::className(), ['orders_id' => 'orders_id']);
+    }
+
+    public function getOMOrdersProducts()
+    {
+        return $this->hasMany(OrdersProducts::className(), ['orders_id' => 'orders_id'])->via('oMOrders');
+    }
+
+    public function getOMOrdersProductsAttr()
+    {
+        return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('oMOrdersProducts');
+    }
 }

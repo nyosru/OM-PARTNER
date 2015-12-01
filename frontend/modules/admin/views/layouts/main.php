@@ -85,12 +85,6 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
 
     NavBar::end();
     ?>
-
-
-    <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
-    <?= Alert::widget() ?>
     <div class="container" id="partners-main">
         <div class="container" id="partners-main-left-back-admin">
             <div id="partners-main-left">
@@ -99,17 +93,17 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                     </div>
                     <ul id="accordion" class="accordion">
                         <li class="">
-                            <div class="link settings">Настройки</div>
+                            <div class="link users"><a href="/admin">Настройки</a></div>
                         </li>
                     </ul>
                     <ul id="accordion" class="accordion">
                         <li class="">
-                            <div class="link users"><a href="/admin/default/requestusers">Пользователи</a></div>
+                            <div class="link users"><a href="/admin/default/requestusers">100%100Пользователи</a></div>
                         </li>
                     </ul>
                     <ul id="accordion" class="accordion">
                         <li class="">
-                            <div class="link orders">Заказы</div>
+                            <div class="link users"><a href="/admin/default/requestorders">Заказы</a></div>
                         </li>
                     </ul>
                     <ul id="accordion" class="accordion">

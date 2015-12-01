@@ -22,8 +22,8 @@ trait ActionDelegate{
     public function actionDelegate()
     {
         // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $data = intval(Yii::$app->request->post('id'));
-        $self = intval(Yii::$app->request->post('self'), 0);
+        $data = (integer)(Yii::$app->request->getQueryParam('id'));
+        $self = (integer)(Yii::$app->request->getQueryParam('self'));
         $ordersdata = new PartnersOrders();
         $userpartnerdata = new User();
         $userdata = new PartnersUsersInfo();
@@ -118,7 +118,7 @@ trait ActionDelegate{
                     }
                 }
 
-                if (intval($self) !== 0) {
+                if (($self) !== 0) {
 
                     $check = Yii::$app->params['constantapp']['APP_ID'];
                     $custompartnersid = Partners::findOne($check);
@@ -307,5 +307,6 @@ trait ActionDelegate{
 
             }
         }
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

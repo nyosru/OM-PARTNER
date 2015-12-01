@@ -49,6 +49,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         </p>
 
         <p class="pull-right">
+            <a class="top-link" href="/site/news">Новости</a>
             <a class="top-link" href="/site/faq">FAQ</a>
             <a class="top-link" href="/site/paying">Оплата</a>
             <a class="top-link" href="/site/delivery">Доставка</a>
@@ -130,7 +131,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         </ul>
                         <ul id="accordion" class="accordion">
                             <li class="">
-                                <div id="profile-orders" class="link profile-orders">Мои заказы</div>
+                                <div id="profile-orders" class="link profile-orders"><a href="/site/requestorders">Мои
+                                        заказы</a></div>
                             </li>
                         </ul>
                         <ul id="accordion" class="accordion">

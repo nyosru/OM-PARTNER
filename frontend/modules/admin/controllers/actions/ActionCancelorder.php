@@ -7,7 +7,7 @@ use common\models\User;
 trait ActionCancelorder{
     public function actionCancelorder()
     {
-        $id = Yii::$app->request->post('id');
+        $id = Yii::$app->request->getQueryParam('id');
         $orders = new PartnersOrders();
         $orders_data = $orders->findOne($id);
         if (isset($orders_data) && $orders_data !== 9999) {
@@ -21,6 +21,7 @@ trait ActionCancelorder{
                             ->setTo($username)
                             ->setSubject('Ваш заказ отменен')
                             ->send();
+                        return $this->redirect(Yii::$app->request->referrer);
                     } else {
                         return 'Ошибка обновления статуса заказа';
                     }

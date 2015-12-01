@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\controllers;
+
 use common\traits\Categories_for_partner;
 use common\traits\Fullopcat;
 use common\traits\Hide_manufacturers_for_partners;
@@ -21,6 +22,7 @@ use frontend\controllers\actions\ActionImagepreview;
 use frontend\controllers\actions\ActionLK;
 use frontend\controllers\actions\ActionLogin;
 use frontend\controllers\actions\ActionLogout;
+use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
 use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPrintOrders;
@@ -34,10 +36,10 @@ use frontend\controllers\actions\ActionRequestPasswordReset;
 use frontend\controllers\actions\ActionResetPassword;
 use frontend\controllers\actions\ActionSavehtml;
 use frontend\controllers\actions\ActionSaveorder;
+use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
 use frontend\controllers\actions\ActionSignup;
 use frontend\controllers\actions\ActionSiteIndex;
-use frontend\controllers\actions\ActionSiteNews;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
@@ -54,12 +56,50 @@ use yii\web\Controller;
  */
 class SiteController extends Controller
 {
-    use Trim_Tags, CacheUserState, Fullopcat, Reformat_cat_array, View_cat, Load_cat, Imagepreviewcrop, Categories_for_partner, ThemeResources, Hide_manufacturers_for_partners, ActionSiteIndex, ActionSiteRequest, ActionSiteSearchword, ActionSiteSaveUserProfile,
-        ActionSiteNews, ActionRequestNews, ActionPrintOrders, ActionCatPath, ActionLogin, ActionLogout, ActionCatalog,
-        ActionLK, ActionContacts, ActionDelivery, ActionOfferta, ActionFaq, ActionPaying, ActionSignup,
-        ActionRequestPasswordReset, ActionResetPassword, ActionNewComments, ActionRequestorders, ActionSaveorder,
-        ActionRequestadress, ActionCountryrequest, ActionRequestemail, ActionZonesrequest, ActionShippingfields, ActionProductinfo,
-        ActionImagepreview, ActionSavehtml, ActionChstatusorder, ActionProduct;
+    use Trim_Tags,
+        CacheUserState,
+        Fullopcat,
+        Reformat_cat_array,
+        View_cat, Load_cat,
+        Imagepreviewcrop,
+        Categories_for_partner,
+        ThemeResources,
+        Hide_manufacturers_for_partners,
+        ActionSiteIndex,
+        ActionSiteRequest,
+        ActionSiteSearchword,
+        ActionSiteSaveUserProfile,
+        ActionRequestNews,
+        ActionPrintOrders,
+        ActionCatPath,
+        ActionLogin,
+        ActionLogout,
+        ActionCatalog,
+        ActionLK,
+        ActionContacts,
+        ActionDelivery,
+        ActionOfferta,
+        ActionFaq,
+        ActionPaying,
+        ActionSignup,
+        ActionRequestPasswordReset,
+        ActionResetPassword,
+        ActionNewComments,
+        ActionRequestorders,
+        ActionSaveorder,
+        ActionRequestadress,
+        ActionCountryrequest,
+        ActionRequestemail,
+        ActionZonesrequest,
+        ActionShippingfields,
+        ActionProductinfo,
+        ActionImagepreview,
+        ActionSavehtml,
+        ActionChstatusorder,
+        ActionProduct,
+        ActionNews,
+        ActionShipping;
+
 
     /**
      * @inheritdoc
