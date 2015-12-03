@@ -6,7 +6,9 @@ use yii\helpers\Html;
 
 $user=unserialize($user);
 $order=unserialize($order);
-unset($order[ship]);
+unset($order['ship']);
+unset($order['discount']);
+unset($order['discounttotalprice']);
 ?>
 
 <html><head></head><body><div style="width: 100%; height: 100%;">
