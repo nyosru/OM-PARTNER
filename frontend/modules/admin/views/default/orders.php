@@ -71,7 +71,19 @@ echo \yii\grid\GridView::widget([
                     $count++;
                     $countprod += $value[4];
                     $totalprice += (integer)$price * $value[4];
-                    $inner .= '<tr>';
+                    if ($data->oMOrdersProducts) {
+                        if ($data->oMOrdersProducts[$key]->products_quantity == 0 && isset($data->oMOrdersProducts)) {
+                            $col = 'red';
+                        } elseif ($data->oMOrdersProducts[$key]->products_quantity == $value[4] && isset($data->oMOrdersProducts)) {
+                            $col = 'green';
+                        } else {
+                            $col = 'yellow';
+                        }
+
+                    } else {
+                        $col = 'white';
+                    }
+                    $inner .= '<tr style="background: ' . $col . '">';
                     $inner .= '<td class="col-md-1">' . $key . '</td>';
                     $inner .= '<td class="col-md-2">' . $value[1] . '</td>';
                     if ($data->oMOrdersProducts) {
