@@ -117,6 +117,22 @@ trait ActionIndex{
         $model->commentsonindex['active'] = $paramset['commentsonindex']['active'];
         $model->transport['value'] = $paramset['transport']['value'];
         $model->transport['active'] = $paramset['transport']['active'];
+        $model->paysystem['active'] = $paramset['paysystem']['active'];
+        $model->paysystem['value'] = $paramset['paysystem']['value'];
+        $model->paysystem['value']['yamoney']['active'] = $paramset['paysystem']['value']['yamoney']['active'];
+        $model->paysystem['value']['yamoney']['value'] = $paramset['paysystem']['value']['yamoney']['value'];
+        $model->paysystem['value']['webmoney']['active'] = $paramset['paysystem']['value']['webmoney']['active'];
+        $model->paysystem['value']['webmoney']['value'] = $paramset['paysystem']['value']['webmoney']['value'];
+        $model->paysystem['value']['qiwi']['active'] = $paramset['paysystem']['value']['qiwi']['active'];
+        $model->paysystem['value']['qiwi']['value'] = $paramset['paysystem']['value']['qiwi']['value'];
+        $model->paysystem['value']['bankpay']['active'] = $paramset['paysystem']['value']['bankpay']['active'];
+        $model->paysystem['value']['bankpay']['value']['name'] = $paramset['paysystem']['value']['bankpay']['value']['name'];
+        $model->paysystem['value']['bankpay']['value']['inn'] = $paramset['paysystem']['value']['bankpay']['value']['inn'];
+        $model->paysystem['value']['bankpay']['value']['kpp'] = $paramset['paysystem']['value']['bankpay']['value']['kpp'];
+        $model->paysystem['value']['bankpay']['value']['bankname'] = $paramset['paysystem']['value']['bankpay']['value']['bankname'];
+        $model->paysystem['value']['bankpay']['value']['bik'] = $paramset['paysystem']['value']['bankpay']['value']['bik'];
+        $model->paysystem['value']['bankpay']['value']['ks'] = $paramset['paysystem']['value']['bankpay']['value']['ks'];
+        $model->paysystem['value']['bankpay']['value']['rs'] = $paramset['paysystem']['value']['bankpay']['value']['rs'];
         return $this->render('index', ['model' => $model]);
     }
 }

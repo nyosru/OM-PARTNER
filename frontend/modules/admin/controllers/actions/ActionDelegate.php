@@ -58,7 +58,7 @@ trait ActionDelegate{
                         if (isset($userparam['pasportdate'])) {
                             $userOM->pasport_kogda_vidan = $userparam['pasportdate'];
                         } else {
-                            $userOM->pasport_kogda_vidan = date();
+                            $userOM->pasport_kogda_vidan = date('Y-m-d H:i:s');
                         }
                         $userOM->entry_postcode = $userparam['postcode'];
                         $userOM->entry_gender = 'M';
@@ -174,7 +174,7 @@ trait ActionDelegate{
                         $orders->delivery_pasport_kogda_vidan = $userCustomerDelivery->pasport_kogda_vidan;
                         $orders->delivery_pasport_kem_vidan = $userCustomerDelivery->pasport_kem_vidan;
                         $orders->delivery_address_format_id = 1;
-                        $orders->shipping_module = $ship;
+                        $orders->shipping_module = 'Партнерская доставка';
                     } else {
                         $orders->delivery_name = $userOM->entry_firstname;
                         $orders->delivery_lastname = $userOM->entry_lastname;

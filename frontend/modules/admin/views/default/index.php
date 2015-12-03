@@ -84,7 +84,7 @@ $this->title = 'Админка';
             $l2  .= '</div>';
             $l3  = '<div style="margin: 10px; height: 100%;">';
             $l3 .= '<div class="col-md-6">';
-            $l3 .= $form->field($model, 'discount[value]')->label('Наценка(в % на все товары магазина)'.\frontend\widgets\Hint::widget(['hint'=>'margin']));
+            $l3 .= $form->field($model, 'discount[value]')->label('Наценка(в % на все товары магазина,все скидки высчитаваются из финальной стоимости товара!!!)' . \frontend\widgets\Hint::widget(['hint' => 'margin']));
             $l3 .= $form->field($model, 'discount[active]', ['options'=>['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
             $l3  .= '</div>';
             $l3 .= '<div class="col-md-6">';
@@ -307,7 +307,7 @@ $this->title = 'Админка';
                     $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][active]', ['options' => ['style' => 'position: absolute;  z-index: 99;']])->checkbox()->label('');
 
                     $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][value]', ['options' => ['class' => 'col-md-9', 'style' => 'margin:0px']])->label('', ['style' => 'display:block']);
-                    $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][wantpassport]', ['options' => ['class' => 'col-md-3', 'style' => 'position: absolute;  top: 0px; right:0px; z-index: 99;']])->checkbox()->label('Нужен паспорт', ['style' => 'display:block']);
+                    $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][wantpasport]', ['options' => ['class' => 'col-md-3', 'style' => 'position: absolute;  top: 0px; right:0px; z-index: 99;']])->checkbox()->label('Нужен паспорт', ['style' => 'display:block']);
                     $l5_1 .= '</div>';
                     $u++;
                 }

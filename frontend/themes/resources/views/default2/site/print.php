@@ -1,4 +1,7 @@
 <?
+//echo'<pre>';
+//print_r($data);
+//echo'</pre>';
 $id_zakaz = $data['id'];
 $name_shop = Yii::$app->params['constantapp']['APP_NAME'];
 $adress_shop = Yii::$app->params['partnersset']['contacts']['adress']['value'];
@@ -8,7 +11,7 @@ $delivery = unserialize($data['delivery']);
 $name_client = $delivery->lastname . ' ' . $delivery->name . ' ' . $delivery->secondname;
 $adress_client = $delivery->country . ', ' . $delivery->state . ', ' . $delivery->city . ', ' . $delivery->adress . ', ' . $delivery->postcode;
 $phone_client = $delivery->telephone;
-$email_client = $user;
+$email_client = $data['user']['username'];
 $zakaz_date = $data['create_date'];
 $order = unserialize($data['order']);
 echo Yii::$app->params['partnersset']['logotype']['value'];

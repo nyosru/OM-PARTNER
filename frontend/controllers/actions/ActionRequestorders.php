@@ -11,7 +11,7 @@ trait ActionRequestorders
     {
         $model = new PartnersOrders();
         $provider = new ActiveDataProvider([
-            'query' => $model->find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'user_id' => Yii::$app->getUser()->id])->joinWith('user')->joinWith('userDescription')->joinWith('oMOrders')->joinWith('oMOrdersProducts')->joinWith('oMOrdersProductsAttr')->orderBy('id DESC'),
+            'query' => $model->find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'user_id' => Yii::$app->getUser()->id])->joinWith('user')->joinWith('userDescription')->joinWith('oMOrders')->joinWith('oMOrdersProducts')->joinWith('oMOrdersProductsAttr')->groupBy('id')->orderBy('id DESC'),
             'pagination' => [
                 'defaultPageSize' => 20
             ]

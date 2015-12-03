@@ -22,22 +22,18 @@ trait ActionPrintOrders
                 return ['exception' => 'Что то не то'];
             } else {
                 if (Yii::$app->user->can('admin')) {
-                    $perm = ['id' => $id, 'partners_id' => Yii::$app->params['constantapp']['APP_ID']];
+                    $perm = ['partners_orders.id' => $id, 'partners_orders.partners_id' => Yii::$app->params['constantapp']['APP_ID']];
                 } else {
-                    $perm = ['id' => $id, 'user_id' => $user, 'partners_id' => Yii::$app->params['constantapp']['APP_ID']];
+                    $perm = ['partners_orders.id' => $id, 'partners_orders.user_id' => $user, 'partners_orders.partners_id' => Yii::$app->params['constantapp']['APP_ID']];
                 }
-                $ordersdata = PartnersOrders::find()->where($perm)->asArray()->one();
+                $ordersdata = PartnersOrders::find()->where($perm)->asArray()->joinWith('user')->joinWith('userDescription')->joinWith('oMOrders')->joinWith('oMOrdersProducts')->joinWith('oMOrdersProductsAttr')->groupBy('id')->one();
                 $user = Yii::$app->user->getIdentity()->username;
                 if (!$ordersdata) {
                     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                     return ['exception' => 'Заказ не найден'];
                 } else {
                     $this->layout = 'print';
-                    if ($ordersdata['orders_id'] > 0) {
-                        $ordersdata['om'] = \common\models\Orders::find()->where(['orders_id' => $ordersdata['orders_id']])->asArray()->one();
-
-                    }
-                    return $this->render('print', ['data' => $ordersdata, 'user' => $user]);
+                    return $this->render('print', ['data' => $ordersdata]);
                 }
             }
         }

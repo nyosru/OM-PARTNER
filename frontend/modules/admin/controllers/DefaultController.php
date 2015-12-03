@@ -18,6 +18,7 @@ use frontend\modules\admin\controllers\actions\ActionRequestupdate;
 use frontend\modules\admin\controllers\actions\ActionRequestusers;
 use frontend\modules\admin\controllers\actions\ActionSavesettings;
 use frontend\modules\admin\controllers\actions\ActionTemplateimage;
+use frontend\modules\admin\controllers\actions\ActionUserControl;
 use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
@@ -26,9 +27,24 @@ use yii\data\ActiveDataProvider;
 
 class DefaultController extends Controller
 {
-    use Imagepreviewcrop, ThemeResources,ActionIndex,ActionSavesettings,ActionRequestnews,ActionCancelorder,ActionRequestusers,
-        ActionTemplateimage,ActionRequestorders,ActionDelegate,ActionNewspage,ActionRequestpage,ActionCommentspage,
-        ActionNewsupdate, ActionRequestupdate, ActionCommentscontrol, ActionOrderUpdate;
+    use Imagepreviewcrop,
+        ThemeResources,
+        ActionIndex,
+        ActionSavesettings,
+        ActionRequestnews,
+        ActionCancelorder,
+        ActionRequestusers,
+        ActionTemplateimage,
+        ActionRequestorders,
+        ActionDelegate,
+        ActionNewspage,
+        ActionRequestpage,
+        ActionCommentspage,
+        ActionNewsupdate,
+        ActionRequestupdate,
+        ActionCommentscontrol,
+        ActionOrderUpdate,
+        ActionUserControl;
 
     public function behaviors()
     {
@@ -37,7 +53,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orderupdate', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'orderupdate', 'usercontrol', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
                         'allow' => true,
                         'roles' => ['admin'],
 

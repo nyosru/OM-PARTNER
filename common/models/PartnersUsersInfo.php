@@ -56,6 +56,8 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
             'default' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone', 'customers_id'],
             'flat1_flat1' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportdate', 'pasportwhere'],
             'flat2_flat2' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
+            '1' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportdate', 'pasportwhere'],
+            '0' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone'],
             'flat3_flat3' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
             'flat7_flat7' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
             'commentsuserinfo' => ['id', 'name', 'lastname'],

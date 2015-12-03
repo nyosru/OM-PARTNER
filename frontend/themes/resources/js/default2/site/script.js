@@ -59,20 +59,35 @@ $(document).on('click', '.close-descript', function () {
     $('#prod-card-info').dialog('close');
 });
 $(document).on('click', '.save-order', function () {
-    $('#modal-cart').html('<div class="shipping">Cпособ доставки <select id="shipping-confirm"><option class="shipping-confirm-option" value="flat2_flat2">Бесплатная доставка до ТК ЖелДорЭкспедиция</option><option class="shipping-confirm-option" value="flat1_flat1">Бесплатная доставка до ТК Деловые Линии</option><option class="shipping-confirm-option"  value="flat3_flat3">Бесплатная доставка до ТК ПЭК</option><option class="shipping-confirm-option"  value="flat7_flat7">Почта ЕМС России</option></select></div><div class="userinfo"></div>');
-    $("html, body").animate({
-        scrollTop: 0
-    }, 600);
     $.post(
-        "/site/requestadress",
-        {ship: $('#shipping-confirm option:selected').val()},
-        onAjaxSuccessinfo
+        "/site/shipping",
+        function (shipdata) {
+            if (shipdata[0].active) {
+                $inht = '';
+                console.log(shipdata);
+                $.each(shipdata, function (index) {
+                    if (this.active == '1') {
+                        $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
+                    }
+                });
+                $('#modal-cart').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
+
+            } else {
+                $('#modal-cart').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option><option class="shipping-confirm-option" data-pasp="flat2_flat2" value="flat2_flat2">Бесплатная доставка до ТК ЖелДорЭкспедиция</option><option class="shipping-confirm-option" data-pasp="flat1_flat1"  value="flat1_flat1">Бесплатная доставка до ТК Деловые Линии</option><option class="shipping-confirm-option"  data-pasp="flat3_flat3"    value="flat3_flat3">Бесплатная доставка до ТК ПЭК</option><option class="shipping-confirm-option" data-pasp="flat7_flat7"  value="flat7_flat7">Почта ЕМС России</option></select></div><div class="userinfo"></div>');
+            }
+        }
     );
 });
+
 $(document).on('change', '#shipping-confirm', function () {
+    $('#shipping-confirm option').filter(function (index) {
+        if ($(this).val() == '') {
+            return $(this)
+        }
+    }).remove();
     $.post(
         "/site/requestadress",
-        {ship: $('#shipping-confirm option:selected').val()},
+        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp')},
         onAjaxSuccessinfo
     );
 });
