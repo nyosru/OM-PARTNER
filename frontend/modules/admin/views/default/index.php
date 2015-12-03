@@ -318,6 +318,44 @@ $this->title = 'Админка';
             $l5 .= '</div>';
             $l5 .= '</div>';
 
+            $l6 = '<div style="margin: 10px; height: 100%;">';
+            $l6 .= '<div class="col-md-12">';
+            $l6 .= '<label class="control-label">Физические платежи (реквизиты для выставления счетов)</label>';
+            $l6_1 = '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+            $l6_1 .= '<h2>Яндекс деньги</h2>';
+            $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
+            $l6_1 .= $form->field($model, 'paysystem[value][yamoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер кошелька Яндекс.Денег');
+            $l6_1 .= '</div>';
+
+            $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+            $l6_1 .= '<h2>Webmoney</h2>';
+            $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][webmoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
+            $l6_1 .= $form->field($model, 'paysystem[value][webmoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер рублевого кошелька WebMoney');
+            $l6_1 .= '</div>';
+
+            $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+            $l6_1 .= '<h2>Qiwi</h2>';
+            $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][qiwi][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
+            $l6_1 .= $form->field($model, 'paysystem[value][qiwi][value]', ['options' => ['class' => 'col-md-7']])->label('Qiwi');
+            $l6_1 .= '</div>';
+
+            $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+            $l6_1 .= '<h2>Банковский платеж</h2>';
+            $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][bankpay][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
+            $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][name]', ['options' => ['class' => 'col-md-6']])->label('Наименование организации');
+            $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][inn]', ['options' => ['class' => 'col-md-3']])->label('ИНН');
+            $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][kpp]', ['options' => ['class' => 'col-md-3']])->label('КПП');
+            $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][bankname]', ['options' => ['class' => 'col-md-5']])->label('Наименование банка');
+            $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options' => ['class' => 'col-md-3']])->label('БИК');
+            $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->label('Корреспондентский счет');
+            $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->label('Рассчетный счет');
+            $l6_1 .= '</div>';
+
+            $l6 .= $l6_1;
+            $l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+            $l6 .= '</div>';
+            $l6 .= '</div>';
+
             ?>
             <? echo Tabs::widget([
                 'items' => [
@@ -344,6 +382,11 @@ $this->title = 'Админка';
                     [
                         'label' => 'Доставка',
                         'content' => $l5,
+
+                    ],
+                    [
+                        'label' => 'Платежные системы',
+                        'content' => $l6,
 
                     ],
 
