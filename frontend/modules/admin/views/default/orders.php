@@ -92,12 +92,15 @@ echo \yii\grid\GridView::widget([
                     $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
                     $inner .= '</tr>';
                 }
-
-                $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
-                $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
-
-                $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
-
+                if ($totalomcount > 0) {
+                    $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
+                    $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
+                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ' Руб.)';
+                } else {
+                    $totalomcount = '';
+                    $finalomprice = '';
+                    $totalomquant = '';
+                }
                 $inner .= '</tbody><tfooter>';
                 $inner .= '<tr>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Итого</th>';
