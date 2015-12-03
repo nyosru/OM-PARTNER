@@ -198,7 +198,7 @@ echo \yii\grid\GridView::widget([
         ],
         ['class' => 'yii\grid\ActionColumn',
             'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-            'template' => '{delegate}{cancel}{print}{edit}',
+            'template' => '{delegate}{cancel}{print}{edit}{mail}',
             'header' => 'Управление',
             'buttons' => [
                 'delegate' => function ($url, $model, $key) {
@@ -221,7 +221,7 @@ echo \yii\grid\GridView::widget([
                             '<a href="/admin/default/delegate?id=' . $key . '&self=' . Yii::$app->params['partnersset']['transport']['active'] . '" class="" style="margin: 20px; background: green none repeat scroll 0% 0%; padding: 5px 10px; border-radius: 3px;cursor:pointer;">Да</a>' .
                             '<a class="" data-dismiss="modal" aria-hidden="true"  style="padding: 5px 10px; border-radius: 3px; margin: 20px; background: red none repeat scroll 0% 0%; cursor:pointer;">Нет</a></div>';
                         $modal .= '</div></div></div></div>';
-                        return '<span  class="fa fa-truck col-md-3" style="cursor:pointer; font-size: 20px; color: green;" data-toggle="modal" data-target="#modal-delegate-' . $key . '"></span>' . $modal;
+                        return '<span  class="fa fa-truck col-md-2" style="cursor:pointer; font-size: 20px; color: green;" data-toggle="modal" data-target="#modal-delegate-' . $key . '"></span>' . $modal;
                     } else {
                         return '';
                     }
@@ -241,7 +241,7 @@ echo \yii\grid\GridView::widget([
                             '<a href="/admin/default/cancelorder?id=' . $key . '" class="" style="margin: 20px; background: green none repeat scroll 0% 0%; padding: 5px 10px; border-radius: 3px;cursor:pointer;">Да</a>' .
                             '<a class="" data-dismiss="modal" aria-hidden="true"  style="padding: 5px 10px; border-radius: 3px; margin: 20px; background: red none repeat scroll 0% 0%; cursor:pointer;">Нет</a></div>';
                         $modal .= '</div></div></div></div>';
-                        return '<span  class="fa fa-close col-md-3" style="cursor:pointer; font-size: 20px; color: red;" data-toggle="modal" data-target="#modal-cancel-' . $key . '"></span>' . $modal;
+                        return '<span  class="fa fa-close col-md-2" style="cursor:pointer; font-size: 20px; color: red;" data-toggle="modal" data-target="#modal-cancel-' . $key . '"></span>' . $modal;
                     } else {
                         return '';
 
@@ -249,20 +249,61 @@ echo \yii\grid\GridView::widget([
                 },
                 'print' => function ($url, $model, $key) {
                     $url = Yii::$app->urlManager->createUrl(['/site/printorders', 'id' => $key]);
-                    return '<div class="col-md-3">' . Html::a(
+                    return '<div class="col-md-2">' . Html::a(
                         '<span class="fa fa-print"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
                         $url, ['target' => '_blank']) . '</div>';
                 },
                 'edit' => function ($url, $model, $key) {
                     if ($model->status == 1 && !($model->orders_id > 0)) {
                         $url = Yii::$app->urlManager->createUrl(['/admin/default/orderupdate', 'id' => $key]);
-                        return '<div class="col-md-3">' . Html::a(
+                        return '<div class="col-md-2">' . Html::a(
                             '<span class="fa fa-edit"  style="cursor:pointer; font-size: 20px; color: black;" ></span>',
                             $url, ['target' => '_blank']) . '</div>';
 
                     } else {
                         return '';
 
+                    }
+                },
+                'mail' => function ($url, $model, $key) {
+                    if ($model->status !== 0) {
+                        $modal = '<div style="display: none;" id="modal-mail-' . $key . '" class="fade modal" role="dialog" tabindex="-1">';
+                        $modal .= '<div class="modal-dialog modal-lg">';
+                        $modal .= '<div class="modal-content">';
+                        $modal .= '<div class="modal-header">';
+                        $modal .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+                        $modal .= 'Отправить e-mail пользователю ' . $model->user->username;
+                        $modal .= '</div>';
+                        $modal .= '<div class="modal-body">';
+                        $modal .= '<div></div><div style="margin-left: auto; margin-right: auto; padding: 14px; text-align: center;">';
+                        $modal .= '<form id="groupdiscountuser" action="/admin/default/usercontrol" method="post" role="form">';
+                        $form = ActiveForm::begin();
+                        $mailmodel = new \frontend\models\MailToUserForm();
+                        $mailmodel->email = $model->user->username;
+                        if (Yii::$app->params['partnersset']['contacts']['email']['active'] == 1 && ($email = Yii::$app->params['partnersset']['contacts']['email']['value']) == TRUE) {
+                            $mailmodel->name = $email;
+                        } else {
+                            $mailmodel->name = 'support@' . $_SERVER['HTTP_HOST'];
+                        }
+                        $modal .= $form->field($mailmodel, 'subject')->input('text')->label('Тема');
+                        $modal .= $form->field($mailmodel, 'email')->hiddenInput()->label(false);
+                        $modal .= $form->field($mailmodel, 'name')->hiddenInput()->label(false);
+                        $modal .= '<input type="hidden" name="_csrf" value="" />';
+                        $modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget(CKEditor::className(), [
+                            'options' => [
+                                'id' => $model->id,
+                                'rows' => 1],
+                            'preset' => 'full',
+                        ]);
+                        ActiveForm::end();
+                        $modal .= '</div><div class="form-group">';
+                        $modal .= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'mailtouser']);
+                        $modal .= '</div>';
+                        $modal .= '</form>';
+                        $modal .= '</div></div></div></div></div></div>';
+                        return '<div class="col-md-2"><span  class="fa fa-envelope" style="cursor:pointer; font-size: 20px; color: darkblue;" data-toggle="modal" data-target="#modal-mail-' . $key . '"></span></div>' . $modal;
+                    } else {
+                        return '';
                     }
                 },
             ],
