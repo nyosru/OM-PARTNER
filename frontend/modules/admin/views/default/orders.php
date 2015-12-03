@@ -65,6 +65,7 @@ echo \yii\grid\GridView::widget([
                 $totalomquant = 0;
                 $totalomcount = 0;
                 $finalomprice = 0;
+                $omfinalprice = 0;
                 foreach ($order as $key => $value) {
                     $price = $value[3] - $value[3] / 100 * $discounttotalprice;
                     $count++;
@@ -77,6 +78,7 @@ echo \yii\grid\GridView::widget([
                         $omprice = '<br/>(ОМ: ' . (integer)$data->oMOrdersProducts[$key]->products_price . ' Руб.)';
                         $omfinalquant = '<br/>(В наличии: ' . $data->oMOrdersProducts[$key]->products_quantity . ')';
                         if ($data->oMOrdersProducts[$key]->products_quantity > 0) {
+                            $omfinalprice += (integer)((integer)$data->oMOrdersProducts[$key]->products_price * (integer)$data->oMOrdersProducts[$key]->products_quantity);
                             $totalomcount++;
                             $totalomquant += (integer)$data->oMOrdersProducts[$key]->products_quantity;
                             $finalomprice += (integer)$price * (integer)$data->oMOrdersProducts[$key]->products_quantity;
@@ -93,6 +95,7 @@ echo \yii\grid\GridView::widget([
                     $inner .= '</tr>';
                 }
                 if ($totalomcount > 0) {
+                    $omfinalprice = '<br/>(После сверки ОМ: ' . $omfinalprice . ')';
                     $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
                     $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
                     $totalomquant = '<br/>(После сверки: ' . $totalomquant . ' Руб.)';
@@ -100,6 +103,7 @@ echo \yii\grid\GridView::widget([
                     $totalomcount = '';
                     $finalomprice = '';
                     $totalomquant = '';
+                    $omfinalprice = '';
                 }
                 $inner .= '</tbody><tfooter>';
                 $inner .= '<tr>';
@@ -108,7 +112,7 @@ echo \yii\grid\GridView::widget([
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Наценка: ' . (integer)$discount . '%</th>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (integer)$discounttotalprice . '%</th>';
-                $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Стоимость заказа: ' . $totalprice . ' Руб.' . $finalomprice . '</th>';
+                $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Стоимость заказа: ' . $totalprice . ' Руб.' . $finalomprice . $omfinalprice . '</th>';
                 $inner .= '</tr>';
                 $inner .= '<tr>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Доставка: </th>';
