@@ -1,7 +1,4 @@
 <?
-//echo'<pre>';
-//print_r($data);
-//echo'</pre>';
 $id_zakaz = $data['id'];
 $name_shop = Yii::$app->params['constantapp']['APP_NAME'];
 $adress_shop = Yii::$app->params['partnersset']['contacts']['adress']['value'];
@@ -46,51 +43,91 @@ echo '<span>' . $adress_shop . '</span>';
     </tr>
 </table>
 <?
-$totalcountorder = 0;
-$totalpositionorder = 0;
-$totalpriceorder = 0;
-$innerdata = '';
-$discount = $order['discounttotalprice'];
-$discountd = $order['discount'];
+$shipping = ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'], 'flat7_flat7' => ['value' => 'Почта ЕМС России']];
+$shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);
+$inner = '';
 $ship = $order['ship'];
-unset($order['ship']);
-unset($order['discount']);
-unset($order['discounttotalprice']); ?>
-<table class="table table-bordered" width="100%">
-    <tr>
-        <td>№</td>
-        <td>Артикул, наименование</td>
-        <td>Размер,количество</td>
-        <td>Цена</td>
-    </tr><?
-    foreach ($order as $key => $value) {
-        if ($value[7] == 'undefined' || $value[7] == '') {
-            $prodname = 'Не указанно';
+$discount = $order['discount'];
+$discounttotalprice = $order['discounttotalprice'];
+unset($order['ship'], $order['discount'], $order['discounttotalprice']);
+$inner .= '<table class="table table-striped table-bordered table-hover table-responsive">';
+$inner .= '<thead><tr>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">#</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Артикул</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Цена за шт</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Количество</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Изображение</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Размер</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Описание</th>';
+$inner .= '</tr></thead><tbody>';
+$count = 0;
+$countprod = 0;
+$totalprice = 0;
+$totalomquant = 0;
+$totalomcount = 0;
+$finalomprice = 0;
+foreach ($order as $key => $value) {
+    $price = $value[3] - $value[3] / 100 * $discounttotalprice;
+    $count++;
+    $countprod += $value[4];
+    $totalprice += (integer)$price * $value[4];
+    if ($data['oMOrdersProducts']) {
+        if ($data['oMOrdersProducts'][$key]['products_quantity'] == 0 && isset($data['oMOrdersProducts'])) {
+            $col = 'red';
+        } elseif ($data['oMOrdersProducts'][$key]['products_quantity'] == $value[4] && isset($data['oMOrdersProducts'])) {
+            $col = 'green';
         } else {
-            $prodname = $value[7];
+            $col = 'yellow';
         }
-        if ($value[6] == 'undefined' || $value[6] == '') {
-            $size = 'Без размера';
-        } else {
-            $size = $value[6];
+
+    } else {
+        $col = 'white';
+    }
+    $inner .= '<tr style="background: ' . $col . '">';
+    $inner .= '<td class="col-md-1">' . $key . '</td>';
+    $inner .= '<td class="col-md-2">' . $value[1] . '</td>';
+    if ($data['oMOrdersProducts']) {
+        $omfinalquant = '<br/>(В наличии: ' . $data['oMOrdersProducts'][$key]['products_quantity'] . ')';
+        if ($data['oMOrdersProducts'][$key]['products_quantity'] > 0) {
+            $totalomcount++;
+            $totalomquant += (integer)$data['oMOrdersProducts'][$key]['products_quantity'];
+            $finalomprice += (integer)$price * (integer)$data['oMOrdersProducts'][$key]['products_quantity'];
         }
-        $totalcountorder = $totalcountorder + intval($value[4]);
-        $totalpositionorder = $totalpositionorder + 1;
-        $totalpriceorder = $totalpriceorder + intval($value[3]) * intval($value[4]);
-        $innerdata .= '<tr><td class="">' . ($key + 1) . '</td><td class="" style="width:25%;"><div>Артикул: ' . $value[1] . '</div><div>Наименование: ' . $prodname . '</div></td><td class="" style=" width:25%;">' . $size . ' x ' . $value[4] . '</td><td class="" ><div>Цена за штуку: ' . intval($value[3]) . ' Руб.</div><div>Цена позиции: ' . intval($value[3]) * intval($value[4]) . ' Руб.</div></td></tr>';
+    } else {
+        $omfinalquant = '';
     }
-    $innerdata .= '<table class="table table-bordered"><tr><td class="">Итого: </td><td class="">Позиций: ' . $totalpositionorder . '</td><td class="">Товаров: ' . $totalcountorder . '</td><td class="">Сумма заказа: ' . $totalpriceorder . ' Руб.</td></tr>';
-    if ($discount > 0) {
-        $totalpriceorder = intval($totalpriceorder - $totalpriceorder / 100 * $discount);
-        $innerdata .= '<tr  class=""><td class="">Ваша скидка: ' .
-            $discount . '%</td><td class="" colspan="3">Сумма заказа c учетом скидки: ' .
-            $totalpriceorder . ' Руб.</td></tr>';
 
-    }
-    $innerdata .= '</table>';
-    echo $innerdata;
+    $inner .= '<td class="col-md-2">' . (integer)$price . ' Руб.</td>';
+    $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
+    $inner .= '<td class="col-md-3"><img style="width: 50%;" src="/site/imagepreview?src=' . $value[5] . '"/></td>';
+    $inner .= '<td class="col-md-1">' . (integer)$value[6] . '</td>';
+    $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
+    $inner .= '</tr>';
+}
+if ($totalomcount > 0) {
+    $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
+    $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
 
-
+    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ' Руб.)';
+} else {
+    $totalomcount = '';
+    $finalomprice = '';
+    $totalomquant = '';
+}
+$inner .= '</tbody><tfooter>';
+$inner .= '<tr>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Итого</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
+$inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (integer)$discounttotalprice . '%</th>';
+$inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Стоимость заказа: ' . $totalprice . ' Руб.' . $finalomprice . '</th>';
+$inner .= '</tr>';
+$inner .= '<tr>';
+$inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Доставка: </th>';
+$inner .= '<th colspan="6" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
+$inner .= '</tr>';
+$inner .= '</tfooter></table>';
+echo $inner;
     ?>
-</table>
+
 
