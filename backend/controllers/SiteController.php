@@ -23,7 +23,7 @@ class SiteController extends Controller
                // 'only' => ['login', 'error', 'logout', 'index'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error', 'captcha'],
                         'allow' => true,
                         'roles' => ['?', '@', 'register', 'admin'],
                     ],
@@ -73,7 +73,7 @@ class SiteController extends Controller
 
             $model = new LoginForm();
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
-                return $this->goBack();
+                return $this->goHome();
             } else {
                 return $this->render('login', [
                     'model' => $model,
