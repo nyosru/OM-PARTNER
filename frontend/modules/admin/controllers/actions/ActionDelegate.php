@@ -238,7 +238,7 @@ trait ActionDelegate{
                             $ordersprod->final_price = $proddata['products_price'];
                             $ordersprod->products_price = $proddata['products_price'];
                             $ordersprod->price_coll = $proddata['price_coll'];
-                            $ordersprod->products_status = $proddata['products_status'];
+                            $ordersprod->products_status = 0;
                             $price_total += intval($price_total) + $ordersprod['products_price'] * $ordersprod->products_quantity;
                             if ($ordersprod->save()) {
                                 if ($proddata['productsAttributes']['products_attributes_id']) {

@@ -42,19 +42,21 @@ class LoginForm extends Model
     public function validatePassword()
     {
         $user = $this->getUser();
-        if (!$user || !$user->validatePassword($this->password)) {
+        if (!$user) {
+            $this->addError('password', 'Нет такого пользователя');
+        } elseif (!$user->validatePassword($this->password)) {
             $this->addError('password', 'Не соответствует пара логин- пароль');
-        }else{
+        } else {
             $run = new Partners();
             $check = $run->GetId($_SERVER['HTTP_HOST']);
             if(intval($user->id_partners) != intval($check) && intval($user->id_partners) != 0 || !$user->validatePassword($this->password)){
                 $this->addError('password', 'Не соответствует пара логин - пароль.');
-            }elseif(intval($user->id_partners) == 0){
+            } elseif (($user->id_partners) == 'NULL') {
                 return true;
             }else{
                 return true;
             }
-    }
+        }
     }
 
     /**
@@ -84,15 +86,15 @@ class LoginForm extends Model
         if ($this->_user === false) {
             $userq = new User();
             $run = new Partners();
-            if($_SERVER['HTTP_HOST'] == 'globaladmin.egorov.odezhda-master.ru' || $_SERVER['HTTP_HOST'] == 'globaladmin.partnerom.odezhda-master.ru'){
-                $check = 0;
+            if ($_SERVER['HTTP_HOST'] == 'http://globaladmin.egorov.odezhda-master.ru' || $_SERVER['HTTP_HOST'] == 'globaladmin.partnerom.odezhda-master.ru') {
+                $check = 'NULL';
             }else{
                 $check = $run->GetId($_SERVER['HTTP_HOST']);
             }
-            $this->_user =  $userq->find()->where(['username' =>$this->username, 'id_partners'=> $check])->all();
+            $this->_user = $userq->find()->where(['username' => $this->username, 'id_partners' => $check])->one();
 
         }
         $user = $this->_user;
-        return $user[0];
+        return $user;
     }
 }

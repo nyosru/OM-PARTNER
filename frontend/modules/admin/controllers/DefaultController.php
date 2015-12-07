@@ -1,6 +1,8 @@
 <?php
 
 namespace app\modules\admin\controllers;
+
+use common\traits\Categories_for_partner;
 use common\traits\Imagepreviewcrop;
 use common\traits\ThemeResources;
 use frontend\modules\admin\controllers\actions\ActionCancelorder;
@@ -11,6 +13,7 @@ use frontend\modules\admin\controllers\actions\ActionIndex;
 use frontend\modules\admin\controllers\actions\ActionNewspage;
 use frontend\modules\admin\controllers\actions\ActionNewsupdate;
 use frontend\modules\admin\controllers\actions\ActionOrderUpdate;
+use frontend\modules\admin\controllers\actions\ActionPartnersCategories;
 use frontend\modules\admin\controllers\actions\ActionRequestnews;
 use frontend\modules\admin\controllers\actions\ActionRequestorders;
 use frontend\modules\admin\controllers\actions\ActionRequestpage;
@@ -44,7 +47,9 @@ class DefaultController extends Controller
         ActionRequestupdate,
         ActionCommentscontrol,
         ActionOrderUpdate,
-        ActionUserControl;
+        ActionPartnersCategories,
+        ActionUserControl,
+        Categories_for_partner;
 
     public function behaviors()
     {
@@ -53,7 +58,8 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orderupdate', 'usercontrol', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings', 'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage'],
+                        'actions' => ['index', 'orderupdate', 'usercontrol', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
+                            'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage', 'partnerscategories'],
                         'allow' => true,
                         'roles' => ['admin'],
 

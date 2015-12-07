@@ -17,6 +17,9 @@ $fieldOptions2 = [
     'options' => ['class' => 'form-group has-feedback'],
     'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
 ];
+$fieldOptions3 = [
+    'options' => ['class' => 'form-group has-feedback'],
+];
 ?>
 
 <div class="login-box">
@@ -38,7 +41,12 @@ $fieldOptions2 = [
             ->field($model, 'password', $fieldOptions2)
             ->label(false)
             ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
-
+        <?= $form
+            ->field($model, 'captcha')
+            ->label(false)
+            ->widget(\yii\captcha\Captcha::classname(), [
+                'template' => '{image}{input}',
+            ]) ?>
         <div class="row">
             <div class="col-xs-8">
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
