@@ -49,7 +49,7 @@ $inner = '';
 $ship = $order['ship'];
 $discount = $order['discount'];
 $discounttotalprice = $order['discounttotalprice'];
-unset($order['ship'], $order['discount'], $order['discounttotalprice']);
+unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
 $inner .= '<table class="table table-striped table-bordered table-hover table-responsive">';
 $inner .= '<thead><tr>';
 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">#</th>';

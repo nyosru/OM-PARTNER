@@ -70,6 +70,10 @@ class PartnersOrders extends \yii\db\ActiveRecord
         return $this->hasMany(OrdersProducts::className(), ['orders_id' => 'orders_id'])->via('oMOrders');
     }
 
+    public function getOMOrdersProductsSP()
+    {
+        return $this->hasMany(PartnersOrdersProductsSp::className(), ['orders_products_id' => 'orders_products_id'])->via('oMOrdersProducts');
+    }
     public function getOMOrdersProductsAttr()
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('oMOrdersProducts');

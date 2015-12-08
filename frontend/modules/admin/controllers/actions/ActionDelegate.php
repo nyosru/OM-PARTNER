@@ -144,6 +144,7 @@ trait ActionDelegate{
                     unset($partnerorder['ship']);
                     unset($partnerorder['discount']);
                     unset($partnerorder['discounttotalprice']);
+                    unset($partnerorder['paymentmethod']);
                     $orders->ur_or_fiz = 'f';
                     $orders->customers_id = $userCustomer->customers_id;
                     $orders->customers_name = $userCustomer->customers_firstname . ' ' . $userCustomer->customers_lastname;

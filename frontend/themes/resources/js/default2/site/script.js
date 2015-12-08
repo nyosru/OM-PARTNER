@@ -73,6 +73,20 @@ $(document).on('click', '.save-order', function () {
 
         }
     );
+    $.post(
+        "/site/paymentmethod",
+        function (data) {
+            $inht = '';
+            console.log(data);
+            $.each(data, function (index) {
+                if (this.active == '1') {
+                    $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
+                }
+            });
+            $('#shipping').append('<div class="shipping">Cпособ доставки <select  id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
+
+        }
+    );
 });
 
 $(document).on('change', '#shipping-confirm', function () {

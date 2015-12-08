@@ -10,6 +10,7 @@ $order=unserialize($order);
 unset($order['ship']);
 unset($order['discount']);
 unset($order['discounttotalprice']);
+unset($order['paymentmethod']);
 ?>
 
 <html>

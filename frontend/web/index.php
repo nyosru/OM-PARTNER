@@ -63,21 +63,20 @@ class LoadTraitIndex
 $temlate_key = Yii::$app->cache->buildKey('templatepartners-' . $partner['APP_ID']);
 $template_data = Yii::$app->cache->get($temlate_key);
 if(!$template_data){
-    $temlate_key = Yii::$app->cache->buildKey('templatepartners-' . Yii::$app->params['constantapp']['APP_ID']);
     $partnersettings = new PartnersSettings();
     $partnerset = $partnersettings->LoadSet();
     Yii::$app->assetManager->appendTimestamp = true;
     if (isset($partnerset['template']['value'])) {
-        $theme = $this->ThemeResourcesload($partnerset['template']['value'], 'site')['view'];
+        $path = new LoadTraitIndex();
+        $theme = $path->ThemeResourcesload($partnerset['template']['value'], 'site')['view'];
     } else {
-        $theme = Yii::$app->params['constantapp']['APP_THEMES'];
+        $theme = $application->params['constantapp']['APP_THEMES'];
     }
     $asset = new \frontend\assets\AppAsset();
     $assetsite = $asset->LoadAssets($partnerset['template']['value'], 'site');
     $asset = new \frontend\assets\AppAsset();
     $adminasset = $asset->LoadAssets($partnerset['template']['value'], 'back');
     Yii::$app->cache->set($temlate_key, ['data' => $assetsite, 'dataadmin' => $adminasset, 'theme' => $theme, 'partnerset' => $partnerset]);
-    return $this->render('index', ['model' => $model, 'exception' => '']);
 }else {
     $assetsite = $template_data['data'];
     $adminasset = $template_data['dataadmin'];

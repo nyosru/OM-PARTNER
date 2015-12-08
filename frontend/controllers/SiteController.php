@@ -25,6 +25,7 @@ use frontend\controllers\actions\ActionLogout;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
 use frontend\controllers\actions\ActionPaying;
+use frontend\controllers\actions\ActionPaymentMethod;
 use frontend\controllers\actions\ActionPrintOrders;
 use frontend\controllers\actions\ActionProduct;
 use frontend\controllers\actions\ActionProductinfo;
@@ -98,7 +99,8 @@ class SiteController extends Controller
         ActionChstatusorder,
         ActionProduct,
         ActionNews,
-        ActionShipping;
+        ActionShipping,
+        ActionPaymentMethod;
 
 
     /**

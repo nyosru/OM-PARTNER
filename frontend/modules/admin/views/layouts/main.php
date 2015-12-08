@@ -141,7 +141,11 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
 </footer>
 
 <?php $this->endBody();
-Yii::$app->params['adminasset']->registerAssetFiles($this); ?>
+if (Yii::$app->params['adminasset']->registerAssetFiles($this)) {
+
+} else {
+
+}; ?>
 
 </body>
 </html>

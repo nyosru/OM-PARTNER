@@ -48,7 +48,7 @@ echo \yii\grid\GridView::widget([
                 $ship = $order['ship'];
                 $discount = $order['discount'];
                 $discounttotalprice = $order['discounttotalprice'];
-                unset($order['ship'], $order['discount'], $order['discounttotalprice']);
+                unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
                 $inner .= '<table class="table table-striped table-bordered table-hover table-responsive">';
                 $inner .= '<thead><tr>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">#</th>';
@@ -67,14 +67,15 @@ echo \yii\grid\GridView::widget([
                 $finalomprice = 0;
                 $omfinalprice = 0;
                 foreach ($order as $key => $value) {
-                    $price = $value[3] - $value[3] / 100 * $discounttotalprice;
+                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity;
+                    $price = round($value[3] - $value[3] / 100 * $discounttotalprice);
                     $count++;
                     $countprod += $value[4];
-                    $totalprice += (integer)$price * $value[4];
+                    $totalprice += $price * $value[4];
                     if ($data->oMOrdersProducts) {
-                        if ($data->oMOrdersProducts[$key]->products_quantity == 0 && isset($data->oMOrdersProducts)) {
+                        if ($positionquantity == 0 && isset($data->oMOrdersProducts)) {
                             $col = 'red';
-                        } elseif ($data->oMOrdersProducts[$key]->products_quantity == $value[4] && isset($data->oMOrdersProducts)) {
+                        } elseif ($positionquantity == $value[4] && isset($data->oMOrdersProducts)) {
                             $col = 'green';
                         } else {
                             $col = 'yellow';
@@ -87,22 +88,23 @@ echo \yii\grid\GridView::widget([
                     $inner .= '<td class="col-md-1">' . $key . '</td>';
                     $inner .= '<td class="col-md-2">' . $value[1] . '</td>';
                     if ($data->oMOrdersProducts) {
-                        $omprice = '<br/>(ОМ: ' . (integer)$data->oMOrdersProducts[$key]->products_price . ' Руб.)';
-                        $omfinalquant = '<br/>(В наличии: ' . $data->oMOrdersProducts[$key]->products_quantity . ')';
-                        if ($data->oMOrdersProducts[$key]->products_quantity > 0) {
-                            $omfinalprice += (integer)((integer)$data->oMOrdersProducts[$key]->products_price * (integer)$data->oMOrdersProducts[$key]->products_quantity);
+                        $ompriceprod = round($data->oMOrdersProducts[$key]->products_price);
+                        $omprice = '<br/>(ОМ: ' . $ompriceprod . ' Руб.)';
+                        $omfinalquant = '<br/>(В наличии: ' . $positionquantity . ')';
+                        if ($positionquantity > 0) {
+                            $omfinalprice += ($ompriceprod * $positionquantity);
                             $totalomcount++;
-                            $totalomquant += (integer)$data->oMOrdersProducts[$key]->products_quantity;
-                            $finalomprice += (integer)$price * (integer)$data->oMOrdersProducts[$key]->products_quantity;
+                            $totalomquant += $positionquantity;
+                            $finalomprice += $price * $positionquantity;
                         }
                     } else {
                         $omprice = '';
                         $omfinalquant = '';
                     }
-                    $inner .= '<td class="col-md-2">' . (integer)$price . ' Руб.' . $omprice . '</td>';
+                    $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.' . $omprice . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
                     $inner .= '<td class="col-md-3"><img style="width: 50%;" src="/site/imagepreview?src=' . $value[5] . '"/></td>';
-                    $inner .= '<td class="col-md-1">' . (integer)$value[6] . '</td>';
+                    $inner .= '<td class="col-md-1">' . (float)$value[6] . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
                     $inner .= '</tr>';
                 }
@@ -110,7 +112,7 @@ echo \yii\grid\GridView::widget([
                     $omfinalprice = '<br/>(После сверки ОМ: ' . $omfinalprice . ')';
                     $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
                     $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
-                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ' Руб.)';
+                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
                 } else {
                     $totalomcount = '';
                     $finalomprice = '';
@@ -122,8 +124,8 @@ echo \yii\grid\GridView::widget([
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Итого</th>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Наценка: ' . (integer)$discount . '%</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (integer)$discounttotalprice . '%</th>';
+                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Наценка: ' . (float)$discount . '%</th>';
+                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (float)$discounttotalprice . '%</th>';
                 $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Стоимость заказа: ' . $totalprice . ' Руб.' . $finalomprice . $omfinalprice . '</th>';
                 $inner .= '</tr>';
                 $inner .= '<tr>';
