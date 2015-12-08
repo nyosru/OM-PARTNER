@@ -12,7 +12,7 @@ trait ActionShipping
         if (Yii::$app->params['partnersset']['transport']['active']) {
             return Yii::$app->params['partnersset']['transport']['value'];
         } else {
-            return ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'], 'flat7_flat7' => ['value' => 'Почта ЕМС России']];
+            return ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция', 'active' => '1', 'wantpasport' => '0'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии', 'active' => '1', 'wantpasport' => '1'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК', 'active' => '1', 'wantpasport' => '0'], 'flat7_flat7' => ['value' => 'Почта ЕМС России', 'active' => '1', 'wantpasport' => '0']];
         }
     }
 }

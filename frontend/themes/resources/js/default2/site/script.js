@@ -62,7 +62,6 @@ $(document).on('click', '.save-order', function () {
     $.post(
         "/site/shipping",
         function (shipdata) {
-            if (shipdata[0].active) {
                 $inht = '';
                 console.log(shipdata);
                 $.each(shipdata, function (index) {
@@ -72,9 +71,6 @@ $(document).on('click', '.save-order', function () {
                 });
                 $('#modal-cart').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
 
-            } else {
-                $('#modal-cart').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option><option class="shipping-confirm-option" data-pasp="flat2_flat2" value="flat2_flat2">Бесплатная доставка до ТК ЖелДорЭкспедиция</option><option class="shipping-confirm-option" data-pasp="flat1_flat1"  value="flat1_flat1">Бесплатная доставка до ТК Деловые Линии</option><option class="shipping-confirm-option"  data-pasp="flat3_flat3"    value="flat3_flat3">Бесплатная доставка до ТК ПЭК</option><option class="shipping-confirm-option" data-pasp="flat7_flat7"  value="flat7_flat7">Почта ЕМС России</option></select></div><div class="userinfo"></div>');
-            }
         }
     );
 });
@@ -605,7 +601,7 @@ $(document).on('click', '.cart', function () {
         width: window.screen.width-20,
         title: "Ваша корзина",
         resizable: false,
-       // dialogClass: 'max-cart cart',
+        // dialogClass: 'max-cart cart',
 
     });
     if (JSON.parse(localStorage.getItem('cart-om'))) {
