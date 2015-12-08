@@ -49,9 +49,9 @@ class LoginForm extends Model
         } else {
             $run = new Partners();
             $check = $run->GetId($_SERVER['HTTP_HOST']);
-            if(intval($user->id_partners) != intval($check) && intval($user->id_partners) != 0 || !$user->validatePassword($this->password)){
+            if (((integer)($user->id_partners) !== (integer)($check) && (integer)($user->id_partners) != NULL) || !$user->validatePassword($this->password)) {
                 $this->addError('password', 'Не соответствует пара логин - пароль.');
-            } elseif (($user->id_partners) == 'NULL') {
+            } elseif (($user->id_partners) == NULL) {
                 return true;
             }else{
                 return true;

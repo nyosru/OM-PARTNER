@@ -1,8 +1,12 @@
 <?php
 namespace backend\controllers;
 
+use frontend\models\PasswordResetRequestForm;
+use frontend\models\ResetPasswordForm;
 use Yii;
+use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use common\models\LoginForm;
 use yii\filters\VerbFilter;
@@ -23,7 +27,7 @@ class SiteController extends Controller
                // 'only' => ['login', 'error', 'logout', 'index'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'captcha'],
+                        'actions' => ['login', 'error', 'captcha', 'requestPasswordReset', 'resetPassword'],
                         'allow' => true,
                         'roles' => ['?', '@', 'register', 'admin'],
                     ],
@@ -88,4 +92,5 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
 }
