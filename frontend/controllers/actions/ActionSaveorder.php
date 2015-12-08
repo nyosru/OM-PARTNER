@@ -23,10 +23,18 @@ trait ActionSaveorder
         $model->partners_id = $check;
         $model->user_id = $userModel->getId();
         $user = new PartnersUsersInfo();
-        $user->scenario = $order['ship'];
+        if (Yii::$app->params['partnersset']['transport']['active']) {
+            $user->scenario = Yii::$app->params['partnersset']['transport']['value'][$order['ship']]['wantpasport'];
+        } else {
+            $user->scenario = $order['ship'];
+        }
         if ($user::findOne($userModel->getId())) {
             $user = $user::findOne($userModel->getId());
-            $user->scenario = $order['ship'];
+            if (Yii::$app->params['partnersset']['transport']['active']) {
+                $user->scenario = Yii::$app->params['partnersset']['transport']['value'][$order['ship']]['wantpasport'];
+            } else {
+                $user->scenario = $order['ship'];
+            }
             if ($userdata['pasportser'] != '') {
                 $user->pasportser = $userdata['pasportser'];
             }
