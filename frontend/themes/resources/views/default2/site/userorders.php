@@ -109,7 +109,7 @@ echo \yii\grid\GridView::widget([
                     $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
                     $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
 
-                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ' Руб.)';
+                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
                 } else {
                     $totalomcount = '';
                     $finalomprice = '';

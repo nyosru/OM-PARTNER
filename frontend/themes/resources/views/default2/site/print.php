@@ -67,14 +67,15 @@ $totalomquant = 0;
 $totalomcount = 0;
 $finalomprice = 0;
 foreach ($order as $key => $value) {
-    $price = $value[3] - $value[3] / 100 * $discounttotalprice;
+    $positionquantity = $data['oMOrdersProducts'][$key]['products_quantity'] + $data['oMOrdersProductsSP'][$key]['products_quantity'];
+    $price = round($value[3] - $value[3] / 100 * $discounttotalprice);
     $count++;
     $countprod += $value[4];
     $totalprice += (integer)$price * $value[4];
     if ($data['oMOrdersProducts']) {
-        if ($data['oMOrdersProducts'][$key]['products_quantity'] == 0 && isset($data['oMOrdersProducts'])) {
+        if ($positionquantity == 0 && isset($data['oMOrdersProducts'])) {
             $col = 'red';
-        } elseif ($data['oMOrdersProducts'][$key]['products_quantity'] == $value[4] && isset($data['oMOrdersProducts'])) {
+        } elseif ($positionquantity == $value[4] && isset($data['oMOrdersProducts'])) {
             $col = 'green';
         } else {
             $col = 'yellow';
@@ -87,11 +88,11 @@ foreach ($order as $key => $value) {
     $inner .= '<td class="col-md-1">' . $key . '</td>';
     $inner .= '<td class="col-md-2">' . $value[1] . '</td>';
     if ($data['oMOrdersProducts']) {
-        $omfinalquant = '<br/>(В наличии: ' . $data['oMOrdersProducts'][$key]['products_quantity'] . ')';
-        if ($data['oMOrdersProducts'][$key]['products_quantity'] > 0) {
+        $omfinalquant = '<br/>(В наличии: ' . $positionquantity . ')';
+        if ($positionquantity > 0) {
             $totalomcount++;
-            $totalomquant += (integer)$data['oMOrdersProducts'][$key]['products_quantity'];
-            $finalomprice += (integer)$price * (integer)$data['oMOrdersProducts'][$key]['products_quantity'];
+            $totalomquant += (float)$positionquantity;
+            $finalomprice += (float)$price * $positionquantity;
         }
     } else {
         $omfinalquant = '';
@@ -108,7 +109,7 @@ if ($totalomcount > 0) {
     $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
     $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
 
-    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ' Руб.)';
+    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
 } else {
     $totalomcount = '';
     $finalomprice = '';
