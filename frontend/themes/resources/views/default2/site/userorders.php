@@ -108,7 +108,6 @@ echo \yii\grid\GridView::widget([
                 if ($totalomcount > 0) {
                     $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
                     $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
-
                     $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
                 } else {
                     $totalomcount = '';

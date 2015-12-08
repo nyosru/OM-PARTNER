@@ -133,6 +133,14 @@ trait ActionIndex{
         $model->paysystem['value']['bankpay']['value']['bik'] = $paramset['paysystem']['value']['bankpay']['value']['bik'];
         $model->paysystem['value']['bankpay']['value']['ks'] = $paramset['paysystem']['value']['bankpay']['value']['ks'];
         $model->paysystem['value']['bankpay']['value']['rs'] = $paramset['paysystem']['value']['bankpay']['value']['rs'];
+
+        $model->paysystem['value']['yamoney']['name'] = 'Яндекс деньги';
+        $model->paysystem['value']['webmoney']['name'] = 'WebMoney. Рублевый кошелек';
+        $model->paysystem['value']['qiwi']['name'] = 'Qiwi';
+        $model->paysystem['value']['bankpay']['name'] = 'Банковский перевод';
+
+
+
         return $this->render('index', ['model' => $model]);
     }
 }

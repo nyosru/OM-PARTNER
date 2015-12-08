@@ -17,6 +17,7 @@ trait ActionSaveorder
         $model = new PartnersOrders();
         $order = Yii::$app->request->post('order');
         $order['ship'] = Yii::$app->request->post('ship');
+        $order['paymentmethod'] = Yii::$app->request->post('paymentmethod');
         $userdata = Yii::$app->request->post('user');
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $userModel = Yii::$app->user->identity;

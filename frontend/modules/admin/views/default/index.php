@@ -11,10 +11,10 @@ use yii\bootstrap\Alert;
 use yii\helpers\BaseHtml;
 use dosamigos\ckeditor\CKEditor;
 $this->title = 'Админка';
-
-?>
-
-            <?php
+//
+//echo '<pre>';
+//print_r($model);
+//echo '</pre>';
 
             $form = ActiveForm::begin(['id' => 'partners-settings', 'action'=>'/admin/default/savesettings']);
             $path = Yii::getAlias('@app') . '/themes/';
@@ -325,18 +325,23 @@ $this->title = 'Админка';
             $l6_1 .= '<h2>Яндекс деньги</h2>';
             $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
             $l6_1 .= $form->field($model, 'paysystem[value][yamoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер кошелька Яндекс.Денег');
+$l6_1 .= $form->field($model, 'paysystem[value][yamoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+
             $l6_1 .= '</div>';
 
             $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
             $l6_1 .= '<h2>Webmoney</h2>';
             $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][webmoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
             $l6_1 .= $form->field($model, 'paysystem[value][webmoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер рублевого кошелька WebMoney');
+$l6_1 .= $form->field($model, 'paysystem[value][webmoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
             $l6_1 .= '</div>';
 
             $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
             $l6_1 .= '<h2>Qiwi</h2>';
             $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][qiwi][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
             $l6_1 .= $form->field($model, 'paysystem[value][qiwi][value]', ['options' => ['class' => 'col-md-7']])->label('Qiwi');
+$l6_1 .= $form->field($model, 'paysystem[value][qiwi][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+
             $l6_1 .= '</div>';
 
             $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
@@ -349,6 +354,8 @@ $this->title = 'Админка';
             $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options' => ['class' => 'col-md-3']])->label('БИК');
             $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->label('Корреспондентский счет');
             $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->label('Рассчетный счет');
+$l6_1 .= $form->field($model, 'paysystem[value][bankpay][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+
             $l6_1 .= '</div>';
 
             $l6 .= $l6_1;

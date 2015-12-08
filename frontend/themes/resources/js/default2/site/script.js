@@ -69,24 +69,27 @@ $(document).on('click', '.save-order', function () {
                         $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
                     }
                 });
-                $('#modal-cart').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
+            $('#modal-cart').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
+            $.post(
+                "/site/paymentmethod",
+                function (data) {
+                    if (data != 'false') {
+                        $inht = '';
+                        $.each(data, function (index) {
+                            if (this.active == '1') {
+                                $inht += '<option class="shipping-confirm-option" value="' + this.name + '">' + this.name + '</option>';
+                            }
+                        });
+                        $('#modal-cart').append('<div class="shipping">Cпособ оплаты <select  id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
+                    } else {
+                        $('#modal-cart').append('<div class="userinfo"></div>');
 
-        }
-    );
-    $.post(
-        "/site/paymentmethod",
-        function (data) {
-            $inht = '';
-            console.log(data);
-            $.each(data, function (index) {
-                if (this.active == '1') {
-                    $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
+                    }
                 }
-            });
-            $('#shipping').append('<div class="shipping">Cпособ доставки <select  id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
-
+            );
         }
     );
+
 });
 
 $(document).on('change', '#shipping-confirm', function () {
@@ -274,6 +277,7 @@ $(document).on('click', '.save-order2', function () {
             {
                 order: $item.cart,
                 ship: $('#shipping-confirm option:selected')[0].value,
+                paymentmethod: $('#paymentmethod option:selected')[0].value,
                 user: $userdataarr
             },
             onAjaxSuccesssaveorder

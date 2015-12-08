@@ -48,6 +48,7 @@ echo \yii\grid\GridView::widget([
                 $ship = $order['ship'];
                 $discount = $order['discount'];
                 $discounttotalprice = $order['discounttotalprice'];
+                $paymentmethod = $order['paymentmethod'];
                 unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
                 $inner .= '<table class="table table-striped table-bordered table-hover table-responsive">';
                 $inner .= '<thead><tr>';
@@ -130,7 +131,9 @@ echo \yii\grid\GridView::widget([
                 $inner .= '</tr>';
                 $inner .= '<tr>';
                 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Доставка: </th>';
-                $inner .= '<th colspan="6" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
+                $inner .= '<th colspan="3" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
+                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Оплата: </th>';
+                $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $paymentmethod . '</th>';
                 $inner .= '</tr>';
                 $inner .= '</tfooter></table>';
                 return $inner;
