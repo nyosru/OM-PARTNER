@@ -4,17 +4,17 @@ $this->registerMetaTag(['content' => $product['productsDescription']['products_d
 if (count($product['productsAttributesDescr']) > 0) {
     foreach ($product['productsAttributesDescr'] as $item) {
         $date = $product['products.products_date_added'];
-        $prodinfoattr .= '<div class="size-desc" style="color:black;"><div>' . $item['products_options_values_name'] . '</div><input id="input-count" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
+        $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px;"><div>' . $item['products_options_values_name'] . '</div><input id="input-count" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
             $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $item['products_options_values_name'] . '" data-attr="' . $item['products_options_values_id'] .
             '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
     }
-    $prodinfoattr .= '<div class="cart-lable" style="left:400px; bottom:auto">В корзину</div>';
+    $prodinfoattr .= '<div class="cart-lable" style="bottom: auto; right: 50px; left: 70%;">В корзину</div>';
 } else {
     $date = $product['products']['products_date_added'];
-    $prodinfoattr .= '<div class="size-desc">+<input id="input-count" data-prod="' . $product['products.products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
+    $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px;"><input id="input-count" data-prod="' . $product['products.products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
         $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $products['products_attribute_description']['products_options_values_name'] .
         '" data-attr="' . $products['products_attribute_description']['products_options_values_id'] . '" type="text" placeholder="Количество" /><div id="add-count">+</div><div id="del-count">-</div></div>';
-    $prodinfoattr .= '<div class="cart-lable">В корзину</div>';
+    $prodinfoattr .= '<div class="cart-lable" style="bottom: auto; right: 50px; left: 70%;">В корзину</div>';
 }
 ?>
 <div class="cart-image"
@@ -25,7 +25,9 @@ if (count($product['productsAttributesDescr']) > 0) {
 <div class="prod-info-date">Добавлен:<?= $product['products']['products_date_added'] ?></div>
 <div class="prod-info-desc">Описание: <?= $product['productsDescription']['products_description'] ?></div>
 
-<div class="prod-info-size"><span class="prod-info-attr-lable"></span><?= $prodinfoattr ?></div>
+<div class="prod-info-size"><span class="prod-info-attr-lable"
+                                  style="color: black; margin: 50px 8px; padding: 0px;"></span><?= $prodinfoattr ?>
+</div>
 <div class="prod-info-soc-but" style="display: none">Поделиться</div>
 <div style="z-index: 1060" class="modal bs-example-modal-lg image" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel">
