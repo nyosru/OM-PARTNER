@@ -138,6 +138,8 @@ trait ActionIndex{
         $model->paysystem['value']['webmoney']['name'] = 'WebMoney. Рублевый кошелек';
         $model->paysystem['value']['qiwi']['name'] = 'Qiwi';
         $model->paysystem['value']['bankpay']['name'] = 'Банковский перевод';
+        $model->paysystem['value']['nalozhplat']['name'] = 'Наложенный платеж';
+        $model->paysystem['value']['bankcard']['name'] = 'Банковская карта';
 
 
 

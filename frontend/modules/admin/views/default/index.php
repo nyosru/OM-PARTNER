@@ -341,6 +341,23 @@ $l6_1 .= $form->field($model, 'paysystem[value][webmoney][name]', ['options' => 
             $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][qiwi][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
             $l6_1 .= $form->field($model, 'paysystem[value][qiwi][value]', ['options' => ['class' => 'col-md-7']])->label('Qiwi');
 $l6_1 .= $form->field($model, 'paysystem[value][qiwi][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+$l6_1 .= '</div>';
+$l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6_1 .= '<h2>Наложенный платеж</h2>';
+$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][nalozhplat][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
+$l6_1 .= $form->field($model, 'paysystem[value][nalozhplat][value]', ['options' => ['class' => 'col-md-7']])->label('');
+$l6_1 .= $form->field($model, 'paysystem[value][nalozhplat][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+
+$l6_1 .= '</div>';
+
+$l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6_1 .= '<h2>Банковская карта</h2>';
+$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][bankcard][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
+$l6_1 .= $form->field($model, 'paysystem[value][bankcard][value]', ['options' => ['class' => 'col-md-7']])->label('');
+$l6_1 .= $form->field($model, 'paysystem[value][bankcard][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+
+$l6_1 .= '</div>';
+
 
             $l6_1 .= '</div>';
 
