@@ -69,7 +69,7 @@ return array(
     'kartik-v/yii2-krajee-base' =>
         array(
             'name' => 'kartik-v/yii2-krajee-base',
-            'version' => '1.7.7.0',
+            'version' => '1.7.9.0',
             'alias' =>
                 array(
                     '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
@@ -127,6 +127,24 @@ return array(
             'alias' =>
                 array(
                     '@yii/redis' => $vendorDir . '/yiisoft/yii2-redis',
+                ),
+        ),
+    'kartik-v/yii2-grid' =>
+        array(
+            'name' => 'kartik-v/yii2-grid',
+            'version' => '3.0.8.0',
+            'alias' =>
+                array(
+                    '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid',
+                ),
+        ),
+    'kartik-v/yii2-export' =>
+        array(
+            'name' => 'kartik-v/yii2-export',
+            'version' => '1.2.3.0',
+            'alias' =>
+                array(
+                    '@kartik/export' => $vendorDir . '/kartik-v/yii2-export',
                 ),
         ),
 );

@@ -29,9 +29,6 @@ trait ActionDelegate{
         $userdata = new PartnersUsersInfo();
         $ordersparamlock = $ordersdata->findOne(['id' => $data]);
         $ordersparam = $ordersdata->find()->where(['id' => $data])->asArray()->one();
-        if ($ordersparamlock->status !== 9999) {
-            $ordersparamlock->status = 9999;
-            $ordersparamlock->update();
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $userparam = $userdata->find()->where(['id' => $ordersparam['user_id']])->asArray()->one();
@@ -141,10 +138,7 @@ trait ActionDelegate{
                     $partnerorder = unserialize($orderforsavedata->order);
                     $ship = $partnerorder['ship'];
                     $discount = $partnerorder['discount'];
-                    unset($partnerorder['ship']);
-                    unset($partnerorder['discount']);
-                    unset($partnerorder['discounttotalprice']);
-                    unset($partnerorder['paymentmethod']);
+                    unset($partnerorder['ship'], $partnerorder['discount'], $partnerorder['discounttotalprice'], $partnerorder['paymentmethod']);
                     $orders->ur_or_fiz = 'f';
                     $orders->customers_id = $userCustomer->customers_id;
                     $orders->customers_name = $userCustomer->customers_firstname . ' ' . $userCustomer->customers_lastname;
@@ -257,8 +251,10 @@ trait ActionDelegate{
                                         return false;
                                     }
                                 } else {
+
                                 }
                             } else {
+                                // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                                 return false;
                             }
                         }
@@ -297,7 +293,7 @@ trait ActionDelegate{
                         $neworderpartner->update_date = date("Y-m-d H:i:s");
                         $neworderpartner->update();
                     } else {
-                        //  print_r($userOM);
+                        //    print_r($userOM);
                     }
                 } else {
                     return false;
@@ -307,7 +303,7 @@ trait ActionDelegate{
                 $transaction->rollBack();
 
             }
-        }
+
         return $this->redirect(Yii::$app->request->referrer);
     }
 }

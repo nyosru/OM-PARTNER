@@ -1,6 +1,5 @@
 <?php
 namespace frontend\modules\admin\controllers\actions;
-
 use common\models\Partners;
 use common\models\PartnersCatDescription;
 use common\models\PartnersCategories;
@@ -12,12 +11,17 @@ trait ActionPartnersCategories
 
     public function actionPartnerscategories()
     {
-        $categoriesprovider = new ActiveDataProvider([
-            'query' => Partners::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']]),
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
+        if (($post = Yii::$app->request->post('categories_id')) == TRUE) {
+            //print_r($post);
+            $model = Partners::findOne(Yii::$app->params['constantapp']['APP_ID']);
+            $model->allow_cat = $post;
+            if ($model->save()) {
+                return 'r';
+            } else {
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return $model->errors;
+            }
+        }
         $categoriess = new PartnersCategories();
         $categoriesd = new PartnersCatDescription();
         // Выбираем все категории массива с ролительскими id
@@ -42,7 +46,8 @@ trait ActionPartnersCategories
             $catnamearr[$value['categories_id']] = $value['categories_name'];
         }
 
-        return $this->render('partnerscategories', ['catnamearr' => $catnamearr, 'arr_cat' => $arr_cat]);
+
+        //  return $this->render('partnerscategories', ['catnamearr' => $catnamearr ,'arr_cat'=>$arr_cat, 'post'=>$post]);
     }
 
 }
