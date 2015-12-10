@@ -1,6 +1,7 @@
 <?php
 namespace frontend\modules\admin\controllers\actions;
 
+use common\models\Partners;
 use common\models\PartnersSettings;
 use frontend\assets\AppAsset;
 use Yii;
@@ -10,6 +11,11 @@ trait ActionSavesettings{
         $model = new PartnersSettings();
         $model->load($_POST);
         $model->SaveSet();
+        $modelcat = Partners::findOne(Yii::$app->params['constantapp']['APP_ID']);
+        $modelcat->allow_cat = implode(',', $_POST['categories_id']);
+        $modelcat->save();
+        $key = Yii::$app->cache->buildKey('categories');
+        Yii::$app->cache->delete($key);
         $temlate_key = Yii::$app->cache->buildKey('templatepartners-' . Yii::$app->params['constantapp']['APP_ID']);
         $partnersettings = new PartnersSettings();
         $partnerset = $partnersettings->LoadSet();

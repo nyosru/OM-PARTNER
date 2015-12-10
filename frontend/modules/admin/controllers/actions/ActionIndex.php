@@ -1,6 +1,8 @@
 <?php
 namespace frontend\modules\admin\controllers\actions;
 
+use common\models\PartnersCatDescription;
+use common\models\PartnersCategories;
 use Yii;
 use common\models\PartnersSettings;
 trait ActionIndex{
@@ -133,16 +135,37 @@ trait ActionIndex{
         $model->paysystem['value']['bankpay']['value']['bik'] = $paramset['paysystem']['value']['bankpay']['value']['bik'];
         $model->paysystem['value']['bankpay']['value']['ks'] = $paramset['paysystem']['value']['bankpay']['value']['ks'];
         $model->paysystem['value']['bankpay']['value']['rs'] = $paramset['paysystem']['value']['bankpay']['value']['rs'];
-
         $model->paysystem['value']['yamoney']['name'] = 'Яндекс деньги';
         $model->paysystem['value']['webmoney']['name'] = 'WebMoney. Рублевый кошелек';
         $model->paysystem['value']['qiwi']['name'] = 'Qiwi';
         $model->paysystem['value']['bankpay']['name'] = 'Банковский перевод';
         $model->paysystem['value']['nalozhplat']['name'] = 'Наложенный платеж';
         $model->paysystem['value']['bankcard']['name'] = 'Банковская карта';
+        $categoriess = new PartnersCategories();
+        $categoriesd = new PartnersCatDescription();
+        // Выбираем все категории массива с ролительскими id
+        $start_arr = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All();
+        // выбираем соответствие id названию категории
+        $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All();
+
+        // Берем по очереди каждый элемент массива
+        for ($i = 0; $i < count($start_arr); $i++) {
+            // Сохраняем его в переменную row
+            $row = $start_arr[$i];
+            // Если в соответствующей строке нет parent_id
+            if (empty($arr_cat[$row['parent_id']])) {
+                // создаем ячейку для этого элемента
+                $arr_cat[$row['parent_id']] = [];// $row;
+            }
+            // Делаем переменную row дочерним элементом
+            $arr_cat[$row['parent_id']][] = $row;
+        }
+        // Для каждого элемента в массиве s
+        foreach ($s as $value) {
+            $catnamearr[$value['categories_id']] = $value['categories_name'];
+        }
 
 
-
-        return $this->render('index', ['model' => $model]);
+        return $this->render('index', ['model' => $model, 'arr_cat' => $arr_cat, 'catnamearr' => $catnamearr]);
     }
 }

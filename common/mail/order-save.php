@@ -10,7 +10,6 @@ $order=unserialize($order);
 unset($order['ship']);
 unset($order['discount']);
 unset($order['discounttotalprice']);
-unset($order['paymentmethod']);
 ?>
 
 <html>
@@ -58,20 +57,16 @@ unset($order['paymentmethod']);
     <tr style="text-align:center;height:30px;">
         <td style="font-size:14px;font-family:officinaserifcBook,sans-serif;">
             <a style="margin-left:0px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=1632&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword="
-               target="_blank">Женщинам</a>
+               href="<?= $site ?>/site/catalog#!cat=1632&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Женщинам</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=1668&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword="
-               target="_blank">Мужчинам</a>
+               href="<?= $site ?>/site/catalog#!cat=1668&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Мужчинам</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=1903&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword="
-               target="_blank">Детям</a>
+               href="<?= $site ?>/site/catalog#!cat=1903&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Детям</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=2065&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword="
-               target="_blank">На дачу</a>
+               href="<?= $site ?>/site/catalog#!cat=2065&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">На
+                дачу</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword="
-               target="_blank">Аксесуары</a>
+               href="<?= $site ?>/site/catalog#!cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Аксесуары</a>
 
         </td>
     </tr>
@@ -148,58 +143,15 @@ unset($order['paymentmethod']);
                             </tr>
                             <tr>
                                 <td colspan="2" style="padding-top:25px;padding-bottom:15px;">
-                                    <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">Вы заказали</p>
+                                    <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">Подробности
+                                        заказа вы можете посмотреть в <a
+                                            href="http://egorov1.rezerv.odezhda-master.ru/site/requestorders">личном
+                                            кабинете:</a></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" style="padding-top:0;padding-bottom:0;">
-                                    <table style="width: 80%; margin: auto;">
-                                        <tbody>
-                                        <tr style="border-bottom: 1px solid rgb(44, 44, 44);">
-                                            <td style="width: 60%; border-bottom: 1px solid rgb(44, 44, 44);"></td>
-                                            <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">
-                                                Кол-во
-                                            </td>
-                                            <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">
-                                                Цена
-                                            </td>
-                                            <td style="text-align: center; border-bottom: 1px solid rgb(44, 44, 44);">
-                                                Сумма
-                                            </td>
-                                        </tr>
-                                        <? foreach ($order as $key => $value) {
-                                            $value[5] = str_replace(')', ']]]]', $value[5]);
-                                            $value[5] = str_replace(' ', '[[[[]]]]', $value[5]);
-                                            $value[5] = str_replace('(', '[[[[', $value[5]);
 
-
-                                            ?>
-
-                                            <tr>
-                                                <td style="width: 60%;">
-                                                    <? $prew = new Imagepreviewfile(); ?>
-                                                    <img style="width:70%"
-                                                         src="<?php echo $prew->viewpreviewfile('http://odezhda-master.ru/images/', $value[5], '@webroot/images/'); ?>"/>
-                                                </td>
-
-                                                <td style="text-align: center;">
-                                                    <?= $value[4] ?>
-                                                </td>
-
-                                                <td style="text-align: center;">
-                                                    <?= $value[3] ?>
-                                                </td>
-
-                                                <td style="text-align: center;">
-                                                    <?= (intval($value[4]) * intval($value[3])) ?> Руб.
-                                                    <?php
-                                                    $orders_total = $orders_total + (intval($value[4]) * intval($value[3]));
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                        <? } ?>
-                                        </tbody>
-                                    </table>
                                 </td>
                             </tr>
                             </tbody>
