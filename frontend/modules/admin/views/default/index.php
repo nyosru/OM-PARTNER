@@ -318,9 +318,11 @@ $l5 .= $form->field($model, 'transport[active]', ['options' => ['style' => 'top:
 $l5 .= '</div>';
 $l5 .= '</div>';
 
-$l6 = '<div style="margin: 10px; height: 100%;">';
-$l6 .= '<div class="col-md-12">';
+$l6 = '<button type="button" data-toggle="collapse" data-target="#paysystem">+</button>';
 $l6 .= '<label class="control-label">Физические платежи (реквизиты для выставления счетов)</label>';
+$l6 .= '<div id="paysystem" class="collapse" style="margin: 10px; height: 100%;">';
+$l6 .= '<div class="col-md-12">';
+
 $l6_1 = '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
 $l6_1 .= '<h2>Яндекс деньги</h2>';
 $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
@@ -359,7 +361,7 @@ $l6_1 .= $form->field($model, 'paysystem[value][bankcard][name]', ['options' => 
 $l6_1 .= '</div>';
 
 
-$l6_1 .= '</div>';
+
 
 $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
 $l6_1 .= '<h2>Банковский платеж</h2>';
@@ -372,12 +374,33 @@ $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options
 $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->label('Корреспондентский счет');
 $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->label('Рассчетный счет');
 $l6_1 .= $form->field($model, 'paysystem[value][bankpay][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-
+$l6_1 .= '</div>';
 $l6_1 .= '</div>';
 
 $l6 .= $l6_1;
 $l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l6 .= '</div>';
+
+$l6 .='<div style="margin-top: 10px;">';
+$l6 .= '<button type="button" data-toggle="collapse" data-target="#paygate">+</button>';
+$l6 .= '<label class="control-label">Агрегаторы платежей (автоматическая оплата)</label>';
+$l6 .= '<div id="paygate" class="collapse">';
+$l6 .= '<a href="#paymentgate" class="btn btn-xs btn-primary" data-toggle="modal">Robokassa</a>';
+$l6_2 = '<div id="paymentgate" class="modal fade">';
+$l6_2 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_2 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_2 .= '<h4 class="modal-title">Настройки Robokassa</h4></div>';
+$l6_2 .= '<div class="modal-body">';
+$l6_2 .='sfsdafdsg';
+$l6_2 .='</div>';
+$l6_2 .='<div class="modal-footer">';
+$l6_2 .='dsgdsgdsg';
+$l6_2 .='</div></div></div></div></div></div>';
+$l6_2 .= '';
+$l6_2 .= '';
+$l6_2 .= '';
+$l6_2 .= '';
+$l6.=$l6_2;
 
 
 function view_cat($arr, $parent_id = 0, $catnamearr)
