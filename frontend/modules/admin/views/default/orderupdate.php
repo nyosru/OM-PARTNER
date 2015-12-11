@@ -86,14 +86,30 @@ $modal .= '</div>';
 $modal .= '<div class="modal-body">';
 $modal .= '<div></div><div style="margin-left: auto; margin-right: auto; padding: 14px; text-align: center;">';
 $modal .= '<form id="groupdiscountuser" action="/admin/default/usercontrol" method="post" role="form">';
-$modal .= '<div class="form-group"><label>Артикул</label><input class="form-control" name="model" value="" type="text"><div class="inner"></div>';
+$modal .= '<div class="form-group"><label>Артикул</label><input onkeydown="if(event.keyCode == 13) return false;" class="form-control model" name="model" value="" type="text">';
+$modal .= Html::Button('Поиск', ['type' => 'button', 'class' => 'btn btn-primary findproduct', 'style' => 'position: relative; top: -33px; float: right;', 'name' => 'findproduct']);
+$modal .= '</input></div><div class="exception"></div>' .
+    '<table class="inn-table table table-bordered table-stripped" style="display:none;">' .
+    '<thead>' .
+    '<tr>' .
+    '<th>Изображение</th>' .
+    '<th>Артикул</th>' .
+    '<th>Размеры</th>' .
+    '<th>Количество</th>' .
+    '<th>Цена, за шт</th>' .
+    '</tr>' .
+    '</thead>' .
+    '<tbody>' .
+    '</tbody>' .
+    '<tfoot>' .
+    '</tfoot>' .
+    '</table>';
 $modal .= '<div class="form-group"><input name="_csrf" value="" type="hidden">';
 $modal .= '</div><div class="form-group">';
 $modal .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'percent']);
-$modal .= Html::Button('Поиск', ['type' => 'button', 'class' => 'btn btn-primary findproduct', 'name' => 'findproduct']);
 $modal .= '</div>';
 $modal .= '</form>';
-$modal .= '</div></div></div></div></div></div>';
+$modal .= '</div></div></div></div></div>';
 $modal = '<span  class="btn btn-primary" data-toggle="modal" data-target="#modal-cancel-add">Добавить товар</span>' . $modal;
 
 $l1 .= $modal;
@@ -104,23 +120,91 @@ $l1 .= '</table>';
 echo $l1;
 ActiveForm::end(); ?>
 <script>
-    $(document).on('click', '.findproduct', function () {
-
-        console.log($(this).parent());
+    $(document).on('click', '.findproduct', function prod_serach() {
+        console.log($('.model').val());
         $.ajax({
             url: "/site/productinfobymodel",
-            data: 'model=966776018',
+            data: 'model=' + parseInt($('.model').val()),
             cache: false,
             async: true,
             dataType: 'json',
             success: function (data) {
-                if (data[0] != 'Не найдено!') {
-                    console.log('Модель не найдена');
+                if (typeof data.exception != 'undefined') {
+                    $('.exception').html(data.exception);
+                    setTimeout(function () {
+                        $('.exception').html('');
+                    }, 2000);
                 } else {
-                    console.log(data);
+                    $('.inn-table').show();
+                    $row = '';
+                    $.each(data, function (key, value) {
+                        if ($('.inn-table > tbody > tr[id=' + value.products.products_id + ']').length == 0) {
+                            $options = '';
+                            $count = 0;
+                            $productset = [];
+                            $.each(value.productsAttributesDescr, function (index) {
+                                if (value.productsAttributes[index].quantity > 0) {
+                                    $productset.push(value.productsAttributes[index]);
+                                }
+                            });
+                            if ($productset.length > 0) {
+                                $.each(value.productsAttributesDescr, function (index) {
+                                    if (index == 0) {
+                                        $row += '<tr id="' + value.products.products_id + '">' +
+                                            '<td rowspan="' + value.productsAttributesDescr.length + '"><img width="25%" src="/site/imagepreview?src=' + value.products.products_image + '"></img></td>' +
+                                            '<td rowspan="' + value.productsAttributesDescr.length + '">' + value.products.products_model + '</td>' +
+                                            '<td>' +
+                                            '<input type="checkbox" style="float: left; clear: both;" value="' + this.products_options_values_id + '"></input>' +
+                                            '<span style="float: left; padding: 0px 10px;">' + this.products_options_values_name + '</span>' +
+                                            '</td>' +
+                                            '<td>' +
+                                            '<input class="form-control" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
+                                            '</td>' +
+                                            '<td rowspan="' + value.productsAttributesDescr.length + '">' + value.products.products_price + '</td>' +
+                                            '</tr>'
+                                    } else {
+                                        $row += '<tr>' +
+
+                                            '<td>' +
+                                            '<input type="checkbox" style="float: left; clear: both;" value="' + this.products_options_values_id + '"></input>' +
+                                            '<span style="float: left; padding: 0px 10px;">' + this.products_options_values_name + '</span>' +
+                                            '</td>' +
+                                            '<td>' +
+                                            '<input class="form-control" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
+                                            '</td>' +
+
+                                            '</tr>'
+                                    }
+                                });
+                            } else {
+                                $row += '<tr id="' + value.products.products_id + '">' +
+                                    '<td><img width="25%" src="/site/imagepreview?src=' + value.products.products_image + '"></img></td>' +
+                                    '<td>' + value.products.products_model + '</td>' +
+                                    '<td>' +
+                                    '<input type="checkbox" style="float: left; clear: both;" value="" />' +
+                                    '<span style="float: left; padding: 0px 10px;">Без размера</span>' +
+                                    '</td>' +
+                                    '<td>' +
+                                    '<input class="form-control" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
+                                    '</td>' +
+                                    '<td>' + value.products.products_price + '</td>' +
+                                    '</tr>'
+                            }
+
+
+                            $('.inn-table > tbody').append(
+                                $row
+                            );
+                        }
+                    });
+
                 }
             }
         });
     });
 </script>
+
+
+
+
 
