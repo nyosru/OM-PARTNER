@@ -385,7 +385,7 @@ $l6 .= '<button type="button" data-toggle="collapse" data-target="#paygate">+</b
 $l6 .= '<label class="control-label">Агрегаторы платежей (автоматическая оплата)</label>';
 $l6 .= '<div id="paygate" class="collapse">';
 $l6_2 .='<div>';
-$l6_2 .= '<input type="radio" name="paymentgate" value="robokassa" />';
+$l6_2 .= '<input type="radio" name="paymentgates" value="robokassa" />';
 $l6_2 .= '<a href="#robokassa" class="btn btn-xs btn-primary" data-toggle="modal">Robokassa</a>';
 $l6_2 .= '<div id="robokassa" class="modal fade">';
 $l6_2 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -402,7 +402,7 @@ $l6_2 .='</div></div></div></div></div>';
 $l6.=$l6_2;
 
 $l6_3 ='<div>';
-$l6_3 .= '<input type="radio" name="paymentgate" value="rbkmoney" />';
+$l6_3 .= '<input type="radio" name="paymentgates" value="rbkmoney" />';
 $l6_3 .= '<a href="#rbkmoney" class="btn btn-xs btn-primary" data-toggle="modal">RBK Money</a>';
 $l6_3 .= '<div id="rbkmoney" class="modal fade">';
 $l6_3 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -417,7 +417,7 @@ $l6_3 .='</div></div></div></div></div>';
 $l6 .=$l6_3;
 
 $l6_4 ='<div>';
-$l6_4 .= '<input type="radio" name="paymentgate" value="payonline" />';
+$l6_4 .= '<input type="radio" name="paymentgates" value="payonline" />';
 $l6_4 .= '<a href="#payonline" class="btn btn-xs btn-primary" data-toggle="modal">Payonline</a>';
 $l6_4 .= '<div id="payonline" class="modal fade">';
 $l6_4 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -432,7 +432,7 @@ $l6_4 .='</div></div></div></div></div>';
 $l6 .=$l6_4;
 
 $l6_5 ='<div>';
-$l6_5 .= '<input type="radio" name="paymentgate" value="payanyway" />';
+$l6_5 .= '<input type="radio" name="paymentgates" value="payanyway" />';
 $l6_5 .= '<a href="#payanyway" class="btn btn-xs btn-primary" data-toggle="modal">Payanyway</a>';
 $l6_5 .= '<div id="payanyway" class="modal fade">';
 $l6_5 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -447,7 +447,7 @@ $l6_5 .='</div></div></div></div></div>';
 $l6 .=$l6_5;
 
 $l6_6 ='<div>';
-$l6_6 .= '<input type="radio" name="paymentgate" value="dengionline" />';
+$l6_6 .= '<input type="radio" name="paymentgates" value="dengionline" />';
 $l6_6 .= '<a href="#dengionline" class="btn btn-xs btn-primary" data-toggle="modal">Dengionline</a>';
 $l6_6 .= '<div id="dengionline" class="modal fade">';
 $l6_6 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -462,7 +462,7 @@ $l6_6 .='</div></div></div></div></div>';
 $l6 .=$l6_6;
 
 $l6_7 ='<div>';
-$l6_7 .= '<input type="radio" name="paymentgate" value="walletone" />';
+$l6_7 .= '<input type="radio" name="paymentgates" value="walletone" />';
 $l6_7 .= '<a href="#walletone" class="btn btn-xs btn-primary" data-toggle="modal">Walletone</a>';
 $l6_7 .= '<div id="walletone" class="modal fade">';
 $l6_7 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -477,7 +477,7 @@ $l6_7 .='</div></div></div></div></div>';
 $l6 .=$l6_7;
 
 $l6_8 ='<div>';
-$l6_8 .= '<input type="radio" name="paymentgate" value="payu" />';
+$l6_8 .= '<input type="radio" name="paymentgates" value="payu" />';
 $l6_8 .= '<a href="#payu" class="btn btn-xs btn-primary" data-toggle="modal">Payu</a>';
 $l6_8 .= '<div id="payu" class="modal fade">';
 $l6_8 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -492,7 +492,7 @@ $l6_8 .='</div></div></div></div></div>';
 $l6 .=$l6_8;
 
 $l6_9 ='<div>';
-$l6_9 .= '<input type="radio" name="paymentgate" value="pay2pay" />';
+$l6_9 .= '<input type="radio" name="paymentgates" value="pay2pay" />';
 $l6_9 .= '<a href="#pay2pay" class="btn btn-xs btn-primary" data-toggle="modal">Pay2pay</a>';
 $l6_9 .= '<div id="pay2pay" class="modal fade">';
 $l6_9 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -507,7 +507,7 @@ $l6_9 .='</div></div></div></div></div>';
 $l6 .=$l6_9;
 
 $l6_10 ='<div>';
-$l6_10.= '<input type="radio" name="paymentgate" value="interkassa" />';
+$l6_10.= '<input type="radio" name="paymentgates" value="interkassa" />';
 $l6_10 .= '<a href="#interkassa" class="btn btn-xs btn-primary" data-toggle="modal">Interkassa</a>';
 $l6_10 .= '<div id="interkassa" class="modal fade">';
 $l6_10 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
@@ -522,7 +522,7 @@ $l6_10 .='</div></div></div></div></div>';
 $l6 .=$l6_10;
 
 $l6_11 ='<div style="margin-bottom: 10px;">';
-$l6_11 .= '<input type="radio" name="paymentgate" value="z-payment" />';
+$l6_11 .= '<input type="radio" name="paymentgates" value="z-payment" />';
 $l6_11 .= '<a href="#z-payment" class="btn btn-xs btn-primary" data-toggle="modal">Z-Payment</a>';
 $l6_11 .= '<div id="z-payment" class="modal fade">';
 $l6_11 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
