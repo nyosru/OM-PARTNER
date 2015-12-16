@@ -591,7 +591,6 @@ $l8 .= $form->field($model, 'requisites[value][kpp]', ['options' => ['class' => 
 $l8 .= $form->field($model, 'requisites[value][ogrn]', ['options' => ['class' => 'col-md-5']])->label('ОГРН');
 $l8 .= $form->field($model, 'requisites[value][okpo]', ['options' => ['class' => 'col-md-5']])->label('ОКПО');
 $l8 .= $form->field($model, 'requisites[value][okved]', ['options' => ['class' => 'col-md-5']])->label('ОКВЭД');
-$l8 .= $form->field($model, 'requisites[value][inn]', ['options' => ['class' => 'col-md-5']])->label('ИНН');
 $l8 .= $form->field($model, 'requisites[value][ogrnip]', ['options' => ['class' => 'col-md-5']])->label('ОГРНИП (Для индивидуальных предпринимателей)');
 $l8 .= '</div>';
 $l8 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
