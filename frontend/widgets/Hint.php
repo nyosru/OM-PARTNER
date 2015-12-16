@@ -2,6 +2,8 @@
 
 namespace frontend\widgets;
 
+use yii\helpers\Html;
+
 class Hint extends \yii\bootstrap\Widget
 {
     public $HintTypes = [
@@ -22,7 +24,8 @@ class Hint extends \yii\bootstrap\Widget
         'fax'=>'Введите номер факса. Можно ввести несколько номеров через запятую',
         'email'=>'введите E-mail для связи',
         'yandexmap'=>'Введите идентификатор вашей яндекс карты, только цифры',
-        'googlemap'=>'Введите идентификатор вашей карты на Google maps, только цифры'
+        'googlemap'=>'Введите идентификатор вашей карты на Google maps, только цифры',
+        'chiefpost'=>'Например: "Генеральный директор (на основании устава)"'
     ];
     public $hint;
 
@@ -39,6 +42,6 @@ class Hint extends \yii\bootstrap\Widget
         </script>
 
         <!-- Кнопки с popovers -->
-        <i class="fa fa-info-circle" data-toggle="popover" style="color:darkblue; margin-left:8px;" data-content="<?= $this->HintTypes[$this->hint]?>">Подсказка</i><?php
+        <i class="fa fa-info-circle" data-toggle="popover" style="color:darkblue; margin-left:8px;" data-content="<?= htmlentities($this->HintTypes[$this->hint])?>">Подсказка</i><?php
     }
 }
