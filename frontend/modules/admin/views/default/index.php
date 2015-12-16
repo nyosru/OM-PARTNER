@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this yii\web\View */
 ?>
 <?php
@@ -11,7 +10,7 @@ use yii\bootstrap\Alert;
 use yii\helpers\BaseHtml;
 use dosamigos\ckeditor\CKEditor;
 $this->title = 'Админка';
-//
+
 //echo '<pre>';
 //print_r($model);
 //echo '</pre>';
@@ -318,9 +317,11 @@ $l5 .= $form->field($model, 'transport[active]', ['options' => ['style' => 'top:
 $l5 .= '</div>';
 $l5 .= '</div>';
 
-$l6 = '<div style="margin: 10px; height: 100%;">';
-$l6 .= '<div class="col-md-12">';
+$l6 = '<button type="button" data-toggle="collapse" data-target="#paysystem">+</button>';
 $l6 .= '<label class="control-label">Физические платежи (реквизиты для выставления счетов)</label>';
+$l6 .= '<div id="paysystem" class="collapse" style="margin: 10px; height: 100%;">';
+$l6 .= '<div class="col-md-12">';
+
 $l6_1 = '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
 $l6_1 .= '<h2>Яндекс деньги</h2>';
 $l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
@@ -359,7 +360,7 @@ $l6_1 .= $form->field($model, 'paysystem[value][bankcard][name]', ['options' => 
 $l6_1 .= '</div>';
 
 
-$l6_1 .= '</div>';
+
 
 $l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
 $l6_1 .= '<h2>Банковский платеж</h2>';
@@ -372,12 +373,166 @@ $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options
 $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->label('Корреспондентский счет');
 $l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->label('Рассчетный счет');
 $l6_1 .= $form->field($model, 'paysystem[value][bankpay][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-
+$l6_1 .= '</div>';
 $l6_1 .= '</div>';
 
 $l6 .= $l6_1;
 $l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+
+
 $l6 .= '</div>';
+
+$l6 .='<div style="margin-top: 10px; width: 100%;">';
+$l6 .= '<button type="button" data-toggle="collapse" data-target="#paygate">+</button>';
+$l6 .= '<label class="control-label">Агрегаторы платежей (автоматическая оплата)</label>';
+$l6 .= '<div id="paygate" class="collapse">';
+
+$l6_2 .='<div>';
+$l6_2 .= '<a href="#robokassa" class="btn btn-xs btn-primary" data-toggle="modal">Robokassa</a>';
+$l6_2 .= '<div id="robokassa" class="modal fade">';
+$l6_2 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_2 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_2 .= '<h4 class="modal-title">Настройки Robokassa</h4></div>';
+$l6_2 .= '<div class="modal-body">';
+$l6_2 .= $form->field($model, 'paymentgate[value][robokassa][value][login]', ['options' => ['class' => 'col-md-9']])->label('Логин');
+$l6_2 .= $form->field($model, 'paymentgate[value][robokassa][value][password1]', ['options' => ['class' => 'col-md-9']])->label('Пароль 1');
+$l6_2 .= $form->field($model, 'paymentgate[value][robokassa][value][password2]', ['options' => ['class' => 'col-md-9']])->label('Пароль 2');
+$l6_2 .='</div>';
+$l6_2 .='<div class="modal-footer">';
+$l6_2 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_2 .='</div></div></div></div></div>';
+//$l6.=$l6_2;
+
+$l6_3 ='<div>';
+$l6_3 .= '<a href="#rbkmoney" class="btn btn-xs btn-primary" data-toggle="modal">RBK Money</a>';
+$l6_3 .= '<div id="rbkmoney" class="modal fade">';
+$l6_3 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_3 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_3 .= '<h4 class="modal-title">Настройки RBK Money</h4></div>';
+$l6_3 .= '<div class="modal-body">';
+$l6_3 .='sfsdafdsg';
+$l6_3 .='</div>';
+$l6_3 .='<div class="modal-footer">';
+$l6_3 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_3 .='</div></div></div></div></div>';
+//$l6 .=$l6_3;
+
+$l6_4 ='<div>';
+$l6_4 .= '<a href="#payonline" class="btn btn-xs btn-primary" data-toggle="modal">Payonline</a>';
+$l6_4 .= '<div id="payonline" class="modal fade">';
+$l6_4 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_4 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_4 .= '<h4 class="modal-title">Настройки Payonline</h4></div>';
+$l6_4 .= '<div class="modal-body">';
+$l6_4 .= $form->field($model, 'paymentgate[value][payonline][value][merchantid]', ['options' => ['class' => 'col-md-9']])->label('ID мерчанта');
+$l6_4 .= $form->field($model, 'paymentgate[value][payonline][value][privatesecurekey]', ['options' => ['class' => 'col-md-9']])->label('Приватный ключ');
+$l6_4 .='</div>';
+$l6_4 .='<div class="modal-footer">';
+$l6_4 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_4 .='</div></div></div></div></div>';
+//$l6 .=$l6_4;
+
+$l6_5 ='<div>';
+$l6_5 .= '<a href="#payanyway" class="btn btn-xs btn-primary" data-toggle="modal">Payanyway</a>';
+$l6_5 .= '<div id="payanyway" class="modal fade">';
+$l6_5 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_5 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_5 .= '<h4 class="modal-title">Настройки Payanyway</h4></div>';
+$l6_5 .= '<div class="modal-body">';
+$l6_5 .='sfsdafdsg';
+$l6_5 .='</div>';
+$l6_5 .='<div class="modal-footer">';
+$l6_5 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_5 .='</div></div></div></div></div>';
+//$l6 .=$l6_5;
+
+$l6_6 ='<div>';
+$l6_6 .= '<a href="#dengionline" class="btn btn-xs btn-primary" data-toggle="modal">Dengionline</a>';
+$l6_6 .= '<div id="dengionline" class="modal fade">';
+$l6_6 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_6 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_6 .= '<h4 class="modal-title">Настройки Dengionline</h4></div>';
+$l6_6 .= '<div class="modal-body">';
+$l6_6 .='sfsdafdsg';
+$l6_6 .='</div>';
+$l6_6 .='<div class="modal-footer">';
+$l6_6 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_6 .='</div></div></div></div></div>';
+//$l6 .=$l6_6;
+
+$l6_7 ='<div>';
+$l6_7 .= '<a href="#walletone" class="btn btn-xs btn-primary" data-toggle="modal">Walletone</a>';
+$l6_7 .= '<div id="walletone" class="modal fade">';
+$l6_7 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_7 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_7 .= '<h4 class="modal-title">Настройки Walletone</h4></div>';
+$l6_7 .= '<div class="modal-body">';
+$l6_7 .='sfsdafdsg';
+$l6_7 .='</div>';
+$l6_7 .='<div class="modal-footer">';
+$l6_7 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_7 .='</div></div></div></div></div>';
+//$l6 .=$l6_7;
+
+$l6_8 ='<div>';
+$l6_8 .= '<a href="#payu" class="btn btn-xs btn-primary" data-toggle="modal">Payu</a>';
+$l6_8 .= '<div id="payu" class="modal fade">';
+$l6_8 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_8 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_8 .= '<h4 class="modal-title">Настройки Payu</h4></div>';
+$l6_8 .= '<div class="modal-body">';
+$l6_8 .='sfsdafdsg';
+$l6_8 .='</div>';
+$l6_8 .='<div class="modal-footer">';
+$l6_8 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_8 .='</div></div></div></div></div>';
+//$l6 .=$l6_8;
+
+$l6_9 ='<div>';
+$l6_9 .= '<a href="#pay2pay" class="btn btn-xs btn-primary" data-toggle="modal">Pay2pay</a>';
+$l6_9 .= '<div id="pay2pay" class="modal fade">';
+$l6_9 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_9 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_9 .= '<h4 class="modal-title">Настройки Pay2pay</h4></div>';
+$l6_9 .= '<div class="modal-body">';
+$l6_9 .='sfsdafdsg';
+$l6_9 .='</div>';
+$l6_9 .='<div class="modal-footer">';
+$l6_9 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_9 .='</div></div></div></div></div>';
+//$l6 .=$l6_9;
+
+$l6_10 ='<div>';
+$l6_10 .= '<a href="#interkassa" class="btn btn-xs btn-primary" data-toggle="modal">Interkassa</a>';
+$l6_10 .= '<div id="interkassa" class="modal fade">';
+$l6_10 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_10 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_10 .= '<h4 class="modal-title">Настройки Interkassa</h4></div>';
+$l6_10 .= '<div class="modal-body">';
+$l6_10 .='sfsdafdsg';
+$l6_10 .='</div>';
+$l6_10 .='<div class="modal-footer">';
+$l6_10 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_10 .='</div></div></div></div></div>';
+//$l6 .=$l6_10;
+
+$l6_11 ='<div style="margin-bottom: 10px; width: 100%">';
+$l6_11 .= '<a href="#z-payment" class="col-md-12 btn btn-xs btn-primary" data-toggle="modal">Z-Payment</a>';
+$l6_11 .= '<div id="z-payment" class="modal fade">';
+$l6_11 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+$l6_11 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$l6_11 .= '<h4 class="modal-title">Настройки Z-Payment</h4></div>';
+$l6_11 .= '<div class="modal-body">';
+$l6_11 .='sfsdafdsg';
+$l6_11 .='</div>';
+$l6_11 .='<div class="modal-footer">';
+$l6_11 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
+$l6_11 .='</div></div></div></div></div>';
+//$l6 .=$l6_11;
+$l6.= $form->field($model,'paymentgate[value][activegate]')->radioList(['robokassa'=>$l6_2,'rbkmoney'=>$l6_3,'payonline'=>$l6_4,'payanyway'=>$l6_5,'dengionline'=>$l6_6,'walletone'=>$l6_7,
+    'payu'=>$l6_8,'pay2pay'=>$l6_9,'interkassa'=>$l6_10,'z-payment'=>$l6_11 ])->label(false);
+$l6 .= '</div></div>';
+
 
 
 function view_cat($arr, $parent_id = 0, $catnamearr)
@@ -419,7 +574,31 @@ function view_cat($arr, $parent_id = 0, $catnamearr)
 $l7 = '<div style="margin: 10px; height: 100%;">';
 $l7 .= view_cat($arr_cat, 0, $catnamearr);
 $l7 .= '</div>';
-//$l7 .= '</div>';
+
+
+$l8 =  '<div style="margin: 10px; height: 100%;">';
+$l8 .= '<label class="control-label"><h2>Реквизиты организации</h2></label>';
+$l8 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
+$l8 .= $form->field($model, 'requisites[value][shortname]', ['options' => ['class' => 'col-md-7']])->label('Краткое наименование организации');
+$l8 .= $form->field($model, 'requisites[value][fullname]', ['options' => ['class' => 'col-md-7']])->label('Полное наименование организации');
+$l8 .= $form->field($model, 'requisites[value][chiefpost]', ['options' => ['class' => 'col-md-7']])->label('Должность руководителя' . \frontend\widgets\Hint::widget(['hint' => 'chiefpost']));
+$l8 .= $form->field($model, 'requisites[value][chiefname]', ['options' => ['class' => 'col-md-7']])->label('ФИО руководителя');
+$l8 .= $form->field($model, 'requisites[value][glavbuh]', ['options' => ['class' => 'col-md-7']])->label('ФИО Главного бухгалтера');
+$l8 .= $form->field($model, 'requisites[value][legaladdress]', ['options' => ['class' => 'col-md-11']])->label('Юридический адрес организации');
+$l8 .= $form->field($model, 'requisites[value][realaddress]', ['options' => ['class' => 'col-md-11']])->label('Фактический адрес');
+$l8 .= $form->field($model, 'requisites[value][inn]', ['options' => ['class' => 'col-md-5']])->label('ИНН');
+$l8 .= $form->field($model, 'requisites[value][kpp]', ['options' => ['class' => 'col-md-5']])->label('КПП');
+$l8 .= $form->field($model, 'requisites[value][ogrn]', ['options' => ['class' => 'col-md-5']])->label('ОГРН');
+$l8 .= $form->field($model, 'requisites[value][okpo]', ['options' => ['class' => 'col-md-5']])->label('ОКПО');
+$l8 .= $form->field($model, 'requisites[value][okved]', ['options' => ['class' => 'col-md-5']])->label('ОКВЭД');
+$l8 .= $form->field($model, 'requisites[value][ogrnip]', ['options' => ['class' => 'col-md-5']])->label('ОГРНИП (Для индивидуальных предпринимателей)');
+$l8 .= '</div>';
+$l8 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
+$l8 .=  $form->field($model, 'requisites[value][bankname]', ['options' => ['class' => 'col-md-9']])->label('Наименование банка');
+$l8 .=  $form->field($model, 'requisites[value][bik]', ['options' => ['class' => 'col-md-5']])->label('БИК');
+$l8 .=  $form->field($model, 'requisites[value][ks]', ['options' => ['class' => 'col-md-5']])->label('Корреспондентский счет');
+$l8 .=  $form->field($model, 'requisites[value][rs]', ['options' => ['class' => 'col-md-7']])->label('Рассчетный счет');
+$l8 .= '</div></div>';
 
 
 echo Tabs::widget([
@@ -457,6 +636,11 @@ echo Tabs::widget([
         [
             'label' => 'Категории',
             'content' => $l7,
+
+        ],
+        [
+            'label' => 'Реквизиты организации',
+            'content' => $l8,
 
         ],
 

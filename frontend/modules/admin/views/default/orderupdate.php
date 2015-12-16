@@ -33,12 +33,12 @@ foreach ($order as $key => $value) {
         '<td>' .
         $form->field($modelform, 'order[' . $key . ']')->label(false)->input('text', ['value' => $value[4]]) .
         '</td>' .
-        '<td><a class="fa fa-lg fa-close" style="color:red;"></a></td>' .
+        '<td><a class="fa fa-lg fa-close" style="color:red;" href="/admin/default/orderupdate?id=' . Yii::$app->request->getQueryParam('id') . '&amp;position=' . $key . '&amp;action=delete"></a></td>' .
         '</tr>';
 
 }
 $l1 .= '<tbody><tfoot><tr><td colspan="1" style="background: #FFBF08 none repeat scroll 0% 0%;">';
-$l1 .= $form->field($modelform, 'order[discount]')->label('Наценка')->input('text', ['value' => $discount]);
+$l1 .= 'Наценка при заказе<br/>' . $discount;
 $l1 .= '</td><td colspan="1" style="background: #FFBF08 none repeat scroll 0% 0%;">';
 if (Yii::$app->params['partnersset']['paysystem']['active']) {
     foreach (Yii::$app->params['partnersset']['paysystem']['value'] as $key => $value) {
@@ -152,25 +152,31 @@ ActiveForm::end(); ?>
                                     if (index == 0) {
                                         $row += '<tr id="' + value.products.products_id + '">' +
                                             '<td rowspan="' + value.productsAttributesDescr.length + '"><img width="25%" src="/site/imagepreview?src=' + value.products.products_image + '"></img></td>' +
-                                            '<td rowspan="' + value.productsAttributesDescr.length + '">' + value.products.products_model + '</td>' +
+                                            '<td rowspan="' + value.productsAttributesDescr.length + '">' + value.products.products_model +
+                                            '<input type="hidden" name="new[' + value.products.products_id + '][image]" style="float: left; clear: both;" value="' + value.products.products_image + '"></input>' +
+                                            '<input type="hidden" name="new[' + value.products.products_id + '][description]" style="float: left; clear: both;" value="' + value.productsDescription.products_description + '"></input>' +
+                                            '<input type="hidden" name="new[' + value.products.products_id + '][name]" style="float: left; clear: both;" value="' + value.productsDescription.products_name + '"></input>' +
+                                            '<input type="hidden" name="new[' + value.products.products_id + '][model]" style="float: left; clear: both;" value="' + value.products.products_model + '"></input>' +
+                                            '<input type="hidden" name="new[' + value.products.products_id + '][price]" style="float: left; clear: both;" value="' + value.products.products_price + '"></input>' +
+                                            '</td>' +
                                             '<td>' +
-                                            '<input type="checkbox" style="float: left; clear: both;" value="' + this.products_options_values_id + '"></input>' +
+                                            '<input type="checkbox" name="new[' + value.products.products_id + '][attr][' + this.products_options_values_id + '][name]" style="float: left; clear: both;" value="' + this.products_options_values_name + '"></input>' +
                                             '<span style="float: left; padding: 0px 10px;">' + this.products_options_values_name + '</span>' +
                                             '</td>' +
                                             '<td>' +
-                                            '<input class="form-control" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
+                                            '<input class="form-control" name="new[' + value.products.products_id + '][attr][' + this.products_options_values_id + '][count]" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
                                             '</td>' +
-                                            '<td rowspan="' + value.productsAttributesDescr.length + '">' + value.products.products_price + '</td>' +
+                                            '<td name="" rowspan="' + value.productsAttributesDescr.length + '">' + value.products.products_price + '</td>' +
                                             '</tr>'
                                     } else {
                                         $row += '<tr>' +
 
                                             '<td>' +
-                                            '<input type="checkbox" style="float: left; clear: both;" value="' + this.products_options_values_id + '"></input>' +
+                                            '<input type="checkbox" name="new[' + value.products.products_id + '][attr][' + this.products_options_values_id + '][name]" style="float: left; clear: both;" value="' + this.products_options_values_name + '"></input>' +
                                             '<span style="float: left; padding: 0px 10px;">' + this.products_options_values_name + '</span>' +
                                             '</td>' +
                                             '<td>' +
-                                            '<input class="form-control" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
+                                            '<input name="new[' + value.products.products_id + '][attr][' + this.products_options_values_id + '][count]" class="form-control" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
                                             '</td>' +
 
                                             '</tr>'
@@ -179,19 +185,22 @@ ActiveForm::end(); ?>
                             } else {
                                 $row += '<tr id="' + value.products.products_id + '">' +
                                     '<td><img width="25%" src="/site/imagepreview?src=' + value.products.products_image + '"></img></td>' +
+                                    '<input type="hidden" name="new[' + value.products.products_id + '][image]" style="float: left; clear: both;" value="' + value.products.products_image + '"></input>' +
+                                    '<input type="hidden" name="new[' + value.products.products_id + '][description]" style="float: left; clear: both;" value="' + value.productsDescription.products_description + '"></input>' +
+                                    '<input type="hidden" name="new[' + value.products.products_id + '][name]" style="float: left; clear: both;" value="' + value.productsDescription.products_name + '"></input>' +
+                                    '<input type="hidden" name="new[' + value.products.products_id + '][model]" style="float: left; clear: both;" value="' + value.products.products_model + '"></input>' +
+                                    '<input type="hidden" name="new[' + value.products.products_id + '][price]" style="float: left; clear: both;" value="' + value.products.products_price + '"></input>' +
                                     '<td>' + value.products.products_model + '</td>' +
                                     '<td>' +
-                                    '<input type="checkbox" style="float: left; clear: both;" value="" />' +
+                                    '<input type="checkbox" name="new[' + value.products.products_id + '][attr][undefined][name]" style="float: left; clear: both;" value="undefined" />' +
                                     '<span style="float: left; padding: 0px 10px;">Без размера</span>' +
                                     '</td>' +
                                     '<td>' +
-                                    '<input class="form-control" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
+                                    '<input class="form-control" name="new[' + value.products.products_id + '][attr][undefined][count]" type="text" onkeydown="if(event.keyCode == 13) return false;" />' +
                                     '</td>' +
                                     '<td>' + value.products.products_price + '</td>' +
                                     '</tr>'
                             }
-
-
                             $('.inn-table > tbody').append(
                                 $row
                             );
