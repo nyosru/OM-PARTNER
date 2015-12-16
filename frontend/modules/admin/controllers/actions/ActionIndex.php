@@ -143,6 +143,9 @@ trait ActionIndex{
         $model->paysystem['value']['bankcard']['name'] = 'Банковская карта';
         $model->paymentgate['active']=$paramset['paymentgate']['active'];
         $model->paymentgate['value']=$paramset['paymentgate']['value'];
+        $model->paymentgate['activegate']=$paramset['paymentgate']['activegate'];
+        $model->requisites['value']=$paramset['requisites']['value'];
+        $model->requisites['active']=$paramset['requisites']['active'];
 
         $categoriess = new PartnersCategories();
         $categoriesd = new PartnersCatDescription();
