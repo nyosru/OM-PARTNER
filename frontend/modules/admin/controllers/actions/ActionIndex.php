@@ -141,6 +141,9 @@ trait ActionIndex{
         $model->paysystem['value']['bankpay']['name'] = 'Банковский перевод';
         $model->paysystem['value']['nalozhplat']['name'] = 'Наложенный платеж';
         $model->paysystem['value']['bankcard']['name'] = 'Банковская карта';
+        $model->paymentgate['active']=$paramset['paymentgate']['active'];
+        $model->paymentgate['value']=$paramset['paymentgate']['value'];
+
         $categoriess = new PartnersCategories();
         $categoriesd = new PartnersCatDescription();
         // Выбираем все категории массива с ролительскими id

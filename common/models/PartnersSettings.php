@@ -29,6 +29,7 @@ class PartnersSettings extends Model
     public $discounttotalorder;
     public $transport;
     public $paysystem;
+    public $paymentgate;
     /**
      * @inheritdoc
      */
@@ -56,7 +57,7 @@ class PartnersSettings extends Model
     {
         return [
             [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
-            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup','transport','paysystem'], 'string'],
+            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup','transport','paysystem','paymentgate'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
     }
