@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace admin\modules\admin\controllers;
 
 use common\traits\Categories_for_partner;
 use common\traits\Imagepreviewcrop;

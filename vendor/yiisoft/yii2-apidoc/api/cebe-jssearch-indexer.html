@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en"/>
+    <link href="./assets/114fdeb5/css/bootstrap.css" rel="stylesheet">
+    <link href="./assets/43148881/style.css" rel="stylesheet">
+    <script src="./assets/d63c9aca/jquery.js"></script>
+    <script src="./assets/114fdeb5/js/bootstrap.js"></script>
+    <script src="./assets/5ad5289c/jssearch.js"></script>
+    <title>Indexer, cebe\jssearch\Indexer - Yii Framework 2.0 API Documentation</title>
+</head>
+<body>
+
+<div class="wrap">
+    <nav id="w1523" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w1523-collapse"><span
+                    class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="./index.html">Yii Framework 2.0 API Documentation</a></div>
+        <div id="w1523-collapse" class="collapse navbar-collapse">
+            <ul id="w1524" class="navbar-nav nav">
+                <li><a href="./index.html">Class reference</a></li>
+            </ul>
+            <div class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="search-resultbox" style="display: none;" class="modal-content">
+        <ul id="search-results">
+        </ul>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <div id="navigation" class="list-group"><a class="list-group-item" href="#navigation-1500"
+                                                       data-toggle="collapse" data-parent="#navigation">app\modules\admin\controllers
+                <b class="caret"></b></a>
+
+                <div id="navigation-1500" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./app-modules-admin-controllers-defaultcontroller.html">DefaultController</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1501" data-toggle="collapse" data-parent="#navigation">backend\assets
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1501" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-assets-adminlteasset.html">AdminLteAsset</a>
+                    <a class="list-group-item" href="./backend-assets-appasset.html">AppAsset</a></div>
+                <a class="list-group-item" href="#navigation-1502" data-toggle="collapse" data-parent="#navigation">backend\controllers
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1502" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-controllers-sitecontroller.html">SiteController</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1503" data-toggle="collapse" data-parent="#navigation">backend\modules\Calendar
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1503" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-calendar-calendar.html">Calendar</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1504" data-toggle="collapse" data-parent="#navigation">backend\modules\Orders
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1504" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-orders-orders.html">Orders</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1505" data-toggle="collapse" data-parent="#navigation">backend\modules\Users
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1505" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-users-users.html">Users</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1506" data-toggle="collapse" data-parent="#navigation">backend\modules\calendar\controllers
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1506" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-calendar-controllers-defaultcontroller.html">DefaultController</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1507" data-toggle="collapse" data-parent="#navigation">backend\modules\orders\controllers
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1507" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-orders-controllers-defaultcontroller.html">DefaultController</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1508" data-toggle="collapse" data-parent="#navigation">backend\modules\partners
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1508" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-partners-partners.html">Partners</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1509" data-toggle="collapse" data-parent="#navigation">backend\modules\partners\controllers
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1509" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-partners-controllers-defaultcontroller.html">DefaultController</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1510" data-toggle="collapse" data-parent="#navigation">backend\modules\partners\models
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1510" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-partners-models-partners.html">Partners</a>
+                    <a class="list-group-item" href="./backend-modules-partners-models-partnerscatdescription.html">PartnersCatDescription</a>
+                    <a class="list-group-item" href="./backend-modules-partners-models-partnerscategories.html">PartnersCategories</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1511" data-toggle="collapse" data-parent="#navigation">backend\modules\users\controllers
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1511" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./backend-modules-users-controllers-defaultcontroller.html">DefaultController</a>
+                </div>
+                <a class="list-group-item active" href="#navigation-1512" data-toggle="collapse"
+                   data-parent="#navigation">cebe\jssearch <b class="caret"></b></a>
+
+                <div id="navigation-1512" class="submenu panel-collapse collapse in"><a class="list-group-item"
+                                                                                        href="./cebe-jssearch-analyzerinterface.html">AnalyzerInterface</a>
+                    <a class="list-group-item active" href="./cebe-jssearch-indexer.html">Indexer</a>
+                    <a class="list-group-item" href="./cebe-jssearch-tokenizerinterface.html">TokenizerInterface</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1513" data-toggle="collapse" data-parent="#navigation">cebe\jssearch\analyzer
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1513" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./cebe-jssearch-analyzer-htmlanalyzer.html">HtmlAnalyzer</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1514" data-toggle="collapse" data-parent="#navigation">cebe\jssearch\tokenizer
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1514" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./cebe-jssearch-tokenizer-standardtokenizer.html">StandardTokenizer</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1515" data-toggle="collapse" data-parent="#navigation">common\models
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1515" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./common-models-addressbook.html">AddressBook</a>
+                    <a class="list-group-item" href="./common-models-admincompanies.html">AdminCompanies</a>
+                    <a class="list-group-item" href="./common-models-countries.html">Countries</a>
+                    <a class="list-group-item" href="./common-models-customers.html">Customers</a>
+                    <a class="list-group-item" href="./common-models-customersinfo.html">CustomersInfo</a>
+                    <a class="list-group-item" href="./common-models-loginform.html">LoginForm</a>
+                    <a class="list-group-item" href="./common-models-manufacturers.html">Manufacturers</a>
+                    <a class="list-group-item" href="./common-models-orders.html">Orders</a>
+                    <a class="list-group-item" href="./common-models-ordershistory.html">OrdersHistory</a>
+                    <a class="list-group-item" href="./common-models-ordersproducts.html">OrdersProducts</a>
+                    <a class="list-group-item" href="./common-models-ordersproductsattributes.html">OrdersProductsAttributes</a>
+                    <a class="list-group-item" href="./common-models-ordersstatus.html">OrdersStatus</a>
+                    <a class="list-group-item" href="./common-models-orderstotal.html">OrdersTotal</a>
+                    <a class="list-group-item" href="./common-models-partners.html">Partners</a>
+                    <a class="list-group-item"
+                       href="./common-models-partnerscatdescription.html">PartnersCatDescription</a>
+                    <a class="list-group-item" href="./common-models-partnerscategories.html">PartnersCategories</a>
+                    <a class="list-group-item" href="./common-models-partnerscomments.html">PartnersComments</a>
+                    <a class="list-group-item" href="./common-models-partnersconfig.html">PartnersConfig</a>
+                    <a class="list-group-item" href="./common-models-partnersnews.html">PartnersNews</a>
+                    <a class="list-group-item" href="./common-models-partnersorders.html">PartnersOrders</a>
+                    <a class="list-group-item" href="./common-models-partnersordersproductssp.html">PartnersOrdersProductsSp</a>
+                    <a class="list-group-item" href="./common-models-partnersproducts.html">PartnersProducts</a>
+                    <a class="list-group-item" href="./common-models-partnersproductsattributes.html">PartnersProductsAttributes</a>
+                    <a class="list-group-item" href="./common-models-partnersproductsdescription.html">PartnersProductsDescription</a>
+                    <a class="list-group-item" href="./common-models-partnersproductsoptionval.html">PartnersProductsOptionVal</a>
+                    <a class="list-group-item" href="./common-models-partnersproductstocategories.html">PartnersProductsToCategories</a>
+                    <a class="list-group-item" href="./common-models-partnersrequest.html">PartnersRequest</a>
+                    <a class="list-group-item" href="./common-models-partnerssettings.html">PartnersSettings</a>
+                    <a class="list-group-item" href="./common-models-partnersusersinfo.html">PartnersUsersInfo</a>
+                    <a class="list-group-item" href="./common-models-user.html">User</a>
+                    <a class="list-group-item" href="./common-models-zones.html">Zones</a></div>
+                <a class="list-group-item" href="#navigation-1516" data-toggle="collapse" data-parent="#navigation">common\traits
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1516" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./common-traits-categories_for_partner.html">Categories_for_partner</a>
+                    <a class="list-group-item" href="./common-traits-fullopcat.html">Fullopcat</a>
+                    <a class="list-group-item" href="./common-traits-hide_manufacturers_for_partners.html">Hide_manufacturers_for_partners</a>
+                    <a class="list-group-item" href="./common-traits-imagepreviewcrop.html">Imagepreviewcrop</a>
+                    <a class="list-group-item" href="./common-traits-imagepreviewfile.html">Imagepreviewfile</a>
+                    <a class="list-group-item" href="./common-traits-load_cat.html">Load_cat</a>
+                    <a class="list-group-item" href="./common-traits-reformat_cat_array.html">Reformat_cat_array</a>
+                    <a class="list-group-item" href="./common-traits-themeresources.html">ThemeResources</a>
+                    <a class="list-group-item" href="./common-traits-timer.html">Timer</a>
+                    <a class="list-group-item" href="./common-traits-trim_tags.html">Trim_Tags</a>
+                    <a class="list-group-item" href="./common-traits-view_cat.html">View_cat</a></div>
+                <a class="list-group-item" href="#navigation-1517" data-toggle="collapse" data-parent="#navigation">frontend\assets
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1517" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./frontend-assets-appasset.html">AppAsset</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1518" data-toggle="collapse" data-parent="#navigation">frontend\controllers
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1518" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./frontend-controllers-sitecontroller.html">SiteController</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1519" data-toggle="collapse" data-parent="#navigation">frontend\controllers\actions
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1519" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./frontend-controllers-actions-actionasyncrequest.html">ActionAsyncRequest</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actioncatpath.html">ActionCatPath</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actioncatalog.html">ActionCatalog</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionchstatusorder.html">ActionChstatusorder</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actioncontacts.html">ActionContacts</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actioncountryrequest.html">ActionCountryrequest</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actiondelivery.html">ActionDelivery</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionfaq.html">ActionFaq</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionimagepreview.html">ActionImagepreview</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionlk.html">ActionLK</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionlogin.html">ActionLogin</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionlogout.html">ActionLogout</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionnewcomments.html">ActionNewComments</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionnews.html">ActionNews</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actionofferta.html">ActionOfferta</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionpaying.html">ActionPaying</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionpaymentmethod.html">ActionPaymentMethod</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionprintorders.html">ActionPrintOrders</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actionproduct.html">ActionProduct</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionproductinfo.html">ActionProductinfo</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionproductinfobymodel.html">ActionProductinfobymodel</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionrequestnews.html">ActionRequestNews</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionrequestpasswordreset.html">ActionRequestPasswordReset</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionrequestadress.html">ActionRequestadress</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionrequestemail.html">ActionRequestemail</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionrequestorders.html">ActionRequestorders</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionresetpassword.html">ActionResetPassword</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actionsavehtml.html">ActionSavehtml</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionsaveorder.html">ActionSaveorder</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actionshipping.html">ActionShipping</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionshippingfields.html">ActionShippingfields</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionsignup.html">ActionSignup</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionsiteindex.html">ActionSiteIndex</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-actionsitenews.html">ActionSiteNews</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionsiterequest.html">ActionSiteRequest</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionsitesaveuserprofile.html">ActionSiteSaveUserProfile</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionsitesearchword.html">ActionSiteSearchword</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-actionzonesrequest.html">ActionZonesrequest</a>
+                    <a class="list-group-item"
+                       href="./frontend-controllers-actions-cacheuserstate.html">CacheUserState</a>
+                    <a class="list-group-item" href="./frontend-controllers-actions-layoutvar.html">LayOutVar</a></div>
+                <a class="list-group-item" href="#navigation-1520" data-toggle="collapse" data-parent="#navigation">frontend\models
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1520" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./frontend-models-contactform.html">ContactForm</a>
+                    <a class="list-group-item" href="./frontend-models-mailtouserform.html">MailToUserForm</a>
+                    <a class="list-group-item" href="./frontend-models-passwordresetrequestform.html">PasswordResetRequestForm</a>
+                    <a class="list-group-item" href="./frontend-models-resetpasswordform.html">ResetPasswordForm</a>
+                    <a class="list-group-item" href="./frontend-models-signupform.html">SignupForm</a></div>
+                <a class="list-group-item" href="#navigation-1521" data-toggle="collapse" data-parent="#navigation">frontend\modules\admin\controllers\actions
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1521" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./frontend-modules-admin-controllers-actions-actioncancelorder.html">ActionCancelorder</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actioncommentscontrol.html">ActionCommentscontrol</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actioncommentspage.html">ActionCommentspage</a>
+                    <a class="list-group-item" href="./frontend-modules-admin-controllers-actions-actiondelegate.html">ActionDelegate</a>
+                    <a class="list-group-item" href="./frontend-modules-admin-controllers-actions-actiondocuments.html">ActionDocuments</a>
+                    <a class="list-group-item" href="./frontend-modules-admin-controllers-actions-actionindex.html">ActionIndex</a>
+                    <a class="list-group-item" href="./frontend-modules-admin-controllers-actions-actionnewspage.html">ActionNewspage</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionnewsupdate.html">ActionNewsupdate</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionorderupdate.html">ActionOrderUpdate</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionpartnerscategories.html">ActionPartnersCategories</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionrequestnews.html">ActionRequestnews</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionrequestorders.html">ActionRequestorders</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionrequestpage.html">ActionRequestpage</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionrequestupdate.html">ActionRequestupdate</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionrequestusers.html">ActionRequestusers</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionsavesettings.html">ActionSavesettings</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actiontemplateimage.html">ActionTemplateimage</a>
+                    <a class="list-group-item"
+                       href="./frontend-modules-admin-controllers-actions-actionusercontrol.html">ActionUserControl</a>
+                </div>
+                <a class="list-group-item" href="#navigation-1522" data-toggle="collapse" data-parent="#navigation">frontend\widgets
+                    <b class="caret"></b></a>
+
+                <div id="navigation-1522" class="submenu panel-collapse collapse"><a class="list-group-item"
+                                                                                     href="./frontend-widgets-alert.html">Alert</a>
+                    <a class="list-group-item" href="./frontend-widgets-commentsblock.html">CommentsBlock</a>
+                    <a class="list-group-item" href="./frontend-widgets-hint.html">Hint</a>
+                    <a class="list-group-item" href="./frontend-widgets-menu.html">Menu</a>
+                    <a class="list-group-item" href="./frontend-widgets-newsblock.html">NewsBlock</a></div>
+            </div>
+        </div>
+        <div class="col-md-9 api-content" role="main">
+            <h1>Class cebe\jssearch\Indexer</h1>
+
+            <div id="nav">
+                <a href="index.html">All Classes</a>
+                | <a href="#properties">Properties</a>
+                | <a href="#methods">Methods</a>
+            </div>
+
+            <table class="summaryTable docClass table table-bordered">
+                <colgroup>
+                    <col class="col-name"/>
+                    <col class="col-value"/>
+                </colgroup>
+                <tr>
+                    <th>Inheritance</th>
+                    <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                </tr>
+            </table>
+
+            <div id="classDescription">
+                <p><strong></strong></p>
+
+            </div>
+
+            <a id="properties"></a>
+
+            <div class="summary doc-property">
+                <h2>Public Properties</h2>
+
+                <p><a href="#" class="toggle">Hide inherited properties</a></p>
+
+                <table class="summary-table table table-striped table-bordered table-hover">
+                    <colgroup>
+                        <col class="col-property"/>
+                        <col class="col-type"/>
+                        <col class="col-description"/>
+                        <col class="col-defined"/>
+                    </colgroup>
+                    <tr>
+                        <th>Property</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Defined By</th>
+                    </tr>
+                    <tr id="$files">
+                        <td><a href="cebe-jssearch-indexer.html#$files-detail">$files</a></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                    <tr id="$index">
+                        <td><a href="cebe-jssearch-indexer.html#$index-detail">$index</a></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <a id="methods"></a>
+
+            <div class="summary doc-method">
+                <h2>Public Methods</h2>
+
+                <p><a href="#" class="toggle">Hide inherited methods</a></p>
+
+                <table class="summary-table table table-striped table-bordered table-hover">
+                    <colgroup>
+                        <col class="col-method"/>
+                        <col class="col-description"/>
+                        <col class="col-defined"/>
+                    </colgroup>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Defined By</th>
+                    </tr>
+                    <tr id="exportJs()">
+                        <td><a href="cebe-jssearch-indexer.html#exportJs()-detail">exportJs()</a></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                    <tr id="getAnalyzer()">
+                        <td><a href="cebe-jssearch-indexer.html#getAnalyzer()-detail">getAnalyzer()</a></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                    <tr id="getTokenizer()">
+                        <td><a href="cebe-jssearch-indexer.html#getTokenizer()-detail">getTokenizer()</a></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                    <tr id="indexFiles()">
+                        <td><a href="cebe-jssearch-indexer.html#indexFiles()-detail">indexFiles()</a></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                    <tr id="setAnalyzer()">
+                        <td><a href="cebe-jssearch-indexer.html#setAnalyzer()-detail">setAnalyzer()</a></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                    <tr id="setTokenizer()">
+                        <td><a href="cebe-jssearch-indexer.html#setTokenizer()-detail">setTokenizer()</a></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="summary doc-method">
+                <h2>Protected Methods</h2>
+
+                <p><a href="#" class="toggle">Hide inherited methods</a></p>
+
+                <table class="summary-table table table-striped table-bordered table-hover">
+                    <colgroup>
+                        <col class="col-method"/>
+                        <col class="col-description"/>
+                        <col class="col-defined"/>
+                    </colgroup>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Defined By</th>
+                    </tr>
+                    <tr id="generateFileInfo()">
+                        <td><a href="cebe-jssearch-indexer.html#generateFileInfo()-detail">generateFileInfo()</a></td>
+                        <td></td>
+                        <td><a href="cebe-jssearch-indexer.html">cebe\jssearch\Indexer</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <a id="events"></a>
+
+            <a id="constants"></a>
+
+            <h2>Property Details</h2>
+
+            <div class="property-doc">
+
+                <div class="detail-header h3" id="$files-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#$files-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    $files            <span class="detailHeaderTag small">
+            public                                                property
+                        </span>
+                </div>
+
+                <div class="signature"><a href="cebe-jssearch-indexer.html#$files-detail">$files</a> <span
+                        style="color: #0000BB"></span><span style="color: #007700">=&nbsp;[]</span></div>
+
+
+                <div class="detail-header h3" id="$index-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#$index-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    $index            <span class="detailHeaderTag small">
+            public                                                property
+                        </span>
+                </div>
+
+                <div class="signature"><a href="cebe-jssearch-indexer.html#$index-detail">$index</a> <span
+                        style="color: #0000BB"></span><span style="color: #007700">=&nbsp;[]</span></div>
+
+
+            </div>
+            <h2>Method Details</h2>
+
+            <div class="method-doc">
+
+                <div class="detail-header h3" id="exportJs()-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#exportJs()-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    exportJs()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+                </div>
+
+                <div class="doc-description">
+                    <p><strong></strong></p>
+
+
+                </div>
+
+                <table class="detail-table table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="3" class="signature">void <strong><a
+                                href="cebe-jssearch-indexer.html#exportJs()-detail">exportJs</a></strong><span
+                                style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td>
+                    </tr>
+                </table>
+
+                <!--	-->
+
+                <div class="detail-header h3" id="generateFileInfo()-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#generateFileInfo()-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    generateFileInfo()
+        <span class="detail-header-tag small">
+            protected            method
+                    </span>
+                </div>
+
+                <div class="doc-description">
+                    <p><strong></strong></p>
+
+
+                </div>
+
+                <table class="detail-table table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="3" class="signature">void <strong><a
+                                href="cebe-jssearch-indexer.html#generateFileInfo()-detail">generateFileInfo</a></strong><span
+                                style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span
+                                style="color: #0000BB">$file</span><span style="color: #007700">,&nbsp;</span><span
+                                style="color: #0000BB">$contents</span><span style="color: #007700">,&nbsp;</span><span
+                                style="color: #0000BB">$basePath</span><span style="color: #007700">,&nbsp;</span><span
+                                style="color: #0000BB">$baseUrl&nbsp;</span><span style="color: #007700">)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$file</span></td>
+                        <td class="param-type-col"></td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$contents</span></td>
+                        <td class="param-type-col"></td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$basePath</span></td>
+                        <td class="param-type-col"></td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$baseUrl</span></td>
+                        <td class="param-type-col"></td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                </table>
+
+                <!--	-->
+
+                <div class="detail-header h3" id="getAnalyzer()-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#getAnalyzer()-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    getAnalyzer()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+                </div>
+
+                <div class="doc-description">
+                    <p><strong></strong></p>
+
+
+                </div>
+
+                <table class="detail-table table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="3" class="signature"><a href="cebe-jssearch-analyzerinterface.html">cebe\jssearch\AnalyzerInterface</a>
+                            <strong><a
+                                    href="cebe-jssearch-indexer.html#getAnalyzer()-detail">getAnalyzer</a></strong><span
+                                    style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td>
+                    </tr>
+                </table>
+
+                <!--	-->
+
+                <div class="detail-header h3" id="getTokenizer()-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#getTokenizer()-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    getTokenizer()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+                </div>
+
+                <div class="doc-description">
+                    <p><strong></strong></p>
+
+
+                </div>
+
+                <table class="detail-table table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="3" class="signature"><a href="cebe-jssearch-tokenizerinterface.html">cebe\jssearch\TokenizerInterface</a>
+                            <strong><a href="cebe-jssearch-indexer.html#getTokenizer()-detail">getTokenizer</a></strong><span
+                                    style="color: #0000BB"></span><span style="color: #007700">(&nbsp;)</span></td>
+                    </tr>
+                </table>
+
+                <!--	-->
+
+                <div class="detail-header h3" id="indexFiles()-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#indexFiles()-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    indexFiles()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+                </div>
+
+                <div class="doc-description">
+                    <p><strong></strong></p>
+
+
+                </div>
+
+                <table class="detail-table table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="3" class="signature">void <strong><a
+                                href="cebe-jssearch-indexer.html#indexFiles()-detail">indexFiles</a></strong><span
+                                style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span
+                                style="color: #0000BB">$files</span><span style="color: #007700">,&nbsp;</span><span
+                                style="color: #0000BB">$basePath</span><span style="color: #007700">,&nbsp;</span><span
+                                style="color: #0000BB">$baseUrl&nbsp;</span><span
+                                style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'./'&nbsp;</span><span
+                                style="color: #007700">)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$files</span></td>
+                        <td class="param-type-col"></td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$basePath</span></td>
+                        <td class="param-type-col"></td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$baseUrl</span></td>
+                        <td class="param-type-col"></td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                </table>
+
+                <!--	-->
+
+                <div class="detail-header h3" id="setAnalyzer()-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#setAnalyzer()-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    setAnalyzer()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+                </div>
+
+                <div class="doc-description">
+                    <p><strong></strong></p>
+
+
+                </div>
+
+                <table class="detail-table table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="3" class="signature">void <strong><a
+                                href="cebe-jssearch-indexer.html#setAnalyzer()-detail">setAnalyzer</a></strong><span
+                                style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span
+                                style="color: #0000BB">$analyzer&nbsp;</span><span style="color: #007700">)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$analyzer</span></td>
+                        <td class="param-type-col"><a href="cebe-jssearch-analyzerinterface.html">cebe\jssearch\AnalyzerInterface</a>
+                        </td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                </table>
+
+                <!--	-->
+
+                <div class="detail-header h3" id="setTokenizer()-detail">
+                    <a href="#" class="tool-link" title="go to top"><span
+                            class="glyphicon glyphicon-arrow-up"></span></a>
+                    <a class="tool-link hash" href="cebe-jssearch-indexer.html#setTokenizer()-detail"
+                       title="direct link to this method"><span class="glyphicon icon-hash"></span></a>
+
+                    setTokenizer()
+        <span class="detail-header-tag small">
+            public            method
+                    </span>
+                </div>
+
+                <div class="doc-description">
+                    <p><strong></strong></p>
+
+
+                </div>
+
+                <table class="detail-table table table-striped table-bordered table-hover">
+                    <tr>
+                        <td colspan="3" class="signature">void <strong><a
+                                href="cebe-jssearch-indexer.html#setTokenizer()-detail">setTokenizer</a></strong><span
+                                style="color: #0000BB"></span><span style="color: #007700">(&nbsp;</span><span
+                                style="color: #0000BB">$tokenizer&nbsp;</span><span style="color: #007700">)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="param-name-col"><span style="color: #0000BB">$tokenizer</span></td>
+                        <td class="param-type-col"><a href="cebe-jssearch-tokenizerinterface.html">cebe\jssearch\TokenizerInterface</a>
+                        </td>
+                        <td class="param-desc-col"></td>
+                    </tr>
+                </table>
+
+                <!--	-->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        $("a.toggle").on('click', function () {
+            var $this = $(this);
+            if ($this.hasClass('properties-hidden')) {
+                $this.text($this.text().replace(/Show/, 'Hide'));
+                $this.parents(".summary").find(".inherited").show();
+                $this.removeClass('properties-hidden');
+            } else {
+                $this.text($this.text().replace(/Hide/, 'Show'));
+                $this.parents(".summary").find(".inherited").hide();
+                $this.addClass('properties-hidden');
+            }
+
+            return false;
+        });
+        /*
+         $(".sourceCode a.show").toggle(function () {
+         $(this).text($(this).text().replace(/show/,'hide'));
+         $(this).parents(".sourceCode").find("div.code").show();
+         },function () {
+         $(this).text($(this).text().replace(/hide/,'show'));
+         $(this).parents(".sourceCode").find("div.code").hide();
+         });
+         $("a.sourceLink").click(function () {
+         $(this).attr('target','_blank');
+         });
+         */
+        /*]]>*/
+    </script>
+
+
+</div>
+
+<footer class="footer">
+    <p class="pull-right">
+        <small>Page generated on Thu, 17 Dec 2015 12:14:05 +0000</small>
+    </p>
+    Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
+
+<script type="text/javascript">jQuery(document).ready(function () {
+    var shiftWindow = function () {
+        scrollBy(0, -50)
+    };
+    if (location.hash) shiftWindow();
+    window.addEventListener("hashchange", shiftWindow);
+    var element = document.createElement("script");
+    element.src = "./jssearch.index.js";
+    document.body.appendChild(element);
+
+    var searchBox = $('#searchbox');
+
+// search when typing in search field
+    searchBox.on("keyup", function (event) {
+        var query = $(this).val();
+
+        if (query == '' || event.which == 27) {
+            $('#search-resultbox').hide();
+            return;
+        } else if (event.which == 13) {
+            var selectedLink = $('#search-resultbox a.selected');
+            if (selectedLink.length != 0) {
+                document.location = selectedLink.attr('href');
+                return;
+            }
+        } else if (event.which == 38 || event.which == 40) {
+            $('#search-resultbox').show();
+
+            var selected = $('#search-resultbox a.selected');
+            if (selected.length == 0) {
+                $('#search-results').find('a').first().addClass('selected');
+            } else {
+                var next;
+                if (event.which == 40) {
+                    next = selected.parent().next().find('a').first();
+                } else {
+                    next = selected.parent().prev().find('a').first();
+                }
+                if (next.length != 0) {
+                    var resultbox = $('#search-results');
+                    var position = next.position();
+
+//              TODO scrolling is buggy and jumps around
+//                resultbox.scrollTop(Math.floor(position.top));
+//                console.log(position.top);
+
+                    selected.removeClass('selected');
+                    next.addClass('selected');
+                }
+            }
+
+            return;
+        }
+        $('#search-resultbox').show();
+        $('#search-results').html('<li><span class="no-results">No results</span></li>');
+
+        var result = jssearch.search(query);
+
+        if (result.length > 0) {
+            var i = 0;
+            var resHtml = '';
+
+            for (var key in result) {
+                if (i++ > 20) {
+                    break;
+                }
+                resHtml = resHtml +
+                        '<li><a href="' + result[key].file.u.substr(3) + '"><span class="title">' + result[key].file.t + '</span>' +
+                        '<span class="description">' + result[key].file.d + '</span></a></li>';
+            }
+            $('#search-results').html(resHtml);
+        }
+    });
+
+// hide the search results on ESC
+    $(document).on("keyup", function (event) {
+        if (event.which == 27) {
+            $('#search-resultbox').hide();
+        }
+    });
+// hide search results on click to document
+    $(document).bind('click', function (e) {
+        $('#search-resultbox').hide();
+    });
+// except the following:
+    searchBox.bind('click', function (e) {
+        e.stopPropagation();
+    });
+    $('#search-resultbox').bind('click', function (e) {
+        e.stopPropagation();
+    });
+
+});</script>
+</body>
+</html>

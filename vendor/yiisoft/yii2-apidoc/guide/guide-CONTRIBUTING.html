@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en"/>
+    <link href="./assets/114fdeb5/css/bootstrap.css" rel="stylesheet">
+    <link href="./assets/43148881/style.css" rel="stylesheet">
+    <script src="./assets/d63c9aca/jquery.js"></script>
+    <script src="./assets/114fdeb5/js/bootstrap.js"></script>
+    <script src="./assets/5ad5289c/jssearch.js"></script>
+    <title>The Definitive Guide to Yii 2.0</title>
+</head>
+<body>
+
+<div class="wrap">
+    <nav id="w514" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w514-collapse"><span
+                    class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="./guide-index.html">The Definitive Guide to Yii 2.0</a></div>
+        <div id="w514-collapse" class="collapse navbar-collapse">
+            <ul id="w515" class="navbar-nav nav">
+                <li><a href="./guide-README.html">Guide</a></li>
+            </ul>
+            <div class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="search-resultbox" style="display: none;" class="modal-content">
+        <ul id="search-results">
+        </ul>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <div id="navigation" class="list-group"><a class="list-group-item" href="#navigation-513"
+                                                       data-toggle="collapse" data-parent="#navigation">Basic usage <b
+                    class="caret"></b></a>
+
+                <div id="navigation-513" class="submenu panel-collapse collapse in"></div>
+            </div>
+        </div>
+        <div class="col-md-9 guide-content" role="main">
+            <h1>Contributing to typeahead.js <a href="#contributing-to-typeaheadjs" id="contributing-to-typeaheadjs"
+                                                class="hashlink">&para;</a></h1>
+
+            <p><em>These contributing guidelines were proudly stolen from the
+                <a href="https://github.com/flightjs/flight">Flight</a> project</em></p>
+
+            <p>Looking to contribute something to typeahead.js? Here's how you can help.</p>
+
+            <h2>Bugs Reports <a href="#bugs-reports" id="bugs-reports" class="hashlink">&para;</a></h2>
+
+            <p>A bug is a <em>demonstrable problem</em> that is caused by the code in the
+                repository. Good bug reports are extremely helpful – thank you!</p>
+
+            <p>Guidelines for bug reports:</p>
+            <ol>
+                <li><p><strong>Use the GitHub issue search</strong> &mdash; check if the issue has already been
+                    reported.</p>
+                </li>
+                <li><p><strong>Check if the issue has been fixed</strong> &mdash; try to reproduce it using the
+                    latest <code>master</code> or integration branch in the repository.</p>
+                </li>
+                <li><p><strong>Isolate the problem</strong> &mdash; ideally create a reduced test
+                    case and a live example.</p>
+                </li>
+                <li><p>Please try to be as detailed as possible in your report. Include specific
+                    information about the environment – operating system and version, browser
+                    and version, version of typeahead.js – and steps required to reproduce the
+                    issue.</p>
+                </li>
+            </ol>
+            <h2>Feature Requests &amp; Contribution Enquiries <a href="#feature-requests-amp-contribution-enquiries"
+                                                                 id="feature-requests-amp-contribution-enquiries"
+                                                                 class="hashlink">&para;</a></h2>
+
+            <p>Feature requests are welcome. But take a moment to find out whether your idea
+                fits with the scope and aims of the project. It's up to <em>you</em> to make a strong
+                case for the inclusion of your feature. Please provide as much detail and
+                context as possible.</p>
+
+            <p>Contribution enquiries should take place before any significant pull request,
+                otherwise you risk spending a lot of time working on something that we might
+                have good reasons for rejecting.</p>
+
+            <h2>Pull Requests <a href="#pull-requests" id="pull-requests" class="hashlink">&para;</a></h2>
+
+            <p>Good pull requests – patches, improvements, new features – are a fantastic
+                help. They should remain focused in scope and avoid containing unrelated
+                commits.</p>
+
+            <p>Make sure to adhere to the coding conventions used throughout the codebase
+                (indentation, accurate comments, etc.) and any other requirements (such as test
+                coverage).</p>
+
+            <p>Please follow this process; it's the best way to get your work included in the
+                project:</p>
+            <ol>
+                <li><p><a href="http://help.github.com/fork-a-repo/">Fork</a> the project, clone your fork,
+                    and configure the remotes:</p>
+<pre><code class="language-bash"># Clone your fork of the repo into the current directory
+    git clone https://github.com/&lt;your-username&gt;/typeahead.js
+    # Navigate to the newly cloned directory
+    cd &lt;repo-name&gt;
+    # Assign the original repo to a remote called "upstream"
+    git remote add upstream git://github.com/twitter/typeahead.js
+</code></pre>
+                </li>
+                <li><p>If you cloned a while ago, get the latest changes from upstream:</p>
+<pre><code class="language-bash">git checkout master
+    git pull upstream master
+</code></pre>
+                </li>
+                <li><p>Install the dependencies (you must have Node.js and <a href="http://bower.io">Bower</a>
+                    installed), and create a new topic branch (off the main project development
+                    branch) to contain your feature, change, or fix:</p>
+<pre><code class="language-bash">npm install
+    bower install
+    git checkout -b &lt;topic-branch-name&gt;
+</code></pre>
+                </li>
+                <li><p>Make sure to update, or add to the tests when appropriate. Patches and
+                    features will not be accepted without tests. Run <code>npm test</code> to check that
+                    all tests pass after you've made changes.</p>
+                </li>
+                <li><p>Commit your changes in logical chunks. Provide clear and explanatory commit
+                    messages. Use Git's <a href="https://help.github.com/articles/interactive-rebase">interactive
+                        rebase</a> feature to tidy up
+                    your commits before making them public.</p>
+                </li>
+                <li><p>Locally merge (or rebase) the upstream development branch into your topic branch:</p>
+<pre><code class="language-bash">git pull [--rebase] upstream master
+</code></pre>
+                </li>
+                <li><p>Push your topic branch up to your fork:</p>
+<pre><code class="language-bash">git push origin &lt;topic-branch-name&gt;
+</code></pre>
+                </li>
+                <li><p><a href="https://help.github.com/articles/using-pull-requests/">Open a Pull Request</a>
+                    with a clear title and description.</p>
+                </li>
+                <li><p>If you are asked to amend your changes before they can be merged in, please
+                    use <code>git commit --amend</code> (or rebasing for multi-commit Pull Requests) and
+                    force push to your remote feature branch. You may also be asked to squash
+                    commits.</p>
+                </li>
+            </ol>
+            <h2>License <a href="#license" id="license" class="hashlink">&para;</a></h2>
+
+            <p>By contributing your code,</p>
+
+            <p>You agree to license your contribution under the terms of the MIT License
+                <a href="https://github.com/twitter/typeahead.js/blob/master/LICENSE">https://github.com/twitter/typeahead.js/blob/master/LICENSE</a>
+            </p>
+
+            <div class="toplink"><a href="#" class="h1" title="go to top"><span
+                    class="glyphicon glyphicon-arrow-up"></a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<footer class="footer">
+    <p class="pull-right">
+        <small>Page generated on Thu, 17 Dec 2015 12:13:42 +0000</small>
+    </p>
+    Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
+
+<script type="text/javascript">jQuery(document).ready(function () {
+    var shiftWindow = function () {
+        scrollBy(0, -50)
+    };
+    if (location.hash) shiftWindow();
+    window.addEventListener("hashchange", shiftWindow);
+    var element = document.createElement("script");
+    element.src = "./jssearch.index.js";
+    document.body.appendChild(element);
+
+    var searchBox = $('#searchbox');
+
+// search when typing in search field
+    searchBox.on("keyup", function (event) {
+        var query = $(this).val();
+
+        if (query == '' || event.which == 27) {
+            $('#search-resultbox').hide();
+            return;
+        } else if (event.which == 13) {
+            var selectedLink = $('#search-resultbox a.selected');
+            if (selectedLink.length != 0) {
+                document.location = selectedLink.attr('href');
+                return;
+            }
+        } else if (event.which == 38 || event.which == 40) {
+            $('#search-resultbox').show();
+
+            var selected = $('#search-resultbox a.selected');
+            if (selected.length == 0) {
+                $('#search-results').find('a').first().addClass('selected');
+            } else {
+                var next;
+                if (event.which == 40) {
+                    next = selected.parent().next().find('a').first();
+                } else {
+                    next = selected.parent().prev().find('a').first();
+                }
+                if (next.length != 0) {
+                    var resultbox = $('#search-results');
+                    var position = next.position();
+
+//              TODO scrolling is buggy and jumps around
+//                resultbox.scrollTop(Math.floor(position.top));
+//                console.log(position.top);
+
+                    selected.removeClass('selected');
+                    next.addClass('selected');
+                }
+            }
+
+            return;
+        }
+        $('#search-resultbox').show();
+        $('#search-results').html('<li><span class="no-results">No results</span></li>');
+
+        var result = jssearch.search(query);
+
+        if (result.length > 0) {
+            var i = 0;
+            var resHtml = '';
+
+            for (var key in result) {
+                if (i++ > 20) {
+                    break;
+                }
+                resHtml = resHtml +
+                        '<li><a href="' + result[key].file.u.substr(3) + '"><span class="title">' + result[key].file.t + '</span>' +
+                        '<span class="description">' + result[key].file.d + '</span></a></li>';
+            }
+            $('#search-results').html(resHtml);
+        }
+    });
+
+// hide the search results on ESC
+    $(document).on("keyup", function (event) {
+        if (event.which == 27) {
+            $('#search-resultbox').hide();
+        }
+    });
+// hide search results on click to document
+    $(document).bind('click', function (e) {
+        $('#search-resultbox').hide();
+    });
+// except the following:
+    searchBox.bind('click', function (e) {
+        e.stopPropagation();
+    });
+    $('#search-resultbox').bind('click', function (e) {
+        e.stopPropagation();
+    });
+
+});</script>
+</body>
+</html>

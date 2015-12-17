@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en"/>
+    <link href="./assets/114fdeb5/css/bootstrap.css" rel="stylesheet">
+    <link href="./assets/43148881/style.css" rel="stylesheet">
+    <script src="./assets/d63c9aca/jquery.js"></script>
+    <script src="./assets/114fdeb5/js/bootstrap.js"></script>
+    <script src="./assets/5ad5289c/jssearch.js"></script>
+    <title>The Definitive Guide to Yii 2.0</title>
+</head>
+<body>
+
+<div class="wrap">
+    <nav id="w295" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w295-collapse"><span
+                    class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="./guide-index.html">The Definitive Guide to Yii 2.0</a></div>
+        <div id="w295-collapse" class="collapse navbar-collapse">
+            <ul id="w296" class="navbar-nav nav">
+                <li><a href="./guide-README.html">Guide</a></li>
+            </ul>
+            <div class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="search-resultbox" style="display: none;" class="modal-content">
+        <ul id="search-results">
+        </ul>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <div id="navigation" class="list-group"><a class="list-group-item" href="#navigation-294"
+                                                       data-toggle="collapse" data-parent="#navigation">Basic usage <b
+                    class="caret"></b></a>
+
+                <div id="navigation-294" class="submenu panel-collapse collapse in"></div>
+            </div>
+        </div>
+        <div class="col-md-9 guide-content" role="main">
+            <h1>Upgrading Instructions for Yii Framework v2 <a href="#upgrading-instructions-for-yii-framework-v2"
+                                                               id="upgrading-instructions-for-yii-framework-v2"
+                                                               class="hashlink">&para;</a></h1>
+
+            <p>!!!IMPORTANT!!!</p>
+
+            <p>The following upgrading instructions are cumulative. That is,
+                if you want to upgrade from version A to version C and there is
+                version B between A and C, you need to follow the instructions
+                for both A and B.</p>
+
+            <h2>Upgrade from Yii 2.0.5 <a href="#upgrade-from-yii-205" id="upgrade-from-yii-205"
+                                          class="hashlink">&para;</a></h2>
+            <ul>
+                <li>The signature of the following methods in <code>yii\console\controllers\MessageController</code> has
+                    changed. They have an extra parameter <code>$markUnused</code>.
+                    <ul>
+                        <li><code>saveMessagesToDb($messages, $db, $sourceMessageTable, $messageTable, $removeUnused,
+                            $languages, $markUnused)</code></li>
+                        <li><code>saveMessagesToPHP($messages, $dirName, $overwrite, $removeUnused, $sort,
+                            $markUnused)</code></li>
+                        <li><code>saveMessagesCategoryToPHP($messages, $fileName, $overwrite, $removeUnused, $sort,
+                            $category, $markUnused)</code></li>
+                        <li><code>saveMessagesToPO($messages, $dirName, $overwrite, $removeUnused, $sort, $catalog,
+                            $markUnused)</code></li>
+                    </ul>
+                </li>
+            </ul>
+            <h2>Upgrade from Yii 2.0.4 <a href="#upgrade-from-yii-204" id="upgrade-from-yii-204"
+                                          class="hashlink">&para;</a></h2>
+
+            <p>Upgrading from 2.0.4 to 2.0.5 does not require any changes.</p>
+
+            <h2>Upgrade from Yii 2.0.3 <a href="#upgrade-from-yii-203" id="upgrade-from-yii-203"
+                                          class="hashlink">&para;</a></h2>
+            <ul>
+                <li><p>Updated dependency to <code>cebe/markdown</code> to version <code>1.1.x</code>.
+                    If you need stick with 1.0.x, you can specify that in your <code>composer.json</code> by
+                    adding the following line in the <code>require</code> section:</p>
+<pre><code class="language-json">"cebe/markdown": "~1.0.0",
+</code></pre>
+                </li>
+            </ul>
+            <h2>Upgrade from Yii 2.0.2 <a href="#upgrade-from-yii-202" id="upgrade-from-yii-202"
+                                          class="hashlink">&para;</a></h2>
+
+            <p>Starting from version 2.0.3 Yii <code>Security</code> component relies on OpenSSL crypto lib instead of
+                Mcrypt. The reason is that
+                Mcrypt is abandoned and isn't maintained for years. Therefore your PHP should be compiled with OpenSSL
+                support. Most
+                probably there's nothing to worry because it is quite typical.</p>
+
+            <p>If you've extended <code>yii\base\Security</code> to override any of the config constants you have to
+                update your code:</p>
+<pre><code>- `MCRYPT_CIPHER` — now encoded in `$cipher` (and hence `$allowedCiphers`).
+    - `MCRYPT_MODE` — now encoded in `$cipher` (and hence `$allowedCiphers`).
+    - `KEY_SIZE` — now encoded in `$cipher` (and hence `$allowedCiphers`).
+    - `KDF_HASH` — now `$kdfHash`.
+    - `MAC_HASH` — now `$macHash`.
+    - `AUTH_KEY_INFO` — now `$authKeyInfo`.
+</code></pre>
+            <h2>Upgrade from Yii 2.0.0 <a href="#upgrade-from-yii-200" id="upgrade-from-yii-200"
+                                          class="hashlink">&para;</a></h2>
+            <ul>
+                <li><p>Upgraded Twitter Bootstrap to <a
+                        href="http://blog.getbootstrap.com/2014/10/29/bootstrap-3-3-0-released/">version 3.3.x</a>.
+                    If you need to use an older version (i.e. stick with 3.2.x) you can specify that in your <code>composer.json</code>
+                    by
+                    adding the following line in the <code>require</code> section:</p>
+<pre><code class="language-json">"bower-asset/bootstrap": "3.2.*",
+</code></pre>
+                </li>
+            </ul>
+            <h2>Upgrade from Yii 2.0 RC <a href="#upgrade-from-yii-20-rc" id="upgrade-from-yii-20-rc"
+                                           class="hashlink">&para;</a></h2>
+            <ul>
+                <li><p>If you've implemented <code>yii\rbac\ManagerInterface</code> you need to add implementation for
+                    new method <code>removeChildren()</code>.</p>
+                </li>
+                <li><p>The input dates for datetime formatting are now assumed to be in UTC unless a timezone is
+                    explicitly given.
+                    Before, the timezone assumed for input dates was the default timezone set by PHP which is the same
+                    as <code>Yii::$app-&gt;timeZone</code>.
+                    This causes trouble because the formatter uses <code>Yii::$app-&gt;timeZone</code> as the default
+                    values for output so no timezone conversion
+                    was possible. If your timestamps are stored in the database without a timezone identifier you have
+                    to ensure they are in UTC or
+                    add a timezone identifier explicitly.</p>
+                </li>
+                <li><p><code>yii\bootstrap\Collapse</code> is now encoding labels by default. <code>encode</code> item
+                    option and global <code>encodeLabels</code> property were
+                    introduced to disable it. Keys are no longer used as labels. You need to remove keys and use <code>label</code>
+                    item option instead.</p>
+                </li>
+                <li><p>The <code>yii\base\View::beforeRender()</code> and <code>yii\base\View::afterRender()</code>
+                    methods have two extra parameters <code>$viewFile</code>
+                    and <code>$params</code>. If you are overriding these methods, you should adjust the method
+                    signature accordingly.</p>
+                </li>
+                <li><p>If you've used <code>asImage</code> formatter i.e. <code>Yii::$app-&gt;formatter-&gt;asImage($value,
+                    $alt);</code> you should change it
+                    to <code>Yii::$app-&gt;formatter-&gt;asImage($value, ['alt' =&gt; $alt]);</code>.</p>
+                </li>
+                <li><p>Yii now requires <code>cebe/markdown</code> 1.0.0 or higher, which includes breaking changes in
+                    its internal API. If you extend the markdown class
+                    you need to update your implementation. See <a
+                            href="https://github.com/cebe/markdown/releases/tag/1.0.0-rc">https://github.com/cebe/markdown/releases/tag/1.0.0-rc</a>
+                    for details.
+                    If you just used the markdown helper class there is no need to change anything.</p>
+                </li>
+                <li><p>If you are using CUBRID DBMS, make sure to use at least version 9.3.0 as the server and also as
+                    the PDO extension.
+                    Quoting of values is broken in prior versions and Yii has no reliable way to work around this issue.
+                    A workaround that may have worked before has been removed in this release because it was not
+                    reliable.</p>
+                </li>
+            </ul>
+            <h2>Upgrade from Yii 2.0 Beta <a href="#upgrade-from-yii-20-beta" id="upgrade-from-yii-20-beta"
+                                             class="hashlink">&para;</a></h2>
+            <ul>
+                <li><p>If you are using Composer to upgrade Yii, you should run the following command first (once for
+                    all) to install
+                    the composer-asset-plugin, <em>before</em> you update your project:</p>
+<pre><code>php composer.phar global require "fxp/composer-asset-plugin:~1.0.0"
+</code></pre>
+                    <p>You also need to add the following code to your project's <code>composer.json</code> file:</p>
+<pre><code class="language-json">"extra": {
+    "asset-installer-paths": {
+    "npm-asset-library": "vendor/npm",
+    "bower-asset-library": "vendor/bower"
+    }
+    }
+</code></pre>
+                    <p>It is also a good idea to upgrade composer itself to the latest version if you see any
+                        problems:</p>
+<pre><code>php composer.phar self-update
+</code></pre>
+                </li>
+                <li><p>If you used <code>clearAll()</code> or <code>clearAllAssignments()</code> of <code>yii\rbac\DbManager</code>,
+                    you should replace
+                    them with <code>removeAll()</code> and <code>removeAllAssignments()</code> respectively.</p>
+                </li>
+                <li><p>If you created RBAC rule classes, you should modify their <code>execute()</code> method by adding
+                    <code>$user</code>
+                    as the first parameter: <code>execute($user, $item, $params)</code>. The <code>$user</code>
+                    parameter represents
+                    the ID of the user currently being access checked. Previously, this is passed via <code>$params['user']</code>.
+                </p>
+                </li>
+                <li><p>If you override <code>yii\grid\DataColumn::getDataCellValue()</code> with visibility <code>protected</code>
+                    you have
+                    to change visibility to <code>public</code> as visibility of the base method has changed.</p>
+                </li>
+                <li><p>If you have classes implementing <code>yii\web\IdentityInterface</code> (very common), you should
+                    modify
+                    the signature of <code>findIdentityByAccessToken()</code> as
+                    <code>public static function findIdentityByAccessToken($token, $type = null)</code>. The new <code>$type</code>
+                    parameter
+                    will contain the type information about the access token. For example, if you use
+                    <code>yii\filters\auth\HttpBearerAuth</code> authentication method, the value of this parameter will
+                    be
+                    <code>yii\filters\auth\HttpBearerAuth</code>. This allows you to differentiate access tokens taken
+                    by
+                    different authentication methods.</p>
+                </li>
+                <li><p>If you are sharing the same cache across different applications, you should configure
+                    the <code>keyPrefix</code> property of the cache component to use some unique string.
+                    Previously, this property was automatically assigned with a unique string.</p>
+                </li>
+                <li><p>If you are using <code>dropDownList()</code>, <code>listBox()</code>,
+                    <code>activeDropDownList()</code>, or <code>activeListBox()</code>
+                    of <code>yii\helpers\Html</code>, and your list options use multiple blank spaces to format and
+                    align
+                    option label texts, you need to specify the option <code>encodeSpaces</code> to be true.</p>
+                </li>
+                <li><p>If you are using <code>yii\grid\GridView</code> and have configured a data column to use a PHP
+                    callable
+                    to return cell values (via <code>yii\grid\DataColumn::value</code>), you may need to adjust the
+                    signature
+                    of the callable to be <code>function ($model, $key, $index, $widget)</code>. The <code>$key</code>
+                    parameter was newly added
+                    in this release.</p>
+                </li>
+                <li><p><code>yii\console\controllers\AssetController</code> is now using hashes instead of timestamps.
+                    Replace all <code>{ts}</code> with <code>{hash}</code>.</p>
+                </li>
+                <li><p>The database table of the <code>yii\log\DbTarget</code> now needs a <code>prefix</code> column to
+                    store context information.
+                    You can add it with <code>ALTER TABLE log ADD COLUMN prefix TEXT AFTER log_time;</code>.</p>
+                </li>
+                <li><p>The <code>fileinfo</code> PHP extension is now required by Yii. If you use <code>yii\helpers\FileHelper::getMimeType()</code>,
+                    make sure
+                    you have enabled this extension. This extension is <a
+                            href="http://www.php.net/manual/en/fileinfo.installation.php">builtin</a> in php above
+                    <code>5.3</code>.</p>
+                </li>
+                <li><p>Please update your main layout file by adding this line in the <code>&lt;head&gt;</code> section:
+                    <code>&lt;?= Html::csrfMetaTags() ?&gt;</code>.
+                    This change is needed because <code>yii\web\View</code> no longer automatically generates CSRF meta
+                    tags due to issue #3358.</p>
+                </li>
+                <li><p>If your model code is using the <code>file</code> validation rule, you should rename its <code>types</code>
+                    option to <code>extensions</code>.</p>
+                </li>
+                <li><p><code>MailEvent</code> class has been moved to the <code>yii\mail</code> namespace. You have to
+                    adjust all references that may exist in your code.</p>
+                </li>
+                <li><p>The behavior and signature of <code>ActiveRecord::afterSave()</code> has changed. <code>ActiveRecord::$isNewRecord</code>
+                    will now always be
+                    false in afterSave and also dirty attributes are not available. This change has been made to have a
+                    more consistent and
+                    expected behavior. The changed attributes are now available in the new parameter of afterSave()
+                    <code>$changedAttributes</code>.
+                    <code>$changedAttributes</code> contains the old values of attributes that had changed and were
+                    saved.</p>
+                </li>
+                <li><p><code>ActiveRecord::updateAttributes()</code> has been changed to not trigger events and not
+                    respect optimistic locking anymore to
+                    differentiate it more from calling <code>update(false)</code> and to ensure it can be used in <code>afterSave()</code>
+                    without triggering infinite
+                    loops.</p>
+                </li>
+                <li><p>If you are developing RESTful APIs and using an authentication method such as <code>yii\filters\auth\HttpBasicAuth</code>,
+                    you should explicitly configure <code>yii\web\User::enableSession</code> in the application
+                    configuration to be false to avoid
+                    starting a session when authentication is performed. Previously this was done automatically by
+                    authentication method.</p>
+                </li>
+                <li><p><code>mail</code> component was renamed to <code>mailer</code>,
+                    <code>yii\log\EmailTarget::$mail</code> was renamed to <code>yii\log\EmailTarget::$mailer</code>.
+                    Please update all references in the code and config files.</p>
+                </li>
+                <li><p><code>yii\caching\GroupDependency</code> was renamed to <code>TagDependency</code>. You should
+                    create such a dependency using the code
+                    <code>new \yii\caching\TagDependency(['tags' =&gt; 'TagName'])</code>, where <code>TagName</code> is
+                    similar to the group name that you
+                    previously used.</p>
+                </li>
+                <li><p>If you are using the constant <code>YII_PATH</code> in your code, you should rename it to <code>YII2_PATH</code>
+                    now.</p>
+                </li>
+                <li><p>You must explicitly configure <code>yii\web\Request::cookieValidationKey</code> with a secret
+                    key. Previously this is done automatically.
+                    To do so, modify your application configuration like the following:</p>
+                    <pre><code class="language-php"><span style="color: #0000BB"></span><span style="color: #007700">return&nbsp;[<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #FF8000">//&nbsp;...<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #DD0000">'components'&nbsp;</span><span
+                            style="color: #007700">=&gt;&nbsp;[<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #DD0000">'request'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;[<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #DD0000">'cookieValidationKey'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span
+                            style="color: #DD0000">'your&nbsp;secret&nbsp;key&nbsp;here'</span><span
+                            style="color: #007700">,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],<br/>&nbsp;&nbsp;&nbsp;&nbsp;],<br/>];</span></code></pre>
+                    <blockquote><p>Note: If you are using the <code>Advanced Project Template</code> you should not add
+                        this configuration to <code>common/config</code>
+                        or <code>console/config</code> because the console application doesn't have to deal with CSRF
+                        and uses its own request that
+                        doesn't have <code>cookieValidationKey</code> property.</p>
+                    </blockquote>
+                </li>
+                <li><p><code>yii\rbac\PhpManager</code> now stores data in three separate files instead of one. In order
+                    to convert old file to
+                    new ones save the following code as <code>convert.php</code> that should be placed in the same
+                    directory your <code>rbac.php</code> is in: </p>
+                    <pre><code class="language-php"><span style="color: #0000BB">&lt;?php<br/>$oldFile&nbsp;</span><span
+                            style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'rbac.php'</span><span
+                            style="color: #007700">;<br/></span><span
+                            style="color: #0000BB">$itemsFile&nbsp;</span><span
+                            style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'items.php'</span><span
+                            style="color: #007700">;<br/></span><span
+                            style="color: #0000BB">$assignmentsFile&nbsp;</span><span
+                            style="color: #007700">=&nbsp;</span><span
+                            style="color: #DD0000">'assignments.php'</span><span
+                            style="color: #007700">;<br/></span><span
+                            style="color: #0000BB">$rulesFile&nbsp;</span><span
+                            style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'rules.php'</span><span
+                            style="color: #007700">;<br/>&nbsp;&nbsp;<br/></span><span style="color: #0000BB">$oldData&nbsp;</span><span
+                            style="color: #007700">=&nbsp;include&nbsp;</span><span
+                            style="color: #0000BB">$oldFile</span><span style="color: #007700">;<br/>&nbsp;&nbsp;<br/>function&nbsp;</span><span
+                            style="color: #0000BB">saveToFile</span><span style="color: #007700">(</span><span
+                            style="color: #0000BB">$data</span><span style="color: #007700">,&nbsp;</span><span
+                            style="color: #0000BB">$fileName</span><span style="color: #007700">)&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #0000BB">$out&nbsp;</span><span style="color: #007700">=&nbsp;</span><span
+                            style="color: #0000BB">var_export</span><span style="color: #007700">(</span><span
+                            style="color: #0000BB">$data</span><span style="color: #007700">,&nbsp;</span><span
+                            style="color: #0000BB">true</span><span style="color: #007700">);<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #0000BB">$out&nbsp;</span><span style="color: #007700">=&nbsp;</span><span
+                            style="color: #DD0000">"&lt;?php\nreturn&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span
+                            style="color: #0000BB">$out&nbsp;</span><span style="color: #007700">.&nbsp;</span><span
+                            style="color: #DD0000">";"</span><span style="color: #007700">;<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #0000BB">$out&nbsp;</span><span style="color: #007700">=&nbsp;</span><span
+                            style="color: #0000BB">str_replace</span><span style="color: #007700">([</span><span
+                            style="color: #DD0000">'array&nbsp;('</span><span style="color: #007700">,&nbsp;</span><span
+                            style="color: #DD0000">')'</span><span style="color: #007700">],&nbsp;[</span><span
+                            style="color: #DD0000">'['</span><span style="color: #007700">,&nbsp;</span><span
+                            style="color: #DD0000">']'</span><span style="color: #007700">],&nbsp;</span><span
+                            style="color: #0000BB">$out</span><span style="color: #007700">);<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span
+                            style="color: #0000BB">$fileName</span><span style="color: #007700">,&nbsp;</span><span
+                            style="color: #0000BB">$out</span><span
+                            style="color: #007700">);<br/>}<br/>&nbsp;&nbsp;<br/></span><span style="color: #0000BB">$items&nbsp;</span><span
+                            style="color: #007700">=&nbsp;[];<br/></span><span
+                            style="color: #0000BB">$assignments&nbsp;</span><span style="color: #007700">=&nbsp;[];<br/>if&nbsp;(isset(</span><span
+                            style="color: #0000BB">$oldData</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'items'</span><span style="color: #007700">]))&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span
+                            style="color: #0000BB">$oldData</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'items'</span><span
+                            style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span
+                            style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$data</span><span
+                            style="color: #007700">)&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(isset(</span><span
+                            style="color: #0000BB">$data</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'assignments'</span><span style="color: #007700">]))&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span
+                            style="color: #0000BB">$data</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'assignments'</span><span
+                            style="color: #007700">]&nbsp;as&nbsp;</span><span
+                            style="color: #0000BB">$userId&nbsp;</span><span
+                            style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$assignmentData</span><span
+                            style="color: #007700">)&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #0000BB">$assignments</span><span style="color: #007700">[</span><span
+                            style="color: #0000BB">$userId</span><span
+                            style="color: #007700">][]&nbsp;=&nbsp;</span><span
+                            style="color: #0000BB">$assignmentData</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'roleName'</span><span style="color: #007700">];<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unset(</span><span
+                            style="color: #0000BB">$data</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'assignments'</span><span style="color: #007700">]);<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #0000BB">$items</span><span style="color: #007700">[</span><span
+                            style="color: #0000BB">$name</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span
+                            style="color: #0000BB">$data</span><span style="color: #007700">;<br/>&nbsp;&nbsp;&nbsp;&nbsp;}<br/>}<br/>&nbsp;&nbsp;<br/></span><span
+                            style="color: #0000BB">$rules&nbsp;</span><span style="color: #007700">=&nbsp;[];<br/>if&nbsp;(isset(</span><span
+                            style="color: #0000BB">$oldData</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'rules'</span><span style="color: #007700">]))&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #0000BB">$rules&nbsp;</span><span style="color: #007700">=&nbsp;</span><span
+                            style="color: #0000BB">$oldData</span><span style="color: #007700">[</span><span
+                            style="color: #DD0000">'rules'</span><span
+                            style="color: #007700">];<br/>}<br/>&nbsp;&nbsp;<br/></span><span style="color: #0000BB">saveToFile</span><span
+                            style="color: #007700">(</span><span style="color: #0000BB">$items</span><span
+                            style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$itemsFile</span><span
+                            style="color: #007700">);<br/></span><span style="color: #0000BB">saveToFile</span><span
+                            style="color: #007700">(</span><span style="color: #0000BB">$assignments</span><span
+                            style="color: #007700">,&nbsp;</span><span
+                            style="color: #0000BB">$assignmentsFile</span><span
+                            style="color: #007700">);<br/></span><span style="color: #0000BB">saveToFile</span><span
+                            style="color: #007700">(</span><span style="color: #0000BB">$rules</span><span
+                            style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$rulesFile</span><span
+                            style="color: #007700">);<br/>&nbsp;&nbsp;<br/>echo&nbsp;</span><span
+                            style="color: #DD0000">"Done!\n"</span><span style="color: #007700">;</span></code></pre>
+                    <p>Run it once, delete <code>rbac.php</code>. If you've configured <code>authFile</code> property,
+                        remove the line from config and instead
+                        configure <code>itemFile</code>, <code>assignmentFile</code> and <code>ruleFile</code>.</p>
+                </li>
+                <li><p>Static helper <code>yii\helpers\Security</code> has been converted into an application component.
+                    You should change all usage of
+                    its methods to a new syntax, for example: instead of <code>yii\helpers\Security::hashData()</code>
+                    use <code>Yii::$app-&gt;getSecurity()-&gt;hashData()</code>.
+                    The <code>generateRandomKey()</code> method now produces not an ASCII compatible output. Use <code>generateRandomString()</code>
+                    instead.
+                    Default encryption and hash parameters has been upgraded. If you need to decrypt/validate data that
+                    was encrypted/hashed
+                    before, use the following configuration of the 'security' component:</p>
+                    <pre><code class="language-php"><span style="color: #0000BB"></span><span style="color: #007700">return&nbsp;[<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #DD0000">'components'&nbsp;</span><span
+                            style="color: #007700">=&gt;&nbsp;[<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #DD0000">'security'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;[<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #DD0000">'derivationIterations'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span
+                            style="color: #0000BB">1000</span><span style="color: #007700">,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #FF8000">//&nbsp;...<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #007700">],<br/>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br/></span><span
+                            style="color: #007700">];</span></code></pre>
+                </li>
+                <li><p>If you are using query caching, you should modify your relevant code as follows, as <code>beginCache()</code>
+                    and <code>endCache()</code> are
+                    replaced by <code>cache()</code>:</p>
+                    <pre><code class="language-php"><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span
+                            style="color: #0000BB">cache</span><span style="color: #007700">(function&nbsp;(</span><span
+                            style="color: #0000BB">$db</span><span style="color: #007700">)&nbsp;{<br/><br/>&nbsp;&nbsp;&nbsp;</span><span
+                            style="color: #FF8000">//&nbsp;...&nbsp;SQL&nbsp;queries&nbsp;that&nbsp;need&nbsp;to&nbsp;use&nbsp;query&nbsp;caching<br/><br/></span><span
+                            style="color: #007700">},&nbsp;</span><span style="color: #0000BB">$duration</span><span
+                            style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$dependency</span><span
+                            style="color: #007700">);</span></code></pre>
+                </li>
+                <li><p>Due to significant changes to security you need to upgrade your code to use <code>\yii\base\Security</code>
+                    component instead of
+                    helper. If you have any data encrypted it should be re-encrypted. In order to do so you can use old
+                    security helper
+                    <a href="https://github.com/yiisoft/yii2/issues/4461#issuecomment-50237807">as explained by
+                        @docsolver at github</a>.</p>
+                </li>
+                <li><p><span class="broken-link">yii\helpers\Url::to()</span> will no longer prefix base URL to relative
+                    URLs. For example, <code>Url::to('images/logo.png')</code>
+                    will return <code>images/logo.png</code> directly. If you want a relative URL to be prefix with base
+                    URL, you should make use
+                    of the alias <code>@web</code>. For example, <code>Url::to('@web/images/logo.png')</code> will
+                    return <code>/BaseUrl/images/logo.png</code>.</p>
+                </li>
+                <li><p>The following properties are now taking <code>false</code> instead of <code>null</code> for
+                    "don't use" case:</p>
+                    <ul>
+                        <li><code>yii\bootstrap\NavBar::$brandLabel</code>.</li>
+                        <li><code>yii\bootstrap\NavBar::$brandUrl</code>.</li>
+                        <li><code>yii\bootstrap\Modal::$closeButton</code>.</li>
+                        <li><code>yii\bootstrap\Modal::$toggleButton</code>.</li>
+                        <li><code>yii\bootstrap\Alert::$closeButton</code>.</li>
+                        <li><code>yii\widgets\LinkPager::$nextPageLabel</code>.</li>
+                        <li><code>yii\widgets\LinkPager::$prevPageLabel</code>.</li>
+                        <li><code>yii\widgets\LinkPager::$firstPageLabel</code>.</li>
+                        <li><code>yii\widgets\LinkPager::$lastPageLabel</code>.</li>
+                    </ul>
+                </li>
+                <li><p>The format of the Faker fixture template is changed. For an example, please refer to the file
+                    <code>apps/advanced/common/tests/templates/fixtures/user.php</code>.</p>
+                </li>
+                <li><p>The signature of all file downloading methods in <code>yii\web\Response</code> is changed, as
+                    summarized below:</p>
+                    <ul>
+                        <li><code>sendFile($filePath, $attachmentName = null, $options = [])</code></li>
+                        <li><code>sendContentAsFile($content, $attachmentName, $options = [])</code></li>
+                        <li><code>sendStreamAsFile($handle, $attachmentName, $options = [])</code></li>
+                        <li><code>xSendFile($filePath, $attachmentName = null, $options = [])</code></li>
+                    </ul>
+                </li>
+                <li><p>The signature of callbacks used in <code>yii\base\ArrayableTrait::fields()</code> is changed from
+                    <code>function ($field, $model) {</code>
+                    to <code>function ($model, $field) {</code>.</p>
+                </li>
+                <li><p><code>Html::radio()</code>, <code>Html::checkbox()</code>, <code>Html::radioList()</code>, <code>Html::checkboxList()</code>
+                    no longer generate the container
+                    tag around each radio/checkbox when you specify labels for them. You should manually render such
+                    container tags,
+                    or set the <code>item</code> option for <code>Html::radioList()</code>,
+                    <code>Html::checkboxList()</code> to generate the container tags.</p>
+                </li>
+                <li><p>The formatter class has been refactored to have only one class regardless whether PHP intl
+                    extension is installed or not.
+                    Functionality of <code>yii\base\Formatter</code> has been merged into
+                    <code>yii\i18n\Formatter</code> and <code>yii\base\Formatter</code> has been
+                    removed so you have to replace all usage of <code>yii\base\Formatter</code> with <code>yii\i18n\Formatter</code>
+                    in your code.
+                    Also the API of the Formatter class has changed in many ways.
+                    The signature of the following Methods has changed:</p>
+                    <ul>
+                        <li><code>asDate</code></li>
+                        <li><code>asTime</code></li>
+                        <li><code>asDatetime</code></li>
+                        <li><code>asSize</code> has been split up into <code>asSize</code> and <code>asShortSize</code>
+                        </li>
+                        <li><code>asCurrency</code></li>
+                        <li><code>asDecimal</code></li>
+                        <li><code>asPercent</code></li>
+                        <li><code>asScientific</code></li>
+                    </ul>
+                    <p>The following methods have been removed, this also means that the corresponding format which may
+                        be used by a
+                        GridView or DetailView is not available anymore:</p>
+                    <ul>
+                        <li><code>asNumber</code></li>
+                        <li><code>asDouble</code></li>
+                    </ul>
+                    <p>Also due to these changes some formatting defaults have changes so you have to check all your
+                        GridView and DetailView
+                        configuration and make sure the formatting is displayed correctly.</p>
+
+                    <p>The configuration for <code>asSize()</code> has changed. It now uses the configuration for the
+                        number formatting from intl
+                        and only the base is configured using <code>$sizeFormatBase</code>.</p>
+
+                    <p>The specification of the date and time formats is now using the ICU pattern format even if PHP
+                        intl extension is not installed.
+                        You can prefix a date format with <code>php:</code> to use the old format of the PHP <code>date()</code>-function.
+                    </p>
+                </li>
+                <li><p>The DateValidator has been refactored to use the same format as the Formatter class now (see
+                    previous change).
+                    When you use the DateValidator and did not specify a format it will now be what is configured in the
+                    formatter class instead of 'Y-m-d'.
+                    To get the old behavior of the DateValidator you have to set the format explicitly in your
+                    validation rule:</p>
+                    <pre><code class="language-php"><span style="color: #0000BB"></span><span
+                            style="color: #007700">[</span><span style="color: #DD0000">'attributeName'</span><span
+                            style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'date'</span><span
+                            style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'format'&nbsp;</span><span
+                            style="color: #007700">=&gt;&nbsp;</span><span
+                            style="color: #DD0000">'php:Y-m-d'</span><span style="color: #007700">],</span></code></pre>
+                </li>
+                <li><p><code>beforeValidate()</code>, <code>beforeValidateAll()</code>, <code>afterValidate()</code>,
+                    <code>afterValidateAll()</code>, <code>ajaxBeforeSend()</code> and <code>ajaxComplete()</code>
+                    are removed from <code>ActiveForm</code>. The same functionality is now achieved via JavaScript
+                    event mechanism like the following:</p>
+<pre><code class="language-js">$('#myform').on('beforeValidate', function (event, messages, deferreds) {
+    // called when the validation is triggered by submitting the form
+    // return false if you want to cancel the validation for the whole form
+    }).on('beforeValidateAttribute', function (event, attribute, messages, deferreds) {
+    // before validating an attribute
+    // return false if you want to cancel the validation for the attribute
+    }).on('afterValidateAttribute', function (event, attribute, messages) {
+    // ...
+    }).on('afterValidate', function (event, messages) {
+    // ...
+    }).on('beforeSubmit', function () {
+    // after all validations have passed
+    // you can do ajax form submission here
+    // return false if you want to stop form submission
+    });
+</code></pre>
+                </li>
+                <li><p>The signature of <code>View::registerJsFile()</code> and <code>View::registerCssFile()</code> has
+                    changed. The <code>$depends</code> and <code>$position</code>
+                    paramaters have been merged into <code>$options</code>. The new signatures are as follows:</p>
+                    <ul>
+                        <li><code>registerJsFile($url, $options = [], $key = null)</code></li>
+                        <li><code>registerCssFile($url, $options = [], $key = null)</code></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="toplink"><a href="#" class="h1" title="go to top"><span
+                    class="glyphicon glyphicon-arrow-up"></a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<footer class="footer">
+    <p class="pull-right">
+        <small>Page generated on Thu, 17 Dec 2015 12:13:42 +0000</small>
+    </p>
+    Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
+
+<script type="text/javascript">jQuery(document).ready(function () {
+    var shiftWindow = function () {
+        scrollBy(0, -50)
+    };
+    if (location.hash) shiftWindow();
+    window.addEventListener("hashchange", shiftWindow);
+    var element = document.createElement("script");
+    element.src = "./jssearch.index.js";
+    document.body.appendChild(element);
+
+    var searchBox = $('#searchbox');
+
+// search when typing in search field
+    searchBox.on("keyup", function (event) {
+        var query = $(this).val();
+
+        if (query == '' || event.which == 27) {
+            $('#search-resultbox').hide();
+            return;
+        } else if (event.which == 13) {
+            var selectedLink = $('#search-resultbox a.selected');
+            if (selectedLink.length != 0) {
+                document.location = selectedLink.attr('href');
+                return;
+            }
+        } else if (event.which == 38 || event.which == 40) {
+            $('#search-resultbox').show();
+
+            var selected = $('#search-resultbox a.selected');
+            if (selected.length == 0) {
+                $('#search-results').find('a').first().addClass('selected');
+            } else {
+                var next;
+                if (event.which == 40) {
+                    next = selected.parent().next().find('a').first();
+                } else {
+                    next = selected.parent().prev().find('a').first();
+                }
+                if (next.length != 0) {
+                    var resultbox = $('#search-results');
+                    var position = next.position();
+
+//              TODO scrolling is buggy and jumps around
+//                resultbox.scrollTop(Math.floor(position.top));
+//                console.log(position.top);
+
+                    selected.removeClass('selected');
+                    next.addClass('selected');
+                }
+            }
+
+            return;
+        }
+        $('#search-resultbox').show();
+        $('#search-results').html('<li><span class="no-results">No results</span></li>');
+
+        var result = jssearch.search(query);
+
+        if (result.length > 0) {
+            var i = 0;
+            var resHtml = '';
+
+            for (var key in result) {
+                if (i++ > 20) {
+                    break;
+                }
+                resHtml = resHtml +
+                        '<li><a href="' + result[key].file.u.substr(3) + '"><span class="title">' + result[key].file.t + '</span>' +
+                        '<span class="description">' + result[key].file.d + '</span></a></li>';
+            }
+            $('#search-results').html(resHtml);
+        }
+    });
+
+// hide the search results on ESC
+    $(document).on("keyup", function (event) {
+        if (event.which == 27) {
+            $('#search-resultbox').hide();
+        }
+    });
+// hide search results on click to document
+    $(document).bind('click', function (e) {
+        $('#search-resultbox').hide();
+    });
+// except the following:
+    searchBox.bind('click', function (e) {
+        e.stopPropagation();
+    });
+    $('#search-resultbox').bind('click', function (e) {
+        e.stopPropagation();
+    });
+
+});</script>
+</body>
+</html>

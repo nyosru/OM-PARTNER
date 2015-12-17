@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="language" content="en"/>
+    <link href="./assets/114fdeb5/css/bootstrap.css" rel="stylesheet">
+    <link href="./assets/43148881/style.css" rel="stylesheet">
+    <script src="./assets/d63c9aca/jquery.js"></script>
+    <script src="./assets/114fdeb5/js/bootstrap.js"></script>
+    <script src="./assets/5ad5289c/jssearch.js"></script>
+    <title>The Definitive Guide to Yii 2.0</title>
+</head>
+<body>
+
+<div class="wrap">
+    <nav id="w175" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w175-collapse"><span
+                    class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="./guide-index.html">The Definitive Guide to Yii 2.0</a></div>
+        <div id="w175-collapse" class="collapse navbar-collapse">
+            <ul id="w176" class="navbar-nav nav">
+                <li><a href="./guide-README.html">Guide</a></li>
+            </ul>
+            <div class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="search-resultbox" style="display: none;" class="modal-content">
+        <ul id="search-results">
+        </ul>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <div id="navigation" class="list-group"><a class="list-group-item" href="#navigation-174"
+                                                       data-toggle="collapse" data-parent="#navigation">Basic usage <b
+                    class="caret"></b></a>
+
+                <div id="navigation-174" class="submenu panel-collapse collapse in"></div>
+            </div>
+        </div>
+        <div class="col-md-9 guide-content" role="main">
+            <h1>this is to test dense blocks (no newlines between them) <a
+                    href="#this-is-to-test-dense-blocks-no-newlines-between-them"
+                    id="this-is-to-test-dense-blocks-no-newlines-between-them" class="hashlink">&para;</a></h1>
+            <hr/>
+            <h2>what is Markdown? <a href="#what-is-markdown" id="what-is-markdown" class="hashlink">&para;</a></h2>
+
+            <p>see <a href="http://en.wikipedia.org/wiki/Markdown">Wikipedia</a></p>
+
+            <h2>a h2 <a href="#a-h2" id="a-h2" class="hashlink">&para;</a></h2>
+
+            <p>paragraph</p>
+
+            <p>this is a paragraph, not a headline or list
+                next line</p>
+            <ul>
+                <li>whoo</li>
+            </ul>
+            <p>par</p>
+<pre><code>code
+    code
+</code></pre>
+            <p>par</p>
+
+            <h3>Tasks list <a href="#tasks-list" id="tasks-list" class="hashlink">&para;</a></h3>
+            <ul>
+                <li>list items</li>
+            </ul>
+            <h2>headline1 <a href="#headline1" id="headline1" class="hashlink">&para;</a></h2>
+            <blockquote><p>quote
+                quote</p>
+            </blockquote>
+            <h2>headline2 <a href="#headline2" id="headline2" class="hashlink">&para;</a></h2>
+            <hr/>
+            <h1>h1 <a href="#h1" id="h1" class="hashlink">&para;</a></h1>
+
+            <h2>h2 <a href="#h2" id="h2" class="hashlink">&para;</a></h2>
+            <hr/>
+            <h3>h3 <a href="#h3" id="h3" class="hashlink">&para;</a></h3>
+            <ol>
+                <li>ol1</li>
+                <li>ol2</li>
+            </ol>
+            <h4>h4 <a href="#h4" id="h4" class="hashlink">&para;</a></h4>
+            <ul>
+                <li>listA</li>
+                <li>listB</li>
+            </ul>
+            <h5>h5 <a href="#h5" id="h5" class="hashlink">&para;</a></h5><h6>h6 <a href="#h6" id="h6"
+                                                                                   class="hashlink">&para;</a></h6>
+            <hr/>
+            <hr/>
+            <h2>changelog 1 <a href="#changelog-1" id="changelog-1" class="hashlink">&para;</a></h2>
+            <ul>
+                <li>17-Feb-2013 re-design</li>
+            </ul>
+            <hr/>
+            <h2>changelog 2 <a href="#changelog-2" id="changelog-2" class="hashlink">&para;</a></h2>
+            <ul>
+                <li>17-Feb-2013 re-design</li>
+            </ul>
+            <div class="toplink"><a href="#" class="h1" title="go to top"><span
+                    class="glyphicon glyphicon-arrow-up"></a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<footer class="footer">
+    <p class="pull-right">
+        <small>Page generated on Thu, 17 Dec 2015 12:13:42 +0000</small>
+    </p>
+    Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a></footer>
+
+<script type="text/javascript">jQuery(document).ready(function () {
+    var shiftWindow = function () {
+        scrollBy(0, -50)
+    };
+    if (location.hash) shiftWindow();
+    window.addEventListener("hashchange", shiftWindow);
+    var element = document.createElement("script");
+    element.src = "./jssearch.index.js";
+    document.body.appendChild(element);
+
+    var searchBox = $('#searchbox');
+
+// search when typing in search field
+    searchBox.on("keyup", function (event) {
+        var query = $(this).val();
+
+        if (query == '' || event.which == 27) {
+            $('#search-resultbox').hide();
+            return;
+        } else if (event.which == 13) {
+            var selectedLink = $('#search-resultbox a.selected');
+            if (selectedLink.length != 0) {
+                document.location = selectedLink.attr('href');
+                return;
+            }
+        } else if (event.which == 38 || event.which == 40) {
+            $('#search-resultbox').show();
+
+            var selected = $('#search-resultbox a.selected');
+            if (selected.length == 0) {
+                $('#search-results').find('a').first().addClass('selected');
+            } else {
+                var next;
+                if (event.which == 40) {
+                    next = selected.parent().next().find('a').first();
+                } else {
+                    next = selected.parent().prev().find('a').first();
+                }
+                if (next.length != 0) {
+                    var resultbox = $('#search-results');
+                    var position = next.position();
+
+//              TODO scrolling is buggy and jumps around
+//                resultbox.scrollTop(Math.floor(position.top));
+//                console.log(position.top);
+
+                    selected.removeClass('selected');
+                    next.addClass('selected');
+                }
+            }
+
+            return;
+        }
+        $('#search-resultbox').show();
+        $('#search-results').html('<li><span class="no-results">No results</span></li>');
+
+        var result = jssearch.search(query);
+
+        if (result.length > 0) {
+            var i = 0;
+            var resHtml = '';
+
+            for (var key in result) {
+                if (i++ > 20) {
+                    break;
+                }
+                resHtml = resHtml +
+                        '<li><a href="' + result[key].file.u.substr(3) + '"><span class="title">' + result[key].file.t + '</span>' +
+                        '<span class="description">' + result[key].file.d + '</span></a></li>';
+            }
+            $('#search-results').html(resHtml);
+        }
+    });
+
+// hide the search results on ESC
+    $(document).on("keyup", function (event) {
+        if (event.which == 27) {
+            $('#search-resultbox').hide();
+        }
+    });
+// hide search results on click to document
+    $(document).bind('click', function (e) {
+        $('#search-resultbox').hide();
+    });
+// except the following:
+    searchBox.bind('click', function (e) {
+        e.stopPropagation();
+    });
+    $('#search-resultbox').bind('click', function (e) {
+        e.stopPropagation();
+    });
+
+});</script>
+</body>
+</html>
