@@ -9,6 +9,7 @@ use frontend\modules\admin\controllers\actions\ActionCancelorder;
 use frontend\modules\admin\controllers\actions\ActionCommentscontrol;
 use frontend\modules\admin\controllers\actions\ActionCommentspage;
 use frontend\modules\admin\controllers\actions\ActionDelegate;
+use frontend\modules\admin\controllers\actions\ActionDocuments;
 use frontend\modules\admin\controllers\actions\ActionIndex;
 use frontend\modules\admin\controllers\actions\ActionNewspage;
 use frontend\modules\admin\controllers\actions\ActionNewsupdate;
@@ -49,7 +50,8 @@ class DefaultController extends Controller
         ActionOrderUpdate,
         ActionPartnersCategories,
         ActionUserControl,
-        Categories_for_partner;
+        Categories_for_partner,
+        ActionDocuments;
 
     public function behaviors()
     {
@@ -58,7 +60,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orderupdate', 'usercontrol', 'newspage', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
+                        'actions' => ['index', 'orderupdate', 'usercontrol', 'newspage', 'documents', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
                             'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage', 'partnerscategories'],
                         'allow' => true,
                         'roles' => ['admin'],

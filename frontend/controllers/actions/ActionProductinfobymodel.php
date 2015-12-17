@@ -15,20 +15,20 @@ trait ActionProductinfobymodel
                 if (($model = (integer)Yii::$app->request->post('model')) == TRUE) {
                     $idstack = PartnersProducts::findAll(['products_model' => $model]);
                 } else {
-                    return ['1'];
+                    return ['exception' => '1'];
                 }
             } else {
-                return ['2'];
+                return ['exception' => '2'];
             }
         } else {
             if (($id = (integer)Yii::$app->request->getQueryParam('id')) == FALSE) {
                 if (($model = (integer)Yii::$app->request->getQueryParam('model')) == TRUE) {
                     $idstack = PartnersProducts::findAll(['products_model' => $model]);
                 } else {
-                    return ['3'];
+                    return ['exception' => 'Не указан артикул модели'];
                 }
             } else {
-                return ['4'];
+                return ['exception' => 'Не указан id модели'];
             }
         }
 
@@ -40,28 +40,36 @@ trait ActionProductinfobymodel
             } else {
                 $data = $data['data'];
             }
-
             if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
-                $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
+                $data['products']['products_price'] = (integer)($data['products']['products_price']) + ((integer)($data['products']['products_price']) / 100 * (integer)(Yii::$app->params['partnersset']['discount']['value']));
             }
-            return $data;
+            if ($data) {
+                return $data;
+            } else {
+                return ['exception' => 'Артикул не найден'];
+            }
         } else {
+            $stackdata = [];
+
             foreach ($idstack as $key => $value) {
-                $keyprod = Yii::$app->cache->buildKey('product-' . $value);
+                $keyprod = Yii::$app->cache->buildKey('product-' . $value->products_id);
                 $data = Yii::$app->cache->get($keyprod);
                 if (!$data) {
-                    $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_model` =:id', [':id' => $value])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->one();
+                    $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_model` =:id', [':id' => $value->products_id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->one();
                 } else {
                     $data = $data['data'];
                 }
 
-                if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
-                    $data['products']['products_price'] = (integer)($data['products']['products_price']) + ((integer)($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
+                if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1 && $data) {
+                    $data['products']['products_price'] = (integer)($data['products']['products_price']) + ((integer)($data['products']['products_price']) / 100 * (integer)(Yii::$app->params['partnersset']['discount']['value']));
                 }
                 $stackdata[] = $data;
             }
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $stackdata;
+            if ($stackdata) {
+                return $stackdata;
+            } else {
+                return ['exception' => 'Артикул не найден'];
+            }
         }
 
     }

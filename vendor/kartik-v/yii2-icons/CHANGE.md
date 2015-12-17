@@ -1,3 +1,11 @@
+version 1.4.1
+=============
+**Date:** 13-Dec-2015
+
+- (enh #17): Added method `getFrameworkPrefix`.
+- (enh #19): Update to add custom icon sets.
+- (enh #23): Add support for [Open Iconic Icons](https://useiconic.com/open#icons).
+
 version 1.4.0
 =============
 **Date:** 20-Apr-2015

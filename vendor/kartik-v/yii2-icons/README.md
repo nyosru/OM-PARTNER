@@ -19,6 +19,7 @@ This extension offers an easy method to setup various icon frameworks to work wi
 8. [Socicon Icons](http://www.socicon.com/): Needs you to add attribution to the icon source.
 9. [Octicons](https://octicons.github.com/): The Github icons collection.
 10. [Flag-Icons](http://lipis.github.io/flag-icon-css/)
+11. [Open Iconic Icons](https://useiconic.com/open#icons)
 
 ### Demo
 You can see a [demonstration here](http://demos.krajee.com/icons) on usage of this extension with documentation and examples.
@@ -33,16 +34,16 @@ Read this [web tip /wiki](http://webtips.krajee.com/setting-composer-minimum-sta
 Either run
 
 ```
-$ php composer.phar require kartik-v/yii2-icons "dev-master"
+$ php composer.phar require kartik-v/yii2-icons "@dev"
 ```
 
 or add
 
 ```
-"kartik-v/yii2-icons": "dev-master"
+"kartik-v/yii2-icons": "@dev"
 ```
 
-to the ```require``` section of your `composer.json` file.
+to the `require` section of your `composer.json` file.
 
 ## Usage
 
@@ -72,6 +73,7 @@ Icon::map($this, Icon::EL); // Maps the Elusive icon font framework
 ```
 
 ### Displaying Icons
+
 After mapping your icon framework with one of the options above, you can display icons using `Icon::show` method. Icons can be displayed using one of the options below:
 
 ```php
@@ -104,6 +106,7 @@ echo \yii\bootstrap\Nav::widget([
 ```
 
 ### Displaying Stacked Icons
+
 You can also display stacked icons for frameworks like Font Awesome, where this is supported. For example:
 
 ```php
@@ -115,6 +118,45 @@ Icon::showStack('square-o', 'twitter', ['class'=>'fa-lg']);
 Icon::showStack('circle', 'flag', ['class'=>'fa-lg'], ['class'=>'fa-inverse']);
 ```
 
+### Add Custom Icons
+
+You can add custom icon sets to the list of available frameworks.
+
+```php
+use kartik\icons\Icon;
+// add framework
+Icon::addFramework('custom', [
+    'class' => '\common\icons\CustomIconAsset',
+    'prefix' => 'custom-icon',
+]);
+
+// map to view file
+Icon::map($this, 'custom');
+
+// show the icon
+echo Icon::show('menu',[], 'custom');
+```
+
+```php
+namespace common\icons;
+class CustomIconAsset extends \yii\web\AssetBundle
+{
+    public $sourcePath = '@common/icons/assets/custom';
+    public $depends = array(
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset'
+    );
+    public $css=[
+        'css/animation.css',
+        'css/custom-codes.css',
+        'css/custom-embedded.css',
+        'css/custom-ie7.css',
+        'css/custom-ie7-codes.css',
+        'css/custom.css',
+    ];
+}
+```
+The above asset bundle uses files genereted by http://fontello.com/.
 
 ## License
 
