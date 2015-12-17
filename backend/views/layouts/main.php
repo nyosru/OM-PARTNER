@@ -8,7 +8,7 @@ use dmstr\helpers\AdminLteHelper;
     if (class_exists('backend\assets\AdminLteAsset')) {
         backend\assets\AdminLteAsset::register($this);
     } else {
-        app\assets\AppAsset::register($this);
+        backend\assets\AppAsset::register($this);
     }
 
 

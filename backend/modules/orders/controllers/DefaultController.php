@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\orders\controllers;
+namespace backend\modules\orders\controllers;
 
 use Yii;
 use yii\web\Controller;
@@ -43,8 +43,8 @@ class DefaultController extends Controller
 
         $orderlist = PartnersOrders::find()->asArray()->all();
     foreach($orderlist as $key => $value){
-        $orderlist[$key][order] = unserialize($value[order]);
-        $orderlist[$key][delivery] = unserialize($value[delivery]);
+        $orderlist[$key]['order'] = unserialize($value['order']);
+        $orderlist[$key]['delivery'] = unserialize($value['delivery']);
     }
         if($orderlist){
 

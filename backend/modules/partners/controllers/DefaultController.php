@@ -1,14 +1,14 @@
 <?php
 
-namespace app\modules\partners\controllers;
+namespace backend\modules\partners\controllers;
 
 use common\models\PartnersUsersInfo;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use common\models\Partners;
-use app\modules\partners\models\PartnersCategories;
-use app\modules\partners\models\PartnersCatDescription;
+use backend\modules\partners\models\PartnersCategories;
+use backend\modules\partners\models\PartnersCatDescription;
 use common\models\User;
 
 class DefaultController extends Controller
