@@ -5,12 +5,11 @@
  * Date: 15.12.15
  * Time: 13:52
  */
-use kartik\export\ExportColumnAsset;
-use kartik\grid\GridView;
 
+$runumber = new php_rutils\Numeral();
 
 $objPHPExcel = new \PHPExcel();
-$objPHPExcel = PHPExcel_IOFactory::load("blank_t_12.xls");
+$objPHPExcel = PHPExcel_IOFactory::load(__DIR__ . '/blank_t_12.xls');
 $objPHPExcel->getProperties()->setCreator(YII::$app->params['partnersset']['APP_NAME']);
 $objPHPExcel->getProperties()->setLastModifiedBy(YII::$app->params['partnersset']['APP_NAME']);
 $objPHPExcel->getProperties()->setTitle('ТОРГ-12. Заказ №' . $order['id']);
@@ -18,14 +17,14 @@ $objPHPExcel->getProperties()->setSubject('ТОРГ-12. Заказ №' . $order
 $objPHPExcel->getProperties()->setDescription('ТОРГ-12. Заказ №' . $order['id']);
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->setActiveSheetIndex(0)->setTitle('Накладная ТОРГ-12');
-$objPHPExcel->getActiveSheet()->SetCellValue('A7', Yii::$app->params['partnersset']['requisites']['value']['shortname'] . ', ' . Yii::$app->params['partnersset']['requisites']['value']['legaladdress'] . ', БИК: ' . Yii::$app->params['partnersset']['requisites']['value']['bik'] . ', К/С: ' . Yii::$app->params['partnersset']['requisites']['value']['ks'] . ', Р/С: ' . Yii::$app->params['partnersset']['requisites']['value']['rs']);
+$objPHPExcel->getActiveSheet()->SetCellValue('A7', Yii::$app->params['partnersset']['requisites']['value']['shortname'] . ', ' . Yii::$app->params['partnersset']['requisites']['value']['legaladdress'] . ', ИНН: ' . Yii::$app->params['partnersset']['requisites']['value']['inn'] . ', БИК: ' . Yii::$app->params['partnersset']['requisites']['value']['bik'] . ', К/С: ' . Yii::$app->params['partnersset']['requisites']['value']['ks'] . ', Р/С: ' . Yii::$app->params['partnersset']['requisites']['value']['rs']);
 $delivery = unserialize($order['delivery']);
 $objPHPExcel->getActiveSheet()->SetCellValue('L12', $delivery->lastname . ' ' . $delivery->name . ' ' . $delivery->secondname . ', ' . $delivery->country . ', ' . $delivery->state . ', ' . $delivery->adress . ', ' . $delivery->postcode);
-$objPHPExcel->getActiveSheet()->SetCellValue('I14', Yii::$app->params['partnersset']['requisites']['value']['shortname'] . ', ' . Yii::$app->params['partnersset']['requisites']['value']['legaladdress'] . ', БИК: ' . Yii::$app->params['partnersset']['requisites']['value']['bik'] . ', К/С: ' . Yii::$app->params['partnersset']['requisites']['value']['ks'] . ', Р/С: ' . Yii::$app->params['partnersset']['requisites']['value']['rs']);
+$objPHPExcel->getActiveSheet()->SetCellValue('I14', Yii::$app->params['partnersset']['requisites']['value']['shortname'] . ', ' . Yii::$app->params['partnersset']['requisites']['value']['legaladdress'] . ', ИНН: ' . Yii::$app->params['partnersset']['requisites']['value']['inn'] . ', БИК: ' . Yii::$app->params['partnersset']['requisites']['value']['bik'] . ', К/С: ' . Yii::$app->params['partnersset']['requisites']['value']['ks'] . ', Р/С: ' . Yii::$app->params['partnersset']['requisites']['value']['rs']);
 $objPHPExcel->getActiveSheet()->SetCellValue('I16', $delivery->lastname . ' ' . $delivery->name . ' ' . $delivery->secondname . ', ' . $delivery->country . ', ' . $delivery->state . ', ' . $delivery->adress . ', ' . $delivery->postcode);
 $objPHPExcel->getActiveSheet()->SetCellValue('I18', 'Договор');
 $objPHPExcel->getActiveSheet()->SetCellValue('AL26', $order['id'] . '-' . $order['user_id'] . '-' . date('Ymd'));
-$objPHPExcel->getActiveSheet()->SetCellValue('BI26', date('Y-m-d'));
+$objPHPExcel->getActiveSheet()->SetCellValue('BI26', date('d-m-Y'));
 $objPHPExcel->getActiveSheet()->SetCellValue('CF12', Yii::$app->params['partnersset']['requisites']['value']['okpo']);
 $ship = $order['ship'];
 $discount = $order['discount'];
@@ -123,32 +122,42 @@ foreach ($orderset as $key => $val) {
 
     $offset++;
 }
-if ($omfinalprice > 0) {
-    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $omfinalprice);
-    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $omfinalprice);
-    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 1), $omfinalprice);
-    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 2), $omfinalprice);
+if ($finalomprice > 0) {
+    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $finalomprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $finalomprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 1), $finalomprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 2), $finalomprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($rowpos + 16), $runumber->getInWordsInt($finalomprice));
 } else {
     $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $totalprice);
     $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $totalprice);
     $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 1), $totalprice);
     $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 2), $totalprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($rowpos + 16), $runumber->getInWordsInt($totalprice));
 }
+
+$objPHPExcel->getActiveSheet()->SetCellValue('J' . ($rowpos + 20), Yii::$app->params['partnersset']['requisites']['value']['chiefpost']);
+$objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($rowpos + 20), Yii::$app->params['partnersset']['requisites']['value']['chiefname']);
+$objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($rowpos + 22), Yii::$app->params['partnersset']['requisites']['value']['glavbuh']);
+$objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($rowpos + 24), Yii::$app->params['partnersset']['requisites']['value']['chiefname']);
+
+
 $objPHPExcel->getActiveSheet()->SetCellValue('AR' . ($rowpos + 1), $countprod);
 $objPHPExcel->getActiveSheet()->SetCellValue('AR' . ($rowpos + 2), $countprod);
 $objPHPExcel->getActiveSheet()->SetCellValue('BB' . ($rowpos + 1), $countprod);
 $objPHPExcel->getActiveSheet()->SetCellValue('BB' . ($rowpos + 2), $countprod);
-$objPHPExcel->getActiveSheet()->SetCellValue('O' . ($rowpos + 5), $count);
-$objPHPExcel->getActiveSheet()->SetCellValue('K' . ($rowpos + 11), $count);
+$objPHPExcel->getActiveSheet()->SetCellValue('O' . ($rowpos + 5), $runumber->getInWordsInt($count));
+$objPHPExcel->getActiveSheet()->SetCellValue('K' . ($rowpos + 11), $runumber->getInWordsInt($count, \php_rutils\RUtils::NEUTER));
 //echo date('H:i:s') . " Rename sheet\n";
 $objPHPExcel->getActiveSheet()->setTitle('ТОРГ-12');
+
 
 // Save Excel 2007 file
 //echo date('H:i:s') . " Write to Excel2007 format\n";
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 $objWr = new PHPExcel_Writer_Excel5($objPHPExcel);
 
-$objWr->save('rt.xls');
+$objWr->save('rt2.xls');
 
 // Echo done
 //echo date('H:i:s') . " Done writing file.\r\n";
