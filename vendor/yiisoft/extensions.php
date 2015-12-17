@@ -75,15 +75,6 @@ return array(
                     '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
                 ),
         ),
-    'kartik-v/yii2-icons' =>
-        array(
-            'name' => 'kartik-v/yii2-icons',
-            'version' => '9999999-dev',
-            'alias' =>
-                array(
-                    '@kartik/icons' => $vendorDir . '/kartik-v/yii2-icons',
-                ),
-        ),
     '2amigos/yii2-ckeditor-widget' =>
         array(
             'name' => '2amigos/yii2-ckeditor-widget',
@@ -145,6 +136,15 @@ return array(
             'alias' =>
                 array(
                     '@kartik/export' => $vendorDir . '/kartik-v/yii2-export',
+                ),
+        ),
+    'kartik-v/yii2-icons' =>
+        array(
+            'name' => 'kartik-v/yii2-icons',
+            'version' => '1.4.1.0',
+            'alias' =>
+                array(
+                    '@kartik/icons' => $vendorDir . '/kartik-v/yii2-icons',
                 ),
         ),
 );

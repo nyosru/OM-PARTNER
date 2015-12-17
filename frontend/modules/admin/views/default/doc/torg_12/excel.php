@@ -18,24 +18,15 @@ $objPHPExcel->getProperties()->setSubject('ТОРГ-12. Заказ №' . $order
 $objPHPExcel->getProperties()->setDescription('ТОРГ-12. Заказ №' . $order['id']);
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->setActiveSheetIndex(0)->setTitle('Накладная ТОРГ-12');
-$objPHPExcel->getActiveSheet()->SetCellValue('A7', 'Отправитель');
+$objPHPExcel->getActiveSheet()->SetCellValue('A7', Yii::$app->params['partnersset']['requisites']['value']['shortname'] . ', ' . Yii::$app->params['partnersset']['requisites']['value']['legaladdress'] . ', БИК: ' . Yii::$app->params['partnersset']['requisites']['value']['bik'] . ', К/С: ' . Yii::$app->params['partnersset']['requisites']['value']['ks'] . ', Р/С: ' . Yii::$app->params['partnersset']['requisites']['value']['rs']);
 $delivery = unserialize($order['delivery']);
 $objPHPExcel->getActiveSheet()->SetCellValue('L12', $delivery->lastname . ' ' . $delivery->name . ' ' . $delivery->secondname . ', ' . $delivery->country . ', ' . $delivery->state . ', ' . $delivery->adress . ', ' . $delivery->postcode);
-$objPHPExcel->getActiveSheet()->SetCellValue('I14', 'Поставщик');
+$objPHPExcel->getActiveSheet()->SetCellValue('I14', Yii::$app->params['partnersset']['requisites']['value']['shortname'] . ', ' . Yii::$app->params['partnersset']['requisites']['value']['legaladdress'] . ', БИК: ' . Yii::$app->params['partnersset']['requisites']['value']['bik'] . ', К/С: ' . Yii::$app->params['partnersset']['requisites']['value']['ks'] . ', Р/С: ' . Yii::$app->params['partnersset']['requisites']['value']['rs']);
 $objPHPExcel->getActiveSheet()->SetCellValue('I16', $delivery->lastname . ' ' . $delivery->name . ' ' . $delivery->secondname . ', ' . $delivery->country . ', ' . $delivery->state . ', ' . $delivery->adress . ', ' . $delivery->postcode);
 $objPHPExcel->getActiveSheet()->SetCellValue('I18', 'Договор');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF10', 'Форма по ОКДП');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF12', 'Форма по ОКПО1');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF13', 'Форма по ОКПО2');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF15', 'Форма по ОКПО3');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF17', 'ТН-Номер');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF19', 'ТН-Дата');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF21', 'ТН-Номер2');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF22', 'ТН-дата2');
-$objPHPExcel->getActiveSheet()->SetCellValue('CF23', 'Вид операции');
 $objPHPExcel->getActiveSheet()->SetCellValue('AL26', $order['id'] . '-' . $order['user_id'] . '-' . date('Ymd'));
 $objPHPExcel->getActiveSheet()->SetCellValue('BI26', date('Y-m-d'));
-$objPHPExcel->getActiveSheet()->SetCellValue('O66', 'Содержит записей');
+$objPHPExcel->getActiveSheet()->SetCellValue('CF12', Yii::$app->params['partnersset']['requisites']['value']['okpo']);
 $ship = $order['ship'];
 $discount = $order['discount'];
 $discounttotalprice = $order['discounttotalprice'];
@@ -44,18 +35,55 @@ $orderset = unserialize($order['order']);
 unset($orderset['ship'], $orderset['discount'], $orderset['discounttotalprice'], $orderset['paymentmethod']);
 $start = 31;
 $offset = 0;
+$countprod = 0;
+$totalprice = 0;
+$totalomquant = 0;
+$totalomcount = 0;
+$finalomprice = 0;
+$omfinalprice = 0;
 foreach ($orderset as $key => $val) {
+    $positionquantity = $order['oMOrdersProducts'][$key]['products_quantity'] + $order['oMOrdersProductsSP'][$key]['products_quantity'];
+    $price = round($val[3] - $val[3] / 100 * $discounttotalprice);
+    $count++;
+    $countprod += $val[4];
+    $totalprice += $price * $val[4];
     $rowpos = $start + $offset;
+    if ($order['oMOrdersProducts']) {
+        $ompriceprod = round($order['oMOrdersProducts'][$key]['products_price']);
+        $omprice = $ompriceprod;
+        $omfinalquant = $positionquantity;
+        if ($positionquantity > 0) {
+            $omfinalprice += ($ompriceprod * $positionquantity);
+            $totalomcount++;
+            $totalomquant += $positionquantity;
+            $finalomprice += $price * $positionquantity;
+        } else {
+
+        }
+    } else {
+        $omprice = '';
+        $omfinalquant = '';
+    }
     $objPHPExcel->getActiveSheet()->insertNewRowBefore($rowpos, 1);
-    $objPHPExcel->getActiveSheet()->getRowDimension($rowpos + 1)->setRowHeight(-1);
+    if ($val[6] != 'undefined') {
+        $size = ' Размер: ' . $val[6];
+    } else {
+        $size = '';
+    }
+    if (!$positionquantity > 0) {
+        $positionquantity = $val[4];
+    }
+    $positiondatastring = $val[7] . ' Артикул: ' . $val[1] . $size;
+    $rowheight = mb_strlen($positiondatastring) / 2.5;
+    $objPHPExcel->getActiveSheet()->getRowDimension($rowpos)->setRowHeight($rowheight);
     $objPHPExcel->getActiveSheet()->mergeCells('A' . $rowpos . ':C' . $rowpos);
     $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowpos, ($offset + 1));
 
     $objPHPExcel->getActiveSheet()->mergeCells('D' . $rowpos . ':S' . $rowpos);
-    $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowpos, $val[7] . PHP_EOL . 'Артикул: ' . $val[1]);
+    $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowpos, $positiondatastring);
+    $objPHPExcel->getActiveSheet()->getStyle('D' . $rowpos)->getAlignment()->setWrapText(true);
 
     $objPHPExcel->getActiveSheet()->mergeCells('T' . $rowpos . ':W' . $rowpos);
-    $objPHPExcel->getActiveSheet()->SetCellValue('T' . $rowpos, $val[1]);
 
     $objPHPExcel->getActiveSheet()->mergeCells('X' . $rowpos . ':AB' . $rowpos);
     $objPHPExcel->getActiveSheet()->SetCellValue('X' . $rowpos, 'шт.');
@@ -82,7 +110,7 @@ foreach ($orderset as $key => $val) {
     $objPHPExcel->getActiveSheet()->SetCellValue('BH' . $rowpos, $val[3]);
 
     $objPHPExcel->getActiveSheet()->mergeCells('BQ' . $rowpos . ':BW' . $rowpos);
-    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . $rowpos, $val[3]);
+    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . $rowpos, $val[3] * $val[4]);
 
     $objPHPExcel->getActiveSheet()->mergeCells('BX' . $rowpos . ':CA' . $rowpos);
     $objPHPExcel->getActiveSheet()->SetCellValue('BX' . $rowpos, '0');
@@ -91,20 +119,36 @@ foreach ($orderset as $key => $val) {
     $objPHPExcel->getActiveSheet()->SetCellValue('CB' . $rowpos, '0');
 
     $objPHPExcel->getActiveSheet()->mergeCells('CI' . $rowpos . ':CQ' . $rowpos);
-    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . $rowpos, $val[3]);
+    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . $rowpos, $val[3] * $val[4]);
 
     $offset++;
 }
-
-
+if ($omfinalprice > 0) {
+    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $omfinalprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $omfinalprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 1), $omfinalprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 2), $omfinalprice);
+} else {
+    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $totalprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $totalprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 1), $totalprice);
+    $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 2), $totalprice);
+}
+$objPHPExcel->getActiveSheet()->SetCellValue('AR' . ($rowpos + 1), $countprod);
+$objPHPExcel->getActiveSheet()->SetCellValue('AR' . ($rowpos + 2), $countprod);
+$objPHPExcel->getActiveSheet()->SetCellValue('BB' . ($rowpos + 1), $countprod);
+$objPHPExcel->getActiveSheet()->SetCellValue('BB' . ($rowpos + 2), $countprod);
+$objPHPExcel->getActiveSheet()->SetCellValue('O' . ($rowpos + 5), $count);
+$objPHPExcel->getActiveSheet()->SetCellValue('K' . ($rowpos + 11), $count);
 //echo date('H:i:s') . " Rename sheet\n";
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
+$objPHPExcel->getActiveSheet()->setTitle('ТОРГ-12');
 
 // Save Excel 2007 file
 //echo date('H:i:s') . " Write to Excel2007 format\n";
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+$objWr = new PHPExcel_Writer_Excel5($objPHPExcel);
 
-$objWriter->save('rt.xslx');
+$objWr->save('rt.xls');
 
 // Echo done
 //echo date('H:i:s') . " Done writing file.\r\n";
