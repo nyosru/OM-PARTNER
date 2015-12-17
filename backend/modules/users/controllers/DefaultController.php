@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\users\controllers;
+namespace backend\modules\users\controllers;
 
 use common\models\PartnersUsersInfo;
 use common\models\User;
