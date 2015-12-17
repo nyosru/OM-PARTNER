@@ -3049,7 +3049,7 @@ Array
         (
             [line] => 32
             [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/DefaultController.php
-            [message] => No docblock for element 'app\modules\admin\controllers\DefaultController'
+            [message] => No docblock for element 'frontend\modules\admin\controllers\DefaultController'
         )
 
     [436] => Array

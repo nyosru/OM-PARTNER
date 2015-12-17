@@ -2,1870 +2,3452 @@ Array
 (
     [0] => Array
         (
-            [line] => 56
-            [file] => ..\..\backend\admin\controllers\SiteController.php
+            [line] => 60
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/admin/controllers/SiteController.php
             [message] => No docblock for element 'actionIndex'
         )
 
     [1] => Array
         (
-            [line] => 61
-            [file] => ..\..\backend\admin\controllers\SiteController.php
+            [line] => 65
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/admin/controllers/SiteController.php
             [message] => No docblock for element 'actionLogin'
         )
 
     [2] => Array
         (
-            [line] => 77
-            [file] => ..\..\backend\admin\controllers\SiteController.php
+            [line] => 81
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/admin/controllers/SiteController.php
             [message] => No docblock for element 'actionLogout'
         )
 
     [3] => Array
         (
             [line] => 13
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No docblock for element '$sourcePath'
         )
 
     [4] => Array
         (
             [line] => 13
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No short description for element '$sourcePath'
         )
 
     [5] => Array
         (
             [line] => 14
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No docblock for element '$css'
         )
 
     [6] => Array
         (
             [line] => 14
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No short description for element '$css'
         )
 
     [7] => Array
         (
             [line] => 19
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No docblock for element '$js'
         )
 
     [8] => Array
         (
             [line] => 19
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No short description for element '$js'
         )
 
     [9] => Array
         (
             [line] => 26
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No docblock for element '$depends'
         )
 
     [10] => Array
         (
             [line] => 26
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No short description for element '$depends'
         )
 
     [11] => Array
         (
             [line] => 33
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No docblock for element '$jsOptions'
         )
 
     [12] => Array
         (
             [line] => 33
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => No short description for element '$jsOptions'
         )
 
     [13] => Array
         (
             [line] => 44
-            [file] => ..\..\backend\assets\AdminLteAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AdminLteAsset.php
             [message] => Method init has no parent to inherit from in backend\assets\AdminLteAsset.
         )
 
     [14] => Array
         (
             [line] => 18
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No docblock for element '$basePath'
         )
 
     [15] => Array
         (
             [line] => 18
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No short description for element '$basePath'
         )
 
     [16] => Array
         (
             [line] => 19
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No docblock for element '$baseUrl'
         )
 
     [17] => Array
         (
             [line] => 19
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No short description for element '$baseUrl'
         )
 
     [18] => Array
         (
             [line] => 20
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No docblock for element '$css'
         )
 
     [19] => Array
         (
             [line] => 20
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No short description for element '$css'
         )
 
     [20] => Array
         (
             [line] => 23
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No docblock for element '$js'
         )
 
     [21] => Array
         (
             [line] => 23
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No short description for element '$js'
         )
 
     [22] => Array
         (
             [line] => 25
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No docblock for element '$depends'
         )
 
     [23] => Array
         (
             [line] => 25
-            [file] => ..\..\backend\assets\AppAsset.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/assets/AppAsset.php
             [message] => No short description for element '$depends'
         )
 
     [24] => Array
         (
-            [line] => 18
-            [file] => ..\..\backend\controllers\SiteController.php
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/controllers/SiteController.php
             [message] => Method behaviors has no parent to inherit from in backend\controllers\SiteController.
         )
 
     [25] => Array
         (
-            [line] => 49
-            [file] => ..\..\backend\controllers\SiteController.php
+            [line] => 53
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/controllers/SiteController.php
             [message] => Method actions has no parent to inherit from in backend\controllers\SiteController.
         )
 
     [26] => Array
         (
-            [line] => 58
-            [file] => ..\..\backend\controllers\SiteController.php
+            [line] => 66
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/controllers/SiteController.php
             [message] => No docblock for element 'actionIndex'
         )
 
     [27] => Array
         (
-            [line] => 63
-            [file] => ..\..\backend\controllers\SiteController.php
+            [line] => 71
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/controllers/SiteController.php
             [message] => No docblock for element 'actionLogin'
         )
 
     [28] => Array
         (
-            [line] => 78
-            [file] => ..\..\backend\controllers\SiteController.php
+            [line] => 89
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/controllers/SiteController.php
             [message] => No docblock for element 'actionLogout'
         )
 
     [29] => Array
         (
             [line] => 5
-            [file] => ..\..\backend\modules\calendar\Calendar.php
-            [message] => No docblock for element 'app\modules\Calendar\Calendar'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/calendar/Calendar.php
+            [message] => No docblock for element 'backend\modules\Calendar\Calendar'
         )
 
     [30] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\calendar\Calendar.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/calendar/Calendar.php
             [message] => No docblock for element '$controllerNamespace'
         )
 
     [31] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\calendar\Calendar.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/calendar/Calendar.php
             [message] => No short description for element '$controllerNamespace'
         )
 
     [32] => Array
         (
             [line] => 10
-            [file] => ..\..\backend\modules\calendar\controllers\DefaultController.php
-            [message] => No docblock for element 'app\modules\calendar\controllers\DefaultController'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/calendar/controllers/DefaultController.php
+            [message] => No docblock for element 'backend\modules\calendar\controllers\DefaultController'
         )
 
     [33] => Array
         (
             [line] => 13
-            [file] => ..\..\backend\modules\calendar\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/calendar/controllers/DefaultController.php
             [message] => No docblock for element 'behaviors'
         )
 
     [34] => Array
         (
             [line] => 30
-            [file] => ..\..\backend\modules\calendar\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/calendar/controllers/DefaultController.php
             [message] => No docblock for element 'actionIndex'
         )
 
     [35] => Array
         (
             [line] => 5
-            [file] => ..\..\backend\modules\orders\Orders.php
-            [message] => No docblock for element 'app\modules\Orders\Orders'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/orders/Orders.php
+            [message] => No docblock for element 'backend\modules\Orders\Orders'
         )
 
     [36] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\orders\Orders.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/orders/Orders.php
             [message] => No docblock for element '$controllerNamespace'
         )
 
     [37] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\orders\Orders.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/orders/Orders.php
             [message] => No short description for element '$controllerNamespace'
         )
 
     [38] => Array
         (
             [line] => 11
-            [file] => ..\..\backend\modules\orders\controllers\DefaultController.php
-            [message] => No docblock for element 'app\modules\orders\controllers\DefaultController'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/orders/controllers/DefaultController.php
+            [message] => No docblock for element 'backend\modules\orders\controllers\DefaultController'
         )
 
     [39] => Array
         (
             [line] => 14
-            [file] => ..\..\backend\modules\orders\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/orders/controllers/DefaultController.php
             [message] => No docblock for element 'behaviors'
         )
 
     [40] => Array
         (
             [line] => 36
-            [file] => ..\..\backend\modules\orders\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/orders/controllers/DefaultController.php
             [message] => No docblock for element 'actionIndex'
         )
 
     [41] => Array
         (
             [line] => 41
-            [file] => ..\..\backend\modules\orders\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/orders/controllers/DefaultController.php
             [message] => No docblock for element 'actionOrderslist'
         )
 
     [42] => Array
         (
             [line] => 5
-            [file] => ..\..\backend\modules\partners\Partners.php
-            [message] => No docblock for element 'app\modules\partners\Partners'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/Partners.php
+            [message] => No docblock for element 'backend\modules\partners\Partners'
         )
 
     [43] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\partners\Partners.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/Partners.php
             [message] => No docblock for element '$controllerNamespace'
         )
 
     [44] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\partners\Partners.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/Partners.php
             [message] => No short description for element '$controllerNamespace'
         )
 
     [45] => Array
         (
             [line] => 14
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
-            [message] => No docblock for element 'app\modules\partners\controllers\DefaultController'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
+            [message] => No docblock for element 'backend\modules\partners\controllers\DefaultController'
         )
 
     [46] => Array
         (
             [line] => 17
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'behaviors'
         )
 
     [47] => Array
         (
             [line] => 34
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'Getdata'
         )
 
     [48] => Array
         (
             [line] => 41
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionGetDBdata'
         )
 
     [49] => Array
         (
             [line] => 48
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'stepdata'
         )
 
     [50] => Array
         (
             [line] => 55
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionIndex'
         )
 
     [51] => Array
         (
             [line] => 74
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionSave'
         )
 
     [52] => Array
         (
             [line] => 93
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionUpdate'
         )
 
     [53] => Array
         (
             [line] => 111
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionSavecateg'
         )
 
     [54] => Array
         (
             [line] => 131
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionGetpartnerscategories'
         )
 
     [55] => Array
         (
             [line] => 141
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionUsersforaddrequest'
         )
 
     [56] => Array
         (
             [line] => 148
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionUsersaddadmin'
         )
 
     [57] => Array
         (
             [line] => 160
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionUsersadmin'
         )
 
     [58] => Array
         (
             [line] => 167
-            [file] => ..\..\backend\modules\partners\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/controllers/DefaultController.php
             [message] => No docblock for element 'actionUsersdeladmin'
         )
 
     [59] => Array
         (
             [line] => 22
-            [file] => ..\..\backend\modules\partners\models\Partners.php
-            [message] => Method tableName has no parent to inherit from in app\modules\partners\models\Partners.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/Partners.php
+            [message] => Method tableName has no parent to inherit from in backend\modules\partners\models\Partners.
         )
 
     [60] => Array
         (
             [line] => 30
-            [file] => ..\..\backend\modules\partners\models\Partners.php
-            [message] => Method rules has no parent to inherit from in app\modules\partners\models\Partners.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/Partners.php
+            [message] => Method rules has no parent to inherit from in backend\modules\partners\models\Partners.
         )
 
     [61] => Array
         (
             [line] => 44
-            [file] => ..\..\backend\modules\partners\models\Partners.php
-            [message] => Method attributeLabels has no parent to inherit from in app\modules\partners\models\Partners.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/Partners.php
+            [message] => Method attributeLabels has no parent to inherit from in backend\modules\partners\models\Partners.
         )
 
     [62] => Array
         (
             [line] => 24
-            [file] => ..\..\backend\modules\partners\models\PartnersCatDescription.php
-            [message] => Method tableName has no parent to inherit from in app\modules\partners\models\PartnersCatDescription.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/PartnersCatDescription.php
+            [message] => Method tableName has no parent to inherit from in backend\modules\partners\models\PartnersCatDescription.
         )
 
     [63] => Array
         (
             [line] => 32
-            [file] => ..\..\backend\modules\partners\models\PartnersCatDescription.php
-            [message] => Method rules has no parent to inherit from in app\modules\partners\models\PartnersCatDescription.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/PartnersCatDescription.php
+            [message] => Method rules has no parent to inherit from in backend\modules\partners\models\PartnersCatDescription.
         )
 
     [64] => Array
         (
             [line] => 45
-            [file] => ..\..\backend\modules\partners\models\PartnersCatDescription.php
-            [message] => Method attributeLabels has no parent to inherit from in app\modules\partners\models\PartnersCatDescription.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/PartnersCatDescription.php
+            [message] => Method attributeLabels has no parent to inherit from in backend\modules\partners\models\PartnersCatDescription.
         )
 
     [65] => Array
         (
             [line] => 30
-            [file] => ..\..\backend\modules\partners\models\PartnersCategories.php
-            [message] => Method tableName has no parent to inherit from in app\modules\partners\models\PartnersCategories.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/PartnersCategories.php
+            [message] => Method tableName has no parent to inherit from in backend\modules\partners\models\PartnersCategories.
         )
 
     [66] => Array
         (
             [line] => 38
-            [file] => ..\..\backend\modules\partners\models\PartnersCategories.php
-            [message] => Method rules has no parent to inherit from in app\modules\partners\models\PartnersCategories.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/PartnersCategories.php
+            [message] => Method rules has no parent to inherit from in backend\modules\partners\models\PartnersCategories.
         )
 
     [67] => Array
         (
             [line] => 52
-            [file] => ..\..\backend\modules\partners\models\PartnersCategories.php
-            [message] => Method attributeLabels has no parent to inherit from in app\modules\partners\models\PartnersCategories.
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/PartnersCategories.php
+            [message] => Method attributeLabels has no parent to inherit from in backend\modules\partners\models\PartnersCategories.
         )
 
     [68] => Array
         (
             [line] => 71
-            [file] => ..\..\backend\modules\partners\models\PartnersCategories.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/partners/models/PartnersCategories.php
             [message] => No docblock for element 'PrepareData'
         )
 
     [69] => Array
         (
             [line] => 5
-            [file] => ..\..\backend\modules\users\Users.php
-            [message] => No docblock for element 'app\modules\Users\Users'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/users/Users.php
+            [message] => No docblock for element 'backend\modules\Users\Users'
         )
 
     [70] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\users\Users.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/users/Users.php
             [message] => No docblock for element '$controllerNamespace'
         )
 
     [71] => Array
         (
             [line] => 7
-            [file] => ..\..\backend\modules\users\Users.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/users/Users.php
             [message] => No short description for element '$controllerNamespace'
         )
 
     [72] => Array
         (
             [line] => 12
-            [file] => ..\..\backend\modules\users\controllers\DefaultController.php
-            [message] => No docblock for element 'app\modules\users\controllers\DefaultController'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/users/controllers/DefaultController.php
+            [message] => No docblock for element 'backend\modules\users\controllers\DefaultController'
         )
 
     [73] => Array
         (
             [line] => 15
-            [file] => ..\..\backend\modules\users\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/users/controllers/DefaultController.php
             [message] => No docblock for element 'behaviors'
         )
 
     [74] => Array
         (
             [line] => 38
-            [file] => ..\..\backend\modules\users\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/users/controllers/DefaultController.php
             [message] => No docblock for element 'actionIndex'
         )
 
     [75] => Array
         (
             [line] => 43
-            [file] => ..\..\backend\modules\users\controllers\DefaultController.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/backend/modules/users/controllers/DefaultController.php
             [message] => No docblock for element 'actionUserslist'
         )
 
     [76] => Array
         (
             [line] => 35
-            [file] => ..\..\common\models\AddressBook.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/AddressBook.php
             [message] => Method tableName has no parent to inherit from in common\models\AddressBook.
         )
 
     [77] => Array
         (
             [line] => 43
-            [file] => ..\..\common\models\AddressBook.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/AddressBook.php
             [message] => Method rules has no parent to inherit from in common\models\AddressBook.
         )
 
     [78] => Array
         (
             [line] => 62
-            [file] => ..\..\common\models\AddressBook.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/AddressBook.php
             [message] => Method attributeLabels has no parent to inherit from in common\models\AddressBook.
         )
 
     [79] => Array
         (
             [line] => 87
-            [file] => ..\..\common\models\AddressBook.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/AddressBook.php
             [message] => No docblock for element 'GetId'
         )
 
     [80] => Array
         (
             [line] => 44
-            [file] => ..\..\common\models\AdminCompanies.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/AdminCompanies.php
             [message] => Method tableName has no parent to inherit from in common\models\AdminCompanies.
         )
 
     [81] => Array
         (
             [line] => 52
-            [file] => ..\..\common\models\AdminCompanies.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/AdminCompanies.php
             [message] => Method rules has no parent to inherit from in common\models\AdminCompanies.
         )
 
     [82] => Array
         (
             [line] => 71
-            [file] => ..\..\common\models\AdminCompanies.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/AdminCompanies.php
             [message] => Method attributeLabels has no parent to inherit from in common\models\AdminCompanies.
         )
 
     [83] => Array
         (
             [line] => 21
-            [file] => ..\..\common\models\Countries.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Countries.php
             [message] => Method tableName has no parent to inherit from in common\models\Countries.
         )
 
     [84] => Array
         (
             [line] => 29
-            [file] => ..\..\common\models\Countries.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Countries.php
             [message] => Method rules has no parent to inherit from in common\models\Countries.
         )
 
     [85] => Array
         (
             [line] => 43
-            [file] => ..\..\common\models\Countries.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Countries.php
             [message] => Method attributeLabels has no parent to inherit from in common\models\Countries.
         )
 
     [86] => Array
         (
             [line] => 54
-            [file] => ..\..\common\models\Countries.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Countries.php
             [message] => No docblock for element 'getZones'
         )
 
     [87] => Array
         (
             [line] => 45
-            [file] => ..\..\common\models\Customers.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Customers.php
             [message] => Method tableName has no parent to inherit from in common\models\Customers.
         )
 
     [88] => Array
         (
             [line] => 53
-            [file] => ..\..\common\models\Customers.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Customers.php
             [message] => Method rules has no parent to inherit from in common\models\Customers.
         )
 
     [89] => Array
         (
             [line] => 74
-            [file] => ..\..\common\models\Customers.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Customers.php
             [message] => Method attributeLabels has no parent to inherit from in common\models\Customers.
         )
 
     [90] => Array
         (
             [line] => 108
-            [file] => ..\..\common\models\Customers.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Customers.php
             [message] => No docblock for element 'GetId'
         )
 
     [91] => Array
         (
             [line] => 22
-            [file] => ..\..\common\models\CustomersInfo.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/CustomersInfo.php
             [message] => Method tableName has no parent to inherit from in common\models\CustomersInfo.
         )
 
     [92] => Array
         (
             [line] => 30
-            [file] => ..\..\common\models\CustomersInfo.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/CustomersInfo.php
             [message] => Method rules has no parent to inherit from in common\models\CustomersInfo.
         )
 
     [93] => Array
         (
             [line] => 42
-            [file] => ..\..\common\models\CustomersInfo.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/CustomersInfo.php
             [message] => Method attributeLabels has no parent to inherit from in common\models\CustomersInfo.
         )
 
     [94] => Array
         (
             [line] => 12
-            [file] => ..\..\common\models\LoginForm.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
             [message] => No docblock for element '$username'
         )
 
     [95] => Array
         (
             [line] => 12
-            [file] => ..\..\common\models\LoginForm.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
             [message] => No short description for element '$username'
         )
 
     [96] => Array
         (
             [line] => 13
-            [file] => ..\..\common\models\LoginForm.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
             [message] => No docblock for element '$password'
         )
 
     [97] => Array
         (
             [line] => 13
-            [file] => ..\..\common\models\LoginForm.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
             [message] => No short description for element '$password'
         )
 
     [98] => Array
         (
             [line] => 14
-            [file] => ..\..\common\models\LoginForm.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
             [message] => No docblock for element '$rememberMe'
         )
 
     [99] => Array
         (
             [line] => 14
-            [file] => ..\..\common\models\LoginForm.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
             [message] => No short description for element '$rememberMe'
         )
 
     [100] => Array
         (
-            [line] => 21
-            [file] => ..\..\common\models\LoginForm.php
-            [message] => Method rules has no parent to inherit from in common\models\LoginForm.
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
+            [message] => No docblock for element '$captcha'
         )
 
     [101] => Array
         (
-            [line] => 41
-            [file] => ..\..\common\models\LoginForm.php
-            [message] => Undefined parameter documented: $attribute in validatePassword().
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
+            [message] => No short description for element '$captcha'
         )
 
     [102] => Array
         (
-            [line] => 41
-            [file] => ..\..\common\models\LoginForm.php
-            [message] => Undefined parameter documented: $params in validatePassword().
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
+            [message] => Method rules has no parent to inherit from in common\models\LoginForm.
         )
 
     [103] => Array
         (
-            [line] => 44
-            [file] => ..\..\common\models\Manufacturers.php
-            [message] => Method tableName has no parent to inherit from in common\models\Manufacturers.
+            [line] => 42
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
+            [message] => Undefined parameter documented: $attribute in validatePassword().
         )
 
     [104] => Array
         (
-            [line] => 52
-            [file] => ..\..\common\models\Manufacturers.php
-            [message] => Method rules has no parent to inherit from in common\models\Manufacturers.
+            [line] => 42
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/LoginForm.php
+            [message] => Undefined parameter documented: $params in validatePassword().
         )
 
     [105] => Array
         (
-            [line] => 65
-            [file] => ..\..\common\models\Manufacturers.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\Manufacturers.
+            [line] => 44
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Manufacturers.php
+            [message] => Method tableName has no parent to inherit from in common\models\Manufacturers.
         )
 
     [106] => Array
         (
-            [line] => 82
-            [file] => ..\..\common\models\Orders.php
-            [message] => Method tableName has no parent to inherit from in common\models\Orders.
+            [line] => 52
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Manufacturers.php
+            [message] => Method rules has no parent to inherit from in common\models\Manufacturers.
         )
 
     [107] => Array
         (
-            [line] => 90
-            [file] => ..\..\common\models\Orders.php
-            [message] => Method rules has no parent to inherit from in common\models\Orders.
+            [line] => 65
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Manufacturers.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\Manufacturers.
         )
 
     [108] => Array
         (
-            [line] => 115
-            [file] => ..\..\common\models\Orders.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\Orders.
+            [line] => 82
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Orders.php
+            [message] => Method tableName has no parent to inherit from in common\models\Orders.
         )
 
     [109] => Array
         (
-            [line] => 187
-            [file] => ..\..\common\models\Orders.php
-            [message] => No docblock for element 'GetId'
+            [line] => 90
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Orders.php
+            [message] => Method rules has no parent to inherit from in common\models\Orders.
         )
 
     [110] => Array
         (
-            [line] => 191
-            [file] => ..\..\common\models\Orders.php
-            [message] => No docblock for element 'getProducts'
+            [line] => 115
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Orders.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\Orders.
         )
 
     [111] => Array
         (
-            [line] => 195
-            [file] => ..\..\common\models\Orders.php
-            [message] => No docblock for element 'getProductsAttr'
+            [line] => 187
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Orders.php
+            [message] => No docblock for element 'GetId'
         )
 
     [112] => Array
         (
-            [line] => 25
-            [file] => ..\..\common\models\OrdersHistory.php
-            [message] => Method tableName has no parent to inherit from in common\models\OrdersHistory.
+            [line] => 191
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Orders.php
+            [message] => No docblock for element 'getProducts'
         )
 
     [113] => Array
         (
-            [line] => 33
-            [file] => ..\..\common\models\OrdersHistory.php
-            [message] => Method rules has no parent to inherit from in common\models\OrdersHistory.
+            [line] => 195
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Orders.php
+            [message] => No docblock for element 'getProductsAttr'
         )
 
     [114] => Array
         (
-            [line] => 49
-            [file] => ..\..\common\models\OrdersHistory.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersHistory.
+            [line] => 25
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersHistory.php
+            [message] => Method tableName has no parent to inherit from in common\models\OrdersHistory.
         )
 
     [115] => Array
         (
-            [line] => 38
-            [file] => ..\..\common\models\OrdersProducts.php
-            [message] => Method tableName has no parent to inherit from in common\models\OrdersProducts.
+            [line] => 33
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersHistory.php
+            [message] => Method rules has no parent to inherit from in common\models\OrdersHistory.
         )
 
     [116] => Array
         (
-            [line] => 46
-            [file] => ..\..\common\models\OrdersProducts.php
-            [message] => Method rules has no parent to inherit from in common\models\OrdersProducts.
+            [line] => 49
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersHistory.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersHistory.
         )
 
     [117] => Array
         (
-            [line] => 61
-            [file] => ..\..\common\models\OrdersProducts.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersProducts.
+            [line] => 38
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProducts.php
+            [message] => Method tableName has no parent to inherit from in common\models\OrdersProducts.
         )
 
     [118] => Array
         (
-            [line] => 88
-            [file] => ..\..\common\models\OrdersProducts.php
-            [message] => No docblock for element 'GetId'
+            [line] => 46
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProducts.php
+            [message] => Method rules has no parent to inherit from in common\models\OrdersProducts.
         )
 
     [119] => Array
         (
-            [line] => 27
-            [file] => ..\..\common\models\OrdersProductsAttributes.php
-            [message] => Method tableName has no parent to inherit from in common\models\OrdersProductsAttributes.
+            [line] => 61
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProducts.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersProducts.
         )
 
     [120] => Array
         (
-            [line] => 35
-            [file] => ..\..\common\models\OrdersProductsAttributes.php
-            [message] => Method rules has no parent to inherit from in common\models\OrdersProductsAttributes.
+            [line] => 88
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProducts.php
+            [message] => No docblock for element 'GetId'
         )
 
     [121] => Array
         (
-            [line] => 50
-            [file] => ..\..\common\models\OrdersProductsAttributes.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersProductsAttributes.
+            [line] => 27
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProductsAttributes.php
+            [message] => Method tableName has no parent to inherit from in common\models\OrdersProductsAttributes.
         )
 
     [122] => Array
         (
-            [line] => 66
-            [file] => ..\..\common\models\OrdersProductsAttributes.php
-            [message] => No docblock for element 'GetId'
+            [line] => 35
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProductsAttributes.php
+            [message] => Method rules has no parent to inherit from in common\models\OrdersProductsAttributes.
         )
 
     [123] => Array
         (
-            [line] => 24
-            [file] => ..\..\common\models\OrdersStatus.php
-            [message] => Method tableName has no parent to inherit from in common\models\OrdersStatus.
+            [line] => 50
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProductsAttributes.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersProductsAttributes.
         )
 
     [124] => Array
         (
-            [line] => 32
-            [file] => ..\..\common\models\OrdersStatus.php
-            [message] => Method rules has no parent to inherit from in common\models\OrdersStatus.
+            [line] => 66
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersProductsAttributes.php
+            [message] => No docblock for element 'GetId'
         )
 
     [125] => Array
         (
-            [line] => 45
-            [file] => ..\..\common\models\OrdersStatus.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersStatus.
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersStatus.php
+            [message] => Method tableName has no parent to inherit from in common\models\OrdersStatus.
         )
 
     [126] => Array
         (
-            [line] => 24
-            [file] => ..\..\common\models\OrdersTotal.php
-            [message] => Method tableName has no parent to inherit from in common\models\OrdersTotal.
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersStatus.php
+            [message] => Method rules has no parent to inherit from in common\models\OrdersStatus.
         )
 
     [127] => Array
         (
-            [line] => 32
-            [file] => ..\..\common\models\OrdersTotal.php
-            [message] => Method rules has no parent to inherit from in common\models\OrdersTotal.
+            [line] => 45
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersStatus.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersStatus.
         )
 
     [128] => Array
         (
-            [line] => 46
-            [file] => ..\..\common\models\OrdersTotal.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersTotal.
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersTotal.php
+            [message] => Method tableName has no parent to inherit from in common\models\OrdersTotal.
         )
 
     [129] => Array
         (
-            [line] => 22
-            [file] => ..\..\common\models\Partners.php
-            [message] => Method tableName has no parent to inherit from in common\models\Partners.
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersTotal.php
+            [message] => Method rules has no parent to inherit from in common\models\OrdersTotal.
         )
 
     [130] => Array
         (
-            [line] => 30
-            [file] => ..\..\common\models\Partners.php
-            [message] => Method rules has no parent to inherit from in common\models\Partners.
+            [line] => 46
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/OrdersTotal.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\OrdersTotal.
         )
 
     [131] => Array
         (
-            [line] => 48
-            [file] => ..\..\common\models\Partners.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\Partners.
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => Method tableName has no parent to inherit from in common\models\Partners.
         )
 
     [132] => Array
         (
-            [line] => 60
-            [file] => ..\..\common\models\Partners.php
-            [message] => No docblock for element 'GetId'
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => Method rules has no parent to inherit from in common\models\Partners.
         )
 
     [133] => Array
         (
-            [line] => 67
-            [file] => ..\..\common\models\Partners.php
-            [message] => No docblock for element 'GetPartnerIdByUserName'
+            [line] => 48
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\Partners.
         )
 
     [134] => Array
         (
-            [line] => 75
-            [file] => ..\..\common\models\Partners.php
-            [message] => No docblock for element 'GetAllowCat'
+            [line] => 61
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => No docblock for element 'GetId'
         )
 
     [135] => Array
         (
-            [line] => 82
-            [file] => ..\..\common\models\Partners.php
-            [message] => No docblock for element 'GetNamePartner'
+            [line] => 68
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => No docblock for element 'GetPartnerIdByUserName'
         )
 
     [136] => Array
         (
-            [line] => 87
-            [file] => ..\..\common\models\Partners.php
-            [message] => No docblock for element 'GetTemplate'
+            [line] => 76
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => No docblock for element 'GetAllowCat'
         )
 
     [137] => Array
         (
-            [line] => 24
-            [file] => ..\..\common\models\PartnersCatDescription.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersCatDescription.
+            [line] => 83
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => No docblock for element 'GetNamePartner'
         )
 
     [138] => Array
         (
-            [line] => 32
-            [file] => ..\..\common\models\PartnersCatDescription.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersCatDescription.
+            [line] => 88
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Partners.php
+            [message] => No docblock for element 'GetTemplate'
         )
 
     [139] => Array
         (
-            [line] => 45
-            [file] => ..\..\common\models\PartnersCatDescription.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersCatDescription.
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersCatDescription.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersCatDescription.
         )
 
     [140] => Array
         (
-            [line] => 30
-            [file] => ..\..\common\models\PartnersCategories.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersCategories.
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersCatDescription.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersCatDescription.
         )
 
     [141] => Array
         (
-            [line] => 38
-            [file] => ..\..\common\models\PartnersCategories.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersCategories.
+            [line] => 45
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersCatDescription.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersCatDescription.
         )
 
     [142] => Array
         (
-            [line] => 52
-            [file] => ..\..\common\models\PartnersCategories.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersCategories.
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersCategories.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersCategories.
         )
 
     [143] => Array
         (
-            [line] => 29
-            [file] => ..\..\common\models\PartnersConfig.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersConfig.
+            [line] => 38
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersCategories.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersCategories.
         )
 
     [144] => Array
         (
-            [line] => 37
-            [file] => ..\..\common\models\PartnersConfig.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersConfig.
+            [line] => 52
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersCategories.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersCategories.
         )
 
     [145] => Array
         (
-            [line] => 46
-            [file] => ..\..\common\models\PartnersConfig.php
-            [message] => No docblock for element 'attributeLabels'
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersComments.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersComments.
         )
 
     [146] => Array
         (
-            [line] => 20
-            [file] => ..\..\common\models\PartnersOrders.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersOrders.
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersComments.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersComments.
         )
 
     [147] => Array
         (
-            [line] => 28
-            [file] => ..\..\common\models\PartnersOrders.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersOrders.
+            [line] => 45
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersComments.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersComments.
         )
 
     [148] => Array
         (
-            [line] => 39
-            [file] => ..\..\common\models\PartnersOrders.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersOrders.
+            [line] => 60
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersComments.php
+            [message] => No docblock for element 'getUser'
         )
 
     [149] => Array
         (
-            [line] => 55
-            [file] => ..\..\common\models\PartnersProducts.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersProducts.
+            [line] => 29
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersConfig.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersConfig.
         )
 
     [150] => Array
         (
-            [line] => 63
-            [file] => ..\..\common\models\PartnersProducts.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersProducts.
+            [line] => 37
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersConfig.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersConfig.
         )
 
     [151] => Array
         (
-            [line] => 78
-            [file] => ..\..\common\models\PartnersProducts.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProducts.
+            [line] => 46
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersConfig.php
+            [message] => No docblock for element 'attributeLabels'
         )
 
     [152] => Array
         (
-            [line] => 120
-            [file] => ..\..\common\models\PartnersProducts.php
-            [message] => No docblock for element 'getProductsDescription'
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersNews.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersNews.
         )
 
     [153] => Array
         (
-            [line] => 124
-            [file] => ..\..\common\models\PartnersProducts.php
-            [message] => No docblock for element 'getProductsAttributes'
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersNews.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersNews.
         )
 
     [154] => Array
         (
-            [line] => 129
-            [file] => ..\..\common\models\PartnersProducts.php
-            [message] => No docblock for element 'getProductsAttributesDescr'
+            [line] => 45
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersNews.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersNews.
         )
 
     [155] => Array
         (
-            [line] => 133
-            [file] => ..\..\common\models\PartnersProducts.php
-            [message] => No docblock for element 'getproductlist'
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersOrders.
         )
 
     [156] => Array
         (
-            [line] => 30
-            [file] => ..\..\common\models\PartnersProductsAttributes.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsAttributes.
+            [line] => 29
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersOrders.
         )
 
     [157] => Array
         (
-            [line] => 38
-            [file] => ..\..\common\models\PartnersProductsAttributes.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsAttributes.
+            [line] => 40
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersOrders.
         )
 
     [158] => Array
         (
-            [line] => 51
-            [file] => ..\..\common\models\PartnersProductsAttributes.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsAttributes.
+            [line] => 53
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => No docblock for element 'getUser'
         )
 
     [159] => Array
         (
-            [line] => 71
-            [file] => ..\..\common\models\PartnersProductsAttributes.php
-            [message] => No docblock for element 'getProdAttributes'
+            [line] => 58
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => No docblock for element 'getUserDescription'
         )
 
     [160] => Array
         (
-            [line] => 32
-            [file] => ..\..\common\models\PartnersProductsDescription.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsDescription.
+            [line] => 63
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => No docblock for element 'getOMOrders'
         )
 
     [161] => Array
         (
-            [line] => 40
-            [file] => ..\..\common\models\PartnersProductsDescription.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsDescription.
+            [line] => 68
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => No docblock for element 'getOMOrdersProducts'
         )
 
     [162] => Array
         (
-            [line] => 54
-            [file] => ..\..\common\models\PartnersProductsDescription.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsDescription.
+            [line] => 73
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => No docblock for element 'getOMOrdersProductsSP'
         )
 
     [163] => Array
         (
-            [line] => 20
-            [file] => ..\..\common\models\PartnersProductsOptionVal.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsOptionVal.
+            [line] => 77
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrders.php
+            [message] => No docblock for element 'getOMOrdersProductsAttr'
         )
 
     [164] => Array
         (
-            [line] => 28
-            [file] => ..\..\common\models\PartnersProductsOptionVal.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsOptionVal.
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrdersProductsSp.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersOrdersProductsSp.
         )
 
     [165] => Array
         (
-            [line] => 41
-            [file] => ..\..\common\models\PartnersProductsOptionVal.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsOptionVal.
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrdersProductsSp.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersOrdersProductsSp.
         )
 
     [166] => Array
         (
-            [line] => 19
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsToCategories.
+            [line] => 49
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersOrdersProductsSp.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersOrdersProductsSp.
         )
 
     [167] => Array
         (
-            [line] => 27
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsToCategories.
+            [line] => 55
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProducts.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersProducts.
         )
 
     [168] => Array
         (
-            [line] => 38
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsToCategories.
+            [line] => 63
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProducts.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersProducts.
         )
 
     [169] => Array
         (
-            [line] => 47
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
-            [message] => No docblock for element 'getProducts'
+            [line] => 78
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProducts.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProducts.
         )
 
     [170] => Array
         (
-            [line] => 54
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
+            [line] => 120
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProducts.php
             [message] => No docblock for element 'getProductsDescription'
         )
 
     [171] => Array
         (
-            [line] => 58
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
+            [line] => 124
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProducts.php
             [message] => No docblock for element 'getProductsAttributes'
         )
 
     [172] => Array
         (
-            [line] => 63
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
+            [line] => 129
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProducts.php
             [message] => No docblock for element 'getProductsAttributesDescr'
         )
 
     [173] => Array
         (
-            [line] => 67
-            [file] => ..\..\common\models\PartnersProductsToCategories.php
+            [line] => 133
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProducts.php
             [message] => No docblock for element 'getproductlist'
         )
 
     [174] => Array
         (
-            [line] => 31
-            [file] => ..\..\common\models\PartnersUsersInfo.php
-            [message] => Method tableName has no parent to inherit from in common\models\PartnersUsersInfo.
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsAttributes.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsAttributes.
         )
 
     [175] => Array
         (
-            [line] => 39
-            [file] => ..\..\common\models\PartnersUsersInfo.php
-            [message] => Method rules has no parent to inherit from in common\models\PartnersUsersInfo.
+            [line] => 38
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsAttributes.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsAttributes.
         )
 
     [176] => Array
         (
             [line] => 51
-            [file] => ..\..\common\models\PartnersUsersInfo.php
-            [message] => No docblock for element 'scenarios'
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsAttributes.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsAttributes.
         )
 
     [177] => Array
         (
-            [line] => 66
-            [file] => ..\..\common\models\PartnersUsersInfo.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersUsersInfo.
+            [line] => 71
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsAttributes.php
+            [message] => No docblock for element 'getProdAttributes'
         )
 
     [178] => Array
         (
-            [line] => 86
-            [file] => ..\..\common\models\PartnersUsersInfo.php
-            [message] => No docblock for element 'GetId'
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsDescription.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsDescription.
         )
 
     [179] => Array
         (
-            [line] => 43
-            [file] => ..\..\common\models\User.php
-            [message] => Method behaviors has no parent to inherit from in common\models\User.
+            [line] => 40
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsDescription.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsDescription.
         )
 
     [180] => Array
         (
-            [line] => 53
-            [file] => ..\..\common\models\User.php
-            [message] => Method rules has no parent to inherit from in common\models\User.
+            [line] => 54
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsDescription.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsDescription.
         )
 
     [181] => Array
         (
-            [line] => 64
-            [file] => ..\..\common\models\User.php
-            [message] => Method findIdentity has no parent to inherit from in common\models\User.
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsOptionVal.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsOptionVal.
         )
 
     [182] => Array
         (
-            [line] => 72
-            [file] => ..\..\common\models\User.php
-            [message] => Method findIdentityByAccessToken has no parent to inherit from in common\models\User.
+            [line] => 28
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsOptionVal.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsOptionVal.
         )
 
     [183] => Array
         (
-            [line] => 126
-            [file] => ..\..\common\models\User.php
-            [message] => Method getId has no parent to inherit from in common\models\User.
+            [line] => 41
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsOptionVal.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsOptionVal.
         )
 
     [184] => Array
         (
-            [line] => 134
-            [file] => ..\..\common\models\User.php
-            [message] => Method getAuthKey has no parent to inherit from in common\models\User.
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersProductsToCategories.
         )
 
     [185] => Array
         (
-            [line] => 138
-            [file] => ..\..\common\models\User.php
-            [message] => No docblock for element 'getUsermame'
+            [line] => 27
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersProductsToCategories.
         )
 
     [186] => Array
         (
-            [line] => 146
-            [file] => ..\..\common\models\User.php
-            [message] => Method validateAuthKey has no parent to inherit from in common\models\User.
+            [line] => 38
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersProductsToCategories.
         )
 
     [187] => Array
         (
-            [line] => 198
-            [file] => ..\..\common\models\User.php
-            [message] => No docblock for element 'getUserinfo'
+            [line] => 47
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => No docblock for element 'getProducts'
         )
 
     [188] => Array
         (
-            [line] => 20
-            [file] => ..\..\common\models\Zones.php
-            [message] => Method tableName has no parent to inherit from in common\models\Zones.
+            [line] => 54
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => No docblock for element 'getProductsDescription'
         )
 
     [189] => Array
         (
-            [line] => 28
-            [file] => ..\..\common\models\Zones.php
-            [message] => Method rules has no parent to inherit from in common\models\Zones.
+            [line] => 58
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => No docblock for element 'getProductsAttributes'
         )
 
     [190] => Array
         (
-            [line] => 40
-            [file] => ..\..\common\models\Zones.php
-            [message] => Method attributeLabels has no parent to inherit from in common\models\Zones.
+            [line] => 63
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => No docblock for element 'getProductsAttributesDescr'
         )
 
     [191] => Array
         (
-            [line] => 18
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No docblock for element '$basePath'
+            [line] => 67
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersProductsToCategories.php
+            [message] => No docblock for element 'getproductlist'
         )
 
     [192] => Array
         (
-            [line] => 18
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No short description for element '$basePath'
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersRequest.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersRequest.
         )
 
     [193] => Array
         (
-            [line] => 19
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No docblock for element '$baseUrl'
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersRequest.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersRequest.
         )
 
     [194] => Array
         (
-            [line] => 19
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No short description for element '$baseUrl'
+            [line] => 42
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersRequest.php
+            [message] => No docblock for element 'ValidateArr'
         )
 
     [195] => Array
         (
-            [line] => 20
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No docblock for element '$css'
+            [line] => 53
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersRequest.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersRequest.
         )
 
     [196] => Array
         (
-            [line] => 20
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No short description for element '$css'
+            [line] => 15
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$mailcounter'
         )
 
     [197] => Array
         (
-            [line] => 23
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No docblock for element '$js'
+            [line] => 15
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$mailcounter'
         )
 
     [198] => Array
         (
-            [line] => 23
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No short description for element '$js'
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$yandexcounter'
         )
 
     [199] => Array
         (
-            [line] => 27
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No docblock for element '$depends'
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$yandexcounter'
         )
 
     [200] => Array
         (
-            [line] => 27
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No short description for element '$depends'
+            [line] => 17
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$template'
         )
 
     [201] => Array
         (
-            [line] => 31
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No docblock for element '$jsOptions'
+            [line] => 17
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$template'
         )
 
     [202] => Array
         (
-            [line] => 31
-            [file] => ..\..\frontend\assets\AppAsset.php
-            [message] => No short description for element '$jsOptions'
+            [line] => 18
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$minimalordertotalprice'
         )
 
     [203] => Array
         (
-            [line] => 42
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => Method behaviors has no parent to inherit from in frontend\controllers\SiteController.
+            [line] => 18
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$minimalordertotalprice'
         )
 
     [204] => Array
         (
-            [line] => 118
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => Method actions has no parent to inherit from in frontend\controllers\SiteController.
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$discount'
         )
 
     [205] => Array
         (
-            [line] => 140
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionRequest'
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$discount'
         )
 
     [206] => Array
         (
-            [line] => 263
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionIndex'
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$yandexmap'
         )
 
     [207] => Array
         (
-            [line] => 290
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionLogin'
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$yandexmap'
         )
 
     [208] => Array
         (
-            [line] => 306
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionLogout'
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$googlemap'
         )
 
     [209] => Array
         (
-            [line] => 312
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionCatalog'
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$googlemap'
         )
 
     [210] => Array
         (
-            [line] => 339
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionAbout'
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$contacts'
         )
 
     [211] => Array
         (
-            [line] => 343
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionLk'
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$contacts'
         )
 
     [212] => Array
         (
-            [line] => 348
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionContacts'
+            [line] => 23
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$logotype'
         )
 
     [213] => Array
         (
-            [line] => 361
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionDelivery'
+            [line] => 23
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$logotype'
         )
 
     [214] => Array
         (
-            [line] => 374
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionPaying'
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$discounttotalorderprice'
         )
 
     [215] => Array
         (
-            [line] => 387
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionSignup'
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$discounttotalorderprice'
         )
 
     [216] => Array
         (
-            [line] => 403
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionRequestPasswordReset'
+            [line] => 25
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$discountgroup'
         )
 
     [217] => Array
         (
-            [line] => 421
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionResetPassword'
+            [line] => 25
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$discountgroup'
         )
 
     [218] => Array
         (
-            [line] => 440
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionRequestorders'
+            [line] => 26
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$slogan'
         )
 
     [219] => Array
         (
-            [line] => 486
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionSaveorder'
+            [line] => 26
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$slogan'
         )
 
     [220] => Array
         (
-            [line] => 624
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionSaveuserprofile'
+            [line] => 27
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$newsonindex'
         )
 
     [221] => Array
         (
-            [line] => 733
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionRequestadress'
+            [line] => 27
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$newsonindex'
         )
 
     [222] => Array
         (
-            [line] => 768
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionCountryrequest'
+            [line] => 28
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$commentsonindex'
         )
 
     [223] => Array
         (
-            [line] => 776
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionRequestemail'
+            [line] => 28
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$commentsonindex'
         )
 
     [224] => Array
         (
-            [line] => 779
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionZonesrequest'
+            [line] => 29
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$discounttotalorder'
         )
 
     [225] => Array
         (
-            [line] => 786
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionShippingfields'
+            [line] => 29
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$discounttotalorder'
         )
 
     [226] => Array
         (
-            [line] => 793
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionProductinfo'
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$transport'
         )
 
     [227] => Array
         (
-            [line] => 804
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionImagepreview'
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$transport'
         )
 
     [228] => Array
         (
-            [line] => 869
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionSavehtml'
+            [line] => 31
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$paysystem'
         )
 
     [229] => Array
         (
-            [line] => 899
-            [file] => ..\..\frontend\controllers\SiteController.php
-            [message] => No docblock for element 'actionChstatusorder'
+            [line] => 31
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$paysystem'
         )
 
     [230] => Array
         (
-            [line] => 13
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No docblock for element '$name'
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$paymentgate'
         )
 
     [231] => Array
         (
-            [line] => 13
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No short description for element '$name'
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$paymentgate'
         )
 
     [232] => Array
         (
-            [line] => 14
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No docblock for element '$email'
+            [line] => 33
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element '$requisites'
         )
 
     [233] => Array
         (
-            [line] => 14
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No short description for element '$email'
+            [line] => 33
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No short description for element '$requisites'
         )
 
     [234] => Array
         (
-            [line] => 15
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No docblock for element '$subject'
+            [line] => 57
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element 'rules'
         )
 
     [235] => Array
         (
-            [line] => 15
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No short description for element '$subject'
+            [line] => 65
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element 'ValidateArr'
         )
 
     [236] => Array
         (
-            [line] => 16
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No docblock for element '$body'
+            [line] => 73
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element 'SaveSet'
         )
 
     [237] => Array
         (
-            [line] => 16
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No short description for element '$body'
+            [line] => 87
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersSettings.php
+            [message] => No docblock for element 'LoadSet'
         )
 
     [238] => Array
         (
-            [line] => 17
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No docblock for element '$verifyCode'
+            [line] => 31
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersUsersInfo.php
+            [message] => Method tableName has no parent to inherit from in common\models\PartnersUsersInfo.
         )
 
     [239] => Array
         (
-            [line] => 17
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => No short description for element '$verifyCode'
+            [line] => 39
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersUsersInfo.php
+            [message] => Method rules has no parent to inherit from in common\models\PartnersUsersInfo.
         )
 
     [240] => Array
         (
-            [line] => 22
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => Method rules has no parent to inherit from in frontend\models\ContactForm.
+            [line] => 51
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersUsersInfo.php
+            [message] => No docblock for element 'scenarios'
         )
 
     [241] => Array
         (
-            [line] => 37
-            [file] => ..\..\frontend\models\ContactForm.php
-            [message] => Method attributeLabels has no parent to inherit from in frontend\models\ContactForm.
+            [line] => 70
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersUsersInfo.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\PartnersUsersInfo.
         )
 
     [242] => Array
         (
-            [line] => 12
-            [file] => ..\..\frontend\models\PasswordResetRequestForm.php
-            [message] => No docblock for element '$email'
+            [line] => 90
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/PartnersUsersInfo.php
+            [message] => No docblock for element 'GetId'
         )
 
     [243] => Array
         (
-            [line] => 12
-            [file] => ..\..\frontend\models\PasswordResetRequestForm.php
-            [message] => No short description for element '$email'
+            [line] => 43
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => Method behaviors has no parent to inherit from in common\models\User.
         )
 
     [244] => Array
         (
-            [line] => 17
-            [file] => ..\..\frontend\models\PasswordResetRequestForm.php
-            [message] => Method rules has no parent to inherit from in frontend\models\PasswordResetRequestForm.
+            [line] => 53
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => Method rules has no parent to inherit from in common\models\User.
         )
 
     [245] => Array
         (
-            [line] => 14
-            [file] => ..\..\frontend\models\ResetPasswordForm.php
-            [message] => No docblock for element '$password'
+            [line] => 64
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => Method findIdentity has no parent to inherit from in common\models\User.
         )
 
     [246] => Array
         (
-            [line] => 14
-            [file] => ..\..\frontend\models\ResetPasswordForm.php
-            [message] => No short description for element '$password'
+            [line] => 72
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => Method findIdentityByAccessToken has no parent to inherit from in common\models\User.
         )
 
     [247] => Array
         (
-            [line] => 44
-            [file] => ..\..\frontend\models\ResetPasswordForm.php
-            [message] => Method rules has no parent to inherit from in frontend\models\ResetPasswordForm.
+            [line] => 126
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => Method getId has no parent to inherit from in common\models\User.
         )
 
     [248] => Array
         (
-            [line] => 19
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No docblock for element '$email'
+            [line] => 134
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => Method getAuthKey has no parent to inherit from in common\models\User.
         )
 
     [249] => Array
         (
-            [line] => 19
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No short description for element '$email'
+            [line] => 138
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => No docblock for element 'getUsermame'
         )
 
     [250] => Array
         (
-            [line] => 20
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No docblock for element '$password'
+            [line] => 146
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => Method validateAuthKey has no parent to inherit from in common\models\User.
         )
 
     [251] => Array
         (
-            [line] => 20
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No short description for element '$password'
+            [line] => 198
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/User.php
+            [message] => No docblock for element 'getUserinfo'
         )
 
     [252] => Array
         (
-            [line] => 21
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No docblock for element '$id_partners'
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Zones.php
+            [message] => Method tableName has no parent to inherit from in common\models\Zones.
         )
 
     [253] => Array
         (
-            [line] => 21
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No short description for element '$id_partners'
+            [line] => 28
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Zones.php
+            [message] => Method rules has no parent to inherit from in common\models\Zones.
         )
 
     [254] => Array
         (
-            [line] => 22
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No docblock for element '$role'
+            [line] => 40
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/models/Zones.php
+            [message] => Method attributeLabels has no parent to inherit from in common\models\Zones.
         )
 
     [255] => Array
         (
-            [line] => 22
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No short description for element '$role'
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Categories_for_partner.php
+            [message] => No docblock for element 'common\traits\Categories_for_partner'
         )
 
     [256] => Array
         (
-            [line] => 41
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => Method rules has no parent to inherit from in frontend\models\SignupForm.
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Categories_for_partner.php
+            [message] => No docblock for element 'categories_for_partners'
         )
 
     [257] => Array
         (
-            [line] => 87
-            [file] => ..\..\frontend\models\SignupForm.php
-            [message] => No docblock for element 'validateUserEmail'
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Fullopcat.php
+            [message] => No docblock for element 'common\traits\Fullopcat'
         )
 
     [258] => Array
         (
-            [line] => 29
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'app\modules\admin\controllers\DefaultController'
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Fullopcat.php
+            [message] => No docblock for element 'full_op_cat'
         )
 
     [259] => Array
         (
-            [line] => 32
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'behaviors'
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Hide_manufacturers_for_partners.php
+            [message] => No docblock for element 'common\traits\Hide_manufacturers_for_partners'
         )
 
     [260] => Array
         (
-            [line] => 56
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'actions'
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Hide_manufacturers_for_partners.php
+            [message] => No docblock for element 'hide_manufacturers_for_partners'
         )
 
     [261] => Array
         (
-            [line] => 62
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'actionIndex'
+            [line] => 4
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Imagepreviewcrop.php
+            [message] => No docblock for element 'common\traits\Imagepreviewcrop'
         )
 
     [262] => Array
         (
-            [line] => 67
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'actionRequestsettings'
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Imagepreviewcrop.php
+            [message] => No docblock for element 'Imagepreviewcrop'
         )
 
     [263] => Array
         (
-            [line] => 72
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'actionRequestusers'
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Imagepreviewfile.php
+            [message] => No docblock for element 'common\traits\Imagepreviewfile'
         )
 
     [264] => Array
         (
-            [line] => 80
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'actionRequestorders'
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Imagepreviewfile.php
+            [message] => No docblock for element 'viewpreviewfile'
         )
 
     [265] => Array
         (
-            [line] => 137
-            [file] => ..\..\frontend\modules\admin\controllers\DefaultController.php
-            [message] => No docblock for element 'actionDelegate'
+            [line] => 4
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Load_cat.php
+            [message] => No docblock for element 'common\traits\Load_cat'
         )
 
     [266] => Array
         (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Load_cat.php
+            [message] => No docblock for element 'load_cat'
+        )
+
+    [267] => Array
+        (
+            [line] => 3
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Reformat_cat_array.php
+            [message] => No docblock for element 'common\traits\Reformat_cat_array'
+        )
+
+    [268] => Array
+        (
+            [line] => 5
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Reformat_cat_array.php
+            [message] => No docblock for element 'reformat_cat_array'
+        )
+
+    [269] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/ThemeResources.php
+            [message] => No docblock for element 'common\traits\ThemeResources'
+        )
+
+    [270] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/ThemeResources.php
+            [message] => No docblock for element 'ThemeResourcesload'
+        )
+
+    [271] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No docblock for element '$id'
+        )
+
+    [272] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No short description for element '$id'
+        )
+
+    [273] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No docblock for element '$timeTimer'
+        )
+
+    [274] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No short description for element '$timeTimer'
+        )
+
+    [275] => Array
+        (
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No docblock for element 'start'
+        )
+
+    [276] => Array
+        (
+            [line] => 24
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No docblock for element 'stop'
+        )
+
+    [277] => Array
+        (
+            [line] => 33
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No docblock for element 'get'
+        )
+
+    [278] => Array
+        (
+            [line] => 43
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Timer.php
+            [message] => No docblock for element '__construct'
+        )
+
+    [279] => Array
+        (
+            [line] => 4
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Trim_Tags.php
+            [message] => No docblock for element 'common\traits\Trim_Tags'
+        )
+
+    [280] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/Trim_Tags.php
+            [message] => No docblock for element 'trim_tags_text'
+        )
+
+    [281] => Array
+        (
+            [line] => 4
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/View_cat.php
+            [message] => No docblock for element 'common\traits\View_cat'
+        )
+
+    [282] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/common/traits/View_cat.php
+            [message] => No docblock for element 'view_cat'
+        )
+
+    [283] => Array
+        (
+            [line] => 18
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/Indexer.php
+            [message] => No docblock for element '$index'
+        )
+
+    [284] => Array
+        (
+            [line] => 18
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/Indexer.php
+            [message] => No short description for element '$index'
+        )
+
+    [285] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/Indexer.php
+            [message] => No docblock for element '$files'
+        )
+
+    [286] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/Indexer.php
+            [message] => No short description for element '$files'
+        )
+
+    [287] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/Indexer.php
+            [message] => No docblock for element 'indexFiles'
+        )
+
+    [288] => Array
+        (
+            [line] => 57
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/Indexer.php
+            [message] => No docblock for element 'generateFileInfo'
+        )
+
+    [289] => Array
+        (
+            [line] => 73
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/Indexer.php
+            [message] => No docblock for element 'exportJs'
+        )
+
+    [290] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/analyzer/HtmlAnalyzer.php
+            [message] => No docblock for element '$headWeight'
+        )
+
+    [291] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/analyzer/HtmlAnalyzer.php
+            [message] => No short description for element '$headWeight'
+        )
+
+    [292] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/analyzer/HtmlAnalyzer.php
+            [message] => No docblock for element '$titleWeight'
+        )
+
+    [293] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/analyzer/HtmlAnalyzer.php
+            [message] => No short description for element '$titleWeight'
+        )
+
+    [294] => Array
+        (
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/analyzer/HtmlAnalyzer.php
+            [message] => No docblock for element '$textWeight'
+        )
+
+    [295] => Array
+        (
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/doc/assets/e2cbda01/lib/analyzer/HtmlAnalyzer.php
+            [message] => No short description for element '$textWeight'
+        )
+
+    [296] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element '$basePath'
+        )
+
+    [297] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No short description for element '$basePath'
+        )
+
+    [298] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element '$baseUrl'
+        )
+
+    [299] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No short description for element '$baseUrl'
+        )
+
+    [300] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element '$css'
+        )
+
+    [301] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No short description for element '$css'
+        )
+
+    [302] => Array
+        (
+            [line] => 23
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [303] => Array
+        (
+            [line] => 23
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [304] => Array
+        (
+            [line] => 25
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [305] => Array
+        (
+            [line] => 25
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [306] => Array
+        (
+            [line] => 31
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element '$jsOptions'
+        )
+
+    [307] => Array
+        (
+            [line] => 31
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No short description for element '$jsOptions'
+        )
+
+    [308] => Array
+        (
+            [line] => 33
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element 'LoadCssRes'
+        )
+
+    [309] => Array
+        (
+            [line] => 38
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element 'LoadJsRes'
+        )
+
+    [310] => Array
+        (
+            [line] => 43
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/assets/AppAsset.php
+            [message] => No docblock for element 'LoadAssets'
+        )
+
+    [311] => Array
+        (
+            [line] => 113
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/SiteController.php
+            [message] => Method behaviors has no parent to inherit from in frontend\controllers\SiteController.
+        )
+
+    [312] => Array
+        (
+            [line] => 189
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/SiteController.php
+            [message] => Method actions has no parent to inherit from in frontend\controllers\SiteController.
+        )
+
+    [313] => Array
+        (
+            [line] => 208
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/SiteController.php
+            [message] => No docblock for element 'Requrscat'
+        )
+
+    [314] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionAsyncRequest.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionAsyncRequest'
+        )
+
+    [315] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionAsyncRequest.php
+            [message] => No docblock for element 'actionAsyncproductppdate'
+        )
+
+    [316] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionCatPath.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionCatPath'
+        )
+
+    [317] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionCatPath.php
+            [message] => No docblock for element 'actionCatpath'
+        )
+
+    [318] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionCatalog.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionCatalog'
+        )
+
+    [319] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionCatalog.php
+            [message] => No docblock for element 'actionCatalog'
+        )
+
+    [320] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionChstatusorder.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionChstatusorder'
+        )
+
+    [321] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionChstatusorder.php
+            [message] => No docblock for element 'actionChstatusorder'
+        )
+
+    [322] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionContacts.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionContacts'
+        )
+
+    [323] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionContacts.php
+            [message] => No docblock for element 'actionContacts'
+        )
+
+    [324] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionCountryrequest.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionCountryrequest'
+        )
+
+    [325] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionCountryrequest.php
+            [message] => No docblock for element 'actionCountryrequest'
+        )
+
+    [326] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionDelivery.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionDelivery'
+        )
+
+    [327] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionDelivery.php
+            [message] => No docblock for element 'actionDelivery'
+        )
+
+    [328] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionFaq.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionFaq'
+        )
+
+    [329] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionFaq.php
+            [message] => No docblock for element 'actionFaq'
+        )
+
+    [330] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionImagepreview.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionImagepreview'
+        )
+
+    [331] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionImagepreview.php
+            [message] => No docblock for element 'actionImagepreview'
+        )
+
+    [332] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionLK.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionLK'
+        )
+
+    [333] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionLK.php
+            [message] => No docblock for element 'actionLk'
+        )
+
+    [334] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionLogin.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionLogin'
+        )
+
+    [335] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionLogin.php
+            [message] => No docblock for element 'actionLogin'
+        )
+
+    [336] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionLogout.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionLogout'
+        )
+
+    [337] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionLogout.php
+            [message] => No docblock for element 'actionLogout'
+        )
+
+    [338] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionNewComments.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionNewComments'
+        )
+
+    [339] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionNewComments.php
+            [message] => No docblock for element 'actionNewcomments'
+        )
+
+    [340] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionNews.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionNews'
+        )
+
+    [341] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionNews.php
+            [message] => No docblock for element 'actionNews'
+        )
+
+    [342] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionOfferta.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionOfferta'
+        )
+
+    [343] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionOfferta.php
+            [message] => No docblock for element 'actionOfferta'
+        )
+
+    [344] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionPaying.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionPaying'
+        )
+
+    [345] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionPaying.php
+            [message] => No docblock for element 'actionPaying'
+        )
+
+    [346] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionPaymentMethod.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionPaymentMethod'
+        )
+
+    [347] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionPaymentMethod.php
+            [message] => No docblock for element 'actionPaymentmethod'
+        )
+
+    [348] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionPrintOrders.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionPrintOrders'
+        )
+
+    [349] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionPrintOrders.php
+            [message] => No docblock for element 'actionPrintorders'
+        )
+
+    [350] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionProduct.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionProduct'
+        )
+
+    [351] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionProduct.php
+            [message] => No docblock for element 'actionProduct'
+        )
+
+    [352] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionProductinfo.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionProductinfo'
+        )
+
+    [353] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionProductinfo.php
+            [message] => No docblock for element 'actionProductinfo'
+        )
+
+    [354] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionProductinfobymodel.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionProductinfobymodel'
+        )
+
+    [355] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionProductinfobymodel.php
+            [message] => No docblock for element 'actionProductinfobymodel'
+        )
+
+    [356] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestNews.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionRequestNews'
+        )
+
+    [357] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestNews.php
+            [message] => No docblock for element 'actionRequestNews'
+        )
+
+    [358] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestPasswordReset.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionRequestPasswordReset'
+        )
+
+    [359] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestPasswordReset.php
+            [message] => No docblock for element 'actionRequestPasswordReset'
+        )
+
+    [360] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestadress.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionRequestadress'
+        )
+
+    [361] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestadress.php
+            [message] => No docblock for element 'actionRequestadress'
+        )
+
+    [362] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestemail.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionRequestemail'
+        )
+
+    [363] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestemail.php
+            [message] => No docblock for element 'actionRequestemail'
+        )
+
+    [364] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestorders.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionRequestorders'
+        )
+
+    [365] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionRequestorders.php
+            [message] => No docblock for element 'actionRequestorders'
+        )
+
+    [366] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionResetPassword.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionResetPassword'
+        )
+
+    [367] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionResetPassword.php
+            [message] => No docblock for element 'actionResetPassword'
+        )
+
+    [368] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSavehtml.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSavehtml'
+        )
+
+    [369] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSavehtml.php
+            [message] => No docblock for element 'actionSavehtml'
+        )
+
+    [370] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSaveorder.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSaveorder'
+        )
+
+    [371] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSaveorder.php
+            [message] => No docblock for element 'actionSaveorder'
+        )
+
+    [372] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionShipping.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionShipping'
+        )
+
+    [373] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionShipping.php
+            [message] => No docblock for element 'actionShipping'
+        )
+
+    [374] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionShippingfields.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionShippingfields'
+        )
+
+    [375] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionShippingfields.php
+            [message] => No docblock for element 'actionShippingfields'
+        )
+
+    [376] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSignup.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSignup'
+        )
+
+    [377] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSignup.php
+            [message] => No docblock for element 'actionSignup'
+        )
+
+    [378] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteIndex.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSiteIndex'
+        )
+
+    [379] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteIndex.php
+            [message] => No docblock for element 'actionIndex'
+        )
+
+    [380] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteNews.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSiteNews'
+        )
+
+    [381] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteNews.php
+            [message] => No docblock for element 'actionNews'
+        )
+
+    [382] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteRequest.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSiteRequest'
+        )
+
+    [383] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteRequest.php
+            [message] => No docblock for element 'actionRequest'
+        )
+
+    [384] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteSaveUserProfile.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSiteSaveUserProfile'
+        )
+
+    [385] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteSaveUserProfile.php
+            [message] => No docblock for element 'actionSaveuserprofile'
+        )
+
+    [386] => Array
+        (
+            [line] => 5
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteSearchword.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionSiteSearchword'
+        )
+
+    [387] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionSiteSearchword.php
+            [message] => No docblock for element 'actionSearchword'
+        )
+
+    [388] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionZonesrequest.php
+            [message] => No docblock for element 'frontend\controllers\actions\ActionZonesrequest'
+        )
+
+    [389] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/ActionZonesrequest.php
+            [message] => No docblock for element 'actionZonesrequest'
+        )
+
+    [390] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/CacheUserState.php
+            [message] => No docblock for element 'frontend\controllers\actions\CacheUserState'
+        )
+
+    [391] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/CacheUserState.php
+            [message] => No docblock for element 'actionUserstate'
+        )
+
+    [392] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/CacheUserState.php
+            [message] => No docblock for element 'CasheUserStateGet'
+        )
+
+    [393] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/LayOutVar.php
+            [message] => No docblock for element 'frontend\controllers\actions\LayOutVar'
+        )
+
+    [394] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/controllers/actions/LayOutVar.php
+            [message] => No docblock for element 'SetChpu'
+        )
+
+    [395] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No docblock for element '$name'
+        )
+
+    [396] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No short description for element '$name'
+        )
+
+    [397] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [398] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [399] => Array
+        (
+            [line] => 15
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No docblock for element '$subject'
+        )
+
+    [400] => Array
+        (
+            [line] => 15
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No short description for element '$subject'
+        )
+
+    [401] => Array
+        (
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No docblock for element '$body'
+        )
+
+    [402] => Array
+        (
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No short description for element '$body'
+        )
+
+    [403] => Array
+        (
+            [line] => 17
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No docblock for element '$verifyCode'
+        )
+
+    [404] => Array
+        (
+            [line] => 17
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => No short description for element '$verifyCode'
+        )
+
+    [405] => Array
+        (
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\ContactForm.
+        )
+
+    [406] => Array
+        (
+            [line] => 37
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ContactForm.php
+            [message] => Method attributeLabels has no parent to inherit from in frontend\models\ContactForm.
+        )
+
+    [407] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No docblock for element '$name'
+        )
+
+    [408] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No short description for element '$name'
+        )
+
+    [409] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [410] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [411] => Array
+        (
+            [line] => 15
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No docblock for element '$subject'
+        )
+
+    [412] => Array
+        (
+            [line] => 15
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No short description for element '$subject'
+        )
+
+    [413] => Array
+        (
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No docblock for element '$body'
+        )
+
+    [414] => Array
+        (
+            [line] => 16
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => No short description for element '$body'
+        )
+
+    [415] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\MailToUserForm.
+        )
+
+    [416] => Array
+        (
+            [line] => 38
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/MailToUserForm.php
+            [message] => Undefined parameter documented: $email in sendEmail().
+        )
+
+    [417] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/PasswordResetRequestForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [418] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/PasswordResetRequestForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [419] => Array
+        (
+            [line] => 17
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/PasswordResetRequestForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\PasswordResetRequestForm.
+        )
+
+    [420] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ResetPasswordForm.php
+            [message] => No docblock for element '$password'
+        )
+
+    [421] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ResetPasswordForm.php
+            [message] => No short description for element '$password'
+        )
+
+    [422] => Array
+        (
+            [line] => 44
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/ResetPasswordForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\ResetPasswordForm.
+        )
+
+    [423] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [424] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [425] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No docblock for element '$password'
+        )
+
+    [426] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No short description for element '$password'
+        )
+
+    [427] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No docblock for element '$id_partners'
+        )
+
+    [428] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No short description for element '$id_partners'
+        )
+
+    [429] => Array
+        (
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No docblock for element '$role'
+        )
+
+    [430] => Array
+        (
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No short description for element '$role'
+        )
+
+    [431] => Array
+        (
+            [line] => 23
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No docblock for element '$captcha'
+        )
+
+    [432] => Array
+        (
+            [line] => 23
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No short description for element '$captcha'
+        )
+
+    [433] => Array
+        (
+            [line] => 42
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\SignupForm.
+        )
+
+    [434] => Array
+        (
+            [line] => 84
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/models/SignupForm.php
+            [message] => No docblock for element 'validateUserEmail'
+        )
+
+    [435] => Array
+        (
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/DefaultController.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\DefaultController'
+        )
+
+    [436] => Array
+        (
+            [line] => 56
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/DefaultController.php
+            [message] => No docblock for element 'behaviors'
+        )
+
+    [437] => Array
+        (
+            [line] => 80
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/DefaultController.php
+            [message] => No docblock for element 'actions'
+        )
+
+    [438] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionCancelorder.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionCancelorder'
+        )
+
+    [439] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionCancelorder.php
+            [message] => No docblock for element 'actionCancelorder'
+        )
+
+    [440] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionCommentscontrol.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionCommentscontrol'
+        )
+
+    [441] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionCommentscontrol.php
+            [message] => No docblock for element 'actionCommentscontrol'
+        )
+
+    [442] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionCommentspage.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionCommentspage'
+        )
+
+    [443] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionCommentspage.php
+            [message] => No docblock for element 'actionCommentspage'
+        )
+
+    [444] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionDelegate.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionDelegate'
+        )
+
+    [445] => Array
+        (
+            [line] => 22
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionDelegate.php
+            [message] => No docblock for element 'actionDelegate'
+        )
+
+    [446] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionDocuments.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionDocuments'
+        )
+
+    [447] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionDocuments.php
+            [message] => No docblock for element 'actionDocuments'
+        )
+
+    [448] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionIndex.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionIndex'
+        )
+
+    [449] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionIndex.php
+            [message] => No docblock for element 'actionIndex'
+        )
+
+    [450] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionNewspage.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionNewspage'
+        )
+
+    [451] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionNewspage.php
+            [message] => No docblock for element 'actionNewspage'
+        )
+
+    [452] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionNewsupdate.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionNewsupdate'
+        )
+
+    [453] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionNewsupdate.php
+            [message] => No docblock for element 'actionNewsupdate'
+        )
+
+    [454] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionOrderUpdate.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionOrderUpdate'
+        )
+
+    [455] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionOrderUpdate.php
+            [message] => No docblock for element 'actionOrderupdate'
+        )
+
+    [456] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionPartnersCategories.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionPartnersCategories'
+        )
+
+    [457] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionPartnersCategories.php
+            [message] => No docblock for element 'actionPartnerscategories'
+        )
+
+    [458] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestnews.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionRequestnews'
+        )
+
+    [459] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestnews.php
+            [message] => No docblock for element 'actionRequestnews'
+        )
+
+    [460] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestorders.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionRequestorders'
+        )
+
+    [461] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestorders.php
+            [message] => No docblock for element 'actionRequestorders'
+        )
+
+    [462] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestpage.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionRequestpage'
+        )
+
+    [463] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestpage.php
+            [message] => No docblock for element 'actionRequestpage'
+        )
+
+    [464] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestupdate.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionRequestupdate'
+        )
+
+    [465] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestupdate.php
+            [message] => No docblock for element 'actionRequestupdate'
+        )
+
+    [466] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestusers.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionRequestusers'
+        )
+
+    [467] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionRequestusers.php
+            [message] => No docblock for element 'actionRequestusers'
+        )
+
+    [468] => Array
+        (
+            [line] => 8
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionSavesettings.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionSavesettings'
+        )
+
+    [469] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionSavesettings.php
+            [message] => No docblock for element 'actionSavesettings'
+        )
+
+    [470] => Array
+        (
+            [line] => 5
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionTemplateimage.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionTemplateimage'
+        )
+
+    [471] => Array
+        (
+            [line] => 6
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionTemplateimage.php
+            [message] => No docblock for element 'actionTemplateimage'
+        )
+
+    [472] => Array
+        (
+            [line] => 10
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionUserControl.php
+            [message] => No docblock for element 'frontend\modules\admin\controllers\actions\ActionUserControl'
+        )
+
+    [473] => Array
+        (
+            [line] => 12
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/modules/admin/controllers/actions/ActionUserControl.php
+            [message] => No docblock for element 'actionUsercontrol'
+        )
+
+    [474] => Array
+        (
             [line] => 50
-            [file] => ..\..\frontend\widgets\Alert.php
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Alert.php
+            [message] => No docblock for element 'init'
+        )
+
+    [475] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No docblock for element 'frontend\widgets\CommentsBlock'
+        )
+
+    [476] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No docblock for element '$nameblock'
+        )
+
+    [477] => Array
+        (
+            [line] => 14
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No short description for element '$nameblock'
+        )
+
+    [478] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No docblock for element '$relateID'
+        )
+
+    [479] => Array
+        (
+            [line] => 19
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No short description for element '$relateID'
+        )
+
+    [480] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No docblock for element '$category'
+        )
+
+    [481] => Array
+        (
+            [line] => 20
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No short description for element '$category'
+        )
+
+    [482] => Array
+        (
+            [line] => 21
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/CommentsBlock.php
+            [message] => No docblock for element 'init'
+        )
+
+    [483] => Array
+        (
+            [line] => 7
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Hint.php
+            [message] => No docblock for element 'frontend\widgets\Hint'
+        )
+
+    [484] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Hint.php
+            [message] => No docblock for element '$HintTypes'
+        )
+
+    [485] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Hint.php
+            [message] => No short description for element '$HintTypes'
+        )
+
+    [486] => Array
+        (
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Hint.php
+            [message] => No docblock for element '$hint'
+        )
+
+    [487] => Array
+        (
+            [line] => 30
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Hint.php
+            [message] => No short description for element '$hint'
+        )
+
+    [488] => Array
+        (
+            [line] => 32
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Hint.php
+            [message] => No docblock for element 'init'
+        )
+
+    [489] => Array
+        (
+            [line] => 9
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Menu.php
+            [message] => No docblock for element 'frontend\widgets\Menu'
+        )
+
+    [490] => Array
+        (
+            [line] => 13
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/Menu.php
+            [message] => No docblock for element 'init'
+        )
+
+    [491] => Array
+        (
+            [line] => 11
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/NewsBlock.php
+            [message] => No docblock for element 'frontend\widgets\NewsBlock'
+        )
+
+    [492] => Array
+        (
+            [line] => 15
+            [file] => /home/dmitriy/PhpstormProjects/OM-PARTNER/frontend/widgets/NewsBlock.php
             [message] => No docblock for element 'init'
         )
 
