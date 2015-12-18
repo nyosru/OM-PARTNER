@@ -68,7 +68,7 @@ echo \yii\grid\GridView::widget([
                 $finalomprice = 0;
                 $omfinalprice = 0;
                 foreach ($order as $key => $value) {
-                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity;
+                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity - $value[8]['count'];
                     $price = round($value[3] - $value[3] / 100 * $discounttotalprice);
                     $count++;
                     $countprod += $value[4];
@@ -102,10 +102,13 @@ echo \yii\grid\GridView::widget([
                         $omprice = '';
                         $omfinalquant = '';
                     }
+                    if ($value[6] == 'undefined') {
+                        $value[6] = 'Без размера';
+                    }
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.' . $omprice . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
                     $inner .= '<td class="col-md-3"><img style="width: 50%;" src="/site/imagepreview?src=' . $value[5] . '"/></td>';
-                    $inner .= '<td class="col-md-1">' . (float)$value[6] . '</td>';
+                    $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
                     $inner .= '</tr>';
                 }
@@ -235,7 +238,7 @@ echo \yii\grid\GridView::widget([
         ],
         ['class' => 'yii\grid\ActionColumn',
             'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-            'template' => '{delegate}{cancel}{print}{edit}{mail}',
+            'template' => '{delegate}{cancel}{print}{edit}{mail}{revert}',
             'header' => 'Управление',
             'buttons' => [
                 'delegate' => function ($url, $model, $key) {
@@ -341,6 +344,18 @@ echo \yii\grid\GridView::widget([
                         return '<div class="col-md-2"><span  class="fa fa-envelope" style="cursor:pointer; font-size: 20px; color: darkblue;" data-toggle="modal" data-target="#modal-mail-' . $key . '"></span></div>' . $modal;
                     } else {
                         return '';
+                    }
+                },
+                'revert' => function ($url, $model, $key) {
+                    if ($model->orders_id > 2) {
+                        $url = Yii::$app->urlManager->createUrl(['/admin/default/orderrevert', 'id' => $key]);
+                        return '<div class="col-md-2">' . Html::a(
+                            '<span class="fa fa-reply-all"  style="cursor:pointer; font-size: 20px; color: black;" ></span>',
+                            $url, ['target' => '_blank']) . '</div>';
+
+                    } else {
+                        return '';
+
                     }
                 },
             ],

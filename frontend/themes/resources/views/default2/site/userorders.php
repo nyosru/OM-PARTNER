@@ -66,7 +66,7 @@ echo \yii\grid\GridView::widget([
                 $totalomcount = 0;
                 $finalomprice = 0;
                 foreach ($order as $key => $value) {
-                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity;
+                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity - $value[8]['count'];
                     $price = round($value[3] - $value[3] / 100 * $discounttotalprice);
                     $count++;
                     $countprod += $value[4];
@@ -97,11 +97,13 @@ echo \yii\grid\GridView::widget([
                     } else {
                         $omfinalquant = '';
                     }
-
+                    if ($value[6] == 'undefined') {
+                        $value[6] = 'Без размера';
+                    }
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
                     $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
                     $inner .= '<td class="col-md-3"><img style="width: 50%;" src="/site/imagepreview?src=' . $value[5] . '"/></td>';
-                    $inner .= '<td class="col-md-1">' . (float)$value[6] . '</td>';
+                    $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
                     $inner .= '</tr>';
                 }

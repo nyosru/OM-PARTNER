@@ -272,12 +272,17 @@ $(document).on('click', '.save-order2', function () {
                 $userdataarr[$name_attr] = $(this).text();
             }
         });
+        if ($('#paymentmethod option:selected')[0]) {
+            $paymentmethod = $('#paymentmethod option:selected')[0].value;
+        } else {
+            $paymentmethod = '';
+        }
         $.post(
             "/site/saveorder",
             {
                 order: $item.cart,
                 ship: $('#shipping-confirm option:selected')[0].value,
-                paymentmethod: $('#paymentmethod option:selected')[0].value,
+                paymentmethod: $paymentmethod,
                 user: $userdataarr
             },
             onAjaxSuccesssaveorder
