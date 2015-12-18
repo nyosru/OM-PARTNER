@@ -231,3 +231,4 @@ common/config
 .idea/workspace.xml
 frontend\runtime
 backend\runtime
+docstorage
