@@ -28,10 +28,10 @@ unset($order['discounttotalprice']);
                    style="font-family:arial,sans-serif;background-color:#fff;">
                 <tbody>
                 <tr>
-                    <td style="padding:10px 207px 10px 100px;width:100px;">
+                    <td style="padding:10px 207px 10px 100px;width:100px; background-color: #00ca6d;">
                         <h1><a style="color:black; text-align: center" target=" _blank" href="http://<?= $site ?>"><?= $site_name ?></a></h1>
                     </td>
-                    <td>
+                    <td style="background-color: #00ca6d;">
                         <p style="padding-left:35px;">
                             <?
                             if (Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
