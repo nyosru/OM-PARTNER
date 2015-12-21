@@ -23,20 +23,15 @@ unset($order['discounttotalprice']);
     <tbody>
 
     <tr>
-        <td style="height:44px;background:#282828;">
-
-        </td>
-    </tr>
-    <tr>
         <td style="padding:0;">
             <table bgcolor="#fff;" width="800" border="0" celpadding="0" cellspacing="0" align="center"
                    style="font-family:arial,sans-serif;background-color:#fff;">
                 <tbody>
                 <tr>
                     <td style="padding:10px 207px 10px 100px;width:100px;">
-                        <a href=<?= $site ?>" target=" _blank"><?= $site_name ?></a>
+                        <h1><a style="color:black; text-align: center" target=" _blank" href="http://<?= $site ?>"><?= $site_name ?></a></h1>
                     </td>
-                    <td style="">
+                    <td>
                         <p style="padding-left:35px;">
                             <?
                             if (Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
@@ -51,22 +46,21 @@ unset($order['discounttotalprice']);
         </td>
     </tr>
     <tr>
-        <td style=""></td>
+        <td></td>
     </tr>
 
     <tr style="text-align:center;height:30px;">
         <td style="font-size:14px;font-family:officinaserifcBook,sans-serif;">
             <a style="margin-left:0px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=1632&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Женщинам</a>
+               href="http://<?= $site ?>/site/news">Новости</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=1668&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Мужчинам</a>
+               href="http://<?= $site ?>/site/delivery">Доставка</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=1903&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Детям</a>
+               href="http://<?= $site ?>/site/contacts">Контакты</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=2065&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">На
-                дачу</a>
+               href="http://<?= $site ?>/site/lk">Личный кабинет</a>
             <a style="margin-left:8px;color:#282828;"
-               href="<?= $site ?>/site/catalog#!cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=undefined&sort=10&searchword=">Аксесуары</a>
+               href="http://<?= $site ?>/site/requestorders">Ваши заказы</a>
 
         </td>
     </tr>
@@ -143,7 +137,7 @@ unset($order['discounttotalprice']);
                             </tr>
                             <tr>
                                 <td colspan="2" style="padding-top:25px;padding-bottom:15px;">
-                                    <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">Подробности
+                                    <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">Статус и состояние
                                         заказа вы можете посмотреть в <a
                                             href="http://egorov1.rezerv.odezhda-master.ru/site/requestorders">личном
                                             кабинете:</a></p>
