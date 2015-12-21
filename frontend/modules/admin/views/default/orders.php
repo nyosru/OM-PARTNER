@@ -68,7 +68,7 @@ echo \yii\grid\GridView::widget([
                 $finalomprice = 0;
                 $omfinalprice = 0;
                 foreach ($order as $key => $value) {
-                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity;
+                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity - $value[8]['count'];
                     $price = round($value[3] - $value[3] / 100 * $discounttotalprice);
                     $count++;
                     $countprod += $value[4];
@@ -102,10 +102,13 @@ echo \yii\grid\GridView::widget([
                         $omprice = '';
                         $omfinalquant = '';
                     }
+                    if ($value[6] == 'undefined') {
+                        $value[6] = 'Без размера';
+                    }
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.' . $omprice . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
                     $inner .= '<td class="col-md-3"><img style="width: 50%;" src="/site/imagepreview?src=' . $value[5] . '"/></td>';
-                    $inner .= '<td class="col-md-1">' . (float)$value[6] . '</td>';
+                    $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
                     $inner .= '</tr>';
                 }
@@ -235,7 +238,7 @@ echo \yii\grid\GridView::widget([
         ],
         ['class' => 'yii\grid\ActionColumn',
             'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-            'template' => '{delegate}{cancel}{print}{edit}{mail}',
+            'template' => '{delegate}{cancel}{print}{edit}{mail}{doc}{revert}',
             'header' => 'Управление',
             'buttons' => [
                 'delegate' => function ($url, $model, $key) {
@@ -343,8 +346,97 @@ echo \yii\grid\GridView::widget([
                         return '';
                     }
                 },
+                'revert' => function ($url, $model, $key) {
+                    if ($model->orders_id > 2) {
+                        $url = Yii::$app->urlManager->createUrl(['/admin/default/orderrevert', 'id' => $key]);
+                        return '<div class="col-md-2">' . Html::a(
+                            '<span class="fa fa-reply-all"  style="cursor:pointer; font-size: 20px; color: black;" ></span>',
+                            $url, ['target' => '_blank']) . '</div>';
+
+                    } else {
+                        return '';
+
+                    }
+                },
+                'doc' => function ($url, $model, $key) {
+                    if ($model->status !== 0) {
+                        $modal =
+                            '<div style="display: none;" id="modal-doc-' . $key . '" class="fade modal" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    Документы
+                                            </div>
+                                            <div class="col-md-12 modal-body" style="background: inherit;">
+
+
+                                                 <div class="col-md-12" style="text-align: center;"                                                     >
+                                                      <div class="col-md-4">
+                                                        <div>
+                                                            ТОРГ-12(Партнер - Клиент)
+                                                        </div>
+                                                        <div>
+                                                            <a style="cursor:pointer;" data-action="gen" id="gendoc"  data-order-id="' . $key . '"  class="fa fa-2x fa-file-excel-o" data-typedoc="excel" data-doc="torg_12"></a>
+                                                        </div>
+                                                      </div>
+                                                       <div class="col-md-4">
+                                                        <div>
+                                                            Счет(Партнер - Клиент)
+                                                        </div>
+                                                        <div>
+                                                            <a style="cursor:pointer;" data-action="gen" id="gendoc"  data-order-id="' . $key . '"  class="fa fa-2x fa-file-excel-o" data-typedoc="excel" data-doc="schet"></a>
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                  <div id="docpre' . $key . '" class="container" style="width:100%"></div>
+                                </div>
+                                ';
+
+                        return '<div class="col-md-2"><span  class="fa fa-file" style="cursor:pointer; font-size: 20px; color: black;" data-toggle="modal" data-target="#modal-doc-' . $key . '"></span></div>' . $modal;
+                    } else {
+                        return '';
+
+                    }
+                },
             ],
         ],
     ],
     'tableOptions' => ['class' => 'table table-striped table-bordered admin-news-grid'],
 ]);
+?>
+<script>
+    $(document).on('click', '#gendoc', function () {
+        $typedoc = this.getAttribute('data-typedoc');
+        $doc = this.getAttribute('data-doc');
+        $id = this.getAttribute('data-order-id');
+        $action = this.getAttribute('data-action');
+        $.ajax({
+            url: "/admin/default/documents",
+            data: 'type=' + $typedoc + '&doc=' + $doc + '&id=' + $id + '&action=' + $action,
+            cache: false,
+            async: true,
+            dataType: 'html',
+            success: function (data) {
+                $('#docpre' + $id).html('<div style="margin: 10px 0px;">' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=load">Загрузить</a>' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=gen" target="_blanK">Открыть в новом окне</a>' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=senduser">Отправить клиенту</a>' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=sendself">Отправить себе на почту</a>' +
+                    '</div><div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%;">' +
+                    data +
+                    '</div>');
+                $('#docpre' + $id).show();
+            }
+
+        });
+
+    });
+
+</script>

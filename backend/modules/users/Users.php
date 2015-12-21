@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\Users;
+namespace backend\modules\Users;
 
 class Users extends \yii\base\Module
 {
-    public $controllerNamespace = 'app\modules\users\controllers';
+    public $controllerNamespace = 'backend\modules\users\controllers';
     
 }

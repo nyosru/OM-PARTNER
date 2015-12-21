@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\Calendar;
+namespace backend\modules\Calendar;
 
 class Calendar extends \yii\base\Module
 {
-    public $controllerNamespace = 'app\modules\calendar\controllers';
+    public $controllerNamespace = 'backend\modules\calendar\controllers';
     
 }

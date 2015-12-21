@@ -23,11 +23,14 @@ $l1 .=
     '<th style="background: #FFBF08 none repeat scroll 0% 0%;">Ред.</th>' .
     '</tr></thead><tbody>';
 foreach ($order as $key => $value) {
+    if ($value[6] == 'undefined') {
+        $value[6] = 'Без размера';
+    }
     $l1 .=
         '<tr>' .
         '<td>' . $value[0] . '</td>' .
         '<td>' . $value[1] . '</td>' .
-        '<td>' . (float)$value[6] . '</td>' .
+        '<td>' . $value[6] . '</td>' .
         '<td>' . round(round($value[3]) - round($value[3]) * $discounttotalprice / 100) . '</td>' .
         '<td><img width="50%" src="/site/imagepreview?src=' . $value[5] . '">' .
         '<td>' .

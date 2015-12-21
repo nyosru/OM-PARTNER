@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\calendar\controllers;
+namespace backend\modules\calendar\controllers;
 
 use Yii;
 use yii\web\Controller;

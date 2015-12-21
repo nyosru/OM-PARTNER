@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\partners\models;
+namespace backend\modules\partners\models;
 
 use Yii;
 

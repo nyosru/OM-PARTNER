@@ -147,4 +147,13 @@ return array(
                     '@kartik/icons' => $vendorDir . '/kartik-v/yii2-icons',
                 ),
         ),
+    'yiisoft/yii2-apidoc' =>
+        array(
+            'name' => 'yiisoft/yii2-apidoc',
+            'version' => '2.0.4.0',
+            'alias' =>
+                array(
+                    '@yii/apidoc' => $vendorDir . '/yiisoft/yii2-apidoc',
+                ),
+        ),
 );

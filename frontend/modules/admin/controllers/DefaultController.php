@@ -1,10 +1,11 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace frontend\modules\admin\controllers;
 
 use common\traits\Categories_for_partner;
 use common\traits\Imagepreviewcrop;
 use common\traits\ThemeResources;
+use common\traits\Trim_Tags;
 use frontend\modules\admin\controllers\actions\ActionCancelorder;
 use frontend\modules\admin\controllers\actions\ActionCommentscontrol;
 use frontend\modules\admin\controllers\actions\ActionCommentspage;
@@ -13,6 +14,7 @@ use frontend\modules\admin\controllers\actions\ActionDocuments;
 use frontend\modules\admin\controllers\actions\ActionIndex;
 use frontend\modules\admin\controllers\actions\ActionNewspage;
 use frontend\modules\admin\controllers\actions\ActionNewsupdate;
+use frontend\modules\admin\controllers\actions\ActionOrderRevert;
 use frontend\modules\admin\controllers\actions\ActionOrderUpdate;
 use frontend\modules\admin\controllers\actions\ActionPartnersCategories;
 use frontend\modules\admin\controllers\actions\ActionRequestnews;
@@ -51,7 +53,9 @@ class DefaultController extends Controller
         ActionPartnersCategories,
         ActionUserControl,
         Categories_for_partner,
-        ActionDocuments;
+        ActionDocuments,
+        ActionOrderRevert,
+        Trim_Tags;
 
     public function behaviors()
     {
@@ -60,7 +64,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orderupdate', 'usercontrol', 'newspage', 'documents', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
+                        'actions' => ['index', 'orderupdate', 'orderrevert', 'usercontrol', 'newspage', 'documents', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
                             'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage', 'partnerscategories'],
                         'allow' => true,
                         'roles' => ['admin'],
