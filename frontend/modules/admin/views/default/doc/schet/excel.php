@@ -156,7 +156,7 @@ if (Yii::$app->request->getQueryParam('action') == 'load') {
 
 if (Yii::$app->request->getQueryParam('action') == 'senduser') {
     if (isset(Yii::$app->params['partnersset']['contacts']['email']['value']) && Yii::$app->params['partnersset']['contacts']['email']['value'] != '') {
-        $mailfrom = Yii::$app->params['partnersset']['contacts']['email'];
+        $mailfrom = Yii::$app->params['partnersset']['contacts']['email']['value'];
     } else {
         $mailfrom = 'support@' . $_SERVER['HTTP_HOST'];
     }
@@ -165,6 +165,21 @@ if (Yii::$app->request->getQueryParam('action') == 'senduser') {
         ->attach(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/schetpc-' . $order['id'] . '.xls'))
         ->setFrom($mailfrom)
         ->setTo($order['user']['email'])
+        ->setSubject('Счет к заказу № ' . $order['id'])
+        ->send();
+
+}
+if (Yii::$app->request->getQueryParam('action') == 'sendself') {
+    if (isset(Yii::$app->params['partnersset']['contacts']['email']['value']) && Yii::$app->params['partnersset']['contacts']['email']['value'] != '') {
+        $mailfrom = Yii::$app->params['partnersset']['contacts']['email']['value'];
+    } else {
+        $mailfrom = 'support@' . $_SERVER['HTTP_HOST'];
+    }
+
+    Yii::$app->mailer->compose()
+        ->attach(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/schetpc-' . $order['id'] . '.xls'))
+        ->setFrom($mailfrom)
+        ->setTo($mailfrom)
         ->setSubject('Счет к заказу № ' . $order['id'])
         ->send();
 

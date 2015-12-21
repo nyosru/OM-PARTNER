@@ -428,6 +428,7 @@ echo \yii\grid\GridView::widget([
                     '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=load">Загрузить</a>' +
                     '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=gen" target="_blanK">Открыть в новом окне</a>' +
                     '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=senduser">Отправить клиенту</a>' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=sendself">Отправить себе на почту</a>' +
                     '</div><div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%;">' +
                     data +
                     '</div>');

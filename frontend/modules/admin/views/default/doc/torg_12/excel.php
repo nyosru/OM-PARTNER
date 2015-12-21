@@ -190,5 +190,32 @@ if (Yii::$app->request->getQueryParam('action') == 'load') {
     send_file(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.xls'));
 }
 if (Yii::$app->request->getQueryParam('action') == 'senduser') {
+    if (isset(Yii::$app->params['partnersset']['contacts']['email']['value']) && Yii::$app->params['partnersset']['contacts']['email']['value'] != '') {
+        $mailfrom = Yii::$app->params['partnersset']['contacts']['email']['value'];
+    } else {
+        $mailfrom = 'support@' . $_SERVER['HTTP_HOST'];
+    }
+
+    Yii::$app->mailer->compose()
+        ->attach(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.xls'))
+        ->setFrom($mailfrom)
+        ->setTo($order['user']['email'])
+        ->setSubject('Торг-12 заказу № ' . $order['id'])
+        ->send();
+
+}
+if (Yii::$app->request->getQueryParam('action') == 'sendself') {
+    if (isset(Yii::$app->params['partnersset']['contacts']['email']['value']) && Yii::$app->params['partnersset']['contacts']['email']['value'] != '') {
+        $mailfrom = Yii::$app->params['partnersset']['contacts']['email']['value'];
+    } else {
+        $mailfrom = 'support@' . $_SERVER['HTTP_HOST'];
+    }
+
+    Yii::$app->mailer->compose()
+        ->attach(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.xls'))
+        ->setFrom($mailfrom)
+        ->setTo($mailfrom)
+        ->setSubject('Торг-12 заказу № ' . $order['id'])
+        ->send();
 
 }
