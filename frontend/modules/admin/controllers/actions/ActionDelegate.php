@@ -27,7 +27,6 @@ trait ActionDelegate{
         $ordersdata = new PartnersOrders();
         $userpartnerdata = new User();
         $userdata = new PartnersUsersInfo();
-        $ordersparamlock = $ordersdata->findOne(['id' => $data]);
         $ordersparam = $ordersdata->find()->where(['id' => $data])->asArray()->one();
             $transaction = Yii::$app->db->beginTransaction();
             try {
@@ -254,8 +253,8 @@ trait ActionDelegate{
 
                                 }
                             } else {
-                                // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                                return false;
+                                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                                return $partnerorder;
                             }
                         }
                         $orderstotalprice = new OrdersTotal();
@@ -293,7 +292,7 @@ trait ActionDelegate{
                         $neworderpartner->update_date = date("Y-m-d H:i:s");
                         $neworderpartner->update();
                     } else {
-                        //    print_r($userOM);
+                        $orders->errors;
                     }
                 } else {
                     return false;
