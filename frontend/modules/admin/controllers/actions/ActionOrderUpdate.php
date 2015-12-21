@@ -71,9 +71,17 @@ trait ActionOrderUpdate{
                     return $this->render('orderupdate', ['modelform' => $model]);
                 } else if (Yii::$app->request->getQueryParam('action') === 'delete') {
                     $order = unserialize($model->order);
+                    $ordernew['ship'] = $order['ship'];
+                    $ordernew['discount'] = $order['discount'];
+                    $ordernew['discounttotalprice'] = $order['discounttotalprice'];
+                    $ordernew['paymentmethod'] = $order['paymentmethod'];
+                    unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
                     $position = (integer)Yii::$app->request->getQueryParam('position');
-                    unset($order[$position]);
-                    $model->order = serialize($order);
+                    foreach ($order as $key => $value) {
+                        if ($position != $key)
+                            $ordernew[] = $order[$key];
+                    }
+                    $model->order = serialize($ordernew);
                     $model->save();
                     return $this->render('orderupdate', ['modelform' => $model]);
                 } else {
