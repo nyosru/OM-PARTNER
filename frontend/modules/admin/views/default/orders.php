@@ -238,7 +238,7 @@ echo \yii\grid\GridView::widget([
         ],
         ['class' => 'yii\grid\ActionColumn',
             'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-            'template' => '{delegate}{cancel}{print}{edit}{mail}{revert}',
+            'template' => '{delegate}{cancel}{print}{edit}{mail}{doc}{revert}',
             'header' => 'Управление',
             'buttons' => [
                 'delegate' => function ($url, $model, $key) {
@@ -358,8 +358,85 @@ echo \yii\grid\GridView::widget([
 
                     }
                 },
+                'doc' => function ($url, $model, $key) {
+                    if ($model->status !== 0) {
+                        $modal =
+                            '<div style="display: none;" id="modal-doc-' . $key . '" class="fade modal" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    Документы
+                                            </div>
+                                            <div class="col-md-12 modal-body" style="background: inherit;">
+
+
+                                                 <div class="col-md-12" style="text-align: center;"                                                     >
+                                                      <div class="col-md-4">
+                                                        <div>
+                                                            ТОРГ-12(Партнер - Клиент)
+                                                        </div>
+                                                        <div>
+                                                            <a style="cursor:pointer;" data-action="gen" id="gendoc"  data-order-id="' . $key . '"  class="fa fa-2x fa-file-excel-o" data-typedoc="excel" data-doc="torg_12"></a>
+                                                        </div>
+                                                      </div>
+                                                       <div class="col-md-4">
+                                                        <div>
+                                                            Счет(Партнер - Клиент)
+                                                        </div>
+                                                        <div>
+                                                            <a style="cursor:pointer;" data-action="gen" id="gendoc"  data-order-id="' . $key . '"  class="fa fa-2x fa-file-excel-o" data-typedoc="excel" data-doc="schet"></a>
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                  <div id="docpre' . $key . '" class="container" style="width:100%"></div>
+                                </div>
+                                ';
+
+                        return '<div class="col-md-2"><span  class="fa fa-file" style="cursor:pointer; font-size: 20px; color: black;" data-toggle="modal" data-target="#modal-doc-' . $key . '"></span></div>' . $modal;
+                    } else {
+                        return '';
+
+                    }
+                },
             ],
         ],
     ],
     'tableOptions' => ['class' => 'table table-striped table-bordered admin-news-grid'],
 ]);
+?>
+<script>
+    $(document).on('click', '#gendoc', function () {
+        $typedoc = this.getAttribute('data-typedoc');
+        $doc = this.getAttribute('data-doc');
+        $id = this.getAttribute('data-order-id');
+        $action = this.getAttribute('data-action');
+        $.ajax({
+            url: "/admin/default/documents",
+            data: 'type=' + $typedoc + '&doc=' + $doc + '&id=' + $id + '&action=' + $action,
+            cache: false,
+            async: true,
+            dataType: 'html',
+            success: function (data) {
+                $('#docpre' + $id).html('<div style="margin: 10px 0px;">' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=load">Загрузить</a>' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=gen" target="_blanK">Открыть в новом окне</a>' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=senduser">Отправить клиенту</a>' +
+                    '<a style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; margin: 0px 10px;" href="/admin/default/documents?id=' + $id + '&type=' + $typedoc + '&doc=' + $doc + '&action=sendself">Отправить себе на почту</a>' +
+                    '</div><div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%;">' +
+                    data +
+                    '</div>');
+                $('#docpre' + $id).show();
+            }
+
+        });
+
+    });
+
+</script>

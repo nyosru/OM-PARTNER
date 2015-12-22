@@ -26,7 +26,7 @@ class Imagepreviewfile
             $namefile = base64_encode(implode('', $file));
             $dir = '';
         }
-        if (strlen($namefile) > 7) {
+        if (strlen($namefile) > 500000000000) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
             $subdir .= '/' . substr($namefile, 2, 2) . '/';
@@ -34,13 +34,13 @@ class Imagepreviewfile
             $subdir .= '/' . substr($namefile, 4, 2) . '/';
             $split[] = substr($namefile, 6, 2);
             $subdir .= '/' . substr($namefile, 6, 2) . '/';
-        } elseif (strlen($namefile) > 5) {
+        } elseif (strlen($namefile) > 500000000000) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
             $subdir .= '/' . substr($namefile, 2, 2) . '/';
             $split[] = substr($namefile, 4, 2);
             $subdir .= '/' . substr($namefile, 4, 2) . '/';
-        } elseif (strlen($namefile) > 3) {
+        } elseif (strlen($namefile) > 500000000000) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
             $subdir .= '/' . substr($namefile, 2, 2) . '/';
@@ -52,7 +52,11 @@ class Imagepreviewfile
                 $new_dir = '';
                 foreach ($split as $value) {
                     $new_dir .= $value . '/';
-                    mkdir(Yii::getAlias($where) . $new_dir);
+                    if (file_exists(Yii::getAlias($where) . $new_dir)) {
+                        chmod(Yii::getAlias($where) . $new_dir, 0777);
+                    } else {
+                        mkdir(Yii::getAlias($where) . $new_dir, 0777);
+                    }
                 }
             }
             if ($ras[0] == 'jpg' || $ras[0] == 'jpeg') {
