@@ -51,15 +51,15 @@ unset($order['discounttotalprice']);
     <tr style="text-align:center;height:30px;">
         <td style="font-size:14px;font-family:officinaserifcBook,sans-serif;">
             <a style="margin-left:0px;color:#282828;"
-               href="http://<?= $site ?>/site/news">Новости</a>
+               href="http://<?= $sait ?>/site/news">Новости</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/delivery">Доставка</a>
+               href="http://<?= $sait ?>/site/delivery">Доставка</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/contacts">Контакты</a>
+               href="http://<?= $sait ?>/site/contacts">Контакты</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/lk">Личный кабинет</a>
+               href="http://<?= $sait ?>/site/lk">Личный кабинет</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/requestorders">Ваши заказы</a>
+               href="http://<?= $sait ?>/site/requestorders">Ваши заказы</a>
 
         </td>
     </tr>
@@ -80,13 +80,13 @@ unset($order['discounttotalprice']);
                             <tr>
                                 <td colspan="2" style="padding-top:20px;padding-bottom:0;">
                                     <p style="font-size:28px;font-family:officinaserifcBook,sans-serif;">
-                                        Здравствуйте, <?= $user->name ?></p>
+                                        Здравствуйте ?></p>
 
                                     <p>Благодарим Вас за регистрацию на сайте интернет магазина модной одежды, обуви и аксессуаров<br>
-                                    <a href="<?= $site ?>"><?= $site_name ?></a> Мы рады, что Вы теперь с нами!<br></p>
+                                    <a href="http://<?= $sait ?>"><?= $sait ?></a> Мы рады, что Вы теперь с нами!<br></p>
                                     <p>Ваш логин: <?= $username ?></p>
                                     <p>Ваш пароль: <?= $password ?></p>
-                                    <p>Приятных и выгодных покупок на <a href="<?= $sait ?>"><?= $sait ?></a></p>
+                                    <p>Приятных и выгодных покупок на <a href="http://<?= $sait ?>"><?= $sait ?></a></p>
                                 </td>
                             </tr>
 
