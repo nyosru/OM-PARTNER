@@ -352,91 +352,86 @@ $l5 .= '</div>';
 //--------------------------------------------------------------------------------------------------------------------//
 
 $l6 = '<div style="margin: 10px; height: 100%;">';
-$l6 .= '<button type="button" data-toggle="collapse" data-target="#paysystem">' .
-    '+' .
-    '</button>';
 $l6 .= '<label class="control-label">' .
     'Физические платежи (реквизиты для выставления счетов)' .
     '</label>';
-$l6 .= '<div id="paysystem" class="collapse" style="margin: 10px; height: 100%;">';
+$l6 .= '<div id="paysystem" style="margin: 10px; height: 100%;">';
+$l6 .= '<div class="">';
 $l6 .= '<div class="col-md-12">';
-$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6 .= '<h2>' .
-    'Яндекс деньги' .
-    '</h2>';
-$l6 .= '<div style="float: right;">' .
-    $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+$l6 .= '<div style="float: left; margin: 0px -20px;">' .
+    $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute; z-index: 99;']])->checkbox()->label('') .
     '</div>';
-$l6 .= $form->field($model, 'paysystem[value][yamoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер кошелька Яндекс.Денег');
+$l6 .= '<h4>' .
+    'Яндекс деньги' .
+    '</h4>';
+$l6 .= $form->field($model, 'paysystem[value][yamoney][value]', ['options' => ['class' => 'col-md-7']])->textInput(['placeholder' => 'Номер кошелька Яндекс.Денег'])->label(false);
 $l6 .= $form->field($model, 'paysystem[value][yamoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
 $l6 .= '</div>';
-$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6 .= '<h2>' .
-    'Webmoney' .
-    '</h2>';
-$l6 .= '<div style="float: right;">' .
-    $form->field($model, 'paysystem[value][webmoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+$l6 .= '<div class="col-md-12">';
+$l6 .= '<div style="float: left; margin: 0px -20px;">' .
+    $form->field($model, 'paysystem[value][webmoney][active]', ['options' => ['style' => 'position: absolute; z-index: 99;']])->checkbox()->label('') .
     '</div>';
-$l6 .= $form->field($model, 'paysystem[value][webmoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер рублевого кошелька WebMoney');
+$l6 .= '<h4>' .
+    'Webmoney' .
+    '</h4>';
+$l6 .= $form->field($model, 'paysystem[value][webmoney][value]', ['options' => ['class' => 'col-md-7']])->textInput(['placeholder' => 'Номер рублевого кошелька WebMoney'])->label(false);
 $l6 .= $form->field($model, 'paysystem[value][webmoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
 $l6 .= '</div>';
-$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6 .= '<h2>' .
-    'Qiwi' .
-    '</h2>';
-$l6 .= '<div style="float: right;">' .
-    $form->field($model, 'paysystem[value][qiwi][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+$l6 .= '<div class="col-md-12">';
+$l6 .= '<div style="float: left; margin: 0px -20px;">' .
+    $form->field($model, 'paysystem[value][qiwi][active]', ['options' => ['style' => 'position: absolute;  z-index: 99;']])->checkbox()->label('') .
     '</div>';
-$l6 .= $form->field($model, 'paysystem[value][qiwi][value]', ['options' => ['class' => 'col-md-7']])->label('Qiwi');
+$l6 .= '<h4>' .
+    'Qiwi' .
+    '</h4>';
+$l6 .= $form->field($model, 'paysystem[value][qiwi][value]', ['options' => ['class' => 'col-md-7']])->textInput(['placeholder' => 'Qiwi'])->label(false);
 $l6 .= $form->field($model, 'paysystem[value][qiwi][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
 $l6 .= '</div>';
-$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6 .= '<h2>' .
-    'Наложенный платеж' .
-    '</h2>';
-$l6 .= '<div style="float: right;">' .
-    $form->field($model, 'paysystem[value][nalozhplat][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+$l6 .= '<div class="col-md-12">';
+$l6 .= '<div style="float: left; margin: 0px -20px;">' .
+    $form->field($model, 'paysystem[value][nalozhplat][active]', ['options' => ['style' => 'position: absolute; z-index: 99;']])->checkbox()->label('') .
     '</div>';
-$l6 .= $form->field($model, 'paysystem[value][nalozhplat][value]', ['options' => ['class' => 'col-md-7']])->label('');
+$l6 .= '<h4>' .
+    'Наложенный платеж' .
+    '</h4>';
+$l6 .= $form->field($model, 'paysystem[value][nalozhplat][value]', ['options' => ['class' => 'col-md-7']])->textInput(['placeholder' => ''])->label(false);
 $l6 .= $form->field($model, 'paysystem[value][nalozhplat][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
 $l6 .= '</div>';
-$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6 .= '<h2>' .
-    'Банковская карта' .
-    '</h2>';
-$l6 .= '<div style="float: right;">' .
-    $form->field($model, 'paysystem[value][bankcard][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+$l6 .= '<div class="col-md-12">';
+$l6 .= '<div style="float: left; margin: 0px -20px;">' .
+    $form->field($model, 'paysystem[value][bankcard][active]', ['options' => ['style' => 'position: absolute; z-index: 99;']])->checkbox()->label('') .
     '</div>';
-$l6 .= $form->field($model, 'paysystem[value][bankcard][value]', ['options' => ['class' => 'col-md-7']])->label('');
+$l6 .= '<h4>' .
+    'Банковская карта' .
+    '</h4>';
+$l6 .= $form->field($model, 'paysystem[value][bankcard][value]', ['options' => ['class' => 'col-md-7']])->textInput(['placeholder' => ''])->label(false);
 $l6 .= $form->field($model, 'paysystem[value][bankcard][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
 $l6 .= '</div>';
-$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6 .= '<h2>' .
-    'Банковский платеж' .
-    '</h2>';
-$l6 .= '<div style="float: right;">' .
-    $form->field($model, 'paysystem[value][bankpay][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+$l6 .= '<div class="col-md-12">';
+$l6 .= '<div style="float: left; margin: 0px -20px;">' .
+    $form->field($model, 'paysystem[value][bankpay][active]', ['options' => ['style' => 'position: absolute;  z-index: 99;']])->checkbox()->label('') .
     '</div>';
-$l6 .= $form->field($model, 'paysystem[value][bankpay][value][name]', ['options' => ['class' => 'col-md-6']])->label('Наименование организации');
-$l6 .= $form->field($model, 'paysystem[value][bankpay][value][inn]', ['options' => ['class' => 'col-md-3']])->label('ИНН');
-$l6 .= $form->field($model, 'paysystem[value][bankpay][value][kpp]', ['options' => ['class' => 'col-md-3']])->label('КПП');
-$l6 .= $form->field($model, 'paysystem[value][bankpay][value][bankname]', ['options' => ['class' => 'col-md-5']])->label('Наименование банка');
-$l6 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options' => ['class' => 'col-md-3']])->label('БИК');
-$l6 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->label('Корреспондентский счет');
-$l6 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->label('Рассчетный счет');
+$l6 .= '<h4>' .
+    'Банковский платеж' .
+    '</h4>';
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][name]', ['options' => ['class' => 'col-md-6']])->textInput(['placeholder' => 'Наименование организации'])->label(false);
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][inn]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ИНН'])->label(false);
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][kpp]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'КПП'])->label(false);
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][bankname]', ['options' => ['class' => 'col-md-5']])->textInput(['placeholder' => 'Наименование банка'])->label(false);
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'БИК'])->label(false);
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->textInput(['placeholder' => 'Корреспондентский счет'])->label(false);
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->textInput(['placeholder' => 'Рассчетный счет'])->label(false);
 $l6 .= $form->field($model, 'paysystem[value][bankpay][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
 $l6 .= '</div>';
 $l6 .= '</div>';
 $l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l6 .= '</div>';
 $l6 .= '<div style="margin-top: 10px; width: 100%;">';
-$l6 .= '<button type="button" data-toggle="collapse" data-target="#paygate">' .
-    '+' .
-    '</button>';
+
 $l6 .= '<label class="control-label">' .
     'Агрегаторы платежей (автоматическая оплата)' .
     '</label>';
-$l6 .= '<div id="paygate" class="collapse">';
+$l6 .= '<div id="paygate">';
 
 
 $l6_2 .= '<div>';
