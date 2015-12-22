@@ -186,6 +186,13 @@ trait ActionSaveorder
                     ->setTo($username)
                     ->setSubject('Заказ на сайте ' . $_SERVER['HTTP_HOST'])
                     ->send();
+                if (isset(Yii::$app->params['partnersset']['contacts']['email']['value']) && Yii::$app->params['partnersset']['contacts']['email']['active'] == 1) {
+                    Yii::$app->mailer->compose(['html' => 'order-save'], ['order' => $model->order, 'user' => $model->delivery, 'id' => $model->id, 'site' => $_SERVER['HTTP_HOST'], 'site_name' => $site_name, 'date_order' => $date_order])
+                        ->setFrom('no-repli@' . $_SERVER['HTTP_HOST'])
+                        ->setTo(Yii::$app->params['partnersset']['contacts']['email']['value'])
+                        ->setSubject('У вас новый заказ ' . $_SERVER['HTTP_HOST'])
+                        ->send();
+                }
                 return ['id' => $model->id, 'order' => unserialize($model->order)];
             } else {
                 return false;
