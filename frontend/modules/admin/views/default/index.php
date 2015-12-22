@@ -11,10 +11,6 @@ use yii\helpers\BaseHtml;
 use dosamigos\ckeditor\CKEditor;
 $this->title = 'Админка';
 
-//echo '<pre>';
-//print_r($model);
-//echo '</pre>';
-
 $form = ActiveForm::begin(['id' => 'partners-settings', 'action' => '/admin/default/savesettings']);
 $path = Yii::getAlias('@app') . '/themes/';
 $templatedir = opendir($path);
@@ -44,10 +40,14 @@ while ($file = readdir($templatedir)) {
         $count++;
     }
 }
+//--------------------------------------------------------------------------------------------------------------------//
+//                                                    Вкладка 1. Общие                                                //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
+
 $l1 = '<div style="margin: 10px; height: 100%;">';
 $l1 .= $form->field($model, 'template')->label('Шаблон' . \frontend\widgets\Hint::widget(['hint' => 'template']))->radioList($output);
 $l1 .= '<div class="col-md-12">';
-
 $l1 .= $form->field($model, 'logotype[value]')->label('Логотип' . \frontend\widgets\Hint::widget(['hint' => 'logo']))->input('text')->widget(CKEditor::className(), [
     'options' => ['rows' => 1],
     'preset' => 'logo',
@@ -55,7 +55,6 @@ $l1 .= $form->field($model, 'logotype[value]')->label('Логотип' . \fronte
 $l1 .= $form->field($model, 'logotype[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l1 .= '</div>';
 $l1 .= '<div class="col-md-12">';
-
 $l1 .= $form->field($model, 'slogan[value]')->label('Слоган' . \frontend\widgets\Hint::widget(['hint' => 'slog']))->input('text')->widget(CKEditor::className(), [
     'options' => ['rows' => 1],
     'preset' => 'logo',
@@ -71,6 +70,12 @@ $l1 .= $form->field($model, 'commentsonindex[value]')->label('Комментар
 $l1 .= $form->field($model, 'commentsonindex[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l1 .= '</div>';
 $l1 .= '</div>';
+
+//--------------------------------------------------------------------------------------------------------------------//
+//                                               Вкладка 2. Счетчики, СЕО                                             //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
+
 $l2 = '<div style="margin: 10px; height: 100%;">';
 $l2 .= '<div class="col-md-3">';
 $l2 .= $form->field($model, 'mailcounter[value]')->label('Mail (id счетчика)' . \frontend\widgets\Hint::widget(['hint' => 'mailruid']));
@@ -81,6 +86,12 @@ $l2 .= $form->field($model, 'yandexcounter[value]')->label('Yandex (id счет�
 $l2 .= $form->field($model, 'yandexcounter[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l2 .= '</div>';
 $l2 .= '</div>';
+
+//--------------------------------------------------------------------------------------------------------------------//
+//                                             Вкладка 3. Ценовая политика                                            //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
+
 $l3 = '<div style="margin: 10px; height: 100%;">';
 $l3 .= '<div class="col-md-6">';
 $l3 .= $form->field($model, 'discount[value]')->label('Наценка(в % на все товары магазина,все скидки высчитаваются из финальной стоимости товара!!!)' . \frontend\widgets\Hint::widget(['hint' => 'margin']));
@@ -91,8 +102,11 @@ $l3 .= $form->field($model, 'minimalordertotalprice[value]')->label('Миним�
 $l3 .= $form->field($model, 'minimalordertotalprice[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l3 .= '</div>';
 $l3 .= '<div class="col-md-12">';
-$l3 .= '<label class="control-label">Скидка по сумме заказа</label>';
+$l3 .= '<label class="control-label">' .
+    'Скидка по сумме заказа' .
+    '</label>';
 
+//++gen3_1_1/
 $l3_1 = '<div class="col-md-12">';
 $l3_1 .= $form->field($model, 'discounttotalorderprice[value][0][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('');
 $l3_1 .= $form->field($model, 'discounttotalorderprice[value][0][value]', ['options' => ['class' => 'col-md-2']])->label('Скидка, %');
@@ -111,14 +125,18 @@ for ($i = 1; $i <= count($model->discounttotalorderprice['value']); $i++) {
         $u++;
     }
 }
+//--gen3_1_1/
+
 
 $l3 .= $l3_1;
 $l3 .= $form->field($model, 'discounttotalorderprice[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l3 .= '</div>';
-
 $l3 .= '<div class="col-md-12">';
-$l3 .= '<label class="control-label">Накопительная скидка</label>';
+$l3 .= '<label class="control-label">' .
+    'Накопительная скидка' .
+    '</label>';
 
+//++gen3_1_2/
 $l3_1 = '<div class="col-md-12">';
 $l3_1 .= $form->field($model, 'discounttotalorder[value][0][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('');
 $l3_1 .= $form->field($model, 'discounttotalorder[value][0][value]', ['options' => ['class' => 'col-md-2']])->label('Скидка, %');
@@ -137,19 +155,19 @@ for ($i = 1; $i <= count($model->discounttotalorder['value']); $i++) {
         $u++;
     }
 }
-
+//--gen3_1_2/
 $l3 .= $l3_1;
 $l3 .= $form->field($model, 'discounttotalorder[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l3 .= '</div>';
-
 $l3 .= '<div class="col-md-12">';
-$l3 .= '<label class="control-label">Группы скидок для пользователей</label>' . \frontend\widgets\Hint::widget(['hint' => 'discountgroups']);
-
+$l3 .= '<label class="control-label">' .
+    'Группы скидок для пользователей' .
+    '</label>' . \frontend\widgets\Hint::widget(['hint' => 'discountgroups']);
+//++gen3_1_2/
 $l3_1 = '<div class="col-md-12">';
 $l3_1 .= $form->field($model, 'discountgroup[value][0][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('');
 $l3_1 .= $form->field($model, 'discountgroup[value][0][value]', ['options' => ['class' => 'col-md-2']])->label('Скидка, %');
 $l3_1 .= $form->field($model, 'discountgroup[value][0][name]', ['options' => ['class' => 'col-md-10', 'style' => 'margin:0px']])->label('Имя группы', ['style' => 'display:block']);
-
 $l3_1 .= '</div>';
 $u = 1;
 for ($i = 1; $i <= count($model->discountgroup['value']); $i++) {
@@ -162,13 +180,17 @@ for ($i = 1; $i <= count($model->discountgroup['value']); $i++) {
         $u++;
     }
 }
-
+//--gen3_1_2/
 $l3 .= $l3_1;
 $l3 .= $form->field($model, 'discountgroup[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l3 .= '</div>';
-
-
 $l3 .= '</div>';
+
+//--------------------------------------------------------------------------------------------------------------------//
+//                                                 Вкладка 4. Контакты                                                //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
+
 $l4 = '<div style="margin: 10px; height: 100%;">';
 $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
 $l4 .= '<div class="col-md-3">';
@@ -189,7 +211,7 @@ $l4 .= $form->field($model, 'contacts[email][active]', ['options' => ['style' =>
 $l4 .= '</div>';
 $l4 .= '</div>';
 $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%;font-size:12px; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
-$l4 .= $form->field($model, 'contacts[graf_work][activated]', ['options' => ['style' => 'margin: 0px 15px;']])->checkbox()->label('График работы (не активно)');
+$l4 .= $form->field($model, 'contacts[graf_work][activated]', ['options' => ['style' => 'margin: 0px 15px;']])->checkbox()->label('График работы');
 $l4 .= '<div class="col-md-3 graf-day">';
 $hours = ['00' => '00', '01' => '01', '02' => '02', '03' => '03', '04' => '04', '05' => '05', '06' => '06', '07' => '07', '08' => '08', '09' => '09', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' => '16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23', '24' => '24'];
 $minuts = ['00' => '00', '10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50'];
@@ -277,7 +299,6 @@ $l4 .= $form->field($model, 'contacts[graf_work][sun][o][out]', ['options' => ['
 $l4 .= $form->field($model, 'contacts[graf_work][sun][om][out]', ['options' => ['class' => 'col-md-3 prop', 'style' => 'padding-right: 5px; padding-left: 5px;']])->dropDownList($minuts, ['prompt' => 'М'])->label('_');
 $l4 .= '</div>';
 $l4 .= '</div>';
-
 $l4 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
 $l4 .= '<div class="col-md-12">';
 $l4 .= $form->field($model, 'yandexmap[value]')->label('Yandex карта(SID)' . \frontend\widgets\Hint::widget(['hint' => 'yandexmap']), ['options' => ['class' => 'col-md-3']]);
@@ -290,250 +311,408 @@ $l4 .= '</div>';
 $l4 .= '</div>';
 $l4 .= '</div>';
 
+//--------------------------------------------------------------------------------------------------------------------//
+//                                        Вкладка 5. Транспортные компании                                            //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
+
 $l5 = '<div style="margin: 10px; height: 100%;">';
 $l5 .= '<div class="col-md-12">';
-$l5 .= '<label class="control-label">Транспортные компании</label>';
+$l5 .= '<label class="control-label">' .
+    'Транспортные компании' .
+    '</label>';
 $l5_1 = '<div class="col-md-12">';
 $l5_1 .= $form->field($model, 'transport[value][0][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('');
-
 $l5_1 .= $form->field($model, 'transport[value][0][value]', ['options' => ['class' => 'col-md-9']])->label('Название');
 $l5_1 .= $form->field($model, 'transport[value][0][wantpasport]', ['options' => ['class' => 'col-md-3', 'style' => 'position: absolute;  top: 20px; right:0px; z-index: 99;']])->label('Нужен паспорт')->checkbox();
 $l5_1 .= '</div>';
+
+//++gen5_1//
 $u = 1;
 for ($i = 1; $i <= count($model->transport['value']); $i++) {
     if ((isset($model->transport['value'][$i]['value']) && $model->transport['value'][$i]['value'] !== '') || $i = count($model->transport['value'])) {
         $l5_1 .= '<div class="col-md-12">';
         $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][active]', ['options' => ['style' => 'position: absolute;  z-index: 99;']])->checkbox()->label('');
-
         $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][value]', ['options' => ['class' => 'col-md-9', 'style' => 'margin:0px']])->label('', ['style' => 'display:block']);
         $l5_1 .= $form->field($model, 'transport[value][' . ($u) . '][wantpasport]', ['options' => ['class' => 'col-md-3', 'style' => 'position: absolute;  top: 0px; right:0px; z-index: 99;']])->checkbox()->label('Нужен паспорт', ['style' => 'display:block']);
         $l5_1 .= '</div>';
         $u++;
     }
 }
+//--gen5_1//
 
 $l5 .= $l5_1;
 $l5 .= $form->field($model, 'transport[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
 $l5 .= '</div>';
 $l5 .= '</div>';
 
-$l6 = '<button type="button" data-toggle="collapse" data-target="#paysystem">+</button>';
-$l6 .= '<label class="control-label">Физические платежи (реквизиты для выставления счетов)</label>';
+//--------------------------------------------------------------------------------------------------------------------//
+//                                           Вкладка 6. Платежные системы                                             //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
+
+$l6 = '<div style="margin: 10px; height: 100%;">';
+$l6 .= '<button type="button" data-toggle="collapse" data-target="#paysystem">' .
+    '+' .
+    '</button>';
+$l6 .= '<label class="control-label">' .
+    'Физические платежи (реквизиты для выставления счетов)' .
+    '</label>';
 $l6 .= '<div id="paysystem" class="collapse" style="margin: 10px; height: 100%;">';
 $l6 .= '<div class="col-md-12">';
-
-$l6_1 = '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6_1 .= '<h2>Яндекс деньги</h2>';
-$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
-$l6_1 .= $form->field($model, 'paysystem[value][yamoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер кошелька Яндекс.Денег');
-$l6_1 .= $form->field($model, 'paysystem[value][yamoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-
-$l6_1 .= '</div>';
-
-$l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6_1 .= '<h2>Webmoney</h2>';
-$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][webmoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
-$l6_1 .= $form->field($model, 'paysystem[value][webmoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер рублевого кошелька WebMoney');
-$l6_1 .= $form->field($model, 'paysystem[value][webmoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-$l6_1 .= '</div>';
-
-$l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6_1 .= '<h2>Qiwi</h2>';
-$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][qiwi][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
-$l6_1 .= $form->field($model, 'paysystem[value][qiwi][value]', ['options' => ['class' => 'col-md-7']])->label('Qiwi');
-$l6_1 .= $form->field($model, 'paysystem[value][qiwi][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-$l6_1 .= '</div>';
-$l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6_1 .= '<h2>Наложенный платеж</h2>';
-$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][nalozhplat][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
-$l6_1 .= $form->field($model, 'paysystem[value][nalozhplat][value]', ['options' => ['class' => 'col-md-7']])->label('');
-$l6_1 .= $form->field($model, 'paysystem[value][nalozhplat][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-
-$l6_1 .= '</div>';
-
-$l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6_1 .= '<h2>Банковская карта</h2>';
-$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][bankcard][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
-$l6_1 .= $form->field($model, 'paysystem[value][bankcard][value]', ['options' => ['class' => 'col-md-7']])->label('');
-$l6_1 .= $form->field($model, 'paysystem[value][bankcard][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-
-$l6_1 .= '</div>';
-
-
-
-
-$l6_1 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
-$l6_1 .= '<h2>Банковский платеж</h2>';
-$l6_1 .= '<div style="float: right;">' . $form->field($model, 'paysystem[value][bankpay][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') . '</div>';
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][name]', ['options' => ['class' => 'col-md-6']])->label('Наименование организации');
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][inn]', ['options' => ['class' => 'col-md-3']])->label('ИНН');
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][kpp]', ['options' => ['class' => 'col-md-3']])->label('КПП');
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][bankname]', ['options' => ['class' => 'col-md-5']])->label('Наименование банка');
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options' => ['class' => 'col-md-3']])->label('БИК');
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->label('Корреспондентский счет');
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->label('Рассчетный счет');
-$l6_1 .= $form->field($model, 'paysystem[value][bankpay][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
-$l6_1 .= '</div>';
-$l6_1 .= '</div>';
-
-$l6 .= $l6_1;
-$l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
-
-
+$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6 .= '<h2>' .
+    'Яндекс деньги' .
+    '</h2>';
+$l6 .= '<div style="float: right;">' .
+    $form->field($model, 'paysystem[value][yamoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+    '</div>';
+$l6 .= $form->field($model, 'paysystem[value][yamoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер кошелька Яндекс.Денег');
+$l6 .= $form->field($model, 'paysystem[value][yamoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
 $l6 .= '</div>';
-
-$l6 .='<div style="margin-top: 10px; width: 100%;">';
-$l6 .= '<button type="button" data-toggle="collapse" data-target="#paygate">+</button>';
-$l6 .= '<label class="control-label">Агрегаторы платежей (автоматическая оплата)</label>';
+$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6 .= '<h2>' .
+    'Webmoney' .
+    '</h2>';
+$l6 .= '<div style="float: right;">' .
+    $form->field($model, 'paysystem[value][webmoney][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+    '</div>';
+$l6 .= $form->field($model, 'paysystem[value][webmoney][value]', ['options' => ['class' => 'col-md-7']])->label('Номер рублевого кошелька WebMoney');
+$l6 .= $form->field($model, 'paysystem[value][webmoney][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+$l6 .= '</div>';
+$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6 .= '<h2>' .
+    'Qiwi' .
+    '</h2>';
+$l6 .= '<div style="float: right;">' .
+    $form->field($model, 'paysystem[value][qiwi][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+    '</div>';
+$l6 .= $form->field($model, 'paysystem[value][qiwi][value]', ['options' => ['class' => 'col-md-7']])->label('Qiwi');
+$l6 .= $form->field($model, 'paysystem[value][qiwi][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+$l6 .= '</div>';
+$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6 .= '<h2>' .
+    'Наложенный платеж' .
+    '</h2>';
+$l6 .= '<div style="float: right;">' .
+    $form->field($model, 'paysystem[value][nalozhplat][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+    '</div>';
+$l6 .= $form->field($model, 'paysystem[value][nalozhplat][value]', ['options' => ['class' => 'col-md-7']])->label('');
+$l6 .= $form->field($model, 'paysystem[value][nalozhplat][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+$l6 .= '</div>';
+$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6 .= '<h2>' .
+    'Банковская карта' .
+    '</h2>';
+$l6 .= '<div style="float: right;">' .
+    $form->field($model, 'paysystem[value][bankcard][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+    '</div>';
+$l6 .= $form->field($model, 'paysystem[value][bankcard][value]', ['options' => ['class' => 'col-md-7']])->label('');
+$l6 .= $form->field($model, 'paysystem[value][bankcard][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+$l6 .= '</div>';
+$l6 .= '<div class="col-md-12" style="border:1px solid #808080; margin:10px; border-radius: 10px;">';
+$l6 .= '<h2>' .
+    'Банковский платеж' .
+    '</h2>';
+$l6 .= '<div style="float: right;">' .
+    $form->field($model, 'paysystem[value][bankpay][active]', ['options' => ['style' => 'position: absolute;  top: 20px; z-index: 99;']])->checkbox()->label('') .
+    '</div>';
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][name]', ['options' => ['class' => 'col-md-6']])->label('Наименование организации');
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][inn]', ['options' => ['class' => 'col-md-3']])->label('ИНН');
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][kpp]', ['options' => ['class' => 'col-md-3']])->label('КПП');
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][bankname]', ['options' => ['class' => 'col-md-5']])->label('Наименование банка');
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][bik]', ['options' => ['class' => 'col-md-3']])->label('БИК');
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][ks]', ['options' => ['class' => 'col-md-4']])->label('Корреспондентский счет');
+$l6 .= $form->field($model, 'paysystem[value][bankpay][value][rs]', ['options' => ['class' => 'col-md-5']])->label('Рассчетный счет');
+$l6 .= $form->field($model, 'paysystem[value][bankpay][name]', ['options' => ['class' => 'col-md-7']])->hiddenInput()->label(false);
+$l6 .= '</div>';
+$l6 .= '</div>';
+$l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+$l6 .= '</div>';
+$l6 .= '<div style="margin-top: 10px; width: 100%;">';
+$l6 .= '<button type="button" data-toggle="collapse" data-target="#paygate">' .
+    '+' .
+    '</button>';
+$l6 .= '<label class="control-label">' .
+    'Агрегаторы платежей (автоматическая оплата)' .
+    '</label>';
 $l6 .= '<div id="paygate" class="collapse">';
 
-$l6_2 .='<div>';
-$l6_2 .= '<a href="#robokassa" class="btn btn-xs btn-primary" data-toggle="modal">Robokassa</a>';
+
+$l6_2 .= '<div>';
+$l6_2 .= '<a href="#robokassa" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Robokassa' .
+    '</a>';
 $l6_2 .= '<div id="robokassa" class="modal fade">';
-$l6_2 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_2 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_2 .= '<h4 class="modal-title">Настройки Robokassa</h4></div>';
+$l6_2 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_2 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_2 .= '<h4 class="modal-title">' .
+    'Настройки Robokassa' .
+    '</h4>' .
+    '</div>';
 $l6_2 .= '<div class="modal-body">';
 $l6_2 .= $form->field($model, 'paymentgate[value][robokassa][value][login]', ['options' => ['class' => 'col-md-9']])->label('Логин');
 $l6_2 .= $form->field($model, 'paymentgate[value][robokassa][value][password1]', ['options' => ['class' => 'col-md-9']])->label('Пароль 1');
 $l6_2 .= $form->field($model, 'paymentgate[value][robokassa][value][password2]', ['options' => ['class' => 'col-md-9']])->label('Пароль 2');
-$l6_2 .='</div>';
-$l6_2 .='<div class="modal-footer">';
+$l6_2 .= '</div>';
+$l6_2 .= '<div class="modal-footer">';
 $l6_2 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_2 .='</div></div></div></div></div>';
-//$l6.=$l6_2;
+$l6_2 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_3 ='<div>';
-$l6_3 .= '<a href="#rbkmoney" class="btn btn-xs btn-primary" data-toggle="modal">RBK Money</a>';
+
+$l6_3 = '<div>';
+$l6_3 .= '<a href="#rbkmoney" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'RBK Money' .
+    '</a>';
 $l6_3 .= '<div id="rbkmoney" class="modal fade">';
-$l6_3 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_3 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_3 .= '<h4 class="modal-title">Настройки RBK Money</h4></div>';
+$l6_3 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_3 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_3 .= '<h4 class="modal-title">' .
+    'Настройки RBK Money' .
+    '</h4>' .
+    '</div>';
 $l6_3 .= '<div class="modal-body">';
-$l6_3 .='sfsdafdsg';
-$l6_3 .='</div>';
-$l6_3 .='<div class="modal-footer">';
+$l6_3 .= '</div>';
+$l6_3 .= '<div class="modal-footer">';
 $l6_3 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_3 .='</div></div></div></div></div>';
-//$l6 .=$l6_3;
+$l6_3 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_4 ='<div>';
-$l6_4 .= '<a href="#payonline" class="btn btn-xs btn-primary" data-toggle="modal">Payonline</a>';
+
+$l6_4 = '<div>';
+$l6_4 .= '<a href="#payonline" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Payonline' .
+    '</a>';
 $l6_4 .= '<div id="payonline" class="modal fade">';
-$l6_4 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_4 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_4 .= '<h4 class="modal-title">Настройки Payonline</h4></div>';
+$l6_4 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_4 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_4 .= '<h4 class="modal-title">' .
+    'Настройки Payonline' .
+    '</h4>' .
+    '</div>';
 $l6_4 .= '<div class="modal-body">';
 $l6_4 .= $form->field($model, 'paymentgate[value][payonline][value][merchantid]', ['options' => ['class' => 'col-md-9']])->label('ID мерчанта');
 $l6_4 .= $form->field($model, 'paymentgate[value][payonline][value][privatesecurekey]', ['options' => ['class' => 'col-md-9']])->label('Приватный ключ');
-$l6_4 .='</div>';
-$l6_4 .='<div class="modal-footer">';
+$l6_4 .= '</div>';
+$l6_4 .= '<div class="modal-footer">';
 $l6_4 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_4 .='</div></div></div></div></div>';
-//$l6 .=$l6_4;
+$l6_4 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_5 ='<div>';
-$l6_5 .= '<a href="#payanyway" class="btn btn-xs btn-primary" data-toggle="modal">Payanyway</a>';
+
+$l6_5 = '<div>';
+$l6_5 .= '<a href="#payanyway" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Payanyway' .
+    '</a>';
 $l6_5 .= '<div id="payanyway" class="modal fade">';
-$l6_5 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_5 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_5 .= '<h4 class="modal-title">Настройки Payanyway</h4></div>';
+$l6_5 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_5 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_5 .= '<h4 class="modal-title">' .
+    'Настройки Payanyway' .
+    '</h4>' .
+    '</div>';
 $l6_5 .= '<div class="modal-body">';
-$l6_5 .='sfsdafdsg';
-$l6_5 .='</div>';
-$l6_5 .='<div class="modal-footer">';
+$l6_5 .= '</div>';
+$l6_5 .= '<div class="modal-footer">';
 $l6_5 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_5 .='</div></div></div></div></div>';
-//$l6 .=$l6_5;
+$l6_5 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_6 ='<div>';
-$l6_6 .= '<a href="#dengionline" class="btn btn-xs btn-primary" data-toggle="modal">Dengionline</a>';
+
+$l6_6 = '<div>';
+$l6_6 .= '<a href="#dengionline" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Dengionline' .
+    '</a>';
 $l6_6 .= '<div id="dengionline" class="modal fade">';
-$l6_6 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_6 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_6 .= '<h4 class="modal-title">Настройки Dengionline</h4></div>';
+$l6_6 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_6 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_6 .= '<h4 class="modal-title">' .
+    'Настройки Dengionline' .
+    '</h4>' .
+    '</div>';
 $l6_6 .= '<div class="modal-body">';
-$l6_6 .='sfsdafdsg';
-$l6_6 .='</div>';
-$l6_6 .='<div class="modal-footer">';
+$l6_6 .= '</div>';
+$l6_6 .= '<div class="modal-footer">';
 $l6_6 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_6 .='</div></div></div></div></div>';
-//$l6 .=$l6_6;
+$l6_6 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_7 ='<div>';
-$l6_7 .= '<a href="#walletone" class="btn btn-xs btn-primary" data-toggle="modal">Walletone</a>';
+
+$l6_7 = '<div>';
+$l6_7 .= '<a href="#walletone" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Walletone' .
+    '</a>';
 $l6_7 .= '<div id="walletone" class="modal fade">';
-$l6_7 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_7 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_7 .= '<h4 class="modal-title">Настройки Walletone</h4></div>';
+$l6_7 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_7 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_7 .= '<h4 class="modal-title">' .
+    'Настройки Walletone' .
+    '</h4>' .
+    '</div>';
 $l6_7 .= '<div class="modal-body">';
-$l6_7 .='sfsdafdsg';
-$l6_7 .='</div>';
-$l6_7 .='<div class="modal-footer">';
+$l6_7 .= '</div>';
+$l6_7 .= '<div class="modal-footer">';
 $l6_7 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_7 .='</div></div></div></div></div>';
-//$l6 .=$l6_7;
+$l6_7 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_8 ='<div>';
-$l6_8 .= '<a href="#payu" class="btn btn-xs btn-primary" data-toggle="modal">Payu</a>';
+
+$l6_8 = '<div>';
+$l6_8 .= '<a href="#payu" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Payu' .
+    '</a>';
 $l6_8 .= '<div id="payu" class="modal fade">';
-$l6_8 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_8 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_8 .= '<h4 class="modal-title">Настройки Payu</h4></div>';
+$l6_8 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_8 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_8 .= '<h4 class="modal-title">' .
+    'Настройки Payu' .
+    '</h4>' .
+    '</div>';
 $l6_8 .= '<div class="modal-body">';
-$l6_8 .='sfsdafdsg';
-$l6_8 .='</div>';
-$l6_8 .='<div class="modal-footer">';
+$l6_8 .= '</div>';
+$l6_8 .= '<div class="modal-footer">';
 $l6_8 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_8 .='</div></div></div></div></div>';
-//$l6 .=$l6_8;
+$l6_8 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_9 ='<div>';
-$l6_9 .= '<a href="#pay2pay" class="btn btn-xs btn-primary" data-toggle="modal">Pay2pay</a>';
+
+$l6_9 = '<div>';
+$l6_9 .= '<a href="#pay2pay" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Pay2pay' .
+    '</a>';
 $l6_9 .= '<div id="pay2pay" class="modal fade">';
-$l6_9 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_9 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_9 .= '<h4 class="modal-title">Настройки Pay2pay</h4></div>';
+$l6_9 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_9 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_9 .= '<h4 class="modal-title">' .
+    'Настройки Pay2pay' .
+    '</h4>' .
+    '</div>';
 $l6_9 .= '<div class="modal-body">';
-$l6_9 .='sfsdafdsg';
-$l6_9 .='</div>';
-$l6_9 .='<div class="modal-footer">';
+$l6_9 .= '</div>';
+$l6_9 .= '<div class="modal-footer">';
 $l6_9 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_9 .='</div></div></div></div></div>';
-//$l6 .=$l6_9;
+$l6_9 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_10 ='<div>';
-$l6_10 .= '<a href="#interkassa" class="btn btn-xs btn-primary" data-toggle="modal">Interkassa</a>';
+
+$l6_10 = '<div>';
+$l6_10 .= '<a href="#interkassa" class="btn btn-xs btn-primary" data-toggle="modal">' .
+    'Interkassa' .
+    '</a>';
 $l6_10 .= '<div id="interkassa" class="modal fade">';
-$l6_10 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_10 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_10 .= '<h4 class="modal-title">Настройки Interkassa</h4></div>';
+$l6_10 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_10 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_10 .= '<h4 class="modal-title">' .
+    'Настройки Interkassa' .
+    '</h4>' .
+    '</div>';
 $l6_10 .= '<div class="modal-body">';
-$l6_10 .='sfsdafdsg';
-$l6_10 .='</div>';
-$l6_10 .='<div class="modal-footer">';
+$l6_10 .= '</div>';
+$l6_10 .= '<div class="modal-footer">';
 $l6_10 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_10 .='</div></div></div></div></div>';
-//$l6 .=$l6_10;
+$l6_10 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
-$l6_11 ='<div style="margin-bottom: 10px; width: 100%">';
-$l6_11 .= '<a href="#z-payment" class="col-md-12 btn btn-xs btn-primary" data-toggle="modal">Z-Payment</a>';
+
+$l6_11 = '<div>';
+$l6_11 .= '<a href="#z-payment" class="col-md-12 btn btn-xs btn-primary" data-toggle="modal">' .
+    'Z-Payment' .
+    '</a>';
 $l6_11 .= '<div id="z-payment" class="modal fade">';
-$l6_11 .= '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
-$l6_11 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-$l6_11 .= '<h4 class="modal-title">Настройки Z-Payment</h4></div>';
+$l6_11 .= '<div class="modal-dialog">' .
+    '<div class="modal-content">' .
+    '<div class="modal-header">';
+$l6_11 .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">' .
+    '×' .
+    '</button>';
+$l6_11 .= '<h4 class="modal-title">' .
+    'Настройки Z-Payment' .
+    '</h4>' .
+    '</div>';
 $l6_11 .= '<div class="modal-body">';
-$l6_11 .='sfsdafdsg';
-$l6_11 .='</div>';
-$l6_11 .='<div class="modal-footer">';
+$l6_11 .= '</div>';
+$l6_11 .= '<div class="modal-footer">';
 $l6_11 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);
-$l6_11 .='</div></div></div></div></div>';
-//$l6 .=$l6_11;
-$l6.= $form->field($model,'paymentgate[value][activegate]')->radioList(['robokassa'=>$l6_2,'rbkmoney'=>$l6_3,'payonline'=>$l6_4,'payanyway'=>$l6_5,'dengionline'=>$l6_6,'walletone'=>$l6_7,
-    'payu'=>$l6_8,'pay2pay'=>$l6_9,'interkassa'=>$l6_10,'z-payment'=>$l6_11 ])->label(false);
-$l6 .= '</div></div>';
+$l6_11 .= '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>' .
+    '</div>';
 
+$l6 .= $form->field($model, 'paymentgate[value][activegate]')->radioList(['robokassa' => $l6_2, 'rbkmoney' => $l6_3, 'payonline' => $l6_4, 'payanyway' => $l6_5, 'dengionline' => $l6_6, 'walletone' => $l6_7,
+    'payu' => $l6_8, 'pay2pay' => $l6_9, 'interkassa' => $l6_10, 'z-payment' => $l6_11])->label(false);
+$l6 .= '</div>' .
+    '</div>' .
+    '</div>';
 
+//--------------------------------------------------------------------------------------------------------------------//
+//                                                Вкладка 7. Категории                                                //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
 
 function view_cat($arr, $parent_id = 0, $catnamearr)
 {
@@ -575,9 +754,17 @@ $l7 = '<div style="margin: 10px; height: 100%;">';
 $l7 .= view_cat($arr_cat, 0, $catnamearr);
 $l7 .= '</div>';
 
+//--------------------------------------------------------------------------------------------------------------------//
+//                                        Вкладка 8. Реквизиты компании                                               //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
 
-$l8 =  '<div style="margin: 10px; height: 100%;">';
-$l8 .= '<label class="control-label"><h2>Реквизиты организации</h2></label>';
+$l8 = '<div style="margin: 10px; height: 100%;">';
+$l8 .= '<label class="control-label">' .
+    '<h2>' .
+    'Реквизиты организации' .
+    '</h2>' .
+    '</label>';
 $l8 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
 $l8 .= $form->field($model, 'requisites[value][shortname]', ['options' => ['class' => 'col-md-7']])->label('Краткое наименование организации');
 $l8 .= $form->field($model, 'requisites[value][fullname]', ['options' => ['class' => 'col-md-7']])->label('Полное наименование организации');
@@ -594,11 +781,12 @@ $l8 .= $form->field($model, 'requisites[value][okved]', ['options' => ['class' =
 $l8 .= $form->field($model, 'requisites[value][ogrnip]', ['options' => ['class' => 'col-md-5']])->label('ОГРНИП (Для индивидуальных предпринимателей)');
 $l8 .= '</div>';
 $l8 .= '<div class="col-md-12" style="background: rgb(230, 228, 228) none repeat scroll 0% 0%; border-radius: 5px; padding: 10px 0px; margin: 10px 0px;">';
-$l8 .=  $form->field($model, 'requisites[value][bankname]', ['options' => ['class' => 'col-md-9']])->label('Наименование банка');
-$l8 .=  $form->field($model, 'requisites[value][bik]', ['options' => ['class' => 'col-md-5']])->label('БИК');
-$l8 .=  $form->field($model, 'requisites[value][ks]', ['options' => ['class' => 'col-md-5']])->label('Корреспондентский счет');
-$l8 .=  $form->field($model, 'requisites[value][rs]', ['options' => ['class' => 'col-md-7']])->label('Рассчетный счет');
-$l8 .= '</div></div>';
+$l8 .= $form->field($model, 'requisites[value][bankname]', ['options' => ['class' => 'col-md-9']])->label('Наименование банка');
+$l8 .= $form->field($model, 'requisites[value][bik]', ['options' => ['class' => 'col-md-5']])->label('БИК');
+$l8 .= $form->field($model, 'requisites[value][ks]', ['options' => ['class' => 'col-md-5']])->label('Корреспондентский счет');
+$l8 .= $form->field($model, 'requisites[value][rs]', ['options' => ['class' => 'col-md-7']])->label('Рассчетный счет');
+$l8 .= '</div>' .
+    '</div>';
 
 
 echo Tabs::widget([
