@@ -44,11 +44,11 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
     $objPHPExcel->getActiveSheet()->SetCellValue('AL26', $order['id'] . '-' . $order['user_id'] . '-' . date('Ymd'));
     $objPHPExcel->getActiveSheet()->SetCellValue('BI26', date('d-m-Y'));
     $objPHPExcel->getActiveSheet()->SetCellValue('CF12', Yii::$app->params['partnersset']['requisites']['value']['okpo']);
-    $ship = $order['ship'];
-    $discount = $order['discount'];
-    $discounttotalprice = $order['discounttotalprice'];
-    $paymentmethod = $order['paymentmethod'];
     $orderset = unserialize($order['order']);
+    $ship = $orderset ['ship'];
+    $discount = $orderset ['discount'];
+    $discounttotalprice = $orderset ['discounttotalprice'];
+    $paymentmethod = $orderset ['paymentmethod'];
     unset($orderset['ship'], $orderset['discount'], $orderset['discounttotalprice'], $orderset['paymentmethod']);
     $start = 31;
     $offset = 0;
@@ -60,7 +60,7 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
     $omfinalprice = 0;
     foreach ($orderset as $key => $val) {
         $positionquantity = $order['oMOrdersProducts'][$key]['products_quantity'] + $order['oMOrdersProductsSP'][$key]['products_quantity'] - $val[8]['count'];
-        if ($order['oMOrdersProducts'][$key]['products_quantity']) {
+        if ($order['oMOrdersProducts'][$key]) {
         } else {
             $positionquantity = $val[4];
         }
@@ -178,7 +178,9 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
     $objWr = new PHPExcel_Writer_Excel5($objPHPExcel);
     $path = Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id']);
 
+    if (!file_exists($path)) {
     mkdir($path, 0777, true);
+    }
     $objWr->save(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.xls'));
     $objhtml = new PHPExcel_Writer_HTML($objPHPExcel);
     $objhtml->save(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.html'));

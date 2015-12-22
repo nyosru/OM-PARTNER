@@ -30,6 +30,6 @@ trait ActionSavesettings{
         $asset = new AppAsset();
         $adminasset = $asset->LoadAssets($partnerset['template']['value'], 'back');
         Yii::$app->cache->set($temlate_key, ['data' => $assetsite, 'dataadmin' => $adminasset, 'theme' => $theme, 'partnerset' => $partnerset]);
-        return $this->render('index', ['model' => $model, 'exception' => '']);
+        $this->redirect('/admin/default/index');
     }
 }

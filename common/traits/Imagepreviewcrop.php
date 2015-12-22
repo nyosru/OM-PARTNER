@@ -51,7 +51,12 @@ Trait Imagepreviewcrop
                 $new_dir = '';
                 foreach ($split as $value) {
                     $new_dir .= $value . '/';
-                    mkdir(Yii::getAlias($where) . $new_dir);
+                    if (file_exists(Yii::getAlias($where) . $new_dir)) {
+                        chmod(Yii::getAlias($where) . $new_dir, 0777);
+                    } else {
+                        mkdir(Yii::getAlias($where) . $new_dir, 0777);
+                    }
+                   
                 }
             }
             if ($ras[0] == 'jpg' || $ras[0] == 'jpeg') {
@@ -92,7 +97,7 @@ Trait Imagepreviewcrop
                 $width, $height);
             imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 80);
         }
-
+        // return Yii::getAlias($where) . $dir .$subdir. $namefile . '.' . $ras[0];
         return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0]);
     }
 }
