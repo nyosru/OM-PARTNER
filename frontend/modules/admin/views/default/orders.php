@@ -359,7 +359,7 @@ echo \yii\grid\GridView::widget([
                     }
                 },
                 'doc' => function ($url, $model, $key) {
-                    if ($model->status !== 0) {
+                    if ($model->orders_id > 2) {
                         $modal =
                             '<div style="display: none;" id="modal-doc-' . $key . '" class="fade modal" role="dialog" tabindex="-1">
                                     <div class="modal-dialog modal-lg">
