@@ -463,7 +463,7 @@ $l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top:
 $l6 .= '</div>';
 $l6 .= '</div>';
 $l6 .= '</div>';
-$l6 .= '<div style="margin-top: 10px; width: 100%; display:none;">';
+$l6 .= '<div style="margin-top: 10px; width: 100%; ">';
 $l6 .= '<div class="box" style="background: snow;">';
 $l6 .= '<div class="box-body">';
 $l6 .= '<label class="box-header with-border">' .
@@ -497,7 +497,8 @@ $l6_3 .= '<div id="rbkmoney" class="">';
 
 $l6_3 .= '<div class="">';
 $l6_3 .= $form->field($model, 'paymentgate[value][rbkmoney][value][login]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'Логин'])->label(false);
-$l6_3 .= $form->field($model, 'paymentgate[value][rbkmoney][value][password1]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Пароль 1'])->label(false);
+$l6_3 .= $form->field($model, 'paymentgate[value][rbkmoney][value][eshopId]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'Номер сайта участника'])->label(false);
+$l6_3 .= $form->field($model, 'paymentgate[value][rbkmoney][value][keyword]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Пароль API'])->label(false);
 $l6_3 .= '</div>';
 $l6_3 .= '</div>' .
     '</div>';
@@ -524,8 +525,7 @@ $l6_5 .= '<label class="box-header with-border" style="padding: 0px 0px 0px 15px
 $l6_5 .= '<div id="payanyway" class="">';
 
 $l6_5 .= '<div class="">';
-$l6_5 .= $form->field($model, 'paymentgate[value][payanyway][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID мерчанта'])->label(false);
-$l6_5 .= $form->field($model, 'paymentgate[value][payanyway][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Приватный ключ'])->label(false);
+$l6_5 .= $form->field($model, 'paymentgate[value][payanyway][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'Идентификатор магазина'])->label(false);
 $l6_5 .= '</div>';
 $l6_5 .= '</div>' .
     '</div>';
@@ -538,8 +538,9 @@ $l6_6 .= '<label class="box-header with-border" style="padding: 0px 0px 0px 15px
 $l6_6 .= '<div id="dengionline" class="">';
 
 $l6_6 .= '<div class="">';
-$l6_6 .= $form->field($model, 'paymentgate[value][dengionline][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID мерчанта'])->label(false);
-$l6_6 .= $form->field($model, 'paymentgate[value][dengionline][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Приватный ключ'])->label(false);
+$l6_6 .= $form->field($model, 'paymentgate[value][dengionline][value][projectid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID проекта'])->label(false);
+$l6_6 .= $form->field($model, 'paymentgate[value][dengionline][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Секретный ключ'])->label(false);
+$l6_6 .= $form->field($model, 'paymentgate[value][dengionline][value][modetype]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID платежного метода'])->label(false);
 $l6_6 .= '</div>';
 $l6_6 .= '</div>' .
     '</div>';
@@ -552,7 +553,7 @@ $l6_7 .= '<div id="walletone" class="">';
 
 $l6_7 .= '<div class="">';
 $l6_7 .= $form->field($model, 'paymentgate[value][walletone][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID мерчанта'])->label(false);
-$l6_7 .= $form->field($model, 'paymentgate[value][walletone][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Приватный ключ'])->label(false);
+$l6_7 .= $form->field($model, 'paymentgate[value][walletone][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Секретный ключ'])->label(false);
 $l6_7 .= '</div>';
 $l6_7 .= '</div>' .
     '</div>';
