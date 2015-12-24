@@ -54,6 +54,7 @@ if (count($manufacturerstax) > 0) {
         $prodtax[$key]['to_prod'] = $taxratesarray[$productsarrtr[$key]];
     }
 }
+
 if (Yii::$app->request->getQueryParam('action') == 'gen') {
     $runumber = new php_rutils\Numeral();
     $objPHPExcel = new \PHPExcel();
@@ -127,14 +128,23 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
             }
 
             $positiondatastring = $val[7] . ' Артикул: ' . $val[1] . $size;
-            $rowheight = mb_strlen($positiondatastring) / 2.5;
-            $objPHPExcel->getActiveSheet()->getRowDimension($rowpos)->setRowHeight($rowheight);
+            if (strlen($positiondatastring) <= 150) {
+                $heigt = 30;
+            } elseif (strlen($positiondatastring) <= 300) {
+                $heigt = 60;
+            } elseif (strlen($positiondatastring) <= 450) {
+                $heigt = 90;
+            } elseif (strlen($positiondatastring) <= 600) {
+                $heigt = 120;
+            }
+            $objPHPExcel->getActiveSheet()->getRowDimension($rowpos)->setRowHeight($heigt);
             $objPHPExcel->getActiveSheet()->mergeCells('A' . $rowpos . ':C' . $rowpos);
             $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowpos, ($offset + 1));
 
             $objPHPExcel->getActiveSheet()->mergeCells('D' . $rowpos . ':S' . $rowpos);
             $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowpos, $positiondatastring);
             $objPHPExcel->getActiveSheet()->getStyle('D' . $rowpos)->getAlignment()->setWrapText(true);
+            $objPHPExcel->getActiveSheet()->getRowDimension($rowpos)->setRowHeight($heigt);
 
             $objPHPExcel->getActiveSheet()->mergeCells('T' . $rowpos . ':W' . $rowpos);
 
@@ -161,15 +171,18 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
 
             $objPHPExcel->getActiveSheet()->mergeCells('BH' . $rowpos . ':BP' . $rowpos);
             $objPHPExcel->getActiveSheet()->SetCellValue('BH' . $rowpos, $price);
+            $objPHPExcel->getActiveSheet()->getStyle('BH' . $rowpos)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
+
             if ($prodtax[$order['oMOrdersProducts'][$key]['products_id']]['to_prod']) {
-                $nds = $prodtax[$order['oMOrdersProducts'][$key]['products_id']]['to_prod'];
+                $nds = (integer)$prodtax[$order['oMOrdersProducts'][$key]['products_id']]['to_prod'];
             } else {
-                $nds = $prodtax[$order['oMOrdersProducts'][$key]['products_id']]['to_man'];
+                $nds = (integer)$prodtax[$order['oMOrdersProducts'][$key]['products_id']]['to_man'];
             }
             if ($nds > 0) {
-                $nondsprice = round(($price * $positionquantity) / (100 + (integer)$nds) * 100, 2);
+                $nondsprice = round((float)((float)$price * (float)$positionquantity) / (float)(100.0 + (float)$nds) * 100.0, 2);
                 $finalnonnds += $nondsprice;
-                $sumndsprice = round(($price * $positionquantity) - ($price * $positionquantity) / (100 + (integer)$nds) * 100, 2);
+                $sumndsprice = round((float)((float)$price * (float)$positionquantity) - (float)((float)$price * (float)$positionquantity) / (float)(100.0 + (float)$nds) * 100.0, 2);
                 $finalsumnonnds += $sumndsprice;
             } else {
                 $nondsprice = $price * $positionquantity;
@@ -180,30 +193,51 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
             }
 
             $objPHPExcel->getActiveSheet()->mergeCells('BQ' . $rowpos . ':BW' . $rowpos);
-            $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . $rowpos, $nondsprice);
+            $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . $rowpos, sprintf("%.2f", $nondsprice));
+            $objPHPExcel->getActiveSheet()->getStyle('BQ' . ($rowpos))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
 
 
 
             $objPHPExcel->getActiveSheet()->mergeCells('BX' . $rowpos . ':CA' . $rowpos);
             $objPHPExcel->getActiveSheet()->SetCellValue('BX' . $rowpos, $nds);
 
+
             $objPHPExcel->getActiveSheet()->mergeCells('CB' . $rowpos . ':CH' . $rowpos);
-            $objPHPExcel->getActiveSheet()->SetCellValue('CB' . $rowpos, $sumndsprice);
+            $objPHPExcel->getActiveSheet()->SetCellValue('CB' . $rowpos, sprintf("%.2f", $sumndsprice));
+            $objPHPExcel->getActiveSheet()->getStyle('CB' . ($rowpos))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
 
             $objPHPExcel->getActiveSheet()->mergeCells('CI' . $rowpos . ':CQ' . $rowpos);
             $objPHPExcel->getActiveSheet()->SetCellValue('CI' . $rowpos, $price * $positionquantity);
+            $objPHPExcel->getActiveSheet()->getStyle('CI' . $rowpos)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
 
             $offset++;
         }
     }
     if ($finalomprice > 0) {
-        $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $finalnonnds);
-        $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $finalnonnds);
-        $objPHPExcel->getActiveSheet()->SetCellValue('CB' . ($rowpos + 1), $sumndsprice);
-        $objPHPExcel->getActiveSheet()->SetCellValue('CB' . ($rowpos + 2), $sumndsprice);
+        $fnonndsformater = money_format("%.2n", $finalnonnds);
+        $fnonndsumformater = money_format("%.2n", $finalsumnonnds);
+        $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $fnonndsformater);
+        $objPHPExcel->getActiveSheet()->getStyle('BQ' . ($rowpos + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
+        $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $fnonndsformater);
+        $objPHPExcel->getActiveSheet()->getStyle('BQ' . ($rowpos + 2))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
+        $objPHPExcel->getActiveSheet()->SetCellValue('CB' . ($rowpos + 1), $fnonndsumformater);
+        $objPHPExcel->getActiveSheet()->getStyle('CB' . ($rowpos + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
+        $objPHPExcel->getActiveSheet()->SetCellValue('CB' . ($rowpos + 2), $fnonndsumformater);
+        $objPHPExcel->getActiveSheet()->getStyle('CB' . ($rowpos + 2))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
         $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 1), $finalomprice);
+        $objPHPExcel->getActiveSheet()->getStyle('CI' . ($rowpos + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
         $objPHPExcel->getActiveSheet()->SetCellValue('CI' . ($rowpos + 2), $finalomprice);
+        $objPHPExcel->getActiveSheet()->getStyle('CI' . ($rowpos + 2))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
         $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($rowpos + 16), $runumber->getInWordsInt($finalomprice));
+        $objPHPExcel->getActiveSheet()->getStyle('N' . ($rowpos + 16))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+
     } else {
         $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 1), $totalprice);
         $objPHPExcel->getActiveSheet()->SetCellValue('BQ' . ($rowpos + 2), $totalprice);
@@ -236,9 +270,10 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
     }
     $objWr->save(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.xls'));
     $objhtml = new PHPExcel_Writer_HTML($objPHPExcel);
-    $objhtml->save(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.html'));
+    $date = date('YmdHis');
+    $objhtml->save(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . $date . '.html'));
 
-    echo file_get_contents(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . '.html'));
+    echo file_get_contents(Yii::getAlias('@documents/' . $order['partners_id'] . '/' . $order['user_id'] . '/' . $order['id'] . '/torg12pc-' . $order['id'] . $date . '.html'));
 
 }
 
