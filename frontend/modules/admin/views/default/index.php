@@ -636,9 +636,8 @@ function view_cat($arr, $parent_id = 0, $catnamearr)
     } else {
         if ($parent_id !== 0) {
             $html .= '<button type="button" name="tog" class="btn-xs btn-info btn" data-toggle="' . $parent_id . '" id="group" >+</button><div  id="categoriesdiv" toggle="' . $parent_id . '" style="display:none;"><ul id = "categories" class="dropdown">';
-
         } else {
-            $html .= '<div><ul>';
+            $html .= '<div><ul class="box-body box ">';
         }
         for ($i = 0; $i < count($arr[$parent_id]); $i++) {
             $catdesc = $arr[$parent_id][$i]['categories_id'];
@@ -650,11 +649,7 @@ function view_cat($arr, $parent_id = 0, $catnamearr)
             if (!$arr[$parent_id][$i] == '') {
                 $html .= '<li id="categoriessub" class="js-box"><legends><label><input type="checkbox" ' . $check . ' data="categ" value="' . $arr[$parent_id][$i]['categories_id'] . '" name="categories_id[]" cat-toggle="' . $arr[$parent_id][$i]['categories_id'] . '"/></label></legends><a style="color: black;" href="#">'
                     . $catnamearr["$catdesc"] . '</a>';
-
-
                 view_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr);
-
-
                 $html .= '</li>';
             }
         }

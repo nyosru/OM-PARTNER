@@ -18,7 +18,7 @@ set_time_limit ( 800 );
 //    die();
 //}
 ob_start("ob_gzhandler");
-defined('YII_DEBUG') or define('YII_DEBUG', false);
+defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -37,12 +37,27 @@ use common\models\Partners;
         $run = new Partners();
         $check = $run->GetId($_SERVER['HTTP_HOST']);
         if ($check == '') {
-            die;
+            // die;
         } else {
-            $partner = ['APP_CAT' => $run->GetAllowCat($check), 'APP_NAME' => $run->GetNamePartner($check), 'APP_ID' => $run->GetId($_SERVER['HTTP_HOST']), 'APP_THEMES' => $run->GetTemplate($check)];
+
+            $key = Yii::$app->cache->buildKey('constantapp-' . $check);
+            if (($partner = Yii::$app->cache->get($key)) == FALSE && !isset($partner['APP_ID']) && !isset($partner['APP_CAT']) && !isset($partner['APP_NAME']) && !isset($partner['APP_THEMES'])) {
+                $partner['APP_ID'] = $run->GetId($_SERVER['HTTP_HOST']);
+                $partner['APP_CAT'] = $run->GetAllowCat($check);
+                $partner['APP_NAME'] = $run->GetNamePartner($check);
+                $partner['APP_THEMES'] = $run->GetTemplate($check);
+                // echo 'Не Кэш';
+                Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES']]);
+            } else {
+                // echo 'Кэш';
+            }
+
+
+
         }
-
-
+//echo '<pre>';
+//print_r($partner);
+//echo '</pre>';
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
