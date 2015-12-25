@@ -1215,7 +1215,7 @@ function onAjaxSuccessinfo(data) {
         }
     });
     $('.userinfo').html('');
-    $('.userinfo').html($inner + '<button class="save-order2 btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Подтвердить заказ</button>');
+    $('.userinfo').html($inner + '<div>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class="save-order2 btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Подтвердить заказ</button>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",

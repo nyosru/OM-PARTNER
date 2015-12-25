@@ -4,7 +4,6 @@ use Yii;
 use common\traits\Imagepreviewfile;
 /* @var $this yii\web\View */
 /* @var $user common\models\User */
-
 $user=unserialize($user);
 $order=unserialize($order);
 unset($order['ship']);
@@ -28,10 +27,10 @@ unset($order['discounttotalprice']);
                    style="font-family:arial,sans-serif;background-color:#fff;">
                 <tbody>
                 <tr>
-                    <td style="padding:10px 207px 10px 100px;width:100px;">
-                        <a target=" _blank" href="http://<?= $site ?>"><?= $site_name ?></a>
+                    <td style="padding:10px 207px 10px 100px;width:100px; background-color: #00ca6d;">
+                        <h1><a style="color:black; text-align: center" target=" _blank" href="http://<?= $site ?>"><?= $site_name ?></a></h1>
                     </td>
-                    <td>
+                    <td style="background-color: #00ca6d;">
                         <p style="padding-left:35px;">
                             <?
                             if (Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
@@ -137,10 +136,9 @@ unset($order['discounttotalprice']);
                             </tr>
                             <tr>
                                 <td colspan="2" style="padding-top:25px;padding-bottom:15px;">
-                                    <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">Статус и
-                                        состояние
+                                    <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">Статус и состояние
                                         заказа вы можете посмотреть в <a
-                                            href="http://egorov1.rezerv.odezhda-master.ru/site/requestorders">личном
+                                            href="http://<?= $site ?>/site/requestorders">личном
                                             кабинете:</a></p>
                                 </td>
                             </tr>
@@ -162,4 +160,3 @@ unset($order['discounttotalprice']);
 
 </body>
 </html>
-
