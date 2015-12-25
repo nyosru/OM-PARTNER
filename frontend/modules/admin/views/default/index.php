@@ -566,8 +566,8 @@ $l6_8 .= '<label class="box-header with-border" style="padding: 0px 0px 0px 15px
 $l6_8 .= '<div id="payu" class="">';
 
 $l6_8 .= '<div class="">';
-$l6_8 .= $form->field($model, 'paymentgate[value][payu][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID мерчанта'])->label(false);
-$l6_8 .= $form->field($model, 'paymentgate[value][payu][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Приватный ключ'])->label(false);
+$l6_8 .= $form->field($model, 'paymentgate[value][payu][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'Код продавца'])->label(false);
+$l6_8 .= $form->field($model, 'paymentgate[value][payu][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Секретный ключ'])->label(false);
 $l6_8 .= '</div>';
 $l6_8 .= '</div>' .
     '</div>';
@@ -580,7 +580,7 @@ $l6_9 .= '<div id="pay2pay" class="">';
 
 $l6_9 .= '<div class="">';
 $l6_9 .= $form->field($model, 'paymentgate[value][pay2pay][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID мерчанта'])->label(false);
-$l6_9 .= $form->field($model, 'paymentgate[value][pay2pay][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Приватный ключ'])->label(false);
+$l6_9 .= $form->field($model, 'paymentgate[value][pay2pay][value][privatekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Секретный ключ'])->label(false);
 $l6_9 .= '</div>';
 $l6_9 .= '</div>' .
     '</div>';
@@ -592,8 +592,8 @@ $l6_10 .= '<label class="box-header with-border" style="padding: 0px 0px 0px 15p
 $l6_10 .= '<div id="interkassa" class="">';
 
 $l6_10 .= '<div class="">';
-$l6_10 .= $form->field($model, 'paymentgate[value][interkassa][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID мерчанта'])->label(false);
-$l6_10 .= $form->field($model, 'paymentgate[value][interkassa][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Приватный ключ'])->label(false);
+$l6_10 .= $form->field($model, 'paymentgate[value][interkassa][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'Checkout ID'])->label(false);
+$l6_10 .= $form->field($model, 'paymentgate[value][interkassa][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Ключ цифровой подписи'])->label(false);
 $l6_10 .= '</div>';
 $l6_10 .= '</div>' .
     '</div>';
@@ -605,7 +605,7 @@ $l6_11 .= '<label class="box-header with-border" style="padding: 0px 0px 0px 15p
 $l6_11 .= '<div id="z-payment" class="">';
 
 $l6_11 .= '<div class="">';
-$l6_11 .= $form->field($model, 'paymentgate[value][zpayment][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID мерчанта'])->label(false);
+$l6_11 .= $form->field($model, 'paymentgate[value][zpayment][value][merchantid]', ['options' => ['class' => 'col-md-3']])->textInput(['placeholder' => 'ID магазина'])->label(false);
 $l6_11 .= $form->field($model, 'paymentgate[value][zpayment][value][privatesecurekey]', ['options' => ['class' => 'col-md-4']])->passwordInput(['placeholder' => 'Приватный ключ'])->label(false);
 $l6_11 .= '</div>';
 $l6_11 .= '</div>' .
