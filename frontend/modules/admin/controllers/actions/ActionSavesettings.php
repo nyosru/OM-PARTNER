@@ -14,8 +14,10 @@ trait ActionSavesettings{
         $modelcat = Partners::findOne(Yii::$app->params['constantapp']['APP_ID']);
         $modelcat->allow_cat = implode(',', $_POST['categories_id']);
         $modelcat->save();
-        $key = Yii::$app->cache->buildKey('categories');
-        Yii::$app->cache->delete($key);
+        $key = Yii::$app->cache->buildKey('constantapp-' . Yii::$app->params['constantapp']['APP_ID']);
+        $partnersset = Yii::$app->cache->get($key);
+        $partnersset['APP_CAT'] = $_POST['categories_id'];
+        Yii::$app->cache->set($key, $partnersset);
         $temlate_key = Yii::$app->cache->buildKey('templatepartners-' . Yii::$app->params['constantapp']['APP_ID']);
         $partnersettings = new PartnersSettings();
         $partnerset = $partnersettings->LoadSet();
