@@ -12,6 +12,7 @@ use frontend\modules\admin\controllers\actions\ActionCommentspage;
 use frontend\modules\admin\controllers\actions\ActionDelegate;
 use frontend\modules\admin\controllers\actions\ActionDocuments;
 use frontend\modules\admin\controllers\actions\ActionIndex;
+use frontend\modules\admin\controllers\actions\ActionMainpageset;
 use frontend\modules\admin\controllers\actions\ActionNewspage;
 use frontend\modules\admin\controllers\actions\ActionNewsupdate;
 use frontend\modules\admin\controllers\actions\ActionOrderRevert;
@@ -55,6 +56,7 @@ class DefaultController extends Controller
         Categories_for_partner,
         ActionDocuments,
         ActionOrderRevert,
+        ActionMainpageset,
         Trim_Tags;
 
     public function behaviors()
@@ -64,7 +66,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orderupdate', 'orderrevert', 'usercontrol', 'newspage', 'documents', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
+                        'actions' => ['index', 'orderupdate', 'mainpageset','orderrevert', 'usercontrol', 'newspage', 'documents', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
                             'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage', 'partnerscategories'],
                         'allow' => true,
                         'roles' => ['admin'],

@@ -11,7 +11,7 @@ trait ActionSiteSaveUserProfile
 {
     public function actionSaveuserprofile()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+       // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $userdata = Yii::$app->request->post('user');
         $check = Yii::$app->params['constantapp']['APP_ID'];

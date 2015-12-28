@@ -98,6 +98,11 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                     </ul>
                     <ul id="accordion" class="accordion">
                         <li class="">
+                            <div class="link users"><a href="/admin/default/mainpageset">Главная</a></div>
+                        </li>
+                    </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
                             <div class="link users"><a href="/admin/default/requestusers">Пользователи</a></div>
                         </li>
                     </ul>

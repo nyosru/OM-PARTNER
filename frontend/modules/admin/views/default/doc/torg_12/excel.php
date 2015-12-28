@@ -128,14 +128,14 @@ if (Yii::$app->request->getQueryParam('action') == 'gen') {
             }
 
             $positiondatastring = $val[7] . ' Артикул: ' . $val[1] . $size;
-            if (strlen($positiondatastring) <= 150) {
+            if (strlen($positiondatastring) <= 180) {
+                $heigt = 15;
+            } elseif (strlen($positiondatastring) <= 260) {
                 $heigt = 30;
-            } elseif (strlen($positiondatastring) <= 300) {
+            } elseif (strlen($positiondatastring) <= 340) {
+                $heigt = 45;
+            } elseif (strlen($positiondatastring) <= 420) {
                 $heigt = 60;
-            } elseif (strlen($positiondatastring) <= 450) {
-                $heigt = 90;
-            } elseif (strlen($positiondatastring) <= 600) {
-                $heigt = 120;
             }
             $objPHPExcel->getActiveSheet()->getRowDimension($rowpos)->setRowHeight($heigt);
             $objPHPExcel->getActiveSheet()->mergeCells('A' . $rowpos . ':C' . $rowpos);

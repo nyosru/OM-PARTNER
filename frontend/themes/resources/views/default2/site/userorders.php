@@ -228,7 +228,7 @@ echo \yii\grid\GridView::widget([
         ],
         ['class' => 'yii\grid\ActionColumn',
             'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-            'template' => '{print}',
+            'template' => '{print}{pay}',
             'header' => 'Печать',
             'buttons' => [
                 'print' => function ($url, $model, $key) {
@@ -237,7 +237,12 @@ echo \yii\grid\GridView::widget([
                         '<span class="fa fa-print"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
                         $url, ['target' => '_blank']) . '</div>';
                 },
-
+                'pay' => function ($url, $model, $key) {
+                    $url = Yii::$app->urlManager->createUrl(['/site/payorders', 'id' => $key]);
+                    return '<div class="col-md-3">' . Html::a(
+                        '<span class="fa fa-credit-card"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
+                        $url, ['target' => '_blank']) . '</div>';
+                },
             ],
         ],
     ],
