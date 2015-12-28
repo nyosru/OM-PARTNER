@@ -31,6 +31,8 @@ class PartnersSettings extends Model
     public $paysystem;
     public $paymentgate;
     public $requisites;
+    public $recomendedwares;
+    public $mainbanners;
     /**
      * @inheritdoc
      */
@@ -90,25 +92,28 @@ class PartnersSettings extends Model
         return $this->loadmodelpartners();
     }
 
-    private function Saveitem($type, $value , $active = 1)
+    private function Saveitem($type, $value, $active = 0)
     {
-        $row = $this->partnersmodel()->findOne(['partners_id' => Yii::$app->params['constantapp']['APP_ID'] , 'type'=> $type]);
-        if(!isset($row)){
-           $row =  $this->partnersmodel();
+        if ($value != '' && isset($value) && $value != NULL) {
+            $row = $this->partnersmodel()->findOne(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type' => $type]);
+            if (!isset($row)) {
+                $row = $this->partnersmodel();
+            }
+            $row->type = $type;
+            if (is_array($value)) {
+                $value = serialize($value);
+            }
+            $row->value = $value;
+            $row->partners_id = Yii::$app->params['constantapp']['APP_ID'];
+            $row->active = $active;
+            if ($row->save()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
-        $row->type = $type;
-        if(is_array($value)){
-            $value= serialize($value);
-        }
-        $row->value = $value;
-        $row->partners_id = Yii::$app->params['constantapp']['APP_ID'];
-        $row->active = $active;
-     if($row->save()){
-         return true;
-     }else{
-         return false;
-     }
-
 
     }
 }
