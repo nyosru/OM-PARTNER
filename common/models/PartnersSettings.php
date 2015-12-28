@@ -92,9 +92,9 @@ class PartnersSettings extends Model
         return $this->loadmodelpartners();
     }
 
-    private function Saveitem($type, $value , $active = 0)
+    private function Saveitem($type, $value, $active = 0)
     {
-        if($value != '' && isset($value) && $value != NULL) {
+        if ($value != '' && isset($value) && $value != NULL) {
             $row = $this->partnersmodel()->findOne(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type' => $type]);
             if (!isset($row)) {
                 $row = $this->partnersmodel();
@@ -111,9 +111,22 @@ class PartnersSettings extends Model
             } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
+        $row->type = $type;
+        if(is_array($value)){
+            $value= serialize($value);
+        }
+        $row->value = $value;
+        $row->partners_id = Yii::$app->params['constantapp']['APP_ID'];
+        $row->active = $active;
+     if($row->save()){
+         return true;
+     }else{
+         return false;
+     }
+
 
     }
 }

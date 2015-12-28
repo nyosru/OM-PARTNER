@@ -9,11 +9,9 @@ trait ActionSavesettings{
     public function actionSavesettings()
     {
         $model = new PartnersSettings();
-        print_r($_POST);
-        die();
         $model->load($_POST);
         $model->SaveSet();
-        if($_POST['categories_id']) {
+        if ($_POST['categories_id']) {
             $modelcat = Partners::findOne(Yii::$app->params['constantapp']['APP_ID']);
             $modelcat->allow_cat = implode(',', $_POST['categories_id']);
             $modelcat->save();

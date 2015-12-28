@@ -146,7 +146,7 @@ trait ActionIndex{
         $model->paymentgate['activegate']=$paramset['paymentgate']['activegate'];
         $model->requisites['value']=$paramset['requisites']['value'];
         $model->requisites['active']=$paramset['requisites']['active'];
-        $model->recomendedwares['value']=$paramset['recomendedwares']['value'];
+        $model->recomendedwares['value'] = $paramset['recomendedwares']['value'];
 
         $categoriess = new PartnersCategories();
         $categoriesd = new PartnersCatDescription();
