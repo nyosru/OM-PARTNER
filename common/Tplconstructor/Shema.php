@@ -18,7 +18,6 @@ class TplShema
     {
         return new ConfigureTplConstructor();
     }
-
     public function init()
     {
         return implode(',', $this->loadschemas($this->gridshm));

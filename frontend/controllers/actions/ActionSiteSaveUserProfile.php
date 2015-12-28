@@ -11,7 +11,7 @@ trait ActionSiteSaveUserProfile
 {
     public function actionSaveuserprofile()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $userdata = Yii::$app->request->post('user');
         $check = Yii::$app->params['constantapp']['APP_ID'];
@@ -72,6 +72,11 @@ trait ActionSiteSaveUserProfile
                 $user->adress = $userdata['adress'];
                 $user->postcode = $userdata['postcode'];
                 $user->telephone = $userdata['telephone'];
+                $user->telephone = $userdata['telephone'];
+                $user->pasportser = $userdata['pasportser'];
+                $user->pasportnum = $userdata['pasportnum'];
+                $user->pasportdate = $userdata['pasportdate'];
+                $user->pasportwhere = $userdata['pasportwhere'];
                 if ($check_passport_customer->update() && $user->update()) {
                 } else {
                 }

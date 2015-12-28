@@ -114,19 +114,6 @@ class PartnersSettings extends Model
         } else {
             return false;
         }
-        $row->type = $type;
-        if(is_array($value)){
-            $value= serialize($value);
-        }
-        $row->value = $value;
-        $row->partners_id = Yii::$app->params['constantapp']['APP_ID'];
-        $row->active = $active;
-     if($row->save()){
-         return true;
-     }else{
-         return false;
-     }
-
 
     }
 }
