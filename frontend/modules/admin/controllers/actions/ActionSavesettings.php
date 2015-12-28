@@ -9,15 +9,20 @@ trait ActionSavesettings{
     public function actionSavesettings()
     {
         $model = new PartnersSettings();
+        print_r($_POST);
+        die();
         $model->load($_POST);
         $model->SaveSet();
-        $modelcat = Partners::findOne(Yii::$app->params['constantapp']['APP_ID']);
-        $modelcat->allow_cat = implode(',', $_POST['categories_id']);
-        $modelcat->save();
-        $key = Yii::$app->cache->buildKey('constantapp-' . Yii::$app->params['constantapp']['APP_ID']);
-        $partnersset = Yii::$app->cache->get($key);
-        $partnersset['APP_CAT'] = $_POST['categories_id'];
-        Yii::$app->cache->set($key, $partnersset);
+        if ($_POST['categories_id']) {
+            $modelcat = Partners::findOne(Yii::$app->params['constantapp']['APP_ID']);
+            $modelcat->allow_cat = implode(',', $_POST['categories_id']);
+            $modelcat->save();
+            $key = Yii::$app->cache->buildKey('constantapp-' . Yii::$app->params['constantapp']['APP_ID']);
+            $partnersset = Yii::$app->cache->get($key);
+            $partnersset['APP_CAT'] = $_POST['categories_id'];
+            Yii::$app->cache->set($key, $partnersset);
+        }
+
         $temlate_key = Yii::$app->cache->buildKey('templatepartners-' . Yii::$app->params['constantapp']['APP_ID']);
         $partnersettings = new PartnersSettings();
         $partnerset = $partnersettings->LoadSet();
