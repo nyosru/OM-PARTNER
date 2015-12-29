@@ -11,7 +11,7 @@ trait  Load_cat
         } else {
             for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                 $catdesc = $arr[$parent_id][$i]['categories_id'];
-                if (!$arr[$parent_id][$i] == '' && in_array($catdesc, $allow_cat)) {
+                if (!$arr[$parent_id][$i] == '') {
                     $str_load_cat[] = $catdesc;
                     $this->load_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
                 }
@@ -20,7 +20,6 @@ trait  Load_cat
         if ($parent_id != 0) {
             $str_load_cat[] = $parent_id;
         }
-
         return array_unique($str_load_cat);
     }
 }

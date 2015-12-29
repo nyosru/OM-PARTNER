@@ -20,6 +20,8 @@ trait ActionSavesettings{
             $key = Yii::$app->cache->buildKey('constantapp-' . Yii::$app->params['constantapp']['APP_ID']);
             $partnersset = Yii::$app->cache->get($key);
             $partnersset['APP_CAT'] = $_POST['categories_id'];
+            $keyfoc = Yii::$app->cache->buildKey('fullopcatcategories-' . Yii::$app->params['constantapp']['APP_ID']);
+            Yii::$app->cache->delete($keyfoc);
             Yii::$app->cache->set($key, $partnersset);
         }
 
