@@ -8,7 +8,7 @@ trait Fullopcat
 {
     public function full_op_cat()
     {
-        $key = Yii::$app->cache->buildKey('fullopcatcategories');
+        $key = Yii::$app->cache->buildKey('fullopcatcategories-' . Yii::$app->params['constantapp']['APP_ID']);
         $data = Yii::$app->cache->get($key);
         if (!isset($data['data'])) {
             $checks = Yii::$app->params['constantapp']['APP_CAT'];

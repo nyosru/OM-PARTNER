@@ -9,8 +9,8 @@ trait ActionSavesettings{
     public function actionSavesettings()
     {
         $model = new PartnersSettings();
-        print_r($_POST);
-        die();
+//        print_r($_POST);
+//        die();
         $model->load($_POST);
         $model->SaveSet();
         if ($_POST['categories_id']) {
@@ -20,6 +20,8 @@ trait ActionSavesettings{
             $key = Yii::$app->cache->buildKey('constantapp-' . Yii::$app->params['constantapp']['APP_ID']);
             $partnersset = Yii::$app->cache->get($key);
             $partnersset['APP_CAT'] = $_POST['categories_id'];
+            $keyfoc = Yii::$app->cache->buildKey('fullopcatcategories-' . Yii::$app->params['constantapp']['APP_ID']);
+            Yii::$app->cache->delete($keyfoc);
             Yii::$app->cache->set($key, $partnersset);
         }
 

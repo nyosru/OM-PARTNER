@@ -20,7 +20,6 @@ trait  Load_cat
         if ($parent_id != 0) {
             $str_load_cat[] = $parent_id;
         }
-
         return array_unique($str_load_cat);
     }
 }

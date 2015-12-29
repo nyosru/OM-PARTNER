@@ -11,9 +11,9 @@ use yii\helpers\BaseHtml;
 use dosamigos\ckeditor\CKEditor;
 
 $this->title = 'Админка';
-echo '<pre>';
-print_r($model);
-echo '</pre>';
+//echo '<pre>';
+//print_r($model);
+//echo '</pre>';
 $form = ActiveForm::begin(['id' => 'partners-settings', 'action' => '/admin/default/savesettings']);
 $path = Yii::getAlias('@app') . '/themes/';
 $templatedir = opendir($path);
@@ -465,7 +465,7 @@ $l6 .= $form->field($model, 'paysystem[active]', ['options' => ['style' => 'top:
 $l6 .= '</div>';
 $l6 .= '</div>';
 $l6 .= '</div>';
-$l6 .= '<div style="margin-top: 10px; width: 100%; ">';
+$l6 .= '<div style="margin-top: 10px; width: 100%; display: none ">';
 $l6 .= '<div class="box" style="background: snow;">';
 $l6 .= '<div class="box-body">';
 $l6 .= '<label class="box-header with-border">' .

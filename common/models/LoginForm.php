@@ -86,7 +86,7 @@ class LoginForm extends Model
         if ($this->_user === false) {
             $userq = new User();
             $run = new Partners();
-            if ($_SERVER['HTTP_HOST'] == 'http://globaladmin.egorov.odezhda-master.ru' || $_SERVER['HTTP_HOST'] == 'globaladmin.partnerom.odezhda-master.ru') {
+            if ($_SERVER['HTTP_HOST'] == 'http://globaladmin.egorov.odezhda-master.ru' || $_SERVER['HTTP_HOST'] == 'http://globaladmin.partnerom.odezhda-master.ru') {
                 $check = 'NULL';
             }else{
                 $check = $run->GetId($_SERVER['HTTP_HOST']);

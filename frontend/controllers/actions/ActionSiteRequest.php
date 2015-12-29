@@ -38,6 +38,8 @@ trait ActionSiteRequest
         } else {
             $checkcache = $x['products_last_modified'];
         }
+//        print_r($this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
+//        die();
         $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
         $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $prod_attr_query . '-' . $searchword;
         $key = Yii::$app->cache->buildKey($init_key);
