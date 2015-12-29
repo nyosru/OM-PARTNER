@@ -11,7 +11,7 @@ trait  Load_cat
         } else {
             for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                 $catdesc = $arr[$parent_id][$i]['categories_id'];
-                if (!$arr[$parent_id][$i] == '') {
+                if (!$arr[$parent_id][$i] == '' && in_array($catdesc, $allow_cat)) {
                     $str_load_cat[] = $catdesc;
                     $this->load_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
                 }

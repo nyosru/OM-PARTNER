@@ -9,8 +9,8 @@ trait ActionSavesettings{
     public function actionSavesettings()
     {
         $model = new PartnersSettings();
-        print_r($_POST);
-        die();
+//        print_r($_POST);
+//        die();
         $model->load($_POST);
         $model->SaveSet();
         if ($_POST['categories_id']) {

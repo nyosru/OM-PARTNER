@@ -12,7 +12,6 @@ class Menu extends \yii\bootstrap\Widget
 
     public function init()
     {
-
         $categoriesarr = $this->categories_for_partners();
         $categories = $categoriesarr[0];
         $cat = $categoriesarr[1];
