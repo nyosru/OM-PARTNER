@@ -2,6 +2,7 @@
 namespace frontend\controllers\actions;
 use common\models\AddressBook;
 use common\models\Countries;
+use common\models\Customers;
 use common\models\PartnersOrders;
 use common\models\PartnersUsersInfo;
 use common\models\Zones;
@@ -11,7 +12,7 @@ trait ActionSiteSaveUserProfile
 {
     public function actionSaveuserprofile()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $userdata = Yii::$app->request->post('user');
         $check = Yii::$app->params['constantapp']['APP_ID'];
@@ -37,16 +38,21 @@ trait ActionSiteSaveUserProfile
             }
             if ($user->customers_id > 0) {
                 $check_passport_customer = AddressBook::findOne(['customers_id' => $user->customers_id]);
-                if ($check_passport_customer->pasport_seria == NULL) {
+                $check_tel_customer = Customers::findOne(['customers_id' => $user->customers_id]);
+                if ($userdata['telephone']) {
+                    $check_tel_customer->customers_telephone = $userdata['telephone'];
+                    $check_tel_customer->update();
+                }
+                if ($userdata['pasportser']) {
                     $check_passport_customer->pasport_seria = $userdata['pasportser'];
                 }
-                if ($check_passport_customer->pasport_nomer == NULL) {
+                if ($userdata['pasportnum']) {
                     $check_passport_customer->pasport_nomer = $userdata['pasportnum'];
                 }
-                if ($check_passport_customer->pasport_kem_vidan == NULL) {
+                if ($userdata['pasportdate']) {
                     $check_passport_customer->pasport_kem_vidan = $userdata['pasportwhere'];
                 }
-                if ($check_passport_customer->pasport_kogda_vidan == '0000-00-00' || $check_passport_customer->pasport_kogda_vidan == NULL) {
+                if ($userdata['pasportwhere']) {
                     $check_passport_customer->pasport_kogda_vidan = $userdata['pasportdate'];
                 }
                 $check_passport_customer->entry_gender = 'M';
@@ -72,7 +78,6 @@ trait ActionSiteSaveUserProfile
                 $user->adress = $userdata['adress'];
                 $user->postcode = $userdata['postcode'];
                 $user->telephone = $userdata['telephone'];
-                $user->telephone = $userdata['telephone'];
                 $user->pasportser = $userdata['pasportser'];
                 $user->pasportnum = $userdata['pasportnum'];
                 $user->pasportdate = $userdata['pasportdate'];
@@ -93,7 +98,6 @@ trait ActionSiteSaveUserProfile
                 $user->telephone = $userdata['telephone'];
                 $user->update();
             }
-            Yii::$app->params['trace']['Юзер'] = $check_passport_customer;
         } else {
             $user->id = $userModel->getId();
             $user->name = $userdata['name'];
@@ -110,13 +114,14 @@ trait ActionSiteSaveUserProfile
             $user->pasportdate = $userdata['pasportdate'];
             $user->pasportwhere = $userdata['pasportwhere'];
         }
+
         if ($user->validate()) {
             $user->save('false');
-            $id = $userModel->getId();
+
         } else {
 
         }
-        print_r(Yii::$app->params['trace']);
+
 
     }
 }
