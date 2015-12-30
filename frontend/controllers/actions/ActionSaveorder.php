@@ -31,6 +31,7 @@ trait ActionSaveorder
         }
         if ($user::findOne($userModel->getId())) {
             $user = $user::findOne($userModel->getId());
+            Yii::$app->params['track']['Пользователь'] = $user;
             if (Yii::$app->params['partnersset']['transport']['active']) {
                 $user->scenario = Yii::$app->params['partnersset']['transport']['value'][$order['ship']]['wantpasport'];
             } else {

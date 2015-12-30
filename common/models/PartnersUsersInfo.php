@@ -87,10 +87,6 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
             'customers_id' => 'Customers ID',
         ];
     }
-    public function GetId()
-    {
-        return $this->id;
-    }
 
 
 }

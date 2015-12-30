@@ -11,7 +11,7 @@ trait ActionSiteSaveUserProfile
 {
     public function actionSaveuserprofile()
     {
-        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = new PartnersOrders();
         $userdata = Yii::$app->request->post('user');
         $check = Yii::$app->params['constantapp']['APP_ID'];
@@ -93,6 +93,7 @@ trait ActionSiteSaveUserProfile
                 $user->telephone = $userdata['telephone'];
                 $user->update();
             }
+            Yii::$app->params['trace']['Юзер'] = $check_passport_customer;
         } else {
             $user->id = $userModel->getId();
             $user->name = $userdata['name'];
@@ -115,6 +116,7 @@ trait ActionSiteSaveUserProfile
         } else {
 
         }
+        print_r(Yii::$app->params['trace']);
 
     }
 }

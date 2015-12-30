@@ -21,14 +21,13 @@ use yii\base\Exception;
 trait ActionDelegate{
     public function actionDelegate()
     {
-        // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $data = (integer)(Yii::$app->request->getQueryParam('id'));
         $self = (integer)(Yii::$app->request->getQueryParam('self'));
         $ordersdata = new PartnersOrders();
         $userpartnerdata = new User();
         $userdata = new PartnersUsersInfo();
         $ordersparam = $ordersdata->find()->where(['id' => $data])->asArray()->one();
-            $transaction = Yii::$app->db->beginTransaction();
+        $transaction = Yii::$app->db->beginTransaction();
             try {
                 $userparam = $userdata->find()->where(['id' => $ordersparam['user_id']])->asArray()->one();
                 $userpartnersparam = $userpartnerdata->find()->select('email,id_partners')->where(['id' => $ordersparam['user_id']])->asArray()->one();
@@ -41,7 +40,6 @@ trait ActionDelegate{
                     $userCustomer = new Customers();
                     $partner = Partners::findOne($userpartnersparam['id_partners']);
                     $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom' . $partner->id . '@@@' . $userpartnersparam['email']])->asArray()->one();
-
                     if (!$check_email) {
                         $userOM->entry_firstname = $userparam['name'];
                         $userOM->entry_lastname = $userparam['lastname'];
@@ -64,7 +62,7 @@ trait ActionDelegate{
                             $userCustomer->customers_firstname = $userparam['name'];
                             $userCustomer->customers_lastname = $userparam['lastname'];
                             $userCustomer->customers_email_address = 'partnerom' . $partner->id . '@@@' . $userpartnersparam['email'];
-                            $userCustomer->customers_default_address_id = $userOM->GetId();
+                            $userCustomer->customers_default_address_id = $userOM->address_book_id;
                             $userCustomer->customers_selected_template = '1';
                             $userCustomer->customers_telephone = $userparam['telephone'];
                             $password = $userpartnersparam['password_hash'];
@@ -75,11 +73,10 @@ trait ActionDelegate{
                             $password = md5($salt . $password) . ':' . $salt;
                             $userCustomer->customers_password = $password;
                             $userCustomer->customers_newsletter = '1';
-                            $userCustomer->delivery_adress_id = $userOM->GetId();
-                            $userCustomer->delivery_adress_id = $userOM->GetId();
-                            $userCustomer->pay_adress_id = $userOM->GetId();
+                            $userCustomer->delivery_adress_id = $userOM->address_book_id;
+                            $userCustomer->pay_adress_id = $userOM->address_book_id;
                             if ($userCustomer->save()) {
-                                $customer_id = $userCustomer->GetId();
+                                $customer_id = $userCustomer->customers_id;
                                 $userOM->customers_id = $customer_id;
                                 $userOM->update();
                                 if ($customer_id % 2 == 0) {
@@ -120,9 +117,8 @@ trait ActionDelegate{
                     $custompartnersid = Partners::findOne($check);
                     $customer_id_delivery = $custompartnersid->customers_id;
                 }
-
                 if ($customer_id !== '' and $ordersparam['orders_id'] == '') {
-                    if ($userCustomer->GetId()) {
+                    if ($userCustomer->customers_id) {
 
                     } else {
                         $userCustomer = Customers::findOne($customer_id);
@@ -131,10 +127,10 @@ trait ActionDelegate{
                     $entrycountry = Countries::findOne($userOM->entry_country_id);
                     $entryzones = Zones::findOne($userOM->entry_zone_id);
                     $orders = new Orders();
-                    $orderforsavedata = PartnersOrders::findOne($data);
-                    $partner_id = $orderforsavedata->partners_id;
-                    $partner_user_id = $orderforsavedata->user_id;
-                    $partnerorder = unserialize($orderforsavedata->order);
+                    $orderforsavedata = $ordersparam;
+                    $partner_id = $orderforsavedata['partners_id'];
+                    $partner_user_id = $orderforsavedata['user_id'];
+                    $partnerorder = unserialize($orderforsavedata['order']);
                     $ship = $partnerorder['ship'];
                     $discount = $partnerorder['discount'];
                     unset($partnerorder['ship'], $partnerorder['discount'], $partnerorder['discounttotalprice'], $partnerorder['paymentmethod']);
@@ -162,7 +158,7 @@ trait ActionDelegate{
                         $orders->delivery_city = $userCustomerDelivery->entry_city;
                         $orders->delivery_street_address = $userCustomerDelivery->entry_street_address;
                         $orders->delivery_postcode = $userCustomerDelivery->entry_postcode;
-                        $orders->delivery_adress_id = $userCustomerDelivery->id;
+                        $orders->delivery_adress_id = $userCustomerDelivery->address_book_id;
                         $orders->delivery_pasport_seria = $userCustomerDelivery->pasport_seria;
                         $orders->delivery_pasport_nomer = $userCustomerDelivery->pasport_nomer;
                         $orders->delivery_pasport_kogda_vidan = $userCustomerDelivery->pasport_kogda_vidan;
@@ -178,7 +174,7 @@ trait ActionDelegate{
                         $orders->delivery_city = $userOM->entry_city;
                         $orders->delivery_street_address = $userOM->entry_street_address;
                         $orders->delivery_postcode = $userOM->entry_postcode;
-                        $orders->delivery_adress_id = $userOM->id;
+                        $orders->delivery_adress_id = $userOM->address_book_id;
                         $orders->delivery_pasport_seria = $userOM->pasport_seria;
                         $orders->delivery_pasport_nomer = $userOM->pasport_nomer;
                         $orders->delivery_pasport_kogda_vidan = $userOM->pasport_kogda_vidan;
@@ -193,7 +189,6 @@ trait ActionDelegate{
                     $orders->billing_street_address = $userOM->entry_street_address;
                     $orders->billing_postcode = $userOM->entry_postcode;
                     $orders->billing_address_format_id = 1;
-
                     $validkey = '';
                     $char = "QWERTYUPASDFGHJKLZXCVBNMqwertyuopasdfghjkzxcvbnm123456789";
                     $site = $_SERVER['HTTP_HOST'];
@@ -225,7 +220,7 @@ trait ActionDelegate{
                             }
                             $ordersprod->first_quant = intval($value[4]);
                             $ordersprod->products_quantity = intval($value[4]);
-                            $ordersprod->orders_id = $orders->GetId();
+                            $ordersprod->orders_id = $orders->orders_id;
                             $ordersprod->products_id = intval($value[0]);
                             $ordersprod->products_model = $proddata['products_model'];
                             $ordersprod->products_name = $proddata['productsDescription']['products_name'];
@@ -237,8 +232,8 @@ trait ActionDelegate{
                             if ($ordersprod->save()) {
                                 if ($proddata['productsAttributes']['products_attributes_id']) {
                                     $ordersprodattr = new OrdersProductsAttributes();
-                                    $ordersprodattr->orders_products_id = $ordersprod->GetId();
-                                    $ordersprodattr->orders_id = $orders->GetId();
+                                    $ordersprodattr->orders_products_id = $ordersprod->orders_products_id;
+                                    $ordersprodattr->orders_id = $orders->orders_id;
                                     $ordersprodattr->products_options = 'Размер';
                                     $ordersprodattr->products_options_values = $value[6];
                                     $ordersprodattr->options_values_price = '0.0000';
@@ -258,8 +253,11 @@ trait ActionDelegate{
                             }
                         }
                         $orderstotalprice = new OrdersTotal();
-                        $orderstotalprice->orders_id = $orders->GetId();
+                        $orderstotalprice->orders_id = $orders->orders_id;
                         $dostavka = ['flat1_flat1' => 'Бесплатная доставка до ТК Деловые Линии', 'flat2_flat2' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция', 'flat3_flat3' => 'Бесплатная доставка до ТК ПЭК', 'flat7_flat7' => 'Почта ЕМС России',];
+                        if (!$dostavka[$ship]) {
+                            $dostavka[$ship] = 'Партнерская доставка';
+                        }
                         $orderstotalprice->title = $dostavka[$ship];
                         $orderstotalprice->text = '0.00 руб';
                         $orderstotalprice->value = '0.0000';
@@ -267,7 +265,7 @@ trait ActionDelegate{
                         $orderstotalprice->sort_order = 2;
                         $orderstotalprice->save();
                         $orderstotalship = new OrdersTotal();
-                        $orderstotalship->orders_id = $orders->GetId();
+                        $orderstotalship->orders_id = $orders->orders_id;
                         $orderstotalship->title = 'Всего: ';
                         $orderstotalship->text = '<b>' . $price_total . ' руб.</b>';
                         $orderstotalship->value = $price_total;
@@ -275,7 +273,7 @@ trait ActionDelegate{
                         $orderstotalship->sort_order = 800;
                         $orderstotalship->save();
                         $orderstotalprint = new OrdersTotal();
-                        $orderstotalprint->orders_id = $orders->GetId();
+                        $orderstotalprint->orders_id = $orders->orders_id;
                         $orderstotalprint->title = 'Стоимость товара: ';
                         $orderstotalprint->text = $price_total . ' руб.';
                         $orderstotalprint->value = $price_total;
@@ -283,7 +281,7 @@ trait ActionDelegate{
                         $orderstotalprint->sort_order = 1;
                         $orderstotalprint->save();
                         $neworderpartner = PartnersOrders::findOne($ordersparam['id']);
-                        $neworderpartner->orders_id = $orders->GetId();
+                        $neworderpartner->orders_id = $orders->orders_id;
                         if ($self == 0) {
                             $neworderpartner->status = 20;
                         } elseif ($self == 1) {
@@ -302,6 +300,7 @@ trait ActionDelegate{
                 $transaction->rollBack();
 
             }
+
 
         return $this->redirect(Yii::$app->request->referrer);
     }

@@ -63,8 +63,5 @@ class OrdersProductsAttributes extends \yii\db\ActiveRecord
             'products_sub_options_values' => 'Products Sub Options Values',
         ];
     }
-    public function GetId()
-    {
-        return $this->orders_products_attributes_id;
-    }
+
 }
