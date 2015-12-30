@@ -105,8 +105,4 @@ class Customers extends \yii\db\ActiveRecord
             'pay_priority' => 'Pay Priority',
         ];
     }
-    public function GetId()
-    {
-        return $this->customers_id;
-    }
 }

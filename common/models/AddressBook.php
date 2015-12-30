@@ -84,10 +84,4 @@ class AddressBook extends \yii\db\ActiveRecord
         ];
 
     }
-    public function GetId()
-    {
-     return $this->address_book_id;
-    }
-
-
 }

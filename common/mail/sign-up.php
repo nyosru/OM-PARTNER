@@ -80,7 +80,7 @@ unset($order['discounttotalprice']);
                             <tr>
                                 <td colspan="2" style="padding-top:20px;padding-bottom:0;">
                                     <p style="font-size:28px;font-family:officinaserifcBook,sans-serif;">
-                                        Здравствуйте ?></p>
+                                        Здравствуйте</p>
 
                                     <p>Благодарим Вас за регистрацию на сайте интернет магазина модной одежды, обуви и аксессуаров<br>
                                     <a href="http://<?= $sait ?>"><?= $sait ?></a> Мы рады, что Вы теперь с нами!<br></p>

@@ -184,10 +184,7 @@ class Orders extends \yii\db\ActiveRecord
             'site_side_email_flag' => 'site_side_email_flag'
         ];
     }
-    public function GetId()
-    {
-        return $this->orders_id;
-    }
+
     public function getProducts()
     {
         return $this->hasMany(OrdersProducts::className(), ['orders_id' => 'orders_id']);

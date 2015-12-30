@@ -85,8 +85,4 @@ class OrdersProducts extends \yii\db\ActiveRecord
             'admin_sver' => 'Admin Sver',
         ];
     }
-    public function GetId()
-    {
-        return $this->orders_products_id;
-    }
 }
