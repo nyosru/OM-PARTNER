@@ -100,7 +100,7 @@ foreach ($order as $key => $value) {
     if ($value[6] == 'undefined') {
         $value[6] = 'Без размера';
     }
-    $inner .= '<td class="col-md-2">' . (integer)$price . ' Руб.</td>';
+    $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
     $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
     $inner .= '<td class="col-md-3"><img style="width: 50%;" src="/site/imagepreview?src=' . $value[5] . '"/></td>';
     $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
@@ -122,7 +122,7 @@ $inner .= '<tr>';
 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Итого</th>';
 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
 $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
-$inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (integer)$discounttotalprice . '%</th>';
+$inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (float)$discounttotalprice . '%</th>';
 $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Стоимость заказа: ' . $totalprice . ' Руб.' . $finalomprice . '</th>';
 $inner .= '</tr>';
 $inner .= '<tr>';

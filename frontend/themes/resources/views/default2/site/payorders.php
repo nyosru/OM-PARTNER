@@ -24,17 +24,11 @@ foreach ($overall as $item) {
         $quantity=$firstQuant;
     }
     $totalPrice=($price*(1+$markup/100))*(1-$discount/100);
-    $cost=$totalPrice*$quantity;
+    $cost=round($totalPrice)*$quantity;
     $totalCost+=$cost;
 }
 
 
 echo '<pre>';
-echo $totalCost;
-print_r($sp_ids);
-print_r($orderRev);
-echo 'testtest';
-print_r($order);
-echo 'testtest';
-print_r($data);
+echo 'Общая сумма заказа равна '.$totalCost.'<br>';
 echo '</pre>';
