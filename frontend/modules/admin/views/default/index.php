@@ -51,6 +51,16 @@ while ($file = readdir($templatedir)) {
 $l1 = '<div style="height: 100%;">';
 $l1 .= '<div class="box" style="background: snow">';
 $l1 .= '<div class="box-body">';
+$l1 .= $form->field($model, 'catalog_type[value]')->radioList(['Скорость навигации', 'СЕО', 'Гибридный'], ['item' => function ($index, $label, $name, $checked, $value) {
+    $check = $checked ? ' checked="checked"' : '';
+    return '<label class="" style="width:100%; margin: 10px; height: 100%;">' .
+    '<input type="radio" name="' . $name . '" value="' . $value . '" ' . $check . ' style="position: absolute; right: 55px;">' . $label . '</label>';
+}])->label('Тип каталога' . \frontend\widgets\Hint::widget(['hint' => 'mailruid']));
+$l1 .= $form->field($model, 'catalog_type[active]', ['options' => ['style' => 'top: -10px; right: 10px; position: absolute;']])->checkbox()->label('');
+$l1 .= '</div>';
+$l1 .= '</div>';
+$l1 .= '<div class="box" style="background: snow">';
+$l1 .= '<div class="box-body">';
 $l1 .= $form->field($model, 'template', ['options' => ['class' => ''], 'labelOptions' => ['class' => 'box-header with-border']])->label('Шаблон' . \frontend\widgets\Hint::widget(['hint' => 'template']))->radioList($output);
 $l1 .= '</div>';
 $l1 .= '</div>';

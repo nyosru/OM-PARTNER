@@ -21,6 +21,28 @@ trait   ActionCatPath
         }
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
-        return $chpu;
+        if (($action = Yii::$app->request->getQueryParam('action')) == TRUE && $action == 'name') {
+            $resultchpu = [];
+            foreach ($chpu as $key => $value) {
+                $resultchpu[] = $value['name'];
+            }
+            return $resultchpu;
+        } elseif ($action == 'num') {
+            $resultchpu = [];
+            foreach ($chpu as $key => $value) {
+                $resultchpu[] = $value['id'];
+            }
+            return $resultchpu;
+        } elseif ($action == 'namenum') {
+            $resultchpu = [];
+            foreach ($chpu as $key => $value) {
+                $resultchpu['num'][] = $value['id'];
+                $resultchpu['name'][] = $value['name'];
+            }
+            return $resultchpu;
+        } else {
+            return $chpu;
+        }
+
     }
 }

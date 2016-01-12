@@ -28,21 +28,21 @@ Trait Imagepreviewcrop
         if (strlen($namefile) > 7) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
+            $subdir .= '/' . substr($namefile, 2, 2);
             $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2) . '/';
+            $subdir .= '/' . substr($namefile, 4, 2);
             $split[] = substr($namefile, 6, 2);
-            $subdir .= '/' . substr($namefile, 6, 2) . '/';
+            $subdir .= '/' . substr($namefile, 6, 2);
         } elseif (strlen($namefile) > 5) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
+            $subdir .= '/' . substr($namefile, 2, 2);
             $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2) . '/';
+            $subdir .= '/' . substr($namefile, 4, 2);
         } elseif (strlen($namefile) > 3) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
+            $subdir .= '/' . substr($namefile, 2, 2);
         } else {
             $subdir = '';
         }

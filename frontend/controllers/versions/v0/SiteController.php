@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\controllers;
+namespace frontend\controllers\versions\v0;
 
 use common\traits\Categories_for_partner;
 use common\traits\Fullopcat;
@@ -46,6 +46,7 @@ use frontend\controllers\actions\ActionSiteIndex;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
+use frontend\controllers\actions\ActionTest;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
 use Yii;
@@ -53,6 +54,7 @@ use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+
 
 /**
  * Контроллер сайта
@@ -104,6 +106,7 @@ class SiteController extends Controller
         ActionShipping,
         ActionPaymentMethod,
         ActionPayOrders,
+        ActionTest,
         ActionProductinfobymodel;
 
 

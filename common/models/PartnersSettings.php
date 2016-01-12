@@ -33,6 +33,7 @@ class PartnersSettings extends Model
     public $requisites;
     public $recomendedwares;
     public $mainbanners;
+    public $catalog_type;
     /**
      * @inheritdoc
      */
@@ -60,7 +61,7 @@ class PartnersSettings extends Model
     {
         return [
             [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
-            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup','transport','paysystem','paymentgate','requisites'], 'string'],
+            [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup', 'transport', 'paysystem', 'paymentgate', 'requisites', 'catalog_type'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
     }
