@@ -37,12 +37,12 @@ $(document).on('click', '#prod-data-img', function () {
         if ($product.productsAttributesDescr.length > 0) {
             $.each($product.productsAttributesDescr, function () {
                 $date = $product.products.products_date_added;
-                $prodinfoattr += '<div class="size-desc"><div>' + this.products_options_values_name + '</div><input id="input-count" data-prod="' + $product.products.products_id + '" data-model="' + $product.products.products_model + '" data-minorder="' + $product.products.products_quantity_order_min + '" data-price="' + $product.products.products_price + '" data-image="' + $product.products.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                $prodinfoattr += '<div class="size-desc"><div id="input-count" data-prod="' + $product.products.products_id + '" data-model="' + $product.products.products_model + '" data-minorder="' + $product.products.products_quantity_order_min + '" data-price="' + $product.products.products_price + '" data-image="' + $product.products.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '">' + this.products_options_values_name + '</div></div>';
             });
             $prodinfoattr += '<div class="cart-lable">В корзину</div>';
         } else {
             $date = $product.products.products_date_added;
-            $prodinfoattr += '<div class="size-desc">+<input id="input-count" data-prod="' + $product.products.products_id + '" data-model="' + $product.products.products_model + '" data-minorder="' + $product.products.products_quantity_order_min + '" data-price="' + $product.products.products_price + '" data-image="' + $product.products.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" type="text" placeholder="" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+            $prodinfoattr += '<div class="size-desc"><div id="input-count" data-prod="' + $product.products.products_id + '" data-model="' + $product.products.products_model + '" data-minorder="' + $product.products.products_quantity_order_min + '" data-price="' + $product.products.products_price + '" data-image="' + $product.products.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '">+</div></div>';
             $prodinfoattr += '<div class="cart-lable">В корзину</div>';
         }
         $('#prod-card-info').html('<button class="close-descript" type="button"><i class="fa fa-times fa-3x"></i></button><div class="cart-image" style="float: left; max-height: 300px; max-width: 300px; min-height: 300px; min-width: 300px;  background: #fff no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products.products_image + ');"></div> <div class="prod-info-name">' + $product.productsDescription.products_name + '</div><div class="prod-info-price"><b>' + parseInt($product.products.products_price) + '</b> Руб.</div><div class="prod-info-model">Артикул: ' + $product.products.products_model + '</div><div class="prod-info-date">Добавлен: ' + $date + '</div><div class="prod-info-desc">Описание: ' + $product.productsDescription.products_description + '</div><div class="prod-info-size"><span class="prod-info-attr-lable"></span>' + $prodinfoattr + '</div><div class="prod-info-soc-but" style="display: none">Поделиться</div><div style="z-index: 1060" class="modal bs-example-modal-lg image" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"><div class="modal-dialog modal-lg"> <div class="modal-content" style="text-align: center;"><img id="image-img" src="http://odezhda-master.ru/images/' + $product.products.products_image + '" /></div></div></div></div>');
@@ -642,31 +642,15 @@ $(document).on('click', '.cart', function () {
     }
 });
 $(document).on('click', '.cart-lable', function () {
-    $cart_add_obj = $(this).siblings().filter('.size-desc');
+    $cart_add_obj = $('[class="lable-item accept"]');
+    console.log($('[class="lable-item accept"]'));
     $checkzero = 0;
     $.each($cart_add_obj, function () {
         var $item = new Object();
-        $item_add = $(this).children('input')[0];
+        $item_add = $(this)[0];
         $item.cart = [];
-        if ($item_add.value != '' && $item_add.value != '0') {
+        $item_add.value = 1;
             $checkzero = 1;
-            $($(this).parent().parent())
-                .clone()
-                .css({
-                    'position': 'absolute',
-                    'z-index': '11100',
-                    top: $(this).parent().parent().offset()['top'],
-                    left: $(this).parent().parent().offset()['left']
-                })
-                .appendTo("body")
-                .animate({
-                    opacity: 0.05,
-                    left: $(".cart-count").offset()['left'],
-                    top: $(".cart-count").offset()['top'],
-                    width: 20,
-                }, 1000, function () {
-                    $(this).remove();
-                });
             if (JSON.parse(localStorage.getItem('cart-om'))) {
                 $item = JSON.parse(localStorage.getItem('cart-om'));
                 $i = $item.cart.length;
@@ -677,15 +661,49 @@ $(document).on('click', '.cart-lable', function () {
             if ($item.cart.length > 0) {
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
-                        this[4] = parseInt(this[4]) + parseInt($item_add.value);
+                        this[4] = 1; //parseInt(this[4]) + parseInt($item_add.value);
                         x = 1;
                     }
                 });
             } else {
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
+                $($(this).parent().parent())
+                    .clone()
+                    .css({
+                        'position': 'absolute',
+                        'z-index': '11100',
+                        top: $(this).parent().parent().offset()['top'],
+                        left: $(this).parent().parent().offset()['left']
+                    })
+                    .appendTo("body")
+                    .animate({
+                        opacity: 0.05,
+                        left: $(".cart-count").offset()['left'],
+                        top: $(".cart-count").offset()['top'],
+                        width: 20,
+                    }, 1000, function () {
+                        $(this).remove();
+                    });
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), 1/*$item_add.value*/, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
             }
             if (x == 0) {
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
+                $($(this).parent().parent())
+                    .clone()
+                    .css({
+                        'position': 'absolute',
+                        'z-index': '11100',
+                        top: $(this).parent().parent().offset()['top'],
+                        left: $(this).parent().parent().offset()['left']
+                    })
+                    .appendTo("body")
+                    .animate({
+                        opacity: 0.05,
+                        left: $(".cart-count").offset()['left'],
+                        top: $(".cart-count").offset()['top'],
+                        width: 20,
+                    }, 1000, function () {
+                        $(this).remove();
+                    });
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), 1/*$item_add.value*/, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
             }
             $ilocal = JSON.stringify($item);
             localStorage.setItem('cart-om', $ilocal);
@@ -698,12 +716,7 @@ $(document).on('click', '.cart-lable', function () {
             });
             $(".cart-count").html($amount_prod);
             $(".cart-price").html($cart_price + ' руб.');
-        }
     });
-    if ($checkzero == 0) {
-        alert('Укажите количество');
-    }
-
 });
 
 $(document).on('click', '.countdisplay', function index_count_display() {
@@ -789,6 +802,14 @@ function new_suburl($url_obj, $val, $new_var) {
     $url_obj[$val] = $value;
     return $url_obj;
 }
+
+$(document).on('click keydown', '.lock-on', function () {
+    $('body').addClass('some');
+    $('link').addClass('some');
+    $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
+    new imageLoader(cImageSrc, 'startAnimation()');
+});
+
 $(document).on('click', '.data-j', function dataj() {
     if (this.getAttribute('class').indexOf('index-card') != -1) {
         $cat = this.getAttribute('data-cat');
@@ -896,7 +917,7 @@ $(document).on('click', '.data-j', function dataj() {
                 $headbside += '<div id="partners-main-right">';
                 $headbside += '<div id="products-counter">' + data[4] + '-' + data[5] + ' из ' + data[1] + '</div>';
                 $headbside += '<div id="products-pager"></div>';
-                $headbside += '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog' + new_url(new_suburl(split_url($url), 'count', '20')) + '">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="50" href="/site/catalog' + new_url(new_suburl(split_url($url), 'count', '50')) + '">50</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="100" href="/site/catalog' + new_url(new_suburl(split_url($url), 'count', '100')) + '">100</a>  <a class="countdisplay" onclick="" data-j="on" data-count="200" href="' + new_url(new_suburl(split_url($url), 'count', '200')) + '">200</a>  <a class="countdisplay" onclick="" data-j="on" data-count="500" href="' + new_url(new_suburl(split_url($url), 'count', '500')) + '">500</a>  <a class="countdisplay" onclick="" data-j="on" data-count="1000" href="/site/catalog' + new_url(new_suburl(split_url($url), 'count', '1000')) + '">1000</a> </div>';
+                $headbside += '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog' + new_url(new_suburl(split_url($url), 'count', '20')) + '">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog' + new_url(new_suburl(split_url($url), 'count', '40')) + '">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog' + new_url(new_suburl(split_url($url), 'count', '60')) + '">60</a>  </div>';
                 $headbside += '<div id="sort-order"><div  class="header-sort sort" data="' + data[11] + '">Сортировать по </div>';
                 $sortorder = [['дате', 0, 10], ['цене', 1, 11], ['названию', 2, 12], ['модели', 3, 13], ['популярности', 4, 14]];
                 $.each($sortorder, function () {
@@ -959,10 +980,10 @@ $(document).on('click', '.data-j', function dataj() {
                     $attr_html = '<div class="cart-lable">В корзину</div>';
                     if ($attr_desc.length > 0) {
                         $.each($attr_desc, function () {
-                            $attr_html += '<div class="size-desc"><div><div class="lable-item">' + this.products_options_values_name + '</div></div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                            $attr_html += '<div class="size-desc"> <div><div class="lable-item" id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '">' + this.products_options_values_name + '</div></div></div>';
                         });
                     } else {
-                        $attr_html += '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                        $attr_html += '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '">+</div></div>';
                     }
                     $('.bside').append('<div  class="container-fluid float" id="card" product=""><div data-prod="' + $product.products_id + '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');"></div><div class="name">' + $description.products_name + '</div><div class="model">Арт.' + $product.products_model + '</div><div class="price"><b>' + parseInt($product.products_price) + '</b> руб.</div><a href="/site/product?id=' + $product.products_id + '"><div id="prod-info" data-prod="' + $product.products_id + '">Инфо</div></a><span>' + $attr_html + '</span><span style="bottom: 45px; width: 30px; height: 30px; top: 0px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">'
                         + '<a href="http://vk.com/share.php?url=http://' + location.host + '/site/product?id=' + $product.products_id + '&description=' + parseInt($product.products_price) + '%20Руб.&title=' + $description.products_description + '"><i class="fa fa-vk"></i></a></span><span style="bottom: 45px; width: 30px; height: 30px; top: 35px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' +
@@ -1180,6 +1201,15 @@ $(document).on('click', '#profile-info', function () {
 $(document).on('click', '#profile-call', function () {
     window.location = '/';
 });
+
+$(document).on('click', '.lable-item', function () {
+    if ($(this).hasClass('accept')) {
+        $(this).removeClass('accept');
+    } else {
+        $(this).addClass('accept');
+    }
+});
+
 $(document).on('click', '#close', function () {
     $(this).parent().parent().modal('hide');
 });

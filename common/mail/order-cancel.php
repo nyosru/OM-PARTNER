@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 $user=unserialize($user);
 $order=unserialize($order);
-unset($order[ship]);
+unset($order['ship']);
 ?>
 
 <html>

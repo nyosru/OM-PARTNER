@@ -15,7 +15,8 @@
     }
 
     #card, #index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
-        max-height: 300px
+        max-height: 300px;
+
     }
 
     #categories, #categoriesdiv, #categoriessub, ul {
@@ -824,11 +825,10 @@
     .size-desc {
         color: #F0F8FF;
         text-align: center;
-        padding: 2px 2px 2px 10px;
         margin: 3px 8px;
         float: left;
         max-width: 110px;
-        overflow: hidden
+        word-wrap: break-word;
     }
 
     #prod-card-info > .prod-info-size > .size-desc {
@@ -843,7 +843,7 @@
 
     .size-desc:hover {
         cursor: pointer;
-        padding: 2px 2px 2px 10px
+
     }
 
     .cart-lable {
@@ -870,13 +870,7 @@
     }
 
     #input-count {
-        height: 20px;
-        color: #000;
-        padding: 0 10px;
-        width: 40px;
-        text-align: center;
-        border: none;
-        background: 0 0
+        padding: 5px;
     }
 
     #prod-info {
@@ -1579,7 +1573,8 @@
         width: 65%;
         border: none;
         border-left: 1px solid #C3C2C2;
-        padding: 0 10px
+        padding: 0 10px;
+
     }
 
     .prod-info-model {
@@ -1746,7 +1741,17 @@
     .lable-item {
         width: 100%;
         font-size: 15px;
-        color: #000
+        color: #000;
+        border: 1px solid #ffbf08;
+        font-size: 12px;
+    }
+
+    .lable-item .accept {
+        width: 100%;
+        font-size: 15px;
+        color: #000;
+        border: 1px solid #C9C6C6;
+        background: #ffbf08;
     }
 
     .ui-slider-handle {

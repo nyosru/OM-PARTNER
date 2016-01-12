@@ -26,24 +26,25 @@ class Imagepreviewfile
             $namefile = base64_encode(implode('', $file));
             $dir = '';
         }
-        if (strlen($namefile) > 500000000000) {
+
+        if (strlen($namefile) > 7) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
+            $subdir .= '/' . substr($namefile, 2, 2);
             $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2) . '/';
+            $subdir .= '/' . substr($namefile, 4, 2);
             $split[] = substr($namefile, 6, 2);
-            $subdir .= '/' . substr($namefile, 6, 2) . '/';
-        } elseif (strlen($namefile) > 500000000000) {
+            $subdir .= '/' . substr($namefile, 6, 2);
+        } elseif (strlen($namefile) > 5) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
+            $subdir .= '/' . substr($namefile, 2, 2);
             $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2) . '/';
-        } elseif (strlen($namefile) > 500000000000) {
+            $subdir .= '/' . substr($namefile, 4, 2);
+        } elseif (strlen($namefile) > 3) {
             $split[] = $subdir = substr($namefile, 0, 2);
             $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
+            $subdir .= '/' . substr($namefile, 2, 2);
         } else {
             $subdir = '';
         }
@@ -57,6 +58,7 @@ class Imagepreviewfile
                     } else {
                         mkdir(Yii::getAlias($where) . $new_dir, 0777);
                     }
+
                 }
             }
             if ($ras[0] == 'jpg' || $ras[0] == 'jpeg') {
@@ -98,7 +100,7 @@ class Imagepreviewfile
             imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 80);
         }
 
-        return $_SERVER['HTTP_HOST'] . '/images/' . $dir . $subdir . $namefile . '.' . $ras[0];
+        return '/images/' . $dir . $subdir . $namefile . '.' . $ras[0];
     }
 }
 

@@ -14,92 +14,65 @@ use yii\jui\Slider;
 ?>
 
         <script>
+            $(document).on('click', '.data-j', function dataj() {
+                if (this.getAttribute('class').indexOf('index-card') != -1) {
+                    $cat = this.getAttribute('data-cat');
+                    $(".link[data-cat=" + $cat + "]").attr('data', 'checked');
+                }
+                if (this.getAttribute('class').indexOf('index-sort') != -1) {
+                    $cat = this.getAttribute('data-cat');
+                    $(".link").attr('data', 'checked');
+                }
+                $cat = [];
+                if ($('#search').val() == '') {
+                    $cat = $('[data=checked]').attr('data-cat');
+                    $searchword = '';
+                } else {
+                    $cat = '0';
+                    $searchword = $('#search').val();
+                }
+                if (this.getAttribute('class').indexOf('navbreditem') != -1) {
+                    $cat = this.getAttribute('data-cat');
+                    $(".link[data-cat=" + $cat + "]").attr('data', 'checked');
+                }
+                $count = $('.count-checked').text();
+                $min_price = $('#min-price').val();
+                $sort = $('.sort-checked').attr('data');
+                if ($sort == 'undefined') {
+                    $sort = 0;
+                }
+                $check = [];
+                $max_price = $('#max-price').val();
+                if ($max_price == 0 || $max_price == undefined) {
+                    $max_price = 1000000;
+                }
+                $('.size-checked').each(function () {
+                    $check.push($(this).attr('data-size'));
+                });
+                $page = $('.page-checked').attr('data-page');
+                if ($page == 'undefined') {
+                    $page = 0;
+                }
 
-            if(document.location.hash !== 'string') {
-                var cSpeed = 9;
-                var cWidth = 64;
-                var cHeight = 64;
-                var cTotalFrames = 18;
-                var cFrameWidth = 64;
-                var cImageSrc = '/images/preloader/sprites.png';
-                var cImageTimeout = false;
-                var cIndex = 0;
-                var cXpos = 0;
-                var cPreloaderTimeout = false;
-                var SECONDS_BETWEEN_FRAMES = 0;
-                function startAnimation() {
-                    document.getElementById('loaderImage').style.backgroundImage = 'url(' + cImageSrc + ')';
-                    document.getElementById('loaderImage').style.width = cWidth + 'px';
-                    document.getElementById('loaderImage').style.height = cHeight + 'px';
-                    FPS = Math.round(100 / cSpeed);
-                    SECONDS_BETWEEN_FRAMES = 1 / FPS;
-                    cPreloaderTimeout = setTimeout('continueAnimation()', SECONDS_BETWEEN_FRAMES / 1000);
-                }
-                function continueAnimation() {
-                    cXpos += cFrameWidth;
-                    cIndex += 1;
-                    if (cIndex >= cTotalFrames) {
-                        cXpos = 0;
-                        cIndex = 0;
-                    }
-                    if (document.getElementById('loaderImage'))
-                        document.getElementById('loaderImage').style.backgroundPosition = (-cXpos) + 'px 0';
-                    cPreloaderTimeout = setTimeout('continueAnimation()', SECONDS_BETWEEN_FRAMES * 1000);
-                }
-                function stopAnimation() {
-                    clearTimeout(cPreloaderTimeout);
-                    cPreloaderTimeout = false;
-                }
-                function imageLoader(s, fun) {
-                    clearTimeout(cImageTimeout);
-                    cImageTimeout = 0;
-                    genImage = new Image();
-                    genImage.onload = function () {
-                        cImageTimeout = setTimeout(fun, 0)
-                    };
-                    genImage.onerror = new Function('alert(\'Could not load the image\')');
-                    genImage.src = s;
-                }
-                function new_url($arr_sub) {
-                    $new_url = [];
-                    $.each($arr_sub, function () {
-                        $new_url.push(this[0] + '=' + this[1]);
-                    });
-                    return $new_url.join('&');
-                }
-                function split_url($url) {
-                    $url_arr = $url.split('&');
-                    $arr_sub = new Object();
-                    $.each($url_arr, function () {
-                        $spl = this.split('=');
-                        $arr_sub[$spl[0]] = $spl;
-                    });
-                    return $arr_sub;
-                }
-                function new_suburl($url_obj, $val, $new_var) {
-                    $value = $url_obj[$val];
-                    $value[1] = $new_var;
-                    $url_obj[$val] = $value;
-                    return $url_obj;
+                $prodatrquery = $check.join(',');
+                if ($count == '') {
+                    $count = 20;
                 }
                 $('body').addClass('some');
                 $('link').addClass('some');
                 $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
                 new imageLoader(cImageSrc, 'startAnimation()');
-                $url = '';
-                $url = document.location.hash;
-                if ($url == '') {
-                    $url = '#!cat=932&count=20&start_price=0&end_price=1000000&prod_attr_query=&page=10&sort=10&searchword==';
+                if (typeof $cat == 'undefined') {
+                    $urld = '';
+                    $urld = document.location.toString();
+                    $urld = '#!' + $urld.replace('?', '#!').split('#!')[1];
+                    $urld = split_url($urld);
+                    $cat = $urld['#!cat'][1];
+
                 }
+                $url = '#!cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
+                console.log($url);
                 $url_data = split_url(document.location.hash);
-                $cat = $url_data['#!cat'][1];
-                $count = $url_data.count[1];
-                $min_price = $url_data.start_price[1];
-                $max_price = $url_data.end_price[1];
-                $prodatrquery = $url_data.prod_attr_query[1];
-                $page = $url_data.page[1];
-                $sort = $url_data.sort[1];
-                $searchword = $url_data.searchword[1];
                 $.ajax({
                     url: "/site/request",
                     data: 'cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword,
@@ -212,12 +185,20 @@ use yii\jui\Slider;
                                 $attr_html = '<div class="cart-lable">В корзину</div>';
                                 if ($attr_desc.length > 0) {
                                     $.each($attr_desc, function () {
-                                        $attr_html += '<div class="size-desc"><div><div class="lable-item">' + this.products_options_values_name + '</div></div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                                        $attr_html += '<div class="size-desc"> <div><div class="lable-item" id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '">' + this.products_options_values_name + '</div></div></div>';
                                     });
                                 } else {
-                                    $attr_html += '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                                    $attr_html += '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '">+</div></div>';
                                 }
-                                $('.bside').append('<div  class="container-fluid float" id="card" product=""><div data-prod="' + $product.products_id + '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');"></div><div class="name">' + $description.products_name + '</div><div class="model">Арт.' + $product.products_model + '</div><div class="price"><b>' + parseInt($product.products_price) + '</b> руб.</div><div id="prod-info" data-prod="' + $product.products_id + '">Инфо</div><span>' + $attr_html + '</span></div>');
+                                $('.bside').append('<div  class="container-fluid float" id="card" product=""><div data-prod="' + $product.products_id + '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');"></div><div class="name">' + $description.products_name + '</div><div class="model">Арт.' + $product.products_model + '</div><div class="price"><b>' + parseInt($product.products_price) + '</b> руб.</div><a href="/site/product?id=' + $product.products_id + '"><div id="prod-info" data-prod="' + $product.products_id + '">Инфо</div></a><span>' + $attr_html + '</span><span style="bottom: 45px; width: 30px; height: 30px; top: 0px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">'
+                                    + '<a href="http://vk.com/share.php?url=http://' + location.host + '/site/product?id=' + $product.products_id + '&description=' + parseInt($product.products_price) + '%20Руб.&title=' + $description.products_description + '"><i class="fa fa-vk"></i></a></span><span style="bottom: 45px; width: 30px; height: 30px; top: 35px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' +
+                                    '' + '<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=' + encodeURIComponent('http://' + location.host + '/site/product?id=' + $product.products_id) + '&st.comments=' + encodeURIComponent($description.products_description) + '"><i class="fa fa-odnoklassniki"></i></a></span><span style="bottom: 45px; width: 30px; height: 30px; top: 70px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' +
+                                    '' + '<a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://' + location.host + '/site/product?id=' + $product.products_id + '&p[summary]=' + parseInt($product.products_price) + '%20Руб.&p[title]=' + $description.products_description + '"><i class="fa fa-facebook"></i></a></span><span style="bottom: 45px; width: 30px; height: 30px; top: 105px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' +
+                                    '' + '<a href="http://twitter.com/share?url=http://' + location.host + '/site/product?id=' + $product.products_id + '&title=' + $description.products_description + '"><i class="fa fa-twitter"></i></a></span><span style="bottom: 45px; width: 30px; height: 30px; top: 140px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' +
+                                    '' + '<a href="http://connect.mail.ru/share?url=http://' + location.host + '/site/product?id=' + $product.products_id + '&description=' + parseInt($product.products_price) + '%20Руб.&title=' + $description.products_description + '"><i class="fa fa-at"></i></a></span>' +
+                                    '' + '<span style="bottom: 45px; width: 30px; height: 30px; top: 140px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' +
+                                    '' + '<a href="https://plus.google.com/share?url=http://' + location.host + '/site/product?id=' + $product.products_id + '"><i class="fa fa-google-plus"></i></a></span>' +
+                                    '' + '</div>');
                             });
                             if (data[5] >= data[1] && data[4] == 0) {
                                 $('#products-pager').hide();
@@ -281,6 +262,8 @@ use yii\jui\Slider;
                         }
                     }
                 });
+
+            });
         </script>
 <?
     function new_url($arr_sub)

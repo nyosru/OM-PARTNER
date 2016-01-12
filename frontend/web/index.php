@@ -30,7 +30,10 @@ $config = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../config/main.php'),
     require(__DIR__ . '/../config/main-local.php')
 );
+$versions = require(__DIR__ . '/../config/versions.php');
+
 $application = new yii\web\Application($config);
+
 use common\models\Partners;
 
 
@@ -56,12 +59,28 @@ use common\models\Partners;
 
         }
 //echo '<pre>';
-//print_r($partner);
+//print_r($versions);
 //echo '</pre>';
+//die();
+if (($versionnum = $partner['APP_VERSION']) == FALSE) {
+    $version = $versions['0'];
+} else {
+    $version = $versions[$versionnum];
+}
+
+$config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend'];
+unset($version['frontend']);
+foreach ($version as $key => $mvc) {
+    $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
+}
+
+$application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
+
+
 use common\models\PartnersSettings;
 class LoadTraitIndex
 {

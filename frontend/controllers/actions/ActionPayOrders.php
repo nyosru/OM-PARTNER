@@ -21,7 +21,36 @@ trait ActionPayOrders{
                     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                     return ['exception' => 'Заказ не найден'];
                 } else {
-                    return $this->render('payorders', ['data' => $ordersdata]);
+                    $order = unserialize($ordersdata['order']);
+                    $markup = $order['discount']; // наценка партнера на заказ
+                    $discount = $order['discounttotalprice']; // скидка с заказа
+                    $overall = $ordersdata['oMOrdersProducts'];
+                    $sp_ids=[]; // массив с oMOrdersProductsSP id=>количество
+                    foreach ($ordersdata['oMOrdersProductsSP'] as $item){
+                        $sp_ids[$item['orders_products_id']]=$item['products_quantity'];
+                    }
+                    $orderRev=[]; // массив с возвратами id продукта=>количество
+                    foreach($order as $item){
+                        $orderRev[$item['0']]=$item['8']['count'];
+                    }
+
+                    $totalCost=0;
+                    foreach ($overall as $item) {
+                        $price = $item['final_price'];
+                        $firstQuant = $item['first_quant'];
+                        $productsQuant = $item['products_quantity'];
+                        $spQuantity=$sp_ids[$item['orders_products_id']];
+                        $reverce=$orderRev[$item['products_id']];
+                        $quantity=$productsQuant+$spQuantity-$reverce;
+                        if($firstQuant<$quantity){
+                            $quantity=$firstQuant;
+                        }
+                        $totalPrice=($price*(1+$markup/100))*(1-$discount/100);
+                        $cost=round($totalPrice)*$quantity;
+                        $totalCost+=$cost;
+                    }
+                    return $this->render('payorders', ['totalcost' => $totalCost]);
+                    //return $this->render('payorders', ['data' => $ordersdata]);
                 }
             }
         }

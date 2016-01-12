@@ -84,9 +84,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <i class="fa fa-search"></i>
             </div>
         </div>
-
-        <div class="modal-cart" id="modal-cart"></div>
-
         <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span
                 class="cart-count"></span><span class="cart-price"></span></ul>
         <?
@@ -123,7 +120,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div id="partners-main-left">
                     <div id="partners-main-left-cont">
                         <div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
-                        </div><?= Menu::widget(); ?>
+                        </div><?= Menu::widget(['opencat' => Yii::$app->params['layoutset']['opencat']]); ?>
                     </div>
                     <div id="filters">
                         <div id="price-lable" style="display:none;">
@@ -150,6 +147,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
         </div>
     <div style="height: 60px"></div>
+        <div class="modal-cart" id="modal-cart" style="display: none;"></div>
     <footer class="footer">
         <hr class="linebottom1">
         <hr class="linebottom2">
