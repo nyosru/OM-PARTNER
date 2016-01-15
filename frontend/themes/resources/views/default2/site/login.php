@@ -17,8 +17,8 @@ $this->title = 'Вход';
             <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить меня') ?>
 
             <div style="color:#999;margin:1em 0">
-                <?= Html::a('Восстановить пароль. ', ['site/request-password-reset']) ?>
-                <?= Html::a('Зарегистрироваться. ', ['site/signup']) ?>
+                <?= Html::a('Восстановить пароль. ', [BASEURL . '/request-password-reset']) ?>
+                <?= Html::a('Зарегистрироваться. ', [BASEURL . '/signup']) ?>
             </div>
             <div class="form-group">
                 <?= Html::submitButton('Вход', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

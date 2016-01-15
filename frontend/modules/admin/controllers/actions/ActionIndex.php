@@ -11,8 +11,6 @@ trait ActionIndex{
         $model = new PartnersSettings();
         $paramset = Yii::$app->params['partnersset'];
         $contacts = Yii::$app->params['partnersset']['contacts'];
-        $model->catalog_type['value'] = $paramset['catalog_type']['value'];
-        $model->catalog_type['active'] = $paramset['catalog_type']['active'];
         $model->mailcounter['value'] = $paramset['mailcounter']['value'];
         $model->mailcounter['active'] = $paramset['mailcounter']['active'];
         $model->yandexcounter['value'] = $paramset['yandexcounter']['value'];

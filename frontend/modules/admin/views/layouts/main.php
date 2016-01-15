@@ -66,12 +66,12 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
 
     }
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-        $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Войти', 'url' => [BASEURL . '/login']];
+        $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => [BASEURL . '/signup']];
     }else{
         $menuItems[] = [
             'label' => 'Выход (' . Yii::$app->user->identity->username . ')',
-            'url' => ['/site/logout'],
+            'url' => [BASEURL . '/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];
     }

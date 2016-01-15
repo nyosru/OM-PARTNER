@@ -49,11 +49,11 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         </p>
 
         <p class="pull-right">
-            <a class="top-link" href="/site/news">Новости</a>
-            <a class="top-link" href="/site/faq">FAQ</a>
-            <a class="top-link" href="/site/paying">Оплата</a>
-            <a class="top-link" href="/site/delivery">Доставка</a>
-            <a class="top-link" href="/site/contacts">Контакты</a>
+            <a class="top-link" href="<?= BASEURL ?>/news">Новости</a>
+            <a class="top-link" href="<?= BASEURL ?>/faq">FAQ</a>
+            <a class="top-link" href="<?= BASEURL ?>/paying">Оплата</a>
+            <a class="top-link" href="<?= BASEURL ?>/delivery">Доставка</a>
+            <a class="top-link" href="<?= BASEURL ?>/contacts">Контакты</a>
         </p></div>
     <div class="wrap">
         <?php
@@ -95,17 +95,17 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             $menuItems[] = ['label' => 'Админ', 'url' => ['/admin']];
         }
         if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-            $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => ['/site/signup']];
+            $menuItems[] = ['label' => 'Войти', 'url' => [BASEURL . '/login']];
+            $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => [BASEURL . '/signup']];
         } else {
             $menuItems[] = [
                 'label' => 'Профиль (' . Yii::$app->user->identity->username . ')',
-                'url' => ['/site/lk'],
+                'url' => [BASEURL . '/lk'],
                 'linkOptions' => ['data-method' => 'post']
             ];
             $menuItems[] = [
                 'label' => 'Выход',
-                'url' => ['/site/logout'],
+                'url' => [BASEURL . '/logout'],
                 'linkOptions' => ['data-method' => 'post']
             ];
         }
@@ -131,7 +131,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         </ul>
                         <ul id="accordion" class="accordion">
                             <li class="">
-                                <div id="profile-orders" class="link profile-orders"><a href="/site/requestorders">Мои
+                                <div id="profile-orders" class="link profile-orders"><a
+                                        href="<?= BASEURL ?>/requestorders">Мои
                                         заказы</a></div>
                             </li>
                         </ul>
@@ -271,8 +272,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <!-- /Yandex.Metrika counter -->
                     <? } ?>
                 </div>
-                <p class="pull-right"><a href="/site/offerta">Оферта</a> <a href="/site/paying">Оплата</a> <a
-                        href="/site/delivery">Доставка</a> <a href="/site/contacts">Контакты</a></p>
+                <p class="pull-right"><a href="<?= BASEURL ?>/offerta">Оферта</a> <a
+                        href="<?= BASEURL ?>/paying">Оплата</a> <a
+                        href="<?= BASEURL ?>/delivery">Доставка</a> <a href="<?= BASEURL ?>/contacts">Контакты</a></p>
             </div>
         </footer>
         <?php

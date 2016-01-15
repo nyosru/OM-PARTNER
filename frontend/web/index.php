@@ -18,7 +18,7 @@ set_time_limit ( 800 );
 //    die();
 //}
 ob_start("ob_gzhandler");
-defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -62,13 +62,24 @@ use common\models\Partners;
 //print_r($versions);
 //echo '</pre>';
 //die();
+$partner['APP_VERSION'] = '0';
 if (($versionnum = $partner['APP_VERSION']) == FALSE) {
     $version = $versions['0'];
 } else {
     $version = $versions[$versionnum];
 }
 
-$config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend'];
+$config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend']['namespace'];
+$application->defaultRoute = $version['frontend']['defroute'] . '/index';
+$config['components']['errorHandler']['errorAction'] = $version['frontend']['erraction'] . '/error';
+$catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
+$config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
+$config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
+$config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
+
+define('BASEURL', '/' . $version['frontend']['defroute']);
+
+
 unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';

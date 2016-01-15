@@ -7,7 +7,7 @@ trait ActionPayOrders{
         $user = Yii::$app->getUser()->id;
         if (!$user) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $this->redirect('/site/login');
+            return $this->redirect(BASEURL . '/login');
         } else {
             if (($id = (integer)(Yii::$app->request->getQueryParam('id'))) === false) {
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

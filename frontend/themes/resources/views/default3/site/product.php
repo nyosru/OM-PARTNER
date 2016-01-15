@@ -18,7 +18,7 @@ if (count($product['productsAttributesDescr']) > 0) {
 }
 ?>
 <div class="cart-image"
-     style="float: left; max-height: 300px; max-width: 300px; min-height: 300px; min-width: 300px;  background: #fff no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=<?= $product['products']['products_image'] ?>);"></div>
+     style="float: left; max-height: 300px; max-width: 300px; min-height: 300px; min-width: 300px;  background: #fff no-repeat scroll 50% 50% / contain url(<?= BASEURL ?>.'/imagepreview?src=<?= $product['products']['products_image'] ?>);"></div>
 <div class="prod-info-name"> <?= $product['productsDescription']['products_name'] ?></div>
 <div class="prod-info-price"><b><?= (integer)($product['products']['products_price']) ?></b> Руб.</div>
 <div class="prod-info-model">Артикул: <?= $product['products']['products_model'] ?></div>

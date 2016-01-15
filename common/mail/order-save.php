@@ -51,15 +51,15 @@ unset($order['discounttotalprice']);
     <tr style="text-align:center;height:30px;">
         <td style="font-size:14px;font-family:officinaserifcBook,sans-serif;">
             <a style="margin-left:0px;color:#282828;"
-               href="http://<?= $site ?>/site/news">Новости</a>
+               href="http://<?= $site ?><?= BASEURL ?>/news">Новости</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/delivery">Доставка</a>
+               href="http://<?= $site ?><?= BASEURL ?>/delivery">Доставка</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/contacts">Контакты</a>
+               href="http://<?= $site ?><?= BASEURL ?>/contacts">Контакты</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/lk">Личный кабинет</a>
+               href="http://<?= $site ?><?= BASEURL ?>/lk">Личный кабинет</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $site ?>/site/requestorders">Ваши заказы</a>
+               href="http://<?= $site ?><?= BASEURL ?>/requestorders">Ваши заказы</a>
 
         </td>
     </tr>
@@ -138,7 +138,7 @@ unset($order['discounttotalprice']);
                                 <td colspan="2" style="padding-top:25px;padding-bottom:15px;">
                                     <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">Статус и состояние
                                         заказа вы можете посмотреть в <a
-                                            href="http://<?= $site ?>/site/requestorders">личном
+                                            href="http://<?= $site ?><?= BASEURL ?>/requestorders">личном
                                             кабинете:</a></p>
                                 </td>
                             </tr>

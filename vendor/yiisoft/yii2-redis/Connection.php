@@ -267,7 +267,7 @@ class Connection extends Component
         );
         if ($this->_socket) {
             if ($this->dataTimeout !== null) {
-                stream_set_timeout($this->_socket, $timeout = (int)$this->dataTimeout, (int)(($this->dataTimeout - $timeout) * 1000000));
+                stream_set_timeout($this->_socket, $timeout = (int) $this->dataTimeout, (int) (($this->dataTimeout - $timeout) * 1000000));
             }
             if ($this->password !== null) {
                 $this->executeCommand('AUTH', [$this->password]);
@@ -277,7 +277,7 @@ class Connection extends Component
         } else {
             \Yii::error("Failed to open redis DB connection ($connection): $errorNumber - $errorDescription", __CLASS__);
             $message = YII_DEBUG ? "Failed to open redis DB connection ($connection): $errorNumber - $errorDescription" : 'Failed to open DB connection.';
-            throw new Exception($message, $errorDescription, (int)$errorNumber);
+            throw new Exception($message, $errorDescription, (int) $errorNumber);
         }
     }
 
@@ -415,7 +415,7 @@ class Connection extends Component
 
                 return mb_substr($data, 0, -2, '8bit');
             case '*': // Multi-bulk replies
-                $count = (int)$line;
+                $count = (int) $line;
                 $data = [];
                 for ($i = 0; $i < $count; $i++) {
                     $data[] = $this->parseResponse($command);

@@ -210,18 +210,11 @@ trait ActionCatalog
 
         } else {
             $this->layout = 'catalog';
-            if (Yii::$app->params['partnersset']['catalog_type']['active'] == 1 && Yii::$app->params['partnersset']['catalog_type']['value'] == 1) {
-                $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/site/catpath?cat=' . $cat_start . '&action=namenum'));
-                Yii::$app->params['layoutset']['opencat'] = $catpath->num;
-                return $this->render('catalogphp', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath]);
-            } elseif (Yii::$app->params['partnersset']['catalog_type']['active'] == 1 && Yii::$app->params['partnersset']['catalog_type']['value'] == 2) {
-                $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/site/catpath?cat=' . $cat_start . '&action=namenum'));
+
+            $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $cat_start . '&action=namenum'));
                 Yii::$app->params['layoutset']['opencat'] = $catpath->num;
                 return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath]);
-            } else {
-                // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                return $this->render('catalog', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword]]);
-            }
+
         }
 
     }

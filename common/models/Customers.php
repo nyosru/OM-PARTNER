@@ -64,7 +64,7 @@ class Customers extends \yii\db\ActiveRecord
             [['customers_email_address'], 'string', 'max' => 96],
             [['customers_password'], 'string', 'max' => 40],
             [['customers_selected_template'], 'string', 'max' => 20],
-            [['referer', 'customers_mname'], 'string', 'max' => 200]
+            [['referer', 'customers_mname'], 'string', 'max' => 200],
         ];
     }
 
@@ -104,5 +104,82 @@ class Customers extends \yii\db\ActiveRecord
             'separate_checkin' => 'Separate Checkin',
             'pay_priority' => 'Pay Priority',
         ];
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+//    public function validatePassword($password)
+//    {
+//        return Yii::$app->security->validatePassword($password, $this->customers_password);
+//    }
+
+    public function validatePassword($plain)
+    {
+        if ($this->customers_migrate_not_null($plain) && $this->customers_migrate_not_null($this->customers_password)) {
+            $stack = explode(':', $this->customers_password);
+            if (sizeof($stack) != 2) return false;
+            if (md5($stack[1] . $plain) == $stack[0]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function encrypt_password($plain)
+    {
+        $password = '';
+
+        for ($i = 0; $i < 10; $i++) {
+            $password .= $this->customer_migrate_rand();
+        }
+
+        $salt = substr(md5($password), 0, 2);
+
+        $password = md5($salt . $plain) . ':' . $salt;
+
+        return $password;
+    }
+
+    public function customer_migrate_rand($min = null, $max = null)
+    {
+        static $seeded;
+        if (!isset($seeded)) {
+            mt_srand((double)microtime() * 1000000);
+            $seeded = true;
+        }
+
+        if (isset($min) && isset($max)) {
+            if ($min >= $max) {
+                return $min;
+            } else {
+                return mt_rand($min, $max);
+            }
+        } else {
+            return mt_rand();
+        }
+    }
+
+    public function customers_migrate_not_null($value)
+    {
+        if (is_array($value)) {
+            if (sizeof($value) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (($value != '') && (strtolower($value) != 'null') && (strlen(trim($value)) > 0)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

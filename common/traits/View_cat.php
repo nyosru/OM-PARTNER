@@ -16,7 +16,7 @@ trait View_cat
             for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                 $catdesc = $arr[$parent_id][$i]['categories_id'];
                 if (!$arr[$parent_id][$i] == '') {
-                    $output .= '<li class=""><a href="/site/catalog?_escaped_fragment_=cat=' . $catdesc . '&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a><div class="link data-j" data-j="on" data-cat="' . $catdesc . '">' . $catnamearr["$catdesc"] . '</div>';
+                    $output .= '<li class=""><a href="' . BASEURL . '/catalog?_escaped_fragment_=cat=' . $catdesc . '&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a><div class="link data-j" data-j="on" data-cat="' . $catdesc . '">' . $catnamearr["$catdesc"] . '</div>';
                     $this->view_cat($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat);
                     $output .= '</li>';
                 }
@@ -46,7 +46,7 @@ trait View_cat
                     } else {
                         $openli = '';
                     }
-                    $output2 .= '<li class=" ' . $openli . '"><div class="link"  data-cat="' . $catdesc . '"><a class="lock-on" href="/site/catalog?cat=' . $catdesc . '&count=20&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
+                    $output2 .= '<li class=" ' . $openli . '"><div class="link"  data-cat="' . $catdesc . '"><a class="lock-on" href="' . BASEURL . '/catalog?cat=' . $catdesc . '&count=20&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
                     $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);
                     $output2 .= '</li>';
                 }

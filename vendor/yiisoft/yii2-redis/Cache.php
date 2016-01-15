@@ -101,7 +101,7 @@ class Cache extends \yii\caching\Cache
      */
     public function exists($key)
     {
-        return (bool)$this->redis->executeCommand('EXISTS', [$this->buildKey($key)]);
+        return (bool) $this->redis->executeCommand('EXISTS', [$this->buildKey($key)]);
     }
 
     /**
@@ -133,11 +133,11 @@ class Cache extends \yii\caching\Cache
     protected function setValue($key, $value, $expire)
     {
         if ($expire == 0) {
-            return (bool)$this->redis->executeCommand('SET', [$key, $value]);
+            return (bool) $this->redis->executeCommand('SET', [$key, $value]);
         } else {
-            $expire = (int)($expire * 1000);
+            $expire = (int) ($expire * 1000);
 
-            return (bool)$this->redis->executeCommand('SET', [$key, $value, 'PX', $expire]);
+            return (bool) $this->redis->executeCommand('SET', [$key, $value, 'PX', $expire]);
         }
     }
 
@@ -156,7 +156,7 @@ class Cache extends \yii\caching\Cache
         if ($expire == 0) {
             $this->redis->executeCommand('MSET', $args);
         } else {
-            $expire = (int)($expire * 1000);
+            $expire = (int) ($expire * 1000);
             $this->redis->executeCommand('MULTI');
             $this->redis->executeCommand('MSET', $args);
             $index = [];
@@ -182,11 +182,11 @@ class Cache extends \yii\caching\Cache
     protected function addValue($key, $value, $expire)
     {
         if ($expire == 0) {
-            return (bool)$this->redis->executeCommand('SET', [$key, $value, 'NX']);
+            return (bool) $this->redis->executeCommand('SET', [$key, $value, 'NX']);
         } else {
-            $expire = (int)($expire * 1000);
+            $expire = (int) ($expire * 1000);
 
-            return (bool)$this->redis->executeCommand('SET', [$key, $value, 'PX', $expire, 'NX']);
+            return (bool) $this->redis->executeCommand('SET', [$key, $value, 'PX', $expire, 'NX']);
         }
     }
 
@@ -195,7 +195,7 @@ class Cache extends \yii\caching\Cache
      */
     protected function deleteValue($key)
     {
-        return (bool)$this->redis->executeCommand('DEL', [$key]);
+        return (bool) $this->redis->executeCommand('DEL', [$key]);
     }
 
     /**

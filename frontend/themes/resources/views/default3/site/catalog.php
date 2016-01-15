@@ -336,8 +336,8 @@ $prodatrquery = $url_data['prod_attr_query'][1];
 $page = $url_data['page'][1];
 $sort = $url_data['sort'][1];
 $searchword = $url_data['searchword'][1];
-$url = '/site/request/?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword;
-$data = file('http://' . $_SERVER['HTTP_HOST'] . '/site/request/?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword);
+$url = BASEURL . '/request/?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword;
+$data = file('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/request/?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword);
 $data = json_decode($data[0]);
 
 
@@ -375,8 +375,8 @@ if ($data[0] != 'Не найдено!') {
         }
         $pager .= ' <a data-page="' . intval($data[10]) . '" class="page data-j" href="#">' . (intval($data[10]) + 1) . '</a> ';
         $pager .= 'из ' . $countpager;
-        $pager .= ' <div data-page="' . ($natpage - 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($natpage - 1)))) . '"></a></i></div> ';
-        $pager .= ' <div data-page="' . ($nextpage + 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($nextpage + 1)))) . '"></a></i></div> ';
+        $pager .= ' <div data-page="' . ($natpage - 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-left"><a href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($natpage - 1)))) . '"></a></i></div> ';
+        $pager .= ' <div data-page="' . ($nextpage + 1) . '" class="page data-j btn btn-default btn-sm" href="#"><i class="fa fa-chevron-right"><a href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'page', ($nextpage + 1)))) . '"></a></i></div> ';
         $topnav = '<div id="products-pager">Страница: ' . $pager . '</div>';
         $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
     }
@@ -392,9 +392,9 @@ if ($data[0] != 'Не найдено!') {
         } else {
             $classcount = 'countdisplay';
         }
-        $innercount .= '<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count=". $countdisp."  href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', $countdisp))) . '">. $countdisp.</a></div>';
+        $innercount .= '<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count=". $countdisp."  href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', $countdisp))) . '">. $countdisp.</a></div>';
     }
-    $headbside .= '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '20'))) . '">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '40'))) . '">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '60'))) . '">60</a> </div>';
+    $headbside .= '<div id="count-display"> | Показывать по<div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="20"  href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '20'))) . '">20</a></div><div class="count data-j"> <a data-j="on" class="countdisplay" onclick="" data-count="40" href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '40'))) . '">40</a></div> </div> <div class="count data-j"> <a class="countdisplay" onclick="" data-j="on" data-count="60" href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'count', '60'))) . '">60</a> </div>';
 
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '">Сортировать по </div>';
     //  '<div class="header-sort-item">дате <a class="sort data-j arrow-down" data="0" href="#"></a><a class="sort data-j arrow-up" data="10" href="#"></a></div><div class="header-sort-item">цене<a class="sort data-j arrow-down" data="1" href="#"></a><a class="sort data-j arrow-up" data="11" href="#"></a></div><div class="header-sort-item"> названию<a class="sort data-j arrow-up" data="2" href="#"></a><a class="sort data-j arrow-down" data="12" href="#"></a></div><div class="header-sort-item"> модели<a class="sort data-j arrow-up" data="3" href="#"></a><a class="sort data-j arrow-down" data="13" href="#"></a></div><div class="header-sort-item">популярности<a class="sort data-j arrow-up" data="4" href="#"></a><a class="sort data-j arrow-down" data="14" href="#"></a> </div>' + '</div>';
@@ -413,9 +413,9 @@ if ($data[0] != 'Не найдено!') {
             $class = 'sort data-j';
         }
         if ($value[1] == $data[11] || $value[2] == $data[11]) {
-            $headbside .= '<div class="header-sort-item-active"><a class="' . $class . '" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '" data="' . $dataord . '" href="#">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
+            $headbside .= '<div class="header-sort-item-active"><a class="' . $class . '" href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '" data="' . $dataord . '" href="#">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
         } else {
-            $headbside .= '<div class="header-sort-item"><a class="' . $class . '" data="' . $dataord . '" href="/site/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
+            $headbside .= '<div class="header-sort-item"><a class="' . $class . '" data="' . $dataord . '" href="' . BASEURL . '/catalog/' . str_replace('#!', '?_escaped_fragment_=', new_url(new_suburl(split_url($url), 'sort', $dataord))) . '">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
         }
     }
     $headbside .= '</div></div>';
@@ -436,7 +436,7 @@ if ($data[0] != 'Не найдено!') {
         $product->products_image = str_replace(')', ']]]]', $product->products_image);
         $product->products_image = str_replace(' ', '[[[[]]]]', $product->products_image);
         $product->products_image = str_replace('(', '[[[[', $product->products_image);
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card"><div data-prod="' . $product->products_id . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' . $product->products_image . ');"><meta itemprop="image" content="/site/imagepreview?src=' . $product->products_image . '"></div><div itemprop="name" class="name">' . $description->products_name . '</div><div itemprop="url" class="model">Артикул ' . $product->products_model . '</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">' . intval($product->products_price) . '</b> руб.</div><div itemprop="description id="prod-info" data-prod="' . $product->products_id . '">Инфо</div><span>' . $attr_html . '</span></div>';
+        $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card"><div data-prod="' . $product->products_id . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product->products_image . ');"><meta itemprop="image" content="' . BASEURL . '/imagepreview?src=' . $product->products_image . '"></div><div itemprop="name" class="name">' . $description->products_name . '</div><div itemprop="url" class="model">Артикул ' . $product->products_model . '</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">' . intval($product->products_price) . '</b> руб.</div><div itemprop="description id="prod-info" data-prod="' . $product->products_id . '">Инфо</div><span>' . $attr_html . '</span></div>';
     }
 
 
