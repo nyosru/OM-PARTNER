@@ -370,7 +370,7 @@ class ActiveQuery extends Component implements ActiveQueryInterface
     private function findByPk($db, $type, $columnName = null)
     {
         if (count($this->where) == 1) {
-            $pks = (array)reset($this->where);
+            $pks = (array) reset($this->where);
         } else {
             foreach ($this->where as $values) {
                 if (is_array($values)) {

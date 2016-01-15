@@ -916,23 +916,22 @@
         height: 10px
     }
 
-    .cart-dialog {
-        border: 1px;
-        padding: 0;
-        height: 100%
-    }
-
-    .cart-dialog > .ui-dialog-titlebar {
-        border-width: medium medium 1px;
-        border-style: none;
-        border-image: none;
-        border-radius: 0;
-        background: rgba(99, 173, 128, 0);
-        position: absolute;
-        width: 100%;
-        bottom: 0;
-        z-index: 999
-    }
+    /*.cart-dialog {*/
+    /*border: 1px;*/
+    /*padding: 0;*/
+    /*height: 100%*/
+    /*}*/
+    /*.cart-dialog > .ui-dialog-titlebar {*/
+    /*border-width: medium medium 1px;*/
+    /*border-style: none;*/
+    /*border-image: none;*/
+    /*border-radius: 0;*/
+    /*background: rgba(99, 173, 128, 0);*/
+    /*position: absolute;*/
+    /*width: 100%;*/
+    /*bottom: 0;*/
+    /*z-index: 999*/
+    /*}*/
 
     .save-order {
         width: 100%;

@@ -72,7 +72,7 @@ class CommentsBlock extends \yii\bootstrap\Widget
             if(!$userinfo){
                 $userinfo = new PartnersUsersInfo();
             }
-            $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => '/site/newcomments', 'options' => ['style' => 'width: 95%;margin: auto;']]);
+            $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => BASEURL . '/newcomments', 'options' => ['style' => 'width: 95%;margin: auto;']]);
             $l1 = '<div>';
             $l1 .= $form->field($modelform, 'post')->label('Текст комментария')->textarea(['rows' => 6, 'style' => 'resize:none;']);
             $l1 .= '</div>';

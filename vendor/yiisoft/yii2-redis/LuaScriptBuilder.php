@@ -270,10 +270,10 @@ EOF;
                 $parts[] = $this->buildInCondition('in', [$column, $value], $columns);
             } else {
                 if (is_bool($value)) {
-                    $value = (int)$value;
+                    $value = (int) $value;
                 }
                 if ($value === null) {
-                    $parts[] = "redis.call('HEXISTS',key .. ':a:' .. pk, " . $this->quoteValue($column) . ")==0";
+                    $parts[] = "redis.call('HEXISTS',key .. ':a:' .. pk, ".$this->quoteValue($column).")==0";
                 } elseif ($value instanceof Expression) {
                     $column = $this->addColumn($column, $columns);
                     $parts[] = "$column==" . $value->expression;
@@ -343,7 +343,7 @@ EOF;
 
         list($column, $values) = $operands;
 
-        $values = (array)$values;
+        $values = (array) $values;
 
         if (empty($values) || $column === []) {
             return $operator === 'in' ? 'false' : 'true';
@@ -361,7 +361,7 @@ EOF;
                 $value = isset($value[$column]) ? $value[$column] : null;
             }
             if ($value === null) {
-                $parts[] = "redis.call('HEXISTS',key .. ':a:' .. pk, " . $this->quoteValue($column) . ")==0";
+                $parts[] = "redis.call('HEXISTS',key .. ':a:' .. pk, ".$this->quoteValue($column).")==0";
             } elseif ($value instanceof Expression) {
                 $parts[] = "$columnAlias==" . $value->expression;
             } else {
@@ -384,7 +384,7 @@ EOF;
                     $columnAlias = $this->addColumn($column, $columns);
                     $vs[] = "$columnAlias==" . $this->quoteValue($value[$column]);
                 } else {
-                    $vs[] = "redis.call('HEXISTS',key .. ':a:' .. pk, " . $this->quoteValue($column) . ")==0";
+                    $vs[] = "redis.call('HEXISTS',key .. ':a:' .. pk, ".$this->quoteValue($column).")==0";
                 }
             }
             $vss[] = '(' . implode(' and ', $vs) . ')';

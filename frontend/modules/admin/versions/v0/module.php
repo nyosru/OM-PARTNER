@@ -11,6 +11,5 @@ class module extends \yii\base\Module
         parent::init();
         $this->setLayoutPath('@frontend/modules/admin/views/layouts');
         $this->setViewPath('@frontend/modules/admin/views');
-        // custom initialization code goes here
     }
 }

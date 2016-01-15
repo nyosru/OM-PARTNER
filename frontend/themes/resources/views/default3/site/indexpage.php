@@ -20,25 +20,25 @@ $this->title = $title;
 
     <div id="main-index">
         <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><img src="/images/banners/7.png"><a
-                href="/site/catalog?_escaped_fragment_=cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
+                href="<?= BASEURL ?>/catalog?_escaped_fragment_=cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
         </div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><img src="/images/banners/1.png"><a
-                href="/site/catalog?_escaped_fragment_cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
+                href="<?= BASEURL ?>/catalog?_escaped_fragment_cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
         </div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2047"><img src="/images/banners/2.png"><a
-                href="/site/catalog?_escaped_fragment_cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
+                href="<?= BASEURL ?>/catalog?_escaped_fragment_cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
         </div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><img src="/images/banners/5.png"><a
-                href="/site/catalog?_escaped_fragment_cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
+                href="<?= BASEURL ?>/catalog?_escaped_fragment_cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
         </div>
         <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><img src="/images/banners/6.png"><a
-                href="/site/catalog?_escaped_fragment_cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
+                href="<?= BASEURL ?>/catalog?_escaped_fragment_cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
         </div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="1836"><img src="/images/banners/3.png"><a
-                href="/site/catalog?_escaped_fragment_cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
+                href="<?= BASEURL ?>/catalog?_escaped_fragment_cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
         </div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2066"><img src="/images/banners/4.png"><a
-                href="/site/catalog?_escaped_fragment_cat=2066&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
+                href="<?= BASEURL ?>/catalog?_escaped_fragment_cat=2066&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
         </div>
     </div>
     <div id="main-spec">
@@ -60,7 +60,7 @@ $this->title = $title;
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
-            $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' . $product['products_image'] . ');"></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' . $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' . $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
+            $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');"></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' . $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' . $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
             echo $outer;
         }
         ?>
@@ -84,7 +84,7 @@ $this->title = $title;
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
-            $outer .= '<div  class="container-fluid float" id="index-card-1"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' . $product['products_image'] . ');"></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' . $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' . $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
+            $outer .= '<div  class="container-fluid float" id="index-card-1"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');"></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' . $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' . $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
             echo $outer;
         }
         ?>

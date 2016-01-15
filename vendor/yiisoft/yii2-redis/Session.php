@@ -128,7 +128,7 @@ class Session extends \yii\web\Session
      */
     public function writeSession($id, $data)
     {
-        return (bool)$this->redis->executeCommand('SET', [$this->calculateKey($id), $data, 'EX', $this->getTimeout()]);
+        return (bool) $this->redis->executeCommand('SET', [$this->calculateKey($id), $data, 'EX', $this->getTimeout()]);
     }
 
     /**
@@ -139,7 +139,7 @@ class Session extends \yii\web\Session
      */
     public function destroySession($id)
     {
-        return (bool)$this->redis->executeCommand('DEL', [$this->calculateKey($id)]);
+        return (bool) $this->redis->executeCommand('DEL', [$this->calculateKey($id)]);
     }
 
     /**

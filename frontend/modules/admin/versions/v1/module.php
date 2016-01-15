@@ -4,7 +4,7 @@ namespace frontend\modules\admin\versions\v1;
 
 class module extends \yii\base\Module
 {
-    public $controllerNamespace = 'frontend\modules\admin\controllers\v0';
+    public $controllerNamespace = 'frontend\modules\admin\controllers\v1';
 
     public function init()
     {
