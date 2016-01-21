@@ -68,8 +68,7 @@ class GithubMarkdown extends Markdown
 				!($line[0] === "\t" || $line[0] === " " && strncmp($line, '    ', 4) === 0) &&
 				!$this->identifyHeadline($line, $lines, $i) &&
 				!$this->identifyUl($line, $lines, $i) &&
-				!$this->identifyOl($line, $lines, $i)
-			)
+				!$this->identifyOl($line, $lines, $i))
 			{
 				$content[] = $line;
 			} else {

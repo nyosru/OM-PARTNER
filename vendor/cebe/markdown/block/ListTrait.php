@@ -80,7 +80,7 @@ trait ListTrait
 		for ($i = $current, $count = count($lines); $i < $count; $i++) {
 			$line = $lines[$i];
 			// match list marker on the beginning of the line
-			if (preg_match($type == 'ol' ? '/^( {0,' . $leadSpace . '})(\d+)\.[ \t]+/' : '/^( {0,' . $leadSpace . '})\\' . $marker . '[ \t]+/', $line, $matches)) {
+			if (preg_match($type == 'ol' ? '/^( {0,'.$leadSpace.'})(\d+)\.[ \t]+/' : '/^( {0,'.$leadSpace.'})\\'.$marker.'[ \t]+/', $line, $matches)) {
 				if (($len = substr_count($matches[0], "\t")) > 0) {
 					$indent = str_repeat("\t", $len);
 					$line = substr($line, strlen($matches[0]));
@@ -104,9 +104,8 @@ trait ListTrait
 			} elseif (ltrim($line) === '') {
 				// next line after empty one is also a list or indented -> lazy list
 				if (isset($lines[$i + 1][0]) && (
-						$this->{'identify' . $type}($lines[$i + 1], $lines, $i + 1) && ($type !== 'ul' || ltrim($lines[$i + 1])[0] === $marker) ||
-						(strncmp($lines[$i + 1], $indent, $len) === 0 || !empty($lines[$i + 1]) && $lines[$i + 1][0] == "\t"))
-				) {
+					$this->{'identify' . $type}($lines[$i + 1], $lines, $i + 1) && ($type !== 'ul' || ltrim($lines[$i + 1])[0] === $marker) ||
+					(strncmp($lines[$i + 1], $indent, $len) === 0 || !empty($lines[$i + 1]) && $lines[$i + 1][0] == "\t"))) {
 					$block['items'][$item][] = $line;
 					$block['lazyItems'][$item] = true;
 				} else {

@@ -40,7 +40,7 @@ trait TableTrait
 		for ($i = $current, $count = count($lines); $i < $count; $i++) {
 			$line = $lines[$i];
 
-			if ($i == $current + 1) { // skip second line
+			if ($i == $current+1) { // skip second line
 				$cols = explode('|', trim($line, ' |'));
 				foreach($cols as $col) {
 					$col = trim($col);
