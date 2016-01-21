@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   3.0.8
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @version   3.1.0
  */
 
 namespace kartik\grid\controllers;
@@ -46,7 +46,7 @@ class ExportController extends Controller
      *
      * @param string $content the file content
      * @param string $filename the file name
-     * @param array $config the configuration for yii2-mpdf component
+     * @param array  $config the configuration for yii2-mpdf component
      *
      * @return void
      */
@@ -92,7 +92,7 @@ class ExportController extends Controller
      * Gets the value of a variable in $_POST
      *
      * @param int|string $key the variable name in $_POST
-     * @param mixed $default the default value
+     * @param mixed      $default the default value
      *
      * @return mixed the post data value
      */

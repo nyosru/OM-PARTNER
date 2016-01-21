@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   3.0.8
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @version   3.1.0
  */
 
 namespace kartik\grid;
@@ -496,7 +496,7 @@ HTML;
      *     associative array of $key => $value pairs, where $key can be:
      * - 'maxCount': integer|boolean, the maximum number of records uptil which the toggle button will be rendered. If the
      *     dataProvider records exceed this setting, the toggleButton will not be displayed. Defaults to `10000` if
-     *     not set. If you set this to `true`, the toggle button will always be displayed. If you set this to `false the
+     *     not set. If you set this to `true`, the toggle button will always be displayed. If you set this to `false the 
      *     toggle button will not be displayed (similar to `toggleData` setting).
      * - 'minCount': integer|boolean, the minimum number of records beyond which a confirmation message will be displayed
      *     when toggling all records. If the dataProvider record count exceeds this setting, a confirmation message will be
@@ -812,7 +812,7 @@ HTML;
             return '';
         }
         $maxCount = ArrayHelper::getValue($this->toggleDataOptions, 'maxCount', false);
-        if ($maxCount !== true && (!$maxCount || (int)$maxCount <= $this->dataProvider->getTotalCount())) {
+        if ($maxCount !== true && (!$maxCount || (int) $maxCount <= $this->dataProvider->getTotalCount())) {
             return '';
         }
         $tag = $this->_isShowAll ? 'page' : 'all';
@@ -1320,6 +1320,9 @@ HTML;
         if ($js != $container) {
             $view->registerJs("{$js};");
         }
+        if (!isset($this->pjaxSettings['options']['enablePushState'])) {
+            $this->pjaxSettings['options']['enablePushState'] = false;
+        }
         Pjax::begin($this->pjaxSettings['options']);
         echo ArrayHelper::getValue($this->pjaxSettings, 'beforeGrid', '');
     }
@@ -1339,7 +1342,7 @@ HTML;
     /**
      * Sets a default css value if not set
      *
-     * @param array $options
+     * @param array  $options
      * @param string $css
      */
     protected static function initCss(&$options, $css)

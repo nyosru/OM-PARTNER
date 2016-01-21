@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   3.0.8
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @version   3.1.0
  */
 
 namespace kartik\grid;
@@ -19,28 +19,28 @@ use kartik\base\Config;
 /**
  * Trait for all column widgets in yii2-grid
  *
- * @property boolean $mergeHeader
- * @property boolean $hidden
- * @property boolean $noWrap
- * @property array $options
- * @property array $headerOptions
- * @property array $filterOptions
- * @property array $footerOptions
- * @property array $contentOptions
- * @property array $pageSummaryOptions
- * @property boolean $hidePageSummary
- * @property boolean $hiddenFromExport
- * @property boolean|Closure $pageSummary
+ * @property bool           $mergeHeader
+ * @property bool           $hidden
+ * @property bool           $noWrap
+ * @property array          $options
+ * @property array          $headerOptions
+ * @property array          $filterOptions
+ * @property array          $footerOptions
+ * @property array          $contentOptions
+ * @property array          $pageSummaryOptions
+ * @property bool           $hidePageSummary
+ * @property bool           $hiddenFromExport
+ * @property bool|Closure   $pageSummary
  * @property string|Closure $pageSummaryFunc
- * @property string $footer
- * @property string $hAlign
- * @property string $vAlign
- * @property string $width
- * @property array $_rows
- * @property string $_columnKey
- * @property string $_clientScript
- * @property GridView $grid
- * @property string $format
+ * @property string         $footer
+ * @property string         $hAlign
+ * @property string         $vAlign
+ * @property string         $width
+ * @property array          $_rows
+ * @property string         $_columnKey
+ * @property string         $_clientScript
+ * @property GridView       $grid
+ * @property string         $format
  * @method getDataCellValue() getDataCellValue($model, $key, $index)
  * @method renderCell()
  *
@@ -180,7 +180,7 @@ trait ColumnTrait
      * @param array $options the HTML attributes for the cell
      * @param Model $model the current model being rendered
      * @param mixed $key the primary key value for the model
-     * @param int $index the zero-based index of the model being rendered
+     * @param int   $index the zero-based index of the model being rendered
      *
      * @return string
      */
@@ -205,7 +205,7 @@ trait ColumnTrait
                 case 'ntext':
                 case 'paragraphs':
                 case 'spellout':
-                case 'boolean':
+                case 'bool':
                 case 'relativeTime':
                     $fmt = '\@';
                     break;
@@ -349,8 +349,8 @@ trait ColumnTrait
     /**
      * Parses and fetches updated content options for grid visibility and format
      *
-     * @param mixed $model the data model being rendered
-     * @param mixed $key the key associated with the data model
+     * @param mixed   $model the data model being rendered
+     * @param mixed   $key the key associated with the data model
      * @param integer $index the zero-based index of the data item among the item array returned by
      *     [[GridView::dataProvider]].
      *
@@ -434,8 +434,8 @@ trait ColumnTrait
         }
         $cont = 'jQuery("#' . $this->grid->pjaxSettings['options']['id'] . '")';
         $view = $this->grid->getView();
-        $event = 'pjax:complete.' . hash('crc32', $script);
-        $view->registerJs("{$cont}.off('{$event}').on('{$event}', function(){{$script}});");
+        $ev = 'pjax:complete.' . hash('crc32', $script);
+        $view->registerJs("{$cont}.off('{$ev}').on('{$ev}', function(){ {$script} });");
     }
 
     /**
@@ -444,15 +444,13 @@ trait ColumnTrait
      * @param mixed $var
      * @param Model $model
      * @param mixed $key
-     * @param int $index
+     * @param int   $index
      *
      * @return mixed
      */
     protected function parseVal($var, $model, $key, $index)
     {
-        return $var instanceof Closure ?
-            call_user_func($var, $model, $key, $index, $this) :
-            $var;
+        return $var instanceof Closure ? call_user_func($var, $model, $key, $index, $this) : $var;
     }
 
     /**
@@ -482,7 +480,7 @@ trait ColumnTrait
      * @param array $options
      * @param Model $model
      * @param mixed $key
-     * @param int $index
+     * @param int   $index
      */
     protected function parseGrouping(&$options, $model, $key, $index)
     {
