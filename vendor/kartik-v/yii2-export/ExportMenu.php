@@ -774,7 +774,7 @@ class ExportMenu extends GridView
     /**
      * Fetches the column label
      *
-     * @param int $key
+     * @param int              $key
      * @param \yii\grid\Column $column
      *
      * @return string
@@ -1142,8 +1142,8 @@ class ExportMenu extends GridView
     /**
      * Raises a callable event
      *
-     * @param string $event the event name
-     * @param array $params the parameters to the callable function
+     * @param string $event  the event name
+     * @param array  $params the parameters to the callable function
      *
      * @return void
      */
@@ -1336,8 +1336,8 @@ class ExportMenu extends GridView
     /**
      * Generates an output data row with the given data model and key.
      *
-     * @param mixed $model the data model to be rendered
-     * @param mixed $key the key associated with the data model
+     * @param mixed   $model the data model to be rendered
+     * @param mixed   $key   the key associated with the data model
      * @param integer $index the zero-based index of the data model among the model array returned by [[dataProvider]].
      *
      * @return void
