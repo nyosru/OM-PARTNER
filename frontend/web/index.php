@@ -90,7 +90,7 @@ $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
-
+$application->params['constantapp']['APP_VERSION'] = $version;
 
 use common\models\PartnersSettings;
 class LoadTraitIndex
@@ -121,8 +121,8 @@ if(!$template_data){
     $partnerset = $template_data['partnerset'];
 }
 $application->params['partnersset'] = $partnerset;
-$application->setViewPath('@app/themes/resources/views/' . $theme);
-$application->setLayoutPath('@app/themes/resources/views/' . $theme . '/layouts');
+$application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme);
+$application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
 $application->run();

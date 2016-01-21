@@ -15,13 +15,14 @@ $this->title = 'Админка';
 //print_r($model);
 //echo '</pre>';
 $form = ActiveForm::begin(['id' => 'partners-settings', 'action' => '/admin/default/savesettings']);
-$path = Yii::getAlias('@app') . '/themes/';
+$path = Yii::getAlias('@app') .'/themes/'. Yii::$app->params['constantapp']['APP_VERSION']['themesversion'].'/';
 $templatedir = opendir($path);
 $count = 0;
 $file = readdir($templatedir);
 while ($file = readdir($templatedir)) {
-    if (is_dir($path . $file) && $file !== '.' && file_exists($path . $file . '/template.xml')) {
+    if (is_dir($path . $file)  && file_exists($path . $file . '/template.xml')) {
         $xmlinfo = simplexml_load_file($path . $file . '/template.xml');
+
         $identifycate = (string)$xmlinfo->identifycate;
         $output[$identifycate] = '<div class="template-case">';
         $output[$identifycate] .= '<div class="template-name">' . $xmlinfo->name . '<br/>';

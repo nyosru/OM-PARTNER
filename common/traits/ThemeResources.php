@@ -7,11 +7,13 @@ use yii\web\AssetBundle;
 
 trait ThemeResources
 {
-    private $paththemes = '@app/themes';
-    private $resourcespath = '@app/themes/resources';
+    private $paththemes = '';
+    private $resourcespath = '';
 
     public function ThemeResourcesload($identify, $side)
     {
+        $this->paththemes = '@app/themes/'. Yii::$app->params['constantapp']['APP_VERSION']['themesversion'];
+        $this->resourcespath = '@app/themes/'. Yii::$app->params['constantapp']['APP_VERSION']['themesversion'].'/resources/';
         Yii::$app->assetManager->appendTimestamp = true;
         Yii::$app->assetManager->linkAssets = true;
         $path = Yii::getAlias($this->paththemes).'/'.$identify.'/template.xml';
