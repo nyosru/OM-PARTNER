@@ -3,8 +3,8 @@
 /**
  * @package   yii2-grid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   3.0.8
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @version   3.1.0
  */
 
 namespace kartik\grid;
@@ -25,9 +25,7 @@ class FormulaColumn extends DataColumn
     const FOOTER = -20000;
 
     /**
-     * @var boolean automatically generate the footer. If set to `true`, it will
-     * use the same formula to generate the footer. If set to `false`, will use
-     * the default footer.
+     * @var boolean automatically generate the footer. If set to `true`, it will use the same formula to generate the footer. If set to `false`, will use the default footer.
      */
     public $autoFooter = true;
 
@@ -36,7 +34,7 @@ class FormulaColumn extends DataColumn
      *
      * @param integer $i the index of the grid column (the first column in the grid will be zero indexed). Note a
      *     column's index is to be considered, even if the `visible` property is set to false.
-     * @param array $params which will contain these keys:
+     * @param array   $params which will contain these keys:
      * - model: mixed the data model being rendered
      * - key: mixed the key associated with the data model
      * - index: integer the zero-based index of the data item among the item array returned by
