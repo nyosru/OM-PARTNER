@@ -428,15 +428,29 @@ if ($data[0] != 'Не найдено!') {
         $attr_html = '<div class="cart-lable">В корзину</div>';
         if (count($attr_desc) > 0) {
             foreach ($attr_desc as $attr_desc_value) {
-                $attr_html .= '<div class="size-desc"><div><div class="lable-item">' . $attr_desc_value->products_options_values_name . '</div></div><input id="input-count" data-prod="' . $product->products_id . '" data-model="' . $product->products_model . '" data-price="' . $product->products_price . '" data-image="' . $product->products_image . '" data-attrname="' . $attr_desc_value->products_options_values_name . '" data-attr="' . $attr_desc_value->products_options_values_id . '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                $attr_html .= '<div class="size-desc"><div><div class="lable-item">' . $attr_desc_value->products_options_values_name .
+                    '</div></div><input id="input-count" data-prod="' . $product->products_id . '" data-model="' . $product->products_model .
+                    '" data-price="' . $product->products_price . '" data-image="' . $product->products_image . '" data-attrname="' .
+                    $attr_desc_value->products_options_values_name . '" data-attr="' . $attr_desc_value->products_options_values_id .
+                    '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
             }
         } else {
-            $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' . $product->products_id . '" data-model="' . $product->products_model . '" data-price="' . $product->products_price . '" data-image="' . $product->products_image . '" data-attrname="' . $attr_desc_value->products_options_values_name . '" data-attr="' . $attr_desc_value->products_options_values_id . '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+            $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' .
+                $product->products_id . '" data-model="' . $product->products_model . '" data-price="' . $product->products_price .
+                '" data-image="' . $product->products_image . '" data-attrname="' . $attr_desc_value->products_options_values_name .
+                '" data-attr="' . $attr_desc_value->products_options_values_id . '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
         }
         $product->products_image = str_replace(')', ']]]]', $product->products_image);
         $product->products_image = str_replace(' ', '[[[[]]]]', $product->products_image);
         $product->products_image = str_replace('(', '[[[[', $product->products_image);
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card"><div data-prod="' . $product->products_id . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' . $product->products_image . ');"><meta itemprop="image" content="/site/imagepreview?src=' . $product->products_image . '"></div><div itemprop="name" class="name">' . $description->products_name . '</div><div itemprop="url" class="model">Артикул ' . $product->products_model . '</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">' . intval($product->products_price) . '</b> руб.</div><div itemprop="description id="prod-info" data-prod="' . $product->products_id . '">Инфо</div><span>' . $attr_html . '</span></div>';
+        $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card"><div data-prod="' .
+            $product->products_id . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px;
+            background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' . $product->products_image .
+            ');"><meta itemprop="image" content="/site/imagepreview?src=' . $product->products_image . '"></div><div itemprop="name" class="name">' .
+            $description->products_name . '</div><div itemprop="url" class="model">Артикул ' . $product->products_model .
+            '</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">' .
+            intval($product->products_price) . '</b> руб.</div><div itemprop="description id="prod-info" data-prod="' . $product->products_id .
+            '">Инфо</div><span>' . $attr_html . '</span></div>';
     }
 
 

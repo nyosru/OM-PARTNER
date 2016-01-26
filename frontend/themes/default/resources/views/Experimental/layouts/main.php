@@ -55,17 +55,59 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                     <div class="header-right">
 
-                        <div class="fa fa-search fa-lg form_search_outer"
-                             style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
+                        <div class="searchicon"
+                             style="float: left; position: relative; z-index: 9; margin: 30px 5px; color: white;">
 
                         </div>
 
-                        <div class="fa fa-user fa-lg header-menu-toggle"
+                        <div class="usericon"
                              style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
+                            <div class="header-left-link" style="display: none;">
 
+                                <div class="menu_content"> <div class="welcome-msg">Default welcome msg!</div>
+                                    <ul class="links">
+                                        <li class="first"><a href="http://mage-demos.org/MAG231/MAG100211_4/index.php/customer/account/login/" title="Log In">Log In</a></li>
+                                        <li><a href="http://mage-demos.org/MAG231/MAG100211_4/index.php/customer/account/" title="My Account">My Account</a></li>
+                                        <li><a href="http://mage-demos.org/MAG231/MAG100211_4/index.php/wishlist/" title="My Wishlist">My Wishlist</a></li>
+                                        <li class=" last"><a href="http://mage-demos.org/MAG231/MAG100211_4/index.php/checkout/" title="Checkout" class="top-link-checkout">Checkout</a></li>
+                                    </ul>
+                                </div>
+                                <div class="header-language"><div class="form-language btn-group">
+
+                                        <select id="select-language" title="Your Language" onchange="window.location.href=this.value" sb="61010665" style="display: none;">
+                                            <option value="http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=english_mag100211_4&amp;___from_store=english_mag100211_4" selected="selected">English</option>
+                                            <option value="http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=french_mag100211_4&amp;___from_store=english_mag100211_4">French</option>
+                                            <option value="http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=german_mag100211_4&amp;___from_store=english_mag100211_4">German</option>
+                                        </select><div id="sbHolder_61010665" class="sbHolder" tabindex="0"><a id="sbToggle_61010665" href="#" class="sbToggle"></a><a id="sbSelector_61010665" href="#" class="sbSelector">English</a><ul id="sbOptions_61010665" class="sbOptions" style="display: none;"><li><a href="#http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=english_mag100211_4&amp;___from_store=english_mag100211_4" rel="http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=english_mag100211_4&amp;___from_store=english_mag100211_4" class="sbFocus">English</a></li><li><a href="#http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=french_mag100211_4&amp;___from_store=english_mag100211_4" rel="http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=french_mag100211_4&amp;___from_store=english_mag100211_4">French</a></li><li><a href="#http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=german_mag100211_4&amp;___from_store=english_mag100211_4" rel="http://mage-demos.org/MAG231/MAG100211_4/index.php/kids-wear.html?___store=german_mag100211_4&amp;___from_store=english_mag100211_4">German</a></li></ul></div>
+                                        <label for="select-language" class="btn">Language:</label>
+                                    </div>
+                                </div>
+                                <div class="header-currency"><div class="tm_top_currency">
+
+                                        <select name="currency" title="Currency" onchange="setLocation(this.value)" sb="5713653" style="display: none;">
+                                            <option value="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/AUD/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/">
+                                                AUD            </option>
+                                            <option value="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/EUR/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/">
+                                                EUR            </option>
+                                            <option value="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/THB/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/">
+                                                THB            </option>
+                                            <option value="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/USD/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/" selected="selected">
+                                                USD            </option>
+                                        </select><div id="sbHolder_5713653" class="sbHolder" tabindex="0"><a id="sbToggle_5713653" href="#" class="sbToggle"></a><a id="sbSelector_5713653" href="#" class="sbSelector">
+                                                USD            </a><ul id="sbOptions_5713653" class="sbOptions" style="display: none;"><li><a href="#http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/AUD/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/" rel="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/AUD/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/">
+                                                        AUD            </a></li><li><a href="#http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/EUR/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/" rel="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/EUR/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/">
+                                                        EUR            </a></li><li><a href="#http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/THB/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/" rel="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/THB/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/">
+                                                        THB            </a></li><li><a href="#http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/USD/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/" rel="http://mage-demos.org/MAG231/MAG100211_4/index.php/directory/currency/switch/currency/USD/uenc/aHR0cDovL21hZ2UtZGVtb3Mub3JnL01BRzIzMS9NQUcxMDAyMTFfNC9pbmRleC5waHAva2lkcy13ZWFyLmh0bWw,/" class="sbFocus">
+                                                        USD            </a></li></ul></div>
+                                        <label class="btn">Currency:</label>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="fa fa-shopping-basket fa-lg header-cart"
+                        <div class="carticon"
                              style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
 
                         </div>
@@ -119,6 +161,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="clearBoth"></div>
                             </div>
