@@ -54,7 +54,9 @@
         "vova07/yii2-imperavi-widget": "1.2.10",
         "fxp/composer-asset-plugin": "~1.0",
         "yiisoft/yii2-jui": "^2.0",
-        "zelenin/yii2-semantic-ui": "~2"
+        "zelenin/yii2-semantic-ui": "~2",
+        "mervick/yii2-material-design-icons": "v1.0.0",
+        "rmrevin/yii2-ionicon": "1.1.1"
     },
     "require-dev": {
     },

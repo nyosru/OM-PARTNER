@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "557832e55d37fa5f73620263bce2b922",
-    "content-hash": "9225af0cd26cf01b63fc4f9e2495f44b",
+    "hash": "a6b724148b718773ff7a2115bb1d79de",
+    "content-hash": "cc89b0802c841c8a241f34b2041f67c0",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -232,6 +232,47 @@
                 "CC-BY-3.0"
             ],
             "description": "Font Awesome"
+        },
+        {
+            "name": "bower-asset/ionicons",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/driftyco/ionicons.git",
+                "reference": "ecb4b806831005c25b97ed9089fbb1d7dcc0879c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/driftyco/ionicons/zipball/ecb4b806831005c25b97ed9089fbb1d7dcc0879c",
+                "reference": "ecb4b806831005c25b97ed9089fbb1d7dcc0879c",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "css/ionicons.css",
+                    "fonts/*"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "builder",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Ionicons - free and beautiful icons from the creators of Ionic Framework",
+            "keywords": [
+                "fonts",
+                "icon font",
+                "icons",
+                "ionic",
+                "web font"
+            ]
         },
         {
             "name": "bower-asset/jquery",
@@ -2279,6 +2320,97 @@
             "time": "2015-11-12 13:51:40"
         },
         {
+            "name": "mervick/material-design-icons",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mervick/material-design-icons.git",
+                "reference": "12b5064d3f791a95172087328ed0c49daac0b8f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mervick/material-design-icons/zipball/12b5064d3f791a95172087328ed0c49daac0b8f7",
+                "reference": "12b5064d3f791a95172087328ed0c49daac0b8f7",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "CC-BY-4.0"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Izman",
+                    "email": "izmanw@gmail.com"
+                }
+            ],
+            "description": "Google Material Design Icons For Using With Bootstrap",
+            "homepage": "http://github.com/mervick/material-design-icons",
+            "keywords": [
+                "bootstrap",
+                "google",
+                "icons",
+                "icons-web-font",
+                "material",
+                "material-design",
+                "web-font"
+            ],
+            "time": "2015-12-06 07:05:24"
+        },
+        {
+            "name": "mervick/yii2-material-design-icons",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mervick/yii2-material-design-icons.git",
+                "reference": "b3666248fc89d098372b369796da05495455706a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mervick/yii2-material-design-icons/zipball/b3666248fc89d098372b369796da05495455706a",
+                "reference": "b3666248fc89d098372b369796da05495455706a",
+                "shasum": ""
+            },
+            "require": {
+                "mervick/material-design-icons": "~1.0",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii\\materialicons\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey Izman",
+                    "email": "izmanw@gmail.com"
+                }
+            ],
+            "description": "Asset Bundle For Yii2 Framework With Google Material Design Icons",
+            "homepage": "http://github.com/mervick/yii2-material-design-icons",
+            "keywords": [
+                "asset",
+                "asset-bundle",
+                "bootstrap",
+                "bundle",
+                "google",
+                "icons",
+                "icons-web-font",
+                "material",
+                "material-design",
+                "web-font",
+                "yii2"
+            ],
+            "time": "2015-07-04 10:07:41"
+        },
+        {
             "name": "mikevanriel/text-to-latex",
             "version": "1.0.1",
             "source": {
@@ -2792,6 +2924,60 @@
                 "yii"
             ],
             "time": "2015-11-26 15:24:53"
+        },
+        {
+            "name": "rmrevin/yii2-ionicon",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmrevin/yii2-ionicon.git",
+                "reference": "94be6bbbca373a23818c496c728f43de55f9ca9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmrevin/yii2-ionicon/zipball/94be6bbbca373a23818c496c728f43de55f9ca9f",
+                "reference": "94be6bbbca373a23818c496c728f43de55f9ca9f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/ionicons": "2.0.*",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "rmrevin\\yii\\ionicon\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Revin Roman",
+                    "email": "roman@rmrevin.com",
+                    "homepage": "https://rmrevin.com/"
+                }
+            ],
+            "description": "Asset Bundle for Yii2 with Ionicon",
+            "keywords": [
+                "asset",
+                "bundle",
+                "font",
+                "icons",
+                "ionicon",
+                "social",
+                "yii"
+            ],
+            "time": "2016-01-18 23:40:55"
         },
         {
             "name": "rmrevin/yii2-minify-view",

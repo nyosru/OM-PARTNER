@@ -417,4 +417,22 @@ return array (
       '@Zelenin/yii/SemanticUI' => $vendorDir . '/zelenin/yii2-semantic-ui',
     ),
   ),
+  'mervick/yii2-material-design-icons' => 
+  array (
+    'name' => 'mervick/yii2-material-design-icons',
+    'version' => '1.0.0.0',
+    'alias' => 
+    array (
+      '@yii/materialicons' => $vendorDir . '/mervick/yii2-material-design-icons',
+    ),
+  ),
+  'rmrevin/yii2-ionicon' => 
+  array (
+    'name' => 'rmrevin/yii2-ionicon',
+    'version' => '1.1.1.0',
+    'alias' => 
+    array (
+      '@rmrevin/yii/ionicon' => $vendorDir . '/rmrevin/yii2-ionicon',
+    ),
+  ),
 );
