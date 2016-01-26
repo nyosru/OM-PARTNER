@@ -45,6 +45,7 @@ class LoginFormOM extends Model
     public function validatePassword()
     {
         $user = $this->getUserOM();
+
         if (!$user) {
             $this->addError('password', 'Нет такого пользователя');
         } elseif (!$user->validatePassword($this->password)) {
@@ -66,12 +67,13 @@ class LoginFormOM extends Model
      */
     public function login()
     {
+
         if ($this->validate()) {
-            if (!$this->getUser()) {
-                echo '<pre>';
-                print_r($this->getUserOM());
-                echo '</pre>';
-                die();
+//            if (!$this->getUser()) {
+//                echo '<pre>';
+//                print_r($this->getUserOM());
+//                echo '</pre>';
+//                die();
                 $newpartuser = new User();
                 $newpartuserinfo = new PartnersUsersInfo();
 //                $newpartuser->email = '';
@@ -109,7 +111,7 @@ class LoginFormOM extends Model
 //                $this->_user[] = '';
 //                $this->_user[] = '';
 //                $this->_user[] = '';
-            }
+ //           }
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;

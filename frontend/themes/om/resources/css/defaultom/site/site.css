@@ -2078,7 +2078,41 @@
 
     .top-link {
         margin: 0 5px;
-        border-bottom: 2px solid #00a5a1
+
+    }
+    .top-link:hover, .top-link:focus, .top-link:active {
+        color:#EA516D;
+        text-decoration: none;
+    }
+    .top-link-cont:hover, .top-link-cont:active, .top-link-cont:focus, .top-link-cont:active {
+        border-bottom: 3px solid #EA516D;
+        color:#EA516D;
+    }
+    .top-link-cont {
+        float: left;
+        font-size: 14px;
+        height: 100%;
+        padding: 16px 7px;
+        text-align: center;
+        font-family: "Roboto Light", sans serif;
+        font-weight:300;
+    }
+    .top-link-cont-back {
+        float: left;
+        font-size: 16px;
+        height: 100%;
+        padding: 14px;
+        text-align: center;
+        color: #66D7EA !important;
+    }
+    .top-link-cont-back:hover, .top-link-cont-back:active, .top-link-cont-back:focus, .top-link-cont-back:active {
+        border-bottom: 3px solid #66D7EA;
+        color:#66D7EA;
+    }
+
+    .top-link-back:hover, .top-link-back:focus, .top-link-back:active {
+        color: #66D7EA;
+        text-decoration: none;
     }
 
     #close {
@@ -2477,9 +2511,9 @@
     }
 
     .phone-index {
-        font-size: 16px;
-        color: #00a5a1;
-        font-family: verdana;
+        font-size: 20px;
+        color: black;
+        padding: 11px;
     }
 
     .newsmodhead {

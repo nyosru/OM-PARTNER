@@ -9,6 +9,7 @@ use yii\bootstrap\Alert;
 use rmrevin\yii\fontawesome;
 use dosamigos\ckeditor\CKEditorInline;
 use frontend\widgets\Menuom;
+use  yii\materialicons\MD;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -65,12 +66,18 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             <div class="container-fluid" id="partners-main-right-back">
                 <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
-                    <a class="top-link" href="--><?//= BASEURL ?>/news">Новости</a>
-                    <a class="top-link" href="<?= BASEURL ?>/faq">FAQ</a>
-                    <a class="top-link" href="<?= BASEURL ?>/paying">Оплата</a>
-                    <a class="top-link" href="<?= BASEURL ?>/delivery">Доставка</a>
-                    <a class="top-link" href="<?= BASEURL ?>/contacts">Контакты</a>
-                        </div>
+                        <div class="top-link-cont"><a class="top-link" href="/faq">Как сделать заказ</a></div>
+                        <div class="top-link-cont"><a class="top-link" href="/glavnaya/faq">Акции</a></div>
+                        <div class="top-link-cont"><a class="top-link" href="/glavnaya/paying">Условия сотрудничества</a></div>
+                        <div class="" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; border-left: 10px solid rgb(245, 245, 245); border-right: 10px solid rgb(245, 245, 245);"><img src="/images/logo/OM_code.png"></div>
+                        <?
+                        if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
+                            echo '<div style="float: left; width: 17%; text-align: center; padding: 14px; font-size: 18px; font-family: Roboto Regular,sans serif;">+7-495-204-15-83</div>';
+                         }
+                        ?>
+                        <div class="top-link-cont-back" style="width: 15%; float: left; font-size: 13px; padding: 17px 0px;"><a style="color:#66D7EA;" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></div>
+                        <div class="top-link-cont" style="width: 10%; float: right; padding: 12px 0px;"><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
+                    </div>
                 </div>
                 <div id="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
@@ -78,8 +85,16 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <div class="btn btn-default data-j" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
                             Найти
                         </div>
-                        <div class="" style="padding: 16px 10px 10px; display: inline-block; float: right;">
-                            Логин|Профиль
+                        <div class="" style="float: right; width: 25%; padding: 6px 35px;">
+                            <?
+                            if(Yii::$app->user->isGuest){
+                                echo '<div><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+                                echo '<div><a href="'.BASEURL.'/login"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Вход</span></a></div>';
+                            }else{
+                                echo '<div><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
+                                echo '<div><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                            }
+                            ?>
                         </div>
                         <div class="result_search_word" style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
 
