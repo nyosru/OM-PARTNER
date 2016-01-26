@@ -357,7 +357,7 @@ header-container {
 .header {
 }
 
-.main, .footer, .container-width {
+.main, .container-width {
     width: 1200px;
     margin: 0 auto;
     padding: 0px;
@@ -2909,10 +2909,9 @@ col-left .block-compare:before {
     top: 4px;
 }
 
-.block-account .block-content li:hover, #category-treeview li:hover {
-    color: #161b1e;
+.block-account .block-content li:hover, #category-treeview li:hover, #category-treeview .data-j:hover {
+    color: goldenrod;
 }
-
 /* Block: Currency Switcher */
 .block-currency {
 }
@@ -9585,6 +9584,7 @@ li.slider-item li:last-child .testimonial-content {
     font-size: 15px;
     position: relative;
     margin-right: 7px;
+    float: left;
 }
 
 /*.product-block:hover .product-image-block img{transform:scale(1.10); -webkit-transform:scale(1.10); -moz-transform:scale(1.10);}*/
@@ -10394,8 +10394,8 @@ col-main .product-title h1 {
     background: rgba(22, 27, 30, 0.9) none repeat scroll 0 0;
     margin-top: 0;
     padding: 0;
-    right: 0;
-    top: 76px;
+    right: 25px;
+    top: 25px;
 }
 
 /*----------------------------*/

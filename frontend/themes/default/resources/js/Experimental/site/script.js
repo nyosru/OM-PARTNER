@@ -6,3 +6,15 @@ $(window).scroll(function () {
         $('.header-container').removeClass('smaller');
     }
 });
+
+$(function() {
+    jQuery('.usericon').click(function() {
+        if($('.header-left-link').is(':visible')) {
+            jQuery('.header-left-link').attr('style', 'display:none');
+        }
+        else{
+            jQuery('.header-left-link').attr('style','display:block');
+        }
+
+    });
+});

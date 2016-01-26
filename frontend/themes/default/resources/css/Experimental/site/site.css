@@ -3,6 +3,10 @@
         position: relative
     }
 
+    .page .footer{
+        background:#161b1e;
+    }
+
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
         padding: 10px 20px;
         color: #272727;
@@ -1679,8 +1683,7 @@
     }
 
     .link:hover {
-        border-left: 5px solid #898989;
-        background: #E0E0E0 !important
+        border-left: 5px solid #161b1e;
     }
 
     #partners-main-left-cont > ul > li > ul > li > ul {
@@ -2474,7 +2477,7 @@
     }
 
     .banner-card {
-        background: #A1C258;
+        background: #1c1e29;
     }
 
     .navbredcrump {
@@ -2522,5 +2525,29 @@
     .sendcomments-button:active:hover {
         background-color: #A1C258;
         border-color: #A1C258;
+    }
+    .searchicon{
+        background: url('sprite.png') 0px 185px;
+        width: 25px; height: 25px;
+    }
+    .usericon{
+        background: url('sprite.png') -70px -80px;
+        width: 25px; height: 25px;
+    }
+    .carticon{
+        background: url('sprite.png') 0px -80px;
+        width: 25px; height: 25px;
+    }
+    .searchicon:hover{
+        background: url('sprite.png') -35px -365px;
+        width: 25px; height: 25px;
+    }
+    .usericon:hover{
+        background: url('sprite.png') -70px -125px;
+        width: 25px; height: 25px;
+    }
+    .carticon:hover{
+        background: url('sprite.png') 0px 120px;
+        width: 25px; height: 25px;
     }
 }

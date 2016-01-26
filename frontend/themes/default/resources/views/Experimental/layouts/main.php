@@ -11,6 +11,7 @@ use dosamigos\ckeditor\CKEditorInline;
 use frontend\widgets\Menu;
 
 
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 AppAsset::register($this);
@@ -55,17 +56,35 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                     <div class="header-right">
 
-                        <div class="fa fa-search fa-lg form_search_outer"
-                             style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
+                        <div class="searchicon"
+                             style="float: left; position: relative; z-index: 9; margin: 30px 5px; color: white;">
 
                         </div>
 
-                        <div class="fa fa-user fa-lg header-menu-toggle"
+                        <div class="usericon"
                              style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
+                            <div class="header-left-link" style="display: none;">
 
+                                <div class="menu_content"> <div class="welcome-msg">Управление профайлом</div>
+                                    <ul class="links">
+                                        <?
+                                        if (Yii::$app->user->can('admin')) echo '<li><a href="/admin">Админка</a></li>';
+                                        if(Yii::$app->user->isGuest){
+                                            echo '<li><a href="'.BASEURL.'/signup">Регистрация</a></li>';
+                                            echo '<li><a href="'.BASEURL.'/login">Вход</a></li>';
+                                        }
+                                        else{
+                                            echo '<li><a href="'.BASEURL.'/lk">Профайл</a></li>';
+                                            echo '<li><a href="'.BASEURL.'/requestorders">Заказы</a></li>';
+                                            echo '<li><a href="'.BASEURL.'/logout" data-method="post">Выход</a></li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="fa fa-shopping-basket fa-lg header-cart"
+                        <div class="carticon"
                              style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
 
                         </div>
@@ -119,6 +138,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="clearBoth"></div>
                             </div>
