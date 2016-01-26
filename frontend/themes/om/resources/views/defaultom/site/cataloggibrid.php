@@ -202,17 +202,11 @@ if ($data[0] != 'Не найдено!') {
     }
     $this->title = $thistitle . ' - ' . ($page + 1);
     echo $innerhtml;
+    echo '<div class="loader col-md-12">Показать еще '. end($catpath->name).'</div>';
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
     echo $downnav;
+
 } else {
     echo 'Нет результатов';
 
 }
-?>
-
-<script>
-
-
-
-
-</script>

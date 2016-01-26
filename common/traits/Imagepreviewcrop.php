@@ -16,48 +16,23 @@ Trait Imagepreviewcrop
             $ras = array_splice($file, -1, 1);
             $ras[0] = strtolower($ras[0]);
             $namefile = base64_encode(implode('', $file));
-            $dir = implode('/', $split) . '/';
+            $dir = implode('/', $split);
         } else {
             $file = $split[0];
             $file = explode('.', $file);
             $ras = array_splice($file, -1, 1);
             $namefile = base64_encode(implode('', $file));
-            $dir = '';
+            $dir = 'rope';
         }
+        $dirfile = md5($namefile);
+        $subdir = '';
+       for($i=0; $i<5; $i++){
+           $subdir .= '/'.substr($dirfile, $i*2 , 2);
+       }
 
-        if (strlen($namefile) > 7) {
-            $split[] = $subdir = substr($namefile, 0, 2);
-            $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2);
-            $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2);
-            $split[] = substr($namefile, 6, 2);
-            $subdir .= '/' . substr($namefile, 6, 2);
-        } elseif (strlen($namefile) > 5) {
-            $split[] = $subdir = substr($namefile, 0, 2);
-            $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2);
-            $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2);
-        } elseif (strlen($namefile) > 3) {
-            $split[] = $subdir = substr($namefile, 0, 2);
-            $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2);
-        } else {
-            $subdir = '';
-        }
         if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0]) || $action == 'refresh') {
             if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
-                $new_dir = '';
-                foreach ($split as $value) {
-                    $new_dir .= $value . '/';
-                    if (file_exists(Yii::getAlias($where) . $new_dir)) {
-                        chmod(Yii::getAlias($where) . $new_dir, 0777);
-                    } else {
-                        mkdir(Yii::getAlias($where) . $new_dir, 0777);
-                    }
-                   
-                }
+                mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
             }
             if ($ras[0] == 'jpg' || $ras[0] == 'jpeg') {
                 $image = imagecreatefromjpeg($from . $filename);
@@ -95,7 +70,7 @@ Trait Imagepreviewcrop
                 0, 0,
                 $new_width, $new_height,
                 $width, $height);
-            imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 80);
+            imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 60);
         }
         // return Yii::getAlias($where) . $dir .$subdir. $namefile . '.' . $ras[0];
         return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0]);

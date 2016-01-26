@@ -24,16 +24,13 @@ if (Yii::$app->params['partnersset']['catalog_type']['active'] == 1 && Yii::$app
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
                 href="<?= BASEURL ?>/catalog?cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     src="/images/banners/1.jpg"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2047"><a
-                href="<?= BASEURL ?>/catalog?cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/2.jpg"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><a
-                href="<?= BASEURL ?>/catalog?cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/5.jpg"></a></div>
         <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
                 href="<?= BASEURL ?>/catalog?cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     src="/images/banners/6.jpg"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="1836"><a
+        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2047"><a
+                href="<?= BASEURL ?>/catalog?cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                    src="/images/banners/2.jpg"></a></div>
+         <div id="index-card-6" class="data-j index-card banner-card" data-cat="1836"><a
                 href="<?= BASEURL ?>/catalog?cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     src="/images/banners/3.jpg"></a></div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2066"><a
@@ -117,6 +114,37 @@ if (Yii::$app->params['partnersset']['catalog_type']['active'] == 1 && Yii::$app
                 }
                 ?>
             </div>
+    <div style="clear: both;">
+    <div id="index-card-4">СЕО ИНДЕКС ИНЛАЙН</div>
+<?
+if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);}
+$data = new \common\models\PartnersConfig();
+$check = Yii::$app->params['constantapp']['APP_ID'];
+$page = 'seoindex';
+$data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+if($data){
+    echo stripcslashes($data->value);
+}else{?>
 
 
+    НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
+<?}?>
+<?php if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::end(); ?>
+    <button class="savehtml">Сохранить</button>
+    <script>
+        $(document).on('click', '.savehtml', function() {
+            $html = $('.cke_editable').html();
+
+
+            $.post(
+                '/site/savehtml',
+                { html: $html,
+                    page: 'seoindex'}
+            );
+            alert('Изменения сохранены');
+
+        });
+    </script>
+<?}?>
+    </div>
 <? //  $this->endCache(); }?>

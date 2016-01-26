@@ -6,7 +6,7 @@
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
         padding: 10px 20px;
         color: #272727;
-        background: #A1C258;
+        background: #00a5a1;
         border-radius: 4px
     }
 
@@ -53,7 +53,10 @@
         width: 100%;
         background-color: #F5F5F5;
         padding-top: 50px;
-        bottom: 1px
+        bottom: -80px;
+        z-index: 99999999;
+        border-top: 1px solid #ccc;
+        
     }
 
     .jumbotron {
@@ -127,24 +130,35 @@
     .accordion {
         max-width: 360px;
         border-radius: 4px;
-        margin: 0 -23px;
-        transition: all .4s linear 0s
+        transition: all 0.4s linear 0s;
+        width: 100%;
+        padding: 0px 0px 0px 10px;
     }
 
     .accordion .link {
         cursor: pointer;
-        display: block;
-        padding: 3px;
+        font-family: "Roboto Light", sans-serif;
         font-size: 14px;
-        transition: all .4s ease 0s;
-        color: #4D4D4D;
-        font-weight: 400
+        line-height: 27px;
+        font-weight: 300;
     }
 
+    div .checked {
+        color:#00A5A2;
+        border-right: 3px solid #00A5A2;
+    }
+    div .checked > a{
+        color:#00A5A2;
+        border-right: none;
+
+    }
     .accordion li:last-child .link {
         border-bottom: 0
     }
-
+    a:active {
+        outline: 0px none;
+        color: #00A5A2;
+    }
     .accordion li i {
         position: absolute;
         top: 16px;
@@ -178,7 +192,14 @@
         background: #444359;
         font-size: 14px
     }
-
+    .loader {
+        width: calc(100% - 10px);
+        text-align: center;
+        padding: 5px;
+        border: 1px solid #CCC;
+        margin: 5px;
+        cursor: pointer;
+    }
     .submenu li {
         border-bottom: 1px solid #4b4a5e
     }
@@ -222,7 +243,7 @@
         border-radius: 2px;
         box-shadow: 0 0 1px 0 #AFBCAA;
         margin: 5px;
-        width: calc(100% / 3 - 10px);
+        width: calc(100% / 4 - 10px);
         padding: 20px;
         min-width: 245px
     }
@@ -259,9 +280,9 @@
 
     .header-catalog {
         height: 40px;
-        background: #A1C258;
+        background: #00a5a1;
         font-size: 19px;
-        border: 1px solid #A1C258;
+        border: 1px solid #00a5a1;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         margin-left: 0;
@@ -351,13 +372,14 @@
         overflow: hidden;
         border-width: 1px;
         border-radius: 3px;
-        background: #F5F5F5
+        background: #F5F5F5;
+        width: 100%;
     }
 
     #partners-main-left-cont {
-        height: 100%;
+        /*height: 100%;*/
         overflow: hidden;
-        padding-bottom: 15px
+        width:100%;
     }
 
     .partners-comp-main, .partners-comp-main:hover {
@@ -366,11 +388,12 @@
     }
 
     #partners-main-right-back {
-        position: relative;
-        float: right;
         width: 83.5%;
         padding: 0px;
-        box-shadow: 10px 0px 20px -20px black inset;
+        height: auto;
+        position: relative;
+        box-shadow: 10px 0px 20px -20px #000 inset;
+        margin-left: 16.5%;
     }
 
     #partners-main-right-back-admin {
@@ -623,7 +646,7 @@
     }
 
     .model {
-        color: #A1C258;
+        color: #00a5a1;
         font-weight: 600
     }
 
@@ -704,7 +727,7 @@
     }
 
     .size-checked {
-        background: #A1C258
+        background: #00a5a1
     }
 
     #size-lable {
@@ -755,7 +778,7 @@
     }
 
     .count-checked {
-        color: #A1C258
+        color: #ea516d;
     }
 
     .count {
@@ -884,7 +907,7 @@
     }
 
     .cart {
-        background: 8% 100%/contain no-repeat #A1C258;
+        background: 8% 100%/contain no-repeat #00a5a1;
         border-radius: 3px;
         padding: 0 0 0 80px;
         position: relative;
@@ -932,7 +955,7 @@
         width: 100%;
         display: block;
         position: absolute;
-        background: #A1C258;
+        background: #00a5a1;
         text-align: center;
         left: 0;
         bottom: 0;
@@ -995,7 +1018,7 @@
         right: 0;
         border: none;
         background: 0 0;
-        color: #A1C258
+        color: #00a5a1
     }
 
     #modal-cart {
@@ -1078,7 +1101,7 @@
     }
 
     .cart-auth {
-        background: #A1C258;
+        background: #00a5a1;
         border-radius: 3px;
         box-shadow: 1px 1px 5px 1px #ECECEC inset;
         padding: 1px 8px;
@@ -1281,7 +1304,7 @@
     .admin-order-status-header {
         float: left;
         margin: 0 1px;
-        background: #A1C258;
+        background: #00a5a1;
         padding: 5px;
         text-align: center;
         display: block;
@@ -1308,7 +1331,7 @@
         width: calc(100% / 9 - 10px);
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #00a5a1;
         overflow: hidden
     }
 
@@ -1320,7 +1343,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #00a5a1;
         overflow: hidden;
         width: calc(100% / 7 - 10px)
     }
@@ -1333,7 +1356,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #00a5a1;
         overflow: hidden;
         width: calc(100% / 4 - 10px)
     }
@@ -1363,7 +1386,7 @@
         width: calc(100% / 9 - 10px);
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #00a5a1;
         overflow: hidden
     }
 
@@ -1380,7 +1403,7 @@
     .admin-order-adress-header {
         float: left;
         margin: 0 1px;
-        background: #A1C258;
+        background: #00a5a1;
         padding: 5px;
         width: calc(100% / 9 - 10px);
         text-align: center;
@@ -1491,7 +1514,7 @@
     #add-count, #del-count {
         margin: 0 3px;
         padding: 0;
-        background: 0 center #A1C258
+        background: 0 center #00a5a1
     }
 
     #add-count {
@@ -1569,7 +1592,7 @@
 
     .prod-info-model {
         float: right;
-        color: #A1C258;
+        color: #00a5a1;
         margin: 0 5px
     }
 
@@ -1640,34 +1663,29 @@
     }
 
     #partners-main-left-cont > #accordion > li > div {
-        padding: 7px 0 7px 25px;
+        padding: 0px 0px 0px 25px;
         color: #454545;
         margin: 0 0 0 -17px
     }
 
     #accordion > li > div {
-        background: #F5F5F5;
-        max-width: 340px;
-        margin-left: -34px;
-        padding-left: 45px
+
+        padding-left: 15px;
     }
 
     .link:hover {
-        border-left: 5px solid #898989;
+        border-right: 5px solid #898989;
         background: #E0E0E0 !important
     }
 
-    #partners-main-left-cont > ul > li > ul > li > ul {
-        margin: 0 -40px
-    }
+
 
     #partners-main-left-cont > ul > li > ul > li > ul > li > div {
-        margin: 3px 10px 3px -34px;
-        padding: 3px 0 3px 75px
+        padding: 3px 0px 3px 20px;
     }
 
     .checked-cat {
-        border-left: 5px solid #A1C258
+        border-left: 5px solid #00a5a1
     }
 
     .more_cat {
@@ -1732,7 +1750,7 @@
         width: 100%;
         font-size: 15px;
         color: #000;
-        border: 1px solid #A1C258;
+        border: 1px solid #00a5a1;
         font-size: 12px;
     }
 
@@ -1741,10 +1759,10 @@
         font-size: 15px;
         color: #000;
         border: 1px solid #C9C6C6;
-        background: #A1C258;
+        background: #00a5a1;
     }
     .ui-slider-handle {
-        background: #A1C258 !important;
+        background: #00a5a1 !important;
         border: none !important
     }
 
@@ -1761,7 +1779,7 @@
         float: left;
         text-align: center;
         width: calc(100% / 6);
-        border-color: #A1C258;
+        border-color: #00a5a1;
         -moz-border-top-colors: none;
         -moz-border-right-colors: none;
         -moz-border-bottom-colors: none;
@@ -1790,8 +1808,8 @@
 
     .addfilter {
         float: left;
-        background: #A1C258;
-        border: 1px solid #A1C258;
+        background: #00a5a1;
+        border: 1px solid #00a5a1;
         color: #FFF
     }
 
@@ -1814,7 +1832,7 @@
     }
 
     .order-status-header, .orders-num-header {
-        background: #A1C258;
+        background: #00a5a1;
         border-radius: 3px 3px 0 0
     }
 
@@ -1857,7 +1875,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #00a5a1;
         overflow: hidden
     }
 
@@ -1874,7 +1892,7 @@
     }
 
     .order-show-image {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -1884,7 +1902,7 @@
     }
 
     .order-show-model {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -1901,7 +1919,7 @@
     }
 
     .order-show-count {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -1911,7 +1929,7 @@
     }
 
     .order-show-price {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -2041,24 +2059,26 @@
     }
 
     .count-order-position {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         display: block;
         float: left;
         text-align: center;
         width: calc(100% / 4 - 0px);
         margin: 0px;
     }
-    #index-card-1, #index-card-2, #index-card-3 {
-        width: calc(100% / 3 - 10px)
+    #index-card-1, #index-card-2{
+        width: calc(100% / 4 - 10px)
     }
-
+    #index-card-3 {
+        width: calc(100% / 2 - 10px)
+    }
     #admclose, #close {
         border: 2px solid #000
     }
 
     .top-link {
         margin: 0 5px;
-        border-bottom: 2px solid #A1C258
+        border-bottom: 2px solid #00a5a1
     }
 
     #close {
@@ -2109,26 +2129,30 @@
         padding: 0;
         height: 120px;
         overflow: hidden;
-        min-height: 330px;
+        min-height: 500px;
         float: right;
         position: relative;
         cursor: pointer
     }
 
     #index-card-4 {
-        float: left;
-        padding: 18px 15px;
         overflow: hidden;
-        clear: both;
         width: calc(100% - 10px);
-        height: 45px;
+        font-size: 24px;
+        padding: 18px 15px;
         min-height: 45px;
-        font-size: 20px;
-        font-weight: 500
+        font-weight: 500;
+        float: left;
+        font-family: "Roboto Regular",sans serif;
     }
-
+    .logo {
+        vertical-align: unset;
+        margin: auto;
+        display: block;
+        padding: 10px;
+    }
     #index-card-5, #index-card-6 {
-        width: calc(100% / 3 - 10px)
+        width: calc(100% / 4 - 10px)
     }
 
     #index-card-5 {
@@ -2158,7 +2182,7 @@
         border: none;
         float: right;
         left: 0;
-        background: #A1C258;
+        background: #00a5a1;
         border-radius: 0;
         z-index: 999;
         position: relative;
@@ -2184,7 +2208,7 @@
     }
 
     .order-total-discount {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         text-align: center;
         width: 100%;
         margin: 0px;
@@ -2223,7 +2247,7 @@
         width: 100%;
         display: block;
         position: absolute;
-        background: #A1C258;
+        background: #00a5a1;
         text-align: center;
         text-decoration: none;
         left: 0;
@@ -2235,7 +2259,7 @@
 
     .admin-users-date-reg-header, .admin-users-date-update-header, .admin-users-mail-header, .admin-users-name-header, .admin-users-num-header {
         border: 1px solid #838383;
-        background: #A1C258
+        background: #00a5a1
     }
 
     .haserror {
@@ -2326,7 +2350,7 @@
     }
 
     .template-name {
-        background: #A1C258;
+        background: #00a5a1;
         padding: 5px
     }
 
@@ -2364,10 +2388,10 @@
         position: absolute;
         left: 1px;
         top: 1px;
-        border: 1px solid #A1C258;
+        border: 1px solid #00a5a1;
     }
     .contacts-adress {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2379,7 +2403,7 @@
         margin: 0px 10px;
     }
     .contacts-telephone {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2391,7 +2415,7 @@
         margin: 0px 10px;
     }
     .contacts-fax {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2403,7 +2427,7 @@
         margin: 0px 10px;
     }
     .contacts-email {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2415,7 +2439,7 @@
         margin: 0px 10px;
     }
     .contacts-googlemap {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2426,7 +2450,7 @@
         margin: 0px 10px;
     }
     .contacts-yandexmap {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2437,24 +2461,24 @@
         margin: 0px 10px;
     }
     .banner-card{
-        background: #A1C258 ;
+        background: #00a5a1 ;
     }
 
     .navbredcrump {
         display: none;
         height: 24px;
         font-size: 14px;
-        border-bottom: 1px solid #A1C258;
+        border-bottom: 1px solid #00a5a1;
         padding: 2px 23px;
         width: calc(100% - 20px);
         float: left;
         margin: 12px 10px;
-        border-top: 1px solid #A1C258;
+        border-top: 1px solid #00a5a1;
     }
 
     .phone-index {
         font-size: 16px;
-        color: #A1C258;
+        color: #00a5a1;
         font-family: verdana;
     }
 
@@ -2462,24 +2486,24 @@
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         width: 100%;
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #00a5a1 none repeat scroll 0% 0%;
         font-size: 20px;
         font-weight: 600;
     }
     .sendcomments-button {
-          background-color: #A1C258;
-          border-color: #A1C258;
+          background-color: #00a5a1;
+          border-color: #00a5a1;
       }
     .sendcomments-button:hover {
-        background-color: #A1C258;
-        border-color: #A1C258;
+        background-color: #00a5a1;
+        border-color: #00a5a1;
     }
     .sendcomments-button:focus {
-        background-color: #A1C258;
-        border-color: #A1C258;
+        background-color: #00a5a1;
+        border-color: #00a5a1;
     }
     .sendcomments-button:active:hover {
-        background-color: #A1C258;
-        border-color: #A1C258;
+        background-color: #00a5a1;
+        border-color: #00a5a1;
     }
 }

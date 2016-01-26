@@ -46,7 +46,13 @@ trait View_cat
                     } else {
                         $openli = '';
                     }
-                    $output2 .= '<li class=" ' . $openli . '"><div class="link"  data-cat="' . $catdesc . '"><a class="lock-on" href="' . BASEURL . '/catalog?cat=' . $catdesc . '&count=20&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
+                    $xcat = count($opencat)-1;
+                    if($catdesc == $opencat[$xcat] ){
+                       $aclass =  'checked';
+                    }else{
+                        $aclass =  '';
+                    }
+                    $output2 .= '<li class=" ' . $openli .'"><div class="link '.$aclass.'"  data-cat="' . $catdesc . '"><a class="lock-on '.$aclass.'" href="' . BASEURL . '/catalog?cat=' . $catdesc . '&count=20&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
                     $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);
                     $output2 .= '</li>';
                 }
@@ -55,6 +61,7 @@ trait View_cat
         }
         return $output2;
     }
+
 }
 
 ?>

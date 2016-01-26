@@ -25,6 +25,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <meta name='yandex-verification' content='6af7ec36af3406db'/>
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
               href="<?= BASEURL ?>/addsearch">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic,100,100italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'> <?= Html::csrfMetaTags() ?>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700,300italic,400italic,700italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head();
@@ -75,7 +78,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         ?>
         <div class="col-lg-5 navbar-form navbar-left" role="search" style="width: 26%;">
             <div class="form-group" style="width: 100%; display: table;">
-                <input type="text" id="search" class="form-control" placeholder="Введите артикул или название"
+                <input type="text" id="search" style="color: rgb(119, 119, 119); height: 40px; width: 90%; float: left; border-color: rgb(204, 204, 204); box-shadow: 0px 0px 0px;" class="form-control" placeholder="Введите артикул или название"
                        style="width: 100%; background: rgb(89, 89, 89) none repeat scroll 0% 0%; border: 1px solid rgb(89, 89, 89);color: #fff;">
 
                 <div class="result_search_word"

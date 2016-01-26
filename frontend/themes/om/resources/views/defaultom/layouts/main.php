@@ -8,8 +8,7 @@ use frontend\assets\AppAsset;
 use yii\bootstrap\Alert;
 use rmrevin\yii\fontawesome;
 use dosamigos\ckeditor\CKEditorInline;
-use frontend\widgets\Menu;
-
+use frontend\widgets\Menuom;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -21,11 +20,12 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
         <meta name='yandex-verification' content='6af7ec36af3406db'/>
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
               href="<?= BASEURL ?>/addsearch">
-        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic,100,100italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'> <?= Html::csrfMetaTags() ?>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700,300italic,400italic,700italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head();
@@ -33,31 +33,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
         ?>
     </head>
-    <body style='font-family: "Roboto",sans-serif ! important;'>
+    <body style='font-family: "Roboto",sans-serif; min-width: 1280px; margin-left: auto; margin-right: auto; height: auto; border-left: 1px solid #CCC; border-right: 1px solid #CCC;'>
     <?php $this->beginBody(); ?>
-    <div class="container-fluid" style="position: relative; display: block; padding: 10px 0px 0px; border-bottom: 1px solid black;"><p class="pull-left"><span
-                class="navbred">
-              <? if (($slogan = Yii::$app->params['partnersset']['slogan']['value']) !== FALSE && Yii::$app->params['partnersset']['slogan']['active'] == 1) {
-                  echo '<span>' . str_replace('</p>', '', str_replace('<p>', '', $slogan)) . '</span>';
-              } else {
-                  $slogan = '';
-              }
-              ?>
-            </span>
-            <?
-            if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
-                echo '<span class="phone-index">' . Yii::$app->params['partnersset']['contacts']['telephone']['value'] . '</span>';
-            }
-            ?>
-        </p>
-
-        <p class="pull-right">
-            <a class="top-link" href="<?= BASEURL ?>/news">Новости</a>
-            <a class="top-link" href="<?= BASEURL ?>/faq">FAQ</a>
-            <a class="top-link" href="<?= BASEURL ?>/paying">Оплата</a>
-            <a class="top-link" href="<?= BASEURL ?>/delivery">Доставка</a>
-            <a class="top-link" href="<?= BASEURL ?>/contacts">Контакты</a>
-        </p></div>
     <div class="wrap">
         <?php
         if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
@@ -71,36 +48,46 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         ]) ?>
         <div class="container-fluid" id="partners-main">
             <div class="container" id="partners-main-left-back">
-                <div id="partners-main-left">
-                    <div id="partners-main-left-cont">
-                        <div style="float: right; width: 30px; height: 30px; border: 1px solid black; text-align: center;">
-                            <i class="fa fa-2x fa-angle-left"></i>
-                        </div>
+                <div id="partners-main-left" style="position: fixed; width: 16.5%; overflow: auto; height: 100%; min-width: 211px;z-index: 9999999;">
+                    <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+                    <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
+                        echo '<span>' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
+                    } else {
+                        $logotype = '';
+                    }
+                    ?>
                     </div>
                     <div id="partners-main-left-cont">
-                        <?= Menu::widget(['opencat' => Yii::$app->params['layoutset']['opencat']]); ?>
+                        <?= Menuom::widget(['opencat' => Yii::$app->params['layoutset']['opencat']]); ?>
                     </div>
                 </div>
             </div>
             <div class="container-fluid" id="partners-main-right-back">
-                <div id="partners-main-right">
-                    <div class="" style="border-bottom: 1px solid black;">
-                        <div class="" style="width: 75%; display: block; height: 72px; padding: 16px 10px 10px;">
-                            <input type="text" id="search" class="form-control" placeholder="Введите артикул или название"
-                                   style="color: rgb(119, 119, 119); height: 40px; width: 90%; float: left;">
-                            <div class="btn btn-default data-j"
-                                 style="width: 10%; height: 40px; font-size: 20px; margin-right: 0px; position: relative; left: -5px;">
-                                Найти
-                            </div>
-                            <div class="result_search_word"
-                                 style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
-
+                <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+                    <div>
+                    <a class="top-link" href="--><?//= BASEURL ?>/news">Новости</a>
+                    <a class="top-link" href="<?= BASEURL ?>/faq">FAQ</a>
+                    <a class="top-link" href="<?= BASEURL ?>/paying">Оплата</a>
+                    <a class="top-link" href="<?= BASEURL ?>/delivery">Доставка</a>
+                    <a class="top-link" href="<?= BASEURL ?>/contacts">Контакты</a>
                         </div>
+                </div>
+                <div id="partners-main-right">
+                    <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
+                        <input id="search" class="form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
+                        <div class="btn btn-default data-j" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
+                            Найти
+                        </div>
+                        <div class="" style="padding: 16px 10px 10px; display: inline-block; float: right;">
+                            Логин|Профиль
+                        </div>
+                        <div class="result_search_word" style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
+
                     </div>
 
 
-<!--                    <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span-->
-<!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
+                    <!--                    <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span-->
+                    <!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
                 </div>
                 <div id="partners-main-right" class="bside">
                     <?= $content ?>
@@ -109,7 +96,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
 
         </div>
-        <div style="height: 60px"></div>
+        <div style="height: 2px; border-top: 1px solid #CCC;"></div>
         <div class="modal-cart" id="modal-cart" style="display: none;"></div>
         <footer class="footer">
             <hr class="linebottom1">
