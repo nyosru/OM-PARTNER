@@ -60,7 +60,12 @@ $this->title = $title;
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
-            $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' . $product['products_image'] . ');"></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' . $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' . $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
+            $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="' .
+                $product['products_id'] . '" id="prod-data-img" ><img class="f-image" src="/site/imagepreview?src=' .
+                $product['products_image'] . '"/><img class="hover-image" src="/site/imagepreview?src=' .
+                $product['products_image'] . '"/></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' .
+                $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' .
+                $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
             echo $outer;
         }
         ?>
@@ -84,7 +89,12 @@ $this->title = $title;
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
-            $outer .= '<div  class="container-fluid float" id="index-card-1"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' . $product['products_image'] . ');"></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' . $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' . $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
+            $outer .= '<div  class="container-fluid float" id="index-card-1"><div data-prod="' .
+                $product['products_id'] . '" id="prod-data-img"><img class="f-image" src="/site/imagepreview?src=' .
+                $product['products_image'] . '"/><img class="hover-image" src="/site/imagepreview?src=' .
+                $product['products_image'] . '"/></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' .
+                $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div id="prod-info" data-prod="' .
+                $product['products_id'] . '">Инфо</div><span>' . $attr_html . '</span></div>';
             echo $outer;
         }
         ?>
