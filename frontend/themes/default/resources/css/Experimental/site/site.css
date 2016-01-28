@@ -2590,22 +2590,15 @@
     }
      .eye{
          float:left;
-         width:25%;
+         width:50%;
          border-right: 1px solid black;
      }
      .eye:hover{
          color: gold;
      }
-     .item-comments{
-         float:left;
-         width: 25%;
-         border-right: 1px solid black;
-     }
-     .item-comments:hover{
-         color: gold;
-     }
      .item-social{
-        font-size: small;
+         width: 50%;
+         float: left;
      }
      .item-social:hover{
          color: gold;
@@ -2623,6 +2616,7 @@
      .item-footer{
          bottom: 0px;
          width: 100%;
+         color: lightgray;
      }
      .item-price{
          float: left;
@@ -2636,5 +2630,17 @@
          background: inherit;
          width: 100%;
          display: none;
+     }
+     .social{
+         float: left;
+         width: 25%;
+         font-size: large;
+         height: 100%;
+     }
+     .social a:hover{
+         color: lightblue;
+     }
+     .item-descr a{
+         color: lightgray;
      }
 }
