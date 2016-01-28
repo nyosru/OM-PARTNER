@@ -49,30 +49,27 @@ $this->title = $title;
             $product = $value['products'];
             $description = $value['productsDescription'];
             $attr_desc = $value['productsAttributesDescr'];
-            $attr_html = '<div class="cart-lable">В корзину</div>';
+            $attr_html = '<div class="item-footer"><div class="item-price">'.(integer)$product['products_price'].' руб.</div><div class="cart-lable">В корзину</div></div><div class="item-s">';
             if (count($attr_desc) > 0) {
-                foreach ($attr_desc as $value_attr) {
-                    $attr_html .= '<div class="size-desc"><div><div class="lable-item">' .
-                        $value_attr['products_options_values_name'] . '</div></div><input id="input-count" data-prod="' .
-                        $product['products_id'] . '" data-model="' .
-                        $product['products_model'] . '" data-price="' .
-                        $product['products_price'] . '" data-image="' .
-                        $product['products_image'] . '" data-attrname="' .
-                        $value_attr['products_options_values_name'] . '" data-attr="' .
-                        $value_attr['products_options_values_id'] . '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                foreach ($attr_desc as $attr_desc_value) {
+                    $attr_html .= '<div class="size-desc"><div><div class="lable-item" id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $attr_desc_value['products_options_values_name'] . '" data-attr="' . $attr_desc_value['products_options_values_id'] . '" data-name="' . $description['products_name'] . '">' . $attr_desc_value['products_options_values_name'] . '</div></div></div>';
                 }
             } else {
-                $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $value_attr['products_options_values_name'] . '" data-attr="' . $value_attr['products_options_values_id'] . '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                $attr_html .= '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $attr_desc_value['products_options_values_name'] . '" data-attr="' . $attr_desc_value['products_options_values_id'] . '" data-name="' . $description['products_name'] . '">+</div></div>';
             }
+            $attr_html .='</div>';
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
-            $outer .= '<div  class="container-fluid float" id="index-card-1" product=""><div data-prod="' .
-                $product['products_id'] . '" id="prod-data-img" ><img class="f-image" src="/site/imagepreview?src=' .
-                $product['products_image'] . '"/><img class="hover-image" src="/site/imagepreview?src=' .
-                $product['products_image'] . '"/></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' .
-                $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div data-prod="' .
-                $product['products_id'] . '"></div><div class="item-descr"><div title="Инфо" class="eye"><i class="fa fa-eye"></i></div><div title="Комментарии" class="item-comments"><i class="fa fa-comments"></i></div><div title="Выбор размера и добавление в корзину" class="item-size"><i class="fa fa-shopping-cart"></i></div></div></div>';
+            $outer .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card" ><div data-prod="' .
+                $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px;background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' .
+                $product['products_image'] . ');"><meta itemprop="image" content="/site/imagepreview?src=' .
+                $product['products_image'] . '"></div><div itemprop="name" class="name">' .
+                $description['products_name'] . '</div><div itemprop="url" class="model">Артикул ' .
+                $product['products_model'] . '</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">' .
+                intval($product['products_price']) . '</b> руб.</div><a href="/site/product?id=' .
+                $product['products_id'] . '"><div itemprop="description" data-prod="' .
+                $product['products_id'] . '"></div></a><div class="item-descr"><a href="/site/product?id='.$product['products_id'].'"><div title="Инфо" class="eye"><i class="fa fa-eye"></i></div></a><div title="Комментарии" class="item-comments"><i class="fa fa-comments"></i></div><div title="Поделиться в социальной сети" class="item-social">Значки соцсетей</div><div class="item-sizes">'.$attr_html.'</div></div></div>';
             echo $outer;
         }
         ?>
@@ -85,29 +82,27 @@ $this->title = $title;
             $product = $value['products'];
             $description = $value['productsDescription'];
             $attr_desc = $value['productsAttributesDescr'];
-            $attr_html = '<div class="cart-lable">В корзину</div>';
+            $attr_html = '<div class="item-footer"><div class="item-price">'.(integer)$product['products_price'].' руб.</div><div class="cart-lable">В корзину</div></div><div class="item-s">';
             if (count($attr_desc) > 0) {
-                foreach ($attr_desc as $value_attr) {
-                    $attr_html .= '<div class="size-desc"><div><div class="lable-item">' . $value_attr['products_options_values_name'] . '</div></div><input id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $value_attr['products_options_values_name'] . '" data-attr="' . $value_attr['products_options_values_id'] . '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                foreach ($attr_desc as $attr_desc_value) {
+                    $attr_html .= '<div class="size-desc"><div><div class="lable-item" id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $attr_desc_value['products_options_values_name'] . '" data-attr="' . $attr_desc_value['products_options_values_id'] . '" data-name="' . $description['products_name'] . '">' . $attr_desc_value['products_options_values_name'] . '</div></div></div>';
                 }
             } else {
-                $attr_html .= '<div class="size-desc"><div class="lable-item">+</div><input id="input-count" data-prod="' .
-                    $product['products_id'] . '" data-model="' .
-                    $product['products_model'] . '" data-price="' .
-                    $product['products_price'] . '" data-image="' .
-                    $product['products_image'] . '" data-attrname="' .
-                    $value_attr['products_options_values_name'] . '" data-attr="' .
-                    $value_attr['products_options_values_id'] . '" type="text" placeholder="0" /><div id="add-count">+</div><div id="del-count">-</div></div>';
+                $attr_html .= '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $attr_desc_value['products_options_values_name'] . '" data-attr="' . $attr_desc_value['products_options_values_id'] . '" data-name="' . $description['products_name'] . '">+</div></div>';
             }
+            $attr_html .='</div>';
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
-            $outer .= '<div  class="item-show float" id="index-card-1"><div data-prod="' .
-                $product['products_id'] . '" id="prod-data-img"><img class="f-image" src="/site/imagepreview?src=' .
-                $product['products_image'] . '"/><img class="hover-image" src="/site/imagepreview?src=' .
-                $product['products_image'] . '"/></div><div class="name">' . $description['products_name'] . '</div><div class="model">Арт.' .
-                $product['products_model'] . '</div><div class="price"><b>' . intval($product['products_price']) . '</b> руб.</div><div data-prod="' .
-                $product['products_id'] . '"></div><div class="item-descr"><div title="Инфо" class="eye"><i class="fa fa-eye"></i></div><div title="Комментарии" class="item-comments"><i class="fa fa-comments"></i></div><div title="Выбор размера и добавление в корзину" class="item-size"><i class="fa fa-shopping-cart"></i></div></div></div>';
+            $outer .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card" ><div data-prod="' .
+                $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px;background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' .
+                $product['products_image'] . ');"><meta itemprop="image" content="/site/imagepreview?src=' .
+                $product['products_image'] . '"></div><div itemprop="name" class="name">' .
+                $description['products_name'] . '</div><div itemprop="url" class="model">Артикул ' .
+                $product['products_model'] . '</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">' .
+                intval($product['products_price']) . '</b> руб.</div><a href="/site/product?id=' .
+                $product['products_id'] . '"><div itemprop="description" data-prod="' .
+                $product['products_id'] . '"></div></a><div class="item-descr"><a href="/site/product?id='.$product['products_id'].'"><div title="Инфо" class="eye"><i class="fa fa-eye"></i></div></a><div title="Комментарии" class="item-comments"><i class="fa fa-comments"></i></div><div title="Поделиться в социальной сети" class="item-social">Значки соцсетей</div><div class="item-sizes">'.$attr_html.'</div></div></div>';
             echo $outer;
         }
         ?>

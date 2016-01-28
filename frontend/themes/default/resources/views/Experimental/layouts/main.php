@@ -61,7 +61,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                         </div>
 
-                        <div class="usericon"
+                        <div class="usericon" title="Управление профайлом"
                              style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
                             <div class="header-left-link" style="display: none;">
 
@@ -84,10 +84,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                             </div>
                         </div>
 
-                        <div class="carticon"
-                             style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
-
-                        </div>
+                        <a href=""><div class="carticon" title="Корзина" style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;"></div></a>
 
 
                     </div>

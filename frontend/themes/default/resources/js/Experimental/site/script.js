@@ -18,3 +18,14 @@ $(function() {
 
     });
 });
+$(function() {
+    jQuery('.cart-lable').click(function() {
+        if($('.item-s').is(':visible')) {
+            jQuery('.item-s').attr('style', 'display:none');
+        }
+        else{
+            jQuery('.item-s').attr('style','display:block');
+        }
+
+    });
+});

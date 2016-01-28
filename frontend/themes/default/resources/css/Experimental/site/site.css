@@ -5,10 +5,13 @@
 
 
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
-        padding: 10px 20px;
         color: #272727;
-        background: #A1C258;
-        border-radius: 4px
+        background: lightgray;
+        border-radius: 4px;
+        width: 90px;
+        height: 25px;
+        font-size: small;
+        padding: 5px 0px;
     }
 
     .save-order, .save-order:hover, .submenu a {
@@ -640,14 +643,14 @@
 
     .model {
         color: #A1C258;
-        font-weight: 600
+        font-weight: 600;
+        float: right;
     }
 
     .name {
         clear: both;
-        overflow: hidden;
         padding: 10px 0;
-        max-height: 75px
+        max-height: 65px
     }
 
     .price {
@@ -805,7 +808,7 @@
         width: 100%;
         color: lightgray;
         text-align: center;
-        font-size: x-large;
+        font-size: large;
         line-height:1.3;
     }
 
@@ -859,9 +862,9 @@
 
     .cart-lable {
         text-align: center;
-        position: absolute;
-        left: 28%;
-        bottom: 9px
+        margin: 5px;
+        margin-right: 15px;
+        float: right;
     }
 
     #prod-card-info > .prod-info-size > .cart-lable {
@@ -877,17 +880,21 @@
     }
 
     .cart-lable:hover {
-        cursor: pointer
+        cursor: pointer;
+        background: gold;
     }
 
     #input-count {
         height: 20px;
-        color: #000;
+        color: lightgray;
         padding: 0 10px;
         width: 40px;
         text-align: center;
         border: none;
         background: 0 0
+    }
+    #input-count:hover{
+        color: gold;
     }
 
     #prod-info {
@@ -2597,10 +2604,37 @@
      .item-comments:hover{
          color: gold;
      }
-     .item-size:hover{
+     .item-social{
+        font-size: small;
+     }
+     .item-social:hover{
          color: gold;
      }
      .footer a:hover{
          color: gold;
+     }
+     .item-sizes{
+         background: rgba(22, 27, 30, 0.9);
+         position: absolute;
+         width: 100%;
+         height:auto;
+         bottom: 30px;
+     }
+     .item-footer{
+         bottom: 0px;
+         width: 100%;
+     }
+     .item-price{
+         float: left;
+         color: lightgray;
+         margin: 6px;
+         margin-left: 15px;
+     }
+     .item-s{
+         position: absolute;
+         bottom: 35px;
+         background: inherit;
+         width: 100%;
+         display: none;
      }
 }
