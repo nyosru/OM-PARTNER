@@ -74,7 +74,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                             echo '<li><a href="'.BASEURL.'/login">Вход</a></li>';
                                         }
                                         else{
-                                            echo '<li><a href="'.BASEURL.'/lk">Профайл</a></li>';
+                                            echo '<li><a data-method="post" href="'.BASEURL.'/lk">Профайл</a></li>';
                                             echo '<li><a href="'.BASEURL.'/requestorders">Заказы</a></li>';
                                             echo '<li><a href="'.BASEURL.'/logout" data-method="post">Выход</a></li>';
                                         }
@@ -84,7 +84,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                             </div>
                         </div>
 
-                        <a href=""><div class="carticon" title="Корзина" style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;"></div></a>
+                        <div class="carticon cart"
+                             style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
+                            <div class="cart-count"></div>
+                        </div>
 
 
                     </div>
@@ -193,6 +196,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
             </div>
             <div style="height: 60px"></div>
+            <div class="modal-cart" id="modal-cart" style="display: none;"></div>
         </div>
         <footer class="footer">
             <hr class="linebottom1">

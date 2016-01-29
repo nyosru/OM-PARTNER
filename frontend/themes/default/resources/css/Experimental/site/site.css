@@ -271,7 +271,7 @@
 
     .header-catalog {
         height: 40px;
-        background: #A1C258;
+        background: rgba(0,0, 0, 0.8);
         font-size: 19px;
         border: 1px solid #A1C258;
         border-top-left-radius: 3px;
@@ -888,7 +888,7 @@
         height: 20px;
         color: lightgray;
         padding: 0 10px;
-        width: 40px;
+        width: auto;
         text-align: center;
         border: none;
         background: 0 0
@@ -914,15 +914,6 @@
         cursor: pointer
     }
 
-    .cart {
-        background: 8% 100%/contain no-repeat #A1C258;
-        border-radius: 3px;
-        padding: 0 0 0 80px;
-        position: relative;
-        display: block;
-        margin: 7px 0;
-        width: 15%
-    }
 
     .cart > i {
         float: left;
@@ -933,7 +924,17 @@
     .cart-count {
         cursor: pointer;
         text-align: center;
-        height: 16px
+        height: auto;
+        width: auto;
+        background: goldenrod;
+        left: 20px;
+        bottom: 20px;
+        position: absolute;
+        border-radius: 9px;
+        color: black;
+        line-height: 1.2;
+        font-size: small;
+        padding: 0px 4px;
     }
 
     .cart-price {
@@ -945,7 +946,8 @@
     .cart-dialog {
         border: 1px;
         padding: 0;
-        height: 100%
+        height: 100%;
+        z-index: 9999;
     }
 
     .cart-dialog > .ui-dialog-titlebar {
@@ -957,20 +959,24 @@
         position: absolute;
         width: 100%;
         bottom: 0;
-        z-index: 999
+        z-index: 999;
+        background: #161b1e;
+        color: gold;
     }
 
     .save-order {
         width: 100%;
         display: block;
         position: absolute;
-        background: #A1C258;
+        background: #161b1e;
         text-align: center;
         left: 0;
         bottom: 0;
         height: 40px;
         padding: 8px;
-        font-weight: 400
+        font-weight: 400;
+        z-index: 999;
+        color: gold !important;
     }
 
     .addfilter, .reset {
@@ -1497,7 +1503,7 @@
 
     #add-count, #del-count {
         width: 20px;
-        height: 21px
+        height: 21px;
     }
 
     #city-drop li, #country-drop li, #state-drop li {
@@ -1530,17 +1536,19 @@
     }
 
     #add-count {
-        float: right;
+        float: left;
         text-align: center;
         color: #000;
-        border-radius: 3px
+        border-radius: 3px;
+        background: gold;
     }
 
     #del-count {
         float: left;
         text-align: center;
         color: #000;
-        border-radius: 3px
+        border-radius: 3px;
+        background: gold;
     }
 
     #add-count:hover, #del-count:hover {
@@ -1621,7 +1629,9 @@
     .prod-info-size {
         width: 220px;
         float: right;
-        margin: 5px
+        margin: 5px;
+        background: rgba(0,0,0,0.7);
+        margin-top: 140px;
     }
 
     #prod-card-info > .prod-info-size {
@@ -2183,11 +2193,11 @@
     }
 
     .save-order2 {
-        color: #000;
+        color: lightgray;
         border: none;
         float: right;
         left: 0;
-        background: #A1C258;
+        background: #161b1e;
         border-radius: 0;
         z-index: 999;
         position: relative;
@@ -2196,7 +2206,8 @@
     }
 
     .save-order2:focus, .save-order2:hover {
-        background: #0CD5AD
+        color: gold;
+        background:#161b1e ;
     }
 
     .preload {
@@ -2513,23 +2524,23 @@
     }
 
     .sendcomments-button {
-        background-color: #A1C258;
-        border-color: #A1C258;
+        background-color: rgba(0,0, 0, 0.8);
+        border-color: black;
     }
 
     .sendcomments-button:hover {
-        background-color: #A1C258;
-        border-color: #A1C258;
+        background-color: rgba(0,0, 0, 0.8);
+        border-color: black;
     }
 
     .sendcomments-button:focus {
-        background-color: #A1C258;
-        border-color: #A1C258;
+        background-color: rgba(0,0, 0, 0.8);
+        border-color: black;
     }
 
     .sendcomments-button:active:hover {
-        background-color: #A1C258;
-        border-color: #A1C258;
+        background-color: black;
+        border-color: black;
     }
     .searchicon{
         background: url('sprite.png') 0px 185px;
@@ -2643,4 +2654,22 @@
      .item-descr a{
          color: lightgray;
      }
+    .btn-end-order{
+        background: #161b1e;
+        color: lightgray;
+    }
+    .btn-end-order:hover, .btn-end-order:active, .btn-end-order:focus{
+        color: gold;
+        background: #161b1e;
+    }
+    #input-c{
+        height: 20px;
+        color: black;
+        padding: 0 10px;
+        text-align: center;
+        border: none;
+        background: 0 0;
+        width:40px;
+        float: left;
+    }
 }
