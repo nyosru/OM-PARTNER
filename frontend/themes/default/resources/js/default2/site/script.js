@@ -309,7 +309,10 @@ $(document).on('click', '.save-order2', function () {
             localStorage.removeItem('cart-om');
             $(".cart-count").html('0');
             $(".cart-price").html('0');
-            $('#modal-cart').html('<div style="padding: 10px; text-align: center; height: 100%; line-height: 40px;"><div>Ваш заказ № ' + data.id + ' ожидает подтверждения менеджером магазина.</div><div> Статус  заказа вы можете проверить в вашем личном кабинете. </div><div class="btn btn-info btn-end-order" style="background: rgb(0, 255, 204) none repeat scroll 0% 0%; color: rgb(68, 68, 68);">Продолжить покупки</div></div>');
+            $('#modal-cart').html('<div style="padding: 10px; text-align: center; height: 100%; line-height: 40px;">' +
+                '<div>Ваш заказ № ' + data.id + ' ожидает подтверждения менеджером магазина.</div>' +
+                '<div> Статус  заказа вы можете проверить в вашем личном кабинете. </div>' +
+                '<div class="btn btn-info btn-end-order" style="background: rgb(0, 255, 204) none repeat scroll 0% 0%; color: rgb(68, 68, 68);">Продолжить покупки</div></div>');
         }
     }
 });
@@ -596,7 +599,9 @@ $(document).on('click', '.del-product', function () {
         } else {
             this[6] = this[6] + ' размер';
         }
-        $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row"><div class="cart-image" style="float: left; #D2672D inset; max-height: 100px; max-width: 200px; min-height: 100px; min-width: 200px;  background: #fff no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + this[5] + ');"></div><div class="cart-model">Арт.: ' + this[1] + '</div><div class="del-product">Удалить</div><div data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div><div class="cart-prod-price">' + parseInt(this[3]) + 'руб.</div><div class="cart-amount">' + this[4] + ' шт.</div></div>';
+        $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row">' +
+            '<div class="cart-image" style="float: left; #D2672D inset; max-height: 100px; max-width: 200px; min-height: 100px; min-width: 200px;  background: #fff no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + this[5] + ');"></div>' +
+            '<div class="cart-model">Арт.: ' + this[1] + '</div><div class="del-product">Удалить</div><div data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div><div class="cart-prod-price">' + parseInt(this[3]) + 'руб.</div><div class="cart-amount">' + this[4] + ' шт.</div></div>';
     });
     $(".cart-count").html($amount_prod);
     $(".cart-price").html($cart_price + ' руб.');
