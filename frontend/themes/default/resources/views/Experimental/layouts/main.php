@@ -39,12 +39,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div class="header-bottom">
                     <div class="header-left header-width">
                         <a href="/" title="" class="logo"><strong>
-                                <? if (($slogan = Yii::$app->params['partnersset']['slogan']['value']) !== FALSE && Yii::$app->params['partnersset']['slogan']['active'] == 1) {
-                                    echo str_replace('</p>', '', str_replace('<p>', '', $slogan));
-                                } else {
-                                    $slogan = '';
-                                }
-                                ?>
                                 <? if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
                                     $name = $namecustom;
                                 } else {
@@ -52,6 +46,14 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 }
                                 ?>
                             </strong><?= $name ?></a>
+                        <div class="slogan">
+                            <? if (($slogan = Yii::$app->params['partnersset']['slogan']['value']) !== FALSE && Yii::$app->params['partnersset']['slogan']['active'] == 1) {
+                                echo str_replace('</p>', '', str_replace('<p>', '', $slogan));
+                            } else {
+                                $slogan = '';
+                            }
+                            ?>
+                        </div>
                     </div>
 
                     <div class="header-right">

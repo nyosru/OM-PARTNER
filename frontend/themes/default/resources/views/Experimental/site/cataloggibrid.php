@@ -389,10 +389,10 @@ if ($data[0] != 'Не найдено!') {
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
 
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card" ><div data-prod="' .
+        $innerhtml .= '<div itemscope itemtype="http://schema.org/Product"  class="container-fluid float" id="card" ><a href="/site/product?id='.$product['products_id'].'"><div data-prod="' .
             $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px;background-size:cover; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' .
             $product['products_image'] . ');"><meta itemprop="image" content="/site/imagepreview?src=' .
-            $product['products_image'] . '"></div><div itemprop="name" class="name">' .
+            $product['products_image'] . '"></div></a><div itemprop="name" class="name">' .
             $description['products_name'] . '</div><div itemprop="url" class="model">Артикул ' .
             $product['products_model'] . '</div><div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"><b itemprop="price">' .
             intval($product['products_price']) . '</b> руб.</div><a href="/site/product?id=' .

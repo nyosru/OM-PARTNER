@@ -40,7 +40,7 @@
     }
 
     body {
-        color: #787878;
+        color: lightgray;
         font-family: "Lato", Arial, Helvetica, sans-serif;
         font-size: 14px;
         font-weight: normal;
@@ -273,7 +273,7 @@
         height: 40px;
         background: rgba(0,0, 0, 0.8);
         font-size: 19px;
-        border: 1px solid #A1C258;
+        border: 1px solid #161b1e;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         margin-left: 0;
@@ -642,7 +642,7 @@
     }
 
     .model {
-        color: #A1C258;
+        color: #161b1e;
         font-weight: 600;
         float: right;
     }
@@ -723,7 +723,7 @@
     }
 
     .size-checked {
-        background: #A1C258
+        background: #161b1e
     }
 
     #size-lable {
@@ -774,7 +774,7 @@
     }
 
     .count-checked {
-        color: #A1C258
+        color: #161b1e
     }
 
     .count {
@@ -1033,7 +1033,7 @@
         right: 0;
         border: none;
         background: 0 0;
-        color: #A1C258
+        color: #161b1e
     }
 
     #modal-cart {
@@ -1116,7 +1116,7 @@
     }
 
     .cart-auth {
-        background: #A1C258;
+        background: #161b1e;
         border-radius: 3px;
         box-shadow: 1px 1px 5px 1px #ECECEC inset;
         padding: 1px 8px;
@@ -1319,7 +1319,7 @@
     .admin-order-status-header {
         float: left;
         margin: 0 1px;
-        background: #A1C258;
+        background: #161b1e;
         padding: 5px;
         text-align: center;
         display: block;
@@ -1346,7 +1346,7 @@
         width: calc(100% / 9 - 10px);
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #161b1e;
         overflow: hidden
     }
 
@@ -1358,7 +1358,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #161b1e;
         overflow: hidden;
         width: calc(100% / 7 - 10px)
     }
@@ -1371,7 +1371,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #161b1e;
         overflow: hidden;
         width: calc(100% / 4 - 10px)
     }
@@ -1401,7 +1401,7 @@
         width: calc(100% / 9 - 10px);
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #161b1e;
         overflow: hidden
     }
 
@@ -1418,7 +1418,7 @@
     .admin-order-adress-header {
         float: left;
         margin: 0 1px;
-        background: #A1C258;
+        background: #161b1e;
         padding: 5px;
         width: calc(100% / 9 - 10px);
         text-align: center;
@@ -1532,7 +1532,7 @@
     #add-count, #del-count {
         margin: 0 3px;
         padding: 0;
-        background: 0 center #A1C258
+        background: 0 center #161b1e
     }
 
     #add-count {
@@ -1612,7 +1612,7 @@
 
     .prod-info-model {
         float: right;
-        color: #A1C258;
+        color: #161b1e;
         margin: 0 5px
     }
 
@@ -1711,7 +1711,7 @@
     }
 
     .checked-cat {
-        border-left: 5px solid #A1C258
+        border-left: 5px solid #161b1e
     }
 
     .more_cat {
@@ -1779,7 +1779,7 @@
     }
 
     .ui-slider-handle {
-        background: #A1C258 !important;
+        background: #161b1e !important;
         border: none !important
     }
 
@@ -1796,7 +1796,7 @@
         float: left;
         text-align: center;
         width: calc(100% / 6);
-        border-color: #A1C258;
+        border-color: #161b1e;
         -moz-border-top-colors: none;
         -moz-border-right-colors: none;
         -moz-border-bottom-colors: none;
@@ -1825,8 +1825,8 @@
 
     .addfilter {
         float: left;
-        background: #A1C258;
-        border: 1px solid #A1C258;
+        background: #161b1e;
+        border: 1px solid #161b1e;
         color: #FFF
     }
 
@@ -1849,7 +1849,7 @@
     }
 
     .order-status-header, .orders-num-header {
-        background: #A1C258;
+        background: #161b1e;
         border-radius: 3px 3px 0 0
     }
 
@@ -1892,7 +1892,7 @@
         border: 1px solid #838383;
         margin: 0 1px;
         border-radius: 3px 3px 0 0;
-        background: #A1C258;
+        background: #161b1e;
         overflow: hidden
     }
 
@@ -1909,7 +1909,7 @@
     }
 
     .order-show-image {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -1919,7 +1919,7 @@
     }
 
     .order-show-model {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -1937,7 +1937,7 @@
     }
 
     .order-show-count {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -1947,7 +1947,7 @@
     }
 
     .order-show-price {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         border-radius: 3px 3px 0px 0px;
         display: block;
         float: left;
@@ -2079,7 +2079,7 @@
     }
 
     .count-order-position {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         display: block;
         float: left;
         text-align: center;
@@ -2097,7 +2097,7 @@
 
     .top-link {
         margin: 0 5px;
-        border-bottom: 2px solid #A1C258
+        border-bottom: 2px solid #161b1e
     }
 
     #close {
@@ -2224,7 +2224,7 @@
     }
 
     .order-total-discount {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         text-align: center;
         width: 100%;
         margin: 0px;
@@ -2264,7 +2264,7 @@
         width: 100%;
         display: block;
         position: absolute;
-        background: #A1C258;
+        background: #161b1e;
         text-align: center;
         text-decoration: none;
         left: 0;
@@ -2276,7 +2276,7 @@
 
     .admin-users-date-reg-header, .admin-users-date-update-header, .admin-users-mail-header, .admin-users-name-header, .admin-users-num-header {
         border: 1px solid #838383;
-        background: #A1C258
+        background: #161b1e
     }
 
     .haserror {
@@ -2367,7 +2367,7 @@
     }
 
     .template-name {
-        background: #A1C258;
+        background: #161b1e;
         padding: 5px
     }
 
@@ -2407,11 +2407,11 @@
         position: absolute;
         left: 1px;
         top: 1px;
-        border: 1px solid #A1C258;
+        border: 1px solid #161b1e;
     }
 
     .contacts-adress {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2425,7 +2425,7 @@
     }
 
     .contacts-telephone {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2439,7 +2439,7 @@
     }
 
     .contacts-fax {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2453,7 +2453,7 @@
     }
 
     .contacts-email {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2467,7 +2467,7 @@
     }
 
     .contacts-googlemap {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2480,7 +2480,7 @@
     }
 
     .contacts-yandexmap {
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         margin-top: 6px;
         border-radius: 5px;
         padding: 5px 10px;
@@ -2500,17 +2500,17 @@
         display: none;
         height: 24px;
         font-size: 14px;
-        border-bottom: 1px solid #A1C258;
+        border-bottom: 1px solid #161b1e;
         padding: 2px 23px;
         width: calc(100% - 20px);
         float: left;
         margin: 12px 10px;
-        border-top: 1px solid #A1C258;
+        border-top: 1px solid #161b1e;
     }
 
     .phone-index {
         font-size: 16px;
-        color: #A1C258;
+        color: #161b1e;
         font-family: verdana;
     }
 
@@ -2518,7 +2518,7 @@
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
         width: 100%;
-        background: #A1C258 none repeat scroll 0% 0%;
+        background: #161b1e none repeat scroll 0% 0%;
         font-size: 20px;
         font-weight: 600;
     }
@@ -2671,5 +2671,8 @@
         background: 0 0;
         width:40px;
         float: left;
+    }
+    .logo{
+        font-size: xx-large;
     }
 }
