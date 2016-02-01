@@ -28,11 +28,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <meta name='yandex-verification' content='6af7ec36af3406db'/>
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
               href="<?= BASEURL ?>/addsearch">
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic,100,100italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'> <?= Html::csrfMetaTags() ?>
-        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700,300italic,400italic,700italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
-<!--       --><?// $this->endCache();
+       <!--       --><?// $this->endCache();
 //        }
 //?>
+        <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
 <!--   --><?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-5', ['duration' => 10])) {
 //    ?>
@@ -41,7 +40,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
         ?>
     </head>
-    <body style='font-family: "Roboto",sans-serif; min-width: 1280px; margin-left: auto; margin-right: auto; height: auto; border-left:  1px  solid #CCC; border-right:  1px  solid #CCC;'>
+    <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; border-left:  1px  solid #CCC; border-right:  1px  solid #CCC;">
     <?php $this->beginBody(); ?>
     <div class="wrap" >
         <?php
@@ -56,63 +55,94 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         ]) ?>
         <div class="container-fluid" id="partners-main">
             <div class="container" id="partners-main-left-back">
-                <div id="partners-main-left-cont">
 
-                <div id="partners-main-left" style="position: fixed; width: 16.5%; overflow: auto; height: 100%; min-width: 211px; z-index: 9999999">
-                    <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+                <div id="partners-main-left-cont">
+                    <div id="partners-main-left-cont" class="suplogo" style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: #CCC 1px solid;">
                         <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
-                            echo '<span>' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
+                            echo '<span  class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                         } else {
                             $logotype = '';
                         }
                         ?>
+                        <a id="partners-main-left-cont" href="/" class="sublogo" >
+                      <i class="fa fa-chevron-left" ></i> На главную
+                    </a>
                     </div>
-                        <div id="partners-main-left-cont">
-                            <div id="catalog-mode" class="catalog-mode" style="float: right; width: 24px; height: 24px; text-align: center; color: rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); border-left: 1px solid rgb(204, 204, 204); font-size: 20px; line-height: 1.1;">
-                                <i class="fa fa-angle-left"></i>
-                            </div>
-                        </div>
-<!--    --><?// $this->endCache();
-//}
-//?>
-                    <div id="partners-main-left-cont">
-                        <?= Menuom::widget(['opencat' => Yii::$app->params['layoutset']['opencat']]); ?>
+
+                    <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+
                     </div>
- <? if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-30', ['duration' => 10])) {
-    ?>
                 </div>
+                <div id="partners-main-left" class="target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
+                    <div id="partners-main-left-cont">
+                        <?= Menuom::widget(['opencat' => Yii::$app->params['layoutset']['opencat'], 'startcat'=>0]); ?>
+                    </div>
+
+                </div>
+                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+
                 </div>
             </div>
             <div class="container-fluid" id="partners-main-right-back">
                 <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
-                        <div class="top-link-cont"><a class="top-link" href="/faq">Как сделать заказ</a></div>
-                        <div class="top-link-cont"><a class="top-link" href="/glavnaya/faq">Акции</a></div>
-                        <div class="top-link-cont"><a class="top-link" href="/glavnaya/paying">Условия сотрудничества</a></div>
-                        <div class="" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; border-left: 10px solid rgb(245, 245, 245); border-right: 10px solid rgb(245, 245, 245);"><img src="/images/logo/OM_code.png"></div>
+                        <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="/faq">Как сделать заказ</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="/glavnaya/faq">Акции</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 5.1);"><a class="top-link" href="/glavnaya/paying">Условия сотрудничества</a></div>
+                        <div class="" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);"><img src="/images/logo/OM_code.png"></div>
                         <?
                         if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
-                            echo '<div style="float: left; width: 17%; text-align: center; padding: 14px; font-size: 18px; font-family: Roboto Regular,sans serif;">+7-495-204-15-83</div>';
+                            echo '<div style="float: left; padding: 15px 0px; font-size: 16px; font-family: Roboto Regular,sans serif; text-align: center; width: calc(100% / 7);">+7-495-204-15-83</div>';
                         }
                         ?>
-                        <div class="top-link-cont-back" style="width: 15%; float: left; font-size: 13px; padding: 17px 0px;"><a style="color:#66D7EA;" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></div>
-                        <div class="top-link-cont" style="width: 10%; float: right; padding: 12px 0px;"><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
+                        <a class="top-link-cont-back" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
+                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
                     </div>
                 </div>
                 <div id="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
-                        <input id="search" class="form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
+                        <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
                         <div class="btn btn-default data-j" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
                             Найти
                         </div>
-                        <div class="" style="float: right; width: 25%; padding: 6px 35px;">
+                        <div class="" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                             <?
                             if(Yii::$app->user->isGuest){
-                                echo '<div><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
-                                echo '<div><a href="'.BASEURL.'/login"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Вход</span></a></div>';
-                            }else{
-                                echo '<div><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
-                                echo '<div><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                                echo '<div style="float: right;"><a data-toggle="modal" data-target=".bs-example-modal-sm" href="#login"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Вход</span></a></div>';
+                                $model = new \common\models\LoginForm();
+                                Modal::begin([
+                                    'header' => 'Вход в одежда мастер',
+                                    'toggleButton' => ['label' => 'click me'],
+                                ]);
+
+                                $form = \yii\bootstrap\ActiveForm::begin(['id' => 'login-form']);
+                                echo $form->field($model, 'username')->label('Логин');
+                                echo $form->field($model, 'password')->passwordInput()->label('Пароль') ;
+                                echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
+                                    'template' => '{image}{input}'
+                                ])->label('Введите текст на картинке') ;
+                                echo $form->field($model, 'rememberMe')->checkbox()->label('Запомнить меня');
+                                echo' <div style="color:#999;margin:1em 0">';
+                                echo    Html::a('Восстановить пароль. ', [BASEURL . '/request-password-reset']) ;
+                                echo    Html::a('Зарегистрироваться. ', [BASEURL . '/signup']) ;
+                                echo'</div>  <div class="form-group">';
+                                echo    Html::submitButton('Вход', ['class' => 'btn btn-primary', 'name' => 'login-button']) ;
+                                echo'</div>';
+                                \yii\bootstrap\ActiveForm::end();
+
+                                Modal::end();
+                                echo'<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">';
+                                echo'<div class="modal-dialog modal-sm">';
+                                echo' <div class="modal-content">';
+                                echo '...';
+                                echo' </div>';
+                                echo'</div>';
+                                echo'</div>';
+
+                                echo '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+                               }else{
+                                echo '<div style="float: right;"><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
+                                echo '<div style="float: right;"><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
                             }
                             ?>
                         </div>
@@ -124,9 +154,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <!--                    <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span-->
                     <!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
                 </div>
-    <? $this->endCache();
-}
-?>
+
                 <div id="partners-main-right" class="bside">
 
                     <?= $content ?>
@@ -134,7 +162,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
 
                 <div style="clear: both;">
-                    <div id="index-card-4">СЕО ТЕКСТ КАТЕГОРИИ</div>
+                    <div id="index-card-4">Сео текст категории</div>
+                    <div style="margin: 0px 15px;">
                     <?
                     if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);}
                     $data = new \common\models\PartnersConfig();
@@ -155,12 +184,11 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <script>
                             $(document).on('click', '.savehtml', function() {
                                 $html = $('.cke_editable').html();
-
-
                                 $.post(
                                     '/site/savehtml',
                                     { html: $html,
-                                        page: 'seocat-<?= $cat?>'}
+                                        page: 'seocat-<?= $cat?>'
+                                    }
                                 );
                                 alert('Изменения сохранены');
 
@@ -169,6 +197,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <?}?>
 <?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-40', ['duration' => 10])) {
 //    ?>
+                        </div>
                 </div>
 
 
@@ -290,36 +319,13 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         Yii::$app->params['assetsite']->registerAssetFiles($this);
 
         ?>
-        <style>
-            #up {
-                width: 40px;
-                height: 40%;
-                position: fixed;
-                left: 0px;
-
-                top: 0px;
-            }
-
-            #down {
-                width: 40px;
-                height: 40%;
-                position: fixed;
-                left: 0px;
-
-                bottom: 0px;
-            }
-
-            .catalog-mode {
-               cursor:pointer;
-            }
-        </style>
-        <div class="navigate-catalog" style="position: fixed; left: 0px; width: 40px; height: 100%; top: 0px;">
-            <div id="up"><i class="fa fa-arrow-circle-o-up fa-3x"
-                            style="position: absolute;padding: 1px; bottom: 10%;"></i></div>
-            <div id="down"><i class="fa fa-arrow-circle-o-down fa-3x"
-                              style="position: absolute;padding: 1px; top: 10%;"></i></div>
-        </div>
 </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.target').shortscroll();
+        });
+
+    </script>
     </body>
     </html>
 <?php $this->endPage() ?>

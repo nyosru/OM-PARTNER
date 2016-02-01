@@ -1,6 +1,8 @@
-@media (min-width: 0px) {
+
     .footer, .wrap {
-        position: relative
+        width: 100%;
+        position: relative;
+        height: 100%;
     }
 
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
@@ -37,9 +39,11 @@
 
     a {
         outline: 0 !important;
-        color: rgba(32, 31, 32, .97)
+        color:#333;
     }
-
+    a:hover{
+        color:#007BC1;
+    }
     .wrap {
         min-height: 100%
     }
@@ -47,16 +51,29 @@
     .wrap > .container {
         padding: 0 15px 20px
     }
-
-    .footer {
-        left: 0;
+    .no-shadow-form-control:hover{
+        box-shadow: none;
+        transition: none;
+        border-color: #66AFE9;
+        outline: 0px none;
+    }
+    .no-shadow-form-control{
+        display: block;
         width: 100%;
-        background-color: #F5F5F5;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857;
+        color: #555;
+        background-color: #FFF;
+        background-image: none;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+    }
+    .footer {
+        left: 0px;
+        width: 100%;
         padding-top: 50px;
-        bottom: -80px;
-        z-index: 99999999;
-        border-top: 1px solid #ccc;
-        
     }
 
     .jumbotron {
@@ -129,7 +146,6 @@
 
     .accordion {
         max-width: 360px;
-        border-radius: 4px;
         transition: all 0.4s linear 0s;
         width: 100%;
         padding: 0px 0px 0px 10px;
@@ -137,7 +153,6 @@
 
     .accordion .link {
         cursor: pointer;
-        font-family: "Roboto Light", sans-serif;
         font-size: 14px;
         line-height: 27px;
         font-weight: 300;
@@ -177,7 +192,7 @@
     }
 
     .accordion li.open i {
-        color: #b63b4d
+
     }
 
     .accordion li.open i.fa-chevron-down {
@@ -199,6 +214,7 @@
         border: 1px solid #CCC;
         margin: 5px;
         cursor: pointer;
+        border-radius: 4px;
     }
     .submenu li {
         border-bottom: 1px solid #4b4a5e
@@ -238,7 +254,7 @@
     }
 
     #card {
-        float: left;
+        float: right;
         min-height: 330px;
         border-radius: 2px;
         box-shadow: 0 0 1px 0 #AFBCAA;
@@ -292,7 +308,9 @@
         padding: 8px 23px;
         width: 100%
     }
-
+    .jb-shortscroll-target:hover .jb-shortscroll-wrapper{
+        display: block !important;
+    }
     .partners-comp-id, .partners-comp-name {
         font: 19px/20px Raleway, sans-serif
     }
@@ -347,6 +365,7 @@
 
     #partners-main {
         padding: 0px;
+        height: 100%;
     }
 
     #partners-main-left-back {
@@ -370,8 +389,6 @@
     #partners-main-left {
         height: 100%;
         overflow: hidden;
-        border-width: 1px;
-        border-radius: 3px;
         background: #F5F5F5;
         width: 100%;
     }
@@ -744,7 +761,7 @@
     #products-counter {
         padding: 0 5px;
         color: #4F4F4F;
-        float: left
+        float: right
     }
 
     #products-pager {
@@ -763,13 +780,10 @@
     }
 
     #sort-order {
-        padding: 7px 8px;
         color: #4F4F4F;
-        width: 100%;
-        background: #E3E3E3;
+        width: 60%;
         border-radius: 3px;
-        height: 35px;
-        margin-top: 7px
+        float: left;
     }
 
     #count-display {
@@ -1664,17 +1678,19 @@
 
     #partners-main-left-cont > #accordion > li > div {
         padding: 0px 0px 0px 25px;
-        color: #454545;
-        margin: 0 0 0 -17px
+        margin: 0px 8px 0px -17px;
+        font-weight: 400;
     }
 
     #accordion > li > div {
-
+        margin: 0px 8px 0px 0px;
         padding-left: 15px;
     }
-
+    .red {
+        color: #E9516D;
+    }
     .link:hover {
-        border-right: 5px solid #898989;
+
         background: #E0E0E0 !important
     }
 
@@ -1767,37 +1783,21 @@
     }
 
     .header-sort-item {
-        margin: auto;
         float: left;
         text-align: center;
         width: calc(100% / 6);
-        border-right: 1px solid #C9C6C6;
-        border-left: 1px solid #C9C6C6
     }
 
     .header-sort-item-active {
         float: left;
         text-align: center;
         width: calc(100% / 6);
-        border-color: #00a5a1;
-        -moz-border-top-colors: none;
-        -moz-border-right-colors: none;
-        -moz-border-bottom-colors: none;
-        -moz-border-left-colors: none;
-        border-image: none;
-        margin: -3px 0;
-        padding: 1px 0 7px;
-        border-top-right-radius: 4px;
-        border-top-left-radius: 4px;
-        border-style: solid solid none;
-        background: #f5f5f5
     }
 
     .header-sort {
         margin: auto;
         float: left;
-        text-align: center;
-        width: calc(100% / 6)
+        width: calc(100% / 6);
     }
 
     .navbar-brand {
@@ -2076,17 +2076,14 @@
         border: 2px solid #000
     }
 
-    .top-link {
-        margin: 0 5px;
 
-    }
     .top-link:hover, .top-link:focus, .top-link:active {
-        color:#EA516D;
+        color:#007BC1;
         text-decoration: none;
     }
     .top-link-cont:hover, .top-link-cont:active, .top-link-cont:focus, .top-link-cont:active {
-        border-bottom: 3px solid #EA516D;
-        color:#EA516D;
+        border-bottom: 3px solid #007BC1;
+        color:#007BC1;
     }
     .top-link-cont {
         float: left;
@@ -2096,6 +2093,7 @@
         text-align: center;
         font-family: "Roboto Light", sans serif;
         font-weight:300;
+        color: black;
     }
     .top-link-cont-back {
         float: left;
@@ -2103,15 +2101,14 @@
         height: 100%;
         padding: 14px;
         text-align: center;
-        color: #66D7EA !important;
+        color: #007BC1 !important;
     }
     .top-link-cont-back:hover, .top-link-cont-back:active, .top-link-cont-back:focus, .top-link-cont-back:active {
-        border-bottom: 3px solid #66D7EA;
-        color:#66D7EA;
+        color:#007BC1;
     }
 
     .top-link-back:hover, .top-link-back:focus, .top-link-back:active {
-        color: #66D7EA;
+        color: #007BC1;
         text-decoration: none;
     }
 
@@ -2249,7 +2246,7 @@
     }
     .link > a:hover {
         text-decoration: none !important;
-        color: #454545
+
     }
 
     #loaderImage {
@@ -2417,6 +2414,49 @@
         right: 1px;
         top: 15px;
     }
+    .sublogo{
+    height: 55px;
+    background: #F5F5F5 none repeat scroll 0% 0%;
+    z-index: 93;
+    min-width: 211px;
+    border-bottom: 1px solid #CCC;
+    position: absolute;
+    width: 100%;
+    display: none;
+    }
+    .supspan{
+        height: 55px;
+        background: #F5F5F5 none repeat scroll 0% 0%;
+        position: fixed;
+        width: 16.5%;
+        z-index: 100;
+        min-width: 211px;
+        border-bottom: 1px solid #CCC;
+    }
+    .suplogo:hover .sublogo{
+        z-index: 100;
+        opacity: 0.95;
+        display: block;
+        text-align: center;
+        padding: 17px 0px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .headerbside {
+        float:left;
+        padding: 0px 10px;
+    }
+    .filter {
+        float: right;
+        min-height: 85px;
+        margin: 5px;
+    }
+    .filter > .panel > .panel-heading > h4 >a{
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        color: #00A5A1;
+    }
     .linebottom2{
         width: 55%;
         position: absolute;
@@ -2540,4 +2580,46 @@
         background-color: #00a5a1;
         border-color: #00a5a1;
     }
-}
+
+    @media screen and (min-width: 1860px) and ( max-width: 1920px){
+        #card{
+            width: calc(100% / 6 - 10px);
+        }
+        .headerbside {
+            width: calc(100% / 6 * 5 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 6 - 10px);
+
+
+        }
+    }
+
+    @media screen and (min-width: 1560px) and ( max-width: 1860px){
+        #card{
+            width: calc(100% / 5 - 10px);
+        }
+        .headerbside {
+            width: calc(100% / 5 * 4 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 5 - 10px);
+
+        }
+    }
+    @media screen and (min-width: 1024px) and ( max-width: 1560px){
+        #card{
+            width: calc(100% / 4 - 10px);
+        }
+        .headerbside {
+            width: calc(100% / 4 * 3 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 4 - 10px);
+
+        }
+    }
+

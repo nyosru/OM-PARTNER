@@ -11,7 +11,7 @@ use yii\bootstrap\Carousel;
 use yii\helpers\BaseUrl;
 use yii\jui\Slider;
 use common\traits\Imagepreviewfile;
-
+use frontend\widgets\Menuom;
 function new_url($arr_sub)
 {
     $new_url = Array();
@@ -60,7 +60,11 @@ $url = BASEURL . '/catalog?cat=' . $cat . '&count=' . $count . '&start_price=' .
 if ($data[0] != 'Не найдено!') {
     $headbside = '';
     $headbside .= '<div id="partners-main-right" class="headerbside">';
-    $headbside .= '<div id="products-counter">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
+    $headbside .= '<div id="" style="float: left; width: 100%;">'.implode('/', $catpath->name).'</div>';
+//    foreach($catpath->num as $catid){
+    //   echo Menuom::widget();
+//    }
+      $headbside .= '<h3 id="" style="float: left; width: 100%;">'.end($catpath->name).'</h3>';
     if ($data[5] >= $data[1] && $data[4] == 0) {
     } else {
         $pager = '';
@@ -86,13 +90,9 @@ if ($data[0] != 'Не найдено!') {
         $pager .= 'из ' . $countpager;
         $pager .= ' <a data-page="' . ($natpage - 1) . '" class="fa fa-chevron-left page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($natpage - 1))) . '"></a> ';
         $pager .= ' <a data-page="' . ($nextpage + 1) . '" class="fa fa-chevron-right page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($nextpage + 1))) . '"></a> ';
-        $topnav = '<div id="products-pager">Страница: ' . $pager . '</div>';
+        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
         $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
     }
-    $headbside .= $topnav;
-
-    $headbside .= '<div id="products-pager"></div>';
-    //   $url = new_url(new_suburl(split_url($url), '#!cat', data[16].join('/')));
     $countdisp = [20, 40, 60];
     $innercount = '';
     foreach ($countdisp as $key => $countdisp) {
@@ -103,7 +103,15 @@ if ($data[0] != 'Не найдено!') {
         }
         $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url($url), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
     }
-    $headbside .= '<div id="count-display" style="float: none;"> | Показывать по ' . $innercount . ' </div>';
+
+    $headbside .= $topnav;
+    $headbside .= '<div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
+    $headbside .= '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
+
+
+    $headbside .= '<div id="products-pager"></div>';
+    //   $url = new_url(new_suburl(split_url($url), '#!cat', data[16].join('/')));
+
 
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '">Сортировать по </div>';
     $sortorder = [['дате', 0, 10], ['цене', 1, 11], ['названию', 2, 12], ['модели', 3, 13], ['популярности', 4, 14]];
@@ -126,7 +134,21 @@ if ($data[0] != 'Не найдено!') {
             $headbside .= '<div class="header-sort-item lock-on"><a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
         }
     }
-    $headbside .= '</div></div>';
+    $headbside .= '</div></div>
+<div id="partners-main-right" class="filter">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Показать фильтр
+                    </a>
+            </h4>
+        </div>
+        <div style="height: 0px;" aria-expanded="false" id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">      <div class="panel-body"> Anim pariatur  non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably havent heard of them accusamus labore sustainable VHS.
+            </div>
+         </div>
+    </div>
+</div>';
     echo $headbside;
     $innerhtml = '';
     foreach ($data[0] as $value) {
@@ -202,7 +224,7 @@ if ($data[0] != 'Не найдено!') {
     }
     $this->title = $thistitle . ' - ' . ($page + 1);
     echo $innerhtml;
-    echo '<div class="loader col-md-12">Показать еще '. end($catpath->name).'</div>';
+    echo '<div class="loader col-md-12">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath->name).'</span></div>';
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
     echo $downnav;
 
