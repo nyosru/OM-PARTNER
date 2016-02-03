@@ -1355,3 +1355,20 @@ function onAjaxSuccessinfo(data) {
         });
     });
 }
+
+$('[id^=carousel-selector-]').click( function(){
+    var id_selector = $(this).attr("id");
+    var id = id_selector.substr(id_selector.length -1);
+    id = parseInt(id);
+    $('#slid').carousel(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $(this).addClass('selected');
+});
+
+$(document).on('click','#prdesc',function() {
+        if($('#prd').is(':not(:visible)')) {
+            jQuery('#prd').attr('style', 'display:block');
+        }
+        else{
+            jQuery('#prd').attr('style','display:none');
+        }});

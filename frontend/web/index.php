@@ -62,7 +62,7 @@ use common\models\Partners;
 //print_r($versions);
 //echo '</pre>';
 //die();
-$partner['APP_VERSION'] = '0';
+$partner['APP_VERSION'] = 'om';
 if (($versionnum = $partner['APP_VERSION']) == FALSE) {
     $version = $versions['0'];
 } else {

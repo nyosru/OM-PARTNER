@@ -157,6 +157,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <?= $content ?>
                 </div>
                 <div class="modal-cart" id="modal-cart" style="display: none;"></div>
+                <div style="clear: both;"></div>
                 <footer class="footer">
                     <hr class="linebottom1">
                     <hr class="linebottom2">
