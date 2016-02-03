@@ -9,7 +9,7 @@ if (count($product['productsAttributesDescr']) > 0) {
     $prodinfoattr .= '<div class="cart-lable" style="bottom: auto; right: 50px; left: 70%;">В корзину</div>';
 } else {
     $date = $product['products']['products_date_added'];
-    $prodinfoattr .= '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' . $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $item['products_options_values_name'] . '" data-attr="' . $item['products_options_values_id'] . '" data-name="' . $product['productsDescription']['products_name'] . '">+</div></div>';
+    $prodinfoattr .= '<div class="size-desc"><div><div class="lable-item"  id="input-count" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' . $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $item['products_options_values_name'] . '" data-attr="' . $item['products_options_values_id'] . '" data-name="' . $product['productsDescription']['products_name'] . '">+</div></div></div>';
     $prodinfoattr .= '<div class="cart-lable" style="bottom: auto; right: 50px; left: 70%;">В корзину</div>';
 }
 ?>
@@ -25,13 +25,10 @@ if (count($product['productsAttributesDescr']) > 0) {
                                   style="color: black; margin: 50px 8px; padding: 0px;"></span><?= $prodinfoattr ?>
 </div>
 <div class="prod-info-soc-but" style="display: none">Поделиться</div>
-<div style="z-index: 1060" class="modal bs-example-modal-lg image" tabindex="-1" role="dialog"
-     aria-labelledby="myLargeModalLabel">
+<div style="z-index: 1060" class="modal bs-example-modal-lg image" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="text-align: center;"><img id="image-img"
-                                                                    src="http://odezhda-master.ru/images/<?= $product['products']['products_image'] ?>"/>
+        <div class="modal-content" style="text-align: center;"><img id="image-img" src="http://odezhda-master.ru/images/<?= $product['products']['products_image'] ?>"/>
         </div>
     </div>
 </div>
-<div class="col-md-12"
-     style="margin-top:40px"><?= \frontend\widgets\CommentsBlock::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?></div>
+<div class="col-md-12" style="margin-top:40px"><?= \frontend\widgets\CommentsBlock::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?></div>

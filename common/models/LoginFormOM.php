@@ -17,21 +17,23 @@ class LoginFormOM extends Model
     private $_user = false;
     private $_userom = false;
     public $captcha;
-
+    public $errors =[
+        'username' => [
+            'не может быть пустым'
+        ]
+    ];
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password', 'captcha'], 'required'],
-            // rememberMe must be a boolean value
+            [['username'], 'required', 'message' => 'Поле не может быть пустым'],
+            ['password','required' , 'message' => 'Поле не может быть пустым'],
+            ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
             ['rememberMe', 'boolean'],
-            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
-
+            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
+            ['password', 'validatePassword', 'message' => 'Не правильный пароль или логин'],
         ];
     }
 
@@ -150,4 +152,14 @@ class LoginFormOM extends Model
         $user = $this->_user;
         return $user;
     }
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'password' => 'Пароль',
+            'captcha' => 'Капча',
+            'rememberMe' => 'Запомнить меня',
+        ];
+    }
+
 }

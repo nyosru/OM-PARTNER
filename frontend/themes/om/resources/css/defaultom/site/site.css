@@ -215,6 +215,7 @@
         margin: 5px;
         cursor: pointer;
         border-radius: 4px;
+        clear: both;
     }
     .submenu li {
         border-bottom: 1px solid #4b4a5e
@@ -1507,7 +1508,7 @@
     }
 
     #city-drop li:hover, #country-drop li:hover, #state-drop li:hover {
-        background: #25B445;
+        background: #E0E0E0;
         cursor: pointer
     }
 
@@ -1785,19 +1786,27 @@
     .header-sort-item {
         float: left;
         text-align: center;
-        width: calc(100% / 6);
+        width: calc(100% / 5.3);
     }
-
+    .header-sort-item-date {
+        float: left;
+        text-align: center;
+        width: calc(100% / 9);
+    }
+    .header-sort-item-popular {
+        float: left;
+        text-align: center;
+        width: calc(100% / 3.8);
+    }
     .header-sort-item-active {
         float: left;
         text-align: center;
-        width: calc(100% / 6);
     }
 
     .header-sort {
         margin: auto;
         float: left;
-        width: calc(100% / 6);
+        width: calc(100% / 5.3);
     }
 
     .navbar-brand {
@@ -1965,6 +1974,44 @@
         margin: 0px 1px;
         height: 100%;
         background: transparent url("eye.png") no-repeat scroll 50% 50%;
+    }
+    #authform{
+
+    }
+    #authform > .modal-dialog {
+        max-width: 350px;
+        border-radius: 4px;
+        box-shadow: none;
+    }
+    #authform > .modal-dialog > .modal-content {
+        box-shadow: none;
+        border: medium none;
+        border-radius: 4px;
+        font-weight: 300;
+    }
+    #authform > .modal-dialog > .modal-content > .modal-header {
+        border-bottom: medium none;
+        font-size: 23px;
+        font-weight: 400;
+        padding-top: 30px;
+        text-align: center;
+    }
+    #authform > .modal-dialog > .modal-content > .modal-header > button {
+        border-bottom: medium none;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: red;
+    }
+    #authform > .modal-dialog > .modal-content > .modal-body {
+        font-weight: 300;
+    }
+    #authform > .modal-dialog > .modal-content > .modal-body > form > .form-group > label{
+        font-weight: 300;
+        width: 100%;
+    }
+    #authform > .modal-dialog > .modal-content > .modal-body > form{
+        padding: 0px 15px;
     }
 
     .orders-data-print {
@@ -2448,7 +2495,6 @@
     }
     .filter {
         float: right;
-        min-height: 85px;
         margin: 5px;
     }
     .filter > .panel > .panel-heading > h4 >a{
@@ -2609,7 +2655,7 @@
 
         }
     }
-    @media screen and (min-width: 1024px) and ( max-width: 1560px){
+    @media screen and (min-width: 0px) and ( max-width: 1560px){
         #card{
             width: calc(100% / 4 - 10px);
         }
