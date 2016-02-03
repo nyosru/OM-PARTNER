@@ -2624,10 +2624,10 @@
     }
     .social{
         float: left;
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
         overflow: hidden;
-        line-height: 0.8;
+        line-height: 1;
         text-align: center;
         margin-right: 5px;
         margin-top: 5px;
@@ -2692,6 +2692,9 @@
         color: #aaa;
         font-weight: normal;
         font-size: x-large;
+    }
+    .ov-desc .header-catalog{
+        display: none;
     }
 
     /* изменения стиля заголовков вкладок при наведении */

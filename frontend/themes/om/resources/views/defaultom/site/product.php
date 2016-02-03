@@ -25,7 +25,7 @@ $im=array('http://odezhda-master.ru/images/'.$product['products']['products_imag
     <div class="product-top">
         <div class="prod-attr" itemtype="http://schema.org/ProductModel" itemid="#<?=$product['productsDescription']['products_id']?>" style="width: 100%; position: relative;float: left; overflow: hidden;">
             <div class="prod-show" style="position: relative; float: left;width: 100%; right: 50%">
-                <div class="col1" style="float: left; width: 46%;position: relative;left: 52%;overflow: hidden">
+                <div class="col1" style="float: left; width: 60%;position: relative;left: 52%;overflow: hidden">
                     <div class="prod-img" style="">
                         <div class="mini-img" style="float: left; width: 20%; border-right: 1px solid lightgray;">
                             <?
@@ -60,12 +60,12 @@ $im=array('http://odezhda-master.ru/images/'.$product['products']['products_imag
                         </div>
                     </div>
                 </div>
-                <div class="col2" style="float: left;width: 46%;position: relative;left: 56%; overflow: hidden; font-size: large;line-height: 1.6; color: black; font-weight: 400;">
+                <div class="col2" style="float: left;width: 40%;position: relative;left: 55%; overflow: hidden; font-size: large;line-height: 1.6; color: black; font-weight: 400;">
                     <div class="prod-code" style="float: left; margin-right: 12%; font-size: small; font-weight: 400;">Код товара: <?=$product['products']['products_model']?></div>
                     <div class="stars" style="color: gold; float: left;">Звездочки</div>
                     <div style="clear: both;"></div>
                     <div class="min-opt" style="font-size: small;font-weight: 400;">Минимальный оптовый заказ: Х шт.</div>
-                    <div class="name" itemprope="name" style="font-size: xx-large; font-weight: 400;"><?=$product['productsDescription']['products_name']?></div>
+                    <div class="prodname" itemprope="name" style="font-size: xx-large; font-weight: 400;"><?=$product['productsDescription']['products_name']?></div>
                     <div itemprop="model" class="model" style="display:none"><?=$product['products']['products_model']?></div>
                     <div itemprop="description" class="model" style="display:none"><?=$product['productsDescription']['products_description']?></div>
                     <div itemprop="category" class="model" style="display:none"><?=end($catpath->name)?></div>
@@ -77,7 +77,7 @@ $im=array('http://odezhda-master.ru/images/'.$product['products']['products_imag
                         <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px;">Старая цена</div>
                         <div class="prod-discount" style="color:gray; border: 1px solid lightgray; padding: 1px;float: left">Скидка много рублей</div>
                         <div style="clear: both"></div>
-                        <div class="prod-sizes" style="margin: 20px 0px;">Размеры <br/><br/><br/><br/><br/></div>
+                        <div class="prod-sizes" style="margin: 20px 0px;">Размеры <br/><?=$prodinfoattr?><br/><br/><br/><br/></div>
                         <div class="prod-compos" style="font-size: small;font-weight: bold;">
                             <a id="prdesc" style="color: #337ab7; cursor: pointer">Подробные характеристики</a><br>
                             <div id="prd" style="display: none"><?=$product['productsDescription']['products_description']?></div>
@@ -90,14 +90,14 @@ $im=array('http://odezhda-master.ru/images/'.$product['products']['products_imag
             <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;">
                 <div class="rel-item" style="height: 100%;width: 320px; float: left; border: 1px solid lightgray; text-align: center;padding: 25px; margin-right: 10px;">
                     <div class="rel-img" style="height: 87%;">
-                        <?='<img style="height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
+                        <?='<img style="max-height: 100%; max-width:100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
                     </div>
                     <div class="rel-name" style="margin: 10px;"><a href="#"  style="color: #00A5A1; font-weight: bolder;">Одежда</a></div>
                     <div class="rel-price" style="margin: 10px;">1000 руб</div>
                 </div>
                 <div class="rel-item" style="height: 100%;width: 320px; float: left; border: 1px solid lightgray; text-align: center;padding: 25px;  margin-right: 10px;">
                     <div class="rel-img" style="height: 87%;">
-                        <?='<img style="height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
+                        <?='<img style="max-height: 100%; max-width:100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
                     </div>
                     <div class="rel-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>
                     <div class="rel-price" style="margin: 10px;">1000 руб</div>
@@ -129,7 +129,7 @@ $im=array('http://odezhda-master.ru/images/'.$product['products']['products_imag
         <div class="seen-items" style="height: 250px; ">
             <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">
                 <div class="seen-img" style="height: 70%;">
-                    <?='<img style="height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
+                    <?='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
                 </div>
                 <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>
                 <div class="seen-price">200 руб</div>
