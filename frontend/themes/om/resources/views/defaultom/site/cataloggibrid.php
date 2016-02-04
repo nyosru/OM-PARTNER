@@ -9,9 +9,11 @@ use yii\bootstrap\Button;
 use yii\bootstrap\Dropdown;
 use yii\bootstrap\Carousel;
 use yii\helpers\BaseUrl;
-use yii\jui\Slider;
 use common\traits\Imagepreviewfile;
+use kartik\slider\SliderAsset;
+use yii\jui\Slider;
 use frontend\widgets\Menuom;
+use Zelenin\yii\SemanticUI\modules\Checkbox;
 function new_url($arr_sub)
 {
     $new_url = Array();
@@ -60,7 +62,7 @@ $url = BASEURL . '/catalog?cat=' . $cat . '&count=' . $count . '&start_price=' .
 if ($data[0] != 'Не найдено!') {
     $headbside = '';
     $headbside .= '<div id="partners-main-right" class="headerbside">';
-    echo '<div style="width: 100%; height: 100%; float: left;">';
+    echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
     foreach($catpath->num as $key => $catid) {
         $menu = Menuom::widget(['property' => ['id' => $catid, 'target' => $catid, 'opencat' => Yii::$app->params['layoutset']['opencat']]]);
         if ($menu != false) {
@@ -78,9 +80,9 @@ if ($data[0] != 'Не найдено!') {
             echo '</div></div></div>';
     }else{
             echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
-            echo '<div class="panel-heading" style="border: medium none;" role="tab" id="headingOne">';
+            echo '<div class="panel-heading" style="border-bottom: medium none; border-left: 3px solid rgb(0, 165, 161);" role="tab" id="headingOne">';
             echo '<div class="panel-title" style="font-size: 14px;">';
-            echo '<div style="line-height: 24px; border-left: 3px solid rgb(0, 165, 161); padding: 0px 30px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
+            echo '<div style="line-height: 24px;  padding: 0px 30px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
             echo $catpath->name[$key];
             echo '</div>';
             echo '</div>';
@@ -155,9 +157,9 @@ if ($data[0] != 'Не найдено!') {
             $class = 'sort ';
         }
         if ($value[1] == $data[11] || $value[2] == $data[11]) {
-            $headbside .= '<div class="header-sort-item-'.$value[3].' header-sort-item-active lock-on"><a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
+            $headbside .= '<a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i class="fa fa-' . $arrow . '"> </i></div></a>';
         } else {
-            $headbside .= '<div class="header-sort-item-'.$value[3].' header-sort-item lock-on"><a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '">' . $value[0] . '</a> <i class="fa fa-' . $arrow . '"> </i></div>';
+            $headbside .= '<a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . ' <i class="fa fa-' . $arrow . '"> </i></div></a>';
         }
     }
     $headbside .= '</div></div>
@@ -170,11 +172,38 @@ if ($data[0] != 'Не найдено!') {
                     </a>
             </h4>
         </div>
-        <div style="height: 0px;" aria-expanded="false" id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">      <div class="panel-body"> Anim pariatur  non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably havent heard of them accusamus labore sustainable VHS.
-            </div>
-         </div>
-    </div>
-</div>';
+        <div style="height: 0px;" aria-expanded="false" id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">';
+
+
+    $headbside .= '<div class="header panel">Цена</div><div style="display: block; height: 45px;" ><input id="min-ev-price" class="" placeholder="от" style="float: left; width: 50%;" /><input style="float: left; width: 50%;" id="max-ev-price" class="" placeholder="до" /></div>'.Slider::widget([
+            'id'=>'price-slider',
+            'clientOptions' => [
+                'values'=>[$data[7],$data[8]],
+                'min' => 0,
+                'max' => $data[2]['maxprice'],
+                'step' => 1,
+                'range' => true,
+            ],
+        ]);
+    $headbside .= '<div class="header panel">Размеры</div>';
+
+    foreach($data[3] as $key=>$value){
+
+        if($value['products_options_values_id']) {
+            $headbside .= '<div class="col-md-6" style="overflow:hidden">';
+            $headbside .= Checkbox::widget([
+                'name' => $value['products_options_values_id'],
+                'label' => $value['products_options_values_name'],
+               // 'type' => Checkbox::TYPE_TOGGLE
+
+            ]);
+            $headbside .= '</div>';
+        }
+
+    }
+
+$headbside .= '</div></div></div></div>';
     echo $headbside;
     $innerhtml = '';
     foreach ($data[0] as $value) {
@@ -258,3 +287,14 @@ if ($data[0] != 'Не найдено!') {
     echo 'Нет результатов';
 
 }
+?>
+    <script>
+    $(document).on('slide', '#price-slider',function( event, ui){
+        $('#min-ev-price').val(ui.values[0]);
+        $('#max-ev-price').val(ui.values[1]);
+
+    });
+    </script>
+
+
+<?

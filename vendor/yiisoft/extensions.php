@@ -435,4 +435,13 @@ return array (
       '@rmrevin/yii/ionicon' => $vendorDir . '/rmrevin/yii2-ionicon',
     ),
   ),
+  'kartik-v/yii2-slider' => 
+  array (
+    'name' => 'kartik-v/yii2-slider',
+    'version' => '1.4.0.9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/slider' => $vendorDir . '/kartik-v/yii2-slider',
+    ),
+  ),
 );

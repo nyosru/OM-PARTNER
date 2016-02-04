@@ -76,8 +76,19 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
 
                 </div>
-                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
-
+                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
+                <div id="partners-main-left-cont" class="suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
+                  <span class="supspan">
+                            <a href="#" id="up" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">
+                                <i class="fa fa-arrow-up"></i>
+                            </a>
+                            <a id="down" href="#" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">
+                                <i class="fa fa-arrow-down"></i>
+                            </a>
+                            <a href="#" id="catalog-mode" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">
+                                <i class="fa fa-arrow-left"></i>
+                            </a>
+                        </span>
                 </div>
             </div>
             <div class="container-fluid" id="partners-main-right-back">

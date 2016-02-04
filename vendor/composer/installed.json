@@ -1037,7 +1037,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/de2ed3bbe68254efeff68db60092fc8ed5298055",
+            "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/b312ab9d0c446971069e22a524fec01c7cddc75e",
             "reference": "de2ed3bbe68254efeff68db60092fc8ed5298055",
             "shasum": ""
         },
@@ -1252,7 +1252,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/8cf8bb9ef3e9dc94933c54fcffdc91471de40ecf",
+            "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/ea7bd283f086b06bec2f5705f642855cfca9088e",
             "reference": "8cf8bb9ef3e9dc94933c54fcffdc91471de40ecf",
             "shasum": ""
         },
@@ -5035,6 +5035,55 @@
             "ionicon",
             "social",
             "yii"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-slider",
+        "version": "1.4.0.x-dev",
+        "version_normalized": "1.4.0.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-slider.git",
+            "reference": "48ba10f7e7d539265c2cc5d189b7c12082357b41"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-slider/zipball/48ba10f7e7d539265c2cc5d189b7c12082357b41",
+            "reference": "48ba10f7e7d539265c2cc5d189b7c12082357b41",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-krajee-base": "*"
+        },
+        "time": "2014-11-25 09:37:55",
+        "type": "yii2-extension",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "kartik\\slider\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "An advanced slider input for Yii Framework 2 for both touch enabled and desktop devices based on bootstrap-slider.",
+        "homepage": "https://github.com/kartik-v/yii2-slider",
+        "keywords": [
+            "bootstrap",
+            "bootstrap 3",
+            "extension",
+            "range",
+            "slider",
+            "widget",
+            "yii2"
         ]
     }
 ]

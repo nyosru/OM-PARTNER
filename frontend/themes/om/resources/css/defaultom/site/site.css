@@ -38,8 +38,9 @@
     }
 
     a {
-        outline: 0 !important;
-        color:#333;
+        outline: 0px none !important;
+        color: #333;
+        text-decoration: none !important;
     }
     a:hover{
         color:#007BC1;
@@ -158,7 +159,7 @@
         font-weight: 300;
     }
 
-    div .checked {
+    [class='link checked'] {
         color:#00A5A2;
         border-right: 3px solid #00A5A2;
     }
@@ -760,7 +761,7 @@
     }
 
     #products-counter {
-        padding: 0 5px;
+        padding: 5px;
         color: #4F4F4F;
         float: right
     }
@@ -781,15 +782,18 @@
     }
 
     #sort-order {
-        color: #4F4F4F;
+
+        color: #242424;
         width: 60%;
         border-radius: 3px;
         float: left;
+        margin-bottom: 16px;
     }
 
     #count-display {
         color: #4F4F4F;
-        float: left
+        float: left;
+        padding: 5px;
     }
 
     .count-checked {
@@ -1787,20 +1791,32 @@
         float: left;
         text-align: center;
         width: calc(100% / 5.3);
+        border: 1px solid #CCC;
+        padding: 3px 0px;
+    }
+    .header-sort-item:focus, .header-sort-item:active, .header-sort-item:hover{
+        box-shadow: 0px 1px 3px #B4B4B4;
     }
     .header-sort-item-date {
         float: left;
         text-align: center;
         width: calc(100% / 9);
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
     }
     .header-sort-item-popular {
         float: left;
         text-align: center;
         width: calc(100% / 3.8);
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
-    .header-sort-item-active {
+    [class *= 'header-sort-item active'] {
         float: left;
         text-align: center;
+        border: 1px solid #CCC;
+        box-shadow: 0px 1px 3px #B4B4B4;
+        padding: 3px 0px;
     }
 
     .header-sort {
@@ -2491,11 +2507,21 @@
     }
     .headerbside {
         float:left;
-        padding: 0px 10px;
+        padding: 0px 5px;
+    }
+
+    .cat-nav > .panel > .panel-heading{
+        padding: 0px 5px;
+    }
+    .cat-nav > .panel-default:hover{
+        box-shadow: 0px 1px 3px #B4B4B4 !important;
+        border-radius: 4px;
+        border:1px solid #CCC
     }
     .filter {
         float: right;
         margin: 5px;
+        margin-top: 45px;
     }
     .filter > .panel > .panel-heading > h4 >a{
         font-size: 14px;
@@ -2503,6 +2529,10 @@
         text-decoration: none;
         color: #00A5A1;
     }
+    .filter > .panel {
+        margin-bottom: 5px;
+    }
+
     .linebottom2{
         width: 55%;
         position: absolute;
