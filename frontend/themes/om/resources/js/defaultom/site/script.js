@@ -829,25 +829,13 @@ $(document).ready(function () {
 
 });
 
-$(document).on('click', '.catalog-mode', function () {
+$(document).on('click', '#catalog-mode', function () {
 
     if ($('#partners-main-left-back').attr('style') != 'display: none;') {
         $('#partners-main-left-back').attr('style', 'display: none;');
         $('#partners-main-right-back').attr('style', 'width: 100%;margin-left: 0;');
-        $('#partners-main-right-back').prepend('<div id="catalog-mode-back" class="catalog-mode" style="float: right; position: fixed; z-index: 99; font-size: 11px; line-height: 1.1; width: 24px; height: 24px; text-align: center; border: 1px solid rgb(204, 204, 204); background: rgb(204, 204, 204) none repeat scroll 0% 0%; color: rgb(255, 255, 255);"> <i class="fa fa-2x fa-angle-right"></i></div>');
-        $('body').append('<div id="stcat" style="display: none;"><style>' +
-            '#card{' +
-            'float: left;' +
-            'min-height: 330px;' +
-            'border-radius: 2px;' +
-            'box-shadow: 0px 0px 1px 0px #AFBCAA;' +
-            'margin: 5px;' +
-            'width: calc(100% / 5 - 10px);' +
-            'padding: 20px;' +
-            'min-width: 230px;' +
-            '}' +
-            '</style></div>');
-        $('.headerbside').attr('style', 'display: none;');
+        $('#partners-main-right-back').prepend('<div id="catalog-mode" class="" style="float: right; position: fixed; z-index: 99; font-size: 11px; line-height: 1.1; width: 24px; height: 24px; text-align: center; border: 1px solid rgb(204, 204, 204); background: rgb(204, 204, 204) none repeat scroll 0% 0%; color: rgb(255, 255, 255);"> <i class="fa fa-2x fa-angle-right"></i></div>');
+
 
     } else {
         $('#catalog-mode-back').remove();
@@ -936,6 +924,8 @@ $(document).on('ready', function () {
                 $('.loader').remove();
                 if (data[0] != 'Не найдено!') {
                     $('.headerbside').html('');
+                    $('.filters').html('');
+                    $('.cat-nav').html('');
                     $('#products-pager-down').remove();
                     $('#size-slide').html("");
                     $('#filters').html(' <div id="price-lable">Цена</div>От <input id="min-price" value="0" class="btn" /> До<input id="max-price" class="btn" /> Руб.<div class="price-slide"><div class="slider"></div> </div><div id="size-slide"></div><div type="button" id="filter-button"></div> ');
@@ -1355,3 +1345,20 @@ function onAjaxSuccessinfo(data) {
         });
     });
 }
+
+$('[id^=carousel-selector-]').click( function(){
+    var id_selector = $(this).attr("id");
+    var id = id_selector.substr(id_selector.length -1);
+    id = parseInt(id);
+    $('#slid').carousel(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $(this).addClass('selected');
+});
+
+$(document).on('click','#prdesc',function() {
+        if($('#prd').is(':not(:visible)')) {
+            jQuery('#prd').attr('style', 'display:block');
+        }
+        else{
+            jQuery('#prd').attr('style','display:none');
+        }});

@@ -7,17 +7,155 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Регистрация';
 ?>
-
+<div style="width: 80%; margin-left: 10px;">
+<div class="regmain" style="font-size: 24px;margin: 0px 15px; font-weight: 300;">Я регистрируюсь на Одежда-Мастер</div>
+<div class="regmain" style="font-weight: 400; margin: 15px;">Мои персональные данные</div>
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-            <?= $form->field($model, 'email')->label('E-mail'); ?>
-            <?= $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
-                'template' => '{image}{input}'
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Фамилия'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Имя'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Отчество'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Паспорт серия'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Паспорт номер'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Кем выдан паспорт'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Когда выдан паспорт'); ?>
+<div class="regmain" style="font-weight: 400; margin: 15px;">Мой адрес</div>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control','data'=>['name'=>'country'], 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Страна'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control','data'=>['name'=>'state'], 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Регион'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Город'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Индекс'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Улица'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Дом'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Корпус'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Квартира'); ?>
+<div class="regmain" style="font-weight: 400; margin: 15px;">Мои контактные данные</div>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Телефон'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Факс'); ?>
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Электронная почта'); ?>
+
+<?= $form->field($model, 'email', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->checkbox()->label('Уведомлять о доступных промо-кодах, подарках и спецпредложениях'); ?>
+
+<div class="regmain" style="font-weight: 400; margin: 15px;">Мой пароль</div>
+<?= $form->field($model, 'password', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->passwordInput()->passwordInput()->label('Пароль') ?>
+<?= $form->field($model, 'password', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->passwordInput()->passwordInput()->label('Подтвердить пароль') ?>
+
+<?= $form->field($model, 'captcha', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->widget(\yii\captcha\Captcha::classname(), [
+                'template' => '{input}{image}',
+                'options' => ['class'=>' col-md-12', 'style'=>'height: 36px; border-radius: 4px; border: 1px solid rgb(204, 204, 204);'],
+    //'inputOptions'=>['class'=>'col-md-8'],
+    'imageOptions'=>['class'=>'', 'style'=>'height:36px;'],
             ])->label('Введите текст на картинке') ?>
-            <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
-            <div class="form-group">
-                <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+
+            <div class="col-md-12" style="margin: 20px 0px;">
+                <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary', 'name' => 'signup-button', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']) ?>
             </div>
+    <div class="col-md-12" style="font-size: 12px">
+        Нажимая кнопку &laquo;Зарегистрироваться&raquo; Вы соглащаетесть на обработку Ваших персональных данных в соответствии с ФЗ РФ от 27.07.2006 №152-ФЗ(в ред. 25.07.2011 г.) "О персональных данных"б а также с нашей политикой конфиденциальности и условиями договора публичной оферты.
+    </div>
             <?php ActiveForm::end(); ?>
 
+    <script>
+    $(document).on('ready', function(){
+
+        $.ajax({
+            type: "GET",
+            url: "/site/countryrequest",
+            data: '',
+            dataType: "json",
+            success: function (out) {
+                $inner = '';
+                $.each(
+                    out.response.items, function () {
+                        $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+                    });
+                $('[data-name=country]').after('<ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+                $('[data-name=country]').attr('autocomplete', 'off');
+            }
+        });
+        var str = '';
+        if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
+            str = $('[data-name="country"]').val();
+        } else {
+            str = $('[data-name="country"]').text();
+        }
+        $country = $("[data-country]");
+        $check = '';
+        $.each($country, function () {
+            if (str == $(this).html()) {
+                $check = this.getAttribute('data-country');
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/site/zonesrequest",
+            data: 'id=' + $check,
+            dataType: "json",
+            success: function (out2) {
+                $inner = '';
+                $.each(out2.response.items, function () {
+                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                });
+                $('#state-drop').remove();
+                $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                $('[data-name=state]').attr('autocomplete', 'off');
+            }
+        });
+        $(document).on('click focus', '[data-name=country]', function () {
+            $('#country-drop').show();
+        });
+        $(document).on('click', '#country', function () {
+            $('[data-name=state]').val('');
+            $('[data-name=country]').val($(this).text());
+            $('[data-name=country]').attr('data-country', this.getAttribute('country'));
+            $('#country-drop').hide();
+            $.ajax({
+                type: "GET",
+                url: "/site/zonesrequest",
+                data: 'id=' + this.getAttribute('data-country'),
+                dataType: "json",
+                success: function (out2) {
+                    $inner = '';
+                    $.each(out2.response.items, function () {
+                        $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                    });
+                    $('#state-drop').remove();
+                    $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                    $('[data-name=state]').attr('autocomplete', 'off');
+                }
+            });
+        });
+        $(document).on('click focus', '[data-name=state]', function () {
+            $('#state-drop').show();
+        });
+        $(document).on('click', '#state', function () {
+            $('[data-name=state]').attr('data-state', this.getAttribute('state'));
+            $('[data-name=state]').val($(this).text());
+            $('#state-drop').hide();
+        });
+        $(document).on('keyup', '[data-name=country]', function () {
+            $filtCountryArr = $(this).siblings('ul').children();
+            $search = this.value;
+            $.each($filtCountryArr, function () {
+                if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+        $(document).on('keyup', '[data-name=state]', function () {
+            $filtCountryArr = $(this).siblings('ul').children();
+            $search = this.value;
+            $.each($filtCountryArr, function () {
+                if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
 
 
+    });
+    </script>
+
+</div>

@@ -11,6 +11,7 @@ use dosamigos\ckeditor\CKEditorInline;
 use frontend\widgets\Menu;
 
 
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 AppAsset::register($this);
@@ -38,12 +39,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div class="header-bottom">
                     <div class="header-left header-width">
                         <a href="/" title="" class="logo"><strong>
-                                <? if (($slogan = Yii::$app->params['partnersset']['slogan']['value']) !== FALSE && Yii::$app->params['partnersset']['slogan']['active'] == 1) {
-                                    echo str_replace('</p>', '', str_replace('<p>', '', $slogan));
-                                } else {
-                                    $slogan = '';
-                                }
-                                ?>
                                 <? if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
                                     $name = $namecustom;
                                 } else {
@@ -51,23 +46,49 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 }
                                 ?>
                             </strong><?= $name ?></a>
+                        <div class="slogan">
+                            <? if (($slogan = Yii::$app->params['partnersset']['slogan']['value']) !== FALSE && Yii::$app->params['partnersset']['slogan']['active'] == 1) {
+                                echo str_replace('</p>', '', str_replace('<p>', '', $slogan));
+                            } else {
+                                $slogan = '';
+                            }
+                            ?>
+                        </div>
                     </div>
 
                     <div class="header-right">
 
-                        <div class="fa fa-search fa-lg form_search_outer"
-                             style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
+                        <div class="searchicon"
+                             style="float: left; position: relative; z-index: 9; margin: 30px 5px; color: white;">
 
                         </div>
 
-                        <div class="fa fa-user fa-lg header-menu-toggle"
+                        <div class="usericon" title="Управление профайлом"
                              style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
+                            <div class="header-left-link" style="display: none;">
 
+                                <div class="menu_content"> <div class="welcome-msg">Управление профайлом</div>
+                                    <ul class="links">
+                                        <?
+                                        if (Yii::$app->user->can('admin')) echo '<li><a href="/admin">Админка</a></li>';
+                                        if(Yii::$app->user->isGuest){
+                                            echo '<li><a href="'.BASEURL.'/signup">Регистрация</a></li>';
+                                            echo '<li><a href="'.BASEURL.'/login">Вход</a></li>';
+                                        }
+                                        else{
+                                            echo '<li><a data-method="post" href="'.BASEURL.'/lk">Профайл</a></li>';
+                                            echo '<li><a href="'.BASEURL.'/requestorders">Заказы</a></li>';
+                                            echo '<li><a href="'.BASEURL.'/logout" data-method="post">Выход</a></li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="fa fa-shopping-basket fa-lg header-cart"
+                        <div class="carticon cart"
                              style="float: left; position: relative; z-index: 9; margin: 31px 5px; color: white;">
-
+                            <div class="cart-count"></div>
                         </div>
 
 
@@ -119,6 +140,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="clearBoth"></div>
                             </div>
@@ -176,6 +198,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
             </div>
             <div style="height: 60px"></div>
+            <div class="modal-cart" id="modal-cart" style="display: none;"></div>
         </div>
         <footer class="footer">
             <hr class="linebottom1">

@@ -115,7 +115,8 @@ if (Yii::$app->params['partnersset']['catalog_type']['active'] == 1 && Yii::$app
                 ?>
             </div>
     <div style="clear: both;">
-    <div id="index-card-4">СЕО ИНДЕКС ИНЛАЙН</div>
+    <div id="index-card-4">Сео индекс инлайн</div>
+    <div style="margin: 0px 15px;">
 <?
 if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);}
 $data = new \common\models\PartnersConfig();
@@ -146,5 +147,6 @@ if($data){
         });
     </script>
 <?}?>
+        </div>
     </div>
 <? //  $this->endCache(); }?>
