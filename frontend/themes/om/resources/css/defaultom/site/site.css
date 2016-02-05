@@ -858,7 +858,7 @@
         text-align: center;
         margin: 3px 8px;
         float: left;
-        max-width: 110px;
+        max-width: 90px;
         word-wrap: break-word;
     }
 
@@ -900,7 +900,6 @@
     }
 
     #input-count {
-        padding: 5px;
     }
 
     #prod-info {

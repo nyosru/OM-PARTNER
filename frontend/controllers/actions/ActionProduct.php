@@ -1,7 +1,8 @@
 <?php
 namespace frontend\controllers\actions;
 
-use Yii;
+use common\models\ProductsSpecifications;
+use yii;
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
 
@@ -27,7 +28,8 @@ trait ActionProduct
                     $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
 
                 }
-                return $this->render('product', ['product' => $data]);
+                echo $spec->specifications_id;
+                return $this->render('product', ['product' => $data, 'spec'=>$spec]);
             } else {
                 return $this->redirect('/');
             }

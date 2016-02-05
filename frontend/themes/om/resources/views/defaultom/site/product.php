@@ -3,22 +3,29 @@
 use yii\bootstrap\Carousel;
 $this->title = $product['productsDescription']['products_name'];
 $this->registerMetaTag(['content' => $product['productsDescription']['products_description'], 'name' => 'description',]);
+$prodinfoattr='<div class="size-block" style="overflow: hidden;margin-bottom: 40px;">';
 if (count($product['productsAttributesDescr']) > 0) {
     foreach ($product['productsAttributesDescr'] as $item) {
         $date = $product['products.products_date_added'];
-        $prodinfoattr .= '<div class="size-desc"><div><div class="lable-item" id="input-count" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' . $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $item['products_options_values_name'] . '" data-attr="' . $item['products_options_values_id'] . '" data-name="' . $product['productsDescription']['products_name'] . '">' . $item['products_options_values_name'] . '</div></div></div>';
+        $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; font-size: small; position: relative"><div>' . $item['products_options_values_name'] . '</div><input id="input-count" style="width:40%; height:25px; text-align:center;" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
+            $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $item['products_options_values_name'] . '" data-attr="' . $item['products_options_values_id'] .
+            '" type="text" placeholder="0" /><div id="add-count" style="position: absolute; right: 0px; bottom: 3px;">+</div><div id="del-count" style="position: absolute; left: 0px; bottom: 3px;">-</div></div>';
     }
+    $prodinfoattr .= '</div><div class="cart-lable" style="position:relative ;bottom:0; left: 50%; width: 30%; height: 30px; padding: 0px;">В корзину</div>';
 } else {
     $date = $product['products']['products_date_added'];
-    $prodinfoattr .= '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' . $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $item['products_options_values_name'] . '" data-attr="' . $item['products_options_values_id'] . '" data-name="' . $product['productsDescription']['products_name'] . '">+</div></div>';
+    $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px;font-size: small; max-width:35%; position: relative;"><input id="input-count"  style="width:60%; height:26px; text-align:center; data-prod="' . $product['products.products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
+        $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $products['products_attribute_description']['products_options_values_name'] .
+        '" data-attr="' . $products['products_attribute_description']['products_options_values_id'] . '" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 3px;">+</div><div id="del-count" style="position: absolute; left: 0px; bottom: 3px;">-</div></div>';
+    $prodinfoattr .= '</div><div class="cart-lable" style="position: relative ;bottom: 0px; left: 50%; width: 30%; height: 30px; padding: 0px;">В корзину</div>';
 }
+
 $items=array();
 $i=0;
 $im=array('http://odezhda-master.ru/images/'.$product['products']['products_image'],'http://odezhda-master.ru/images/catalog_4/566192de0315b.jpg','http://odezhda-master.ru/images/catalog_4/5652c01627c11.jpg');
 
 //echo '<pre>';
-//print_r ($catpath);
-//print_r($product);
+//print_r ($spec);
 //echo '</pre>';
 ?>
 <div class="product">
@@ -60,7 +67,7 @@ $im=array('http://odezhda-master.ru/images/'.$product['products']['products_imag
                         </div>
                     </div>
                 </div>
-                <div class="col2" style="float: left;width: 40%;position: relative;left: 55%; overflow: hidden; font-size: large;line-height: 1.6; color: black; font-weight: 400;">
+                <div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden; font-size: large;line-height: 1.6; color: black; font-weight: 400;">
                     <div class="prod-code" style="float: left; margin-right: 12%; font-size: small; font-weight: 400;">Код товара: <?=$product['products']['products_model']?></div>
                     <div class="stars" style="color: gold; float: left;">Звездочки</div>
                     <div style="clear: both;"></div>
@@ -77,10 +84,19 @@ $im=array('http://odezhda-master.ru/images/'.$product['products']['products_imag
                         <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px;">Старая цена</div>
                         <div class="prod-discount" style="color:gray; border: 1px solid lightgray; padding: 1px;float: left">Скидка много рублей</div>
                         <div style="clear: both"></div>
-                        <div class="prod-sizes" style="margin: 20px 0px;">Размеры <br/><?=$prodinfoattr?><br/><br/><br/><br/></div>
-                        <div class="prod-compos" style="font-size: small;font-weight: bold;">
-                            <a id="prdesc" style="color: #337ab7; cursor: pointer">Подробные характеристики</a><br>
-                            <div id="prd" style="display: none"><?=$product['productsDescription']['products_description']?></div>
+                        <div class="prod-sizes" style="margin: 20px 0px;"><? if (count($product['productsAttributesDescr']) > 0) echo 'Размеры'; ?><br/><?=$prodinfoattr?><br/><br/><br/><br/></div>
+
+                    </div>
+                    <div class="prod-compos" style="font-size: small;font-weight: bold; margin-top: -80px;">
+                        <a id="prdesc" style="color: #337ab7; cursor: pointer">Подробные характеристики</a><br>
+                        <div id="prd" style="display: none"><br/>
+                            <?
+                            // Вывод спецификаций
+                            foreach($spec[0]['specificationDescription'] as $key=>$value){
+                                echo $value['specification_name'].': '.$spec[0]['specificationValuesDescription'][$key]['specification_value'].'<br/>';
+                            }
+                            ?>
+                            <br><?=$product['productsDescription']['products_description']?>
                         </div>
                     </div>
                 </div>

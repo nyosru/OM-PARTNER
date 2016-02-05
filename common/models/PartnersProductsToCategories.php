@@ -70,6 +70,16 @@ class PartnersProductsToCategories extends \yii\db\ActiveRecord
         $var = $this->find()->select('products_id')->where(['categories_id' => $cat])->asArray()->All();
         return $var;
     }
-
-
+    public function getSpecificationValuesDescription()
+    {
+        return $this->hasMany(SpecificationValuesDescription::className(), ['specification_values_id' => 'specification_values_id'])->via('productsSpecification');
+    }
+    public function getProductsSpecification()
+    {
+        return $this->hasMany(ProductsSpecifications::className(), ['products_id' => 'products_id'])->via('products');
+    }
+    public function  getSpecificationDescription()
+    {
+        return $this->hasMany(SpecificationDescription::className(), ['specifications_id' => 'specifications_id'])->via('productsSpecification');
+    }
 }
