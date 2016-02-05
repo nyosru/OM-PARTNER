@@ -1,8 +1,9 @@
 <?php
-namespace frontend\controllers\actions;
+namespace frontend\controllers\actions\om;
 
+use common\models\PartnersCatDescription;
 use common\models\ProductsSpecifications;
-use yii;
+use Yii;
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
 
@@ -10,8 +11,13 @@ trait ActionProduct
 {
     public function actionProduct()
     {
-        $id = (integer)Yii::$app->request->get('id');
-
+        $id = (integer)Yii::$app->request->getQueryParam('id');
+        $spec=PartnersProductsToCategories::find()
+            ->where(['products_to_categories.products_id'=>$id])
+            ->joinWith('productsSpecification')
+            ->joinWith('specificationValuesDescription')
+            ->joinWith('specificationDescription')
+            ->asArray()->all();
         if ($id > 0) {
             $x = PartnersProducts::find()->select('MAX(`products_last_modified`) as last_modified ')->where(['products_id' => $id])->asArray()->One();
             if ($x['last_modified']) {
@@ -28,8 +34,8 @@ trait ActionProduct
                     $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
 
                 }
-                echo $spec->specifications_id;
-                return $this->render('product', ['product' => $data, 'spec'=>$spec]);
+                $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $data['categories_id'] . '&action=namenum'));
+                return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec]);
             } else {
                 return $this->redirect('/');
             }

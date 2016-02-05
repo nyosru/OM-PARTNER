@@ -1,7 +1,7 @@
 <?php
 $this->title = $product['productsDescription']['products_name'];
 $this->registerMetaTag(['content' => $product['productsDescription']['products_description'], 'name' => 'description',]);
-//$prodinfoattr='';
+$prodinfoattr='';
 //if (count($product['productsAttributesDescr']) > 0) {
 //    foreach ($product['productsAttributesDescr'] as $item) {
 //        $date = $product['products.products_date_added'];

@@ -928,7 +928,7 @@ $(document).on('ready', function () {
                     $('.cat-nav').html('');
                     $('#products-pager-down').remove();
                     $('#size-slide').html("");
-                   // $('#filters').html(' <div id="price-lable">Цена</div>От <input id="min-price" value="0" class="btn" /> До<input id="max-price" class="btn" /> Руб.<div class="price-slide"><div class="slider"></div> </div><div id="size-slide"></div><div type="button" id="filter-button"></div> ');
+                    $('#filters').html(' <div id="price-lable">Цена</div>От <input id="min-price" value="0" class="btn" /> До<input id="max-price" class="btn" /> Руб.<div class="price-slide"><div class="slider"></div> </div><div id="size-slide"></div><div type="button" id="filter-button"></div> ');
                     $headbside = '';
                     $headbside += '<div id="products-counter">' + data[4] + '-' + data[5] + ' из ' + data[1] + '</div>';
                     $headbside += '<div id="products-pager"></div>';
@@ -1248,5 +1248,117 @@ function onAjaxSuccessinfo(data) {
     $('.userinfo').html('');
     $('.userinfo').html($inner + '<div>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class="save-order2 btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right;">Подтвердить заказ</button>');
     $('.ui-dialog-titlebar').hide();
-
+    $.ajax({
+        type: "GET",
+        url: "/site/countryrequest",
+        data: '',
+        dataType: "json",
+        success: function (out) {
+            $inner = '';
+            $.each(
+                out.response.items, function () {
+                    $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+                });
+            $('[data-name=country]').after('<ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+            $('[data-name=country]').attr('autocomplete', 'off');
+        }
+    });
+    var str = '';
+    if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
+        str = $('[data-name="country"]').val();
+    } else {
+        str = $('[data-name="country"]').text();
+    }
+    $country = $("[data-country]");
+    $check = '';
+    $.each($country, function () {
+        if (str == $(this).html()) {
+            $check = this.getAttribute('data-country');
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: "/site/zonesrequest",
+        data: 'id=' + $check,
+        dataType: "json",
+        success: function (out2) {
+            $inner = '';
+            $.each(out2.response.items, function () {
+                $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+            });
+            $('#state-drop').remove();
+            $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+            $('[data-name=state]').attr('autocomplete', 'off');
+        }
+    });
+    $(document).on('click focus', '[data-name=country]', function () {
+        $('#country-drop').show();
+    });
+    $(document).on('click', '#country', function () {
+        $('[data-name=country]').val($(this).text());
+        $('[data-name=country]').attr('data-country', this.getAttribute('country'));
+        $('#country-drop').hide();
+        $.ajax({
+            type: "GET",
+            url: "/site/zonesrequest",
+            data: 'id=' + this.getAttribute('data-country'),
+            dataType: "json",
+            success: function (out2) {
+                $inner = '';
+                $.each(out2.response.items, function () {
+                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                });
+                $('#state-drop').remove();
+                $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                $('[data-name=state]').attr('autocomplete', 'off');
+            }
+        });
+    });
+    $(document).on('click focus', '[data-name=state]', function () {
+        $('#state-drop').show();
+    });
+    $(document).on('click', '#state', function () {
+        $('[data-name=state]').attr('data-state', this.getAttribute('state'));
+        $('[data-name=state]').val($(this).text());
+        $('#state-drop').hide();
+    });
+    $(document).on('keyup', '[data-name=country]', function () {
+        $filtCountryArr = $(this).siblings('ul').children();
+        $search = this.value;
+        $.each($filtCountryArr, function () {
+            if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+    $(document).on('keyup', '[data-name=state]', function () {
+        $filtCountryArr = $(this).siblings('ul').children();
+        $search = this.value;
+        $.each($filtCountryArr, function () {
+            if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
 }
+
+$('[id^=carousel-selector-]').click( function(){
+    var id_selector = $(this).attr("id");
+    var id = id_selector.substr(id_selector.length -1);
+    id = parseInt(id);
+    $('#slid').carousel(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $(this).addClass('selected');
+});
+
+$(document).on('click','#prdesc',function() {
+        if($('#prd').is(':not(:visible)')) {
+            jQuery('#prd').attr('style', 'display:block');
+        }
+        else{
+            jQuery('#prd').attr('style','display:none');
+        }});

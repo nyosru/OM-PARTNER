@@ -863,7 +863,7 @@
         text-align: center;
         margin: 3px 8px;
         float: left;
-        max-width: 110px;
+        max-width: 90px;
         word-wrap: break-word;
     }
 
@@ -905,7 +905,6 @@
     }
 
     #input-count {
-        padding: 5px;
     }
 
     #prod-info {
@@ -2739,4 +2738,111 @@
 
         }
     }
+    .social{
+        float: left;
+        width: 35px;
+        height: 35px;
+        overflow: hidden;
+        line-height: 1;
+        text-align: center;
+        margin-right: 5px;
+        margin-top: 5px;
+    }
+    .social a{
+        color: white;
+    }
+    .social .fa{
+        font-size: x-large;
+    }
+    .social-vk{
+        background-color:#4d7198;
+    }
+    .social-odnokl{
+        background-color: #F6881F;;
+    }
+    .social-fb{
+        background-color: #3b5998;
+    }
+    .social-tw{
+        background-color: #1da1f2;
+    }
+    .social-mail{
+        background-color: #168de2;
+    }
+    .social-google{
+        background-color: #dd4639;
+    }
+    .social-mail a{
+        color: #ffa936;
+    }
+    .item-social{
+        width: 50%;
+    }
+    #slid a {
+        background-image: none;
+    }
+    #slid .carousel-indicators{
+        width: 0px;
+    }
+/*Стили для табов в карточке товара*/
+    .ov-desc {
+        min-width: 320px;
+        max-width: 800px;
+        padding: 0px;
+    }
+    /* стили секций с содержанием */
+    .ov-desc section {
+        display: none;
+        padding: 15px;
+        border-top: 1px solid lightgray;
+    }
+    .ov-desc input {
+        display: none;
+    }
+    /* стили вкладок (табов) */
+    .ov-desc label {
+        display: inline-block;
+        margin: 0 0 -1px;
+        padding: 15px 25px;
+        text-align: center;
+        color: #aaa;
+        font-weight: normal;
+        font-size: x-large;
+    }
+    .ov-desc .header-catalog{
+        display: none;
+    }
 
+    /* изменения стиля заголовков вкладок при наведении */
+    .ov-desc label:hover {
+        color: #888;
+        cursor: pointer;
+    }
+    /* стили для активной вкладки */
+    .ov-desc input:checked + label {
+        color: #555;
+        border-bottom: 5px solid rgb(0, 165, 161);
+    }
+    /* активация секций с помощью переключателя :checked */
+    #tab1:checked ~ #content1,
+    #tab2:checked ~ #content2{
+        display: block;
+    }
+    /* медиа запросы для различных типов носителей */
+    @media screen and (max-width: 680px) {
+        .ov-desc label {
+            font-size: 0;
+        }
+
+        .ov-desc label:before {
+            margin: 0;
+            font-size: 18px;
+        }
+    }
+    @media screen and (max-width: 400px) {
+        .ov-desc label {
+            padding: 15px;
+        }
+    }
+
+/*Стили для табов в карточке товара*/
