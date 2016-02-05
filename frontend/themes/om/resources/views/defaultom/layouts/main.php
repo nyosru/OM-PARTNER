@@ -21,7 +21,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 //if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-10', ['duration' => 10])) {
 // ?>
     <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language ?>">
+    <html lang="ru-RU">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
         <!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->

@@ -1793,7 +1793,9 @@
         width: calc(100% / 5.3);
         border: 1px solid #CCC;
         padding: 3px 0px;
+        border-left: none;
     }
+
     .header-sort-item:focus, .header-sort-item:active, .header-sort-item:hover{
         box-shadow: 0px 1px 3px #B4B4B4;
     }
@@ -1803,6 +1805,7 @@
         width: calc(100% / 9);
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
+        border-left: 1px solid #C9C6C6;
     }
     .header-sort-item-popular {
         float: left;
@@ -1814,7 +1817,6 @@
     [class *= 'header-sort-item active'] {
         float: left;
         text-align: center;
-        border: 1px solid #CCC;
         box-shadow: 0px 1px 3px #B4B4B4;
         padding: 3px 0px;
     }
@@ -2510,7 +2512,7 @@
         padding: 0px 5px;
     }
 
-    .cat-nav > .panel > .panel-heading{
+    .cat-nav > .panel >  a > .panel-heading{
         padding: 0px 5px;
     }
     .cat-nav > .panel-default:hover{
@@ -2520,19 +2522,58 @@
     }
     .filter {
         float: right;
-        margin: 5px;
-        margin-top: 45px;
+        margin: 54px 5px 16px;
     }
-    .filter > .panel > .panel-heading > h4 >a{
+    .filter > .panel  > a{
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
         color: #00A5A1;
     }
     .filter > .panel {
-        margin-bottom: 5px;
+        margin-bottom: 0px;
+        border:none;
+        background: #F5F5F5 none repeat scroll 0% 0%;
+
+    }
+    .filter > .panel-default >  a + .panel-collapse > .panel-body{
+        padding: 0px 15px 5px;
+        border: 1px solid #CCC;
+        border-top: none;
+        background: #f5f5f5;
+    }
+    .filter > .panel-default > a + .panel-collapse > .panel-body > .panel-footer{
+        padding: 7px 0px;
+        background: none;
+        border-top: none;
+    }
+    .filter > .panel-default > a > .panel-heading {
+        padding: 3px 0px;
+        text-align: center;
+        border-radius: 4px;
+        border: 1px solid #CCC;
     }
 
+    .checkbox-overlay {
+        height: 20px;
+        width: 20px;
+        border:1px solid #CCC;
+        padding: 0px 2px;
+        border-radius: 4px;
+        color: white;
+        cursor:pointer;
+    }
+    [class*="checkbox-overlay fa fa-check"]{
+        background: #00A5A1 none repeat scroll 0% 0%;
+        border:1px solid #00A5A1;
+    }
+    input[class*="checkbox-hidden-group"]{
+        visibility: hidden;
+    }
+    .no-border-bottom-rad{
+        border-bottom-left-radius: 0px !important ;
+        border-bottom-right-radius: 0px !important;
+    }
     .linebottom2{
         width: 55%;
         position: absolute;
