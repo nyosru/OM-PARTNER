@@ -183,9 +183,6 @@ if ($data[0] != 'Не найдено!') {
         '<input name="count" value="'.$count.'" type="hidden" />'.
                                 '<input name="start_price" id="min-ev-price" class="" placeholder="от" style="float: left; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" />'.
                                 '<input name="end_price" style="float: right; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" id="max-ev-price" class="" placeholder="до" />'.
-        '<input name="page"  value="0" type="hidden"/>'.
-        '<input name="sort"  value="0"  type="hidden"/>'.
-        '<input name="searchword"   value="" type="hidden"/>'.
         '</div>'.
                             Slider::widget([
                                 'id'=>'price-slider',
@@ -225,10 +222,12 @@ if ($data[0] != 'Не найдено!') {
         $headbside .=               '</div>';
     }
 
-    $headbside .=                       '<div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne"><button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: rgb(224, 224, 224) none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><button class="btn  reset-filter" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" type="reset">Сбросить</button></div>'.
-                            '</div>'.
+    $headbside .=                       '<div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne"><button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: rgb(224, 224, 224) none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><button class="btn  reset-filter" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" type="reset">Сбросить</button></div>'. '</div>'.
                         '</div>'.
                     '</div>'.
+        '<input name="page"  value="0" type="hidden"/>'.
+        '<input name="sort"  value="0"  type="hidden"/>'.
+        '<input name="searchword"   value="" type="hidden"/>'.
                 '</form>';
     echo $headbside;
     $innerhtml = '';
