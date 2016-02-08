@@ -76,7 +76,7 @@ class PartnersProductsToCategories extends \yii\db\ActiveRecord
     }
     public function getProductsSpecification()
     {
-        return $this->hasMany(ProductsSpecifications::className(), ['products_id' => 'products_id'])->via('products');
+        return $this->hasMany(ProductsSpecifications::className(), ['products_id' => 'products_id']);
     }
     public function  getSpecificationDescription()
     {
