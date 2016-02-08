@@ -14,9 +14,9 @@ $(document).on('click', '.sort', function () {
     $('.sort-checked').removeClass('sort-checked');
     $(this).addClass('sort-checked');
 });
-$(document).on('click', '#prod-data-img', function () {
+$(document).on('click', '#prod-info', function () {
     $.post(
-        "/site/productinfo",
+        "/site/product",
         {id: this.getAttribute('data-prod')},
         onAjaxSuccess
     );

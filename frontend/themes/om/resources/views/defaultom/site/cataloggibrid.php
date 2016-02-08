@@ -186,7 +186,7 @@ if ($data[0] != 'Не найдено!') {
         '</div>'.
                             Slider::widget([
                                 'id'=>'price-slider',
-                                'options'=>['style'=>'width: 95%; margin: auto;'],
+                                'options'=>['style'=>'width: 95%; margin: auto;border: 1px solid #CCC;'],
                                 'clientOptions' => [
                                 'values'=>[$data[7],$data[8]],
                                 'min' => 0,
@@ -196,7 +196,7 @@ if ($data[0] != 'Не найдено!') {
                                 ],
                             ]);
     if(count($data[3])>1){
-    $headbside .=           '<div style="padding: 10px 0px;">'.
+    $headbside .=           '<div><hr style="border-color: #CCC">'.
                             'Размеры'.
                             '</div>'.
                             '<div style="max-height: 300px; overflow: auto;">';
@@ -207,13 +207,12 @@ if ($data[0] != 'Не найдено!') {
             $checked = '';
         }
         if($value['products_options_values_id']) {
-            $headbside .=       '<div class="" style="width: 50%; overflow: hidden; float: left;">';
+            $headbside .=       '<div class="" style="overflow: hidden;margin: 10px 0px;">';
 
             $headbside .= '<div class="checkbox-overlay fa '.$checked.'" for="checkbox-hidden-group">'.
-                '<span class="checkbox-hidden-group-label" style="color: black; display: inline; margin-left: 10px; font-family: Roboto, sans-serif; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7;">'.$value['products_options_values_name'].'</span>'.
                 '<input id="checkbox-hidden-group"  class="checkbox-hidden-group" type="checkbox" class="prod_attr_query" value="'.$value['products_options_values_id'].
                 '" name = "prod_attr_query"'.
-                ' '. $checked.' /></div>';
+                ' '. $checked.' /></div><span class="checkbox-hidden-group-label" style="display: inline; min-width: 100px; color: black; margin-left: 10px; font-family: Roboto,sans-serif; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7; max-width: calc(100% - 50px); overflow: hidden; float: left;">'.$value['products_options_values_name'].'</span>';
 
     $headbside .=               '</div>';
         }
@@ -222,7 +221,7 @@ if ($data[0] != 'Не найдено!') {
         $headbside .=               '</div>';
     }
 
-    $headbside .=                       '<div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne"><button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: rgb(224, 224, 224) none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><button class="btn  reset-filter" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" type="reset">Сбросить</button></div>'. '</div>'.
+    $headbside .=                       '<hr style="border-color: #CCC"><div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne"><button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: rgb(224, 224, 224) none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><button class="btn  reset-filter" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" type="reset">Сбросить</button></div>'. '</div>'.
                         '</div>'.
                     '</div>'.
         '<input name="page"  value="0" type="hidden"/>'.
@@ -247,52 +246,26 @@ if ($data[0] != 'Не найдено!') {
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
 
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 180px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
+        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_image'] . '">' .
             '</div>' .
-            '<div  itemprop="name" class="name">' . $description['products_name'] . '</div>' .
-            '<div  class="model">Артикул ' . $product['products_model'] . '</div>' .
+            '<div  itemprop="name" class="name">' . $description['products_name'] . '</div></a>' .
+            '<div style="display:none;" class="model">Артикул ' . $product['products_model'] . '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' . $description['products_description'] . '</div>' .
             '<div  itemprop="category" class="model" style="display:none">' . implode(', ', $catpath->name) . '</div>' .
             '<div  itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">' .
-            '<b itemprop="price" >' . (integer)($product['products_price']) . '</b> руб.' .
+            '<div style="font-size: 18px; font-weight: 500;" itemprop="price" >' . (integer)($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>' .
-            '<a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '">' .
-            '<div  itemprop="" id="prod-info" data-prod="' . $product['products_id'] . '">Инфо</div>' .
+            '<a href="#">' .
+            '<div style="text-align: right; font-size: 12px; font-weight:400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; padding: 0px 27px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: #00A5A1; font-size: 18px; position: absolute; right: 0px; padding: 0px 0px 0px 30px;"></i></div>' .
             '</a>' .
+
+
+
+            '<div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i>Детально</div>' .
             '<span>' . $attr_html . '</span>' .
-            '<span style="bottom: 45px; width: 30px; height: 30px; top: 0px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' .
-            '<a href="http://vk.com/share.php?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&description=' . (integer)($product['products_price']) . '%20Руб.&title=' . $description['products_description'] . '">' .
-            '<i class="fa fa-vk"></i>' .
-            '</a>' .
-            '</span>' .
-            '<span style="bottom: 45px; width: 30px; height: 30px; top: 35px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' .
-            '<a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=' . urlencode('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id']) . '&st.comments=' . urlencode($description['products_description']) . '">' .
-            '<i class="fa fa-odnoklassniki"></i>' .
-            '</a>' .
-            '</span>' .
-            '<span style="bottom: 45px; width: 30px; height: 30px; top: 70px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' .
-            '<a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&p[summary]=' . (integer)($product['products_price']) . '%20Руб.&p[title]=' . $description['products_description'] . '">' .
-            '<i class="fa fa-facebook"></i>' .
-            '</a>' .
-            '</span>' .
-            '<span style="bottom: 45px; width: 30px; height: 30px; top: 105px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' .
-            '<a href="http://twitter.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&title=' . $description['products_description'] . '">' .
-            '<i class="fa fa-twitter"></i>' .
-            '</a>' .
-            '</span>' .
-            '<span style="bottom: 45px; width: 30px; height: 30px; top: 140px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' .
-            '<a href="http://connect.mail.ru/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&description=' . (integer)($product['products_price']) . '%20Руб.&title=' . $description['products_description'] . '">' .
-            '<i class="fa fa-at"></i>' .
-            '</a>' .
-            '</span>' .
-            '<span style="bottom: 45px; width: 30px; height: 30px; top: 140px; box-shadow: none; left: -35px; position: absolute; border: 1px solid rgb(215, 215, 215); margin: 5px; cursor: pointer; padding: 4px 7px;">' .
-            '<a href="https://plus.google.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '">' .
-            '<i class="fa fa-google-plus"></i>' .
-            '</a>' .
-            '</span>' .
             '</div>';
     }
     if ($searchword !== '') {
