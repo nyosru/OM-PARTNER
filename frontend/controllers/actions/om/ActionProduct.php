@@ -17,7 +17,7 @@ trait ActionProduct
             ->joinWith('productsSpecification')
             ->joinWith('specificationValuesDescription')
             ->joinWith('specificationDescription')
-            ->asArray()->all();
+            ->asArray()->groupBy('products_specifications.products_id')->all();
         if ($id > 0) {
             $x = PartnersProducts::find()->select('MAX(`products_last_modified`) as last_modified ')->where(['products_id' => $id])->asArray()->One();
             if ($x['last_modified']) {

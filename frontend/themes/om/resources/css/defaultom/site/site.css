@@ -7,7 +7,7 @@
 
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
         padding: 10px 20px;
-        color: #272727;
+        color: #FFF;
         background: #00a5a1;
         border-radius: 4px
     }
@@ -1523,14 +1523,14 @@
     #add-count {
         float: right;
         text-align: center;
-        color: #000;
+        color: #FFF;
         border-radius: 3px
     }
 
     #del-count {
         float: left;
         text-align: center;
-        color: #000;
+        color: #FFF;
         border-radius: 3px
     }
 
@@ -2836,4 +2836,9 @@
         }
     }
 
-/*Стили для табов в карточке товара*/
+    .mini-img .selected{
+        border-right: 3px solid #00A5A1;
+    }
+    #slid .carousel-indicators{
+        visibility: hidden;
+    }
