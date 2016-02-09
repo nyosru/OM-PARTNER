@@ -47,7 +47,7 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
     <div class="product-top">
         <div class="prod-attr" itemtype="http://schema.org/ProductModel" itemid="#<?=$product['productsDescription']['products_id']?>" style="width: 100%; position: relative;float: left; overflow: hidden;">
             <div class="prod-show" style="position: relative; float: left;width: 100%; right: 50%">
-                <div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 570px;">
+                <div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 550px;">
                     <div class="prod-img" style="overflow: hidden; margin-bottom: 10px;">
                         <div class="mini-img" style="float: left; width: 20%; ">
                             <?
@@ -58,7 +58,7 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
                             }
                             ?>
                         </div>
-                        <div style="float: right; width: 63%; min-width: 450px;">
+                        <div style="float: right; width: 63%; min-width: 440px;">
                             <?php
                             $i=0;
                             foreach($im as $img){
@@ -83,11 +83,8 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
                             </div>
                         </div>
                     </div>
-                    <div style="overflow: hidden;">
-
-                    </div>
                 </div>
-                <div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;">
+                <div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;min-width:455px;">
                     <div style="font-family: 'Roboto', sans-serif; font-weight: 300;">
                         <div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: <?=$product['products']['products_model']?></div>
                         <div class="stars" style="color: gold; float: left;">Звездочки</div>
