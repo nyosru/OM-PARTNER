@@ -657,14 +657,15 @@ $(document).on('click', '.cart', function () {
     }
 });
 $(document).on('click', '.cart-lable', function () {
-    $cart_add_obj = $('[id="input-count"]');
-    console.log($('[id="input-count"]'));
+   $id_product =  this.getAttribute('data-sale');
+    $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
     $.each($cart_add_obj, function () {
         var $item = new Object();
         $item_add = $(this)[0];
         $item.cart = [];
-        $item_add.value = 1;
+        $item_add.value = $(this).val();
+        if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
                 $item = JSON.parse(localStorage.getItem('cart-om'));
@@ -676,7 +677,7 @@ $(document).on('click', '.cart-lable', function () {
             if ($item.cart.length > 0) {
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
-                        this[4] = 1; //parseInt(this[4]) + parseInt($item_add.value);
+                        this[4] = parseInt(this[4]) + parseInt($item_add.value);
                         x = 1;
                     }
                 });
@@ -698,7 +699,7 @@ $(document).on('click', '.cart-lable', function () {
                     }, 1000, function () {
                         $(this).remove();
                     });
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), 1/*$item_add.value*/, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
             }
             if (x == 0) {
                 $($(this).parent().parent())
@@ -718,7 +719,7 @@ $(document).on('click', '.cart-lable', function () {
                     }, 1000, function () {
                         $(this).remove();
                     });
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), 1/*$item_add.value*/, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
             }
             $ilocal = JSON.stringify($item);
             localStorage.setItem('cart-om', $ilocal);
@@ -731,7 +732,7 @@ $(document).on('click', '.cart-lable', function () {
             });
             $(".cart-count").html($amount_prod);
             $(".cart-price").html($cart_price + ' руб.');
-    });
+        } });
 });
 
 $(document).on('click', '.countdisplay', function index_count_display() {
