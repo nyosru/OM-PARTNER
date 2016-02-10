@@ -1492,8 +1492,9 @@
     }
 
     #add-count, #del-count {
-        width: 20px;
-        height: 21px
+        width: 22px;
+        height: 22px;
+        line-height: 1.8;
     }
 
     #city-drop li, #country-drop li, #state-drop li {
@@ -1522,7 +1523,8 @@
     #add-count, #del-count {
         margin: 0 3px;
         padding: 0;
-        background: 0 center #00a5a1
+        background: 0 center #00a5a1;
+        font-weight: 600;
     }
 
     #add-count {
@@ -2783,25 +2785,26 @@
     }
     .social{
         float: left;
-        width: 35px;
-        height: 35px;
+        width: 20px;
+        height: 20px;
         overflow: hidden;
         line-height: 1;
         text-align: center;
         margin-right: 5px;
         margin-top: 5px;
+        border-radius: 2px;
     }
     .social a{
         color: white;
     }
     .social .fa{
-        font-size: x-large;
+        font-size: 14px;
     }
     .social-vk{
         background-color:#4d7198;
     }
     .social-odnokl{
-        background-color: #F6881F;;
+        background-color: #F6881F;
     }
     .social-fb{
         background-color: #3b5998;
@@ -2888,9 +2891,22 @@
         }
     }
 
-    .mini-img .selected{
-        border-right: 3px solid #00A5A1;
-    }
     #slid .carousel-indicators{
-        visibility: hidden;
+        display: none;
+    }
+    #slid .item{
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+    #slid .carousel-control{
+        top:45%;
+        font-size: 50px;
+        color:#ccc;
+        text-shadow: none;
+    }
+    .size-column1:last-child{
+        margin-bottom: 0px;
+    }
+    div.size-desc:last-child{
+        margin-bottom: 0 !important;
     }
