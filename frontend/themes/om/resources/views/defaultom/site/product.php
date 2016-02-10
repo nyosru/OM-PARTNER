@@ -6,12 +6,10 @@ $this->registerMetaTag(['content' => $product['productsDescription']['products_d
 $prodinfoattr='<div class="size-block" style="overflow: hidden;margin-bottom: 38px; width: 460px;">';
 if (count($product['productsAttributesDescr']) > 0) {
     $numInFirstColumn=(int)(count($product['productsAttributesDescr'])/2);
-    $f=0;
-    if($numInFirstColumn%2!=0) $f=-1;
     $sizeCounter=0;
     $prodinfoattr.='<div class="size-column1" style="width: 215px; overflow: hidden; float: left; border-right: 1px solid lightgrey;margin-right: 25px;">';
     foreach ($product['productsAttributesDescr'] as $item) {
-        if($sizeCounter==($numInFirstColumn+1+$f)){
+        if($sizeCounter==($numInFirstColumn)){
             $prodinfoattr.='</div><div class="size-column2" style="overflow: hidden; width: 215px;">';
         }
         $date = $product['products.products_date_added'];

@@ -13,6 +13,7 @@ use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
 use frontend\controllers\actions\ActionAddSearch;
+use frontend\controllers\actions\ActionCart;
 use frontend\controllers\actions\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
 use frontend\controllers\actions\ActionChstatusorder;
@@ -111,7 +112,8 @@ class GlavnayaController extends Controller
         ActionPayOrders,
         ActionTest,
         ActionAddSearch,
-        ActionProductinfobymodel;
+        ActionProductinfobymodel,
+        ActionCart;
 
 
     /**

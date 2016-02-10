@@ -657,8 +657,8 @@ $(document).on('click', '.cart', function () {
     }
 });
 $(document).on('click', '.cart-lable', function () {
-    $cart_add_obj = $('[class="lable-item accept"]');
-    console.log($('[class="lable-item accept"]'));
+    $cart_add_obj = $('[id="input-count"]');
+    console.log($('[id="input-count"]'));
     $checkzero = 0;
     $.each($cart_add_obj, function () {
         var $item = new Object();
@@ -1362,3 +1362,6 @@ $(document).on('click','#prdesc',function() {
         else{
             jQuery('#prd').attr('style','display:none');
         }});
+$(document).on('click','.cart-lable',function () {
+
+})
