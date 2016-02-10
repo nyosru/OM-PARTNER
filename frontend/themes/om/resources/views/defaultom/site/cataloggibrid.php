@@ -63,8 +63,9 @@ if ($data[0] != 'Не найдено!') {
     $headbside = '';
     $headbside .= '<div id="partners-main-right" class="headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
+    if($catpath->num != 0){
     foreach($catpath->num as $key => $catid) {
-        $menu = Menuom::widget(['property' => ['id' => $catid, 'target' => $catid, 'opencat' => Yii::$app->params['layoutset']['opencat']]]);
+        $menu = Menuom::widget(['property' => ['id' => 'in'.$catid, 'target' => $catid, 'opencat' => Yii::$app->params['layoutset']['opencat']]]);
         if ($menu != false) {
             echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
             echo '<div class="panel-heading" role="tab" style="border: medium none;" id="headingOne">';
@@ -90,37 +91,54 @@ if ($data[0] != 'Не найдено!') {
             echo '<div style="" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
             echo '</div></div>';
         }
+
+    }
+    }else{
+        echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
+        echo '<div class="panel-heading" style="border-bottom: medium none;  border-top-left-radius: 0px; color: #00A5A1;" role="tab" id="headingOne">';
+        echo '<div class="panel-title" style="font-size: 14px;">';
+        echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catpath->num  . '" href="#collapseOne' . $catpath->num  . '" aria-expanded="true" aria-controls="collapseOne' . $catpath->num  . '">';
+        echo 'Каталог';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '<div style="" aria-expanded="false" id="collapseOne' . $catpath->num . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
+        echo '</div></div>';
     }
     echo '</div>';
-      $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">'.end($catpath->name).'</h3>';
-    if ($data[5] >= $data[1] && $data[4] == 0) {
-    } else {
-        $pager = '';
-        $countpager = floor($data[1] / $count);
-        if ($data[10] != NULL) {
-
-            if (intval($data[10]) < 1) {
-                $natpage = 1;
-                $nextpage = 0;
-            } else if (intval($data[10]) + 1 >= $countpager) {
-                $natpage = $countpager - 1;
-                $nextpage = $countpager - 2;
-            } else {
-                $natpage = intval($data[10]);
-                $nextpage = intval($data[10]);
-            }
-        } else {
-            $natpage = 1;
-            $nextpage = 0;
-            $data[10] = 0;
-        }
-        $pager .= ' <a data-page="' . intval($data[10]) . '" class="page " href="#">' . (intval($data[10]) + 1) . '</a> ';
-        $pager .= 'из ' . $countpager;
-        $pager .= ' <a data-page="' . ($natpage - 1) . '" class="fa fa-chevron-left page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($natpage - 1))) . '"></a> ';
-        $pager .= ' <a data-page="' . ($nextpage + 1) . '" class="fa fa-chevron-right page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($nextpage + 1))) . '"></a> ';
-        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
-        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
+    if($catpath->num != 0) {
+        $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">' . end($catpath->name) . '</h3>';
+    }else{
+        $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">Каталог</h3>';
     }
+//    if ($data[5] >= $data[1] && $data[4] == 0) {
+//    } else {
+//        $pager = '';
+//        $countpager = floor($data[1] / $count);
+//        if ($data[10] != NULL) {
+//
+//            if (intval($data[10]) < 1) {
+//                $natpage = 1;
+//                $nextpage = 0;
+//            } else if (intval($data[10]) + 1 >= $countpager) {
+//                $natpage = $countpager - 1;
+//                $nextpage = $countpager - 2;
+//            } else {
+//                $natpage = intval($data[10]);
+//                $nextpage = intval($data[10]);
+//            }
+//        } else {
+//            $natpage = 1;
+//            $nextpage = 0;
+//            $data[10] = 0;
+//        }
+//        $pager .= ' <a data-page="' . intval($data[10]) . '" class="page " href="#">' . (intval($data[10]) + 1) . '</a> ';
+//        $pager .= 'из ' . $countpager;
+//        $pager .= ' <a data-page="' . ($natpage - 1) . '" class="fa fa-chevron-left page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($natpage - 1))) . '"></a> ';
+//        $pager .= ' <a data-page="' . ($nextpage + 1) . '" class="fa fa-chevron-right page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($nextpage + 1))) . '"></a> ';
+//        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
+//        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
+//    }
     $countdisp = [20, 40, 60];
     $innercount = '';
     foreach ($countdisp as $key => $countdisp) {
@@ -165,7 +183,7 @@ if ($data[0] != 'Не найдено!') {
     $headbside .= '</div></div>
                 <form id="partners-main-right" class="filter" action="'.BASEURL.'/catalog">
                     <div class="panel panel-default">
-                         <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                         <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#filter-cont" aria-expanded="false" aria-controls="collapseOne">
                            <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
                                         Показать фильтр
@@ -173,7 +191,7 @@ if ($data[0] != 'Не найдено!') {
                             </h4>
                         </div>
                          </a>
-                    <div style="height: 0px; position: relative;    z-index: 999;" aria-expanded="false" id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div style="height: 0px; position: relative;    z-index: 999;" aria-expanded="false" id="filter-cont" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">';
     $headbside .=           '<div style="padding: 10px 0px;">'.
                                 'Цена'.
@@ -199,7 +217,7 @@ if ($data[0] != 'Не найдено!') {
     $headbside .=           '<div><hr style="border-color: #CCC">'.
                             'Размеры'.
                             '</div>'.
-                            '<div style="max-height: 300px; overflow: auto;">';
+                            '<div class="size-inner" style="">';
     foreach($data[3] as $key=>$value){
         if($value['products_options_values_id'] == $prodatrquery){
             $checked = 'fa-check';
@@ -207,7 +225,7 @@ if ($data[0] != 'Не найдено!') {
             $checked = '';
         }
         if($value['products_options_values_id']) {
-            $headbside .=       '<div class="" style="overflow: hidden;margin: 10px 0px;">';
+            $headbside .=       '<div class="filter-item-size">';
 
             $headbside .= '<div class="checkbox-overlay fa '.$checked.'" for="checkbox-hidden-group">'.
                 '<input id="checkbox-hidden-group"  class="checkbox-hidden-group" type="checkbox" class="prod_attr_query" value="'.$value['products_options_values_id'].
@@ -221,7 +239,9 @@ if ($data[0] != 'Не найдено!') {
         $headbside .=               '</div>';
     }
 
-    $headbside .=                       '<hr style="border-color: #CCC"><div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne"><button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: rgb(224, 224, 224) none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><button class="btn  reset-filter" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" type="reset">Сбросить</button></div>'. '</div>'.
+    $headbside .=                       '<hr style="border-color: #CCC"><div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne">'.
+        '<button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: rgb(224, 224, 224) none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><a href="'.BASEURL.'/catalog?cat='.$cat.'&amp;count='.$count.'&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" class="btn  reset-filter">Сбросить</a>'.
+        '</div>'. '</div>'.
                         '</div>'.
                     '</div>'.
         '<input name="page"  value="0" type="hidden"/>'.
@@ -235,9 +255,34 @@ if ($data[0] != 'Не найдено!') {
         $description = $value['productsDescription'];
         $attr_desc = $value['productsAttributesDescr'];
         $attr_html = '<div class="cart-lable">В корзину</div>';
+        ?>
+
+        <?
         if (count($attr_desc) > 0) {
-            foreach ($attr_desc as $attr_desc_value) {
-                $attr_html .= '<div class="size-desc"><div><div class="lable-item" id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $attr_desc_value['products_options_values_name'] . '" data-attr="' . $attr_desc_value['products_options_values_id'] . '" data-name="' . $description['products_name'] . '">' . $attr_desc_value['products_options_values_name'] . '</div></div></div>';
+            foreach ($attr_desc as $key=>$attr_desc_value) {
+                if($key%2 ==0){
+                    $class='border-right:1px solid #CCC';
+                }else{
+                    $class='';
+                }
+                $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>'.
+                '<input id="input-count"'.
+                'style="width: 50%; height: 23px; text-align: center; position: relative; top: 0px;"'.
+                'data-prod="1186049"'.
+                'data-model="960511110"'.
+                'data-price="1260.0000"'.
+                'data-image="apix/products/efc336062b484c15b04b957116034bc8.jpg"'.
+                'data-attrname="46"'.
+                'data-attr="14"'.
+                'placeholder="0"'.
+                'type="text">'.
+                '<div id="add-count" style="margin: 0px;">'.
+                '+'.
+                '</div>'.
+                '<div id="del-count" style="margin: 0px;">'.
+                '-'.
+                '</div>'.
+                '</div></div></div>';
             }
         } else {
             $attr_html .= '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $attr_desc_value['products_options_values_name'] . '" data-attr="' . $attr_desc_value['products_options_values_id'] . '" data-name="' . $description['products_name'] . '">+</div></div>';
@@ -258,14 +303,11 @@ if ($data[0] != 'Не найдено!') {
             '<div style="font-size: 18px; font-weight: 500;" itemprop="price" >' . (integer)($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>' .
-            '<a href="#">' .
-            '<div style="text-align: right; font-size: 12px; font-weight:400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; padding: 0px 27px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: #00A5A1; font-size: 18px; position: absolute; right: 0px; padding: 0px 0px 0px 30px;"></i></div>' .
-            '</a>' .
-
-
-
-            '<div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i>Детально</div>' .
-            '<span>' . $attr_html . '</span>' .
+            '<div style="cursor:pointer">' .
+            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight:400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; padding: 0px 27px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: #00A5A1; font-size: 18px; position: absolute; right: 0px; padding: 0px 0px 0px 30px;"></i></div>' .
+            '</div>' .
+            '<a href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div></a>' .
+            '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>';
     }
     if ($searchword !== '') {
@@ -277,12 +319,27 @@ if ($data[0] != 'Не найдено!') {
     }
     $this->title = $thistitle . ' - ' . ($page + 1);
     echo $innerhtml;
-
-
     echo '<div class="loader">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath->name).'</span></div>';
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
-    echo $downnav;
+    echo '<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
+    $pagination = new \yii\data\Pagination();
+    $pagination->totalCount = $data[1]-$count;
+    $pagination->pageSize = $count;
+    $pagination->pageSizeParam = 'count';
+    $pagination->defaultPageSize = 20;
 
+    echo \yii\widgets\LinkPager::widget([
+            'firstPageLabel' => 'Первая',
+            'lastPageLabel' => 'Последняя',
+            'nextPageLabel'=>'<i class="mdi mdi-arrow-forward"></i>',
+            'prevPageLabel'=>'<i class="mdi mdi-arrow-back"></i>',
+            'id'=>'pager-catalog',
+            'maxButtonCount'=>5,
+            'pagination' => $pagination
+        ]
+
+    );
+echo '</div>';
 } else {
     echo 'Нет результатов';
 
@@ -306,9 +363,9 @@ if ($data[0] != 'Не найдено!') {
         $('[class*=checkbox-overlay]').removeClass('fa-check');
     });
     $(document).on('click', '.filter > .panel  > a',  function(){
-        console.log($(this).next('div').attr('class').indexOf('collapse in'));
-    if($(this).next('div').attr('class').indexOf('collapse in')+1) {
-        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title"> Показать фильтр </h4> </div>');
+
+    if($('#filter-cont').attr('class').indexOf('collapse in')+1) {
+        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Показать фильтр </h4> </div>');
         $(this).find(':first-child').removeClass('no-border-bottom-rad');
     }else{
         $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Свернуть фильтр</h4> </div>');
@@ -324,6 +381,15 @@ if ($data[0] != 'Не найдено!') {
             $(this).children().prop('checked', true);
             $(this).addClass('fa-check');
         });
+    $(document).on('click', '[data-vis="size-item-desc"]', function(){
+        $attr = this.getAttribute('data-vis-id');
+        $obj = $('[data-vis-id-card="'+$attr+'"]');
+        if($obj.hasClass('show')){
+            $obj.removeClass('show');
+        }else{
+            $obj.addClass('show');
+        }
+    });
 
     </script>
 

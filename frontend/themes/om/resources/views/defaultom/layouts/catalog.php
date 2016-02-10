@@ -216,7 +216,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <footer class="footer">
             <hr class="linebottom1">
             <hr class="linebottom2">
-            <div class="container">
+            <div class="">
                 <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
 <!--    --><?// $this->endCache();
 //}

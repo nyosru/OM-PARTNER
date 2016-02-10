@@ -19,7 +19,10 @@ trait ActionProduct
             ->joinWith('specificationDescription')
             ->asArray()->groupBy('products_specifications.products_id')->all();
         if ($id > 0) {
-            $x = PartnersProducts::find()->select('MAX(`products_last_modified`) as last_modified ')->where(['products_id' => $id])->asArray()->One();
+            $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->One();
+            if(!$x['last_modified']){
+                $x['last_modified'] = $x['add_date'] ;
+            }
             if ($x['last_modified']) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $id);
                 $data = Yii::$app->cache->get($keyprod);
@@ -35,7 +38,7 @@ trait ActionProduct
 
                 }
                 $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $data['categories_id'] . '&action=namenum'));
-                return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec]);
+                    return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec]);
             } else {
                 return $this->redirect('/');
             }

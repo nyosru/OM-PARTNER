@@ -32,12 +32,11 @@ trait ActionSiteRequest
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
        // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
-        if (!isset($x['products_last_modified'])) {
-            $checkcache = '0000-00-00 00:00:00';
-        } else {
-            $checkcache = $x['products_last_modified'];
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
+        if(!$x['products_last_modified']){
+            $x['products_last_modified'] = $x['add_date'] ;
         }
+            $checkcache = $x['products_last_modified'];
 //        print_r($this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
 //        die();
         $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
@@ -131,11 +130,14 @@ trait ActionSiteRequest
             }
 
 
-            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and (products_description IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->orderBy($order)->asArray()->all();
-            foreach ($prod as $values) {
+            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last, products_date_added as add_date')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and (products_description IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->orderBy($order)->asArray()->all();
+            foreach ($prod as $key=>$values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
                 $d1 = new \DateTime();
+                if(!$values['last']){
+                    $values['last'] = $values['add_date'];
+                }
                 $d1->setTimestamp(strtotime(trim($values['last'])));
                 $d2 = new \DateTime();
                 $d2->setTimestamp(strtotime(trim($dataprod['last'])));
@@ -153,6 +155,9 @@ trait ActionSiteRequest
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
 
                 foreach ($datar as $valuesr) {
+                    if($valuesr['products']['products_last_modified']){
+                        $valuesr['products']['products_last_modified'] = $valuesr['products']['products_date_added'];
+                    }
                     $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
                     Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                     $data[] = $valuesr;

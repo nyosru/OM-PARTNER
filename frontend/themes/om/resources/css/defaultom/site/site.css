@@ -217,6 +217,8 @@
         cursor: pointer;
         border-radius: 4px;
         clear: both;
+        margin-top: 10px;
+        float: right;
     }
     .submenu li {
         border-bottom: 1px solid #4b4a5e
@@ -530,7 +532,15 @@
     #c10, #c20, #c30, #carticlsearch, #carticlsearch:hover, #cback, #ccategories, #ccategories:hover, #ccatsearch, #ccatsearch:hover, #cfirst, #cforvard, #clast, #cprodsearch, #cprodsearch:hover, #cproduct, #cproduct:hover, #partners-add-comp, #partners-add-comp:hover {
         border-color: #71DEFF #3E879C #3E879C #71DEFF
     }
-
+    .pagination-catalog > .pagination > .active > a {
+        background: #ffbf08 none repeat scroll 0% 0%;
+        color: black;
+        border: 1px solid #CCC;
+    }
+    .pagination-catalog > .pagination > li > a {
+        color: #000;
+        border: 1px solid #CCC;
+    }
     #partners-add-comp {
         margin-top: 8px;
         float: right;
@@ -811,15 +821,10 @@
 
     div.float {
         position: relative;
-        z-index: 20
     }
 
     div.float:hover {
         z-index: 25
-    }
-
-    div.float span {
-        display: none
     }
 
 
@@ -1629,7 +1634,21 @@
         width: 100%;
         z-index: 999
     }
-
+    .fixedbar-filter{
+        position: fixed !important;
+        margin: 10px 4px !important;
+        top: 0px !important;
+        z-index: 999;
+        width: calc(83.5% - 30px) !important;
+        height: auto !important;
+    }
+    .filter + .fixedbar-filter> .panel-default > a > .panel-heading{
+        border-radius: 0px ;
+    }
+    .filter-item-size{
+        overflow: hidden;
+        margin: 10px 0px;
+    }
     #admclose, #close {
         z-index: 2147483647
     }
@@ -2536,6 +2555,21 @@
         border-top: medium none;
         margin-top: -4px;
     }
+    .size-inner{
+        max-height: 300px;
+        overflow: auto;
+    }
+    .fixedbar-filter >  .panel-default >  .panel-collapse > .panel-body > .size-inner > .filter-item-size  {
+        overflow: hidden;
+        margin: 10px 0px;
+        width: calc(100% / 5);
+        float: left;
+        min-width: 190px;
+
+    }
+    .headerbside-filter{
+        width:100% !important;
+    }
     .filter > .panel-default > a > .panel-heading {
         padding: 3px 0px;
         text-align: center;
@@ -2543,6 +2577,24 @@
         border: 1px solid #CCC;
     }
 
+
+    div.float span {
+        display: none;
+        background: #F5F5F5 none repeat scroll 0% 0%;
+        position: absolute;
+        top: 102%;
+        left: 0px;
+        width: 100%;
+        padding: 5px 7px 60px;
+        color: #000;
+        text-align: right;
+        border: 1px solid rgb(204, 204, 204);
+        border-radius: 4px;
+    }
+    div.float span.show {
+        display: block;
+        z-index: 99;
+    }
     .checkbox-overlay {
         height: 20px;
         width: 20px;

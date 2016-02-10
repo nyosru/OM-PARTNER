@@ -31,7 +31,7 @@ use frontend\controllers\actions\ActionPaymentMethod;
 use frontend\controllers\actions\ActionPayOrders;
 use frontend\controllers\actions\ActionPrintOrders;
 use frontend\controllers\actions\om\ActionProduct;
-use frontend\controllers\actions\ActionProductinfo;
+use frontend\controllers\actions\om\ActionProductinfo;
 use frontend\controllers\actions\ActionProductinfobymodel;
 use frontend\controllers\actions\ActionRequestadress;
 use frontend\controllers\actions\ActionRequestemail;

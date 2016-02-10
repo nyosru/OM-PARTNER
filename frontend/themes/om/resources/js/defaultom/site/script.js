@@ -16,11 +16,11 @@ $(document).on('click', '.sort', function () {
 });
 $(document).on('click', '#prod-info', function () {
     $.post(
-        "/site/product",
+        "/site/productinfo",
         {id: this.getAttribute('data-prod')},
-        onAjaxSuccess
+        onAjaxSuccessProdInfo
     );
-    function onAjaxSuccess(proddata) {
+    function onAjaxSuccessProdInfo(proddata) {
         $product = proddata;
         $('#prod-card-info').remove();
         $('body').append('<div id="prod-card-info" class="modal">' + proddata + '</div>');
@@ -825,9 +825,6 @@ $(document).on('click keydown', '.lock-on', function () {
     new imageLoader(cImageSrc, 'startAnimation()');
 });
 
-$(document).ready(function () {
-
-});
 
 $(document).on('click', '#catalog-mode', function () {
 
@@ -863,6 +860,24 @@ $(document).on('click', '#up', function () {
 
 
 $(document).on('ready', function () {
+
+
+    var HeaderTop = $('.filter').offset().top;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > HeaderTop) {
+            $('.filter').addClass('fixedbar-filter');
+            $('.headerbside').addClass('headerbside-filter');
+            // $('.cart-dialog-info').addClass('fixeddialog');
+        } else {
+            $('.filter').removeClass('fixedbar-filter');
+            $('.headerbside').removeClass('headerbside-filter');
+            //  $('.cart-dialog-info').removeClass('fixeddialog');
+        }
+    });
+
+
+
+
     $(document).on('click', '.loader', function () {
    // $(window).scroll(function () {
         if (!inProgress) {
