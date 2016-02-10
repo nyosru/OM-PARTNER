@@ -254,7 +254,7 @@ if ($data[0] != 'Не найдено!') {
         $product = $value['products'];
         $description = $value['productsDescription'];
         $attr_desc = $value['productsAttributesDescr'];
-        $attr_html = '<div class="cart-lable">В корзину</div>';
+        $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
         ?>
 
         <?
@@ -266,14 +266,14 @@ if ($data[0] != 'Не найдено!') {
                     $class='';
                 }
                 $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>'.
-                '<input id="input-count"'.
+                '<input  id="input-count"'.
                 'style="width: 50%; height: 23px; text-align: center; position: relative; top: 0px;"'.
-                'data-prod="1186049"'.
-                'data-model="960511110"'.
-                'data-price="1260.0000"'.
-                'data-image="apix/products/efc336062b484c15b04b957116034bc8.jpg"'.
-                'data-attrname="46"'.
-                'data-attr="14"'.
+                'data-prod="'. $product['products_id'].'"'.
+                'data-model="'. $product['products_model'].'"'.
+                'data-price="'. (integer)$product['products_price'].'"'.
+                'data-image="'. $product['products_image'].'"'.
+                'data-attrname="'.$attr_desc_value['products_options_values_name'].'"'.
+                'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
                 'placeholder="0"'.
                 'type="text">'.
                 '<div id="add-count" style="margin: 0px;">'.
@@ -285,8 +285,24 @@ if ($data[0] != 'Не найдено!') {
                 '</div></div></div>';
             }
         } else {
-            $attr_html .= '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' . $product['products_id'] . '" data-model="' . $product['products_model'] . '" data-price="' . $product['products_price'] . '" data-image="' . $product['products_image'] . '" data-attrname="' . $attr_desc_value['products_options_values_name'] . '" data-attr="' . $attr_desc_value['products_options_values_id'] . '" data-name="' . $description['products_name'] . '">+</div></div>';
-        }
+            $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'.
+                '<input  id="input-count"'.
+                'style="width: 50%; height: 23px; text-align: center; position: relative; top: 0px;"'.
+                'data-prod="'. $product['products_id'].'"'.
+                'data-model="'. $product['products_model'].'"'.
+                'data-price="'. (integer)$product['products_price'].'"'.
+                'data-image="'. $product['products_image'].'"'.
+                'data-attrname="'.$attr_desc_value['products_options_values_name'].'"'.
+                'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
+                'placeholder="0"'.
+                'type="text">'.
+                '<div id="add-count" style="margin: 0px;">'.
+                '+'.
+                '</div>'.
+                '<div id="del-count" style="margin: 0px;">'.
+                '-'.
+                '</div>'.
+                '</div></div></div>';       }
         $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
