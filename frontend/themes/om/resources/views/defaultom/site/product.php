@@ -20,7 +20,8 @@ if (count($product['productsAttributesDescr']) > 0) {
             $product['products']['products_price'] . '" data-image="' .
             $product['products']['products_image'] . '" data-attrname="' .
             $item['products_options_values_name'] . '" data-attr="' .
-            $item['products_options_values_id'] .
+            $item['products_options_values_id'] . '"data-name="'.
+            $product['productsDescription']['products_name'].
             '" type="text" placeholder="0" /><div id="add-count">+</div></div></div>';
         $sizeCounter++;
     }
@@ -29,7 +30,8 @@ if (count($product['productsAttributesDescr']) > 0) {
     $date = $product['products']['products_date_added'];
     $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 170px;"><div id="del-count" style="position: absolute; left: 0px; bottom: 1px;">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:55%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' . $product['products.products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
         $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $products['products_attribute_description']['products_options_values_name'] .
-        '" data-attr="' . $products['products_attribute_description']['products_options_values_id'] . '" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 1px;">+</div></div>';
+        '" data-attr="' . $products['products_attribute_description']['products_options_values_id'] . '"data-name="'.
+        $product['productsDescription']['products_name'].'" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 1px;">+</div></div>';
     $prodinfoattr .= '</div><div class="cart-lable" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
 }
 

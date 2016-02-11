@@ -53,8 +53,7 @@ if (count($product['productsAttributesDescr']) > 0) {
 <div style="z-index: 1060" class="modal bs-example-modal-lg image" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="text-align: center;"><img id="image-img"
-                                                                    src="http://odezhda-master.ru/images/<?= $product['products']['products_image'] ?>"/>
+        <div class="modal-content" style="text-align: center;"><img id="image-img" src="http://odezhda-master.ru/images/<?= $product['products']['products_image'] ?>"/>
         </div>
     </div>
 </div>
