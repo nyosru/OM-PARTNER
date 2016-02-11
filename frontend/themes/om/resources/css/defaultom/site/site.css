@@ -2585,6 +2585,9 @@
     .filter-auth{
         display:none;
     }
+    .filter-cart{
+        display:none;
+    }
     .fixedbar-filter >  .panel-default > a >.panel-heading  >.panel-title {
         float: left;
         width: 25%;
@@ -2598,6 +2601,9 @@
         display: block;
     }
     .fixedbar-filter >  .panel-default   > .filter-auth{
+        display: block;
+    }
+    .fixedbar-filter >  .panel-default   > .filter-cart{
         display: block;
     }
     .headerbside-filter{
@@ -2615,14 +2621,12 @@
         display: none;
         background: #F5F5F5 none repeat scroll 0% 0%;
         position: absolute;
-        bottom: 20px;
-        left: -85%;
-        width: calc(200% + 1px);
-        padding: 5px 7px 60px;
+        bottom: 55px;
+        left: -84%;
+        width: calc(200% - 1px);
+        padding: 10px 7px 65px;
         color: #000;
         text-align: right;
-        border: 1px solid #CCC;
-        border-radius: 4px;
     }
     div.float span.show {
         display: block;
