@@ -1580,7 +1580,6 @@
     .lable-info-item {
         width: 100%;
         display: block;
-        clear: left;
         float: left;
         padding: 5px 20px;
         border-top: 1px solid #E9E4E4;
