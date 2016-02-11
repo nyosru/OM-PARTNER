@@ -872,18 +872,6 @@ $(document).on('click', '#up', function () {
 $(document).on('ready', function () {
 
 
-    var HeaderTop = $('.filter').offset().top;
-    $(window).scroll(function () {
-        if ($(window).scrollTop() > HeaderTop) {
-            $('.filter').addClass('fixedbar-filter');
-            $('.headerbside').addClass('headerbside-filter');
-            // $('.cart-dialog-info').addClass('fixeddialog');
-        } else {
-            $('.filter').removeClass('fixedbar-filter');
-            $('.headerbside').removeClass('headerbside-filter');
-            //  $('.cart-dialog-info').removeClass('fixeddialog');
-        }
-    });
 
 
 
@@ -1159,7 +1147,7 @@ $(document).on('ready', function () {
         $i = 0;
         $price_cart = '0 руб.'
     }
-    $(".cart-count").html($amount_prod + ' шт');
+    $(".cart-count").html($amount_prod);
     $(".cart-price").html($cart_price + ' руб.');
     $(function accord() {
         var Accordion = function (el, multiple) {

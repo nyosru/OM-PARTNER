@@ -188,12 +188,12 @@ if ($data[0] != 'Не найдено!') {
                         <div class="btn btn-default data-j" style="width: 25%; height: 27px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; left: -5px; margin-right: 0px; float: left; font-size: 14px; line-height: 0.9;">
                             Найти
                         </div></div>';
-
+    $headbside .='<div class="filter-cart" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>';
 
     $headbside .='<div class="filter-auth" style="float: right; width: 25%; padding: 14px; font-size: 14px; font-weight: 300;">';
 
                             if(Yii::$app->user->isGuest){
-                                $headbside .='<div style="float: right; line-height: 2;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left; line-height: 0.8;">&#xE7FF;</i>Вход';
+                                $headbside .='<div style="float: right; line-height: 2;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left; line-height: 0.9;">&#xE7FF;</i>Вход';
                                  $headbside .= '</div>';
                                  $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
                                }else{
@@ -202,7 +202,7 @@ if ($data[0] != 'Не найдено!') {
                             }
 
                       $headbside .=   '</div>
-                         <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#filter-cont" aria-expanded="false" aria-controls="collapseOne">
+                         <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="" aria-expanded="false" aria-controls="collapseOne">
 
                            <div class="panel-heading" role="tab" id="headingOne">
 
@@ -218,11 +218,11 @@ if ($data[0] != 'Не найдено!') {
                                 'Цена'.
                             '</div>'.
                             '<div style="display: block; height: 45px;" >'.
-        '<input name="cat"   value="'.$cat.'" type="hidden"/>'.
-        '<input name="count" value="'.$count.'" type="hidden" />'.
+                            '<input name="cat"   value="'.$cat.'" type="hidden"/>'.
+                             '<input name="count" value="'.$count.'" type="hidden" />'.
                                 '<input name="start_price" id="min-ev-price" class="" placeholder="от" style="float: left; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" />'.
                                 '<input name="end_price" style="float: right; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" id="max-ev-price" class="" placeholder="до" />'.
-        '</div>'.
+                             '</div>'.
                             Slider::widget([
                                 'id'=>'price-slider',
                                 'options'=>['style'=>'width: 95%; margin: auto;border: 1px solid #CCC;'],
@@ -288,7 +288,7 @@ if ($data[0] != 'Не найдено!') {
                 }
                 $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>'.
                 '<input  id="input-count"'.
-                'style="width: 50%; height: 22px; text-align: center; position: relative; top: 0px;"'.
+                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
                 'data-name="'.  $description['products_name']  .'"'.
                 'data-model="'. $product['products_model'].'"'.
@@ -309,7 +309,7 @@ if ($data[0] != 'Не найдено!') {
         } else {
             $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'.
                 '<input  id="input-count"'.
-                'style="    width: 50%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
+                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
                 'data-name="'.  $description['products_name']  .'"'.
                 'data-model="'. $product['products_model'].'"'.
@@ -343,7 +343,7 @@ if ($data[0] != 'Не найдено!') {
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>' .
             '<div style="cursor:pointer">' .
-            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight:400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; padding: 0px 27px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: #00A5A1; font-size: 18px; position: absolute; right: 0px; padding: 0px 0px 0px 30px;"></i>'.
+            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;"></i>'.
             '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .
@@ -363,10 +363,11 @@ if ($data[0] != 'Не найдено!') {
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
     echo '<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
     $pagination = new \yii\data\Pagination();
-    $pagination->totalCount = $data[1]-$count;
+    $pagination->totalCount = $data[1]-100;
     $pagination->pageSize = $count;
     $pagination->pageSizeParam = 'count';
     $pagination->defaultPageSize = 20;
+    $pagination->setPage($page-1);
 
     echo \yii\widgets\LinkPager::widget([
             'firstPageLabel' => 'Первая',
@@ -395,6 +396,20 @@ echo '</div>';
         $('#min-ev-price').val('<?=$data[7]?>');
         $('#max-ev-price').val('<?=(integer)$data[2]['maxprice']?>');
 
+        var HeaderTop = $('.filter').offset().top;
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > HeaderTop) {
+                $('.filter').addClass('fixedbar-filter');
+                $('.headerbside').addClass('headerbside-filter');
+                // $('.cart-dialog-info').addClass('fixeddialog');
+            } else {
+                $('.filter').removeClass('fixedbar-filter');
+                $('.headerbside').removeClass('headerbside-filter');
+                //  $('.cart-dialog-info').removeClass('fixeddialog');
+            }
+        });
+
+
     });
     $(document).on('click', '.reset-filter',  function( event, ui){
     $('#min-ev-price').val('<?=$data[7]?>');
@@ -406,10 +421,11 @@ echo '</div>';
 
     if($('#filter-cont').attr('class').indexOf('collapse in')+1) {
         $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Показать фильтр </h4> </div>');
-        $(this).find(':first-child').removeClass('no-border-bottom-rad');
+        $('#filter-cont').removeClass('in');
     }else{
         $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Свернуть фильтр</h4> </div>');
         $(this).find(':first-child').addClass('no-border-bottom-rad');
+        $('#filter-cont').addClass('in');
     }
     });
         $(document).on('click', '[class*=checkbox-overlay]', function(){

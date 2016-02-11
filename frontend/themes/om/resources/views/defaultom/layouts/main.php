@@ -104,7 +104,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         }
                         ?>
                         <a class="top-link-cont-back" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
-                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div class="cart-count"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
+                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
                     </div>
                 </div>
                 <div id="partners-main-right">
@@ -167,7 +167,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <footer class="footer">
                     <hr class="linebottom1">
                     <hr class="linebottom2">
-                    <div class="">
+                    <div class="" style="margin: 0px 25px;">
                         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
                         <!--    --><?// $this->endCache();
                         //}
