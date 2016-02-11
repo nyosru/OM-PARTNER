@@ -34,7 +34,8 @@
 
     body, html {
         height: 100%;
-        width: 100%
+        width: 100%;
+        max-width: 1920px;
     }
 
     a {
@@ -377,6 +378,7 @@
         height: 100%;
         width: 16.5%;
         padding: 0px;
+        max-width: 315px;
     }
 
     .arrow-down, .arrow-up {
@@ -395,6 +397,7 @@
         overflow: hidden;
         background: #F5F5F5;
         width: 100%;
+        max-width: 315px;
     }
 
     #partners-main-left-cont {
@@ -2568,6 +2571,35 @@
         min-width: 190px;
 
     }
+    .fixedbar-filter >  .panel-default > a >.panel-heading   {
+        height: 50px;
+        padding: 15px !important;
+        box-shadow: 0px 7px 15px -10px black;
+    }
+    .fixedbar-filter >  .panel-default   {
+        margin-top: -15px;
+    }
+    .filter-search{
+        display: none;
+    }
+    .filter-auth{
+        display:none;
+    }
+    .fixedbar-filter >  .panel-default > a >.panel-heading  >.panel-title {
+        float: left;
+        width: 25%;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+        padding: 5px;
+        font-size: 14px;
+        margin-top: -3px;
+    }
+    .fixedbar-filter >  .panel-default   > .filter-search{
+        display: block;
+    }
+    .fixedbar-filter >  .panel-default   > .filter-auth{
+        display: block;
+    }
     .headerbside-filter{
         width:100% !important;
     }
@@ -2583,19 +2615,35 @@
         display: none;
         background: #F5F5F5 none repeat scroll 0% 0%;
         position: absolute;
-        top: 102%;
-        left: 0px;
-        width: 100%;
+        bottom: 20px;
+        left: -85%;
+        width: calc(200% + 1px);
         padding: 5px 7px 60px;
         color: #000;
         text-align: right;
-        border: 1px solid rgb(204, 204, 204);
+        border: 1px solid #CCC;
         border-radius: 4px;
     }
     div.float span.show {
         display: block;
         z-index: 99;
+        background: rgba(245, 245, 245, 0.9) none repeat scroll 0% 0%;
     }
+
+    div.float:hover .item-descr {
+        background: rgba(0,0, 0, 0.8);
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        height:30px;
+        left: 0;
+        width: 100%;
+        color: lightgray;
+        text-align: center;
+        font-size: large;
+        line-height:1.3;
+    }
+
     .checkbox-overlay {
         height: 20px;
         width: 20px;
