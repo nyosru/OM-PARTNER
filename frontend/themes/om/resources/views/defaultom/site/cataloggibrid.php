@@ -183,8 +183,29 @@ if ($data[0] != 'Не найдено!') {
     $headbside .= '</div></div>
                 <form id="partners-main-right" class="filter" action="'.BASEURL.'/catalog">
                     <div class="panel panel-default">
+                         <div class="filter-search" style="float: left; margin: 13px; font-size: 14px; width: 25%;">
+                            <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 27px; float: left; width: 75%; font-size: 14px; line-height: 1; padding: 4px;" type="text">
+                        <div class="btn btn-default data-j" style="width: 25%; height: 27px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; left: -5px; margin-right: 0px; float: left; font-size: 14px; line-height: 0.9;">
+                            Найти
+                        </div></div>';
+
+
+    $headbside .='<div class="filter-auth" style="float: right; width: 25%; padding: 14px; font-size: 14px; font-weight: 300;">';
+
+                            if(Yii::$app->user->isGuest){
+                                $headbside .='<div style="float: right; line-height: 2;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left; line-height: 0.8;">&#xE7FF;</i>Вход';
+                                 $headbside .= '</div>';
+                                 $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+                               }else{
+                                 $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
+                                 $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                            }
+
+                      $headbside .=   '</div>
                          <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#filter-cont" aria-expanded="false" aria-controls="collapseOne">
+
                            <div class="panel-heading" role="tab" id="headingOne">
+
                             <h4 class="panel-title">
                                         Показать фильтр
 
@@ -267,8 +288,9 @@ if ($data[0] != 'Не найдено!') {
                 }
                 $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>'.
                 '<input  id="input-count"'.
-                'style="width: 50%; height: 23px; text-align: center; position: relative; top: 0px;"'.
+                'style="width: 50%; height: 22px; text-align: center; position: relative; top: 0px;"'.
                 'data-prod="'. $product['products_id'].'"'.
+                'data-name="'.  $description['products_name']  .'"'.
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
@@ -276,10 +298,10 @@ if ($data[0] != 'Не найдено!') {
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
                 'placeholder="0"'.
                 'type="text">'.
-                '<div id="add-count" style="margin: 0px;">'.
+                '<div id="add-count" style="margin: 0px;line-height: 1.6;">'.
                 '+'.
                 '</div>'.
-                '<div id="del-count" style="margin: 0px;">'.
+                '<div id="del-count" style="margin: 0px;line-height: 1.6;">'.
                 '-'.
                 '</div>'.
                 '</div></div></div>';
@@ -287,8 +309,9 @@ if ($data[0] != 'Не найдено!') {
         } else {
             $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'.
                 '<input  id="input-count"'.
-                'style="width: 50%; height: 23px; text-align: center; position: relative; top: 0px;"'.
+                'style="    width: 50%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
+                'data-name="'.  $description['products_name']  .'"'.
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
@@ -296,10 +319,10 @@ if ($data[0] != 'Не найдено!') {
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
                 'placeholder="0"'.
                 'type="text">'.
-                '<div id="add-count" style="margin: 0px;">'.
+                '<div id="add-count" style="margin: 0px;line-height: 1.6;">'.
                 '+'.
                 '</div>'.
-                '<div id="del-count" style="margin: 0px;">'.
+                '<div id="del-count" style="margin: 0px;line-height: 1.6;">'.
                 '-'.
                 '</div>'.
                 '</div></div></div>';       }
@@ -320,10 +343,11 @@ if ($data[0] != 'Не найдено!') {
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>' .
             '<div style="cursor:pointer">' .
-            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight:400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; padding: 0px 27px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: #00A5A1; font-size: 18px; position: absolute; right: 0px; padding: 0px 0px 0px 30px;"></i></div>' .
+            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight:400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; padding: 0px 27px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: #00A5A1; font-size: 18px; position: absolute; right: 0px; padding: 0px 0px 0px 30px;"></i>'.
+            '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
+            '</div>' .
             '</div>' .
             '<a href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div></a>' .
-            '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>';
     }
     if ($searchword !== '') {
@@ -397,15 +421,19 @@ echo '</div>';
             $(this).children().prop('checked', true);
             $(this).addClass('fa-check');
         });
-    $(document).on('click', '[data-vis="size-item-desc"]', function(){
+    $(document).on('mouseover', '[data-vis="size-item-desc"]', function(){
         $attr = this.getAttribute('data-vis-id');
         $obj = $('[data-vis-id-card="'+$attr+'"]');
-        if($obj.hasClass('show')){
-            $obj.removeClass('show');
-        }else{
-            $obj.addClass('show');
-        }
+        $obj.addClass('show');
     });
+    $(document).on('mouseout', '[data-vis="size-item-desc"]', function(){
+        $attr = this.getAttribute('data-vis-id');
+        $obj = $('[data-vis-id-card="'+$attr+'"]');
+        $obj.removeClass('show')
+    });
+//    },1000).(function(){
+//
+//    }, 1000);
 
     </script>
 
