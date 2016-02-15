@@ -589,6 +589,7 @@ $(document).on('click', '.del-product', function () {
     $c = 0;
     $amount_prod = 0;
     $cart_price = 0;
+
     $.each($array_splice, function () {
         $amount_prod = $amount_prod + parseInt(this[4]);
         $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
@@ -604,7 +605,7 @@ $(document).on('click', '.del-product', function () {
             '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
             '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
             '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(this[3]) + ' руб.</div>'+
-            '   <div style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
+            '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
             '   <input id="input-c" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-id="'+$c+'" value="' + this[4] + '">' +
             '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-id="'+$c+'">+</div></div>' +
             '</div></div>' +
@@ -614,6 +615,20 @@ $(document).on('click', '.del-product', function () {
     $('.cart-column1').html($innerhtml);
     $(".cart-count").html($amount_prod);
     $(".cart-price").html($cart_price + ' руб.');
+    var godsprice=0;
+    var wrapprice=0;
+    var check = $("[name='wrap']").filter(':checked').first();
+    console.log();
+    if(check.val()=="boxes") wrapprice=15;
+
+    $indexes = $(".cart-row");
+    $.each($indexes, function () {
+        var c=((parseInt($(this).find('#input-c').val()))*(parseInt($(this).find('.cart-prod-price').html())));
+        godsprice+=c;
+    });
+    $('#gods-price').html(godsprice+' руб');
+    $('#total-price').html(godsprice+wrapprice+' руб');
+    $('#wrap-price').html(wrapprice+' руб');
 });
 // deprecated
 // $(document).on('click', '.cart', function () {
