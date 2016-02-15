@@ -582,6 +582,11 @@ $(document).on('click', '.del-product', function () {
     $item = JSON.parse(localStorage.getItem('cart-om'));
     $array_splice = $item.cart;
     $array_splice.splice($delrow, 1);
+    $nums=[];
+    $('[id=input-c]').each(function(index,value){
+        $nums.push(value.value);
+    });
+    $nums.splice($delrow, 1);
     $new_cart.cart = $array_splice;
     $ilocal = JSON.stringify($new_cart);
     localStorage.setItem('cart-om', $ilocal);
@@ -590,7 +595,8 @@ $(document).on('click', '.del-product', function () {
     $amount_prod = 0;
     $cart_price = 0;
 
-    $.each($array_splice, function () {
+    $.each($array_splice, function (index) {
+        this[4] = $nums[index];
         $amount_prod = $amount_prod + parseInt(this[4]);
         $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
         if (this[6] == 'undefined') {
@@ -1249,7 +1255,7 @@ function onAjaxSuccessinfo(data) {
         }
     });
     $('.userinfo').html('');
-    $('.userinfo').html($inner + '<div>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class="save-order2 btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right; border-radius: 5px;">Подтвердить заказ</button>');
+    $('.userinfo').html($inner + '<div>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class=" btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right; border-radius: 5px;" type="submit">Подтвердить заказ</button>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",

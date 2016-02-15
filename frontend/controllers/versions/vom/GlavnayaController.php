@@ -31,6 +31,7 @@ use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPaymentMethod;
 use frontend\controllers\actions\ActionPayOrders;
 use frontend\controllers\actions\ActionPrintOrders;
+use frontend\controllers\actions\ActionTakeOrder;
 use frontend\controllers\actions\om\ActionProduct;
 use frontend\controllers\actions\om\ActionProductinfo;
 use frontend\controllers\actions\ActionProductinfobymodel;
@@ -113,7 +114,8 @@ class GlavnayaController extends Controller
         ActionTest,
         ActionAddSearch,
         ActionProductinfobymodel,
-        ActionCart;
+        ActionCart,
+        ActionTakeOrder;
 
 
     /**
@@ -130,7 +132,7 @@ class GlavnayaController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
+                'only' => ['logout', 'signup', 'saveorder', 'takeorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -176,6 +178,11 @@ class GlavnayaController extends Controller
                         'actions' => ['requestemail'],
                         'allow' => true,
                         'roles' => ['register', 'admin'],
+                    ],
+                    [
+                        'actions' => ['takeorder'],
+                        'allow' => true,
+                        'roles' => ['register','admin'],
                     ],
                     [
                         'actions' => ['savehtml'],
