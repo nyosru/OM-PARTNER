@@ -25,14 +25,14 @@ if (count($product['productsAttributesDescr']) > 0) {
             '" type="text" placeholder="0" /><div id="add-count">+</div></div></div>';
         $sizeCounter++;
     }
-    $prodinfoattr .= '</div></div></div><div class="cart-lable" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
+    $prodinfoattr .= '</div></div></div><div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
 } else {
     $date = $product['products']['products_date_added'];
-    $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 170px;"><div id="del-count" style="position: absolute; left: 0px; bottom: 1px;">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:55%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' . $product['products.products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
+    $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 170px;"><div id="del-count" style="position: absolute; left: 0px; bottom: 1px;">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:55%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
         $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $products['products_attribute_description']['products_options_values_name'] .
         '" data-attr="' . $products['products_attribute_description']['products_options_values_id'] . '"data-name="'.
         $product['productsDescription']['products_name'].'" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 1px;">+</div></div>';
-    $prodinfoattr .= '</div><div class="cart-lable" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
+    $prodinfoattr .= '</div><div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
 }
 
 $items=array();
@@ -119,24 +119,16 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
 
             </div>
             <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
-            <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;">
-                <div class="rel-item" style="height: 100%;width: 320px; float: left; border: 1px solid lightgray; text-align: center;padding: 25px; margin-right: 10px;">
-                    <div class="rel-img" style="height: 87%;">
-                        <?='<img style="max-height: 100%; max-width:100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
-                    </div>
-                    <div class="rel-name" style="margin: 10px;"><a href="#"  style="color: #00A5A1; font-weight: bolder;">Одежда</a></div>
-                    <div class="rel-price" style="margin: 10px;">1000 руб</div>
-                </div>
-                <div class="rel-item" style="height: 100%;width: 320px; float: left; border: 1px solid lightgray; text-align: center;padding: 25px;  margin-right: 10px;">
-                    <div class="rel-img" style="height: 87%;">
-                        <?='<img style="max-height: 100%; max-width:100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
-                    </div>
-                    <div class="rel-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>
-                    <div class="rel-price" style="margin: 10px;">1000 руб</div>
-                </div>
+            <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;margin-bottom: 20px;">
+            <?php
+            foreach($relprod as $value){
+                echo '<div class="rel-item" style="height: 100%;width: 310px; float: left; border: 1px solid lightgray; text-align: center;padding: 25px; margin-right: 10px;">';
+                echo '<div class="rel-img" style="height: 75%;"><img style="max-height: 100%; max-width:100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$value['products_image'].'"/></div>';
+                echo '<div class="rel-name" style="height: 22%;"><a href="'.BASEURL.'/product?id='.$value['products_id'].'"  style="color: #00A5A1; font-weight: bolder;">'.$value['products_name'].'</a></div>';
+                echo '<div class="rel-price" style="margin: 10px; height: 3%;">'.(integer)$value['products_price'].' руб. </div></div>';
+            }
+            ?>
             </div>
-        </div>
-    </div>
     <div class="ov-desc" style="margin:45px 0">
         <input id="tab1" type="radio" name="tabs" checked>
         <label for="tab1" title="Подробное описание">Подробное описание</label>
