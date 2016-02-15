@@ -202,7 +202,7 @@ if ($data[0] != 'Не найдено!') {
                             }
 
                       $headbside .=   '</div>
-                         <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="" aria-expanded="false" aria-controls="collapseOne">
+                         <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">
 
                            <div class="panel-heading" role="tab" id="headingOne">
 
@@ -363,23 +363,23 @@ if ($data[0] != 'Не найдено!') {
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
     echo '<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
     $pagination = new \yii\data\Pagination();
-    $pagination->totalCount = $data[1]-100;
+    $pagination->totalCount = (int)$data[1]-(int)$count*2-1;
     $pagination->pageSize = $count;
     $pagination->pageSizeParam = 'count';
     $pagination->defaultPageSize = 20;
-    $pagination->setPage($page-1);
-
     echo \yii\widgets\LinkPager::widget([
             'firstPageLabel' => 'Первая',
             'lastPageLabel' => 'Последняя',
             'nextPageLabel'=>'<i class="mdi mdi-arrow-forward"></i>',
             'prevPageLabel'=>'<i class="mdi mdi-arrow-back"></i>',
             'id'=>'pager-catalog',
-            'maxButtonCount'=>5,
             'pagination' => $pagination
         ]
 
     );
+    echo '<pre>';
+    print_r($pagination);
+    echo '</pre>';
 echo '</div>';
 } else {
     echo 'Нет результатов';
