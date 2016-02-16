@@ -290,13 +290,13 @@ if ($data[0] != 'Не найдено!') {
                 '<input  id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
-                'data-name="'. urlencode($description['products_name'])  .'"'.
+                'data-name="'. htmlentities($description['products_name'])  .'"'.
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
                 'data-step="'. $product['products_quantity_order_units'].'"'.
                 'data-min="'. $product['products_quantity_order_min'].'"'.
-                'data-attrname="'.$attr_desc_value['products_options_values_name'].'"'.
+                'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
                 'placeholder="0"'.
                 'type="text">'.
@@ -316,9 +316,9 @@ if ($data[0] != 'Не найдено!') {
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
-                'data-attrname="'.$attr_desc_value['products_options_values_name'].'"'.
+                'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
-                'data-name="'.  $description['products_name']  .'"'.
+                'data-name="'.  htmlentities($description['products_name'])  .'"'.
                  'data-step="'. $product['products_quantity_order_units'].'"'.
                 'data-min="'. $product['products_quantity_order_min'].'"'.
                 'placeholder="0"'.
@@ -337,11 +337,11 @@ if ($data[0] != 'Не найдено!') {
         $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_image'] . '">' .
             '</div>' .
-            '<div  itemprop="name" class="name">' . $description['products_name'] . '</div></a>' .
+            '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
             '<div style="display:none;" class="model">Артикул ' . $product['products_model'] . '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
-            '<div  itemprop="description" class="model" style="display:none">' . $description['products_description'] . '</div>' .
-            '<div  itemprop="category" class="model" style="display:none">' . implode(', ', $catpath->name) . '</div>' .
+            '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
+            '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $catpath->name)) . '</div>' .
             '<div  itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">' .
             '<div style="font-size: 18px; font-weight: 500;" itemprop="price" >' . (integer)($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
