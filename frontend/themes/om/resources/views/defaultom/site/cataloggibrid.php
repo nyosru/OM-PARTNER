@@ -290,10 +290,12 @@ if ($data[0] != 'Не найдено!') {
                 '<input  id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
-                'data-name="'.  $description['products_name']  .'"'.
+                'data-name="'. urlencode($description['products_name'])  .'"'.
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
+                'data-step="'. $product['products_quantity_order_units'].'"'.
+                'data-min="'. $product['products_quantity_order_min'].'"'.
                 'data-attrname="'.$attr_desc_value['products_options_values_name'].'"'.
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
                 'placeholder="0"'.
@@ -311,12 +313,14 @@ if ($data[0] != 'Не найдено!') {
                 '<input  id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
-                'data-name="'.  $description['products_name']  .'"'.
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
                 'data-attrname="'.$attr_desc_value['products_options_values_name'].'"'.
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
+                'data-name="'.  $description['products_name']  .'"'.
+                 'data-step="'. $product['products_quantity_order_units'].'"'.
+                'data-min="'. $product['products_quantity_order_min'].'"'.
                 'placeholder="0"'.
                 'type="text">'.
                 '<div id="add-count" style="margin: 0px;line-height: 1.6;">'.
@@ -361,26 +365,60 @@ if ($data[0] != 'Не найдено!') {
     echo $innerhtml;
     echo '<div class="loader">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath->name).'</span></div>';
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
-    echo '<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
-    $pagination = new \yii\data\Pagination();
-    $pagination->totalCount = (int)$data[1]-(int)$count*2-1;
-    $pagination->pageSize = $count;
-    $pagination->pageSizeParam = 'count';
-    $pagination->defaultPageSize = 20;
-    echo \yii\widgets\LinkPager::widget([
-            'firstPageLabel' => 'Первая',
-            'lastPageLabel' => 'Последняя',
-            'nextPageLabel'=>'<i class="mdi mdi-arrow-forward"></i>',
-            'prevPageLabel'=>'<i class="mdi mdi-arrow-back"></i>',
-            'id'=>'pager-catalog',
-            'pagination' => $pagination
-        ]
 
-    );
-    echo '<pre>';
-    print_r($pagination);
-    echo '</pre>';
-echo '</div>';
+    if($data[1]>$count){
+    echo '<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
+    if($page<=0){
+    $fpclass = 'disable';
+    }else{
+    $fpclass = '';
+    }
+    echo '<ul class="pagination">';
+    echo '<li class="first">';
+    echo '<a href="' . new_url(new_suburl(split_url($url), 'page', 0)) . '" data-page="0">';
+    echo 'Первая';
+    echo '</a>';
+    echo '</li>';
+    echo '<li class="prev">';
+    echo '<a href="' . new_url(new_suburl(split_url($url), 'page', max(0,$page-1))) . '" data-page="'.($page-1).'">';
+    echo '<i class="mdi mdi-arrow-back">';
+    echo '</i>';
+    echo '</a>';
+    echo '</li>';
+    $checkdelimiter = $data[1]%$count;
+    if($checkdelimiter){
+    $pagecount = (int)($data[1]/$count);
+    }else{
+    $pagecount = (int)($data[1]/$count)-1;
+    }
+    $endpage = min($pagecount, $page+2);
+    $startpage = max(0, $page-2);
+    for($startpage; $startpage<=$endpage ; $startpage++){
+    if($page == $startpage){
+     echo '<li class="active"><a  href="' . new_url(new_suburl(split_url($url), 'page', max(0,$startpage))) . '" data-page="'.($startpage+1).'">'.($startpage+1).'</a></li>';
+
+    }else{
+    echo '<li><a href="' . new_url(new_suburl(split_url($url), 'page', max(0,$startpage))) . '">'.($startpage+1).'</a></li>';
+    }
+    }
+    echo '<li class="next">';
+    echo '<a href="' . new_url(new_suburl(split_url($url), 'page', min($pagecount,$page+1))) . '">';
+    echo '<i class="mdi mdi-arrow-forward">';
+    echo '</i>';
+    echo '</a>';
+    echo '</li>';
+     echo '<li class="last">';
+    echo '<a href="' . new_url(new_suburl(split_url($url), 'page', $pagecount)) . '">';
+    echo 'Последняя';
+    echo '</a>';
+    echo '</li>';
+    ?>
+</ul>
+   </div>
+   <?
+}
+
+
 } else {
     echo 'Нет результатов';
 
