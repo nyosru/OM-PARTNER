@@ -8,7 +8,7 @@ use frontend\assets\AppAsset;
 use yii\bootstrap\Alert;
 use rmrevin\yii\fontawesome;
 use dosamigos\ckeditor\CKEditorInline;
-use frontend\widgets\Menu;
+use frontend\widgets\Menuom;
 
 
 /* @var $this \yii\web\View */
@@ -35,7 +35,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
         ?>
     </head>
-    <body>
+    <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; border-left:  1px  solid #CCC; border-right:  1px  solid #CCC;">
     <?php $this->beginBody(); ?>
     <div class="container-fluid" style="position: relative; display: block; padding: 10px 0px 0px;"><p class="pull-left"><span
                 class="navbred">

@@ -11,7 +11,6 @@ use dosamigos\ckeditor\CKEditorInline;
 use frontend\widgets\Menuom;
 
 
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 AppAsset::register($this);

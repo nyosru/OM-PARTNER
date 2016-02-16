@@ -16,9 +16,6 @@ trait ActionTakeOrder{
         foreach($cost as $key=>$value){
             $prices[$value['products_id']]=$value['products_price'];
         }
-        echo '<pre>';
-        print_r($cost);
-        echo '</pre>';
         return $this->render('takeorder');
     }
 }

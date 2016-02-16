@@ -13,6 +13,7 @@ $(document).on('ready', function () {
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         $item = JSON.parse(localStorage.getItem('cart-om'));
         $i = $item.cart;
+        console.log($i);
         $c = 0;
         $.each($i, function () {
             if (this[6] == 'undefined') {
@@ -30,7 +31,7 @@ $(document).on('ready', function () {
                 '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(this[3]) + ' руб.</div>'+
                 '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
                 '   <input id="input-c" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-id="'+$c+'" value="' + this[4] + '">' +
-                '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-id="'+$c+'">+</div></div>' +
+                '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]+'" data-step="'+this[10]+'"  data-id="'+$c+'">+</div></div>' +
                 '</div></div>' +
                 '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div></div>';
         });
