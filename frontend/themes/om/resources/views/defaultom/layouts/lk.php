@@ -69,7 +69,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <div id="partners-main-left-cont">
                         <ul id="accordion" class="accordion">
                             <li class="">
-                                <div id="profile-info" class="link profile-info">Общая информация</div>
+                                <div id="profile-info" class="link profile-info" href="<?= BASEURL ?>/lk">Общая информация</div>
                             </li>
                         </ul>
                         <ul id="accordion" class="accordion">

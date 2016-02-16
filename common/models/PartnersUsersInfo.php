@@ -87,6 +87,9 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
             'customers_id' => 'Customers ID',
         ];
     }
-
+    public function getCustomers()
+    {
+        return $this->hasOne(Customers::className(), ['customers_id' => 'customers_id']);
+    }
 
 }
