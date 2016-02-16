@@ -685,6 +685,7 @@ $(document).on('click', '.cart-lable', function () {
    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
+    console.log($cart_add_obj);
     $.each($cart_add_obj, function () {
         var $item = new Object();
         $item_add = $(this)[0];
@@ -744,6 +745,8 @@ $(document).on('click', '.cart-lable', function () {
                     }, 1000, function () {
                         $(this).remove();
                     });
+                $item.cart[$i]['step'] = $item_add.getAttribute('data-step');
+                $item.cart[$i]['min'] = $item_add.getAttribute('data-min');
                 $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name')];
             }
             $ilocal = JSON.stringify($item);
@@ -886,10 +889,10 @@ $(document).on('click', '#up', function () {
 
 
 $(document).on('ready', function () {
-    $(document).on('click', '.loader', function () {
-   // $(window).scroll(function () {
-        if (!inProgress) {
-       // if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress) {
+    //$(document).on('click', '.loader', function () {
+    $(window).scroll(function () {
+        //if (!inProgress) {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress) {
 
 
             $searchword = '';
@@ -909,11 +912,9 @@ $(document).on('ready', function () {
                 $check.push($(this).attr('data-size'));
             });
             $page = parseInt($('.pagination-catalog').find('.pagination').find('.active').find('a').attr('data-page'));
-
             if (typeof $page == 'undefined') {
                 $page = 0;
             }
-            $page = parseInt($page) + 2;
 
             $prodatrquery = $check.join(',');
             if ($count == '') {
@@ -1009,55 +1010,60 @@ $(document).on('ready', function () {
                                     '</a>'+
                                 '</div></div>');
                     });
-                    $pageSize = $count;
-                    $totalCount = parseInt(data[1]);
-                    $pageCount = parseInt((parseInt($totalCount) + parseInt($pageSize) - 1) / parseInt($pageSize));
 
 
-                        $maxButtonCount = 5;
-                        $currentPage = parseInt($page);
+                    $pager = '';
 
-                            //$beginPage = $currentPage - parseInt($maxButtonCount / 2);
-                            //$endPage = $pageCount - 1;
-                            //$beginPage = $endPage - $maxButtonCount + 1;
-                            //$endPage = $beginPage + $maxButtonCount;
-
-                    $pager = 'nn';
-
-                    $beginPage = Math.max(0, $currentPage -  parseInt(($maxButtonCount / 2)));
-                    if (($endPage = $beginPage + $maxButtonCount) >= $pageCount) {
-                        $endPage = $pageCount - 1;
-                        $beginPage = Math.max(0, $endPage - $maxButtonCount + 1);
-                    }
-
-                        if (($pageprev = $currentPage - 1) < 0) {
-                            $pageprev = 0;
-                        }
-                    $pager += '<li class="prev"><a href="/site/catalog' + new_url(new_suburl(split_url($url), 'page', ($pageprev)))+'"  data-page="'+$pageprev+'"><<</a></li>';
-
-
-
-
-                        if (($pagenext = $currentPage + 1) >= $pageCount - 1) {
-                            $pagenext = $pageCount - 1;
-                        }
-
-
-                    $pagerbeginend = [$beginPage, $endPage];
-
-                    for($beginPage; $beginPage < $endPage; $beginPage++){
-                        if($beginPage == $currentPage-1){
-                            $class='class="active"';
+                    data[1] = parseInt(data[1]);
+                    $count = parseInt($count);
+                    if(data[1] > $count){
+                        $pager +='<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
+                        if($page <= 0){
+                            $fpclass = 'disable';
                         }else{
-                            $class='';
+                            $fpclass = '';
                         }
-                         $pager += '<li '+$class+'><a href="/site/catalog' + new_url(new_suburl(split_url($url), 'page', ($beginPage)))+'"  data-page="'+($beginPage-1)+'">'+($beginPage+1)+'</a></li>';
+                        $pager += '<ul class="pagination">';
+                        $pager += '<li class="first">';
+                        $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', 0)) + '" data-page="0">';
+                        $pager += 'Первая';
+                        $pager += '</a>';
+                        $pager += '</li>';
+                        $pager += '<li class="prev">';
+                        $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$page-1))) + '" data-page="'+($page-1)+'">';
+                        $pager += '<i class="mdi mdi-arrow-back">';
+                        $pager += '</i>';
+                        $pager += '</a>';
+                        $pager += '</li>';
+                        $checkdelimiter = data[1]%$count;
+                        if($checkdelimiter){
+                            $pagecount = parseInt(data[1]/$count);
+                        }else{
+                            $pagecount = parseInt(data[1]/$count)-1;
+                        }
+                        $endpage = Math.min($pagecount, $page+2);
+                        $startpage = Math.max(0, $page-2);
+                        for($startpage; $startpage<=$endpage ; $startpage++){
+                            if($page == $startpage){
+                                $pager += '<li class="active"><a  href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage+1))) + '" data-page="'+($startpage+1)+'">'+($startpage+1)+'</a></li>';
+
+                            }else{
+                                $pager += '<li><a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage))) + '">'+($startpage+1)+'</a></li>';
+                            }
+                        }
+                        $pager += '<li class="next">';
+                        $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.min($pagecount,$page+1))) + '">';
+                        $pager += '<i class="mdi mdi-arrow-forward">';
+                        $pager += '</i>';
+                        $pager += '</a>';
+                        $pager += '</li>';
+                        $pager += '<li class="last">';
+                        $pager +='<a href="' + new_url(new_suburl(split_url($url), 'page', $pagecount)) + '">';
+                        $pager += 'Последняя';
+                        $pager += '</a>';
+                        $pager +='</li> </ul></div>';
+
                     }
-
-                    $pager += '<li class="next"><a href="/site/catalog' + new_url(new_suburl(split_url($url), 'page', ($pagenext)))+'" data-page="'+$pagenext+'">>></a></li>';
-
-
-
 
 
                     $('.bside').append('<div class="loader col-md-12">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');

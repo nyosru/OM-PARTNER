@@ -21,13 +21,13 @@ trait ActionSiteRequest
         $page = intval(Yii::$app->request->getQueryParam('page', 0));
         $start_arr = intval($page * $count);
         $sort = intval(Yii::$app->request->getQueryParam('sort', 10));
-        if ($sort == 'undefined') {
-            $sort = 10;
+        if ($sort == 'undefined' || !isset($sort) || $sort == '') {
+            $sort = 0;
         }
-        if ($page == 'undefined') {
+        if ($page == 'undefined' || $page < 0) {
+
             $page = 0;
         }
-
         $categoriesarr = $this->full_op_cat();
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
        // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
