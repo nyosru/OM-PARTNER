@@ -37,98 +37,36 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     </head>
     <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; border-left:  1px  solid #CCC; border-right:  1px  solid #CCC;">
     <?php $this->beginBody(); ?>
-    <div class="container-fluid" style="position: relative; display: block; padding: 10px 0px 0px;"><p class="pull-left"><span
-                class="navbred">
-              <? if (($slogan = Yii::$app->params['partnersset']['slogan']['value']) !== FALSE && Yii::$app->params['partnersset']['slogan']['active'] == 1) {
-                  echo '<span>' . str_replace('</p>', '', str_replace('<p>', '', $slogan)) . '</span>';
-              } else {
-                  $slogan = '';
-              }
-              ?>
-            </span>
-            <?
-            if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
-                echo '<span class="phone-index">' . Yii::$app->params['partnersset']['contacts']['telephone']['value'] . '</span>';
-            }
-            ?>
-        </p>
-
-        <p class="pull-right">
-            <a class="top-link" href="<?= BASEURL ?>/news">Новости</a>
-            <a class="top-link" href="<?= BASEURL ?>/faq">FAQ</a>
-            <a class="top-link" href="<?= BASEURL ?>/paying">Оплата</a>
-            <a class="top-link" href="<?= BASEURL ?>/delivery">Доставка</a>
-            <a class="top-link" href="<?= BASEURL ?>/contacts">Контакты</a>
-        </p></div>
-    <div class="wrap">
+    <div class="wrap" >
         <?php
         if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
             $name = $namecustom;
         } else {
             $name = Yii::$app->params['constantapp']['APP_NAME'];
         }
-        NavBar::begin([
-            'brandLabel' => $name,
-            'brandUrl' => '/',
-            'options' => [
-                'class' => 'navbar-inverse',
-                'style' => 'margin-top:0px; position: relative;'
-            ],
-        ]);
-        ?>
-        <div class="col-lg-5 navbar-form navbar-left" role="search" style="width: 26%;">
-            <div class="form-group" style="width: 100%; display: table;">
-                <input type="text" id="search" style="color: rgb(119, 119, 119); height: 40px; width: 90%; float: left; border-color: rgb(204, 204, 204); box-shadow: 0px 0px 0px;" class="form-control" placeholder="Введите артикул или название"
-                       style="width: 100%; background: rgb(89, 89, 89) none repeat scroll 0% 0%; border: 1px solid rgb(89, 89, 89);color: #fff;">
-
-                <div class="result_search_word"
-                     style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
-            </div>
-            <div class="btn btn-default data-j"
-                 style="right: 15px; position: absolute; top: 0px; background: rgb(89, 89, 89) none repeat scroll 0% 0%; border: 1px solid rgb(89, 89, 89);">
-                <i class="fa fa-search"></i>
-            </div>
-        </div>
-
-        <div class="modal-cart" id="modal-cart"></div>
-
-        <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span
-                class="cart-count"></span><span class="cart-price"></span></ul>
-        <?
-        $menuItems = [];
-        if (Yii::$app->user->can('admin')) {
-            $menuItems[] = ['label' => 'Админ', 'url' => ['/admin']];
-        }
-        if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Войти', 'url' => [BASEURL . '/login']];
-            $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => [BASEURL . '/signup']];
-        } else {
-            $menuItems[] = [
-                'label' => 'Профиль (' . Yii::$app->user->identity->username . ')',
-                'url' => [BASEURL . '/lk'],
-                'linkOptions' => ['data-method' => 'post']
-            ];
-            $menuItems[] = [
-                'label' => 'Выход',
-                'url' => [BASEURL . '/logout'],
-                'linkOptions' => ['data-method' => 'post']
-            ];
-        }
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => $menuItems,
-        ]);
-        NavBar::end();
         ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <div class="container" id="partners-main">
+        <div class="container-fluid" id="partners-main">
             <div class="container" id="partners-main-left-back">
-                <div id="partners-main-left">
+
+                <div id="partners-main-left-cont">
+                    <div id="partners-main-left-cont" style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: #CCC 1px solid;">
+                        <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
+                            echo '<span>' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
+                        } else {
+                            $logotype = '';
+                        }
+                        ?>
+                    </div>
+
+                    <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+
+                    </div>
+                </div>
+                <div id="partners-main-left" class="target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div id="partners-main-left-cont">
-                        <div class="header-catalog"><i class="fa fa-bars"></i> КАТАЛОГ ТОВАРОВ
-                        </div>
                         <ul id="accordion" class="accordion">
                             <li class="">
                                 <div id="profile-info" class="link profile-info">Общая информация</div>
@@ -146,36 +84,95 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 <div id="profile-call" class="link">ПРОДОЛЖИТЬ ПОКУПКИ</div>
                             </li>
                         </ul>
-
-
-                    </div>
-                    <div id="filters">
-                        <div id="price-lable" style="display:none;">
-                            Цена
-                        </div>
-
-                        <div id="min-price" class="btn" style="display:none">0</div>
-                        <div style="display:none" id="max-price" class="btn">10000</div>
-
                     </div>
 
-                    <? if (isset(Yii::$app->params['partnersset']['newsonindex']['value']) && Yii::$app->params['partnersset']['newsonindex']['active'] == 1) { ?>
-                        <?= \frontend\widgets\NewsBlock::widget(); ?>
-                    <? } ?>
-
-
-                    <? if (isset(Yii::$app->params['partnersset']['commentsonindex']['value']) && Yii::$app->params['partnersset']['commentsonindex']['active'] == 1) { ?>
-                        <?= \frontend\widgets\CommentsBlock::widget(); ?>
-                    <? } ?>
-
-
+                </div>
+                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
+                <div id="partners-main-left-cont" class="suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
+                    <!--                  <span class="supspan">-->
+                    <!--                            <a href="#" id="up" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
+                    <!--                                <i class="fa fa-arrow-up"></i>-->
+                    <!--                            </a>-->
+                    <!--                            <a id="down" href="#" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
+                    <!--                                <i class="fa fa-arrow-down"></i>-->
+                    <!--                            </a>-->
+                    <!--                            <a href="#" id="catalog-mode" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
+                    <!--                                <i class="fa fa-arrow-left"></i>-->
+                    <!--                            </a>-->
+                    <!--                        </span>-->
                 </div>
             </div>
             <div class="container-fluid" id="partners-main-right-back">
+                <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+                    <div>
+                        <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="/faq">Как сделать заказ</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="/glavnaya/faq">Акции</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 5.1);"><a class="top-link" href="/glavnaya/paying">Условия сотрудничества</a></div>
+                        <div class="" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);"><img src="/images/logo/OM_code.png"></div>
+                        <?
+                        if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
+                            echo '<div style="float: left; padding: 15px 0px; font-size: 16px; font-family: Roboto Regular,sans serif; text-align: center; width: calc(100% / 7);">+7-495-204-15-83</div>';
+                        }
+                        ?>
+                        <a class="top-link-cont-back" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
+                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
+                    </div>
+                </div>
+                <div id="partners-main-right">
+                    <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
+                        <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
+                        <div class="btn btn-default data-j" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
+                            Найти
+                        </div>
+                        <div class="" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
+                            <?
+                            if(Yii::$app->user->isGuest){
+                                echo '<div style="float: right;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i>';
+                                $model = new \common\models\LoginFormOM();
+                                Modal::begin([
+                                    'id'=> 'authform',
+                                    'header' => 'Вход на Одежда-Мастер',
+                                    'toggleButton' => ['label' => 'Вход', 'tag'=> 'a', 'style'=> 'float: left; margin: 4px; cursor:pointer;'],
+                                ]);
+                                $form = \yii\bootstrap\ActiveForm::begin(['id' => 'login-form']);
+                                echo $form->field($model, 'username', ['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->label('Электронная почта');
+                                echo $form->field($model, 'password',['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">'.Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']).'</span>') ;
+                                echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
+                                    'template' => '{input}{image}',
+                                    'options' =>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']
+                                ])->label('Введите текст на картинке');
+                                echo' <div style="color:#999;margin:1em 0">';
+                                echo    Html::a('Зарегистрироваться', [BASEURL . '/signup'],  ['class'=>'btn' , 'style'=>'height: 36px; color: rgb(0, 0, 0); position: absolute; right: 30px; text-decoration: underline;' ]) ;
+                                echo    Html::submitButton('Вход', ['class' => 'btn', 'name' => 'partners-settings-button', 'style'=>'height: 36px; color: rgb(255, 255, 255); position: absolute; left: 30px; background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
+                                echo'</div>';
+                                echo $form->field($model, 'rememberMe', ['options'=>['style'=>'margin-top:80px']])->checkbox()->label('Запомнить меня');
+
+                                \yii\bootstrap\ActiveForm::end();
+
+                                Modal::end();
+
+
+                                echo '</div>';
+                                echo '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+                            }else{
+                                echo '<div style="float: right;"><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
+                                echo '<div style="float: right;"><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                            }
+                            ?>
+                        </div>
+                        <div class="result_search_word" style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
+
+                    </div>
+
+
+                    <!--                    <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span-->
+                    <!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
+                </div>
+
                 <div id="partners-main-right" class="bside">
                     <?= $content ?>
                 </div>
-            </div>
+             </div>
 
 
         </div>
@@ -183,7 +180,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <footer class="footer">
             <hr class="linebottom1">
             <hr class="linebottom2">
-            <div class="container">
+            <div class="" style="margin: 0px 25px;">
                 <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
 
                 <div style="margin: 0% 25%; float: left;">
