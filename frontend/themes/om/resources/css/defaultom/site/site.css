@@ -2961,3 +2961,36 @@
     div.size-desc:last-child{
         margin-bottom: 0 !important;
     }
+
+    .user-profile{
+        min-width:600px;
+        float: left;
+        position: relative;
+    }
+    .user-profile .form-group{
+        width:45%;
+        float: left;
+        overflow: hidden;
+        margin: 10px 30px;
+    }
+    .user-profile .control-label{
+        width:30%;
+        position: relative;
+        top:7px;
+        float: left;
+    }
+    .user-profile .form-control{
+        width: 69%;
+        float: left;
+    }
+    .user-profile .btn{
+        float: right;
+        margin-right: 30px;
+        position: relative;
+    }
+    .lable-profile{
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-align: center;
+    }

@@ -15,12 +15,9 @@ trait ActionLK
             header('location',BASEURL);
         }
         else{
-        $cust=User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->joinWith('addressBook')->asArray()->all();
-        echo '<pre>';
-        print_r($cust);
-        echo '</pre>';
+        $cust=User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->all();
         $this->layout = 'lk';
-        return $this->render('lk');
+        return $this->render('lk',['cust'=>$cust]);
         }
     }
 }

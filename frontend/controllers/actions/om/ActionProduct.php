@@ -48,24 +48,26 @@ trait ActionProduct
                 }
                 $hide_man = implode(',', $list);
                 $relProd=PartnersProductsToCategories::find()->where(['categories_id'=>$data['categories_id']])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0')->limit(100)->asArray()->all();
-                $relnum=array_rand($relProd,3);
-                $relProd1=array();
-                foreach($relnum as $item){
-                    $relProd1[]=$relProd[$item]['products_id'];
-                }
-                $relstring=implode(',',$relProd1);
+                if($relProd) {
+                    $relnum = array_rand($relProd, min(3,count($relProd)));
+                    $relProd1 = array();
+                    foreach ($relnum as $item) {
+                        $relProd1[] = $relProd[$item]['products_id'];
+                    }
+                    $relstring = implode(',', $relProd1);
 
-                $relProduct=PartnersProductsToCategories::find()->joinWith('products')->joinWith('productsDescription')->where('products_to_categories.products_id IN ('.$relstring.')')->asArray()->all();
-                $relProd=[];
+                    $relProduct = PartnersProductsToCategories::find()->joinWith('products')->joinWith('productsDescription')->where('products_to_categories.products_id IN (' . $relstring . ')')->asArray()->all();
+                    $relProd = [];
 //                echo '<pre>';
 //                print_r($relProduct);
 //                echo '</pre>';
 //                die();
-                foreach ($relProduct as $key=>$value){
-                    $relProd[$key]['products_name']=$value['productsDescription']['products_name'];
-                    $relProd[$key]['products_price']=$value['products']['products_price'];
-                    $relProd[$key]['products_image']=$value['products']['products_image'];
-                    $relProd[$key]['products_id']=$value['products_id'];
+                    foreach ($relProduct as $key => $value) {
+                        $relProd[$key]['products_name'] = $value['productsDescription']['products_name'];
+                        $relProd[$key]['products_price'] = $value['products']['products_price'];
+                        $relProd[$key]['products_image'] = $value['products']['products_image'];
+                        $relProd[$key]['products_id'] = $value['products_id'];
+                    }
                 }
 
                     return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProd]);
