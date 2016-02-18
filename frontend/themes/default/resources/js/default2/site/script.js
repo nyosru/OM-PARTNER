@@ -1193,34 +1193,6 @@ $(document).on('ready', function () {
     });
 });
 
-$(document).on('click', '#profile-info', function () {
-    $('.bside').html('');
-    $('.bside').html('<div id="card"><i class="fa fa-street-view"></i><div id="profile-lastname-info"></div><div id="profile-name-info"></div><div id="profile-secondname-info"></div></div> <div id="card"><i class="fa fa-envelope"></i> <i class="fa fa-phone"></i><div id="profile-telephone-info"></div><div id="profile-email-info"></div></div></div> ');
-    $.post(
-        "/site/requestadress",
-        {ship: 'flat1_flat1'},
-        onAjaxProfileSuccessinfo
-    );
-    function onAjaxProfileSuccessinfo(data) {
-        if (data[1].name.Имя != undefined) {
-            $('#profile-name-info').html(data[1].name.Имя);
-            $('#profile-secondname-info').html(data[2].secondname.Отчество);
-            $('#profile-lastname-info').html(data[3].lastname.Фамилия);
-        } else {
-            $('#profile-name-info').html('Нет данных');
-        }
-        $('#profile-telephone-info').html(data[9].telephone.Телефон);
-        $.post(
-            "/site/requestemail",
-            onAjaxemailSuccessinfo
-        );
-
-    }
-
-    function onAjaxemailSuccessinfo(data) {
-        $('#profile-email-info').html(data);
-    }
-});
 
 
 $(document).on('click', '#profile-call', function () {

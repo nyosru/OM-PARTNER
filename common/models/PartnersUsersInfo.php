@@ -48,6 +48,11 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
         ];
     }
 
+
+
+
+
+
     public function scenarios()
     {
         return [

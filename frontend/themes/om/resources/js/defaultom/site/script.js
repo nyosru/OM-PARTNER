@@ -693,7 +693,6 @@ $(document).on('click', '.cart-lable', function () {
    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
-    console.log($cart_add_obj);
     $.each($cart_add_obj, function () {
         var $item = new Object();
         $item_add = $(this)[0];
@@ -814,6 +813,17 @@ function continueAnimation() {
         document.getElementById('loaderImage').style.backgroundPosition = (-cXpos) + 'px 0';
     cPreloaderTimeout = setTimeout('continueAnimation()', SECONDS_BETWEEN_FRAMES * 1000);
 }
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
 
 function stopAnimation() {
     clearTimeout(cPreloaderTimeout);
@@ -893,12 +903,11 @@ $(document).on('click', '#up', function () {
     $("body,html").animate({"scrollTop": 0}, scrollTime);
 });
 
-
 $(document).on('ready', function () {
-    //$(document).on('click', '.loader', function () {
-    $(window).scroll(function () {
-        //if (!inProgress) {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress) {
+    $(document).on('click', '.loader', function () {
+    //$(window).scroll(function () {
+        if (!inProgress) {
+        //if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress) {
 
 
             $searchword = '';
@@ -939,8 +948,19 @@ $(document).on('ready', function () {
             $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
             $url_data = $urld;
             $.ajax({
+                method:"post",
                 url: "/site/request",
-                data: 'cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword + '&json=1',
+                data: { "_csrf":yii.getCsrfToken(),
+                        "cat":$cat,
+                        "count":$count,
+                        "start_price": $min_price,
+                        "end_price": $max_price,
+                        "prod_attr_query": $prodatrquery,
+                        "page": $page,
+                        "sort": $sort,
+                        "searchword": $searchword,
+                        "json": '1'
+                       },
                 cache: false,
                 async: true,
                 dataType: 'json',
@@ -955,25 +975,72 @@ $(document).on('ready', function () {
                 $('.pagination-catalog').remove();
                 $('.loader').remove();
                 if (data[0] != 'Не найдено!') {
+                    console.log(data);
                     $.each(data[0], function () {
                         $product = this.products;
-                        $description = this.productsDescription;
-                        $attr_desc = this.productsAttributesDescr;
-                        $attr_html = '<div class="cart-lable">В корзину</div>';
+                        $descriptionprod = this.productsDescription;
+                        $attr_desc = this['productsAttributesDescr'];
+
+                        $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
+
                         if ($attr_desc.length > 0) {
-                            $.each($attr_desc, function () {
-                                $attr_html += '<div class="size-desc"> <div><div class="lable-item" id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '">' + this.products_options_values_name + '</div></div></div>';
-                            });
+                            $.each($attr_desc, function (index,value) {
+                                if((index%2) ==0){
+                                    $class='border-right:1px solid #CCC';
+                                }else{
+                                    $class='';
+                                }
+                                $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+                                '<input  id="input-count"'+
+                                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                                'data-prod="'+ $product['products_id']+'"'+
+                                'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
+                                'data-model="'+ $product['products_model']+'"'+
+                                'data-price="'+ parseInt($product['products_price'])+'"'+
+                                'data-image="'+ $product['products_image']+'"'+
+                                'data-step="'+ $product['products_quantity_order_units']+'"'+
+                                'data-min="'+ $product['products_quantity_order_min']+'"'+
+                                'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                                'data-attr="'+value['products_options_values_id']+'"'+
+                                'placeholder="0"'+
+                                'type="text">'+
+                                '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+                                '+'+
+                                '</div>'+
+                                '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+                                '-'+
+                                '</div>'+
+                                '</div></div></div>';
+                                   });
                         } else {
-                            $attr_html += '<div class="size-desc"><div class="lable-item"  id="input-count" data-prod="' + $product.products_id + '" data-model="' + $product.products_model + '" data-price="' + $product.products_price + '" data-image="' + $product.products_image + '" data-attrname="' + this.products_options_values_name + '" data-attr="' + this.products_options_values_id + '" data-name="' + $description.products_name + '">+</div></div>';
-                        }
+                            $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
+                            '<input  id="input-count"'+
+                            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                            'data-prod="'+ $product['products_id']+'"'+
+                            'data-model="'+ $product['products_model']+'"'+
+                            'data-price="'+ parseInt($product['products_price'])+'"'+
+                            'data-image="'+ $product['products_image']+'"'+
+                            'data-attrname=""'+
+                            'data-attr=""'+
+                            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+                            'data-step="'+ $product['products_quantity_order_units']+'"'+
+                            'data-min="'+ $product['products_quantity_order_min']+'"'+
+                            'placeholder="0"'+
+                            'type="text">'+
+                            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+                            '+'+
+                            '</div>'+
+                            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+                            '-'+
+                            '</div>'+
+                            '</div></div></div>';       }
 
 
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                                         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
                                         '</div>'+
-                                        '<div  class="name">' + $description.products_name  +'</div>'+
+                                        '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
                                     '</a>'+
                                     '<div  class="price">'+
                                         '<div style="font-size: 18px; font-weight: 500;">'+
@@ -986,24 +1053,7 @@ $(document).on('ready', function () {
                                             '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;">'+
                                             '</i>'+
                                             '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
-                                                '<div data-sale="'+$product.products_id+'" class="cart-lable">'+
-                                                    'В корзину'+
-                                                '</div>'+
-                                                '<div class="" style="width: 50%; overflow: hidden; float: left; sort ;">'+
-                                                    '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;">'+
-                                                        '<div style="margin: auto; width: 100%;">'+
-                                                            '<div>'+
-                                                            '</div>'+
-                                                            '<input id="input-count" style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;" data-prod="'+$product.products_id+'" data-name="Платок головной ситец ГОСТ (кружево)" data-model="959841121" data-price="54" data-image="catalog_4/54fad0b729674.jpg" data-attrname="" data-attr="" placeholder="0" type="text">'+
-                                                            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
-                                                            '        +'+
-                                                            '</div>'+
-                                                            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
-                                                            '        -'+
-                                                            '</div>'+
-                                                        '</div>'+
-                                                    '</div>'+
-                                                '</div>'+
+                                               $attr_html+
                                             '</span>'+
                                         '</div>'+
                                     '</div>'+
