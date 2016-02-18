@@ -112,7 +112,7 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
                             }
                             ?>
                             <br/>
-                            <a id="prdesc" style="color: #337ab7; cursor: pointer;margin-bottom: 20px;">Подробные характеристики</a>
+                            <a href="#descr" style="color: #337ab7; cursor: pointer;margin-bottom: 20px;">Подробные характеристики</a>
                             <div itemprop="description" id="prd" style="display: none; font-size: 12px !important; font-weight: 400 !important; margin-top: 20px;"><br/><?=$product['productsDescription']['products_description']?></div>
                         </div>
 
@@ -133,6 +133,7 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
             ?>
             </div>
         <div style="width: 100%;overflow: hidden;">
+            <a name="descr"></a>
     <div class="ov-desc" style="float:left; ">
         <input id="tab1" type="radio" name="tabs" checked>
         <label for="tab1" title="Подробное описание">Подробное описание</label>

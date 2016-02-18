@@ -2966,6 +2966,7 @@
         min-width:600px;
         float: left;
         position: relative;
+        color:#00A5A2;
     }
     .user-profile .form-group{
         width:45%;
@@ -2993,4 +2994,5 @@
         font-weight: 600;
         margin-bottom: 10px;
         text-align: center;
+        color:black;
     }
