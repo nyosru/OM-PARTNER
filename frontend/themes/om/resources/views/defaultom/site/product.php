@@ -112,13 +112,14 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
                             }
                             ?>
                             <br/>
-                            <a id="prdesc" style="color: #337ab7; cursor: pointer;margin-bottom: 20px;">Подробные характеристики</a>
+                            <a href="#descr" style="color: #337ab7; cursor: pointer;margin-bottom: 20px;">Подробные характеристики</a>
                             <div itemprop="description" id="prd" style="display: none; font-size: 12px !important; font-weight: 400 !important; margin-top: 20px;"><br/><?=$product['productsDescription']['products_description']?></div>
                         </div>
 
                     </div>
                 </div>
 
+            </div>
             </div>
             <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
             <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;margin-bottom: 20px;">
@@ -131,7 +132,9 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
             }
             ?>
             </div>
-    <div class="ov-desc" style="margin:45px 0">
+        <div style="width: 100%;overflow: hidden;">
+            <a name="descr"></a>
+    <div class="ov-desc" style="float:left; ">
         <input id="tab1" type="radio" name="tabs" checked>
         <label for="tab1" title="Подробное описание">Подробное описание</label>
 
@@ -147,8 +150,8 @@ $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
                 <?= \frontend\widgets\CommentsBlock::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?>
             </p>
         </section>
-    </div>
-    <div class="seen">
+    </div></div>
+    <div class="seen" style="float: left">
         <div class="seen-title" style="font-size: x-large; font-weight: 500; margin-bottom: 20px;">Вы недавно смотрели</div>
         <div class="seen-items" style="height: 250px; ">
             <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">

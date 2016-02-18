@@ -21,17 +21,17 @@ $(document).on('ready', function () {
             } else {
                 this[6] = this[6] + ' размер';
             }
-            console.log(this);
+            console.log(this[9]['min']);
             $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="height: 200px; width:100%; border-bottom:1px solid #ccc;margin:0;padding:10px 0 10px 10px;">' +
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + this[5] + '"/></div>' +
                 '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
-                '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+this[1] +' </span>| '+this[7]+'</div>' +
+                '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+this[1] +' </span>| <span id="gods-name">'+this[7]+'</span></div>' +
                     '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
                 '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
                 '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(this[3]) + ' руб.</div>'+
-                '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
-                '   <input id="input-c" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-id="'+$c+'" value="' + this[4] + '">' +
-                '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]+'" data-step="'+this[10]+'"  data-id="'+$c+'">+</div></div>' +
+                '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-min="'+this[9]+'" data-step="'+this[10]+'"  data-id="'+$c+'">-</div>' +
+                '   <input id="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'" value="' + this[4] + '">' +
+                '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'">+</div></div>' +
                 '</div></div>' +
                 '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div></div>';
         });
@@ -136,12 +136,14 @@ $(document).on('change click','.num-of-items',function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
-    console.log();
     if(check.val()=="boxes") wrapprice=15;
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {
-        var c=((parseInt($(this).find('#input-c').val()))*(parseInt($(this).find('.cart-prod-price').html())));
+        if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
+            $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
+        }
+        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
         godsprice+=c;
     });
     $('#gods-price').html(godsprice+' руб');
@@ -157,7 +159,10 @@ $(document).on('ready', function () {
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {
-        var c=((parseInt($(this).find('#input-c').val()))*(parseInt($(this).find('.cart-prod-price').html())));
+        if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
+            $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
+        }
+        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
         godsprice+=c;
     });
     $('#gods-price').html(godsprice+' руб');
@@ -173,7 +178,11 @@ $(document).on('click','.wrap-select', function () {
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {
-        var c=((parseInt($(this).find('#input-c').val()))*(parseInt($(this).find('.cart-prod-price').html())));
+        if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
+//            alert('Количество товара '+$(this).find('#gods-name').text()+', '+$(this).find('.artik').text()+' '+$(this).find('.cart-attr').text()+ ' меньше минимума. Минимальная партия - '+$(this).find('#add-count').attr('data-min')+' шт.')
+            $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
+        }
+        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
         godsprice+=c;
     });
     $('#gods-price').html(godsprice+' руб');

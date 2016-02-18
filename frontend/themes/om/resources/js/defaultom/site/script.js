@@ -558,23 +558,25 @@ $(document).on('click', '.btn-end-order', function () {
 });
 $(document).on('click', '#add-count', function () {
     $count = $(this).siblings('input')[0].value;
+    $step=parseInt($(this).siblings('input').attr('data-step'));
     if ($count == '') {
         $count = 0;
     }
     if (isNaN(parseInt($count))) {
         $count = -1;
     }
-    $(this).siblings('input')[0].value = parseInt($count) + 1;
+    $(this).siblings('input')[0].value = parseInt($count) + $step;
 });
 $(document).on('click', '#del-count', function () {
     $count = $(this).siblings('input')[0].value;
+    $step=parseInt($(this).siblings('input').attr('data-step'));
     if ($count == '') {
-        $count = 0;
+        $count = 0;S
     }
     if (isNaN(parseInt($count))) {
         $count = 1;
     }
-    $(this).siblings('input')[0].value = (parseInt($count) - 1) < 0 ? 0 : (parseInt($count) - 1);
+    $(this).siblings('input')[0].value = (parseInt($count) - 1) < 0 ? 0 : (parseInt($count) - $step);
 });
 $(document).on('click', '.del-product', function () {
     $delrow = $(this).parent().attr('data-raw');
@@ -583,7 +585,7 @@ $(document).on('click', '.del-product', function () {
     $array_splice = $item.cart;
     $array_splice.splice($delrow, 1);
     $nums=[];
-    $('[id=input-c]').each(function(index,value){
+    $('[id=input-count]').each(function(index,value){
         $nums.push(value.value);
     });
     $nums.splice($delrow, 1);
@@ -612,10 +614,10 @@ $(document).on('click', '.del-product', function () {
             '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
             '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(this[3]) + ' руб.</div>'+
             '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
-            '   <input id="input-c" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-id="'+$c+'" value="' + this[4] + '">' +
-            '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-id="'+$c+'">+</div></div>' +
+            '   <input id="input-count" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'" value="' + this[4] + '">' +
+            '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-id="'+$c+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'">+</div></div>' +
             '</div></div>' +
-            '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div></div>';
+            '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'"><i class="fa fa-times"></i></div></div>';
     });
     $innerhtml+='</div>';
     $('.cart-column1').html($innerhtml);
@@ -629,7 +631,7 @@ $(document).on('click', '.del-product', function () {
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {
-        var c=((parseInt($(this).find('#input-c').val()))*(parseInt($(this).find('.cart-prod-price').html())));
+        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
         godsprice+=c;
     });
     $('#gods-price').html(godsprice+' руб');
@@ -1233,8 +1235,7 @@ $(document).on('ready', function () {
 });
 
 $(document).on('click', '#profile-info', function () {
-    $('.bside').html('');
-    $('.bside').html('<div id="card"><i class="fa fa-street-view"></i><div id="profile-lastname-info"></div><div id="profile-name-info"></div><div id="profile-secondname-info"></div></div> <div id="card"><i class="fa fa-envelope"></i> <i class="fa fa-phone"></i><div id="profile-telephone-info"></div><div id="profile-email-info"></div></div></div> ');
+    $(location).attr('href','/site/lk');
     $.post(
         "/site/requestadress",
         {ship: 'flat1_flat1'},
