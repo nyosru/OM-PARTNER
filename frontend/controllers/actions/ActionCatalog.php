@@ -19,7 +19,7 @@ trait ActionCatalog
         $start_arr = intval($page * $count);
         $sort = intval(Yii::$app->request->getQueryParam('sort'));
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
-            $sort = 10;
+            $sort = 0;
         }
         if ($page == 'undefined') {
             $page = 0;
@@ -34,28 +34,27 @@ trait ActionCatalog
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
-        if (!isset($x['products_last_modified'])) {
-            $checkcache = '0000-00-00 00:00:00';
-        } else {
-            $checkcache = $x['products_last_modified'];
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
+        if(!$x['products_last_modified']){
+            $x['products_last_modified'] = $x['add_date'] ;
         }
+        $checkcache = $x['products_last_modified'];
 //        print_r($this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
 //        die();
         $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
         $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $prod_attr_query . '-' . $searchword;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
-        $d1 = new \DateTime();
-        $d1->setTimestamp(strtotime(trim($checkcache)));
-        $d2 = new \DateTime();
-        $d2->setTimestamp(strtotime(trim($dataque['checkcache'])));
-        $diffs = $d2->diff($d1);
-        $markers = $diffs->y + $diffs->m + $diffs->d + $diffs->h;
-        if (!isset($dataque['checkcache']) || $markers != 0 || $diffs->i > 5) {
+
+        $d1 = strtotime(trim($checkcache));
+
+        $d2 = strtotime(trim($dataque['checkcache']));
+
+        $markers = $d2 - $d1;
+        if (!isset($dataque['checkcache']) || $markers > 0 ) {
             switch ($sort) {
                 case 0:
-                    $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                    $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                     break;
                 case 1:
                     $order = ['products_price' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -70,7 +69,7 @@ trait ActionCatalog
                     $order = ['products_ordered' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                     break;
                 case 10:
-                    $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                    $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                     break;
                 case 11:
                     $order = ['products_price' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -133,17 +132,20 @@ trait ActionCatalog
             }
 
 
-            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last ')->JoinWith('products')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and (products_description IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->orderBy($order)->asArray()->all();
+            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last, products_date_added as add_date ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and (products_description IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
-                $d1 = new \DateTime();
-                $d1->setTimestamp(strtotime(trim($values['last'])));
-                $d2 = new \DateTime();
-                $d2->setTimestamp(strtotime(trim($dataprod['last'])));
-                $diff = $d2->diff($d1);
-                $marker = $diff->y + $diff->m + $diff->d + $diff->h;
-                if (isset($dataprod['data']) && $marker == 0 && $diff->i < 30) {
+                if(!$values['last']){
+                    $values['last'] = $values['add_date'];
+
+
+
+                }
+               $d2 = strtotime(trim($values['last']));
+               $d1 = strtotime(trim($dataprod['last']));
+                $marker = $d2-$d1;
+                if (isset($dataprod['data']) && $marker > 0) {
                     $data[] = $dataprod['data'];
                 } else {
                     $nodata[] = $values['prod'];
@@ -209,15 +211,18 @@ trait ActionCatalog
 
         $countfilt = count($data);
         $start = $start_arr;
-        if (($json = intval(Yii::$app->request->getQueryParam('json'))) == TRUE && $json == 1) {
+        if (($json = intval(Yii::$app->request->post('json'))) == TRUE && $json == 1) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword]];
 
         } else {
             $this->layout = 'catalog';
-
-            $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $cat_start . '&action=namenum'));
-                Yii::$app->params['layoutset']['opencat'] = $catpath->num;
+            if($cat_start == 0){
+                $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
+            }else{
+                $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $cat_start . '&action=namenum'));
+            }
+                    Yii::$app->params['layoutset']['opencat'] = $catpath->num;
                 return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath]);
 
         }

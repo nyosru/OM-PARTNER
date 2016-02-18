@@ -70,19 +70,19 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
 
                     <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
-                    <div id="partners-main-left-cont" class="suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
-                        <span class="supspan">
-                            <a href="#" id="up" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">
-                                <i class="fa fa-arrow-up"></i>
-                            </a>
-                            <a id="down" href="#" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">
-                                <i class="fa fa-arrow-down"></i>
-                            </a>
-                           <a href="#" id="catalog-mode" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">
-                               <i class="fa fa-arrow-left"></i>
-                           </a>
-                        </span>
-                    </div>
+<!--                    <div id="partners-main-left-cont" class="suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">-->
+<!--                        <span class="supspan">-->
+<!--                            <a href="#" id="up" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
+<!--                                <i class="fa fa-arrow-up"></i>-->
+<!--                            </a>-->
+<!--                            <a id="down" href="#" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
+<!--                                <i class="fa fa-arrow-down"></i>-->
+<!--                            </a>-->
+<!--                           <a href="#" id="catalog-mode" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
+<!--                               <i class="fa fa-arrow-left"></i>-->
+<!--                           </a>-->
+<!--                        </span>-->
+<!--                    </div>-->
                 </div>
                 <div id="partners-main-left" class="target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div id="partners-main-left-cont">
@@ -107,7 +107,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         }
                         ?>
                         <a class="top-link-cont-back" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
-                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
+                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
                     </div>
                 </div>
                 <div id="partners-main-right">
@@ -216,7 +216,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <footer class="footer">
             <hr class="linebottom1">
             <hr class="linebottom2">
-            <div class="container">
+            <div class="" style="margin: 0px 25px;">
                 <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
 <!--    --><?// $this->endCache();
 //}

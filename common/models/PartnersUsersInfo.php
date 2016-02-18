@@ -48,6 +48,11 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
         ];
     }
 
+
+
+
+
+
     public function scenarios()
     {
         return [
@@ -76,17 +81,20 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
             'lastname' => 'Фамилия',
             'adress' => 'Адрес',
             'city' => 'Город',
-            'state' => 'Область (начните вводить и выберите)',
-            'country' => 'Страна (начните вводить и выберите)',
+            'state' => 'Область',
+            'country' => 'Страна',
             'postcode' => 'Почтовый индекс',
             'telephone' => 'Телефон',
             'pasportser' => 'Серия',
             'pasportnum' => 'Номер',
-            'pasportdate' => 'Дата выдачи (например 2008-12-31)',
+            'pasportdate' => 'Дата выдачи',
             'pasportwhere' => 'Кем выдан',
             'customers_id' => 'Customers ID',
         ];
     }
-
+    public function getCustomers()
+    {
+        return $this->hasOne(Customers::className(), ['customers_id' => 'customers_id']);
+    }
 
 }

@@ -28,8 +28,7 @@ trait ActionProduct
                     $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
 
                 }
-                echo $spec->specifications_id;
-                return $this->render('product', ['product' => $data, 'spec'=>$spec]);
+                return $this->render('product', ['product' => $data]);
             } else {
                 return $this->redirect('/');
             }

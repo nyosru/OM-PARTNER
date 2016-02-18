@@ -46,14 +46,14 @@ class Imagepreviewfile
             $height = imagesy($image);
             $original_aspect = $width / $height;
             if ($original_aspect > 1.3) {
-                $thumb_width = 300;
-                $thumb_height = 180;
-            } elseif ($original_aspect < 0.7) {
-                $thumb_width = 180;
+                $thumb_width = 450;
                 $thumb_height = 300;
+            } elseif ($original_aspect < 0.7) {
+                $thumb_width = 300;
+                $thumb_height = 450;
             } else {
-                $thumb_width = 200;
-                $thumb_height = 200;
+                $thumb_width = 300;
+                $thumb_height = 300;
             }
             $thumb_aspect = $thumb_width / $thumb_height;
             if ($original_aspect >= $thumb_aspect) {
@@ -71,7 +71,7 @@ class Imagepreviewfile
                 0, 0,
                 $new_width, $new_height,
                 $width, $height);
-            imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 60);
+            imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 100);
         }
 
         return '/images/' . $dir . $subdir . $namefile . '.' . $ras[0];

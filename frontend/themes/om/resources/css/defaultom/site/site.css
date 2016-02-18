@@ -7,7 +7,7 @@
 
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
         padding: 10px 20px;
-        color: #272727;
+        color: #FFF;
         background: #00a5a1;
         border-radius: 4px
     }
@@ -34,7 +34,8 @@
 
     body, html {
         height: 100%;
-        width: 100%
+        width: 100%;
+        max-width: 1920px;
     }
 
     a {
@@ -217,6 +218,8 @@
         cursor: pointer;
         border-radius: 4px;
         clear: both;
+        margin-top: 10px;
+        float: right;
     }
     .submenu li {
         border-bottom: 1px solid #4b4a5e
@@ -257,7 +260,7 @@
 
     #card {
         float: right;
-        min-height: 330px;
+        min-height: 450px;
         border-radius: 2px;
         box-shadow: 0 0 1px 0 #AFBCAA;
         margin: 5px;
@@ -375,6 +378,7 @@
         height: 100%;
         width: 16.5%;
         padding: 0px;
+        max-width: 315px;
     }
 
     .arrow-down, .arrow-up {
@@ -393,6 +397,7 @@
         overflow: hidden;
         background: #F5F5F5;
         width: 100%;
+        max-width: 315px;
     }
 
     #partners-main-left-cont {
@@ -530,7 +535,15 @@
     #c10, #c20, #c30, #carticlsearch, #carticlsearch:hover, #cback, #ccategories, #ccategories:hover, #ccatsearch, #ccatsearch:hover, #cfirst, #cforvard, #clast, #cprodsearch, #cprodsearch:hover, #cproduct, #cproduct:hover, #partners-add-comp, #partners-add-comp:hover {
         border-color: #71DEFF #3E879C #3E879C #71DEFF
     }
-
+    .pagination-catalog > .pagination > .active > a {
+        background: #ffbf08 none repeat scroll 0% 0%;
+        color: black;
+        border: 1px solid #CCC;
+    }
+    .pagination-catalog > .pagination > li > a {
+        color: #000;
+        border: 1px solid #CCC;
+    }
     #partners-add-comp {
         margin-top: 8px;
         float: right;
@@ -673,13 +686,14 @@
         clear: both;
         overflow: hidden;
         padding: 10px 0;
-        max-height: 75px
+        max-height: 50px;
+        /*color:#00A5A1;*/
     }
 
     .price {
         position: absolute;
-        bottom: 10px;
-        font-size: 16px
+        bottom: 27px;
+        font-size: 16px;
     }
 
     #filters {
@@ -810,30 +824,13 @@
 
     div.float {
         position: relative;
-        z-index: 20
     }
 
     div.float:hover {
         z-index: 25
     }
 
-    div.float span {
-        display: none
-    }
 
-    div.float:hover span {
-        background: #F5F5F5;
-        display: block;
-        position: absolute;
-        top: 99%;
-        left: 0;
-        width: 100%;
-        padding: 5px 7px 60px;
-        color: #000;
-        text-align: right;
-        border-bottom: 1px solid #C7C7C7;
-        box-shadow: 0 4px 11px #9e9e9e
-    }
 
     .arrow-down, .arrow-up {
         display: inline-block;
@@ -908,16 +905,12 @@
     }
 
     #prod-info {
-        position: absolute;
-        height: 20px;
-        width: 70px;
+        text-align: right;
         display: block;
-        text-align: left;
-        padding: 0 5px;
-        overflow: hidden;
-        background: url(eye.png) 90% 100%/contain no-repeat rgba(240, 242, 227, 0);
+        width: 50%;
+        position: absolute;
         bottom: 10px;
-        right: 20px
+        right: 20px;
     }
 
     #prod-info:hover {
@@ -1502,8 +1495,9 @@
     }
 
     #add-count, #del-count {
-        width: 20px;
-        height: 21px
+        width: 22px;
+        height: 22px;
+        line-height: 1.8;
     }
 
     #city-drop li, #country-drop li, #state-drop li {
@@ -1532,20 +1526,21 @@
     #add-count, #del-count {
         margin: 0 3px;
         padding: 0;
-        background: 0 center #00a5a1
+        background: 0 center #00a5a1;
+        font-weight: 600;
     }
 
     #add-count {
         float: right;
         text-align: center;
-        color: #000;
+        color: #FFF;
         border-radius: 3px
     }
 
     #del-count {
         float: left;
         text-align: center;
-        color: #000;
+        color: #FFF;
         border-radius: 3px
     }
 
@@ -1588,9 +1583,8 @@
     .lable-info-item {
         width: 100%;
         display: block;
-        clear: left;
         float: left;
-        padding: 5px 20px;
+        padding: 5px 0px;
         border-top: 1px solid #E9E4E4;
         border-bottom: 1px solid #E9E4E4
     }
@@ -1605,7 +1599,7 @@
         width: 65%;
         border: none;
         border-left: 1px solid #C3C2C2;
-        padding: 0 10px
+        padding: 0 5px
     }
 
     .prod-info-model {
@@ -1644,7 +1638,21 @@
         width: 100%;
         z-index: 999
     }
-
+    .fixedbar-filter{
+        position: fixed !important;
+        margin: 10px 4px !important;
+        top: 0px !important;
+        z-index: 999;
+        width: calc(83.5% - 30px) !important;
+        height: auto !important;
+    }
+    .filter + .fixedbar-filter> .panel-default > a > .panel-heading{
+        border-radius: 0px ;
+    }
+    .filter-item-size{
+        overflow: hidden;
+        margin: 10px 0px;
+    }
     #admclose, #close {
         z-index: 2147483647
     }
@@ -2519,6 +2527,10 @@
         border-radius: 4px;
         border:1px solid #CCC
     }
+    .cat-nav > .panel-default >  .panel-heading
+    {
+        padding: 3px;
+    }
     .filter {
         float: right;
         margin: 54px 5px 16px;
@@ -2542,9 +2554,60 @@
         background: #f5f5f5;
     }
     .filter > .panel-default > a + .panel-collapse > .panel-body > .panel-footer{
-        padding: 7px 0px;
-        background: none;
-        border-top: none;
+        padding: 0px 0px;
+        background: transparent none repeat scroll 0% 0%;
+        border-top: medium none;
+        margin-top: -4px;
+    }
+    .size-inner{
+        max-height: 300px;
+        overflow: auto;
+    }
+    .fixedbar-filter >  .panel-default >  .panel-collapse > .panel-body > .size-inner > .filter-item-size  {
+        overflow: hidden;
+        margin: 10px 0px;
+        width: calc(100% / 5);
+        float: left;
+        min-width: 190px;
+
+    }
+    .fixedbar-filter >  .panel-default > a >.panel-heading   {
+        height: 50px;
+        padding: 15px !important;
+        box-shadow: 0px 7px 15px -10px black;
+    }
+    .fixedbar-filter >  .panel-default   {
+        margin-top: -15px;
+    }
+    .filter-search{
+        display: none;
+    }
+    .filter-auth{
+        display:none;
+    }
+    .filter-cart{
+        display:none;
+    }
+    .fixedbar-filter >  .panel-default > a >.panel-heading  >.panel-title {
+        float: left;
+        width: 25%;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+        padding: 5px;
+        font-size: 14px;
+        margin-top: -3px;
+    }
+    .fixedbar-filter >  .panel-default   > .filter-search{
+        display: block;
+    }
+    .fixedbar-filter >  .panel-default   > .filter-auth{
+        display: block;
+    }
+    .fixedbar-filter >  .panel-default   > .filter-cart{
+        display: block;
+    }
+    .headerbside-filter{
+        width:100% !important;
     }
     .filter > .panel-default > a > .panel-heading {
         padding: 3px 0px;
@@ -2552,15 +2615,52 @@
         border-radius: 4px;
         border: 1px solid #CCC;
     }
+    .regmain {
+        font-weight: 400;
+        margin: 15px;
+        width: 100%;
+        clear: right;
+    }
+    div.float span {
+        display: none;
+        background: #F5F5F5 none repeat scroll 0% 0%;
+        position: absolute;
+        bottom: 55px;
+        left: -84%;
+        width: calc(200% - 1px);
+        padding: 10px 7px 65px;
+        color: #000;
+        text-align: right;
+    }
+    div.float span.show {
+        display: block;
+        z-index: 99;
+        background: rgba(245, 245, 245, 0.9) none repeat scroll 0% 0%;
+    }
+
+    div.float:hover .item-descr {
+        background: rgba(0,0, 0, 0.8);
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        height:30px;
+        left: 0;
+        width: 100%;
+        color: lightgray;
+        text-align: center;
+        font-size: large;
+        line-height:1.3;
+    }
 
     .checkbox-overlay {
         height: 20px;
         width: 20px;
         border:1px solid #CCC;
-        padding: 0px 2px;
+        padding: 2px;
         border-radius: 4px;
         color: white;
         cursor:pointer;
+        float: left;
     }
     [class*="checkbox-overlay fa fa-check"]{
         background: #00A5A1 none repeat scroll 0% 0%;
@@ -2740,25 +2840,26 @@
     }
     .social{
         float: left;
-        width: 35px;
-        height: 35px;
+        width: 20px;
+        height: 20px;
         overflow: hidden;
         line-height: 1;
         text-align: center;
         margin-right: 5px;
         margin-top: 5px;
+        border-radius: 2px;
     }
     .social a{
         color: white;
     }
     .social .fa{
-        font-size: x-large;
+        font-size: 14px;
     }
     .social-vk{
         background-color:#4d7198;
     }
     .social-odnokl{
-        background-color: #F6881F;;
+        background-color: #F6881F;
     }
     .social-fb{
         background-color: #3b5998;
@@ -2845,4 +2946,57 @@
         }
     }
 
-/*Стили для табов в карточке товара*/
+    #slid .carousel-indicators{
+        display: none;
+    }
+    #slid .item{
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+    #slid .carousel-control{
+        top:45%;
+        font-size: 50px;
+        color:#ccc;
+        text-shadow: none;
+    }
+    .size-column1:last-child{
+        margin-bottom: 0px;
+    }
+    div.size-desc:last-child{
+        margin-bottom: 0 !important;
+    }
+
+    .user-profile{
+        min-width:600px;
+        float: left;
+        position: relative;
+        color:#00A5A2;
+    }
+    .user-profile .form-group{
+        width:45%;
+        float: left;
+        overflow: hidden;
+        margin: 10px 30px;
+    }
+    .user-profile .control-label{
+        width:30%;
+        position: relative;
+        top:7px;
+        float: left;
+    }
+    .user-profile .form-control{
+        width: 69%;
+        float: left;
+    }
+    .user-profile .btn{
+        float: right;
+        margin-right: 30px;
+        position: relative;
+    }
+    .lable-profile{
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-align: center;
+        color:black;
+    }

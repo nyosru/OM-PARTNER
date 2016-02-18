@@ -199,7 +199,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'id']);
     }
-
+    public function getCustomers()
+    {
+        return $this->hasOne(Customers::className(), ['customers_id' => 'customers_id'])->via('userinfo');
+    }
+    public function getAddressBook()
+    {
+        return $this->hasMany(AddressBook::className(), ['customers_id' => 'customers_id'])->via('userinfo');
+    }
 
 
 }

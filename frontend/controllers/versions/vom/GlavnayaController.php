@@ -13,6 +13,7 @@ use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
 use frontend\controllers\actions\ActionAddSearch;
+use frontend\controllers\actions\ActionCart;
 use frontend\controllers\actions\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
 use frontend\controllers\actions\ActionChstatusorder;
@@ -21,7 +22,6 @@ use frontend\controllers\actions\ActionCountryrequest;
 use frontend\controllers\actions\ActionDelivery;
 use frontend\controllers\actions\ActionFaq;
 use frontend\controllers\actions\ActionImagepreview;
-use frontend\controllers\actions\ActionLK;
 use frontend\controllers\actions\ActionLoginOM;
 use frontend\controllers\actions\ActionLogout;
 use frontend\controllers\actions\ActionNews;
@@ -30,8 +30,10 @@ use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPaymentMethod;
 use frontend\controllers\actions\ActionPayOrders;
 use frontend\controllers\actions\ActionPrintOrders;
+use frontend\controllers\actions\ActionTakeOrder;
+use frontend\controllers\actions\om\ActionLK;
 use frontend\controllers\actions\om\ActionProduct;
-use frontend\controllers\actions\ActionProductinfo;
+use frontend\controllers\actions\om\ActionProductinfo;
 use frontend\controllers\actions\ActionProductinfobymodel;
 use frontend\controllers\actions\ActionRequestadress;
 use frontend\controllers\actions\ActionRequestemail;
@@ -43,7 +45,7 @@ use frontend\controllers\actions\ActionSavehtml;
 use frontend\controllers\actions\ActionSaveorder;
 use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
-use frontend\controllers\actions\ActionSignup;
+use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
@@ -111,7 +113,9 @@ class GlavnayaController extends Controller
         ActionPayOrders,
         ActionTest,
         ActionAddSearch,
-        ActionProductinfobymodel;
+        ActionProductinfobymodel,
+        ActionCart,
+        ActionTakeOrder;
 
 
     /**
@@ -128,7 +132,7 @@ class GlavnayaController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'saveorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
+                'only' => ['logout', 'signup', 'saveorder', 'takeorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -174,6 +178,11 @@ class GlavnayaController extends Controller
                         'actions' => ['requestemail'],
                         'allow' => true,
                         'roles' => ['register', 'admin'],
+                    ],
+                    [
+                        'actions' => ['takeorder'],
+                        'allow' => true,
+                        'roles' => ['register','admin'],
                     ],
                     [
                         'actions' => ['savehtml'],
