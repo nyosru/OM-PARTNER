@@ -14,38 +14,38 @@ use common\models\PartnersProductsDescription;
  * @property integer $products_quantity
  * @property integer $products_model
  * @property string $products_image
- * @property string $products_image_med
- * @property string $products_image_lrg
- * @property string $products_image_sm_1
- * @property string $products_image_xl_1
- * @property string $products_image_sm_2
- * @property string $products_image_xl_2
- * @property string $products_image_sm_3
- * @property string $products_image_xl_3
- * @property string $products_image_sm_4
- * @property string $products_image_xl_4
- * @property string $products_image_sm_5
- * @property string $products_image_xl_5
- * @property string $products_image_sm_6
- * @property string $products_image_xl_6
+// * @property string $products_image_med
+// * @property string $products_image_lrg
+// * @property string $products_image_sm_1
+// * @property string $products_image_xl_1
+// * @property string $products_image_sm_2
+// * @property string $products_image_xl_2
+// * @property string $products_image_sm_3
+// * @property string $products_image_xl_3
+// * @property string $products_image_sm_4
+// * @property string $products_image_xl_4
+// * @property string $products_image_sm_5
+// * @property string $products_image_xl_5
+// * @property string $products_image_sm_6
+// * @property string $products_image_xl_6
  * @property string $products_price
- * @property string $products_old_price
+// * @property string $products_old_price
  * @property string $products_date_added
- * @property string $products_date_view
+// * @property string $products_date_view
  * @property string $products_last_modified
- * @property string $products_date_available
- * @property string $products_weight
+// * @property string $products_date_available
+// * @property string $products_weight
  * @property integer $products_status
- * @property integer $products_to_xml
- * @property integer $products_tax_class_id
+// * @property integer $products_to_xml
+// * @property integer $products_tax_class_id
  * @property string $manufacturers_id
  * @property integer $products_ordered
  * @property integer $products_quantity_order_min
  * @property integer $products_quantity_order_units
- * @property integer $products_sort_order
+// * @property integer $products_sort_order
  * @property string $price_coll
  * @property string $removable
- * @property string $raschet_pribil
+// * @property string $raschet_pribil
  */
 class PartnersProducts extends \yii\db\ActiveRecord
 {

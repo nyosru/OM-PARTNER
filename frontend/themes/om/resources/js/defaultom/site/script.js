@@ -946,8 +946,19 @@ $(document).on('ready', function () {
             $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
             $url_data = $urld;
             $.ajax({
+                method:"post",
                 url: "/site/request",
-                data: 'cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword + '&json=1',
+                data: { "_csrf":yii.getCsrfToken(),
+                        "cat":$cat,
+                        "count":$count,
+                        "start_price": $min_price,
+                        "end_price": $max_price,
+                        "prod_attr_query": $prodatrquery,
+                        "page": $page,
+                        "sort": $sort,
+                        "searchword": $searchword,
+                        "json": '1'
+                       },
                 cache: false,
                 async: true,
                 dataType: 'json',
@@ -962,6 +973,7 @@ $(document).on('ready', function () {
                 $('.pagination-catalog').remove();
                 $('.loader').remove();
                 if (data[0] != 'Не найдено!') {
+                    console.log(data);
                     $.each(data[0], function () {
                         $product = this.products;
                         $descriptionprod = this.productsDescription;
@@ -971,7 +983,7 @@ $(document).on('ready', function () {
 
                         if ($attr_desc.length > 0) {
                             $.each($attr_desc, function (index,value) {
-                                if(index%2 ==0){
+                                if((index%2) ==0){
                                     $class='border-right:1px solid #CCC';
                                 }else{
                                     $class='';
@@ -999,16 +1011,16 @@ $(document).on('ready', function () {
                                 '</div></div></div>';
                                    });
                         } else {
-                            $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
+                            $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
                             '<input  id="input-count"'+
                             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                             'data-prod="'+ $product['products_id']+'"'+
                             'data-model="'+ $product['products_model']+'"'+
                             'data-price="'+ parseInt($product['products_price'])+'"'+
                             'data-image="'+ $product['products_image']+'"'+
-                            'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
-                            'data-attr="'+value['products_options_values_id']+'"'+
-                            'data-name="'+  escapeHtml($description['products_name'] ) +'"'+
+                            'data-attrname=""'+
+                            'data-attr=""'+
+                            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
                             'data-step="'+ $product['products_quantity_order_units']+'"'+
                             'data-min="'+ $product['products_quantity_order_min']+'"'+
                             'placeholder="0"'+

@@ -45,7 +45,7 @@ use frontend\controllers\actions\ActionSavehtml;
 use frontend\controllers\actions\ActionSaveorder;
 use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
-use frontend\controllers\actions\ActionSignup;
+use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;

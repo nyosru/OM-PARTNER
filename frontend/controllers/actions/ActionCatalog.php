@@ -211,7 +211,7 @@ trait ActionCatalog
 
         $countfilt = count($data);
         $start = $start_arr;
-        if (($json = intval(Yii::$app->request->getQueryParam('json'))) == TRUE && $json == 1) {
+        if (($json = intval(Yii::$app->request->post('json'))) == TRUE && $json == 1) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword]];
 

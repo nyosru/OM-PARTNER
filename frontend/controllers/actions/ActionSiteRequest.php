@@ -11,16 +11,16 @@ trait ActionSiteRequest
     {
 
 
-        $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
+        $cat_start = intval(Yii::$app->request->post('cat'));
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $start_price = intval(Yii::$app->request->getQueryParam('start_price', 0));
-        $end_price = intval(Yii::$app->request->getQueryParam('end_price', 1000000));
-        $prod_attr_query = intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
-        $count = intval(Yii::$app->request->getQueryParam('count', 20));
-        $page = intval(Yii::$app->request->getQueryParam('page', 0));
+        $start_price = intval(Yii::$app->request->post('start_price', 0));
+        $end_price = intval(Yii::$app->request->post('end_price', 1000000));
+        $prod_attr_query = intval(Yii::$app->request->post('prod_attr_query', ''));
+        $count = intval(Yii::$app->request->post('count', 20));
+        $page = intval(Yii::$app->request->post('page', 0));
         $start_arr = intval($page * $count);
-        $sort = intval(Yii::$app->request->getQueryParam('sort', 10));
+        $sort = intval(Yii::$app->request->post('sort', 10));
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
         }
@@ -36,7 +36,7 @@ trait ActionSiteRequest
         $categoriesarr = $this->full_op_cat();
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
-        $searchword = Yii::$app->request->getQueryParam('searchword', '');
+        $searchword = Yii::$app->request->post('searchword', '');
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
         if(!$x['products_last_modified']){
             $x['products_last_modified'] = $x['add_date'] ;
@@ -212,8 +212,7 @@ trait ActionSiteRequest
             $data = 'Не найдено!';
         }
 
-        $countfilt = count($data);
-        $start = $start_arr;
+
         if (isset($data[0])) {
             foreach ($data as $key => $dataval) {
             if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
@@ -297,9 +296,21 @@ trait ActionSiteRequest
         $start = $start_arr;
 
 
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if (($json = intval(Yii::$app->request->post('json'))) == TRUE && $json == 1) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword];
 
-        return array($data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $type, $hide_man);
+        } else {
+            $this->layout = 'catalog';
+            if($cat_start == 0){
+                $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
+            }else{
+                $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $cat_start . '&action=namenum'));
+            }
+            Yii::$app->params['layoutset']['opencat'] = $catpath->num;
+            return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath]);
+
+        }
     }
 }
 

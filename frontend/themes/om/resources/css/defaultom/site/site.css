@@ -2615,8 +2615,12 @@
         border-radius: 4px;
         border: 1px solid #CCC;
     }
-
-
+    .regmain {
+        font-weight: 400;
+        margin: 15px;
+        width: 100%;
+        clear: right;
+    }
     div.float span {
         display: none;
         background: #F5F5F5 none repeat scroll 0% 0%;
