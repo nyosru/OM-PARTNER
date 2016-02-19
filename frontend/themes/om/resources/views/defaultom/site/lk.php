@@ -22,41 +22,35 @@ $this -> title = 'Личный кабинет';
 //echo '</pre>';
 //die();
 echo '<div class="user-profile"><div class="lable-profile">Информация о пользователе</div>';
-$form=ActiveForm::begin();
-echo '<input type="hidden" name="profile-id" value="userinfo"/>';
-echo $form->field($cust['userinfo'],'lastname')->label('Фамилия: ');
-echo $form->field($cust['userinfo'],'name')->label('Имя: ');
-echo $form->field($cust['userinfo'],'secondname')->label('Отчество: ');
+$form=ActiveForm::begin(['method'=>'post']);
+//echo '<input type="hidden" name="profile-id" value="userinfo"/>';
+echo $form->field($cust,'lastname')->label('Фамилия: ');
+echo $form->field($cust,'name')->label('Имя: ');
+echo $form->field($cust,'secondname')->label('Отчество: ');
 echo $form->field($cust,'email')->label('E-mail: ');
-echo $form->field($cust['customers'],'customers_telephone')->label('Телефон: ');
-echo $form->field($cust['customers'],'customers_fax')->label('Факс: ');
-echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
-ActiveForm::end();
-echo '</div>';
-echo '<div class="user-profile"><div class="lable-profile">Информация для доставки товара</div>';
-
-foreach($cust['addressBook'] as $key=>$value){
-
+echo $form->field($cust,'phone')->label('Телефон: ');
+echo $form->field($cust,'fax')->label('Факс: ');
+echo '</div><div class="user-profile">';
+echo '<div class="lable-profile">Информация для доставки товара</div>';
+foreach($cust['delivery'] as $key=>$value){
     echo '<div class="profile_address'.$key.'" style="overflow:hidden; position:relative;margin-bottom:30px;"><div style="text-align:center;font-weight:600;">Адрес доставки '.($key+1).':</div>';
-    $form=ActiveForm::begin(['method'=>'post']);
-    echo '<input type="hidden" name="profile-id" value="'.$key.'"/>';
-    echo $form->field($value,'entry_firstname')->label('Имя получателя: ');
-    echo $form->field($value,'entry_lastname')->label('Фамилия получателя: ');
-    echo $form->field($value,'otchestvo')->label('Отчество получателя: ');
-    echo $form->field($value,'birth_day')->label('Дата рождения:: ');
-    echo $form->field($value,'pasport_seria')->label('Серия паспорта: ');
-    echo $form->field($value,'pasport_nomer')->label('Номер паспорта: ');
-    echo $form->field($value,'pasport_kem_vidan')->label('Кем выдан паспорт: ');
-    echo $form->field($value,'pasport_kogda_vidan')->label('Дата выдачи: ');
-    echo $form->field($value,'country',['inputOptions'=>['data'=>['name'=>'country']]])->label('Страна: ');
-    echo $form->field($value,'entry_state',['inputOptions'=>['data'=>['name'=>'state']]])->label('Регион: ');
-    echo $form->field($value,'entry_city')->label('Город: ');
-    echo $form->field($value,'entry_postcode')->label('Индекс: ');
-    echo $form->field($value,'entry_street_address')->label('Адрес: ');
-    echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
-    ActiveForm::end();
+    echo $form->field($cust,'delivery['.$key.'][name]')->label('Имя получателя: ');
+    echo $form->field($cust,'delivery['.$key.'][lastname]')->label('Фамилия получателя: ');
+    echo $form->field($cust,'delivery['.$key.'][secondname]')->label('Отчество получателя: ');
+    echo $form->field($cust,'delivery['.$key.'][birthday]')->label('Дата рождения:: ');
+    echo $form->field($cust,'delivery['.$key.'][passportser]')->label('Серия паспорта: ');
+    echo $form->field($cust,'delivery['.$key.'][passportnum]')->label('Номер паспорта: ');
+    echo $form->field($cust,'delivery['.$key.'][passportwho]')->label('Кем выдан паспорт: ');
+    echo $form->field($cust,'delivery['.$key.'][passportdate]')->label('Дата выдачи: ');
+    echo $form->field($cust,'delivery['.$key.'][country]',['inputOptions'=>['data'=>['name'=>'country']]])->label('Страна: ');
+    echo $form->field($cust,'delivery['.$key.'][state]',['inputOptions'=>['data'=>['name'=>'state']]])->label('Регион: ');
+    echo $form->field($cust,'delivery['.$key.'][city]')->label('Город: ');
+    echo $form->field($cust,'delivery['.$key.'][postcode]')->label('Индекс: ');
+    echo $form->field($cust,'delivery['.$key.'][address]')->label('Адрес: ');
     echo '</div>';
 }
+echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
+ActiveForm::end();
 echo '</div>';
 ?>
 <script>
