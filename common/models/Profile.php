@@ -30,8 +30,11 @@ class Profile extends Model{
             ['lastname','string', 'min'=>2, 'message' => 'Минимальная длина 2 символа'],
             
             ['secondname','string','min'=>2, 'message' => 'Минимальная длина 2 символа'],
+
             [['id','delivery'], 'safe'],
+
             ['email', 'email'],
+            ['email', 'ValidateUseremail'],
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required', 'message' => 'Это обязательное поле'],
             ['email', 'string', 'message' => 'Минимум 6 символов','min'=>6],
