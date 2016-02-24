@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -30,7 +31,7 @@ use Yii;
  * @property string $status_add
  * @property string $admin_sver
  */
-class OrdersProducts extends \yii\db\ActiveRecord
+class OrdersProducts extends ActiveRecordExt
 {
     /**
      * @inheritdoc

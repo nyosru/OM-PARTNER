@@ -6,9 +6,9 @@ export var test = QUnit.test;
 
 export var expect = QUnit.expect;
 
-export function module(name, lifecycle) {
+export function module (name, lifecycle) {
     QUnit.module(name, {
-        setup: function () {
+        setup : function () {
             moment.locale('en');
             moment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);
@@ -17,7 +17,7 @@ export function module(name, lifecycle) {
                 lifecycle.setup();
             }
         },
-        teardown: function () {
+        teardown : function () {
             if (lifecycle && lifecycle.teardown) {
                 lifecycle.teardown();
             }
@@ -25,9 +25,9 @@ export function module(name, lifecycle) {
     });
 }
 
-export function localeModule(name, lifecycle) {
+export function localeModule (name, lifecycle) {
     QUnit.module('locale:' + name, {
-        setup: function () {
+        setup : function () {
             moment.locale(name);
             moment.createFromInputFallback = function (config) {
                 throw new Error('input not handled by moment: ' + config._i);
@@ -36,7 +36,7 @@ export function localeModule(name, lifecycle) {
                 lifecycle.setup();
             }
         },
-        teardown: function () {
+        teardown : function () {
             moment.locale('en');
             if (lifecycle && lifecycle.teardown) {
                 lifecycle.teardown();

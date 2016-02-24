@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -24,7 +25,7 @@ use Yii;
  * @property string $products_head_keywords_tag
  * @property string $products_info
  */
-class PartnersProductsDescription extends \yii\db\ActiveRecord
+class PartnersProductsDescription extends ActiveRecordExt
 {
     /**
      * @inheritdoc

@@ -173,6 +173,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         //?>
                         <div style="margin: 0% 25%; float: left;">
                             <?
+                            echo'<pre>';
+                            print_r(Yii::$app->params['log']);
+                            echo'<pre>';
                             if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {
                                 $mailcounter = Yii::$app->params['partnersset']['mailcounter']['value'];
                                 ?>

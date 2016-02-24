@@ -39,6 +39,7 @@ trait ActionCatalog
             $x['products_last_modified'] = $x['add_date'] ;
         }
         $checkcache = $x['products_last_modified'];
+
 //        print_r($this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
 //        die();
         $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
@@ -49,9 +50,12 @@ trait ActionCatalog
         $d1 = strtotime(trim($checkcache));
 
         $d2 = strtotime(trim($dataque['checkcache']));
+        Yii::$app->params['log']['date']['dt'][][1] =  $d1;
+        Yii::$app->params['log']['date']['dt'][][2] =  $d2;
 
         $markers = $d2 - $d1;
-        if (!isset($dataque['checkcache']) || $markers > 0 ) {
+        Yii::$app->params['log']['date']['dt'][]['c'] =  $markers;
+        if (!isset($dataque['checkcache']) || $markers  !== 0 ) {
             switch ($sort) {
                 case 0:
                     $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -145,7 +149,12 @@ trait ActionCatalog
                $d2 = strtotime(trim($values['last']));
                $d1 = strtotime(trim($dataprod['last']));
                 $marker = $d2-$d1;
-                if (isset($dataprod['data']) && $marker > 0) {
+                Yii::$app->params['log']['date']['dt'][][1] =  $d1;
+                Yii::$app->params['log']['date']['dt'][][2] =  $d2;
+
+
+                Yii::$app->params['log']['date']['dt'][]['c'] =  $marker;
+                if (isset($dataprod['data']) && $marker !== 0) {
                     $data[] = $dataprod['data'];
                 } else {
                     $nodata[] = $values['prod'];
@@ -220,9 +229,9 @@ trait ActionCatalog
             if($cat_start == 0){
                 $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
             }else{
-                $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $cat_start . '&action=namenum'));
+                $catpath = $this->Catpath($cat_start,'namenum');
             }
-                    Yii::$app->params['layoutset']['opencat'] = $catpath->num;
+                    Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
                 return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath]);
 
         }

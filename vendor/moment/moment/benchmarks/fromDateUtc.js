@@ -3,11 +3,10 @@ var Benchmark = require('benchmark'),
     base = new Date();
 
 module.exports = {
-    name: 'fromDateUtc',
-    onComplete: function () {
-    },
-    fn: function () {
-        moment.utc(base);
-    },
-    async: true
+  name: 'fromDateUtc',
+  onComplete: function(){},
+  fn: function(){
+      moment.utc(base);
+  },
+  async: true
 };

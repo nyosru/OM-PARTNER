@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -16,7 +17,7 @@ use Yii;
  * @property resource $comments
  * @property integer $supervisor
  */
-class PartnersRequest extends \yii\db\ActiveRecord
+class PartnersRequest extends ActiveRecordExt
 {
     /**
      * @inheritdoc

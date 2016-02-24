@@ -9,7 +9,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 class Twig_Node_Expression_Name extends Twig_Node_Expression
 {
     protected $specialVars = array(
@@ -31,25 +30,18 @@ class Twig_Node_Expression_Name extends Twig_Node_Expression
 
         if ($this->getAttribute('is_defined_test')) {
             if ($this->isSpecial()) {
-                if ('_self' === $name) {
-                    @trigger_error(sprintf('Global variable "_self" is deprecated since version 1.21 in %s at line %d', '?', $this->getLine()), E_USER_DEPRECATED);
-                }
-
                 $compiler->repr(true);
             } else {
                 $compiler->raw('array_key_exists(')->repr($name)->raw(', $context)');
             }
         } elseif ($this->isSpecial()) {
-            if ('_self' === $name) {
-                @trigger_error(sprintf('Global variable "_self" is deprecated since version 1.21 in %s at line %d', '?', $this->getLine()), E_USER_DEPRECATED);
-            }
-
             $compiler->raw($this->specialVars[$name]);
         } elseif ($this->getAttribute('always_defined')) {
             $compiler
                 ->raw('$context[')
                 ->string($name)
-                ->raw(']');
+                ->raw(']')
+            ;
         } else {
             // remove the non-PHP 5.4 version when PHP 5.3 support is dropped
             // as the non-optimized version is just a workaround for slow ternary operator
@@ -61,7 +53,8 @@ class Twig_Node_Expression_Name extends Twig_Node_Expression
                     ->string($name)
                     ->raw(']) ? $context[')
                     ->string($name)
-                    ->raw('] : ');
+                    ->raw('] : ')
+                ;
 
                 if ($this->getAttribute('ignore_strict_check') || !$compiler->getEnvironment()->isStrictVariables()) {
                     $compiler->raw('null)');
@@ -71,14 +64,16 @@ class Twig_Node_Expression_Name extends Twig_Node_Expression
             } else {
                 $compiler
                     ->raw('$this->getContext($context, ')
-                    ->string($name);
+                    ->string($name)
+                ;
 
                 if ($this->getAttribute('ignore_strict_check')) {
                     $compiler->raw(', true');
                 }
 
                 $compiler
-                    ->raw(')');
+                    ->raw(')')
+                ;
             }
         }
     }

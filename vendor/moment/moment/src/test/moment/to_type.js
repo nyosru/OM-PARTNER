@@ -5,13 +5,13 @@ module('to type');
 
 test('toObject', function (assert) {
     var expected = {
-        years: 2010,
-        months: 3,
-        date: 5,
-        hours: 15,
-        minutes: 10,
-        seconds: 3,
-        milliseconds: 123
+        years:2010,
+        months:3,
+        date:5,
+        hours:15,
+        minutes:10,
+        seconds:3,
+        milliseconds:123
     };
     assert.deepEqual(moment(expected).toObject(), expected, 'toObject invalid');
 });

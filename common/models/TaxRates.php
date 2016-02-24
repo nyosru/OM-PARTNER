@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -17,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property string $date_added
  *
  */
-class TaxRates extends ActiveRecord
+class TaxRates extends ActiveRecordExt
 {
 
     /**

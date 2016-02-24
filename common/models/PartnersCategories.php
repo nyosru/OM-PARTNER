@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -22,7 +23,7 @@ use Yii;
  * @property string $weight
  * @property string $capacity
  */
-class PartnersCategories extends \yii\db\ActiveRecord
+class PartnersCategories extends ActiveRecordExt
 {
     /**
      * @inheritdoc

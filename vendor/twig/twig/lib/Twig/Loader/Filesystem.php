@@ -62,8 +62,8 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
     /**
      * Sets the paths where templates are stored.
      *
-     * @param string|array $paths A path or an array of paths where to look for templates
-     * @param string $namespace A path namespace
+     * @param string|array $paths     A path or an array of paths where to look for templates
+     * @param string       $namespace A path namespace
      */
     public function setPaths($paths, $namespace = self::MAIN_NAMESPACE)
     {
@@ -80,7 +80,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
     /**
      * Adds a path where templates are stored.
      *
-     * @param string $path A path where to look for templates
+     * @param string $path      A path where to look for templates
      * @param string $namespace A path name
      *
      * @throws Twig_Error_Loader
@@ -100,7 +100,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
     /**
      * Prepends a path where templates are stored.
      *
-     * @param string $path A path where to look for templates
+     * @param string $path      A path where to look for templates
      * @param string $namespace A path name
      *
      * @throws Twig_Error_Loader
@@ -197,12 +197,12 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
         }
 
         foreach ($this->paths[$namespace] as $path) {
-            if (is_file($path . '/' . $shortname)) {
-                if (false !== $realpath = realpath($path . '/' . $shortname)) {
+            if (is_file($path.'/'.$shortname)) {
+                if (false !== $realpath = realpath($path.'/'.$shortname)) {
                     return $this->cache[$name] = $realpath;
                 }
 
-                return $this->cache[$name] = $path . '/' . $shortname;
+                return $this->cache[$name] = $path.'/'.$shortname;
             }
         }
 
@@ -233,7 +233,7 @@ class Twig_Loader_Filesystem implements Twig_LoaderInterface, Twig_ExistsLoaderI
 
     protected function normalizeName($name)
     {
-        return preg_replace('#/{2,}#', '/', str_replace('\\', '/', (string)$name));
+        return preg_replace('#/{2,}#', '/', str_replace('\\', '/', (string) $name));
     }
 
     protected function validateName($name)

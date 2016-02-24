@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -27,7 +28,7 @@ use Yii;
  * @property integer $entry_country_id
  * @property integer $entry_zone_id
  */
-class AddressBook extends \yii\db\ActiveRecord
+class AddressBook extends ActiveRecordExt
 {
     /**
      * @inheritdoc

@@ -54,24 +54,24 @@ function getSizeAtVersion(version, path) {
         op = {},
 
         req = https.request({
-            host: 'raw.github.com',
-            port: 443,
-            path: '/timrwood/moment/' + version + path
-        }, function (res) {
-            res.setEncoding('utf8');
-            res.on('data', function (chunk) {
-                data += chunk;
-            });
-            res.on('end', function (e) {
-                zlib.gzip(data, function (error, result) {
-                    op.version = version;
-                    op.gzip = result.length;
-                    op.original = data.length;
-                    resolved++;
-                    check();
-                });
+        host: 'raw.github.com',
+        port: 443,
+        path: '/timrwood/moment/' + version + path
+    }, function (res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            data += chunk;
+        });
+        res.on('end', function (e) {
+            zlib.gzip(data, function (error, result) {
+                op.version = version;
+                op.gzip = result.length;
+                op.original = data.length;
+                resolved++;
+                check();
             });
         });
+    });
 
     req.on('error', function (e) {
         console.log('problem with request: ' + e.message);
@@ -111,6 +111,7 @@ function getLocal() {
         });
     });
 }
+
 
 
 module.exports = function (grunt) {

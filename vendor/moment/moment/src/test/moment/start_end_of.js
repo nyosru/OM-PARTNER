@@ -281,7 +281,7 @@ test('end of second', function (assert) {
 
 test('startOf across DST +1', function (assert) {
     var oldUpdateOffset = moment.updateOffset,
-    // Based on a real story somewhere in America/Los_Angeles
+        // Based on a real story somewhere in America/Los_Angeles
         dstAt = moment('2014-03-09T02:00:00-08:00').parseZone(),
         m;
 
@@ -316,7 +316,7 @@ test('startOf across DST +1', function (assert) {
 
 test('startOf across DST -1', function (assert) {
     var oldUpdateOffset = moment.updateOffset,
-    // Based on a real story somewhere in America/Los_Angeles
+        // Based on a real story somewhere in America/Los_Angeles
         dstAt = moment('2014-11-02T02:00:00-07:00').parseZone(),
         m;
 

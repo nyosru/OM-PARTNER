@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -13,7 +14,7 @@ use Yii;
  * @property string $countries_iso_code_3
  * @property integer $address_format_id
  */
-class Countries extends \yii\db\ActiveRecord
+class Countries extends ActiveRecordExt
 {
     /**
      * @inheritdoc

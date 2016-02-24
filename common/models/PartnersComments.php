@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -16,7 +17,7 @@ use Yii;
  * @property string $date_modified
  * @property integer $status
  */
-class PartnersComments extends \yii\db\ActiveRecord
+class PartnersComments extends ActiveRecordExt
 {
     /**
      * @inheritdoc

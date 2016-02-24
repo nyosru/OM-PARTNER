@@ -9,10 +9,10 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern: /\/\/! version : .*/,
+                        pattern:     /\/\/! version : .*/,
                         replacement: '//! version : ' + version
                     }, {
-                        pattern: /moment\.version = '.*'/,
+                        pattern:     /moment\.version = '.*'/,
                         replacement: "moment.version = '" + version + "'"
                     }
                 ]
@@ -24,7 +24,7 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern: /"version": .*/,
+                        pattern:     /"version": .*/,
                         replacement: '"version": "' + version + '",'
                     }
                 ]
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern: /"version": .*/,
+                        pattern:     /"version": .*/,
                         replacement: '"version": "' + version + '",'
                     }
                 ]
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
             options: {
                 replacements: [
                     {
-                        pattern: /<version>.*<\/version>/,
+                        pattern:     /<version>.*<\/version>/,
                         replacement: '<version>' + version + '</version>'
                     }
                 ]

@@ -48,7 +48,7 @@ foreach($cust['addressBook'] as $key=>$value){
     echo $form->field($value,'pasport_nomer')->label('Номер паспорта: ');
     echo $form->field($value,'pasport_kem_vidan')->label('Кем выдан паспорт: ');
     echo $form->field($value,'pasport_kogda_vidan')->label('Дата выдачи: ');
-    echo $form->field($value,'country',['inputOptions'=>['data'=>['name'=>'country']]])->label('Страна: ');
+    //echo $form->field($value,'country',['inputOptions'=>['data'=>['name'=>'country']]])->label('Страна: ');
     echo $form->field($value,'entry_state',['inputOptions'=>['data'=>['name'=>'state']]])->label('Регион: ');
     echo $form->field($value,'entry_city')->label('Город: ');
     echo $form->field($value,'entry_postcode')->label('Индекс: ');

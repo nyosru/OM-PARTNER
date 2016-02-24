@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -17,7 +18,7 @@ use Yii;
  * @property string $referer_page
  * @property string $storage
  */
-class OrdersHistory extends \yii\db\ActiveRecord
+class OrdersHistory extends ActiveRecordExt
 {
     /**
      * @inheritdoc

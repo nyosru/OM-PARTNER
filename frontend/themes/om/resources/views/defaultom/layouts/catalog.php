@@ -171,6 +171,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <div id="index-card-4">Сео текст категории</div>
                     <div style="margin: 0px 15px;">
                     <?
+                    echo'<pre>';
+                    print_r(Yii::$app->params['log']);
+                    echo'<pre>';
                     if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);}
                     $data = new \common\models\PartnersConfig();
                     $check = Yii::$app->params['constantapp']['APP_ID'];

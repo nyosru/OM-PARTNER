@@ -3,6 +3,7 @@
 namespace common\models;
 
 use app\api\core\productsdescription\ProductsDescription;
+use common\patch\ActiveRecordExt;
 use Yii;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsOptionVal;
@@ -47,7 +48,7 @@ use common\models\PartnersProductsDescription;
  * @property string $removable
 // * @property string $raschet_pribil
  */
-class PartnersProducts extends \yii\db\ActiveRecord
+class PartnersProducts extends ActiveRecordExt
 {
     /**
      * @inheritdoc

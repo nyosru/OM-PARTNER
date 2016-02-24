@@ -1,11 +1,11 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        env: {
-            sauceLabs: (grunt.file.exists('.sauce-labs.creds') ?
-                grunt.file.readJSON('.sauce-labs.creds') : {})
+        env : {
+            sauceLabs : (grunt.file.exists('.sauce-labs.creds') ?
+                    grunt.file.readJSON('.sauce-labs.creds') : {})
         },
-        karma: {
+        karma : {
             options: {
                 browserNoActivityTimeout: 60000,
                 browserDisconnectTimeout: 10000,
@@ -100,12 +100,12 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        uglify: {
+        uglify : {
             main: {
                 files: {
-                    'min/moment-with-locales.min.js': 'min/moment-with-locales.js',
-                    'min/locales.min.js': 'min/locales.js',
-                    'min/moment.min.js': 'moment.js'
+                    'min/moment-with-locales.min.js'     : 'min/moment-with-locales.js',
+                    'min/locales.min.js'                 : 'min/locales.js',
+                    'min/moment.min.js'                  : 'moment.js'
                 }
             },
             options: {
@@ -140,15 +140,15 @@ module.exports = function (grunt) {
                 config: '.jscs.json'
             }
         },
-        watch: {
-            test: {
-                files: [
+        watch : {
+            test : {
+                files : [
                     'src/**/*.js'
                 ],
                 tasks: ['test']
             },
-            jshint: {
-                files: '<%= jshint.all %>',
+            jshint : {
+                files : '<%= jshint.all %>',
                 tasks: ['jshint']
             }
         },

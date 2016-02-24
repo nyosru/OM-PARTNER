@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -14,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $orders_id
  * @property string $orders_id_sp
  */
-class PartnersOrdersProductsSp extends ActiveRecord
+class PartnersOrdersProductsSp extends ActiveRecordExt
 {
     /**
      * @inheritdoc

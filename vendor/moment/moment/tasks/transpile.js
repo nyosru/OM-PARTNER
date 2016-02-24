@@ -18,7 +18,6 @@ module.exports = function (grunt) {
     }
 
     var headerCache = {};
-
     function getHeaderByFile(headerFile) {
         if (!(headerFile in headerCache)) {
             headerCache[headerFile] = grunt.file.read(headerFile);
@@ -150,10 +149,10 @@ module.exports = function (grunt) {
 
             var buildExportVars = ['moment_with_locales', 'moment_with_locales_custom'];
             buildExportVars.forEach(function (buildExportVar) {
-                var languageReset = buildExportVar + '.locale(\'en\');';
+                var languageReset = buildExportVar  + '.locale(\'en\');';
                 code = code.replace('var ' + buildExportVar + ' = ' + crap[1] + ';',
-                    'var ' + buildExportVar + ' = ' + crap[2] + ';\n' +
-                    '    ' + languageReset);
+                                    'var ' + buildExportVar + ' = ' + crap[2] + ';\n' +
+                                    '    ' + languageReset);
             });
 
             if (code.match('get default')) {
@@ -228,40 +227,40 @@ module.exports = function (grunt) {
     });
 
     grunt.task.registerTask('transpile-custom-raw',
-        'build just custom language bundles',
-        function (locales) {
-            var done = this.async();
+            'build just custom language bundles',
+            function (locales) {
+        var done = this.async();
 
-            var localeFiles = locales.split(',').map(function (locale) {
-                var file = grunt.file.expand({cwd: 'src'}, 'locale/' + locale + '.js');
-                if (file.length !== 1) {
-                    // we failed to find a locale
-                    done(new Error('could not find locale: ' + locale));
-                    done = null;
-                } else {
-                    return file[0];
-                }
-            });
-
-            // There was an issue with a locale
-            if (done == null) {
-                return;
+        var localeFiles = locales.split(',').map(function (locale) {
+            var file = grunt.file.expand({cwd: 'src'}, 'locale/' + locale + '.js');
+            if (file.length !== 1) {
+                // we failed to find a locale
+                done(new Error('could not find locale: ' + locale));
+                done = null;
+            } else {
+                return file[0];
             }
-
-            return generateLocales(
-                'build/umd/min/locales.custom.js', localeFiles
-            ).then(function () {
-                    grunt.log.ok('build/umd/min/locales.custom.js');
-                }).then(function () {
-                    return generateMomentWithLocales('build/umd/min/moment-with-locales.custom.js',
-                        localeFiles);
-                }).then(function () {
-                    grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
-                }).then(done, function (e) {
-                    grunt.log.error('error transpiling-custom', e);
-                    done(e);
-                });
         });
+
+        // There was an issue with a locale
+        if (done == null) {
+            return;
+        }
+
+        return generateLocales(
+            'build/umd/min/locales.custom.js', localeFiles
+        ).then(function () {
+            grunt.log.ok('build/umd/min/locales.custom.js');
+        }).then(function () {
+            return generateMomentWithLocales('build/umd/min/moment-with-locales.custom.js',
+                localeFiles);
+        }).then(function () {
+            grunt.log.ok('build/umd/min/moment-with-locales.custom.js');
+        }).then(done, function (e) {
+            grunt.log.error('error transpiling-custom', e);
+            done(e);
+        });
+    });
 
     grunt.config('clean.build', [
         'build'
@@ -273,18 +272,18 @@ module.exports = function (grunt) {
     });
 
     grunt.task.registerTask('transpile',
-        'builds all es5 files, optinally creating custom locales',
-        function (locales) {
-            var tasks = [
-                'clean:build',
-                'transpile-raw',
-                'concat:tests'
-            ];
+            'builds all es5 files, optinally creating custom locales',
+            function (locales) {
+        var tasks = [
+            'clean:build',
+            'transpile-raw',
+            'concat:tests'
+        ];
 
-            if (locales) {
-                tasks.push('transpile-custom-raw:' + locales);
-            }
+        if (locales) {
+            tasks.push('transpile-custom-raw:' + locales);
+        }
 
-            grunt.task.run(tasks);
-        });
+        grunt.task.run(tasks);
+    });
 };

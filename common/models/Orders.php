@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -74,7 +75,7 @@ use Yii;
  * @property string $orders_discont
  * @property string $orders_discont_comment
  */
-class Orders extends \yii\db\ActiveRecord
+class Orders extends ActiveRecordExt
 {
     /**
      * @inheritdoc

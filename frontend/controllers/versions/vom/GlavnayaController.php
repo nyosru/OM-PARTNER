@@ -3,6 +3,7 @@
 namespace frontend\controllers\versions\vom;
 
 use common\traits\Categories_for_partner;
+use common\traits\CatPath;
 use common\traits\Fullopcat;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
@@ -75,6 +76,7 @@ class GlavnayaController extends Controller
         ThemeResources,
         Hide_manufacturers_for_partners,
         OpenSearch,
+        CatPath,
         ActionSiteIndex,
         ActionSiteRequest,
         ActionSiteSearchword,
