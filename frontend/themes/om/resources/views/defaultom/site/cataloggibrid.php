@@ -475,16 +475,7 @@ if ($data[0] != 'Не найдено!') {
             $(this).children().prop('checked', true);
             $(this).addClass('fa-check');
         });
-    $(document).on('mouseover', '[data-vis="size-item-desc"]', function(){
-        $attr = this.getAttribute('data-vis-id');
-        $obj = $('[data-vis-id-card="'+$attr+'"]');
-        $obj.addClass('show');
-    });
-    $(document).on('mouseout', '[data-vis="size-item-desc"]', function(){
-        $attr = this.getAttribute('data-vis-id');
-        $obj = $('[data-vis-id-card="'+$attr+'"]');
-        $obj.removeClass('show')
-    });
+
 //    },1000).(function(){
 //
 //    }, 1000);

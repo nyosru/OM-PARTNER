@@ -1,3 +1,14 @@
+$(document).on('mouseover', '[data-vis="size-item-desc"]', function(){
+    $attr = this.getAttribute('data-vis-id');
+    $obj = $('[data-vis-id-card="'+$attr+'"]');
+    $obj.addClass('show');
+});
+$(document).on('mouseout', '[data-vis="size-item-desc"]', function(){
+    $attr = this.getAttribute('data-vis-id');
+    $obj = $('[data-vis-id-card="'+$attr+'"]');
+    $obj.removeClass('show')
+});
+
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
     $check = [];

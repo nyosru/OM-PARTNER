@@ -30,6 +30,8 @@ use Yii;
  * @property string $comment
  * @property string $status_add
  * @property string $admin_sver
+ * @property string $stickers_confirmed
+ * @property string $automatically_sent_to_manufacturer
  */
 class OrdersProducts extends ActiveRecordExt
 {
@@ -47,12 +49,13 @@ class OrdersProducts extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['orders_id', 'sub_orders_id', 'old_orders_id', 'products_id', 'products_quantity', 'products_av', 'checks', 'first_quant', 'products_status', 'verificatiuon', 'status_add'], 'integer'],
+            [['orders_id', 'sub_orders_id', 'old_orders_id', 'products_id', 'products_quantity', 'products_av', 'checks', 'first_quant', 'products_status', 'verificatiuon', 'status_add', 'stickers_confirmed'], 'integer'],
             [['products_name'], 'required'],
             [['products_price', 'final_price', 'price_coll', 'products_tax'], 'number'],
             [['priten', 'comment'], 'string'],
             [['products_model', 'products_name', 'admin_sver'], 'string', 'max' => 255],
-            [['products_sort'], 'string', 'max' => 20]
+            [['products_sort'], 'string', 'max' => 20],
+            ['automatically_sent_to_manufacturer', 'integer', 'min' => 0, 'max' => 1],
         ];
     }
 
@@ -84,6 +87,8 @@ class OrdersProducts extends ActiveRecordExt
             'comment' => 'Comment',
             'status_add' => 'Status Add',
             'admin_sver' => 'Admin Sver',
+            'stickers_confirmed'                 => 'Stickers Confirmed',
+            'automatically_sent_to_manufacturer' => 'Automatically Sent To Manufacturer',
         ];
     }
 }

@@ -194,5 +194,8 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
     }
-
+    public function getProductsSP()
+    {
+        return $this->hasMany(PartnersOrdersProductsSp::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
+    }
 }

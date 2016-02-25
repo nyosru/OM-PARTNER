@@ -168,14 +168,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <hr class="linebottom2">
                     <div class="" style="margin: 0px 25px;">
                         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
-                        <!--    --><?// $this->endCache();
-                        //}
-                        //?>
                         <div style="margin: 0% 25%; float: left;">
                             <?
-                            echo'<pre>';
-                            print_r(Yii::$app->params['log']);
-                            echo'<pre>';
                             if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {
                                 $mailcounter = Yii::$app->params['partnersset']['mailcounter']['value'];
                                 ?>

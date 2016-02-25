@@ -124,12 +124,12 @@ class PartnersProducts extends ActiveRecordExt
     }
     public function getProductsAttributes()
     {
-        return $this->hasOne(PartnersProductsAttributes::className(), ['products_id' => 'products_id']);
+        return $this->hasMany(PartnersProductsAttributes::className(), ['products_id' => 'products_id']);
     }
 
     public function getProductsAttributesDescr()
     {
-        return $this->hasOne(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
+        return $this->hasMany(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
     }
     public function getproductlist($cat)
     {

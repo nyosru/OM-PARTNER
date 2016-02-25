@@ -236,7 +236,46 @@
         background: #b63b4d;
         color: #FFF
     }
-
+    .circular{
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 500em;
+        position: relative;
+        background: #FFF none repeat scroll 0% 0%;
+        box-shadow: 0px 1px 2px 0px rgba(34, 36, 38, 0.15);
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        font-size: 58px;
+        line-height: 1.9;
+        float: left;
+        margin: 0px 10px 0px 20px;
+    }
+    .lk-order-status{
+        height: 100px;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px 5px 10px;
+        width: calc(100%/4 - 10px);
+    }
+    .lk-order-status > .item {
+        float: left;
+        width: 50%;
+        text-align: center;
+        font-size: 35px;
+        font-weight: 500;
+        color: #00A5A1;
+    }
+    .lk-order-status > .title {
+        float: right;
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 300;
+        padding: 5px;
+        color: #007BC1;
+    }
     .aside {
         float: left;
         min-width: 300px;
