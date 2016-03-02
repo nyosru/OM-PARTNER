@@ -17,7 +17,7 @@ trait ActionSiteRequest
         $start_price = intval(Yii::$app->request->post('start_price', 0));
         $end_price = intval(Yii::$app->request->post('end_price', 1000000));
         $prod_attr_query = intval(Yii::$app->request->post('prod_attr_query', ''));
-        $count = intval(Yii::$app->request->post('count', 20));
+        $count = intval(Yii::$app->request->post('count', 48));
         $page = intval(Yii::$app->request->post('page', 0));
         $start_arr = intval($page * $count);
         $sort = intval(Yii::$app->request->post('sort', 10));

@@ -90,7 +90,8 @@ class Manufacturers extends ActiveRecordExt
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+    public function getManufacturersTimeOrder()
+    {
+        return $this->hasMany(ManufacturersDiapazon::class, ['manufacturers_id' => 'manufacturers_id']);
+    }
 }

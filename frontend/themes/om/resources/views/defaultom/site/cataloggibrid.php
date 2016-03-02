@@ -45,8 +45,9 @@ function new_suburl($url_obj, $val, $new_var)
 
 
 
-
-
+//echo '<pre>';
+//print_r($date);
+//echo '</pre>';
 
 $start_url = Yii::$app->request->getQueryString();
 $url_data = split_url(str_replace('&amp;', '&', str_replace('%26', '&', $start_url)));
@@ -139,7 +140,7 @@ if ($data[0] != 'Не найдено!') {
 //        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
 //        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
 //    }
-    $countdisp = [20, 40, 60];
+    $countdisp = [48, 96, 144];
     $innercount = '';
     foreach ($countdisp as $key => $countdisp) {
         if ($countdisp == $count) {
@@ -184,10 +185,11 @@ if ($data[0] != 'Не найдено!') {
                 <form id="partners-main-right" class="filter" action="'.BASEURL.'/catalog">
                     <div class="panel panel-default">
                          <div class="filter-search" style="float: left; margin: 13px; font-size: 14px; width: 25%;">
-                            <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 27px; float: left; width: 75%; font-size: 14px; line-height: 1; padding: 4px;" type="text">
-                        <div class="btn btn-default data-j" style="width: 25%; height: 27px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; left: -5px; margin-right: 0px; float: left; font-size: 14px; line-height: 0.9;">
+                         <form action="'.BASEURL.'/catalog?cat=0">
+                            <input id="search" autocomplite="off" name="searchword" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 27px; float: left; width: 75%; font-size: 14px; line-height: 1; padding: 4px;" type="text">
+                        <button class="btn btn-default data-j" type="submit" style="width: 25%; height: 27px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; left: -5px; margin-right: 0px; float: left; font-size: 14px; line-height: 0.9;">
                             Найти
-                        </div></div>';
+                        </button></form></div>';
     $headbside .='<div class="filter-cart" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>';
 
     $headbside .='<div class="filter-auth" style="float: right; width: 25%; padding: 14px; font-size: 14px; font-weight: 300;">';
@@ -363,7 +365,13 @@ if ($data[0] != 'Не найдено!') {
     }
     $this->title = $thistitle . ' - ' . ($page + 1);
     echo $innerhtml;
-    echo '<div class="loader">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath['name']).'</span></div>';
+    echo '<div class="loader-inner"><div class="loader"><div style="float: left; text-align: center; width: 100%;">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath['name']).'</span></div>'.
+    '</div><div style="text-align: center; width: 25%; border-right: 1px solid rgb(204, 204, 204); float: left; margin: 10px 0px 0px;">'.
+    '<select id="control-load" class="no-shadow-form-control" name="control-load">'.
+    '<option value="manual">Ручная загрузка</option>'.
+    '<option value="auto">Автозагрузка</option>'.
+    '</select>'
+    .'</div></div>';
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
 
     if($data[1]>$count){
@@ -466,6 +474,20 @@ if ($data[0] != 'Не найдено!') {
         $('#filter-cont').addClass('in');
     }
     });
+
+
+//    $(document).on('click', '.filter > .panel  > a',  function(){
+//
+//    if($('#filter-cont').attr('class').indexOf('collapse in')+1) {
+//        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Показать фильтр </h4> </div>');
+//        $('#filter-cont').removeClass('in');
+//    }else{
+//        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Свернуть фильтр</h4> </div>');
+//        $(this).find(':first-child').addClass('no-border-bottom-rad');
+//        $('#filter-cont').addClass('in');
+//    }
+   // });
+
         $(document).on('click', '[class*=checkbox-overlay]', function(){
             $('[class*=checkbox-overlay]').removeClass('fa-check');
             $inputs=document.getElementsByClassName("checkbox-hidden-group");

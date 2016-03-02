@@ -3,7 +3,7 @@
 use common\models\Partners;
 use common\models\PartnersSettings;
 set_time_limit ( 800 );
-
+date_default_timezone_set('Europe/Moscow');
 
 ob_start("ob_gzhandler");
 defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
@@ -113,5 +113,5 @@ $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
 $application->run();
-print_r(Yii::$app->params['log']);
+
 ob_end_flush();

@@ -14,19 +14,19 @@ trait ActionTest
 {
     public function actionTest()
     {
-//        $plain = Yii::$app->request->getQueryParam('pass');
-//        $password = '';
-//        $customers = new Customers();
-//        for ($i = 0; $i < 10; $i++) {
-//            $password .= $customers->customer_migrate_rand();
-//            }
-//
-//        $salt = substr(md5($password), 0, 2);
-//
-//        $password = md5($salt . $plain) . ':' . $salt;
-//
-//        echo $password;
-//        die();
+        $plain = Yii::$app->request->getQueryParam('pass');
+        $password = '';
+        $customers = new Customers();
+        for ($i = 0; $i < 10; $i++) {
+            $password .= $customers->customer_migrate_rand();
+            }
+
+        $salt = substr(md5($password), 0, 2);
+
+        $password = md5($salt . $plain) . ':' . $salt;
+
+        echo $password;
+        die();
         $model = new Test();
         if($model->load(Yii::$app->request->post())){
             $model->save();

@@ -19,27 +19,99 @@ trait ActionLK
             return $this->redirect(Yii::$app->request->referrer);
         }
         $this->layout = 'lk';
-        switch (Yii::$app->request->getQueryParam('view')) {
-            case 'userinfo':
-                return $this->render('lkuserinfo',['cust'=>$cust]);
-                break;
-            case 'myorder':
+        $model = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' );
+        $sort = new yii\data\Sort([
+            'attributes' => [
+                'orders_id'=>[
+                    'asc' => ['orders_id' => SORT_ASC],
+                    'desc' => ['orders_id' => SORT_DESC],
+                    'default' => SORT_DESC,
 
+                ],
+            ],
+        ]);
+
+        switch (Yii::$app->request->getQueryParam('view')) {
+
+            case 'userinfo':
+                  return $this->render('lkuserinfo',['cust'=>$cust]);
+                break;
+
+
+            case 'myorder':
+                $sort_order = [0 => 'Все',1 => 'Текущие', 2 => 'Не выкупленные', 3 => 'Завершенные'];
+                $search = (int)Yii::$app->request->getQueryParam('filter');
+                if($search){
+                    switch($search){
+                        case '0':
+                            $model =  $model->andWhere(['!=','orders_status', '0']);
+                            break;
+                        case '1':
+                            $statinfilter = [1,2,3,4,5,11];
+                            $model = $model->andWhere(['orders_status'=>$statinfilter]);
+                            break;
+                        case '2':
+                            $statinfilter = [1,2];
+                            $model = $model->andWhere(['orders_status'=>$statinfilter]);
+                            break;
+                        case '3':
+                            $statinfilter = [5,6,33];
+                            $model = $model->andWhere(['orders_status'=>$statinfilter]);
+                            break;
+                        default:
+                            $model = $model->andWhere(['!=','orders_status', '0']);
+                            break;
+                    }
+
+                }
+                $id = (int)Yii::$app->request->getQueryParam('id');
+                if($id){
+
+
+                    $model =  $model->andWhere(['orders.orders_id'=>$id]);
+
+
+                }
+                $di = Yii::$app->request->getQueryParam('di');
+                if($di){
+                    $model =  $model->andWhere(['>=','orders.date_purchased',strtotime($di)]);
+                }
+                $do = Yii::$app->request->getQueryParam('$do');
+                if($do){
+                    $model =  $model->andWhere(['<=','orders.date_purchased',strtotime($do)]);
+                }
                 $orders = new yii\data\ActiveDataProvider([
-                    'query' => \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.orders_id'),
+                    'query' => $model,
+                    'sort' => $sort,
                     'pagination' => [
                         'params'=> array_merge($_GET, ['view' => 'myorder']),
-                        'defaultPageSize' => 20
+                        'defaultPageSize' => 20,
                     ]
 
                 ]);
-                return $this->render('lkmyorder',['cust'=>$cust, 'orders'=>$orders]);
+                return $this->render('lkmyorder',['cust'=>$cust, 'orders'=>$orders, 'sort_order'=>$sort_order]);
                 break;
+
+
             case 'lastorder':
                 return $this->render('lklastorder',['cust'=>$cust]);
                 break;
+
+
+
             default:
-                return $this->render('lk',['cust'=>$cust]);
+                $orders = new yii\data\ActiveDataProvider([
+                    'query' => $model,
+                    'sort' => $sort,
+                    'pagination' => [
+                        'params'=> array_merge($_GET, ['view' => 'myorder']),
+                        'defaultPageSize' => 1,
+
+
+                    ]
+
+                ]);
+                return $this->render('lk',['cust'=>$cust, 'orders'=>$orders]);
         }
     }
 }

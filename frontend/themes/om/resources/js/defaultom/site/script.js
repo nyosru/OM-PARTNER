@@ -69,52 +69,6 @@ $(document).on('click', '#image-img, .image', function () {
 $(document).on('click', '.close-descript', function () {
     $('#prod-card-info').dialog('close');
 });
-// deprecated
-// $(document).on('click', '.save-order', function () {
-//     $.post(
-//         "/site/shipping",
-//         function (shipdata) {
-//                 $inht = '';
-//                 console.log(shipdata);
-//                 $.each(shipdata, function (index) {
-//                     if (this.active == '1') {
-//                         $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
-//                     }
-//                 });
-//             $('.ui-dialog-content').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
-//             $('.cart-auth').remove();
-//             $.post(
-//                 "/site/paymentmethod",
-//                 function (data) {
-//                     if (data != 'false') {
-//                         $inht = '';
-//                         $.each(data, function (index) {
-//                             if (this.active == '1') {
-//                                 $inht += '<option class="shipping-confirm-option" value="' + this.name + '">' + this.name + '</option>';
-//                             }
-//                         });
-//                         $('.ui-dialog-content').append('<div class="shipping">Cпособ оплаты <select  id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
-//                     } else {
-//                         $('.ui-dialog-content').append('<div class="userinfo"></div>');
-//
-//                     }
-//                     $("#modal-cart").dialog({
-//                         position: {my: "center top", at: "top", of: window},
-//                         modal: true,
-//                         dialogClass: "cart-dialog",
-//                         closeText: "X",
-//                         width: window.screen.width / 100 * 80,
-//                         title: "Ваша корзина",
-//                         resizable: false
-//                         // dialogClass: 'max-cart cart',
-//
-//                     });
-//                 }
-//             );
-//         }
-//     );
-//
-// });
 
 $(document).on('change', '#shipping-confirm', function () {
     $('#shipping-confirm option').filter(function (index) {
@@ -128,442 +82,6 @@ $(document).on('change', '#shipping-confirm', function () {
         onAjaxSuccessinfo
     );
 });
-$(document).on('click', '.save-order2', function () {
-    var regname = /^[a-zа-яё\-\s]+$/i;
-    var m;
-    if ($('[data-name="name"]').val() != '' && $('[data-name="name"]').val() != undefined) {
-        str = $('[data-name="name"]').val();
-    } else {
-        str = $('[data-name="name"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="name"]').removeClass('haserror');
-        $('[data-name="name"]').addClass('hassucces');
-    } else {
-        $('[data-name="name"]').removeClass('hassucces');
-        $('[data-name="name"]').addClass('haserror');
-    }
-    if ($('[data-name="secondname"]').val() != '' && $('[data-name="secondname"]').val() != undefined) {
-        str = $('[data-name="secondname"]').val();
-    } else {
-        str = $('[data-name="secondname"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="secondname"]').removeClass('haserror');
-        $('[data-name="secondname"]').addClass('hassucces');
-    } else {
-        $('[data-name="secondname"]').removeClass('hassucces');
-        $('[data-name="secondname"]').addClass('haserror');
-    }
-    if ($('[data-name="lastname"]').val() != '' && $('[data-name="lastname"]').val() != undefined) {
-        str = $('[data-name="lastname"]').val();
-    } else {
-        str = $('[data-name="lastname"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="lastname"]').removeClass('haserror');
-        $('[data-name="lastname"]').addClass('hassucces');
-    } else {
-        $('[data-name="lastname"]').removeClass('hassucces');
-        $('[data-name="lastname"]').addClass('haserror');
-    }
-    regname = /^[a-zа-яё0-9\-\s]+$/i;
-    if ($('[data-name="city"]').val() != '' && $('[data-name="city"]').val() != undefined) {
-        str = $('[data-name="city"]').val();
-    } else {
-        str = $('[data-name="city"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="city"]').removeClass('haserror');
-        $('[data-name="city"]').addClass('hassucces');
-    } else {
-        $('[data-name="city"]').removeClass('hassucces');
-        $('[data-name="city"]').addClass('haserror');
-    }
-    regname = /^[a-zа-яё0-9\-\,\.\s]+$/i;
-    if ($('[data-name="adress"]').val() != '' && $('[data-name="adress"]').val() != undefined) {
-        str = $('[data-name="adress"]').val();
-    } else {
-        str = $('[data-name="adress"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="adress"]').removeClass('haserror');
-        $('[data-name="adress"]').addClass('hassucces');
-    } else {
-        $('[data-name="adress"]').removeClass('hassucces');
-        $('[data-name="adress"]').addClass('haserror');
-    }
-    regname = /^[0-9\s]+$/i;
-    if ($('[data-name="postcode"]').val() != '' && $('[data-name="postcode"]').val() != undefined) {
-        str = $('[data-name="postcode"]').val();
-    } else {
-        str = $('[data-name="postcode"]').text();
-    }
-    if (m = regname.exec(str) !== null && str.length < 10) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="postcode"]').removeClass('haserror');
-        $('[data-name="postcode"]').addClass('hassucces');
-    } else {
-        $('[data-name="postcode"]').addClass('haserror');
-        $('[data-name="postcode"]').removeClass('hassucces');
-    }
-    regname = /^[0-9\)\(\-\+]+$/i;
-    if ($('[data-name="telephone"]').val() != '' && $('[data-name="telephone"]').val() != undefined) {
-        str = $('[data-name="telephone"]').val();
-    } else {
-        str = $('[data-name="telephone"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="telephone"]').removeClass('haserror');
-        $('[data-name="telephone"]').addClass('hassucces');
-    } else {
-        $('[data-name="telephone"]').addClass('haserror');
-        $('[data-name="telephone"]').removeClass('hassucces');
-    }
-    $check = 0;
-    if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
-        str = $('[data-name="country"]').val();
-    } else {
-        str = $('[data-name="country"]').text();
-    }
-    $country = $("[data-country]");
-    $.each($country, function () {
-        if (str == $(this).html()) {
-            $check = 1;
-        }
-    });
-    if ($check == 1) {
-        $('[data-name="country"]').removeClass('haserror');
-        $('[data-name="country"]').addClass('hassucces');
-    } else {
-        $('[data-name="country"]').addClass('haserror');
-        $('[data-name="country"]').removeClass('hassucces');
-    }
-    $check = 0;
-    $errstate = $('[data-state]');
-    if ($errstate.length > 1) {
-        if ($('[data-name="state"]').val() != '' && $('[data-name="state"]').val() != undefined) {
-            str = $('[data-name="state"]').val();
-        } else {
-            str = $('[data-name="state"]').text();
-        }
-        $state = $("[data-state]");
-        $.each($state, function () {
-            if (str == $(this).html()) {
-                $check = 1;
-            }
-        });
-        if ($check == 1) {
-            $('[data-name="state"]').removeClass('haserror');
-            $('[data-name="state"]').addClass('hassucces');
-        } else {
-            $('[data-name="state"]').addClass('haserror');
-            $('[data-name="state"]').removeClass('hassucces');
-        }
-    }
-    $error = $('.haserror');
-    if ($error.length == 0) {
-        $(this).remove();
-        $item = JSON.parse(localStorage.getItem('cart-om'));
-        $userdata = $('.info-item');
-        $userdataarr = new Object();
-        $.each($userdata, function () {
-            $name_attr = this.getAttribute('data-name');
-
-            if ($userdataarr[$name_attr] = $(this).val() != '') {
-                $userdataarr[$name_attr] = $(this).val();
-            } else {
-                $userdataarr[$name_attr] = $(this).text();
-            }
-        });
-        if ($('#paymentmethod option:selected')[0]) {
-            $paymentmethod = $('#paymentmethod option:selected')[0].value;
-        } else {
-            $paymentmethod = '';
-        }
-        $.post(
-            "/site/saveorder",
-            {
-                order: $item.cart,
-                ship: $('#shipping-confirm option:selected')[0].value,
-                paymentmethod: $paymentmethod,
-                user: $userdataarr
-            },
-            onAjaxSuccesssaveorder
-        );
-    }
-    function onAjaxSuccesssaveorder(data) {
-
-        if (data.exception) {
-            $('#modal-cart').dialog('close');
-            $('.footer').append('<div class="alert-danger alert fade in" style="position: fixed; bottom: 0px; right: 0px; margin: 0px; z-index: 99999; width: 100%; text-align: center; background: rgb(255, 191, 8) none repeat scroll 0% 0%; color: black;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + data.exception + '</div>').show();
-        } else if (data != 0) {
-            localStorage.removeItem('cart-om');
-            $(".cart-count").html('0');
-            $(".cart-price").html('0');
-            $('#modal-cart').html('<div style="padding: 10px; text-align: center; height: 100%; line-height: 40px;"><div>Ваш заказ № ' + data.id + ' ожидает подтверждения менеджером магазина.</div><div> Статус  заказа вы можете проверить в вашем личном кабинете. </div><div class="btn btn-info btn-end-order" style="background: rgb(0, 255, 204) none repeat scroll 0% 0%; color: rgb(68, 68, 68);">Продолжить покупки</div></div>');
-        }
-    }
-});
-$(document).on('click', '.save-user-profile', function () {
-    var regname = /^[a-zа-яё\-\s]+$/i;
-    var m;
-    if ($('[data-name="name"]').val() != '' && $('[data-name="name"]').val() != undefined) {
-        str = $('[data-name="name"]').val();
-    } else {
-        str = $('[data-name="name"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="name"]').removeClass('haserror');
-        $('[data-name="name"]').addClass('hassucces');
-    } else {
-        $('[data-name="name"]').removeClass('hassucces');
-        $('[data-name="name"]').addClass('haserror');
-    }
-    if ($('[data-name="secondname"]').val() != '' && $('[data-name="secondname"]').val() != undefined) {
-        str = $('[data-name="secondname"]').val();
-    } else {
-        str = $('[data-name="secondname"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="secondname"]').removeClass('haserror');
-        $('[data-name="secondname"]').addClass('hassucces');
-    } else {
-        $('[data-name="secondname"]').removeClass('hassucces');
-        $('[data-name="secondname"]').addClass('haserror');
-    }
-    if ($('[data-name="lastname"]').val() != '' && $('[data-name="lastname"]').val() != undefined) {
-        str = $('[data-name="lastname"]').val();
-    } else {
-        str = $('[data-name="lastname"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="lastname"]').removeClass('haserror');
-        $('[data-name="lastname"]').addClass('hassucces');
-    } else {
-        $('[data-name="lastname"]').removeClass('hassucces');
-        $('[data-name="lastname"]').addClass('haserror');
-    }
-    regname = /^[a-zа-яё0-9\-\s]+$/i;
-    if ($('[data-name="city"]').val() != '' && $('[data-name="city"]').val() != undefined) {
-        str = $('[data-name="city"]').val();
-    } else {
-        str = $('[data-name="city"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="city"]').removeClass('haserror');
-        $('[data-name="city"]').addClass('hassucces');
-    } else {
-        $('[data-name="city"]').removeClass('hassucces');
-        $('[data-name="city"]').addClass('haserror');
-    }
-    regname = /^[a-zа-яё0-9\-\,\.\s]+$/i;
-    if ($('[data-name="adress"]').val() != '' && $('[data-name="adress"]').val() != undefined) {
-        str = $('[data-name="adress"]').val();
-    } else {
-        str = $('[data-name="adress"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="adress"]').removeClass('haserror');
-        $('[data-name="adress"]').addClass('hassucces');
-    } else {
-        $('[data-name="adress"]').removeClass('hassucces');
-        $('[data-name="adress"]').addClass('haserror');
-    }
-    if ($('[data-name="pasportwhere"]').val() != '' && $('[data-name="pasportwhere"]').val() != undefined) {
-        str = $('[data-name="pasportwhere"]').val();
-    } else {
-        str = $('[data-name="pasportwhere"]').text();
-    }
-    if (m = regname.exec(str) !== null || $('[data-name="pasportwhere"]').val() == '' || $('[data-name="pasportwhere"]').val() == undefined) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="pasportwhere"]').removeClass('haserror');
-        $('[data-name="pasportwhere"]').addClass('hassucces');
-    } else {
-        $('[data-name="pasportwhere"]').addClass('haserror');
-        $('[data-name="pasportwhere"]').removeClass('hassucces');
-    }
-    regname = /^[0-9\s]+$/i;
-    if ($('[data-name="postcode"]').val() != '' && $('[data-name="postcode"]').val() != undefined) {
-        str = $('[data-name="postcode"]').val();
-    } else {
-        str = $('[data-name="postcode"]').text();
-    }
-    if (m = regname.exec(str) !== null && str.length < 10) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="postcode"]').removeClass('haserror');
-        $('[data-name="postcode"]').addClass('hassucces');
-    } else {
-        $('[data-name="postcode"]').addClass('haserror');
-        $('[data-name="postcode"]').removeClass('hassucces');
-    }
-    if ($('[data-name="pasportser"]').val() != '' && $('[data-name="pasportser"]').val() != undefined) {
-        str = $('[data-name="pasportser"]').val();
-    } else {
-        str = $('[data-name="pasportser"]').text();
-    }
-    if (m = regname.exec(str) !== null || $('[data-name="pasportser"]').val() == '' || $('[data-name="pasportser"]').val() == undefined) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="pasportser"]').removeClass('haserror');
-        $('[data-name="pasportser"]').addClass('hassucces');
-    } else {
-        $('[data-name="pasportser"]').addClass('haserror');
-        $('[data-name="pasportser"]').removeClass('hassucces');
-    }
-    if ($('[data-name="pasportnum"]').val() != '' && $('[data-name="pasportnum"]').val() != undefined) {
-        str = $('[data-name="pasportnum"]').val();
-    } else {
-        str = $('[data-name="pasportnum"]').text();
-    }
-    if (m = regname.exec(str) !== null || $('[data-name="pasportnum"]').val() == '' || $('[data-name="pasportnum"]').val() == undefined) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="pasportnum"]').removeClass('haserror');
-        $('[data-name="pasportnum"]').addClass('hassucces');
-    } else {
-        $('[data-name="pasportnum"]').addClass('haserror');
-        $('[data-name="pasportnum"]').removeClass('hassucces');
-    }
-    regname = /^[0-9\)\(\-\+]+$/i;
-    if ($('[data-name="telephone"]').val() != '' && $('[data-name="telephone"]').val() != undefined) {
-        str = $('[data-name="telephone"]').val();
-    } else {
-        str = $('[data-name="telephone"]').text();
-    }
-    if (m = regname.exec(str) !== null) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="telephone"]').removeClass('haserror');
-        $('[data-name="telephone"]').addClass('hassucces');
-    } else {
-        $('[data-name="telephone"]').addClass('haserror');
-        $('[data-name="telephone"]').removeClass('hassucces');
-    }
-    regname = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/i;
-    if ($('[data-name="pasportdate"]').val() != '' && $('[data-name="pasportdate"]').val() != undefined) {
-        str = $('[data-name="pasportdate"]').val();
-    } else {
-        str = $('[data-name="pasportdate"]').text();
-    }
-    if (m = regname.exec(str) !== null || $('[data-name="pasportdate"]').val() == '' || $('[data-name="pasportdate"]').val() == undefined) {
-        if (m.index === regname.lastIndex) {
-            regname.lastIndex++;
-        }
-        $('[data-name="pasportdate"]').removeClass('haserror');
-        $('[data-name="pasportdate"]').addClass('hassucces');
-    } else {
-        $('[data-name="pasportdate"]').addClass('haserror');
-        $('[data-name="pasportdate"]').removeClass('hassucces');
-    }
-    $check = 0;
-    if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
-        str = $('[data-name="country"]').val();
-    } else {
-        str = $('[data-name="country"]').text();
-    }
-    $country = $("[data-country]");
-    $.each($country, function () {
-        if (str == $(this).html()) {
-            $check = 1;
-        }
-    });
-    if ($check == 1) {
-        $('[data-name="country"]').removeClass('haserror');
-        $('[data-name="country"]').addClass('hassucces');
-    } else {
-        $('[data-name="country"]').addClass('haserror');
-        $('[data-name="country"]').removeClass('hassucces');
-    }
-    $check = 0;
-    $errstate = $('[data-state]');
-    if ($errstate.length > 1) {
-        if ($('[data-name="state"]').val() != '' && $('[data-name="state"]').val() != undefined) {
-            str = $('[data-name="state"]').val();
-        } else {
-            str = $('[data-name="state"]').text();
-        }
-        $state = $("[data-state]");
-        $.each($state, function () {
-            if (str == $(this).html()) {
-                $check = 1;
-            }
-        });
-        if ($check == 1) {
-            $('[data-name="state"]').removeClass('haserror');
-            $('[data-name="state"]').addClass('hassucces');
-        } else {
-            $('[data-name="state"]').addClass('haserror');
-            $('[data-name="state"]').removeClass('hassucces');
-        }
-
-    }
-    $error = $('.haserror');
-    if ($error.length == 0) {
-        $userdata = $('.info-item');
-        $userdataarr = new Object();
-        $.each($userdata, function () {
-            $name_attr = this.getAttribute('data-name');
-            if ($userdataarr[$name_attr] = $(this).val() != '') {
-                $userdataarr[$name_attr] = $(this).val();
-            } else {
-                $userdataarr[$name_attr] = $(this).text();
-            }
-        });
-        $.post(
-            "/site/saveuserprofile",
-            {
-                user: $userdataarr
-            },
-            alert('Данные сохранены')
-        );
-    }
-
-});
-function onAjaxSuccesssaveuserprofile() {
-}
 $(document).on('click', '.btn-end-order', function () {
     $('#modal-cart').dialog('close');
 });
@@ -649,57 +167,6 @@ $(document).on('click', '.del-product', function () {
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice+' руб');
 });
-// deprecated
-// $(document).on('click', '.cart', function () {
-//     //var curPos = $(document).scrollTop();
-//     //var scrollTime = curPos / 3.73;
-//     //$("body,html").animate({"scrollTop": 0}, scrollTime);
-//     $amount_prod = 0;
-//     $cart_price = 0;
-//     $innerhtml = '';
-//     if (JSON.parse(localStorage.getItem('cart-om'))) {
-//         $item = JSON.parse(localStorage.getItem('cart-om'));
-//         $i = $item.cart;
-//         $c = 0;
-//         $('#modal-cart').html('');
-//         $.each($i, function () {
-//             if (this[6] == 'undefined') {
-//                 this[6] = 'Без размера'
-//             } else {
-//                 this[6] = this[6] + ' размер';
-//             }
-//             $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row"><div class="cart-image" style="float: left; #D2672D inset; max-height: 100px; max-width: 200px; min-height: 100px; min-width: 200px;  background: #fff no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + this[5] + ');"></div><div class="cart-model">Арт.: ' + this[1] + '</div><div class="del-product">Удалить</div><div data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div><div class="cart-prod-price">' + parseInt(this[3]) + 'руб.</div><div class="cart-amount">' + this[4] + ' шт.</div></div>';
-//         });
-//         $('#modal-cart').html($innerhtml);
-//     } else {
-//         $('#modal-cart').html('<div style="text-align: center; padding: calc(100% / 4);">Пусто</div>');
-//         $('.ui-dialog-titlebar').show();
-//     }
-//     $("#modal-cart").dialog({
-//         position: {my: "center top", at: "top", of: window},
-//         modal: true,
-//         dialogClass: "cart-dialog",
-//         closeText: "X",
-//         width: window.screen.width / 100 * 80,
-//         title: "Ваша корзина",
-//         resizable: false
-//         // dialogClass: 'max-cart cart',
-//
-//     });
-//     if (JSON.parse(localStorage.getItem('cart-om'))) {
-//         if (document.location.hash == '') {
-//             $urlhash = '#';
-//         } else {
-//             $urlhash = document.location.hash;
-//         }
-//         if ($('[data-method="post"]').attr('href') == '/site/lk' && $i.length > 0) {
-//             $(".ui-dialog").append('<span class="cart-auth"><a class="save-order" href="' + $urlhash + '">Оформить заказ</a></span>');
-//         } else if ($i.length > 0) {
-//             $(".ui-dialog").append('.<span class="cart-auth"><a class="auth-order" href="/site/login">Купить</a></span>');
-//         }
-//         $('.ui-dialog-titlebar').show();
-//     }
-// });
 $(document).on('click', '.cart-lable', function () {
    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
@@ -899,7 +366,7 @@ $(document).on('click', '#catalog-mode', function () {
 
 });
 var inProgress = false;
-
+var ControlLoad = 'manual';
 $(document).on('click', '#down', function () {
     var curPos = $(document).scrollTop();
     var height = $(window).scrollTop() + $(window).height();
@@ -913,16 +380,241 @@ $(document).on('click', '#up', function () {
     var scrollTime = curPos / 3.73;
     $("body,html").animate({"scrollTop": 0}, scrollTime);
 });
-
+//
+//
+$(document).on('change','#control-load', function(){
+    ControlLoad = $('#control-load option:selected').val();
+});
 $(document).on('ready', function () {
-    $(document).on('click', '.loader', function () {
-    //$(window).scroll(function () {
-        if (!inProgress) {
-        //if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress) {
 
-
+    $(window).scroll(function () {
+        $control = $('#control-load option:selected').val();
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress && ControlLoad =='auto') {
             $searchword = '';
+            $count = $('.count-checked').text();
+            $min_price = $('#min-price').val();
+            $sort = $('.sort-checked').attr('data');
+            if ($sort == 'undefined') {
+                $sort = 0;
+            }
+            $check = [];
+            $max_price = $('#max-price').val();
+            if ($max_price == 0 || $max_price == undefined) {
+                $max_price = 1000000;
+            }
+            $('.size-checked').each(function () {
+                $check.push($(this).attr('data-size'));
+            });
+            $page = parseInt($('.pagination-catalog').find('.pagination').find('.active').find('a').attr('data-page'));
+            if (typeof $page == 'undefined') {
+                $page = 0;
+            }
 
+            $prodatrquery = $check.join(',');
+            if ($count == '') {
+                $count = 20;
+            }
+
+            if (typeof $cat == 'undefined') {
+                $urld = '';
+                $urld = document.location.toString();
+                $urld = '?' + $urld.split('?')[1];
+                $urld = split_url($urld);
+                $cat = $urld['?cat'][1];
+                $searchword = $urld['searchword'][1];
+
+            }
+            $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
+            $url_data = $urld;
+            $.ajax({
+                method:"post",
+                url: "/site/request",
+                data: { "_csrf":yii.getCsrfToken(),
+                    "cat":$cat,
+                    "count":$count,
+                    "start_price": $min_price,
+                    "end_price": $max_price,
+                    "prod_attr_query": $prodatrquery,
+                    "page": $page,
+                    "sort": $sort,
+                    "searchword": $searchword,
+                    "json": '1'
+                },
+                cache: false,
+                async: true,
+                dataType: 'json',
+                beforeSend: function () {
+                    inProgress = true;
+                }
+            }).done(function (data) {
+                $('body').removeClass('some');
+                $('link').removeClass('some');
+                $('.preload').remove();
+                $loader = $('.loader-inner').html();
+                $('.pagination-catalog').remove();
+                $('.loader-inner').remove();
+                if (data[0] != 'Не найдено!') {
+                    console.log(data);
+                    $.each(data[0], function () {
+                        $product = this.products;
+                        $descriptionprod = this.productsDescription;
+                        $attr_desc = this['productsAttributesDescr'];
+
+                        $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
+
+                        if ($attr_desc.length > 0) {
+                            $.each($attr_desc, function (index,value) {
+                                if((index%2) ==0){
+                                    $class='border-right:1px solid #CCC';
+                                }else{
+                                    $class='';
+                                }
+                                $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+                                    '<input  id="input-count"'+
+                                    'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                                    'data-prod="'+ $product['products_id']+'"'+
+                                    'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
+                                    'data-model="'+ $product['products_model']+'"'+
+                                    'data-price="'+ parseInt($product['products_price'])+'"'+
+                                    'data-image="'+ $product['products_image']+'"'+
+                                    'data-step="'+ $product['products_quantity_order_units']+'"'+
+                                    'data-min="'+ $product['products_quantity_order_min']+'"'+
+                                    'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                                    'data-attr="'+value['products_options_values_id']+'"'+
+                                    'placeholder="0"'+
+                                    'type="text">'+
+                                    '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+                                    '+'+
+                                    '</div>'+
+                                    '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+                                    '-'+
+                                    '</div>'+
+                                    '</div></div></div>';
+                            });
+                        } else {
+                            $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
+                                '<input  id="input-count"'+
+                                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                                'data-prod="'+ $product['products_id']+'"'+
+                                'data-model="'+ $product['products_model']+'"'+
+                                'data-price="'+ parseInt($product['products_price'])+'"'+
+                                'data-image="'+ $product['products_image']+'"'+
+                                'data-attrname=""'+
+                                'data-attr=""'+
+                                'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+                                'data-step="'+ $product['products_quantity_order_units']+'"'+
+                                'data-min="'+ $product['products_quantity_order_min']+'"'+
+                                'placeholder="0"'+
+                                'type="text">'+
+                                '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+                                '+'+
+                                '</div>'+
+                                '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+                                '-'+
+                                '</div>'+
+                                '</div></div></div>';       }
+
+
+                        $('.bside').append('<div class="container-fluid float" id="card">'+
+                            '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
+                            '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
+                            '</div>'+
+                            '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
+                            '</a>'+
+                            '<div  class="price">'+
+                            '<div style="font-size: 18px; font-weight: 500;">'+
+                            parseInt($product.products_price) + ' Руб.'+
+                            '</div>'+
+                            '</div>'+
+                            '<div style="cursor:pointer">'+
+                            '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="'+$product.products_id+'">'+
+                            'Размеры'+
+                            '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;">'+
+                            '</i>'+
+                            '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
+                            $attr_html+
+                            '</span>'+
+                            '</div>'+
+                            '</div>'+
+                            '<a href="/glavnaya/product?id='+$product.products_id+'">'+
+                            '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
+                            '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
+                            '</i>'+
+                            'Увеличить'+
+                            '</div>'+
+                            '</a>'+
+                            '</div></div>');
+                    });
+
+
+                    $pager = '';
+
+                    data[1] = parseInt(data[1]);
+                    $count = parseInt($count);
+                    if(data[1] > $count){
+                        $pager +='<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
+                        if($page <= 0){
+                            $fpclass = 'disable';
+                        }else{
+                            $fpclass = '';
+                        }
+                        $pager += '<ul class="pagination">';
+                        $pager += '<li class="first">';
+                        $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', 0)) + '" data-page="0">';
+                        $pager += 'Первая';
+                        $pager += '</a>';
+                        $pager += '</li>';
+                        $pager += '<li class="prev">';
+                        $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$page-1))) + '" data-page="'+($page-1)+'">';
+                        $pager += '<i class="mdi mdi-arrow-back">';
+                        $pager += '</i>';
+                        $pager += '</a>';
+                        $pager += '</li>';
+                        $checkdelimiter = data[1]%$count;
+                        if($checkdelimiter){
+                            $pagecount = parseInt(data[1]/$count);
+                        }else{
+                            $pagecount = parseInt(data[1]/$count)-1;
+                        }
+                        $endpage = Math.min($pagecount, $page+2);
+                        $startpage = Math.max(0, $page-2);
+                        for($startpage; $startpage<=$endpage ; $startpage++){
+                            if($page == $startpage){
+                                $pager += '<li class="active"><a  href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage+1))) + '" data-page="'+($startpage+1)+'">'+($startpage+1)+'</a></li>';
+
+                            }else{
+                                $pager += '<li><a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage))) + '">'+($startpage+1)+'</a></li>';
+                            }
+                        }
+                        $pager += '<li class="next">';
+                        $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.min($pagecount,$page+1))) + '">';
+                        $pager += '<i class="mdi mdi-arrow-forward">';
+                        $pager += '</i>';
+                        $pager += '</a>';
+                        $pager += '</li>';
+                        $pager += '<li class="last">';
+                        $pager +='<a href="' + new_url(new_suburl(split_url($url), 'page', $pagecount)) + '">';
+                        $pager += 'Последняя';
+                        $pager += '</a>';
+                        $pager +='</li> </ul></div>';
+
+                    }
+                    $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
+                    inProgress = false;
+                } else {
+                    $('#size-slide').html('');
+                    $('#filter-button').html('');
+                    $('body').removeClass('some');
+                    $('link').removeClass('some');
+                    $('.preload').remove();
+                }
+            });
+        }
+    });
+    $(document).on('click', '.loader', function () {
+       $control = $('#control-load option:selected').val();
+        if (!inProgress && ControlLoad=='manual') {
+            $searchword = '';
             $count = $('.count-checked').text();
             $min_price = $('#min-price').val();
             $sort = $('.sort-checked').attr('data');
@@ -982,9 +674,9 @@ $(document).on('ready', function () {
                 $('body').removeClass('some');
                 $('link').removeClass('some');
                 $('.preload').remove();
-                $loader = $('.loader').html();
+                $loader = $('.loader-inner').html();
                 $('.pagination-catalog').remove();
-                $('.loader').remove();
+                $('.loader-inner').remove();
                 if (data[0] != 'Не найдено!') {
                     console.log(data);
                     $.each(data[0], function () {
@@ -1133,7 +825,7 @@ $(document).on('ready', function () {
                     }
 
 
-                    $('.bside').append('<div class="loader col-md-12">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
+                    $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
                     inProgress = false;
                 } else {
                     $('#size-slide').html('');

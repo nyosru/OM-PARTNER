@@ -1,6 +1,9 @@
 <?php
+
 namespace frontend\controllers\actions\om;
 
+
+use common\models\OrdersStatusHistory;
 use Yii;
 use common\models\PartnersOrders;
 use common\models\User;
@@ -49,16 +52,18 @@ trait ActionSaveorder
         }
         $transaction = Yii::$app->db->beginTransaction();
         try {
-            $nowdate = date("Y-m-d H:i:s");
+            $nowdate = date('Y-m-d H:i:s');
             $entrycountry = Countries::find()->where(['countries_id'=>$userOM['entry_country_id']])->asArray()->one();
-            $entryzones = Zones::find()->where(['entry_zone_id'=>$userOM['entry_zone_id']])->asArray()->one();
+            $entryzones = Zones::find()->where(['zone_id'=>$userOM['entry_zone_id']])->asArray()->one();
             $orders = new Orders();
             $partner_id = $userpartnerdata['id_partners'];
             $ship = Yii::$app->request->post('ship');
             $orders->ur_or_fiz = 'f';
             $orders->customers_id = $userCustomer['customers_id'];
-            $orders->customers_name = $userCustomer['customers_firstname'] . ' ' . $userCustomer['customers_lastname'];
-            $orders->customers_groups_id = 1;
+            $orders->customers_name = $userCustomer['customers_firstname'] . ' ' . $userCustomer['customers_lastname'].' '.$userCustomer['otchestvo'] ;
+            $orders->customers_groups_id = $userCustomer['customers_groups_id'];
+            $orders->customers_company = $userOM['entry_company'];
+            $orders->customers_suburb = $userOM['entry_suburb'];
             $orders->customers_country = $entrycountry['countries_name'];
             $orders->customers_state = $entryzones['zone_name'];
             $orders->customers_city = $userOM['entry_city'];
@@ -67,6 +72,8 @@ trait ActionSaveorder
             $orders->customers_address_format_id = 1;
             $orders->customers_telephone = $userCustomer['customers_telephone'];
             $orders->customers_email_address = $userCustomer['customers_email_address'];
+            $orders->customers_address_format_id = 1;
+            $orders->delivery_adress_id =  $userCustomer['delivery_adress_id'];
             $orders->delivery_name = $userOM['entry_firstname'];
             $orders->delivery_lastname = $userOM['entry_lastname'];
             $orders->delivery_otchestvo = $userOM['otchestvo'];
@@ -94,22 +101,22 @@ trait ActionSaveorder
             $orders->currency_value = '1.000000';
             $orders->last_modified = $nowdate;
             $orders->date_purchased = $nowdate;
-          //  $orders->date_akt = date("Y-m-d H:i:s");
+            $orders->date_akt = $nowdate;
+            $orders->nomer_akt =   '0';
+            $orders->orders_date_finished = 0;
             $orders->payment_info = '';
             $orders->orders_status = 1;
             $orders->site_side_email_flag = 1;
+            $orders->print_torg = 'b';
             $orders->default_provider = $userCustomer['default_provider'];
             $orders->payment_method = 'Оплата <font size="4" color="red">Для физических лиц</font>';
-            $buh_id = Orders::find()->where(['default_provider' => $userCustomer['default_provider']])->orderBy('orders_id DESC')->asArray()->one();
+            $buh_id = Orders::find()->where(['default_provider' => $userCustomer['default_provider']])->andWhere('DATE_FORMAT(date_purchased, "%y")='.date("y"))->orderBy('buh_orders_id DESC')->asArray()->one();
             $orders->buh_orders_id = intval($buh_id['buh_orders_id']) + 1;
             if ($orders->save()) {
                 $price_total = '';
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
                     foreach ($product_in_order as $keyin_order => $valuein_order) {
-
                             $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order ]['productsAttributesDescr'], 'products_options_values_id');
-
-
                         foreach($valuein_order  as $keyinattr_order => $valueinattr_order){
                             $ordersprod = new OrdersProducts();
                             $ordersprod->first_quant = intval($valueinattr_order);
@@ -131,6 +138,7 @@ trait ActionSaveorder
                             $ordersprod->status_add = NULL;
                             $ordersprod->sub_orders_id = NULL;
                             $ordersprod->old_orders_id = NULL;
+                            $ordersprod->products_tax = '0.0000';
                             $price_total += intval($price_total) +  $ordersprod->products_price * $ordersprod->products_quantity;
                                 if ($ordersprod->save()) {
                             if ($keyinattr_order) {
@@ -145,15 +153,13 @@ trait ActionSaveorder
                                 $ordersprodattr->sub_vid = 0;
                                     if ($ordersprodattr->save()) {
                                    } else {
-                                        print_r($ordersprod->errors);
-                                        die();
+
                                   }
 
                             } else {
 
                             }
-                                    print_r($ordersprod->errors);
-                                    die();
+
                         }
 //                        echo '<pre>';
 //                        print_r($reindexprod);
@@ -204,15 +210,35 @@ trait ActionSaveorder
                 $neworderpartner->update_date = $nowdate;
                 $neworderpartner->create_date = $nowdate;
                 $neworderpartner->save();
+                $ordershistory = new OrdersStatusHistory();
+                $ordershistory->orders_id = $orders->orders_id;
+                $ordershistory->orders_status_id = '1';
+                $ordershistory->date_added = $nowdate;
+                $ordershistory->customer_notified = '0';
+                $ordershistory->comments = 'Заказ с нового фронта';
+                $ordershistory->save();
+//                echo '<pre>';
+//var_dump($this);
+//                echo '</pre>';
+//                die();
             } else {
-               print_r($orders->errors);
-                die();
+
             }
 
             $transaction->commit('suc');
         } catch (\Exception $e) {
             $transaction->rollBack();
-
+            echo '<pre>';
+            echo  $orders->orders_id;
+            echo $e->getCode();
+            echo $e->getFile();
+            echo $e->getLine();
+            echo $e->getMessage();
+            echo $e->getTrace();
+            echo $e->getPrevious();
+            var_dump($this);
+            echo '<pre>';
+            die();
         }
 
 

@@ -198,4 +198,12 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(PartnersOrdersProductsSp::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
     }
+    public function NumOrder()
+    {
+        $literaltyear = date('y',strtotime($this->date_purchased));
+        $literalchar = ['1'=>'A','2'=>'Б'];
+        $literalchar = $literalchar[$this->default_provider];
+        $literalnum = $this->buh_orders_id;
+        return $literaltyear.$literalchar.'-'.$literalnum;
+    }
 }
