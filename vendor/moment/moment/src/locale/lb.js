@@ -100,20 +100,20 @@ export default moment.defineLocale('lb', {
             }
         }
     },
-    relativeTime: {
-        future: processFutureTime,
-        past: processPastTime,
-        s: 'e puer Sekonnen',
-        m: processRelativeTime,
-        mm: '%d Minutten',
-        h: processRelativeTime,
-        hh: '%d Stonnen',
-        d: processRelativeTime,
-        dd: '%d Deeg',
-        M: processRelativeTime,
-        MM: '%d Méint',
-        y: processRelativeTime,
-        yy: '%d Joer'
+    relativeTime : {
+        future : processFutureTime,
+        past : processPastTime,
+        s : 'e puer Sekonnen',
+        m : processRelativeTime,
+        mm : '%d Minutten',
+        h : processRelativeTime,
+        hh : '%d Stonnen',
+        d : processRelativeTime,
+        dd : '%d Deeg',
+        M : processRelativeTime,
+        MM : '%d Méint',
+        y : processRelativeTime,
+        yy : '%d Joer'
     },
     ordinalParse: /\d{1,2}\./,
     ordinal: '%d.',

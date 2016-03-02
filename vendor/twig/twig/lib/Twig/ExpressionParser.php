@@ -393,7 +393,7 @@ class Twig_ExpressionParser
                     throw new Twig_Error_Syntax(sprintf('"%s" cannot be called as macro as it is a reserved keyword.', $name), $token->getLine(), $this->parser->getFilename());
                 }
 
-                $node = new Twig_Node_Expression_MethodCall($node, 'get' . $name, $arguments, $lineno);
+                $node = new Twig_Node_Expression_MethodCall($node, 'get'.$name, $arguments, $lineno);
                 $node->setAttribute('safe', true);
 
                 return $node;
@@ -473,7 +473,7 @@ class Twig_ExpressionParser
      * Parses arguments.
      *
      * @param bool $namedArguments Whether to allow named arguments or not
-     * @param bool $definition Whether we are parsing arguments for a function definition
+     * @param bool $definition     Whether we are parsing arguments for a function definition
      *
      * @return Twig_Node
      *
@@ -632,8 +632,7 @@ class Twig_ExpressionParser
     {
         if (!($node instanceof Twig_Node_Expression_Constant || $node instanceof Twig_Node_Expression_Array
             || $node instanceof Twig_Node_Expression_Unary_Neg || $node instanceof Twig_Node_Expression_Unary_Pos
-        )
-        ) {
+        )) {
             return false;
         }
 

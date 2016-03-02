@@ -35,9 +35,9 @@ addUnitAlias('month', 'M');
 
 // PARSING
 
-addRegexToken('M', match1to2);
-addRegexToken('MM', match1to2, match2);
-addRegexToken('MMM', function (isStrict, locale) {
+addRegexToken('M',    match1to2);
+addRegexToken('MM',   match1to2, match2);
+addRegexToken('MMM',  function (isStrict, locale) {
     return locale.monthsShortRegex(isStrict);
 });
 addRegexToken('MMMM', function (isStrict, locale) {
@@ -62,18 +62,18 @@ addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
 
 var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/;
 export var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
-export function localeMonths(m, format) {
+export function localeMonths (m, format) {
     return isArray(this._months) ? this._months[m.month()] :
         this._months[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
 }
 
 export var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
-export function localeMonthsShort(m, format) {
+export function localeMonthsShort (m, format) {
     return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
         this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
 }
 
-export function localeMonthsParse(monthName, format, strict) {
+export function localeMonthsParse (monthName, format, strict) {
     var i, mom, regex;
 
     if (!this._monthsParse) {
@@ -106,7 +106,7 @@ export function localeMonthsParse(monthName, format, strict) {
 
 // MOMENTS
 
-export function setMonth(mom, value) {
+export function setMonth (mom, value) {
     var dayOfMonth;
 
     if (!mom.isValid()) {
@@ -128,7 +128,7 @@ export function setMonth(mom, value) {
     return mom;
 }
 
-export function getSetMonth(value) {
+export function getSetMonth (value) {
     if (value != null) {
         setMonth(this, value);
         hooks.updateOffset(this, true);
@@ -138,12 +138,12 @@ export function getSetMonth(value) {
     }
 }
 
-export function getDaysInMonth() {
+export function getDaysInMonth () {
     return daysInMonth(this.year(), this.month());
 }
 
 export var defaultMonthsShortRegex = matchWord;
-export function monthsShortRegex(isStrict) {
+export function monthsShortRegex (isStrict) {
     if (this._monthsParseExact) {
         if (!hasOwnProp(this, '_monthsRegex')) {
             computeMonthsParse.call(this);
@@ -160,7 +160,7 @@ export function monthsShortRegex(isStrict) {
 }
 
 export var defaultMonthsRegex = matchWord;
-export function monthsRegex(isStrict) {
+export function monthsRegex (isStrict) {
     if (this._monthsParseExact) {
         if (!hasOwnProp(this, '_monthsRegex')) {
             computeMonthsParse.call(this);
@@ -176,7 +176,7 @@ export function monthsRegex(isStrict) {
     }
 }
 
-function computeMonthsParse() {
+function computeMonthsParse () {
     function cmpLenRev(a, b) {
         return b.length - a.length;
     }

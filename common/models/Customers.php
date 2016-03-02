@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -37,7 +38,7 @@ use Yii;
  * @property string $separate_checkin
  * @property string $pay_priority
  */
-class Customers extends \yii\db\ActiveRecord
+class Customers extends ActiveRecordExt
 {
     /**
      * @inheritdoc

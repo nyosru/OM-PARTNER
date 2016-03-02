@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -12,7 +13,7 @@ use Yii;
  * @property string $zone_code
  * @property string $zone_name
  */
-class Zones extends \yii\db\ActiveRecord
+class Zones extends ActiveRecordExt
 {
     /**
      * @inheritdoc

@@ -108,10 +108,12 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 </div>
                 <div id="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
-                        <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
-                        <div class="btn btn-default data-j" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
-                            Найти
-                        </div>
+                        <form action="<?= BASEURL?>/catalog">
+                            <input autocomplete="off" id="search" name="searchword" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
+                            <button class="btn btn-default data-j" type="submit" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
+                                Найти
+                            </button>
+                        </form>
                         <div class="" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                             <?
                             if(Yii::$app->user->isGuest){
@@ -122,7 +124,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                     'header' => 'Вход на Одежда-Мастер',
                                     'toggleButton' => ['label' => 'Вход', 'tag'=> 'a', 'style'=> 'float: left; margin: 4px; cursor:pointer;'],
                                 ]);
-                                $form = \yii\bootstrap\ActiveForm::begin(['id' => 'login-form']);
+                                $form = \yii\bootstrap\ActiveForm::begin([
+                                    'action' => BASEURL.'/login',
+                                    'id' => 'login-form'
+                                ]);
                                 echo $form->field($model, 'username', ['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->label('Электронная почта');
                                 echo $form->field($model, 'password',['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">'.Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']).'</span>') ;
                                 echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
@@ -168,9 +173,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <hr class="linebottom2">
                     <div class="" style="margin: 0px 25px;">
                         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
-                        <!--    --><?// $this->endCache();
-                        //}
-                        //?>
                         <div style="margin: 0% 25%; float: left;">
                             <?
                             if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {

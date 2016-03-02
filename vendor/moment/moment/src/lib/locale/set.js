@@ -1,6 +1,6 @@
 import isFunction from '../utils/is-function';
 
-export function set(config) {
+export function set (config) {
     var prop, i;
     for (i in config) {
         prop = config[i];

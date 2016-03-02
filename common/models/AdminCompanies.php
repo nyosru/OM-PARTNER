@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -36,7 +37,7 @@ use Yii;
  * @property string $faksimilia_file
  * @property integer $faksimilia_width
  */
-class AdminCompanies extends \yii\db\ActiveRecord
+class AdminCompanies extends ActiveRecordExt
 {
     /**
      * @inheritdoc

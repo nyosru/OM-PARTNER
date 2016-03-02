@@ -67,17 +67,17 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
     public function __construct()
     {
         $scopes = array(
-            T_CLASS,
-            T_TRAIT,
-            T_INTERFACE,
-        );
+                   T_CLASS,
+                   T_TRAIT,
+                   T_INTERFACE,
+                  );
 
         $listen = array(
-            T_FUNCTION,
-            T_VARIABLE,
-            T_DOUBLE_QUOTED_STRING,
-            T_HEREDOC,
-        );
+                   T_FUNCTION,
+                   T_VARIABLE,
+                   T_DOUBLE_QUOTED_STRING,
+                   T_HEREDOC,
+                  );
 
         parent::__construct($scopes, $listen, true);
 
@@ -89,8 +89,8 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
      *
      * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where this
      *                                        token was found.
-     * @param int $stackPtr The position where the token was found.
-     * @param array $currScope The current scope opener token.
+     * @param int                  $stackPtr  The position where the token was found.
+     * @param array                $currScope The current scope opener token.
      *
      * @return void
      */
@@ -98,12 +98,11 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
         PHP_CodeSniffer_File $phpcsFile,
         $stackPtr,
         $currScope
-    )
-    {
+    ) {
         if ($this->currentFile !== $phpcsFile) {
-            $this->currentFile = $phpcsFile;
+            $this->currentFile   = $phpcsFile;
             $this->_functionOpen = false;
-            $this->_endFunction = -1;
+            $this->_endFunction  = -1;
         }
 
         $tokens = $phpcsFile->getTokens();
@@ -167,15 +166,14 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
      *
      * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where this
      *                                        token was found.
-     * @param int $stackPtr The position where the token was found.
+     * @param int                  $stackPtr  The position where the token was found.
      *
      * @return void
      */
     protected final function processTokenOutsideScope(
         PHP_CodeSniffer_File $phpcsFile,
         $stackPtr
-    )
-    {
+    ) {
         $tokens = $phpcsFile->getTokens();
         // These variables are not member vars.
         if ($tokens[$stackPtr]['code'] === T_VARIABLE) {
@@ -198,7 +196,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
      *
      * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where this
      *                                        token was found.
-     * @param int $stackPtr The position where the token was found.
+     * @param int                  $stackPtr  The position where the token was found.
      *
      * @return void
      */
@@ -213,7 +211,7 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
      *
      * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where this
      *                                        token was found.
-     * @param int $stackPtr The position where the token was found.
+     * @param int                  $stackPtr  The position where the token was found.
      *
      * @return void
      */
@@ -231,13 +229,14 @@ abstract class PHP_CodeSniffer_Standards_AbstractVariableSniff extends PHP_CodeS
      *
      * @param PHP_CodeSniffer_File $phpcsFile The PHP_CodeSniffer file where this
      *                                        token was found.
-     * @param int $stackPtr The position where the double quoted
+     * @param int                  $stackPtr  The position where the double quoted
      *                                        string was found.
      *
      * @return void
      */
     abstract protected function processVariableInString(
-        PHP_CodeSniffer_File $phpcsFile,
+        PHP_CodeSniffer_File
+        $phpcsFile,
         $stackPtr
     );
 

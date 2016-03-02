@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -16,7 +17,7 @@ use Yii;
  * @property integer $sort_order
  * @property string $comment
  */
-class OrdersTotal extends \yii\db\ActiveRecord
+class OrdersTotal extends ActiveRecordExt
 {
     /**
      * @inheritdoc

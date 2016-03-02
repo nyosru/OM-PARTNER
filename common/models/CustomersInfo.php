@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -14,7 +15,7 @@ use Yii;
  * @property string $customers_info_date_account_last_modified
  * @property integer $global_product_notifications
  */
-class CustomersInfo extends \yii\db\ActiveRecord
+class CustomersInfo extends ActiveRecordExt
 {
     /**
      * @inheritdoc

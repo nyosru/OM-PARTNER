@@ -1,6 +1,6 @@
 /*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version 1.0.2
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @version 1.0.3
  * 
  * Krajee CSS Theme for Spectrum plugin used in `kartik-v/yii2-widget-colorinput`
  * 
@@ -26,7 +26,7 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.sp-krajee .sp-clear {
+.sp-krajee .sp-clear  {
     cursor: pointer;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .sp-krajee .sp-cancel {
-    color: #333 !important;
+    color: #333!important;
     background-color: #fff;
     border-color: #ccc;
     margin-right: 5px;
@@ -106,7 +106,7 @@
 .sp-krajee .sp-cancel:active,
 .sp-krajee .sp-cancel.active,
 .sp-krajee .sp-cancel:hover {
-    color: #333 !important;
+    color: #333!important;
     background-color: #e6e6e6;
     border-color: #8c8c8c;
 }

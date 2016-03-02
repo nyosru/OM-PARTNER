@@ -36,10 +36,10 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
     /**
      * Process the return comment of this function comment.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token
+     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
+     * @param int                  $stackPtr     The position of the current token
      *                                           in the stack passed in $tokens.
-     * @param int $commentStart The position in the stack where the comment started.
+     * @param int                  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
@@ -48,7 +48,7 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
         $tokens = $phpcsFile->getTokens();
 
         // Skip constructor and destructor.
-        $methodName = $phpcsFile->getDeclarationName($stackPtr);
+        $methodName      = $phpcsFile->getDeclarationName($stackPtr);
         $isSpecialMethod = ($methodName === '__construct' || $methodName === '__destruct');
 
         $return = null;
@@ -75,7 +75,7 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
                 $phpcsFile->addError($error, $return, 'MissingReturnType');
             } else {
                 // Check return type (can be multiple, separated by '|').
-                $typeNames = explode('|', $content);
+                $typeNames      = explode('|', $content);
                 $suggestedNames = array();
                 foreach ($typeNames as $i => $typeName) {
                     $suggestedName = PHP_CodeSniffer::suggestType($typeName);
@@ -87,11 +87,11 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
                 $suggestedType = implode('|', $suggestedNames);
                 if ($content !== $suggestedType) {
                     $error = 'Expected "%s" but found "%s" for function return type';
-                    $data = array(
-                        $suggestedType,
-                        $content,
-                    );
-                    $fix = $phpcsFile->addFixableError($error, $return, 'InvalidReturn', $data);
+                    $data  = array(
+                              $suggestedType,
+                              $content,
+                             );
+                    $fix   = $phpcsFile->addFixableError($error, $return, 'InvalidReturn', $data);
                     if ($fix === true) {
                         $phpcsFile->fixer->replaceToken(($return + 2), $suggestedType);
                     }
@@ -129,7 +129,7 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
                     // If return type is not void, there needs to be a return statement
                     // somewhere in the function that returns something.
                     if (isset($tokens[$stackPtr]['scope_closer']) === true) {
-                        $endToken = $tokens[$stackPtr]['scope_closer'];
+                        $endToken    = $tokens[$stackPtr]['scope_closer'];
                         $returnToken = $phpcsFile->findNext(array(T_RETURN, T_YIELD), $stackPtr, $endToken);
                         if ($returnToken === false) {
                             $error = 'Function return type is not void, but function has no return statement';
@@ -155,10 +155,10 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
     /**
      * Process any throw tags that this function comment has.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token
+     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
+     * @param int                  $stackPtr     The position of the current token
      *                                           in the stack passed in $tokens.
-     * @param int $commentStart The position in the stack where the comment started.
+     * @param int                  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
@@ -173,7 +173,7 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
             }
 
             $exception = null;
-            $comment = null;
+            $comment   = null;
             if ($tokens[($tag + 2)]['code'] === T_DOC_COMMENT_STRING) {
                 $matches = array();
                 preg_match('/([^\s]+)(?:\s+(.*))?/', $tokens[($tag + 2)]['content'], $matches);
@@ -199,7 +199,7 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
 
                 for ($i = ($tag + 3); $i < $end; $i++) {
                     if ($tokens[$i]['code'] === T_DOC_COMMENT_STRING) {
-                        $comment .= ' ' . $tokens[$i]['content'];
+                        $comment .= ' '.$tokens[$i]['content'];
                     }
                 }
 
@@ -224,10 +224,10 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
     /**
      * Process the function parameter comments.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token
+     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
+     * @param int                  $stackPtr     The position of the current token
      *                                           in the stack passed in $tokens.
-     * @param int $commentStart The position in the stack where the comment started.
+     * @param int                  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
@@ -235,47 +235,47 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
     {
         $tokens = $phpcsFile->getTokens();
 
-        $params = array();
+        $params  = array();
         $maxType = 0;
-        $maxVar = 0;
+        $maxVar  = 0;
         foreach ($tokens[$commentStart]['comment_tags'] as $pos => $tag) {
             if ($tokens[$tag]['content'] !== '@param') {
                 continue;
             }
 
-            $type = '';
-            $typeSpace = 0;
-            $var = '';
-            $varSpace = 0;
-            $comment = '';
+            $type         = '';
+            $typeSpace    = 0;
+            $var          = '';
+            $varSpace     = 0;
+            $comment      = '';
             $commentLines = array();
             if ($tokens[($tag + 2)]['code'] === T_DOC_COMMENT_STRING) {
                 $matches = array();
-                preg_match('/([^$&]+)(?:((?:\$|&)[^\s]+)(?:(\s+)(.*))?)?/', $tokens[($tag + 2)]['content'], $matches);
+                preg_match('/([^$&.]+)(?:((?:\.\.\.)?(?:\$|&)[^\s]+)(?:(\s+)(.*))?)?/', $tokens[($tag + 2)]['content'], $matches);
 
-                $typeLen = strlen($matches[1]);
-                $type = trim($matches[1]);
+                $typeLen   = strlen($matches[1]);
+                $type      = trim($matches[1]);
                 $typeSpace = ($typeLen - strlen($type));
-                $typeLen = strlen($type);
+                $typeLen   = strlen($type);
                 if ($typeLen > $maxType) {
                     $maxType = $typeLen;
                 }
 
                 if (isset($matches[2]) === true) {
-                    $var = $matches[2];
+                    $var    = $matches[2];
                     $varLen = strlen($var);
                     if ($varLen > $maxVar) {
                         $maxVar = $varLen;
                     }
 
                     if (isset($matches[4]) === true) {
-                        $varSpace = strlen($matches[3]);
-                        $comment = $matches[4];
+                        $varSpace       = strlen($matches[3]);
+                        $comment        = $matches[4];
                         $commentLines[] = array(
-                            'comment' => $comment,
-                            'token' => ($tag + 2),
-                            'indent' => $varSpace,
-                        );
+                                           'comment' => $comment,
+                                           'token'   => ($tag + 2),
+                                           'indent'  => $varSpace,
+                                          );
 
                         // Any strings until the next tag belong to this comment.
                         if (isset($tokens[$commentStart]['comment_tags'][($pos + 1)]) === true) {
@@ -291,12 +291,12 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
                                     $indent = strlen($tokens[($i - 1)]['content']);
                                 }
 
-                                $comment .= ' ' . $tokens[$i]['content'];
+                                $comment       .= ' '.$tokens[$i]['content'];
                                 $commentLines[] = array(
-                                    'comment' => $tokens[$i]['content'],
-                                    'token' => $i,
-                                    'indent' => $indent,
-                                );
+                                                   'comment' => $tokens[$i]['content'],
+                                                   'token'   => $i,
+                                                   'indent'  => $indent,
+                                                  );
                             }
                         }
                     } else {
@@ -314,18 +314,26 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
             }//end if
 
             $params[] = array(
-                'tag' => $tag,
-                'type' => $type,
-                'var' => $var,
-                'comment' => $comment,
-                'commentLines' => $commentLines,
-                'type_space' => $typeSpace,
-                'var_space' => $varSpace,
-            );
+                         'tag'          => $tag,
+                         'type'         => $type,
+                         'var'          => $var,
+                         'comment'      => $comment,
+                         'commentLines' => $commentLines,
+                         'type_space'   => $typeSpace,
+                         'var_space'    => $varSpace,
+                        );
         }//end foreach
 
-        $realParams = $phpcsFile->getMethodParameters($stackPtr);
+        $realParams  = $phpcsFile->getMethodParameters($stackPtr);
         $foundParams = array();
+
+        // We want to use ... for all variable length arguments, so added
+        // this prefix to the variable name so comparisons are easier.
+        foreach ($realParams as $pos => $param) {
+            if ($param['variable_length'] === true) {
+                $realParams[$pos]['name'] = '...'.$realParams[$pos]['name'];
+            }
+        }
 
         foreach ($params as $pos => $param) {
             // If the type is empty, the whole line is empty.
@@ -339,14 +347,14 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
                 $suggestedName = PHP_CodeSniffer::suggestType($typeName);
                 if ($typeName !== $suggestedName) {
                     $error = 'Expected "%s" but found "%s" for parameter type';
-                    $data = array(
-                        $suggestedName,
-                        $typeName,
-                    );
+                    $data  = array(
+                              $suggestedName,
+                              $typeName,
+                             );
 
                     $fix = $phpcsFile->addFixableError($error, $param['tag'], 'IncorrectParamVarName', $data);
                     if ($fix === true) {
-                        $content = $suggestedName;
+                        $content  = $suggestedName;
                         $content .= str_repeat(' ', $param['type_space']);
                         $content .= $param['var'];
                         $content .= str_repeat(' ', $param['var_space']);
@@ -383,28 +391,38 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
                         $typeHint = $realParams[$pos]['type_hint'];
                         if ($typeHint === '') {
                             $error = 'Type hint "%s" missing for %s';
-                            $data = array(
-                                $suggestedTypeHint,
-                                $param['var'],
-                            );
-                            $phpcsFile->addError($error, $stackPtr, 'TypeHintMissing', $data);
+                            $data  = array(
+                                      $suggestedTypeHint,
+                                      $param['var'],
+                                     );
+
+                            $errorCode = 'TypeHintMissing';
+                            if ($suggestedTypeHint === 'string'
+                                || $suggestedTypeHint === 'int'
+                                || $suggestedTypeHint === 'float'
+                                || $suggestedTypeHint === 'bool'
+                            ) {
+                                $errorCode = 'Scalar'.$errorCode;
+                            }
+
+                            $phpcsFile->addError($error, $stackPtr, $errorCode, $data);
                         } else if ($typeHint !== substr($suggestedTypeHint, (strlen($typeHint) * -1))) {
                             $error = 'Expected type hint "%s"; found "%s" for %s';
-                            $data = array(
-                                $suggestedTypeHint,
-                                $typeHint,
-                                $param['var'],
-                            );
+                            $data  = array(
+                                      $suggestedTypeHint,
+                                      $typeHint,
+                                      $param['var'],
+                                     );
                             $phpcsFile->addError($error, $stackPtr, 'IncorrectTypeHint', $data);
-                        }
+                        }//end if
                     } else if ($suggestedTypeHint === '' && isset($realParams[$pos]) === true) {
                         $typeHint = $realParams[$pos]['type_hint'];
                         if ($typeHint !== '') {
                             $error = 'Unknown type hint "%s" found for %s';
-                            $data = array(
-                                $typeHint,
-                                $param['var'],
-                            );
+                            $data  = array(
+                                      $typeHint,
+                                      $param['var'],
+                                     );
                             $phpcsFile->addError($error, $stackPtr, 'InvalidTypeHint', $data);
                         }
                     }//end if
@@ -421,16 +439,16 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
             $spaces = ($maxType - strlen($param['type']) + 1);
             if ($param['type_space'] !== $spaces) {
                 $error = 'Expected %s spaces after parameter type; %s found';
-                $data = array(
-                    $spaces,
-                    $param['type_space'],
-                );
+                $data  = array(
+                          $spaces,
+                          $param['type_space'],
+                         );
 
                 $fix = $phpcsFile->addFixableError($error, $param['tag'], 'SpacingAfterParamType', $data);
                 if ($fix === true) {
                     $phpcsFile->fixer->beginChangeset();
 
-                    $content = $param['type'];
+                    $content  = $param['type'];
                     $content .= str_repeat(' ', $spaces);
                     $content .= $param['var'];
                     $content .= str_repeat(' ', $param['var_space']);
@@ -462,14 +480,14 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
                 if ($realName !== $param['var']) {
                     $code = 'ParamNameNoMatch';
                     $data = array(
-                        $param['var'],
-                        $realName,
-                    );
+                             $param['var'],
+                             $realName,
+                            );
 
                     $error = 'Doc comment for parameter %s does not match ';
                     if (strtolower($param['var']) === strtolower($realName)) {
                         $error .= 'case of ';
-                        $code = 'ParamNameNoCaseMatch';
+                        $code   = 'ParamNameNoCaseMatch';
                     }
 
                     $error .= 'actual variable name %s';
@@ -490,16 +508,16 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
             $spaces = ($maxVar - strlen($param['var']) + 1);
             if ($param['var_space'] !== $spaces) {
                 $error = 'Expected %s spaces after parameter name; %s found';
-                $data = array(
-                    $spaces,
-                    $param['var_space'],
-                );
+                $data  = array(
+                          $spaces,
+                          $param['var_space'],
+                         );
 
                 $fix = $phpcsFile->addFixableError($error, $param['tag'], 'SpacingAfterParamName', $data);
                 if ($fix === true) {
                     $phpcsFile->fixer->beginChangeset();
 
-                    $content = $param['type'];
+                    $content  = $param['type'];
                     $content .= str_repeat(' ', $param['type_space']);
                     $content .= $param['var'];
                     $content .= str_repeat(' ', $spaces);
@@ -526,8 +544,7 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
             }//end if
 
             // Param comments must start with a capital letter and end with the full stop.
-            $firstChar = $param['comment']{0};
-            if (preg_match('|\p{Lu}|u', $firstChar) === 0) {
+            if (preg_match('/^(\p{Ll}|\P{L})/u', $param['comment']) === 1) {
                 $error = 'Parameter comment must start with a capital letter';
                 $phpcsFile->addError($error, $param['tag'], 'ParamCommentNotCapital');
             }
@@ -548,7 +565,7 @@ class Squiz_Sniffs_Commenting_FunctionCommentSniff extends PEAR_Sniffs_Commentin
         $diff = array_diff($realNames, $foundParams);
         foreach ($diff as $neededParam) {
             $error = 'Doc comment for parameter "%s" missing';
-            $data = array($neededParam);
+            $data  = array($neededParam);
             $phpcsFile->addError($error, $commentStart, 'MissingParamTag', $data);
         }
 

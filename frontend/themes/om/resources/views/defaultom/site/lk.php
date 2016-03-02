@@ -1,6 +1,7 @@
 <?php
 use yii\filters\AccessControl;
 use yii\web\User;
+
 /* @var $this yii\web\View */
 ?>
 <?php
@@ -13,153 +14,321 @@ use yii\bootstrap\Carousel;
 use yii\helpers\BaseUrl;
 use yii\jui\Slider;
 use \common\models\UserProfile;
+use yii\bootstrap\Collapse;
+
+$this->title = 'Личный кабинет';
 
 
-$this -> title = 'Личный кабинет';
-
-//echo '<pre>';
-//print_r($cust);
-//echo '</pre>';
-//die();
-echo '<div class="user-profile"><div class="lable-profile">Информация о пользователе</div>';
-$form=ActiveForm::begin();
-echo '<input type="hidden" name="profile-id" value="userinfo"/>';
-echo $form->field($cust['userinfo'],'lastname')->label('Фамилия: ');
-echo $form->field($cust['userinfo'],'name')->label('Имя: ');
-echo $form->field($cust['userinfo'],'secondname')->label('Отчество: ');
-echo $form->field($cust,'email')->label('E-mail: ');
-echo $form->field($cust['customers'],'customers_telephone')->label('Телефон: ');
-echo $form->field($cust['customers'],'customers_fax')->label('Факс: ');
-echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
-ActiveForm::end();
-echo '</div>';
-echo '<div class="user-profile"><div class="lable-profile">Информация для доставки товара</div>';
-
-foreach($cust['addressBook'] as $key=>$value){
-
-    echo '<div class="profile_address'.$key.'" style="overflow:hidden; position:relative;margin-bottom:30px;"><div style="text-align:center;font-weight:600;">Адрес доставки '.($key+1).':</div>';
-    $form=ActiveForm::begin(['method'=>'post']);
-    echo '<input type="hidden" name="profile-id" value="'.$key.'"/>';
-    echo $form->field($value,'entry_firstname')->label('Имя получателя: ');
-    echo $form->field($value,'entry_lastname')->label('Фамилия получателя: ');
-    echo $form->field($value,'otchestvo')->label('Отчество получателя: ');
-    echo $form->field($value,'birth_day')->label('Дата рождения:: ');
-    echo $form->field($value,'pasport_seria')->label('Серия паспорта: ');
-    echo $form->field($value,'pasport_nomer')->label('Номер паспорта: ');
-    echo $form->field($value,'pasport_kem_vidan')->label('Кем выдан паспорт: ');
-    echo $form->field($value,'pasport_kogda_vidan')->label('Дата выдачи: ');
-    echo $form->field($value,'country',['inputOptions'=>['data'=>['name'=>'country']]])->label('Страна: ');
-    echo $form->field($value,'entry_state',['inputOptions'=>['data'=>['name'=>'state']]])->label('Регион: ');
-    echo $form->field($value,'entry_city')->label('Город: ');
-    echo $form->field($value,'entry_postcode')->label('Индекс: ');
-    echo $form->field($value,'entry_street_address')->label('Адрес: ');
-    echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
-    ActiveForm::end();
-    echo '</div>';
-}
-echo '</div>';
 ?>
-<script>
-    $(document).on('ready', function(){
-
-        $.ajax({
-            type: "GET",
-            url: "/site/countryrequest",
-            data: '',
-            dataType: "json",
-            success: function (out) {
-                $inner = '';
-                $.each(
-                    out.response.items, function () {
-                        $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
-                    });
-                $('[data-name=country]').after('<ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
-                $('[data-name=country]').attr('autocomplete', 'off');
-            }
-        });
-        var str = '';
-        if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
-            str = $('[data-name="country"]').val();
-        } else {
-            str = $('[data-name="country"]').text();
-        }
-        $country = $("[data-country]");
-        $check = '';
-        $.each($country, function () {
-            if (str == $(this).html()) {
-                $check = this.getAttribute('data-country');
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: "/site/zonesrequest",
-            data: 'id=' + $check,
-            dataType: "json",
-            success: function (out2) {
-                $inner = '';
-                $.each(out2.response.items, function () {
-                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
-                });
-                $('#state-drop').remove();
-                $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
-                $('[data-name=state]').attr('autocomplete', 'off');
-            }
-        });
-        $(document).on('click focus', '[data-name=country]', function () {
-            $('#country-drop').show();
-        });
-        $(document).on('click', '#country', function () {
-            $('[data-name=state]').val('');
-            $('[data-name=country]').val($(this).text());
-            $('[data-name=country]').attr('data-country', this.getAttribute('country'));
-            $('#country-drop').hide();
-            $.ajax({
-                type: "GET",
-                url: "/site/zonesrequest",
-                data: 'id=' + this.getAttribute('data-country'),
-                dataType: "json",
-                success: function (out2) {
+<div class="circular"><i class="mdi mdi-perm-identity"></i></div>
+<div class="" style="float: left; font-size: 24px; font-weight: 500; padding: 20px;">
+    <?= $cust['userinfo']['name']; ?> <?= $cust['userinfo']['name']; ?>
+    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);"><?= $cust['email']; ?></span>
+    <br/><span
+        style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">id: <?= $cust['userinfo']['customers_id']; ?></span>
+</div>
+<div class="col-md-12 orders-metro" style="margin-top: 45px;">
+    <div class="lk-order-status col-md-3">
+        <div class="item">
+            <img src="/images/logo/Proverka.png"/>
+        </div>
+        <div class="item">100</div>
+        <div class="title">Ожидает проверки</div>
+    </div>
+    <div class="lk-order-status col-md-3">
+        <div class="item">
+            <img src="/images/logo/Oplata.png"/>
+        </div>
+        <div class="item">100</div>
+        <div class="title">Ожидает оплаты</div>
+    </div>
+    <div class="lk-order-status col-md-3">
+        <div class="item">
+            <img src="/images/logo/Sborka.png"/>
+        </div>
+        <div class="item">100</div>
+        <div class="title">Ожидает сборки</div>
+    </div>
+    <div class="lk-order-status col-md-3">
+        <div class="item">
+            <img src="/images/logo/Dostavka.png"/>
+        </div>
+        <div class="item">100</div>
+        <div class="title">Ожидает доставки</div>
+    </div>
+</div>
+<div id="index-card-4">Последний заказ</div>
+<div style="float: left; width: 100%;">
+    <?
+    echo \yii\grid\GridView::widget([
+        'dataProvider' => $orders,
+        'layout' => "{items}",
+        'options' => ['class' => 'grid-view admin-news'],
+        'columns' => [
+            [
+                'attribute' => 'orders_num',
+                'label' => 'Номер заказа',
+                'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    return '<a class="collapse-toggle" href="#expanded-order-' . $data->orders_id . '-collapse1" data-toggle="collapse" data-parent="#expanded-order-' . $data->orders_id . '">' . $data->NumOrder() . '</a>';
+                }
+            ],
+            [
+                'attribute' => 'create_date',
+                'label' => 'Дата',
+                'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    return date('d.m.Y', strtotime($data->date_purchased));
+                }
+            ],
+            [
+                'attribute' => 'create_date',
+                'label' => 'Сумма, руб.',
+                'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    $shipping = ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'], 'flat7_flat7' => ['value' => 'Почта ЕМС России']];
+                    $shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);
                     $inner = '';
-                    $.each(out2.response.items, function () {
-                        $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
-                    });
-                    $('#state-drop').remove();
-                    $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
-                    $('[data-name=state]').attr('autocomplete', 'off');
-                }
-            });
-        });
-        $(document).on('click focus', '[data-name=state]', function () {
-            $('#state-drop').show();
-        });
-        $(document).on('click', '#state', function () {
-            $('[data-name=state]').attr('data-state', this.getAttribute('state'));
-            $('[data-name=state]').val($(this).text());
-            $('#state-drop').hide();
-        });
-        $(document).on('keyup', '[data-name=country]', function () {
-            $filtCountryArr = $(this).siblings('ul').children();
-            $search = this.value;
-            $.each($filtCountryArr, function () {
-                if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
-        $(document).on('keyup', '[data-name=state]', function () {
-            $filtCountryArr = $(this).siblings('ul').children();
-            $search = this.value;
-            $.each($filtCountryArr, function () {
-                if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
-                }
-            });
-        });
+                    $ship = $data->shipping_module;
+                    $inner .= '<table class="table table-striped  table-hover table-responsive">';
+                    $inner .= '<thead><tr>';
+                    $inner .= '<th style="border: none" class="col-md-2">#</th>';
+                    $inner .= '<th style="border: none" class="col-md-2">Артикул</th>';
+                    $inner .= '<th style="border: none" class="col-md-2">Цена за шт</th>';
+                    $inner .= '<th style="border: none" class="col-md-1">Количество</th>';
+                    $inner .= '<th style="border: none" class="col-md-1">Размер</th>';
+                    $inner .= '<th style="border: none" class="col-md-1">Наименование</th>';
+                    $inner .= '</tr></thead><tbody>';
+                    $count = 0;
+                    $countprod = 0;
+                    $totalomquant = 0;
+                    $totalomcount = 0;
+                    $finalomprice = 0;
+                    $omfirstquant = 0;
+                    $omfirstprice = 0;
+                    $attr = \yii\helpers\ArrayHelper::index($data->productsAttr, 'orders_products_id');
+                    foreach ($data->products as $key => $value) {
+                        $positionquantity = (int)$value->products_quantity + (int)$data->productsSP[$key]->products_quantity;
+                        $price = round($value->final_price);
+                        $count++;
+                        $countprod += (int)$value->first_quant;
+                        $firstcountprod = $value->first_quant;
+                        if ($positionquantity == 0 && isset($data->products)) {
+                            $col = '#F8A7A7';
+                        } elseif ($positionquantity == $firstcountprod && isset($data->products)) {
+                            $col = '#ACDBAC';
+                        } else {
+                            $col = '#FFBF08 ';
+                        }
+                        $inner .= '<tr style="background: ' . $col . '">';
+                        $inner .= '<td class="col-md-1">' . $count . '</td>';
+                        $inner .= '<td class="col-md-2">' . $value->products_model . '</td>';
+                        if ($data->orders_status != 1) {
+                            $omfinalquant = '<br/>В наличии: ' . $positionquantity . '';
+                        } else {
+                            $omfinalquant = '';
+                        }
+                        if ($positionquantity > 0) {
+                            $totalomcount++;
+                            $totalomquant += (int)$positionquantity;
+                            $finalomprice += (float)$price * (int)$firstcountprod;
+                        }
+                        $omfirstprice += (float)$price * (int)$firstcountprod;
+                        $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
+                        $inner .= '<td class="col-md-1">Заказано:' . $firstcountprod . $omfinalquant . '</td>';
+                        $inner .= '<td class="col-md-1">' . $attr[$value->orders_products_id]['products_options_values'] . '</td>';
+                        $inner .= '<td class="col-md-1">' . $value->products_name . '</td>';
+                        $inner .= '</tr>';
+                    }
+                    if ($data->orders_status != 1) {
+                        $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
+                        $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
+                        $finalompriceview = '<br/>(После сверки ' . $finalomprice . ' Руб.)';
+                    } else {
+                        $totalomcount = '';
+                        $totalomquant = '';
+                        $finalompriceview = '';
+                    }
+                    $inner .= '</tbody><tfooter>';
+                    $inner .= '<tr>';
+                    $inner .= '<th style="border: none" class="col-md-1">Итого</th>';
+                    $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
+                    $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
+                    $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: ' . $omfirstprice . ' Руб. ' . $finalompriceview . ' </th>';
+                    $inner .= '</tr>';
+                    $inner .= '<tr>';
+                    $inner .= '<th style="border: none" class="col-md-1">Доставка: </th>';
+                    $inner .= '<th colspan="6" style="border: none" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
+                    $inner .= '</tr>';
+                    $inner .= '</tfooter></table>';
+                    //$inner = '<a class="" role="" data-toggle="collapse" href="#collapseOrd' . $data->orders_id . '" aria-expanded="false" aria-controls="collapseOrd' . $data->orders_id . '">'. $finalomprice . ' Руб</a><div class="collapse"  style="position: absolute; z-index: 999999; left: 19px; height: 0px;" id="collapseOrd' . $data->orders_id . '"><div class="well">';
+                    return Collapse::widget([
+                        'items' => [
+                            [
+                                'label' => $finalomprice,
+                                'content' => $inner,
+                                'contentOptions' => ['class' => 'user-order-row-expand'],
+                                'options' => ['class' => 'user-order-row']
+                            ],
+
+                        ],
+                        'id' => 'expanded-order-' . $data->orders_id,
+                        'options' => ['style' => 'margin:0px;']
+                    ]);
 
 
-    });
-</script>
+                }
+
+
+            ],
+            [
+                'attribute' => 'delivery_adress',
+                'label' => 'Статус заказа',
+                'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    switch ($data->orders_status) {
+                        case '100':
+                            return 'Обработка заказа';
+                        case '1':
+                            return 'Сверка';
+                        case '2':
+                            return 'Ждём оплаты';
+                        case '3':
+                            return 'Оплачен';
+                        case '4':
+                            return 'Оплачен - Доставляется';
+                        case '5':
+                            return 'Оплачен - Доставлен';
+                        case '6':
+                            return 'Отменён';
+                        case '11':
+                            return 'Сборка';
+                        case '0':
+                            return 'Спецпредложение';
+                        default:
+                            return $data->orders_status;
+                    }
+
+                }
+
+            ],
+            [
+                'attribute' => 'delivery_adress',
+                'label' => 'Оплатить заказ',
+                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    return 'Инструкция по оплате';
+                }
+            ],
+            [
+                'attribute' => 'delivery_adress',
+                'label' => 'Квитанция',
+                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    return 'Счет';
+                }
+            ],
+            [
+                'attribute' => 'customers_name',
+                'label' => 'Действия',
+                'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    return 'Оставить комментарий';
+                }
+            ],
+//
+//        [
+//            'attribute' => 'user_id',
+//            'label' => 'Пользователь',
+//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+//            'contentOptions' => function ($model, $key, $index, $column) {
+//                return ['class' => 'tbl_column_name'];
+//            },
+//            'content' => function ($data) {
+//                return $data->user->username;
+//            }
+//        ],
+//        ['class' => 'yii\grid\ActionColumn',
+//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+//            'template' => '{print}{pay}',
+//            'header' => 'Печать',
+//            'buttons' => [
+//                'print' => function ($url, $model, $key) {
+//                    $url = Yii::$app->urlManager->createUrl([BASEURL . '/printorders', 'id' => $key]);
+//                    return '<div class="col-md-3">' . Html::a(
+//                        '<span class="fa fa-print"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
+//                        $url, ['target' => '_blank']) . '</div>';
+//                },
+////                'pay' => function ($url, $model, $key) {
+////                    $url = Yii::$app->urlManager->createUrl(['/site/payorders', 'id' => $key]);
+////                    return '<div class="col-md-3">' . Html::a(
+////                        '<span class="fa fa-credit-card"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
+////                        $url, ['target' => '_blank']) . '</div>';
+////                },
+//            ],
+//        ],
+        ],
+        'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
+    ]);
+    ?>
+</div>
+<div id="index-card-4">Моя статистика</div>
+<div class="col-md-12 orders-metro" style="">
+    <div class="lk-order-stat col-md-3">
+        <div class="item">
+            <img src="/images/logo/LK_order.png">
+        </div>
+        <div class="title">100</div>
+        <div class="desc">
+           <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Заказов сделанно</a> мной с начала регистрации на сайте
+        </div>
+    </div>
+    <div class="lk-order-stat col-md-3">
+        <div class="item">
+            <img src="/images/logo/LK_goods.png">
+        </div>
+        <div class="title">100</div>
+        <div class="desc">
+            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Товаров доставленно</a> мне с начала регистрации на сайте
+        </div>
+    </div>
+    <div class="lk-order-stat col-md-3">
+        <div class="item">
+            <img src="/images/logo/LK_summ.png">
+        </div>
+        <div class="title">100</div>
+        <div class="desc">
+            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Сумма оплаченных</a> мною товаров с начала регистрации на сайте
+        </div>
+    </div>
+    <div class="lk-order-stat col-md-3">
+        <div class="item">
+            <img src="/images/logo/LK_cancelorder.png">
+        </div>
+        <div class="title">100</div>
+        <div class="desc">
+            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Заказов отменено</a> мной с начала регистрации на сайте
+        </div>
+    </div>
+</div>

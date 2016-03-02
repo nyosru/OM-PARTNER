@@ -2,7 +2,7 @@ import { normalizeUnits } from '../units/aliases';
 import { hooks } from '../utils/hooks';
 import isFunction from '../utils/is-function';
 
-export function makeGetSet(unit, keepTime) {
+export function makeGetSet (unit, keepTime) {
     return function (value) {
         if (value != null) {
             set(this, unit, value);
@@ -14,12 +14,12 @@ export function makeGetSet(unit, keepTime) {
     };
 }
 
-export function get(mom, unit) {
+export function get (mom, unit) {
     return mom.isValid() ?
         mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
 }
 
-export function set(mom, unit, value) {
+export function set (mom, unit, value) {
     if (mom.isValid()) {
         mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
     }
@@ -27,7 +27,7 @@ export function set(mom, unit, value) {
 
 // MOMENTS
 
-export function getSet(units, value) {
+export function getSet (units, value) {
     var unit;
     if (typeof units === 'object') {
         for (unit in units) {

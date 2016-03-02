@@ -39,10 +39,10 @@ class Form extends Link implements \ArrayAccess
     /**
      * Constructor.
      *
-     * @param \DOMElement $node A \DOMElement instance
-     * @param string $currentUri The URI of the page where the form is embedded
-     * @param string $method The method to use for the link (if null, it defaults to the method defined by the form)
-     * @param string $baseHref The URI of the <base> used for relative links, but not for empty action
+     * @param \DOMElement $node       A \DOMElement instance
+     * @param string      $currentUri The URI of the page where the form is embedded
+     * @param string      $method     The method to use for the link (if null, it defaults to the method defined by the form)
+     * @param string      $baseHref   The URI of the <base> used for relative links, but not for empty action
      *
      * @throws \LogicException if the node is not a button inside a form tag
      */
@@ -199,7 +199,7 @@ class Form extends Link implements \ArrayAccess
 
             $pos = strpos($uri, '?');
             $base = false === $pos ? $uri : substr($uri, 0, $pos);
-            $uri = rtrim($base . '?' . $queryString, '?');
+            $uri = rtrim($base.'?'.$queryString, '?');
         }
 
         return $uri;
@@ -313,7 +313,7 @@ class Form extends Link implements \ArrayAccess
     /**
      * Sets the value of a field.
      *
-     * @param string $name The field name
+     * @param string       $name  The field name
      * @param string|array $value The value of the field
      *
      * @throws \InvalidArgumentException if the field does not exist
@@ -406,11 +406,11 @@ class Form extends Link implements \ArrayAccess
                 $this->button->setAttribute('value', '0');
 
                 // temporarily change the name of the input node for the x coordinate
-                $this->button->setAttribute('name', $name . '.x');
+                $this->button->setAttribute('name', $name.'.x');
                 $this->set(new Field\InputFormField($this->button));
 
                 // temporarily change the name of the input node for the y coordinate
-                $this->button->setAttribute('name', $name . '.y');
+                $this->button->setAttribute('name', $name.'.y');
                 $this->set(new Field\InputFormField($this->button));
 
                 // restore the original name of the input node

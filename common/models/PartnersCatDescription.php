@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -16,7 +17,7 @@ use Yii;
  * @property string $categories_meta_description
  * @property string $categories_meta_keywords
  */
-class PartnersCatDescription extends \yii\db\ActiveRecord
+class PartnersCatDescription extends ActiveRecordExt
 {
     /**
      * @inheritdoc

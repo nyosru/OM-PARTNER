@@ -21,6 +21,6 @@ return [
     'choose' => "Vælg",
     'Clear Color Selection' => '',
     'less' => '',
-    'more' => '',
+    'more' => '',    
     'No Color Selected' => '',
 ];

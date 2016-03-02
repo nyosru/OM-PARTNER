@@ -9,8 +9,7 @@ import { hooks } from '../utils/hooks';
 import getParsingFlags from './parsing-flags';
 
 // constant that refers to the ISO standard
-hooks.ISO_8601 = function () {
-};
+hooks.ISO_8601 = function () {};
 
 // date from string and format string
 export function configFromStringAndFormat(config) {
@@ -67,8 +66,8 @@ export function configFromStringAndFormat(config) {
 
     // clear _12h flag if hour is <= 12
     if (getParsingFlags(config).bigHour === true &&
-        config._a[HOUR] <= 12 &&
-        config._a[HOUR] > 0) {
+            config._a[HOUR] <= 12 &&
+            config._a[HOUR] > 0) {
         getParsingFlags(config).bigHour = undefined;
     }
     // handle meridiem
@@ -79,7 +78,7 @@ export function configFromStringAndFormat(config) {
 }
 
 
-function meridiemFixWrap(locale, hour, meridiem) {
+function meridiemFixWrap (locale, hour, meridiem) {
     var isPm;
 
     if (meridiem == null) {

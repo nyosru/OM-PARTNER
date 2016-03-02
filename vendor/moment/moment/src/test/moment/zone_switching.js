@@ -25,7 +25,7 @@ test('local to zone, keepLocalTime = true', function (assert) {
     // http://en.wikipedia.org/wiki/UTC-12:00
     for (z = -12; z <= 14; ++z) {
         assert.equal(m.clone().zone(z * 60, true).format(fmt), m.format(fmt),
-            'local to zone(' + z + ':00) failed to keep local time');
+                'local to zone(' + z + ':00) failed to keep local time');
     }
 });
 
@@ -38,9 +38,9 @@ test('local to zone, keepLocalTime = false', function (assert) {
     // http://en.wikipedia.org/wiki/UTC-12:00
     for (z = -12; z <= 14; ++z) {
         assert.equal(m.clone().zone(z * 60).valueOf(), m.valueOf(),
-            'local to zone(' + z + ':00) failed to keep utc time (implicit)');
+                'local to zone(' + z + ':00) failed to keep utc time (implicit)');
         assert.equal(m.clone().zone(z * 60, false).valueOf(), m.valueOf(),
-            'local to zone(' + z + ':00) failed to keep utc time (explicit)');
+                'local to zone(' + z + ':00) failed to keep utc time (explicit)');
     }
 });
 
@@ -69,7 +69,7 @@ test('zone to local, keepLocalTime = true', function (assert) {
         m.zone(z * 60);
 
         assert.equal(m.clone().local(true).format(fmt), m.format(fmt),
-            'zone(' + z + ':00) to local failed to keep local time');
+                'zone(' + z + ':00) to local failed to keep local time');
     }
 });
 
@@ -84,8 +84,8 @@ test('zone to local, keepLocalTime = false', function (assert) {
         m.zone(z * 60);
 
         assert.equal(m.clone().local(false).valueOf(), m.valueOf(),
-            'zone(' + z + ':00) to local failed to keep utc time (explicit)');
+                'zone(' + z + ':00) to local failed to keep utc time (explicit)');
         assert.equal(m.clone().local().valueOf(), m.valueOf(),
-            'zone(' + z + ':00) to local failed to keep utc time (implicit)');
+                'zone(' + z + ':00) to local failed to keep utc time (implicit)');
     }
 });

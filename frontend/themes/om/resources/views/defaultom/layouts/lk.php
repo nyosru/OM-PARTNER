@@ -1,3 +1,4 @@
+
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -16,20 +17,24 @@ use frontend\widgets\Menuom;
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 ?>
-<?php $this->beginPage() ?>
+<?php $this->beginPage();
+//if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-10', ['duration' => 10])) {
+// ?>
     <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language ?>">
+    <html lang="ru-RU">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
         <meta name='yandex-verification' content='6af7ec36af3406db'/>
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
               href="<?= BASEURL ?>/addsearch">
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic,100,100italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'> <?= Html::csrfMetaTags() ?>
-        <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700,300italic,400italic,700italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
-
+        <!--       --><?// $this->endCache();
+        //        }
+        //?>
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
+        <!--   --><?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-5', ['duration' => 10])) {
+        //    ?>
         <?php $this->head();
 
         //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
@@ -37,7 +42,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     </head>
     <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; border-left:  1px  solid #CCC; border-right:  1px  solid #CCC;">
     <?php $this->beginBody(); ?>
-    <div class="wrap" style="height: auto" >
+    <div class="wrap" >
         <?php
         if (($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
             $name = $namecustom;
@@ -67,24 +72,31 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 </div>
                 <div id="partners-main-left" class="target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div id="partners-main-left-cont">
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-info" class="link profile-info" href="<?= BASEURL ?>/lk">Общая информация</div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-orders" class="link profile-orders"><a
-                                        href="<?= BASEURL ?>/requestorders">Мои
-                                        заказы</a></div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-call" class="link">ПРОДОЛЖИТЬ ПОКУПКИ</div>
-                            </li>
-                        </ul>
-                    </div>
+                        <div id="partners-main-left-cont">
+                            <ul id="accordion" class="accordion">
+                                <li class="">
+                                    <div id="profile-orders" class="link profile-orders">
+                                        <a href="<?= BASEURL ?>/lk?view=myorder">
+                                            Мои заказы
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul id="accordion" class="accordion">
+                                <li class="">
+                                    <div id="profile-orders" class="link profile-orders">
+                                        <a href="<?= BASEURL ?>/lk?view=userinfo">
+                                            Мои данные
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul id="accordion" class="accordion">
+                                <li class="">
+                                    <div id="profile-call" class="link">Продолжить покупки</div>
+                                </li>
+                            </ul>
+                        </div>       </div>
 
                 </div>
                 <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
@@ -120,10 +132,12 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 </div>
                 <div id="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
-                        <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
-                        <div class="btn btn-default data-j" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
-                            Найти
-                        </div>
+                        <form action="<?= BASEURL?>/catalog">
+                            <input autocomplete="off" id="search" name="searchword" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
+                            <button class="btn btn-default data-j" type="submit" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
+                                Найти
+                            </button>
+                        </form>
                         <div class="" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                             <?
                             if(Yii::$app->user->isGuest){
@@ -134,7 +148,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                     'header' => 'Вход на Одежда-Мастер',
                                     'toggleButton' => ['label' => 'Вход', 'tag'=> 'a', 'style'=> 'float: left; margin: 4px; cursor:pointer;'],
                                 ]);
-                                $form = \yii\bootstrap\ActiveForm::begin(['id' => 'login-form']);
+                                $form = \yii\bootstrap\ActiveForm::begin([
+                                    'action' => BASEURL.'/login',
+                                    'id' => 'login-form'
+                                ]);
                                 echo $form->field($model, 'username', ['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->label('Электронная почта');
                                 echo $form->field($model, 'password',['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">'.Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']).'</span>') ;
                                 echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
@@ -171,120 +188,129 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                 <div id="partners-main-right" class="bside">
                     <?= $content ?>
+
+
+
+
                 </div>
-             </div>
-
-
-        </div>
-        <div style="height: 60px"></div>
-        <footer class="footer">
-            <hr class="linebottom1">
-            <hr class="linebottom2">
-            <div class="" style="margin: 0px 25px;">
-                <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
-
-                <div style="margin: 0% 25%; float: left;">
-                    <?
-                    if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {
-                        $mailcounter = Yii::$app->params['partnersset']['mailcounter']['value'];
-                        ?>
-                        <a href="http://top.mail.ru/jump?from=<?= $mailcounter ?>">
-                            <img src="//top-fwz1.mail.ru/counter?id=<?= $mailcounter ?>;t=502;l=1"
-                                 style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru"/></a>
-                        <script type="text/javascript">
-                            var _tmr = _tmr || [];
-                            _tmr.push({id: <?= $mailcounter ?>, type: "pageView", start: (new Date()).getTime()});
-                            (function (d, w, id) {
-                                if (d.getElementById(id)) return;
-                                var
-                                    ts = d.createElement("script");
-                                ts.type = "text/javascript";
-                                ts.async = true;
-                                ts.id = id;
-                                ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
-                                var
-                                    f = function () {
+                <div class="modal-cart" id="modal-cart" style="display: none;"></div>
+                <div style="clear:both;"></div>
+                <footer class="footer">
+                    <hr class="linebottom1">
+                    <hr class="linebottom2">
+                    <div class="" style="margin: 0px 25px;">
+                        <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
+                        <div style="margin: 0% 25%; float: left;">
+                            <?
+                            if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {
+                                $mailcounter = Yii::$app->params['partnersset']['mailcounter']['value'];
+                                ?>
+                                <a href="http://top.mail.ru/jump?from=<?= $mailcounter ?>">
+                                    <img src="//top-fwz1.mail.ru/counter?id=<?= $mailcounter ?>;t=502;l=1"
+                                         style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru"/></a>
+                                <script type="text/javascript">
+                                    var _tmr = _tmr || [];
+                                    _tmr.push({id: <?= $mailcounter ?>, type: "pageView", start: (new Date()).getTime()});
+                                    (function (d, w, id) {
+                                        if (d.getElementById(id)) return;
                                         var
-                                            s = d.getElementsByTagName("script")[0];
-                                        s.parentNode.insertBefore(ts, s);
-                                    };
-                                if (w.opera == "[object Opera]") {
-                                    d.addEventListener("DOMContentLoaded", f, false);
-                                } else {
-                                    f();
-                                }
-                            })(document, window, "topmailru-code");
-                        </script>
-                        <noscript>
-                            <div style="position:absolute;left:-10000px;">
-                                <img src="//top-fwz1.mail.ru/counter?id=' . $mailcounter . ';js=na" style="border:0;"
-                                     height="1" width="1" alt="Рейтинг@Mail.ru"/>
-                            </div>
-                        </noscript>
-                    <? } ?>
+                                            ts = d.createElement("script");
+                                        ts.type = "text/javascript";
+                                        ts.async = true;
+                                        ts.id = id;
+                                        ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+                                        var
+                                            f = function () {
+                                                var
+                                                    s = d.getElementsByTagName("script")[0];
+                                                s.parentNode.insertBefore(ts, s);
+                                            };
+                                        if (w.opera == "[object Opera]") {
+                                            d.addEventListener("DOMContentLoaded", f, false);
+                                        } else {
+                                            f();
+                                        }
+                                    })(document, window, "topmailru-code");
+                                </script>
+                                <noscript>
+                                    <div style="position:absolute;left:-10000px;">
+                                        <img src="//top-fwz1.mail.ru/counter?id=' . $mailcounter . ';js=na" style="border:0;"
+                                             height="1" width="1" alt="Рейтинг@Mail.ru"/>
+                                    </div>
+                                </noscript>
+                            <? } ?>
 
-                    <?
-                    if (isset(Yii::$app->params['partnersset']['yandexcounter']['value']) && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1) {
-                        $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
-                        ?>
-                        <!-- Yandex.Metrika informer -->
-                        <a href="https://metrika.yandex.ru/stat/?id=<?= $yandexcounter ?>&amp;from=informer"
-                           target="_blank" rel="nofollow"><img
-                                src="https://informer.yandex.ru/informer/<?= $yandexcounter ?>/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-                                style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика"
-                                title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
-                                onclick="try{Ya.Metrika.informer({i:this,id:<?= $yandexcounter ?>,lang:'ru'});return false}catch(e){}"/></a>
-                        <!-- /Yandex.Metrika informer -->
+                            <?
+                            if (isset(Yii::$app->params['partnersset']['yandexcounter']['value']) && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1) {
+                                $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
+                                ?>
+                                <!-- Yandex.Metrika informer -->
+                                <a href="https://metrika.yandex.ru/stat/?id=<?= $yandexcounter ?>&amp;from=informer"
+                                   target="_blank" rel="nofollow"><img
+                                        src="https://informer.yandex.ru/informer/<?= $yandexcounter ?>/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+                                        style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика"
+                                        title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
+                                        onclick="try{Ya.Metrika.informer({i:this,id:<?= $yandexcounter ?>,lang:'ru'});return false}catch(e){}"/></a>
+                                <!-- /Yandex.Metrika informer -->
 
-                        <!-- Yandex.Metrika counter -->
-                        <script type="text/javascript">
-                            (function (d, w, c) {
-                                (w[c] = w[c] || []).push(function () {
-                                    try {
-                                        w.yaCounter<?=$yandexcounter?> = new Ya.Metrika({
-                                            id:<?=$yandexcounter?>,
-                                            clickmap: true,
-                                            trackLinks: true,
-                                            accurateTrackBounce: true
+                                <!-- Yandex.Metrika counter -->
+                                <script type="text/javascript">
+                                    (function (d, w, c) {
+                                        (w[c] = w[c] || []).push(function () {
+                                            try {
+                                                w.yaCounter<?=$yandexcounter?> = new Ya.Metrika({
+                                                    id:<?=$yandexcounter?>,
+                                                    clickmap: true,
+                                                    trackLinks: true,
+                                                    accurateTrackBounce: true
+                                                });
+                                            } catch (e) {
+                                            }
                                         });
-                                    } catch (e) {
-                                    }
-                                });
 
-                                var n = d.getElementsByTagName("script")[0],
-                                    s = d.createElement("script"),
-                                    f = function () {
-                                        n.parentNode.insertBefore(s, n);
-                                    };
-                                s.type = "text/javascript";
-                                s.async = true;
-                                s.src = "https://mc.yandex.ru/metrika/watch.js";
+                                        var n = d.getElementsByTagName("script")[0],
+                                            s = d.createElement("script"),
+                                            f = function () {
+                                                n.parentNode.insertBefore(s, n);
+                                            };
+                                        s.type = "text/javascript";
+                                        s.async = true;
+                                        s.src = "https://mc.yandex.ru/metrika/watch.js";
 
-                                if (w.opera == "[object Opera]") {
-                                    d.addEventListener("DOMContentLoaded", f, false);
-                                } else {
-                                    f();
-                                }
-                            })(document, window, "yandex_metrika_callbacks");
-                        </script>
-                        <noscript>
-                            <div><img src="https://mc.yandex.ru/watch/<?= $yandexcounter ?>"
-                                      style="position:absolute; left:-9999px;" alt=""/></div>
-                        </noscript>
-                        <!-- /Yandex.Metrika counter -->
-                    <? } ?>
-                </div>
-                <p class="pull-right"><a href="<?= BASEURL ?>/offerta">Оферта</a> <a
-                        href="<?= BASEURL ?>/paying">Оплата</a> <a
-                        href="<?= BASEURL ?>/delivery">Доставка</a> <a href="<?= BASEURL ?>/contacts">Контакты</a></p>
+                                        if (w.opera == "[object Opera]") {
+                                            d.addEventListener("DOMContentLoaded", f, false);
+                                        } else {
+                                            f();
+                                        }
+                                    })(document, window, "yandex_metrika_callbacks");
+                                </script>
+                                <noscript>
+                                    <div><img src="https://mc.yandex.ru/watch/<?= $yandexcounter ?>"
+                                              style="position:absolute; left:-9999px;" alt=""/></div>
+                                </noscript>
+                                <!-- /Yandex.Metrika counter -->
+                            <? } ?>
+                        </div>
+                        <p class="pull-right"><a href="<?= BASEURL ?>/offerta">Оферта</a> <a
+                                href="<?= BASEURL ?>/paying">Оплата</a> <a
+                                href="<?= BASEURL ?>/delivery">Доставка</a> <a href="<?= BASEURL ?>/contacts">Контакты</a></p>
+                    </div>
+                </footer>
             </div>
-        </footer>
+        </div>
         <?php
         //  $this->registerJsFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/js/script.js', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
         $this->endBody();
         Yii::$app->params['assetsite']->registerAssetFiles($this);
 
         ?>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.target').shortscroll();
+        });
+
+    </script>
     </body>
-    </html>
+</html>
 <?php $this->endPage() ?>

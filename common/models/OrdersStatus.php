@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 
@@ -16,7 +17,7 @@ use Yii;
  *
  * @property OrdersStatusHistory[] $ordersStatusHistories
  */
-class OrdersStatus extends \yii\db\ActiveRecord
+class OrdersStatus extends ActiveRecordExt
 {
     /**
      * @inheritdoc

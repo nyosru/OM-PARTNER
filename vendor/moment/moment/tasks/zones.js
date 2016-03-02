@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         });
     });
 
-    function getAllTimezones(callback) {
+    function getAllTimezones (callback) {
         fs.readFile(ZONE_TAB, 'ascii', function (err, content) {
             if (err != null) {
                 callback(err);
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
         });
     }
 
-    function runTestsInZone(zone, next) {
+    function runTestsInZone (zone, next) {
         grunt.log.ok('Running tests in zone ' + zone);
         grunt.util.spawn({
             cmd: 'grunt',

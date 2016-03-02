@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -13,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $language_id
  * @property string $specification_value
  */
-class SpecificationValuesDescription extends ActiveRecord
+class SpecificationValuesDescription extends ActiveRecordExt
 {
     /**
      * @inheritdoc

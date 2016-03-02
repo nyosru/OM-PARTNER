@@ -36,9 +36,9 @@ class Link
     /**
      * Constructor.
      *
-     * @param \DOMElement $node A \DOMElement instance
-     * @param string $currentUri The URI of the page where the link is embedded (or the base href)
-     * @param string $method The method to use for the link (get by default)
+     * @param \DOMElement $node       A \DOMElement instance
+     * @param string      $currentUri The URI of the page where the link is embedded (or the base href)
+     * @param string      $method     The method to use for the link (get by default)
      *
      * @throws \InvalidArgumentException if the node is not a link
      */
@@ -94,32 +94,32 @@ class Link
 
         // an anchor
         if ('#' === $uri[0]) {
-            return $this->cleanupAnchor($this->currentUri) . $uri;
+            return $this->cleanupAnchor($this->currentUri).$uri;
         }
 
         $baseUri = $this->cleanupUri($this->currentUri);
 
         if ('?' === $uri[0]) {
-            return $baseUri . $uri;
+            return $baseUri.$uri;
         }
 
         // absolute URL with relative schema
         if (0 === strpos($uri, '//')) {
-            return preg_replace('#^([^/]*)//.*$#', '$1', $baseUri) . $uri;
+            return preg_replace('#^([^/]*)//.*$#', '$1', $baseUri).$uri;
         }
 
         $baseUri = preg_replace('#^(.*?//[^/]*)(?:\/.*)?$#', '$1', $baseUri);
 
         // absolute path
         if ('/' === $uri[0]) {
-            return $baseUri . $uri;
+            return $baseUri.$uri;
         }
 
         // relative path
         $path = parse_url(substr($this->currentUri, strlen($baseUri)), PHP_URL_PATH);
-        $path = $this->canonicalizePath(substr($path, 0, strrpos($path, '/')) . '/' . $uri);
+        $path = $this->canonicalizePath(substr($path, 0, strrpos($path, '/')).'/'.$uri);
 
-        return $baseUri . ('' === $path || '/' !== $path[0] ? '/' : '') . $path;
+        return $baseUri.('' === $path || '/' !== $path[0] ? '/' : '').$path;
     }
 
     /**
