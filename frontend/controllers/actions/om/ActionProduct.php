@@ -16,7 +16,7 @@ trait ActionProduct
         $relProd=[];
 
         // Если запрос пришел через GET
-        if(Yii::$app->request->method=='GET'){
+        if(Yii::$app->request->isGet){
             $id = (integer)Yii::$app->request->getQueryParam('id');
             $spec=PartnersProductsToCategories::find()
                 ->where(['products_to_categories.products_id'=>$id])
@@ -92,28 +92,29 @@ trait ActionProduct
                 if(!$x['last_modified']){
                     $x['last_modified'] = $x['add_date'] ;
                 }
-                    $keyprod = Yii::$app->cache->buildKey('product-' . $id);
-                    $data = Yii::$app->cache->get($keyprod);
-                    if (!$data || ($x['last_modified'] != $data['last'])) {
-                        $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->one();
-                        Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $x['last_modified']]);
-                    } else {
-                        $data = $data['data'];
-                    }
-                    if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                $keyprod = Yii::$app->cache->buildKey('product-' . $id);
+                $data = Yii::$app->cache->get($keyprod);
+                if (!$data || ($x['last_modified'] != $data['last'])) {
+                    $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->one();
+                    Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $x['last_modified']]);
+                } else {
+                    $data = $data['data'];
+                }
+                if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
 
-                        $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
+                    $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
 
-                    }
-                    $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $data['categories_id'] . '&action=namenum'));
-                    $list = array();
-                    $hide_man = $this->hide_manufacturers_for_partners();
-                    foreach ($hide_man as $value) {
-                        $list[] = $value['manufacturers_id'];
-                    }
-                    $hide_man = implode(',', $list);
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec];
+                }
+                // $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $data['categories_id'] . '&action=namenum'));
+                $list = array();
+                $hide_man = $this->hide_manufacturers_for_partners();
+                foreach ($hide_man as $value) {
+                    $list[] = $value['manufacturers_id'];
+                }
+                $hide_man = implode(',', $list);
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+                return ['product' => $data,  'spec'=>$spec];
 
             } else {
                 return $this->redirect('/');
