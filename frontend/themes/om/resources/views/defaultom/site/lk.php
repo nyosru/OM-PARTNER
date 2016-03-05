@@ -42,8 +42,8 @@ foreach($cust['delivery'] as $key=>$value){
     echo $form->field($cust,'delivery['.$key.'][passportnum]')->label('Номер паспорта: ');
     echo $form->field($cust,'delivery['.$key.'][passportwho]')->label('Кем выдан паспорт: ');
     echo $form->field($cust,'delivery['.$key.'][passportdate]')->label('Дата выдачи: ');
-    echo $form->field($cust,'delivery['.$key.'][country]',['inputOptions'=>['data'=>['name'=>'country']]])->label('Страна: ');
-    echo $form->field($cust,'delivery['.$key.'][state]',['inputOptions'=>['data'=>['name'=>'state']]])->label('Регион: ');
+    echo $form->field($cust,'delivery['.$key.'][country]',['inputOptions'=>['data'=>['name'=>'country'], 'style'=>'color:#555;border-radius:4px;']])->label('Страна: ');
+    echo $form->field($cust,'delivery['.$key.'][state]',['inputOptions'=>['data'=>['name'=>'state'],'style'=>'color:#555;border-radius:4px;']])->label('Регион: ');
     echo $form->field($cust,'delivery['.$key.'][city]')->label('Город: ');
     echo $form->field($cust,'delivery['.$key.'][postcode]')->label('Индекс: ');
     echo $form->field($cust,'delivery['.$key.'][address]')->label('Адрес: ');
