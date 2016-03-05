@@ -170,9 +170,24 @@ $(document).on('click', '.cart-lable', function () {
         if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
+                $timenow  =  new Date;
+                if(localStorage.getItem('cart-om-date')){
+                    $timecart =  new Date;
+                    $timecart = localStorage.getItem('cart-om-date');
+                    console.log($timenow.getTime() - $timecart);
+                    if($timenow.getTime() - $timecart > 10){
+                        localStorage.removeItem('cart-om');
+                        localStorage.removeItem('cart-om-date');
+                        return false;
+                    }
+                }else{
+                    localStorage.setItem('cart-om-date', $timenow.getTime());
+                }
                 $item = JSON.parse(localStorage.getItem('cart-om'));
                 $i = $item.cart.length;
             } else {
+                var $time = new Date;
+                localStorage.setItem('cart-om-date', $time.getTime());
                 $i = 0;
             }
             x = 0;
@@ -201,7 +216,7 @@ $(document).on('click', '.cart-lable', function () {
                     }, 1000, function () {
                         $(this).remove();
                     });
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'),  {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }];
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'),  {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }, { "count":  $item_add.getAttribute('data-count') }];
             }
             if (x == 0) {
                 $($(this).parent().parent())
@@ -221,7 +236,7 @@ $(document).on('click', '.cart-lable', function () {
                     }, 1000, function () {
                         $(this).remove();
                     });
-                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'), {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }];
+                $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'), {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }, { "count":  $item_add.getAttribute('data-count') }];
             }
             $ilocal = JSON.stringify($item);
             localStorage.setItem('cart-om', $ilocal);

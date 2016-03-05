@@ -36,6 +36,8 @@
         height: 100%;
         width: 100%;
         max-width: 1920px;
+        background: #F5F5F5 none repeat scroll 0px center;
+        margin: auto;
     }
 
     a {
@@ -540,7 +542,7 @@
         height: 100%;
         width: 16.5%;
         padding: 0px;
-        max-width: 315px;
+        max-width: 316px;
     }
 
     .arrow-down, .arrow-up {
@@ -560,11 +562,11 @@
         overflow: hidden;
         background: #F5F5F5;
         width: 100%;
-        max-width: 315px;
+        max-width: 316px;
     }
 
     #partners-main-left-cont {
-        /*height: 100%;*/
+        border-left: 1px solid #CCC;
         overflow: hidden;
         width:100%;
     }
@@ -733,9 +735,6 @@
         text-shadow: 1px 1px 1px #4E4E4E
     }
 
-    body, html {
-        background: 0 center #F5F5F5
-    }
     .banner-cat {
         float: none;
         height: 100px !important;
@@ -1840,6 +1839,7 @@
         z-index: 999;
         width: calc(83.5% - 30px) !important;
         height: auto !important;
+        max-width: 1575px;
     }
     .filter + .fixedbar-filter> .panel-default > a > .panel-heading{
         border-radius: 0px ;
@@ -2681,6 +2681,7 @@
     position: absolute;
     width: 100%;
     display: none;
+        border-left: 1px solid #CCC;
     }
     .supspan{
         height: 55px;
@@ -2690,6 +2691,7 @@
         z-index: 100;
         min-width: 211px;
         border-bottom: 1px solid #CCC;
+        border-left: 1px solid #CCC;
     }
     .suplogo:hover .sublogo{
         z-index: 100;
