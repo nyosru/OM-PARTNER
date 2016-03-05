@@ -71,49 +71,60 @@ class LoginFormOM extends Model
     {
 
         if ($this->validate()) {
-//            if (!$this->getUser()) {
-//                echo '<pre>';
-//                print_r($this->getUserOM());
-//                echo '</pre>';
-//                die();
+            if (!$this->getUser()) {
+
+                $customer = $this->getUserOM();
+                $address = AddressBook::find()->where(['address_book_id'=>$customer->customers_default_address_id])->asArray()->one();
+                $customer_info = CustomersInfo::find()->where(['customers_info_id'=>$customer->customers_id])->asArray()->one();
+//            echo '<pre>';
+//            print_r($customer );
+//            print_r( $address);
+//                print_r(  $customer_info);
+               $countries =  Countries::find()->where(['countries_id'=>$address['entry_country_id']])->asArray()->one();
+               $zones =  Zones::find()->where(['zone_id'=>$address['entry_zone_id']])->asArray()->one();
+//                print_r( $countries);
+//                print_r( $zones);
+//            echo '</pre>';
+//            die();
+
                 $newpartuser = new User();
                 $newpartuserinfo = new PartnersUsersInfo();
-//                $newpartuser->email = '';
-//                $newpartuser->password = '';
-//                $newpartuser->password_hash = '';
-//                $newpartuser->status = '';
-//                $newpartuser->created_at = '';
-//                $newpartuser->updated_at = '';
-//                $newpartuser->username = '';
-//                $newpartuserinfo->country = '';
-//                $newpartuserinfo->state = '';
-//                $newpartuserinfo->city = '';
-//                $newpartuserinfo->adress = '';
-//                $newpartuserinfo->postcode = '';
-//                $newpartuserinfo->telephone = '';
-//                $newpartuserinfo->name = '';
-//                $newpartuserinfo->lastname = '';
-//                $newpartuserinfo->secondname = '';
-//                $newpartuserinfo->customers_id = '';
-//                $newpartuserinfo->pasportdate = '';
-//                $newpartuserinfo->pasportnum = '';
-//                $newpartuserinfo->pasportser = '';
-//                $newpartuserinfo->pasportwhere = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
-//                $this->_user[] = '';
- //           }
+                $newpartuser->email = $customer->customers_email_address;
+                $newpartuser->setPassword($this->password);
+                $newpartuser->generateAuthKey();
+                $newpartuser->status = 10;
+                $newpartuser->id_partners = Yii::$app->params['constantapp']['APP_ID'];
+                $newpartuser->role = 'register';
+                $newpartuser->created_at = $customer_info['customers_info_date_account_created'];
+                $newpartuser->updated_at = $customer_info['customers_info_date_account_last_modified'];
+                $newpartuser->username = $customer->customers_email_address;
+                if($newpartuser->save()) {
+                    $auth = Yii::$app->authManager;
+                    $auth->assign($auth->getRole('register'), $newpartuser->id);
+                    $newpartuserinfo->id = $newpartuser->id;
+                    $newpartuserinfo->country = $countries['countries_name'];
+                    $newpartuserinfo->state = $zones['zone_name'];
+                    $newpartuserinfo->city = $address['entry_city'];
+                    $newpartuserinfo->adress = $address['entry_street_address'];
+                    $newpartuserinfo->postcode = $address['entry_postcode'];
+                    $newpartuserinfo->telephone = $customer->customers_telephone;
+                    $newpartuserinfo->name = $customer->customers_firstname;
+                    $newpartuserinfo->lastname = $customer->customers_lastname;
+                    $newpartuserinfo->secondname =  $customer->otchestvo;
+                    if(!$newpartuserinfo->secondname){
+                        $newpartuserinfo->secondname = "%20";
+                    }
+                    $newpartuserinfo->customers_id = $customer->customers_id;
+                    $newpartuserinfo->pasportdate = $address['pasport_kogda_vidan'];
+                    $newpartuserinfo->pasportnum = $address['pasport_nomer'];
+                    $newpartuserinfo->pasportser = $address['pasport_seria'];
+                    $newpartuserinfo->pasportwhere = $address['pasport_kem_vidan'];
+                   if($newpartuserinfo->save()){
+                       return Yii::$app->user->login($newpartuser, $this->rememberMe ? 3600 * 24 * 30 : 0);
+                   }
+                }
+                return false;
+            }
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;

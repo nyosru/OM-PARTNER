@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -23,7 +24,7 @@ use Yii;
  * @property string $pasportwhere
  * @property integer $customers_id
  */
-class PartnersUsersInfo extends \yii\db\ActiveRecord
+class PartnersUsersInfo extends ActiveRecordExt
 {
     /**
      * @inheritdoc

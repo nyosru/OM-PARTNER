@@ -60,9 +60,9 @@ class Crawler implements \Countable, \IteratorAggregate
     /**
      * Constructor.
      *
-     * @param mixed $node A Node to use as the base for the crawling
+     * @param mixed  $node       A Node to use as the base for the crawling
      * @param string $currentUri The current URI
-     * @param string $baseHref The base href value
+     * @param string $baseHref   The base href value
      */
     public function __construct($node = null, $currentUri = null, $baseHref = null)
     {
@@ -113,8 +113,8 @@ class Crawler implements \Countable, \IteratorAggregate
      * to be ISO-8859-1, which is the default charset defined by the
      * HTTP 1.1 specification.
      *
-     * @param string $content A string to parse as HTML/XML
-     * @param null|string $type The content type of the string
+     * @param string      $content A string to parse as HTML/XML
+     * @param null|string $type    The content type of the string
      */
     public function addContent($content, $type = null)
     {
@@ -138,8 +138,7 @@ class Crawler implements \Countable, \IteratorAggregate
         // http://www.w3.org/TR/encoding/#encodings
         // http://www.w3.org/TR/REC-xml/#NT-EncName
         if (null === $charset &&
-            preg_match('/\<meta[^\>]+charset *= *["\']?([a-zA-Z\-0-9_:.]+)/i', $content, $matches)
-        ) {
+            preg_match('/\<meta[^\>]+charset *= *["\']?([a-zA-Z\-0-9_:.]+)/i', $content, $matches)) {
             $charset = $matches[1];
         }
 
@@ -175,9 +174,7 @@ class Crawler implements \Countable, \IteratorAggregate
         $dom = new \DOMDocument('1.0', $charset);
         $dom->validateOnParse = true;
 
-        set_error_handler(function () {
-            throw new \Exception();
-        });
+        set_error_handler(function () {throw new \Exception();});
 
         try {
             // Convert charset to HTML-entities to work around bugs in DOMDocument::loadHTML()
@@ -238,7 +235,7 @@ class Crawler implements \Countable, \IteratorAggregate
         $dom->validateOnParse = true;
 
         if ('' !== trim($content)) {
-            @$dom->loadXML($content, LIBXML_NONET);
+            @$dom->loadXML($content, LIBXML_NONET | (defined('LIBXML_PARSEHUGE') ? LIBXML_PARSEHUGE : 0));
         }
 
         libxml_use_internal_errors($internalErrors);
@@ -589,7 +586,7 @@ class Crawler implements \Countable, \IteratorAggregate
      */
     public function extract($attributes)
     {
-        $attributes = (array)$attributes;
+        $attributes = (array) $attributes;
         $count = count($attributes);
 
         $data = array();
@@ -665,8 +662,8 @@ class Crawler implements \Countable, \IteratorAggregate
      */
     public function selectLink($value)
     {
-        $xpath = sprintf('descendant-or-self::a[contains(concat(\' \', normalize-space(string(.)), \' \'), %s) ', static::xpathLiteral(' ' . $value . ' ')) .
-            sprintf('or ./img[contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)]]', static::xpathLiteral(' ' . $value . ' '));
+        $xpath = sprintf('descendant-or-self::a[contains(concat(\' \', normalize-space(string(.)), \' \'), %s) ', static::xpathLiteral(' '.$value.' ')).
+                            sprintf('or ./img[contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)]]', static::xpathLiteral(' '.$value.' '));
 
         return $this->filterRelativeXPath($xpath);
     }
@@ -681,9 +678,9 @@ class Crawler implements \Countable, \IteratorAggregate
     public function selectButton($value)
     {
         $translate = 'translate(@type, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")';
-        $xpath = sprintf('descendant-or-self::input[((contains(%s, "submit") or contains(%s, "button")) and contains(concat(\' \', normalize-space(string(@value)), \' \'), %s)) ', $translate, $translate, static::xpathLiteral(' ' . $value . ' ')) .
-            sprintf('or (contains(%s, "image") and contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)) or @id=%s or @name=%s] ', $translate, static::xpathLiteral(' ' . $value . ' '), static::xpathLiteral($value), static::xpathLiteral($value)) .
-            sprintf('| descendant-or-self::button[contains(concat(\' \', normalize-space(string(.)), \' \'), %s) or @id=%s or @name=%s]', static::xpathLiteral(' ' . $value . ' '), static::xpathLiteral($value), static::xpathLiteral($value));
+        $xpath = sprintf('descendant-or-self::input[((contains(%s, "submit") or contains(%s, "button")) and contains(concat(\' \', normalize-space(string(@value)), \' \'), %s)) ', $translate, $translate, static::xpathLiteral(' '.$value.' ')).
+                         sprintf('or (contains(%s, "image") and contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)) or @id=%s or @name=%s] ', $translate, static::xpathLiteral(' '.$value.' '), static::xpathLiteral($value), static::xpathLiteral($value)).
+                         sprintf('| descendant-or-self::button[contains(concat(\' \', normalize-space(string(.)), \' \'), %s) or @id=%s or @name=%s]', static::xpathLiteral(' '.$value.' '), static::xpathLiteral($value), static::xpathLiteral($value));
 
         return $this->filterRelativeXPath($xpath);
     }
@@ -736,7 +733,7 @@ class Crawler implements \Countable, \IteratorAggregate
     /**
      * Returns a Form object for the first node in the list.
      *
-     * @param array $values An array of values for the form fields
+     * @param array  $values An array of values for the form fields
      * @param string $method The method for the form
      *
      * @return Form A Form instance
@@ -885,31 +882,31 @@ class Crawler implements \Countable, \IteratorAggregate
             }
 
             if (0 === strpos($expression, 'self::*/')) {
-                $expression = './' . substr($expression, 8);
+                $expression = './'.substr($expression, 8);
             }
 
             // add prefix before absolute element selector
             if (empty($expression)) {
                 $expression = $nonMatchingExpression;
             } elseif (0 === strpos($expression, '//')) {
-                $expression = 'descendant-or-self::' . substr($expression, 2);
+                $expression = 'descendant-or-self::'.substr($expression, 2);
             } elseif (0 === strpos($expression, './/')) {
-                $expression = 'descendant-or-self::' . substr($expression, 3);
+                $expression = 'descendant-or-self::'.substr($expression, 3);
             } elseif (0 === strpos($expression, './')) {
-                $expression = 'self::' . substr($expression, 2);
+                $expression = 'self::'.substr($expression, 2);
             } elseif (0 === strpos($expression, 'child::')) {
-                $expression = 'self::' . substr($expression, 7);
+                $expression = 'self::'.substr($expression, 7);
             } elseif ('/' === $expression[0] || '.' === $expression[0] || 0 === strpos($expression, 'self::')) {
                 $expression = $nonMatchingExpression;
             } elseif (0 === strpos($expression, 'descendant::')) {
-                $expression = 'descendant-or-self::' . substr($expression, strlen('descendant::'));
+                $expression = 'descendant-or-self::'.substr($expression, strlen('descendant::'));
             } elseif (preg_match('/^(ancestor|ancestor-or-self|attribute|following|following-sibling|namespace|parent|preceding|preceding-sibling)::/', $expression)) {
                 // the fake root has no parent, preceding or following nodes and also no attributes (even no namespace attributes)
                 $expression = $nonMatchingExpression;
             } elseif (0 !== strpos($expression, 'descendant-or-self::')) {
-                $expression = 'self::' . $expression;
+                $expression = 'self::'.$expression;
             }
-            $expressions[] = $parenthesis . $expression;
+            $expressions[] = $parenthesis.$expression;
         }
 
         return implode(' | ', $expressions);
@@ -945,7 +942,7 @@ class Crawler implements \Countable, \IteratorAggregate
 
     /**
      * @param \DOMElement $node
-     * @param string $siblingDir
+     * @param string      $siblingDir
      *
      * @return array
      */
@@ -964,7 +961,7 @@ class Crawler implements \Countable, \IteratorAggregate
 
     /**
      * @param \DOMDocument $document
-     * @param array $prefixes
+     * @param array        $prefixes
      *
      * @return \DOMXPath
      *
@@ -986,7 +983,7 @@ class Crawler implements \Countable, \IteratorAggregate
 
     /**
      * @param \DOMXPath $domxpath
-     * @param string $prefix
+     * @param string    $prefix
      *
      * @return string
      *

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -22,7 +23,7 @@ use Yii;
  * @property string $products_attributes_units_price
  * @property integer $quantity
  */
-class PartnersProductsAttributes extends \yii\db\ActiveRecord
+class PartnersProductsAttributes extends ActiveRecordExt
 {
     /**
      * @inheritdoc

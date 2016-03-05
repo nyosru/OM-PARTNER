@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 use common\models\User;
 
@@ -13,7 +14,7 @@ use common\models\User;
  * @property integer $user_id
  * @property resource $order
  */
-class PartnersOrders extends \yii\db\ActiveRecord
+class PartnersOrders extends ActiveRecordExt
 {
     /**
      * @inheritdoc

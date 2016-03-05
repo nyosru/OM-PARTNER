@@ -2,11 +2,14 @@
 
 namespace frontend\controllers\versions\vom;
 
+
 use common\traits\Categories_for_partner;
+use common\traits\CatPath;
 use common\traits\Fullopcat;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
+use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
 use common\traits\Reformat_cat_array;
 use common\traits\ThemeResources;
@@ -42,7 +45,7 @@ use frontend\controllers\actions\ActionRequestorders;
 use frontend\controllers\actions\ActionRequestPasswordReset;
 use frontend\controllers\actions\ActionResetPassword;
 use frontend\controllers\actions\ActionSavehtml;
-use frontend\controllers\actions\ActionSaveorder;
+use frontend\controllers\actions\om\ActionSaveorder;
 use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
 use frontend\controllers\actions\om\ActionSignup;
@@ -75,6 +78,8 @@ class GlavnayaController extends Controller
         ThemeResources,
         Hide_manufacturers_for_partners,
         OpenSearch,
+        CatPath,
+        ManufacturersDiapazonData,
         ActionSiteIndex,
         ActionSiteRequest,
         ActionSiteSearchword,

@@ -17,12 +17,12 @@ test('array good month', function (assert) {
 
 test('array bad date', function (assert) {
     var tests = [
-            moment([2010, 0, 0]),
-            moment([2100, 0, 32]),
-            moment.utc([2010, 0, 0]),
-            moment.utc([2100, 0, 32])
-        ],
-        i, m;
+        moment([2010, 0, 0]),
+        moment([2100, 0, 32]),
+        moment.utc([2010, 0, 0]),
+        moment.utc([2100, 0, 32])
+    ],
+    i, m;
 
     for (i in tests) {
         m = tests[i];
@@ -160,7 +160,7 @@ test('invalidAt', function (assert) {
     assert.equal(moment([2000, 12]).invalidAt(), 1, 'month 12 is invalid: 0-11');
     assert.equal(moment([2000, 1, 30]).invalidAt(), 2, '30 is not a valid february day');
     assert.equal(moment([2000, 1, 29, 25]).invalidAt(), 3, '25 is invalid hour');
-    assert.equal(moment([2000, 1, 29, 24, 1]).invalidAt(), 3, '24:01 is invalid hour');
+    assert.equal(moment([2000, 1, 29, 24,  1]).invalidAt(), 3, '24:01 is invalid hour');
     assert.equal(moment([2000, 1, 29, 23, 60]).invalidAt(), 4, '60 is invalid minute');
     assert.equal(moment([2000, 1, 29, 23, 59, 60]).invalidAt(), 5, '60 is invalid second');
     assert.equal(moment([2000, 1, 29, 23, 59, 59, 1000]).invalidAt(), 6, '1000 is invalid millisecond');

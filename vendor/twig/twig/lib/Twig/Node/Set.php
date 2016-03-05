@@ -54,7 +54,8 @@ class Twig_Node_Set extends Twig_Node
             if ($this->getAttribute('capture')) {
                 $compiler
                     ->write("ob_start();\n")
-                    ->subcompile($this->getNode('values'));
+                    ->subcompile($this->getNode('values'))
+                ;
             }
 
             $compiler->subcompile($this->getNode('names'), false);
@@ -82,7 +83,8 @@ class Twig_Node_Set extends Twig_Node
                     $compiler
                         ->raw("('' === \$tmp = ")
                         ->subcompile($this->getNode('values'))
-                        ->raw(") ? '' : new Twig_Markup(\$tmp, \$this->env->getCharset())");
+                        ->raw(") ? '' : new Twig_Markup(\$tmp, \$this->env->getCharset())")
+                    ;
                 } else {
                     $compiler->subcompile($this->getNode('values'));
                 }

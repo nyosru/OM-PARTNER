@@ -40,7 +40,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
         ?>
     </head>
-    <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; border-left:  1px  solid #CCC; border-right:  1px  solid #CCC;">
+    <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
     <?php $this->beginBody(); ?>
     <div class="wrap" >
         <?php
@@ -107,15 +107,17 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         }
                         ?>
                         <a class="top-link-cont-back" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
-                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
+                        <div class="top-link-cont" style="float: right; padding: 12px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
                     </div>
                 </div>
                 <div id="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
-                        <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
-                        <div class="btn btn-default data-j" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
+                        <form action="<?= BASEURL?>/catalog">
+                            <input autocomplete="off" id="search" name="searchword" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="text">
+                        <button class="btn btn-default data-j" type="submit" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
                             Найти
-                        </div>
+                        </button>
+                            </form>
                         <div class="" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                             <?
                             if(Yii::$app->user->isGuest){
@@ -126,7 +128,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                     'header' => 'Вход на Одежда-Мастер',
                                     'toggleButton' => ['label' => 'Вход', 'tag'=> 'a', 'style'=> 'float: left; margin: 4px; cursor:pointer;'],
                                 ]);
-                                $form = \yii\bootstrap\ActiveForm::begin(['id' => 'login-form']);
+                                $form = \yii\bootstrap\ActiveForm::begin([
+                                    'action' => BASEURL.'/login',
+                                    'id' => 'login-form'
+                                ]);
                                 echo $form->field($model, 'username', ['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->label('Электронная почта');
                                 echo $form->field($model, 'password',['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">'.Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']).'</span>') ;
                                 echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
@@ -155,11 +160,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <div class="result_search_word" style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
 
                     </div>
+<!--                    <div  id="partners-main-right" class="banner-cat"></div>-->
 
 
-                    <!--                    <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span-->
-                    <!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
-                </div>
+                       </div>
 
                 <div id="partners-main-right" class="bside">
 

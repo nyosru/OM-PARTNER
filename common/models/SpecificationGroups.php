@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -17,7 +18,7 @@ use Yii;
  * @property PartnersCategories[] $categories
  * @property Specifications[] $specifications
  */
-class SpecificationGroups extends \yii\db\ActiveRecord
+class SpecificationGroups extends ActiveRecordExt
 {
     /**
      * @inheritdoc

@@ -84,7 +84,7 @@ abstract class FormField
      */
     public function setValue($value)
     {
-        $this->value = (string)$value;
+        $this->value = (string) $value;
     }
 
     /**

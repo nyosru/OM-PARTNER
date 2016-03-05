@@ -45,8 +45,9 @@ function new_suburl($url_obj, $val, $new_var)
 
 
 
-
-
+//echo '<pre>';
+//print_r($date);
+//echo '</pre>';
 
 $start_url = Yii::$app->request->getQueryString();
 $url_data = split_url(str_replace('&amp;', '&', str_replace('%26', '&', $start_url)));
@@ -60,18 +61,23 @@ $sort = $url_data['sort'][1];
 $searchword = $url_data['searchword'][1];
 $url = BASEURL . '/catalog?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword;
 if ($data[0] != 'Не найдено!') {
+// echo '<pre>';
+//        print_r($data);
+//         echo '</pre>';
+//        die();
+
     $headbside = '';
     $headbside .= '<div id="partners-main-right" class="headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
-    if($catpath->num != 0){
-    foreach($catpath->num as $key => $catid) {
+    if($catpath['num'] != 0){
+    foreach($catpath['num'] as $key => $catid) {
         $menu = Menuom::widget(['property' => ['id' => 'in'.$catid, 'target' => $catid, 'opencat' => Yii::$app->params['layoutset']['opencat']]]);
         if ($menu != false) {
             echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
             echo '<div class="panel-heading" role="tab" style="border: medium none;" id="headingOne">';
             echo '<div class="panel-title" style="font-size: 14px;">';
             echo '<a class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
-            echo $catpath->name[$key] . '<i class="fa fa-caret-down" style="padding: 5px;"></i>';
+            echo $catpath['name'][$key] . '<i class="fa fa-caret-down" style="padding: 5px;"></i>';
             echo '</a>';
             echo '</div>';
             echo '</div>';
@@ -84,7 +90,7 @@ if ($data[0] != 'Не найдено!') {
             echo '<div class="panel-heading" style="border-bottom: medium none;  border-top-left-radius: 0px; color: #00A5A1;" role="tab" id="headingOne">';
             echo '<div class="panel-title" style="font-size: 14px;">';
             echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
-            echo $catpath->name[$key];
+            echo $catpath['name'][$key];
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -97,17 +103,17 @@ if ($data[0] != 'Не найдено!') {
         echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
         echo '<div class="panel-heading" style="border-bottom: medium none;  border-top-left-radius: 0px; color: #00A5A1;" role="tab" id="headingOne">';
         echo '<div class="panel-title" style="font-size: 14px;">';
-        echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catpath->num  . '" href="#collapseOne' . $catpath->num  . '" aria-expanded="true" aria-controls="collapseOne' . $catpath->num  . '">';
+        echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catpath['num']  . '" href="#collapseOne' . $catpath['num']  . '" aria-expanded="true" aria-controls="collapseOne' . $catpath['num']  . '">';
         echo 'Каталог';
         echo '</div>';
         echo '</div>';
         echo '</div>';
-        echo '<div style="" aria-expanded="false" id="collapseOne' . $catpath->num . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
+        echo '<div style="" aria-expanded="false" id="collapseOne' . $catpath['num'] . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
         echo '</div></div>';
     }
     echo '</div>';
-    if($catpath->num != 0) {
-        $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">' . end($catpath->name) . '</h3>';
+    if($catpath['num'] != 0) {
+        $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">' . end($catpath['name']) . '</h3>';
     }else{
         $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">Каталог</h3>';
     }
@@ -139,7 +145,7 @@ if ($data[0] != 'Не найдено!') {
 //        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
 //        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
 //    }
-    $countdisp = [20, 40, 60];
+    $countdisp = [48, 96, 144];
     $innercount = '';
     foreach ($countdisp as $key => $countdisp) {
         if ($countdisp == $count) {
@@ -184,10 +190,11 @@ if ($data[0] != 'Не найдено!') {
                 <form id="partners-main-right" class="filter" action="'.BASEURL.'/catalog">
                     <div class="panel panel-default">
                          <div class="filter-search" style="float: left; margin: 13px; font-size: 14px; width: 25%;">
-                            <input id="search" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 27px; float: left; width: 75%; font-size: 14px; line-height: 1; padding: 4px;" type="text">
-                        <div class="btn btn-default data-j" style="width: 25%; height: 27px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; left: -5px; margin-right: 0px; float: left; font-size: 14px; line-height: 0.9;">
+                         <form action="'.BASEURL.'/catalog?cat=0">
+                            <input id="search" autocomplite="off" name="searchword" class="no-shadow-form-control" placeholder="Введите артикул или название" style="color: rgb(119, 119, 119); height: 27px; float: left; width: 75%; font-size: 14px; line-height: 1; padding: 4px;" type="text">
+                        <button class="btn btn-default data-j" type="submit" style="width: 25%; height: 27px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; left: -5px; margin-right: 0px; float: left; font-size: 14px; line-height: 0.9;">
                             Найти
-                        </div></div>';
+                        </button></form></div>';
     $headbside .='<div class="filter-cart" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>';
 
     $headbside .='<div class="filter-auth" style="float: right; width: 25%; padding: 14px; font-size: 14px; font-weight: 300;">';
@@ -273,66 +280,97 @@ if ($data[0] != 'Не найдено!') {
     $innerhtml = '';
     foreach ($data[0] as $value) {
         $product = $value['products'];
+        $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
         $description = $value['productsDescription'];
         $attr_desc = $value['productsAttributesDescr'];
         $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
+// echo '<pre>';
+//        print_r($attr);
+//         echo '</pre>';
+
+
+
         ?>
 
         <?
         if (count($attr_desc) > 0) {
             foreach ($attr_desc as $key=>$attr_desc_value) {
+                if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
+                $classpos = 'active-options';
+                $add_class = 'add-count';
+                $del_class = 'del-count';
+                $inputpos = '';
+                $some_text = 0;
+                }else{
+                  $classpos = 'disable-options';
+                  $inputpos = 'readonly';
+                   $add_class = 'add-count-dis';
+                $del_class = 'del-count-dis';
+                $some_text = 'Нет';
+                }
                 if($key%2 ==0){
                     $class='border-right:1px solid #CCC';
                 }else{
                     $class='';
                 }
-                $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>'.
-                '<input  id="input-count"'.
+                $attr_html .= '<div class="'.$classpos.'" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
+                $attr_html .= '<input '.$inputpos.' id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
                 'data-name="'. htmlentities($description['products_name'])  .'"'.
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
+                'data-count="'. $attr[$attr_desc_value['products_options_values_id']]['quantity'].'"'.
                 'data-step="'. $product['products_quantity_order_units'].'"'.
                 'data-min="'. $product['products_quantity_order_min'].'"'.
                 'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
-                'placeholder="0"'.
-                'type="text">'.
-                '<div id="add-count" style="margin: 0px;line-height: 1.6;">'.
+                'placeholder="'.$some_text.'"'.
+                'type="text">';
+
+                $attr_html .= '<div id="'.$add_class.'" style="margin: 0px;line-height: 1.6;">'.
                 '+'.
                 '</div>'.
-                '<div id="del-count" style="margin: 0px;line-height: 1.6;">'.
+                '<div id="'.$del_class.'" style="margin: 0px;line-height: 1.6;">'.
                 '-'.
-                '</div>'.
-                '</div></div></div>';
+                '</div>';
+
+                $attr_html .='</div></div></div>';
             }
         } else {
-            $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'.
-                '<input  id="input-count"'.
+            $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>';
+                $attr_html .= '<input '.$inputpos.' id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
                 'data-model="'. $product['products_model'].'"'.
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
+                'data-count="'. $product['products_quantity'].'"'.
                 'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
                 'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
                 'data-name="'.  htmlentities($description['products_name'])  .'"'.
                  'data-step="'. $product['products_quantity_order_units'].'"'.
                 'data-min="'. $product['products_quantity_order_min'].'"'.
-                'placeholder="0"'.
-                'type="text">'.
-                '<div id="add-count" style="margin: 0px;line-height: 1.6;">'.
+               'placeholder="0"'.
+                'type="text">';
+                $attr_html .= '<div id="add-count" style="margin: 0px;line-height: 1.6;">'.
                 '+'.
                 '</div>'.
                 '<div id="del-count" style="margin: 0px;line-height: 1.6;">'.
                 '-'.
-                '</div>'.
-                '</div></div></div>';       }
+                '</div>';
+
+                $attr_html .=  '</div></div></div>';
+                }
         $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
+        if(count($attr)){
+         $options_name = 'Размеры';
+        }else{
+        $options_name = 'Количество';
+        }
 
         $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_image'] . '">' .
@@ -341,13 +379,13 @@ if ($data[0] != 'Не найдено!') {
             '<div style="display:none;" class="model">Артикул ' . $product['products_model'] . '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
-            '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $catpath->name)) . '</div>' .
+            '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $catpath['name'])) . '</div>' .
             '<div  itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">' .
             '<div style="font-size: 18px; font-weight: 500;" itemprop="price" >' . (integer)($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>' .
             '<div style="cursor:pointer">' .
-            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="' . $product['products_id'] . '">Размеры<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;"></i>'.
+            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="' . $product['products_id'] . '">'.$options_name.'<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;"></i>'.
             '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .
@@ -359,11 +397,17 @@ if ($data[0] != 'Не найдено!') {
     } elseif ($cat == 0) {
         $thistitle = 'Каталог';
     } else {
-        $thistitle = implode(', ', $catpath->name);
+        $thistitle = implode(', ', $catpath['name']);
     }
     $this->title = $thistitle . ' - ' . ($page + 1);
     echo $innerhtml;
-    echo '<div class="loader">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath->name).'</span></div>';
+    echo '<div class="loader-inner"><div class="loader"><div style="float: left; text-align: center; width: 100%;">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath['name']).'</span></div>'.
+    '</div><div style="text-align: center; width: 25%; float: left; margin: 10px 0px 0px;">'.
+    '<select id="control-load" style="background-color: rgba(255, 255, 255, 0);" class="no-shadow-form-control" name="control-load">'.
+    '<option value="manual">Ручная загрузка</option>'.
+    '<option value="auto">Автозагрузка</option>'.
+    '</select>'
+    .'</div></div>';
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
 
     if($data[1]>$count){
@@ -466,6 +510,20 @@ if ($data[0] != 'Не найдено!') {
         $('#filter-cont').addClass('in');
     }
     });
+
+
+//    $(document).on('click', '.filter > .panel  > a',  function(){
+//
+//    if($('#filter-cont').attr('class').indexOf('collapse in')+1) {
+//        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Показать фильтр </h4> </div>');
+//        $('#filter-cont').removeClass('in');
+//    }else{
+//        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Свернуть фильтр</h4> </div>');
+//        $(this).find(':first-child').addClass('no-border-bottom-rad');
+//        $('#filter-cont').addClass('in');
+//    }
+   // });
+
         $(document).on('click', '[class*=checkbox-overlay]', function(){
             $('[class*=checkbox-overlay]').removeClass('fa-check');
             $inputs=document.getElementsByClassName("checkbox-hidden-group");
@@ -475,16 +533,7 @@ if ($data[0] != 'Не найдено!') {
             $(this).children().prop('checked', true);
             $(this).addClass('fa-check');
         });
-    $(document).on('mouseover', '[data-vis="size-item-desc"]', function(){
-        $attr = this.getAttribute('data-vis-id');
-        $obj = $('[data-vis-id-card="'+$attr+'"]');
-        $obj.addClass('show');
-    });
-    $(document).on('mouseout', '[data-vis="size-item-desc"]', function(){
-        $attr = this.getAttribute('data-vis-id');
-        $obj = $('[data-vis-id-card="'+$attr+'"]');
-        $obj.removeClass('show')
-    });
+
 //    },1000).(function(){
 //
 //    }, 1000);

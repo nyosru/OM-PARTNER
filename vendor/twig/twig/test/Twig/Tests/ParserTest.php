@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 class Twig_Tests_ParserTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -106,7 +105,7 @@ class Twig_Tests_ParserTest extends PHPUnit_Framework_TestCase
     public function testFilterBodyNodesWithBOM()
     {
         $parser = $this->getParser();
-        $parser->filterBodyNodes(new Twig_Node_Text(chr(0xEF) . chr(0xBB) . chr(0xBF), 1));
+        $parser->filterBodyNodes(new Twig_Node_Text(chr(0xEF).chr(0xBB).chr(0xBF), 1));
     }
 
     public function testParseIsReentrant()

@@ -10,10 +10,8 @@ function createAdder(direction, name) {
         var dur, tmp;
         //invert the arguments, but complain about it
         if (period !== null && !isNaN(+period)) {
-            deprecateSimple(name, 'moment().' + name + '(period, number) is deprecated. Please use moment().' + name + '(number, period).');
-            tmp = val;
-            val = period;
-            period = tmp;
+            deprecateSimple(name, 'moment().' + name  + '(period, number) is deprecated. Please use moment().' + name + '(number, period).');
+            tmp = val; val = period; period = tmp;
         }
 
         val = typeof val === 'string' ? +val : val;
@@ -23,7 +21,7 @@ function createAdder(direction, name) {
     };
 }
 
-export function addSubtract(mom, duration, isAdding, updateOffset) {
+export function addSubtract (mom, duration, isAdding, updateOffset) {
     var milliseconds = duration._milliseconds,
         days = duration._days,
         months = duration._months;
@@ -49,6 +47,6 @@ export function addSubtract(mom, duration, isAdding, updateOffset) {
     }
 }
 
-export var add = createAdder(1, 'add');
+export var add      = createAdder(1, 'add');
 export var subtract = createAdder(-1, 'subtract');
 

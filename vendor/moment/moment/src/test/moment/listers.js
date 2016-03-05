@@ -32,9 +32,9 @@ test('localized', function (assert) {
         weekdaysMin = '1_2_3_4_5_6_7'.split('_');
 
     moment.locale('numerologists', {
-        months: months,
-        monthsShort: monthsShort,
-        weekdays: weekdays,
+        months : months,
+        monthsShort : monthsShort,
+        weekdays : weekdays,
         weekdaysShort: weekdaysShort,
         weekdaysMin: weekdaysMin
     });

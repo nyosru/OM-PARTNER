@@ -36,9 +36,9 @@ class Generic_Sniffs_ControlStructures_InlineControlStructureSniff implements PH
      * @var array
      */
     public $supportedTokenizers = array(
-        'PHP',
-        'JS',
-    );
+                                   'PHP',
+                                   'JS',
+                                  );
 
     /**
      * If true, an error will be thrown; otherwise a warning.
@@ -56,15 +56,15 @@ class Generic_Sniffs_ControlStructures_InlineControlStructureSniff implements PH
     public function register()
     {
         return array(
-            T_IF,
-            T_ELSE,
-            T_ELSEIF,
-            T_FOREACH,
-            T_WHILE,
-            T_DO,
-            T_SWITCH,
-            T_FOR,
-        );
+                T_IF,
+                T_ELSE,
+                T_ELSEIF,
+                T_FOREACH,
+                T_WHILE,
+                T_DO,
+                T_SWITCH,
+                T_FOR,
+               );
 
     }//end register()
 
@@ -73,7 +73,7 @@ class Generic_Sniffs_ControlStructures_InlineControlStructureSniff implements PH
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token in the
+     * @param int                  $stackPtr  The position of the current token in the
      *                                        stack passed in $tokens.
      *
      * @return void
@@ -113,7 +113,7 @@ class Generic_Sniffs_ControlStructures_InlineControlStructureSniff implements PH
             // the WHILE. We can detect this by checking only a single semicolon
             // is present between them.
             if ($phpcsFile->tokenizerType === 'JS') {
-                $lastDo = $phpcsFile->findPrevious(T_DO, ($stackPtr - 1));
+                $lastDo        = $phpcsFile->findPrevious(T_DO, ($stackPtr - 1));
                 $lastSemicolon = $phpcsFile->findPrevious(T_SEMICOLON, ($stackPtr - 1));
                 if ($lastDo !== false && $lastSemicolon !== false && $lastDo < $lastSemicolon) {
                     $precedingSemicolon = $phpcsFile->findPrevious(T_SEMICOLON, ($lastSemicolon - 1));
@@ -163,7 +163,7 @@ class Generic_Sniffs_ControlStructures_InlineControlStructureSniff implements PH
 
                 if (isset($tokens[$end]['scope_opener']) === true) {
                     $type = $tokens[$end]['code'];
-                    $end = $tokens[$end]['scope_closer'];
+                    $end  = $tokens[$end]['scope_closer'];
                     if ($type === T_DO || $type === T_IF || $type === T_ELSEIF) {
                         $next = $phpcsFile->findNext(PHP_CodeSniffer_Tokens::$emptyTokens, ($end + 1), null, true);
                         if ($next === false) {
@@ -174,9 +174,9 @@ class Generic_Sniffs_ControlStructures_InlineControlStructureSniff implements PH
 
                         // Let additional conditions loop and find their ending.
                         if (($type === T_IF
-                                || $type === T_ELSEIF)
+                            || $type === T_ELSEIF)
                             && ($nextType === T_ELSEIF
-                                || $nextType === T_ELSE)
+                            || $nextType === T_ELSE)
                         ) {
                             continue;
                         }

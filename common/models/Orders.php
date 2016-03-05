@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -74,7 +75,7 @@ use Yii;
  * @property string $orders_discont
  * @property string $orders_discont_comment
  */
-class Orders extends \yii\db\ActiveRecord
+class Orders extends ActiveRecordExt
 {
     /**
      * @inheritdoc
@@ -193,5 +194,16 @@ class Orders extends \yii\db\ActiveRecord
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
     }
-
+    public function getProductsSP()
+    {
+        return $this->hasMany(PartnersOrdersProductsSp::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
+    }
+    public function NumOrder()
+    {
+        $literaltyear = date('y',strtotime($this->date_purchased));
+        $literalchar = ['1'=>'A','2'=>'Б'];
+        $literalchar = $literalchar[$this->default_provider];
+        $literalnum = $this->buh_orders_id;
+        return $literaltyear.$literalchar.'-'.$literalnum;
+    }
 }

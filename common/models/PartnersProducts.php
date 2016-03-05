@@ -3,6 +3,7 @@
 namespace common\models;
 
 use app\api\core\productsdescription\ProductsDescription;
+use common\patch\ActiveRecordExt;
 use Yii;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsOptionVal;
@@ -47,7 +48,7 @@ use common\models\PartnersProductsDescription;
  * @property string $removable
 // * @property string $raschet_pribil
  */
-class PartnersProducts extends \yii\db\ActiveRecord
+class PartnersProducts extends ActiveRecordExt
 {
     /**
      * @inheritdoc
@@ -123,12 +124,12 @@ class PartnersProducts extends \yii\db\ActiveRecord
     }
     public function getProductsAttributes()
     {
-        return $this->hasOne(PartnersProductsAttributes::className(), ['products_id' => 'products_id']);
+        return $this->hasMany(PartnersProductsAttributes::className(), ['products_id' => 'products_id']);
     }
 
     public function getProductsAttributesDescr()
     {
-        return $this->hasOne(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
+        return $this->hasMany(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
     }
     public function getproductlist($cat)
     {

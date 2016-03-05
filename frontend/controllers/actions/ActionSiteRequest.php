@@ -1,8 +1,22 @@
 <?
+
+
+
+
 namespace frontend\controllers\actions;
 use common\models\PartnersProductsToCategories;
 use Yii;
 
+/**
+ * Class ActionSiteRequest
+ * @package frontend\controllers\actions
+ *
+ * IMPORTANT ALL LOGIC ADD TO ActionCatalog
+ *
+ * This status DEPRECATED
+ *
+ *
+ */
 trait ActionSiteRequest
 {
 
@@ -17,7 +31,7 @@ trait ActionSiteRequest
         $start_price = intval(Yii::$app->request->post('start_price', 0));
         $end_price = intval(Yii::$app->request->post('end_price', 1000000));
         $prod_attr_query = intval(Yii::$app->request->post('prod_attr_query', ''));
-        $count = intval(Yii::$app->request->post('count', 20));
+        $count = intval(Yii::$app->request->post('count', 48));
         $page = intval(Yii::$app->request->post('page', 0));
         $start_arr = intval($page * $count);
         $sort = intval(Yii::$app->request->post('sort', 10));
@@ -305,9 +319,8 @@ trait ActionSiteRequest
             if($cat_start == 0){
                 $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
             }else{
-                $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $cat_start . '&action=namenum'));
-            }
-            Yii::$app->params['layoutset']['opencat'] = $catpath->num;
+                $catpath = $this->Catpath($cat_start,'namenum');           }
+            Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
             return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath]);
 
         }

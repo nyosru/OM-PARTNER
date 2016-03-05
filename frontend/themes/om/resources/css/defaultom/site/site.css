@@ -16,7 +16,7 @@
         text-decoration: none
     }
 
-    #card, #index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
+    #card, #index-card-1, #index-card-2,  #index-card-4 {
         max-height: 300px;
     }
 
@@ -53,7 +53,7 @@
     .wrap > .container {
         padding: 0 15px 20px
     }
-    .no-shadow-form-control:hover{
+    .no-shadow-form-control:hover, .no-shadow-form-control:active, .no-shadow-form-control:focus, {
         box-shadow: none;
         transition: none;
         border-color: #66AFE9;
@@ -72,6 +72,39 @@
         border: 1px solid #CCC;
         border-radius: 4px;
     }
+    .index-icon-plate{
+        font-size: 14px;
+        font-weight: 300;
+        width: calc(100% / 5 - 10px);
+        margin: 0px 5px;
+        float: left;
+        padding: 4px 10px;
+    }
+    .index-icon-img {
+        float: left;
+        width: 60px;
+    }
+    .index-icon-title {
+    float: left;
+    margin: 0px;
+    padding: 0px 5px;
+    text-align: justify;
+    width: calc(100% - 60px);
+    }
+    .user-order-row > .panel-heading {
+        background: none;
+        border: none;
+    }
+    .user-order-row {
+        border: none;
+        background: none;
+        box-shadow: none;
+    }
+    .user-order-row > .panel-heading > h4{
+        font-weight: 300;
+        font-size: inherit;
+    }
+
     .footer {
         left: 0px;
         width: 100%;
@@ -92,7 +125,9 @@
         color: #c55;
         font-style: italic
     }
-
+    .user-order-table-row {
+        vertical-align: middle !important;
+    }
     a.asc:after, a.desc:after {
         position: relative;
         top: 1px;
@@ -210,16 +245,15 @@
         font-size: 14px
     }
     .loader {
-        width: calc(100% - 10px);
+        width: calc(75% - 10px);
         text-align: center;
         padding: 5px;
         border: 1px solid #CCC;
-        margin: 5px;
+        margin: 10px 5px 5px;
         cursor: pointer;
         border-radius: 4px;
         clear: both;
-        margin-top: 10px;
-        float: right;
+        float: left;
     }
     .submenu li {
         border-bottom: 1px solid #4b4a5e
@@ -235,6 +269,134 @@
     .submenu a:hover {
         background: #b63b4d;
         color: #FFF
+    }
+    .circular{
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 500em;
+        position: relative;
+        background: #FFF none repeat scroll 0% 0%;
+        box-shadow: 0px 1px 2px 0px rgba(34, 36, 38, 0.15);
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        font-size: 58px;
+        line-height: 1.5;
+        float: left;
+        margin: 30px 10px 0px 20px;
+    }
+    .circular-vk {
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 500em;
+        position: relative;
+        background: #7398BF none repeat scroll 0% 0%;
+        box-shadow: 0px 1px 2px 0px rgba(34, 36, 38, 0.15);
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        font-size: 45px;
+        line-height: 1.8;
+        float: left;
+        margin: 0px 10px 0px 20px;
+        color: #FFF;
+    }
+    .circular-ok {
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 500em;
+        position: relative;
+        background: #F2720C none repeat scroll 0% 0%;
+        box-shadow: 0px 1px 2px 0px rgba(34, 36, 38, 0.15);
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        font-size: 45px;
+        line-height: 1.8;
+        float: left;
+        margin: 0px 10px 0px 20px;
+        color: white;
+    }
+    .circular-vk:hover, .circular-vk:active , .circular-vk:focus   {
+        color: #FFF;
+        box-shadow: 1px 1px 30px rgb(204, 204, 204);
+    }
+    .circular-ok:hover, .circular-ok:active,  .circular-ok:focus  {
+        color: #FFF;
+        box-shadow: 1px 1px 30px rgb(204, 204, 204);
+    }
+    .circular-title{
+        display: block;
+        cursor: pointer;
+        text-align: left;
+        padding: 0px 45px 20px;
+        margin-left: 100px;
+        color: #00A5A1;
+    }
+    .circular-link{
+        cursor: pointer;
+        display: block;
+        text-align: left;
+        margin-left: 100px;
+        padding: 0px 45px;
+    }
+    .lk-order-status{
+        height: 100px;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px 30px;
+        width: calc(100% / 4 - 60px);
+    }
+    .lk-order-stat{
+        padding: 10px;
+        margin: 10px 30px;
+        width: calc(100% / 4 - 60px);
+    }
+    .lk-order-status > .item {
+        float: left;
+        width: 50%;
+        text-align: center;
+        font-size: 35px;
+        font-weight: 500;
+        color: #00A5A1;
+    }
+    .lk-order-status > .title {
+        float: right;
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 300;
+        padding: 5px;
+        color: #007BC1;
+    }
+    .lk-order-stat > .item {
+        float: left;
+        width: 100%;
+        text-align: center;
+        font-size: 35px;
+        font-weight: 500;
+        color: #00A5A1;
+    }
+    .lk-order-stat > .title {
+        float: right;
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 300;
+        padding: 5px;
+        color: #007BC1;
+    }
+    .first-sorter{
+        width: calc(100% / 9);
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-left: 1px solid #C9C6C6;
+    }
+    .last-sorter{
+        width: calc(100% / 3.8);
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
 
     .aside {
@@ -390,6 +552,7 @@
         float: left;
         height: 100%;
         width: 15%
+    box-sizing: content-box;
     }
 
     #partners-main-left {
@@ -405,7 +568,9 @@
         overflow: hidden;
         width:100%;
     }
+    .disable-options > .size-desc  > div > input{
 
+    }
     .partners-comp-main, .partners-comp-main:hover {
         margin: 3px;
         border-color: #E9F1F4 #D8DEE2 #D8DEE2
@@ -418,6 +583,8 @@
         position: relative;
         box-shadow: 10px 0px 20px -20px #000 inset;
         margin-left: 16.5%;
+        border-right: 1px solid rgb(204, 204, 204);
+        box-sizing: content-box;
     }
 
     #partners-main-right-back-admin {
@@ -569,7 +736,13 @@
     body, html {
         background: 0 center #F5F5F5
     }
-
+    .banner-cat {
+        float: none;
+        height: 100px !important;
+        border: 1px solid #CCC;
+        margin: 10px auto 0px;
+        width: 75%;
+    }
     #c10, #c20, #c30, #cback, #cfirst, #cforvard, #clast {
         float: left;
         box-shadow: 1px 2px 4px 0 #2A2A2A;
@@ -1499,7 +1672,27 @@
         height: 22px;
         line-height: 1.8;
     }
-
+    #add-count-dis, #del-count-dis {
+        margin: 0px 3px;
+        padding: 0px;
+        background: #CCC none repeat scroll 0px center;
+        font-weight: 600;
+        width: 22px;
+        height: 22px;
+        line-height: 1.8;
+    }
+    #add-count-dis {
+        float: right;
+        text-align: center;
+        color: #FFF;
+        border-radius: 3px;
+    }
+    #del-count-dis {
+        float: left;
+        text-align: center;
+        color: #FFF;
+        border-radius: 3px;
+    }
     #city-drop li, #country-drop li, #state-drop li {
         padding: 5px
     }
@@ -1529,7 +1722,9 @@
         background: 0 center #00a5a1;
         font-weight: 600;
     }
-
+    [data-vis="size-item-desc"]:hover  > [data-vis="size-item-card"]{
+       display:block
+    }
     #add-count {
         float: right;
         text-align: center;
@@ -2229,11 +2424,8 @@
     }
 
     #index-card-3 {
+        float:right;
         padding: 0;
-        height: 120px;
-        overflow: hidden;
-        min-height: 500px;
-        float: right;
         position: relative;
         cursor: pointer
     }
@@ -2261,18 +2453,12 @@
     #index-card-5 {
         float: left;
         padding: 0;
-        height: 120px;
-        overflow: hidden;
-        min-height: 330px;
         cursor: pointer
     }
 
     #index-card-6 {
         float: left;
         padding: 0;
-        overflow: hidden;
-        min-height: 160px;
-        height: 160px;
         cursor: pointer
     }
 
@@ -2751,7 +2937,7 @@
         margin: 0px 10px;
     }
     .banner-card{
-        background: #00a5a1 ;
+        
     }
 
     .navbredcrump {
@@ -2797,14 +2983,16 @@
         border-color: #00a5a1;
     }
 
-    @media screen and (min-width: 1860px) and ( max-width: 1920px){
-        #card{
+    /*@media screen and (min-width: 1860px) and ( max-width: 1921px){*/
+    @media screen and (min-width: 1860px){
+    #card{
             width: calc(100% / 6 - 10px);
         }
         .headerbside {
             width: calc(100% / 6 * 5 - 10px);
 
         }
+
         .filter {
             width: calc(100% / 6 - 10px);
 
@@ -2812,10 +3000,11 @@
         }
     }
 
-    @media screen and (min-width: 1560px) and ( max-width: 1860px){
+    @media screen and (min-width: 1560px) and ( max-width: 1870px){
         #card{
             width: calc(100% / 5 - 10px);
         }
+
         .headerbside {
             width: calc(100% / 5 * 4 - 10px);
 
@@ -2825,7 +3014,7 @@
 
         }
     }
-    @media screen and (min-width: 0px) and ( max-width: 1560px){
+    @media screen and (min-width: 0px) and ( max-width: 1559px){
         #card{
             width: calc(100% / 4 - 10px);
         }

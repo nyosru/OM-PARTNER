@@ -151,23 +151,23 @@ test('getters and setters', function (assert) {
 test('getters', function (assert) {
     var a = moment.utc([2012, 0, 1, 0, 0, 0]);
 
-    assert.equal(a.clone().zone(120).year(), 2011, 'should get year correctly');
-    assert.equal(a.clone().zone(120).month(), 11, 'should get month correctly');
-    assert.equal(a.clone().zone(120).date(), 31, 'should get date correctly');
-    assert.equal(a.clone().zone(120).hour(), 22, 'should get hour correctly');
-    assert.equal(a.clone().zone(120).minute(), 0, 'should get minute correctly');
+    assert.equal(a.clone().zone(120).year(),  2011, 'should get year correctly');
+    assert.equal(a.clone().zone(120).month(),   11, 'should get month correctly');
+    assert.equal(a.clone().zone(120).date(),    31, 'should get date correctly');
+    assert.equal(a.clone().zone(120).hour(),    22, 'should get hour correctly');
+    assert.equal(a.clone().zone(120).minute(),   0, 'should get minute correctly');
 
-    assert.equal(a.clone().zone(-120).year(), 2012, 'should get year correctly');
-    assert.equal(a.clone().zone(-120).month(), 0, 'should get month correctly');
-    assert.equal(a.clone().zone(-120).date(), 1, 'should get date correctly');
-    assert.equal(a.clone().zone(-120).hour(), 2, 'should get hour correctly');
-    assert.equal(a.clone().zone(-120).minute(), 0, 'should get minute correctly');
+    assert.equal(a.clone().zone(-120).year(),  2012, 'should get year correctly');
+    assert.equal(a.clone().zone(-120).month(),    0, 'should get month correctly');
+    assert.equal(a.clone().zone(-120).date(),     1, 'should get date correctly');
+    assert.equal(a.clone().zone(-120).hour(),     2, 'should get hour correctly');
+    assert.equal(a.clone().zone(-120).minute(),   0, 'should get minute correctly');
 
-    assert.equal(a.clone().zone(-90).year(), 2012, 'should get year correctly');
-    assert.equal(a.clone().zone(-90).month(), 0, 'should get month correctly');
-    assert.equal(a.clone().zone(-90).date(), 1, 'should get date correctly');
-    assert.equal(a.clone().zone(-90).hour(), 1, 'should get hour correctly');
-    assert.equal(a.clone().zone(-90).minute(), 30, 'should get minute correctly');
+    assert.equal(a.clone().zone(-90).year(),  2012, 'should get year correctly');
+    assert.equal(a.clone().zone(-90).month(),    0, 'should get month correctly');
+    assert.equal(a.clone().zone(-90).date(),     1, 'should get date correctly');
+    assert.equal(a.clone().zone(-90).hour(),     1, 'should get hour correctly');
+    assert.equal(a.clone().zone(-90).minute(),  30, 'should get minute correctly');
 });
 
 test('from', function (assert) {
@@ -218,9 +218,9 @@ test('unix offset and timestamp', function (assert) {
 });
 
 test('cloning', function (assert) {
-    assert.equal(moment().zone(120).clone().zone(), 120, 'explicit cloning should retain the zone');
+    assert.equal(moment().zone(120).clone().zone(),   120, 'explicit cloning should retain the zone');
     assert.equal(moment().zone(-120).clone().zone(), -120, 'explicit cloning should retain the zone');
-    assert.equal(moment(moment().zone(120)).zone(), 120, 'implicit cloning should retain the zone');
+    assert.equal(moment(moment().zone(120)).zone(),   120, 'implicit cloning should retain the zone');
     assert.equal(moment(moment().zone(-120)).zone(), -120, 'implicit cloning should retain the zone');
 });
 
@@ -239,7 +239,7 @@ test('start of / end of', function (assert) {
 test('reset zone with moment#utc', function (assert) {
     var a = moment.utc([2012]).zone(480);
 
-    assert.equal(a.clone().hour(), 16, 'different zone should have different hour');
+    assert.equal(a.clone().hour(),      16, 'different zone should have different hour');
     assert.equal(a.clone().utc().hour(), 0, 'calling moment#utc should reset the offset');
 });
 
@@ -340,8 +340,8 @@ test('isDST', function (assert) {
         }
     };
 
-    assert.ok(!moment().month(0).isDST(), 'Jan should not be summer dst');
-    assert.ok(moment().month(6).isDST(), 'Jul should be summer dst');
+    assert.ok(!moment().month(0).isDST(),  'Jan should not be summer dst');
+    assert.ok(moment().month(6).isDST(),   'Jul should be summer dst');
     assert.ok(!moment().month(11).isDST(), 'Dec should not be summer dst');
 
     moment.updateOffset = function (mom) {
@@ -352,7 +352,7 @@ test('isDST', function (assert) {
         }
     };
 
-    assert.ok(moment().month(0).isDST(), 'Jan should be winter dst');
+    assert.ok(moment().month(0).isDST(),  'Jan should be winter dst');
     assert.ok(!moment().month(6).isDST(), 'Jul should not be winter dst');
     assert.ok(moment().month(11).isDST(), 'Dec should be winter dst');
 
@@ -360,14 +360,14 @@ test('isDST', function (assert) {
 });
 
 test('zone names', function (assert) {
-    assert.equal(moment().zoneAbbr(), '', 'Local zone abbr should be empty');
-    assert.equal(moment().format('z'), '', 'Local zone formatted abbr should be empty');
-    assert.equal(moment().zoneName(), '', 'Local zone name should be empty');
+    assert.equal(moment().zoneAbbr(),   '', 'Local zone abbr should be empty');
+    assert.equal(moment().format('z'),  '', 'Local zone formatted abbr should be empty');
+    assert.equal(moment().zoneName(),   '', 'Local zone name should be empty');
     assert.equal(moment().format('zz'), '', 'Local zone formatted name should be empty');
 
-    assert.equal(moment.utc().zoneAbbr(), 'UTC', 'UTC zone abbr should be UTC');
-    assert.equal(moment.utc().format('z'), 'UTC', 'UTC zone formatted abbr should be UTC');
-    assert.equal(moment.utc().zoneName(), 'Coordinated Universal Time', 'UTC zone abbr should be Coordinated Universal Time');
+    assert.equal(moment.utc().zoneAbbr(),   'UTC', 'UTC zone abbr should be UTC');
+    assert.equal(moment.utc().format('z'),  'UTC', 'UTC zone formatted abbr should be UTC');
+    assert.equal(moment.utc().zoneName(),   'Coordinated Universal Time', 'UTC zone abbr should be Coordinated Universal Time');
     assert.equal(moment.utc().format('zz'), 'Coordinated Universal Time', 'UTC zone formatted abbr should be Coordinated Universal Time');
 });
 

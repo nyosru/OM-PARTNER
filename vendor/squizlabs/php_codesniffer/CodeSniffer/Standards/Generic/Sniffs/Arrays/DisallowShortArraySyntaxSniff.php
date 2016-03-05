@@ -43,7 +43,7 @@ class Generic_Sniffs_Arrays_DisallowShortArraySyntaxSniff implements PHP_CodeSni
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token
+     * @param int                  $stackPtr  The position of the current token
      *                                        in the stack passed in $tokens.
      *
      * @return void
@@ -53,7 +53,7 @@ class Generic_Sniffs_Arrays_DisallowShortArraySyntaxSniff implements PHP_CodeSni
         $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'yes');
 
         $error = 'Short array syntax is not allowed';
-        $fix = $phpcsFile->addFixableError($error, $stackPtr, 'Found');
+        $fix   = $phpcsFile->addFixableError($error, $stackPtr, 'Found');
 
         if ($fix === true) {
             $tokens = $phpcsFile->getTokens();

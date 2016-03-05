@@ -3,7 +3,7 @@ import moment from '../../moment';
 
 module('parsing flags');
 
-function flags() {
+function flags () {
     return moment.apply(null, arguments).parsingFlags();
 }
 
@@ -62,7 +62,7 @@ test('overflow without format', function (assert) {
 
     //days
     assert.equal(flags('2010-01-16', 'YYYY-MM-DD').overflow, -1, 'date 16 valid');
-    assert.equal(flags('2010-01-0', 'YYYY-MM-DD').overflow, 2, 'date 0 invalid');
+    assert.equal(flags('2010-01-0',  'YYYY-MM-DD').overflow, 2, 'date 0 invalid');
     assert.equal(flags('2010-01-32', 'YYYY-MM-DD').overflow, 2, 'date 32 invalid');
     assert.equal(flags('2012-02-29', 'YYYY-MM-DD').overflow, -1, 'date leap year valid');
     assert.equal(flags('2010-02-29', 'YYYY-MM-DD').overflow, 2, 'date leap year invalid');

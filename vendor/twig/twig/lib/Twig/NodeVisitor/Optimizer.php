@@ -128,7 +128,7 @@ class Twig_NodeVisitor_Optimizer extends Twig_BaseNodeVisitor
      *   * "echo $this->render(Parent)Block()" with "$this->display(Parent)Block()"
      *
      * @param Twig_NodeInterface $node A Node
-     * @param Twig_Environment $env The current Twig environment
+     * @param Twig_Environment   $env  The current Twig environment
      *
      * @return Twig_NodeInterface
      */
@@ -154,7 +154,7 @@ class Twig_NodeVisitor_Optimizer extends Twig_BaseNodeVisitor
      * Removes "raw" filters.
      *
      * @param Twig_NodeInterface $node A Node
-     * @param Twig_Environment $env The current Twig environment
+     * @param Twig_Environment   $env  The current Twig environment
      *
      * @return Twig_NodeInterface
      */
@@ -171,7 +171,7 @@ class Twig_NodeVisitor_Optimizer extends Twig_BaseNodeVisitor
      * Optimizes "for" tag by removing the "loop" variable creation whenever possible.
      *
      * @param Twig_NodeInterface $node A Node
-     * @param Twig_Environment $env The current Twig environment
+     * @param Twig_Environment   $env  The current Twig environment
      */
     protected function enterOptimizeFor(Twig_NodeInterface $node, Twig_Environment $env)
     {
@@ -192,33 +192,43 @@ class Twig_NodeVisitor_Optimizer extends Twig_BaseNodeVisitor
         elseif ($node instanceof Twig_Node_Expression_Name && 'loop' === $node->getAttribute('name')) {
             $node->setAttribute('always_defined', true);
             $this->addLoopToCurrent();
-        } // optimize access to loop targets
+        }
+
+        // optimize access to loop targets
         elseif ($node instanceof Twig_Node_Expression_Name && in_array($node->getAttribute('name'), $this->loopsTargets)) {
             $node->setAttribute('always_defined', true);
-        } // block reference
+        }
+
+        // block reference
         elseif ($node instanceof Twig_Node_BlockReference || $node instanceof Twig_Node_Expression_BlockReference) {
             $this->addLoopToCurrent();
-        } // include without the only attribute
+        }
+
+        // include without the only attribute
         elseif ($node instanceof Twig_Node_Include && !$node->getAttribute('only')) {
             $this->addLoopToAll();
-        } // include function without the with_context=false parameter
+        }
+
+        // include function without the with_context=false parameter
         elseif ($node instanceof Twig_Node_Expression_Function
             && 'include' === $node->getAttribute('name')
             && (!$node->getNode('arguments')->hasNode('with_context')
-                || false !== $node->getNode('arguments')->getNode('with_context')->getAttribute('value')
-            )
+                 || false !== $node->getNode('arguments')->getNode('with_context')->getAttribute('value')
+               )
         ) {
             $this->addLoopToAll();
-        } // the loop variable is referenced via an attribute
+        }
+
+        // the loop variable is referenced via an attribute
         elseif ($node instanceof Twig_Node_Expression_GetAttr
             && (!$node->getNode('attribute') instanceof Twig_Node_Expression_Constant
                 || 'parent' === $node->getNode('attribute')->getAttribute('value')
-            )
+               )
             && (true === $this->loops[0]->getAttribute('with_loop')
                 || ($node->getNode('node') instanceof Twig_Node_Expression_Name
                     && 'loop' === $node->getNode('node')->getAttribute('name')
-                )
-            )
+                   )
+               )
         ) {
             $this->addLoopToAll();
         }
@@ -228,7 +238,7 @@ class Twig_NodeVisitor_Optimizer extends Twig_BaseNodeVisitor
      * Optimizes "for" tag by removing the "loop" variable creation whenever possible.
      *
      * @param Twig_NodeInterface $node A Node
-     * @param Twig_Environment $env The current Twig environment
+     * @param Twig_Environment   $env  The current Twig environment
      */
     protected function leaveOptimizeFor(Twig_NodeInterface $node, Twig_Environment $env)
     {

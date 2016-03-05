@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 use common\models\PartnersProducts;
 /**
@@ -11,7 +12,7 @@ use common\models\PartnersProducts;
  * @property string $categories_id
  * @property string $old_categories_id
  */
-class PartnersProductsToCategories extends \yii\db\ActiveRecord
+class PartnersProductsToCategories extends ActiveRecordExt
 {
     /**
      * @inheritdoc

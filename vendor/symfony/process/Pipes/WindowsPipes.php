@@ -40,7 +40,7 @@ class WindowsPipes extends AbstractPipes
 
     public function __construct($disableOutput, $input)
     {
-        $this->disableOutput = (bool)$disableOutput;
+        $this->disableOutput = (bool) $disableOutput;
 
         if (!$this->disableOutput) {
             // Fix for PHP bug #51800: reading from STDOUT pipe hangs forever on Windows if the output is too big.
@@ -143,7 +143,7 @@ class WindowsPipes extends AbstractPipes
      */
     public function areOpen()
     {
-        return (bool)$this->pipes && (bool)$this->fileHandles;
+        return (bool) $this->pipes && (bool) $this->fileHandles;
     }
 
     /**
@@ -237,7 +237,7 @@ class WindowsPipes extends AbstractPipes
             while (strlen($this->inputBuffer)) {
                 $written = fwrite($w[0], $this->inputBuffer, 2 << 18);
                 if ($written > 0) {
-                    $this->inputBuffer = (string)substr($this->inputBuffer, $written);
+                    $this->inputBuffer = (string) substr($this->inputBuffer, $written);
                 } else {
                     break;
                 }

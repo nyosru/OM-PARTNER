@@ -36,9 +36,9 @@ class Generic_Sniffs_Commenting_FixmeSniff implements PHP_CodeSniffer_Sniff
      * @var array
      */
     public $supportedTokenizers = array(
-        'PHP',
-        'JS',
-    );
+                                   'PHP',
+                                   'JS',
+                                  );
 
 
     /**
@@ -57,7 +57,7 @@ class Generic_Sniffs_Commenting_FixmeSniff implements PHP_CodeSniffer_Sniff
      * Processes this sniff, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token
+     * @param int                  $stackPtr  The position of the current token
      *                                        in the stack passed in $tokens.
      *
      * @return void
@@ -72,13 +72,13 @@ class Generic_Sniffs_Commenting_FixmeSniff implements PHP_CodeSniffer_Sniff
         if (empty($matches) === false) {
             // Clear whitespace and some common characters not required at
             // the end of a fixme message to make the error more informative.
-            $type = 'CommentFound';
+            $type         = 'CommentFound';
             $fixmeMessage = trim($matches[1]);
             $fixmeMessage = trim($fixmeMessage, '-:[](). ');
-            $error = 'Comment refers to a FIXME task';
-            $data = array($fixmeMessage);
+            $error        = 'Comment refers to a FIXME task';
+            $data         = array($fixmeMessage);
             if ($fixmeMessage !== '') {
-                $type = 'TaskFound';
+                $type   = 'TaskFound';
                 $error .= ' "%s"';
             }
 

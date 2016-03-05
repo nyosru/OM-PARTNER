@@ -7,7 +7,7 @@ module('days in month');
 test('days in month', function (assert) {
     each([31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], function (days, i) {
         var firstDay = moment([2012, i]),
-            lastDay = moment([2012, i, days]);
+            lastDay  = moment([2012, i, days]);
         assert.equal(firstDay.daysInMonth(), days, firstDay.format('L') + ' should have ' + days + ' days.');
         assert.equal(lastDay.daysInMonth(), days, lastDay.format('L') + ' should have ' + days + ' days.');
     });
