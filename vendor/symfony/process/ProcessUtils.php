@@ -54,7 +54,7 @@ class ProcessUtils
                     $escapedArgument .= '\\"';
                 } elseif (self::isSurroundedBy($part, '%')) {
                     // Avoid environment variable expansion
-                    $escapedArgument .= '^%"' . substr($part, 1, -1) . '"^%';
+                    $escapedArgument .= '^%"'.substr($part, 1, -1).'"^%';
                 } else {
                     // escape trailing backslash
                     if ('\\' === substr($part, -1)) {
@@ -65,7 +65,7 @@ class ProcessUtils
                 }
             }
             if ($quote) {
-                $escapedArgument = '"' . $escapedArgument . '"';
+                $escapedArgument = '"'.$escapedArgument.'"';
             }
 
             return $escapedArgument;
@@ -78,7 +78,7 @@ class ProcessUtils
      * Validates and normalizes a Process input.
      *
      * @param string $caller The name of method call that validates the input
-     * @param mixed $input The input to validate
+     * @param mixed  $input  The input to validate
      *
      * @return string The validated input
      *
@@ -91,7 +91,7 @@ class ProcessUtils
                 return $input;
             }
             if (is_scalar($input)) {
-                return (string)$input;
+                return (string) $input;
             }
 
             throw new InvalidArgumentException(sprintf('%s only accepts strings or stream resources.', $caller));

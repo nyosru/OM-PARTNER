@@ -9,7 +9,7 @@ $(document).on('ready', function () {
     //$("body,html").animate({"scrollTop": 0}, scrollTime);
     $amount_prod = 0;
     $cart_price = 0;
-    $innerhtml = '<form action="<?= BASEURL;?>/takeorder" method="post"><input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" /><div class="cart-top" style="width: 100%;height:40px;">Товары в моей корзине</div><div class="cart-column1" style="width: 48%;min-width: 500px;float:left;border:1px solid #ccc; border-radius: 4px; margin-right: 5px;">';
+    $innerhtml = '<form action="<?= BASEURL;?>/saveorder" method="post"><input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" /><div class="cart-top" style="width: 100%;height:40px;">Товары в моей корзине</div><div class="cart-column1" style="width: 48%;min-width: 500px;float:left;border:1px solid #ccc; border-radius: 4px; margin-right: 5px;">';
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         $item = JSON.parse(localStorage.getItem('cart-om'));
         $i = $item.cart;
@@ -83,7 +83,7 @@ $(document).ready(function () {
                     $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
                 }
             });
-            $('.ship').html('<div class="shipping">Cпособ доставки <select  id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
+            $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
             $('.cart-auth').remove();
             $.post(
                 "/site/paymentmethod",
@@ -95,7 +95,7 @@ $(document).ready(function () {
                                 $inht += '<option class="shipping-confirm-option" value="' + this.name + '">' + this.name + '</option>';
                             }
                         });
-                        $('.ship').append('<div class="shipping">Cпособ оплаты <select  id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
+                        $('.ship').append('<div class="shipping">Cпособ оплаты <select  name="ship" id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
                     } else {
                         $('.ship').append('<div class="userinfo"></div>');
 

@@ -1,22 +1,10 @@
 <?php
+
+use common\models\Partners;
+use common\models\PartnersSettings;
 set_time_limit ( 800 );
-//set_error_handler('err_handler');
-//function err_handler($errno, $errmsg, $filename, $linenum) {
-//    $date = date('Y-m-d H:i:s (T)');
-//    $f = fopen('errors.txt', 'a');
-//    if (!empty($f)) {
-//        $filename  =str_replace($_SERVER['DOCUMENT_ROOT'],'',$filename);
-//        $err  = "$errmsg = $filename = $linenum\r\n";
-//        fwrite($f, $err);
-//        fclose($f);
-//    }
-//}
-//if ($_GET['adm'] == 'st') {
-//
-//} else {
-//    echo '<div style="position: absolute; left: 50%; top: 50%; margin: -10px -10%;">САЙТ НА ТЕХНИЧЕСКОМ ОБСЛУЖИВАНИИ</div>';
-//    die();
-//}
+date_default_timezone_set('Europe/Moscow');
+
 ob_start("ob_gzhandler");
 defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
@@ -34,7 +22,6 @@ $versions = require(__DIR__ . '/../config/versions.php');
 
 $application = new yii\web\Application($config);
 
-use common\models\Partners;
 
 
         $run = new Partners();
@@ -92,7 +79,7 @@ $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
 $application->params['constantapp']['APP_VERSION'] = $version;
 
-use common\models\PartnersSettings;
+
 class LoadTraitIndex
 {
     use \common\traits\ThemeResources;
@@ -126,4 +113,5 @@ $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
 $application->run();
+
 ob_end_flush();

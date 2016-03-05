@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use yii;
 use yii\base\InvalidCallException;
 use yii\db\ActiveRecord;
@@ -28,7 +29,7 @@ use yii\helpers\Json;
  * @property SpecificationGroups $specificationGroup
  * @property SpecificationValues $specificationValues
  */
-class Specifications extends ActiveRecord
+class Specifications extends ActiveRecordExt
 {
 
     public static function tableName()

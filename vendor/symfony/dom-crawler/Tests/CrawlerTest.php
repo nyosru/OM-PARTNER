@@ -114,7 +114,7 @@ class CrawlerTest extends \PHPUnit_Framework_TestCase
     public function testAddHtmlContentUnsupportedCharset()
     {
         $crawler = new Crawler();
-        $crawler->addHtmlContent(file_get_contents(__DIR__ . '/Fixtures/windows-1250.html'), 'Windows-1250');
+        $crawler->addHtmlContent(file_get_contents(__DIR__.'/Fixtures/windows-1250.html'), 'Windows-1250');
 
         $this->assertEquals('Žťčýů', $crawler->filterXPath('//p')->text());
     }
@@ -136,7 +136,7 @@ class CrawlerTest extends \PHPUnit_Framework_TestCase
         $internalErrors = libxml_use_internal_errors(true);
 
         $crawler = new Crawler();
-        $crawler->addHtmlContent(<<<EOF
+        $crawler->addHtmlContent(<<<'EOF'
 <!DOCTYPE html>
 <html>
     <head>
@@ -146,7 +146,7 @@ class CrawlerTest extends \PHPUnit_Framework_TestCase
     </body>
 </html>
 EOF
-            , 'UTF-8');
+        , 'UTF-8');
 
         $errors = libxml_get_errors();
         $this->assertCount(1, $errors);
@@ -177,7 +177,7 @@ EOF
         $internalErrors = libxml_use_internal_errors(true);
 
         $crawler = new Crawler();
-        $crawler->addXmlContent(<<<EOF
+        $crawler->addXmlContent(<<<'EOF'
 <!DOCTYPE html>
 <html>
     <head>
@@ -187,7 +187,7 @@ EOF
     </body>
 </html>
 EOF
-            , 'UTF-8');
+        , 'UTF-8');
 
         $this->assertTrue(count(libxml_get_errors()) > 1);
 
@@ -290,7 +290,7 @@ EOF
     public function testEach()
     {
         $data = $this->createTestCrawler()->filterXPath('//ul[1]/li')->each(function ($node, $i) {
-            return $i . '-' . $node->text();
+            return $i.'-'.$node->text();
         });
 
         $this->assertEquals(array('0-One', '1-Two', '2-Three'), $data, '->each() executes an anonymous function on each node of the list');
@@ -677,7 +677,7 @@ EOF
 
     public function testSelectButtonWithSingleQuotesInNameAttribute()
     {
-        $html = <<<HTML
+        $html = <<<'HTML'
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -698,7 +698,7 @@ HTML;
 
     public function testSelectButtonWithDoubleQuotesInNameAttribute()
     {
-        $html = <<<HTML
+        $html = <<<'HTML'
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -757,7 +757,7 @@ HTML;
 
     public function testSelectLinkAndLinkFiltered()
     {
-        $html = <<<HTML
+        $html = <<<'HTML'
 <!DOCTYPE html>
 <html lang="en">
 <body>
@@ -968,7 +968,7 @@ HTML;
      */
     public function testBaseTag($baseValue, $linkValue, $expectedUri, $currentUri = null, $description = null)
     {
-        $crawler = new Crawler('<html><base href="' . $baseValue . '"><a href="' . $linkValue . '"></a></html>', $currentUri);
+        $crawler = new Crawler('<html><base href="'.$baseValue.'"><a href="'.$linkValue.'"></a></html>', $currentUri);
         $this->assertEquals($expectedUri, $crawler->filterXPath('//a')->link()->getUri(), $description);
     }
 
@@ -988,7 +988,7 @@ HTML;
      */
     public function testBaseTagWithForm($baseValue, $actionValue, $expectedUri, $currentUri = null, $description = null)
     {
-        $crawler = new Crawler('<html><base href="' . $baseValue . '"><form method="post" action="' . $actionValue . '"><button type="submit" name="submit"/></form></html>', $currentUri);
+        $crawler = new Crawler('<html><base href="'.$baseValue.'"><form method="post" action="'.$actionValue.'"><button type="submit" name="submit"/></form></html>', $currentUri);
         $this->assertEquals($expectedUri, $crawler->filterXPath('//button')->form()->getUri(), $description);
     }
 

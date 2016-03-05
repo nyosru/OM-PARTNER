@@ -4,8 +4,7 @@ import moment from '../../moment';
 module('is moment');
 
 test('is moment object', function (assert) {
-    var MyObj = function () {
-        },
+    var MyObj = function () {},
         extend = function (a, b) {
             var i;
             for (i in b) {

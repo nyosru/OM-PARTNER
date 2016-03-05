@@ -54,9 +54,9 @@ class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP
     public function register()
     {
         return array(
-            T_FUNCTION,
-            T_CLOSURE,
-        );
+                T_FUNCTION,
+                T_CLOSURE,
+               );
 
     }//end register()
 
@@ -65,7 +65,7 @@ class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token in the
+     * @param int                  $stackPtr  The position of the current token in the
      *                                        stack passed in $tokens.
      *
      * @return void
@@ -79,9 +79,9 @@ class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP
         }
 
         if (($tokens[$stackPtr]['code'] === T_FUNCTION
-                && (bool)$this->checkFunctions === false)
+            && (bool) $this->checkFunctions === false)
             || ($tokens[$stackPtr]['code'] === T_CLOSURE
-                && (bool)$this->checkClosures === false)
+            && (bool) $this->checkClosures === false)
         ) {
             return;
         }
@@ -91,19 +91,19 @@ class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP
         if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
             $use = $phpcsFile->findNext(T_USE, ($closeBracket + 1), $tokens[$stackPtr]['scope_opener']);
             if ($use !== false) {
-                $openBracket = $phpcsFile->findNext(T_OPEN_PARENTHESIS, ($use + 1));
+                $openBracket  = $phpcsFile->findNext(T_OPEN_PARENTHESIS, ($use + 1));
                 $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
             }
         }
 
         $functionLine = $tokens[$closeBracket]['line'];
-        $braceLine = $tokens[$openingBrace]['line'];
+        $braceLine    = $tokens[$openingBrace]['line'];
 
         $lineDifference = ($braceLine - $functionLine);
 
         if ($lineDifference === 0) {
             $error = 'Opening brace should be on a new line';
-            $fix = $phpcsFile->addFixableError($error, $openingBrace, 'BraceOnSameLine');
+            $fix   = $phpcsFile->addFixableError($error, $openingBrace, 'BraceOnSameLine');
             if ($fix === true) {
                 $phpcsFile->fixer->beginChangeset();
                 $indent = $phpcsFile->findFirstOnLine(array(), $openingBrace);
@@ -118,8 +118,8 @@ class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP
             $phpcsFile->recordMetric($stackPtr, 'Function opening brace placement', 'same line');
         } else if ($lineDifference > 1) {
             $error = 'Opening brace should be on the line after the declaration; found %s blank line(s)';
-            $data = array(($lineDifference - 1));
-            $fix = $phpcsFile->addFixableError($error, $openingBrace, 'BraceSpacing', $data);
+            $data  = array(($lineDifference - 1));
+            $fix   = $phpcsFile->addFixableError($error, $openingBrace, 'BraceSpacing', $data);
             if ($fix === true) {
                 for ($i = ($tokens[$stackPtr]['parenthesis_closer'] + 1); $i < $openingBrace; $i++) {
                     if ($tokens[$i]['line'] === $braceLine) {
@@ -140,7 +140,7 @@ class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP
             }
 
             $error = 'Opening brace must be the last content on the line';
-            $fix = $phpcsFile->addFixableError($error, $openingBrace, 'ContentAfterBrace');
+            $fix   = $phpcsFile->addFixableError($error, $openingBrace, 'ContentAfterBrace');
             if ($fix === true) {
                 $phpcsFile->fixer->addNewline($openingBrace);
             }
@@ -164,13 +164,13 @@ class Generic_Sniffs_Functions_OpeningFunctionBraceBsdAllmanSniff implements PHP
 
         if ($braceIndent !== $startColumn) {
             $expected = ($startColumn - 1);
-            $found = ($braceIndent - 1);
+            $found    = ($braceIndent - 1);
 
             $error = 'Opening brace indented incorrectly; expected %s spaces, found %s';
-            $data = array(
-                $expected,
-                $found,
-            );
+            $data  = array(
+                      $expected,
+                      $found,
+                     );
 
             $fix = $phpcsFile->addFixableError($error, $openingBrace, 'BraceIndent', $data);
             if ($fix === true) {

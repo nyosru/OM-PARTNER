@@ -6,10 +6,9 @@ test('parse', function (assert) {
     var tests = 'ဇန်နဝါရီ ဇန်_ဖေဖော်ဝါရီ ဖေ_မတ် မတ်_ဧပြီ ပြီ_မေ မေ_ဇွန် ဇွန်_ဇူလိုင် လိုင်_သြဂုတ် သြ_စက်တင်ဘာ စက်_အောက်တိုဘာ အောက်_နိုဝင်ဘာ နို_ဒီဇင်ဘာ ဒီ'.split('_'),
         i;
 
-    function equalTest(input, mmm, i) {
+    function equalTest (input, mmm, i) {
         assert.equal(moment(input, mmm).month(), i, input + ' should be month ' + (i + 1));
     }
-
     for (i = 0; i < 12; i++) {
         tests[i] = tests[i].split(' ');
         equalTest(tests[i][0], 'MMM', i);
@@ -363,11 +362,11 @@ test('lenient ordinal parsing', function (assert) {
         ordinalStr = moment([2014, 0, i]).format('YYYY MM Do');
         testMoment = moment(ordinalStr, 'YYYY MM Do');
         assert.equal(testMoment.year(), 2014,
-            'lenient ordinal parsing ' + i + ' year check');
+                'lenient ordinal parsing ' + i + ' year check');
         assert.equal(testMoment.month(), 0,
-            'lenient ordinal parsing ' + i + ' month check');
+                'lenient ordinal parsing ' + i + ' month check');
         assert.equal(testMoment.date(), i,
-            'lenient ordinal parsing ' + i + ' date check');
+                'lenient ordinal parsing ' + i + ' date check');
     }
 });
 
@@ -376,11 +375,11 @@ test('lenient ordinal parsing of number', function (assert) {
     for (i = 1; i <= 31; ++i) {
         testMoment = moment('2014 01 ' + i, 'YYYY MM Do');
         assert.equal(testMoment.year(), 2014,
-            'lenient ordinal parsing of number ' + i + ' year check');
+                'lenient ordinal parsing of number ' + i + ' year check');
         assert.equal(testMoment.month(), 0,
-            'lenient ordinal parsing of number ' + i + ' month check');
+                'lenient ordinal parsing of number ' + i + ' month check');
         assert.equal(testMoment.date(), i,
-            'lenient ordinal parsing of number ' + i + ' date check');
+                'lenient ordinal parsing of number ' + i + ' date check');
     }
 });
 

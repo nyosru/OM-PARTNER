@@ -42,7 +42,7 @@ class XPathExpr
      * @param string $path
      * @param string $element
      * @param string $condition
-     * @param bool $starPrefix
+     * @param bool   $starPrefix
      */
     public function __construct($path = '', $element = '*', $condition = '', $starPrefix = false)
     {
@@ -89,7 +89,7 @@ class XPathExpr
     public function addNameTest()
     {
         if ('*' !== $this->element) {
-            $this->addCondition('name() = ' . Translator::getXpathLiteral($this->element));
+            $this->addCondition('name() = '.Translator::getXpathLiteral($this->element));
             $this->element = '*';
         }
 
@@ -109,14 +109,14 @@ class XPathExpr
     /**
      * Joins another XPathExpr with a combiner.
      *
-     * @param string $combiner
+     * @param string    $combiner
      * @param XPathExpr $expr
      *
      * @return XPathExpr
      */
     public function join($combiner, XPathExpr $expr)
     {
-        $path = $this->__toString() . $combiner;
+        $path = $this->__toString().$combiner;
 
         if ('*/' !== $expr->path) {
             $path .= $expr->path;
@@ -134,9 +134,9 @@ class XPathExpr
      */
     public function __toString()
     {
-        $path = $this->path . $this->element;
-        $condition = null === $this->condition || '' === $this->condition ? '' : '[' . $this->condition . ']';
+        $path = $this->path.$this->element;
+        $condition = null === $this->condition || '' === $this->condition ? '' : '['.$this->condition.']';
 
-        return $path . $condition;
+        return $path.$condition;
     }
 }

@@ -11,7 +11,7 @@ test('invalid', function (assert) {
 });
 
 test('invalid with existing flag', function (assert) {
-    var m = moment.invalid({invalidMonth: 'whatchamacallit'});
+    var m = moment.invalid({invalidMonth : 'whatchamacallit'});
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
     assert.equal(m.parsingFlags().invalidMonth, 'whatchamacallit');
@@ -19,7 +19,7 @@ test('invalid with existing flag', function (assert) {
 });
 
 test('invalid with custom flag', function (assert) {
-    var m = moment.invalid({tooBusyWith: 'reiculating splines'});
+    var m = moment.invalid({tooBusyWith : 'reiculating splines'});
     assert.equal(m.isValid(), false);
     assert.equal(m.parsingFlags().userInvalidated, false);
     assert.equal(m.parsingFlags().tooBusyWith, 'reiculating splines');

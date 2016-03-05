@@ -5,6 +5,8 @@ use common\models\User;
 use common\models\Partners;
 use common\models\Customers;
 use common\models\PartnersUsersInfo;
+use yii\base\Exception;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\base\Model;
 use Yii;
@@ -16,7 +18,7 @@ use Yii;
 
 class SignupFormOM extends Model
 {
-    public $email;
+    public $logemail;
     public $password;
     public $passwordcheck;
     public $id_partners;
@@ -45,12 +47,9 @@ class SignupFormOM extends Model
     public function rules()
     {
         return [
-            ['email', 'email'],
-            ['email', 'ValidateUseremail'],
-            ['email', 'filter', 'filter' => 'trim'],
-            ['email',  'required', 'message' => 'Это обязательное поле'],
-            ['email', 'string', 'message' => 'Минимум 6 символов','min'=>6],
-
+            ['logemail','email'],
+            ['logemail','required', 'message' => 'Это обязательное поле.'],
+            ['logemail','ValidateUserEmail2'],
 
             ['spam', 'boolean'],
 
@@ -60,11 +59,10 @@ class SignupFormOM extends Model
             ['name','required', 'message' => 'Это обязательное поле.'],
             ['name','string','min'=>2, 'message' => 'Минимальная длина 2 символа'],
 
-            ['pasportdate','required', 'message' => 'Это обязательное поле.'],
             ['pasportdate','date', 'message' => 'Дата'],
 
             ['adress','required', 'message' => 'Это обязательное поле.'],
-            ['adress','ValidateAdress', 'message' => '11'],
+            ['adress','ValidateAdress'],
             ['adress','filter', 'filter' => 'trim'],
 
             ['postcode','required', 'message' => 'Это обязательное поле.'],
@@ -97,11 +95,30 @@ class SignupFormOM extends Model
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
+
+
+//        $userCustomer = new Customers();
+//        $partners = new Partners();
+//        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+//        $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom'.$id_partners.'@@@'.$this->email])->asArray()->one();
+//        $userCustomer = new User();
+//        $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners'=>$id_partners])->asArray()->one();
+//        if(!$check_email && !$check_part_email){
+//            return true;
+//        }else {
+//            $this->addError('email', 'Почтовый адрес уже используется в системе');
+//        }
+    public function ValidateUserEmail2()
+    {
+        $userCustomer = new Customers();
+        $partners = new Partners();
+        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+        $check_email = $userCustomer->find()->where(['customers_email_address' => $this->logemail])->asArray()->one();
+        $userCustomer = new User();
+        $check_part_email = $userCustomer->find()->where(['email' => $this->logemail, 'id_partners'=>$id_partners])->asArray()->one();
+       $this->addError('logemail', 'rt');
+    }
+
     public function ValidateAdress()
     {
         if($this->adress['street']){
@@ -128,23 +145,26 @@ class SignupFormOM extends Model
     }
     public function signup()
     {
-//        $transaction = Yii::$app->db->beginTransaction();
-//        try {
-        $country = new Countries();
-        $zones = new Zones();
-        $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
-        $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
-        $this->adress = implode(' ',$this->adress);
+      //  $transaction = Yii::$app->db->beginTransaction();
+       // try {
+            $country = new Countries();
+            $zones = new Zones();
             $user = new User();
             $partners = new Partners();
-            $id_partners = $partners->GetId($_SERVER[HTTP_HOST]);
-            $user->username = $this->email;
-            $user->email = $this->email;
+            $userOM = new AddressBook();
+            $userCustomer = new Customers();
+            $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
+            $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
+            $this->adress = implode(' ',$this->adress);
+            $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+            $user->username = $this->logemail;
+            $user->email = $this->logemail;
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->id_partners = $id_partners;
             $user->role = 'register';
-           if ($user->save()) {
+
+            if ($user->save()) {
                 $auth = Yii::$app->authManager;
                 $auth->assign($auth->getRole('register'), $user->getId());
                // Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
@@ -155,9 +175,9 @@ class SignupFormOM extends Model
 
                // return $user;
             }
-
-        $userOM = new AddressBook();
-        $userCustomer = new Customers();
+        if(!$this->pasportdate){
+            $this->pasportdate = '00-00-0000';
+        }
         $userOM->entry_firstname = $this->name;
         $userOM->entry_lastname = $this->lastname;
         $userOM->entry_city =  $this->city;
@@ -166,7 +186,7 @@ class SignupFormOM extends Model
         $userOM->pasport_seria =  $this->pasportser;
         $userOM->pasport_nomer =  $this->pasportnum;
         $userOM->pasport_kem_vidan =  $this->pasportwhere;
-        $userOM->pasport_kogda_vidan =  $this->pasportdate;
+        $userOM->pasport_kogda_vidan =  date('yyyy-mm-dd', strtotime($this->pasportdate));
         $userOM->entry_postcode =  $this->postcode;
         $userOM->entry_gender = 'M';
         $userOM->entry_country_id =  $entrycountry['id'];
@@ -175,7 +195,7 @@ class SignupFormOM extends Model
             $userCustomer->customers_firstname = $this->name;
             $userCustomer->customers_lastname =  $this->lastname;
             $userCustomer->otchestvo =  $this->secondname;
-            $userCustomer->customers_email_address =  $this->email;
+            $userCustomer->customers_email_address =  $this->logemail;
             $userCustomer->customers_default_address_id = $userOM->address_book_id;
             $userCustomer->customers_selected_template = '1';
             $userCustomer->customers_telephone =  $this->telephone;
@@ -197,57 +217,76 @@ class SignupFormOM extends Model
                 $userCustomerInfo = new CustomersInfo();
                 $userCustomerInfo->customers_info_id = $customer_id;
                 $userCustomerInfo->customers_info_date_account_created = date("Y-m-d H:i:s");
+
                 if ($userCustomerInfo->save()) {
                     $newuserpartnerscastid = new PartnersUsersInfo();
                     $newuserpartnerscastid->scenario = '0';
                     $newuserpartnerscastid->name = $this->name;
+                    if(!$this->secondname){
+                        $this->secondname = "%20";
+                    }
+                    $newuserpartnerscastid->id = $user->getId();
                     $newuserpartnerscastid->secondname = $this->secondname;
                     $newuserpartnerscastid->lastname = $this->lastname;
                     $newuserpartnerscastid->adress = $this->adress;
                     $newuserpartnerscastid->city = $this->city;
                     $newuserpartnerscastid->country = $this->country;
+                    $newuserpartnerscastid->state = $this->state;
                     $newuserpartnerscastid->postcode = $this->postcode;
                     $newuserpartnerscastid->telephone = $this->telephone;
                     $newuserpartnerscastid->pasportser = $this->pasportser;
                     $newuserpartnerscastid->pasportnum = $this->pasportnum;
-                    $newuserpartnerscastid->pasportdate = $this->pasportdate;
+                    $newuserpartnerscastid->pasportdate = date('yyyy-mm-dd H:i:s', strtotime($this->pasportdate));;
                     $newuserpartnerscastid->pasportwhere = $this->pasportwhere;
-                    $newuserpartnerscastid->customers_id = $user->id;
-                    if($newuserpartnerscastid->validate()){
-                        $newuserpartnerscastid->save();
+                    $newuserpartnerscastid->customers_id = $userCustomer->customers_id;
+                    if( $newuserpartnerscastid->save()){
+                        return $user;
                     };
+
+                    ;
                 } else {
-                    return 'exc1';
+                    return false;
                 }
             } else {
 
-                return 'exc2';
+                return false;
             }
         } else {
-            return 'exc3';
+            return false;
         }
-         print_r($newuserpartnerscastid);
-//        } catch (\Exception $e) {
-//            echo '<pre>';
-//            print_r($userCustomerInfo);
-//            echo '<pre>';
-//            $transaction->rollBack();
-//
-//        }
-    }
-    public function ValidateUseremail()
-    {
-        $userCustomer = new Customers();
-        $partners = new Partners();
-        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
-        $check_email = $userCustomer->find()->where(['customers_email_address' => $this->email])->asArray()->one();
-        $userCustomer = new User();
-        $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners'=>$id_partners])->asArray()->one();
-        if(!$check_email && !$check_part_email){
-            return true;
-        }else {
-            $this->addError('email', 'Почтовый адрес уже используется в системе');
-        }
+
+      //  } catch (Exception $e) {
+      //      $transaction->rollBack();
+        //    Yii::$app->params['log'][] = $e->getMessage();
+       //     die();
+     //   }
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'logemail' => 'Manufacturers Info List ID',
+            'password' => 'Manufacturers ID',
+            'passwordcheck' => 'Manufacturers Opf',
+            'id_partners' => 'Ur Name',
+            'role' => 'Post Code',
+            'captcha' => 'Post Region',
+            'name' => 'Post City',
+            'secondname' => 'Post Street',
+            'lastname' => 'Man Phone',
+            'adress' => 'Bank Name',
+            'city' => 'Bank Bik',
+            'state' => 'Bank Ks',
+            'country' => 'Bank Rs',
+            'postcode' => 'Bank Rs Old',
+            'telephone' => 'Ur Okpo',
+            'user_id' => 'Glav Buh',
+            'pasportser' => 'Otv Lic Dolj',
+            'pasportnum' => 'Otv Lic Fio',
+            'pasportdate' => 'Otv Lic2 Dolj',
+            'pasportwhere' => 'Otv Lic2 Fio',
+            'fax' => 'Dog Num',
+            'spam' => 'Dog Date',
+        ];
+    }
 }

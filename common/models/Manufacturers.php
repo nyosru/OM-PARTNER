@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -36,7 +37,7 @@ use Yii;
  * @property int $productsCount
  * @property int $activeProductsCount
  */
-class Manufacturers extends \yii\db\ActiveRecord
+class Manufacturers extends ActiveRecordExt
 {
     /**
      * @inheritdoc
@@ -89,7 +90,8 @@ class Manufacturers extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+    public function getManufacturersTimeOrder()
+    {
+        return $this->hasMany(ManufacturersDiapazon::class, ['manufacturers_id' => 'manufacturers_id']);
+    }
 }

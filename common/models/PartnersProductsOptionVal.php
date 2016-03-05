@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -12,7 +13,7 @@ use Yii;
  * @property string $products_options_values_name
  * @property string $products_options_values_thumbnail
  */
-class PartnersProductsOptionVal extends \yii\db\ActiveRecord
+class PartnersProductsOptionVal extends ActiveRecordExt
 {
     /**
      * @inheritdoc

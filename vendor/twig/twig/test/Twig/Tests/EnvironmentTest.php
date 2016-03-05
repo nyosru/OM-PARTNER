@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once dirname(__FILE__) . '/FilesystemHelper.php';
+require_once dirname(__FILE__).'/FilesystemHelper.php';
 
 class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
 {
@@ -156,7 +156,7 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
 
     public function testExtensionsAreNotInitializedWhenRenderingACompiledTemplate()
     {
-        $cache = new Twig_Cache_Filesystem($dir = sys_get_temp_dir() . '/twig');
+        $cache = new Twig_Cache_Filesystem($dir = sys_get_temp_dir().'/twig');
         $options = array('cache' => $cache, 'auto_reload' => false, 'debug' => false);
 
         // force compilation
@@ -170,7 +170,8 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
             ->getMockBuilder('Twig_Environment')
             ->setConstructorArgs(array($loader, $options))
             ->setMethods(array('initExtensions'))
-            ->getMock();
+            ->getMock()
+        ;
 
         $twig->expects($this->never())->method('initExtensions');
 
@@ -388,13 +389,13 @@ class Twig_Tests_EnvironmentTest extends PHPUnit_Framework_TestCase
     {
         $loader = $this->getMock('Twig_LoaderInterface');
         $loader->expects($this->any())
-            ->method('getSource')
-            ->with($templateName)
-            ->will($this->returnValue($templateContent));
+          ->method('getSource')
+          ->with($templateName)
+          ->will($this->returnValue($templateContent));
         $loader->expects($this->any())
-            ->method('getCacheKey')
-            ->with($templateName)
-            ->will($this->returnValue($templateName));
+          ->method('getCacheKey')
+          ->with($templateName)
+          ->will($this->returnValue($templateName));
 
         return $loader;
     }

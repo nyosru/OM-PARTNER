@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once dirname(__FILE__) . '/FilesystemHelper.php';
+require_once dirname(__FILE__).'/FilesystemHelper.php';
 
 class Twig_Tests_FileCachingTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class Twig_Tests_FileCachingTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->tmpDir = sys_get_temp_dir() . '/TwigTests';
+        $this->tmpDir = sys_get_temp_dir().'/TwigTests';
         if (!file_exists($this->tmpDir)) {
             @mkdir($this->tmpDir, 0777, true);
         }

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -18,7 +19,7 @@ use yii\db\ActiveRecord;
  *
  * @property Specifications $specifications
  */
-class SpecificationDescription extends ActiveRecord
+class SpecificationDescription extends ActiveRecordExt
 {
     /**
      * @inheritdoc

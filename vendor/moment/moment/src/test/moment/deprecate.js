@@ -5,8 +5,7 @@ import moment from '../../moment';
 module('deprecate');
 
 test('deprecate', function (assert) {
-    var fn = function () {
-    };
+    var fn = function () {};
     var deprecatedFn = deprecate('testing deprecation', fn);
     deprecatedFn();
 

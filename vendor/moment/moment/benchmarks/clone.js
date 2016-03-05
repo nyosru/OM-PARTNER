@@ -3,11 +3,8 @@ var Benchmark = require('benchmark'),
     base = moment('2013-05-25');
 
 module.exports = {
-    name: 'clone',
-    onComplete: function () {
-    },
-    fn: function () {
-        base.clone();
-    },
-    async: true
+  name: 'clone',
+  onComplete: function(){},
+  fn: function(){base.clone();},
+  async: true
 };

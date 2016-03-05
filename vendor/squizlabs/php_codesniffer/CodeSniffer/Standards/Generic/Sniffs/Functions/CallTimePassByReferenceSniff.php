@@ -37,9 +37,9 @@ class Generic_Sniffs_Functions_CallTimePassByReferenceSniff implements PHP_CodeS
     public function register()
     {
         return array(
-            T_STRING,
-            T_VARIABLE,
-        );
+                T_STRING,
+                T_VARIABLE,
+               );
 
     }//end register()
 
@@ -48,7 +48,7 @@ class Generic_Sniffs_Functions_CallTimePassByReferenceSniff implements PHP_CodeS
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int $stackPtr The position of the current token
+     * @param int                  $stackPtr  The position of the current token
      *                                        in the stack passed in $tokens.
      *
      * @return void
@@ -80,7 +80,7 @@ class Generic_Sniffs_Functions_CallTimePassByReferenceSniff implements PHP_CodeS
         // If the next non-whitespace token after the function or method call
         // is not an opening parenthesis then it cant really be a *call*.
         $functionName = $stackPtr;
-        $openBracket = $phpcsFile->findNext(
+        $openBracket  = $phpcsFile->findNext(
             PHP_CodeSniffer_Tokens::$emptyTokens,
             ($functionName + 1),
             null,
@@ -105,7 +105,7 @@ class Generic_Sniffs_Functions_CallTimePassByReferenceSniff implements PHP_CodeS
 
             // Make sure the variable belongs directly to this function call
             // and is not inside a nested function call or array.
-            $brackets = $tokens[$nextSeparator]['nested_parenthesis'];
+            $brackets    = $tokens[$nextSeparator]['nested_parenthesis'];
             $lastBracket = array_pop($brackets);
             if ($lastBracket !== $closeBracket) {
                 continue;

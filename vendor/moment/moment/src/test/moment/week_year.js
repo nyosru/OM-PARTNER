@@ -55,7 +55,7 @@ test('week year', function (assert) {
     assert.equal(moment([2005, 11, 25]).weekYear(), 2005);
     assert.equal(moment([2005, 11, 26]).weekYear(), 2006);
     assert.equal(moment([2006, 11, 31]).weekYear(), 2006);
-    assert.equal(moment([2007, 0, 1]).weekYear(), 2007);
+    assert.equal(moment([2007,  0,  1]).weekYear(), 2007);
     assert.equal(moment([2007, 11, 30]).weekYear(), 2007);
     assert.equal(moment([2007, 11, 31]).weekYear(), 2008);
     assert.equal(moment([2008, 11, 28]).weekYear(), 2008);

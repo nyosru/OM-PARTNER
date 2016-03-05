@@ -1,10 +1,14 @@
 <?php
 namespace frontend\controllers\actions;
 
+use common\models\Test;
+use common\patch\ActiveRecordExt;
 use common\traits\Imagepreviewfile;
 use Yii;
 use common\models\Zones;
 use common\models\Customers;
+use yii\widgets\ActiveForm;
+use Zelenin\yii\SemanticUI\widgets\GridView;
 
 trait ActionTest
 {
@@ -23,7 +27,20 @@ trait ActionTest
 
         echo $password;
         die();
+        $model = new Test();
+        if($model->load(Yii::$app->request->post())){
+            $model->save();
+        }
+        $form =  ActiveForm::begin();
+        echo $form->field($model, 'tt');
+        ActiveForm::end();
 
+       $out = $model->find()->asArray()->all();
+
+        echo '<pre>';
+        print_r(Yii::$app->params['log']);
+        print_r($out);
+        echo '</pre>';
     }
 
     public function rgbToHsl($r, $g, $b)
