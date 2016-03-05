@@ -389,7 +389,7 @@ if ($data[0] != 'Не найдено!') {
             '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .
-            '<a href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div></a>' .
+            '<div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div>' .
             '</div>';
     }
     if ($searchword !== '') {
@@ -458,6 +458,11 @@ if ($data[0] != 'Не найдено!') {
     echo '</li>';
     ?>
 </ul>
+        <div id="modal-product">
+            <span id="modal-close">X</span>
+
+        </div>
+        <div id="overlay"></div>
    </div>
    <?
 }
@@ -538,6 +543,22 @@ if ($data[0] != 'Не найдено!') {
 //
 //    }, 1000);
 
+
+    $(document).on('click','#prod-info',function(){
+        var dp=$(this).attr('data-prod');
+        $.post('/site/product?id='+dp);
+        
+        $('#overlay')
+            .css('display','block')
+        $('#modal-product')
+            .css('display','block')
+    })
+    $(document).on('click','#overlay, #modal-close',function(){
+        $('#modal-product')
+            .css('display','none')
+        $('#overlay')
+            .css('display','none')
+    })
     </script>
 
 

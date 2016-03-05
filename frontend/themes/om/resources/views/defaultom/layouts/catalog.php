@@ -317,6 +317,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
         ?>
 </div>
+    
     <script type="text/javascript">
         $(document).ready(function(){
             $('.target').shortscroll();
@@ -325,6 +326,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 //           console.log($('*').length);
 //            $('div').attr('style','border:1px solid red;')
 //        });
+        
+        
     </script>
     </body>
     </html>
