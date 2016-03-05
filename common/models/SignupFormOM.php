@@ -112,7 +112,7 @@ class SignupFormOM extends Model
     {
         $userCustomer = new Customers();
         $partners = new Partners();
-        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+        $id_partners = Yii::$app->params['constantapp']['APP_ID'];
         $check_email = $userCustomer->find()->where(['customers_email_address' => $this->logemail])->asArray()->one();
         $userCustomer = new User();
         $check_part_email = $userCustomer->find()->where(['email' => $this->logemail, 'id_partners'=>$id_partners])->asArray()->one();

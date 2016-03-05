@@ -16,7 +16,7 @@
         text-decoration: none
     }
 
-    #card, #index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
+    #card, #index-card-1, #index-card-2,  #index-card-4 {
         max-height: 300px;
     }
 
@@ -552,6 +552,7 @@
         float: left;
         height: 100%;
         width: 15%
+    box-sizing: content-box;
     }
 
     #partners-main-left {
@@ -567,7 +568,9 @@
         overflow: hidden;
         width:100%;
     }
+    .disable-options > .size-desc  > div > input{
 
+    }
     .partners-comp-main, .partners-comp-main:hover {
         margin: 3px;
         border-color: #E9F1F4 #D8DEE2 #D8DEE2
@@ -580,6 +583,8 @@
         position: relative;
         box-shadow: 10px 0px 20px -20px #000 inset;
         margin-left: 16.5%;
+        border-right: 1px solid rgb(204, 204, 204);
+        box-sizing: content-box;
     }
 
     #partners-main-right-back-admin {
@@ -1667,7 +1672,27 @@
         height: 22px;
         line-height: 1.8;
     }
-
+    #add-count-dis, #del-count-dis {
+        margin: 0px 3px;
+        padding: 0px;
+        background: #CCC none repeat scroll 0px center;
+        font-weight: 600;
+        width: 22px;
+        height: 22px;
+        line-height: 1.8;
+    }
+    #add-count-dis {
+        float: right;
+        text-align: center;
+        color: #FFF;
+        border-radius: 3px;
+    }
+    #del-count-dis {
+        float: left;
+        text-align: center;
+        color: #FFF;
+        border-radius: 3px;
+    }
     #city-drop li, #country-drop li, #state-drop li {
         padding: 5px
     }
@@ -1697,7 +1722,9 @@
         background: 0 center #00a5a1;
         font-weight: 600;
     }
-
+    [data-vis="size-item-desc"]:hover  > [data-vis="size-item-card"]{
+       display:block
+    }
     #add-count {
         float: right;
         text-align: center;
@@ -2397,11 +2424,8 @@
     }
 
     #index-card-3 {
+        float:right;
         padding: 0;
-        height: 120px;
-        overflow: hidden;
-        min-height: 500px;
-        float: right;
         position: relative;
         cursor: pointer
     }
@@ -2429,18 +2453,12 @@
     #index-card-5 {
         float: left;
         padding: 0;
-        height: 120px;
-        overflow: hidden;
-        min-height: 330px;
         cursor: pointer
     }
 
     #index-card-6 {
         float: left;
         padding: 0;
-        overflow: hidden;
-        min-height: 160px;
-        height: 160px;
         cursor: pointer
     }
 
@@ -2919,7 +2937,7 @@
         margin: 0px 10px;
     }
     .banner-card{
-        background: #00a5a1 ;
+        
     }
 
     .navbredcrump {
@@ -2965,8 +2983,9 @@
         border-color: #00a5a1;
     }
 
-    @media screen and (min-width: 1860px) and ( max-width: 1920px){
-        #card{
+    /*@media screen and (min-width: 1860px) and ( max-width: 1921px){*/
+    @media screen and (min-width: 1860px){
+    #card{
             width: calc(100% / 6 - 10px);
         }
         .headerbside {
@@ -2981,7 +3000,7 @@
         }
     }
 
-    @media screen and (min-width: 1560px) and ( max-width: 1860px){
+    @media screen and (min-width: 1560px) and ( max-width: 1870px){
         #card{
             width: calc(100% / 5 - 10px);
         }
@@ -2995,7 +3014,7 @@
 
         }
     }
-    @media screen and (min-width: 0px) and ( max-width: 1560px){
+    @media screen and (min-width: 0px) and ( max-width: 1559px){
         #card{
             width: calc(100% / 4 - 10px);
         }

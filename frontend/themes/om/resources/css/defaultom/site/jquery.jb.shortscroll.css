@@ -37,34 +37,38 @@
     height: 80px;
     z-index: 1501;
     position: absolute;
-    -moz-box-shadow: 3px 3px 3px #666;
-    -webkit-box-shadow: 3px 3px 3px #666;
-    box-shadow: 3px 3px 3px #666;
+
     width: 16px;
 }
 .jb-shortscroll-wrapper .jb-shortscroll-marker{
     height: 80px;
     width: 16px;
-    background: #999;
     opacity:0.7;
     position: absolute;
     top: 0px;
+
 }
 /* add gradient to the middle and buttons */
 .jb-shortscroll-scrollbar .jb-shortscroll-scrollbar-middle, .jb-shortscroll-scrollbar .jb-shortscroll-scrollbar-btn{
+
 
 }
 .jb-shortscroll-scrollbar .jb-shortscroll-scrollbar-btn{
     border:1px solid #ABA9A9;
     cursor: pointer;
+    display: none;
 }
 .jb-shortscroll-scrollbar .ui-state-hover{
-    border:1px solid #7F7F7F;
+
 }
 .jb-shortscroll-scrollbar .jb-shortscroll-scrollbar-middle{
-    height: 48px;
     border-left:1px solid #ABA9A9;
     border-right:1px solid #ABA9A9;
+    background: #999;
+    -moz-box-shadow: 3px 3px 3px #666;
+    -webkit-box-shadow: 3px 3px 3px #666;
+    box-shadow: 3px 3px 3px #666;
+    height: 75px;
 }
 .ui-draggable-dragging .jb-shortscroll-scrollbar-middle{
 	cursor: move;
@@ -72,12 +76,13 @@
 .jb-shortscroll-wrapper .jb-shortscroll-stopper{
     background: gray;
     border: 1px solid gray;
-    position: absolute;
+
     bottom: -8px;
-    display: block;
+    position: fixed;
     height: 3px;
     width: 16px;
     opacity:0.7;
+    display: none;
 }
 /*
  * 

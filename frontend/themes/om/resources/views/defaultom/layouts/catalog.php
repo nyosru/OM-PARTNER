@@ -40,7 +40,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
         ?>
     </head>
-    <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; border-left:  1px  solid #CCC; border-right:  1px  solid #CCC;">
+    <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
     <?php $this->beginBody(); ?>
     <div class="wrap" >
         <?php
@@ -107,7 +107,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         }
                         ?>
                         <a class="top-link-cont-back" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
-                        <div class="top-link-cont" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
+                        <div class="top-link-cont" style="float: right; padding: 12px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
                     </div>
                 </div>
                 <div id="partners-main-right">
@@ -160,7 +160,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <div class="result_search_word" style="position: absolute; background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; width: 90%; z-index: 5000; overflow-y: auto; max-height: 300px;"></div>
 
                     </div>
-                    <div  id="partners-main-right" class="banner-cat"></div>
+<!--                    <div  id="partners-main-right" class="banner-cat"></div>-->
 
 
                        </div>

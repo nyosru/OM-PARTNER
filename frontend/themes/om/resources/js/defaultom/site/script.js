@@ -1,13 +1,3 @@
-$(document).on('mouseover', '[data-vis="size-item-desc"]', function(){
-    $attr = this.getAttribute('data-vis-id');
-    $obj = $('[data-vis-id-card="'+$attr+'"]');
-    $obj.addClass('show');
-});
-$(document).on('mouseout', '[data-vis="size-item-desc"]', function(){
-    $attr = this.getAttribute('data-vis-id');
-    $obj = $('[data-vis-id-card="'+$attr+'"]');
-    $obj.removeClass('show')
-});
 
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
@@ -88,19 +78,20 @@ $(document).on('click', '.btn-end-order', function () {
 $(document).on('click', '#add-count', function () {
     $count = $(this).siblings('input')[0].value;
     $step=parseInt($(this).siblings('input').attr('data-step'));
+    $countprodpos=parseInt($(this).siblings('input').attr('data-count'));
     if ($count == '') {
         $count = 0;
     }
     if (isNaN(parseInt($count))) {
         $count = -1;
     }
-    $(this).siblings('input')[0].value = parseInt($count) + $step;
+    $(this).siblings('input')[0].value = Math.min(parseInt($count) + $step, $countprodpos);
 });
 $(document).on('click', '#del-count', function () {
     $count = $(this).siblings('input')[0].value;
     $step=parseInt($(this).siblings('input').attr('data-step'));
     if ($count == '') {
-        $count = 0;S
+        $count = 0;
     }
     if (isNaN(parseInt($count))) {
         $count = 1;
@@ -428,7 +419,7 @@ $(document).on('ready', function () {
             $url_data = $urld;
             $.ajax({
                 method:"post",
-                url: "/site/request",
+                url: "/site/catalog",
                 data: { "_csrf":yii.getCsrfToken(),
                     "cat":$cat,
                     "count":$count,
@@ -459,34 +450,48 @@ $(document).on('ready', function () {
                         $product = this.products;
                         $descriptionprod = this.productsDescription;
                         $attr_desc = this['productsAttributesDescr'];
-
+                        $attr = this['productsAttributes'];
                         $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
 
                         if ($attr_desc.length > 0) {
                             $.each($attr_desc, function (index,value) {
+                                if($attr[value['products_options_values_id']]['quantity'] > 0){
+                                    $classpos = 'active-options';
+                                    $add_class = 'add-count';
+                                    $del_class = 'del-count';
+                                    $inputpos = '';
+                                    $some_text = 0;
+                                }else{
+                                    $classpos = 'disable-options';
+                                    $inputpos = 'readonly';
+                                    $add_class = 'add-count-dis';
+                                    $del_class = 'del-count-dis';
+                                    $some_text = 'Нет';
+                                }
                                 if((index%2) ==0){
                                     $class='border-right:1px solid #CCC';
                                 }else{
                                     $class='';
                                 }
-                                $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
-                                    '<input  id="input-count"'+
+                                $attr_html += '<div class="'+$classpos+'" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+                                    '<input '+$inputpos+' id="input-count"'+
                                     'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                                     'data-prod="'+ $product['products_id']+'"'+
                                     'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
                                     'data-model="'+ $product['products_model']+'"'+
                                     'data-price="'+ parseInt($product['products_price'])+'"'+
                                     'data-image="'+ $product['products_image']+'"'+
+                                    'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
                                     'data-step="'+ $product['products_quantity_order_units']+'"'+
                                     'data-min="'+ $product['products_quantity_order_min']+'"'+
                                     'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
                                     'data-attr="'+value['products_options_values_id']+'"'+
                                     'placeholder="0"'+
                                     'type="text">'+
-                                    '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+                                    '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
                                     '+'+
                                     '</div>'+
-                                    '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+                                    '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
                                     '-'+
                                     '</div>'+
                                     '</div></div></div>';
@@ -499,8 +504,9 @@ $(document).on('ready', function () {
                                 'data-model="'+ $product['products_model']+'"'+
                                 'data-price="'+ parseInt($product['products_price'])+'"'+
                                 'data-image="'+ $product['products_image']+'"'+
-                                'data-attrname=""'+
-                                'data-attr=""'+
+                                'data-attrname="" '+
+                                'data-attr="" '+
+                                'data-count="'+ $product['products_quantity']+'"'+
                                 'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
                                 'data-step="'+ $product['products_quantity_order_units']+'"'+
                                 'data-min="'+ $product['products_quantity_order_min']+'"'+
@@ -512,7 +518,8 @@ $(document).on('ready', function () {
                                 '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
                                 '-'+
                                 '</div>'+
-                                '</div></div></div>';       }
+                                '</div></div></div>';
+                        }
 
 
                         $('.bside').append('<div class="container-fluid float" id="card">'+
@@ -652,7 +659,7 @@ $(document).on('ready', function () {
             $url_data = $urld;
             $.ajax({
                 method:"post",
-                url: "/site/request",
+                url: "/site/catalog",
                 data: { "_csrf":yii.getCsrfToken(),
                         "cat":$cat,
                         "count":$count,
@@ -683,28 +690,66 @@ $(document).on('ready', function () {
                         $product = this.products;
                         $descriptionprod = this.productsDescription;
                         $attr_desc = this['productsAttributesDescr'];
-
+                        $attr = this['productsAttributes'];
                         $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
 
                         if ($attr_desc.length > 0) {
                             $.each($attr_desc, function (index,value) {
+                                if($attr[value['products_options_values_id']]['quantity'] > 0){
+                                    $classpos = 'active-options';
+                                    $add_class = 'add-count';
+                                    $del_class = 'del-count';
+                                    $inputpos = '';
+                                    $some_text = 0;
+                                }else{
+                                    $classpos = 'disable-options';
+                                    $inputpos = 'readonly';
+                                    $add_class = 'add-count-dis';
+                                    $del_class = 'del-count-dis';
+                                    $some_text = 'Нет';
+                                }
                                 if((index%2) ==0){
                                     $class='border-right:1px solid #CCC';
                                 }else{
                                     $class='';
                                 }
-                                $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+                                $attr_html += '<div class="'+$classpos+'" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+                                    '<input '+$inputpos+' id="input-count"'+
+                                    'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                                    'data-prod="'+ $product['products_id']+'"'+
+                                    'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
+                                    'data-model="'+ $product['products_model']+'"'+
+                                    'data-price="'+ parseInt($product['products_price'])+'"'+
+                                    'data-image="'+ $product['products_image']+'"'+
+                                    'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
+                                    'data-step="'+ $product['products_quantity_order_units']+'"'+
+                                    'data-min="'+ $product['products_quantity_order_min']+'"'+
+                                    'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                                    'data-attr="'+value['products_options_values_id']+'"'+
+                                    'placeholder="0"'+
+                                    'type="text">'+
+                                    '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
+                                    '+'+
+                                    '</div>'+
+                                    '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
+                                    '-'+
+                                    '</div>'+
+                                    '</div></div></div>';
+                            });
+                        } else {
+                            $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
                                 '<input  id="input-count"'+
                                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                                 'data-prod="'+ $product['products_id']+'"'+
-                                'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
                                 'data-model="'+ $product['products_model']+'"'+
                                 'data-price="'+ parseInt($product['products_price'])+'"'+
                                 'data-image="'+ $product['products_image']+'"'+
+                                'data-attrname=""'+
+                                'data-attr=""'+
+                                'data-count="'+ $product['products_quantity']+'"'+
+                                'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
                                 'data-step="'+ $product['products_quantity_order_units']+'"'+
                                 'data-min="'+ $product['products_quantity_order_min']+'"'+
-                                'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
-                                'data-attr="'+value['products_options_values_id']+'"'+
                                 'placeholder="0"'+
                                 'type="text">'+
                                 '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
@@ -714,30 +759,7 @@ $(document).on('ready', function () {
                                 '-'+
                                 '</div>'+
                                 '</div></div></div>';
-                                   });
-                        } else {
-                            $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
-                            '<input  id="input-count"'+
-                            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                            'data-prod="'+ $product['products_id']+'"'+
-                            'data-model="'+ $product['products_model']+'"'+
-                            'data-price="'+ parseInt($product['products_price'])+'"'+
-                            'data-image="'+ $product['products_image']+'"'+
-                            'data-attrname=""'+
-                            'data-attr=""'+
-                            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
-                            'data-step="'+ $product['products_quantity_order_units']+'"'+
-                            'data-min="'+ $product['products_quantity_order_min']+'"'+
-                            'placeholder="0"'+
-                            'type="text">'+
-                            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
-                            '+'+
-                            '</div>'+
-                            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
-                            '-'+
-                            '</div>'+
-                            '</div></div></div>';       }
-
+                        }
 
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+

@@ -34,12 +34,12 @@ trait ActionLK
         switch (Yii::$app->request->getQueryParam('view')) {
 
             case 'userinfo':
-                  return $this->render('lkuserinfo',['cust'=>$cust]);
+                    return $this->render('lkuserinfo',['cust'=>$cust]);
                 break;
 
 
             case 'myorder':
-                $sort_order = [0 => 'Все',1 => 'Текущие', 2 => 'Не выкупленные', 3 => 'Завершенные'];
+                $sort_order = [0 => 'Все',1 => 'Текущие', 2 => 'Не оплачено', 3 => 'Завершенные'];
                 $search = (int)Yii::$app->request->getQueryParam('filter');
                 if($search){
                     switch($search){
@@ -74,11 +74,11 @@ trait ActionLK
                 }
                 $di = Yii::$app->request->getQueryParam('di');
                 if($di){
-                    $model =  $model->andWhere(['>=','orders.date_purchased',strtotime($di)]);
+                    $model =  $model->andWhere(['>','orders.date_purchased',date('Y-m-d 00:00:00',strtotime($di))]);
                 }
-                $do = Yii::$app->request->getQueryParam('$do');
+                $do = Yii::$app->request->getQueryParam('do');
                 if($do){
-                    $model =  $model->andWhere(['<=','orders.date_purchased',strtotime($do)]);
+                    $model =  $model->andWhere(['<=','orders.date_purchased',date('Y-m-d 23:59:59',strtotime($do))]);
                 }
                 $orders = new yii\data\ActiveDataProvider([
                     'query' => $model,
@@ -91,14 +91,6 @@ trait ActionLK
                 ]);
                 return $this->render('lkmyorder',['cust'=>$cust, 'orders'=>$orders, 'sort_order'=>$sort_order]);
                 break;
-
-
-            case 'lastorder':
-                return $this->render('lklastorder',['cust'=>$cust]);
-                break;
-
-
-
             default:
                 $orders = new yii\data\ActiveDataProvider([
                     'query' => $model,
@@ -111,7 +103,27 @@ trait ActionLK
                     ]
 
                 ]);
-                return $this->render('lk',['cust'=>$cust, 'orders'=>$orders]);
+                $countpay = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'2'])->count();
+                $countcheck = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'1'])->count();
+                $countdelivery = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'4'])->count();
+                $totalorder = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->count();
+                $totalproducts = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->asArray()->all();
+                $total = 0;
+                $totalprice = 0;
+                foreach($totalproducts as $totval) {
+                    foreach ($totval['products'] as $value) {
+                        $total += $value['products_quantity'];
+                        $totalprice += $value['products_quantity']*$value['products_price'];
+                    }
+                    foreach ($totval['productsSP'] as $value) {
+                        $total += $value['products_quantity'];
+                        $totalprice += $value['products_quantity']*$value['products_price'];
+                    }
+                }
+                $totalproducts = $total;
+                $totalcancel = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'6'])->count();
+
+                return $this->render('lk',['cust'=>$cust, 'orders'=>$orders, 'dataset'=>['countpay'=>$countpay, 'countcheck'=>$countcheck, 'countdelivery'=>$countdelivery,'totalorder'=>$totalorder, 'totalproducts'=>$totalproducts, 'totalprice'=>$totalprice, 'totalcancel'=>$totalcancel]]);
         }
     }
 }

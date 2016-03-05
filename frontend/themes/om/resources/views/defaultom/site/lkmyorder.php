@@ -9,12 +9,6 @@ use yii\bootstrap\Collapse;
 
 
 $this -> title = 'Мои заказы';
-//echo '<pre>';
-//$ord = new \common\models\Orders();
-//$ord = $ord->find()->where(['customers_id'=> 71444])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.orders_id')->one();
-//print_r($ord);
-//echo '</pre>';
-
 ?>
 <form>
     <input type="hidden" value="myorder" name="view">
@@ -52,7 +46,7 @@ $this -> title = 'Мои заказы';
                 'value'=>Yii::$app->request->getQueryParam('di'),
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'mm-dd-yyyy'
+                    'format' => 'dd.mm.yyyy'
                 ]
             ]);?>
             <?
@@ -64,16 +58,16 @@ $this -> title = 'Мои заказы';
                 'options' => ['placeholder' => 'до', 'class'=>'no-shadow-form-control', 'style'=>'float: left;width: 45%;'],
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'mm-dd-yyyy'
+                    'format' => 'dd.mm.yyyy'
                 ]
             ]);?>
-            <button style="background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); width: 10%; height: 33px; line-height: 1.2; margin-right: 0px;" class="btn" type="submit">@</button>
+            <button style="background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); width: 10%; height: 33px; line-height: 1.2; margin-right: 0px;" class="btn" type="submit">»</button>
 
     </div>
     <div id="find-order"  style="float: right; width: 20%; text-align: right;">
 
             <input name="id" value="<?= Yii::$app->request->getQueryParam('id');?>" class="no-shadow-form-control" type="text" placeholder="числовой идентификатор"></input>
-            <button style="width: 10%; height: 32px; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); margin-right: 0px; float: left; position: relative; left: 90%; bottom: 33px; line-height: 1.2;" class="btn" type="submit">@</button>
+            <button style="width: 10%; height: 32px; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); margin-right: 0px; float: left; position: relative; left: 90%; bottom: 33px; line-height: 1.2;" class="btn" type="submit">»</button>
 
     </div>
 
@@ -284,37 +278,7 @@ echo \yii\grid\GridView::widget([
                 return 'Оставить комментарий';
             }
         ],
-//
-//        [
-//            'attribute' => 'user_id',
-//            'label' => 'Пользователь',
-//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-//            'contentOptions' => function ($model, $key, $index, $column) {
-//                return ['class' => 'tbl_column_name'];
-//            },
-//            'content' => function ($data) {
-//                return $data->user->username;
-//            }
-//        ],
-//        ['class' => 'yii\grid\ActionColumn',
-//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-//            'template' => '{print}{pay}',
-//            'header' => 'Печать',
-//            'buttons' => [
-//                'print' => function ($url, $model, $key) {
-//                    $url = Yii::$app->urlManager->createUrl([BASEURL . '/printorders', 'id' => $key]);
-//                    return '<div class="col-md-3">' . Html::a(
-//                        '<span class="fa fa-print"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
-//                        $url, ['target' => '_blank']) . '</div>';
-//                },
-////                'pay' => function ($url, $model, $key) {
-////                    $url = Yii::$app->urlManager->createUrl(['/site/payorders', 'id' => $key]);
-////                    return '<div class="col-md-3">' . Html::a(
-////                        '<span class="fa fa-credit-card"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
-////                        $url, ['target' => '_blank']) . '</div>';
-////                },
-//            ],
-//        ],
+
     ],
     'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
 ]);
