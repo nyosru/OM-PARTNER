@@ -3,21 +3,35 @@ namespace frontend\controllers\actions;
 
 use common\models\PartnersProductsToCategories;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 trait ActionCatalog
 {
     public function actionCatalog()
     {
-        $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
-        $check = Yii::$app->params['constantapp']['APP_ID'];
-        $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $start_price = intval(Yii::$app->request->getQueryParam('start_price'));
-        $end_price = intval(Yii::$app->request->getQueryParam('end_price'));
-        $prod_attr_query = intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
-        $count = intval(Yii::$app->request->getQueryParam('count', 48));
-        $page = intval(Yii::$app->request->getQueryParam('page', 0));
-        $start_arr = intval($page * $count);
-        $sort = intval(Yii::$app->request->getQueryParam('sort'));
+        if(Yii::$app->request->isGet) {
+            $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
+            $check = Yii::$app->params['constantapp']['APP_ID'];
+            $checks = Yii::$app->params['constantapp']['APP_CAT'];
+            $start_price = intval(Yii::$app->request->getQueryParam('start_price'));
+            $end_price = intval(Yii::$app->request->getQueryParam('end_price'));
+            $prod_attr_query = intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
+            $count = intval(Yii::$app->request->getQueryParam('count', 48));
+            $page = intval(Yii::$app->request->getQueryParam('page', 0));
+            $start_arr = intval($page * $count);
+            $sort = intval(Yii::$app->request->getQueryParam('sort'));
+        }elseif(Yii::$app->request->isPost) {
+            $cat_start = intval(Yii::$app->request->post('cat'));
+            $check = Yii::$app->params['constantapp']['APP_ID'];
+            $checks = Yii::$app->params['constantapp']['APP_CAT'];
+            $start_price = intval(Yii::$app->request->post('start_price', 0));
+            $end_price = intval(Yii::$app->request->post('end_price', 1000000));
+            $prod_attr_query = intval(Yii::$app->request->post('prod_attr_query', ''));
+            $count = intval(Yii::$app->request->post('count', 48));
+            $page = intval(Yii::$app->request->post('page', 0));
+            $start_arr = intval($page * $count);
+            $sort = intval(Yii::$app->request->post('sort', 10));
+        }
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
         }
@@ -223,9 +237,102 @@ trait ActionCatalog
         $start = $start_arr;
         $dataman =   $this->manufacturers_diapazon();
         if (($json = intval(Yii::$app->request->post('json'))) == TRUE && $json == 1) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'date'=> $dataman ];
+            if (isset($data[0])) {
+                if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                    foreach ($data as $key => $dataval) {
+                        $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
+                    }
+                }
 
+            } else {
+                $data = 'Не найдено!';
+            }
+
+
+            if (isset($data[0])) {
+                foreach ($data as $key => $dataval) {
+                    if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                        $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
+                    }
+                    unset(
+                        $data[$key]['old_categories_id'],
+                        $data[$key]['products']['country_id'],
+                        $data[$key]['products']['date_checked'],
+                        $data[$key]['products']['imagenew'],
+                        $data[$key]['products']['manufacturers_id'],
+                        $data[$key]['products']['products_image_lrg'],
+                        $data[$key]['products']['products_image_med'],
+                        $data[$key]['products']['products_image_sm_1'],
+                        $data[$key]['products']['products_image_sm_2'],
+                        $data[$key]['products']['products_image_sm_3'],
+                        $data[$key]['products']['products_image_sm_4'],
+                        $data[$key]['products']['products_image_sm_5'],
+                        $data[$key]['products']['products_image_sm_6'],
+                        $data[$key]['products']['products_image_xl_1'],
+                        $data[$key]['products']['products_image_xl_2'],
+                        $data[$key]['products']['products_image_xl_3'],
+                        $data[$key]['products']['products_image_xl_4'],
+                        $data[$key]['products']['products_image_xl_5'],
+                        $data[$key]['products']['products_image_xl_6'],
+                        $data[$key]['products']['products_old_price'],
+                        $data[$key]['products']['products_ordered'],
+                        $data[$key]['products']['price_coll'],
+                        $data[$key]['products']['products_sort_order'],
+                        $data[$key]['products']['products_tax_class_id'],
+                        $data[$key]['products']['products_to_xml'],
+                        $data[$key]['products']['products_weight'],
+                        $data[$key]['products']['raschet_pribil'],
+                        $data[$key]['products']['removable'],
+                        $data[$key]['products']['products_date_available'],
+                        $data[$key]['products']['products_date_view']
+                    );
+                    foreach($data[$key]['productsAttributes'] as $keyattr=>$valueattr){
+                        unset(
+                            $data[$key]['productsAttributes'][$keyattr]['options_id'],
+                            $data[$key]['productsAttributes'][$keyattr]['options_values_price'],
+                            $data[$key]['productsAttributes'][$keyattr]['price_prefix'],
+                            $data[$key]['productsAttributes'][$keyattr]['product_attributes_one_time'],
+                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_id'],
+                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_units'],
+                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_units_price'],
+                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight'],
+                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight_prefix'],
+                            $data[$key]['productsAttributes'][$keyattr]['products_options_sort_order'],
+                            $data[$key]['productsAttributes'][$keyattr]['sub_options_values_id']
+
+                        );
+                    }
+                    foreach($data[$key]['productsAttributesDescr'] as $keyattrdesc=>$valueattrdesc){
+                        unset(
+                            $data[$key]['productsAttributesDescr'][$keyattrdesc]['language_id'],
+                            $data[$key]['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
+                        );
+                    }
+                    unset(
+                        $data[$key]['productsDescription']['language_id'],
+                        $data[$key]['productsDescription']['products_head_desc_tag'],
+                        $data[$key]['productsDescription']['products_head_keywords_tag'],
+                        $data[$key]['productsDescription']['products_head_title_tag'],
+                        $data[$key]['productsDescription']['products_tab_1'],
+                        $data[$key]['productsDescription']['products_tab_2'],
+                        $data[$key]['productsDescription']['products_tab_3'],
+                        $data[$key]['productsDescription']['products_tab_4'],
+                        $data[$key]['productsDescription']['products_tab_5'],
+                        $data[$key]['productsDescription']['products_tab_6'],
+                        $data[$key]['productsDescription']['products_url'],
+                        $data[$key]['productsDescription']['products_viewed']
+                    );
+                    $data[$key]['productsAttributes'] = ArrayHelper::index($data[$key]['productsAttributes'],'options_values_id');
+
+                }
+            } else {
+                $data = 'Не найдено!';
+            }
+
+            $countfilt = count($data);
+            $start = $start_arr;
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $dataman ];
         } else {
             $this->layout = 'catalog';
             if($cat_start == 0){
