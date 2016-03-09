@@ -52,14 +52,23 @@ trait ActionProduct
                     }
                     $hide_man = implode(',', $list);
                     $relProd=PartnersProductsToCategories::find()->where(['categories_id'=>$data['categories_id']])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0')->limit(100)->asArray()->all();
+
                     if($relProd) {
                         $relnum = array_rand($relProd, min(3,count($relProd)));
-                        $relProd1 = array();
-                        foreach ($relnum as $item) {
-                            $relProd1[] = $relProd[$item]['products_id'];
-                        }
-                        $relstring = implode(',', $relProd1);
 
+//                             echo'<pre>';
+//                    print_r($relnum);
+//                    echo'</pre>';
+//                        die();
+                        $relProd1 = array();
+                        if(is_array($relnum)) {
+                            foreach ($relnum as $item) {
+                                $relProd1[] = $relProd[$item]['products_id'];
+                            }
+                            $relstring = implode(',', $relProd1);
+                        }else{
+                            $relstring = $relProd[$relnum]['products_id'];
+                        }
                         $relProduct = PartnersProductsToCategories::find()->joinWith('products')->joinWith('productsDescription')->where('products_to_categories.products_id IN (' . $relstring . ')')->asArray()->all();
                         $relProd = [];
                         foreach ($relProduct as $key => $value) {

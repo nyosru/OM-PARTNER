@@ -53,36 +53,23 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <div class="container-fluid" id="partners-main">
-            <div class="container" id="partners-main-left-back">
+        <div class="" id="partners-main">
+            <div class="" id="partners-main-left-back">
 
-                <div id="partners-main-left-cont">
-                    <div id="partners-main-left-cont" class="suplogo" style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: #CCC 1px solid;">
+                <div>
+                    <div id="partners-main-left" class="suplogo" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
                         <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
-                            echo '<span  class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
+                            echo '<span style="max-width: 316px;" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                         } else {
                             $logotype = '';
                         }
                         ?>
-                        <a id="partners-main-left-cont" href="/" class="sublogo" >
+                        <a id="partners-main-left" href="/" class="sublogo" >
                       <i class="fa fa-chevron-left" ></i> На главную
                     </a>
                     </div>
 
                     <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
-<!--                    <div id="partners-main-left-cont" class="suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">-->
-<!--                        <span class="supspan">-->
-<!--                            <a href="#" id="up" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
-<!--                                <i class="fa fa-arrow-up"></i>-->
-<!--                            </a>-->
-<!--                            <a id="down" href="#" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
-<!--                                <i class="fa fa-arrow-down"></i>-->
-<!--                            </a>-->
-<!--                           <a href="#" id="catalog-mode" style="display: block; height: 100%; float: left; width: calc(100% / 3); text-align: center;">-->
-<!--                               <i class="fa fa-arrow-left"></i>-->
-<!--                           </a>-->
-<!--                        </span>-->
-<!--                    </div>-->
                 </div>
                 <div id="partners-main-left" class="target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div id="partners-main-left-cont">
@@ -90,11 +77,11 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
 
                 </div>
-                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;">
 
                 </div>
             </div>
-            <div class="container-fluid" id="partners-main-right-back">
+            <div class="" id="partners-main-right-back">
                 <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
                         <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="/faq">Как сделать заказ</a></div>

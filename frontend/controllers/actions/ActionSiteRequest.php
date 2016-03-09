@@ -23,8 +23,6 @@ trait ActionSiteRequest
 
     public function actionRequest()
     {
-
-
         $cat_start = intval(Yii::$app->request->post('cat'));
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];

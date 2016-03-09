@@ -200,7 +200,7 @@ if ($data[0] != 'Не найдено!') {
     $headbside .='<div class="filter-auth" style="float: right; width: 25%; padding: 14px; font-size: 14px; font-weight: 300;">';
 
                             if(Yii::$app->user->isGuest){
-                                $headbside .='<div style="float: right; line-height: 2;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left; line-height: 0.9;">&#xE7FF;</i>Вход';
+                                $headbside .='<div style="float: right; line-height: 2;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left; line-height: 0.9;">&#xE7FF;</i><a data-toggle="modal" style="float: left; cursor:pointer;" data-target="#authform">Вход</a>';
                                  $headbside .= '</div>';
                                  $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
                                }else{
@@ -371,12 +371,16 @@ if ($data[0] != 'Не найдено!') {
         }else{
         $options_name = 'Количество';
         }
-
+        if(array_key_exists($product['manufacturers_id'],$man_time)){
+            $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.BASEURL.'/timeorderproducts?id='.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
+        }else{
+            $man_time_list = '';
+        }
         $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_image'] . '">' .
             '</div>' .
             '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
-            '<div style="display:none;" class="model">Артикул ' . $product['products_model'] . '</div>' .
+            '<div style="" class="model">' . $man_time_list . '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
             '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $catpath['name'])) . '</div>' .
@@ -546,6 +550,10 @@ if ($data[0] != 'Не найдено!') {
 
     $(document).on('click','#prod-info',function(){
         var dp=$(this).attr('data-prod');
+        $.post('/site/product',{id: dp},function(data){
+       console.log(data);
+        });
+        
         $prod_html='';
         $size_html='';
         $.post('/site/product',{id: dp},function(data){
@@ -592,6 +600,22 @@ if ($data[0] != 'Не найдено!') {
             .css('display','none')
     })
     </script>
+ <script>
+        $(document).on('click', '[data-ajax=time]', function(){
+            $.post($(this).attr('data-href'), function( data ) {
+            console.log($('#time'));
+            if($("#time").length) {
+            $('#time').html(data);
+            }else{
+            $('.bside').append('<div id="time" style="display: none;">'+data+'</div>');
+            }
+            $('#time').show();
+            });
+        });
+        $(document).on('click', '.close-modal', function(){
+           $(this).parents().find('#time').hide();
+           });
 
+        </script>
 
 <?
