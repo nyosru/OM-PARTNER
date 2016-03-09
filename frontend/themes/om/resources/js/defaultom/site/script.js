@@ -502,7 +502,13 @@ $(document).on('ready', function () {
                                 '</div></div></div>';
                         }
 
+                        if( data[14][$product.manufacturers_id] === undefined ) {
+                            $timewrap = '<div></div>';
+                        }else{
+                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="/glavnaya/timeorderproducts?id='+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
+                        }
+                        //console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                             '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                             '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
@@ -531,6 +537,7 @@ $(document).on('ready', function () {
                             'Увеличить'+
                             '</div>'+
                             '</a>'+
+                            ''+$timewrap+''+
                             '</div></div>');
                     });
 
@@ -741,7 +748,13 @@ $(document).on('ready', function () {
                                 '</div>'+
                                 '</div></div></div>';
                         }
+                        if( data[14][$product.manufacturers_id] === undefined ) {
+                            $timewrap = '';
+                        }else{
+                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="/glavnaya/timeorderproducts?id='+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
+                        }
+                        console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                                         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
@@ -770,8 +783,7 @@ $(document).on('ready', function () {
                                             'Увеличить'+
                                         '</div>'+
                                     '</a>'+
-                            '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="/glavnaya/timeorderproducts?id=2826"><i class="fa fa-clock-o"></i></a></div>'+
-
+                            ''+$timewrap+''+
                             '</div></div>');
                     });
 
