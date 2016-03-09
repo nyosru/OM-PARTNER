@@ -3215,14 +3215,15 @@
         color:black;
     }
     #modal-product{
-        width: 80%;
-        height: 700px;
+        width: 900px;
+        height: auto;
+        min-height:650px;
         border-radius: 4px;
         border: 1px #000 solid;
         background: #f5f5f5;
         position: fixed;
-        top: 20%;
-        left: 20%;
+        top: 30%;
+        left: 33%;
         margin-top: -150px;
         margin-left: -150px;
         display: none;
@@ -3237,6 +3238,7 @@
         right: 10px;
         cursor: pointer;
         display: block;
+        z-index: 9;
     }
     #overlay {
         z-index:999;
