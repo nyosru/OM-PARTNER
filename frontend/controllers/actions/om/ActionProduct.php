@@ -6,6 +6,7 @@ use common\models\ProductsSpecifications;
 use Yii;
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
+use yii\helpers\ArrayHelper;
 
 trait ActionProduct
 {
@@ -112,8 +113,13 @@ trait ActionProduct
                     $list[] = $value['manufacturers_id'];
                 }
                 $hide_man = implode(',', $list);
+                $data['productsAttributesDescr'] = ArrayHelper::index($data['productsAttributesDescr'], 'products_options_values_id');
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
+//                echo '<pre>';
+//                print_r($data['productsAttributesDescr']);
+//                echo '</pre>';
+//                die();
                 return ['product' => $data,  'spec'=>$spec];
 
             } else {
