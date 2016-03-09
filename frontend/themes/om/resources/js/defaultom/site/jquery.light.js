@@ -3,10 +3,10 @@
 		init : function( options ) { 
 			var settings = $.extend( {
 				unbind:true,
-				prevText:'Previous',
-				nextText:'Next',
-				loadText:'Loading...',
-				errorText:'Image not Found',
+				prevText:'Назад',
+				nextText:'Вперед',
+				loadText:'Загрузка...',
+				errorText:'Изображение не найдено',
 				keyboard:true
 			}, options);
 			if(settings.unbind) {

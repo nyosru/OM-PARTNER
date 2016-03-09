@@ -16,7 +16,7 @@ trait ActionProduct
         $relProd=[];
 
         // Если запрос пришел через GET
-        if(Yii::$app->request->method=='GET'){
+        if(Yii::$app->request->isGet){
             $id = (integer)Yii::$app->request->getQueryParam('id');
             $spec=PartnersProductsToCategories::find()
                 ->where(['products_to_categories.products_id'=>$id])
@@ -51,14 +51,23 @@ trait ActionProduct
                     }
                     $hide_man = implode(',', $list);
                     $relProd=PartnersProductsToCategories::find()->where(['categories_id'=>$data['categories_id']])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0')->limit(100)->asArray()->all();
+
                     if($relProd) {
                         $relnum = array_rand($relProd, min(3,count($relProd)));
-                        $relProd1 = array();
-                        foreach ($relnum as $item) {
-                            $relProd1[] = $relProd[$item]['products_id'];
-                        }
-                        $relstring = implode(',', $relProd1);
 
+//                             echo'<pre>';
+//                    print_r($relnum);
+//                    echo'</pre>';
+//                        die();
+                        $relProd1 = array();
+                        if(is_array($relnum)) {
+                            foreach ($relnum as $item) {
+                                $relProd1[] = $relProd[$item]['products_id'];
+                            }
+                            $relstring = implode(',', $relProd1);
+                        }else{
+                            $relstring = $relProd[$relnum]['products_id'];
+                        }
                         $relProduct = PartnersProductsToCategories::find()->joinWith('products')->joinWith('productsDescription')->where('products_to_categories.products_id IN (' . $relstring . ')')->asArray()->all();
                         $relProd = [];
                         foreach ($relProduct as $key => $value) {
@@ -105,7 +114,7 @@ trait ActionProduct
                         $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
 
                     }
-                    $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $data['categories_id'] . '&action=namenum'));
+                   // $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $data['categories_id'] . '&action=namenum'));
                     $list = array();
                     $hide_man = $this->hide_manufacturers_for_partners();
                     foreach ($hide_man as $value) {
@@ -113,7 +122,8 @@ trait ActionProduct
                     }
                     $hide_man = implode(',', $list);
                     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec];
+
+                    return ['product' => $data,  'spec'=>$spec];
 
             } else {
                 return $this->redirect('/');

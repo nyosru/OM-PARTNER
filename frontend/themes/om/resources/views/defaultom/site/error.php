@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = $name;
 ?>
-<div class="site-error">
+<div class="index-card-4" style="text-align: center;">
 
     <h1>Что то пошло не так</h1>
 

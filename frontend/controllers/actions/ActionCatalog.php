@@ -44,6 +44,7 @@ trait ActionCatalog
         if ($start_price == 'undefined' || !isset($start_price) || $start_price == '') {
             $start_price = 0;
         }
+        $man_time = $this->manufacturers_diapazon_id();
         $categoriesarr = $this->full_op_cat();
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
@@ -235,7 +236,6 @@ trait ActionCatalog
 
         $countfilt = count($data);
         $start = $start_arr;
-        $dataman =   $this->manufacturers_diapazon();
         if (($json = intval(Yii::$app->request->post('json'))) == TRUE && $json == 1) {
             if (isset($data[0])) {
                 if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
@@ -332,7 +332,7 @@ trait ActionCatalog
             $countfilt = count($data);
             $start = $start_arr;
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $dataman ];
+                return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $man_time ];
         } else {
             $this->layout = 'catalog';
             if($cat_start == 0){
@@ -343,7 +343,7 @@ trait ActionCatalog
                     Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
 
 
-                return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'date'=> $dataman ]);
+                return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time'=>$man_time]);
 
         }
 

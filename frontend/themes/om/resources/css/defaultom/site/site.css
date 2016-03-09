@@ -2,9 +2,15 @@
     .footer, .wrap {
         width: 100%;
         position: relative;
+
+    }
+    .wrap {
         height: 100%;
     }
 
+    .footer {
+        height: 80px;
+    }
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
         padding: 10px 20px;
         color: #FFF;
@@ -534,7 +540,8 @@
 
     #partners-main {
         padding: 0px;
-        height: 100%;
+        height: inherit;
+        border-left: 1px solid #CCC;
     }
 
     #partners-main-left-back {
@@ -549,7 +556,11 @@
         top: 4px;
         min-width: 16px
     }
-
+    .model > a {
+        color: #00A5A1;
+        line-height: 1.5;
+        font-size: 20px;
+    }
     #partners-main-left-back-admin {
         float: left;
         height: 100%;
@@ -566,9 +577,10 @@
     }
 
     #partners-main-left-cont {
-        border-left: 1px solid #CCC;
+
         overflow: hidden;
         width:100%;
+        max-width: 316px;
     }
     .disable-options > .size-desc  > div > input{
 
@@ -588,7 +600,19 @@
         border-right: 1px solid rgb(204, 204, 204);
         box-sizing: content-box;
     }
-
+#time{
+    display: block;
+    position: fixed;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 4px 4px 10px #CCC;
+    z-index: 1060;
+    top: 80px;
+}
+    .close-modal{
+        cursor:pointer;
+    }
     #partners-main-right-back-admin {
         position: relative;
         float: right;
@@ -2681,7 +2705,6 @@
     position: absolute;
     width: 100%;
     display: none;
-        border-left: 1px solid #CCC;
     }
     .supspan{
         height: 55px;
@@ -2691,7 +2714,7 @@
         z-index: 100;
         min-width: 211px;
         border-bottom: 1px solid #CCC;
-        border-left: 1px solid #CCC;
+
     }
     .suplogo:hover .sublogo{
         z-index: 100;
