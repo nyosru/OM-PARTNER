@@ -463,11 +463,7 @@ if ($data[0] != 'Не найдено!') {
     echo '</li>';
     ?>
 </ul>
-        <div id="modal-product">
-            <span id="modal-close">X</span>
 
-        </div>
-        <div id="overlay"></div>
    </div>
    <?
 }
@@ -477,7 +473,13 @@ if ($data[0] != 'Не найдено!') {
     echo 'Нет результатов';
 
 }
+
 ?>
+    <div id="modal-product">
+        <span id="modal-close">X</span>
+
+    </div>
+    <div id="overlay"></div>
     <script>
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);
@@ -551,9 +553,6 @@ if ($data[0] != 'Не найдено!') {
 
     $(document).on('click','#prod-info',function(){
         var dp=$(this).attr('data-prod');
-        $.post('/site/product',{id: dp},function(data){
-       console.log(data);
-        });
         
         $prod_html='';
         $size_html='';
