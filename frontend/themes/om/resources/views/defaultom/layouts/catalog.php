@@ -159,21 +159,19 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
 
                 <div style="clear: both;">
-                    <div id="index-card-4">Сео текст категории</div>
+<!--                    <div id="index-card-4">Сео текст категории</div>-->
                     <div style="margin: 0px 15px;">
                     <?
                     if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);}
-                    $data = new \common\models\PartnersConfig();
-                    $check = Yii::$app->params['constantapp']['APP_ID'];
-                    $cat = end(Yii::$app->params['layoutset']['opencat']);
-                    $page = 'seocat-'.$cat;
-                    $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+//                    $data = new \common\models\PartnersConfig();
+//                    $check = Yii::$app->params['constantapp']['APP_ID'];
+//                    $cat = end(Yii::$app->params['layoutset']['opencat']);
+//                    $page = 'seocat-'.$cat;
+//                    $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
                     if($data){
                         echo stripcslashes($data->value);
                     }else{?>
 
-
-                        НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
                     <?}?>
                     <?php if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::end(); ?>
 
