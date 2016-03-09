@@ -19,33 +19,49 @@ Trait ManufacturersDiapazonData
             $List[$val['week_day']] = ['start_time' => $val['start_time'], 'stop_time' => $val['stop_time']];
         }
             $wD = ['0'=>'Понедельник','1'=>'Вторник','2'=>'Среда','3'=>'Четверг','4'=>'Пятница','5'=>'Суббота','6'=>'Воскресение'];
-            $HTML = '<div style="border-bottom: 1px solid rgb(204, 204, 204);"><strong style="padding: 5px; display: inline;">Данный товар доступен к оформление в указаный ниже период. Он будет находится в корзине и Вы сможете его заказать в доступное для оформления время.</strong>
-		<div style="padding: 5px; display: inline; color: red;" class="close-modal"><i class="fa fa-close"></i></div></div>';
-            $HTML .=  '<div class="manDiapazon">';
-            for ($i=0; $i<7; $i++) {
-                $HTML .=  '<div>';
-                $HTML .=  '<div style="display: inline;">'.$wD[$i].': </div>';
-                $hS = floor($List[$i]['start_time']/(60*60));
-                $mS = floor($List[$i]['start_time']/(60)) % 60;
-                $IN = sprintf('%02d', $hS).':'.sprintf('%02d', $mS);
-                $HTML .=  '<div style="display: inline;">с '.(isset($List[$i]['start_time']) ? $IN : '00:00').'</div>';
-                $hS = floor($List[$i]['stop_time']/(60*60));
-                $mS = floor($List[$i]['stop_time']/(60)) % 60;
-                $IN = sprintf('%02d', $hS).':'.sprintf('%02d', $mS);
-                $HTML .= '<div style="display: inline;"> по '.(isset($List[$i]['stop_time']) ? $IN : '24:00').'</div>';
-                $HTML .=  '</div>';
-            }
-            $HTML .=  '</div>';
+            $HTML = '<div><strong>Данный товар доступен к оформление в указаный ниже период. Он будет находится в корзине и Вы сможете его заказать в доступное для оформления время.</strong><br>
+		Расписание доступности товара:</div>';
+            $HTML .= '<div class="manDiapazon">';
+                $emptyDays = 0;
+                for ($i = 0; $i < 7; $i++) {
+                    $List[$i]['start_time'] = (isset($List[$i]['start_time']) ? $List[$i]['start_time'] : '0');
+                    $List[$i]['stop_time'] = (isset($List[$i]['stop_time']) ? $List[$i]['stop_time'] : round(24 * 60 * 60));
 
-        }
-      //  }
-        return $HTML;
+                    $ret = '<div>';
+                    $ret .= '<div style="display: inline;">' . $wD[$i] . ': </div>';
+                    if ($List[$i]['start_time'] == $List[$i]['stop_time']) {
+                        $emptyDays++;
+                        $ret .= '<div style="display: inline;">заказы</div>';
+                        $ret .= '<div style="display: inline;">не принимаются</div>';
+                    } elseif ($List[$i]['start_time'] == 0 && $List[$i]['stop_time'] == round(24 * 60 * 60)) {
+                        $ret .= '<div style="display: inline;">без</div>';
+                        $ret .= '<div style="display: inline;">перерыва</div>';
+                    } else {
+                        $ret .= '<div style="display: inline;"> с ' . $this->sec2hmTime($List[$i]['start_time']) . '</div>';
+                        $ret .= '<div style="display: inline;"> по ' . $this->sec2hmTime($List[$i]['stop_time']). '</div>';
+                    }
+                    $ret .= '</div>';
+                    $HTML .= $ret;
+                }
+            $HTML .= '</div>';
+                if ($emptyDays !== 7) {
+                    return $HTML;
+                } else {
+                    return '<div><span style="color: red"><strong>Данный товар будет доступен для заказа с 09.01.16 с 16-00 . Приносим свои извинения за временные неудобства!</strong></span><div>';
+                }
+            }
     }
     public function manufacturers_diapazon_id()
     {
         $diapazon = ManufacturersDiapazon::find()->select('manufacturers_id as time')->groupBy('manufacturers_id')->asArray()->all();
         $diapazon = ArrayHelper::index($diapazon, 'time');
         return $diapazon;
+    }
+    public function sec2hmTime($time)
+    {
+        $h = floor($time / (60 * 60));
+        $m = floor($time / (60)) % 60;
+        return sprintf('%02d', $h) . ':' . sprintf('%02d', $m);
     }
 }
 
