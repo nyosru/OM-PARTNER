@@ -282,7 +282,8 @@ if ($data[0] != 'Не найдено!') {
         $product = $value['products'];
         $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
         $description = $value['productsDescription'];
-        $attr_desc = $value['productsAttributesDescr'];
+        $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
+        ksort($attr_desc,SORT_NATURAL);
         $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
 // echo '<pre>';
 //        print_r($attr);
@@ -462,11 +463,7 @@ if ($data[0] != 'Не найдено!') {
     echo '</li>';
     ?>
 </ul>
-        <div id="modal-product">
-            <span id="modal-close">X</span>
 
-        </div>
-        <div id="overlay"></div>
    </div>
    <?
 }
@@ -476,7 +473,13 @@ if ($data[0] != 'Не найдено!') {
     echo 'Нет результатов';
 
 }
+
 ?>
+    <div id="modal-product">
+        <span id="modal-close">X</span>
+
+    </div>
+    <div id="overlay"></div>
     <script>
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);
@@ -550,9 +553,6 @@ if ($data[0] != 'Не найдено!') {
 
     $(document).on('click','#prod-info',function(){
         var dp=$(this).attr('data-prod');
-        $.post('/site/product',{id: dp},function(data){
-    //   console.log(data);
-        });
         
         $prod_html='';
         $size_html='';
@@ -576,13 +576,28 @@ if ($data[0] != 'Не найдено!') {
             $baseduri=window.location.hostname;
 
                 $.each(data.product.productsAttributesDescr, function(i,item){
-console.log(item);
-//                    $size_html+='<div style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+$attr_desc_value['products_options_values_name']+'</div>'';
+                    if(data.product.products.products_quantity > 0){
+                        $classpos = 'active-options';
+                        $add_class = 'add-count';
+                        $del_class = 'del-count';
+                        $inputpos = '';
+                        $some_text = 0;
+                    }else{
+                        $classpos = 'disable-options';
+                        $inputpos = 'readonly';
+                        $add_class = 'add-count-dis';
+                        $del_class = 'del-count-dis';
+                        $some_text = 'Нет';
+                    }
+                    console.log(item);
+                    $size_html+='<div class="'+$classpos+'" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+item.products_options_values_name+'</div>';
+                    $size_html+='<input '+$inputpos+' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="'+data.product.products_id+'" data-name="'+data.product.productsDescription.products_name+'" data-model="'+data.product.products.products_model+'" data-price="'+parseInt(data.product.products.products_price)+'" data-image="/site/imagepreview?src='+data.product.products.products_image+'" data-count="'+data.product.products.products_quantity+'" data-step="'+data.product.products.products_quantity_order_units+'" data-min="'+data.product.products.products_quantity_order_min+'" data-attrname="'+data.product.productsAttributesDescr[i].products_options_values_name+'" data-attr="'+i+'" placeholder="'+$some_text+'" type="text">';
+                    $size_html+='<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">+</div><div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
                 });
 
             $prod_html+='<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;"><div class="prod-show" style="position: relative; float: left;width: 100%; right: 50%"><div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 550px;"><div class="prod-img" style="overflow: hidden; margin-bottom: 10px;"><div class="mini-img" style="float: left; width: 20%; ">'+$miniimg+'</div>';
             $prod_html+='<div style="float: right; width: 63%; min-width: 440px;"><div id="carousel" class="carousel slide"><div class="carousel-inner">'+$bigimg+'</div></div><div class="social" style="height: 50px; bottom: 0px; width: 100%;position: relative"><div style="font-size: 14px;font-weight: 300; float: left; width: 100px; margin-top:10px;text-align: left;position: relative;left:0px;">Поделиться:</div><div title="Поделиться в социальной сети" class="item-social" style="float: left;width: 150px; font-size: 18px; position: absolute;right:160px;"><div class="social social-vk"><a href="http://vk.com/share.php?url=http://'+$baseduri+'/site/product?id='+dp+'&description='+parseInt(data['product']['products']['products_price'])+' руб."><i class="fa fa-vk"></i></a></div><div class="social social-odnokl"><a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://'+$baseduri+'/site/product?id='+dp+'&st.comments="><i class="fa fa-odnoklassniki"></i></a></div><div class="social social-fb"><a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://'+$baseduri+'/site/product?id='+dp+'&p[summary]='+parseInt(data['product']['products']['products_price'])+'%20Руб.&p[title]="><i class="fa fa-facebook"></i></a></div><div class="social social-tw"><a href="http://twitter.com/share?url=http://' +$baseduri+ '/site/product?id='+dp+'&title=' +parseInt(data['product']['products']['products_price'])+'"><i class="fa fa-twitter"></i></a></div><div class="social social-mail"><a href="http://connect.mail.ru/share?url=http://' +$baseduri+'/site/product?id='+dp+'&description='+parseInt(data['product']['products']['products_price'])+'%20Руб.&title="><i class="fa fa-at"></i></a></div><div class="social social-google"><a href="https://plus.google.com/share?url=http://'+$baseduri+'/site/product?id='+dp+'"><i style="font-size:13px;" class="fa fa-google-plus"></i></a></div></div></div></div></div></div>';
-            $prod_html+='<div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;min-width:455px;"><div style="font-family: \'Roboto\', sans-serif; font-weight: 300;"><div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: '+data['product']['products']['products_model']+'</div><div style="clear: both;"></div><div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">Минимальный оптовый заказ: '+data['product']['products']['products_quantity_order_min']+' шт.</div><div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">'+data['product']['productsDescription']['products_name']+'</div><div itemprop="category" class="model" style="display:none"></div><a itemprop="url" href="/glavnaya/product?id='+dp+'"></a></div><div class="prod-pricing" style="margin-bottom: 25px;"><div class="prod-price-lable" style="clear: both; font-size: 12px; margin-bottom: 7px;text-align:left;">Цена</div><div class="prod-price" itemprop="price" style="float: left; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;">'+parseInt(data['product']['products']['products_price'])+' руб</div><div style="clear: both"></div><div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;"></div><div class="prod-compos" style="font-size: 12px;"><br/><div itemprop="description" id="prd" style="display: none; font-size: 12px !important; font-weight: 400 !important; margin-top: 20px;"><br/></div></div></div></div></div></div>';
+            $prod_html+='<div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;min-width:455px;"><div style="font-family: \'Roboto\', sans-serif; font-weight: 300;"><div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: '+data['product']['products']['products_model']+'</div><div style="clear: both;"></div><div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">Минимальный оптовый заказ: '+data['product']['products']['products_quantity_order_min']+' шт.</div><div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">'+data['product']['productsDescription']['products_name']+'</div><div itemprop="category" class="model" style="display:none"></div><a itemprop="url" href="/glavnaya/product?id='+dp+'"></a></div><div class="prod-pricing" style="margin-bottom: 25px;"><div class="prod-price-lable" style="clear: both; font-size: 12px; margin-bottom: 7px;text-align:left;">Цена</div><div class="prod-price" itemprop="price" style="float: left; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;">'+parseInt(data['product']['products']['products_price'])+' руб</div><div style="clear: both"></div><div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;">'+$size_html+'</div><div class="prod-compos" style="font-size: 12px;"><br/><div itemprop="description" id="prd" style="display: none; font-size: 12px !important; font-weight: 400 !important; margin-top: 20px;"><br/></div></div></div></div></div></div>';
             $('#modal-product').html('<span id="modal-close">X</span>'+$prod_html);
         });
 

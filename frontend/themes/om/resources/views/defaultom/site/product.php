@@ -7,6 +7,12 @@ $prodinfoattr='<div class="size-block" style="overflow: hidden;margin-bottom: 38
 if (count($product['productsAttributesDescr']) > 0) {
     $numInFirstColumn=(int)(count($product['productsAttributesDescr'])/2);
     $sizeCounter=0;
+    $product['productsAttributesDescr']=\yii\helpers\ArrayHelper::index($product['productsAttributesDescr'],'products_options_values_name');
+    ksort($product['productsAttributesDescr'],SORT_NATURAL);
+//    echo '<pre>';
+//    print_r($product['productsAttributesDescr']);
+//    echo '<pre>';
+//    die();
     $prodinfoattr.='<div class="size-column1" style="width: 215px; overflow: hidden; float: left; border-right: 1px solid lightgrey;margin-right: 25px;">';
     foreach ($product['productsAttributesDescr'] as $item) {
         if($sizeCounter==($numInFirstColumn)){
