@@ -259,7 +259,6 @@ trait ActionCatalog
                         $data[$key]['products']['country_id'],
                         $data[$key]['products']['date_checked'],
                         $data[$key]['products']['imagenew'],
-                        $data[$key]['products']['manufacturers_id'],
                         $data[$key]['products']['products_image_lrg'],
                         $data[$key]['products']['products_image_med'],
                         $data[$key]['products']['products_image_sm_1'],
