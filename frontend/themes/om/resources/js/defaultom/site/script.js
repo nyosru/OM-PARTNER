@@ -530,17 +530,14 @@ $(document).on('ready', function () {
                             '</span>'+
                             '</div>'+
                             '</div>'+
-                            '<a href="/glavnaya/product?id='+$product.products_id+'">'+
                             '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
                             '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
                             '</i>'+
                             'Увеличить'+
                             '</div>'+
-                            '</a>'+
                             ''+$timewrap+''+
                             '</div></div>');
                     });
-
 
                     $pager = '';
 
@@ -776,20 +773,17 @@ $(document).on('ready', function () {
                                             '</span>'+
                                         '</div>'+
                                     '</div>'+
-                                    '<a href="/glavnaya/product?id='+$product.products_id+'">'+
+
                                         '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
                                             '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
                                             '</i>'+
                                             'Увеличить'+
                                         '</div>'+
-                                    '</a>'+
+
                             ''+$timewrap+''+
                             '</div></div>');
                     });
-
-
                     $pager = '';
-
                     data[1] = parseInt(data[1]);
                     $count = parseInt($count);
                     if(data[1] > $count){

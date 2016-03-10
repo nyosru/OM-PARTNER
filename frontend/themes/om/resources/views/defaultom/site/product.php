@@ -8,11 +8,9 @@ if (count($product['productsAttributesDescr']) > 0) {
     $numInFirstColumn=(int)(count($product['productsAttributesDescr'])/2);
     $sizeCounter=0;
     $product['productsAttributesDescr']=\yii\helpers\ArrayHelper::index($product['productsAttributesDescr'],'products_options_values_name');
+    $product['productsAttributes']=\yii\helpers\ArrayHelper::index($product['productsAttributes'],'options_values_id');
+
     ksort($product['productsAttributesDescr'],SORT_NATURAL);
-//    echo '<pre>';
-//    print_r($product['productsAttributesDescr']);
-//    echo '<pre>';
-//    die();
     $prodinfoattr.='<div class="size-column1" style="width: 215px; overflow: hidden; float: left; border-right: 1px solid lightgrey;margin-right: 25px;">';
     foreach ($product['productsAttributesDescr'] as $item) {
         if($sizeCounter==($numInFirstColumn)){
@@ -29,7 +27,8 @@ if (count($product['productsAttributesDescr']) > 0) {
             $item['products_options_values_id'] . '"data-name="'.
             $product['productsDescription']['products_name'].'"data-min="'.
             $product['products']['products_quantity_order_min'].'"data-step="'.
-            $product['products']['products_quantity_order_units'].
+            $product['products']['products_quantity_order_units'].'" data-count="'.
+            $product['productsAttributes'][$item['products_options_values_id']]['quantity'].
             '" type="text" placeholder="0" /><div id="add-count">+</div></div></div>';
         $sizeCounter++;
     }
@@ -39,7 +38,7 @@ if (count($product['productsAttributesDescr']) > 0) {
     $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 170px;"><div id="del-count" style="position: absolute; left: 0px; bottom: 1px;">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:55%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
         $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="' . $products['products_attribute_description']['products_options_values_name'] .
         '" data-attr="' . $products['products_attribute_description']['products_options_values_id'] . '"data-name="'.
-        $product['productsDescription']['products_name'].'"data-min="'.$product['products']['products_quantity_order_min'].'"data-step="'.$product['products']['products_quantity_order_units'].'" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 1px;">+</div></div>';
+        $product['productsDescription']['products_name'].'"data-min="'.$product['products']['products_quantity_order_min'].'"data-step="'.$product['products']['products_quantity_order_units'].'" data-count="'.$product['products']['products_quantity'].'" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 1px;">+</div></div>';
     $prodinfoattr .= '</div><div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
 }
 

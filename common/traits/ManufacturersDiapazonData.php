@@ -31,10 +31,10 @@ Trait ManufacturersDiapazonData
                     $ret .= '<div style="display: inline;">' . $wD[$i] . ': </div>';
                     if ($List[$i]['start_time'] == $List[$i]['stop_time']) {
                         $emptyDays++;
-                        $ret .= '<div style="display: inline;">заказы</div>';
+                        $ret .= '<div style="display: inline;">заказы </div>';
                         $ret .= '<div style="display: inline;">не принимаются</div>';
                     } elseif ($List[$i]['start_time'] == 0 && $List[$i]['stop_time'] == round(24 * 60 * 60)) {
-                        $ret .= '<div style="display: inline;">без</div>';
+                        $ret .= '<div style="display: inline;">без </div>';
                         $ret .= '<div style="display: inline;">перерыва</div>';
                     } else {
                         $ret .= '<div style="display: inline;"> с ' . $this->sec2hmTime($List[$i]['start_time']) . '</div>';
@@ -53,8 +53,13 @@ Trait ManufacturersDiapazonData
     }
     public function manufacturers_diapazon_id()
     {
-        $diapazon = ManufacturersDiapazon::find()->select('manufacturers_id as time')->groupBy('manufacturers_id')->asArray()->all();
-        $diapazon = ArrayHelper::index($diapazon, 'time');
+        $diapazon = ManufacturersDiapazon::find()->select('manufacturers_id as time, week_day, start_time, stop_time')->asArray()->all();
+        foreach($diapazon as $key => $value){
+             $diapazons[$value['time']][$value['week_day']]['start_time'] = $value['start_time'];
+             $diapazons[$value['time']][$value['week_day']]['stop_time'] = $value['stop_time'];
+             $diapazons[$value['time']]['time'] = $value['time'];
+        }
+        $diapazon = $diapazons;
         return $diapazon;
     }
     public function sec2hmTime($time)

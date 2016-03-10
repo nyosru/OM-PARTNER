@@ -26,6 +26,7 @@ trait ActionSaveorder
 {
     public function actionSaveorder()
     {
+        date_default_timezone_set('Europe/Moscow');
         if(!Yii::$app->request->post('address')){
             $adress_num = 0;
         }else{
@@ -42,13 +43,51 @@ trait ActionSaveorder
         $userCustomer = $user['customers'];
         $userOM = $user['addressBook'][$adress_num];
         $product_in_order = Yii::$app->request->post('product');
+        $quant=[];
         foreach($product_in_order as $prodkey =>$prodvalue){
+               if($prodvalue)
+                   foreach($prodvalue as $k=> $v){
+                       $quant[$prodkey]+= $v;
+                   }
                $queryproduct[] = $prodkey;
         }
         if($queryproduct) {
               $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy('products.`products_id`')->asArray()->all();
         }else{
             return $this->redirect(Yii::$app->request->referrer);
+        }
+        $man = $this->manufacturers_diapazon_id();
+        foreach($proddata as $keyrequest => $valuerequest){
+            $thisweeekday = date('N')-1;
+            $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
+            if(array_key_exists($valuerequest['manufacturers_id'],$man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]){
+                $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
+                $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
+                if(($timstamp_now - $start_time >= 0) && ($stop_time - $timstamp_now >=0  )){
+                    $validproduct[] = $valuerequest;
+                    $validprice = $valuerequest['products_price']*$quant[$valuerequest['products_id']];
+                }else{
+                   unset($proddata[$keyrequest]);
+                   $related[]=$valuerequest;
+                }
+
+            }
+        }
+        if($validprice < 5000){
+            return $this->render('cartresult', [
+                'result'=>  [
+                    'code' => 0,
+                    'text'=>'Минимальная сумма заказа 5000р',
+                    'data'=>[
+                        'paramorder'=>[
+
+                        ],
+                        'saveproduct'=>$validproduct,
+                        'timeproduct'=>$related,
+                        'totalpricesaveproduct'=>$validprice
+                    ]
+                ]
+            ]);
         }
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -224,8 +263,23 @@ trait ActionSaveorder
             } else {
 
             }
-
             $transaction->commit('suc');
+            if($validprice < 5000){
+                return $this->render('cartresult', [
+                    'result'=>  [
+                        'code' => 0,
+                        'text'=>'Минимальная сумма заказа 5000р',
+                        'data'=>[
+                            'paramorder'=>[
+
+                            ],
+                            'saveproduct'=>$validproduct,
+                            'timeproduct'=>$related,
+                            'totalpricesaveproduct'=>$validprice
+                        ]
+                    ]
+                ]);
+            }
         } catch (\Exception $e) {
             $transaction->rollBack();
             echo '<pre>';
