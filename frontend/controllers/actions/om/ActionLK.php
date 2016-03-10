@@ -3,6 +3,7 @@ namespace frontend\controllers\actions\om;
 
 use common\models\Customers;
 use common\models\PartnersUsersInfo;
+use common\models\Profile;
 use common\models\User;
 use yii;
 
@@ -31,8 +32,34 @@ trait ActionLK
         switch (Yii::$app->request->getQueryParam('view')) {
 
             case 'userinfo':
-                    return $this->render('lkuserinfo',['cust'=>$cust]);
-                break;
+                if(Yii::$app->request->post()){
+                    $customer=new Profile();
+                    $customer->load(Yii::$app->request->post());
+                    switch (Yii::$app->request->post()['save_lk']) {
+                        case 'user':
+                            $customer->saveUserInfo();
+                            break;
+                        case 'customer':
+//                            echo '<pre>';
+//                            print_r(Yii::$app->request->post());
+//                            print_r($customer);
+//                            echo '</pre>';
+                            $customer->saveCustomer();
+                            break;
+                        case 'address':
+                            $customer->saveUserDelivery();
+                            break;
+                        default:
+                            echo 'Произошла ошибка';
+                            break;
+                    }
+                }else{
+                    $customer=new Profile();
+                    $customer->loadUserProfile();
+                }
+                $this->layout = 'lk';
+                return $this->render('lkuserinfo',['cust'=>$customer]);
+            break;
 
 
             case 'myorder':

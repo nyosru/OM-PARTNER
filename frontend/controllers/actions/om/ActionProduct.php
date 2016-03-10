@@ -122,7 +122,7 @@ trait ActionProduct
                     $list[] = $value['manufacturers_id'];
                 }
                 $hide_man = implode(',', $list);
-                $data['productsAttributesDescr'] = ArrayHelper::index($data['productsAttributesDescr'], 'products_options_values_id');
+                $data['productsAttributesDescr'] = ArrayHelper::index($data['productsAttributesDescr'], 'products_options_values_name');
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
 //                echo '<pre>';
