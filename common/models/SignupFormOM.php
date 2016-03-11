@@ -18,7 +18,7 @@ use Yii;
 
 class SignupFormOM extends Model
 {
-    public $logemail;
+    public $emails;
     public $password;
     public $passwordcheck;
     public $id_partners;
@@ -47,9 +47,9 @@ class SignupFormOM extends Model
     public function rules()
     {
         return [
-            ['logemail','email'],
-            ['logemail','required', 'message' => 'Это обязательное поле.'],
-            ['logemail','ValidateUserEmail2'],
+           ['emails','email'],
+//            ['email','required', 'message' => 'Это обязательное поле.'],
+
 
             ['spam', 'boolean'],
 
@@ -62,7 +62,7 @@ class SignupFormOM extends Model
             ['pasportdate','date', 'message' => 'Дата'],
 
             ['adress','required', 'message' => 'Это обязательное поле.'],
-            ['adress','ValidateAdress'],
+          //  ['adress','ValidateAdress'],
             ['adress','filter', 'filter' => 'trim'],
 
             ['postcode','required', 'message' => 'Это обязательное поле.'],
@@ -86,6 +86,8 @@ class SignupFormOM extends Model
             ['passwordcheck','required', 'message' => 'Это обязательное поле.'],
             ['passwordcheck','string','min'=>5, 'message' => 'Минимальная длина 5 символов'],
             ['passwordcheck','compare','compareAttribute'=>'password', 'message' => 'Пароли не совпадают'],
+            ['fax','validateUserEmail'],
+            ['fax','required', 'message' => '234234'],
 
 
 
@@ -95,7 +97,20 @@ class SignupFormOM extends Model
         ];
     }
 
-
+    public function validateUserEmail()
+    {
+        $userCustomer = new Customers();
+        $partners = new Partners();
+        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+        $check_email = $userCustomer->find()->where(['customers_email_address' => $this->emails])->asArray()->one();
+        $userCustomer = new User();
+        $check_part_email = $userCustomer->find()->where(['email' => $this->emails, 'id_partners'=>$id_partners])->asArray()->one();
+        if(!$check_email && !$check_part_email){
+            return true;
+        }else {
+            $this->addError('emails', 'Почтовый адрес уже используется в системе');
+        }
+    }
 
 //        $userCustomer = new Customers();
 //        $partners = new Partners();
@@ -108,41 +123,40 @@ class SignupFormOM extends Model
 //        }else {
 //            $this->addError('email', 'Почтовый адрес уже используется в системе');
 //        }
-    public function ValidateUserEmail2()
-    {
-        $userCustomer = new Customers();
-        $partners = new Partners();
-        $id_partners = Yii::$app->params['constantapp']['APP_ID'];
-        $check_email = $userCustomer->find()->where(['customers_email_address' => $this->logemail])->asArray()->one();
-        $userCustomer = new User();
-        $check_part_email = $userCustomer->find()->where(['email' => $this->logemail, 'id_partners'=>$id_partners])->asArray()->one();
-       $this->addError('logemail', 'rt');
-    }
+//    public function validateuserumail()
+//    {
+//        $id_partners = Yii::$app->params['constantapp']['APP_ID'];
+//        $check_email = Customers::find()->where(['customers_email_address' => $this->logemail])->asArray()->one();
+//        $check_part_email =  User::find()->where(['email' => $this->logemail, 'id_partners'=>$id_partners])->asArray()->one();
+//       if($check_email ||  $check_part_email) {
+//           $this->addError('logemail', 'rt');
+//       }
+//    }
 
-    public function ValidateAdress()
-    {
-        if($this->adress['street']){
-
-        }else{
-            $this->addError('adress[street]', 'Это обязательное поле');
-        }
-        if($this->adress['house']){
-
-        }else{
-            $this->addError('adress[house]', 'Это обязательное поле');
-        }
-        if($this->adress['bilding']){
-
-        }else{
-            $this->addError('adress[bilding]', 'Это обязательное поле');
-        }
-        if($this->adress['apartment']){
-
-        }else{
-            $this->addError('adress[apartment]', 'Это обязательное поле');
-        }
-
-    }
+//    public function ValidateAdress()
+//    {
+//        if($this->adress['street']){
+//
+//        }else{
+//            $this->addError('adress[street]', 'Это обязательное поле');
+//        }
+//        if($this->adress['house']){
+//
+//        }else{
+//            $this->addError('adress[house]', 'Это обязательное поле');
+//        }
+//        if($this->adress['bilding']){
+//
+//        }else{
+//            $this->addError('adress[bilding]', 'Это обязательное поле');
+//        }
+//        if($this->adress['apartment']){
+//
+//        }else{
+//            $this->addError('adress[apartment]', 'Это обязательное поле');
+//        }
+//
+//    }
     public function signup()
     {
       //  $transaction = Yii::$app->db->beginTransaction();
@@ -157,8 +171,8 @@ class SignupFormOM extends Model
             $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
             $this->adress = implode(' ',$this->adress);
             $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
-            $user->username = $this->logemail;
-            $user->email = $this->logemail;
+            $user->username = $this->emails;
+            $user->email = $this->emails;
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->id_partners = $id_partners;
@@ -195,7 +209,7 @@ class SignupFormOM extends Model
             $userCustomer->customers_firstname = $this->name;
             $userCustomer->customers_lastname =  $this->lastname;
             $userCustomer->otchestvo =  $this->secondname;
-            $userCustomer->customers_email_address =  $this->logemail;
+            $userCustomer->customers_email_address =  $this->emails;
             $userCustomer->customers_default_address_id = $userOM->address_book_id;
             $userCustomer->customers_selected_template = '1';
             $userCustomer->customers_telephone =  $this->telephone;
@@ -262,31 +276,5 @@ class SignupFormOM extends Model
      //   }
     }
 
-    public function attributeLabels()
-    {
-        return [
-            'logemail' => 'Manufacturers Info List ID',
-            'password' => 'Manufacturers ID',
-            'passwordcheck' => 'Manufacturers Opf',
-            'id_partners' => 'Ur Name',
-            'role' => 'Post Code',
-            'captcha' => 'Post Region',
-            'name' => 'Post City',
-            'secondname' => 'Post Street',
-            'lastname' => 'Man Phone',
-            'adress' => 'Bank Name',
-            'city' => 'Bank Bik',
-            'state' => 'Bank Ks',
-            'country' => 'Bank Rs',
-            'postcode' => 'Bank Rs Old',
-            'telephone' => 'Ur Okpo',
-            'user_id' => 'Glav Buh',
-            'pasportser' => 'Otv Lic Dolj',
-            'pasportnum' => 'Otv Lic Fio',
-            'pasportdate' => 'Otv Lic2 Dolj',
-            'pasportwhere' => 'Otv Lic2 Fio',
-            'fax' => 'Dog Num',
-            'spam' => 'Dog Date',
-        ];
-    }
+
 }

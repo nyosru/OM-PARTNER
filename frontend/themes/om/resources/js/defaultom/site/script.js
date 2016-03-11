@@ -160,7 +160,8 @@ $(document).on('click', '.cart-lable', function () {
             if ($item.cart.length > 0) {
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
-                        this[4] = parseInt(this[4]) + parseInt($item_add.value);
+                        $now_count = $item_add.getAttribute('data-count');
+                        this[4] = Math.min($now_count,(parseInt(this[4]) + parseInt($item_add.value)));
                         x = 1;
                     }
                 });
@@ -226,6 +227,10 @@ $(document).on('click', '.countdisplay', function index_count_display() {
     } else {
         $(this).removeClass('count-checked');
     }
+});
+$(document).on('keyup', '#input-count', function(){
+ $val =   $(this).val();
+    $(this).val(Math.min(parseInt($val), $(this).attr('data-count')));
 });
 $(document).on('click', '.reset', function () {
     $(".page-checked").removeClass('page-checked');
@@ -530,17 +535,14 @@ $(document).on('ready', function () {
                             '</span>'+
                             '</div>'+
                             '</div>'+
-                            '<a href="/glavnaya/product?id='+$product.products_id+'">'+
                             '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
                             '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
                             '</i>'+
                             'Увеличить'+
                             '</div>'+
-                            '</a>'+
                             ''+$timewrap+''+
                             '</div></div>');
                     });
-
 
                     $pager = '';
 
@@ -776,20 +778,17 @@ $(document).on('ready', function () {
                                             '</span>'+
                                         '</div>'+
                                     '</div>'+
-                                    '<a href="/glavnaya/product?id='+$product.products_id+'">'+
+
                                         '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
                                             '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
                                             '</i>'+
                                             'Увеличить'+
                                         '</div>'+
-                                    '</a>'+
+
                             ''+$timewrap+''+
                             '</div></div>');
                     });
-
-
                     $pager = '';
-
                     data[1] = parseInt(data[1]);
                     $count = parseInt($count);
                     if(data[1] > $count){
