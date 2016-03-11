@@ -156,6 +156,31 @@ class Profile extends Model{
             $value->update();
         }
     }
+    public function addUserDelivery(){
+        $country = new Countries();
+        $zones = new Zones();
+        $add=new AddressBook();
+        $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
+
+        $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery['add']['country']])->asArray()->one();
+        $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery['add']['state']])->asArray()->one();
+        $add->entry_firstname=$this->delivery['add']['name'];
+        $add->entry_lastname=$this->delivery['add']['lastname'];
+        $add->otchestvo=$this->delivery['add']['secondname'];
+        $add->entry_gender = 'M';
+        $add->birth_day=$this->delivery['add']['birthday'];
+        $add->pasport_seria=$this->delivery['add']['passportser'];
+        $add->pasport_nomer=$this->delivery['add']['passportnum'];
+        $add->pasport_kem_vidan=$this->delivery['add']['passportwho'];
+        $add->pasport_kogda_vidan=$this->delivery['add']['passportdate'];
+        $add->entry_country_id=$entrycountry['id'];
+        $add->entry_zone_id=$entryzones['id'];
+        $add->entry_city=$this->delivery['add']['city'];
+        $add->entry_postcode=$this->delivery['add']['postcode'];
+        $add->entry_street_address=$this->delivery['add']['address'];
+        $add->customers_id=$userinfo->customers_id;
+        $add->save();
+    }
     public function loadUserProfile(){
         $country = new Countries();
         $zones = new Zones();

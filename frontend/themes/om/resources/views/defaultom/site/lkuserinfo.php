@@ -23,6 +23,7 @@ Collapse::widget();
 <div style="margin-bottom: 46px; padding: 0px 20px;">Эта информация никогда не будет доступна третьим лицам</div>
 
 <?
+
 $sorter = '';
 $cs = count($tab_order);
 
@@ -68,24 +69,24 @@ for($i=0; $i<$cs; $i++){
         <div class="user-order-row panel panel-default" style=""><div style="border: 1px solid rgb(204, 204, 204);" class="panel-heading"><h4 class="panel-title"><a aria-expanded="false" class="collapse-toggle collapsed" href="#expanded-tab-user-0-collapse1" data-toggle="collapse" data-parent="#expanded-tab-user-0">Мои данные</a>
                 </h4></div>
             <div  aria-expanded="false" id="expanded-tab-user-0-collapse1" class="user-order-row-expand panel-collapse collapse">
-                <div  style="background: #f5f5f5;margin: 0px -300% 0px -100%; position: relative; left: 100%; text-align: left; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 10px;" class="panel-body">
+                <div  style="background: #f5f5f5;margin: 0px -300% 0px -100%; position: relative; left: 100%; text-align: left; padding: 10px;" class="panel-body">
                    <?
                    $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
                    echo $form->field($cust, 'id')->hiddenInput(['value' => $cust->id])->label(false);
-                   echo $form->field($cust, 'email' );
-                   echo $form->field($cust, 'name' );
-                   echo $form->field($cust, 'secondname' );
-                   echo $form->field($cust, 'lastname' );
-                   echo $form->field($cust, 'postcode' );
-                   echo $form->field($cust, 'country' );
-                   echo $form->field($cust, 'state' );
-                   echo $form->field($cust, 'city' );
-                   echo $form->field($cust, 'address' );
-                   echo $form->field($cust, 'phone' );
-                   echo $form->field($cust, 'pasportser' );
-                   echo $form->field($cust, 'pasportnum' );
-                   echo $form->field($cust, 'pasportdate' );
-                   echo $form->field($cust, 'pasportwhere' );
+                   echo $form->field($cust, 'email' )->label('Email (так же является логином)');
+                   echo $form->field($cust, 'lastname' )->label('Фамилия');
+                   echo $form->field($cust, 'name' )->label('Имя');
+                   echo $form->field($cust, 'secondname' )->label('Отчество');
+                   echo $form->field($cust, 'postcode' )->label('Почтовый индекс');
+                   echo $form->field($cust, 'country' )->label('Страна')->textInput(['data-name'=>'country','id'=>'userinfo']);
+                   echo $form->field($cust, 'state' )->label('Регион')->textInput(['data-name'=>'state','id'=>'userinfo']);
+                   echo $form->field($cust, 'city' )->label('Город');
+                   echo $form->field($cust, 'address' )->label('Адрес');
+                   echo $form->field($cust, 'phone' )->label('Телефон');
+                   echo $form->field($cust, 'pasportser' )->label('Серия паспорта');
+                   echo $form->field($cust, 'pasportnum' )->label('Номер паспорта');
+                   echo $form->field($cust, 'pasportdate' )->label('Дата выдачи');
+                   echo $form->field($cust, 'pasportwhere' )->label('Кем выдан');
                    echo '<div class="form-group">';
                    echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'user']);
                    echo '</div>';
@@ -99,16 +100,16 @@ for($i=0; $i<$cs; $i++){
         <div class="user-order-row panel panel-default" style=""><div style="border: 1px solid rgb(204, 204, 204);" class="panel-heading"><h4 class="panel-title"><a class="collapse-toggle" href="#expanded-tab-user-1-collapse1" data-toggle="collapse" data-parent="#expanded-tab-user-1">Данные плательщика</a>
                 </h4></div>
             <div style="" id="expanded-tab-user-1-collapse1" class="user-order-row-expand panel-collapse collapse">
-                <div style="background: #f5f5f5;margin: 0px -300% 0px -100%; position: relative; left: 0%; text-align: left; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 10px;" class="panel-body">
+                <div style="background: #f5f5f5;margin: 0px -300% 0px -100%; position: relative; left: 0%; text-align: left; padding: 10px;" class="panel-body">
                     <?
                     $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
                     echo $form->field($cust, 'delivery_adress_id' )->hiddenInput(['value'=>$cust->delivery_adress_id])->label(false);
-                    echo $form->field($cust, 'customers_lastname' );
-                    echo $form->field($cust, 'customers_firstname' );
-                    echo $form->field($cust, 'otchestvo' );
-                    echo $form->field($cust, 'customers_email_address' );
-                    echo $form->field($cust, 'customers_telephone' );
-                    echo $form->field($cust, 'customers_fax' );
+                    echo $form->field($cust, 'customers_lastname' )->label('Фамилия');
+                    echo $form->field($cust, 'customers_firstname' )->label('Имя');
+                    echo $form->field($cust, 'otchestvo' )->label('Отчество');
+                    echo $form->field($cust, 'customers_email_address' )->label('Email');
+                    echo $form->field($cust, 'customers_telephone' )->label('Телефон');
+                    echo $form->field($cust, 'customers_fax' )->label('Факс');
                     echo '<div class="form-group">';
                     echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'customer']);
                     echo '</div>';
@@ -121,7 +122,7 @@ for($i=0; $i<$cs; $i++){
         <div class="user-order-row panel panel-default" style=""><div style="border: 1px solid rgb(204, 204, 204);" class="panel-heading"><h4 class="panel-title"><a class="collapse-toggle" href="#expanded-tab-user-2-collapse1" data-toggle="collapse" data-parent="#expanded-tab-user-2">Данные грузополучателя</a>
                 </h4></div>
             <div style="" id="expanded-tab-user-2-collapse1" class="user-order-row-expand panel-collapse collapse">
-                <div style="background: #f5f5f5;margin:0px -300% 0px -100%; position: relative; left: -100%; text-align: left; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 10px;" class="panel-body">
+                <div style="background: #f5f5f5;margin:0px -300% 0px -100%; position: relative; left: -100%; text-align: left; padding: 10px;" class="panel-body">
                     <?
                     $i=-1;
                     foreach($cust['delivery'] as $key=>$value){
@@ -146,8 +147,8 @@ for($i=0; $i<$cs; $i++){
                         echo '</div>';
                         echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                         echo $form->field($cust,'delivery['.$i.'][postcode]' )->label('Почтовый индекс');
-                        echo $form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country']);
-                        echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state']);
+                        echo $form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$i]);
+                        echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$i]);
                         echo $form->field($cust,'delivery['.$i.'][city]' )->label('Город');
                         echo $form->field($cust,'delivery['.$i.'][address]' )->label('Адрес');
                         echo '</div>';
@@ -164,9 +165,14 @@ for($i=0; $i<$cs; $i++){
         <div class="user-order-row panel panel-default" style=""><div style="border: 1px solid rgb(204, 204, 204);" class="panel-heading"><h4 class="panel-title"><a class="collapse-toggle" href="#expanded-tab-user-3-collapse1" data-toggle="collapse" data-parent="#expanded-tab-user-3">Адресная книга</a>
                 </h4></div>
             <div style="" id="expanded-tab-user-3-collapse1" class="user-order-row-expand panel-collapse collapse">
-                <div style="background: #f5f5f5;margin: 0px -300% 0px -100%; position: relative; left: -200%; text-align: left; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 10px;" class="panel-body">
+                <div style="background: #f5f5f5;margin: 0px -300% 0px -100%; position: relative; left: -200%; text-align: left;  padding: 10px;" class="panel-body">
                     <?
+
                     foreach($cust['delivery'] as $key=>$value){
+                        $add_str='';$row='';
+                        $add_str=$value['postcode'].', '.$value['country'].', '.$value['state'].', '.$value['city'].', '.$value['address'];
+                        echo '<div id="modal_add'.$key.'" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button><h3 class="modal-title">Изменение адреса доставки</h3></div>';
+                        echo '<div class="modal-body">';
                         $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
                         echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Получатель:</div>';
                         echo $form->field($cust,'delivery['.$key.'][lastname]' )->label('Фамилия');
@@ -182,8 +188,8 @@ for($i=0; $i<$cs; $i++){
                         echo '</div>';
                         echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                         echo $form->field($cust,'delivery['.$key.'][postcode]' )->label('Почтовый индекс');
-                        echo $form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country']);
-                        echo $form->field($cust,'delivery['.$key.'][state]' )->label('Регион')->textInput(['data-name'=>'state']);
+                        echo $form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$key]);
+                        echo $form->field($cust,'delivery['.$key.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$key]);
                         echo $form->field($cust,'delivery['.$key.'][city]' )->label('Город');
                         echo $form->field($cust,'delivery['.$key.'][address]' )->label('Адрес');
                         echo '</div>';
@@ -191,17 +197,59 @@ for($i=0; $i<$cs; $i++){
                         echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'address']);
                         echo '</div>';
                         ActiveForm::end();
+                        echo '</div></div></div></div>';
+                        $row='<div class="add_row" style="width:100%; height: 80px;line-height: 3.5;"><div class="add_string" style="width: 80%; float:left">'.$add_str.
+                            '</div><div class="add_change" style="width:150px;float:right;"><a href="#modal_add'.$key.'" data-toggle="modal">Изменить</a></div></div>';
+                        echo $row;
+
                     }
+                    echo '<a href="#add_addr" class="btn btn-primary" data-toggle="modal">Добавить адрес</a>';
+                    echo '<div id="add_addr" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button><h3 class="modal-title">Добавить адрес доставки</h3></div>';
+                    echo '<div class="modal-body">';
+                    $key=count($cust['delivery']);
+                    if($key>=7){
+                        echo 'У вас уже указано максимальное количество адресов доставки';
+                    }
+                    else {
+                        $cust->delivery['add']['birthday']=date('Y-m-d');;
+                        $cust->delivery['add']['passportdate']=date('Y-m-d');;
+                        $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+                        echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Получатель:</div>';
+                        echo $form->field($cust, 'delivery[add][lastname]')->label('Фамилия');
+                        echo $form->field($cust, 'delivery[add][name]')->label('Имя');
+                        echo $form->field($cust, 'delivery[add][secondname]')->label('Отчество');
+                        echo $form->field($cust, 'delivery[add][birthday]')->label('Дата рождения');
+                        echo '</div>';
+                        echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Паспорт:</div>';
+                        echo $form->field($cust, 'delivery[add][passportser]')->label('Серия');
+                        echo $form->field($cust, 'delivery[add][passportnum]')->label('Номер');
+                        echo $form->field($cust, 'delivery[add][passportwho]')->label('Кем выдан');
+                        echo $form->field($cust, 'delivery[add][passportdate]')->label('Когда выдан');
+                        echo '</div>';
+                        echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
+                        echo $form->field($cust, 'delivery[add][postcode]')->label('Почтовый индекс');
+                        echo $form->field($cust, 'delivery[add][country]')->label('Страна')->textInput(['data-name' => 'country', 'id' => 'add']);
+                        echo $form->field($cust, 'delivery[add][state]')->label('Регион')->textInput(['data-name' => 'state', 'id' => 'add']);
+                        echo $form->field($cust, 'delivery[add][city]')->label('Город');
+                        echo $form->field($cust, 'delivery[add][address]')->label('Адрес');
+                        echo '</div>';
+                        echo '<div class="form-group">';
+                        echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value' => 'add_address']);
+                        echo '</div>';
+                        ActiveForm::end();
+                    }
+                    echo '</div></div></div></div>';
                     ?>
                 </div>
-            </div></div>
+            </div>
+        </div>
     </div>
     <div aria-expanded="true" id="expanded-tab-user-4" class="collapse-toggle header-sort-item active last-sorter panel-group collapse in" style="margin: 0px; width: calc(100% / 5); border: medium none; box-shadow: none; background: transparent none repeat scroll 0% 0%;">
         <div class="user-order-row panel panel-default" style=""><div style="border: 1px solid rgb(204, 204, 204);" class="panel-heading"><h4 class="panel-title"><a class="collapse-toggle" href="#expanded-tab-user-4-collapse1" data-toggle="collapse" data-parent="#expanded-tab-user-4">Сменить пароль</a>
                 </h4></div>
             <div style="" id="expanded-tab-user-4-collapse1" class="user-order-row-expand panel-collapse collapse">
                 <div style="background: #f5f5f5;margin:0px -300% 0px -100%; position: relative; left: -300%; text-align: left; padding: 10px 0px;" class="panel-body">
-                    пароль
+                    Данный функционал временно не работает. Приносим свои извинения.
                 </div>
             </div></div>
     </div>

@@ -40,14 +40,19 @@ trait ActionLK
                             $customer->saveUserInfo();
                             break;
                         case 'customer':
+                            $customer->saveCustomer();
+                            break;
+                        case 'address':
+
+                            $customer->saveUserDelivery();
+                            break;
+                        case 'add_address':
 //                            echo '<pre>';
 //                            print_r(Yii::$app->request->post());
 //                            print_r($customer);
 //                            echo '</pre>';
-                            $customer->saveCustomer();
-                            break;
-                        case 'address':
-                            $customer->saveUserDelivery();
+//                            die();
+                            $customer->addUserDelivery();
                             break;
                         default:
                             echo 'Произошла ошибка';
