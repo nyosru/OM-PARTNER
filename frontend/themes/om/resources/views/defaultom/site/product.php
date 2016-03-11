@@ -144,7 +144,8 @@ $imsrc=array($product['products']['products_image']);
                         <?= \frontend\widgets\CommentsBlock::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?>
                     </p>
                 </section>
-            </div></div>
+            </div>
+        </div>
             <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
             <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;margin-bottom: 20px;">
             <?php

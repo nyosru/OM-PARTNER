@@ -62,7 +62,47 @@ for($i=0; $i<$cs; $i++){
 //echo '</pre>';
 //die();
 ?>
+<div class="ov-desc" style="float:left; ">
+    <input id="tab1" type="radio" name="tabs" checked>
+    <label for="tab1" title="Мои данные">Мои данные</label>
 
+    <input id="tab2" type="radio" name="tabs">
+    <label for="tab2" title="Данные плательщика">Данные плательщика</label>
+
+    <input id="tab3" type="radio" name="tabs">
+    <label for="tab3" title="Данные грузополучателя">Данные грузополучателя</label>
+
+    <input id="tab4" type="radio" name="tabs">
+    <label for="tab4" title="Адресная книга">Адресная книга</label>
+
+    <input id="tab5" type="radio" name="tabs">
+    <label for="tab5" title="Сменить пароль">Сменить пароль</label>
+    <section id="content1">
+        <p>
+            вавыиажлдоиалвыидота
+        </p>
+    </section>
+    <section id="content2">
+        <p>
+            вылдпрывждплрвыэплдр
+        </p>
+    </section>
+    <section id="content3">
+        <p>
+            вавылщржпшвзыщпшрвызщплшрвавылщржпшвзыщпшрвызщплшр
+        </p>
+    </section>
+    <section id="content4">
+        <p>
+            ывпавыапржарплдвавитплвдаитпвжаадпитл
+        </p>
+    </section>
+    <section id="content5">
+        <p>
+            взаовыхалтовхызштавхыавыщшитгшз
+        </p>
+    </section>
+</div>
 
 <div id="sort-order" style="width: 100%;padding: 0px 20px;">
     <div aria-expanded="true" id="expanded-tab-user-0" class="collapse-toggle header-sort-item active first-sorter panel-group collapse in" style="margin: 0px; width: calc(100% / 5); border: medium none; box-shadow: none; background: transparent none repeat scroll 0% 0%;">
