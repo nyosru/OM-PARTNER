@@ -16,57 +16,30 @@ use yii\web\User;
 $this->title = $title;
 
 
-if (Yii::$app->params['partnersset']['catalog_type']['active'] == 1 && Yii::$app->params['partnersset']['catalog_type']['value'] > 0) {
+
     ?>
     <div id="main-index">
         <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><a
                 href="<?= BASEURL ?>/catalog?cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/7.jpg"></a></div>
+                    style="width: 100%; height: auto;" src="/images/banners/382_327_1.1.png"></a></div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
                 href="<?= BASEURL ?>/catalog?cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/1.jpg"></a></div>
+                    style="width: 100%; height: auto;"    src="/images/banners/382_159_1.1.png"></a></div>
         <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
                 href="<?= BASEURL ?>/catalog?cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/6.jpg"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2047"><a
+                    style="width: 100%; height: auto;"  src="/images/banners/773_496.1.png"></a></div>
+        <div id="index-card-5" style="float:right" class="data-j index-card banner-card" data-cat="2047"><a
                 href="<?= BASEURL ?>/catalog?cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/2.jpg"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="1836"><a
+                    style="width: 100%; height: auto;"  src="/images/banners/382_327_2.1.png"></a></div>
+        <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><a
+                href="<?= BASEURL ?>/catalog?cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                    style="width: 100%; height: auto;"  src="/images/banners/382_159_2.1.png"></a></div>
+        <div id="index-card-6" style="width: calc(100% - 10px);"class="data-j index-card banner-card" data-cat="1836"><a
                 href="<?= BASEURL ?>/catalog?cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/3.jpg"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2066"><a
-                href="<?= BASEURL ?>/catalog?cat=2066&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    src="/images/banners/4.jpg"></a></div>
+                    style="width: 100%; height: auto;" src="/images/banners/1570_160_1.png"></a></div>
     </div>
-    <?
-} else {
-    ?>
-    <div id="main-index">
-        <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><img src="/images/banners/7.jpg"><a
-                href="<?= BASEURL ?>/catalog?cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
-        </div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><img src="/images/banners/1.jpg"><a
-                href="<?= BASEURL ?>/catalog?cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
-        </div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2047"><img src="/images/banners/2.jpg"><a
-                href="<?= BASEURL ?>/catalog?cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
-        </div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><img src="/images/banners/5.jpg"><a
-                href="<?= BASEURL ?>/catalog?cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
-        </div>
-        <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><img src="/images/banners/6.jpg"><a
-                href="<?= BASEURL ?>/catalog?cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
-        </div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="1836"><img src="/images/banners/3.jpg"><a
-                href="<?= BASEURL ?>/catalog?cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
-        </div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2066"><img src="/images/banners/4.jpg"><a
-                href="<?= BASEURL ?>/catalog?cat=2066&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="></a>
-        </div>
-    </div>
-    <?
-}
-?>
+
+
     <div id="main-spec">
         <div id="index-card-4" style='font-family: "Roboto Light",sans serif; border-bottom: 1px solid rgb(204, 204, 204); border-radius: 0px;'>
             <div class="index-icon-plate">
@@ -327,45 +300,45 @@ if (Yii::$app->params['partnersset']['catalog_type']['active'] == 1 && Yii::$app
         </div>
     </div>
     <div style="clear: both;">
-        <div id="index-card-4">Сео индекс инлайн</div>
-        <div style="margin: 0px 15px;">
-            <?
-            if (Yii::$app->user->can('admin')) {
-                \dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);
-            }
-            $data = new \common\models\PartnersConfig();
-            $check = Yii::$app->params['constantapp']['APP_ID'];
-            $page = 'seoindex';
-            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
-            if ($data) {
-                echo stripcslashes($data->value);
-            } else {
-                ?>
-
-
-                НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
-            <? } ?>
-            <?php if (Yii::$app->user->can('admin')) {
-                \dosamigos\ckeditor\CKEditorInline::end(); ?>
-                <button class="savehtml">Сохранить</button>
-                <script>
-                    $(document).on('click', '.savehtml', function () {
-                        $html = $('.cke_editable').html();
-
-
-                        $.post(
-                            '/site/savehtml',
-                            {
-                                html: $html,
-                                page: 'seoindex'
-                            }
-                        );
-                        alert('Изменения сохранены');
-
-                    });
-
-                </script>
-            <? } ?>
-        </div>
+<!--        <div id="index-card-4">Сео индекс инлайн</div>-->
+<!--        <div style="margin: 0px 15px;">-->
+<!--            --><?//
+//            if (Yii::$app->user->can('admin')) {
+//                \dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);
+//            }
+//            $data = new \common\models\PartnersConfig();
+//            $check = Yii::$app->params['constantapp']['APP_ID'];
+//            $page = 'seoindex';
+//            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+//            if ($data) {
+//                echo stripcslashes($data->value);
+//            } else {
+//                ?>
+<!---->
+<!---->
+<!--                НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ-->
+<!--            --><?// } ?>
+<!--            --><?php //if (Yii::$app->user->can('admin')) {
+//                \dosamigos\ckeditor\CKEditorInline::end(); ?>
+<!--                <button class="savehtml">Сохранить</button>-->
+<!--                <script>-->
+<!--                    $(document).on('click', '.savehtml', function () {-->
+<!--                        $html = $('.cke_editable').html();-->
+<!---->
+<!---->
+<!--                        $.post(-->
+<!--                            '/site/savehtml',-->
+<!--                            {-->
+<!--                                html: $html,-->
+<!--                                page: 'seoindex'-->
+<!--                            }-->
+<!--                        );-->
+<!--                        alert('Изменения сохранены');-->
+<!---->
+<!--                    });-->
+<!---->
+<!--                </script>-->
+<!--            --><?// } ?>
+<!--        </div>-->
     </div>
 <? //  $this->endCache(); }?>

@@ -16,7 +16,7 @@ class LoginFormOM extends Model
     public $rememberMe = true;
     private $_user = false;
     private $_userom = false;
-    public $captcha;
+   // public $captcha;
     public $errors =[
         'username' => [
             'не может быть пустым'
@@ -30,9 +30,9 @@ class LoginFormOM extends Model
         return [
             [['username'], 'required', 'message' => 'Поле не может быть пустым'],
             ['password','required' , 'message' => 'Поле не может быть пустым'],
-            ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
+          //  ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
             ['rememberMe', 'boolean'],
-            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
+        //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
             ['password', 'validatePassword', 'message' => 'Не правильный пароль или логин'],
         ];
     }
@@ -107,12 +107,15 @@ class LoginFormOM extends Model
                     $newpartuserinfo->city = $address['entry_city'];
                     $newpartuserinfo->adress = $address['entry_street_address'];
                     $newpartuserinfo->postcode = $address['entry_postcode'];
+                    if(!$newpartuserinfo->postcode){
+                        $newpartuserinfo->postcode = "000000";
+                    }
                     $newpartuserinfo->telephone = $customer->customers_telephone;
                     $newpartuserinfo->name = $customer->customers_firstname;
                     $newpartuserinfo->lastname = $customer->customers_lastname;
                     $newpartuserinfo->secondname =  $customer->otchestvo;
                     if(!$newpartuserinfo->secondname){
-                        $newpartuserinfo->secondname = "%20";
+                        $newpartuserinfo->secondname = "Не указанно";
                     }
                     $newpartuserinfo->customers_id = $customer->customers_id;
                     $newpartuserinfo->pasportdate = $address['pasport_kogda_vidan'];
@@ -121,7 +124,14 @@ class LoginFormOM extends Model
                     $newpartuserinfo->pasportwhere = $address['pasport_kem_vidan'];
                    if($newpartuserinfo->save()){
                        return Yii::$app->user->login($newpartuser, $this->rememberMe ? 3600 * 24 * 30 : 0);
+                   }else{
+                       echo '<pre>';
+                       print_r($newpartuserinfo);
+                       echo '</pre>';
+                       die();
+
                    }
+
                 }
                 return false;
             }

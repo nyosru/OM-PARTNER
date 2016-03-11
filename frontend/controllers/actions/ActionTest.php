@@ -9,38 +9,44 @@ use common\models\Zones;
 use common\models\Customers;
 use yii\widgets\ActiveForm;
 use Zelenin\yii\SemanticUI\widgets\GridView;
-
+use app\api\core\partners\Partners;
 trait ActionTest
 {
     public function actionTest()
     {
-        $plain = Yii::$app->request->getQueryParam('pass');
-        $password = '';
-        $customers = new Customers();
-        for ($i = 0; $i < 10; $i++) {
-            $password .= $customers->customer_migrate_rand();
-            }
 
-        $salt = substr(md5($password), 0, 2);
+        $part = new Partners();
 
-        $password = md5($salt . $plain) . ':' . $salt;
 
-        echo $password;
-        die();
-        $model = new Test();
-        if($model->load(Yii::$app->request->post())){
-            $model->save();
-        }
-        $form =  ActiveForm::begin();
-        echo $form->field($model, 'tt');
-        ActiveForm::end();
+//        $plain = Yii::$app->request->getQueryParam('pass');
+//        $password = '';
+//        $customers = new Customers();
+//        for ($i = 0; $i < 10; $i++) {
+//            $password .= $customers->customer_migrate_rand();
+//            }
+//
+//        $salt = substr(md5($password), 0, 2);
+//
+//        $password = md5($salt . $plain) . ':' . $salt;
+//
+//        echo $password;
+//        die();
+//        $model = new Test();
+//        if($model->load(Yii::$app->request->post())){
+//            $model->save();
+//        }
+//        $form =  ActiveForm::begin();
+//        echo $form->field($model, 'tt');
+//        ActiveForm::end();
+//
+//       $out = $model->find()->asArray()->all();
+//
+//        echo '<pre>';
+//        print_r(Yii::$app->params['log']);
+//        print_r($out);
+//        echo '</pre>';
 
-       $out = $model->find()->asArray()->all();
 
-        echo '<pre>';
-        print_r(Yii::$app->params['log']);
-        print_r($out);
-        echo '</pre>';
     }
 
     public function rgbToHsl($r, $g, $b)

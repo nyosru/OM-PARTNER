@@ -2,9 +2,15 @@
     .footer, .wrap {
         width: 100%;
         position: relative;
+
+    }
+    .wrap {
         height: 100%;
     }
 
+    .footer {
+        height: 80px;
+    }
     #prod-card-info > .prod-info-size > .cart-lable, .cart-lable {
         padding: 10px 20px;
         color: #FFF;
@@ -16,7 +22,7 @@
         text-decoration: none
     }
 
-    #card, #index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
+    #card, #index-card-1, #index-card-2,  #index-card-4 {
         max-height: 300px;
     }
 
@@ -36,6 +42,8 @@
         height: 100%;
         width: 100%;
         max-width: 1920px;
+        background: #F5F5F5 none repeat scroll 0px center;
+        margin: auto;
     }
 
     a {
@@ -53,7 +61,7 @@
     .wrap > .container {
         padding: 0 15px 20px
     }
-    .no-shadow-form-control:hover, .no-shadow-form-control:active, .no-shadow-form-control:focus, {
+    .no-shadow-form-control:hover, .no-shadow-form-control:active, .no-shadow-form-control:focus{
         box-shadow: none;
         transition: none;
         border-color: #66AFE9;
@@ -532,7 +540,8 @@
 
     #partners-main {
         padding: 0px;
-        height: 100%;
+        height: inherit;
+        border-left: 1px solid #CCC;
     }
 
     #partners-main-left-back {
@@ -540,18 +549,23 @@
         height: 100%;
         width: 16.5%;
         padding: 0px;
-        max-width: 315px;
+        max-width: 316px;
     }
 
     .arrow-down, .arrow-up {
         top: 4px;
         min-width: 16px
     }
-
+    .model > a {
+        color: #00A5A1;
+        line-height: 1.5;
+        font-size: 20px;
+    }
     #partners-main-left-back-admin {
         float: left;
         height: 100%;
-        width: 15%
+        width: 15%;
+    box-sizing: content-box;
     }
 
     #partners-main-left {
@@ -559,15 +573,18 @@
         overflow: hidden;
         background: #F5F5F5;
         width: 100%;
-        max-width: 315px;
+        max-width: 316px;
     }
 
     #partners-main-left-cont {
-        /*height: 100%;*/
+
         overflow: hidden;
         width:100%;
+        max-width: 316px;
     }
+    .disable-options > .size-desc  > div > input{
 
+    }
     .partners-comp-main, .partners-comp-main:hover {
         margin: 3px;
         border-color: #E9F1F4 #D8DEE2 #D8DEE2
@@ -580,8 +597,22 @@
         position: relative;
         box-shadow: 10px 0px 20px -20px #000 inset;
         margin-left: 16.5%;
+        border-right: 1px solid rgb(204, 204, 204);
+        box-sizing: content-box;
     }
-
+#time{
+    display: block;
+    position: fixed;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 4px 4px 10px #CCC;
+    z-index: 1060;
+    top: 80px;
+}
+    .close-modal{
+        cursor:pointer;
+    }
     #partners-main-right-back-admin {
         position: relative;
         float: right;
@@ -716,7 +747,11 @@
         background-color: #5BC0DE;
         text-shadow: 1px 1px 1px #4E4E4E
     }
-
+    .code200 {
+        font-weight: 400;
+        padding: 10px;
+        font-size: 24px;
+    }
     #partners-add-comp:hover {
         margin-top: 8px;
         float: right;
@@ -728,9 +763,6 @@
         text-shadow: 1px 1px 1px #4E4E4E
     }
 
-    body, html {
-        background: 0 center #F5F5F5
-    }
     .banner-cat {
         float: none;
         height: 100px !important;
@@ -1667,7 +1699,27 @@
         height: 22px;
         line-height: 1.8;
     }
-
+    #add-count-dis, #del-count-dis {
+        margin: 0px 3px;
+        padding: 0px;
+        background: #CCC none repeat scroll 0px center;
+        font-weight: 600;
+        width: 22px;
+        height: 22px;
+        line-height: 1.8;
+    }
+    #add-count-dis {
+        float: right;
+        text-align: center;
+        color: #FFF;
+        border-radius: 3px;
+    }
+    #del-count-dis {
+        float: left;
+        text-align: center;
+        color: #FFF;
+        border-radius: 3px;
+    }
     #city-drop li, #country-drop li, #state-drop li {
         padding: 5px
     }
@@ -1697,7 +1749,9 @@
         background: 0 center #00a5a1;
         font-weight: 600;
     }
-
+    [data-vis="size-item-desc"]:hover  > [data-vis="size-item-card"]{
+       display:block
+    }
     #add-count {
         float: right;
         text-align: center;
@@ -1813,6 +1867,7 @@
         z-index: 999;
         width: calc(83.5% - 30px) !important;
         height: auto !important;
+        max-width: 1575px;
     }
     .filter + .fixedbar-filter> .panel-default > a > .panel-heading{
         border-radius: 0px ;
@@ -2397,11 +2452,8 @@
     }
 
     #index-card-3 {
+        float:right;
         padding: 0;
-        height: 120px;
-        overflow: hidden;
-        min-height: 500px;
-        float: right;
         position: relative;
         cursor: pointer
     }
@@ -2429,18 +2481,12 @@
     #index-card-5 {
         float: left;
         padding: 0;
-        height: 120px;
-        overflow: hidden;
-        min-height: 330px;
         cursor: pointer
     }
 
     #index-card-6 {
         float: left;
         padding: 0;
-        overflow: hidden;
-        min-height: 160px;
-        height: 160px;
         cursor: pointer
     }
 
@@ -2672,6 +2718,7 @@
         z-index: 100;
         min-width: 211px;
         border-bottom: 1px solid #CCC;
+
     }
     .suplogo:hover .sublogo{
         z-index: 100;
@@ -2919,7 +2966,7 @@
         margin: 0px 10px;
     }
     .banner-card{
-        background: #00a5a1 ;
+        
     }
 
     .navbredcrump {
@@ -2965,8 +3012,9 @@
         border-color: #00a5a1;
     }
 
-    @media screen and (min-width: 1860px) and ( max-width: 1920px){
-        #card{
+    /*@media screen and (min-width: 1860px) and ( max-width: 1921px){*/
+    @media screen and (min-width: 1860px){
+    #card{
             width: calc(100% / 6 - 10px);
         }
         .headerbside {
@@ -2981,7 +3029,7 @@
         }
     }
 
-    @media screen and (min-width: 1560px) and ( max-width: 1860px){
+    @media screen and (min-width: 1560px) and ( max-width: 1870px){
         #card{
             width: calc(100% / 5 - 10px);
         }
@@ -2995,7 +3043,7 @@
 
         }
     }
-    @media screen and (min-width: 0px) and ( max-width: 1560px){
+    @media screen and (min-width: 0px) and ( max-width: 1559px){
         #card{
             width: calc(100% / 4 - 10px);
         }
@@ -3099,22 +3147,6 @@
     #tab2:checked ~ #content2{
         display: block;
     }
-    /* медиа запросы для различных типов носителей */
-    @media screen and (max-width: 680px) {
-        .ov-desc label {
-            font-size: 0;
-        }
-
-        .ov-desc label:before {
-            margin: 0;
-            font-size: 18px;
-        }
-    }
-    @media screen and (max-width: 400px) {
-        .ov-desc label {
-            padding: 15px;
-        }
-    }
 
     #slid .carousel-indicators{
         display: none;
@@ -3169,4 +3201,99 @@
         margin-bottom: 10px;
         text-align: center;
         color:black;
+    }
+    #modal-product{
+        width: 900px;
+        height: auto;
+        min-height:650px;
+        border-radius: 4px;
+        border: 1px #000 solid;
+        background: #f5f5f5;
+        position: fixed;
+        top: 30%;
+        left: 33%;
+        margin-top: -150px;
+        margin-left: -150px;
+        display: none;
+        z-index: 1000;
+        padding: 20px 10px;
+    }
+    #modal-product #modal-close{
+        width: 21px;
+        height: 21px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        display: block;
+        z-index: 9;
+    }
+    #overlay {
+        z-index:999;
+        position:fixed;
+        background-color:#000;
+        opacity:0.1;
+        -moz-opacity:0.8;
+        filter:alpha(opacity=80);
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        cursor:pointer;
+        display:none;
+    }
+
+    /*Стили для табов в профиле*/
+    .lkprofile {
+        padding: 0px;
+    }
+    /* стили секций с содержанием */
+    .lkprofile section {
+        display: none;
+        padding: 15px;
+    }
+    .lkprofile>input {
+        display: none;
+    }
+    /* стили вкладок (табов) */
+    .lkprofile>label {
+        display: inline-block;
+        margin: 0 0 -1px;
+        padding: 3px 20px;
+        text-align: center;
+        color: #aaa;
+        font-weight: normal;
+        font-size: 16px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+    .lkprofile > label:nth-child(2){
+        margin-left: 25px;
+    }
+    .lkprofile .header-catalog{
+        display: none;
+    }
+
+    /* изменения стиля заголовков вкладок при наведении */
+    .lkprofile label:hover {
+        color: #888;
+        cursor: pointer;
+    }
+    /* стили для активной вкладки */
+    .lkprofile input:checked + label {
+        color: #555;
+    }
+    /* активация секций с помощью переключателя :checked */
+    #tab1:checked ~ #content1,
+    #tab2:checked ~ #content2,
+    #tab3:checked ~ #content3,
+    #tab4:checked ~ #content4,
+    #tab5:checked ~ #content5 {
+        display: block;
+    }
+    .inp{
+        width:350px;
+        display: inline-block;
+        margin: 10px;
     }

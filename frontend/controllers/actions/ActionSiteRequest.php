@@ -1,16 +1,28 @@
 <?
+
+
+
+
 namespace frontend\controllers\actions;
 use common\models\PartnersProductsToCategories;
 use Yii;
 
+/**
+ * Class ActionSiteRequest
+ * @package frontend\controllers\actions
+ *
+ * IMPORTANT ALL LOGIC ADD TO ActionCatalog
+ *
+ * This status DEPRECATED
+ *
+ *
+ */
 trait ActionSiteRequest
 {
 
 
     public function actionRequest()
     {
-
-
         $cat_start = intval(Yii::$app->request->post('cat'));
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];

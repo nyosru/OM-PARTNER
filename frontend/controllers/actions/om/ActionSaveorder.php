@@ -26,6 +26,7 @@ trait ActionSaveorder
 {
     public function actionSaveorder()
     {
+        date_default_timezone_set('Europe/Moscow');
         if(!Yii::$app->request->post('address')){
             $adress_num = 0;
         }else{
@@ -42,13 +43,56 @@ trait ActionSaveorder
         $userCustomer = $user['customers'];
         $userOM = $user['addressBook'][$adress_num];
         $product_in_order = Yii::$app->request->post('product');
+        $quant=[];
         foreach($product_in_order as $prodkey =>$prodvalue){
+               if($prodvalue)
+                   foreach($prodvalue as $k=> $v){
+                       $quant[$prodkey]+= $v;
+                   }
                $queryproduct[] = $prodkey;
         }
         if($queryproduct) {
               $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy('products.`products_id`')->asArray()->all();
         }else{
             return $this->redirect(Yii::$app->request->referrer);
+        }
+        $man = $this->manufacturers_diapazon_id();
+        $validprice = 0;
+        foreach($proddata as $keyrequest => $valuerequest){
+            $thisweeekday = date('N')-1;
+            $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
+            if(array_key_exists($valuerequest['manufacturers_id'],$man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]){
+                $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
+                $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
+                if(($timstamp_now - $start_time >= 0) && ($stop_time - $timstamp_now >=0  )){
+                    unset($proddata[$keyrequest]);
+                    $related[]=$valuerequest;
+                }else{
+                    $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+                    $origprod[$valuerequest['products_id']] = $valuerequest;
+                }
+
+            }else{
+                $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+                $origprod[$valuerequest['products_id']] = $valuerequest;
+            }
+        }
+
+        if($validprice < 5000){
+            return $this->render('cartresult', [
+                'result'=>  [
+                    'code' => 0,
+                    'text'=>'Минимальная сумма заказа 5000р',
+                    'data'=>[
+                        'paramorder'=>[
+
+                        ],
+                        'origprod' => $origprod,
+                        'timeproduct'=>$related,
+                        'totalpricesaveproduct'=>$validprice
+                    ]
+                ]
+            ]);
         }
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -152,6 +196,7 @@ trait ActionSaveorder
                                 $ordersprodattr->oid = '1';
                                 $ordersprodattr->sub_vid = 0;
                                     if ($ordersprodattr->save()) {
+                                        $ordersprodattr =      $ordersprodattr->toArray();
                                    } else {
 
                                   }
@@ -159,7 +204,7 @@ trait ActionSaveorder
                             } else {
 
                             }
-
+                                    $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
                         }
 //                        echo '<pre>';
 //                        print_r($reindexprod);
@@ -174,7 +219,16 @@ trait ActionSaveorder
                 }
                 $orderstotalprice = new OrdersTotal();
                 $orderstotalprice->orders_id = $orders->orders_id;
-                $dostavka = ['flat1_flat1' => 'Бесплатная доставка до ТК Деловые Линии', 'flat2_flat2' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция', 'flat3_flat3' => 'Бесплатная доставка до ТК ПЭК', 'flat7_flat7' => 'Почта ЕМС России',];
+                $dostavka = [
+                    'flat1_flat1' => 'Бесплатная доставка до ТК Деловые Линии',
+                    'flat2_flat2' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция',
+                    'flat3_flat3' => 'Бесплатная доставка до ТК ПЭК',
+                    'flat7_flat7' => 'Почта ЕМС России',
+                    'flat11_flat11' => 'Бесплатная доставка до ТК КИТ',
+                    'flat10_flat10' => 'Бесплатная доставка до ТК ОПТИМА',
+                    'flat9_flat9' => 'Бесплатная доставка до ТК Севертранс',
+                    'flat12_flat12' => 'Бесплатная доставка до ТК ЭНЕРГИЯ',
+                ];
                 if (!$dostavka[$ship]) {
                     $dostavka[$ship] = 'Партнерская доставка';
                 }
@@ -224,8 +278,26 @@ trait ActionSaveorder
             } else {
 
             }
-
             $transaction->commit('suc');
+
+                return $this->render('cartresult', [
+                    'result'=>  [
+                        'code' => 200,
+                        'text'=>'Спасибо, Ваш заказ оформлен',
+                        'data'=>[
+                            'paramorder'=>[
+                                'delivery' => $dostavka[$ship],
+                                'number'=> $orders->orders_id,
+                                'date' => $orders->date_purchased,
+                            ],
+                            'saveproduct'=>$validproduct,
+                            'origprod' => $origprod,
+                            'timeproduct'=>$related,
+                            'totalpricesaveproduct'=>$validprice
+                        ]
+                    ]
+                ]);
+
         } catch (\Exception $e) {
             $transaction->rollBack();
             echo '<pre>';

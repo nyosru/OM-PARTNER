@@ -10,6 +10,11 @@ use yii\bootstrap\ActiveForm;
 //$check_part_email = $userCustomer->find()->where(['email' => 'desure85@mail.ru', 'id_partners'=>$id_partners])->asArray()->one();
 //print_r($check_part_email);
 $this->title = 'Регистрация';
+
+//echo '<pre>';
+//        print_r($model);
+//        echo '</pre>';
+//die();
 ?>
 <div style="width: 80%; margin-left: 10px;">
 <div class="regmain" style="font-size: 24px;margin: 0px 15px; font-weight: 300;clear:none">Я регистрируюсь на Одежда-Мастер</div>
@@ -42,7 +47,7 @@ $this->title = 'Регистрация';
 <div class="regmain" style="font-weight: 400; margin: 15px;">Мои контактные данные</div>
 <?= $form->field($model, 'telephone', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Телефон'); ?>
 <?= $form->field($model, 'fax', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Факс'); ?>
-<?= $form->field($model, 'logemail', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Электронная почта'); ?>
+<?= $form->field($model, 'emails', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Электронная почта'); ?>
 
 <?= $form->field($model, 'spam', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->checkbox()->label('Уведомлять о доступных промо-кодах, подарках и спецпредложениях'); ?>
 
@@ -50,12 +55,12 @@ $this->title = 'Регистрация';
 <?= $form->field($model, 'password', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->passwordInput()->passwordInput()->label('Пароль') ?>
 <?= $form->field($model, 'passwordcheck', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->passwordInput()->passwordInput()->label('Подтвердить пароль') ?>
 
-<?= $form->field($model, 'captcha', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->widget(\yii\captcha\Captcha::classname(), [
-                'template' => '{input}{image}',
-                'options' => ['class'=>' col-md-12', 'style'=>'height: 36px; border-radius: 4px; border: 1px solid rgb(204, 204, 204);'],
-    //'inputOptions'=>['class'=>'col-md-8'],
-    'imageOptions'=>['class'=>'', 'style'=>'height:36px;'],
-            ])->label('Введите текст на картинке') ?>
+<?//= $form->field($model, 'captcha', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->widget(\yii\captcha\Captcha::classname(), [
+//                'template' => '{input}{image}',
+//                'options' => ['class'=>' col-md-12', 'style'=>'height: 36px; border-radius: 4px; border: 1px solid rgb(204, 204, 204);'],
+//    //'inputOptions'=>['class'=>'col-md-8'],
+//    'imageOptions'=>['class'=>'', 'style'=>'height:36px;'],
+//            ])->label('Введите текст на картинке') ?>
 
             <div class="col-md-12" style="margin: 20px 0px;">
                 <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary', 'name' => 'signup-button', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']) ?>

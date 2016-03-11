@@ -34,6 +34,8 @@ use frontend\controllers\actions\ActionPaymentMethod;
 use frontend\controllers\actions\ActionPayOrders;
 use frontend\controllers\actions\ActionPrintOrders;
 use frontend\controllers\actions\ActionTakeOrder;
+use frontend\controllers\actions\ActionTimeOrderProducts;
+use frontend\controllers\actions\om\ActionCartResult;
 use frontend\controllers\actions\om\ActionLK;
 use frontend\controllers\actions\om\ActionProduct;
 use frontend\controllers\actions\om\ActionProductinfo;
@@ -120,6 +122,8 @@ class GlavnayaController extends Controller
         ActionAddSearch,
         ActionProductinfobymodel,
         ActionCart,
+        ActionTimeOrderProducts,
+        ActionCartResult,
         ActionTakeOrder;
 
 

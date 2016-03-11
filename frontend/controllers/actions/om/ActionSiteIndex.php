@@ -20,14 +20,14 @@ trait ActionSiteIndex
         $dataproducts = Yii::$app->cache->get($key);
         if (!$dataproducts) {
             $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN (' . $hide_man . ')  and products.products_model IN (' . $products . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(10)->distinct()->JoinWith('productsAttributesDescr')->asArray()->all();
-            Yii::$app->cache->set($key, $dataproducts, 400);
+            Yii::$app->cache->set($key, $dataproducts, 7200);
         }
 
         $key = Yii::$app->cache->buildKey('index_new');
         $newproducts = Yii::$app->cache->get($key);
         if (!$newproducts) {
             $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN (' . $hide_man . ') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->distinct()->limit(6)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
-            Yii::$app->cache->set($key, $newproducts, 400);
+            Yii::$app->cache->set($key, $newproducts, 7200);
         }
         if(isset(Yii::$app->params['partnersset']['slogan']['value']) && Yii::$app->params['partnersset']['slogan']['active'] == 1){
             $title = $this->trim_tags_text(Yii::$app->params['partnersset']['slogan']['value']);

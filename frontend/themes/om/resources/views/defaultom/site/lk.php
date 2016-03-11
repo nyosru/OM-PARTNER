@@ -32,28 +32,28 @@ $this->title = 'Личный кабинет';
         <div class="item">
             <img src="/images/logo/Proverka.png"/>
         </div>
-        <div class="item">100</div>
+        <div class="item"><?= $dataset['countcheck'];?></div>
         <div class="title">Ожидает проверки</div>
     </div>
     <div class="lk-order-status col-md-3">
         <div class="item">
             <img src="/images/logo/Oplata.png"/>
         </div>
-        <div class="item">100</div>
+        <div class="item"><?= $dataset['countpay'];?></div>
         <div class="title">Ожидает оплаты</div>
     </div>
     <div class="lk-order-status col-md-3">
         <div class="item">
             <img src="/images/logo/Sborka.png"/>
         </div>
-        <div class="item">100</div>
+        <div class="item"><?= $dataset['countdelivery'];?></div>
         <div class="title">Ожидает сборки</div>
     </div>
     <div class="lk-order-status col-md-3">
         <div class="item">
             <img src="/images/logo/Dostavka.png"/>
         </div>
-        <div class="item">100</div>
+        <div class="item"><?= $dataset['countdelivery'];?></div>
         <div class="title">Ожидает доставки</div>
     </div>
 </div>
@@ -257,37 +257,7 @@ $this->title = 'Личный кабинет';
                     return 'Оставить комментарий';
                 }
             ],
-//
-//        [
-//            'attribute' => 'user_id',
-//            'label' => 'Пользователь',
-//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-//            'contentOptions' => function ($model, $key, $index, $column) {
-//                return ['class' => 'tbl_column_name'];
-//            },
-//            'content' => function ($data) {
-//                return $data->user->username;
-//            }
-//        ],
-//        ['class' => 'yii\grid\ActionColumn',
-//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-//            'template' => '{print}{pay}',
-//            'header' => 'Печать',
-//            'buttons' => [
-//                'print' => function ($url, $model, $key) {
-//                    $url = Yii::$app->urlManager->createUrl([BASEURL . '/printorders', 'id' => $key]);
-//                    return '<div class="col-md-3">' . Html::a(
-//                        '<span class="fa fa-print"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
-//                        $url, ['target' => '_blank']) . '</div>';
-//                },
-////                'pay' => function ($url, $model, $key) {
-////                    $url = Yii::$app->urlManager->createUrl(['/site/payorders', 'id' => $key]);
-////                    return '<div class="col-md-3">' . Html::a(
-////                        '<span class="fa fa-credit-card"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
-////                        $url, ['target' => '_blank']) . '</div>';
-////                },
-//            ],
-//        ],
+
         ],
         'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
     ]);
@@ -299,7 +269,7 @@ $this->title = 'Личный кабинет';
         <div class="item">
             <img src="/images/logo/LK_order.png">
         </div>
-        <div class="title">100</div>
+        <div class="title"><?= $dataset['totalorder'];?></div>
         <div class="desc">
            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Заказов сделанно</a> мной с начала регистрации на сайте
         </div>
@@ -308,7 +278,7 @@ $this->title = 'Личный кабинет';
         <div class="item">
             <img src="/images/logo/LK_goods.png">
         </div>
-        <div class="title">100</div>
+        <div class="title"><?=$dataset['totalproducts'];?></div>
         <div class="desc">
             <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Товаров доставленно</a> мне с начала регистрации на сайте
         </div>
@@ -317,7 +287,7 @@ $this->title = 'Личный кабинет';
         <div class="item">
             <img src="/images/logo/LK_summ.png">
         </div>
-        <div class="title">100</div>
+        <div class="title"><?=$dataset['totalprice'];?></div>
         <div class="desc">
             <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Сумма оплаченных</a> мною товаров с начала регистрации на сайте
         </div>
@@ -326,7 +296,7 @@ $this->title = 'Личный кабинет';
         <div class="item">
             <img src="/images/logo/LK_cancelorder.png">
         </div>
-        <div class="title">100</div>
+        <div class="title"><?=$dataset['totalcancel'];?></div>
         <div class="desc">
             <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Заказов отменено</a> мной с начала регистрации на сайте
         </div>
