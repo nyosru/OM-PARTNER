@@ -57,6 +57,7 @@ trait ActionSaveorder
             return $this->redirect(Yii::$app->request->referrer);
         }
         $man = $this->manufacturers_diapazon_id();
+        $validprice = 0;
         foreach($proddata as $keyrequest => $valuerequest){
             $thisweeekday = date('N')-1;
             $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
@@ -64,15 +65,19 @@ trait ActionSaveorder
                 $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
                 $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
                 if(($timstamp_now - $start_time >= 0) && ($stop_time - $timstamp_now >=0  )){
-                    $validproduct[] = $valuerequest;
-                    $validprice = $valuerequest['products_price']*$quant[$valuerequest['products_id']];
+                    unset($proddata[$keyrequest]);
+                    $related[]=$valuerequest;
+                   print_r($proddata);
                 }else{
-                   unset($proddata[$keyrequest]);
-                   $related[]=$valuerequest;
+                    $validproduct[] = $valuerequest;
+                    $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+                    print_r( $proddata);
+
                 }
 
             }
         }
+
         if($validprice < 5000){
             return $this->render('cartresult', [
                 'result'=>  [
@@ -267,8 +272,8 @@ trait ActionSaveorder
             if($validprice < 5000){
                 return $this->render('cartresult', [
                     'result'=>  [
-                        'code' => 0,
-                        'text'=>'Минимальная сумма заказа 5000р',
+                        'code' => 200,
+                        'text'=>'Ваш заказ сохранен и передан в обработку',
                         'data'=>[
                             'paramorder'=>[
 

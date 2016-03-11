@@ -268,7 +268,7 @@ for($i=0; $i<$cs; $i++){
                     out.response.items, function () {
                         $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
                     });
-                $('[data-name=country]').after('<ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+                $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
                 $('[data-name=country]').attr('autocomplete', 'off');
             }
         });
