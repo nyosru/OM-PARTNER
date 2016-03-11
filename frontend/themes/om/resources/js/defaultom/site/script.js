@@ -160,7 +160,8 @@ $(document).on('click', '.cart-lable', function () {
             if ($item.cart.length > 0) {
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
-                        this[4] = parseInt(this[4]) + parseInt($item_add.value);
+                        $now_count = $item_add.getAttribute('data-count');
+                        this[4] = Math.min($now_count,(parseInt(this[4]) + parseInt($item_add.value)));
                         x = 1;
                     }
                 });
@@ -226,6 +227,10 @@ $(document).on('click', '.countdisplay', function index_count_display() {
     } else {
         $(this).removeClass('count-checked');
     }
+});
+$(document).on('keyup', '#input-count', function(){
+ $val =   $(this).val();
+    $(this).val(Math.min(parseInt($val), $(this).attr('data-count')));
 });
 $(document).on('click', '.reset', function () {
     $(".page-checked").removeClass('page-checked');

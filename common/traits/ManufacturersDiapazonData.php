@@ -19,8 +19,8 @@ Trait ManufacturersDiapazonData
             $List[$val['week_day']] = ['start_time' => $val['start_time'], 'stop_time' => $val['stop_time']];
         }
             $wD = ['0'=>'Понедельник','1'=>'Вторник','2'=>'Среда','3'=>'Четверг','4'=>'Пятница','5'=>'Суббота','6'=>'Воскресение'];
-            $HTML = '<div><strong>Данный товар доступен к оформление в указаный ниже период. Он будет находится в корзине и Вы сможете его заказать в доступное для оформления время.</strong><br>
-		Расписание доступности товара:</div>';
+            $HTML = '<div><strong style="display: inline;">Данный товар доступен к оформление в указаный ниже период. Он будет находится в корзине и Вы сможете его заказать в доступное для оформления время.</strong><div class="close-modal" style="display: inline; color: red; padding: 5px;"><i class="fa fa-close"></i></div>
+		</div>';
             $HTML .= '<div class="manDiapazon">';
                 $emptyDays = 0;
                 for ($i = 0; $i < 7; $i++) {

@@ -257,37 +257,7 @@ $this->title = 'Личный кабинет';
                     return 'Оставить комментарий';
                 }
             ],
-//
-//        [
-//            'attribute' => 'user_id',
-//            'label' => 'Пользователь',
-//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-//            'contentOptions' => function ($model, $key, $index, $column) {
-//                return ['class' => 'tbl_column_name'];
-//            },
-//            'content' => function ($data) {
-//                return $data->user->username;
-//            }
-//        ],
-//        ['class' => 'yii\grid\ActionColumn',
-//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-//            'template' => '{print}{pay}',
-//            'header' => 'Печать',
-//            'buttons' => [
-//                'print' => function ($url, $model, $key) {
-//                    $url = Yii::$app->urlManager->createUrl([BASEURL . '/printorders', 'id' => $key]);
-//                    return '<div class="col-md-3">' . Html::a(
-//                        '<span class="fa fa-print"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
-//                        $url, ['target' => '_blank']) . '</div>';
-//                },
-////                'pay' => function ($url, $model, $key) {
-////                    $url = Yii::$app->urlManager->createUrl(['/site/payorders', 'id' => $key]);
-////                    return '<div class="col-md-3">' . Html::a(
-////                        '<span class="fa fa-credit-card"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
-////                        $url, ['target' => '_blank']) . '</div>';
-////                },
-//            ],
-//        ],
+
         ],
         'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
     ]);
