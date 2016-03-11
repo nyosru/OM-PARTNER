@@ -3241,28 +3241,31 @@
 
     /*Стили для табов в профиле*/
     .lkprofile {
-        min-width: 320px;
-        max-width: 800px;
         padding: 0px;
     }
     /* стили секций с содержанием */
     .lkprofile section {
         display: none;
         padding: 15px;
-        border-top: 1px solid lightgray;
     }
-    .lkprofile input {
+    .lkprofile>input {
         display: none;
     }
     /* стили вкладок (табов) */
-    .lkprofile label {
+    .lkprofile>label {
         display: inline-block;
         margin: 0 0 -1px;
-        padding: 15px 25px;
+        padding: 3px 20px;
         text-align: center;
         color: #aaa;
         font-weight: normal;
-        font-size: x-large;
+        font-size: 16px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+    .lkprofile > label:nth-child(2){
+        margin-left: 25px;
     }
     .lkprofile .header-catalog{
         display: none;
@@ -3276,7 +3279,6 @@
     /* стили для активной вкладки */
     .lkprofile input:checked + label {
         color: #555;
-        border-bottom: 5px solid rgb(0, 165, 161);
     }
     /* активация секций с помощью переключателя :checked */
     #tab1:checked ~ #content1,
@@ -3285,4 +3287,9 @@
     #tab4:checked ~ #content4,
     #tab5:checked ~ #content5 {
         display: block;
+    }
+    .inp{
+        width:350px;
+        display: inline-block;
+        margin: 10px;
     }
