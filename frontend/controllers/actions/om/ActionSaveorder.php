@@ -67,14 +67,14 @@ trait ActionSaveorder
                 if(($timstamp_now - $start_time >= 0) && ($stop_time - $timstamp_now >=0  )){
                     unset($proddata[$keyrequest]);
                     $related[]=$valuerequest;
-                   print_r($proddata);
                 }else{
-                    $validproduct[] = $valuerequest;
                     $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
-                    print_r( $proddata);
-
+                    $origprod[$valuerequest['products_id']] = $valuerequest;
                 }
 
+            }else{
+                $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+                $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
 
@@ -87,7 +87,7 @@ trait ActionSaveorder
                         'paramorder'=>[
 
                         ],
-                        'saveproduct'=>$validproduct,
+                        'origprod' => $origprod,
                         'timeproduct'=>$related,
                         'totalpricesaveproduct'=>$validprice
                     ]
@@ -196,6 +196,7 @@ trait ActionSaveorder
                                 $ordersprodattr->oid = '1';
                                 $ordersprodattr->sub_vid = 0;
                                     if ($ordersprodattr->save()) {
+                                        $ordersprodattr =      $ordersprodattr->toArray();
                                    } else {
 
                                   }
@@ -203,7 +204,7 @@ trait ActionSaveorder
                             } else {
 
                             }
-
+                                    $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
                         }
 //                        echo '<pre>';
 //                        print_r($reindexprod);
@@ -218,7 +219,16 @@ trait ActionSaveorder
                 }
                 $orderstotalprice = new OrdersTotal();
                 $orderstotalprice->orders_id = $orders->orders_id;
-                $dostavka = ['flat1_flat1' => 'Бесплатная доставка до ТК Деловые Линии', 'flat2_flat2' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция', 'flat3_flat3' => 'Бесплатная доставка до ТК ПЭК', 'flat7_flat7' => 'Почта ЕМС России',];
+                $dostavka = [
+                    'flat1_flat1' => 'Бесплатная доставка до ТК Деловые Линии',
+                    'flat2_flat2' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция',
+                    'flat3_flat3' => 'Бесплатная доставка до ТК ПЭК',
+                    'flat7_flat7' => 'Почта ЕМС России',
+                    'flat11_flat11' => 'Бесплатная доставка до ТК КИТ',
+                    'flat10_flat10' => 'Бесплатная доставка до ТК ОПТИМА',
+                    'flat9_flat9' => 'Бесплатная доставка до ТК Севертранс',
+                    'flat12_flat12' => 'Бесплатная доставка до ТК ЭНЕРГИЯ',
+                ];
                 if (!$dostavka[$ship]) {
                     $dostavka[$ship] = 'Партнерская доставка';
                 }
@@ -269,22 +279,25 @@ trait ActionSaveorder
 
             }
             $transaction->commit('suc');
-            if($validprice < 5000){
+
                 return $this->render('cartresult', [
                     'result'=>  [
                         'code' => 200,
-                        'text'=>'Ваш заказ сохранен и передан в обработку',
+                        'text'=>'Спасибо, Ваш заказ оформлен',
                         'data'=>[
                             'paramorder'=>[
-
+                                'delivery' => $dostavka[$ship],
+                                'number'=> $orders->orders_id,
+                                'date' => $orders->date_purchased,
                             ],
                             'saveproduct'=>$validproduct,
+                            'origprod' => $origprod,
                             'timeproduct'=>$related,
                             'totalpricesaveproduct'=>$validprice
                         ]
                     ]
                 ]);
-            }
+
         } catch (\Exception $e) {
             $transaction->rollBack();
             echo '<pre>';

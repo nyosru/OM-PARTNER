@@ -119,10 +119,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 ]);
                                 echo $form->field($model, 'username', ['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->label('Электронная почта');
                                 echo $form->field($model, 'password',['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">'.Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']).'</span>') ;
-                                echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
-                                    'template' => '{input}{image}',
-                                    'options' =>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']
-                                ])->label('Введите текст на картинке');
+//                                echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
+//                                    'template' => '{input}{image}',
+//                                    'options' =>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']
+//                                ])->label('Введите текст на картинке');
                                 echo' <div style="color:#999;margin:1em 0">';
                                 echo    Html::a('Зарегистрироваться', [BASEURL . '/signup'],  ['class'=>'btn' , 'style'=>'height: 36px; color: rgb(0, 0, 0); position: absolute; right: 30px; text-decoration: underline;' ]) ;
                                 echo    Html::submitButton('Вход', ['class' => 'btn', 'name' => 'partners-settings-button', 'style'=>'height: 36px; color: rgb(255, 255, 255); position: absolute; left: 30px; background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);

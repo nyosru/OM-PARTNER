@@ -16,7 +16,7 @@ class LoginFormOM extends Model
     public $rememberMe = true;
     private $_user = false;
     private $_userom = false;
-    public $captcha;
+   // public $captcha;
     public $errors =[
         'username' => [
             'не может быть пустым'
@@ -30,9 +30,9 @@ class LoginFormOM extends Model
         return [
             [['username'], 'required', 'message' => 'Поле не может быть пустым'],
             ['password','required' , 'message' => 'Поле не может быть пустым'],
-            ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
+          //  ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
             ['rememberMe', 'boolean'],
-            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
+        //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
             ['password', 'validatePassword', 'message' => 'Не правильный пароль или логин'],
         ];
     }

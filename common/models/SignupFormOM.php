@@ -23,7 +23,7 @@ class SignupFormOM extends Model
     public $passwordcheck;
     public $id_partners;
     public $role;
-    public $captcha;
+   // public $captcha;
     public $name;
     public $secondname;
     public $lastname;
@@ -91,7 +91,7 @@ class SignupFormOM extends Model
 
 
 
-            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
+       //     ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
 
 
         ];
