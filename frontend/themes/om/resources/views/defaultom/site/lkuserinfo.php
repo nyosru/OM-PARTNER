@@ -296,13 +296,15 @@ for($i=0; $i<$cs; $i++){
                 $('[data-name=state]').attr('autocomplete', 'off');
             }
         });
-        // выбор из выпадающего списка страна
+        $(document).on('click focus', '[data-name=country]', function () {
+            console.log( $(this).siblings());
+            $(this).siblings().filter('#country-drop').show();
+        });
         $(document).on('click', '#country', function () {
             $('[data-name=state]').val('');
             $('[data-name=country]').val($(this).text());
             $('[data-name=country]').attr('data-country', this.getAttribute('country'));
-            $('#country-drop').hide();
-            // запрос данных для списка регионов
+            $(this).parent().filter('#country-drop').hide();
             $.ajax({
                 type: "GET",
                 url: "/site/zonesrequest",
@@ -319,21 +321,14 @@ for($i=0; $i<$cs; $i++){
                 }
             });
         });
-        // клик по полю для выбора страна
-        $(document).on('click focus', '[data-name=country]', function () {
-            $('#country-drop').show();
-        });
-        // клик по полю для выбора регион
         $(document).on('click focus', '[data-name=state]', function () {
-            $('#state-drop').show();
+            $(this).siblings().filter('#state-drop').show();
         });
-        // выбор из выпадающего списка
         $(document).on('click', '#state', function () {
             $('[data-name=state]').attr('data-state', this.getAttribute('state'));
             $('[data-name=state]').val($(this).text());
-            $('#state-drop').hide();
+            $(this).parent().filter('#state-drop').hide();
         });
-        // ввод в текстовое поле страна
         $(document).on('keyup', '[data-name=country]', function () {
             $filtCountryArr = $(this).siblings('ul').children();
             $search = this.value;
@@ -345,7 +340,6 @@ for($i=0; $i<$cs; $i++){
                 }
             });
         });
-        // ввод в текстовое поле регион
         $(document).on('keyup', '[data-name=state]', function () {
             $filtCountryArr = $(this).siblings('ul').children();
             $search = this.value;
