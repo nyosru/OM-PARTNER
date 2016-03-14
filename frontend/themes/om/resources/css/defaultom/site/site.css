@@ -747,7 +747,11 @@
         background-color: #5BC0DE;
         text-shadow: 1px 1px 1px #4E4E4E
     }
-
+    .code200 {
+        font-weight: 400;
+        padding: 10px;
+        font-size: 24px;
+    }
     #partners-add-comp:hover {
         margin-top: 8px;
         float: right;

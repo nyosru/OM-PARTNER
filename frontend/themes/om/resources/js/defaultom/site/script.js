@@ -99,11 +99,11 @@ $(document).on('click', '.del-product', function () {
             '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
             '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
             '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(this[3]) + ' руб.</div>'+
-            '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
-            '   <input id="input-count" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'" value="' + this[4] + '">' +
-            '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-id="'+$c+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'">+</div></div>' +
+            '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'"   data-count="'+this[10]['count']+'"  data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
+            '   <input id="input-count" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'"  data-count="'+this[10]['count']+'"  data-step="'+this[8]['step']+'"  data-id="'+$c+'" value="' + this[4] + '">' +
+            '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-id="'+$c+'" data-min="'+this[9]['min']+'"   data-count="'+this[10]['count']+'"  data-step="'+this[8]['step']+'">+</div></div>' +
             '</div></div>' +
-            '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'"><i class="fa fa-times"></i></div></div>';
+            '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"   data-count="'+this[10]['count']+'"  data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'"><i class="fa fa-times"></i></div></div>';
     });
     $innerhtml+='</div>';
     $('.cart-column1').html($innerhtml);
@@ -230,6 +230,9 @@ $(document).on('click', '.countdisplay', function index_count_display() {
 });
 $(document).on('keyup', '#input-count', function(){
  $val =   $(this).val();
+    if($val == '' || isNaN($val)){
+        $val = 0;
+    }
     $(this).val(Math.min(parseInt($val), $(this).attr('data-count')));
 });
 $(document).on('click', '.reset', function () {
