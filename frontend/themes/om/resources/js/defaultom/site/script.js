@@ -128,6 +128,7 @@ $(document).on('click', '.cart-lable', function () {
    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
+    $noanimate = false;
     $.each($cart_add_obj, function () {
         var $item = new Object();
         $item_add = $(this)[0];
@@ -158,6 +159,28 @@ $(document).on('click', '.cart-lable', function () {
             }
             x = 0;
             if ($item.cart.length > 0) {
+                if($noanimate == false) {
+                    $noanimate = true;
+                    $($(this).parent().parent())
+                        .clone()
+                        .css({
+                            'position': 'absolute',
+                            'z-index': '11100',
+                            top: $(this).parent().parent().offset()['top'],
+                            left: $(this).parent().parent().offset()['left']
+                        })
+                        .appendTo("body")
+                        .animate({
+                            opacity: 0.05,
+                            left: $(".cart-count").offset()['left'],
+                            top: $(".cart-count").offset()['top'],
+                            width: 20,
+                        }, 1000, function () {
+                            $(this).remove();
+                            $noanimate = false;
+                        });
+
+                }
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
                         $now_count = $item_add.getAttribute('data-count');
@@ -166,6 +189,7 @@ $(document).on('click', '.cart-lable', function () {
                     }
                 });
             } else {
+                $noanimate = true;
                 $($(this).parent().parent())
                     .clone()
                     .css({
@@ -182,6 +206,7 @@ $(document).on('click', '.cart-lable', function () {
                         width: 20,
                     }, 1000, function () {
                         $(this).remove();
+                        $noanimate = false;
                     });
                 $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'),  {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }, { "count":  $item_add.getAttribute('data-count') }];
             }

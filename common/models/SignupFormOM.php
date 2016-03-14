@@ -62,7 +62,7 @@ class SignupFormOM extends Model
             ['pasportdate','date', 'message' => 'Дата'],
 
             ['adress','required', 'message' => 'Это обязательное поле.'],
-          //  ['adress','ValidateAdress'],
+            ['adress','ValidateAdress'],
             ['adress','filter', 'filter' => 'trim'],
 
             ['postcode','required', 'message' => 'Это обязательное поле.'],
@@ -86,8 +86,7 @@ class SignupFormOM extends Model
             ['passwordcheck','required', 'message' => 'Это обязательное поле.'],
             ['passwordcheck','string','min'=>5, 'message' => 'Минимальная длина 5 символов'],
             ['passwordcheck','compare','compareAttribute'=>'password', 'message' => 'Пароли не совпадают'],
-            ['fax','validateUserEmail'],
-            ['fax','required', 'message' => '234234'],
+
 
 
 
@@ -97,7 +96,7 @@ class SignupFormOM extends Model
         ];
     }
 
-    public function validateUserEmail()
+    public function validuser()
     {
         $userCustomer = new Customers();
         $partners = new Partners();
@@ -133,30 +132,30 @@ class SignupFormOM extends Model
 //       }
 //    }
 
-//    public function ValidateAdress()
-//    {
-//        if($this->adress['street']){
-//
-//        }else{
-//            $this->addError('adress[street]', 'Это обязательное поле');
-//        }
-//        if($this->adress['house']){
-//
-//        }else{
-//            $this->addError('adress[house]', 'Это обязательное поле');
-//        }
-//        if($this->adress['bilding']){
-//
-//        }else{
-//            $this->addError('adress[bilding]', 'Это обязательное поле');
-//        }
-//        if($this->adress['apartment']){
-//
-//        }else{
-//            $this->addError('adress[apartment]', 'Это обязательное поле');
-//        }
-//
-//    }
+    public function ValidateAdress()
+    {
+        if($this->adress['street']){
+
+        }else{
+            $this->addError('adress[street]', 'Это обязательное поле');
+        }
+        if($this->adress['house']){
+
+        }else{
+            $this->addError('adress[house]', 'Это обязательное поле');
+        }
+        if($this->adress['bilding']){
+
+        }else{
+            $this->addError('adress[bilding]', 'Это обязательное поле');
+        }
+        if($this->adress['apartment']){
+
+        }else{
+            $this->addError('adress[apartment]', 'Это обязательное поле');
+        }
+
+    }
     public function signup()
     {
       //  $transaction = Yii::$app->db->beginTransaction();

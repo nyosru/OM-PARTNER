@@ -297,13 +297,14 @@ for($i=0; $i<$cs; $i++){
             }
         });
         $(document).on('click focus', '[data-name=country]', function () {
-            $('#country-drop').show();
+            console.log( $(this).siblings());
+            $(this).siblings().filter('#country-drop').show();
         });
         $(document).on('click', '#country', function () {
             $('[data-name=state]').val('');
             $('[data-name=country]').val($(this).text());
             $('[data-name=country]').attr('data-country', this.getAttribute('country'));
-            $('#country-drop').hide();
+            $(this).parent().filter('#country-drop').hide();
             $.ajax({
                 type: "GET",
                 url: "/site/zonesrequest",
@@ -321,12 +322,12 @@ for($i=0; $i<$cs; $i++){
             });
         });
         $(document).on('click focus', '[data-name=state]', function () {
-            $('#state-drop').show();
+            $(this).siblings().filter('#state-drop').show();
         });
         $(document).on('click', '#state', function () {
             $('[data-name=state]').attr('data-state', this.getAttribute('state'));
             $('[data-name=state]').val($(this).text());
-            $('#state-drop').hide();
+            $(this).parent().filter('#state-drop').hide();
         });
         $(document).on('keyup', '[data-name=country]', function () {
             $filtCountryArr = $(this).siblings('ul').children();
