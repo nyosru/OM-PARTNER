@@ -21,6 +21,12 @@ $(document).on('ready', function () {
             } else {
                 this[6] = this[6] + ' размер';
             }
+            $.post(
+                "/site/product",
+                {id:data[0]},
+                function(){
+  console.log(this);
+            });
             console.log(this[9]['min']);
             $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="height: 200px; width:100%; border-bottom:1px solid #ccc;margin:0;padding:10px 0 10px 10px;">' +
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + this[5] + '"/></div>' +
