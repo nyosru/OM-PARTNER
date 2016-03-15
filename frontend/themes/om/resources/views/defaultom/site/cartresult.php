@@ -2,11 +2,14 @@
 $this -> title = 'Обработка заказа';
 
 
-echo '<pre>';
-print_r($result['data']['timeproduct']);
+//echo '<pre>';
+//print_r($result['data']['timeproduct']);
+//
+//echo '</pre>';
 
-echo '</pre>';
+if($result['code'] == 200){
 ?>
+
 <div style="float:left; width:80%">
 <div class="code<?=$result['code']?>"><?=$result['text']?></div>
     <div style="padding: 10px;float: left;  margin: 10px 0px;">
@@ -102,6 +105,9 @@ echo '<div style="width: 100%; float: left; border-bottom: 1px solid rgb(204, 20
     $(document).on('ready', function(){
         $productattr = <?= json_encode($delproductattr)?>;
         $cart = JSON.parse(localStorage.getItem('cart-om')).cart;
+        $iterator = 0;
+        $itemcart = [];
+        $itemcart.cart = [];
         $.each($cart, function(i, item){
           //  console.log($productattr[item[0]]);
 
@@ -110,13 +116,28 @@ echo '<div style="width: 100%; float: left; border-bottom: 1px solid rgb(204, 20
           }else if($productattr[item['0']] && (item['6'] == '' || item['6'] == 'undefined')){
               console.log('del-'+item['0']);
           }else{
-              console.log('nodel-'+item['0']+'='+item['6']);
+              $itemcart.cart[$iterator] = item;
+              $iterator++;
           }
         });
+        if($itemcart.cart.length > 0 ){
+            $ilocal = JSON.stringify($itemcart);
+            localStorage.setItem('cart-om', $ilocal);
+        }else{
+            localStorage.removeItem('cart-om');
+        }
         console.log($productattr);
         console.log($cart);
 
     });
 
     </script>
-
+<?
+}elseif($result['code'] == 0 ){
+   ?>
+<div style="float:left; width:100%">
+    <?=$result['text'] ?>
+    </div>
+<?
+    }
+?>

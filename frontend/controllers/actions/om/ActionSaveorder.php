@@ -69,12 +69,15 @@ trait ActionSaveorder
             if(array_key_exists($valuerequest['manufacturers_id'],$man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]){
                 $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
                 $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
-                if(($timstamp_now - $start_time >= 0) && ($stop_time - $timstamp_now >=0  )){
+
+                if(isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)){
+                         $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+                             $origprod[$valuerequest['products_id']] = $valuerequest;
+                }else{
                     unset($proddata[$keyrequest]);
                     $related[]=$valuerequest;
-                }else{
-                    $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
-                    $origprod[$valuerequest['products_id']] = $valuerequest;
+
+
                 }
 
             }else{
@@ -82,6 +85,9 @@ trait ActionSaveorder
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
+
+
+
 
         if($validprice < 5000){
             return $this->render('cartresult', [
