@@ -43,6 +43,11 @@ trait ActionSaveorder
         $userCustomer = $user['customers'];
         $userOM = $user['addressBook'][$adress_num];
         $product_in_order = Yii::$app->request->post('product');
+//        echo '<pre>';
+//        print_r(Yii::$app->request->post());
+//        echo '<pre>';
+        //die();
+        $wrap = Yii::$app->request->post('wrap');
         $quant=[];
         foreach($product_in_order as $prodkey =>$prodvalue){
                if($prodvalue)
@@ -52,7 +57,7 @@ trait ActionSaveorder
                $queryproduct[] = $prodkey;
         }
         if($queryproduct) {
-              $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy('products.`products_id`')->asArray()->all();
+              $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
         }else{
             return $this->redirect(Yii::$app->request->referrer);
         }
@@ -196,20 +201,22 @@ trait ActionSaveorder
                                 $ordersprodattr->oid = '1';
                                 $ordersprodattr->sub_vid = 0;
                                     if ($ordersprodattr->save()) {
-                                        $ordersprodattr =      $ordersprodattr->toArray();
+                                        $ordersprodattr =  $ordersprodattr->toArray();
+                                        $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
                                    } else {
 
                                   }
 
                             } else {
-
+                                $validproduct[]=[$ordersprod->toArray()];
                             }
-                                    $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
+
                         }
 //                        echo '<pre>';
 //                        print_r($reindexprod);
 //                     //   print_r($ordersprodattr);
 //                        echo '</pre>';
+//                            die();
 
                   //  } else {
 //                        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -289,6 +296,10 @@ trait ActionSaveorder
                                 'delivery' => $dostavka[$ship],
                                 'number'=> $orders->orders_id,
                                 'date' => $orders->date_purchased,
+                                'wrap' => $wrap,
+                                'name' => $orders->customers_name,
+                                'telephone' => $orders->customers_telephone,
+                                'email' => $orders->customers_email_address,
                             ],
                             'saveproduct'=>$validproduct,
                             'origprod' => $origprod,
