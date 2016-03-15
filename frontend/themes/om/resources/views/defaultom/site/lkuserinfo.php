@@ -90,8 +90,8 @@ for($i=0; $i<$cs; $i++){
                 echo '</div>';
                 echo '<div style="position: relative; margin: 20px 0px; padding: 10px; border: 1px solid rgb(204, 204, 204);border-radius:4px;"><div style="font-weight: 600; top: -22px; position: relative; background-color: whitesmoke; width: 70px; padding: 0px 3px; margin-bottom: -15px; font-size: 16px; color: rgb(85, 96, 144);">Адрес</div>';
                 echo '<div class="inp">'.$form->field($cust, 'postcode' )->label('Почтовый индекс').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'country' )->label('Страна')->textInput(['data-name'=>'country','id'=>'userinfo']).'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'state' )->label('Регион')->textInput(['data-name'=>'state','id'=>'userinfo']).'</div>';
+                echo '<div class="cstate"><div class="inp">'.$form->field($cust, 'country' )->label('Страна')->textInput(['data-name'=>'country','id'=>'userinfo']).'</div>';
+                echo '<div class="inp">'.$form->field($cust, 'state' )->label('Регион')->textInput(['data-name'=>'state','id'=>'userinfo']).'</div></div>';
                 echo '<div class="inp">'.$form->field($cust, 'city' )->label('Город').'</div>';
                 echo '<div class="inp">'.$form->field($cust, 'address' )->label('Адрес').'</div>';
                 echo '<div class="inp">'.$form->field($cust, 'phone' )->label('Телефон').'</div>';
@@ -170,8 +170,8 @@ for($i=0; $i<$cs; $i++){
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust,'delivery['.$i.'][postcode]' )->label('Почтовый индекс');
-                echo $form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$i]);
-                echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$i]);
+                echo '<div class="cstate">'.$form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$i]);
+                echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$i]).'</div>';
                 echo $form->field($cust,'delivery['.$i.'][city]' )->label('Город');
                 echo $form->field($cust,'delivery['.$i.'][address]' )->label('Адрес');
                 echo '</div>';
@@ -219,8 +219,8 @@ for($i=0; $i<$cs; $i++){
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust,'delivery['.$key.'][postcode]' )->label('Почтовый индекс');
-                echo $form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$key]);
-                echo $form->field($cust,'delivery['.$key.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$key]);
+                echo '<div class="cstate">'.$form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$key]);
+                echo $form->field($cust,'delivery['.$key.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$key]).'</div>';
                 echo $form->field($cust,'delivery['.$key.'][city]' )->label('Город');
                 echo $form->field($cust,'delivery['.$key.'][address]' )->label('Адрес');
                 echo '</div>';
@@ -271,8 +271,8 @@ for($i=0; $i<$cs; $i++){
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust, 'delivery[add][postcode]')->label('Почтовый индекс');
-                echo $form->field($cust, 'delivery[add][country]')->label('Страна')->textInput(['data-name' => 'country', 'id' => 'add']);
-                echo $form->field($cust, 'delivery[add][state]')->label('Регион')->textInput(['data-name' => 'state', 'id' => 'add']);
+                echo '<div class="cstate">'.$form->field($cust, 'delivery[add][country]')->label('Страна')->textInput(['data-name' => 'country', 'id' => 'add']);
+                echo $form->field($cust, 'delivery[add][state]')->label('Регион')->textInput(['data-name' => 'state', 'id' => 'add']).'</div>';
                 echo $form->field($cust, 'delivery[add][city]')->label('Город');
                 echo $form->field($cust, 'delivery[add][address]')->label('Адрес');
                 echo '</div>';
@@ -294,31 +294,61 @@ for($i=0; $i<$cs; $i++){
 
 <script>
     $(document).on('ready', function(){
-        $idcountry='';
-        $.ajax({
-            type: "GET",
-            url: "/site/countryrequest",
-            data: '',
-            async:false,
-            dataType: "json",
-            success: function (out) {
-                $inner = '';
-                $.each(
-                    out.response.items, function () {
-                        $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+        $cstate=$('.cstate');
+        console.log($cstate);
+        $.each($cstate, function(i,item){
+            console.log(item);
+            $idcountry='';
+            $.ajax({
+                type: "GET",
+                url: "/site/countryrequest",
+                data: '',
+                async:false,
+                dataType: "json",
+                success: function (out) {
+                    $inner = '';
+                    $.each(
+                        out.response.items, function () {
+                            $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+                        });
+//                    console.log($('[data-name="country"]'));
+                    $check=$item.childrens.filter('[data-name=country]').attr('value');
+                    console.log($check);
+                    $.each(out.response.items,function(){
+                        if(this.title==$check){
+                            $idcountry=this.id;
+                        }
                     });
-                $check=$('[data-name="country"]').attr('value');
-
-                $.each(out.response.items,function(){
-//                    console.log($check);
-                    if(this.title==$check){
-                        $idcountry=this.id;
-                    }
-                });
-                $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
-                $('[data-name=country]').attr('autocomplete', 'off');
-            }
+                    $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+                    $('[data-name=country]').attr('autocomplete', 'off');
+                }
+            });
         });
+
+//        $idcountry='';
+//        $.ajax({
+//            type: "GET",
+//            url: "/site/countryrequest",
+//            data: '',
+//            async:false,
+//            dataType: "json",
+//            success: function (out) {
+//                $inner = '';
+//                $.each(
+//                    out.response.items, function () {
+//                        $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+//                    });
+//                $check=$('[data-name="country"]').attr('value');
+//
+//                $.each(out.response.items,function(){
+//                    if(this.title==$check){
+//                        $idcountry=this.id;
+//                    }
+//                });
+//                $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+//                $('[data-name=country]').attr('autocomplete', 'off');
+//            }
+//        });
         var str = '';
         if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
             str = $('[data-name="country"]').val();
@@ -329,7 +359,6 @@ for($i=0; $i<$cs; $i++){
         $check = '';
         $.each($country, function () {
             if (str == $(this).html()) {
-                console.log($(this));
                 $check = this.getAttribute('data-country');
             }
         });
@@ -345,7 +374,6 @@ for($i=0; $i<$cs; $i++){
                 $.each(out2.response.items, function () {
                     $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
                 });
-//                $('#state-drop').remove();
                 $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
                 $('[data-name=state]').attr('autocomplete', 'off');
             }
@@ -381,8 +409,8 @@ for($i=0; $i<$cs; $i++){
         $(document).on('click', '#state', function () {
             $('[data-name=state]').attr('data-state', this.getAttribute('state'));
             $('[data-name=state]').val($(this).text());
-            $(this).parent().filter('#state-drop').hide();
-//            $('#state-drop').remove();
+            $(this).parent().filter('#state-drop').remove();
+            $('#state-drop').remove();
         });
         $(document).on('keyup', '[data-name=country]', function () {
             $filtCountryArr = $(this).siblings('ul').children();
