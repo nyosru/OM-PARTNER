@@ -170,8 +170,8 @@ for($i=0; $i<$cs; $i++){
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust,'delivery['.$i.'][postcode]' )->label('Почтовый индекс');
-                echo '<div class="cstate">'.$form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$i]);
-                echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$i]).'</div>';
+                echo '<div class="cstate">'.$form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'delivs'.$i]);
+                echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'delivs'.$i]).'</div>';
                 echo $form->field($cust,'delivery['.$i.'][city]' )->label('Город');
                 echo $form->field($cust,'delivery['.$i.'][address]' )->label('Адрес');
                 echo '</div>';
@@ -316,31 +316,39 @@ for($i=0; $i<$cs; $i++){
                 });
                 $('[data-name=country]').after('<ul class="dropdown-menu" data-name="' + $(this).attr('id') + '" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
                 $('[data-name=country]').attr('autocomplete', 'off');
-
+                idnum = '';
                 $('.cstate').each(function (i, item) {
                     $check = $(this).find('[data-name=country]').val();
-                    $row_add = $(this).find('[data-name=state]');
-                    console.log($row_add)
-                    $.each(out.response.items, function () {
-                        if (this.title == $check) {
-                            $idcountry = this.id;
-                            console.log($idcountry);
-                        }
+                    $(this).find('[data-name=state]').each(function(index,item){
+                        idnum = this.getAttribute('id');
+                        console.log(idnum);
+                        $.each(out.response.items, function () {
+                            if (this.title == $check) {
+                                $idcountry = this.id;
+                                //     console.log($idcountry);
+                            }
+                        });
+                        $.ajax({
+                            type: "GET",
+                            url: "/site/zonesrequest",
+                            async: false,
+                            data: 'id=' + $idcountry,
+                            dataType: "json",
+                            success: function (out2) {
+                                $inner = '';
+                                $.each(out2.response.items, function () {
+                                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                                });
+                           //      console.log($id);
+
+                                $('[id='+idnum+']').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                                $('[id='+idnum+']').attr('autocomplete', 'off');
+                            }
+                        });
+
                     });
-                    $.ajax({
-                        type: "GET",
-                        url: "/site/zonesrequest",
-                        data: 'id=' + $idcountry,
-                        dataType: "json",
-                        success: function (out2) {
-                            $inner = '';
-                            $.each(out2.response.items, function () {
-                                $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
-                            });
-                            $row_add.after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
-                            $row_add.attr('autocomplete', 'off');
-                        }
-                    });
+
+
                 });
             }
         });
