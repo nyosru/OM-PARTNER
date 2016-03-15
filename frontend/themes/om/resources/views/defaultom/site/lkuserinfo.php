@@ -294,36 +294,39 @@ for($i=0; $i<$cs; $i++){
 
 <script>
     $(document).on('ready', function(){
-        $cstate=$('.cstate');
-        console.log($cstate);
-        $.each($cstate, function(i,item){
-            console.log(item);
-            $idcountry='';
-            $.ajax({
-                type: "GET",
-                url: "/site/countryrequest",
-                data: '',
-                async:false,
-                dataType: "json",
-                success: function (out) {
-                    $inner = '';
-                    $.each(
-                        out.response.items, function () {
-                            $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
-                        });
-//                    console.log($('[data-name="country"]'));
-                    $check=$item.childrens.filter('[data-name=country]').attr('value');
-                    console.log($check);
-                    $.each(out.response.items,function(){
-                        if(this.title==$check){
-                            $idcountry=this.id;
-                        }
-                    });
-                    $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
-                    $('[data-name=country]').attr('autocomplete', 'off');
-                }
-            });
+        $cstate = [];
+        $('.cstate').each(function(i,item){
+            console.log(item)
         });
+        console.log($cstate);
+//        $.each($cstate, function(i,item){
+//            //console.log(item);
+//            $idcountry='';
+//            $.ajax({
+//                type: "GET",
+//                url: "/site/countryrequest",
+//                data: '',
+//                async:false,
+//                dataType: "json",
+//                success: function (out) {
+//                    $inner = '';
+//                    $.each(
+//                        out.response.items, function () {
+//                            $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+//                        });
+////                    console.log($('[data-name="country"]'));
+//                    $check = item.childrens().filter('[data-name=country]').attr('value');
+//                    console.log($check);
+//                    $.each(out.response.items,function(){
+//                        if(this.title==$check){
+//                            $idcountry=this.id;
+//                        }
+//                    });
+//                    $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+//                    $('[data-name=country]').attr('autocomplete', 'off');
+//                }
+//            });
+//        });
 
 //        $idcountry='';
 //        $.ajax({
