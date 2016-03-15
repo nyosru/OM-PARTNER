@@ -295,92 +295,86 @@ for($i=0; $i<$cs; $i++){
 <script>
     $(document).on('ready', function(){
         $cstate = [];
-        $('.cstate').each(function(i,item){
-            console.log(item)
-        });
-        console.log($cstate);
-//        $.each($cstate, function(i,item){
-//            //console.log(item);
-//            $idcountry='';
-//            $.ajax({
-//                type: "GET",
-//                url: "/site/countryrequest",
-//                data: '',
-//                async:false,
-//                dataType: "json",
-//                success: function (out) {
-//                    $inner = '';
-//                    $.each(
-//                        out.response.items, function () {
-//                            $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
-//                        });
-////                    console.log($('[data-name="country"]'));
-//                    $check = item.childrens().filter('[data-name=country]').attr('value');
-//                    console.log($check);
-//                    $.each(out.response.items,function(){
-//                        if(this.title==$check){
-//                            $idcountry=this.id;
-//                        }
-//                    });
-//                    $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
-//                    $('[data-name=country]').attr('autocomplete', 'off');
-//                }
-//            });
-//        });
-
-//        $idcountry='';
-//        $.ajax({
-//            type: "GET",
-//            url: "/site/countryrequest",
-//            data: '',
-//            async:false,
-//            dataType: "json",
-//            success: function (out) {
-//                $inner = '';
-//                $.each(
-//                    out.response.items, function () {
-//                        $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
-//                    });
-//                $check=$('[data-name="country"]').attr('value');
-//
-//                $.each(out.response.items,function(){
-//                    if(this.title==$check){
-//                        $idcountry=this.id;
-//                    }
-//                });
-//                $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
-//                $('[data-name=country]').attr('autocomplete', 'off');
-//            }
-//        });
-        var str = '';
-        if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
-            str = $('[data-name="country"]').val();
-        } else {
-            str = $('[data-name="country"]').text();
-        }
-        $country = $("[data-country]");
-        $check = '';
-        $.each($country, function () {
-            if (str == $(this).html()) {
-                $check = this.getAttribute('data-country');
-            }
-        });
-        $check=$('[data-name="country"]').attr('value');
-        console.log($idcountry);
+        $idcountry='';
         $.ajax({
             type: "GET",
-            url: "/site/zonesrequest",
-            data: 'id=' + $idcountry,
+            url: "/site/countryrequest",
+            data: '',
+            async:false,
             dataType: "json",
-            success: function (out2) {
+            success: function (out) {
                 $inner = '';
-                $.each(out2.response.items, function () {
-                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                $.each(
+                    out.response.items, function () {
+                        $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+                    });
+                $check = $('[data-name="country"]').attr('value');
+                $.each(out.response.items, function () {
+                    if (this.title == $check) {
+                        $idcountry = this.id;
+                    }
                 });
-                $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
-                $('[data-name=state]').attr('autocomplete', 'off');
+                $('[data-name=country]').after('<ul class="dropdown-menu" data-name="' + $(this).attr('id') + '" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+                $('[data-name=country]').attr('autocomplete', 'off');
+
+                $('.cstate').each(function (i, item) {
+                    $check = $(this).find('[data-name=country]').val();
+                    $row_add = $(this).find('[data-name=state]');
+                    console.log($row_add)
+                    $.each(out.response.items, function () {
+                        if (this.title == $check) {
+                            $idcountry = this.id;
+                            console.log($idcountry);
+                        }
+                    });
+                    $.ajax({
+                        type: "GET",
+                        url: "/site/zonesrequest",
+                        data: 'id=' + $idcountry,
+                        dataType: "json",
+                        success: function (out2) {
+                            $inner = '';
+                            $.each(out2.response.items, function () {
+                                $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                            });
+                            $row_add.after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                            $row_add.attr('autocomplete', 'off');
+                        }
+                    });
+                });
             }
         });
+    });
+
+//        var str = '';
+//        if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
+//            str = $('[data-name="country"]').val();
+//        } else {
+//            str = $('[data-name="country"]').text();
+//        }
+//        $country = $("[data-country]");
+//        $check = '';
+//        $.each($country, function () {
+//            if (str == $(this).html()) {
+//                $check = this.getAttribute('data-country');
+//            }
+//        });
+//        $check=$('[data-name="country"]').attr('value');
+//        console.log($idcountry);
+//        $.ajax({
+//            type: "GET",
+//            url: "/site/zonesrequest",
+//            data: 'id=' + $idcountry,
+//            dataType: "json",
+//            success: function (out2) {
+//                $inner = '';
+//                $.each(out2.response.items, function () {
+//                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+//                });
+//                $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+//                $('[data-name=state]').attr('autocomplete', 'off');
+//            }
+//        });
         $(document).on('click focus', '[data-name=country]', function () {
             $(this).siblings().filter('#country-drop').show();
         });
@@ -439,7 +433,7 @@ for($i=0; $i<$cs; $i++){
         });
 
 
-    });
+
 </script>
 
 <!--<div style="position: absolute; width: 100%;" aria-expanded="false" id="#expanded-tab-user0" class="user-order-row-expand panel-collapse collapse">-->
