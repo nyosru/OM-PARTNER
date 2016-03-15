@@ -17,10 +17,7 @@ trait ActionLK
         if(Yii::$app->user->isGuest || ($cust=User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->one()) == FALSE || !isset($cust['customers']['customers_id'])){
             return $this->redirect(Yii::$app->request->referrer);
         }
-//        echo'<pre>';
-//        print_r($cust);
-//        echo'<pre>';
-//        die();
+
         $this->layout = 'lk';
         $model = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' );
         $sort = new yii\data\Sort([
@@ -42,6 +39,11 @@ trait ActionLK
                     $customer->load(Yii::$app->request->post());
                     switch (Yii::$app->request->post()['save_lk']) {
                         case 'user':
+//                            echo'<pre>';
+//                            print_r(Yii::$app->request->post());
+//                            print_r($cust);
+//                            echo'<pre>';
+//                            die();
                             $customer->saveUserInfo();
                             break;
                         case 'customer':
@@ -65,8 +67,8 @@ trait ActionLK
                     }
                 }else{
                     $customer=new Profile();
-                    $customer->loadUserProfile();
                 }
+                $customer->loadUserProfile();
                 $this->layout = 'lk';
                 return $this->render('lkuserinfo',['cust'=>$customer]);
             break;

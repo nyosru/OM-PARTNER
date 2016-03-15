@@ -90,7 +90,7 @@ for($i=0; $i<$cs; $i++){
                 echo '</div>';
                 echo '<div style="position: relative; margin: 20px 0px; padding: 10px; border: 1px solid rgb(204, 204, 204);border-radius:4px;"><div style="font-weight: 600; top: -22px; position: relative; background-color: whitesmoke; width: 70px; padding: 0px 3px; margin-bottom: -15px; font-size: 16px; color: rgb(85, 96, 144);">Адрес</div>';
                 echo '<div class="inp">'.$form->field($cust, 'postcode' )->label('Почтовый индекс').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'country' )->label('Страна')->textInput(['data-name'=>'country','id'=>'userinfo','name'=>'страна']).'</div>';
+                echo '<div class="inp">'.$form->field($cust, 'country' )->label('Страна')->textInput(['data-name'=>'country','id'=>'userinfo']).'</div>';
                 echo '<div class="inp">'.$form->field($cust, 'state' )->label('Регион')->textInput(['data-name'=>'state','id'=>'userinfo']).'</div>';
                 echo '<div class="inp">'.$form->field($cust, 'city' )->label('Город').'</div>';
                 echo '<div class="inp">'.$form->field($cust, 'address' )->label('Адрес').'</div>';
@@ -99,7 +99,13 @@ for($i=0; $i<$cs; $i++){
                 echo '<div style="position: relative; margin: 20px 0px; padding: 10px; border: 1px solid rgb(204, 204, 204);border-radius:4px;"><div style="font-weight: 600; top: -22px; position: relative; background-color: whitesmoke; width: 90px; padding: 0px 3px; margin-bottom: -15px; font-size: 16px; color: rgb(85, 96, 144);">Паспорт</div>';
                 echo '<div class="inp">'.$form->field($cust, 'pasportser' )->label('Серия паспорта').'</div>';
                 echo '<div class="inp">'.$form->field($cust, 'pasportnum' )->label('Номер паспорта').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'pasportdate' )->label('Дата выдачи').'</div>';
+                echo '<div class="inp">'.$form->field($cust, 'pasportdate' )->label('Дата выдачи')->widget(\kartik\date\DatePicker::className(), [
+                        'options' => ['placeholder' => 'Выберите дату ...'],
+                        'language'=>'ru',
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd',
+                        ]]).'</div>';
                 echo '<div class="inp">'.$form->field($cust, 'pasportwhere' )->label('Кем выдан').'</div>';
                 echo '</div><div class="form-group">';
                 echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'user']);
@@ -142,17 +148,29 @@ for($i=0; $i<$cs; $i++){
                 echo $form->field($cust,'delivery['.$i.'][lastname]' )->label('Фамилия');
                 echo $form->field($cust, 'delivery['.$i.'][name]')->label('Имя');
                 echo $form->field($cust,'delivery['.$i.'][secondname]' )->label('Отчество');
-                echo $form->field($cust,'delivery['.$i.'][birthday]' )->label('Дата рождения');
+                echo $form->field($cust,'delivery['.$i.'][birthday]' )->label('Дата рождения')->widget(\kartik\date\DatePicker::className(), [
+                    'options' => ['placeholder' => 'Выберите дату ...'],
+                    'language'=>'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ]]);
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Паспорт:</div>';
                 echo $form->field($cust,'delivery['.$i.'][passportser]' )->label('Серия');
                 echo $form->field($cust,'delivery['.$i.'][passportnum]' )->label('Номер');
                 echo $form->field($cust,'delivery['.$i.'][passportwho]' )->label('Кем выдан');
-                echo $form->field($cust,'delivery['.$i.'][passportdate]' )->label('Когда выдан');
+                echo $form->field($cust,'delivery['.$i.'][passportdate]' )->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
+                    'options' => ['placeholder' => 'Выберите дату ...'],
+                    'language'=>'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ]]);
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust,'delivery['.$i.'][postcode]' )->label('Почтовый индекс');
-                echo $form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$i,'name'=>'страна']);
+                echo $form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$i]);
                 echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$i]);
                 echo $form->field($cust,'delivery['.$i.'][city]' )->label('Город');
                 echo $form->field($cust,'delivery['.$i.'][address]' )->label('Адрес');
@@ -179,17 +197,29 @@ for($i=0; $i<$cs; $i++){
                 echo $form->field($cust,'delivery['.$key.'][lastname]' )->label('Фамилия');
                 echo $form->field($cust, 'delivery['.$key.'][name]')->label('Имя');
                 echo $form->field($cust,'delivery['.$key.'][secondname]' )->label('Отчество');
-                echo $form->field($cust,'delivery['.$key.'][birthday]' )->label('Дата рождения');
+                echo $form->field($cust,'delivery['.$key.'][birthday]' )->label('Дата рождения')->widget(\kartik\date\DatePicker::className(), [
+                    'options' => ['placeholder' => 'Выберите дату ...'],
+                    'language'=>'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ]]);
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Паспорт:</div>';
                 echo $form->field($cust,'delivery['.$key.'][passportser]' )->label('Серия');
                 echo $form->field($cust,'delivery['.$key.'][passportnum]' )->label('Номер');
                 echo $form->field($cust,'delivery['.$key.'][passportwho]' )->label('Кем выдан');
-                echo $form->field($cust,'delivery['.$key.'][passportdate]' )->label('Когда выдан');
+                echo $form->field($cust,'delivery['.$key.'][passportdate]' )->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
+                    'options' => ['placeholder' => 'Выберите дату ...'],
+                    'language'=>'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ]]);
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust,'delivery['.$key.'][postcode]' )->label('Почтовый индекс');
-                echo $form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$key,'name'=>'страна']);
+                echo $form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$key]);
                 echo $form->field($cust,'delivery['.$key.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$key]);
                 echo $form->field($cust,'delivery['.$key.'][city]' )->label('Город');
                 echo $form->field($cust,'delivery['.$key.'][address]' )->label('Адрес');
@@ -219,17 +249,29 @@ for($i=0; $i<$cs; $i++){
                 echo $form->field($cust, 'delivery[add][lastname]')->label('Фамилия');
                 echo $form->field($cust, 'delivery[add][name]')->label('Имя');
                 echo $form->field($cust, 'delivery[add][secondname]')->label('Отчество');
-                echo $form->field($cust, 'delivery[add][birthday]')->label('Дата рождения');
+                echo $form->field($cust, 'delivery[add][birthday]')->label('Дата рождения')->widget(\kartik\date\DatePicker::className(), [
+                    'options' => ['placeholder' => 'Выберите дату ...'],
+                    'language'=>'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ]]);
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Паспорт:</div>';
                 echo $form->field($cust, 'delivery[add][passportser]')->label('Серия');
                 echo $form->field($cust, 'delivery[add][passportnum]')->label('Номер');
                 echo $form->field($cust, 'delivery[add][passportwho]')->label('Кем выдан');
-                echo $form->field($cust, 'delivery[add][passportdate]')->label('Когда выдан');
+                echo $form->field($cust, 'delivery[add][passportdate]')->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
+                    'options' => ['placeholder' => 'Выберите дату ...'],
+                    'language'=>'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ]]);
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust, 'delivery[add][postcode]')->label('Почтовый индекс');
-                echo $form->field($cust, 'delivery[add][country]')->label('Страна')->textInput(['data-name' => 'country', 'id' => 'add','name'=>'страна']);
+                echo $form->field($cust, 'delivery[add][country]')->label('Страна')->textInput(['data-name' => 'country', 'id' => 'add']);
                 echo $form->field($cust, 'delivery[add][state]')->label('Регион')->textInput(['data-name' => 'state', 'id' => 'add']);
                 echo $form->field($cust, 'delivery[add][city]')->label('Город');
                 echo $form->field($cust, 'delivery[add][address]')->label('Адрес');
@@ -252,11 +294,12 @@ for($i=0; $i<$cs; $i++){
 
 <script>
     $(document).on('ready', function(){
-
+        $idcountry='';
         $.ajax({
             type: "GET",
             url: "/site/countryrequest",
             data: '',
+            async:false,
             dataType: "json",
             success: function (out) {
                 $inner = '';
@@ -264,6 +307,14 @@ for($i=0; $i<$cs; $i++){
                     out.response.items, function () {
                         $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
                     });
+                $check=$('[data-name="country"]').attr('value');
+
+                $.each(out.response.items,function(){
+//                    console.log($check);
+                    if(this.title==$check){
+                        $idcountry=this.id;
+                    }
+                });
                 $('[data-name=country]').after('<ul class="dropdown-menu" data-name="'+$(this).attr('id')+'" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
                 $('[data-name=country]').attr('autocomplete', 'off');
             }
@@ -278,26 +329,28 @@ for($i=0; $i<$cs; $i++){
         $check = '';
         $.each($country, function () {
             if (str == $(this).html()) {
+                console.log($(this));
                 $check = this.getAttribute('data-country');
             }
         });
+        $check=$('[data-name="country"]').attr('value');
+        console.log($idcountry);
         $.ajax({
             type: "GET",
             url: "/site/zonesrequest",
-            data: 'id=' + $check,
+            data: 'id=' + $idcountry,
             dataType: "json",
             success: function (out2) {
                 $inner = '';
                 $.each(out2.response.items, function () {
                     $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
                 });
-                $('#state-drop').remove();
+//                $('#state-drop').remove();
                 $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
                 $('[data-name=state]').attr('autocomplete', 'off');
             }
         });
         $(document).on('click focus', '[data-name=country]', function () {
-            console.log( $(this).siblings());
             $(this).siblings().filter('#country-drop').show();
         });
         $(document).on('click', '#country', function () {
@@ -305,6 +358,7 @@ for($i=0; $i<$cs; $i++){
             $('[data-name=country]').val($(this).text());
             $('[data-name=country]').attr('data-country', this.getAttribute('country'));
             $(this).parent().filter('#country-drop').hide();
+            $('#state-drop').remove();
             $.ajax({
                 type: "GET",
                 url: "/site/zonesrequest",
@@ -328,6 +382,7 @@ for($i=0; $i<$cs; $i++){
             $('[data-name=state]').attr('data-state', this.getAttribute('state'));
             $('[data-name=state]').val($(this).text());
             $(this).parent().filter('#state-drop').hide();
+//            $('#state-drop').remove();
         });
         $(document).on('keyup', '[data-name=country]', function () {
             $filtCountryArr = $(this).siblings('ul').children();
