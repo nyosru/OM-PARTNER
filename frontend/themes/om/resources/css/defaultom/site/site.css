@@ -3293,6 +3293,11 @@
     }
     .inp{
         width:350px;
-        display: inline-block;
+        display: inline-table;
+
         margin: 10px;
+    }
+
+    .add{
+
     }
