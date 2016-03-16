@@ -37,6 +37,11 @@ trait ActionLK
                 if(Yii::$app->request->post()){
                     $customer=new Profile();
                     $customer->load(Yii::$app->request->post());
+//                    echo '<pre>';
+//                    print_r(Yii::$app->request->post());
+//                    print_r($customer);
+//                    echo '</pre>';
+//                    die();
                     switch (Yii::$app->request->post()['save_lk']) {
                         case 'user':
 //                            echo'<pre>';
@@ -50,19 +55,44 @@ trait ActionLK
                             $customer->saveCustomer();
                             break;
                         case 'address':
-
                             $customer->saveUserDelivery();
                             break;
                         case 'add_address':
+                            $customer->addUserDelivery();
+                            unset($customer);
+                            $customer=new Profile();
+                            break;
+                        case 'addr_del':
 //                            echo '<pre>';
-//                            print_r(Yii::$app->request->post());
-//                            print_r($customer);
+//                            print_r(Yii::$app->request->post()['Profile']['delivery']);
+////                            print_r($customer);
 //                            echo '</pre>';
 //                            die();
-                            $customer->addUserDelivery();
+                            $addr_id='';
+                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
+                                if(isset($value['address_book_id'])){
+                                    $addr_id=$value['address_book_id'];
+                                    break;
+                                }
+                            };
+                            $customer->delUserDeliveryAddress($addr_id);
+                            unset($customer);
+                            $customer=new Profile();
+                            break;
+                        case 'addr_default':
+                            $addr_id='';
+                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
+                                if(isset($value['address_book_id'])){
+                                    $addr_id=$value['address_book_id'];
+                                    break;
+                                }
+                            };
+                            $customer->defaultUserDeliveryAddress($addr_id);
+                            unset($customer);
+                            $customer=new Profile();
                             break;
                         default:
-                            echo 'Произошла ошибка';
+                            echo 'Произошла ошибка';die();
                             break;
                     }
                 }else{

@@ -156,6 +156,10 @@ class Profile extends Model{
             $value->update();
         }
     }
+    public function delUserDeliveryAddress($addr_id){
+        $add=AddressBook::find()->where(['address_book_id'=>$addr_id])->one();
+        $add->delete();
+    }
     public function addUserDelivery(){
         $country = new Countries();
         $zones = new Zones();
@@ -180,6 +184,14 @@ class Profile extends Model{
         $add->entry_street_address=$this->delivery['add']['address'];
         $add->customers_id=$userinfo->customers_id;
         $add->save();
+    }
+    public function defaultUserDeliveryAddress($addr_id){
+        $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
+        $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
+        $customer->delivery_adress_id=$addr_id;
+        $customer->pay_adress_id=$addr_id;
+        $customer->customers_default_address_id=$addr_id;
+        $customer->save();
     }
     public function loadUserProfile(){
         $country = new Countries();
