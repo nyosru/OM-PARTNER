@@ -62,7 +62,8 @@ for($i=0; $i<$cs; $i++){
 //echo '</pre>';
 //die();
 ?>
-<div class="lkprofile" style="float:left; ">
+<div style="width: 100%; margin-left: -10px;">
+<div class="lkprofile" style="float:left; width: 80%;">
     <input id="tab1" type="radio" name="tabs" checked>
     <label for="tab1" title="Мои данные">Мои данные</label>
 
@@ -78,62 +79,61 @@ for($i=0; $i<$cs; $i++){
     <input id="tab5" type="radio" name="tabs">
     <label for="tab5" title="Сменить пароль">Сменить пароль</label>
     <section id="content1">
-            <div  style="background: #f5f5f5; position: relative;  text-align: left; padding: 10px;" class="panel-body">
+            <div  style="background: #f5f5f5; position: relative;  text-align: left; padding: 0" class="panel-body">
                 <?
                 $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
-                echo '<div style="position: relative; margin: 20px 0px; padding: 10px; border: 1px solid rgb(204, 204, 204);border-radius:4px;"><div style="font-weight: 600; top: -22px; position: relative; background-color: whitesmoke; width: 140px; padding: 0px 3px; margin-bottom: -30px; font-size: 16px; color: rgb(85, 96, 144);">Пользователь</div>';
+                echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Пользователь</div>';
                 echo $form->field($cust, 'id')->hiddenInput(['value' => $cust->id])->label(false);
-                echo '<div class="inp">'.$form->field($cust, 'email' )->label('Email (так же является логином)').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'lastname' )->label('Фамилия').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'name' )->label('Имя').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'secondname' )->label('Отчество').'</div>';
-                echo '</div>';
-                echo '<div style="position: relative; margin: 20px 0px; padding: 10px; border: 1px solid rgb(204, 204, 204);border-radius:4px;"><div style="font-weight: 600; top: -22px; position: relative; background-color: whitesmoke; width: 70px; padding: 0px 3px; margin-bottom: -15px; font-size: 16px; color: rgb(85, 96, 144);">Адрес</div>';
-                echo '<div class="inp">'.$form->field($cust, 'postcode' )->label('Почтовый индекс').'</div>';
-                echo '<div class="cstate"><div class="inp">'.$form->field($cust, 'country' )->label('Страна')->textInput(['data-name'=>'country','id'=>'userinfo']).'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'state' )->label('Регион')->textInput(['data-name'=>'state','id'=>'userinfo']).'</div></div>';
-                echo '<div class="inp">'.$form->field($cust, 'city' )->label('Город').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'address' )->label('Адрес').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'phone' )->label('Телефон').'</div>';
-                echo '</div>';
-                echo '<div style="position: relative; margin: 20px 0px; padding: 10px; border: 1px solid rgb(204, 204, 204);border-radius:4px;"><div style="font-weight: 600; top: -22px; position: relative; background-color: whitesmoke; width: 90px; padding: 0px 3px; margin-bottom: -15px; font-size: 16px; color: rgb(85, 96, 144);">Паспорт</div>';
-                echo '<div class="inp">'.$form->field($cust, 'pasportser' )->label('Серия паспорта').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'pasportnum' )->label('Номер паспорта').'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'pasportdate' )->label('Дата выдачи')->widget(\kartik\date\DatePicker::className(), [
+                echo '<div style="overflow:hidden;">'.$form->field($cust, 'email',['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Email (так же является логином)').'</div>';
+                echo $form->field($cust, 'lastname' ,['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Фамилия');
+                echo $form->field($cust, 'name',['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Имя');
+                echo $form->field($cust, 'secondname',['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Отчество');
+                echo '</div><div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Адрес</div>';
+                echo $form->field($cust, 'postcode', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Почтовый индекс');
+                echo '<div class="cstate">'.$form->field($cust, 'country', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Страна')->textInput(['data-name'=>'country','id'=>'userinfo']);
+                echo $form->field($cust, 'state', ['options'=>['class' => 'col-md-6'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Регион')->textInput(['data-name'=>'state','id'=>'userinfo']).'</div>';
+                echo $form->field($cust, 'city', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Город');
+                echo $form->field($cust, 'address' , ['options'=>['class' => 'col-md-6'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Адрес');
+                echo $form->field($cust, 'phone' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Телефон');
+                echo '</div><div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Паспорт</div>';
+                echo $form->field($cust, 'pasportser', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Серия паспорта');
+                echo $form->field($cust, 'pasportnum', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Номер паспорта');
+                echo $form->field($cust, 'pasportdate', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Дата выдачи')->widget(\kartik\date\DatePicker::className(), [
                         'options' => ['placeholder' => 'Выберите дату ...'],
                         'language'=>'ru',
                         'pluginOptions' => [
                             'autoclose' => true,
                             'format' => 'yyyy-mm-dd',
-                        ]]).'</div>';
-                echo '<div class="inp">'.$form->field($cust, 'pasportwhere' )->label('Кем выдан').'</div>';
-                echo '</div><div class="form-group">';
-                echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'user']);
+                        ]]);
+                echo $form->field($cust, 'pasportwhere', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Кем выдан');
+                echo '</div><div class="col-md-12" style="margin: 20px 0px;">';
+                echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'user', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
                 echo '</div>';
                 ActiveForm::end();
                 ?>
             </div>
     </section>
     <section id="content2">
-        <div style="background: #f5f5f5; position: relative; text-align: left; padding: 10px;" class="panel-body">
+        <div style="background: #f5f5f5; position: relative; text-align: left; padding: 0" class="panel-body">
             <?
             $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
-            echo $form->field($cust, 'delivery_adress_id' )->hiddenInput(['value'=>$cust->delivery_adress_id])->label(false);
-            echo $form->field($cust, 'customers_lastname' )->label('Фамилия');
-            echo $form->field($cust, 'customers_firstname' )->label('Имя');
-            echo $form->field($cust, 'otchestvo' )->label('Отчество');
-            echo $form->field($cust, 'customers_email_address' )->label('Email');
-            echo $form->field($cust, 'customers_telephone' )->label('Телефон');
-            echo $form->field($cust, 'customers_fax' )->label('Факс');
-            echo '<div class="form-group">';
-            echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'customer']);
+            echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Пользователь</div>';
+            echo $form->field($cust, 'delivery_adress_id')->hiddenInput(['value'=>$cust->delivery_adress_id])->label(false);
+            echo $form->field($cust, 'customers_lastname', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Фамилия');
+            echo $form->field($cust, 'customers_firstname', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Имя');
+            echo $form->field($cust, 'otchestvo', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Отчество');
+            echo $form->field($cust, 'customers_email_address' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Email');
+            echo $form->field($cust, 'customers_telephone', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Телефон');
+            echo $form->field($cust, 'customers_fax' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Факс');
+            echo '</div><div class="col-md-12" style="margin: 20px 0px;">';
+            echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'customer', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
             echo '</div>';
             ActiveForm::end();
             ?>
         </div>
     </section>
     <section id="content3">
-        <div style="background: #f5f5f5; position: relative;  text-align: left; padding: 10px;" class="panel-body">
+        <div style="background: #f5f5f5; position: relative;  text-align: left; padding: 0" class="panel-body">
             <?
             $i=-1;
             foreach($cust['delivery'] as $key=>$value){
@@ -144,11 +144,11 @@ for($i=0; $i<$cs; $i++){
             }
             if($i!=-1){
                 $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
-                echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Получатель:</div>';
-                echo $form->field($cust,'delivery['.$i.'][lastname]' )->label('Фамилия');
-                echo $form->field($cust, 'delivery['.$i.'][name]')->label('Имя');
-                echo $form->field($cust,'delivery['.$i.'][secondname]' )->label('Отчество');
-                echo $form->field($cust,'delivery['.$i.'][birthday]' )->label('Дата рождения')->widget(\kartik\date\DatePicker::className(), [
+                echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Получатель</div>';
+                echo $form->field($cust,'delivery['.$i.'][lastname]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Фамилия');
+                echo $form->field($cust, 'delivery['.$i.'][name]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Имя');
+                echo $form->field($cust,'delivery['.$i.'][secondname]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Отчество');
+                echo $form->field($cust,'delivery['.$i.'][birthday]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Дата рождения')->widget(\kartik\date\DatePicker::className(), [
                     'options' => ['placeholder' => 'Выберите дату ...'],
                     'language'=>'ru',
                     'pluginOptions' => [
@@ -156,11 +156,11 @@ for($i=0; $i<$cs; $i++){
                         'format' => 'yyyy-mm-dd',
                     ]]);
                 echo '</div>';
-                echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Паспорт:</div>';
-                echo $form->field($cust,'delivery['.$i.'][passportser]' )->label('Серия');
-                echo $form->field($cust,'delivery['.$i.'][passportnum]' )->label('Номер');
-                echo $form->field($cust,'delivery['.$i.'][passportwho]' )->label('Кем выдан');
-                echo $form->field($cust,'delivery['.$i.'][passportdate]' )->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
+                echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Паспорт</div>';
+                echo $form->field($cust,'delivery['.$i.'][passportser]' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Серия');
+                echo $form->field($cust,'delivery['.$i.'][passportnum]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Номер');
+                echo $form->field($cust,'delivery['.$i.'][passportwho]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Кем выдан');
+                echo $form->field($cust,'delivery['.$i.'][passportdate]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
                     'options' => ['placeholder' => 'Выберите дату ...'],
                     'language'=>'ru',
                     'pluginOptions' => [
@@ -168,15 +168,15 @@ for($i=0; $i<$cs; $i++){
                         'format' => 'yyyy-mm-dd',
                     ]]);
                 echo '</div>';
-                echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
-                echo $form->field($cust,'delivery['.$i.'][postcode]' )->label('Почтовый индекс');
-                echo '<div class="cstate">'.$form->field($cust,'delivery['.$i.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'delivs'.$i]);
-                echo $form->field($cust,'delivery['.$i.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'delivs'.$i]).'</div>';
-                echo $form->field($cust,'delivery['.$i.'][city]' )->label('Город');
-                echo $form->field($cust,'delivery['.$i.'][address]' )->label('Адрес');
+                echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Адрес</div>';
+                echo $form->field($cust,'delivery['.$i.'][postcode]' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Почтовый индекс');
+                echo '<div class="cstate">'.$form->field($cust,'delivery['.$i.'][country]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Страна')->textInput(['data-name'=>'country','id'=>'delivs'.$i]);
+                echo $form->field($cust,'delivery['.$i.'][state]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Регион')->textInput(['data-name'=>'state','id'=>'delivs'.$i]).'</div>';
+                echo $form->field($cust,'delivery['.$i.'][city]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Город');
+                echo $form->field($cust,'delivery['.$i.'][address]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Адрес');
                 echo '</div>';
-                echo '<div class="form-group">';
-                echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'address']);
+                echo '<div class="col-md-12" style="margin: 20px 0px;">';
+                echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'address', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
                 echo '</div>';
                 ActiveForm::end();
             }
@@ -184,7 +184,7 @@ for($i=0; $i<$cs; $i++){
         </div>
     </section>
     <section id="content4">
-        <div style="background: #f5f5f5; position: relative; text-align: left;  padding: 10px;" class="panel-body">
+        <div style="background: #f5f5f5; position: relative; text-align: left;  padding-left: 15px;" class="panel-body">
             <?
 
             foreach($cust['delivery'] as $key=>$value){
@@ -219,8 +219,8 @@ for($i=0; $i<$cs; $i++){
                 echo '</div>';
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Адрес:</div>';
                 echo $form->field($cust,'delivery['.$key.'][postcode]' )->label('Почтовый индекс');
-                echo '<div class="cstate">'.$form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$key]);
-                echo $form->field($cust,'delivery['.$key.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$key]).'</div>';
+                echo '<div class="cstate"><div class="inp">'.$form->field($cust,'delivery['.$key.'][country]')->label('Страна')->textInput(['data-name'=>'country','id'=>'deliv'.$key]).'</div>';
+                echo '<div class="inp">'.$form->field($cust,'delivery['.$key.'][state]' )->label('Регион')->textInput(['data-name'=>'state','id'=>'deliv'.$key]).'</div></div>';
                 echo $form->field($cust,'delivery['.$key.'][city]' )->label('Город');
                 echo $form->field($cust,'delivery['.$key.'][address]' )->label('Адрес');
                 echo '</div>';
@@ -230,7 +230,7 @@ for($i=0; $i<$cs; $i++){
                 ActiveForm::end();
                 echo '</div></div></div></div>';
                 $row='<div class="add_row" style="width:100%; height: 80px;line-height: 3.5;"><div class="add_string" style="width: 80%; float:left">'.$add_str.
-                    '</div><div class="add_change" style="width:150px;float:right;"><a href="#modal_add'.$key.'" data-toggle="modal">Изменить</a></div></div>';
+                    '</div><div class="add_del" style="width:75px;float:right;text-align:center;"><a style="color: #ea516d" href="#del_add'.$key.'"><i class="fa fa-times"></i></a></div><div class="add_change" style="width:75px;float:right;"><a style="color: #007BC1" href="#modal_add'.$key.'" data-toggle="modal">Изменить</a></div></div>';
                 echo $row;
 
             }
@@ -286,16 +286,17 @@ for($i=0; $i<$cs; $i++){
         </div>
     </section>
     <section id="content5">
-        <div style="background: #f5f5f5; position: relative; text-align: left; padding: 10px 0px;" class="panel-body">
+        <div style="background: #f5f5f5; position: relative; text-align: left; padding: 0" class="panel-body">
             Данный функционал временно не работает. Приносим свои извинения.
         </div>
     </section>
 </div>
-
+</div>
 <script>
     $(document).on('ready', function(){
         $cstate = [];
         $idcountry='';
+        $('#state-drop').remove();
         $.ajax({
             type: "GET",
             url: "/site/countryrequest",
@@ -321,7 +322,6 @@ for($i=0; $i<$cs; $i++){
                     $check = $(this).find('[data-name=country]').val();
                     $(this).find('[data-name=state]').each(function(index,item){
                         idnum = this.getAttribute('id');
-                        console.log(idnum);
                         $.each(out.response.items, function () {
                             if (this.title == $check) {
                                 $idcountry = this.id;
@@ -341,57 +341,31 @@ for($i=0; $i<$cs; $i++){
                                 });
                            //      console.log($id);
 
-                                $('[id='+idnum+']').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                                $('[id='+idnum+']').after('<ul class="dropdown-menu state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
                                 $('[id='+idnum+']').attr('autocomplete', 'off');
                             }
                         });
-
                     });
-
-
                 });
             }
         });
     });
 
-//        var str = '';
-//        if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
-//            str = $('[data-name="country"]').val();
-//        } else {
-//            str = $('[data-name="country"]').text();
-//        }
-//        $country = $("[data-country]");
-//        $check = '';
-//        $.each($country, function () {
-//            if (str == $(this).html()) {
-//                $check = this.getAttribute('data-country');
-//            }
-//        });
-//        $check=$('[data-name="country"]').attr('value');
-//        console.log($idcountry);
-//        $.ajax({
-//            type: "GET",
-//            url: "/site/zonesrequest",
-//            data: 'id=' + $idcountry,
-//            dataType: "json",
-//            success: function (out2) {
-//                $inner = '';
-//                $.each(out2.response.items, function () {
-//                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
-//                });
-//                $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
-//                $('[data-name=state]').attr('autocomplete', 'off');
-//            }
-//        });
         $(document).on('click focus', '[data-name=country]', function () {
+            $(this).parent().filter('.state-drop').remove();
             $(this).siblings().filter('#country-drop').show();
         });
         $(document).on('click', '#country', function () {
-            $('[data-name=state]').val('');
-            $('[data-name=country]').val($(this).text());
-            $('[data-name=country]').attr('data-country', this.getAttribute('country'));
+            $inid=$(this).parent().siblings().filter('[data-name=country]').attr('id');
+//            console.log($(this).parent().siblings().filter('[data-name=country]').attr('id'));
+            $('[data-name=state][id='+$inid+']').val('');
+            $(this).parent().siblings().filter('[data-name=country]').val($(this).text());
+            $('[id='+$inid+']').attr('data-country', this.getAttribute('country'));
             $(this).parent().filter('#country-drop').hide();
-            $('#state-drop').remove();
+            $(this).parent().filter('.state-drop').remove();
+            $(this).parent().siblings().filter('.state-drop').remove();
+            $(this).siblings().filter('.state-drop').remove();
+            $('.state-drop').remove();
             $.ajax({
                 type: "GET",
                 url: "/site/zonesrequest",
@@ -402,20 +376,24 @@ for($i=0; $i<$cs; $i++){
                     $.each(out2.response.items, function () {
                         $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
                     });
-                    $('#state-drop').remove();
-                    $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
-                    $('[data-name=state]').attr('autocomplete', 'off');
+                    $('.state-drop').remove();
+                    $(this).parent().filter('.state-drop').remove();
+                    $(this).parent().siblings().filter('.state-drop').remove();
+                    $('[id='+$inid+']').after('<ul class="dropdown-menu state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                    $('[id='+$inid+']').attr('autocomplete', 'off');
                 }
             });
         });
         $(document).on('click focus', '[data-name=state]', function () {
-            $(this).siblings().filter('#state-drop').show();
+            $(this).siblings().filter('.state-drop').show();
         });
         $(document).on('click', '#state', function () {
-            $('[data-name=state]').attr('data-state', this.getAttribute('state'));
-            $('[data-name=state]').val($(this).text());
-            $(this).parent().filter('#state-drop').remove();
-            $('#state-drop').remove();
+            $inid=$(this).parent().siblings().filter('[data-name=state]').attr('id');
+            console.log($inid);
+            $('[id='+$inid+']').attr('data-state', this.getAttribute('state'));
+            $(this).parent().siblings().filter('[data-name=state]').val($(this).text());
+            $(this).parent().filter('.state-drop').hide();
+            $('.state-drop').hide();
         });
         $(document).on('keyup', '[data-name=country]', function () {
             $filtCountryArr = $(this).siblings('ul').children();

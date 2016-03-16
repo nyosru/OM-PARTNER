@@ -1674,7 +1674,7 @@
         border: 1px solid #838383;
         font-size: 16px;
     }
-    #city-drop, #country-drop, #state-drop {
+    #city-drop, #country-drop, #state-drop, .state-drop {
         height: 200px;
         overflow: auto;
         width: 100%;
@@ -1720,11 +1720,11 @@
         color: #FFF;
         border-radius: 3px;
     }
-    #city-drop li, #country-drop li, #state-drop li {
+    #city-drop li, #country-drop li, #state-drop li,.state-drop li {
         padding: 5px
     }
 
-    #city-drop li:hover, #country-drop li:hover, #state-drop li:hover {
+    #city-drop li:hover, #country-drop li:hover, #state-drop li:hover,.state-drop li:hover {
         background: #E0E0E0;
         cursor: pointer
     }
@@ -3266,9 +3266,10 @@
         border: 1px solid #cccccc;
         border-radius: 4px;
         margin-right: 10px;
+        background-color: #ffffff;
     }
     .lkprofile > label:nth-child(2){
-        margin-left: 25px;
+        margin-left: 30px;
     }
     .lkprofile .header-catalog{
         display: none;
@@ -3281,7 +3282,9 @@
     }
     /* стили для активной вкладки */
     .lkprofile input:checked + label {
+        box-shadow: 3px 3px 3px #cccccc;
         color: #555;
+        border: 1px solid #00a5a1;
     }
     /* активация секций с помощью переключателя :checked */
     #tab1:checked ~ #content1,
@@ -3298,6 +3301,7 @@
         margin: 10px;
     }
 
-    .add{
-
+    .btn-primary{
+        border-color: transparent;
+        font-weight: 300;
     }
