@@ -26,18 +26,18 @@ $(document).on('click', '.close-descript', function () {
     $('#prod-card-info').dialog('close');
 });
 
-$(document).on('change', '#shipping-confirm', function () {
-    $('#shipping-confirm option').filter(function (index) {
-        if ($(this).val() == '') {
-            return $(this)
-        }
-    }).remove();
-    $.post(
-        "/site/requestadress",
-        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp')},
-        onAjaxSuccessinfo
-    );
-});
+//$(document).on('change', '#shipping-confirm', function () {
+//    $('#shipping-confirm option').filter(function (index) {
+//        if ($(this).val() == '') {
+//            return $(this)
+//        }
+//    }).remove();
+//    $.post(
+//        "/site/requestadress",
+//        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp')},
+//        onAjaxSuccessinfo
+//    );
+//});
 $(document).on('click', '.btn-end-order', function () {
     $('#modal-cart').dialog('close');
 });

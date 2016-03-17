@@ -5,7 +5,7 @@ $this -> title = 'Корзина';
 //print_r($addr);
 //echo '</pre>';
 //die();
-$del_add='<select id="shipaddr">';
+$del_add='<select id="shipaddr" name="address">';
 foreach($addr as $key=>$value){
     $del_add.='<option value="'.$key.'">'.$value.'</option>';
 }
