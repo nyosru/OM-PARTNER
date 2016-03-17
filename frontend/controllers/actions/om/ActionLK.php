@@ -17,10 +17,7 @@ trait ActionLK
         if(Yii::$app->user->isGuest || ($cust=User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->one()) == FALSE || !isset($cust['customers']['customers_id'])){
             return $this->redirect(Yii::$app->request->referrer);
         }
-//        echo'<pre>';
-//        print_r($cust);
-//        echo'<pre>';
-//        die();
+
         $this->layout = 'lk';
         $model = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' );
         $sort = new yii\data\Sort([
@@ -40,33 +37,68 @@ trait ActionLK
                 if(Yii::$app->request->post()){
                     $customer=new Profile();
                     $customer->load(Yii::$app->request->post());
+//                    echo '<pre>';
+//                    print_r(Yii::$app->request->post());
+//                    print_r($customer);
+//                    echo '</pre>';
+//                    die();
                     switch (Yii::$app->request->post()['save_lk']) {
                         case 'user':
+//                            echo'<pre>';
+//                            print_r(Yii::$app->request->post());
+//                            print_r($cust);
+//                            echo'<pre>';
+//                            die();
                             $customer->saveUserInfo();
                             break;
                         case 'customer':
                             $customer->saveCustomer();
                             break;
                         case 'address':
-
                             $customer->saveUserDelivery();
                             break;
                         case 'add_address':
+                            $customer->addUserDelivery();
+                            unset($customer);
+                            $customer=new Profile();
+                            break;
+                        case 'addr_del':
 //                            echo '<pre>';
-//                            print_r(Yii::$app->request->post());
-//                            print_r($customer);
+//                            print_r(Yii::$app->request->post()['Profile']['delivery']);
+////                            print_r($customer);
 //                            echo '</pre>';
 //                            die();
-                            $customer->addUserDelivery();
+                            $addr_id='';
+                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
+                                if(isset($value['address_book_id'])){
+                                    $addr_id=$value['address_book_id'];
+                                    break;
+                                }
+                            };
+                            $customer->delUserDeliveryAddress($addr_id);
+                            unset($customer);
+                            $customer=new Profile();
+                            break;
+                        case 'addr_default':
+                            $addr_id='';
+                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
+                                if(isset($value['address_book_id'])){
+                                    $addr_id=$value['address_book_id'];
+                                    break;
+                                }
+                            };
+                            $customer->defaultUserDeliveryAddress($addr_id);
+                            unset($customer);
+                            $customer=new Profile();
                             break;
                         default:
-                            echo 'Произошла ошибка';
+                            echo 'Произошла ошибка';die();
                             break;
                     }
                 }else{
                     $customer=new Profile();
-                    $customer->loadUserProfile();
                 }
+                $customer->loadUserProfile();
                 $this->layout = 'lk';
                 return $this->render('lkuserinfo',['cust'=>$customer]);
             break;

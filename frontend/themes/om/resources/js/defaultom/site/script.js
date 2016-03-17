@@ -26,18 +26,18 @@ $(document).on('click', '.close-descript', function () {
     $('#prod-card-info').dialog('close');
 });
 
-$(document).on('change', '#shipping-confirm', function () {
-    $('#shipping-confirm option').filter(function (index) {
-        if ($(this).val() == '') {
-            return $(this)
-        }
-    }).remove();
-    $.post(
-        "/site/requestadress",
-        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp')},
-        onAjaxSuccessinfo
-    );
-});
+//$(document).on('change', '#shipping-confirm', function () {
+//    $('#shipping-confirm option').filter(function (index) {
+//        if ($(this).val() == '') {
+//            return $(this)
+//        }
+//    }).remove();
+//    $.post(
+//        "/site/requestadress",
+//        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp')},
+//        onAjaxSuccessinfo
+//    );
+//});
 $(document).on('click', '.btn-end-order', function () {
     $('#modal-cart').dialog('close');
 });
@@ -93,7 +93,7 @@ $(document).on('click', '.del-product', function () {
             this[6] = this[6] + ' размер';
         }
         $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="height: 200px; width:100%; border-bottom:1px solid #ccc;margin:0;padding:10px 0 10px 10px;">' +
-            '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="/site/imagepreview?src=' + this[5] + '"/></div>' +
+            '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="/site/imagepreview?src=' + this[0] + '"/></div>' +
             '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:350px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
             '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+this[1] +' </span>| '+this[7]+'</div>' +
             '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
@@ -128,6 +128,7 @@ $(document).on('click', '.cart-lable', function () {
    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
+    $noanimate = false;
     $.each($cart_add_obj, function () {
         var $item = new Object();
         $item_add = $(this)[0];
@@ -158,6 +159,28 @@ $(document).on('click', '.cart-lable', function () {
             }
             x = 0;
             if ($item.cart.length > 0) {
+                if($noanimate == false) {
+                    $noanimate = true;
+                    $($(this).parent().parent())
+                        .clone()
+                        .css({
+                            'position': 'absolute',
+                            'z-index': '11100',
+                            top: $(this).parent().parent().offset()['top'],
+                            left: $(this).parent().parent().offset()['left']
+                        })
+                        .appendTo("body")
+                        .animate({
+                            opacity: 0.05,
+                            left: $(".cart-count").offset()['left'],
+                            top: $(".cart-count").offset()['top'],
+                            width: 20,
+                        }, 1000, function () {
+                            $(this).remove();
+                            $noanimate = false;
+                        });
+
+                }
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
                         $now_count = $item_add.getAttribute('data-count');
@@ -166,6 +189,7 @@ $(document).on('click', '.cart-lable', function () {
                     }
                 });
             } else {
+                $noanimate = true;
                 $($(this).parent().parent())
                     .clone()
                     .css({
@@ -182,6 +206,7 @@ $(document).on('click', '.cart-lable', function () {
                         width: 20,
                     }, 1000, function () {
                         $(this).remove();
+                        $noanimate = false;
                     });
                 $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'),  {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }, { "count":  $item_add.getAttribute('data-count') }];
             }
@@ -519,7 +544,7 @@ $(document).on('ready', function () {
                         //console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                             '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
-                            '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
+                            '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                             '</div>'+
                             '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
                             '</a>'+
@@ -762,7 +787,7 @@ $(document).on('ready', function () {
                         console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
-                                        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
+                                        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                                         '</div>'+
                                         '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
                                     '</a>'+

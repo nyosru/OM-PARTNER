@@ -353,8 +353,8 @@
         border: 1px solid #CCC;
         border-radius: 4px;
         padding: 10px;
-        margin: 10px 30px;
-        width: calc(100% / 4 - 60px);
+        margin: 10px 5px;
+        width: calc(100% / 4 - 10px);
     }
     .lk-order-stat{
         padding: 10px;
@@ -1674,7 +1674,7 @@
         border: 1px solid #838383;
         font-size: 16px;
     }
-    #city-drop, #country-drop, #state-drop {
+    #city-drop, #country-drop, #state-drop, .state-drop {
         height: 200px;
         overflow: auto;
         width: 100%;
@@ -1720,11 +1720,11 @@
         color: #FFF;
         border-radius: 3px;
     }
-    #city-drop li, #country-drop li, #state-drop li {
+    #city-drop li, #country-drop li, #state-drop li,.state-drop li {
         padding: 5px
     }
 
-    #city-drop li:hover, #country-drop li:hover, #state-drop li:hover {
+    #city-drop li:hover, #country-drop li:hover, #state-drop li:hover,.state-drop li:hover {
         background: #E0E0E0;
         cursor: pointer
     }
@@ -2386,7 +2386,6 @@
         height: 100%;
         padding: 16px 7px;
         text-align: center;
-        font-family: "Roboto Light", sans serif;
         font-weight:300;
         color: black;
     }
@@ -3267,9 +3266,10 @@
         border: 1px solid #cccccc;
         border-radius: 4px;
         margin-right: 10px;
+        background-color: #ffffff;
     }
     .lkprofile > label:nth-child(2){
-        margin-left: 25px;
+        margin-left: 30px;
     }
     .lkprofile .header-catalog{
         display: none;
@@ -3282,7 +3282,9 @@
     }
     /* стили для активной вкладки */
     .lkprofile input:checked + label {
+        box-shadow: 3px 3px 3px #cccccc;
         color: #555;
+        border: 1px solid #00a5a1;
     }
     /* активация секций с помощью переключателя :checked */
     #tab1:checked ~ #content1,
@@ -3294,6 +3296,12 @@
     }
     .inp{
         width:350px;
-        display: inline-block;
+        display: inline-table;
+
         margin: 10px;
+    }
+
+    .btn-primary{
+        border-color: transparent;
+        font-weight: 300;
     }

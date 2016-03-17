@@ -89,37 +89,58 @@ $this->title = $title;
         <?
         foreach ($dataproducts as $value) {
             $product = $value['products'];
+            $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
             $description = $value['productsDescription'];
-            $attr_desc = $value['productsAttributesDescr'];
-            $attr_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable">В корзину</div>';
+            $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
+            ksort($attr_desc,SORT_NATURAL);
+            $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
+            ?>
+
+            <?
             if (count($attr_desc) > 0) {
-                foreach ($attr_desc as $key => $attr_desc_value) {
-                    if ($key % 2 == 0) {
-                        $class = 'border-right:1px solid #CCC';
-                    } else {
-                        $class = '';
+                foreach ($attr_desc as $key=>$attr_desc_value) {
+                    if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
+                        $classpos = 'active-options';
+                        $add_class = 'add-count';
+                        $del_class = 'del-count';
+                        $inputpos = '';
+                        $some_text = 0;
+                    }else{
+                        $classpos = 'disable-options';
+                        $inputpos = 'readonly';
+                        $add_class = 'add-count-dis';
+                        $del_class = 'del-count-dis';
+                        $some_text = 'Нет';
                     }
-                    $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; ' . $class . ';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>' . $attr_desc_value['products_options_values_name'] . '</div>' .
-                        '<input  id="input-count"' .
-                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"' .
-                        'data-prod="' . $product['products_id'] . '"' .
-                        'data-name="' . htmlentities($description['products_name']) . '"' .
-                        'data-model="' . $product['products_model'] . '"' .
-                        'data-price="' . (integer)$product['products_price'] . '"' .
-                        'data-image="' . $product['products_image'] . '"' .
-                        'data-step="' . $product['products_quantity_order_units'] . '"' .
-                        'data-min="' . $product['products_quantity_order_min'] . '"' .
-                        'data-attrname="' . htmlentities($attr_desc_value['products_options_values_name']) . '"' .
-                        'data-attr="' . $attr_desc_value['products_options_values_id'] . '"' .
-                        'placeholder="0"' .
-                        'type="text">' .
-                        '<div id="add-count" style="margin: 0px;line-height: 1.6;">' .
-                        '+' .
-                        '</div>' .
-                        '<div id="del-count" style="margin: 0px;line-height: 1.6;">' .
-                        '-' .
-                        '</div>' .
-                        '</div></div></div>';
+                    if($key%2 ==0){
+                        $class='border-right:1px solid #CCC';
+                    }else{
+                        $class='';
+                    }
+                    $attr_html .= '<div class="'.$classpos.'" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
+                    $attr_html .= '<input '.$inputpos.' id="input-count"'.
+                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
+                        'data-prod="'. $product['products_id'].'"'.
+                        'data-name="'. htmlentities($description['products_name'])  .'"'.
+                        'data-model="'. $product['products_model'].'"'.
+                        'data-price="'. (integer)$product['products_price'].'"'.
+                        'data-image="'. $product['products_image'].'"'.
+                        'data-count="'. $attr[$attr_desc_value['products_options_values_id']]['quantity'].'"'.
+                        'data-step="'. $product['products_quantity_order_units'].'"'.
+                        'data-min="'. $product['products_quantity_order_min'].'"'.
+                        'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
+                        'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
+                        'placeholder="'.$some_text.'"'.
+                        'type="text">';
+
+                    $attr_html .= '<div id="'.$add_class.'" style="margin: 0px;line-height: 1.6;">'.
+                        '+'.
+                        '</div>'.
+                        '<div id="'.$del_class.'" style="margin: 0px;line-height: 1.6;">'.
+                        '-'.
+                        '</div>';
+
+                    $attr_html .='</div></div></div>';
                 }
             } else {
                 $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; ' . $class . ';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>' .
@@ -130,7 +151,8 @@ $this->title = $title;
                     'data-price="' . (integer)$product['products_price'] . '"' .
                     'data-image="' . $product['products_image'] . '"' .
                     'data-attrname="' . htmlentities($attr_desc_value['products_options_values_name']) . '"' .
-                    'data-attr="' . $attr_desc_value['products_options_values_id'] . '"' .
+                    'data-attr="' . $attr_desc_value['products_options_values_id'] .  '"' .
+                    'data-count="'. $product['products_quantity'].'"'.
                     'data-name="' . htmlentities($description['products_name']) . '"' .
                     'data-step="' . $product['products_quantity_order_units'] . '"' .
                     'data-min="' . $product['products_quantity_order_min'] . '"' .
@@ -147,8 +169,9 @@ $this->title = $title;
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
-            $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
-                '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_image'] . '">' .
+
+            $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
+                '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
                 '</div>' .
                 '<div  itemprop="name" class="name">' . htmlentities($description['products_name']) . '</div></a>' .
                 '<div style="display:none;" class="model">Артикул ' . $product['products_model'] . '</div>' .
@@ -176,40 +199,58 @@ $this->title = $title;
         $innerhtml = '';
         foreach ($newproducts as $value) {
             $product = $value['products'];
+            $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
             $description = $value['productsDescription'];
-            $attr_desc = $value['productsAttributesDescr'];
-            $attr_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable">В корзину</div>';
+            $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
+            ksort($attr_desc,SORT_NATURAL);
+            $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
             ?>
 
             <?
             if (count($attr_desc) > 0) {
-                foreach ($attr_desc as $key => $attr_desc_value) {
-                    if ($key % 2 == 0) {
-                        $class = 'border-right:1px solid #CCC';
-                    } else {
-                        $class = '';
+                foreach ($attr_desc as $key=>$attr_desc_value) {
+                    if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
+                        $classpos = 'active-options';
+                        $add_class = 'add-count';
+                        $del_class = 'del-count';
+                        $inputpos = '';
+                        $some_text = 0;
+                    }else{
+                        $classpos = 'disable-options';
+                        $inputpos = 'readonly';
+                        $add_class = 'add-count-dis';
+                        $del_class = 'del-count-dis';
+                        $some_text = 'Нет';
                     }
-                    $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; ' . $class . ';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>' . $attr_desc_value['products_options_values_name'] . '</div>' .
-                        '<input  id="input-count"' .
-                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"' .
-                        'data-prod="' . $product['products_id'] . '"' .
-                        'data-name="' . htmlentities($description['products_name']) . '"' .
-                        'data-model="' . $product['products_model'] . '"' .
-                        'data-price="' . (integer)$product['products_price'] . '"' .
-                        'data-image="' . $product['products_image'] . '"' .
-                        'data-step="' . $product['products_quantity_order_units'] . '"' .
-                        'data-min="' . $product['products_quantity_order_min'] . '"' .
-                        'data-attrname="' . htmlentities($attr_desc_value['products_options_values_name']) . '"' .
-                        'data-attr="' . $attr_desc_value['products_options_values_id'] . '"' .
-                        'placeholder="0"' .
-                        'type="text">' .
-                        '<div id="add-count" style="margin: 0px;line-height: 1.6;">' .
-                        '+' .
-                        '</div>' .
-                        '<div id="del-count" style="margin: 0px;line-height: 1.6;">' .
-                        '-' .
-                        '</div>' .
-                        '</div></div></div>';
+                    if($key%2 ==0){
+                        $class='border-right:1px solid #CCC';
+                    }else{
+                        $class='';
+                    }
+                    $attr_html .= '<div class="'.$classpos.'" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
+                    $attr_html .= '<input '.$inputpos.' id="input-count"'.
+                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
+                        'data-prod="'. $product['products_id'].'"'.
+                        'data-name="'. htmlentities($description['products_name'])  .'"'.
+                        'data-model="'. $product['products_model'].'"'.
+                        'data-price="'. (integer)$product['products_price'].'"'.
+                        'data-image="'. $product['products_image'].'"'.
+                        'data-count="'. $attr[$attr_desc_value['products_options_values_id']]['quantity'].'"'.
+                        'data-step="'. $product['products_quantity_order_units'].'"'.
+                        'data-min="'. $product['products_quantity_order_min'].'"'.
+                        'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
+                        'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
+                        'placeholder="'.$some_text.'"'.
+                        'type="text">';
+
+                    $attr_html .= '<div id="'.$add_class.'" style="margin: 0px;line-height: 1.6;">'.
+                        '+'.
+                        '</div>'.
+                        '<div id="'.$del_class.'" style="margin: 0px;line-height: 1.6;">'.
+                        '-'.
+                        '</div>';
+
+                    $attr_html .='</div></div></div>';
                 }
             } else {
                 $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; ' . $class . ';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>' .
@@ -220,7 +261,8 @@ $this->title = $title;
                     'data-price="' . (integer)$product['products_price'] . '"' .
                     'data-image="' . $product['products_image'] . '"' .
                     'data-attrname="' . htmlentities($attr_desc_value['products_options_values_name']) . '"' .
-                    'data-attr="' . $attr_desc_value['products_options_values_id'] . '"' .
+                    'data-attr="' . $attr_desc_value['products_options_values_id'] .
+                    'data-count="'. $product['products_quantity'].'"'.
                     'data-name="' . htmlentities($description['products_name']) . '"' .
                     'data-step="' . $product['products_quantity_order_units'] . '"' .
                     'data-min="' . $product['products_quantity_order_min'] . '"' .
@@ -238,8 +280,8 @@ $this->title = $title;
             $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
             $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
 
-            $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
-                '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_image'] . '">' .
+            $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
+                '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
                 '</div>' .
                 '<div  itemprop="name" class="name">' . htmlentities($description['products_name']) . '</div></a>' .
                 '<div style="display:none;" class="model">Артикул ' . $product['products_model'] . '</div>' .
@@ -274,26 +316,26 @@ $this->title = $title;
         </div>
         <div style="float: left;width: 33.333%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
-                <a href="http://vk.com/odezdamast_shop" style="display:block; cursor:pointer;" class="circular-vk"><i class="fa fa-vk"></i>
+                <a href="http://vk.com/odezdamast_shop" target="_blank" style="display:block; cursor:pointer;" class="circular-vk"><i class="fa fa-vk"></i>
 
                 </a>
-                <a href="http://vk.com/odezdamast_shop" class="circular-title">
+                <a href="http://vk.com/odezdamast_shop" target="_blank"  class="circular-title">
                     Одежда-Мастер<br/>в Вконтакте
                 </a>
-                <a href="http://vk.com/odezdamast_shop" class="circular-link">
+                <a href="http://vk.com/odezdamast_shop" target="_blank"  class="circular-link">
                     следить за новостями >>
                 </a>
             </div>
         </div>
         <div style="float: left;width: 33.333%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
+                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
 
                 </a>
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" class="circular-title">
+                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  class="circular-title">
                     Одежда-Мастер<br/>в Одноклассниках
                 </a>
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" class="circular-link">
+                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  class="circular-link">
                     следить за новостями >>
                 </a>
             </div>

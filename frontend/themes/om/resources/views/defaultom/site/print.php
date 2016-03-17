@@ -102,7 +102,7 @@ foreach ($order as $key => $value) {
     }
     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
     $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
-    $inner .= '<td class="col-md-3"><img style="width: 50%;" src="' . BASEURL . '/imagepreview?src=' . $value[5] . '"/></td>';
+    $inner .= '<td class="col-md-3"><img style="width: 50%;" src="' . BASEURL . '/imagepreview?src=' . $value[0] . '"/></td>';
     $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
     $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
     $inner .= '</tr>';
