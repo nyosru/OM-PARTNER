@@ -45,7 +45,7 @@ if (count($product['productsAttributesDescr']) > 0) {
 $items=array();
 $i=0;
 $im=array(BASEURL.'/imagepreview?src='.$product['products']['products_id']);
-$imsrc=array($product['products']['products_image']);
+$imsrc=array($product['products']['products_id']);
 //echo '<pre>';
 //print_r ($spec);
 //echo '</pre>';
@@ -157,18 +157,18 @@ $imsrc=array($product['products']['products_image']);
             }
             ?>
             </div>
-    <div class="seen" style="float: left">
-        <div class="seen-title" style="font-size: x-large; font-weight: 500; margin-bottom: 20px;">Вы недавно смотрели</div>
-        <div class="seen-items" style="height: 250px; ">
-            <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">
-                <div class="seen-img" style="height: 70%;">
-                    <?='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
-                </div>
-                <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>
-                <div class="seen-price">200 руб</div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="seen" style="float: left">-->
+<!--        <div class="seen-title" style="font-size: x-large; font-weight: 500; margin-bottom: 20px;">Вы недавно смотрели</div>-->
+<!--        <div class="seen-items" style="height: 250px; ">-->
+<!--            <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">-->
+<!--                <div class="seen-img" style="height: 70%;">-->
+<!--                    --><?//='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
+<!--                </div>-->
+<!--                <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>-->
+<!--                <div class="seen-price">200 руб</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
     <script>
         $(document).on('ready', function(){

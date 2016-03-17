@@ -353,8 +353,8 @@
         border: 1px solid #CCC;
         border-radius: 4px;
         padding: 10px;
-        margin: 10px 30px;
-        width: calc(100% / 4 - 60px);
+        margin: 10px 5px;
+        width: calc(100% / 4 - 10px);
     }
     .lk-order-stat{
         padding: 10px;
