@@ -181,7 +181,7 @@ $(document).on('ready', function () {
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
   //  console.log();
-    if(check.val()=="boxes") wrapprice=15;
+    if(check.val()=="boxes") wrapprice=28;
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {

@@ -316,26 +316,26 @@ $this->title = $title;
         </div>
         <div style="float: left;width: 33.333%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
-                <a href="http://vk.com/odezdamast_shop" style="display:block; cursor:pointer;" class="circular-vk"><i class="fa fa-vk"></i>
+                <a href="http://vk.com/odezdamast_shop" target="_blank" style="display:block; cursor:pointer;" class="circular-vk"><i class="fa fa-vk"></i>
 
                 </a>
-                <a href="http://vk.com/odezdamast_shop" class="circular-title">
+                <a href="http://vk.com/odezdamast_shop" target="_blank"  class="circular-title">
                     Одежда-Мастер<br/>в Вконтакте
                 </a>
-                <a href="http://vk.com/odezdamast_shop" class="circular-link">
+                <a href="http://vk.com/odezdamast_shop" target="_blank"  class="circular-link">
                     следить за новостями >>
                 </a>
             </div>
         </div>
         <div style="float: left;width: 33.333%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
+                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
 
                 </a>
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" class="circular-title">
+                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  class="circular-title">
                     Одежда-Мастер<br/>в Одноклассниках
                 </a>
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" class="circular-link">
+                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  class="circular-link">
                     следить за новостями >>
                 </a>
             </div>
