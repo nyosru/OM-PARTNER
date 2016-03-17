@@ -23,7 +23,11 @@ trait ActionRequestadress
         $result = [];
         if ($user->customers_id != '') {
             $usercustomers = Customers::findOne($user->customers_id);
-            $useradressbook = AddressBook::findOne($usercustomers->delivery_adress_id);
+            if(($id  = (int)Yii::$app->request->post('id')) == TRUE && ($useradressbook = AddressBook::find()->where(['customers_id'=>$user->customers_id, 'address_book_id'=>$id])->one()) == TRUE ){
+
+            }
+            else{
+                $useradressbook = AddressBook::findOne($usercustomers->delivery_adress_id);}
             $usercountry = Countries::findOne($useradressbook->entry_country_id)->countries_name;
             $userstate = Zones::findOne($useradressbook->entry_zone_id)->zone_name;
             $entryarr = array('name' => $useradressbook->entry_firstname, 'lastname' => $useradressbook->entry_lastname, 'secondname' => $useradressbook->otchestvo, 'country' => $usercountry, 'state' => $userstate, 'city' => $useradressbook->entry_city, 'adress' => $useradressbook->entry_street_address, 'postcode' => $useradressbook->entry_postcode, 'telephone' => $usercustomers->customers_telephone, 'pasportser' => $useradressbook->pasport_seria, 'pasportnum' => $useradressbook->pasport_nomer, 'pasportdate' => $useradressbook->pasport_kogda_vidan, 'pasportwhere' => $useradressbook->pasport_kem_vidan);

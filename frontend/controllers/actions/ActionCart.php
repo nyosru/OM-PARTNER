@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers\actions;
 
+use common\models\AddressBook;
+use common\models\PartnersUsersInfo;
 use Yii;
 trait ActionCart{
     public function actionCart(){
@@ -16,7 +18,14 @@ trait ActionCart{
                 break;
             }
             default:
-                return $this->render('cart');
+                $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
+                $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
+                $addr=[];
+                foreach($add as $key=>$value){
+                    $text=$value['entry_city'].', '.$value['entry_street_address'];
+                    $addr[$value['address_book_id']]=$text;
+                }
+                return $this->render('cart',['addr'=>$addr]);
         }
     }
 }

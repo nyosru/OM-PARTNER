@@ -1,5 +1,15 @@
 <?php
+
 $this -> title = 'Корзина';
+//echo '<pre>';
+//print_r($addr);
+//echo '</pre>';
+//die();
+$del_add='<select id="shipaddr">';
+foreach($addr as $key=>$value){
+    $del_add.='<option value="'.$key.'">'.$value.'</option>';
+}
+$del_add.='</select>';
 ?>
 
 <script>
@@ -28,7 +38,7 @@ $(document).on('ready', function () {
                 async: false,
                 data: {id: this[0]}
             });
-            console.log(requestdata.responseJSON);
+//            console.log(requestdata.responseJSON);
             $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="height: 200px; width:100%; border-bottom:1px solid #ccc;margin:0;padding:10px 0 10px 10px;">' +
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></div>' +
                 '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
@@ -64,6 +74,7 @@ $(document).on('ready', function () {
         $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">' +
                         '<div class="wrap-cart" style="height:150px; border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
             '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>' +
+            '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style="min-width: 530px;"><?=$del_add?></div></div>'+
                         '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style="min-width: 530px;"></div></div>' +
                         '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
@@ -141,7 +152,8 @@ $(document).on('change', '#shipping-confirm', function () {
     }).remove();
     $.post(
         "/site/requestadress",
-        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp')},
+        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp'),
+        id:$('#shipaddr option:selected')[0].getAttribute('value')},
         onAjaxSuccessinfo
     );
 });
