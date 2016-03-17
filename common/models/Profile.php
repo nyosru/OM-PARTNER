@@ -157,8 +157,16 @@ class Profile extends Model{
         }
     }
     public function delUserDeliveryAddress($addr_id){
-        $add=AddressBook::find()->where(['address_book_id'=>$addr_id])->one();
-        $add->delete();
+        $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
+        $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
+        echo '<pre>';
+        print_r($add);
+        echo '</pre>';
+        die();
+//        if($addr_id==$add {
+//            $add = AddressBook::find()->where(['address_book_id' => $addr_id])->one();
+//            $add->delete();
+//        }
     }
     public function addUserDelivery(){
         $country = new Countries();
