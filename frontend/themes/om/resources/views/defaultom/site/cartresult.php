@@ -2,10 +2,10 @@
 $this -> title = 'Обработка заказа';
 
 
-//echo '<pre>';
-//print_r($result['data']['timeproduct']);
-//
-//echo '</pre>';
+echo '<pre>';
+print_r($result['data']['timeproduct']);
+print_r($result['data']['saveproduct']);
+echo '</pre>';
 
 if($result['code'] == 200){
 ?>
@@ -69,7 +69,7 @@ if($result['data']['saveproduct']) {
     echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
     foreach ($result['data']['saveproduct'] as $key => $value) {
         echo '<div style="width: 100%; float: left; border: 1px solid rgb(204, 204, 204);border-bottom: none; padding: 10px 0px;">';
-        echo '<div style="float: left; text-align: center; width: calc(100% / 2);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_image'] . '" /></div>';
+        echo '<div style="float: left; text-align: center; width: calc(100% / 2);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'] . '" /></div>';
         echo '<div style="float: left; font-size: 12px;width: calc(100% / 2);">';
         echo '<div style="float: left; width: 100%;">Код товара:' . $value[0]['products_model'] . '</div>';
         echo '<div style="float: left; width: 100%;">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  . '</div>';
@@ -82,25 +82,29 @@ if($result['data']['saveproduct']) {
     }
 }
 
-if($result['data']['timeproduct']) {
-echo '<div style="padding: 10px; border: 1px solid rgb(204, 204, 204); margin: 10px 0px; border-radius: 4px;">Товары не доступные в данный момент для заказа</div>';
-foreach ($result['data']['timeproduct'] as $key => $value) {
-echo '<div style="width: 100%; float: left; border-bottom: 1px solid rgb(204, 204, 204); padding: 10px 0px;">';
-    echo '<div style="float: left; width: calc(100% / 6);">' . $key . '</div>';
-    echo '<div style="float: left; width: calc(100% / 6);">' . $value[0]['products_model'] . '</div>';
-    echo '<div style="float: left; width: calc(100% / 6);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_image'] . '" /></div>';
-    echo '<div style="float: left; width: calc(100% / 6);">' . $value[0]['products_quantity'] . '</div>';
-    echo '<div style="float: left; width: calc(100% / 6);">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  . '</div>';
-    echo '<div style="float: left; width: calc(100% / 6);">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_description']  . '</div>';
-    echo '</div>';
-}
-}
+
 
 
 
 
 ?>
     </div>
+    <?
+
+    if($result['data']['timeproduct']) {
+        echo '<div style="padding: 10px; border: 1px solid rgb(204, 204, 204); margin: 10px 0px; border-radius: 4px;">Товары не доступные в данный момент для заказа</div>';
+        foreach ($result['data']['timeproduct'] as $key => $value) {
+            echo '<div style="width: 100%; float: left; border-bottom: 1px solid rgb(204, 204, 204); padding: 10px 0px;">';
+            echo '<div style="float: left; width: calc(100% / 6);">' . $key . '</div>';
+            echo '<div style="float: left; width: calc(100% / 6);">' . $value[0]['products_model'] . '</div>';
+            echo '<div style="float: left; width: calc(100% / 6);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'] . '" /></div>';
+            echo '<div style="float: left; width: calc(100% / 6);">' . $value[0]['products_quantity'] . '</div>';
+            echo '<div style="float: left; width: calc(100% / 6);">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  . '</div>';
+            echo '<div style="float: left; width: calc(100% / 6);">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_description']  . '</div>';
+            echo '</div>';
+        }
+    }
+    ?>
 <script>
     $(document).on('ready', function(){
         $productattr = <?= json_encode($delproductattr)?>;
@@ -124,6 +128,7 @@ echo '<div style="width: 100%; float: left; border-bottom: 1px solid rgb(204, 20
             $ilocal = JSON.stringify($itemcart);
             localStorage.setItem('cart-om', $ilocal);
         }else{
+            localStorage.removeItem('cart-om');
             localStorage.removeItem('cart-om');
         }
         console.log($productattr);

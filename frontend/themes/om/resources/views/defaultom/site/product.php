@@ -44,7 +44,7 @@ if (count($product['productsAttributesDescr']) > 0) {
 
 $items=array();
 $i=0;
-$im=array(BASEURL.'/imagepreview?src='.$product['products']['products_image']);
+$im=array(BASEURL.'/imagepreview?src='.$product['products']['products_id']);
 $imsrc=array($product['products']['products_image']);
 //echo '<pre>';
 //print_r ($spec);

@@ -93,7 +93,7 @@ $(document).on('click', '.del-product', function () {
             this[6] = this[6] + ' размер';
         }
         $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="height: 200px; width:100%; border-bottom:1px solid #ccc;margin:0;padding:10px 0 10px 10px;">' +
-            '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="/site/imagepreview?src=' + this[5] + '"/></div>' +
+            '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="/site/imagepreview?src=' + this[0] + '"/></div>' +
             '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:350px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
             '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+this[1] +' </span>| '+this[7]+'</div>' +
             '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
@@ -544,7 +544,7 @@ $(document).on('ready', function () {
                         //console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                             '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
-                            '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
+                            '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                             '</div>'+
                             '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
                             '</a>'+
@@ -787,7 +787,7 @@ $(document).on('ready', function () {
                         console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
-                                        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + encodeURI($product.products_image.replace(')', ']]]]').replace(' ', '%20').replace('(', '[[[[')) + ');">'+
+                                        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                                         '</div>'+
                                         '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
                                     '</a>'+

@@ -377,8 +377,8 @@ if ($data[0] != 'Не найдено!') {
         }else{
             $man_time_list = '';
         }
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_image'] . ');">' .
-            '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_image'] . '">' .
+        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
+            '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' .
             '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
             '<div style="" class="model">' . $man_time_list . '</div>' .
@@ -566,7 +566,7 @@ if ($data[0] != 'Не найдено!') {
 
             $spec_html+='</div>';
             $size_html+='<div data-sale="'+data.product.products_id+'" class="cart-lable">В корзину</div>';
-            $imgs=new Array('/site/imagepreview?src='+data['product']['products']['products_image']);
+            $imgs=new Array('/site/imagepreview?src='+data['product']['products']['products_id']);
             $imgs2=new Array(data['product']['products']['products_image']);
             $miniimg='';
             $bigimg='';
