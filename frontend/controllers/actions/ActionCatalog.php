@@ -117,7 +117,7 @@ trait ActionCatalog
                     $arfilt[':searchword'] = $searchword;
                     $arfilt_pricemax[':searchword'] = $searchword;
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
-                } elseif (preg_match('/^[a-zа-я ]+$/iu', $searchword)) {
+                } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'patternsearch-' . urlencode($searchword);
                     $patterndata = Yii::$app->cache->get($patternkey);
                     if (!$patterndata) {

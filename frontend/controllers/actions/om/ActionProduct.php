@@ -137,6 +137,7 @@ trait ActionProduct
                 }
                 $hide_man = implode(',', $list);
                 $data['productsAttributesDescr'] = ArrayHelper::index($data['productsAttributesDescr'], 'products_options_values_name');
+                $data['productsAttributes'] = ArrayHelper::index($data['productsAttributes'], 'options_values_id');
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
 //                echo '<pre>';
