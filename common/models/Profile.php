@@ -159,14 +159,14 @@ class Profile extends Model{
     public function delUserDeliveryAddress($addr_id){
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
-        echo '<pre>';
-        print_r($add);
-        echo '</pre>';
-        die();
-//        if($addr_id==$add {
-//            $add = AddressBook::find()->where(['address_book_id' => $addr_id])->one();
-//            $add->delete();
-//        }
+        $ids=[];
+        foreach($add as $key=>$value){
+            $ids[]=$value['address_book_id'];
+        }
+        if(in_array($addr_id,$ids)){
+            $add = AddressBook::find()->where(['address_book_id' => $addr_id])->one();
+            $add->delete();
+        }
     }
     public function addUserDelivery(){
         $country = new Countries();
@@ -196,10 +196,17 @@ class Profile extends Model{
     public function defaultUserDeliveryAddress($addr_id){
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
-        $customer->delivery_adress_id=$addr_id;
-        $customer->pay_adress_id=$addr_id;
-        $customer->customers_default_address_id=$addr_id;
-        $customer->save();
+        $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
+        $ids=[];
+        foreach($add as $key=>$value){
+            $ids[]=$value['address_book_id'];
+        }
+        if(in_array($addr_id,$ids)) {
+            $customer->delivery_adress_id = $addr_id;
+            $customer->pay_adress_id = $addr_id;
+            $customer->customers_default_address_id = $addr_id;
+            $customer->save();
+        }
     }
     public function loadUserProfile(){
         $country = new Countries();

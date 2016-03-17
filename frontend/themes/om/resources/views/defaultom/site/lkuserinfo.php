@@ -236,16 +236,16 @@ for($i=0; $i<$cs; $i++){
                 echo '<div class="add_row" style="width:100%; height: 80px;line-height: 3.5;">'.
                     '<div class="add_string" style="width: 80%; float:left">'.$add_str.'</div>';
                 if($cust->delivery[$key]['address_book_id']!=$cust->delivery_adress_id) {
-                    echo '<div class="add_default" style="width:35px;float:right;text-align:center;color:green;">';
+                    echo '<div class="add_default" style="width:40px;float:right;text-align:center;color:green;">';
                     $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                     echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
-                    echo Html::submitButton('<i class="checkbox-overlay fa"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_default', 'title' => 'Сделать этот адрес адресом доставки', 'style' => 'color: green;']);
+                    echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_default', 'title' => 'Сделать этот адрес адресом доставки', 'style' => 'color: green;']);
                     echo '</div>';
                 }else{
-                    echo '<div class="add_default" style="width:35px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как адрес доставки"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
+                    echo '<div class="add_default" style="width:40px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как адрес доставки"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
                 }
-                echo '<div class="add_change" style="width:75px;float:right;"><a style="color: #007BC1" href="#modal_add'.$key.'" data-toggle="modal">Изменить</a></div>';
-                echo '<div class="add_del" style="width:30px;float:right;text-align:center;">';
+                echo '<div class="add_change" style="width:15px;float:right;"><a style="color: #007BC1" title="Изменить адрес" href="#modal_add'.$key.'" data-toggle="modal"><i class="fa fa-pencil"></i></a></div>';
+                echo '<div class="add_del" style="width:45px;float:right;text-align:center;">';
                 $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                 echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
                 echo Html::submitButton('<i class="fa fa-times"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_del', 'title' => 'Удалить адрес', 'style' => 'color: #ea516d']);
