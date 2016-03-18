@@ -39,7 +39,11 @@ trait ActionSaveorder
         }else{
             $adress_num = (int)Yii::$app->request->post('address');
             $user['addressBook'] = ArrayHelper::index($user['addressBook'],'address_book_id');
-
+            echo '<pre>';
+            print_r(yii::$app->request->post());
+            print_r($user['addressBook']);
+            echo '</pre>';
+            die();
         }
         $userOM = $user['addressBook'][$adress_num];
         $userpartnerdata = $user;
@@ -185,11 +189,11 @@ trait ActionSaveorder
             $orders->buh_orders_id = intval($buh_id['buh_orders_id']) + 1;
 
             if ($orders->save()) {
-                echo '<pre>';
-                print_r(yii::$app->request->post());
-                print_r($orders);
-                echo '</pre>';
-                die();
+//                echo '<pre>';
+//                print_r(yii::$app->request->post());
+//                print_r($orders);
+//                echo '</pre>';
+//                die();
                 $price_total = '';
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
                     foreach ($product_in_order as $keyin_order => $valuein_order) {
