@@ -29,6 +29,7 @@ class Profile extends Model{
     public $customers_email_address;
     public $customers_telephone;
     public $delivery_adress_id;
+    public $pay_adress_id;
 
 
     
@@ -99,37 +100,101 @@ class Profile extends Model{
         }
     }
     public function saveUserInfo(){
-        $user=User::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
-        $user->username=$this->email;
-        $user->email=$this->email;
-        if($user->save()) {
-            $userinfo->name = $this->name;
-            $userinfo->secondname = $this->secondname;
-            $userinfo->lastname = $this->lastname;
-            $userinfo->telephone = $this->phone;
-            $userinfo->adress = $this->address;
-            $userinfo->city = $this->city;
-            $userinfo->state = $this->state;
-            $userinfo->country = $this->country;
-            $userinfo->postcode = $this->postcode;
-            $userinfo->pasportser = $this->pasportser;
-            $userinfo->pasportnum = $this->pasportnum;
-            $userinfo->pasportdate = $this->pasportdate;
-            $userinfo->pasportwhere = $this->pasportwhere;
-            $userinfo->save();
+        $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
+        $add=AddressBook::find()->where(['address_book_id'=>$customer->customers_default_address_id])->one();
+        $country = new Countries();
+        $zones = new Zones();
+        $transaction = Yii::$app->db->beginTransaction();
+        try{
+        $userinfo->name = $this->name;
+        $userinfo->secondname = $this->secondname;
+        $userinfo->lastname = $this->lastname;
+        $userinfo->telephone = $this->phone;
+        $userinfo->adress = $this->address;
+        $userinfo->city = $this->city;
+        $userinfo->state = $this->state;
+        $userinfo->country = $this->country;
+        $userinfo->postcode = $this->postcode;
+        $userinfo->pasportser = $this->pasportser;
+        $userinfo->pasportnum = $this->pasportnum;
+        $userinfo->pasportdate = $this->pasportdate;
+        $userinfo->pasportwhere = $this->pasportwhere;
+        if($userinfo->save()) {
+            $customer->customers_telephone = $this->phone;
+            $customer->customers_fax=$this->customers_fax;
+            if($customer->save()) {
+                $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
+                $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
+                $add->entry_firstname = $this->name;
+                $add->otchestvo = $this->secondname;
+                $add->entry_lastname = $this->lastname;
+                $add->entry_street_address=$this->address;
+                $add->entry_city=$this->city;
+                $add->entry_country_id=$entrycountry['id'];
+                $add->entry_zone_id=$entryzones['id'];
+                $add->entry_postcode=$this->postcode;
+                $add->pasport_seria=$this->pasportser;
+                $add->pasport_nomer=$this->pasportnum;
+                $add->pasport_kem_vidan=$this->pasportwhere;
+                $add->pasport_kogda_vidan=$this->pasportdate;
+                $add->save();
+                }
+            }
+        }catch (\Exception $e){
+            $transaction->rollBack();
         }
     }
     public function saveCustomer(){
+
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
-        $customer->customers_firstname=$this->customers_firstname;
-        $customer->customers_lastname=$this->customers_lastname;
-        $customer->otchestvo=$this->otchestvo;
-        $customer->customers_email_address=$this->customers_email_address;
-        $customer->customers_telephone=$this->customers_telephone;
-        $customer->customers_fax=$this->customers_fax;
-        $customer->save();
+        if($customer->pay_adress_id==$customer->customers_default_address_id){
+            $add=new AddressBook();
+        }else {
+            $add = AddressBook::find()->where(['address_book_id' => $customer->pay_adress_id])->one();
+        }
+        $country = new Countries();
+        $zones = new Zones();
+        $transaction = Yii::$app->db->beginTransaction();
+        try{
+            $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[0]['country']])->asArray()->one();
+            $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[0]['state']])->asArray()->one();
+            $add->entry_firstname = $this->delivery[0]['name'];
+            $add->otchestvo = $this->delivery[0]['secondname'];
+            $add->entry_lastname = $this->delivery[0]['lastname'];
+            $add->entry_street_address=$this->delivery[0]['address'];
+            $add->entry_city=$this->delivery[0]['city'];
+            $add->entry_country_id=$entrycountry['id'];
+            $add->entry_zone_id=$entryzones['id'];
+            $add->entry_postcode=$this->delivery[0]['postcode'];
+            $add->pasport_seria=$this->delivery[0]['passportser'];
+            $add->pasport_nomer=$this->delivery[0]['passportnum'];
+            $add->pasport_kem_vidan=$this->delivery[0]['passportwhere'];
+            $add->pasport_kogda_vidan=$this->delivery[0]['passportdate'];
+            echo '<pre>';
+            print_r($add);
+            print_r($this);
+            echo '</pre>';
+            die();
+            if($add->save()) {
+
+                $customer->customers_firstname = $this->delivery[0]['name'];
+                $customer->customers_lastname = $this->delivery[0]['lastname'];
+                $customer->otchestvo = $this->delivery[0]['secondname'];
+                $customer->pay_adress_id = $this->pay_adress_id;
+                $customer->save();
+            }
+            else{
+                    $add->errors;
+
+            }
+
+        }catch (\Exception $e){
+            $transaction->rollBack();
+            print_r($e);
+            die();
+        }
     }
     public function saveUserDelivery(){
         $country = new Countries();
@@ -242,6 +307,7 @@ class Profile extends Model{
         $this->otchestvo=$customer->otchestvo;
         $this->customers_email_address=$customer->customers_email_address;
         $this->delivery_adress_id=$customer->delivery_adress_id;
+        $this->pay_adress_id=$customer->pay_adress_id;
         $this->customers_telephone=$customer->customers_telephone;
         $this->customers_fax=$customer->customers_fax;
 
