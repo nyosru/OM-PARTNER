@@ -26,6 +26,7 @@ trait ActionSaveorder
 {
     public function actionSaveorder()
     {
+
         date_default_timezone_set('Europe/Moscow');
         if(!Yii::$app->request->post('address')){
             $adress_num = 0;
@@ -167,7 +168,13 @@ trait ActionSaveorder
             $orders->payment_method = 'Оплата <font size="4" color="red">Для физических лиц</font>';
             $buh_id = Orders::find()->where(['default_provider' => $userCustomer['default_provider']])->andWhere('DATE_FORMAT(date_purchased, "%y")='.date("y"))->orderBy('buh_orders_id DESC')->asArray()->one();
             $orders->buh_orders_id = intval($buh_id['buh_orders_id']) + 1;
+
             if ($orders->save()) {
+                echo '<pre>';
+                print_r(yii::$app->request->post());
+                print_r($orders);
+                echo '</pre>';
+                die();
                 $price_total = '';
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
                     foreach ($product_in_order as $keyin_order => $valuein_order) {
