@@ -35,17 +35,15 @@ trait ActionSaveorder
 
         }
         if(!Yii::$app->request->post('address')){
-            $adress_num = 0;
+            $adress_num = $user['customers']['delivery_address_id'];
+            $userOM = $user['addressBook'][$adress_num];
+            $user['addressBook'] = ArrayHelper::index($user['addressBook'],'address_book_id');
         }else{
             $adress_num = (int)Yii::$app->request->post('address');
             $user['addressBook'] = ArrayHelper::index($user['addressBook'],'address_book_id');
-            echo '<pre>';
-            print_r(yii::$app->request->post());
-            print_r($user['addressBook']);
-            echo '</pre>';
-            die();
+            $userOM = $user['addressBook'][$adress_num];
         }
-        $userOM = $user['addressBook'][$adress_num];
+
         $userpartnerdata = $user;
         $userdata = $user['userinfo'];
         $userCustomer = $user['customers'];

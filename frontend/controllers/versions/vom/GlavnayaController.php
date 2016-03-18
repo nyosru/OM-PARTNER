@@ -37,6 +37,7 @@ use frontend\controllers\actions\ActionTakeOrder;
 use frontend\controllers\actions\ActionTimeOrderProducts;
 use frontend\controllers\actions\om\ActionCartResult;
 use frontend\controllers\actions\om\ActionLK;
+use frontend\controllers\actions\om\ActionManList;
 use frontend\controllers\actions\om\ActionProduct;
 use frontend\controllers\actions\om\ActionProductinfo;
 use frontend\controllers\actions\ActionProductinfobymodel;
@@ -124,6 +125,7 @@ class GlavnayaController extends Controller
         ActionCart,
         ActionTimeOrderProducts,
         ActionCartResult,
+        ActionManList,
         ActionTakeOrder;
 
 
@@ -306,6 +308,9 @@ class GlavnayaController extends Controller
                         $search = mb_substr($search, 0, $length, $encode);
                         return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ем' :
+                        $search = mb_substr($search, 0, $length, $encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
+                    case 'ой' :
                         $search = mb_substr($search, 0, $length, $encode);
                         return $this->checksklonenie($search, $origsearch, $encode);
                     default:
