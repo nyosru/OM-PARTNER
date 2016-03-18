@@ -11,30 +11,30 @@ foreach($addr as $key=>$value){
 }
 $del_add.='</select>';
 
-$man = $this->manufacturers_diapazon_id();
-$validprice = 0;
-foreach($proddata as $keyrequest => $valuerequest){
-    $thisweeekday = date('N')-1;
-    $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
-    if(array_key_exists($valuerequest['manufacturers_id'],$man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]){
-        $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
-        $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
-
-        if(isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)){
-            $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
-            $origprod[$valuerequest['products_id']] = $valuerequest;
-        }else{
-            unset($proddata[$keyrequest]);
-            $related[]=$valuerequest;
-
-
-        }
-
-    }else{
-        $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
-        $origprod[$valuerequest['products_id']] = $valuerequest;
-    }
-}
+//$man = $this->manufacturers_diapazon_id();
+//$validprice = 0;
+//foreach($proddata as $keyrequest => $valuerequest){
+//    $thisweeekday = date('N')-1;
+//    $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
+//    if(array_key_exists($valuerequest['manufacturers_id'],$man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]){
+//        $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
+//        $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
+//
+//        if(isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)){
+//            $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+//            $origprod[$valuerequest['products_id']] = $valuerequest;
+//        }else{
+//            unset($proddata[$keyrequest]);
+//            $related[]=$valuerequest;
+//
+//
+//        }
+//
+//    }else{
+//        $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+//        $origprod[$valuerequest['products_id']] = $valuerequest;
+//    }
+//}
 
 ?>
 
@@ -55,28 +55,48 @@ $(document).on('ready', function () {
         }
    //     console.log($i);
         $c = 0;
-        $.each($i, function () {
 
+
+
+        $.each($i, function () {
+            var mandata = [];
             var requestdata = [];
+
             requestdata = $.ajax({
                 method:'post',
                 url: "/site/product",
                 async: false,
                 data: {id: this[0]}
             });
-//            console.log(requestdata.responseJSON);
-            $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="height: 200px; width:100%; border-bottom:1px solid #ccc;margin:0;padding:10px 0 10px 10px;">' +
+
+            mandata = $.ajax({
+                method:'post',
+                url: "/site/manlist",
+                async: false,
+                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+            });
+            if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
+                $access = 'В данный момент товар отсутствует' ;
+                $identypay = false;
+            }else if(JSON.parse(mandata.responseText).answer == false){
+                $access = 'Данный товар в данный момент недоступен для заказа';
+                $identypay = false;
+                }else{
+                $access = 'Данный товар доступен для заказа';
+                $identypay = true;
+            }
+            $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="width: 100%; float: left; height: auto; padding: 10px 0px 10px 10px; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204);">' +
+                '<div class = "access '+$identypay+'" >'+$access+'</div>'+
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></div>' +
                 '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
                 '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+requestdata.responseJSON.product.products.products_model +' </span>| <span id="gods-name">'+requestdata.responseJSON.product.productsDescription.products_name+'</span></div>' +
-                    '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
+                '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
                 '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
                 '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
                 '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;">-</div>' +
                 '   <input id="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
                 'data-prod="'+this[0]+'" ' +
                 'data-model="'+this[1]+'" ' +
-
                 'data-price="'+parseFloat(requestdata.responseJSON.product.products.products_price)+'" ' +
                 'data-image="'+requestdata.responseJSON.product.products.products_image+'" ';
 
