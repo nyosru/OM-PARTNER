@@ -27,21 +27,28 @@ trait ActionSaveorder
     public function actionSaveorder()
     {
         date_default_timezone_set('Europe/Moscow');
-        if(!Yii::$app->request->post('address')){
-            $adress_num = 0;
-        }else{
-            $adress_num = Yii::$app->request->post('address');
-        }
+
         if(Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->asArray()->one()) == FALSE || !isset($user['userinfo']['customers_id']) ){
             return $this->redirect(Yii::$app->request->referrer);
         }else{
 
         }
+        if(!Yii::$app->request->post('address')){
+            $adress_num = 0;
+        }else{
+            $adress_num = (int)Yii::$app->request->post('address');
+            $user['addressBook'] = ArrayHelper::index($user['addressBook'],'address_book_id');
 
+        }
+        $userOM = $user['addressBook'][$adress_num];
         $userpartnerdata = $user;
         $userdata = $user['userinfo'];
         $userCustomer = $user['customers'];
-        $userOM = $user['addressBook'][$adress_num];
+
+//        echo'<pre>';
+//        print_r($user);
+//            echo'</pre>';
+//        die();
         $product_in_order = Yii::$app->request->post('product');
 //        echo '<pre>';
 //        print_r(Yii::$app->request->post());
@@ -114,6 +121,8 @@ trait ActionSaveorder
             $partner_id = $userpartnerdata['id_partners'];
             $ship = Yii::$app->request->post('ship');
             $orders->ur_or_fiz = 'f';
+
+
             $orders->customers_id = $userCustomer['customers_id'];
             $orders->customers_name = $userCustomer['customers_firstname'] . ' ' . $userCustomer['customers_lastname'].' '.$userCustomer['otchestvo'] ;
             $orders->customers_groups_id = $userCustomer['customers_groups_id'];
@@ -128,6 +137,8 @@ trait ActionSaveorder
             $orders->customers_telephone = $userCustomer['customers_telephone'];
             $orders->customers_email_address = $userCustomer['customers_email_address'];
             $orders->customers_address_format_id = 1;
+
+
             $orders->delivery_adress_id =  $userCustomer['delivery_adress_id'];
             $orders->delivery_name = $userOM['entry_firstname'];
             $orders->delivery_lastname = $userOM['entry_lastname'];
@@ -144,6 +155,8 @@ trait ActionSaveorder
             $orders->delivery_pasport_kem_vidan = $userOM['pasport_kem_vidan'];
             $orders->delivery_address_format_id = 1;
             $orders->shipping_module = $ship;
+
+
             $orders->billing_name = $userCustomer['customers_firstname'] . ' ' . $userCustomer['customers_lastname'];
             $orders->billing_country = $entrycountry['countries_name'];
             $orders->billing_state = $entryzones['zone_name'];
@@ -151,6 +164,8 @@ trait ActionSaveorder
             $orders->billing_street_address = $userOM['entry_street_address'];
             $orders->billing_postcode = $userOM['entry_postcode'];
             $orders->billing_address_format_id = 1;
+
+
             $orders->customers_referer_url = $_SERVER['HTTP_HOST'];
             $orders->currency = 'RUR';
             $orders->currency_value = '1.000000';
