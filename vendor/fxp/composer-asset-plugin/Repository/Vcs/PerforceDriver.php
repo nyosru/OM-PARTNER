@@ -55,7 +55,7 @@ class PerforceDriver extends BasePerforceDriver
         $this->perforce->writeP4ClientSpec();
         $this->perforce->connectClient();
 
-        $this->cache = new Cache($this->io, $this->config->get('cache-repo-dir') . '/' . $this->originUrl . '/' . $this->depot);
+        $this->cache = new Cache($this->io, $this->config->get('cache-repo-dir').'/'.$this->originUrl.'/'.$this->depot);
 
         return true;
     }
@@ -104,7 +104,7 @@ class PerforceDriver extends BasePerforceDriver
             return;
         }
 
-        $repoDir = $this->config->get('cache-vcs-dir') . '/' . $this->depot;
+        $repoDir = $this->config->get('cache-vcs-dir').'/'.$this->depot;
         $this->perforce = Perforce::create($repoConfig, $this->getUrl(), $repoDir, $this->process, $this->io);
     }
 }

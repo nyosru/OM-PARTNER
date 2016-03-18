@@ -30,10 +30,10 @@ class AssetInstaller extends LibraryInstaller
     /**
      * Constructor.
      *
-     * @param IOInterface $io
-     * @param Composer $composer
+     * @param IOInterface        $io
+     * @param Composer           $composer
      * @param AssetTypeInterface $assetType
-     * @param Filesystem $filesystem
+     * @param Filesystem         $filesystem
      */
     public function __construct(IOInterface $io, Composer $composer, AssetTypeInterface $assetType, Filesystem $filesystem = null)
     {
@@ -43,7 +43,7 @@ class AssetInstaller extends LibraryInstaller
         if (!empty($extra['asset-installer-paths'][$this->type])) {
             $this->vendorDir = rtrim($extra['asset-installer-paths'][$this->type], '/');
         } else {
-            $this->vendorDir = rtrim($this->vendorDir . '/' . $assetType->getComposerVendorName(), '/');
+            $this->vendorDir = rtrim($this->vendorDir.'/'.$assetType->getComposerVendorName(), '/');
         }
     }
 
@@ -66,7 +66,7 @@ class AssetInstaller extends LibraryInstaller
 
         list(, $name) = explode('/', $package->getPrettyName(), 2);
 
-        return ($this->vendorDir ? $this->vendorDir . '/' : '') . $name . ($targetDir ? '/' . $targetDir : '');
+        return ($this->vendorDir ? $this->vendorDir.'/' : '').$name.($targetDir ? '/'.$targetDir : '');
     }
 
     /**
@@ -120,7 +120,7 @@ class AssetInstaller extends LibraryInstaller
     /**
      * Add ignore patterns in the manager.
      *
-     * @param IgnoreManager $manager The ignore manager instance
+     * @param IgnoreManager    $manager The ignore manager instance
      * @param PackageInterface $package The package instance
      */
     protected function addIgnorePatterns(IgnoreManager $manager, PackageInterface $package)

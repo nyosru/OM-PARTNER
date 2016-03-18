@@ -33,7 +33,7 @@ class GitBitbucketDriver extends BaseGitBitbucketDriver
     {
         parent::initialize();
 
-        $this->cache = new Cache($this->io, $this->config->get('cache-repo-dir') . '/' . $this->originUrl . '/' . $this->owner . '/' . $this->repository);
+        $this->cache = new Cache($this->io, $this->config->get('cache-repo-dir').'/'.$this->originUrl.'/'.$this->owner.'/'.$this->repository);
     }
 
     /**

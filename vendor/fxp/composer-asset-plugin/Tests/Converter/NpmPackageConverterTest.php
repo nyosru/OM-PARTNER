@@ -28,7 +28,7 @@ class NpmPackageConverterTest extends AbstractPackageConverterTest
         /* @var AssetTypeInterface $type */
         $type = $this->type;
         $this->converter = new NpmPackageConverter($type);
-        $this->asset = (array)json_decode(file_get_contents(__DIR__ . '/../Fixtures/package/npm.json'), true);
+        $this->asset = (array) json_decode(file_get_contents(__DIR__.'/../Fixtures/package/npm.json'), true);
     }
 
     public function testConvert()
@@ -36,7 +36,7 @@ class NpmPackageConverterTest extends AbstractPackageConverterTest
         $composer = $this->converter->convert($this->asset);
 
         $this->assertArrayHasKey('name', $composer);
-        $this->assertSame('ASSET/' . $this->asset['name'], $composer['name']);
+        $this->assertSame('ASSET/'.$this->asset['name'], $composer['name']);
 
         $this->assertArrayHasKey('type', $composer);
         $this->assertSame('ASSET_TYPE', $composer['type']);

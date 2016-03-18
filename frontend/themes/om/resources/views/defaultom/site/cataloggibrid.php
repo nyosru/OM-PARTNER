@@ -373,7 +373,7 @@ if ($data[0] != 'Не найдено!') {
         $options_name = 'Количество';
         }
         if(array_key_exists($product['manufacturers_id'],$man_time)){
-            $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.BASEURL.'/timeorderproducts?id='.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
+            $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
         }else{
             $man_time_list = '';
         }
@@ -624,20 +624,7 @@ if ($data[0] != 'Не найдено!') {
     })
     </script>
  <script>
-        $(document).on('click', '[data-ajax=time]', function(){
-            $.post($(this).attr('data-href'), function( data ) {
-         //   console.log($('#time'));
-            if($("#time").length) {
-            $('#time').html(data);
-            }else{
-            $('.bside').append('<div id="time" style="display: none;">'+data+'</div>');
-            }
-            $('#time').show();
-            });
-        });
-        $(document).on('click', '.close-modal', function(){
-           $(this).parents().find('#time').hide();
-           });
+
 
         </script>
 

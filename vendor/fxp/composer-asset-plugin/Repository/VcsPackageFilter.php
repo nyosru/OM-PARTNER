@@ -68,8 +68,8 @@ class VcsPackageFilter
     /**
      * Constructor.
      *
-     * @param RootPackageInterface $package The root package
-     * @param InstallationManager $installationManager The installation manager
+     * @param RootPackageInterface               $package             The root package
+     * @param InstallationManager                $installationManager The installation manager
      * @param InstalledFilesystemRepository|null $installedRepository The installed repository
      */
     public function __construct(RootPackageInterface $package, InstallationManager $installationManager, InstalledFilesystemRepository $installedRepository = null)
@@ -91,7 +91,7 @@ class VcsPackageFilter
      */
     public function setEnabled($enabled)
     {
-        $this->enabled = (bool)$enabled;
+        $this->enabled = (bool) $enabled;
 
         return $this;
     }
@@ -110,8 +110,8 @@ class VcsPackageFilter
      * Check if the version must be skipped.
      *
      * @param AssetTypeInterface $assetType The asset type
-     * @param string $name The composer package name
-     * @param string $version The version
+     * @param string             $name      The composer package name
+     * @param string             $version   The version
      *
      * @return bool
      */
@@ -134,7 +134,7 @@ class VcsPackageFilter
     /**
      * Do check if the version must be skipped.
      *
-     * @param string $name The composer package name
+     * @param string $name              The composer package name
      * @param string $normalizedVersion The normalized version
      *
      * @return bool
@@ -154,7 +154,7 @@ class VcsPackageFilter
     /**
      * Check if the require dependency has a satisfactory version and stability.
      *
-     * @param Link $require The require link defined in root package
+     * @param Link   $require           The require link defined in root package
      * @param string $normalizedVersion The normalized version
      *
      * @return bool
@@ -162,7 +162,7 @@ class VcsPackageFilter
     protected function satisfy(Link $require, $normalizedVersion)
     {
         return $this->satisfyVersion($require, $normalizedVersion)
-        && $this->satisfyStability($require, $normalizedVersion);
+            && $this->satisfyStability($require, $normalizedVersion);
     }
 
     /**
@@ -194,13 +194,13 @@ class VcsPackageFilter
      */
     protected function forceSkipVersion($normalizedVersion)
     {
-        return (bool)preg_match('/' . $this->skipByPattern() . '/', $normalizedVersion);
+        return (bool) preg_match('/'.$this->skipByPattern().'/', $normalizedVersion);
     }
 
     /**
      * Check if the require dependency has a satisfactory version.
      *
-     * @param Link $require The require link defined in root package
+     * @param Link   $require           The require link defined in root package
      * @param string $normalizedVersion The normalized version
      *
      * @return bool
@@ -208,18 +208,18 @@ class VcsPackageFilter
     protected function satisfyVersion(Link $require, $normalizedVersion)
     {
         $constraintSame = $this->versionParser->parseConstraints($normalizedVersion);
-        $sameVersion = (bool)$require->getConstraint()->matches($constraintSame);
+        $sameVersion = (bool) $require->getConstraint()->matches($constraintSame);
 
-        $normalizedVersion = FilterUtil::getVersionConstraint($normalizedVersion, $this->versionParser);
-        $constraint = FilterUtil::getVersionConstraint($normalizedVersion, $this->versionParser);
+        $consNormalizedVersion = FilterUtil::getVersionConstraint($normalizedVersion, $this->versionParser);
+        $constraint = FilterUtil::getVersionConstraint($consNormalizedVersion->getPrettyString(), $this->versionParser);
 
-        return (bool)$require->getConstraint()->matches($constraint) || $sameVersion;
+        return (bool) $require->getConstraint()->matches($constraint) || $sameVersion;
     }
 
     /**
      * Check if the require dependency has a satisfactory stability.
      *
-     * @param Link $require The require link defined in root package
+     * @param Link   $require           The require link defined in root package
      * @param string $normalizedVersion The normalized version
      *
      * @return bool
@@ -244,7 +244,7 @@ class VcsPackageFilter
         $prettyConstraint = $require->getPrettyConstraint();
         $stabilities = Package::$stabilities;
 
-        if (preg_match_all('/@(' . implode('|', array_keys($stabilities)) . ')/', $prettyConstraint, $matches)) {
+        if (preg_match_all('/@('.implode('|', array_keys($stabilities)).')/', $prettyConstraint, $matches)) {
             return FilterUtil::findInlineStabilities($matches[1], $this->versionParser);
         }
 
@@ -262,8 +262,7 @@ class VcsPackageFilter
         );
 
         if (null !== $this->installedRepository
-            && FilterUtil::checkExtraOption($this->package, 'asset-optimize-with-installed-packages')
-        ) {
+                && FilterUtil::checkExtraOption($this->package, 'asset-optimize-with-installed-packages')) {
             $this->initInstalledPackages();
         }
     }
@@ -277,7 +276,7 @@ class VcsPackageFilter
         foreach ($this->installedRepository->getPackages() as $package) {
             $operator = $this->getFilterOperator($package);
             /* @var Link $link */
-            $link = current($this->arrayLoader->parseLinks($this->package->getName(), $this->package->getVersion(), 'installed', array($package->getName() => $operator . $package->getPrettyVersion())));
+            $link = current($this->arrayLoader->parseLinks($this->package->getName(), $this->package->getVersion(), 'installed', array($package->getName() => $operator.$package->getPrettyVersion())));
             $link = $this->includeRootConstraint($package, $link);
 
             $this->requires[$package->getName()] = $link;
@@ -289,7 +288,7 @@ class VcsPackageFilter
      * of installed package.
      *
      * @param PackageInterface $package The installed package
-     * @param Link $link The link contained installed constraint
+     * @param Link             $link    The link contained installed constraint
      *
      * @return Link The link with root and installed version constraint
      */

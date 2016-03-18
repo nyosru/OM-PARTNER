@@ -12,9 +12,9 @@
 namespace Fxp\Composer\AssetPlugin\Repository;
 
 use Composer\Package\Link;
-use Composer\Package\LinkConstraint\LinkConstraintInterface;
 use Composer\Package\Package;
 use Composer\Package\RootPackageInterface;
+use Composer\Semver\Constraint\ConstraintInterface;
 use Fxp\Composer\AssetPlugin\Package\Version\VersionParser;
 
 /**
@@ -27,10 +27,10 @@ class FilterUtil
     /**
      * Get the link constraint of normalized version.
      *
-     * @param string $normalizedVersion The normalized version
-     * @param VersionParser $versionParser The version parser
+     * @param string        $normalizedVersion The normalized version
+     * @param VersionParser $versionParser     The version parser
      *
-     * @return LinkConstraintInterface The constraint
+     * @return ConstraintInterface The constraint
      */
     public static function getVersionConstraint($normalizedVersion, VersionParser $versionParser)
     {
@@ -53,7 +53,7 @@ class FilterUtil
         $stability = 'dev';
 
         /* @var string $stabilityName */
-        /* @var int $stabilityLevel */
+        /* @var int    $stabilityLevel */
         foreach (Package::$stabilities as $stabilityName => $stabilityLevel) {
             if ($stabilityLevel === $level) {
                 $stability = $stabilityName;
@@ -67,7 +67,7 @@ class FilterUtil
     /**
      * Find the lowest stability.
      *
-     * @param string[] $stabilities The list of stability
+     * @param string[]      $stabilities   The list of stability
      * @param VersionParser $versionParser The version parser
      *
      * @return string The lowest stability
@@ -92,7 +92,7 @@ class FilterUtil
      * Get the minimum stability for the require dependency defined in root package.
      *
      * @param RootPackageInterface $package The root package
-     * @param Link $require The require link defined in root package
+     * @param Link                 $require The require link defined in root package
      *
      * @return string The minimum stability defined in root package (in links or global project)
      */
@@ -113,7 +113,7 @@ class FilterUtil
      * Check the extra option.
      *
      * @param RootPackageInterface $package The root package
-     * @param string $name The extra option name
+     * @param string               $name    The extra option name
      *
      * @return bool
      */

@@ -71,10 +71,10 @@ abstract class SemverUtil
     public static function createPattern($pattern)
     {
         $numVer = '([0-9]+|x|\*)';
-        $numVer2 = '(' . $numVer . '\.' . $numVer . ')';
-        $numVer3 = '(' . $numVer . '\.' . $numVer . '\.' . $numVer . ')';
+        $numVer2 = '('.$numVer.'\.'.$numVer.')';
+        $numVer3 = '('.$numVer.'\.'.$numVer.'\.'.$numVer.')';
 
-        return '/^' . '(' . $numVer . '|' . $numVer2 . '|' . $numVer3 . ')' . $pattern . '/';
+        return '/^'.'('.$numVer.'|'.$numVer2.'|'.$numVer3.')'.$pattern.'/';
     }
 
     /**
@@ -97,14 +97,14 @@ abstract class SemverUtil
      * Clean the raw version.
      *
      * @param string $version The version
-     * @param array $matches The match of pattern asset version
+     * @param array  $matches The match of pattern asset version
      *
      * @return array The list of $type, $version and $end
      */
     protected static function cleanVersion($version, array $matches)
     {
         $end = substr($version, strlen($matches[1][0][0]));
-        $version = $matches[1][0][0] . '-';
+        $version = $matches[1][0][0].'-';
 
         $matches = array();
         if (preg_match('/^(\-|\+)/', $end, $matches)) {

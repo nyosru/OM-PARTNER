@@ -22,14 +22,14 @@ abstract class SemverRangeUtil
      * Replaces the special range "^".
      *
      * @param SemverConverter $converter The semver converter
-     * @param string $match The match version
+     * @param string          $match     The match version
      *
      * @return string the new match version
      */
     public static function replaceSpecialRange(SemverConverter $converter, $match)
     {
         $newMatch = $converter->convertVersion($match);
-        $newMatch = '>=' . static::standardizeVersion(SemverUtil::replaceAlias($newMatch, '>')) . ',<';
+        $newMatch = '>='.static::standardizeVersion(SemverUtil::replaceAlias($newMatch, '>')).',<';
         $exp = static::getSplittedVersion($match);
         $increase = false;
 
@@ -49,9 +49,9 @@ abstract class SemverRangeUtil
     /**
      * Analyze the sub version of splitted version.
      *
-     * @param int $i The position in splitted version
-     * @param array $exp The splitted version
-     * @param bool $increase Check if the next sub version must be increased
+     * @param int   $i        The position in splitted version
+     * @param array $exp      The splitted version
+     * @param bool  $increase Check if the next sub version must be increased
      *
      * @return bool
      */
@@ -64,9 +64,9 @@ abstract class SemverRangeUtil
             $analyzed = true;
         }
 
-        if (0 === $i && (int)$exp[$i] > 0) {
+        if (0 === $i && (int) $exp[$i] > 0) {
             $increase = true;
-            $exp[$i] = (int)$exp[$i] + 1;
+            $exp[$i] = (int) $exp[$i] + 1;
             $analyzed = true;
         }
 
@@ -76,16 +76,16 @@ abstract class SemverRangeUtil
     /**
      * Increase the sub version of splitted version.
      *
-     * @param int $i The position in splitted version
-     * @param array $exp The splitted version
-     * @param bool $increase Check if the next sub version must be increased
+     * @param int   $i        The position in splitted version
+     * @param array $exp      The splitted version
+     * @param bool  $increase Check if the next sub version must be increased
      */
     protected static function increaseSubVersion($i, array &$exp, &$increase)
     {
         $iNext = min(min($i + 1, 3), count($exp) - 1);
 
-        if (($iNext !== $i && ($exp[$i] > 0 || (int)$exp[$iNext] > 9999998)) || $iNext === $i) {
-            $exp[$i] = (int)$exp[$i] + 1;
+        if (($iNext !== $i && ($exp[$i] > 0 || (int) $exp[$iNext] > 9999998)) || $iNext === $i) {
+            $exp[$i] = (int) $exp[$i] + 1;
             $increase = true;
         }
     }

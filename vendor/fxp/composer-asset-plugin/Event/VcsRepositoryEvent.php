@@ -28,8 +28,8 @@ class VcsRepositoryEvent extends Event
     /**
      * Constructor.
      *
-     * @param string $name The event name
-     * @param array $repos The list of vcs repositories config
+     * @param string $name  The event name
+     * @param array  $repos The list of vcs repositories config
      */
     public function __construct($name, array $repos)
     {

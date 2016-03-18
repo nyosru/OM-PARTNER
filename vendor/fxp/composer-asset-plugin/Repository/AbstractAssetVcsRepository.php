@@ -72,11 +72,11 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
     /**
      * Constructor.
      *
-     * @param array $repoConfig
-     * @param IOInterface $io
-     * @param Config $config
+     * @param array           $repoConfig
+     * @param IOInterface     $io
+     * @param Config          $config
      * @param EventDispatcher $dispatcher
-     * @param array $drivers
+     * @param array           $drivers
      */
     public function __construct(array $repoConfig, IOInterface $io, Config $config, EventDispatcher $dispatcher = null, array $drivers = null)
     {
@@ -88,7 +88,7 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
         $this->assetType = $assetType;
         $this->dispatcher = $dispatcher;
         $this->filter = isset($repoConfig['vcs-package-filter'])
-        && $repoConfig['vcs-package-filter'] instanceof VcsPackageFilter
+                && $repoConfig['vcs-package-filter'] instanceof VcsPackageFilter
             ? $repoConfig['vcs-package-filter']
             : null;
 
@@ -120,7 +120,7 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
     {
         $driver = $this->getDriver();
         if (!$driver) {
-            throw new \InvalidArgumentException('No driver found to handle Asset VCS repository ' . $this->url);
+            throw new \InvalidArgumentException('No driver found to handle Asset VCS repository '.$this->url);
         }
 
         return $driver;
@@ -160,7 +160,7 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
             }
         } catch (\Exception $e) {
             if ($this->verbose) {
-                $this->io->write('<error>Skipped parsing ' . $driver->getRootIdentifier() . ', ' . $e->getMessage() . '</error>');
+                $this->io->write('<error>Skipped parsing '.$driver->getRootIdentifier().', '.$e->getMessage().'</error>');
             }
         }
     }
@@ -183,7 +183,7 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
     /**
      * Creates the mock of package config.
      *
-     * @param string $name The package name
+     * @param string $name    The package name
      * @param string $version The version
      *
      * @return array The package config
@@ -200,9 +200,9 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
     /**
      * Creates the lazy loader of package.
      *
-     * @param string $type
-     * @param string $identifier
-     * @param array $packageData
+     * @param string             $type
+     * @param string             $identifier
+     * @param array              $packageData
      * @param VcsDriverInterface $driver
      *
      * @return LazyAssetPackageLoader
@@ -234,15 +234,15 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
         $data['name'] = $this->packageName ?: $data['name'];
         $data = $this->assetType->getPackageConverter()->convert($data, $vcsRepos);
 
-        return (array)$data;
+        return (array) $data;
     }
 
     /**
      * Override the branch alias extra config of the current package.
      *
-     * @param PackageInterface $package The current package
-     * @param string $aliasNormalized The alias version normalizes
-     * @param string $branch The branch name
+     * @param PackageInterface $package         The current package
+     * @param string           $aliasNormalized The alias version normalizes
+     * @param string           $branch          The branch name
      *
      * @return PackageInterface
      */
@@ -251,7 +251,7 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
         if ($package instanceof Package && false === strpos('dev-', $aliasNormalized)) {
             $extra = $package->getExtra();
             $extra['branch-alias'] = array(
-                'dev-' . $branch => $this->rootPackageVersion . '-dev',
+                'dev-'.$branch => $this->rootPackageVersion.'-dev',
             );
             $this->injectExtraConfig($package, $extra);
         }
@@ -262,8 +262,8 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
     /**
      * Add the alias packages.
      *
-     * @param PackageInterface $package The current package
-     * @param string $aliasNormalized The alias version normalizes
+     * @param PackageInterface $package         The current package
+     * @param string           $aliasNormalized The alias version normalizes
      *
      * @return PackageInterface
      */
@@ -273,7 +273,7 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
         $this->addPackage($alias);
 
         if (false === strpos('dev-', $aliasNormalized)) {
-            $alias = new AliasPackage($package, $aliasNormalized . '-dev', $this->rootPackageVersion);
+            $alias = new AliasPackage($package, $aliasNormalized.'-dev', $this->rootPackageVersion);
             $this->addPackage($alias);
         }
 
@@ -284,7 +284,7 @@ abstract class AbstractAssetVcsRepository extends VcsRepository
      * Inject the overriding extra config in the current package.
      *
      * @param PackageInterface $package The package
-     * @param array $extra The new extra config
+     * @param array            $extra   The new extra config
      */
     private function injectExtraConfig(PackageInterface $package, array $extra)
     {
