@@ -110,38 +110,42 @@ class Profile extends Model
         $zones = new Zones();
 //        $transaction = Yii::$app->db->beginTransaction();
 //        try{
-        $userinfo->name = $this->name;
-        $userinfo->secondname = $this->secondname;
-        $userinfo->lastname = $this->lastname;
+        $arrkey='';
+        foreach ($this->delivery as $key => $value) {
+            $arrkey = $key;
+        }
+        $userinfo->name = $this->delivery[$arrkey]['name'];
+        $userinfo->secondname =$this->delivery[$arrkey]['secondname'];
+        $userinfo->lastname = $this->delivery[$arrkey]['lastname'];
         $userinfo->telephone = $this->phone;
-        $userinfo->adress = $this->address;
-        $userinfo->city = $this->city;
-        $userinfo->state = $this->state;
-        $userinfo->country = $this->country;
-        $userinfo->postcode = $this->postcode;
-        $userinfo->pasportser = $this->pasportser;
-        $userinfo->pasportnum = $this->pasportnum;
-        $userinfo->pasportdate = $this->pasportdate;
-        $userinfo->pasportwhere = $this->pasportwhere;
+        $userinfo->adress = $this->delivery[$arrkey]['address'];
+        $userinfo->city = $this->delivery[$arrkey]['city'];
+        $userinfo->state = $this->delivery[$arrkey]['state'];
+        $userinfo->country = $this->delivery[$arrkey]['country'];
+        $userinfo->postcode = $this->delivery[$arrkey]['postcode'];
+        $userinfo->pasportser = $this->delivery[$arrkey]['passportser'];
+        $userinfo->pasportnum = $this->delivery[$arrkey]['passportnum'];
+        $userinfo->pasportdate = $this->delivery[$arrkey]['passportdate'];
+        $userinfo->pasportwhere = $this->delivery[$arrkey]['passportwhere'];
         if ($userinfo->save()) {
             $customer->customers_telephone = $this->phone;
             $customer->customers_fax = $this->customers_fax;
             if ($customer->save()) {
-                $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
-                $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
-                $add->entry_firstname = $this->name;
-                $add->otchestvo = $this->secondname;
-                $add->entry_lastname = $this->lastname;
-                $add->entry_street_address = $this->address;
-                $add->entry_city = $this->city;
+                $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$arrkey]['country']])->asArray()->one();
+                $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$arrkey]['state']])->asArray()->one();
+                $add->entry_firstname = $this->delivery[$arrkey]['name'];
+                $add->otchestvo =$this->delivery[$arrkey]['secondname'];
+                $add->entry_lastname = $this->delivery[$arrkey]['lastname'];
+                $add->entry_street_address = $this->delivery[$arrkey]['address'];
+                $add->entry_city = $this->delivery[$arrkey]['city'];
                 $add->entry_gender = 'M';
                 $add->entry_country_id = $entrycountry['id'];
                 $add->entry_zone_id = $entryzones['id'];
-                $add->entry_postcode = $this->postcode;
-                $add->pasport_seria = $this->pasportser;
-                $add->pasport_nomer = $this->pasportnum;
-                $add->pasport_kem_vidan = $this->pasportwhere;
-                $add->pasport_kogda_vidan = $this->pasportdate;
+                $add->entry_postcode = $this->delivery[$arrkey]['postcode'];
+                $add->pasport_seria = $this->delivery[$arrkey]['passportser'];
+                $add->pasport_nomer = $this->delivery[$arrkey]['passportnum'];
+                $add->pasport_kem_vidan = $this->delivery[$arrkey]['passportwhere'];
+                $add->pasport_kogda_vidan = $this->delivery[$arrkey]['passportdate'];
                 $add->customers_id = $userinfo->customers_id;
                 $add->save();
 
@@ -253,7 +257,7 @@ class Profile extends Model
             $value->birth_day=$this->delivery[$key]['birthday'];
             $value->pasport_seria=$this->delivery[$key]['passportser'];
             $value->pasport_nomer=$this->delivery[$key]['passportnum'];
-            $value->pasport_kem_vidan=$this->delivery[$key]['passportwho'];
+            $value->pasport_kem_vidan=$this->delivery[$key]['passportwhere'];
             $value->pasport_kogda_vidan=$this->delivery[$key]['passportdate'];
             $value->entry_country_id=$entrycountry['id'];
             $value->entry_zone_id=$entryzones['id'];
@@ -301,27 +305,27 @@ class Profile extends Model
         $add->customers_id=$userinfo->customers_id;
         $add->save();
     }
-    public function defaultUserAddress($addr_id){
-        $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
-        $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
-        $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
-        $ids=[];
-        foreach($add as $key=>$value){
-            $ids[]=$value['address_book_id'];
-        }
-
-        if(in_array($addr_id,$ids)) {
-            $customer->customers_default_address_id = (integer)$addr_id;
-            $customer->validate();
-  //          echo '<pre>';
-//        echo $addr_id;
-//        print_r($ids);
-//            print_r($customer);
-//            echo '</pre>';
-//            die();
-            $customer->save();
-        }
-    }
+//    public function defaultUserAddress($addr_id){
+//        $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
+//        $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
+//        $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
+//        $ids=[];
+//        foreach($add as $key=>$value){
+//            $ids[]=$value['address_book_id'];
+//        }
+//
+//        if(in_array($addr_id,$ids)) {
+//            $customer->customers_default_address_id = (integer)$addr_id;
+//            $customer->validate();
+//  //          echo '<pre>';
+////        echo $addr_id;
+////        print_r($ids);
+////            print_r($customer);
+////            echo '</pre>';
+////            die();
+//            $customer->save();
+//        }
+//    }
     public function defaultUserDeliveryAddress($addr_id){
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();

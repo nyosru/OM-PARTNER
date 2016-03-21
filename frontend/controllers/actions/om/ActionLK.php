@@ -78,19 +78,19 @@ trait ActionLK
                             unset($customer);
                             $customer=new Profile();
                             break;
+//                        case 'addr_default':
+//                            $addr_id='';
+//                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
+//                                if(isset($value['address_book_id'])){
+//                                    $addr_id=$value['address_book_id'];
+//                                    break;
+//                                }
+//                            };
+//                            $customer->defaultUserAddress($addr_id);
+//                            unset($customer);
+//                            $customer=new Profile();
+//                            break;
                         case 'addr_default':
-                            $addr_id='';
-                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
-                                if(isset($value['address_book_id'])){
-                                    $addr_id=$value['address_book_id'];
-                                    break;
-                                }
-                            };
-                            $customer->defaultUserAddress($addr_id);
-                            unset($customer);
-                            $customer=new Profile();
-                            break;
-                        case 'addr_deliv':
                             $addr_id='';
                             foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
                                 if(isset($value['address_book_id'])){
@@ -187,10 +187,7 @@ trait ActionLK
                     'pagination' => [
                         'params'=> array_merge($_GET, ['view' => 'myorder']),
                         'defaultPageSize' => 1,
-
-
                     ]
-
                 ]);
                 $countpay = Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'2'])->count();
                 $countcheck = Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'1'])->count();
