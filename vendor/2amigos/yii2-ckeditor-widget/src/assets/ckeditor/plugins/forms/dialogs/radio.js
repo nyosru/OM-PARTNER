@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 CKEDITOR.dialog.add("radio", function (d) {
     return {
         title: d.lang.forms.checkboxAndRadio.radioTitle, minWidth: 350, minHeight: 140, onShow: function () {

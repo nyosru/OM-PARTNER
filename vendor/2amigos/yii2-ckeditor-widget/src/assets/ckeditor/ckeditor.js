@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 (function () {
     if (window.CKEDITOR && window.CKEDITOR.dom)return;
     window.CKEDITOR || (window.CKEDITOR = function () {
@@ -9380,10 +9377,7 @@
             }
         }
     })();
-    /*
-     Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
-     For licensing, see LICENSE.md or http://ckeditor.com/license
-     */
+
     CKEDITOR.skin.name = "moono";
     CKEDITOR.skin.ua_editor = "ie,iequirks,ie7,ie8,gecko";
     CKEDITOR.skin.ua_dialog = "ie,iequirks,ie7,ie8";

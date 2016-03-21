@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 (function () {
     function r(a) {
         for (var e = 0, l = 0, k = 0, m, g = a.$.rows.length; k < g; k++) {
