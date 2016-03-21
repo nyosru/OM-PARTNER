@@ -7,6 +7,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use yii\bootstrap\Alert;
 use rmrevin\yii\fontawesome;
+
 use frontend\widgets\Menuom;
 
 
@@ -17,27 +18,20 @@ AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 ?>
 <?php $this->beginPage();
-//if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-10', ['duration' => 10])) {
-// ?>
+?>
     <!DOCTYPE html>
     <html lang="ru-RU">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-<!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
         <meta name='yandex-verification' content='6af7ec36af3406db'/>
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
               href="<?= BASEURL ?>/addsearch">
-       <!--       --><?// $this->endCache();
-//        }
-//?>
+
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
-<!--   --><?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-5', ['duration' => 10])) {
-//    ?>
-        <?php $this->head();
 
-        //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-        ?>
+        <?php $this->head(); ?>
     </head>
     <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
     <?php $this->beginBody(); ?>
