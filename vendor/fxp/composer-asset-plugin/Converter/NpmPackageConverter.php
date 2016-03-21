@@ -47,7 +47,7 @@ class NpmPackageConverter extends AbstractPackageConverter
                 return NpmPackageUtil::convertContributors($value, $prevValue);
             }),
             'bin' => array('bin', function ($value) {
-                return (array)$value;
+                return (array) $value;
             }),
             'dist' => array('dist', function ($value) {
                 return NpmPackageUtil::convertDist($value);

@@ -50,11 +50,11 @@ abstract class AbstractPackageConverter implements PackageConverterInterface
     /**
      * Converts the all keys (keys, dependencies and extra keys).
      *
-     * @param array $asset The asset data
-     * @param array $keys The map of asset key and composer key
+     * @param array $asset        The asset data
+     * @param array $keys         The map of asset key and composer key
      * @param array $dependencies The map of asset dependency key and composer dependency key
-     * @param array $extras The map of asset key and composer extra key
-     * @param array $vcsRepos The list of new vcs configs
+     * @param array $extras       The map of asset key and composer extra key
+     * @param array $vcsRepos     The list of new vcs configs
      *
      * @return array The composer package converted
      */
@@ -80,9 +80,9 @@ abstract class AbstractPackageConverter implements PackageConverterInterface
     /**
      * Converts the simple key of package.
      *
-     * @param array $asset The asset data
-     * @param string $assetKey The asset key
-     * @param array $composer The composer data
+     * @param array        $asset       The asset data
+     * @param string       $assetKey    The asset key
+     * @param array        $composer    The composer data
      * @param string|array $composerKey The composer key or array with composer key name and closure
      *
      * @throws \InvalidArgumentException When the 'composerKey' argument of asset packager converter is not an string or an array with the composer key and closure
@@ -99,11 +99,11 @@ abstract class AbstractPackageConverter implements PackageConverterInterface
     /**
      * Converts the extra key of package.
      *
-     * @param array $asset The asset data
-     * @param string $assetKey The asset extra key
-     * @param array $composer The composer data
+     * @param array        $asset       The asset data
+     * @param string       $assetKey    The asset extra key
+     * @param array        $composer    The composer data
      * @param string|array $composerKey The composer extra key or array with composer extra key name and closure
-     * @param string $extraKey The extra key name
+     * @param string       $extraKey    The extra key name
      */
     protected function convertExtraKey(array $asset, $assetKey, array &$composer, $composerKey, $extraKey = 'extra')
     {
@@ -119,11 +119,11 @@ abstract class AbstractPackageConverter implements PackageConverterInterface
     /**
      * Converts simple key of package.
      *
-     * @param array $asset The asset data
-     * @param string $assetKey The asset key of dependencies
-     * @param array $composer The composer data
+     * @param array  $asset       The asset data
+     * @param string $assetKey    The asset key of dependencies
+     * @param array  $composer    The composer data
      * @param string $composerKey The composer key of dependencies
-     * @param array $vcsRepos The list of new vcs configs
+     * @param array  $vcsRepos    The list of new vcs configs
      */
     protected function convertDependencies(array $asset, $assetKey, array &$composer, $composerKey, array &$vcsRepos = array())
     {
@@ -134,7 +134,7 @@ abstract class AbstractPackageConverter implements PackageConverterInterface
                 list($dependency, $version) = $this->convertDependency($dependency, $version, $vcsRepos, $composer);
                 $version = $this->assetType->getVersionConverter()->convertRange($version);
                 if (0 !== strpos($version, $dependency)) {
-                    $newDependencies[$this->assetType->getComposerVendorName() . '/' . $dependency] = $version;
+                    $newDependencies[$this->assetType->getComposerVendorName().'/'.$dependency] = $version;
                 }
             }
 
@@ -146,9 +146,9 @@ abstract class AbstractPackageConverter implements PackageConverterInterface
      * Convert the .
      *
      * @param string $dependency The dependency
-     * @param string $version The version
-     * @param array $vcsRepos The list of new vcs configs
-     * @param array $composer The partial composer data
+     * @param string $version    The version
+     * @param array  $vcsRepos   The list of new vcs configs
+     * @param array  $composer   The partial composer data
      *
      * @return string[] The new dependency and the new version
      */

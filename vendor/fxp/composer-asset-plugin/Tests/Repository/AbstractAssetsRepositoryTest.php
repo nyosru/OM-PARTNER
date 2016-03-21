@@ -62,12 +62,12 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
         $config = new Config();
         $config->merge(array(
             'config' => array(
-                'home' => sys_get_temp_dir() . '/composer-test',
-                'cache-repo-dir' => sys_get_temp_dir() . '/composer-test-cache-repo',
+                'home' => sys_get_temp_dir().'/composer-test',
+                'cache-repo-dir' => sys_get_temp_dir().'/composer-test-cache-repo',
             ),
         ));
         $rm = new RepositoryManager($io, $config);
-        $rm->setRepositoryClass($this->getType() . '-vcs', 'Fxp\Composer\AssetPlugin\Tests\Fixtures\Repository\MockAssetRepository');
+        $rm->setRepositoryClass($this->getType().'-vcs', 'Fxp\Composer\AssetPlugin\Tests\Fixtures\Repository\MockAssetRepository');
         $repoConfig = array(
             'repository-manager' => $rm,
             'asset-options' => array(
@@ -101,9 +101,9 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
     /**
      * Gets the asset registry.
      *
-     * @param array $repoConfig
-     * @param IOInterface $io
-     * @param Config $config
+     * @param array           $repoConfig
+     * @param IOInterface     $io
+     * @param Config          $config
      * @param EventDispatcher $eventDispatcher
      *
      * @return AbstractAssetsRepository
@@ -157,10 +157,11 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $this->registry->findPackages('foobar', '0'));
     }
 
+    /**
+     * @expectedException \LogicException
+     */
     public function testGetPackagesNotBeUsed()
     {
-        $this->setExpectedException('LogicException');
-
         $this->registry->getPackages();
     }
 
@@ -181,7 +182,7 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testWhatProvidesWithNonExistentPackage()
     {
-        $name = $this->getType() . '-asset/non-existent';
+        $name = $this->getType().'-asset/non-existent';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')
@@ -195,7 +196,7 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testWhatProvidesWithExistingPackage()
     {
-        $name = $this->getType() . '-asset/existing';
+        $name = $this->getType().'-asset/existing';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')
@@ -209,7 +210,7 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testWhatProvidesWithExistingAliasPackage()
     {
-        $name = $this->getType() . '-asset/existing-1.0';
+        $name = $this->getType().'-asset/existing-1.0';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')
@@ -224,7 +225,7 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testWhatProvidesWithCamelcasePackageName()
     {
         $assetName = 'CamelCasePackage';
-        $name = $this->getType() . '-asset/' . strtolower($assetName);
+        $name = $this->getType().'-asset/'.strtolower($assetName);
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->at(0))
             ->method('getContents')
@@ -266,7 +267,7 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
             ->method('getContents')
             ->will($this->returnValue(json_encode($this->getMockSearchResult())));
 
-        $result = $this->registry->search($this->getType() . '-asset/query');
+        $result = $this->registry->search($this->getType().'-asset/query');
         $this->assertCount(count($this->getMockSearchResult()), $result);
     }
 
@@ -285,7 +286,7 @@ abstract class AbstractAssetsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testOverridingVcsRepositoryConfig()
     {
-        $name = $this->getType() . '-asset/foobar';
+        $name = $this->getType().'-asset/foobar';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')

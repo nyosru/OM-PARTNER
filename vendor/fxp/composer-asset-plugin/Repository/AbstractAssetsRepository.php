@@ -67,9 +67,9 @@ abstract class AbstractAssetsRepository extends ComposerRepository
     /**
      * Constructor.
      *
-     * @param array $repoConfig
-     * @param IOInterface $io
-     * @param Config $config
+     * @param array           $repoConfig
+     * @param IOInterface     $io
+     * @param Config          $config
      * @param EventDispatcher $eventDispatcher
      */
     public function __construct(array $repoConfig, IOInterface $io, Config $config, EventDispatcher $eventDispatcher = null)
@@ -91,7 +91,7 @@ abstract class AbstractAssetsRepository extends ComposerRepository
             ? $repoConfig['vcs-package-filter']
             : null;
         $this->repos = array();
-        $this->searchable = (bool)$this->getOption($repoConfig['asset-options'], 'searchable', true);
+        $this->searchable = (bool) $this->getOption($repoConfig['asset-options'], 'searchable', true);
         $this->fallbackProviders = false;
     }
 
@@ -105,8 +105,8 @@ abstract class AbstractAssetsRepository extends ComposerRepository
         }
 
         $url = str_replace('%query%', urlencode(Util::cleanPackageName($query)), $this->searchUrl);
-        $hostname = (string)parse_url($url, PHP_URL_HOST) ?: $url;
-        $json = (string)$this->rfs->getContents($hostname, $url, false);
+        $hostname = (string) parse_url($url, PHP_URL_HOST) ?: $url;
+        $json = (string) $this->rfs->getContents($hostname, $url, false);
         $data = JsonFile::parseJson($json, $url);
         $results = array();
 
@@ -131,7 +131,7 @@ abstract class AbstractAssetsRepository extends ComposerRepository
             $repoName = Util::convertAliasName($name);
             $packageName = Util::cleanPackageName($repoName);
             $packageUrl = str_replace('%package%', $packageName, $this->lazyProvidersUrl);
-            $cacheName = $packageName . '-' . sha1($packageName) . '-package.json';
+            $cacheName = $packageName.'-'.sha1($packageName).'-package.json';
             $data = $this->fetchFile($packageUrl, $cacheName);
             $repo = $this->createVcsRepositoryConfig($data, Util::cleanPackageName($name));
             $repo['vcs-package-filter'] = $this->packageFilter;
@@ -164,7 +164,7 @@ abstract class AbstractAssetsRepository extends ComposerRepository
      */
     protected function findWhatProvides($name)
     {
-        $assetPrefix = $this->assetType->getComposerVendorName() . '/';
+        $assetPrefix = $this->assetType->getComposerVendorName().'/';
 
         if (false === strpos($name, $assetPrefix)) {
             return array();
@@ -194,8 +194,7 @@ abstract class AbstractAssetsRepository extends ComposerRepository
     {
         foreach ($this->repositoryManager->getRepositories() as $mRepo) {
             if ($mRepo instanceof AssetVcsRepository
-                && $name === $mRepo->getComposerPackageName()
-            ) {
+                    && $name === $mRepo->getComposerPackageName()) {
                 return true;
             }
         }
@@ -216,9 +215,9 @@ abstract class AbstractAssetsRepository extends ComposerRepository
     /**
      * Gets the option.
      *
-     * @param array $options The options
-     * @param string $key The key
-     * @param mixed $default The default value
+     * @param array  $options The options
+     * @param string $key     The key
+     * @param mixed  $default The default value
      *
      * @return mixed The option value or default value if key is not found
      */
@@ -241,7 +240,7 @@ abstract class AbstractAssetsRepository extends ComposerRepository
     protected function createSearchItem(array $item)
     {
         return array(
-            'name' => $this->assetType->getComposerVendorName() . '/' . $item['name'],
+            'name' => $this->assetType->getComposerVendorName().'/'.$item['name'],
             'description' => null,
         );
     }
@@ -249,8 +248,8 @@ abstract class AbstractAssetsRepository extends ComposerRepository
     /**
      * Manage exception for "whatProvides" method.
      *
-     * @param Pool $pool
-     * @param string $name
+     * @param Pool       $pool
+     * @param string     $name
      * @param \Exception $exception
      *
      * @throws \Exception When exception is not a TransportException instance
@@ -270,8 +269,8 @@ abstract class AbstractAssetsRepository extends ComposerRepository
      * Searchs if the registry has a package with the same name exists with a
      * different camelcase.
      *
-     * @param Pool $pool
-     * @param string $name
+     * @param Pool               $pool
+     * @param string             $name
      * @param TransportException $ex
      */
     protected function fallbackWathProvides(Pool $pool, $name, TransportException $ex)
@@ -326,7 +325,7 @@ abstract class AbstractAssetsRepository extends ComposerRepository
     /**
      * Creates a config of vcs repository.
      *
-     * @param array $data The repository config
+     * @param array  $data         The repository config
      * @param string $registryName The package name in asset registry
      *
      * @return array An array('type' => '...', 'url' => '...')

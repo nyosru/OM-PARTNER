@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.html or http://ckeditor.com/license
- */
+﻿
 CKEDITOR.dialog.add("checkspell", function (a) {
     function c(a, c) {
         var d = 0;

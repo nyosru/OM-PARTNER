@@ -25,25 +25,25 @@ class BitbucketUtil
     /**
      * Get composer information.
      *
-     * @param Cache $cache The cache
-     * @param array $infoCache The code cache
-     * @param string $scheme The scheme
-     * @param array $repoConfig The repository config
-     * @param string $identifier The identifier
-     * @param string $owner The owner of repository
-     * @param string $repository The repository name
-     * @param VcsDriverInterface $driver The vcs driver
-     * @param string $method The method of vcs driver for get contents
+     * @param Cache              $cache      The cache
+     * @param array              $infoCache  The code cache
+     * @param string             $scheme     The scheme
+     * @param array              $repoConfig The repository config
+     * @param string             $identifier The identifier
+     * @param string             $owner      The owner of repository
+     * @param string             $repository The repository name
+     * @param VcsDriverInterface $driver     The vcs driver
+     * @param string             $method     The method of vcs driver for get contents
      *
      * @return array The composer
      */
     public static function getComposerInformation(Cache $cache, array &$infoCache, $scheme,
-                                                  array $repoConfig, $identifier, $owner, $repository, VcsDriverInterface $driver, $method = 'getContents')
+        array $repoConfig, $identifier, $owner, $repository, VcsDriverInterface $driver, $method = 'getContents')
     {
         $infoCache[$identifier] = Util::readCache($infoCache, $cache, $repoConfig['asset-type'], $identifier);
 
         if (!isset($infoCache[$identifier])) {
-            $resource = $scheme . '://bitbucket.org/' . $owner . '/' . $repository . '/raw/' . $identifier . '/' . $repoConfig['filename'];
+            $resource = $scheme.'://bitbucket.org/'.$owner.'/'.$repository.'/raw/'.$identifier.'/'.$repoConfig['filename'];
             $composer = static::getComposerContent($resource, $identifier, $scheme, $owner, $repository, $driver, $method);
 
             Util::writeCache($cache, $repoConfig['asset-type'], $identifier, $composer);
@@ -56,13 +56,13 @@ class BitbucketUtil
     /**
      * Gets content of composer information.
      *
-     * @param string $resource The resource
-     * @param string $identifier The identifier
-     * @param string $scheme The scheme
-     * @param string $owner The owner
-     * @param string $repository The repository
-     * @param VcsDriverInterface $driver The vcs driver
-     * @param string $method The method for get content
+     * @param string             $resource   The resource
+     * @param string             $identifier The identifier
+     * @param string             $scheme     The scheme
+     * @param string             $owner      The owner
+     * @param string             $repository The repository
+     * @param VcsDriverInterface $driver     The vcs driver
+     * @param string             $method     The method for get content
      *
      * @return array
      */
@@ -79,7 +79,7 @@ class BitbucketUtil
         }
 
         if ($composer) {
-            $composer = (array)JsonFile::parseJson((string)$composer, $resource);
+            $composer = (array) JsonFile::parseJson((string) $composer, $resource);
             $composer = static::formatComposerContent($composer, $identifier, $scheme, $owner, $repository, $driver, $method);
 
             return $composer;
@@ -91,19 +91,19 @@ class BitbucketUtil
     /**
      * Format composer content.
      *
-     * @param array $composer The composer
-     * @param string $identifier The identifier
-     * @param string $scheme The scheme
-     * @param string $owner The owner
-     * @param string $repository The repository
-     * @param VcsDriverInterface $driver The vcs driver
-     * @param string $method The method for get content
+     * @param array              $composer   The composer
+     * @param string             $identifier The identifier
+     * @param string             $scheme     The scheme
+     * @param string             $owner      The owner
+     * @param string             $repository The repository
+     * @param VcsDriverInterface $driver     The vcs driver
+     * @param string             $method     The method for get content
      *
      * @return array
      */
     protected static function formatComposerContent(array $composer, $identifier, $scheme, $owner, $repository, $driver, $method)
     {
-        $resource = $scheme . '://api.bitbucket.org/1.0/repositories/' . $owner . '/' . $repository . '/changesets/' . $identifier;
+        $resource = $scheme.'://api.bitbucket.org/1.0/repositories/'.$owner.'/'.$repository.'/changesets/'.$identifier;
         $composer = Util::addComposerTime($composer, 'timestamp', $resource, $driver, $method);
 
         return $composer;

@@ -24,10 +24,10 @@ class IgnoreFactory
     /**
      * Create a ignore manager.
      *
-     * @param Composer $composer The composer instance
-     * @param PackageInterface $package The package instance
-     * @param string|null $installDir The custom installation directory
-     * @param string|null $section The extra section of ignore patterns
+     * @param Composer         $composer   The composer instance
+     * @param PackageInterface $package    The package instance
+     * @param string|null      $installDir The custom installation directory
+     * @param string|null      $section    The extra section of ignore patterns
      *
      * @return IgnoreManager
      */
@@ -52,16 +52,16 @@ class IgnoreFactory
     /**
      * Get the installation directory of the package.
      *
-     * @param Composer $composer The composer instance
-     * @param PackageInterface $package The package instance
-     * @param string|null $installDir The custom installation directory
+     * @param Composer         $composer   The composer instance
+     * @param PackageInterface $package    The package instance
+     * @param string|null      $installDir The custom installation directory
      *
      * @return string The installation directory
      */
     protected static function getInstallDir(Composer $composer, PackageInterface $package, $installDir = null)
     {
         if (null === $installDir) {
-            $installDir = rtrim($composer->getConfig()->get('vendor-dir'), '/') . '/' . $package->getName();
+            $installDir = rtrim($composer->getConfig()->get('vendor-dir'), '/').'/'.$package->getName();
         }
 
         return rtrim($installDir, '/');
@@ -70,8 +70,8 @@ class IgnoreFactory
     /**
      * Add ignore file patterns in the ignore manager.
      *
-     * @param IgnoreManager $manager The ignore files manager
-     * @param bool|array $patterns The patterns for ignore files
+     * @param IgnoreManager $manager  The ignore files manager
+     * @param bool|array    $patterns The patterns for ignore files
      */
     protected static function addPatterns(IgnoreManager $manager, $patterns)
     {

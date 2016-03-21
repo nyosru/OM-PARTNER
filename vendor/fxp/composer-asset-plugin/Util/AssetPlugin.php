@@ -13,6 +13,7 @@ namespace Fxp\Composer\AssetPlugin\Util;
 
 use Composer\Composer;
 use Composer\IO\IOInterface;
+use Composer\Package\Package;
 use Composer\Repository\RepositoryManager;
 use Composer\Package\PackageInterface;
 use Fxp\Composer\AssetPlugin\Assets;
@@ -30,7 +31,7 @@ class AssetPlugin
     /**
      * Adds asset installers.
      *
-     * @param Composer $composer
+     * @param Composer    $composer
      * @param IOInterface $io
      */
     public static function addInstallers(Composer $composer, IOInterface $io)
@@ -44,7 +45,7 @@ class AssetPlugin
     /**
      * Creates the asset options.
      *
-     * @param array $extra The composer extra section of asset options
+     * @param array  $extra     The composer extra section of asset options
      * @param string $assetType The asset type
      *
      * @return array The asset registry options
@@ -54,7 +55,7 @@ class AssetPlugin
         $options = array();
 
         foreach ($extra as $key => $value) {
-            if (0 === strpos($key, $assetType . '-')) {
+            if (0 === strpos($key, $assetType.'-')) {
                 $key = substr($key, strlen($assetType) + 1);
                 $options[$key] = $value;
             }
@@ -67,8 +68,8 @@ class AssetPlugin
      * Adds asset registry repositories.
      *
      * @param RepositoryManager $rm
-     * @param VcsPackageFilter $filter
-     * @param array $extra
+     * @param VcsPackageFilter  $filter
+     * @param array             $extra
      */
     public static function addRegistryRepositories(RepositoryManager $rm, VcsPackageFilter $filter, array $extra)
     {
@@ -97,7 +98,7 @@ class AssetPlugin
     {
         foreach (Assets::getTypes() as $assetType) {
             foreach (Assets::getVcsRepositoryDrivers() as $driverType => $repositoryClass) {
-                $rm->setRepositoryClass($assetType . '-' . $driverType, $repositoryClass);
+                $rm->setRepositoryClass($assetType.'-'.$driverType, $repositoryClass);
             }
         }
     }
@@ -105,13 +106,15 @@ class AssetPlugin
     /**
      * Adds the main file definitions from the root package.
      *
-     * @param Composer $composer
+     * @param Composer         $composer
      * @param PackageInterface $package
-     * @param string $section
+     * @param string           $section
+     *
+     * @return PackageInterface
      */
     public static function addMainFiles(Composer $composer, PackageInterface $package, $section = 'asset-main-files')
     {
-        if ($package instanceof \Composer\Package\Package) {
+        if ($package instanceof Package) {
             $packageExtra = $package->getExtra();
 
             $extra = $composer->getPackage()->getExtra();

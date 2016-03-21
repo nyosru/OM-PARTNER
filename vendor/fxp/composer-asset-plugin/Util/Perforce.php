@@ -34,7 +34,7 @@ class Perforce extends BasePerforce
     {
         parent::initialize($repoConfig);
 
-        $this->filename = (string)$repoConfig['filename'];
+        $this->filename = (string) $repoConfig['filename'];
     }
 
     /**
@@ -47,7 +47,7 @@ class Perforce extends BasePerforce
         $index = strpos($identifier, '@');
 
         if ($index === false) {
-            $composerJson = $identifier . '/' . $this->filename;
+            $composerJson = $identifier.'/'.$this->filename;
 
             return $this->getComposerInformationFromPath($composerJson);
         }
@@ -63,8 +63,8 @@ class Perforce extends BasePerforce
      */
     public function getComposerInformationFromLabel($identifier, $index)
     {
-        $composerJsonPath = substr($identifier, 0, $index) . '/' . $this->filename . substr($identifier, $index);
-        $command = $this->generateP4Command(' files ' . $composerJsonPath, false);
+        $composerJsonPath = substr($identifier, 0, $index).'/'.$this->filename.substr($identifier, $index);
+        $command = $this->generateP4Command(' files '.$composerJsonPath, false);
         $this->executeCommand($command);
         $result = $this->commandResult;
         $index2 = strpos($result, 'no such file(s).');
@@ -76,7 +76,7 @@ class Perforce extends BasePerforce
                 $phrase = trim(substr($result, $index3));
                 $fields = explode(' ', $phrase);
                 $id = $fields[1];
-                $composerJson = substr($identifier, 0, $index) . '/' . $this->filename . '@' . $id;
+                $composerJson = substr($identifier, 0, $index).'/'.$this->filename.'@'.$id;
 
                 return $this->getComposerInformationFromPath($composerJson);
             }
@@ -88,11 +88,11 @@ class Perforce extends BasePerforce
     /**
      * Create perforce helper.
      *
-     * @param array $repoConfig
-     * @param int|string $port
-     * @param string $path
+     * @param array           $repoConfig
+     * @param int|string      $port
+     * @param string          $path
      * @param ProcessExecutor $process
-     * @param IOInterface $io
+     * @param IOInterface     $io
      *
      * @return Perforce
      */

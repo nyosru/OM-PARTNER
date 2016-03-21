@@ -63,7 +63,7 @@ class NpmRepositoryTest extends AbstractAssetsRepositoryTest
 
     public function testWhatProvidesWithCamelcasePackageName()
     {
-        $name = $this->getType() . '-asset/CamelCasePackage';
+        $name = $this->getType().'-asset/CamelCasePackage';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')
@@ -77,7 +77,7 @@ class NpmRepositoryTest extends AbstractAssetsRepositoryTest
 
     public function testWatProvidesWithoutRepositoryUrl()
     {
-        $name = $this->getType() . '-asset/foobar';
+        $name = $this->getType().'-asset/foobar';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')
@@ -104,11 +104,13 @@ class NpmRepositoryTest extends AbstractAssetsRepositoryTest
         $this->assertCount(1, $this->rm->getRepositories());
     }
 
+    /**
+     * @expectedException \Fxp\Composer\AssetPlugin\Exception\InvalidCreateRepositoryException
+     * @expectedExceptionMessage "repository.url" parameter of "foobar"
+     */
     public function testWatProvidesWithoutRepositoryUrlAndWithoutVersions()
     {
-        $this->setExpectedException('Fxp\Composer\AssetPlugin\Exception\InvalidCreateRepositoryException', '"repository.url" parameter of "foobar"');
-
-        $name = $this->getType() . '-asset/foobar';
+        $name = $this->getType().'-asset/foobar';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')
@@ -121,7 +123,7 @@ class NpmRepositoryTest extends AbstractAssetsRepositoryTest
 
     public function testWhatProvidesWithGitPlusHttpsUrl()
     {
-        $name = $this->getType() . '-asset/existing';
+        $name = $this->getType().'-asset/existing';
         $rfs = $this->replaceRegistryRfsByMock();
         $rfs->expects($this->any())
             ->method('getContents')

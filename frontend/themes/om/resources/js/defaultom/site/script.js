@@ -112,7 +112,6 @@ $(document).on('click', '.del-product', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
-    console.log();
     if(check.val()=="boxes") wrapprice=15;
 
     $indexes = $(".cart-row");
@@ -141,7 +140,6 @@ $(document).on('click', '.cart-lable', function () {
                 if(localStorage.getItem('cart-om-date')){
                     $timecart =  new Date;
                     $timecart = localStorage.getItem('cart-om-date');
-                    console.log($timenow.getTime() - $timecart);
                     if($timenow.getTime() - $timecart > 604800000){
                         localStorage.removeItem('cart-om');
                         localStorage.removeItem('cart-om-date');
@@ -459,7 +457,6 @@ $(document).on('ready', function () {
                 $('.pagination-catalog').remove();
                 $('.loader-inner').remove();
                 if (data[0] != 'Не найдено!') {
-                    console.log(data);
                     $.each(data[0], function () {
                         $product = this.products;
                         $descriptionprod = this.productsDescription;
@@ -538,10 +535,9 @@ $(document).on('ready', function () {
                         if( data[14][$product.manufacturers_id] === undefined ) {
                             $timewrap = '<div></div>';
                         }else{
-                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="/glavnaya/timeorderproducts?id='+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
+                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
                         }
-                        //console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                             '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                             '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
@@ -703,7 +699,6 @@ $(document).on('ready', function () {
                 $('.pagination-catalog').remove();
                 $('.loader-inner').remove();
                 if (data[0] != 'Не найдено!') {
-                    console.log(data);
                     $.each(data[0], function () {
                         $product = this.products;
                         $descriptionprod = this.productsDescription;
@@ -781,10 +776,9 @@ $(document).on('ready', function () {
                         if( data[14][$product.manufacturers_id] === undefined ) {
                             $timewrap = '';
                         }else{
-                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="/glavnaya/timeorderproducts?id='+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
+                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
                         }
-                        console.log($timewrap);
                         $('.bside').append('<div class="container-fluid float" id="card">'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                                         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
@@ -941,7 +935,6 @@ $(document).on('ready', function () {
             if(localStorage.getItem('cart-om-date')){
                 $timecart =  new Date;
                 $timecart = localStorage.getItem('cart-om-date');
-                console.log($timenow.getTime() - $timecart);
                 if($timenow.getTime() - $timecart > 604800000){
                     localStorage.removeItem('cart-om');
                     localStorage.removeItem('cart-om-date');
@@ -1194,3 +1187,17 @@ $(document).on('click','#prdesc',function() {
         else{
             jQuery('#prd').attr('style','display:none');
         }});
+
+$(document).on('click', '[data-ajax=time]', function(){
+    $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
+        if($("#time").length) {
+            $('#time').html(data);
+        }else{
+            $('.bside').append('<div id="time" style="display: none;">'+data+'</div>');
+        }
+        $('#time').show();
+    });
+});
+$(document).on('click', '.close-modal', function(){
+    $(this).parents().find('#time').hide();
+});

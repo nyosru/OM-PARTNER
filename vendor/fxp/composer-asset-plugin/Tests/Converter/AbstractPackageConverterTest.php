@@ -63,7 +63,7 @@ abstract class AbstractPackageConverterTest extends \PHPUnit_Framework_TestCase
         $type->expects($this->any())
             ->method('formatComposerName')
             ->will($this->returnCallback(function ($value) {
-                return 'ASSET/' . $value;
+                return 'ASSET/'.$value;
             }));
 
         $this->type = $type;
@@ -76,9 +76,11 @@ abstract class AbstractPackageConverterTest extends \PHPUnit_Framework_TestCase
         $this->asset = array();
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testConversionWithInvalidKey()
     {
-        $this->setExpectedException('InvalidArgumentException');
         $this->converter = new InvalidPackageConverter($this->type);
 
         $this->converter->convert(array(

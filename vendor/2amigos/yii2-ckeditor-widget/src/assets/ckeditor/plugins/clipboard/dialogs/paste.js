@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 CKEDITOR.dialog.add("paste", function (c) {
     function h(a) {
         var b = new CKEDITOR.dom.document(a.document), f = b.getBody(), d = b.getById("cke_actscrpt");

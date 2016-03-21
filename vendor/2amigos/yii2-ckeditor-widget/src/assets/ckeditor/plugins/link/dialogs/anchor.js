@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 CKEDITOR.dialog.add("anchor", function (c) {
     function d(a, b) {
         return a.createFakeElement(a.document.createElement("a", {attributes: b}), "cke_anchor", "anchor")

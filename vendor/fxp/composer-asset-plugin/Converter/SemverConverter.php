@@ -24,14 +24,14 @@ class SemverConverter implements VersionConverterInterface
     public function convertVersion($version)
     {
         if (in_array($version, array(null, '', 'latest'))) {
-            return ('latest' === $version ? 'default || ' : '') . '*';
+            return ('latest' === $version ? 'default || ' : '').'*';
         }
 
         $prefix = preg_match('/^[a-z]/', $version) ? substr($version, 0, 1) : '';
         $version = substr($version, strlen($prefix));
         $version = SemverUtil::convertVersionMetadata($version);
 
-        return $prefix . $version;
+        return $prefix.$version;
     }
 
     /**
@@ -54,7 +54,7 @@ class SemverConverter implements VersionConverterInterface
     protected function cleanRange($range)
     {
         foreach (array('<', '>', '=', '~', '^', '||') as $character) {
-            $range = str_replace($character . ' ', $character, $range);
+            $range = str_replace($character.' ', $character, $range);
         }
 
         $range = preg_replace('/(?:[vV])(\d+)/', '${1}', $range);
@@ -92,9 +92,9 @@ class SemverConverter implements VersionConverterInterface
     /**
      * Converts the token of the matched range.
      *
-     * @param int $i
-     * @param string $match
-     * @param array $matches
+     * @param int         $i
+     * @param string      $match
+     * @param array       $matches
      * @param string|null $special
      * @param string|null $replace
      */
@@ -110,9 +110,9 @@ class SemverConverter implements VersionConverterInterface
     /**
      * Step1: Converts the token of the matched range.
      *
-     * @param int $i
-     * @param string $match
-     * @param array $matches
+     * @param int         $i
+     * @param string      $match
+     * @param array       $matches
      * @param string|null $special
      * @param string|null $replace
      *
@@ -123,7 +123,7 @@ class SemverConverter implements VersionConverterInterface
         $matched = true;
 
         if (' - ' === $match) {
-            $matches[$i - 1] = '>=' . $matches[$i - 1];
+            $matches[$i - 1] = '>='.$matches[$i - 1];
             $matches[$i] = ',<=';
         } elseif (in_array($match, array('', '<', '>', '=', ','))) {
             $replace = in_array($match, array('<', '>')) ? $match : $replace;
@@ -142,9 +142,9 @@ class SemverConverter implements VersionConverterInterface
     /**
      * Step2: Converts the token of the matched range.
      *
-     * @param int $i
-     * @param string $match
-     * @param array $matches
+     * @param int         $i
+     * @param string      $match
+     * @param array       $matches
      * @param string|null $special
      * @param string|null $replace
      */

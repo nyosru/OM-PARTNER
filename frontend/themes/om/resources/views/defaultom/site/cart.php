@@ -79,13 +79,13 @@ $(document).on('ready', function () {
                 $access = 'В данный момент товар отсутствует' ;
                 $identypay = false;
             }else if(JSON.parse(mandata.responseText).answer == false){
-                $access = 'Данный товар в данный момент недоступен для заказа';
+                $access = 'К сожалению, товар в данный момент недоступен для оформления. Он останется в вашей корзине. Время оформления для данного товара вы можете посмотреть <a data-ajax=time data-href="'+requestdata.responseJSON.product.products.manufacturers_id+'">тут</a>';
                 $identypay = false;
                 }else{
                 $access = 'Данный товар доступен для заказа';
                 $identypay = true;
             }
-            $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="width: 100%; float: left; height: auto; padding: 10px 0px 10px 10px; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204);">' +
+            $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
                 '<div class = "access '+$identypay+'" >'+$access+'</div>'+
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></div>' +
                 '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +

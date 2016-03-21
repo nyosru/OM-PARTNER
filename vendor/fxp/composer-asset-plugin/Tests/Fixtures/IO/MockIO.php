@@ -84,11 +84,11 @@ class MockIO extends BaseIO
     /**
      * {@inheritdoc}
      */
-    public function write($messages, $newline = true)
+    public function write($messages, $newline = true, $verbosity = self::NORMAL)
     {
         $pos = max(count($this->traces) - 1, 0);
         if (isset($this->traces[$pos])) {
-            $messages = $this->traces[$pos] . $messages;
+            $messages = $this->traces[$pos].$messages;
         }
         $this->traces[$pos] = $messages;
         if ($newline) {
@@ -99,15 +99,15 @@ class MockIO extends BaseIO
     /**
      * {@inheritdoc}
      */
-    public function writeError($messages, $newline = true)
+    public function writeError($messages, $newline = true, $verbosity = self::NORMAL)
     {
-        $this->write($messages, $newline);
+        $this->write($messages, $newline, $verbosity);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function overwrite($messages, $newline = true, $size = 80)
+    public function overwrite($messages, $newline = true, $size = 80, $verbosity = self::NORMAL)
     {
         $pos = max(count($this->traces) - 1, 0);
         $this->traces[$pos] = $messages;
@@ -116,9 +116,9 @@ class MockIO extends BaseIO
         }
     }
 
-    public function overwriteError($messages, $newline = true, $size = null)
+    public function overwriteError($messages, $newline = true, $size = null, $verbosity = self::NORMAL)
     {
-        $this->overwrite($messages, $newline, $size);
+        $this->overwrite($messages, $newline, $size, $verbosity);
     }
 
     /**

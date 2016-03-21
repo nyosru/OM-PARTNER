@@ -24,7 +24,7 @@ class Validator
     /**
      * Validates the branch.
      *
-     * @param string $branch
+     * @param string             $branch
      * @param VersionParser|null $parser
      *
      * @return false|string
@@ -47,7 +47,7 @@ class Validator
     /**
      * Validates the tag.
      *
-     * @param string $tag
+     * @param string             $tag
      * @param AssetTypeInterface $assetType
      * @param VersionParser|null $parser
      *

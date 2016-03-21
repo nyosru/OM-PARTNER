@@ -28,11 +28,11 @@ abstract class PackageUtil
     /**
      * Checks if the version is a URL version.
      *
-     * @param AssetTypeInterface $assetType The asset type
-     * @param string $dependency The dependency
-     * @param string $version The version
-     * @param array $vcsRepos The list of new vcs configs
-     * @param array $composer The partial composer data
+     * @param AssetTypeInterface $assetType  The asset type
+     * @param string             $dependency The dependency
+     * @param string             $version    The version
+     * @param array              $vcsRepos   The list of new vcs configs
+     * @param array              $composer   The partial composer data
      *
      * @return string[] The new dependency and the new version
      */
@@ -69,9 +69,9 @@ abstract class PackageUtil
     /**
      * Checks if the version is a alias version.
      *
-     * @param AssetTypeInterface $assetType The asset type
-     * @param string $dependency The dependency
-     * @param string $version The version
+     * @param AssetTypeInterface $assetType  The asset type
+     * @param string             $dependency The dependency
+     * @param string             $version    The version
      *
      * @return string[] The new dependency and the new version
      */
@@ -85,7 +85,7 @@ abstract class PackageUtil
             $searchVerion = substr($version, 1);
 
             if (false === strpos($version, '*') && Validator::validateTag($searchVerion, $assetType)) {
-                $dependency .= '-' . str_replace('#', '', $version);
+                $dependency .= '-'.str_replace('#', '', $version);
             }
         }
 
@@ -95,9 +95,9 @@ abstract class PackageUtil
     /**
      * Convert the dependency version.
      *
-     * @param AssetTypeInterface $assetType The asset type
-     * @param string $dependency The dependency
-     * @param string $version The version
+     * @param AssetTypeInterface $assetType  The asset type
+     * @param string             $dependency The dependency
+     * @param string             $version    The version
      *
      * @return string[] The new dependency and the new version
      */
@@ -110,13 +110,13 @@ abstract class PackageUtil
 
         // sha version or branch verison
         if (preg_match('{^[0-9a-f]{40}$}', $version)) {
-            $version = 'dev-default#' . $version;
+            $version = 'dev-default#'.$version;
         } elseif ('*' !== $version && !Validator::validateTag($searchVersion, $assetType) && !static::depIsRange($version)) {
             $oldVersion = $version;
-            $version = 'dev-' . $assetType->getVersionConverter()->convertVersion($version);
+            $version = 'dev-'.$assetType->getVersionConverter()->convertVersion($version);
 
             if (!Validator::validateBranch($oldVersion)) {
-                $version .= ' || ' . $oldVersion;
+                $version .= ' || '.$oldVersion;
             }
         }
 
@@ -126,9 +126,9 @@ abstract class PackageUtil
     /**
      * Converts the simple key of package.
      *
-     * @param array $asset The asset data
-     * @param string $assetKey The asset key
-     * @param array $composer The composer data
+     * @param array  $asset       The asset data
+     * @param string $assetKey    The asset key
+     * @param array  $composer    The composer data
      * @param string $composerKey The composer key
      */
     public static function convertStringKey(array $asset, $assetKey, array &$composer, $composerKey)
@@ -141,18 +141,17 @@ abstract class PackageUtil
     /**
      * Converts the simple key of package.
      *
-     * @param array $asset The asset data
-     * @param string $assetKey The asset key
-     * @param array $composer The composer data
-     * @param array $composerKey The array with composer key name and closure
+     * @param array  $asset       The asset data
+     * @param string $assetKey    The asset key
+     * @param array  $composer    The composer data
+     * @param array  $composerKey The array with composer key name and closure
      *
      * @throws \InvalidArgumentException When the 'composerKey' argument of asset packager converter is not an string or an array with the composer key and closure
      */
     public static function convertArrayKey(array $asset, $assetKey, array &$composer, $composerKey)
     {
         if (2 !== count($composerKey)
-            || !is_string($composerKey[0]) || !$composerKey[1] instanceof \Closure
-        ) {
+            || !is_string($composerKey[0]) || !$composerKey[1] instanceof \Closure) {
             throw new \InvalidArgumentException('The "composerKey" argument of asset packager converter must be an string or an array with the composer key and closure');
         }
 
@@ -193,27 +192,27 @@ abstract class PackageUtil
     /**
      * Get the name of url file dependency.
      *
-     * @param AssetTypeInterface $assetType The asset type
-     * @param array $composer The partial composer
-     * @param string $dependency The dependency name
+     * @param AssetTypeInterface $assetType  The asset type
+     * @param array              $composer   The partial composer
+     * @param string             $dependency The dependency name
      *
      * @return string The dependency name
      */
     protected static function getUrlFileDependencyName(AssetTypeInterface $assetType, array $composer, $dependency)
     {
         $prefix = isset($composer['name'])
-            ? substr($composer['name'], strlen($assetType->getComposerVendorName()) + 1) . '-'
+            ? substr($composer['name'], strlen($assetType->getComposerVendorName()) + 1).'-'
             : '';
 
-        return $prefix . $dependency . '-file';
+        return $prefix.$dependency.'-file';
     }
 
     /**
      * Get the version of url file dependency.
      *
      * @param AssetTypeInterface $assetType The asset type
-     * @param string $url The url
-     * @param string $version The version
+     * @param string             $url       The url
+     * @param string             $version   The version
      *
      * @return string The version
      */
@@ -265,6 +264,6 @@ abstract class PackageUtil
     {
         $version = trim($version);
 
-        return (bool)preg_match('/[\<\>\=\^\~\ ]/', $version);
+        return (bool) preg_match('/[\<\>\=\^\~\ ]/', $version);
     }
 }

@@ -69,7 +69,7 @@ class BowerPackageConverter extends AbstractPackageConverter
      * Checks if the version is a Github alias version of repository.
      *
      * @param string $dependency The dependency
-     * @param string $version The version
+     * @param string $version    The version
      *
      * @return string[] The new dependency and the new version
      */
@@ -79,7 +79,7 @@ class BowerPackageConverter extends AbstractPackageConverter
             $pos = strpos($version, '#');
             $pos = false === $pos ? strlen($version) : $pos;
             $realVersion = substr($version, $pos);
-            $version = 'git://github.com/' . substr($version, 0, $pos) . '.git' . $realVersion;
+            $version = 'git://github.com/'.substr($version, 0, $pos).'.git'.$realVersion;
         }
 
         return array($dependency, $version);

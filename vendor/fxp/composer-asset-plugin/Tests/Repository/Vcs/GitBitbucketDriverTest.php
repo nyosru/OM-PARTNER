@@ -35,8 +35,8 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
         $this->config = new Config();
         $this->config->merge(array(
             'config' => array(
-                'home' => sys_get_temp_dir() . '/composer-test',
-                'cache-repo-dir' => sys_get_temp_dir() . '/composer-test-cache',
+                'home' => sys_get_temp_dir().'/composer-test',
+                'cache-repo-dir' => sys_get_temp_dir().'/composer-test-cache',
             ),
         ));
     }
@@ -44,8 +44,8 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $fs = new Filesystem();
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test');
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test-cache');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test-cache');
     }
 
     public function getAssetTypes()
@@ -62,7 +62,7 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
     public function testPublicRepositoryWithComposer($type, $filename)
     {
         $repoBaseUrl = 'https://bitbucket.org/composer-test/repo-name';
-        $repoUrl = $repoBaseUrl . '.git';
+        $repoUrl = $repoBaseUrl.'.git';
         $repoApiUrl = 'https://api.bitbucket.org/1.0/repositories/composer-test/repo-name';
         $identifier = 'v0.0.0';
         $sha = 'SOMESHA';
@@ -83,7 +83,7 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(1))
             ->method('getContents')
-            ->with($this->equalTo('bitbucket.org'), $this->equalTo($this->getScheme($repoBaseUrl) . '/raw/' . $identifier . '/' . $filename), $this->equalTo(false))
+            ->with($this->equalTo('bitbucket.org'), $this->equalTo($this->getScheme($repoBaseUrl).'/raw/'.$identifier.'/'.$filename), $this->equalTo(false))
             ->will($this->returnValue($this->createJsonComposer(array())));
 
         $repoConfig = array(
@@ -103,7 +103,7 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
 
         $dist = $driver->getDist($sha);
         $this->assertEquals('zip', $dist['type']);
-        $this->assertEquals($this->getScheme($repoBaseUrl) . '/get/SOMESHA.zip', $dist['url']);
+        $this->assertEquals($this->getScheme($repoBaseUrl).'/get/SOMESHA.zip', $dist['url']);
         $this->assertEquals($sha, $dist['reference']);
 
         $source = $driver->getSource($sha);
@@ -120,7 +120,7 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
     public function testPublicRepositoryWithEmptyComposer($type, $filename)
     {
         $repoBaseUrl = 'https://bitbucket.org/composer-test/repo-name';
-        $repoUrl = $repoBaseUrl . '.git';
+        $repoUrl = $repoBaseUrl.'.git';
         $identifier = 'v0.0.0';
         $io = $this->getMock('Composer\IO\IOInterface');
 
@@ -130,7 +130,7 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(0))
             ->method('getContents')
-            ->with($this->equalTo('bitbucket.org'), $this->equalTo($this->getScheme($repoBaseUrl) . '/raw/' . $identifier . '/' . $filename), $this->equalTo(false))
+            ->with($this->equalTo('bitbucket.org'), $this->equalTo($this->getScheme($repoBaseUrl).'/raw/'.$identifier.'/'.$filename), $this->equalTo(false))
             ->will($this->throwException(new TransportException('Not Found', 404)));
 
         $repoConfig = array(
@@ -155,7 +155,7 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
     /**
      * @param object $object
      * @param string $attribute
-     * @param mixed $value
+     * @param mixed  $value
      */
     protected function setAttribute($object, $attribute, $value)
     {
@@ -167,8 +167,8 @@ class GitBitbucketDriverTest extends \PHPUnit_Framework_TestCase
     /**
      * Creates the json composer content.
      *
-     * @param array $content The composer content
-     * @param string $name The name of repository
+     * @param array  $content The composer content
+     * @param string $name    The name of repository
      *
      * @return string The json content
      */

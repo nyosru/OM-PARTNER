@@ -106,22 +106,23 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getMockDrivers
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage No driver found to handle Asset VCS repository
      */
     public function testNotDriverFound($type, $url, $class)
     {
-        $this->setExpectedException('InvalidArgumentException', 'No driver found to handle Asset VCS repository ' . $url);
-
         $this->init(false, $type, $url, $class);
         $this->repository->getPackages();
     }
 
     /**
      * @dataProvider getMockDrivers
+     *
+     * @expectedException \Composer\Repository\InvalidRepositoryException
      */
     public function testWithoutValidPackage($type, $url, $class)
     {
-        $this->setExpectedException('Composer\Repository\InvalidRepositoryException');
-
         $this->init(true, $type, $url, $class);
         $this->repository->getPackages();
     }
@@ -185,7 +186,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testRepositoryPackageName($type, $url, $class, $verbose)
     {
         $packageName = 'asset-package-name';
-        $valid = str_replace('-mock', '-asset', $type) . '/' . $packageName;
+        $valid = str_replace('-mock', '-asset', $type).'/'.$packageName;
 
         $this->init(true, $type, $url, $class, $verbose, null, $packageName);
 
@@ -197,7 +198,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithTagsAndBranchs($type, $url, $class, $verbose)
     {
-        $validPackageName = substr($type, 0, strpos($type, '-')) . '-asset/foobar';
+        $validPackageName = substr($type, 0, strpos($type, '-')).'-asset/foobar';
         $validTraces = array('');
         if ($verbose) {
             $validTraces = array(
@@ -218,7 +219,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
             }
 
             $this->assertInstanceOf('Composer\Package\CompletePackage', $package);
-            $this->assertSame($validPackageName, $package->getName());
+            $this->assertSame($validPackageName,  $package->getName());
         }
 
         $this->assertSame($validTraces, $this->io->getTraces());
@@ -265,7 +266,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
             }
 
             $this->assertInstanceOf('Composer\Package\CompletePackage', $package);
-            $this->assertSame($validPackageName, $package->getName());
+            $this->assertSame($validPackageName,  $package->getName());
         }
 
         $this->assertSame($validTraces, $this->io->getTraces());
@@ -276,7 +277,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithTagsAndBranchsWithRegistryPackageName($type, $url, $class, $verbose)
     {
-        $validPackageName = substr($type, 0, strpos($type, '-')) . '-asset/registry-foobar';
+        $validPackageName = substr($type, 0, strpos($type, '-')).'-asset/registry-foobar';
         $validTraces = array('');
         if ($verbose) {
             $validTraces = array(
@@ -297,7 +298,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
             }
 
             $this->assertInstanceOf('Composer\Package\CompletePackage', $package);
-            $this->assertSame($validPackageName, $package->getName());
+            $this->assertSame($validPackageName,  $package->getName());
         }
 
         $this->assertSame($validTraces, $this->io->getTraces());
@@ -308,7 +309,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithFilterTags($type, $url, $class, $verbose)
     {
-        $validPackageName = substr($type, 0, strpos($type, '-')) . '-asset/registry-foobar';
+        $validPackageName = substr($type, 0, strpos($type, '-')).'-asset/registry-foobar';
         $validTraces = array('');
         if ($verbose) {
             $validTraces = array();
@@ -335,7 +336,7 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
             }
 
             $this->assertInstanceOf('Composer\Package\CompletePackage', $package);
-            $this->assertSame($validPackageName, $package->getName());
+            $this->assertSame($validPackageName,  $package->getName());
         }
 
         $this->assertSame($validTraces, $this->io->getTraces());
@@ -370,15 +371,15 @@ class AssetVcsRepositoryTest extends \PHPUnit_Framework_TestCase
     /**
      * Init the test.
      *
-     * @param bool $supported
-     * @param string $type
-     * @param string $url
-     * @param string $class
-     * @param bool $verbose
-     * @param array|null $drivers
-     * @param string|null $registryName
+     * @param bool                  $supported
+     * @param string                $type
+     * @param string                $url
+     * @param string                $class
+     * @param bool                  $verbose
+     * @param array|null            $drivers
+     * @param string|null           $registryName
      * @param VcsPackageFilter|null $vcsPackageFilter
-     * @param array $registryPackages
+     * @param array                 $registryPackages
      */
     protected function init($supported, $type, $url, $class, $verbose = false, $drivers = null, $registryName = null, VcsPackageFilter $vcsPackageFilter = null, array $registryPackages = array())
     {

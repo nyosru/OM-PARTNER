@@ -29,12 +29,12 @@ class SvnDriver extends BaseSvnDriver
      */
     public function getComposerInformation($identifier)
     {
-        $identifier = '/' . trim($identifier, '/') . '/';
+        $identifier = '/'.trim($identifier, '/').'/';
         $this->infoCache[$identifier] = Util::readCache($this->infoCache, $this->cache, $this->repoConfig['asset-type'], trim($identifier, '/'), true);
 
         if (!isset($this->infoCache[$identifier])) {
             list($path, $rev) = $this->getPathRev($identifier);
-            $resource = $path . $this->repoConfig['filename'];
+            $resource = $path.$this->repoConfig['filename'];
             $output = $this->getComposerContent($resource, $rev);
             $composer = $this->parseComposerContent($output, $resource, $path, $rev);
 
@@ -71,7 +71,7 @@ class SvnDriver extends BaseSvnDriver
      * Get the composer content.
      *
      * @param string $resource The resource
-     * @param string $rev The rev
+     * @param string $rev      The rev
      *
      * @return null|string The composer content
      *
@@ -82,7 +82,7 @@ class SvnDriver extends BaseSvnDriver
         $output = null;
 
         try {
-            $output = $this->execute('svn cat', $this->baseUrl . $resource . $rev);
+            $output = $this->execute('svn cat', $this->baseUrl.$resource.$rev);
         } catch (\RuntimeException $e) {
             throw new TransportException($e->getMessage());
         }
@@ -93,10 +93,10 @@ class SvnDriver extends BaseSvnDriver
     /**
      * Parse the content of composer.
      *
-     * @param string|null $output The output of process executor
-     * @param string $resource The resouce
-     * @param string $path The path
-     * @param string $rev The rev
+     * @param string|null $output   The output of process executor
+     * @param string      $resource The resouce
+     * @param string      $path     The path
+     * @param string      $rev      The rev
      *
      * @return array The composer
      */
@@ -106,7 +106,7 @@ class SvnDriver extends BaseSvnDriver
             return array('_nonexistent_package' => true);
         }
 
-        $composer = (array)JsonFile::parseJson($output, $this->baseUrl . $resource . $rev);
+        $composer = (array) JsonFile::parseJson($output, $this->baseUrl.$resource.$rev);
 
         return $this->addComposerTime($composer, $path, $rev);
     }
@@ -114,16 +114,16 @@ class SvnDriver extends BaseSvnDriver
     /**
      * Add time in composer.
      *
-     * @param array $composer The composer
-     * @param string $path The path
-     * @param string $rev The rev
+     * @param array  $composer The composer
+     * @param string $path     The path
+     * @param string $rev      The rev
      *
      * @return array The composer
      */
     protected function addComposerTime(array $composer, $path, $rev)
     {
         if (!isset($composer['time'])) {
-            $output = $this->execute('svn info', $this->baseUrl . $path . $rev);
+            $output = $this->execute('svn info', $this->baseUrl.$path.$rev);
 
             foreach ($this->process->splitLines($output) as $line) {
                 if ($line && preg_match('{^Last Changed Date: ([^(]+)}', $line, $match)) {
@@ -143,7 +143,7 @@ class SvnDriver extends BaseSvnDriver
     public static function supports(IOInterface $io, Config $config, $url, $deep = false)
     {
         if (0 === strpos($url, 'http') && preg_match('/\/svn|svn\//i', $url)) {
-            $url = 'svn' . substr($url, strpos($url, '://'));
+            $url = 'svn'.substr($url, strpos($url, '://'));
         }
 
         return parent::supports($io, $config, $url, $deep);

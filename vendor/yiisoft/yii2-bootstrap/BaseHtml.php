@@ -56,7 +56,7 @@ class BaseHtml extends \yii\helpers\Html
     public static function staticControl($value, $options = [])
     {
         static::addCssClass($options, 'form-control-static');
-        $value = (string)$value;
+        $value = (string) $value;
         if (isset($options['encode'])) {
             $encode = $options['encode'];
             unset($options['encode']);

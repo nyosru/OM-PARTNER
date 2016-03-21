@@ -15,6 +15,7 @@ return array(
     'PHPParser' => array($vendorDir . '/nikic/php-parser/lib'),
     'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'MikeVanRiel' => array($vendorDir . '/mikevanriel/text-to-latex/src', $vendorDir . '/mikevanriel/text-to-latex/tests/unit'),
+    'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
     'Diff' => array($vendorDir . '/phpspec/php-diff/lib'),
     'ComponentInstaller' => array($vendorDir . '/robloach/component-installer/src'),
