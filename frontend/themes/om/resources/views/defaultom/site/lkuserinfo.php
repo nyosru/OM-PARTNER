@@ -248,7 +248,7 @@ for($i=0; $i<$cs; $i++){
 
                     echo '<div class="add_row" style="width:100%; height: 80px;line-height: 3.5;">'.
                         '<div class="add_string" style="width: 80%; float:left">'.$add_str.'</div>';
-                    if($cust->delivery[$key]['address_book_id']!=$cust->delivery_adress_id) {
+                    if($cust->delivery[$key]['address_book_id']!=$cust->customers_default_address_id) {
                         echo '<div class="add_default" style="width:40px;float:right;text-align:center;color:green;">';
                         $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                         echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
@@ -446,35 +446,3 @@ for($i=0; $i<$cs; $i++){
         });
     });
 </script>
-
-<!--<div style="position: absolute; width: 100%;" aria-expanded="false" id="#expanded-tab-user0" class="user-order-row-expand panel-collapse collapse">-->
-<!--    <div class="panel-body">-->
-<!--        Хэлло0-->
-<!--    </div>-->
-<!--</div>-->
-<!---->
-<!--<div style="position: absolute; width: 100%;" aria-expanded="false" id="#expanded-tab-user1" class="user-order-row-expand panel-collapse collapse">-->
-<!--    <div class="panel-body">-->
-<!--        Хэлло1-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div style="position: absolute; width: 100%;" aria-expanded="false" id="#expanded-tab-user2" class="user-order-row-expand panel-collapse collapse">-->
-<!--    <div class="panel-body">-->
-<!--        Хэлло2-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div style="position: absolute; width: 100%;" aria-expanded="false" id="#expanded-tab-user3" class="user-order-row-expand panel-collapse collapse">-->
-<!--    <div class="panel-body">-->
-<!--        Хэлло3-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div style="position: absolute; width: 100%;" aria-expanded="false" id="#expanded-tab-user4" class="user-order-row-expand panel-collapse collapse">-->
-<!--    <div class="panel-body">-->
-<!--        Хэлло4-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div style="height: 0px;" aria-expanded="false" id="#expanded-tab-user5" class="user-order-row-expand panel-collapse collapse">-->
-<!--    <div class="panel-body">-->
-<!--        Хэлло5-->
-<!--    </div>-->
-<!--</div>-->

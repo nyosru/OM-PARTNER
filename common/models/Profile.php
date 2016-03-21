@@ -382,6 +382,7 @@ class Profile extends Model
         $this->otchestvo=$customer->otchestvo;
         $this->customers_email_address=$customer->customers_email_address;
         $this->delivery_adress_id=$customer->delivery_adress_id;
+        $this->customers_default_address_id=$customer->customers_default_address_id;
         $this->pay_adress_id=$customer->pay_adress_id;
         $this->customers_telephone=$customer->customers_telephone;
         $this->customers_fax=$customer->customers_fax;
