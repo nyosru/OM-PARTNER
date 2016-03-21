@@ -488,7 +488,7 @@ if ($data[0] != 'Не найдено!') {
     $(document).on('ready', function( event, ui){
         $('#min-ev-price').val('<?=$data[7]?>');
         $('#max-ev-price').val('<?=(integer)$data[2]['maxprice']?>');
-
+        if($('.filter').length >0){
         var HeaderTop = $('.filter').offset().top;
         $(window).scroll(function () {
             if ($(window).scrollTop() > HeaderTop) {
@@ -501,7 +501,7 @@ if ($data[0] != 'Не найдено!') {
                 //  $('.cart-dialog-info').removeClass('fixeddialog');
             }
         });
-
+       }
 
     });
     $(document).on('click', '.reset-filter',  function( event, ui){
@@ -623,9 +623,6 @@ if ($data[0] != 'Не найдено!') {
             .css('display','none')
     })
     </script>
- <script>
 
-
-        </script>
 
 <?

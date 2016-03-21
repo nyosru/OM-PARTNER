@@ -82,6 +82,10 @@ class SignupFormOM extends Model
             ['password','required', 'message' => 'Это обязательное поле.'],
             ['password','string','min'=>5, 'message' => 'Минимальная длина 5 символов'],
 
+            ['fax','string'],
+            ['pasportser','string'],
+            ['pasportnum','string'],
+            ['pasportwhere','string'],
 
             ['passwordcheck','required', 'message' => 'Это обязательное поле.'],
             ['passwordcheck','string','min'=>5, 'message' => 'Минимальная длина 5 символов'],

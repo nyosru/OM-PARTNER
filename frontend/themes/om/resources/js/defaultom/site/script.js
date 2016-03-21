@@ -875,6 +875,7 @@ $(document).on('ready', function () {
             });
         }
     });
+
 });
 
 $('[data-cat]').on('click', function () {

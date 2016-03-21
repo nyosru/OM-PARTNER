@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use yii\bootstrap\Alert;
 use rmrevin\yii\fontawesome;
-use dosamigos\ckeditor\CKEditorInline;
+
 use frontend\widgets\Menuom;
 
 
@@ -18,27 +18,20 @@ AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 ?>
 <?php $this->beginPage();
-//if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-10', ['duration' => 10])) {
-// ?>
+?>
     <!DOCTYPE html>
     <html lang="ru-RU">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-<!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
         <meta name='yandex-verification' content='6af7ec36af3406db'/>
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
               href="<?= BASEURL ?>/addsearch">
-       <!--       --><?// $this->endCache();
-//        }
-//?>
+
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
-<!--   --><?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-5', ['duration' => 10])) {
-//    ?>
-        <?php $this->head();
 
-        //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-        ?>
+        <?php $this->head(); ?>
     </head>
     <body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
     <?php $this->beginBody(); ?>
@@ -165,35 +158,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div style="clear: both;">
 <!--                    <div id="index-card-4">Сео текст категории</div>-->
                     <div style="margin: 0px 15px;">
-                    <?
-                    if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);}
-//                    $data = new \common\models\PartnersConfig();
-//                    $check = Yii::$app->params['constantapp']['APP_ID'];
-//                    $cat = end(Yii::$app->params['layoutset']['opencat']);
-//                    $page = 'seocat-'.$cat;
-//                    $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
-                    if($data){
-                        echo stripcslashes($data->value);
-                    }else{?>
 
-                    <?}?>
-                    <?php if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::end(); ?>
-
-                        <button class="savehtml">Сохранить</button>
-                        <script>
-                            $(document).on('click', '.savehtml', function() {
-                                $html = $('.cke_editable').html();
-                                $.post(
-                                    '/site/savehtml',
-                                    { html: $html,
-                                        page: 'seocat-<?= $cat?>'
-                                    }
-                                );
-                                alert('Изменения сохранены');
-
-                            });
-                        </script>
-                    <?}?>
 <?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-40', ['duration' => 10])) {
 //    ?>
                         </div>
