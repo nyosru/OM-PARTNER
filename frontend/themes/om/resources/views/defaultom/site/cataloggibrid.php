@@ -623,9 +623,6 @@ if ($data[0] != 'Не найдено!') {
             .css('display','none')
     })
     </script>
- <script>
 
-
-        </script>
 
 <?

@@ -453,4 +453,13 @@ return array (
       '@skeeks/yii2/assetsAuto' => $vendorDir . '/skeeks/yii2-assets-auto-compress',
     ),
   ),
+  'skeeks/yii2-ckeditor' => 
+  array (
+    'name' => 'skeeks/yii2-ckeditor',
+    'version' => '1.0.4.0',
+    'alias' => 
+    array (
+      '@skeeks/yii2/ckeditor' => $vendorDir . '/skeeks/yii2-ckeditor',
+    ),
+  ),
 );

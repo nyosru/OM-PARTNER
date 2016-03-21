@@ -28,6 +28,7 @@ return array(
     'x1\\assets\\moment\\' => array($vendorDir . '/e-frank/yii2-moment'),
     'wbraganca\\dynamicform\\' => array($vendorDir . '/wbraganca/yii2-dynamicform'),
     'vova07\\imperavi\\' => array($vendorDir . '/vova07/yii2-imperavi-widget/src'),
+    'skeeks\\yii2\\ckeditor\\' => array($vendorDir . '/skeeks/yii2-ckeditor'),
     'skeeks\\yii2\\assetsAuto\\' => array($vendorDir . '/skeeks/yii2-assets-auto-compress'),
     'rmrevin\\yii\\minify\\' => array($vendorDir . '/rmrevin/yii2-minify-view'),
     'rmrevin\\yii\\ionicon\\' => array($vendorDir . '/rmrevin/yii2-ionicon'),
