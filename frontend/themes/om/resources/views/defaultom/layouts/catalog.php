@@ -7,7 +7,6 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use yii\bootstrap\Alert;
 use rmrevin\yii\fontawesome;
-use dosamigos\ckeditor\CKEditorInline;
 use frontend\widgets\Menuom;
 
 
@@ -165,35 +164,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div style="clear: both;">
 <!--                    <div id="index-card-4">Сео текст категории</div>-->
                     <div style="margin: 0px 15px;">
-                    <?
-                    if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);}
-//                    $data = new \common\models\PartnersConfig();
-//                    $check = Yii::$app->params['constantapp']['APP_ID'];
-//                    $cat = end(Yii::$app->params['layoutset']['opencat']);
-//                    $page = 'seocat-'.$cat;
-//                    $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
-                    if($data){
-                        echo stripcslashes($data->value);
-                    }else{?>
 
-                    <?}?>
-                    <?php if(Yii::$app->user->can('admin')){\dosamigos\ckeditor\CKEditorInline::end(); ?>
-
-                        <button class="savehtml">Сохранить</button>
-                        <script>
-                            $(document).on('click', '.savehtml', function() {
-                                $html = $('.cke_editable').html();
-                                $.post(
-                                    '/site/savehtml',
-                                    { html: $html,
-                                        page: 'seocat-<?= $cat?>'
-                                    }
-                                );
-                                alert('Изменения сохранены');
-
-                            });
-                        </script>
-                    <?}?>
 <?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-40', ['duration' => 10])) {
 //    ?>
                         </div>
