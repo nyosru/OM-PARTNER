@@ -62,6 +62,7 @@ Trait ManufacturersDiapazonData
         $diapazon = $diapazons;
         return $diapazon;
     }
+
     public function sec2hmTime($time)
     {
         $h = floor($time / (60 * 60));

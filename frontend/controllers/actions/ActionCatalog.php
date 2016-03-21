@@ -10,27 +10,27 @@ trait ActionCatalog
     public function actionCatalog()
     {
         if(Yii::$app->request->isGet) {
-            $cat_start = intval(Yii::$app->request->getQueryParam('cat'));
+            $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
             $check = Yii::$app->params['constantapp']['APP_ID'];
             $checks = Yii::$app->params['constantapp']['APP_CAT'];
-            $start_price = intval(Yii::$app->request->getQueryParam('start_price'));
-            $end_price = intval(Yii::$app->request->getQueryParam('end_price'));
-            $prod_attr_query = intval(Yii::$app->request->getQueryParam('prod_attr_query', ''));
-            $count = intval(Yii::$app->request->getQueryParam('count', 48));
-            $page = intval(Yii::$app->request->getQueryParam('page', 0));
-            $start_arr = intval($page * $count);
-            $sort = intval(Yii::$app->request->getQueryParam('sort'));
+            $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
+            $end_price = (integer)(Yii::$app->request->getQueryParam('end_price'));
+            $prod_attr_query = (integer)(Yii::$app->request->getQueryParam('prod_attr_query', ''));
+            $count = (integer)(Yii::$app->request->getQueryParam('count', 48));
+            $page = (integer)(Yii::$app->request->getQueryParam('page', 0));
+            $start_arr = (integer)($page * $count);
+            $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
         }elseif(Yii::$app->request->isPost) {
-            $cat_start = intval(Yii::$app->request->post('cat'));
+            $cat_start = (integer)(Yii::$app->request->post('cat'));
             $check = Yii::$app->params['constantapp']['APP_ID'];
             $checks = Yii::$app->params['constantapp']['APP_CAT'];
-            $start_price = intval(Yii::$app->request->post('start_price', 0));
-            $end_price = intval(Yii::$app->request->post('end_price', 1000000));
-            $prod_attr_query = intval(Yii::$app->request->post('prod_attr_query', ''));
-            $count = intval(Yii::$app->request->post('count', 48));
-            $page = intval(Yii::$app->request->post('page', 0));
-            $start_arr = intval($page * $count);
-            $sort = intval(Yii::$app->request->post('sort', 10));
+            $start_price = (integer)(Yii::$app->request->post('start_price', 0));
+            $end_price = (integer)(Yii::$app->request->post('end_price', 1000000));
+            $prod_attr_query = (integer)(Yii::$app->request->post('prod_attr_query', ''));
+            $count = (integer)(Yii::$app->request->post('count', 48));
+            $page = (integer)(Yii::$app->request->post('page', 0));
+            $start_arr = (integer)($page * $count);
+            $sort = (integer)(Yii::$app->request->post('sort', 10));
         }
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
@@ -38,7 +38,7 @@ trait ActionCatalog
         if ($page == 'undefined') {
             $page = 0;
         }
-        if ($end_price == 'undefined' || !isset($end_price) || $end_price == '') {
+        if ($end_price == 'undefined' || !isset($end_price) || $end_price == '' || $end_price == 0) {
             $end_price = 1000000;
         }
         if ($start_price == 'undefined' || !isset($start_price) || $start_price == '') {
