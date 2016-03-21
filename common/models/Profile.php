@@ -309,8 +309,16 @@ class Profile extends Model
         foreach($add as $key=>$value){
             $ids[]=$value['address_book_id'];
         }
+
         if(in_array($addr_id,$ids)) {
-            $customer->customers_default_address_id = $addr_id;
+            $customer->customers_default_address_id = (integer)$addr_id;
+            $customer->validate();
+            echo '<pre>';
+//        echo $addr_id;
+//        print_r($ids);
+//            print_r($customer);
+//            echo '</pre>';
+//            die();
             $customer->save();
         }
     }

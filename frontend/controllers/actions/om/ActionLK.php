@@ -66,11 +66,7 @@ trait ActionLK
                             $customer=new Profile();
                             break;
                         case 'addr_del':
-//                            echo '<pre>';
-//                            print_r(Yii::$app->request->post()['Profile']['delivery']);
-////                            print_r($customer);
-//                            echo '</pre>';
-//                            die();
+
                             $addr_id='';
                             foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
                                 if(isset($value['address_book_id'])){

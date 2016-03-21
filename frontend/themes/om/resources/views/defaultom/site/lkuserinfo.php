@@ -260,7 +260,7 @@ for($i=0; $i<$cs; $i++){
                     echo '<div class="add_default" style="width:40px;float:right;text-align:center;color:green;">';
                     $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                     echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
-                    echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_default', 'title' => 'Сделать этот адрес адресом доставки', 'style' => 'color: green;']);
+                    echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_default', 'title' => 'Сделать этот адрес основным ', 'style' => 'color: green;']);
                     echo '</div>';
                 }else{
                     echo '<div class="add_default" style="width:40px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как основной адрес"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
