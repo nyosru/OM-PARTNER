@@ -128,23 +128,30 @@ for($i=0; $i<$cs; $i++){
                 echo $form->field($cust,'delivery['.$payid.'][lastname]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Фамилия');
                 echo $form->field($cust,'delivery['.$payid.'][name]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Имя');
                 echo $form->field($cust,'delivery['.$payid.'][secondname]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Отчество');
-                echo '</div><div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Адрес</div>';
-                echo $form->field($cust,'delivery['.$payid.'][postcode]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Почтовый индекс');
-                echo '<div class="cstate">'.$form->field($cust,'delivery['.$payid.'][country]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Страна')->textInput(['data-name'=>'country','id'=>'delivs'.$payid]);
-                echo $form->field($cust,'delivery['.$payid.'][state]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Регион')->textInput(['data-name'=>'state','id'=>'delivs'.$payid]).'</div>';
-                echo $form->field($cust,'delivery['.$payid.'][city]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Город');
-                echo $form->field($cust,'delivery['.$payid.'][address]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Адрес');
-                echo '</div><div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Паспорт</div>';
-                echo $form->field($cust,'delivery['.$payid.'][passportser]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Серия');
-                echo $form->field($cust,'delivery['.$payid.'][passportnum]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Номер');
-                echo $form->field($cust,'delivery['.$payid.'][passportdate]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Дата выдачи')->widget(\kartik\date\DatePicker::className(), [
+                echo $form->field($cust,'delivery['.$payid.'][birthday]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Дата рождения')->widget(\kartik\date\DatePicker::className(), [
                     'options' => ['placeholder' => 'Выберите дату ...'],
                     'language'=>'ru',
                     'pluginOptions' => [
                         'autoclose' => true,
                         'format' => 'yyyy-mm-dd',
                     ]]);
+                echo '</div><div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Адрес</div>';
+                echo $form->field($cust,'delivery['.$payid.'][postcode]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Почтовый индекс');
+                echo '<div class="cstate">'.$form->field($cust,'delivery['.$payid.'][country]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Страна')->textInput(['data-name'=>'country','id'=>'delivs'.$payid]);
+                echo $form->field($cust,'delivery['.$payid.'][state]', ['options'=>['class' => 'col-md-6'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Регион')->textInput(['data-name'=>'state','id'=>'delivs'.$payid]).'</div>';
+                echo $form->field($cust,'delivery['.$payid.'][city]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Город');
+                echo $form->field($cust,'delivery['.$payid.'][address]', ['options'=>['class' => 'col-md-8'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Адрес');
+                echo '</div><div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Паспорт</div>';
+                echo $form->field($cust,'delivery['.$payid.'][passportser]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Серия');
+                echo $form->field($cust,'delivery['.$payid.'][passportnum]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Номер');
                 echo $form->field($cust,'delivery['.$payid.'][passportwhere]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Кем выдан');
+                echo $form->field($cust,'delivery['.$payid.'][passportdate]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
+                    'options' => ['placeholder' => 'Выберите дату ...'],
+                    'language'=>'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ]]);
                 echo '</div><div class="col-md-12" style="margin: 20px 0px;">';
                 echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'customer', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
                 echo '</div>';
@@ -176,6 +183,13 @@ for($i=0; $i<$cs; $i++){
                             'format' => 'yyyy-mm-dd',
                         ]]);
                     echo '</div>';
+                    echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Адрес</div>';
+                    echo $form->field($cust,'delivery['.$i.'][postcode]' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Почтовый индекс');
+                    echo '<div class="cstate">'.$form->field($cust,'delivery['.$i.'][country]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Страна')->textInput(['data-name'=>'country','id'=>'delivs'.$i]);
+                    echo $form->field($cust,'delivery['.$i.'][state]', ['options'=>['class' => 'col-md-6'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Регион')->textInput(['data-name'=>'state','id'=>'delivs'.$i]).'</div>';
+                    echo $form->field($cust,'delivery['.$i.'][city]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Город');
+                    echo $form->field($cust,'delivery['.$i.'][address]', ['options'=>['class' => 'col-md-8'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Адрес');
+                    echo '</div>';
                     echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Паспорт</div>';
                     echo $form->field($cust,'delivery['.$i.'][passportser]' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Серия');
                     echo $form->field($cust,'delivery['.$i.'][passportnum]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Номер');
@@ -188,15 +202,8 @@ for($i=0; $i<$cs; $i++){
                             'format' => 'yyyy-mm-dd',
                         ]]);
                     echo '</div>';
-                    echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Адрес</div>';
-                    echo $form->field($cust,'delivery['.$i.'][postcode]' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Почтовый индекс');
-                    echo '<div class="cstate">'.$form->field($cust,'delivery['.$i.'][country]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Страна')->textInput(['data-name'=>'country','id'=>'delivs'.$i]);
-                    echo $form->field($cust,'delivery['.$i.'][state]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Регион')->textInput(['data-name'=>'state','id'=>'delivs'.$i]).'</div>';
-                    echo $form->field($cust,'delivery['.$i.'][city]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Город');
-                    echo $form->field($cust,'delivery['.$i.'][address]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Адрес');
-                    echo '</div>';
                     echo '<div class="col-md-12" style="margin: 20px 0px;">';
-                    echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'address', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
+                    echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'deliv', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
                     echo '</div>';
                     ActiveForm::end();
                 }
@@ -209,6 +216,9 @@ for($i=0; $i<$cs; $i++){
         <section id="content4">
             <div style="background: #f5f5f5; position: relative; text-align: left;  padding-left: 15px;" class="panel-body">
                 <?
+                echo '<div style="overflow: hidden"><div style="float: right; width:45px;height: 20px;"></div>';
+                echo '<div style="float: right; width:160px;">Адрес плательщика</div>';
+                echo '<div style="float: right; width:160px;">Адрес доставки</div></div>';
                 foreach($cust['delivery'] as $key=>$value){
                     if($cust->customers_default_address_id!=$value['address_book_id']){
                     $add_str='';$row='';
@@ -253,22 +263,44 @@ for($i=0; $i<$cs; $i++){
                     ActiveForm::end();
                     echo '</div></div></div></div>';
 
-                    echo '<div class="add_row" style="width:100%; height: 80px;line-height: 3.5;">'.
-                        '<div class="add_string" style="width: 80%; float:left">'.$add_str.'</div>';
+                    echo '<div class="add_row" style="width:100%;min-width: 960px; height: 80px;line-height: 3.5;"><div class="add_string" style="width: 60%; line-height: 1.5; float:left">'.$add_str.'</div>';
+                        echo '<div style="min-width: 380px;"><div class="add_del" style="width:45px;float:right;text-align:center;">';
+                        if($cust->delivery[$key]['address_book_id']==$cust->customers_default_address_id||$cust->delivery[$key]['address_book_id']==$cust->delivery_adress_id||$cust->delivery[$key]['address_book_id']==$cust->pay_adress_id){
+                            $tit='';
+                            if($cust->delivery[$key]['address_book_id']==$cust->delivery_adress_id){
+                                $tit='Вы не можете удалить этот адрес, так как он установлен как адрес доставки';
+                            }
+                            else{
+                                $tit='Вы не можете удалить этот адрес, так как он установлен как адрес плательщика';
+                            }
+                            echo '<div><i style="color:#cccccc; cursor: pointer;" title="'.$tit.'" class="fa fa-times"></i></div>';
+                        }
+                        else {
+                            $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+                            echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
+                            echo Html::submitButton('<i class="fa fa-times"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_del', 'title' => 'Удалить адрес', 'style' => 'color: #ea516d']);
+                        }
+                        echo '</div>';
+                        echo '<div class="add_change" style="width:15px;float:right;"><a style="color: #007BC1" title="Изменить адрес" href="#modal_add'.$key.'" data-toggle="modal"><i class="fa fa-pencil"></i></a></div>';
+
+                    if($cust->delivery[$key]['address_book_id']!=$cust->pay_adress_id) {
+                        echo '<div class="add_pay" style="width:160px;float:right;color:green;">';
+                        $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+                        echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
+                        echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'add_pay', 'title' => 'Сделать этот адрес адресом плательщика', 'style' => 'color: green;']);
+                        echo '</div>';
+                    }else{
+                        echo '<div class="add_pay" style="width:160px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как адрес плательщика"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
+                    }
                     if($cust->delivery[$key]['address_book_id']!=$cust->delivery_adress_id) {
-                        echo '<div class="add_default" style="width:40px;float:right;text-align:center;color:green;">';
+                        echo '<div class="add_default" style="width:160px;float:right;color:green;">';
                         $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                         echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
                         echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_default', 'title' => 'Сделать этот адрес адресом доставки', 'style' => 'color: green;']);
                         echo '</div>';
                     }else{
-                        echo '<div class="add_default" style="width:40px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как адрес доставки"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
+                        echo '<div class="add_default" style="width:160px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как адрес доставки"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
                     }
-                    echo '<div class="add_change" style="width:15px;float:right;"><a style="color: #007BC1" title="Изменить адрес" href="#modal_add'.$key.'" data-toggle="modal"><i class="fa fa-pencil"></i></a></div>';
-                    echo '<div class="add_del" style="width:45px;float:right;text-align:center;">';
-                    $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
-                    echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
-                    echo Html::submitButton('<i class="fa fa-times"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_del', 'title' => 'Удалить адрес', 'style' => 'color: #ea516d']);
                     echo '</div></div>';
                     }
                 }

@@ -102,7 +102,7 @@ trait ActionLK
                             unset($customer);
                             $customer=new Profile();
                             break;
-                        case 'addr_pay':
+                        case 'add_pay':
                             $addr_id='';
                             foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
                                 if(isset($value['address_book_id'])){
