@@ -313,7 +313,7 @@ class Profile extends Model
         if(in_array($addr_id,$ids)) {
             $customer->customers_default_address_id = (integer)$addr_id;
             $customer->validate();
-            echo '<pre>';
+  //          echo '<pre>';
 //        echo $addr_id;
 //        print_r($ids);
 //            print_r($customer);
