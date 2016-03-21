@@ -54,6 +54,9 @@ trait ActionLK
                         case 'customer':
                             $customer->saveCustomer();
                             break;
+                        case 'deliv':
+                            $customer->saveDeliv();
+                            break;
                         case 'address':
                             $customer->saveUserDelivery();
                             break;
@@ -87,7 +90,31 @@ trait ActionLK
                                     break;
                                 }
                             };
+                            $customer->defaultUserAddress($addr_id);
+                            unset($customer);
+                            $customer=new Profile();
+                            break;
+                        case 'addr_deliv':
+                            $addr_id='';
+                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
+                                if(isset($value['address_book_id'])){
+                                    $addr_id=$value['address_book_id'];
+                                    break;
+                                }
+                            };
                             $customer->defaultUserDeliveryAddress($addr_id);
+                            unset($customer);
+                            $customer=new Profile();
+                            break;
+                        case 'addr_pay':
+                            $addr_id='';
+                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
+                                if(isset($value['address_book_id'])){
+                                    $addr_id=$value['address_book_id'];
+                                    break;
+                                }
+                            };
+                            $customer->defaultUserPayAddress($addr_id);
                             unset($customer);
                             $customer=new Profile();
                             break;

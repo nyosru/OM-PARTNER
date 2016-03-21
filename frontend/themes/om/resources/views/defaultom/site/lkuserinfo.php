@@ -117,9 +117,11 @@ for($i=0; $i<$cs; $i++){
         <div style="background: #f5f5f5; position: relative; text-align: left; padding: 0" class="panel-body">
             <?
             $payid='';
+
             foreach ($cust->delivery as $key=>$value){
                 if($cust->pay_adress_id==$value['address_book_id']){
                     $payid=$key;
+                    break;
                 }
             }
             $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
@@ -143,7 +145,7 @@ for($i=0; $i<$cs; $i++){
                     'autoclose' => true,
                     'format' => 'yyyy-mm-dd',
                 ]]);
-            echo $form->field($cust,'delivery['.$payid.'][passportwho]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Кем выдан');
+            echo $form->field($cust,'delivery['.$payid.'][passportwhere]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Кем выдан');
             echo '</div><div class="col-md-12" style="margin: 20px 0px;">';
             echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'customer', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
             echo '</div>';
@@ -178,7 +180,7 @@ for($i=0; $i<$cs; $i++){
                 echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Паспорт</div>';
                 echo $form->field($cust,'delivery['.$i.'][passportser]' , ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Серия');
                 echo $form->field($cust,'delivery['.$i.'][passportnum]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Номер');
-                echo $form->field($cust,'delivery['.$i.'][passportwho]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Кем выдан');
+                echo $form->field($cust,'delivery['.$i.'][passportwhere]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Кем выдан');
                 echo $form->field($cust,'delivery['.$i.'][passportdate]' , ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
                     'options' => ['placeholder' => 'Выберите дату ...'],
                     'language'=>'ru',
@@ -195,7 +197,7 @@ for($i=0; $i<$cs; $i++){
                 echo $form->field($cust,'delivery['.$i.'][address]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Адрес');
                 echo '</div>';
                 echo '<div class="col-md-12" style="margin: 20px 0px;">';
-                echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'address', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
+                echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'deliv', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
                 echo '</div>';
                 ActiveForm::end();
             }
@@ -230,7 +232,7 @@ for($i=0; $i<$cs; $i++){
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Паспорт:</div>';
                 echo $form->field($cust,'delivery['.$key.'][passportser]' )->label('Серия');
                 echo $form->field($cust,'delivery['.$key.'][passportnum]' )->label('Номер');
-                echo $form->field($cust,'delivery['.$key.'][passportwho]' )->label('Кем выдан');
+                echo $form->field($cust,'delivery['.$key.'][passportwhere]' )->label('Кем выдан');
                 echo $form->field($cust,'delivery['.$key.'][passportdate]' )->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
                     'options' => ['placeholder' => 'Выберите дату ...'],
                     'language'=>'ru',
@@ -254,26 +256,28 @@ for($i=0; $i<$cs; $i++){
                 
                 echo '<div class="add_row" style="width:100%; height: 80px;line-height: 3.5;">'.
                     '<div class="add_string" style="width: 80%; float:left">'.$add_str.'</div>';
-                if($cust->delivery[$key]['address_book_id']!=$cust->delivery_adress_id) {
+                if($cust->delivery[$key]['address_book_id']!=$cust->customers_default_address_id) {
                     echo '<div class="add_default" style="width:40px;float:right;text-align:center;color:green;">';
                     $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                     echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
                     echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_default', 'title' => 'Сделать этот адрес адресом доставки', 'style' => 'color: green;']);
                     echo '</div>';
                 }else{
-                    echo '<div class="add_default" style="width:40px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как адрес доставки"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
+                    echo '<div class="add_default" style="width:40px;float:right;text-align:center;position:relative;" title="Этот адрес установлен как основной адрес"><i class="checkbox-overlay fa fa-check" style="position: relative;top:15px;left:14px;"></i></div>';
                 }
                 echo '<div class="add_change" style="width:15px;float:right;"><a style="color: #007BC1" title="Изменить адрес" href="#modal_add'.$key.'" data-toggle="modal"><i class="fa fa-pencil"></i></a></div>';
-                echo '<div class="add_del" style="width:45px;float:right;text-align:center;">';
+                if($cust->delivery[$key]['address_book_id']!=$cust->delivery_adress_id||$cust->delivery[$key]['address_book_id']!=$cust->pay_adress_id||$cust->delivery[$key]['address_book_id']!=$cust->customers_default_address_id){
+                    echo '<div class="add_del" style="width:45px;float:right;text-align:center;">';
                 $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
-                echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
-                echo Html::submitButton('<i class="fa fa-times"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_del', 'title' => 'Удалить адрес', 'style' => 'color: #ea516d']);
-                echo '</div></div>';
+                    echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
+                    echo Html::submitButton('<i class="fa fa-times"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_del', 'title' => 'Удалить адрес', 'style' => 'color: #ea516d']);
+                    echo '</div></div>';
+                }
             }
             echo '<a href="#add_addr" class="btn btn-primary" style="height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;" data-toggle="modal">Добавить адрес</a>';
             echo '<div id="add_addr" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button><h3 class="modal-title">Добавить адрес доставки</h3></div>';
             echo '<div class="modal-body">';
-            $key=count($cust['delivery']);
+            $number=count($cust['delivery']);
             if($key>=7){
                 echo 'У вас уже указано максимальное количество адресов доставки';
             }
@@ -296,7 +300,7 @@ for($i=0; $i<$cs; $i++){
                 echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Паспорт:</div>';
                 echo $form->field($cust, 'delivery[add][passportser]')->label('Серия');
                 echo $form->field($cust, 'delivery[add][passportnum]')->label('Номер');
-                echo $form->field($cust, 'delivery[add][passportwho]')->label('Кем выдан');
+                echo $form->field($cust, 'delivery[add][passportwhere]')->label('Кем выдан');
                 echo $form->field($cust, 'delivery[add][passportdate]')->label('Когда выдан')->widget(\kartik\date\DatePicker::className(), [
                     'options' => ['placeholder' => 'Выберите дату ...'],
                     'language'=>'ru',
