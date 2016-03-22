@@ -7,9 +7,15 @@ $this -> title = 'Корзина';
 //die();
 $del_add='<select id="shipaddr" name="address">';
 foreach($addr as $key=>$value){
-    $del_add.='<option value="'.$key.'">'.$value.'</option>';
-}
-$del_add.='</select>';
+    if($key != $default) {
+        $options .= '<option value="' . $key . '">' . $value . '</option>';
+    }else{
+        $first .= '<option value="' . $key . '">' . $value . '</option>';
+    }
+    }
+$del_add .= $first;
+$del_add .= $options;
+$del_add .= '</select>';
 
 //$man = $this->manufacturers_diapazon_id();
 //$validprice = 0;
@@ -135,6 +141,11 @@ $(document).on('ready', function () {
                             '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
                             '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
                         '</div>';
+        <?php if(!Yii::$app->user->isGuest){?>
+        $innerhtml +=   '<div class="plusorder" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style="min-width: 530px;"><?=$del_add?></div></div>';
+        <? }else { ?>
+        $innerhtml +=   '<div class="plusorder" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="min-width: 530px;">Необходимо авторизоваться</a></div>';
+        <?}?>
         if($i.length>0){
             <?php
             if(!Yii::$app->user->isGuest){?>
