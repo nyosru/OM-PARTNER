@@ -35,7 +35,8 @@
     }
 
     #add-count, #del-count, .more-cat-wrap {
-        vertical-align: middle
+        vertical-align: middle;
+        cursor:pointer;
     }
 
     body, html {

@@ -133,6 +133,7 @@ $(document).on('click', '.cart-lable', function () {
         $item_add = $(this)[0];
         $item.cart = [];
         $item_add.value = $(this).val();
+        // console.log($item_add);
         if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
