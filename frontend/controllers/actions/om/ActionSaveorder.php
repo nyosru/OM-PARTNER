@@ -48,15 +48,19 @@ trait ActionSaveorder
         $userdata = $user['userinfo'];
         $userCustomer = $user['customers'];
 
-//        echo'<pre>';
-//        print_r($user);
-//            echo'</pre>';
-//        die();
         $product_in_order = Yii::$app->request->post('product');
-//        echo '<pre>';
-//        print_r(Yii::$app->request->post());
-//        echo '<pre>';
-        //die();
+        $type_order = Yii::$app->request->post('type-order');
+        $plusorder = Yii::$app->request->post('plusorder');
+
+        switch($plusorder){
+            case "plusorder":
+                $minimal_order = 1000;
+                $comments_plus = '';
+                break;
+            default:
+                $minimal_order = 5000;
+
+        }
         $wrap = Yii::$app->request->post('wrap');
         $quant=[];
         foreach($product_in_order as $prodkey =>$prodvalue){
@@ -98,11 +102,11 @@ trait ActionSaveorder
 
 
 
-        if($validprice < 5000){
+        if($validprice < $minimal_order ){
             return $this->render('cartresult', [
                 'result'=>  [
                     'code' => 0,
-                    'text'=>'Минимальная сумма заказа 5000р',
+                    'text'=>'Минимальная сумма заказа '.$minimal_order.'р',
                     'data'=>[
                         'paramorder'=>[
 

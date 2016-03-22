@@ -582,8 +582,9 @@ if ($data[0] != 'Не найдено!') {
             });
             $size_html+='<div class="size-block" style="overflow: hidden;margin-bottom: 38px; width: 340px;">';
             $baseduri=window.location.hostname;
-            console.log(data.product.productsAttributesDescr.length);
-            if(data.product.productsAttributesDescr.length>0) {
+
+            if(typeof (data.product.productsAttributesDescr.keys) == "undefined") {
+
                 $.each(data.product.productsAttributesDescr, function (i, item) {
                     if (data.product.products.products_quantity > 0) {
                         $classpos = 'active-options';
@@ -603,8 +604,9 @@ if ($data[0] != 'Не найдено!') {
                     $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + parseInt(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="" placeholder="' + $some_text + '" type="text">';
                     $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
                 });
-            }
-            else{
+
+            } else {
+
                 if (data.product.products.products_quantity > 0) {
                     $classpos = 'active-options';
                     $add_class = 'add-count';
