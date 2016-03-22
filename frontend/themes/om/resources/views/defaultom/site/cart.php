@@ -1,10 +1,7 @@
 <?php
 
 $this -> title = 'Корзина';
-//echo '<pre>';
-//print_r($addr);
-//echo '</pre>';
-//die();
+
 $del_add='<select id="shipaddr" name="address">';
 foreach($addr as $key=>$value){
     if($key != $default) {
@@ -13,6 +10,13 @@ foreach($addr as $key=>$value){
         $first .= '<option value="' . $key . '">' . $value . '</option>';
     }
     }
+$plusorders_add='<select id="plusorders" name="plusorders">';
+foreach($plusorders as $key=>$value){
+
+    $plusorders_add .= '<option value="' . $value['orders_id'] . '">' . $value['orders_id'] . '</option>';
+
+}
+$plusorders_add .= '</select>';
 $del_add .= $first;
 $del_add .= $options;
 $del_add .= '</select>';
@@ -129,11 +133,11 @@ $(document).on('ready', function () {
 
         <?php
            if(!Yii::$app->user->isGuest){?>
-        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style="min-width: 530px;"><?=$del_add?></div></div>';
+        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
         <? }else { ?>
-        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="min-width: 530px;">Необходимо авторизоваться</a></div>';
+        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
         <?}?>
-        $innerhtml+=               '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style="min-width: 530px;"></div></div>' +
+        $innerhtml+=               '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>' +
                         '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
@@ -141,10 +145,10 @@ $(document).on('ready', function () {
                             '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
                             '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
                         '</div>';
-        <?php if(!Yii::$app->user->isGuest){?>
-        $innerhtml +=   '<div class="plusorder" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style="min-width: 530px;"><?=$del_add?></div></div>';
+        <?php if(!Yii::$app->user->isGuest && $plusorders_add ){?>
+        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 30%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;"><input name="order-type" type="radio" checked="checked" value="new"/>Новый заказ</div><div class="plusorder" style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 70%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;"><input name="order-type" type="radio" value="plus"/>Оформить как дозаказ к заказу:<div class="plusorder" style="display: inline-block;"><?= $plusorders_add?></div></div></div>';
         <? }else { ?>
-        $innerhtml +=   '<div class="plusorder" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="min-width: 530px;">Необходимо авторизоваться</a></div>';
+        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;">Заказ будет оформлен как новый</div></div>';
         <?}?>
         if($i.length>0){
             <?php
@@ -165,7 +169,7 @@ $(document).on('ready', function () {
                             $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
                         }
                     });
-                    $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
+                    $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" class="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
                     $('.cart-auth').remove();
                     $.post(
                         "/site/paymentmethod",
@@ -206,20 +210,6 @@ $(document).ready(function () {
 
 });
 
-
-$(document).on('change', '#shipping-confirm', function () {
-    $('#shipping-confirm option').filter(function (index) {
-        if ($(this).val() == '') {
-            return $(this)
-        }
-    }).remove();
-    $.post(
-        "/site/requestadress",
-        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp'),
-        id:$('#shipaddr option:selected')[0].getAttribute('value')},
-        onAjaxSuccessinfo
-    );
-});
 
 //$(document).on('load change click','.num-of-items', );
 //$(document).on('ready', function () {
@@ -298,4 +288,19 @@ $(document).on('click','.wrap-select', function () {
     $('#wrap-price').html(wrapprice+' руб');
 });
 
+$(document).on('change', '.shipping-confirm, #shipaddr', function () {
+    $('.shipping-confirm option').filter(function (index) {
+        if ($(this).val() == '') {
+            return $(this)
+        }
+    }).remove();
+    $.post(
+        "/site/requestadress",
+        {ship: $('.shipping-confirm option:selected')[0].getAttribute('data-pasp'),
+            id:$('#shipaddr option:selected')[0].getAttribute('value')},
+        onAjaxSuccessinfo
+    );
+});
+
 </script>
+<?

@@ -26,13 +26,7 @@ class CommentsBlockOM extends \yii\bootstrap\Widget
         <div class="header-catalog"> <?= $this->nameblock[$this->category] ?>
             </div>
         <?
-
-        $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['relate_id' => $this->relateID,
-            'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
-
-        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-relateid-' . $this->relateID . '-category-' . $this->category . '-comments-page-' . (integer)(Yii::$app->request->post('page')));
-        if (($commentsprovider = Yii::$app->cache->get($key)) == FALSE || !($x['last_modified'] !== $commentsprovider['lastupdate'])) {
-            $commentsprovider = new \yii\data\ActiveDataProvider([
+    $commentsprovider = new \yii\data\ActiveDataProvider([
                 'query' => \common\models\PartnersComments::find()->where(['relate_id' => $this->relateID, 'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID'],
                     'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
                 'pagination' => [
@@ -40,13 +34,9 @@ class CommentsBlockOM extends \yii\bootstrap\Widget
                 ],
             ]);
             $commentsprovider = $commentsprovider->getModels();
-            Yii::$app->cache->set($key, ['data' => $commentsprovider, 'lastupdate' => $x['last_modified']]);
-        } else {
-            $commentsprovider = $commentsprovider['data'];
-
-        }
         if (!$commentsprovider) {
             echo 'Комментарии отсутствуют';
+
         } else {
             foreach ($commentsprovider as $valuecomments) {
                 echo '<div>';
@@ -75,19 +65,9 @@ class CommentsBlockOM extends \yii\bootstrap\Widget
             $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => BASEURL . '/newcomments', 'options' => ['style' => 'width: 95%;margin: auto;']]);
             $l1 = '<div>';
             $l1 .= $form->field($modelform, 'post')->label('Текст комментария')->textarea(['rows' => 6, 'style' => 'resize:none;']);
+            $l1 .= $form->field($modelform, 'category')->label(false)->hiddenInput(['value'=>$this->category]);
+            $l1 .= $form->field($modelform, 'relate_id')->label(false)->hiddenInput(['value'=>$this->relateID]);
             $l1 .= '</div>';
-
-            if (!$userinfo->name) {
-                $l1 .= '<div>';
-                $l1 .= $form->field($userinfo, 'name')->label('Ваше имя')->input('text');
-                $l1 .= '</div>';
-            }
-
-            if (!$userinfo->lastname) {
-                $l1 .= '<div>';
-                $l1 .= $form->field($userinfo, 'lastname')->label('Ваша фамилия')->input('text');
-                $l1 .= '</div>';
-            }
             $l1 .= '<div class="form-group">';
             $l1 .= Html::submitButton('отправить', ['class' => 'sendcomments-button btn btn-primary ', 'name' => 'partners-settings-button']);
             $l1 .= '</div>';

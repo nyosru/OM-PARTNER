@@ -141,7 +141,7 @@ $imsrc=array($product['products']['products_image']);
                 </section>
                 <section id="content2">
                     <p>
-                        <?= \frontend\widgets\CommentsBlock::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?>
+                        <?= \frontend\widgets\CommentsBlockOM::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?>
                     </p>
                 </section>
             </div>
