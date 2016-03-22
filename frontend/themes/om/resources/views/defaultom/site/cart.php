@@ -85,7 +85,7 @@ $(document).on('ready', function () {
                 $access = 'Данный товар доступен для заказа';
                 $identypay = true;
             }
-            $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
+            $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c++) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
                 '<div class = "access '+$identypay+'" >'+$access+'</div>'+
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></div>' +
                 '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
@@ -119,9 +119,15 @@ $(document).on('ready', function () {
         });
         $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">' +
                         '<div class="wrap-cart" style="height:150px; border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
-            '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>' +
-            '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style="min-width: 530px;"><?=$del_add?></div></div>'+
-                        '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style="min-width: 530px;"></div></div>' +
+            '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
+
+        <?php
+           if(!Yii::$app->user->isGuest){?>
+        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style="min-width: 530px;"><?=$del_add?></div></div>';
+        <? }else { ?>
+        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="min-width: 530px;">Необходимо авторизоваться</a></div>';
+        <?}?>
+        $innerhtml+=               '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style="min-width: 530px;"></div></div>' +
                         '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
@@ -227,8 +233,11 @@ $(document).on('change click','.num-of-items',function () {
         if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
             $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
         }
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
+        $(this).attr('');
+        if($(this).attr('data-calc') == "true") {
+            var c = ((parseFloat($(this).find('#input-count').val())) * (parseFloat($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        }
     });
     $('#gods-price').html(godsprice+' руб');
     $('#total-price').html(godsprice+wrapprice+' руб');
@@ -246,8 +255,10 @@ $(document).on('ready', function () {
         if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
             $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
         }
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
+        if($(this).attr('data-calc') == "true") {
+            var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        }
     });
     $('#gods-price').html(godsprice+' руб');
     $('#total-price').html(godsprice+wrapprice+' руб');
@@ -266,8 +277,10 @@ $(document).on('click','.wrap-select', function () {
 //            alert('Количество товара '+$(this).find('#gods-name').text()+', '+$(this).find('.artik').text()+' '+$(this).find('.cart-attr').text()+ ' меньше минимума. Минимальная партия - '+$(this).find('#add-count').attr('data-min')+' шт.')
             $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
         }
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
+        if($(this).attr('data-calc') == "true") {
+            var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        }
     });
     $('#gods-price').html(godsprice+' руб');
     $('#total-price').html(godsprice+wrapprice+' руб');
