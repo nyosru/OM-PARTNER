@@ -98,7 +98,6 @@ trait ActionSaveorder
 
 
 
-
         if($validprice < 5000){
             return $this->render('cartresult', [
                 'result'=>  [

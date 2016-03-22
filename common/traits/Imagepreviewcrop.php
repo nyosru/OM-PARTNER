@@ -7,7 +7,6 @@ Trait Imagepreviewcrop
 {
     public function Imagepreviewcrop($from, $src, $where, $action = 'none')
     {
-
         $id = (integer)$src;
         if ($id > 0) {
             $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->all();
@@ -15,7 +14,6 @@ Trait Imagepreviewcrop
             if(!$x['last_modified']){
                 $x['last_modified'] = $x['add_date'] ;
             }
-
                 $keyprod = Yii::$app->cache->buildKey('product-' . $id);
                 $data = Yii::$app->cache->get($keyprod);
                 if (!$data || ($x['last_modified'] != $data['last'])) {
@@ -28,10 +26,7 @@ Trait Imagepreviewcrop
                 if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
 
                     $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
-
                 }
-
-
             $src = $data['products']['products_image'];
             $filename = $src;
 
@@ -56,7 +51,6 @@ Trait Imagepreviewcrop
             for($i=0; $i<5; $i++){
                 $subdir .= '/'.substr($dirfile, $i*2 , 2);
             }
-
             if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg') || $action == 'refresh') {
                 if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
                     mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
