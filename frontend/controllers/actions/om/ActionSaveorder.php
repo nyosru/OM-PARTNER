@@ -32,7 +32,6 @@ trait ActionSaveorder
         if(Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->asArray()->one()) == FALSE || !isset($user['userinfo']['customers_id']) ){
             return $this->redirect(Yii::$app->request->referrer);
         }else{
-
         }
         if(!Yii::$app->request->post('address')){
             $adress_num = $user['customers']['delivery_address_id'];
@@ -43,15 +42,14 @@ trait ActionSaveorder
             $user['addressBook'] = ArrayHelper::index($user['addressBook'],'address_book_id');
             $userOM = $user['addressBook'][$adress_num];
         }
-
+        $default_user_address = $user['addressBook'][$user['customers']['default_address_id']];
+        $pay_user_address = $user['addressBook'][$user['customers']['pay_address_id']];
         $userpartnerdata = $user;
         $userdata = $user['userinfo'];
         $userCustomer = $user['customers'];
-
         $product_in_order = Yii::$app->request->post('product');
         $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
-
         switch($type_order){
             case 'plus':
                 $minimal_order = 1000;
@@ -83,23 +81,18 @@ trait ActionSaveorder
             if(array_key_exists($valuerequest['manufacturers_id'],$man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]){
                 $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
                 $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
-
                 if(isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)){
                          $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
                              $origprod[$valuerequest['products_id']] = $valuerequest;
                 }else{
                     unset($proddata[$keyrequest]);
                     $related[]=$valuerequest;
-
-
                 }
-
             }else{
                 $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
-
         if($validprice < $minimal_order ){
             return $this->render('cartresult', [
                 'result'=>  [
@@ -107,7 +100,6 @@ trait ActionSaveorder
                     'text'=>'Минимальная сумма заказа '.$minimal_order.'р',
                     'data'=>[
                         'paramorder'=>[
-
                         ],
                         'origprod' => $origprod,
                         'timeproduct'=>$related,
@@ -233,15 +225,15 @@ trait ActionSaveorder
                                 $ordersprodattr->sub_vid = 0;
                                     if ($ordersprodattr->save()) {
                                         $ordersprodattr =  $ordersprodattr->toArray();
-                                        $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
+
                                    } else {
 
                                   }
 
                             } else {
-                                $validproduct[]=[$ordersprod->toArray()];
-                            }
 
+                            }
+                                    $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
                         }
 //                        echo '<pre>';
 //                        print_r($reindexprod);
