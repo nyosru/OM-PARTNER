@@ -46,9 +46,6 @@ $items=array();
 $i=0;
 $im=array($product['products']['products_id']);
 $imsrc=array($product['products']['products_image']);
-//echo '<pre>';
-//print_r ($spec);
-//echo '</pre>';
 ?>
 <div class="product">
     <div class="product-top">
@@ -112,8 +109,20 @@ $imsrc=array($product['products']['products_image']);
                         <div class="prod-compos" style="font-size: 12px;">
                             <?
                             // Вывод спецификаций
-                            foreach($spec[0]['specificationDescription'] as $key=>$value){
-                                echo $value['specification_name'].': '.$spec[0]['specificationValuesDescription'][$key]['specification_value'].'<br/>';
+                            foreach($spec['productsSpecification'] as $key=>$value){
+                                $specname='';
+                                $specval='';
+                                foreach ($spec['specificationDescription'] as $k=>$v){
+                                    if($v['specifications_id']==$value['specifications_id']){
+                                        $specname=$v['specification_name'];
+                                    }
+                                }
+                                foreach ($spec['specificationValuesDescription'] as $ke=>$va){
+                                    if($va['specification_values_id']==$value['specification_values_id']){
+                                        $specval=$va['specification_value'];
+                                    }
+                                }
+                                echo $specname.': '.$specval.'<br/>';
                             }
                             ?>
                             <br/>
