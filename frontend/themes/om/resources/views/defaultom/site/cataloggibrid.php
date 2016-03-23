@@ -558,17 +558,14 @@ if ($data[0] != 'Не найдено!') {
         $spec_html='';
 
         $.post('/site/product',{id: dp},function(data){
-           // console.log(data['spec']);
+           console.log(data['spec']);
             $spec_html='<div class="spec" style="margin-top:25px; ">';
             $.each(data['spec'].productsSpecification,function(i,item){
-//                $spec_html+=item['specification_name']+': '+data['spec']['specificationValuesDescription'][i]['specification_value']+'<br/>';
-                $specname='';
-                $specval='';
-                $.each(data['spec'].specificationDescription, function (i1,item1) {
-                    if(item1.specifications_id==item.specifications_id){
-                        $specname=item1.specification_name;
-                    }
-                })
+                $specname = data['spec']['specificationDescription'][item.specifications_id]['specification_name'];
+                $specval = data['spec']['specificationValuesDescription'][item.specification_values_id]['specification_value'];
+                $spec_html+=$specname+': '+$specval+'<br/>';
+
+
             });
 
             $spec_html+='</div>';
