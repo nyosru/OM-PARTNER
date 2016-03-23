@@ -569,6 +569,12 @@ if ($data[0] != 'Не найдено!') {
                         $specname=item1.specification_name;
                     }
                 })
+                $.each(data['spec'].specificationValuesDescription, function (i2,item2) {
+                    if(item2.specification_values_id==item.specification_values_id){
+                        $specvalue=item2.specification_value;
+                    }
+                })
+                $spec_html+=$specname+': '+$specvalue+'<br/>';
             });
 
             $spec_html+='</div>';
