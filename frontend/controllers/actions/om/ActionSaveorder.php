@@ -49,11 +49,11 @@ trait ActionSaveorder
         $userCustomer = $user['customers'];
 
         $product_in_order = Yii::$app->request->post('product');
-        $type_order = Yii::$app->request->post('type-order');
+        $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
 
-        switch($plusorder){
-            case "plusorder":
+        switch($type_order){
+            case 'plus':
                 $minimal_order = 1000;
                 $comments_plus = '';
                 break;
@@ -99,8 +99,6 @@ trait ActionSaveorder
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
-
-
 
         if($validprice < $minimal_order ){
             return $this->render('cartresult', [

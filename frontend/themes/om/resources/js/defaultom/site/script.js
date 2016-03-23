@@ -1062,7 +1062,7 @@ function onAjaxSuccessinfo(data) {
         }
     });
     $('.userinfo').html('');
-    $('.userinfo').html($inner + '<div>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class=" btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right; border-radius: 5px;" type="submit">Подтвердить заказ</button>');
+    $('.userinfo').html($inner + '<div>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class=" btn btn-sm btn-info" style="border-radius: 4px;text-align: center;" type="submit">Подтвердить заказ</button>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",

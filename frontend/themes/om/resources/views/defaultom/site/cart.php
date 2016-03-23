@@ -125,7 +125,26 @@ $(document).on('ready', function () {
                 'data-id="'+$c+'">' +
                 '   <div id="add-count" style="float: left; line-height:1.5;">+</div></div>' +
                 '</div></div>' +
-                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div></div>';
+                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
+                '</div>'+
+                '<div style="float: left; width: 100%;">' +
+                '<div class="panel panel-default">'+
+                '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
+                '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne">' +
+                '<h4 class="panel-title no-border-bottom-rad">' +
+                'Добавить комментарий к этому товару' +
+                '</h4>' +
+                ' </div>' +
+                '</a>'+
+                '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+                '<div class="panel-body">' +
+                '<div style="padding: 10px 0px;">' +
+                '<input/>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'+
+                '</div>';
         });
         $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">' +
                         '<div class="wrap-cart" style="height:150px; border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
@@ -146,14 +165,15 @@ $(document).on('ready', function () {
                             '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
                         '</div>';
         <?php if(!Yii::$app->user->isGuest && $plusorders_add ){?>
-        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 30%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;"><input name="order-type" type="radio" checked="checked" value="new"/>Новый заказ</div><div class="plusorder" style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 70%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;"><input name="order-type" type="radio" value="plus"/>Оформить как дозаказ к заказу:<div class="plusorder" style="display: inline-block;"><?= $plusorders_add?></div></div></div>';
+        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 40%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; "><input name="order-type" type="radio" checked="checked" value="new"/>Новый заказ<div>Минимальная сумма заказа 5000р.</div></div><div class="plusorder" style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 60%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px;"><input name="order-type" type="radio" value="plus"/>Оформить как дозаказ к заказу:<div class="plusorder" style="display: inline-block;"><?= $plusorders_add?></div><div>Минимальная сумма заказа 1000р.</div></div></div>';
         <? }else { ?>
-        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;">Заказ будет оформлен как новый</div></div>';
+        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;">Заказ будет оформлен как новый<div>Минимальная сумма заказа 5000р.</div></div></div>';
         <?}?>
         if($i.length>0){
             <?php
             if(!Yii::$app->user->isGuest){?>
             $innerhtml+='<span class="cart-auth" style="display: block; overflow: hidden;">' +
+
                 '<a class="save-order" style="display: block;position: relative" href="<?=BASEURL;?>/cart?action=1">Оформить заказ</a>' +
                 '</span></form></div>';
             <? }else { ?>
@@ -301,6 +321,16 @@ $(document).on('change', '.shipping-confirm, #shipaddr', function () {
         onAjaxSuccessinfo
     );
 });
-
+$(document).on('click', '.panel  > a',  function(){
+    console.log($(this));
+    if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
+        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Добавить комментарий к этому товару +</h4> </div>');
+        $(this).siblings().filter('.filter-cont').removeClass('in');
+    }else{
+        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Добавить комментарий к этому товару -</h4> </div>');
+        $(this).find(':first-child').addClass('no-border-bottom-rad');
+        $(this).siblings().filter('.filter-cont').addClass('in');
+    }
+});
 </script>
 <?
