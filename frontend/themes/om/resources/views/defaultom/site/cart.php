@@ -139,7 +139,7 @@ $(document).on('ready', function () {
                 '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
                 '<div class="panel-body">' +
                 '<div style="padding: 10px 0px;">' +
-                '<input/>' +
+                '<textarea style="width: 100%;" ></textarea>' +
                 '</div>' +
                 '</div>' +
                 '</div>' +

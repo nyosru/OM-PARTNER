@@ -877,10 +877,11 @@ $('[data-cat]').on('click', function () {
 
 });
 
-$(document).on('keyup', '#search', function () {
+$(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
-    $text = $('#search').val();
+    console.log( $(this).val());
+    $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;
     $text = $text[$count - 1];
@@ -909,11 +910,11 @@ $(document).on('keyup', '#search', function () {
     }
 });
 $(document).on('click', '.input_search_word', function () {
-    $text = $('#search').val();
+    $text = $('.search').val();
     $text = $text.split(' ');
     $count = $text.length;
     $text[$count - 1] = $(this).text();
-    $('#search').val($text.join(' ', $text));
+    $('.search').val($text.join(' ', $text));
     $('.result_search_word').hide();
 });
 $(document).on('ready', function () {
