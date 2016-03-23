@@ -112,16 +112,8 @@ $imsrc=array($product['products']['products_image']);
                             foreach($spec['productsSpecification'] as $key=>$value){
                                 $specname='';
                                 $specval='';
-                                foreach ($spec['specificationDescription'] as $k=>$v){
-                                    if($v['specifications_id']==$value['specifications_id']){
-                                        $specname=$v['specification_name'];
-                                    }
-                                }
-                                foreach ($spec['specificationValuesDescription'] as $ke=>$va){
-                                    if($va['specification_values_id']==$value['specification_values_id']){
-                                        $specval=$va['specification_value'];
-                                    }
-                                }
+                                $specname = $spec['specificationDescription'][$value['specifications_id']]['specification_name'];
+                                $specval = $spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value'];
                                 echo $specname.': '.$specval.'<br/>';
                             }
                             ?>

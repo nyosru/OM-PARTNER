@@ -1071,7 +1071,7 @@
     .size-desc {
         color: #F0F8FF;
         text-align: center;
-        margin: 3px 8px;
+        margin: 3px 0;
         float: left;
         max-width: 90px;
         word-wrap: break-word;
@@ -3215,11 +3215,10 @@
         color:black;
     }
     #modal-product{
-        width: 900px;
+        width: 810px;
         height: auto;
-        min-height:650px;
         border-radius: 4px;
-        border: 1px #000 solid;
+        border: none;
         background: #f5f5f5;
         position: fixed;
         top: 30%;
@@ -3239,6 +3238,7 @@
         cursor: pointer;
         display: block;
         z-index: 9;
+        color:#ea516d;
     }
     #overlay {
         z-index:999;

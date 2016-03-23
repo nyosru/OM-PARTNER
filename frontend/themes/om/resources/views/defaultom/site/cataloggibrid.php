@@ -552,13 +552,13 @@ if ($data[0] != 'Не найдено!') {
 
     $(document).on('click','#prod-info',function(){
         var dp=$(this).attr('data-prod');
-        
+
         $prod_html='';
         $size_html='';
         $spec_html='';
 
         $.post('/site/product',{id: dp},function(data){
-           console.log(data['spec']);
+//           console.log(data['spec']);
             $spec_html='<div class="spec" style="margin-top:25px; ">';
             $.each(data['spec'].productsSpecification,function(i,item){
                 $specname = data['spec']['specificationDescription'][item.specifications_id]['specification_name'];
@@ -569,15 +569,16 @@ if ($data[0] != 'Не найдено!') {
             });
 
             $spec_html+='</div>';
-            $size_html+='<div data-sale="'+data.product.products_id+'" class="cart-lable">В корзину</div>';
+            $size_html+='<div data-sale="'+data.product.products_id+'" class="cart-lable" style="left:0">В корзину</div>';
             $imgs=new Array('/site/imagepreview?src='+data['product']['products']['products_id']);
             $imgs2=new Array(data['product']['products']['products_image']);
             $miniimg='';
             $bigimg='';
+            console.log(data);
             $.each($imgs,function(i,item){
-                $miniimg+='<div id="carousel-selector-' + i + '" style=" width: 80px; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="width: 100%; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
+                $miniimg+='<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if(i==0){
-                    $bigimg+='<div class="item active"><img style="border:1px solid #cccccc; border-radius:4px;" src='+item+'></div>';
+                    $bigimg+='<div class="item active"><div style="position: absolute; bottom: 0;"><a href="http://odezhda-master.ru/images/'+data.product.products.products_image+'"><img src="/images/logo/download.png" /></a></div><img style="border:1px solid #cccccc; border-radius:4px;" src='+item+'></div>';
                 }
                 else{
                     $bigimg+='<div class="item"><img style="border:1px solid #cccccc; border-radius:4px;" src='+item+'></div>';
@@ -605,7 +606,7 @@ if ($data[0] != 'Не найдено!') {
                         $some_text = 'Нет';
                     }
 
-                    $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>' + item.products_options_values_name + '</div>';
+                    $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 5px;">' + item.products_options_values_name + '</div>';
                     $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + parseInt(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="" placeholder="' + $some_text + '" type="text">';
                     $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
                 });
@@ -630,7 +631,7 @@ if ($data[0] != 'Не найдено!') {
                 $size_html+='<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
             }
 
-            $prod_html+='<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;"><div class="prod-show" style="position: relative; float: left;width: 100%;"><div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:10px;"><div class="prod-img" style="overflow: hidden; margin-bottom: 10px;"><div style=" min-width: 380px;"><div id="carousel" class="carousel slide"><div class="carousel-inner">'+$bigimg+'</div></div></div><div class="mini-img">'+$miniimg+'</div>';
+            $prod_html+='<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;"><div class="prod-show" style="position: relative; float: left;width: 100%;"><div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:10px;"><div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px;"><div style=" min-width: 380px;"><div id="carousel" class="carousel slide"><div class="carousel-inner">'+$bigimg+'</div></div></div><div class="mini-img">'+$miniimg+'</div>';
             $prod_html+='</div></div>';
             $prod_html+='<div class="col2" style="float: left;width: 340px;position: relative; overflow: hidden;line-height: 1; color: black; font-weight: 400;"><div style="font-family: \'Roboto\', sans-serif; font-weight: 300;"><div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: '+data['product']['products']['products_model']+'</div><div style="clear: both;"></div><div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">Минимальный оптовый заказ: '+data['product']['products']['products_quantity_order_min']+' шт.</div><div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">'+data['product']['productsDescription']['products_name']+'</div><div itemprop="category" class="model" style="display:none"></div><a itemprop="url" href="/glavnaya/product?id='+dp+'"></a></div><div class="prod-pricing" style="margin-bottom: 25px;"><div style="overflow: hidden;"><div class="prod-price-lable" style="font-size: 12px; margin-bottom: 7px;text-align:left;float: left;line-height: 3;">Цена</div><div class="prod-price" itemprop="price" style="float: right; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;">'+parseInt(data['product']['products']['products_price'])+' руб</div></div><div style="margin-bottom: 20px;"><span>Размеры</span><i style="margin-left: 20px; color:#00a5a1;" class="fa fa-angle-down"></i></div><div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;padding-bottom: 12px;">'+$size_html+'</div></div></div></div><div class="prod-compos" style="font-size: 12px; width:100%;float: left;padding-left: 10px;"><div itemprop="description" id="prd" style="display: block; width: 333px; font-size: 12px !important; font-weight: 400 !important; ">'+data.product.productsDescription.products_description+' '+$spec_html+'</div><div><a href="/site/product?id='+data.product.products_id+'" style="color:#007BC1;font-weight: 600;">Перейти в полное описание товара</a><span style="float: right;padding-right: 10px;">Добавлено: '+data.product.products.products_date_added+'</span></div></div></div>';
             $('#modal-product').html('<span id="modal-close"><i class="fa fa-times" style="font-size:24px;"></i></span>'+$prod_html);
