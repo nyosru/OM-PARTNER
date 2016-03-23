@@ -64,7 +64,9 @@ if($result['code'] == 200){
 </div>
 <div style="float:left; width:20%">
 <?
-
+//echo '<pre>';
+//print_r($result['data']);
+//echo '</pre>';
 if($result['data']['saveproduct']) {
     echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
     foreach ($result['data']['saveproduct'] as $key => $value) {
@@ -114,12 +116,14 @@ if($result['data']['saveproduct']) {
         $.each($cart, function(i, item){
           if(item['6'] != '' && $productattr[item['0']]){
               console.log('del-'+item['0']+'='+item['6']);
+
           }else if($productattr[item['0']] && (item['6'] == '' || item['6'] == 'undefined')){
               console.log('del-'+item['0']);
           }else{
               $itemcart.cart.push($cart[i]);
 
           }
+            console.log(item);
         });
         if($itemcart.cart.length > 0 ){
             console.log($itemcart);

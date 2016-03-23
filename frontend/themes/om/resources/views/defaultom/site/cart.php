@@ -127,17 +127,17 @@ $(document).on('ready', function () {
                 '</div></div>' +
                 '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
                 '</div>'+
-                '<div style="float: left; width: 100%;">' +
-                '<div class="panel panel-default">'+
+                '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
+                '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
                 '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
-                '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne">' +
-                '<h4 class="panel-title no-border-bottom-rad">' +
-                'Добавить комментарий к этому товару' +
-                '</h4>' +
+                '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+                '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+                'Добавить комментарий к этому товару <i class="fa fa-caret-down"></i>' +
+                '</div>' +
                 ' </div>' +
                 '</a>'+
                 '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
-                '<div class="panel-body">' +
+                '<div class="panel-body" style="padding: 0px 5px;">' +
                 '<div style="padding: 10px 0px;">' +
                 '<textarea style="width: 100%;" ></textarea>' +
                 '</div>' +
@@ -147,7 +147,7 @@ $(document).on('ready', function () {
                 '</div>';
         });
         $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">' +
-                        '<div class="wrap-cart" style="height:150px; border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
+                        '<div class="wrap-cart" style=" border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
             '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
 
         <?php
@@ -162,8 +162,26 @@ $(document).on('ready', function () {
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
                             '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
                             '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
-                            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
+            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
+
                         '</div>';
+        $innerhtml+=  '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
+        '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
+        '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
+        '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+        'Добавить комментарий к этому заказу <i class="fa fa-caret-down"></i>' +
+        '</div>' +
+        ' </div>' +
+        '</a>'+
+        '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+        '<div class="panel-body" style="padding: 0px 5px;">' +
+        '<div style="padding: 10px 0px;">' +
+        '<textarea style="width: 100%;" ></textarea>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
         <?php if(!Yii::$app->user->isGuest && $plusorders_add ){?>
         $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 40%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; "><input name="order-type" type="radio" checked="checked" value="new"/>Новый заказ<div>Минимальная сумма заказа 5000р.</div></div><div class="plusorder" style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 60%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px;"><input name="order-type" type="radio" value="plus"/>Оформить как дозаказ к заказу:<div class="plusorder" style="display: inline-block;"><?= $plusorders_add?></div><div>Минимальная сумма заказа 1000р.</div></div></div>';
         <? }else { ?>
@@ -324,10 +342,18 @@ $(document).on('change', '.shipping-confirm, #shipaddr', function () {
 $(document).on('click', '.panel  > a',  function(){
     console.log($(this));
     if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
-        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Добавить комментарий к этому товару +</h4> </div>');
+        $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+        'Добавить комментарий <i class="fa fa-caret-down"></i>' +
+        '</div>' +
+        ' </div>');
         $(this).siblings().filter('.filter-cont').removeClass('in');
     }else{
-        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Добавить комментарий к этому товару -</h4> </div>');
+        $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+        'Добавить комментарий <i class="fa fa-caret-up"></i>' +
+        '</div>' +
+        ' </div>');
         $(this).find(':first-child').addClass('no-border-bottom-rad');
         $(this).siblings().filter('.filter-cont').addClass('in');
     }
