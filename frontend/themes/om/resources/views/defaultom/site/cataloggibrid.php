@@ -558,7 +558,7 @@ if ($data[0] != 'Не найдено!') {
         $spec_html='';
 
         $.post('/site/product',{id: dp},function(data){
-            console.log(data['spec']);
+           // console.log(data['spec']);
             $spec_html='<div class="spec" style="margin-top:25px; ">';
             $.each(data['spec'].productsSpecification,function(i,item){
 //                $spec_html+=item['specification_name']+': '+data['spec']['specificationValuesDescription'][i]['specification_value']+'<br/>';
@@ -569,12 +569,6 @@ if ($data[0] != 'Не найдено!') {
                         $specname=item1.specification_name;
                     }
                 })
-                $.each(data['spec'].specificationValuesDescription, function (i2,item2) {
-                    if(item2.specification_values_id==item.specification_values_id){
-                        $specvalue=item2.specification_value;
-                    }
-                })
-                $spec_html+=$specname+': '+$specvalue+'<br/>';
             });
 
             $spec_html+='</div>';
