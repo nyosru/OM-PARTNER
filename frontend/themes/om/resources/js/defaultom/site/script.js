@@ -528,7 +528,7 @@ $(document).on('ready', function () {
                             $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
                         }
-                        $('.bside').append('<div class="container-fluid float" id="card">'+
+                        $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
                             '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                             '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                             '</div>'+
@@ -769,7 +769,7 @@ $(document).on('ready', function () {
                             $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
                         }
-                        $('.bside').append('<div class="container-fluid float" id="card">'+
+                        $('.bside').append('<div class="container-fluid float" id="card" ' + $product.products_id+ '>'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                                         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                                         '</div>'+

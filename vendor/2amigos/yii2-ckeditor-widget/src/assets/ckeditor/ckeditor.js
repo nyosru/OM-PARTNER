@@ -1,4 +1,4 @@
-﻿
+
 (function () {
     if (window.CKEDITOR && window.CKEDITOR.dom)return;
     window.CKEDITOR || (window.CKEDITOR = function () {

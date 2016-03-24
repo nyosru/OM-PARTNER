@@ -39,7 +39,7 @@ trait View_cat2
                     }else{
                         $exthtml = '+ ';
                     }
-                    $this->output2 .= '<li class=" ' . $openli .'"><div class="link '.$aclass.'"  data-cat="' . $catdesc . '"> '.$exthtml.'<a class="lock-on '.$aclass.'" href="' . BASEURL . '/catalog?cat=' . $catdesc . '&count=48&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
+                    $this->output2 .= '<li class=" ' . $openli .'"><div class="link '.$aclass.'"  data-cat="' . $catdesc . '"> '.$exthtml.'<a class="lock-on '.$aclass.'" href="' . BASEURL . '/catalog?cat=' . $catdesc . '&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
                     $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);
                     $this->output2 .= '</li>';
                 }
