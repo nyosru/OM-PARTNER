@@ -1114,6 +1114,7 @@ function onAjaxSuccessinfo(data) {
     $(document).on('click', '#country', function () {
         $('[data-name=country]').val($(this).text());
         $('[data-name=country]').attr('data-country', this.getAttribute('country'));
+        $(this).parent().parent().siblings().find('[data-name=state]').val('');
         $('#country-drop').hide();
         $.ajax({
             type: "GET",
