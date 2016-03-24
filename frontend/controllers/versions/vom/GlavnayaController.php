@@ -29,10 +29,12 @@ use frontend\controllers\actions\ActionLoginOM;
 use frontend\controllers\actions\ActionLogout;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
+use frontend\controllers\actions\om\ActionSavepage;
 use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPaymentMethod;
 use frontend\controllers\actions\ActionPayOrders;
 use frontend\controllers\actions\ActionPrintOrders;
+use frontend\controllers\actions\om\ActionPage;
 use frontend\controllers\actions\ActionTakeOrder;
 use frontend\controllers\actions\ActionTimeOrderProducts;
 use frontend\controllers\actions\om\ActionCartResult;
@@ -126,6 +128,8 @@ class GlavnayaController extends Controller
         ActionTimeOrderProducts,
         ActionCartResult,
         ActionManList,
+        ActionPage,
+        ActionSavepage,
         ActionTakeOrder;
 
 

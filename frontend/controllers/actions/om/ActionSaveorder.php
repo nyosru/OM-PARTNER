@@ -304,8 +304,8 @@ trait ActionSaveorder
                 }else{
                     $ordershistory->comments = NULL;
                 }
-                if($ordershistory->comments){
-
+                if($type_order == 'plus'){
+                    $ordershistory->comments .= 'Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
                 }
                // $ordershistory->comments = 'Заказ с нового фронта';
                 $ordershistory->validate();

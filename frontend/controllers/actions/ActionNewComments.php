@@ -70,7 +70,7 @@ trait ActionNewComments
             $model->date_added = date('Y-m-d H:i:s');
             $model->date_modified = date('Y-m-d H:i:s');
             $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
-            $model->status = 0;
+            $model->status = 1;
             $model->user_id = Yii::$app->user->getIdentity()->id;
             $model->post = $text;
             if ($model->save()) {
