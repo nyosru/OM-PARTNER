@@ -359,10 +359,15 @@ $this->title = $title;
             } else {
                 ?>
             <div id="my-textarea-id"></div>
-
+                dc1398d7369e7d93189d842c49a783146af84706
             <? } ?>
             <?php if (Yii::$app->user->can('admin')) {
-
+                'alignment', 'autosave', 'block', 'buffer', 'build', 'button',
+						  'caret', 'clean', 'code', 'core', 'dropdown', 'file', 'focus',
+						  'image', 'indent', 'inline', 'insert', 'keydown', 'keyup',
+						  'lang', 'line', 'link', 'linkify', 'list', 'modal', 'observe', 'paragraphize',
+						  'paste', 'placeholder', 'progress', 'selection', 'shortcuts',
+						  'tabifier', 'tidy',  'toolbar', 'upload', 'utils'
                 echo \vova07\imperavi\Widget::widget([
                     'selector' => '#my-textarea-id',
                     'settings' => [

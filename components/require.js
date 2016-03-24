@@ -2029,6 +2029,10 @@ var components = {
         {
             "name": "moment",
             "main": "moment-built.js"
+        },
+        {
+            "name": "tinymce",
+            "main": "tinymce-built.js"
         }
     ],
     "baseUrl": "components"
