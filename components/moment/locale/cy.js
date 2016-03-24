@@ -2,14 +2,12 @@
 //! locale : Welsh (cy)
 //! author : Robert Allen
 
-;
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined'
-    && typeof require === 'function' ? factory(require('../moment')) :
-        typeof define === 'function' && define.amd ? define(['moment'], factory) :
-            factory(global.moment)
-}(this, function (moment) {
-    'use strict';
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['moment'], factory) :
+   factory(global.moment)
+}(this, function (moment) { 'use strict';
 
 
     var cy = moment.defineLocale('cy', {
@@ -21,7 +19,7 @@
         // time formats are the same as en-gb
         longDateFormat: {
             LT: 'HH:mm',
-            LTS: 'HH:mm:ss',
+            LTS : 'HH:mm:ss',
             L: 'DD/MM/YYYY',
             LL: 'D MMMM YYYY',
             LLL: 'D MMMM YYYY HH:mm',
@@ -70,9 +68,9 @@
             }
             return number + output;
         },
-        week: {
-            dow: 1, // Monday is the first day of the week.
-            doy: 4  // The week that contains Jan 4th is the first week of the year.
+        week : {
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
         }
     });
 

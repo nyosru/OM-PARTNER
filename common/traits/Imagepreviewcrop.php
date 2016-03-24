@@ -7,21 +7,13 @@ Trait Imagepreviewcrop
 {
     public function Imagepreviewcrop($from, $src, $where, $action = 'none')
     {
-
         $id = (integer)$src;
-        $spec=PartnersProductsToCategories::find()
-            ->where(['products_to_categories.products_id'=>$id])
-            ->joinWith('productsSpecification')
-            ->joinWith('specificationValuesDescription')
-            ->joinWith('specificationDescription')
-            ->asArray()->groupBy('products_specifications.products_id')->all();
         if ($id > 0) {
             $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->all();
             $x=end($x);
             if(!$x['last_modified']){
                 $x['last_modified'] = $x['add_date'] ;
             }
-
                 $keyprod = Yii::$app->cache->buildKey('product-' . $id);
                 $data = Yii::$app->cache->get($keyprod);
                 if (!$data || ($x['last_modified'] != $data['last'])) {
@@ -34,14 +26,10 @@ Trait Imagepreviewcrop
                 if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
 
                     $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
-
                 }
-
-
             $src = $data['products']['products_image'];
-            $filename = str_replace('[[[[]]]]', ' ', $src);
-            $filename = str_replace('[[[[', '(', $filename);
-            $filename = str_replace(']]]]', ')', $filename);
+            $filename = $src;
+
             $split = explode('/', $src);
             if (count($split) > 1) {
                 $file = array_splice($split, -1, 1);
@@ -59,21 +47,15 @@ Trait Imagepreviewcrop
             }
             $dirfile = md5($namefile);
             $subdir = '';
+
             for($i=0; $i<5; $i++){
                 $subdir .= '/'.substr($dirfile, $i*2 , 2);
             }
-
-            if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0]) || $action == 'refresh') {
+            if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg') || $action == 'refresh') {
                 if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
                     mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
                 }
-                if ($ras[0] == 'jpg' || $ras[0] == 'jpeg') {
-                    $image = imagecreatefromjpeg($from . $filename);
-                } elseif ($ras[0] == 'png') {
-                    $image = imagecreatefrompng($from . $filename);
-                } else {
-                    $image = imagecreatefromjpeg($from . $filename);
-                }
+                    $image  = imagecreatefromstring(file_get_contents($from . $filename));
                 $width = imagesx($image);
                 $height = imagesy($image);
                 $original_aspect = $width / $height;
@@ -103,10 +85,13 @@ Trait Imagepreviewcrop
                     0, 0,
                     $new_width, $new_height,
                     $width, $height);
-                imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 100);
+                 //  header('Content-Type: image/jpg');
+                   imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 100);
+
+                   return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
+            }else {
+                return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             }
-            // return Yii::getAlias($where) . $dir .$subdir. $namefile . '.' . $ras[0];
-            return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0]);
         //        return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProd]);
 
         } else {

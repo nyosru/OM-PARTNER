@@ -26,18 +26,7 @@ $(document).on('click', '.close-descript', function () {
     $('#prod-card-info').dialog('close');
 });
 
-//$(document).on('change', '#shipping-confirm', function () {
-//    $('#shipping-confirm option').filter(function (index) {
-//        if ($(this).val() == '') {
-//            return $(this)
-//        }
-//    }).remove();
-//    $.post(
-//        "/site/requestadress",
-//        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp')},
-//        onAjaxSuccessinfo
-//    );
-//});
+
 $(document).on('click', '.btn-end-order', function () {
     $('#modal-cart').dialog('close');
 });
@@ -112,7 +101,6 @@ $(document).on('click', '.del-product', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
-    console.log();
     if(check.val()=="boxes") wrapprice=15;
 
     $indexes = $(".cart-row");
@@ -134,6 +122,7 @@ $(document).on('click', '.cart-lable', function () {
         $item_add = $(this)[0];
         $item.cart = [];
         $item_add.value = $(this).val();
+        // console.log($item_add);
         if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
@@ -141,7 +130,6 @@ $(document).on('click', '.cart-lable', function () {
                 if(localStorage.getItem('cart-om-date')){
                     $timecart =  new Date;
                     $timecart = localStorage.getItem('cart-om-date');
-                    console.log($timenow.getTime() - $timecart);
                     if($timenow.getTime() - $timecart > 604800000){
                         localStorage.removeItem('cart-om');
                         localStorage.removeItem('cart-om-date');
@@ -459,7 +447,6 @@ $(document).on('ready', function () {
                 $('.pagination-catalog').remove();
                 $('.loader-inner').remove();
                 if (data[0] != 'Не найдено!') {
-                    console.log(data);
                     $.each(data[0], function () {
                         $product = this.products;
                         $descriptionprod = this.productsDescription;
@@ -538,11 +525,10 @@ $(document).on('ready', function () {
                         if( data[14][$product.manufacturers_id] === undefined ) {
                             $timewrap = '<div></div>';
                         }else{
-                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="/glavnaya/timeorderproducts?id='+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
+                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
                         }
-                        //console.log($timewrap);
-                        $('.bside').append('<div class="container-fluid float" id="card">'+
+                        $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
                             '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                             '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                             '</div>'+
@@ -703,7 +689,6 @@ $(document).on('ready', function () {
                 $('.pagination-catalog').remove();
                 $('.loader-inner').remove();
                 if (data[0] != 'Не найдено!') {
-                    console.log(data);
                     $.each(data[0], function () {
                         $product = this.products;
                         $descriptionprod = this.productsDescription;
@@ -781,11 +766,10 @@ $(document).on('ready', function () {
                         if( data[14][$product.manufacturers_id] === undefined ) {
                             $timewrap = '';
                         }else{
-                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="/glavnaya/timeorderproducts?id='+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
+                            $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
                         }
-                        console.log($timewrap);
-                        $('.bside').append('<div class="container-fluid float" id="card">'+
+                        $('.bside').append('<div class="container-fluid float" id="card" ' + $product.products_id+ '>'+
                                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                                         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                                         '</div>'+
@@ -881,6 +865,7 @@ $(document).on('ready', function () {
             });
         }
     });
+
 });
 
 $('[data-cat]').on('click', function () {
@@ -892,10 +877,11 @@ $('[data-cat]').on('click', function () {
 
 });
 
-$(document).on('keyup', '#search', function () {
+$(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
-    $text = $('#search').val();
+    console.log( $(this).val());
+    $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;
     $text = $text[$count - 1];
@@ -924,11 +910,11 @@ $(document).on('keyup', '#search', function () {
     }
 });
 $(document).on('click', '.input_search_word', function () {
-    $text = $('#search').val();
+    $text = $('.search').val();
     $text = $text.split(' ');
     $count = $text.length;
     $text[$count - 1] = $(this).text();
-    $('#search').val($text.join(' ', $text));
+    $('.search').val($text.join(' ', $text));
     $('.result_search_word').hide();
 });
 $(document).on('ready', function () {
@@ -941,7 +927,6 @@ $(document).on('ready', function () {
             if(localStorage.getItem('cart-om-date')){
                 $timecart =  new Date;
                 $timecart = localStorage.getItem('cart-om-date');
-                console.log($timenow.getTime() - $timecart);
                 if($timenow.getTime() - $timecart > 604800000){
                     localStorage.removeItem('cart-om');
                     localStorage.removeItem('cart-om-date');
@@ -1077,8 +1062,8 @@ function onAjaxSuccessinfo(data) {
             $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input title="' + $tooltip[$attr] + '" data-placement="top" data-toggle="tooltip" class="info-item" data-name="' + $attr + '" placeholder="' + $attrlable + '"></input></div>';
         }
     });
-    $('.userinfo').html('');
-    $('.userinfo').html($inner + '<div>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class=" btn btn-sm btn-info" style="bottom: 0px; position: relative; float: right; border-radius: 5px;" type="submit">Подтвердить заказ</button>');
+    $('.address').remove();
+    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept">Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class=" btn btn-sm btn-info" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",
@@ -1194,3 +1179,17 @@ $(document).on('click','#prdesc',function() {
         else{
             jQuery('#prd').attr('style','display:none');
         }});
+
+$(document).on('click', '[data-ajax=time]', function(){
+    $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
+        if($("#time").length) {
+            $('#time').html(data);
+        }else{
+            $('.bside').append('<div id="time" style="display: none;">'+data+'</div>');
+        }
+        $('#time').show();
+    });
+});
+$(document).on('click', '.close-modal', function(){
+    $(this).parents().find('#time').hide();
+});

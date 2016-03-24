@@ -53,9 +53,9 @@ class IgnoreFactoryTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function ($key) {
                 switch ($key) {
                     case 'cache-repo-dir':
-                        return sys_get_temp_dir() . '/composer-test-repo-cache';
+                        return sys_get_temp_dir().'/composer-test-repo-cache';
                     case 'vendor-dir':
-                        return sys_get_temp_dir() . '/composer-test/vendor';
+                        return sys_get_temp_dir().'/composer-test/vendor';
                 }
 
                 return;
@@ -90,7 +90,7 @@ class IgnoreFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($manager->isEnabled());
         $this->assertFalse($manager->hasPattern());
-        $this->validateInstallDir($manager, $this->config->get('vendor-dir') . '/' . $this->package->getName());
+        $this->validateInstallDir($manager, $this->config->get('vendor-dir').'/'.$this->package->getName());
     }
 
     public function testCreateWithIgnoreFiles()
@@ -112,7 +112,7 @@ class IgnoreFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($manager->isEnabled());
         $this->assertTrue($manager->hasPattern());
-        $this->validateInstallDir($manager, $this->config->get('vendor-dir') . '/' . $this->package->getName());
+        $this->validateInstallDir($manager, $this->config->get('vendor-dir').'/'.$this->package->getName());
     }
 
     public function testCreateWithCustomInstallDir()
@@ -142,7 +142,7 @@ class IgnoreFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($manager->isEnabled());
         $this->assertFalse($manager->hasPattern());
-        $this->validateInstallDir($manager, $this->config->get('vendor-dir') . '/' . $this->package->getName());
+        $this->validateInstallDir($manager, $this->config->get('vendor-dir').'/'.$this->package->getName());
     }
 
     public function testCreateWithDisablingOfIgnoreFiles()
@@ -162,7 +162,7 @@ class IgnoreFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($manager->isEnabled());
         $this->assertFalse($manager->hasPattern());
-        $this->validateInstallDir($manager, $this->config->get('vendor-dir') . '/' . $this->package->getName());
+        $this->validateInstallDir($manager, $this->config->get('vendor-dir').'/'.$this->package->getName());
     }
 
     public function testCreateWithCustomIgnoreSection()
@@ -184,12 +184,12 @@ class IgnoreFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($manager->isEnabled());
         $this->assertTrue($manager->hasPattern());
-        $this->validateInstallDir($manager, $this->config->get('vendor-dir') . '/' . $this->package->getName());
+        $this->validateInstallDir($manager, $this->config->get('vendor-dir').'/'.$this->package->getName());
     }
 
     /**
      * @param IgnoreManager $manager
-     * @param string $installDir
+     * @param string        $installDir
      */
     protected function validateInstallDir(IgnoreManager $manager, $installDir)
     {

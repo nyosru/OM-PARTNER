@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 CKEDITOR.dialog.add("smiley", function (f) {
     for (var e = f.config, a = f.lang.smiley, h = e.smiley_images, g = e.smiley_columns || 8, i, k = function (j) {
         var c = j.data.getTarget(), b = c.getName();

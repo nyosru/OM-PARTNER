@@ -38,8 +38,8 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
         $this->config = new Config();
         $this->config->merge(array(
             'config' => array(
-                'home' => sys_get_temp_dir() . '/composer-test',
-                'cache-repo-dir' => sys_get_temp_dir() . '/composer-test-cache',
+                'home' => sys_get_temp_dir().'/composer-test',
+                'cache-repo-dir' => sys_get_temp_dir().'/composer-test-cache',
             ),
         ));
     }
@@ -47,8 +47,8 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $fs = new Filesystem();
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test');
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test-cache');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test-cache');
     }
 
     public function getAssetTypes()
@@ -114,7 +114,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(4))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/rate_limit'), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/'), $this->equalTo(false))
             ->will($this->returnValue('{}'));
 
         $remoteFilesystem->expects($this->at(5))
@@ -234,8 +234,8 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(1))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/' . $filename . '?ref=feature%2F3.2-foo'), $this->equalTo(false))
-            ->will($this->returnValue('{"encoding":"base64","content":"' . base64_encode('{"support": {"source": "' . $repoUrl . '" }}') . '"}'));
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/'.$filename.'?ref=feature%2F3.2-foo'), $this->equalTo(false))
+            ->will($this->returnValue('{"encoding":"base64","content":"'.base64_encode('{"support": {"source": "'.$repoUrl.'" }}').'"}'));
 
         $remoteFilesystem->expects($this->at(2))
             ->method('getContents')
@@ -316,7 +316,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         // clean local clone if present
         $fs = new Filesystem();
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test');
 
         $process->expects($this->at(0))
             ->method('execute')
@@ -334,7 +334,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $process->expects($this->at(3))
             ->method('splitLines')
-            ->will($this->returnValue(array($sha . ' refs/tags/' . $identifier)));
+            ->will($this->returnValue(array($sha.' refs/tags/'.$identifier)));
 
         $process->expects($this->at(4))
             ->method('execute')
@@ -410,8 +410,8 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
         $process->expects($this->any())
             ->method('execute')
             ->will($this->returnCallback(function () {
-                return 0;
-            }));
+                        return 0;
+                    }));
 
         /* @var IOInterface $io */
         /* @var ProcessExecutor $process */
@@ -524,11 +524,11 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(1))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/' . $filename . '?ref=' . $identifier), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/'.$filename.'?ref='.$identifier), $this->equalTo(false))
             ->will($this->throwException(new TransportException('Not Found', 404)));
         $remoteFilesystem->expects($this->at(2))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/' . $filename . '?ref=' . $identifier), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/'.$filename.'?ref='.$identifier), $this->equalTo(false))
             ->will($this->throwException(new TransportException('Not Found', 404)));
 
         $repoConfig = array(
@@ -552,11 +552,11 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getAssetTypes
+     *
+     * @expectedException \RuntimeException
      */
     public function testGetComposerInformationWithRuntimeException($type, $filename)
     {
-        $this->setExpectedException('RuntimeException');
-
         $repoUrl = 'http://github.com/composer-test/repo-name';
         $repoApiUrl = 'https://api.github.com/repos/composer-test/repo-name';
         $identifier = 'v0.0.0';
@@ -574,7 +574,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(1))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/' . $filename . '?ref=' . $identifier), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/'.$filename.'?ref='.$identifier), $this->equalTo(false))
             ->will($this->returnValue('{"encoding":"base64","content":""}'));
 
         $repoConfig = array(
@@ -594,11 +594,11 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getAssetTypes
+     *
+     * @expectedException \RuntimeException
      */
     public function testGetComposerInformationWithTransportException($type, $filename)
     {
-        $this->setExpectedException('RuntimeException');
-
         $repoUrl = 'http://github.com/composer-test/repo-name';
         $repoApiUrl = 'https://api.github.com/repos/composer-test/repo-name';
         $identifier = 'v0.0.0';
@@ -616,12 +616,12 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(1))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/' . $filename . '?ref=' . $identifier), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/'.$filename.'?ref='.$identifier), $this->equalTo(false))
             ->will($this->throwException(new TransportException('Mock exception code 404', 404)));
 
         $remoteFilesystem->expects($this->at(2))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/' . $filename . '?ref=' . $identifier), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/'.$filename.'?ref='.$identifier), $this->equalTo(false))
             ->will($this->throwException(new TransportException('Mock exception code 400', 400)));
 
         $repoConfig = array(
@@ -673,12 +673,12 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(array(
                 'HTTP/1.1 301 Moved Permanently',
                 'Header-parameter: test',
-                'Location: ' . $repoUrl . '-new',
+                'Location: '.$repoUrl.'-new',
             )));
 
         $remoteFilesystem->expects($this->at(3))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo($repoApiUrl . '-new'), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo($repoApiUrl.'-new'), $this->equalTo(false))
             ->will($this->returnValue($this->createJsonComposer(array('master_branch' => 'test_master'))));
 
         $repoConfig = array(
@@ -710,11 +710,11 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getAssetTypes
+     *
+     * @expectedException \RuntimeException
      */
     public function testRedirectUrlWithNonexistentRepository($type, $filename)
     {
-        $this->setExpectedException('RuntimeException');
-
         $repoUrl = 'http://github.com/composer-test/repo-name';
         $repoApiUrl = 'https://api.github.com/repos/composer-test/repo-name';
         $identifier = 'v0.0.0';
@@ -754,7 +754,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(3))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/rate_limit'), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/'), $this->equalTo(false))
             ->will($this->returnValue('{}'));
 
         $remoteFilesystem->expects($this->at(4))
@@ -764,7 +764,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(5))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo($repoApiUrl . '/contents/' . $filename . '?ref=' . $identifier), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo($repoApiUrl.'/contents/'.$filename.'?ref='.$identifier), $this->equalTo(false))
             ->will($this->throwException(new TransportException('HTTP/1.1 404 Not Found', 404)));
 
         $configSource = $this->getMock('Composer\Config\ConfigSourceInterface');
@@ -807,9 +807,9 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
         $originUrl = 'github.com';
         $owner = 'composer-test';
         $repository = 'repo-name';
-        $repoUrl = 'http://' . $originUrl . '/' . $owner . '/' . $repository;
+        $repoUrl = 'http://'.$originUrl.'/'.$owner.'/'.$repository;
         $repoApiUrl = 'https://api.github.com/repos/composer-test/repo-name';
-        $repoApiUrlNew = $repoApiUrl . '-new';
+        $repoApiUrlNew = $repoApiUrl.'-new';
         $identifier = 'v0.0.0';
         $sha = 'SOMESHA';
 
@@ -837,7 +837,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
         /* @var IOInterface $io */
         /* @var RemoteFilesystem $remoteFilesystem */
 
-        $cache = new Cache($io, $this->config->get('cache-repo-dir') . '/' . $originUrl . '/' . $owner . '/' . $repository);
+        $cache = new Cache($io, $this->config->get('cache-repo-dir').'/'.$originUrl.'/'.$owner.'/'.$repository);
         $cache->write('redirect-api', $repoApiUrlNew);
 
         $gitHubDriver = new GitHubDriver($repoConfig, $io, $this->config, null, $remoteFilesystem);
@@ -963,7 +963,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
         $githubBranches = array();
         foreach ($branches as $branch => $sha) {
             $githubBranches[] = array(
-                'ref' => 'refs/heads/' . $branch,
+                'ref' => 'refs/heads/'.$branch,
                 'object' => array(
                     'sha' => $sha,
                 ),
@@ -994,7 +994,7 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
     /**
      * @param object $object
      * @param string $attribute
-     * @param mixed $value
+     * @param mixed  $value
      */
     protected function setAttribute($object, $attribute, $value)
     {
@@ -1006,9 +1006,9 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
     /**
      * Creates the json composer content.
      *
-     * @param array $content The composer content
-     * @param string $name The name of repository
-     * @param string $login The username /organization of repository
+     * @param array  $content The composer content
+     * @param string $name    The name of repository
+     * @param string $login   The username /organization of repository
      *
      * @return string The json content
      */
@@ -1024,10 +1024,10 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param IOInterface $io
-     * @param string $repoApiUrl
-     * @param string $filename
-     * @param string $sha
-     * @param bool $forCache
+     * @param string      $repoApiUrl
+     * @param string      $filename
+     * @param string      $sha
+     * @param bool        $forCache
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
@@ -1048,12 +1048,12 @@ class GitHubDriverTest extends \PHPUnit_Framework_TestCase
 
         $remoteFilesystem->expects($this->at(1))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/' . $filename . '?ref=' . $sha), $this->equalTo(false))
-            ->will($this->returnValue('{"encoding":"base64","content":"' . base64_encode('{"support": {}}') . '"}'));
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/contents/'.$filename.'?ref='.$sha), $this->equalTo(false))
+            ->will($this->returnValue('{"encoding":"base64","content":"'.base64_encode('{"support": {}}').'"}'));
 
         $remoteFilesystem->expects($this->at(2))
             ->method('getContents')
-            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/commits/' . $sha), $this->equalTo(false))
+            ->with($this->equalTo('github.com'), $this->equalTo('https://api.github.com/repos/composer-test/repo-name/commits/'.$sha), $this->equalTo(false))
             ->will($this->returnValue('{"commit": {"committer":{ "date": "2012-09-10"}}}'));
 
         return $remoteFilesystem;

@@ -34,8 +34,8 @@ class GitDriverTest extends \PHPUnit_Framework_TestCase
         $this->config = new Config();
         $this->config->merge(array(
             'config' => array(
-                'home' => sys_get_temp_dir() . '/composer-test',
-                'cache-repo-dir' => sys_get_temp_dir() . '/composer-test-cache',
+                'home' => sys_get_temp_dir().'/composer-test',
+                'cache-repo-dir' => sys_get_temp_dir().'/composer-test-cache',
             ),
         ));
     }
@@ -43,8 +43,8 @@ class GitDriverTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $fs = new Filesystem();
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test');
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test-cache');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test-cache');
     }
 
     public function getAssetTypes()
@@ -156,15 +156,15 @@ class GitDriverTest extends \PHPUnit_Framework_TestCase
         $process->expects($this->any())
             ->method('execute')
             ->will($this->returnCallback(function ($command, &$output = null) use ($identifier, $repoConfig) {
-                if ($command === sprintf('git show %s', sprintf('%s:%s', escapeshellarg($identifier), $repoConfig['filename']))) {
-                    $output = '{"name": "foo"}';
-                } elseif (false !== strpos($command, 'git log')) {
-                    $date = new \DateTime(null, new \DateTimeZone('UTC'));
-                    $output = $date->getTimestamp();
-                }
+                        if ($command === sprintf('git show %s', sprintf('%s:%s', escapeshellarg($identifier), $repoConfig['filename']))) {
+                            $output = '{"name": "foo"}';
+                        } elseif (false !== strpos($command, 'git log')) {
+                            $date = new \DateTime(null, new \DateTimeZone('UTC'));
+                            $output = $date->getTimestamp();
+                        }
 
-                return 0;
-            }));
+                        return 0;
+                    }));
 
         /* @var IOInterface $io */
         /* @var ProcessExecutor $process */

@@ -34,8 +34,8 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
         $this->config = new Config();
         $this->config->merge(array(
             'config' => array(
-                'home' => sys_get_temp_dir() . '/composer-test',
-                'cache-repo-dir' => sys_get_temp_dir() . '/composer-test-cache',
+                'home' => sys_get_temp_dir().'/composer-test',
+                'cache-repo-dir' => sys_get_temp_dir().'/composer-test-cache',
             ),
         ));
     }
@@ -43,8 +43,8 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $fs = new Filesystem();
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test');
-        $fs->removeDirectory(sys_get_temp_dir() . '/composer-test-cache');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test');
+        $fs->removeDirectory(sys_get_temp_dir().'/composer-test-cache');
     }
 
     public function getAssetTypes()
@@ -100,7 +100,7 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
     public function testPublicRepositoryWithCodeCache($type, $filename, $identifier)
     {
         $repoBaseUrl = 'svn://example.tld/composer-test/repo-name';
-        $repoUrl = $repoBaseUrl . '/trunk';
+        $repoUrl = $repoBaseUrl.'/trunk';
         $repoConfig = array(
             'url' => $repoUrl,
             'asset-type' => $type,
@@ -117,16 +117,14 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
             ->method('execute')
             ->will($this->returnCallback(function ($command, &$output) use ($repoBaseUrl, $identifier, $repoConfig) {
                 if ($command === sprintf('svn cat --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s/%s', $repoBaseUrl, $identifier, $repoConfig['filename'])))
-                    || $command === sprintf('svn cat --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s%s', $repoBaseUrl, $repoConfig['filename'], trim($identifier, '/'))))
-                ) {
+                        || $command === sprintf('svn cat --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s%s', $repoBaseUrl, $repoConfig['filename'], trim($identifier, '/'))))) {
                     $output('out', '{"name": "foo"}');
                 } elseif ($command === sprintf('svn info --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s/', $repoBaseUrl, $identifier)))
-                    || $command === sprintf('svn info --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s', $repoBaseUrl, trim($identifier, '/'))))
-                ) {
+                        || $command === sprintf('svn info --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s', $repoBaseUrl, trim($identifier, '/'))))) {
                     $date = new \DateTime(null, new \DateTimeZone('UTC'));
                     $value = array(
-                        'Last Changed Rev: ' . $identifier,
-                        'Last Changed Date: ' . $date->format('Y-m-d H:i:s O') . ' (' . $date->format('l, j F Y') . ')',
+                        'Last Changed Rev: '.$identifier,
+                        'Last Changed Date: '.$date->format('Y-m-d H:i:s O').' ('.$date->format('l, j F Y').')',
                     );
 
                     $output('out', implode(PHP_EOL, $value));
@@ -155,7 +153,7 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
     public function testPublicRepositoryWithFilesystemCache($type, $filename, $identifier)
     {
         $repoBaseUrl = 'svn://example.tld/composer-test/repo-name';
-        $repoUrl = $repoBaseUrl . '/trunk';
+        $repoUrl = $repoBaseUrl.'/trunk';
         $repoConfig = array(
             'url' => $repoUrl,
             'asset-type' => $type,
@@ -172,16 +170,14 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
             ->method('execute')
             ->will($this->returnCallback(function ($command, &$output) use ($repoBaseUrl, $identifier, $repoConfig) {
                 if ($command === sprintf('svn cat --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s/%s', $repoBaseUrl, $identifier, $repoConfig['filename'])))
-                    || $command === sprintf('svn cat --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s%s', $repoBaseUrl, $repoConfig['filename'], trim($identifier, '/'))))
-                ) {
+                        || $command === sprintf('svn cat --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s%s', $repoBaseUrl, $repoConfig['filename'], trim($identifier, '/'))))) {
                     $output('out', '{"name": "foo"}');
                 } elseif ($command === sprintf('svn info --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s/', $repoBaseUrl, $identifier)))
-                    || $command === sprintf('svn info --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s', $repoBaseUrl, trim($identifier, '/'))))
-                ) {
+                        || $command === sprintf('svn info --non-interactive  %s', ProcessExecutor::escape(sprintf('%s/%s', $repoBaseUrl, trim($identifier, '/'))))) {
                     $date = new \DateTime(null, new \DateTimeZone('UTC'));
                     $value = array(
-                        'Last Changed Rev: ' . $identifier,
-                        'Last Changed Date: ' . $date->format('Y-m-d H:i:s O') . ' (' . $date->format('l, j F Y') . ')',
+                        'Last Changed Rev: '.$identifier,
+                        'Last Changed Date: '.$date->format('Y-m-d H:i:s O').' ('.$date->format('l, j F Y').')',
                     );
 
                     $output('out', implode(PHP_EOL, $value));
@@ -208,11 +204,11 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getAssetTypes
+     *
+     * @expectedException \Composer\Downloader\TransportException
      */
     public function testPublicRepositoryWithInvalidUrl($type, $filename, $identifier)
     {
-        $this->setExpectedException('Composer\Downloader\TransportException');
-
         $repoUrl = 'svn://example.tld/composer-test/repo-name/trunk';
         $io = $this->getMock('Composer\IO\IOInterface');
 
@@ -246,14 +242,14 @@ class SvnDriverTest extends \PHPUnit_Framework_TestCase
     public function getSupportsUrls()
     {
         return array(
-            array('svn://example.tld/trunk', true),
-            array('svn+ssh://example.tld/trunk', true),
-            array('svn://svn.example.tld/trunk', true),
+            array('svn://example.tld/trunk',         true),
+            array('svn+ssh://example.tld/trunk',     true),
+            array('svn://svn.example.tld/trunk',     true),
             array('svn+ssh://svn.example.tld/trunk', true),
-            array('http://example.tld/svn/trunk', true),
-            array('https://example.tld/svn/trunk', true),
-            array('http://example.tld/sub', false),
-            array('https://example.tld/sub', false),
+            array('http://example.tld/svn/trunk',    true),
+            array('https://example.tld/svn/trunk',   true),
+            array('http://example.tld/sub',          false),
+            array('https://example.tld/sub',         false),
         );
     }
 

@@ -21,7 +21,7 @@ interface PackageConverterInterface
     /**
      * Converts the asset data package to composer data package.
      *
-     * @param array $data The asset data package
+     * @param array $data     The asset data package
      * @param array $vcsRepos The vcs repositories created
      *
      * @return array The composer data package

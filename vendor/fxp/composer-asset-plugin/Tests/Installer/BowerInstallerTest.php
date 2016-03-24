@@ -85,18 +85,18 @@ class BowerInstallerTest extends TestCase
         $this->config = new Config();
         $this->composer->setConfig($this->config);
 
-        $this->vendorDir = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . 'composer-test-vendor';
+        $this->vendorDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'composer-test-vendor';
         $this->ensureDirectoryExistsAndClear($this->vendorDir);
 
-        $this->binDir = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . 'composer-test-bin';
+        $this->binDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'composer-test-bin';
         $this->ensureDirectoryExistsAndClear($this->binDir);
 
         $this->config->merge(array(
-            'config' => array(
-                'vendor-dir' => $this->vendorDir,
-                'bin-dir' => $this->binDir,
-            ),
-        ));
+                'config' => array(
+                    'vendor-dir' => $this->vendorDir,
+                    'bin-dir' => $this->binDir,
+                ),
+            ));
 
         $this->dm = $this->getMockBuilder('Composer\Downloader\DownloadManager')
             ->disableOriginalConstructor()
@@ -187,7 +187,7 @@ class BowerInstallerTest extends TestCase
             ->will($this->returnValue('foo-asset/package'));
 
         /* @var PackageInterface $package */
-        $packageDir = $this->vendorDir . '/' . $package->getPrettyName();
+        $packageDir = $this->vendorDir.'/'.$package->getPrettyName();
         mkdir($packageDir, 0777, true);
 
         /* @var \PHPUnit_Framework_MockObject_MockObject $repository */
@@ -251,7 +251,7 @@ class BowerInstallerTest extends TestCase
             ->will($this->returnValue('foo-asset/package'));
 
         /* @var PackageInterface $package */
-        $packageDir = $this->vendorDir . '/' . $package->getPrettyName();
+        $packageDir = $this->vendorDir.'/'.$package->getPrettyName();
         mkdir($packageDir, 0777, true);
 
         /* @var \PHPUnit_Framework_MockObject_MockObject $dm */
@@ -259,7 +259,7 @@ class BowerInstallerTest extends TestCase
         $dm
             ->expects($this->once())
             ->method('download')
-            ->with($package, $this->vendorDir . DIRECTORY_SEPARATOR . 'foo-asset/package');
+            ->with($package, $this->vendorDir.DIRECTORY_SEPARATOR.'foo-asset/package');
 
         /* @var \PHPUnit_Framework_MockObject_MockObject $repository */
         $repository = $this->repository;
@@ -299,7 +299,7 @@ class BowerInstallerTest extends TestCase
             ->will($this->returnValue('foo-asset/package'));
 
         /* @var PackageInterface $package */
-        $packageDir = $this->vendorDir . '/' . $package->getPrettyName();
+        $packageDir = $this->vendorDir.'/'.$package->getPrettyName();
         mkdir($packageDir, 0777, true);
 
         /* @var \PHPUnit_Framework_MockObject_MockObject $repository */
@@ -319,6 +319,9 @@ class BowerInstallerTest extends TestCase
         $this->ensureDirectoryExistsAndClear($packageDir);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testUninstall()
     {
         /* @var RootPackageInterface $rootPackage */
@@ -357,13 +360,11 @@ class BowerInstallerTest extends TestCase
         $dm
             ->expects($this->once())
             ->method('remove')
-            ->with($package, $this->vendorDir . DIRECTORY_SEPARATOR . 'foo-asset/pkg');
+            ->with($package, $this->vendorDir.DIRECTORY_SEPARATOR.'foo-asset/pkg');
 
         /* @var InstalledRepositoryInterface $repository */
         /* @var PackageInterface $package */
         $library->uninstall($repository, $package);
-
-        $this->setExpectedException('InvalidArgumentException');
 
         $library->uninstall($repository, $package);
     }
@@ -397,7 +398,7 @@ class BowerInstallerTest extends TestCase
             ->will($this->returnValue('foo-asset/bar'));
 
         /* @var PackageInterface $package */
-        $exceptDir = $this->vendorDir . '/' . $package->getName();
+        $exceptDir = $this->vendorDir.'/'.$package->getName();
         $exceptDir = str_replace('\\', '/', $exceptDir);
         $packageDir = $library->getInstallPath($package);
         $packageDir = str_replace('\\', '/', $packageDir);
@@ -430,7 +431,7 @@ class BowerInstallerTest extends TestCase
             ->will($this->returnValue('foo-asset/bar'));
 
         /* @var PackageInterface $package */
-        $exceptDir = $this->vendorDir . '/' . $package->getPrettyName() . '/Some/Namespace';
+        $exceptDir = $this->vendorDir.'/'.$package->getPrettyName().'/Some/Namespace';
         $exceptDir = str_replace('\\', '/', $exceptDir);
         $packageDir = $library->getInstallPath($package);
         $packageDir = str_replace('\\', '/', $packageDir);

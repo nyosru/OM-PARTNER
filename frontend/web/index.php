@@ -5,7 +5,7 @@ use common\models\PartnersSettings;
 set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
-ob_start("ob_gzhandler");
+ob_start("ob_gzhandler", 32);
 defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');

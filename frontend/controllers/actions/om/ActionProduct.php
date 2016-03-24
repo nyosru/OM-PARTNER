@@ -24,7 +24,9 @@ trait ActionProduct
                 ->joinWith('productsSpecification')
                 ->joinWith('specificationValuesDescription')
                 ->joinWith('specificationDescription')
-                ->asArray()->groupBy('products_specifications.products_id')->all();
+                ->asArray()->groupBy('products_specifications.products_id')->asArray()->one();
+            $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'] ,'specifications_id');
+            $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'] ,'specification_values_id');
             if ($id > 0) {
                 $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->all();
                 $x=end($x);
@@ -110,7 +112,10 @@ trait ActionProduct
                 ->joinWith('productsSpecification')
                 ->joinWith('specificationValuesDescription')
                 ->joinWith('specificationDescription')
-                ->asArray()->groupBy('products_specifications.products_id')->all();
+                ->asArray()->groupBy('products_specifications.products_id')->asArray()->one();
+            $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'] ,'specifications_id');
+            $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'] ,'specification_values_id');
+
             if ($id > 0) {
                 $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->One();
                 if(!$x['last_modified']){

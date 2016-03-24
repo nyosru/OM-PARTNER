@@ -37,7 +37,7 @@ abstract class NpmPackageUtil
     /**
      * Convert the contributors section.
      *
-     * @param string|null $value The current value
+     * @param string|null $value     The current value
      * @param string|null $prevValue The previous value
      *
      * @return array
@@ -64,7 +64,7 @@ abstract class NpmPackageUtil
     public static function convertDist($value)
     {
         if (is_array($value)) {
-            $data = (array)$value;
+            $data = (array) $value;
             $value = array();
 
             foreach ($data as $type => $url) {

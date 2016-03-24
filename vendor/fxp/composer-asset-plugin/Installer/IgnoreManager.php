@@ -51,7 +51,7 @@ class IgnoreManager
     /**
      * Constructor.
      *
-     * @param string $installDir The install dir
+     * @param string          $installDir The install dir
      * @param Filesystem|null $filesystem The filesystem
      */
     public function __construct($installDir, Filesystem $filesystem = null)
@@ -72,7 +72,7 @@ class IgnoreManager
      */
     public function setEnabled($enabled)
     {
-        $this->enabled = (bool)$enabled;
+        $this->enabled = (bool) $enabled;
 
         return $this;
     }
@@ -148,15 +148,15 @@ class IgnoreManager
     {
         $prefix = 0 === strpos($pattern, '!') ? '!' : '';
         $searchPattern = trim(ltrim($pattern, '!'), '/');
-        $pattern = $prefix . $searchPattern;
+        $pattern = $prefix.$searchPattern;
 
         if (in_array($searchPattern, array('*', '*.*'))) {
-            $this->doAddPattern($prefix . '.*');
+            $this->doAddPattern($prefix.'.*');
         } elseif (0 === strpos($searchPattern, '**/')) {
-            $this->doAddPattern($prefix . '**/' . $searchPattern);
-            $this->doAddPattern($prefix . substr($searchPattern, 3));
+            $this->doAddPattern($prefix.'**/'.$searchPattern);
+            $this->doAddPattern($prefix.substr($searchPattern, 3));
         } elseif ('.*' === $searchPattern) {
-            $this->doAddPattern($prefix . '**/.*');
+            $this->doAddPattern($prefix.'**/.*');
         } elseif (preg_match('/\/\*$|\/\*\*$/', $pattern, $matches)) {
             $this->doAddPattern(substr($pattern, 0, strlen($pattern) - strlen($matches[0])));
         }

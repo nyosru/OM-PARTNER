@@ -28,7 +28,8 @@ class MockVcsDriverWithUrlPackages extends MockVcsDriverWithPackages
         'tag:v1.0.0' => array(
             'version' => '1.0',
         ),
-        'tag:v1.0.1' => array(),
+        'tag:v1.0.1' => array(
+        ),
         'tag:invalid' => array(
             'description' => 'invalid tag name',
         ),

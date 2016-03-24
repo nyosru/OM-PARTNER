@@ -84,7 +84,7 @@ class LazyAssetPackageLoader implements LazyLoaderInterface
      *
      * @param string $identifier
      * @param string $type
-     * @param array $packageData
+     * @param array  $packageData
      */
     public function __construct($type, $identifier, array $packageData)
     {
@@ -157,7 +157,7 @@ class LazyAssetPackageLoader implements LazyLoaderInterface
         $this->validateConfig();
 
         $filename = $this->assetType->getFilename();
-        $msg = 'Reading ' . $filename . ' of <info>' . $package->getName() . '</info> (<comment>' . $package->getPrettyVersion() . '</comment>)';
+        $msg = 'Reading '.$filename.' of <info>'.$package->getName().'</info> (<comment>'.$package->getPrettyVersion().'</comment>)';
         if ($this->verbose) {
             $this->io->write($msg);
         } else {
@@ -205,7 +205,7 @@ class LazyAssetPackageLoader implements LazyLoaderInterface
             $data = $this->preProcess($this->driver, $this->validateData($data), $this->identifier);
 
             if ($this->verbose) {
-                $this->io->write('Importing ' . ($valid ? '' : 'empty ') . $this->type . ' ' . $data['version'] . ' (' . $data['version_normalized'] . ')');
+                $this->io->write('Importing '.($valid ? '' : 'empty ').$this->type.' '.$data['version'].' ('.$data['version_normalized'].')');
             }
 
             /* @var CompletePackageInterface $realPackage */
@@ -213,7 +213,7 @@ class LazyAssetPackageLoader implements LazyLoaderInterface
         } catch (\Exception $e) {
             if ($this->verbose) {
                 $filename = $this->assetType->getFilename();
-                $this->io->write('<' . $this->getIoTag() . '>Skipped ' . $this->type . ' ' . $package->getPrettyVersion() . ', ' . ($e instanceof TransportException ? 'no ' . $filename . ' file was found' : $e->getMessage()) . '</' . $this->getIoTag() . '>');
+                $this->io->write('<'.$this->getIoTag().'>Skipped '.$this->type.' '.$package->getPrettyVersion().', '.($e instanceof TransportException ? 'no '.$filename.' file was found' : $e->getMessage()).'</'.$this->getIoTag().'>');
             }
         }
         $this->driver->cleanup();
@@ -245,8 +245,8 @@ class LazyAssetPackageLoader implements LazyLoaderInterface
      * Pre process the data of package before the conversion to Package instance.
      *
      * @param VcsDriverInterface $driver
-     * @param array $data
-     * @param string $identifier
+     * @param array              $data
+     * @param string             $identifier
      *
      * @return array
      */
@@ -265,7 +265,7 @@ class LazyAssetPackageLoader implements LazyLoaderInterface
             $data['source'] = $driver->getSource($identifier);
         }
 
-        return (array)$data;
+        return  (array) $data;
     }
 
     /**

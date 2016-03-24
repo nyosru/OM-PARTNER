@@ -46,7 +46,7 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
         $driver->cleanup();
 
         if (!$this->getPackages()) {
-            throw new InvalidRepositoryException('No valid ' . $this->assetType->getFilename() . ' was found in any branch or tag of ' . $this->url . ', could not load a package from it.');
+            throw new InvalidRepositoryException('No valid '.$this->assetType->getFilename().' was found in any branch or tag of '.$this->url.', could not load a package from it.');
         }
     }
 
@@ -74,9 +74,9 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
      * Initializes the tag: check if tag must be skipped and validate the tag.
      *
      * @param VcsDriverInterface $driver
-     * @param string $packageName
-     * @param string $tag
-     * @param string $identifier
+     * @param string             $packageName
+     * @param string             $tag
+     * @param string             $identifier
      */
     protected function initTag(VcsDriverInterface $driver, $packageName, $tag, $identifier)
     {
@@ -86,7 +86,7 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
 
         if (!$parsedTag = Validator::validateTag($tag, $this->assetType, $this->versionParser)) {
             if ($this->verbose) {
-                $this->io->write('<warning>Skipped tag ' . $tag . ', invalid tag name</warning>');
+                $this->io->write('<warning>Skipped tag '.$tag.', invalid tag name</warning>');
             }
 
             return;
@@ -99,10 +99,10 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
      * Initializes the tag: convert data and create package.
      *
      * @param VcsDriverInterface $driver
-     * @param string $packageName
-     * @param string $tag
-     * @param string $identifier
-     * @param string $parsedTag
+     * @param string             $packageName
+     * @param string             $tag
+     * @param string             $identifier
+     * @param string             $parsedTag
      */
     protected function initTagAddPackage(VcsDriverInterface $driver, $packageName, $tag, $identifier, $parsedTag)
     {
@@ -112,8 +112,8 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
         $data['version_normalized'] = $parsedTag;
 
         // make sure tag packages have no -dev flag
-        $data['version'] = preg_replace('{[.-]?dev$}i', '', (string)$data['version']);
-        $data['version_normalized'] = preg_replace('{(^dev-|[.-]?dev$)}i', '', (string)$data['version_normalized']);
+        $data['version'] = preg_replace('{[.-]?dev$}i', '', (string) $data['version']);
+        $data['version_normalized'] = preg_replace('{(^dev-|[.-]?dev$)}i', '', (string) $data['version_normalized']);
 
         $packageData = $this->preProcessAsset($data);
         $package = $this->loader->load($packageData, $packageClass);
@@ -150,10 +150,10 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
     /**
      * Pre inits the branch of complete package.
      *
-     * @param VcsDriverInterface $driver The vcs driver
-     * @param array $data The asset package data
-     * @param string $branch The branch name
-     * @param string $identifier The branch identifier
+     * @param VcsDriverInterface $driver     The vcs driver
+     * @param array              $data       The asset package data
+     * @param string             $branch     The branch name
+     * @param string             $identifier The branch identifier
      */
     protected function preInitBranchPackage(VcsDriverInterface $driver, array $data, $branch, $identifier)
     {
@@ -179,9 +179,9 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
     /**
      * Pre inits the branch of lazy package.
      *
-     * @param VcsDriverInterface $driver The vcs driver
-     * @param string $branch The branch name
-     * @param string $identifier The branch identifier
+     * @param VcsDriverInterface $driver     The vcs driver
+     * @param string             $branch     The branch name
+     * @param string             $identifier The branch identifier
      */
     protected function preInitBranchLazyPackage(VcsDriverInterface $driver, $branch, $identifier)
     {
@@ -196,7 +196,7 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
      * Configures the package of branch.
      *
      * @param string $branch The branch name
-     * @param array $data The data
+     * @param array  $data   The data
      *
      * @return array
      */
@@ -206,10 +206,10 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
         $data['version_normalized'] = $parsedBranch;
 
         // make sure branch packages have a dev flag
-        if ('dev-' === substr((string)$parsedBranch, 0, 4) || '9999999-dev' === $parsedBranch) {
-            $data['version'] = 'dev-' . $data['version'];
+        if ('dev-' === substr((string) $parsedBranch, 0, 4) || '9999999-dev' === $parsedBranch) {
+            $data['version'] = 'dev-'.$data['version'];
         } else {
-            $data['version'] = preg_replace('{(\.9{7})+}', '.x', (string)$parsedBranch);
+            $data['version'] = preg_replace('{(\.9{7})+}', '.x', (string) $parsedBranch);
         }
 
         return $data;
@@ -218,10 +218,10 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
     /**
      * Inits the branch of lazy package.
      *
-     * @param VcsDriverInterface $driver The vcs driver
-     * @param array $data The package data
-     * @param string $branch The branch name
-     * @param string $identifier The branch identifier
+     * @param VcsDriverInterface $driver     The vcs driver
+     * @param array              $data       The package data
+     * @param string             $branch     The branch name
+     * @param string             $identifier The branch identifier
      */
     protected function initBranchLazyPackage(VcsDriverInterface $driver, array $data, $branch, $identifier)
     {
@@ -240,9 +240,9 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
      * Include the package in the alias package if the branch is a root branch
      * identifier and having a package version.
      *
-     * @param VcsDriverInterface $driver The vcs driver
-     * @param PackageInterface $package The package instance
-     * @param string $branch The branch name
+     * @param VcsDriverInterface $driver  The vcs driver
+     * @param PackageInterface   $package The package instance
+     * @param string             $branch  The branch name
      *
      * @return PackageInterface|AliasPackage
      */
@@ -268,11 +268,10 @@ class AssetVcsRepository extends AbstractAssetVcsRepository
     protected function normalizeBranchAlias(PackageInterface $package)
     {
         $stability = VersionParser::parseStability($this->versionParser->normalize($this->rootPackageVersion));
-        $aliasNormalized = 'dev-' . $this->rootPackageVersion;
+        $aliasNormalized = 'dev-'.$this->rootPackageVersion;
 
         if (BasePackage::STABILITY_STABLE === BasePackage::$stabilities[$stability]
-            && null === $this->findPackage($package->getName(), $this->rootPackageVersion)
-        ) {
+            && null === $this->findPackage($package->getName(), $this->rootPackageVersion)) {
             $aliasNormalized = $this->versionParser->normalize($this->rootPackageVersion);
         }
 

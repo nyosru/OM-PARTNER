@@ -26,12 +26,12 @@ class Util
     /**
      * Add repository config.
      *
-     * @param IOInterface $io The IO instance
-     * @param RepositoryManager $rm The repository mamanger
-     * @param array $repos The list of already repository added (passed by reference)
-     * @param string $name The name of the new repository
-     * @param array $repoConfig The config of the new repository
-     * @param Pool|null $pool The pool
+     * @param IOInterface       $io         The IO instance
+     * @param RepositoryManager $rm         The repository mamanger
+     * @param array             $repos      The list of already repository added (passed by reference)
+     * @param string            $name       The name of the new repository
+     * @param array             $repoConfig The config of the new repository
+     * @param Pool|null         $pool       The pool
      */
     public static function addRepository(IOInterface $io, RepositoryManager $rm, array &$repos, $name, array $repoConfig, Pool $pool = null)
     {
@@ -42,12 +42,12 @@ class Util
     /**
      * Add repository instance.
      *
-     * @param IOInterface $io The IO instance
-     * @param RepositoryManager $rm The repository mamanger
-     * @param array $repos The list of already repository added (passed by reference)
-     * @param string $name The name of the new repository
-     * @param RepositoryInterface $repo The repository instance
-     * @param Pool|null $pool The pool
+     * @param IOInterface         $io    The IO instance
+     * @param RepositoryManager   $rm    The repository mamanger
+     * @param array               $repos The list of already repository added (passed by reference)
+     * @param string              $name  The name of the new repository
+     * @param RepositoryInterface $repo  The repository instance
+     * @param Pool|null           $pool  The pool
      */
     public static function addRepositoryInstance(IOInterface $io, RepositoryManager $rm, array &$repos, $name, RepositoryInterface $repo, Pool $pool = null)
     {
@@ -97,13 +97,13 @@ class Util
     /**
      * Write the vcs repository name in output console.
      *
-     * @param IOInterface $io The IO instance
-     * @param string $name The vcs repository name
+     * @param IOInterface $io   The IO instance
+     * @param string      $name The vcs repository name
      */
     protected static function writeAddRepository(IOInterface $io, $name)
     {
         if ($io->isVerbose()) {
-            $io->write('Adding VCS repository <comment>' . $name . '</comment>');
+            $io->write('Adding VCS repository <comment>'.$name.'</comment>');
         }
     }
 }

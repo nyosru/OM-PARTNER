@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 (function () {
     function y(a) {
         for (var a = a.toUpperCase(), c = z.length, b = 0, f = 0; f < c; ++f)for (var d = z[f], e = d[1].length; a.substr(0, e) == d[1]; a = a.substr(e))b += d[0];

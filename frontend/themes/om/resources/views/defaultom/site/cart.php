@@ -1,15 +1,25 @@
 <?php
 
 $this -> title = 'Корзина';
-//echo '<pre>';
-//print_r($addr);
-//echo '</pre>';
-//die();
+
 $del_add='<select id="shipaddr" name="address">';
 foreach($addr as $key=>$value){
-    $del_add.='<option value="'.$key.'">'.$value.'</option>';
+    if($key != $default) {
+        $options .= '<option value="' . $key . '">' . $value . '</option>';
+    }else{
+        $first .= '<option value="' . $key . '">' . $value . '</option>';
+    }
+    }
+$plusorders_add='<select id="plusorders" name="plusorders">';
+foreach($plusorders as $key=>$value){
+
+    $plusorders_add .= '<option value="' . $value['orders_id'] . '">' . $value['orders_id'] . '</option>';
+
 }
-$del_add.='</select>';
+$plusorders_add .= '</select>';
+$del_add .= $first;
+$del_add .= $options;
+$del_add .= '</select>';
 
 //$man = $this->manufacturers_diapazon_id();
 //$validprice = 0;
@@ -79,13 +89,13 @@ $(document).on('ready', function () {
                 $access = 'В данный момент товар отсутствует' ;
                 $identypay = false;
             }else if(JSON.parse(mandata.responseText).answer == false){
-                $access = 'Данный товар в данный момент недоступен для заказа';
+                $access = 'К сожалению, товар в данный момент недоступен для оформления. Он останется в вашей корзине. Время оформления для данного товара вы можете посмотреть <a data-ajax=time data-href="'+requestdata.responseJSON.product.products.manufacturers_id+'">тут</a>';
                 $identypay = false;
                 }else{
                 $access = 'Данный товар доступен для заказа';
                 $identypay = true;
             }
-            $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="width: 100%; float: left; height: auto; padding: 10px 0px 10px 10px; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204);">' +
+            $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c++) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
                 '<div class = "access '+$identypay+'" >'+$access+'</div>'+
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></div>' +
                 '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
@@ -115,24 +125,73 @@ $(document).on('ready', function () {
                 'data-id="'+$c+'">' +
                 '   <div id="add-count" style="float: left; line-height:1.5;">+</div></div>' +
                 '</div></div>' +
-                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div></div>';
+                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
+                '</div>'+
+                '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
+                '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
+                '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
+                '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+                '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+                'Добавить комментарий к этому товару <i class="fa fa-caret-down"></i>' +
+                '</div>' +
+                ' </div>' +
+                '</a>'+
+                '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+                '<div class="panel-body" style="padding: 0px 5px;">' +
+                '<div style="padding: 10px 0px;">' +
+                '<textarea style="width: 100%;" ></textarea>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'+
+                '</div>';
         });
         $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">' +
-                        '<div class="wrap-cart" style="height:150px; border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
-            '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>' +
-            '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style="min-width: 530px;"><?=$del_add?></div></div>'+
-                        '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style="min-width: 530px;"></div></div>' +
+                        '<div class="wrap-cart" style=" border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
+            '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
+
+        <?php
+           if(!Yii::$app->user->isGuest){?>
+        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
+        <? }else { ?>
+        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
+        <?}?>
+        $innerhtml+=               '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>' +
                         '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
                             '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
                             '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
-                            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
+            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
+
                         '</div>';
+        $innerhtml+=  '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
+        '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
+        '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
+        '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+        'Добавить комментарий к этому заказу <i class="fa fa-caret-down"></i>' +
+        '</div>' +
+        ' </div>' +
+        '</a>'+
+        '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+        '<div class="panel-body" style="padding: 0px 5px;">' +
+        '<div style="padding: 10px 0px;">' +
+        '<textarea style="width: 100%;" ></textarea>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+        <?php if(!Yii::$app->user->isGuest && $plusorders_add ){?>
+        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 40%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; "><input name="order-type" type="radio" checked="checked" value="new"/>Новый заказ<div>Минимальная сумма заказа 5000р.</div></div><div class="plusorder" style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 60%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px;"><input name="order-type" type="radio" value="plus"/>Оформить как дозаказ к заказу:<div class="plusorder" style="display: inline-block;"><?= $plusorders_add?></div><div>Минимальная сумма заказа 1000р.</div></div></div>';
+        <? }else { ?>
+        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;">Заказ будет оформлен как новый<div>Минимальная сумма заказа 5000р.</div></div></div>';
+        <?}?>
         if($i.length>0){
             <?php
             if(!Yii::$app->user->isGuest){?>
             $innerhtml+='<span class="cart-auth" style="display: block; overflow: hidden;">' +
+
                 '<a class="save-order" style="display: block;position: relative" href="<?=BASEURL;?>/cart?action=1">Оформить заказ</a>' +
                 '</span></form></div>';
             <? }else { ?>
@@ -148,7 +207,7 @@ $(document).on('ready', function () {
                             $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
                         }
                     });
-                    $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" id="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
+                    $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" class="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
                     $('.cart-auth').remove();
                     $.post(
                         "/site/paymentmethod",
@@ -190,20 +249,6 @@ $(document).ready(function () {
 });
 
 
-$(document).on('change', '#shipping-confirm', function () {
-    $('#shipping-confirm option').filter(function (index) {
-        if ($(this).val() == '') {
-            return $(this)
-        }
-    }).remove();
-    $.post(
-        "/site/requestadress",
-        {ship: $('#shipping-confirm option:selected')[0].getAttribute('data-pasp'),
-        id:$('#shipaddr option:selected')[0].getAttribute('value')},
-        onAjaxSuccessinfo
-    );
-});
-
 //$(document).on('load change click','.num-of-items', );
 //$(document).on('ready', function () {
 //    var overprice=0;
@@ -227,8 +272,11 @@ $(document).on('change click','.num-of-items',function () {
         if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
             $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
         }
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
+        $(this).attr('');
+        if($(this).attr('data-calc') == "true") {
+            var c = ((parseFloat($(this).find('#input-count').val())) * (parseFloat($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        }
     });
     $('#gods-price').html(godsprice+' руб');
     $('#total-price').html(godsprice+wrapprice+' руб');
@@ -246,8 +294,10 @@ $(document).on('ready', function () {
         if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
             $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
         }
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
+        if($(this).attr('data-calc') == "true") {
+            var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        }
     });
     $('#gods-price').html(godsprice+' руб');
     $('#total-price').html(godsprice+wrapprice+' руб');
@@ -266,12 +316,47 @@ $(document).on('click','.wrap-select', function () {
 //            alert('Количество товара '+$(this).find('#gods-name').text()+', '+$(this).find('.artik').text()+' '+$(this).find('.cart-attr').text()+ ' меньше минимума. Минимальная партия - '+$(this).find('#add-count').attr('data-min')+' шт.')
             $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
         }
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
+        if($(this).attr('data-calc') == "true") {
+            var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        }
     });
     $('#gods-price').html(godsprice+' руб');
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice+' руб');
 });
 
+$(document).on('change', '.shipping-confirm, #shipaddr', function () {
+    $('.shipping-confirm option').filter(function (index) {
+        if ($(this).val() == '') {
+            return $(this)
+        }
+    }).remove();
+    $.post(
+        "/site/requestadress",
+        {ship: $('.shipping-confirm option:selected')[0].getAttribute('data-pasp'),
+            id:$('#shipaddr option:selected')[0].getAttribute('value')},
+        onAjaxSuccessinfo
+    );
+});
+$(document).on('click', '.panel  > a',  function(){
+    console.log($(this));
+    if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
+        $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+        'Добавить комментарий <i class="fa fa-caret-down"></i>' +
+        '</div>' +
+        ' </div>');
+        $(this).siblings().filter('.filter-cont').removeClass('in');
+    }else{
+        $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+        'Добавить комментарий <i class="fa fa-caret-up"></i>' +
+        '</div>' +
+        ' </div>');
+        $(this).find(':first-child').addClass('no-border-bottom-rad');
+        $(this).siblings().filter('.filter-cont').addClass('in');
+    }
+});
 </script>
+<?

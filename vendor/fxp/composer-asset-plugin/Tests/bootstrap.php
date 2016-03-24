@@ -9,5 +9,5 @@
  * file that was distributed with this source code.
  */
 
-require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../vendor/composer/composer/tests/Composer/TestCase.php';
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../vendor/composer/composer/tests/Composer/TestCase.php';

@@ -140,8 +140,8 @@ class FxpAssetPlugin implements PluginInterface, EventSubscriberInterface
      * Adds asset vcs repositories.
      *
      * @param RepositoryManager $rm
-     * @param array $repositories
-     * @param Pool|null $pool
+     * @param array             $repositories
+     * @param Pool|null         $pool
      *
      * @throws \UnexpectedValueException When config of repository is not an array
      * @throws \UnexpectedValueException When the config of repository has not a type defined
@@ -167,18 +167,18 @@ class FxpAssetPlugin implements PluginInterface, EventSubscriberInterface
     /**
      * Validates the config of repositories.
      *
-     * @param int|string $index The index
-     * @param mixed|array $repo The config repo
+     * @param int|string  $index The index
+     * @param mixed|array $repo  The config repo
      *
      * @throws \UnexpectedValueException
      */
     protected function validateRepositories($index, $repo)
     {
         if (!is_array($repo)) {
-            throw new \UnexpectedValueException('Repository ' . $index . ' (' . json_encode($repo) . ') should be an array, ' . gettype($repo) . ' given');
+            throw new \UnexpectedValueException('Repository '.$index.' ('.json_encode($repo).') should be an array, '.gettype($repo).' given');
         }
         if (!isset($repo['type'])) {
-            throw new \UnexpectedValueException('Repository ' . $index . ' (' . json_encode($repo) . ') must have a type defined');
+            throw new \UnexpectedValueException('Repository '.$index.' ('.json_encode($repo).') must have a type defined');
         }
 
         $this->validatePackageRepositories($index, $repo);
@@ -188,8 +188,8 @@ class FxpAssetPlugin implements PluginInterface, EventSubscriberInterface
     /**
      * Validates the config of package repositories.
      *
-     * @param int|string $index The index
-     * @param mixed|array $repo The config repo
+     * @param int|string  $index The index
+     * @param mixed|array $repo  The config repo
      *
      * @throws \UnexpectedValueException
      */
@@ -200,12 +200,12 @@ class FxpAssetPlugin implements PluginInterface, EventSubscriberInterface
         }
 
         if (!isset($repo['package'])) {
-            throw new \UnexpectedValueException('Repository ' . $index . ' (' . json_encode($repo) . ') must have a package definition"');
+            throw new \UnexpectedValueException('Repository '.$index.' ('.json_encode($repo).') must have a package definition"');
         }
 
         foreach (array('name', 'type', 'version', 'dist') as $key) {
             if (!isset($repo['package'][$key])) {
-                throw new \UnexpectedValueException('Repository ' . $index . ' (' . json_encode($repo) . ') must have the "' . $key . '" key  in the package definition"');
+                throw new \UnexpectedValueException('Repository '.$index.' ('.json_encode($repo).') must have the "'.$key.'" key  in the package definition"');
             }
         }
     }
@@ -213,8 +213,8 @@ class FxpAssetPlugin implements PluginInterface, EventSubscriberInterface
     /**
      * Validates the config of vcs repositories.
      *
-     * @param int|string $index The index
-     * @param mixed|array $repo The config repo
+     * @param int|string  $index The index
+     * @param mixed|array $repo  The config repo
      *
      * @throws \UnexpectedValueException
      */
@@ -225,10 +225,10 @@ class FxpAssetPlugin implements PluginInterface, EventSubscriberInterface
         }
 
         if (false === strpos($repo['type'], '-')) {
-            throw new \UnexpectedValueException('Repository ' . $index . ' (' . json_encode($repo) . ') must have a type defined in this way: "%asset-type%-%type%"');
+            throw new \UnexpectedValueException('Repository '.$index.' ('.json_encode($repo).') must have a type defined in this way: "%asset-type%-%type%"');
         }
         if (!isset($repo['url'])) {
-            throw new \UnexpectedValueException('Repository ' . $index . ' (' . json_encode($repo) . ') must have a url defined');
+            throw new \UnexpectedValueException('Repository '.$index.' ('.json_encode($repo).') must have a url defined');
         }
     }
 }

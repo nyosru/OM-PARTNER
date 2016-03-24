@@ -53,8 +53,8 @@ class MockVcsDriverWithPackages extends MockVcsDriver
      */
     public function hasComposerFile($identifier)
     {
-        return isset($this->composer['branch:' . $identifier])
-        || isset($this->composer['tag:' . $identifier]);
+        return isset($this->composer['branch:'.$identifier])
+            || isset($this->composer['tag:'.$identifier]);
     }
 
     /**
@@ -63,10 +63,10 @@ class MockVcsDriverWithPackages extends MockVcsDriver
     public function getComposerInformation($identifier)
     {
         if ($this->hasComposerFile($identifier)) {
-            if (isset($this->composer['branch:' . $identifier])) {
-                return $this->composer['branch:' . $identifier];
-            } elseif (isset($this->composer['tag:' . $identifier])) {
-                return $this->composer['tag:' . $identifier];
+            if (isset($this->composer['branch:'.$identifier])) {
+                return $this->composer['branch:'.$identifier];
+            } elseif (isset($this->composer['tag:'.$identifier])) {
+                return $this->composer['tag:'.$identifier];
             }
         }
 
@@ -99,7 +99,7 @@ class MockVcsDriverWithPackages extends MockVcsDriver
         $packages = array();
 
         foreach ($this->composer as $name => $data) {
-            if (0 === strpos($name, $type . ':')) {
+            if (0 === strpos($name, $type.':')) {
                 $name = substr($name, strpos($name, ':') + 1);
                 $packages[$name] = $data;
             }

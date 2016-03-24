@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 CKEDITOR.dialog.add("hiddenfield", function (d) {
     return {
         title: d.lang.forms.hidden.title, hiddenField: null, minWidth: 350, minHeight: 110, onShow: function () {

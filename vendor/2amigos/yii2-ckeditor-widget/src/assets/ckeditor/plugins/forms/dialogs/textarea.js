@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 CKEDITOR.dialog.add("textarea", function (b) {
     return {
         title: b.lang.forms.textarea.title, minWidth: 350, minHeight: 220, onShow: function () {

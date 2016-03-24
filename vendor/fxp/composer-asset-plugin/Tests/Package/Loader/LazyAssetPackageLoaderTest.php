@@ -129,7 +129,7 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function ($value) {
                 return array(
                     'type' => 'vcs',
-                    'url' => 'http://foobar.tld/dist/' . $value,
+                    'url' => 'http://foobar.tld/dist/'.$value,
                 );
             }));
         $this->driver
@@ -138,7 +138,7 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function ($value) {
                 return array(
                     'type' => 'vcs',
-                    'url' => 'http://foobar.tld/source/' . $value,
+                    'url' => 'http://foobar.tld/source/'.$value,
                 );
             }));
     }
@@ -154,18 +154,22 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
         $this->lazyLoader = null;
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The "assetType" property must be defined
+     */
     public function testMissingAssetType()
     {
-        $this->setExpectedException('InvalidArgumentException', 'The "assetType" property must be defined');
-
         $loader = $this->createLazyLoader('TYPE');
         $loader->load($this->lazyPackage);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The "loader" property must be defined
+     */
     public function testMissingLoader()
     {
-        $this->setExpectedException('InvalidArgumentException', 'The "loader" property must be defined');
-
         /* @var AssetTypeInterface $assetType */
         $assetType = $this->assetType;
         $loader = $this->createLazyLoader('TYPE');
@@ -173,10 +177,12 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
         $loader->load($this->lazyPackage);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The "driver" property must be defined
+     */
     public function testMissingDriver()
     {
-        $this->setExpectedException('InvalidArgumentException', 'The "driver" property must be defined');
-
         /* @var AssetTypeInterface $assetType */
         $assetType = $this->assetType;
         /* @var LoaderInterface $cLoader */
@@ -189,10 +195,12 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
         $loader->load($lazyPackage);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The "io" property must be defined
+     */
     public function testMissingIo()
     {
-        $this->setExpectedException('InvalidArgumentException', 'The "io" property must be defined');
-
         /* @var AssetTypeInterface $assetType */
         $assetType = $this->assetType;
         /* @var LoaderInterface $cLoader */
@@ -245,8 +253,8 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
 
         if ($verbose) {
             $validOutput = array(
-                'Reading ' . $filename . ' of <info>' . $this->lazyPackage->getName() . '</info> (<comment>' . $this->lazyPackage->getPrettyVersion() . '</comment>)',
-                'Importing empty TYPE ' . $this->lazyPackage->getPrettyVersion() . ' (' . $this->lazyPackage->getVersion() . ')',
+                'Reading '.$filename.' of <info>'.$this->lazyPackage->getName().'</info> (<comment>'.$this->lazyPackage->getPrettyVersion().'</comment>)',
+                'Importing empty TYPE '.$this->lazyPackage->getPrettyVersion().' ('.$this->lazyPackage->getVersion().')',
                 '',
             );
         }
@@ -309,8 +317,8 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
 
         if ($verbose) {
             $validOutput = array(
-                'Reading ' . $filename . ' of <info>' . $this->lazyPackage->getName() . '</info> (<comment>' . $this->lazyPackage->getPrettyVersion() . '</comment>)',
-                'Importing TYPE' . ' ' . $this->lazyPackage->getPrettyVersion() . ' (' . $this->lazyPackage->getVersion() . ')',
+                'Reading '.$filename.' of <info>'.$this->lazyPackage->getName().'</info> (<comment>'.$this->lazyPackage->getPrettyVersion().'</comment>)',
+                'Importing TYPE'.' '.$this->lazyPackage->getPrettyVersion().' ('.$this->lazyPackage->getVersion().')',
                 '',
             );
         }
@@ -340,7 +348,7 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param string $type
-     * @param bool $verbose
+     * @param bool   $verbose
      * @param string $exceptionClass
      * @param string $validTrace
      *
@@ -365,8 +373,8 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
 
         if ($verbose) {
             $validOutput = array(
-                'Reading ' . $filename . ' of <info>' . $this->lazyPackage->getName() . '</info> (<comment>' . $this->lazyPackage->getPrettyVersion() . '</comment>)',
-                'Importing empty ' . $type . ' ' . $this->lazyPackage->getPrettyVersion() . ' (' . $this->lazyPackage->getVersion() . ')',
+                'Reading '.$filename.' of <info>'.$this->lazyPackage->getName().'</info> (<comment>'.$this->lazyPackage->getPrettyVersion().'</comment>)',
+                'Importing empty '.$type.' '.$this->lazyPackage->getPrettyVersion().' ('.$this->lazyPackage->getVersion().')',
                 $validTrace,
                 '',
             );
@@ -382,7 +390,7 @@ class LazyAssetPackageLoaderTest extends \PHPUnit_Framework_TestCase
      * Creates the lazy asset package loader with full configuration.
      *
      * @param string $type
-     * @param bool $verbose
+     * @param bool   $verbose
      *
      * @return LazyAssetPackageLoader
      */

@@ -145,7 +145,7 @@ if ($data[0] != 'Не найдено!') {
 //        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
 //        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
 //    }
-    $countdisp = [48, 96, 144];
+    $countdisp = [60, 120, 180];
     $innercount = '';
     foreach ($countdisp as $key => $countdisp) {
         if ($countdisp == $count) {
@@ -373,11 +373,11 @@ if ($data[0] != 'Не найдено!') {
         $options_name = 'Количество';
         }
         if(array_key_exists($product['manufacturers_id'],$man_time)){
-            $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.BASEURL.'/timeorderproducts?id='.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
+            $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
         }else{
             $man_time_list = '';
         }
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="#' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
+        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' .
             '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
@@ -475,7 +475,7 @@ if ($data[0] != 'Не найдено!') {
 }
 
 ?>
-    <div id="modal-product">
+    <div id="modal-product" style="border:none; min-height: 300px;">
         <span id="modal-close"><i class="fa fa-times"></i></span>
     </div>
     <div id="overlay"></div>
@@ -488,7 +488,7 @@ if ($data[0] != 'Не найдено!') {
     $(document).on('ready', function( event, ui){
         $('#min-ev-price').val('<?=$data[7]?>');
         $('#max-ev-price').val('<?=(integer)$data[2]['maxprice']?>');
-
+        if($('.filter').length >0){
         var HeaderTop = $('.filter').offset().top;
         $(window).scroll(function () {
             if ($(window).scrollTop() > HeaderTop) {
@@ -501,7 +501,7 @@ if ($data[0] != 'Не найдено!') {
                 //  $('.cart-dialog-info').removeClass('fixeddialog');
             }
         });
-
+       }
 
     });
     $(document).on('click', '.reset-filter',  function( event, ui){
@@ -552,62 +552,198 @@ if ($data[0] != 'Не найдено!') {
 
     $(document).on('click','#prod-info',function(){
         var dp=$(this).attr('data-prod');
-        
+
         $prod_html='';
         $size_html='';
         $spec_html='';
 
         $.post('/site/product',{id: dp},function(data){
-            console.log(data['spec']);
-            $spec_html='<div class="spec" style="margin-top:25px; margin-bottom:80px;">';
-            $.each(data['spec'][0]['specificationDescription'],function(i,item){
-                $spec_html+=item['specification_name']+': '+data['spec'][0]['specificationValuesDescription'][i]['specification_value']+'<br/>';
+//           console.log(data['spec']);
+            $spec_html='<div class="spec" style="margin-top:25px; ">';
+            $.each(data['spec'].productsSpecification,function(i,item){
+    if(typeof(data['spec']['specificationDescription'][item.specifications_id])!="undefined"){
+       $spec_html+= data['spec']['specificationDescription'][item.specifications_id]['specification_name']+': ';
+                }else{
+                $spec_html+='Параметр: ';
+                }
+                 if(typeof(data['spec']['specificationValuesDescription'][item.specification_values_id])!="undefined"){
+                  $spec_html+= data['spec']['specificationValuesDescription'][item.specification_values_id]['specification_value']+'<br/>';
+                 }else{
+                 $spec_html+= 'Не указан<br/>';
+                 }
+
+
+
             });
 
             $spec_html+='</div>';
-            $size_html+='<div data-sale="'+data.product.products_id+'" class="cart-lable">В корзину</div>';
+            $size_html+='<div data-sale="'+data.product.products_id+'" class="cart-lable" style="left:0">В корзину</div>';
             $imgs=new Array('/site/imagepreview?src='+data['product']['products']['products_id']);
             $imgs2=new Array(data['product']['products']['products_image']);
             $miniimg='';
             $bigimg='';
+          //  console.log(data);
             $.each($imgs,function(i,item){
-                $miniimg+='<div id="carousel-selector-' + i + '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="width: 100%; display: block; margin: auto;" src="' + item + '"/></div>';
+                $miniimg+='<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if(i==0){
-                    $bigimg+='<div class="item active"><img src='+item+'></div>';
+                    $bigimg+='<div class="item active"><div style="position: absolute; bottom: 0;"><a href="http://odezhda-master.ru/images/'+data.product.products.products_image+'"><img src="/images/logo/download.png" /></a></div><img style="border:1px solid #cccccc; border-radius:4px;" src='+item+'></div>';
                 }
                 else{
-                    $bigimg+='<div class="item"><img src='+item+'></div>';
+                    $bigimg+='<div class="item"><img style="border:1px solid #cccccc; border-radius:4px;" src='+item+'></div>';
                 }
 
             });
+
             $size_html+='<div class="size-block" style="overflow: hidden;margin-bottom: 38px; width: 340px;">';
             $baseduri=window.location.hostname;
-            console.log(data);
 
-                $.each(data.product.productsAttributesDescr, function(i,item){
-                    if(data.product.products.products_quantity > 0){
+            if(typeof (data.product.productsAttributesDescr.keys) == "undefined") {
+
+                $.each(data.product.productsAttributesDescr, function (i, item) {
+                    if (data.product.products.products_quantity > 0) {
                         $classpos = 'active-options';
                         $add_class = 'add-count';
                         $del_class = 'del-count';
                         $inputpos = '';
                         $some_text = 0;
-                    }else{
+                    } else {
                         $classpos = 'disable-options';
                         $inputpos = 'readonly';
                         $add_class = 'add-count-dis';
                         $del_class = 'del-count-dis';
-                        $some_text = 'Нет';
+                        $some_text = '';
                     }
 
-                    $size_html+='<div class="'+$classpos+'" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+item.products_options_values_name+'</div>';
-                    $size_html+='<input '+$inputpos+' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="'+data.product.products_id+'" data-name="'+data.product.productsDescription.products_name+'" data-model="'+data.product.products.products_model+'" data-price="'+parseInt(data.product.products.products_price)+'" data-image="'+data.product.products.products_image+'" data-count="'+data.product.products.products_quantity+'" data-step="'+data.product.products.products_quantity_order_units+'" data-min="'+data.product.products.products_quantity_order_min+'" data-attrname="'+data.product.productsAttributesDescr[i].products_options_values_name+'" data-attr="'+i+'" placeholder="'+$some_text+'" type="text">';
-                    $size_html+='<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">+</div><div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
+                    $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 3px ;">' + item.products_options_values_name + '</div>';
+                //   $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 5px;">' + item.products_options_values_name + '</div>';
+                    $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + parseInt(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="" placeholder="' + $some_text + '" type="text">';
+                    $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
                 });
 
-            $prod_html+='<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;"><div class="prod-show" style="position: relative; float: left;width: 100%; right: 50%"><div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 500px;"><div class="prod-img" style="overflow: hidden; margin-bottom: 10px;"><div class="mini-img" style="float: left; width: 20%; ">'+$miniimg+'</div>';
-            $prod_html+='<div style="float: right; width: 63%; min-width: 380px;"><div id="carousel" class="carousel slide"><div class="carousel-inner">'+$bigimg+'</div></div><div class="social" style="height: 50px; bottom: 0px; width: 100%;position: relative"><div style="font-size: 14px;font-weight: 300; float: left; width: 100px; margin-top:10px;text-align: left;position: relative;left:0px;">Поделиться:</div><div title="Поделиться в социальной сети" class="item-social" style="float: left;width: 150px; font-size: 18px; position: absolute;right:75px;"><div class="social social-vk"><a href="http://vk.com/share.php?url=http://'+$baseduri+'/site/product?id='+dp+'&description='+parseInt(data['product']['products']['products_price'])+' руб."><i class="fa fa-vk"></i></a></div><div class="social social-odnokl"><a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://'+$baseduri+'/site/product?id='+dp+'&st.comments="><i class="fa fa-odnoklassniki"></i></a></div><div class="social social-fb"><a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://'+$baseduri+'/site/product?id='+dp+'&p[summary]='+parseInt(data['product']['products']['products_price'])+'%20Руб.&p[title]="><i class="fa fa-facebook"></i></a></div><div class="social social-tw"><a href="http://twitter.com/share?url=http://' +$baseduri+ '/site/product?id='+dp+'&title=' +parseInt(data['product']['products']['products_price'])+'"><i class="fa fa-twitter"></i></a></div><div class="social social-mail"><a href="http://connect.mail.ru/share?url=http://' +$baseduri+'/site/product?id='+dp+'&description='+parseInt(data['product']['products']['products_price'])+'%20Руб.&title="><i class="fa fa-at"></i></a></div><div class="social social-google"><a href="https://plus.google.com/share?url=http://'+$baseduri+'/site/product?id='+dp+'"><i style="font-size:13px;" class="fa fa-google-plus"></i></a></div></div></div></div></div></div>';
-            $prod_html+='<div class="col2" style="float: left;width: 340px;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;"><div style="font-family: \'Roboto\', sans-serif; font-weight: 300;"><div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: '+data['product']['products']['products_model']+'</div><div style="clear: both;"></div><div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">Минимальный оптовый заказ: '+data['product']['products']['products_quantity_order_min']+' шт.</div><div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">'+data['product']['productsDescription']['products_name']+'</div><div itemprop="category" class="model" style="display:none"></div><a itemprop="url" href="/glavnaya/product?id='+dp+'"></a></div><div class="prod-pricing" style="margin-bottom: 25px;"><div class="prod-price-lable" style="clear: both; font-size: 12px; margin-bottom: 7px;text-align:left;">Цена</div><div class="prod-price" itemprop="price" style="float: left; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;">'+parseInt(data['product']['products']['products_price'])+' руб</div><div style="clear: both"></div><div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;">'+$size_html+'</div><div class="prod-compos" style="font-size: 12px;"><br/><div itemprop="description" id="prd" style="display: block; width: 333px; font-size: 12px !important; font-weight: 400 !important; ">'+data.product.productsDescription.products_description+'<br/>'+$spec_html+'</div></div></div></div></div></div>';
-            $('#modal-product').html('<span id="modal-close"><i class="fa fa-times" style="font-size:24px; color:#ea516d;"></i></span>'+$prod_html);
+            } else {
+
+                if (data.product.products.products_quantity > 0) {
+                    $classpos = 'active-options';
+                    $add_class = 'add-count';
+                    $del_class = 'del-count';
+                    $inputpos = '';
+                    $some_text = 0;
+                } else {
+                    $classpos = 'disable-options';
+                    $inputpos = 'readonly';
+                    $add_class = 'add-count-dis';
+                    $del_class = 'del-count-dis';
+                    $some_text = '';
+                }
+                $size_html+='<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;">' +
+                                '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;">' +
+                                    '<div style="margin: auto; width: 100%;">'+
+                                        '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + parseInt(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="" data-attr="" placeholder="' + $some_text + '" type="text" />'+
+                                            '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">' +
+                                            '+</div>' +
+                                            '<div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-' +
+                                            '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>';
+            }
+$size_html += '</div>' ;
+            $prod_html+='<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;">' +
+                             '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
+                                '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:10px;">' +
+                                    '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px;">' +
+                                        '<div style=" min-width: 380px;">' +
+                                            '<div id="carousel" class="carousel slide">' +
+                                                '<div class="carousel-inner">'+
+                                                    $bigimg+
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="mini-img">'+
+                                            $miniimg+
+                                        '</div>'+
+                                    '</div>' +
+                                '</div>'+
+                                '<div class="col2" style="float: left;width: 340px;position: relative; overflow: hidden;line-height: 1; color: black; font-weight: 400;">' +
+                                    '<div style=" font-weight: 300;">' +
+                                        '<div itemprop="model" class="prod-code" style="width: 100%;float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">' +
+                                            'Код товара: '+data['product']['products']['products_model']+
+                                        '</div>' +
+                                        '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
+                                            'Минимальный оптовый заказ: '+data['product']['products']['products_quantity_order_min']+' шт.' +
+                                        '</div>' +
+                                        '<div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">'+
+                                            data['product']['productsDescription']['products_name']+
+                                        '</div>' +
+                                        '<a itemprop="url" href="/glavnaya/product?id='+dp+'">' +
+                                        '</a>' +
+                                    '</div>' +
+                                    '<div class="prod-pricing" style="margin-bottom: 25px;">' +
+                                        '<div style="overflow: hidden;">' +
+                                            '<div class="prod-price-lable" style="font-size: 12px; margin-bottom: 7px;text-align:left;float: left;line-height: 3;">' +
+                                                'Цена' +
+                                            '</div>' +
+                                            '<div class="prod-price" itemprop="price" style="float: right; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;">'+
+                                                parseFloat(data['product']['products']['products_price'])+' руб' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div style="margin-bottom: 20px;">' +
+                                            '<span>' +
+                                                'Размеры' +
+                                            '</span>' +
+                                            '<i style="margin-left: 20px; color:#00a5a1;" class="fa fa-angle-down">' +
+                                            '</i>' +
+                                        '</div>' +
+                                        '<div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;padding-bottom: 12px;">'+
+                                            $size_html+
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                             '</div>' +
+                             '<div class="prod-compos" style="font-size: 12px; width:100%;float: left;padding-left: 10px;">' +
+                                '<div itemprop="description" id="prd" style="display: block; width: 333px; font-size: 12px !important; font-weight: 400 !important; ">'+
+                                    data.product.productsDescription.products_description+' '+$spec_html+'' +
+                                '</div>' +
+                                '<div>' +
+                                    '<a href="/site/product?id='+data.product.products_id+'" style="color:#007BC1;font-weight: 600;">' +
+                                        'Перейти в полное описание товара' +
+                                    '</a>' +
+                                    '<span style="float: right;padding-right: 10px;">' +
+                                        'Добавлено: '+data.product.products.products_date_added+
+                                    '</span>' +
+                                '</div>' +
+                             '</div>'+
+                          '</div>';
+
+           $current = $('[itemid='+data.product.products.products_id+']').attr('itemid');
+           $prev = $('[itemid='+data.product.products.products_id+']').prev().attr('itemid');
+           $next = $('[itemid='+data.product.products.products_id+']').next().attr('itemid');
+           if(typeof($next) != "undefined" ){
+                $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="'+$next+'" id="prod-info"></i>' +
+                '</div>';
+           }else{
+                $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="'+$current+'" id="prod-info"></i>' +
+                '</div>';
+           }
+
+
+           if(typeof($prev) != "undefined" ){
+            $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="'+$prev+'" id="prod-info"></i>' +
+                '</div>';
+           }else{
+            $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="'+$current+'" id="prod-info"></i>' +
+                '</div>';
+           }
+
+
+            $('#modal-product').html(
+                '<span id="modal-close">' +
+                    '<i class="fa fa-times" style="font-size:24px;"></i>' +
+                '</span>'+$prod_html+'' + $prevlink +''+ $nextlink );
         });
 
 
@@ -623,22 +759,6 @@ if ($data[0] != 'Не найдено!') {
             .css('display','none')
     })
     </script>
- <script>
-        $(document).on('click', '[data-ajax=time]', function(){
-            $.post($(this).attr('data-href'), function( data ) {
-         //   console.log($('#time'));
-            if($("#time").length) {
-            $('#time').html(data);
-            }else{
-            $('.bside').append('<div id="time" style="display: none;">'+data+'</div>');
-            }
-            $('#time').show();
-            });
-        });
-        $(document).on('click', '.close-modal', function(){
-           $(this).parents().find('#time').hide();
-           });
 
-        </script>
 
 <?

@@ -66,7 +66,7 @@ class LazyCompletePackageTest extends \PHPUnit_Framework_TestCase
                 ->method('load')
                 ->will($this->returnValue($lp));
 
-            /* @var LazyLoaderInterface $loader */
+            /* @var LazyLoaderInterface$loader */
             $this->package->setLoader($loader);
         }
 

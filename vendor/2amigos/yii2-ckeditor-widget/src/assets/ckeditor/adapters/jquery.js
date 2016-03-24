@@ -1,7 +1,4 @@
-﻿/*
- Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
- */
+﻿
 (function (a) {
     CKEDITOR.config.jqueryOverrideVal = "undefined" == typeof CKEDITOR.config.jqueryOverrideVal ? !0 : CKEDITOR.config.jqueryOverrideVal;
     "undefined" != typeof a && (a.extend(a.fn, {

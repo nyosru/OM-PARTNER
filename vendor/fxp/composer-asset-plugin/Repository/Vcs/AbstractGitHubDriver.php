@@ -36,8 +36,8 @@ abstract class AbstractGitHubDriver extends BaseGitHubDriver
     /**
      * Get the remote content.
      *
-     * @param string $url The URL of content
-     * @param bool $fetchingRepoData Fetching the repo data or not
+     * @param string $url              The URL of content
+     * @param bool   $fetchingRepoData Fetching the repo data or not
      *
      * @return mixed The result
      */
@@ -75,7 +75,7 @@ abstract class AbstractGitHubDriver extends BaseGitHubDriver
         }
 
         if (is_string($this->redirectApi) && 0 === strpos($url, $this->getRepositoryApiUrl())) {
-            $url = $this->redirectApi . substr($url, strlen($this->getRepositoryApiUrl()));
+            $url = $this->redirectApi.substr($url, strlen($this->getRepositoryApiUrl()));
         }
 
         return $url;
@@ -164,7 +164,7 @@ abstract class AbstractGitHubDriver extends BaseGitHubDriver
         $owner = null !== $owner ? $owner : $this->owner;
         $repository = null !== $repository ? $repository : $this->repository;
 
-        return $this->getApiUrl() . '/repos/' . $owner . '/' . $repository;
+        return $this->getApiUrl().'/repos/'.$owner.'/'.$repository;
     }
 
     /**
@@ -190,7 +190,7 @@ abstract class AbstractGitHubDriver extends BaseGitHubDriver
 
         if (null === $this->branches) {
             $this->branches = array();
-            $resource = $this->getApiUrl() . '/repos/' . $this->owner . '/' . $this->repository . '/git/refs/heads?per_page=100';
+            $resource = $this->getApiUrl().'/repos/'.$this->owner.'/'.$this->repository.'/git/refs/heads?per_page=100';
             $branchBlacklist = 'gh-pages' === $this->getRootIdentifier() ? array() : array('gh-pages');
 
             $this->doAddBranches($resource, $branchBlacklist);
@@ -203,12 +203,12 @@ abstract class AbstractGitHubDriver extends BaseGitHubDriver
      * Push the list of all branch.
      *
      * @param string $resource
-     * @param array $branchBlacklist
+     * @param array  $branchBlacklist
      */
     protected function doAddBranches($resource, array $branchBlacklist)
     {
         do {
-            $branchData = JsonFile::parseJson((string)$this->getContents($resource), $resource);
+            $branchData = JsonFile::parseJson((string) $this->getContents($resource), $resource);
 
             foreach ($branchData as $branch) {
                 $name = substr($branch['ref'], 11);

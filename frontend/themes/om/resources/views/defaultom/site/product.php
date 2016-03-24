@@ -44,11 +44,8 @@ if (count($product['productsAttributesDescr']) > 0) {
 
 $items=array();
 $i=0;
-$im=array(BASEURL.'/imagepreview?src='.$product['products']['products_id']);
-$imsrc=array($product['products']['products_id']);
-//echo '<pre>';
-//print_r ($spec);
-//echo '</pre>';
+$im=array($product['products']['products_id']);
+$imsrc=array($product['products']['products_image']);
 ?>
 <div class="product">
     <div class="product-top">
@@ -59,8 +56,8 @@ $imsrc=array($product['products']['products_id']);
                         <div class="mini-img" style="float: left; width: 20%; ">
                             <?
                             foreach($im as $img){
-                                if($i!=0) echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="width: 100%; display: block; margin: auto;" src="' . $img . '"/> </div>';
-                                else echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item selected"><img style="width: 100%; display: block; margin: auto;" src="' . $img . '"/> </div>';
+                                if($i!=0) echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
+                                else echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item selected"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
                                     $i++;
                             }
                             ?>
@@ -68,8 +65,8 @@ $imsrc=array($product['products']['products_id']);
                         <div style="float: right; width: 63%; min-width: 440px;">
                             <?php
                             $i=0;
-                            foreach($imsrc as $img){
-                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " src="'.BASEURL.'/imagepreview?src='.$img.'"/></a>';
+                            foreach($imsrc as $key => $img){
+                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " src="'.BASEURL.'/imagepreview?src='.$im[$key].'"/></a>';
                                 $i++;
                             }
                             echo Carousel::widget([
@@ -112,8 +109,12 @@ $imsrc=array($product['products']['products_id']);
                         <div class="prod-compos" style="font-size: 12px;">
                             <?
                             // Вывод спецификаций
-                            foreach($spec[0]['specificationDescription'] as $key=>$value){
-                                echo $value['specification_name'].': '.$spec[0]['specificationValuesDescription'][$key]['specification_value'].'<br/>';
+                            foreach($spec['productsSpecification'] as $key=>$value){
+                                $specname='';
+                                $specval='';
+                                $specname = $spec['specificationDescription'][$value['specifications_id']]['specification_name'];
+                                $specval = $spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value'];
+                                echo $specname.': '.$specval.'<br/>';
                             }
                             ?>
                             <br/>
@@ -141,7 +142,7 @@ $imsrc=array($product['products']['products_id']);
                 </section>
                 <section id="content2">
                     <p>
-                        <?= \frontend\widgets\CommentsBlock::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?>
+                        <?= \frontend\widgets\CommentsBlockOM::widget(['category' => 1, 'relateID' => $product['products']['products_id']]) ?>
                     </p>
                 </section>
             </div>
