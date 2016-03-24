@@ -1,7 +1,9 @@
 <?php
 
 $this -> title = 'Корзина';
-
+echo'<pre>';
+print_r($result);
+echo'</pre>';
 $del_add='<select id="shipaddr" name="address">';
 foreach($addr as $key=>$value){
     if($key != $default) {
@@ -138,9 +140,16 @@ $(document).on('ready', function () {
                 '</a>'+
                 '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
                 '<div class="panel-body" style="padding: 0px 5px;">' +
-                '<div style="padding: 10px 0px;">' +
-                '<textarea style="width: 100%;" ></textarea>' +
-                '</div>' +
+                '<div style="padding: 10px 0px;">';
+
+            if(typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined'){
+                $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+']['+requestdata.responseJSON.product.productsAttributesDescr[this[6]].products_options_values_id+']" style="width: 100%;" ></textarea>';
+
+            }else{
+                $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+'][all]" style="width: 100%;" ></textarea>';
+
+            }
+            $innerhtml +=    '</div>' +
                 '</div>' +
                 '</div>' +
                 '</div>'+
@@ -177,7 +186,7 @@ $(document).on('ready', function () {
         '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
         '<div class="panel-body" style="padding: 0px 5px;">' +
         '<div style="padding: 10px 0px;">' +
-        '<textarea style="width: 100%;" ></textarea>' +
+        '<textarea name="ordercomments" style="width: 100%;" ></textarea>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -340,7 +349,7 @@ $(document).on('change', '.shipping-confirm, #shipaddr', function () {
     );
 });
 $(document).on('click', '.panel  > a',  function(){
-    console.log($(this));
+  //  console.log($(this));
     if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
         $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
         '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +

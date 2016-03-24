@@ -342,42 +342,52 @@ $this->title = $title;
         </div>
     </div>
     <div style="clear: both;">
-        <div id="index-card-4">Сео индекс инлайн</div>
-        <div style="margin: 0px 15px;float: left;">
-            <?
-            if (Yii::$app->user->can('admin')) {
-              //  \dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);
-            }
-            $data = new \common\models\PartnersConfig();
-            $check = Yii::$app->params['constantapp']['APP_ID'];
-            $page = 'seoindex';
-            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
-            if ($data) {
-                echo '<div id="my-textarea-id">';
-                echo stripcslashes($data->value);
-                 echo '';
-            } else {
-                ?>
-            <div id="my-textarea-id"></div>
-                dc1398d7369e7d93189d842c49a783146af84706
-            <? } ?>
-            <?php if (Yii::$app->user->can('admin')) {
-                'alignment', 'autosave', 'block', 'buffer', 'build', 'button',
-						  'caret', 'clean', 'code', 'core', 'dropdown', 'file', 'focus',
-						  'image', 'indent', 'inline', 'insert', 'keydown', 'keyup',
-						  'lang', 'line', 'link', 'linkify', 'list', 'modal', 'observe', 'paragraphize',
-						  'paste', 'placeholder', 'progress', 'selection', 'shortcuts',
-						  'tabifier', 'tidy',  'toolbar', 'upload', 'utils'
-                echo \vova07\imperavi\Widget::widget([
-                    'selector' => '#my-textarea-id',
-                    'settings' => [
-                        'lang' => 'ru',
-                        'minHeight' => 200,
-                        'fileUpload' => \yii\helpers\Url::to(['/file-upload'])
-                    ]
-                ]); ?>
-
-            <? } ?>
-        </div>
+<!--        <div id="index-card-4">Сео индекс инлайн</div>-->
+<!--        <div style="margin: 0px 15px;float: left;">-->
+<!--            --><?//
+//            if (Yii::$app->user->can('admin')) {
+//              //  \dosamigos\ckeditor\CKEditorInline::begin(['preset' => 'standart']);
+//            }
+//            $data = new \common\models\PartnersConfig();
+//            $check = Yii::$app->params['constantapp']['APP_ID'];
+//            $page = 'seoindex';
+//            $data = $data->find()->where(['partners_id' => $check, 'type' => $page])->one();
+//            if ($data) {
+//                echo '<div id="my-textarea-id">';
+//                echo stripcslashes($data->value);
+//                 echo '</div>';
+//            } else {
+//                ?>
+<!--            <div id="my-textarea-id"></div>-->
+<!---->
+<!--            --><?// } ?>
+<!--            --><?php //if (Yii::$app->user->can('admin')) {
+//
+//                echo \vova07\imperavi\Widget::widget([
+//                    'selector' => '#my-textarea-id',
+//                    'settings' => [
+//                        'lang' => 'ru',
+//                        'minHeight' => 200,
+//                        'plugins' => ['fontsize','fontcolor']
+//                    ]
+//
+//                ]); ?>
+<!--                <button class="savehtml">Сохранить</button>-->
+<!--                <script>-->
+<!--                    $(document).on('click', '.savehtml', function() {-->
+<!--                        $html = $('#my-textarea-id').html();-->
+<!---->
+<!---->
+<!--                        $.post(-->
+<!--                            '/site/savehtml',-->
+<!--                            { html: $html,-->
+<!--                                page: 'seoindex'}-->
+<!--                        );-->
+<!--                        alert('Изменения сохранены');-->
+<!---->
+<!--                    });-->
+<!--                </script>-->
+<!--            --><?// } ?>
+<!--        </div>-->
     </div>
 <? //  $this->endCache(); }?>

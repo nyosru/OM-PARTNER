@@ -42,14 +42,14 @@ trait ActionSaveorder
             $user['addressBook'] = ArrayHelper::index($user['addressBook'],'address_book_id');
             $userOM = $user['addressBook'][$adress_num];
         }
-        $default_user_address = $user['addressBook'][$user['customers']['default_address_id']];
-        $pay_user_address = $user['addressBook'][$user['customers']['pay_address_id']];
+        $default_user_address = $user['addressBook'][$user['customers']['customers_default_address_id']];
+        $pay_user_address = $user['addressBook'][$user['customers']['pay_adress_id']];
         $userpartnerdata = $user;
-        $userdata = $user['userinfo'];
         $userCustomer = $user['customers'];
         $product_in_order = Yii::$app->request->post('product');
         $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
+        $comments = Yii::$app->request->post('comments');
         switch($type_order){
             case 'plus':
                 $minimal_order = 1000;
@@ -61,6 +61,7 @@ trait ActionSaveorder
         }
         $wrap = Yii::$app->request->post('wrap');
         $quant=[];
+
         foreach($product_in_order as $prodkey =>$prodvalue){
                if($prodvalue)
                    foreach($prodvalue as $k=> $v){
@@ -111,31 +112,31 @@ trait ActionSaveorder
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $nowdate = date('Y-m-d H:i:s');
-            $entrycountry = Countries::find()->where(['countries_id'=>$userOM['entry_country_id']])->asArray()->one();
-            $entryzones = Zones::find()->where(['zone_id'=>$userOM['entry_zone_id']])->asArray()->one();
+            $defaultentrycountry = Countries::find()->where(['countries_id'=>$default_user_address['entry_country_id']])->asArray()->one();
+            $defaultentryzones = Zones::find()->where(['zone_id'=>$default_user_address['entry_zone_id']])->asArray()->one();
             $orders = new Orders();
             $partner_id = $userpartnerdata['id_partners'];
             $ship = Yii::$app->request->post('ship');
             $orders->ur_or_fiz = 'f';
 
-
             $orders->customers_id = $userCustomer['customers_id'];
-            $orders->customers_name = $userCustomer['customers_firstname'] . ' ' . $userCustomer['customers_lastname'].' '.$userCustomer['otchestvo'] ;
+            $orders->customers_name = $default_user_address['entry_lastname'] . ' ' . $default_user_address['entry_firstname'].' '.$default_user_address['otchestvo'] ;
             $orders->customers_groups_id = $userCustomer['customers_groups_id'];
-            $orders->customers_company = $userOM['entry_company'];
-            $orders->customers_suburb = $userOM['entry_suburb'];
-            $orders->customers_country = $entrycountry['countries_name'];
-            $orders->customers_state = $entryzones['zone_name'];
-            $orders->customers_city = $userOM['entry_city'];
-            $orders->customers_street_address = $userOM['entry_street_address'];
-            $orders->customers_postcode = $userOM['entry_postcode'];
+            $orders->customers_company = $default_user_address['entry_company'];
+            $orders->customers_suburb = $default_user_address['entry_suburb'];
+            $orders->customers_country = $defaultentrycountry['countries_name'];
+            $orders->customers_state = $defaultentryzones['zone_name'];
+            $orders->customers_city = $default_user_address['entry_city'];
+            $orders->customers_street_address = $default_user_address['entry_street_address'];
+            $orders->customers_postcode = $default_user_address['entry_postcode'];
             $orders->customers_address_format_id = 1;
             $orders->customers_telephone = $userCustomer['customers_telephone'];
             $orders->customers_email_address = $userCustomer['customers_email_address'];
-            $orders->customers_address_format_id = 1;
 
+            $entrycountry = Countries::find()->where(['countries_id'=>$userOM['entry_country_id']])->asArray()->one();
+            $entryzones = Zones::find()->where(['zone_id'=>$userOM['entry_zone_id']])->asArray()->one();
 
-            $orders->delivery_adress_id =  $userCustomer['delivery_adress_id'];
+            $orders->delivery_adress_id =  $userOM['delivery_adress_id'];
             $orders->delivery_name = $userOM['entry_firstname'];
             $orders->delivery_lastname = $userOM['entry_lastname'];
             $orders->delivery_otchestvo = $userOM['otchestvo'];
@@ -153,12 +154,17 @@ trait ActionSaveorder
             $orders->shipping_module = $ship;
 
 
-            $orders->billing_name = $userCustomer['customers_firstname'] . ' ' . $userCustomer['customers_lastname'];
-            $orders->billing_country = $entrycountry['countries_name'];
-            $orders->billing_state = $entryzones['zone_name'];
-            $orders->billing_city = $userOM['entry_street_address'];
-            $orders->billing_street_address = $userOM['entry_street_address'];
-            $orders->billing_postcode = $userOM['entry_postcode'];
+
+            $payentrycountry = Countries::find()->where(['countries_id'=>$pay_user_address['entry_country_id']])->asArray()->one();
+            $payentryzones = Zones::find()->where(['zone_id'=>$pay_user_address['entry_zone_id']])->asArray()->one();
+
+
+            $orders->billing_name = $pay_user_address['entry_lastname'].' '.$pay_user_address['entry_firstname'].' '.$pay_user_address['otchestvo'];
+            $orders->billing_country = $payentrycountry['countries_name'];
+            $orders->billing_state = $payentryzones['zone_name'];
+            $orders->billing_city = $pay_user_address['entry_street_address'];
+            $orders->billing_street_address = $pay_user_address['entry_street_address'];
+            $orders->billing_postcode = $pay_user_address['entry_postcode'];
             $orders->billing_address_format_id = 1;
 
 
@@ -180,16 +186,11 @@ trait ActionSaveorder
             $orders->buh_orders_id = intval($buh_id['buh_orders_id']) + 1;
 
             if ($orders->save()) {
-//                echo '<pre>';
-//                print_r(yii::$app->request->post());
-//                print_r($orders);
-//                echo '</pre>';
-//                die();
                 $price_total = '';
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
-                    foreach ($product_in_order as $keyin_order => $valuein_order) {
+                foreach ($product_in_order as $keyin_order => $valuein_order) {
                             $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order ]['productsAttributesDescr'], 'products_options_values_id');
-                        foreach($valuein_order  as $keyinattr_order => $valueinattr_order){
+                    foreach($valuein_order  as $keyinattr_order => $valueinattr_order){
                             $ordersprod = new OrdersProducts();
                             $ordersprod->first_quant = intval($valueinattr_order);
                             $ordersprod->products_quantity = intval($valueinattr_order);
@@ -203,6 +204,13 @@ trait ActionSaveorder
                             $ordersprod->products_tax = $reindexprod[$keyin_order]['products_tax'];
                             $ordersprod->products_status = 0;
                             $ordersprod->checks = 0;
+                            if($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]){
+                                $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
+                            }elseif($comments[$keyin_order]['all']){
+                                $ordersprod->comment =  $this->trim_tags_text($comments[$keyin_order]['all']);
+                            }else {
+                                $ordersprod->comment = NULL;
+                            }
                             $ordersprod->verificatiuon = 0;
                             $ordersprod->status_add = NULL;
                             $ordersprod->stickers_confirmed = 0;
@@ -211,8 +219,7 @@ trait ActionSaveorder
                             $ordersprod->sub_orders_id = NULL;
                             $ordersprod->old_orders_id = NULL;
                             $ordersprod->products_tax = '0.0000';
-                            $price_total += intval($price_total) +  $ordersprod->products_price * $ordersprod->products_quantity;
-                                if ($ordersprod->save()) {
+                                 if ($ordersprod->save()) {
                             if ($keyinattr_order) {
                                 $ordersprodattr = new OrdersProductsAttributes();
                                 $ordersprodattr->orders_products_id = $ordersprod->orders_products_id;
@@ -225,25 +232,14 @@ trait ActionSaveorder
                                 $ordersprodattr->sub_vid = 0;
                                     if ($ordersprodattr->save()) {
                                         $ordersprodattr =  $ordersprodattr->toArray();
-
                                    } else {
-
                                   }
-
                             } else {
-
                             }
                                     $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
-                        }
-//                        echo '<pre>';
-//                        print_r($reindexprod);
-//                     //   print_r($ordersprodattr);
-//                        echo '</pre>';
-//                            die();
+                                     $price_total += (float)($price_total) +  $ordersprod->products_price * $ordersprod->products_quantity;
 
-                  //  } else {
-//                        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-//                        return $partnerorder;
+                                 }
                     }
 
                 }
@@ -268,6 +264,7 @@ trait ActionSaveorder
                 $orderstotalprice->class = 'ot_shipping';
                 $orderstotalprice->sort_order = 2;
                 $orderstotalprice->save();
+
                 $orderstotalship = new OrdersTotal();
                 $orderstotalship->orders_id = $orders->orders_id;
                 $orderstotalship->title = 'Всего: ';
@@ -276,6 +273,7 @@ trait ActionSaveorder
                 $orderstotalship->class = 'ot_total';
                 $orderstotalship->sort_order = 800;
                 $orderstotalship->save();
+
                 $orderstotalprint = new OrdersTotal();
                 $orderstotalprint->orders_id = $orders->orders_id;
                 $orderstotalprint->title = 'Стоимость товара: ';
@@ -284,6 +282,7 @@ trait ActionSaveorder
                 $orderstotalprint->class = 'ot_subtotal';
                 $orderstotalprint->sort_order = 1;
                 $orderstotalprint->save();
+
                 $neworderpartner = new PartnersOrders();
                 $neworderpartner->partners_id = $partner_id;
                 $neworderpartner->user_id = $user['id'];
@@ -294,17 +293,24 @@ trait ActionSaveorder
                 $neworderpartner->update_date = $nowdate;
                 $neworderpartner->create_date = $nowdate;
                 $neworderpartner->save();
+
                 $ordershistory = new OrdersStatusHistory();
                 $ordershistory->orders_id = $orders->orders_id;
                 $ordershistory->orders_status_id = '1';
                 $ordershistory->date_added = $nowdate;
                 $ordershistory->customer_notified = '0';
-                $ordershistory->comments = 'Заказ с нового фронта';
+                if(($ordercomments = $this->trim_tags_text(Yii::$app->request->post('ordercomments'), 300)) == TRUE){
+                    $ordershistory->comments = $ordercomments;
+                }else{
+                    $ordershistory->comments = NULL;
+                }
+                if($ordershistory->comments){
+
+                }
+               // $ordershistory->comments = 'Заказ с нового фронта';
+                $ordershistory->validate();
                 $ordershistory->save();
-//                echo '<pre>';
-//var_dump($this);
-//                echo '</pre>';
-//                die();
+
             } else {
 
             }
