@@ -294,6 +294,7 @@ if ($data[0] != 'Не найдено!') {
         ?>
 
         <?
+        $active_border = 0;
         if (count($attr_desc) > 0) {
             foreach ($attr_desc as $key=>$attr_desc_value) {
                 if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
@@ -309,11 +310,13 @@ if ($data[0] != 'Не найдено!') {
                 $del_class = 'del-count-dis';
                 $some_text = 'Нет';
                 }
-                if($key%2 ==0){
+
+                if($active_border%2 == 0){
                     $class='border-right:1px solid #CCC';
                 }else{
                     $class='';
                 }
+                $active_border++;
                 $attr_html .= '<div class="'.$classpos.'" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
                 $attr_html .= '<input '.$inputpos.' id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
