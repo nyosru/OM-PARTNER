@@ -15,7 +15,7 @@
 use yii\helpers\Html;
 
 /**
- * @var array $options
+ * @var array  $options
  * @var string $exportTypeParam
  * @var string $exportType
  * @var string $exportRequestParam

@@ -1,22 +1,22 @@
 /*
-Input Mask plugin extensions
-http://github.com/RobinHerbots/jquery.inputmask
-Copyright (c) 2010 -  Robin Herbots
-Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-Version: 0.0.0-dev
+ Input Mask plugin extensions
+ http://github.com/RobinHerbots/jquery.inputmask
+ Copyright (c) 2010 -  Robin Herbots
+ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+ Version: 0.0.0-dev
 
-Phone extension.
-When using this extension make sure you specify the correct url to get the masks
+ Phone extension.
+ When using this extension make sure you specify the correct url to get the masks
 
  $(selector).inputmask("phone", {
-                url: "Scripts/jquery.inputmask/phone-codes/phone-codes.json", 
-                onKeyValidation: function () { //show some metadata in the console
-                    console.log($(this).inputmask("getmetadata")["cd"]);
-                } 
-  });
+ url: "Scripts/jquery.inputmask/phone-codes/phone-codes.json",
+ onKeyValidation: function () { //show some metadata in the console
+ console.log($(this).inputmask("getmetadata")["cd"]);
+ }
+ });
 
 
-*/
+ */
 (function ($) {
     $.extend($.inputmask.defaults.aliases, {
         'phone': {

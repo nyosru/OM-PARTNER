@@ -1,24 +1,12 @@
 <?php
+
+use common\models\Partners;
+use common\models\PartnersSettings;
 set_time_limit ( 800 );
-//set_error_handler('err_handler');
-//function err_handler($errno, $errmsg, $filename, $linenum) {
-//    $date = date('Y-m-d H:i:s (T)');
-//    $f = fopen('errors.txt', 'a');
-//    if (!empty($f)) {
-//        $filename  =str_replace($_SERVER['DOCUMENT_ROOT'],'',$filename);
-//        $err  = "$errmsg = $filename = $linenum\r\n";
-//        fwrite($f, $err);
-//        fclose($f);
-//    }
-//}
-//if ($_GET['adm'] == 'st') {
-//
-//} else {
-//    echo '<div style="position: absolute; left: 50%; top: 50%; margin: -10px -10%;">САЙТ НА ТЕХНИЧЕСКОМ ОБСЛУЖИВАНИИ</div>';
-//    die();
-//}
-ob_start("ob_gzhandler");
-defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+date_default_timezone_set('Europe/Moscow');
+
+ob_start("ob_gzhandler", 32);
+defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -30,8 +18,10 @@ $config = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../config/main.php'),
     require(__DIR__ . '/../config/main-local.php')
 );
+$versions = require(__DIR__ . '/../config/versions.php');
+
 $application = new yii\web\Application($config);
-use common\models\Partners;
+
 
 
         $run = new Partners();
@@ -56,13 +46,40 @@ use common\models\Partners;
 
         }
 //echo '<pre>';
-//print_r($partner);
+//print_r($versions);
 //echo '</pre>';
+//die();
+$partner['APP_VERSION'] = 'om';
+if (($versionnum = $partner['APP_VERSION']) == FALSE) {
+    $version = $versions['0'];
+} else {
+    $version = $versions[$versionnum];
+}
+
+$config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend']['namespace'];
+$application->defaultRoute = $version['frontend']['defroute'] . '/index';
+$config['components']['errorHandler']['errorAction'] = $version['frontend']['erraction'] . '/error';
+$catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
+$config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
+$config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
+$config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
+
+define('BASEURL', '/' . $version['frontend']['defroute']);
+
+
+unset($version['frontend']);
+foreach ($version as $key => $mvc) {
+    $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
+}
+
+$application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
-use common\models\PartnersSettings;
+$application->params['constantapp']['APP_VERSION'] = $version;
+
+
 class LoadTraitIndex
 {
     use \common\traits\ThemeResources;
@@ -91,9 +108,10 @@ if(!$template_data){
     $partnerset = $template_data['partnerset'];
 }
 $application->params['partnersset'] = $partnerset;
-$application->setViewPath('@app/themes/resources/views/' . $theme);
-$application->setLayoutPath('@app/themes/resources/views/' . $theme . '/layouts');
+$application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme);
+$application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
 $application->run();
+
 ob_end_flush();

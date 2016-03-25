@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -22,7 +23,7 @@ use yii\web\IdentityInterface;
  * @property string $password write-only password
  */
 
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecordExt implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
@@ -199,7 +200,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'id']);
     }
-
+    public function getCustomers()
+    {
+        return $this->hasOne(Customers::className(), ['customers_id' => 'customers_id'])->via('userinfo');
+    }
+    public function getAddressBook()
+    {
+        return $this->hasMany(AddressBook::className(), ['customers_id' => 'customers_id'])->via('userinfo');
+    }
 
 
 }

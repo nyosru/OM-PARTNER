@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -23,7 +24,7 @@ use Yii;
  * @property string $pasportwhere
  * @property integer $customers_id
  */
-class PartnersUsersInfo extends \yii\db\ActiveRecord
+class PartnersUsersInfo extends ActiveRecordExt
 {
     /**
      * @inheritdoc
@@ -47,6 +48,11 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
             [['city'], 'string', 'max' => 75]
         ];
     }
+
+
+
+
+
 
     public function scenarios()
     {
@@ -76,17 +82,20 @@ class PartnersUsersInfo extends \yii\db\ActiveRecord
             'lastname' => 'Фамилия',
             'adress' => 'Адрес',
             'city' => 'Город',
-            'state' => 'Область (начните вводить и выберите)',
-            'country' => 'Страна (начните вводить и выберите)',
+            'state' => 'Область',
+            'country' => 'Страна',
             'postcode' => 'Почтовый индекс',
             'telephone' => 'Телефон',
             'pasportser' => 'Серия',
             'pasportnum' => 'Номер',
-            'pasportdate' => 'Дата выдачи (например 2008-12-31)',
+            'pasportdate' => 'Дата выдачи',
             'pasportwhere' => 'Кем выдан',
             'customers_id' => 'Customers ID',
         ];
     }
-
+    public function getCustomers()
+    {
+        return $this->hasOne(Customers::className(), ['customers_id' => 'customers_id']);
+    }
 
 }

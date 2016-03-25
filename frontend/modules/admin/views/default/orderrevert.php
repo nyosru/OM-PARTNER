@@ -35,7 +35,7 @@ foreach ($order as $key => $value) {
         '<td>' . $value[1] . '</td>' .
         '<td>' . $value[6] . '</td>' .
         '<td>' . round(round($value[3]) - round($value[3]) * $discounttotalprice / 100) . '</td>' .
-        '<td><img width="50%" src="/site/imagepreview?src=' . $value[5] . '">' .
+        '<td><img width="50%" src="' . BASEURL . '/imagepreview?src=' . $value[5] . '">' .
         '<td>' .
         '<div>' .
         '<label class="control-label" for="partnersorders-id">Заказано: </label>' .

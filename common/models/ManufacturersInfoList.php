@@ -2,11 +2,12 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
-use yii\db\ActiveRecord;
 
 
-class ManufacturersInfoList extends ActiveRecord
+
+class ManufacturersInfoList extends ActiveRecordExt
 {
     /**
      * @inheritdoc

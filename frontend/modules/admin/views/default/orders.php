@@ -107,7 +107,7 @@ echo \yii\grid\GridView::widget([
                     }
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.' . $omprice . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
-                    $inner .= '<td class="col-md-3"><img style="width: 50%;" src="/site/imagepreview?src=' . $value[5] . '"/></td>';
+                    $inner .= '<td class="col-md-3"><img style="width: 50%;" src="' . BASEURL . '/imagepreview?src=' . $value[5] . '"/></td>';
                     $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
                     $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
                     $inner .= '</tr>';
@@ -288,7 +288,7 @@ echo \yii\grid\GridView::widget([
                     }
                 },
                 'print' => function ($url, $model, $key) {
-                    $url = Yii::$app->urlManager->createUrl(['/site/printorders', 'id' => $key]);
+                    $url = Yii::$app->urlManager->createUrl([BASEURL . '/printorders', 'id' => $key]);
                     return '<div class="col-md-2">' . Html::a(
                         '<span class="fa fa-print"  style="cursor:pointer; font-size: 20px; color: blue;" ></span>',
                         $url, ['target' => '_blank']) . '</div>';

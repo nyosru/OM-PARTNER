@@ -3,8 +3,8 @@
 /**
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
- * @version   1.7.9
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
+ * @version   1.8.2
  */
 
 namespace kartik\base;
@@ -45,6 +45,11 @@ class InputWidget extends \yii\widgets\InputWidget
      * @var boolean whether input is to be readonly
      */
     public $readonly = false;
+
+    /**
+     * @var string the javascript that will be used to destroy the jQuery plugin
+     */
+    public $pluginDestroyJs;
 
     /**
      * @var mixed show loading indicator while plugin loads
@@ -139,6 +144,7 @@ class InputWidget extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
+        $this->initDestroyJs();
         $this->initInputWidget();
     }
 
@@ -183,7 +189,7 @@ class InputWidget extends \yii\widgets\InputWidget
     /**
      * Initialize the plugin language
      *
-     * @param string  $property the name of language property in [[pluginOptions]].
+     * @param string $property the name of language property in [[pluginOptions]].
      * @param boolean $full whether to use the full language string. Defaults to `false`
      * which is the 2 (or 3) digit ISO-639 format.
      * Defaults to 'language'.

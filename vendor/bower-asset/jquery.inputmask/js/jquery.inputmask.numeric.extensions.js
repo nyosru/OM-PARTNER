@@ -1,12 +1,12 @@
 /*
-Input Mask plugin extensions
-http://github.com/RobinHerbots/jquery.inputmask
-Copyright (c) 2010 -  Robin Herbots
-Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-Version: 0.0.0-dev
+ Input Mask plugin extensions
+ http://github.com/RobinHerbots/jquery.inputmask
+ Copyright (c) 2010 -  Robin Herbots
+ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+ Version: 0.0.0-dev
 
-Optional extensions on the jquery.inputmask base
-*/
+ Optional extensions on the jquery.inputmask base
+ */
 (function ($) {
     //number aliases
     $.extend($.inputmask.defaults.aliases, {
@@ -19,6 +19,7 @@ Optional extensions on the jquery.inputmask base
                     }
                     return escapedTxt;
                 }
+
                 if (opts.repeat !== 0 && isNaN(opts.integerDigits)) {
                     opts.integerDigits = opts.repeat;
                 }
@@ -102,8 +103,8 @@ Optional extensions on the jquery.inputmask base
 
                 var needsRefresh = false, charAtPos = buffer[pos];
                 if (opts.groupSeparator == "" ||
-                        ($.inArray(opts.radixPoint, buffer) != -1 && pos >= $.inArray(opts.radixPoint, buffer)) ||
-                        new RegExp('[' + $.inputmask.escapeRegex(opts.negationSymbol.front) + '\+]').test(charAtPos)
+                    ($.inArray(opts.radixPoint, buffer) != -1 && pos >= $.inArray(opts.radixPoint, buffer)) ||
+                    new RegExp('[' + $.inputmask.escapeRegex(opts.negationSymbol.front) + '\+]').test(charAtPos)
                 ) {
                     if (suffixStripped) {
                         for (var i = 0, l = opts.suffix.length; i < l; i++) {
@@ -111,7 +112,7 @@ Optional extensions on the jquery.inputmask base
                         }
                     }
                     //console.log("return input " + buffer);
-                    return { pos: pos };
+                    return {pos: pos};
                 }
                 var cbuf = buffer.slice();
                 if (charAtPos == opts.groupSeparator) {
@@ -151,26 +152,29 @@ Optional extensions on the jquery.inputmask base
                     }
                 }
                 //console.log("formatted " + buffer + " refresh " + needsRefresh);
-                return { pos: newPos, "refreshFromBuffer": needsRefresh, "buffer": buffer };
+                return {pos: newPos, "refreshFromBuffer": needsRefresh, "buffer": buffer};
             },
             onBeforeWrite: function (e, buffer, caretPos, opts) {
                 if (e && e.type == "blur") {
                     //handle minvalue
                     var maskedValue = buffer.join(''),
-                     processValue = maskedValue.replace(opts.prefix, "");
+                        processValue = maskedValue.replace(opts.prefix, "");
                     processValue = processValue.replace(opts.suffix, "");
                     processValue = processValue.replace(new RegExp($.inputmask.escapeRegex(opts.groupSeparator), "g"), "");
                     if (opts.radixPoint === ",") processValue = processValue.replace($.inputmask.escapeRegex(opts.radixPoint), ".");
 
                     if (isFinite(processValue)) {
                         if (isFinite(opts.min) && parseFloat(processValue) < parseFloat(opts.min)) {
-                            return $.extend(true, { "refreshFromBuffer": true, "buffer": (opts.prefix + opts.min).split('') }, opts.postFormat((opts.prefix + opts.min).split(''), 0, true, opts));
+                            return $.extend(true, {
+                                "refreshFromBuffer": true,
+                                "buffer": (opts.prefix + opts.min).split('')
+                            }, opts.postFormat((opts.prefix + opts.min).split(''), 0, true, opts));
                         }
                     }
 
                     var tmpBufSplit = opts.radixPoint != "" ? buffer.join('').split(opts.radixPoint) : [buffer.join('')],
-                   matchRslt = tmpBufSplit[0].match(opts.regex.integerPart(opts)),
-                   matchRsltDigits = tmpBufSplit.length == 2 ? tmpBufSplit[1].match(opts.regex.integerNPart(opts)) : undefined;
+                        matchRslt = tmpBufSplit[0].match(opts.regex.integerPart(opts)),
+                        matchRsltDigits = tmpBufSplit.length == 2 ? tmpBufSplit[1].match(opts.regex.integerNPart(opts)) : undefined;
                     if (matchRslt && (matchRslt[0] == opts.negationSymbol.front + "0" || matchRslt[0] == opts.negationSymbol.front || matchRslt[0] == "+") && (matchRsltDigits == undefined || matchRsltDigits[0].match(/^0+$/))) {
                         buffer.splice(matchRslt.index, 1);
                     }
@@ -179,7 +183,7 @@ Optional extensions on the jquery.inputmask base
                         for (var i = 1; i <= opts.digits; i++) {
                             if (buffer[radixPosition + i] == undefined || buffer[radixPosition + i] == opts.placeholder.charAt(0)) buffer[radixPosition + i] = "0";
                         }
-                        return { "refreshFromBuffer": true, "buffer": buffer };
+                        return {"refreshFromBuffer": true, "buffer": buffer};
                     }
                 }
 
@@ -190,8 +194,12 @@ Optional extensions on the jquery.inputmask base
                 }
             },
             regex: {
-                integerPart: function (opts) { return new RegExp('[' + $.inputmask.escapeRegex(opts.negationSymbol.front) + '\+]?\\d+'); },
-                integerNPart: function (opts) { return new RegExp('[\\d' + $.inputmask.escapeRegex(opts.groupSeparator) + ']+'); }
+                integerPart: function (opts) {
+                    return new RegExp('[' + $.inputmask.escapeRegex(opts.negationSymbol.front) + '\+]?\\d+');
+                },
+                integerNPart: function (opts) {
+                    return new RegExp('[\\d' + $.inputmask.escapeRegex(opts.groupSeparator) + ']+');
+                }
             },
             signHandler: function (chrs, maskset, pos, strict, opts) {
                 if (!strict && (opts.allowMinus && chrs === "-") || (opts.allowPlus && chrs === "+")) {
@@ -201,26 +209,56 @@ Optional extensions on the jquery.inputmask base
                         if (maskset.buffer[matchRslt.index] == (chrs === "-" ? "+" : opts.negationSymbol.front)) {
                             if (chrs == "-") {
                                 if (opts.negationSymbol.back != "")
-                                    return { "pos": matchRslt.index, "c": opts.negationSymbol.front, "remove": matchRslt.index, "caret": pos, "insert": { "pos": maskset["buffer"].length - opts.suffix.length - 1, "c": opts.negationSymbol.back } };
-                                else return { "pos": matchRslt.index, "c": opts.negationSymbol.front, "remove": matchRslt.index, "caret": pos };
+                                    return {
+                                        "pos": matchRslt.index,
+                                        "c": opts.negationSymbol.front,
+                                        "remove": matchRslt.index,
+                                        "caret": pos,
+                                        "insert": {
+                                            "pos": maskset["buffer"].length - opts.suffix.length - 1,
+                                            "c": opts.negationSymbol.back
+                                        }
+                                    };
+                                else return {
+                                    "pos": matchRslt.index,
+                                    "c": opts.negationSymbol.front,
+                                    "remove": matchRslt.index,
+                                    "caret": pos
+                                };
                             } else {
                                 if (opts.negationSymbol.back != "")
-                                    return { "pos": matchRslt.index, "c": "+", "remove": [matchRslt.index, maskset["buffer"].length - opts.suffix.length - 1], "caret": pos };
-                                else return { "pos": matchRslt.index, "c": "+", "remove": matchRslt.index, "caret": pos };
+                                    return {
+                                        "pos": matchRslt.index,
+                                        "c": "+",
+                                        "remove": [matchRslt.index, maskset["buffer"].length - opts.suffix.length - 1],
+                                        "caret": pos
+                                    };
+                                else return {"pos": matchRslt.index, "c": "+", "remove": matchRslt.index, "caret": pos};
                             }
                         } else if (maskset.buffer[matchRslt.index] == (chrs === "-" ? opts.negationSymbol.front : "+")) {
                             if (chrs == "-" && opts.negationSymbol.back != "") {
-                                return { "remove": [matchRslt.index, maskset["buffer"].length - opts.suffix.length - 1], "caret": pos - 1 };
+                                return {
+                                    "remove": [matchRslt.index, maskset["buffer"].length - opts.suffix.length - 1],
+                                    "caret": pos - 1
+                                };
                             } else {
-                                return { "remove": matchRslt.index, "caret": pos - 1 };
+                                return {"remove": matchRslt.index, "caret": pos - 1};
                             }
                         } else {
                             if (chrs == "-") {
                                 if (opts.negationSymbol.back != "")
-                                    return { "pos": matchRslt.index, "c": opts.negationSymbol.front, "caret": pos + 1, "insert": { "pos": maskset["buffer"].length - opts.suffix.length, "c": opts.negationSymbol.back } };
-                                else return { "pos": matchRslt.index, "c": opts.negationSymbol.front, "caret": pos + 1 };
+                                    return {
+                                        "pos": matchRslt.index,
+                                        "c": opts.negationSymbol.front,
+                                        "caret": pos + 1,
+                                        "insert": {
+                                            "pos": maskset["buffer"].length - opts.suffix.length,
+                                            "c": opts.negationSymbol.back
+                                        }
+                                    };
+                                else return {"pos": matchRslt.index, "c": opts.negationSymbol.front, "caret": pos + 1};
                             } else {
-                                return { "pos": matchRslt.index, "c": chrs, "caret": pos + 1 };
+                                return {"pos": matchRslt.index, "c": chrs, "caret": pos + 1};
                             }
                         }
                     }
@@ -233,11 +271,11 @@ Optional extensions on the jquery.inputmask base
 
                     if (radixPos != -1 && maskset["validPositions"][radixPos]) {
                         if (maskset["validPositions"][radixPos - 1])
-                            return { "caret": radixPos + 1 };
-                        else return { "pos": integerValue.index, c: integerValue[0], "caret": radixPos + 1 };
+                            return {"caret": radixPos + 1};
+                        else return {"pos": integerValue.index, c: integerValue[0], "caret": radixPos + 1};
                     } else if (!integerValue || (integerValue["0"] == "0" && (integerValue.index + 1) != pos)) {
                         maskset.buffer[integerValue ? integerValue.index : pos] = "0";
-                        return { "pos": (integerValue ? integerValue.index : pos) + 1 };
+                        return {"pos": (integerValue ? integerValue.index : pos) + 1};
                     }
                 }
                 return false;
@@ -254,11 +292,11 @@ Optional extensions on the jquery.inputmask base
                         if (radixPosition == -1 || digitsMatch && integerMatch) {
                             maskset.buffer.splice(matchRslt.index, 1);
                             pos = pos > matchRslt.index ? pos - 1 : matchRslt.index;
-                            return { "pos": pos, "remove": matchRslt.index };
+                            return {"pos": pos, "remove": matchRslt.index};
                         } else if (matchRslt.index + 1 == pos || chrs == "0") {
                             maskset.buffer.splice(matchRslt.index, 1);
                             pos = matchRslt.index;
-                            return { "pos": pos, "remove": matchRslt.index };
+                            return {"pos": pos, "remove": matchRslt.index};
                         }
                     } else if (chrs === "0" && pos <= matchRslt.index && matchRslt["0"] != opts.groupSeparator) {
                         return false;
@@ -269,8 +307,8 @@ Optional extensions on the jquery.inputmask base
             postValidation: function (buffer, opts) {
                 //handle maxvalue
                 var isValid = true,
-                maskedValue = buffer.join(''),
-                processValue = maskedValue.replace(opts.prefix, "");
+                    maskedValue = buffer.join(''),
+                    processValue = maskedValue.replace(opts.prefix, "");
                 processValue = processValue.replace(opts.suffix, "");
                 processValue = processValue.replace(new RegExp($.inputmask.escapeRegex(opts.groupSeparator), "g"), "");
                 if (opts.radixPoint === ",") processValue = processValue.replace($.inputmask.escapeRegex(opts.radixPoint), ".");
@@ -301,8 +339,8 @@ Optional extensions on the jquery.inputmask base
                                         //handle overwrite when fixed precision
                                         var radixPosition = $.inArray(opts.radixPoint, maskset.buffer);
                                         if (opts.digitsOptional === false && pos > radixPosition && !strict) {
-                                            isValid = { "pos": pos, "remove": pos };
-                                        } else isValid = { pos: pos };
+                                            isValid = {"pos": pos, "remove": pos};
+                                        } else isValid = {pos: pos};
                                     }
                                 }
                             }
@@ -319,8 +357,17 @@ Optional extensions on the jquery.inputmask base
                         if (!isValid && ((strict && opts.allowMinus && chrs === opts.negationSymbol.front) || (opts.allowMinus && chrs == "-") || (opts.allowPlus && chrs == "+"))) {
                             if (chrs == "-") {
                                 if (opts.negationSymbol.back != "")
-                                    isValid = { "pos": pos, "c": chrs === "-" ? opts.negationSymbol.front : "+", "caret": pos + 1, "insert": { "pos": maskset["buffer"].length, "c": opts.negationSymbol.back } };
-                                else isValid = { "pos": pos, "c": chrs === "-" ? opts.negationSymbol.front : "+", "caret": pos + 1 };
+                                    isValid = {
+                                        "pos": pos,
+                                        "c": chrs === "-" ? opts.negationSymbol.front : "+",
+                                        "caret": pos + 1,
+                                        "insert": {"pos": maskset["buffer"].length, "c": opts.negationSymbol.back}
+                                    };
+                                else isValid = {
+                                    "pos": pos,
+                                    "c": chrs === "-" ? opts.negationSymbol.front : "+",
+                                    "caret": pos + 1
+                                };
                             } else {
                                 isValid = true;
                             }
@@ -350,14 +397,16 @@ Optional extensions on the jquery.inputmask base
                             var radix = "[" + $.inputmask.escapeRegex(opts.radixPoint) + "]";
                             isValid = new RegExp(radix).test(chrs);
                             if (isValid && maskset["validPositions"][pos] && maskset["validPositions"][pos]["match"].placeholder == opts.radixPoint) {
-                                isValid = { "caret": pos + 1 };
+                                isValid = {"caret": pos + 1};
                             }
                         }
                         return isValid;
                     },
                     cardinality: 1,
                     prevalidator: null,
-                    placeholder: function (opts) { return opts.radixPoint; }
+                    placeholder: function (opts) {
+                        return opts.radixPoint;
+                    }
                 }
             },
             insertMode: true,
@@ -419,14 +468,14 @@ Optional extensions on the jquery.inputmask base
             canClearPosition: function (maskset, position, lvp, strict, opts) {
                 var positionInput = maskset["validPositions"][position].input,
                     canClear = (positionInput != opts.radixPoint && isFinite(positionInput)) ||
-                                position == lvp ||
-                                positionInput == opts.groupSeparator ||
-                                positionInput == opts.negationSymbol.front ||
-                                positionInput == opts.negationSymbol.back,
+                        position == lvp ||
+                        positionInput == opts.groupSeparator ||
+                        positionInput == opts.negationSymbol.front ||
+                        positionInput == opts.negationSymbol.back,
                     posOffset = 0;
 
                 if (canClear && isFinite(positionInput)) {
-                    var matchRslt
+                    var matchRslt;
                     if (!strict && maskset["buffer"]) {
                         matchRslt = maskset["buffer"].join('').substr(0, position).match(opts.regex.integerNPart(opts));
                         var pos = position + 1, isNull = matchRslt == null || parseInt(matchRslt["0"].replace(new RegExp($.inputmask.escapeRegex(opts.groupSeparator), "g"), "")) == 0;

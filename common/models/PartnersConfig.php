@@ -9,6 +9,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -21,7 +22,7 @@ use Yii;
  * @property resource $allow_cat
  * @property resource $allow_prod
  */
-class PartnersConfig extends \yii\db\ActiveRecord
+class PartnersConfig extends ActiveRecordExt
 {
     /**
      * @inheritdoc

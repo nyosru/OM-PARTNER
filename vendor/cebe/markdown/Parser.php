@@ -48,7 +48,7 @@ abstract class Parser
 	public function parse($text)
 	{
 		$this->prepare();
-
+		
 		if (empty($text)) {
 			return '';
 		}

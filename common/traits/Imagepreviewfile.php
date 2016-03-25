@@ -18,46 +18,22 @@ class Imagepreviewfile
             $ras = array_splice($file, -1, 1);
             $ras[0] = strtolower($ras[0]);
             $namefile = base64_encode(implode('', $file));
-            $dir = implode('/', $split) . '/';
+            $dir = implode('/', $split);
         } else {
             $file = $split[0];
             $file = explode('.', $file);
             $ras = array_splice($file, -1, 1);
             $namefile = base64_encode(implode('', $file));
-            $dir = '';
+            $dir = 'rope';
         }
-        if (strlen($namefile) > 500000000000) {
-            $split[] = $subdir = substr($namefile, 0, 2);
-            $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
-            $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2) . '/';
-            $split[] = substr($namefile, 6, 2);
-            $subdir .= '/' . substr($namefile, 6, 2) . '/';
-        } elseif (strlen($namefile) > 500000000000) {
-            $split[] = $subdir = substr($namefile, 0, 2);
-            $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
-            $split[] = substr($namefile, 4, 2);
-            $subdir .= '/' . substr($namefile, 4, 2) . '/';
-        } elseif (strlen($namefile) > 500000000000) {
-            $split[] = $subdir = substr($namefile, 0, 2);
-            $split[] = substr($namefile, 2, 2);
-            $subdir .= '/' . substr($namefile, 2, 2) . '/';
-        } else {
-            $subdir = '';
+        $dirfile = md5($namefile);
+        $subdir = '';
+        for($i=0; $i<5; $i++){
+            $subdir .= '/'.substr($dirfile, $i*2 , 2);
         }
         if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0]) || $action == 'refresh') {
             if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
-                $new_dir = '';
-                foreach ($split as $value) {
-                    $new_dir .= $value . '/';
-                    if (file_exists(Yii::getAlias($where) . $new_dir)) {
-                        chmod(Yii::getAlias($where) . $new_dir, 0777);
-                    } else {
-                        mkdir(Yii::getAlias($where) . $new_dir, 0777);
-                    }
-                }
+                    mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
             }
             if ($ras[0] == 'jpg' || $ras[0] == 'jpeg') {
                 $image = imagecreatefromjpeg($from . $filename);
@@ -70,14 +46,14 @@ class Imagepreviewfile
             $height = imagesy($image);
             $original_aspect = $width / $height;
             if ($original_aspect > 1.3) {
-                $thumb_width = 300;
-                $thumb_height = 180;
-            } elseif ($original_aspect < 0.7) {
-                $thumb_width = 180;
+                $thumb_width = 450;
                 $thumb_height = 300;
+            } elseif ($original_aspect < 0.7) {
+                $thumb_width = 300;
+                $thumb_height = 450;
             } else {
-                $thumb_width = 200;
-                $thumb_height = 200;
+                $thumb_width = 300;
+                $thumb_height = 300;
             }
             $thumb_aspect = $thumb_width / $thumb_height;
             if ($original_aspect >= $thumb_aspect) {
@@ -95,10 +71,10 @@ class Imagepreviewfile
                 0, 0,
                 $new_width, $new_height,
                 $width, $height);
-            imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 80);
+            imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0], 100);
         }
 
-        return $_SERVER['HTTP_HOST'] . '/images/' . $dir . $subdir . $namefile . '.' . $ras[0];
+        return '/images/' . $dir . $subdir . $namefile . '.' . $ras[0];
     }
 }
 

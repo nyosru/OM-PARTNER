@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\patch\ActiveRecordExt;
 use Yii;
 
 /**
@@ -27,7 +28,7 @@ use Yii;
  * @property integer $entry_country_id
  * @property integer $entry_zone_id
  */
-class AddressBook extends \yii\db\ActiveRecord
+class AddressBook extends ActiveRecordExt
 {
     /**
      * @inheritdoc
@@ -43,12 +44,12 @@ class AddressBook extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customers_id', 'entry_country_id', 'entry_zone_id'], 'integer'],
+            [['customers_id', 'entry_zone_id'], 'integer'],
             [['entry_gender', 'entry_firstname', 'entry_lastname', 'entry_street_address', 'entry_postcode', 'entry_city'], 'required'],
             [['birth_day', 'pasport_kogda_vidan'], 'safe'],
             [['pasport_kem_vidan'], 'string'],
             [['entry_gender'], 'string', 'max' => 1],
-            [['entry_company', 'entry_firstname', 'entry_lastname', 'entry_suburb', 'entry_city', 'entry_state'], 'string', 'max' => 255],
+            [['entry_company', 'entry_firstname', 'entry_lastname', 'entry_suburb', 'entry_city', 'entry_state','entry_country_id'], 'string', 'max' => 255],
             [['otchestvo'], 'string', 'max' => 128],
             [['pasport_seria', 'entry_postcode'], 'string', 'max' => 10],
             [['pasport_nomer'], 'string', 'max' => 20],
@@ -66,21 +67,21 @@ class AddressBook extends \yii\db\ActiveRecord
             'customers_id' => 'Customers ID',
             'entry_gender' => 'Entry Gender',
             'entry_company' => 'Entry Company',
-            'entry_firstname' => 'Entry Firstname',
-            'entry_lastname' => 'Entry Lastname',
-            'otchestvo' => 'Otchestvo',
-            'birth_day' => 'Birth Day',
-            'pasport_seria' => 'Pasport Seria',
-            'pasport_nomer' => 'Pasport Nomer',
-            'pasport_kem_vidan' => 'Pasport Kem Vidan',
-            'pasport_kogda_vidan' => 'Pasport Kogda Vidan',
-            'entry_street_address' => 'Entry Street Address',
+            'entry_firstname' => 'Имя',
+            'entry_lastname' => 'Фамилия',
+            'otchestvo' => 'Отчество',
+            'birth_day' => 'Дата рождения (в формате ГГГГ-ММ-ДД)',
+            'pasport_seria' => 'Серия',
+            'pasport_nomer' => 'Номер',
+            'pasport_kem_vidan' => 'Кем выдан',
+            'pasport_kogda_vidan' => 'Когда выдан',
+            'entry_street_address' => 'Адрес',
             'entry_suburb' => 'Entry Suburb',
-            'entry_postcode' => 'Entry Postcode',
-            'entry_city' => 'Entry City',
+            'entry_postcode' => 'Почтовый индекс',
+            'entry_city' => 'Город',
             'entry_state' => 'Entry State',
-            'entry_country_id' => 'Entry Country ID',
-            'entry_zone_id' => 'Entry Zone ID',
+            'entry_country_id' => 'Страна',
+            'entry_zone_id' => 'Регион',
         ];
 
     }

@@ -25,7 +25,7 @@ class LoginForm extends Model
             [['username', 'password', 'captcha'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
-            ['captcha', 'captcha'],
+            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'не соответствует'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
 

@@ -1,7 +1,8 @@
 <?php
 namespace frontend\controllers\actions;
 
-use Yii;
+use common\models\ProductsSpecifications;
+use yii;
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
 

@@ -20,7 +20,6 @@ return [
         ['name' => 'colors'],
         ['name' => 'links'],
         ['name' => 'others'],
-        ['name' => 'styles'],
     ],
     'removeButtons' => 'Smiley,Iframe'
 ];

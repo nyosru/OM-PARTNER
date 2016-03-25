@@ -79,17 +79,17 @@ class Alert extends Widget
 
         foreach ($flashes as $type => $data) {
             if (isset($this->alertTypes[$type])) {
-                $data = (array) $data;
+                $data = (array)$data;
                 foreach ($data as $message) {
 
                     $this->options['class'] = $this->alertTypes[$type]['class'] . $appendCss;
                     $this->options['id'] = $this->getId() . '-' . $type;
 
                     echo BootstrapAlert::widget([
-                            'body' => $this->alertTypes[$type]['icon'] . $message,
-                            'closeButton' => $this->closeButton,
-                            'options' => $this->options,
-                        ]);
+                        'body' => $this->alertTypes[$type]['icon'] . $message,
+                        'closeButton' => $this->closeButton,
+                        'options' => $this->options,
+                    ]);
                 }
 
                 $session->removeFlash($type);
