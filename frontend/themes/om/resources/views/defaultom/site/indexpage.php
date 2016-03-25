@@ -342,7 +342,7 @@ $this->title = $title;
         </div>
     </div>
     <div style="clear: both;">
-        <div id="index-card-4">Сео индекс инлайн</div>
+
         <div style="margin: 0px 15px;float: left;">
             <?
             if (Yii::$app->user->can('admin')) {
