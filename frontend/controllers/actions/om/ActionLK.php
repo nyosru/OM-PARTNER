@@ -37,18 +37,8 @@ trait ActionLK
                 if(Yii::$app->request->post()){
                     $customer=new Profile();
                     $customer->load(Yii::$app->request->post());
-//                    echo '<pre>';
-//                    print_r(Yii::$app->request->post());
-//                    print_r($customer);
-//                    echo '</pre>';
-//                    die();
                     switch (Yii::$app->request->post()['save_lk']) {
                         case 'user':
-//                            echo'<pre>';
-//                            print_r(Yii::$app->request->post());
-//                            print_r($cust);
-//                            echo'<pre>';
-//                            die();
                             $customer->saveUserInfo();
                             break;
                         case 'customer':

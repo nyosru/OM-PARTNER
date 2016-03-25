@@ -65,7 +65,6 @@ $(document).on('ready', function () {
             localStorage.removeItem('cart-om');
             localStorage.removeItem('cart-om-date');
         }
-   //     console.log($i);
         $c = 0;
 
 
