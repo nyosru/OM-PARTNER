@@ -33,7 +33,7 @@ class OrdersStatusHistory extends ActiveRecordExt
     {
         return [
             [['orders_id', 'orders_status_id', 'customer_notified', 'admin_id'], 'integer'],
-            [['date_added'], 'date'],
+            [['date_added'], 'safe'],
             [['comments', 'private_comments'], 'string'],
             [['storage'], 'string', 'max' => 24]
         ];

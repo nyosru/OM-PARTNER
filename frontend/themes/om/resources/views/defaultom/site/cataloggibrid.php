@@ -564,7 +564,7 @@ if ($data[0] != 'Не найдено!') {
     if(typeof(data['spec']['specificationDescription'][item.specifications_id])!="undefined"){
        $spec_html+= data['spec']['specificationDescription'][item.specifications_id]['specification_name']+': ';
                 }else{
-                $spec_html+='Параметр: ';
+                $spec_html+='';
                 }
                  if(typeof(data['spec']['specificationValuesDescription'][item.specification_values_id])!="undefined"){
                   $spec_html+= data['spec']['specificationValuesDescription'][item.specification_values_id]['specification_value']+'<br/>';

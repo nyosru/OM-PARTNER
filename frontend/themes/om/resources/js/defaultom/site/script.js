@@ -63,39 +63,20 @@ $(document).on('click', '.del-product', function () {
     $('[id=input-count]').each(function(index,value){
         $nums.push(value.value);
     });
+
+    $str=$('.cart-row');;
     $nums.splice($delrow, 1);
     $new_cart.cart = $array_splice;
     $ilocal = JSON.stringify($new_cart);
     localStorage.setItem('cart-om', $ilocal);
-    $innerhtml = '';
-    $c = 0;
-    $amount_prod = 0;
-    $cart_price = 0;
 
-    $.each($array_splice, function (index) {
-        this[4] = $nums[index];
-        $amount_prod = $amount_prod + parseInt(this[4]);
-        $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
-        if (this[6] == 'undefined') {
-            this[6] = 'Без размера'
-        } else {
-            this[6] = this[6] + ' размер';
+    $.each($str, function(){
+        if($(this).attr('data-raw')==$delrow){
+            $(this).next().remove();
+            $(this).remove();
         }
-        $innerhtml += '<div data-raw="' + ($c++) + '" class="cart-row" style="height: 200px; width:100%; border-bottom:1px solid #ccc;margin:0;padding:10px 0 10px 10px;">' +
-            '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="/site/imagepreview?src=' + this[0] + '"/></div>' +
-            '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:350px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
-            '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+this[1] +' </span>| '+this[7]+'</div>' +
-            '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
-            '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
-            '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(this[3]) + ' руб.</div>'+
-            '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'"   data-count="'+this[10]['count']+'"  data-name="'+this[7]+'" data-id="'+$c+'">-</div>' +
-            '   <input id="input-count" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'" data-min="'+this[9]['min']+'"  data-count="'+this[10]['count']+'"  data-step="'+this[8]['step']+'"  data-id="'+$c+'" value="' + this[4] + '">' +
-            '   <div id="add-count" style="float: left; line-height:1.5;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"  data-id="'+$c+'" data-min="'+this[9]['min']+'"   data-count="'+this[10]['count']+'"  data-step="'+this[8]['step']+'">+</div></div>' +
-            '</div></div>' +
-            '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"  data-prod="'+this[0]+'" data-model="'+this[1]+'" data-attr="'+this[2]+'" data-price="'+parseInt(this[3])+'" data-image="'+this[5]+'" data-attrname="'+this[6]+'" data-name="'+this[7]+'"   data-count="'+this[10]['count']+'"  data-min="'+this[9]['min']+'" data-step="'+this[8]['step']+'"  data-id="'+$c+'"><i class="fa fa-times"></i></div></div>';
     });
-    $innerhtml+='</div>';
-    $('.cart-column1').html($innerhtml);
+
     $(".cart-count").html($amount_prod);
     $(".cart-price").html($cart_price + ' руб.');
     var godsprice=0;
@@ -347,7 +328,7 @@ $(document).on('click', '#catalog-mode', function () {
     if ($('#partners-main-left-back').attr('style') != 'display: none;') {
         $('#partners-main-left-back').attr('style', 'display: none;');
         $('#partners-main-right-back').attr('style', 'width: 100%;margin-left: 0;');
-        $('#partners-main-right-back').prepend('<div id="catalog-mode" class="" style="float: right; position: fixed; z-index: 99; font-size: 11px; line-height: 1.1; width: 24px; height: 24px; text-align: center; border: 1px solid rgb(204, 204, 204); background: rgb(204, 204, 204) none repeat scroll 0% 0%; color: rgb(255, 255, 255);"> <i class="fa fa-2x fa-angle-right"></i></div>');
+        $('#partners-main-right-back').prepend('<div id="catalog-mode" class="" style="float: right; position: fixed; z-index: 99; font-size: 11px; line-height: 1.1; width: 24px;height: 24px; text-align: center; border: 1px solid rgb(204, 204, 204); background: rgb(204, 204, 204) none repeat scroll 0% 0%; color: rgb(255, 255, 255);"> <i class="fa fa-2x fa-angle-right"></i></div>');
 
 
     } else {
@@ -1114,6 +1095,7 @@ function onAjaxSuccessinfo(data) {
     $(document).on('click', '#country', function () {
         $('[data-name=country]').val($(this).text());
         $('[data-name=country]').attr('data-country', this.getAttribute('country'));
+        $(this).parent().parent().siblings().find('[data-name=state]').val('');
         $('#country-drop').hide();
         $.ajax({
             type: "GET",

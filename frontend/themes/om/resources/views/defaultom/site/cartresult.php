@@ -83,30 +83,9 @@ if($result['data']['saveproduct']) {
         $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
     }
 }
-
-
-
-
-
-
 ?>
     </div>
-    <?
 
-    if($result['data']['timeproduct']) {
-        echo '<div style="padding: 10px; border: 1px solid rgb(204, 204, 204); margin: 10px 0px; border-radius: 4px;">Товары не доступные в данный момент для заказа</div>';
-        foreach ($result['data']['timeproduct'] as $key => $value) {
-            echo '<div style="width: 100%; float: left; border-bottom: 1px solid rgb(204, 204, 204); padding: 10px 0px;">';
-            echo '<div style="float: left; width: calc(100% / 6);">' . $key . '</div>';
-            echo '<div style="float: left; width: calc(100% / 6);">' . $value[0]['products_model'] . '</div>';
-            echo '<div style="float: left; width: calc(100% / 6);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'] . '" /></div>';
-            echo '<div style="float: left; width: calc(100% / 6);">' . $value[0]['products_quantity'] . '</div>';
-            echo '<div style="float: left; width: calc(100% / 6);">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  . '</div>';
-            echo '<div style="float: left; width: calc(100% / 6);">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_description']  . '</div>';
-            echo '</div>';
-        }
-    }
-    ?>
 <script>
     $(document).on('ready', function(){
         $productattr = <?= json_encode($delproductattr)?>;

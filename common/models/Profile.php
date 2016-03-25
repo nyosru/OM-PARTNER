@@ -295,7 +295,7 @@ class Profile extends Model
         $add->birth_day=$this->delivery['add']['birthday'];
         $add->pasport_seria=$this->delivery['add']['passportser'];
         $add->pasport_nomer=$this->delivery['add']['passportnum'];
-        $add->pasport_kem_vidan=$this->delivery['add']['passportwho'];
+        $add->pasport_kem_vidan=$this->delivery['add']['passportwhere'];
         $add->pasport_kogda_vidan=$this->delivery['add']['passportdate'];
         $add->entry_country_id=$entrycountry['id'];
         $add->entry_zone_id=$entryzones['id'];
