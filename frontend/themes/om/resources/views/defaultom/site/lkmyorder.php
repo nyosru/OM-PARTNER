@@ -245,39 +245,39 @@ echo \yii\grid\GridView::widget([
             }
 
         ],
-        [
-            'attribute' => 'delivery_adress',
-            'label' => 'Оплатить заказ',
-            'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-            'contentOptions' => function ($model, $key, $index, $column) {
-                return ['class' => 'user-order-table-row'];
-            },
-            'content' => function ($data) {
-                return 'Инструкция по оплате';
-            }
-        ],
-        [
-            'attribute' => 'delivery_adress',
-            'label' => 'Квитанция',
-            'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-            'contentOptions' => function ($model, $key, $index, $column) {
-                return ['class' => 'user-order-table-row'];
-            },
-            'content' => function ($data) {
-                return 'Счет';
-            }
-        ],
-        [
-            'attribute' => 'customers_name',
-            'label' => 'Действия',
-            'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
-            'contentOptions' => function ($model, $key, $index, $column) {
-                return ['class' => 'user-order-table-row'];
-            },
-            'content' => function ($data) {
-                return 'Оставить комментарий';
-            }
-        ],
+//        [
+//            'attribute' => 'delivery_adress',
+//            'label' => 'Оплатить заказ',
+//            'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+//            'contentOptions' => function ($model, $key, $index, $column) {
+//                return ['class' => 'user-order-table-row'];
+//            },
+//            'content' => function ($data) {
+//                return 'Инструкция по оплате';
+//            }
+//        ],
+//        [
+//            'attribute' => 'delivery_adress',
+//            'label' => 'Квитанция',
+//            'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+//            'contentOptions' => function ($model, $key, $index, $column) {
+//                return ['class' => 'user-order-table-row'];
+//            },
+//            'content' => function ($data) {
+//                return 'Счет';
+//            }
+//        ],
+//        [
+//            'attribute' => 'customers_name',
+//            'label' => 'Действия',
+//            'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+//            'contentOptions' => function ($model, $key, $index, $column) {
+//                return ['class' => 'user-order-table-row'];
+//            },
+//            'content' => function ($data) {
+//                return 'Оставить комментарий';
+//            }
+//        ],
 
     ],
     'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
