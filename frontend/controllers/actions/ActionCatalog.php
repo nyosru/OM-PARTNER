@@ -49,7 +49,7 @@ trait ActionCatalog
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
         if(!$x['products_last_modified']){
             $x['products_last_modified'] = $x['add_date'] ;
         }
@@ -70,7 +70,7 @@ trait ActionCatalog
                     $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                     break;
                 case 1:
-                    $order = ['products_price' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                    $order = ['products.price_coll' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                     break;
                 case 2:
                     $order = ['products_name' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -85,7 +85,7 @@ trait ActionCatalog
                     $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                     break;
                 case 11:
-                    $order = ['products_price' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
+                    $order = ['products.price_coll' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
                     break;
                 case 12:
                     $order = ['products_name' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -152,7 +152,7 @@ trait ActionCatalog
             }
 
 
-            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod,  products.products_last_modified as last, products_date_added as add_date ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and products_image != "/" and (products_description IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
+            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.price_coll as price, products.products_last_modified as last, products_date_added as add_date ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('  categories_id IN (' . $cat . ') and (products_status = 1) ' . $prod_search_query_filt . $prod_attr_query_filt . ' and (products_image IS NOT NULL) and products_image != "/" and (products_description IS NOT NULL) and ( products.products_quantity > 0 )  and (products_price <= :end_price) and (products_price >= :start_price)  and (products.manufacturers_id NOT IN (' . $hide_man . '))', $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
@@ -171,7 +171,7 @@ trait ActionCatalog
 
                 Yii::$app->params['log']['date']['dt'][]['c'] =  $marker;
                 if (isset($dataprod['data']) && $marker !== 0) {
-                    $data[] = $dataprod['data'];
+                  //  $data[] = $dataprod['data'];
                 } else {
                     $nodata[] = $values['prod'];
                 }
@@ -184,10 +184,20 @@ trait ActionCatalog
                 foreach ($datar as $valuesr) {
                     $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
                     Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
-                    $data[] = $valuesr;
+                   // $data[] = $valuesr;
                 }
 
             }
+           foreach($prod as $key=>$values){
+               $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
+               $dataprod = Yii::$app->cache->get($keyprod);
+               $data[] = $dataprod['data'];
+           }
+//            echo '<pre>';
+//            print_r($data);
+//            print_r($prod);
+//            echo '</pre>';
+//            die();
             $statickey = Yii::$app->cache->buildKey('static' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
             if (!isset($stats['data'])) {

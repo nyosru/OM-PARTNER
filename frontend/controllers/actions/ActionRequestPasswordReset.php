@@ -11,11 +11,11 @@ trait ActionRequestPasswordReset
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->getSession()->setFlash('success', 'На ваш электронный адрес было отправлено письмо. Следуйте инструкциям в нем.');
 
                 return $this->goHome();
             } else {
-                Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+                Yii::$app->getSession()->setFlash('error', 'Восстановление пароля временно не работает.');
             }
         }
         return $this->render('requestPasswordResetToken', [
