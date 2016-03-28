@@ -409,16 +409,17 @@ if ($data[0] != 'Не найдено!') {
     }
     $this->title = $thistitle . ' - ' . ($page + 1);
     echo $innerhtml;
-    echo '<div class="loader-inner"><div class="loader"><div style="float: left; text-align: center; width: 100%;">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath['name']).'</span></div>'.
+
+    // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
+
+    if($data[1] > $count){
+      echo '<div class="loader-inner"><div class="loader"><div style="float: left; text-align: center; width: 100%;">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath['name']).'</span></div>'.
     '</div><div style="text-align: center; width: 25%; float: left; margin: 10px 0px 0px;">'.
     '<select id="control-load" style="background-color: rgba(255, 255, 255, 0);" class="no-shadow-form-control" name="control-load">'.
     '<option value="manual">Ручная загрузка</option>'.
     '<option value="auto">Автозагрузка</option>'.
     '</select>'
     .'</div></div>';
-    // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
-
-    if($data[1]>$count){
     echo '<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
     if($page<=0){
     $fpclass = 'disable';
@@ -476,7 +477,6 @@ if ($data[0] != 'Не найдено!') {
     echo 'Нет результатов';
 
 }
-
 ?>
     <div id="modal-product" style="border:none; min-height: 300px;">
         <span id="modal-close"><i class="fa fa-times"></i></span>
@@ -556,6 +556,7 @@ if ($data[0] != 'Не найдено!') {
     
     
     </script>
+
 
 
 <?

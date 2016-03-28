@@ -347,12 +347,11 @@ $this->title = $title;
             <?
             if (Yii::$app->user->can('admin')) {
             }
-            $data = new \common\models\PartnersPage();
             $page = 'seoindex';
-            $data = $data->find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type' => $page])->one();
+            $data = \common\models\PartnersPage::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type'=>'stringpost','name' => $page])->one();
             if ($data) {
                 echo '<div id="my-textarea-id">';
-                echo stripcslashes($data->value);
+                echo stripcslashes($data->content);
                  echo '</div>';
             } else {
                 ?>
@@ -377,12 +376,11 @@ $this->title = $title;
 
 
                         $.post(
-                            '/site/savehtml',
+                            '/site/savepage',
                             { html: $html,
-                                page: 'seoindex'}
+                                article: 'seoindex'}
                         );
                         alert('Изменения сохранены');
-
                     });
                 </script>
             <? } ?>

@@ -10,13 +10,17 @@ foreach($addr as $key=>$value){
         $first .= '<option value="' . $key . '">' . $value . '</option>';
     }
     }
-$plusorders_add='<select id="plusorders" name="plusorders">';
-foreach($plusorders as $key=>$value){
 
-    $plusorders_add .= '<option value="' . $value['orders_id'] . '">' . $value['orders_id'] . '</option>';
+if($plusorders) {
+    $plusorders_add='<select id="plusorders" name="plusorders">';
+    foreach ($plusorders as $key => $value) {
 
+        $plusorders_add .= '<option value="' . $value['orders_id'] . '">' . $value['orders_id'] . '</option>';
+
+    }
+    $plusorders_add .= '</select>';
 }
-$plusorders_add .= '</select>';
+
 $del_add .= $first;
 $del_add .= $options;
 $del_add .= '</select>';
@@ -167,7 +171,7 @@ $(document).on('ready', function () {
         <?php if(!Yii::$app->user->isGuest && $plusorders_add ){?>
         $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 40%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; "><input name="order-type" type="radio" checked="checked" value="new"/>Новый заказ<div>Минимальная сумма заказа 5000р.</div></div><div class="plusorder" style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 60%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px;"><input name="order-type" type="radio" value="plus"/>Оформить как дозаказ к заказу:<div class="plusorder" style="display: inline-block;"><?= $plusorders_add?></div><div>Минимальная сумма заказа 1000р.</div></div></div>';
         <? }else { ?>
-        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;">Заказ будет оформлен как новый<div>Минимальная сумма заказа 5000р.</div></div></div>';
+        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); padding: 0px 40px; line-height: 50px; height: 50px;">Заказ будет оформлен как новый<div style="float: right;">Минимальная сумма заказа 5000р.</div></div></div>';
         <?}?>
         if($i.length>0){
             <?php

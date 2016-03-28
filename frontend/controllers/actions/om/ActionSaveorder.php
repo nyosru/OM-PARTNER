@@ -307,12 +307,12 @@ trait ActionSaveorder
                     $ordershistory->comments = NULL;
                 }
                 if($type_order == 'plus'){
-                    $ordershistory->comments .= 'Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
+                    $ordershistory->comments .= ' Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
                 }
                 if($wrap == 'boxes'){
-                    $ordershistory->comments .= 'Авто-комментарий - Упаковка: крафт коробки. ';
+                    $ordershistory->comments .= ' Авто-комментарий - Упаковка: крафт коробки. ';
                 }
-                $ordershistory->comments .= 'Заказ с нового фронта';
+                $ordershistory->comments .= ' Заказ с нового фронта';
                 $ordershistory->validate();
                 $ordershistory->save();
 
