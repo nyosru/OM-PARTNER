@@ -33,7 +33,7 @@ trait ActionPage
         }else{
 
         }
-        $this->layout = 'catalog';
+        $this->layout = 'main';
         return $this->render('page', ['page'=>$page,'error'=>$page->errors]);
 
     }

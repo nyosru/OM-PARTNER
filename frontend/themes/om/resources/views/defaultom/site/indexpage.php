@@ -351,7 +351,7 @@ $this->title = $title;
             $data = \common\models\PartnersPage::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type'=>'stringpost','name' => $page])->one();
             if ($data) {
                 echo '<div id="my-textarea-id">';
-                echo stripcslashes($data->value);
+                echo stripcslashes($data->content);
                  echo '</div>';
             } else {
                 ?>
