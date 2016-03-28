@@ -59,6 +59,7 @@ trait ActionSaveorder
                 $minimal_order = 5000;
 
         }
+
         $wrap = Yii::$app->request->post('wrap');
         $quant=[];
 
@@ -188,6 +189,7 @@ trait ActionSaveorder
             if ($orders->save()) {
                 $price_total = '';
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
+
                 foreach ($product_in_order as $keyin_order => $valuein_order) {
                             $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order ]['productsAttributesDescr'], 'products_options_values_id');
                     foreach($valuein_order  as $keyinattr_order => $valueinattr_order){
@@ -307,7 +309,10 @@ trait ActionSaveorder
                 if($type_order == 'plus'){
                     $ordershistory->comments .= 'Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
                 }
-               // $ordershistory->comments = 'Заказ с нового фронта';
+                if($wrap == 'boxes'){
+                    $ordershistory->comments .= 'Авто-комментарий - Упаковка: крафт коробки. ';
+                }
+                $ordershistory->comments .= 'Заказ с нового фронта';
                 $ordershistory->validate();
                 $ordershistory->save();
 

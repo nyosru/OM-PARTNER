@@ -1038,9 +1038,9 @@ function onAjaxSuccessinfo(data) {
             $attrval = '';
         }
         if ($attrval != null && $attrval != '') {
-            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input title="' + $tooltip[$attr] + '" data-placement="top" data-toggle="tooltip" data-name="' + $attr + '" class="info-item" data-name="' + $attr + '" value="' + $attrval + '" ></input></div>';
+            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input name="[userinfo]'+$attr+'" title="' + $tooltip[$attr] + '" data-placement="top" data-toggle="tooltip" data-name="' + $attr + '" class="info-item" data-name="' + $attr + '" value="' + $attrval + '" ></input></div>';
         } else {
-            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input title="' + $tooltip[$attr] + '" data-placement="top" data-toggle="tooltip" class="info-item" data-name="' + $attr + '" placeholder="' + $attrlable + '"></input></div>';
+            $inner += '<div class="' + $attr + '-item lable-info-item">' + $attrlable + ': <input name="[userinfo]'+$attr+'" title="'  + $tooltip[$attr] + '" data-placement="top" data-toggle="tooltip" class="info-item" data-name="' + $attr + '" placeholder="' + $attrlable + '"></input></div>';
         }
     });
     $('.address').remove();
