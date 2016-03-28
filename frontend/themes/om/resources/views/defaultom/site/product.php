@@ -11,13 +11,13 @@ if (count($product['productsAttributesDescr']) > 0) {
     $product['productsAttributes']=\yii\helpers\ArrayHelper::index($product['productsAttributes'],'options_values_id');
 
     ksort($product['productsAttributesDescr'],SORT_NATURAL);
-    $prodinfoattr.='<div class="size-column1" style="width: 215px; overflow: hidden; float: left; border-right: 1px solid lightgrey;margin-right: 25px;">';
+    $prodinfoattr.='<div class="size-column1">';
     foreach ($product['productsAttributesDescr'] as $item) {
         if($sizeCounter==($numInFirstColumn)){
-            $prodinfoattr.='</div><div class="size-column2" style="overflow: hidden; width: 215px;">';
+            $prodinfoattr.='</div><div class="size-column2">';
         }
         $date = $product['products.products_date_added'];
-        $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 200px;"><div style="float: left; width: 45%;font-size: 18px; font-weight: 300; text-align: left; top:3px; position:relative;">' .
+        $prodinfoattr .= '<div class="size-desc"><div class="pr_op_va_name">' .
             $item['products_options_values_name'] . '</div><div><div id="del-count">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:25%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' .
             $product['products']['products_id'] . '" data-model="' .
             $product['products']['products_model'] . '" data-price="' .

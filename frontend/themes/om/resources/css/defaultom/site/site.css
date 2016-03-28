@@ -1066,12 +1066,16 @@
     }
 
     .size-desc {
-        color: #F0F8FF;
         text-align: center;
-        margin: 3px 10px;
         float: left;
-        max-width: 90px;
         word-wrap: break-word;
+        color: black;
+        padding:0px;
+        margin:0 0 24px 0;
+        font-size: 12px;
+        position: relative;
+        max-width: 200px;
+        width: 200px;
     }
 
     #prod-card-info > .prod-info-size > .size-desc {
@@ -1086,6 +1090,15 @@
 
     .size-desc:hover {
         cursor: pointer;
+    }
+    .pr_op_va_name{
+        float: left;
+        width: 45%;
+        font-size: 18px;
+        font-weight: 300;
+        text-align: left;
+        top:3px;
+        position:relative;
     }
 
     .cart-lable {
@@ -3171,9 +3184,22 @@
         color:#ccc;
         text-shadow: none;
     }
+
+    .size-column1{
+        width: 215px;
+        overflow: hidden;
+        float: left;
+        border-right: 1px solid lightgrey;
+        margin-right: 25px;
+    }
     .size-column1:last-child{
         margin-bottom: 0px;
     }
+    .size-column2{
+        overflow: hidden;
+        width: 215px
+    }
+
     div.size-desc:last-child{
         margin-bottom: 0 !important;
     }
