@@ -3,7 +3,7 @@
 use yii\bootstrap\Carousel;
 $this->title = $product['productsDescription']['products_name'];
 $this->registerMetaTag(['content' => $product['productsDescription']['products_description'], 'name' => 'description',]);
-$prodinfoattr='<div class="size-block" style="overflow: hidden;margin-bottom: 38px; width: 460px;">';
+$prodinfoattr='<div class="size-block">';
 if (count($product['productsAttributesDescr']) > 0) {
     $numInFirstColumn=(int)(count($product['productsAttributesDescr'])/2);
     $sizeCounter=0;
