@@ -3,9 +3,11 @@ namespace common\models;
 
 use yii;
 use yii\base\Model;
+use common\traits\Trim_Tags;
 
 class Profile extends Model
 {
+    use Trim_Tags;
     public $id;
     public $name;
     public $secondname;
@@ -48,7 +50,6 @@ class Profile extends Model
             ['id', 'integer'],
 
             [['email', 'customers_email_address'], 'email'],
-            [['email', 'customers_email_address'], 'ValidateUseremail'],
             [['email', 'customers_email_address'], 'filter', 'filter' => 'trim'],
             [['email', 'customers_email_address'], 'required', 'message' => 'Это обязательное поле'],
             [['email', 'customers_email_address'], 'string', 'message' => 'Минимум 6 символов', 'min' => 6],
@@ -82,24 +83,10 @@ class Profile extends Model
             [['phone', 'customers_telephone'], 'string', 'max' => 18, 'message' => 'Максимальная длина 18 знаков'],
 
             ['customers_fax', 'string', 'max' => 18, 'message' => 'Максимальная длина 18 знаков'],
-
         ];
     }
 
-    public function ValidateUseremail()
-    {
-        $userCustomer = new Customers();
-        $partners = new Partners();
-        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
-        $check_email = $userCustomer->find()->where(['customers_email_address' => $this->email])->asArray()->one();
-        $userCustomer = new User();
-        $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners' => $id_partners])->asArray()->one();
-        if (!$check_email && !$check_part_email) {
-            return true;
-        } else {
-            $this->addError('email', 'Почтовый адрес уже используется в системе');
-        }
-    }
+
 
     public function saveUserInfo()
     {
@@ -108,8 +95,6 @@ class Profile extends Model
         $add = AddressBook::find()->where(['address_book_id' => $customer->customers_default_address_id])->one();
         $country = new Countries();
         $zones = new Zones();
-//        $transaction = Yii::$app->db->beginTransaction();
-//        try{
         $arrkey='';
         foreach ($this->delivery as $key => $value) {
             $arrkey = $key;
@@ -133,29 +118,24 @@ class Profile extends Model
             if ($customer->save()) {
                 $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$arrkey]['country']])->asArray()->one();
                 $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$arrkey]['state']])->asArray()->one();
-                $add->entry_firstname = $this->delivery[$arrkey]['name'];
-                $add->otchestvo =$this->delivery[$arrkey]['secondname'];
-                $add->entry_lastname = $this->delivery[$arrkey]['lastname'];
-                $add->entry_street_address = $this->delivery[$arrkey]['address'];
-                $add->entry_city = $this->delivery[$arrkey]['city'];
+                $add->entry_firstname = $this->trim_tags_text($this->delivery[$arrkey]['name']);
+                $add->otchestvo =$this->trim_tags_text($this->delivery[$arrkey]['secondname']);
+                $add->entry_lastname = $this->trim_tags_text($this->delivery[$arrkey]['lastname']);
+                $add->entry_street_address = $this->trim_tags_text($this->delivery[$arrkey]['address']);
+                $add->entry_city = $this->trim_tags_text($this->delivery[$arrkey]['city']);
                 $add->entry_gender = 'M';
                 $add->entry_country_id = $entrycountry['id'];
                 $add->entry_zone_id = $entryzones['id'];
-                $add->entry_postcode = $this->delivery[$arrkey]['postcode'];
-                $add->pasport_seria = $this->delivery[$arrkey]['passportser'];
-                $add->pasport_nomer = $this->delivery[$arrkey]['passportnum'];
-                $add->pasport_kem_vidan = $this->delivery[$arrkey]['passportwhere'];
-                $add->pasport_kogda_vidan = $this->delivery[$arrkey]['passportdate'];
+                $add->entry_postcode = $this->trim_tags_text($this->delivery[$arrkey]['postcode']);
+                $add->pasport_seria = $this->trim_tags_text($this->delivery[$arrkey]['passportser']);
+                $add->pasport_nomer = $this->trim_tags_text($this->delivery[$arrkey]['passportnum']);
+                $add->pasport_kem_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportwhere']);
+                $add->pasport_kogda_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportdate']);
                 $add->customers_id = $userinfo->customers_id;
                 $add->save();
 
             }
         }
-//        }catch (\Exception $e){
-//            echo 1;
-//            $transaction->rollBack();
-//            die();
-//        }
     }
 
     public function saveCustomer()
@@ -176,28 +156,26 @@ class Profile extends Model
         }
         $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$arrkey]['country']])->asArray()->one();
         $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$arrkey]['state']])->asArray()->one();
-        $add->entry_firstname = $this->delivery[$arrkey]['name'];
-        $add->otchestvo = $this->delivery[$arrkey]['secondname'];
-        $add->entry_lastname = $this->delivery[$arrkey]['lastname'];
-        $add->entry_street_address = $this->delivery[$arrkey]['address'];
-        $add->entry_city = $this->delivery[$arrkey]['city'];
+        $add->entry_firstname = $this->trim_tags_text($this->delivery[$arrkey]['name']);
+        $add->otchestvo = $this->trim_tags_text($this->delivery[$arrkey]['secondname']);
+        $add->entry_lastname = $this->trim_tags_text($this->delivery[$arrkey]['lastname']);
+        $add->entry_street_address = $this->trim_tags_text($this->delivery[$arrkey]['address']);
+        $add->entry_city = $this->trim_tags_text($this->delivery[$arrkey]['city']);
         $add->entry_country_id = $entrycountry['id'];
         $add->entry_zone_id = $entryzones['id'];
-        $add->entry_postcode = $this->delivery[$arrkey]['postcode'];
-        $add->pasport_seria = $this->delivery[$arrkey]['passportser'];
-        $add->pasport_nomer = $this->delivery[$arrkey]['passportnum'];
-        $add->pasport_kem_vidan = $this->delivery[$arrkey]['passportwhere'];
-        $add->pasport_kogda_vidan = $this->delivery[$arrkey]['passportdate'];
+        $add->entry_postcode = $this->trim_tags_text($this->delivery[$arrkey]['postcode']);
+        $add->pasport_seria = $this->trim_tags_text($this->delivery[$arrkey]['passportser']);
+        $add->pasport_nomer = $this->trim_tags_text($this->delivery[$arrkey]['passportnum']);
+        $add->pasport_kem_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportwhere']);
+        $add->pasport_kogda_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportdate']);
         $add->entry_gender = 'M';
         $add->customers_id = $userinfo->customers_id;
 
         if ($add->save()) {
-            $customer->customers_firstname = $this->delivery[$arrkey]['name'];
-            $customer->customers_lastname = $this->delivery[$arrkey]['lastname'];
-            $customer->otchestvo = $this->delivery[$arrkey]['secondname'];
+            $customer->customers_firstname = $this->trim_tags_text($this->delivery[$arrkey]['name']);
+            $customer->customers_lastname = $this->trim_tags_text($this->delivery[$arrkey]['lastname']);
+            $customer->otchestvo = $this->trim_tags_text($this->delivery[$arrkey]['secondname']);
             $customer->pay_adress_id = $add->address_book_id;
-            if ($customer->save()) {
-            }
         }
     }
 
@@ -220,19 +198,19 @@ class Profile extends Model
 
         $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$arrkey]['country']])->asArray()->one();
         $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$arrkey]['state']])->asArray()->one();
-        $add->entry_firstname = $this->delivery[$arrkey]['name'];
-        $add->otchestvo = $this->delivery[$arrkey]['secondname'];
-        $add->entry_lastname = $this->delivery[$arrkey]['lastname'];
-        $add->entry_street_address = $this->delivery[$arrkey]['address'];
-        $add->entry_city = $this->delivery[$arrkey]['city'];
+        $add->entry_firstname = $this->trim_tags_text($this->delivery[$arrkey]['name']);
+        $add->otchestvo = $this->trim_tags_text($this->delivery[$arrkey]['secondname']);
+        $add->entry_lastname = $this->trim_tags_text($this->delivery[$arrkey]['lastname']);
+        $add->entry_street_address = $this->trim_tags_text($this->delivery[$arrkey]['address']);
+        $add->entry_city = $this->trim_tags_text($this->delivery[$arrkey]['city']);
         $add->entry_country_id = $entrycountry['id'];
         $add->entry_zone_id = $entryzones['id'];
-        $add->birth_day=$this->delivery[$arrkey]['birthday'];
-        $add->entry_postcode = $this->delivery[$arrkey]['postcode'];
-        $add->pasport_seria = $this->delivery[$arrkey]['passportser'];
-        $add->pasport_nomer = $this->delivery[$arrkey]['passportnum'];
-        $add->pasport_kem_vidan = $this->delivery[$arrkey]['passportwhere'];
-        $add->pasport_kogda_vidan = $this->delivery[$arrkey]['passportdate'];
+        $add->birth_day=$this->trim_tags_text($this->delivery[$arrkey]['birthday']);
+        $add->entry_postcode = $this->trim_tags_text($this->delivery[$arrkey]['postcode']);
+        $add->pasport_seria = $this->trim_tags_text($this->delivery[$arrkey]['passportser']);
+        $add->pasport_nomer = $this->trim_tags_text($this->delivery[$arrkey]['passportnum']);
+        $add->pasport_kem_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportwhere']);
+        $add->pasport_kogda_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportdate']);
         $add->entry_gender = 'M';
         $add->customers_id = $userinfo->customers_id;
         if($add->save()){
@@ -250,20 +228,20 @@ class Profile extends Model
         foreach ($add as $key=>$value){
             $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$key]['country']])->asArray()->one();
             $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$key]['state']])->asArray()->one();
-            $value->entry_firstname=$this->delivery[$key]['name'];
-            $value->entry_lastname=$this->delivery[$key]['lastname'];
-            $value->otchestvo=$this->delivery[$key]['secondname'];
+            $value->entry_firstname=$this->trim_tags_text($this->delivery[$key]['name']);
+            $value->entry_lastname=$this->trim_tags_text($this->delivery[$key]['lastname']);
+            $value->otchestvo=$this->trim_tags_text($this->delivery[$key]['secondname']);
             $value->entry_gender = 'M';
-            $value->birth_day=$this->delivery[$key]['birthday'];
-            $value->pasport_seria=$this->delivery[$key]['passportser'];
-            $value->pasport_nomer=$this->delivery[$key]['passportnum'];
-            $value->pasport_kem_vidan=$this->delivery[$key]['passportwhere'];
-            $value->pasport_kogda_vidan=$this->delivery[$key]['passportdate'];
+            $value->birth_day=$this->trim_tags_text($this->delivery[$key]['birthday']);
+            $value->pasport_seria=$this->trim_tags_text($this->delivery[$key]['passportser']);
+            $value->pasport_nomer=$this->trim_tags_text($this->delivery[$key]['passportnum']);
+            $value->pasport_kem_vidan=$this->trim_tags_text($this->delivery[$key]['passportwhere']);
+            $value->pasport_kogda_vidan=$this->trim_tags_text($this->delivery[$key]['passportdate']);
             $value->entry_country_id=$entrycountry['id'];
             $value->entry_zone_id=$entryzones['id'];
-            $value->entry_city=$this->delivery[$key]['city'];
-            $value->entry_postcode=$this->delivery[$key]['postcode'];
-            $value->entry_street_address=$this->delivery[$key]['address'];
+            $value->entry_city=$this->trim_tags_text($this->delivery[$key]['city']);
+            $value->entry_postcode=$this->trim_tags_text($this->delivery[$key]['postcode']);
+            $value->entry_street_address=$this->trim_tags_text($this->delivery[$key]['address']);
             $value->customers_id = $userinfo->customers_id;
             $value->save();
         }
@@ -288,20 +266,20 @@ class Profile extends Model
 
         $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery['add']['country']])->asArray()->one();
         $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery['add']['state']])->asArray()->one();
-        $add->entry_firstname=$this->delivery['add']['name'];
-        $add->entry_lastname=$this->delivery['add']['lastname'];
-        $add->otchestvo=$this->delivery['add']['secondname'];
+        $add->entry_firstname=$this->trim_tags_text($this->delivery['add']['name']);
+        $add->entry_lastname=$this->trim_tags_text($this->delivery['add']['lastname']);
+        $add->otchestvo=$this->trim_tags_text($this->delivery['add']['secondname']);
         $add->entry_gender = 'M';
-        $add->birth_day=$this->delivery['add']['birthday'];
-        $add->pasport_seria=$this->delivery['add']['passportser'];
-        $add->pasport_nomer=$this->delivery['add']['passportnum'];
-        $add->pasport_kem_vidan=$this->delivery['add']['passportwhere'];
-        $add->pasport_kogda_vidan=$this->delivery['add']['passportdate'];
+        $add->birth_day=$this->trim_tags_text($this->delivery['add']['birthday']);
+        $add->pasport_seria=$this->trim_tags_text($this->delivery['add']['passportser']);
+        $add->pasport_nomer=$this->trim_tags_text($this->delivery['add']['passportnum']);
+        $add->pasport_kem_vidan=$this->trim_tags_text($this->delivery['add']['passportwhere']);
+        $add->pasport_kogda_vidan=$this->trim_tags_text($this->delivery['add']['passportdate']);
         $add->entry_country_id=$entrycountry['id'];
         $add->entry_zone_id=$entryzones['id'];
-        $add->entry_city=$this->delivery['add']['city'];
-        $add->entry_postcode=$this->delivery['add']['postcode'];
-        $add->entry_street_address=$this->delivery['add']['address'];
+        $add->entry_city=$this->trim_tags_text($this->delivery['add']['city']);
+        $add->entry_postcode=$this->trim_tags_text($this->delivery['add']['postcode']);
+        $add->entry_street_address=$this->trim_tags_text($this->delivery['add']['address']);
         $add->customers_id=$userinfo->customers_id;
         $add->save();
     }
