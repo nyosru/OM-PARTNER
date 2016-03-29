@@ -255,12 +255,39 @@ trait ActionSaveorder
                                     if ($ordersprodattr->save()) {
                                         $ordersprodattr =  $ordersprodattr->toArray();
                                    } else {
+                                        return $this->render('cartresult', [
+                                            'result'=>  [
+                                                'code' => 0,
+                                                'text'=>'Ошибка оформления позиции',
+                                                'data'=>[
+                                                    'paramorder'=>[
+                                                    ],
+                                                    'origprod' => $origprod,
+                                                    'timeproduct'=>$related,
+                                                    'totalpricesaveproduct'=>$validprice
+                                                ]
+                                            ]
+                                        ]);
                                   }
                             } else {
                             }
                                     $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
                                      $price_total += (float)($price_total) +  $ordersprod->products_price * $ordersprod->products_quantity;
 
+                                 }else{
+                                     return $this->render('cartresult', [
+                                         'result'=>  [
+                                             'code' => 0,
+                                             'text'=>'Ошибка оформления продукта',
+                                             'data'=>[
+                                                 'paramorder'=>[
+                                                 ],
+                                                 'origprod' => $origprod,
+                                                 'timeproduct'=>$related,
+                                                 'totalpricesaveproduct'=>$validprice
+                                             ]
+                                         ]
+                                     ]);
                                  }
                     }
 
@@ -285,7 +312,23 @@ trait ActionSaveorder
                 $orderstotalprice->value = '0.0000';
                 $orderstotalprice->class = 'ot_shipping';
                 $orderstotalprice->sort_order = 2;
-                $orderstotalprice->save();
+                if($orderstotalprice->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $orderstotalship = new OrdersTotal();
                 $orderstotalship->orders_id = $orders->orders_id;
@@ -294,7 +337,23 @@ trait ActionSaveorder
                 $orderstotalship->value = $price_total;
                 $orderstotalship->class = 'ot_total';
                 $orderstotalship->sort_order = 800;
-                $orderstotalship->save();
+                if($orderstotalship->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $orderstotalprint = new OrdersTotal();
                 $orderstotalprint->orders_id = $orders->orders_id;
@@ -303,7 +362,23 @@ trait ActionSaveorder
                 $orderstotalprint->value = $price_total;
                 $orderstotalprint->class = 'ot_subtotal';
                 $orderstotalprint->sort_order = 1;
-                $orderstotalprint->save();
+                if($orderstotalprint->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $neworderpartner = new PartnersOrders();
                 $neworderpartner->partners_id = $partner_id;
@@ -314,7 +389,23 @@ trait ActionSaveorder
                 $neworderpartner->orders_id = $orders->orders_id;
                 $neworderpartner->update_date = $nowdate;
                 $neworderpartner->create_date = $nowdate;
-                $neworderpartner->save();
+                if($neworderpartner->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $ordershistory = new OrdersStatusHistory();
                 $ordershistory->orders_id = $orders->orders_id;
@@ -334,10 +425,38 @@ trait ActionSaveorder
                 }
                 $ordershistory->comments .= ' Заказ с нового фронта';
                 $ordershistory->validate();
-                $ordershistory->save();
+                if($ordershistory->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
             } else {
-
+                return $this->render('cartresult', [
+                    'result'=>  [
+                        'code' => 0,
+                        'text'=>'Ошибка оформления заказа',
+                        'data'=>[
+                            'paramorder'=>[
+                            ],
+                            'origprod' => $origprod,
+                            'timeproduct'=>$related,
+                            'totalpricesaveproduct'=>$validprice
+                        ]
+                    ]
+                ]);
             }
             $transaction->commit('suc');
 

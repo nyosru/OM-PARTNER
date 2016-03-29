@@ -321,6 +321,8 @@ trait ActionCatalog
             }else{
                 $catpath = $this->Catpath($cat_start,'namenum');
             }
+            $productattrib = ArrayHelper::index($productattrib, 'products_options_values_name');
+            ksort($productattrib,'SORT_NATURAL' );
                     Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
                 return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time'=>$man_time]);
         }
