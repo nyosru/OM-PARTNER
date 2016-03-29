@@ -1,50 +1,64 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: dmitriy
+ * Date: 28.03.16
+ * Time: 17:45
+ */
 namespace common\models;
-
 use common\patch\ActiveRecordExt;
 use Yii;
-use common\models\PartnersProducts;
 /**
- * This is the model class for table "products_to_categories".
+ * This is the model class for table "featured".
  *
- * @property string $products_id
- * @property string $categories_id
- * @property string $old_categories_id
+ * @property integer               $featured_id
+ * @property integer               $products_id
+ * @property string                $featured_date_added
+ * @property string                $featured_last_modified
+ * @property string                $expires_date
+ * @property string                $date_status_change
+ * @property integer               $status
+ * @property double                $discount
+ *
  */
-class PartnersProductsToCategories extends ActiveRecordExt
+class Featured extends ActiveRecordExt
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'products_to_categories';
+        return 'featured';
     }
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['products_id'], 'required'],
-            [['products_id', 'categories_id', 'old_categories_id'], 'integer']
+            [['featured_date_added', 'featured_last_modified', 'date_status_change'], 'date'],
+            [['expires_date'], 'date'],
+            [['products_id', 'status'], 'integer'],
+            [['discount'], 'number'],
+            [['products_id', 'discount'], 'required']
         ];
     }
-
     /**
      * @inheritdoc
      */
     public function attributeLabels()
     {
         return [
-            'products_id' => 'Products ID',
-            'categories_id' => 'Categories ID',
-            'old_categories_id' => 'Old Categories ID',
+            'featured_id'            => 'Featured ID',
+            'products_id'            => 'Products ID',
+            'featured_date_added'    => 'Featured Date Added',
+            'featured_last_modified' => 'Featured Last Modified',
+            'expires_date'           => 'Expires Date',
+            'date_status_change'     => 'Date Status Change',
+            'status'                 => 'Status',
+            'discount'               => 'Discount',
         ];
     }
-
     public function getProducts()
     {
         return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id']);

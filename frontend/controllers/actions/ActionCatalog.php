@@ -258,7 +258,7 @@ trait ActionCatalog
                         $data[$key]['products']['products_image_xl_4'],
                         $data[$key]['products']['products_image_xl_5'],
                         $data[$key]['products']['products_image_xl_6'],
-                        $data[$key]['products']['products_old_price'],
+                        //$data[$key]['products']['products_old_price'],
                         $data[$key]['products']['products_ordered'],
                         $data[$key]['products']['price_coll'],
                         $data[$key]['products']['products_sort_order'],
