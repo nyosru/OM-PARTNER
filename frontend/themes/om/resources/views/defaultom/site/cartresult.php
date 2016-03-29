@@ -7,7 +7,7 @@ $this -> title = 'Обработка заказа';
 //print_r($result['data']['saveproduct']);
 //echo '</pre>';
 
-if($result['code'] == 200){
+if($result['code'] == 200 && $result['data']['paramorder']['number']){
 ?>
 
 <div style="float:left; width:80%">
@@ -126,4 +126,5 @@ if($result['data']['saveproduct']) {
     </div>
 <?
     }
+print_r($error);
 ?>

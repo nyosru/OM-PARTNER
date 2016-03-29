@@ -102,6 +102,7 @@ $this->title = 'Личный кабинет';
                     $inner .= '<table class="table table-striped  table-hover table-responsive">';
                     $inner .= '<thead><tr>';
                     $inner .= '<th style="border: none" class="col-md-2">#</th>';
+                    $inner .= '<th style="border: none" class="col-md-1">Изображение</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Артикул</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Цена за шт</th>';
                     $inner .= '<th style="border: none" class="col-md-1">Количество</th>';
@@ -161,6 +162,7 @@ $this->title = 'Личный кабинет';
                     $inner .= '</tbody><tfooter>';
                     $inner .= '<tr>';
                     $inner .= '<th style="border: none" class="col-md-1">Итого</th>';
+                    $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
                     $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
                     $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: ' . $omfirstprice . ' Руб. ' . $finalompriceview . ' </th>';
@@ -202,7 +204,7 @@ $this->title = 'Личный кабинет';
                         case '100':
                             return 'Обработка заказа';
                         case '1':
-                            return 'Сверка';
+                            return 'Ожидает проверки';
                         case '2':
                             return 'Ждём оплаты';
                         case '3':

@@ -121,6 +121,7 @@ echo \yii\grid\GridView::widget([
                 $inner .= '<table class="table table-striped  table-hover table-responsive">';
                 $inner .= '<thead><tr>';
                 $inner .= '<th style="border: none" class="col-md-1">#</th>';
+                $inner .= '<th style="border: none" class="col-md-1">Изображение</th>';
                 $inner .= '<th style="border: none" class="col-md-2">Артикул</th>';
                 $inner .= '<th style="border: none" class="col-md-2">Цена за шт</th>';
                 $inner .= '<th style="border: none" class="col-md-1">Количество</th>';
@@ -150,6 +151,7 @@ echo \yii\grid\GridView::widget([
                     }
                     $inner .= '<tr style="background: ' . $col . '">';
                     $inner .= '<td class="col-md-1">' . $count . '</td>';
+                    $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
                     $inner .= '<td class="col-md-2">'.$value->products_model.'</td>';
                     if($data->orders_status != 1) {
                         $omfinalquant = '<br/>В наличии: ' . $positionquantity . '';
@@ -223,7 +225,7 @@ echo \yii\grid\GridView::widget([
                         case '100':
                             return 'Обработка заказа';
                         case '1':
-                            return 'Сверка';
+                            return 'Ожидает проверки';
                         case '2':
                             return 'Ждём оплаты';
                         case '3':

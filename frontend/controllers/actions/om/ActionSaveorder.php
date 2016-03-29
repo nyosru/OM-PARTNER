@@ -129,7 +129,11 @@ trait ActionSaveorder
             $orders->customers_state = $defaultentryzones['zone_name'];
             $orders->customers_city = $default_user_address['entry_city'];
             $orders->customers_street_address = $default_user_address['entry_street_address'];
-            $orders->customers_postcode = $default_user_address['entry_postcode'];
+            if($default_user_address['entry_postcode']) {
+                $orders->customers_postcode = $default_user_address['entry_postcode'];
+            }else{
+                $orders->customers_postcode = '000000';
+            }
             $orders->customers_address_format_id = 1;
             $orders->customers_telephone = $userCustomer['customers_telephone'];
             $orders->customers_email_address = $userCustomer['customers_email_address'];
@@ -141,11 +145,27 @@ trait ActionSaveorder
             $orders->delivery_name = $userOM['entry_firstname'];
             $orders->delivery_lastname = $userOM['entry_lastname'];
             $orders->delivery_otchestvo = $userOM['otchestvo'];
-            $orders->delivery_country = $entrycountry['countries_name'];
+            if($entrycountry['countries_name']){
+                $orders->delivery_country = $entrycountry['countries_name'];
+            }else{
+                $orders->delivery_country = '176';
+            }
+
             $orders->delivery_state = $entryzones['zone_name'];
             $orders->delivery_city = $userOM['entry_city'];
-            $orders->delivery_street_address = $userOM['entry_street_address'];
-            $orders->delivery_postcode = $userOM['entry_postcode'];
+
+            if($userOM['entry_street_address']){
+                  $orders->delivery_street_address = $userOM['entry_street_address'];
+            }else{
+                  $orders->delivery_street_address = 'Не указан';
+            }
+
+            if($userOM['entry_postcode']){
+                $orders->delivery_postcode = $userOM['entry_postcode'];
+            }else{
+                $orders->delivery_postcode = '000000';
+            }
+
             $orders->delivery_adress_id = $userOM['address_book_id'];
             $orders->delivery_pasport_seria = $userOM['pasport_seria'];
             $orders->delivery_pasport_nomer = $userOM['pasport_nomer'];
@@ -344,6 +364,7 @@ trait ActionSaveorder
                 ]);
 
         } catch (\Exception $e) {
+
             $transaction->rollBack();
             echo '<pre>';
             echo  $orders->orders_id;
@@ -357,8 +378,10 @@ trait ActionSaveorder
             echo '<pre>';
             die();
         }
-
-
+        echo'<pre>';
+        print_r($orders->errors);
+        echo '</pre>';
+        die();
         return $this->redirect(Yii::$app->request->referrer);
     }
 }
