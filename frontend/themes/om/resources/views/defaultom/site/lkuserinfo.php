@@ -356,7 +356,7 @@ for($i=0; $i<$cs; $i++){
             </div>
         </section>
         <section id="content5">
-            <div style="background: #f5f5f5; position: relative; text-align: left; padding: 0" class="panel-body">
+            <div style="background: #f5f5f5; position: relative; text-align: left; " class="panel-body">
                 Данный функционал временно не работает. Приносим свои извинения.
             </div>
         </section>
