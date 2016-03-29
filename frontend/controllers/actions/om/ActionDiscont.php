@@ -14,7 +14,7 @@ trait ActionDiscont
     {
 
         $this->layout = 'main';
-        $featured = Featured::find()->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
+        $featured = Featured::find()->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id`'])->asArray()->all();
         return $this->render('discont',['products'=> $featured]);
 
     }
