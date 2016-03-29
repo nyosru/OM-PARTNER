@@ -246,6 +246,8 @@ if ($data[0] != 'Не найдено!') {
                             'Размеры'.
                             '</div>'.
                             '<div class="size-inner" style="">';
+                             $data[3] = \yii\helpers\ArrayHelper::index($data[3], 'products_options_values_name');
+        ksort($data[3],SORT_NATURAL);
     foreach($data[3] as $key=>$value){
         if($value['products_options_values_id'] == $prodatrquery){
             $checked = 'fa-check';

@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers\actions;
 
+use common\models\PartnersProductsAttributes;
+use common\models\PartnersProductsOptionVal;
 use common\models\PartnersProductsToCategories;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -106,9 +108,27 @@ trait ActionCatalog
             $arfilt_pricemax = array();
             $hide_man = implode(',', $list);
             if ($prod_attr_query != '') {
-                $prod_attr_query_filt = ' and options_values_id = :prod_attr_query ';
-                $arfilt[':prod_attr_query'] = $prod_attr_query;
-                $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
+                $finderkey = Yii::$app->cache->buildKey('productattrfinder-'.$prod_attr_query);
+                if(($findue = Yii::$app->cache->get($finderkey))==TRUE){
+
+                }else{
+                    $prod_attr_query = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->asArray()->one()['products_options_values_name'];
+                    $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
+                    $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->asArray()->all();
+                    foreach ($finder as $finderkey => $findervalue) {
+                        $findue[] = $findervalue['products_options_values_id'];
+                    }
+                    foreach ($finder as $finderkey => $findervalue) {
+                        Yii::$app->cache->set($findervalue['products_options_values_id'], $findue, 3600);
+                    }
+
+                }
+                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).') ';
+                  // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
+
+               // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
+
+
             } else {
                 $prod_search_query_filt = '';
             }
@@ -185,6 +205,7 @@ trait ActionCatalog
                 $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0 and (products_image IS NOT NULL) and products_image != "/"  and products_status=1  and products_price <= :end_price and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')  ', $arfilt_attr)->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
                 $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . '  and products_price <= :end_price  and (products_image IS NOT NULL) and products_image != "/"  and (products_description IS NOT NULL)  and products_price >= :start_price  and products.manufacturers_id NOT IN (' . $hide_man . ')', $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsDescription')->count();
                 $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  ' . $prod_search_query_filt . $prod_attr_query_filt . '  and products.products_quantity > 0     and (products_image IS NOT NULL) and products_image != "/"   and (products_description IS NOT NULL)  and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ') ', $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->asArray()->one();
+                $productattrib = ArrayHelper::index($productattrib, 'products_options_values_name');
                 Yii::$app->cache->set($statickey, ['data' => ['productattrib' => $productattrib, 'count_arrs' => $count_arrs, 'price_max' => $price_max]], 86400);
             } else {
                 $productattrib = $stats['data']['productattrib'];
@@ -310,6 +331,7 @@ trait ActionCatalog
             } else {
                 $data = 'Не найдено!';
             }
+
             $countfilt = count($data);
             $start = $start_arr;
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -321,8 +343,7 @@ trait ActionCatalog
             }else{
                 $catpath = $this->Catpath($cat_start,'namenum');
             }
-            $productattrib = ArrayHelper::index($productattrib, 'products_options_values_name');
-            ksort($productattrib,'SORT_NATURAL' );
+            //ksort($productattrib,'SORT_NATURAL' );
                     Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
                 return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time'=>$man_time]);
         }
