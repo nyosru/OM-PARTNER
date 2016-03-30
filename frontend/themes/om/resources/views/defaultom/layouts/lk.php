@@ -288,9 +288,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 <!-- /Yandex.Metrika counter -->
                             <? } ?>
                         </div>
-                        <p class="pull-right"><a href="<?= BASEURL ?>/offerta">Оферта</a> <a
-                                href="<?= BASEURL ?>/paying">Оплата</a> <a
-                                href="<?= BASEURL ?>/delivery">Доставка</a> <a href="<?= BASEURL ?>/contacts">Контакты</a></p>
+                        <p class="pull-right"></p>
                     </div>
                 </footer>
             </div>
