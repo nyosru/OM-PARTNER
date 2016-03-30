@@ -110,9 +110,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             <div class="" id="partners-main-right-back">
                 <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
-                        <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="/faq">Как сделать заказ</a></div>
-                        <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="/glavnaya/faq">Акции</a></div>
-                        <div class="top-link-cont" style="width: calc(100% / 5.1);"><a class="top-link" href="/glavnaya/paying">Условия сотрудничества</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="<?=BASEURL?>/page?article=howorders">Как сделать заказ</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="<?=BASEURL?>/discont">Акции</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 5.1);"><a class="top-link" href="<?=BASEURL?>/page?article=contributionrules">Условия сотрудничества</a></div>
                         <div class="" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);"><img src="/images/logo/OM_code.png"></div>
                         <?
                         if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
@@ -126,6 +126,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div id="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
                         <form action="<?= BASEURL?>/catalog">
+                            <input autocomplete="off" id="" name="cat" value="0"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
+                            <input autocomplete="off" id="" name="count" value="<?=(integer)Yii::$app->request->getQueryParam('count')?>"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
+                            <input autocomplete="off" id="" name="start_price" value="<?=(integer)Yii::$app->request->getQueryParam('start_price')?>"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
+                            <input autocomplete="off" id="" name="end_price" value="<?=(integer)Yii::$app->request->getQueryParam('end_price')?>"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
                             <input autocomplete="off" id="" name="searchword" class="search no-shadow-form-control" placeholder="Введите артикул или название" style="height: 40px; float: left; width: 65%; color: rgb(119, 119, 119); background: transparent none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; margin-top: 0px;" type="text">
                             <button class="btn btn-default data-j" type="submit" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
                                 Найти
@@ -284,9 +288,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 <!-- /Yandex.Metrika counter -->
                             <? } ?>
                         </div>
-                        <p class="pull-right"><a href="<?= BASEURL ?>/offerta">Оферта</a> <a
-                                href="<?= BASEURL ?>/paying">Оплата</a> <a
-                                href="<?= BASEURL ?>/delivery">Доставка</a> <a href="<?= BASEURL ?>/contacts">Контакты</a></p>
+                        <p class="pull-right"></p>
                     </div>
                 </footer>
             </div>

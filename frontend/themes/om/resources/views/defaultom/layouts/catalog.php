@@ -66,33 +66,12 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 </div>
                 <div id="partners-main-left" class="target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div id="partners-main-left-cont">
+
+                        <a style="color: : #007BC1;padding: 5px 18px;font-weight: 400;display: block;width: 100%;" class="lock-on " href="<?=BASEURL?>/discont">Распродажа</a>
+
                         <?=  Menuom::widget(['property' => ['target'=>0, 'opencat' =>  Yii::$app->params['layoutset']['opencat']]]);?>
                     </div>
-                    <div >
-                        <div style="font-size: 18px; font-weight: 400; text-align: center; border-top: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); padding: 3px;">Информация</div>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=contribution">Сотрудничество</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=contributionrules">Условия сотрудничества</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/article?view=models">Наши модели</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=howorders">Как сделать заказ</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=sberonline">Оплата через Сбербанк Онлайн</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="http://odezhda-master.ru/price_list_xls.php">Прайс-лист *.xls</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="http://odezhda-master.ru/price_list_csv.php">Прайс-лист *.csv</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/article?view=sizes">Размерная сетка</a>
-                    </div>
-                    <div >
-                        <div style="font-size: 18px; font-weight: 400; text-align: center; border-top: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204); padding: 3px;">Частые вопросы</div>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=weekwork">Как вы работаете в выходные?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=prepayorder">Как работать по предоплате?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=bad_quality">Если пришел брак?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=delivery">Стоимость и сроки доставки</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=timedelivery">Когда отправляете товар?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=timepay">Сколько дней поступает оплата?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=productpayment">Как оплатить товар?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=deliveryway">Способ доставки?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=order-plus">ДОЗАКАЗ?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=order-change">Как изменить заказ?</a>
-                        <a style="padding: 5px 20px; font-weight: 400; display: block; width: 100%;" href="<?=BASEURL?>/page?article=order-time">Сроки сборки заказа?</a>
-                    </div>
+                        <?= \frontend\widgets\MenuLinks::widget() ?>
                 </div>
                 <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;">
 
@@ -102,7 +81,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
                         <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="<?=BASEURL?>/page?article=howorders">Как сделать заказ</a></div>
-                        <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="">Акции</a></div>
+                        <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="<?=BASEURL?>/discont">Акции</a></div>
                         <div class="top-link-cont" style="width: calc(100% / 5.1);"><a class="top-link" href="<?=BASEURL?>/page?article=contributionrules">Условия сотрудничества</a></div>
                         <div class="" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);"><img src="/images/logo/OM_code.png"></div>
                         <?
@@ -177,7 +156,48 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                     <?= $content ?>
                 </div>
+                <div style="width: calc(100% - 30px); margin: 0px 15px;float: left;">
+                    <?
+                    if (Yii::$app->user->can('admin')) {
+                    }
+                    $page = 'catindex'.(int)Yii::$app->request->getQueryParam('cat');
+                    $data = \common\models\PartnersPage::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type'=>'stringpost','name' => $page])->one();
+                    if ($data) {
+                        echo '<div id="my-textarea-id">';
+                        echo stripcslashes($data->content);
+                        echo '</div>';
+                    } else {
+                        ?>
+                        <div id="my-textarea-id"></div>
 
+                    <? } ?>
+                    <?php if (Yii::$app->user->can('admin')) {
+
+                        echo \vova07\imperavi\Widget::widget([
+                            'selector' => '#my-textarea-id',
+                            'settings' => [
+                                'lang' => 'ru',
+                                'minHeight' => 200,
+                                'plugins' => ['fontsize','fontcolor']
+                            ]
+
+                        ]); ?>
+                        <button class="savehtml">Сохранить</button>
+                        <script>
+                            $(document).on('click', '.savehtml', function() {
+                                $html = $('#my-textarea-id').html();
+
+
+                                $.post(
+                                    '/site/savepage',
+                                    { html: $html,
+                                        article: 'catindex<?=(int)Yii::$app->request->getQueryParam('cat')?>'}
+                                );
+                                alert('Изменения сохранены');
+                            });
+                        </script>
+                    <? } ?>
+                </div>
 
                 <div style="clear: both;">
 <!--                    <div id="index-card-4">Сео текст категории</div>-->

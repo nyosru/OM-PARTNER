@@ -85,9 +85,14 @@ trait ActionProduct
                         }else{
                             $relstring = $relProd[$relnum]['products_id'];
                         }
-                        $relProduct = PartnersProductsToCategories::find()->joinWith('products')->joinWith('productsDescription')->where('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 AND products_to_categories.products_id IN (' . $relstring . ')')->asArray()->all();
+                        $relProduct = PartnersProductsToCategories::find()
+                            ->joinWith('products')->joinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 AND products_to_categories.products_id IN (' . $relstring . ')')->asArray()->all();
                         $relProd = [];
                         foreach ($relProduct as $key => $value) {
+//                            echo '<pre>';
+//                            print_r($value);
+//                            echo '</pre>';
+//                            die();
                             $relProd[$key]['products_name'] = $value['productsDescription']['products_name'];
                             $relProd[$key]['products_price'] = $value['products']['products_price'];
                             $relProd[$key]['products_image'] = $value['products']['products_image'];
@@ -95,7 +100,7 @@ trait ActionProduct
                         }
                     }
 
-                    return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProd]);
+                    return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProduct]);
                 } else {
                     return $this->redirect('/');
                 }

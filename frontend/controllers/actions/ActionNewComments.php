@@ -81,7 +81,7 @@ trait ActionNewComments
                 }
                 } else {
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return $model->errors;
+                    return $this->redirect(Yii::$app->request->referrer);
                 }
 
 

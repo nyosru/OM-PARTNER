@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <identifycate>Experimental</identifycate>
+    <name>Экспериментальный</name>
+    <description>Экспериментальный набор функционала</description>
+    <version>1.0</version>
+    <autor>CodeTek</autor>
+    <images>
+        <image>
+            <name>Главная страница</name>
+            <description></description>
+            <file>images/main.png</file>
+        </image>
+        <image>
+            <name>Каталог</name>
+            <description></description>
+            <file>images/catalog.png</file>
+        </image>
+        <image>
+            <name>Личный кабинет клиента</name>
+            <description></description>
+            <file>images/clients.png</file>
+        </image>
+    </images>
+    <resources>
+        <views>
+            <name>Experimental</name>
+        </views>
+        <js>
+            <name>Experimental</name>
+        </js>
+        <css>
+            <name>Experimental</name>
+        </css>
+    </resources>
+</template>

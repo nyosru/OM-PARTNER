@@ -30,6 +30,8 @@ use frontend\controllers\actions\ActionLogout;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
 use frontend\controllers\actions\om\ActionArticle;
+use frontend\controllers\actions\om\ActionDayProduct;
+use frontend\controllers\actions\om\ActionDiscont;
 use frontend\controllers\actions\om\ActionSavepage;
 use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPaymentMethod;
@@ -132,6 +134,8 @@ class GlavnayaController extends Controller
         ActionPage,
         ActionSavepage,
         ActionArticle,
+        ActionDiscont,
+        ActionDayProduct,
         ActionTakeOrder;
 
 

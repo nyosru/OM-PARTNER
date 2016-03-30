@@ -50,15 +50,16 @@ trait ActionSaveorder
         $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
         $comments = Yii::$app->request->post('comments');
-        switch($type_order){
-            case 'plus':
-                $minimal_order = 1000;
-                $comments_plus = '';
-                break;
-            default:
-                $minimal_order = 5000;
+//        switch($type_order){
+//            case 'plus':
+//                $minimal_order = 1000;
+//                $comments_plus = '';
+//                break;
+//            default:
+//                $minimal_order = 5000;
+//
+//        }
 
-        }
         $wrap = Yii::$app->request->post('wrap');
         $quant=[];
 
@@ -94,11 +95,11 @@ trait ActionSaveorder
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
-        if($validprice < $minimal_order ){
+        if($validprice < 1000 ){
             return $this->render('cartresult', [
                 'result'=>  [
                     'code' => 0,
-                    'text'=>'Минимальная сумма заказа '.$minimal_order.'р',
+                    'text'=>'Минимальная сумма заказа 1000 рублей',
                     'data'=>[
                         'paramorder'=>[
                         ],
@@ -128,7 +129,11 @@ trait ActionSaveorder
             $orders->customers_state = $defaultentryzones['zone_name'];
             $orders->customers_city = $default_user_address['entry_city'];
             $orders->customers_street_address = $default_user_address['entry_street_address'];
-            $orders->customers_postcode = $default_user_address['entry_postcode'];
+            if($default_user_address['entry_postcode']) {
+                $orders->customers_postcode = $default_user_address['entry_postcode'];
+            }else{
+                $orders->customers_postcode = '000000';
+            }
             $orders->customers_address_format_id = 1;
             $orders->customers_telephone = $userCustomer['customers_telephone'];
             $orders->customers_email_address = $userCustomer['customers_email_address'];
@@ -140,11 +145,27 @@ trait ActionSaveorder
             $orders->delivery_name = $userOM['entry_firstname'];
             $orders->delivery_lastname = $userOM['entry_lastname'];
             $orders->delivery_otchestvo = $userOM['otchestvo'];
-            $orders->delivery_country = $entrycountry['countries_name'];
+            if($entrycountry['countries_name']){
+                $orders->delivery_country = $entrycountry['countries_name'];
+            }else{
+                $orders->delivery_country = '176';
+            }
+
             $orders->delivery_state = $entryzones['zone_name'];
             $orders->delivery_city = $userOM['entry_city'];
-            $orders->delivery_street_address = $userOM['entry_street_address'];
-            $orders->delivery_postcode = $userOM['entry_postcode'];
+
+            if($userOM['entry_street_address']){
+                  $orders->delivery_street_address = $userOM['entry_street_address'];
+            }else{
+                  $orders->delivery_street_address = 'Не указан';
+            }
+
+            if($userOM['entry_postcode']){
+                $orders->delivery_postcode = $userOM['entry_postcode'];
+            }else{
+                $orders->delivery_postcode = '000000';
+            }
+
             $orders->delivery_adress_id = $userOM['address_book_id'];
             $orders->delivery_pasport_seria = $userOM['pasport_seria'];
             $orders->delivery_pasport_nomer = $userOM['pasport_nomer'];
@@ -188,6 +209,7 @@ trait ActionSaveorder
             if ($orders->save()) {
                 $price_total = '';
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
+
                 foreach ($product_in_order as $keyin_order => $valuein_order) {
                             $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order ]['productsAttributesDescr'], 'products_options_values_id');
                     foreach($valuein_order  as $keyinattr_order => $valueinattr_order){
@@ -233,12 +255,39 @@ trait ActionSaveorder
                                     if ($ordersprodattr->save()) {
                                         $ordersprodattr =  $ordersprodattr->toArray();
                                    } else {
+                                        return $this->render('cartresult', [
+                                            'result'=>  [
+                                                'code' => 0,
+                                                'text'=>'Ошибка оформления позиции',
+                                                'data'=>[
+                                                    'paramorder'=>[
+                                                    ],
+                                                    'origprod' => $origprod,
+                                                    'timeproduct'=>$related,
+                                                    'totalpricesaveproduct'=>$validprice
+                                                ]
+                                            ]
+                                        ]);
                                   }
                             } else {
                             }
                                     $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
                                      $price_total += (float)($price_total) +  $ordersprod->products_price * $ordersprod->products_quantity;
 
+                                 }else{
+                                     return $this->render('cartresult', [
+                                         'result'=>  [
+                                             'code' => 0,
+                                             'text'=>'Ошибка оформления продукта',
+                                             'data'=>[
+                                                 'paramorder'=>[
+                                                 ],
+                                                 'origprod' => $origprod,
+                                                 'timeproduct'=>$related,
+                                                 'totalpricesaveproduct'=>$validprice
+                                             ]
+                                         ]
+                                     ]);
                                  }
                     }
 
@@ -263,7 +312,23 @@ trait ActionSaveorder
                 $orderstotalprice->value = '0.0000';
                 $orderstotalprice->class = 'ot_shipping';
                 $orderstotalprice->sort_order = 2;
-                $orderstotalprice->save();
+                if($orderstotalprice->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $orderstotalship = new OrdersTotal();
                 $orderstotalship->orders_id = $orders->orders_id;
@@ -272,7 +337,23 @@ trait ActionSaveorder
                 $orderstotalship->value = $price_total;
                 $orderstotalship->class = 'ot_total';
                 $orderstotalship->sort_order = 800;
-                $orderstotalship->save();
+                if($orderstotalship->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $orderstotalprint = new OrdersTotal();
                 $orderstotalprint->orders_id = $orders->orders_id;
@@ -281,7 +362,23 @@ trait ActionSaveorder
                 $orderstotalprint->value = $price_total;
                 $orderstotalprint->class = 'ot_subtotal';
                 $orderstotalprint->sort_order = 1;
-                $orderstotalprint->save();
+                if($orderstotalprint->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $neworderpartner = new PartnersOrders();
                 $neworderpartner->partners_id = $partner_id;
@@ -292,7 +389,23 @@ trait ActionSaveorder
                 $neworderpartner->orders_id = $orders->orders_id;
                 $neworderpartner->update_date = $nowdate;
                 $neworderpartner->create_date = $nowdate;
-                $neworderpartner->save();
+                if($neworderpartner->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
                 $ordershistory = new OrdersStatusHistory();
                 $ordershistory->orders_id = $orders->orders_id;
@@ -304,15 +417,46 @@ trait ActionSaveorder
                 }else{
                     $ordershistory->comments = NULL;
                 }
-                if($type_order == 'plus'){
-                    $ordershistory->comments .= 'Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
+//                if($type_order == 'plus'){
+//                    $ordershistory->comments .= ' Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
+//                }
+                if($wrap == 'boxes'){
+                    $ordershistory->comments .= ' Авто-комментарий - Упаковка: крафт коробки. ';
                 }
-               // $ordershistory->comments = 'Заказ с нового фронта';
+                $ordershistory->comments .= ' Заказ с нового фронта';
                 $ordershistory->validate();
-                $ordershistory->save();
+                if($ordershistory->save()){
+
+                }else{
+                    return $this->render('cartresult', [
+                        'result'=>  [
+                            'code' => 0,
+                            'text'=>'Ошибка оформления заказа',
+                            'data'=>[
+                                'paramorder'=>[
+                                ],
+                                'origprod' => $origprod,
+                                'timeproduct'=>$related,
+                                'totalpricesaveproduct'=>$validprice
+                            ]
+                        ]
+                    ]);
+                }
 
             } else {
-
+                return $this->render('cartresult', [
+                    'result'=>  [
+                        'code' => 0,
+                        'text'=>'Ошибка оформления заказа',
+                        'data'=>[
+                            'paramorder'=>[
+                            ],
+                            'origprod' => $origprod,
+                            'timeproduct'=>$related,
+                            'totalpricesaveproduct'=>$validprice
+                        ]
+                    ]
+                ]);
             }
             $transaction->commit('suc');
 
@@ -339,6 +483,7 @@ trait ActionSaveorder
                 ]);
 
         } catch (\Exception $e) {
+
             $transaction->rollBack();
             echo '<pre>';
             echo  $orders->orders_id;
@@ -352,8 +497,10 @@ trait ActionSaveorder
             echo '<pre>';
             die();
         }
-
-
+        echo'<pre>';
+        print_r($orders->errors);
+        echo '</pre>';
+        die();
         return $this->redirect(Yii::$app->request->referrer);
     }
 }

@@ -48,7 +48,7 @@ class SignupFormOM extends Model
     {
         return [
            ['emails','email'],
-//            ['email','required', 'message' => 'Это обязательное поле.'],
+            ['emails','required', 'message' => 'Это обязательное поле.'],
 
 
             ['spam', 'boolean'],
@@ -172,10 +172,10 @@ class SignupFormOM extends Model
             $userCustomer = new Customers();
             $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
             $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
-            $this->adress = implode(' ',$this->adress);
+            $this->adress = $this->trim_tags_text(implode(' ',$this->adress));
             $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
-            $user->username = $this->emails;
-            $user->email = $this->emails;
+            $user->username = $this->trim_tags_text($this->emails);
+            $user->email = $this->trim_tags_text($this->emails);
             $user->setPassword($this->password);
             $user->generateAuthKey();
             $user->id_partners = $id_partners;

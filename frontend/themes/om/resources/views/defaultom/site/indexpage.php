@@ -20,28 +20,28 @@ $this->title = $title;
     ?>
     <div id="main-index">
         <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><a
-                href="<?= BASEURL ?>/catalog?cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                href="<?= BASEURL ?>/catalog?cat=1750&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;" src="/images/banners/382_327_1.1.png"></a></div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
-                href="<?= BASEURL ?>/catalog?cat=2008&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                href="<?= BASEURL ?>/catalog?cat=1990&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;"    src="/images/banners/382_159_1.1.png"></a></div>
         <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
-                href="<?= BASEURL ?>/catalog?cat=0&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                href="<?= BASEURL ?>/catalog?cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;"  src="/images/banners/773_496.1.png"></a></div>
         <div id="index-card-5" style="float:right" class="data-j index-card banner-card" data-cat="2047"><a
-                href="<?= BASEURL ?>/catalog?cat=2047&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                href="<?= BASEURL ?>/catalog?cat=1544&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;"  src="/images/banners/382_327_2.1.png"></a></div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><a
                 href="<?= BASEURL ?>/catalog?cat=1762&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;"  src="/images/banners/382_159_2.1.png"></a></div>
         <div id="index-card-6" style="width: calc(100% - 10px);"class="data-j index-card banner-card" data-cat="1836"><a
-                href="<?= BASEURL ?>/catalog?cat=1836&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                href="<?= BASEURL ?>/catalog?cat=2040&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;" src="/images/banners/1570_160_1.png"></a></div>
     </div>
 
 
     <div id="main-spec">
-        <div id="index-card-4" style='font-family: "Roboto Light",sans serif; border-bottom: 1px solid rgb(204, 204, 204); border-radius: 0px;'>
+        <div id="index-card-4" style=' border-bottom: 1px solid rgb(204, 204, 204); border-radius: 0px;'>
             <div class="index-icon-plate">
                 <div class="index-icon-img">
 <img src="/images/logo/low_price.png">
@@ -347,12 +347,11 @@ $this->title = $title;
             <?
             if (Yii::$app->user->can('admin')) {
             }
-            $data = new \common\models\PartnersPage();
             $page = 'seoindex';
-            $data = $data->find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type' => $page])->one();
+            $data = \common\models\PartnersPage::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type'=>'stringpost','name' => $page])->one();
             if ($data) {
                 echo '<div id="my-textarea-id">';
-                echo stripcslashes($data->value);
+                echo stripcslashes($data->content);
                  echo '</div>';
             } else {
                 ?>
@@ -377,12 +376,11 @@ $this->title = $title;
 
 
                         $.post(
-                            '/site/savehtml',
+                            '/site/savepage',
                             { html: $html,
-                                page: 'seoindex'}
+                                article: 'seoindex'}
                         );
                         alert('Изменения сохранены');
-
                     });
                 </script>
             <? } ?>

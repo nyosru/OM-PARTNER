@@ -46,7 +46,7 @@ $this->title = 'Личный кабинет';
         <div class="item">
             <img src="/images/logo/Sborka.png"/>
         </div>
-        <div class="item"><?= $dataset['countdelivery'];?></div>
+        <div class="item"><?= $dataset['countsborka'];?></div>
         <div class="title">Ожидает сборки</div>
     </div>
     <div class="lk-order-status col-md-3">
@@ -102,6 +102,7 @@ $this->title = 'Личный кабинет';
                     $inner .= '<table class="table table-striped  table-hover table-responsive">';
                     $inner .= '<thead><tr>';
                     $inner .= '<th style="border: none" class="col-md-2">#</th>';
+                    $inner .= '<th style="border: none" class="col-md-1">Изображение</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Артикул</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Цена за шт</th>';
                     $inner .= '<th style="border: none" class="col-md-1">Количество</th>';
@@ -161,6 +162,7 @@ $this->title = 'Личный кабинет';
                     $inner .= '</tbody><tfooter>';
                     $inner .= '<tr>';
                     $inner .= '<th style="border: none" class="col-md-1">Итого</th>';
+                    $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
                     $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
                     $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: ' . $omfirstprice . ' Руб. ' . $finalompriceview . ' </th>';
@@ -202,7 +204,7 @@ $this->title = 'Личный кабинет';
                         case '100':
                             return 'Обработка заказа';
                         case '1':
-                            return 'Сверка';
+                            return 'Ожидает проверки';
                         case '2':
                             return 'Ждём оплаты';
                         case '3':
@@ -224,39 +226,39 @@ $this->title = 'Личный кабинет';
                 }
 
             ],
-            [
-                'attribute' => 'delivery_adress',
-                'label' => 'Оплатить заказ',
-                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-                'contentOptions' => function ($model, $key, $index, $column) {
-                    return ['class' => 'user-order-table-row'];
-                },
-                'content' => function ($data) {
-                    return 'Инструкция по оплате';
-                }
-            ],
-            [
-                'attribute' => 'delivery_adress',
-                'label' => 'Квитанция',
-                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-                'contentOptions' => function ($model, $key, $index, $column) {
-                    return ['class' => 'user-order-table-row'];
-                },
-                'content' => function ($data) {
-                    return 'Счет';
-                }
-            ],
-            [
-                'attribute' => 'customers_name',
-                'label' => 'Действия',
-                'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
-                'contentOptions' => function ($model, $key, $index, $column) {
-                    return ['class' => 'user-order-table-row'];
-                },
-                'content' => function ($data) {
-                    return 'Оставить комментарий';
-                }
-            ],
+//            [
+//                'attribute' => 'delivery_adress',
+//                'label' => 'Оплатить заказ',
+//                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+//                'contentOptions' => function ($model, $key, $index, $column) {
+//                    return ['class' => 'user-order-table-row'];
+//                },
+//                'content' => function ($data) {
+//                    return 'Инструкция по оплате';
+//                }
+//            ],
+//            [
+//                'attribute' => 'delivery_adress',
+//                'label' => 'Квитанция',
+//                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+//                'contentOptions' => function ($model, $key, $index, $column) {
+//                    return ['class' => 'user-order-table-row'];
+//                },
+//                'content' => function ($data) {
+//                    return 'Счет';
+//                }
+//            ],
+//            [
+//                'attribute' => 'customers_name',
+//                'label' => 'Действия',
+//                'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+//                'contentOptions' => function ($model, $key, $index, $column) {
+//                    return ['class' => 'user-order-table-row'];
+//                },
+//                'content' => function ($data) {
+//                    return 'Оставить комментарий';
+//                }
+//            ],
 
         ],
         'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
@@ -271,7 +273,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?= $dataset['totalorder'];?></div>
         <div class="desc">
-           <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Заказов сделанно</a> мной с начала регистрации на сайте
+           <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Заказов сделанно</a> мной с начала регистрации на сайте
         </div>
     </div>
     <div class="lk-order-stat col-md-3">
@@ -280,7 +282,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?=$dataset['totalproducts'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Товаров доставленно</a> мне с начала регистрации на сайте
+            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Товаров доставленно</a> мне с начала регистрации на сайте
         </div>
     </div>
     <div class="lk-order-stat col-md-3">
@@ -289,7 +291,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?=$dataset['totalprice'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Сумма оплаченных</a> мною товаров с начала регистрации на сайте
+            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Сумма оплаченных</a> мною товаров с начала регистрации на сайте
         </div>
     </div>
     <div class="lk-order-stat col-md-3">
@@ -298,7 +300,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?=$dataset['totalcancel'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk/myorder">Заказов отменено</a> мной с начала регистрации на сайте
+            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Заказов отменено</a> мной с начала регистрации на сайте
         </div>
     </div>
 </div>

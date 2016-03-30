@@ -16,7 +16,7 @@ trait ActionPage
         if(!$page){
             $page = new PartnersPage();
         }
-        if(Yii::$app->request->post('PartnersPage')['content']){
+        if(Yii::$app->request->post('PartnersPage')['content'] && Yii::$app->user->can('admin')){
 
             $page->content = stripcslashes(Yii::$app->request->post('PartnersPage')['content']);
             $page->name = $name;
@@ -33,7 +33,7 @@ trait ActionPage
         }else{
 
         }
-        $this->layout = 'catalog';
+        $this->layout = 'main';
         return $this->render('page', ['page'=>$page,'error'=>$page->errors]);
 
     }

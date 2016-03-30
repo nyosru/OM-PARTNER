@@ -49,9 +49,6 @@ class PartnersProductsToCategories extends ActiveRecordExt
     {
         return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id']);
     }
-
-
-
     public function getProductsDescription()
     {
         return $this->hasOne(PartnersProductsDescription::className(), ['products_id' => 'products_id'])->via('products');

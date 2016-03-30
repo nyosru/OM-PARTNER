@@ -15,6 +15,7 @@ use dosamigos\ckeditor\CKEditorInline;
 use yii\jui\Slider;
 use common\models\PartnersConfig;
 
+$this->title='Интернет-магазин "Одежда-мастер"';
 if($page && ($action = Yii::$app->request->getQueryParam('action')) == FALSE && $action !=="refresh"){
     echo stripcslashes($page->content);
 }elseif(Yii::$app->user->can('admin')){
