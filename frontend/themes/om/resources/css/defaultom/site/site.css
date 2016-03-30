@@ -2453,7 +2453,6 @@
         min-height: 45px;
         font-weight: 500;
         float: left;
-        font-family: "Roboto Regular",sans serif;
     }
     .logo {
         vertical-align: unset;
@@ -2497,7 +2496,15 @@
     .save-order2:focus, .save-order2:hover {
         background: #0CD5AD
     }
-
+    h1{
+        overflow: hidden;
+        width: calc(100% - 10px);
+        font-size: 24px;
+        padding: 18px 15px;
+        min-height: 45px;
+        font-weight: 500;
+        float: left;
+    }
     .preload {
         position: absolute;
         background: rgba(60, 60, 60, .18) !important;

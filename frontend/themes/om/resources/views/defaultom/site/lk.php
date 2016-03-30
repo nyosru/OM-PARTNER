@@ -46,7 +46,7 @@ $this->title = 'Личный кабинет';
         <div class="item">
             <img src="/images/logo/Sborka.png"/>
         </div>
-        <div class="item"><?= $dataset['countdelivery'];?></div>
+        <div class="item"><?= $dataset['countsborka'];?></div>
         <div class="title">Ожидает сборки</div>
     </div>
     <div class="lk-order-status col-md-3">
