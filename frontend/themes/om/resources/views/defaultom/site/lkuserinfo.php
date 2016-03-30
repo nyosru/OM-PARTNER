@@ -312,8 +312,8 @@ for($i=0; $i<$cs; $i++){
                     echo 'У вас уже указано максимальное количество адресов доставки';
                 }
                 else {
-                    $cust->delivery['add']['birthday']=date('Y-m-d');;
-                    $cust->delivery['add']['passportdate']=date('Y-m-d');;
+                    $cust->delivery['add']['birthday']=date('Y-m-d');
+                    $cust->delivery['add']['passportdate']=date('Y-m-d');
                     $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                     echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Получатель:</div>';
                     echo $form->field($cust, 'delivery[add][lastname]')->label('Фамилия');

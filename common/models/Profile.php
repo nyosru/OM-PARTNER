@@ -68,7 +68,6 @@ class Profile extends Model
             ['otchestvo', 'string', 'message' => 'Строка'],
 
             ['delivery', 'safe'],
-            ['delivery', 'safe'],
 
             ['delivery_adress_id', 'integer'],
 
@@ -163,6 +162,7 @@ class Profile extends Model
         $add->entry_city = $this->trim_tags_text($this->delivery[$arrkey]['city']);
         $add->entry_country_id = $entrycountry['id'];
         $add->entry_zone_id = $entryzones['id'];
+        $add->birth_day=$this->trim_tags_text($this->delivery[$arrkey]['birthday']);
         $add->entry_postcode = $this->trim_tags_text($this->delivery[$arrkey]['postcode']);
         $add->pasport_seria = $this->trim_tags_text($this->delivery[$arrkey]['passportser']);
         $add->pasport_nomer = $this->trim_tags_text($this->delivery[$arrkey]['passportnum']);
@@ -210,7 +210,7 @@ class Profile extends Model
         $add->pasport_seria = $this->trim_tags_text($this->delivery[$arrkey]['passportser']);
         $add->pasport_nomer = $this->trim_tags_text($this->delivery[$arrkey]['passportnum']);
         $add->pasport_kem_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportwhere']);
-        $add->pasport_kogda_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportdate']);
+        $add->pasport_kogda_vidan =$this->trim_tags_text($this->delivery[$arrkey]['passportdate']);
         $add->entry_gender = 'M';
         $add->customers_id = $userinfo->customers_id;
         if($add->save()){
