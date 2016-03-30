@@ -457,7 +457,6 @@ for($i=0; $i<$cs; $i++){
     });
     $(document).on('click', '#state', function () {
         $inid=$(this).parent().siblings().filter('[data-name=state]').attr('id');
-        console.log($inid);
         $('[id='+$inid+']').attr('data-state', this.getAttribute('state'));
         $(this).parent().siblings().filter('[data-name=state]').val($(this).text());
         $(this).parent().filter('.state-drop').hide();

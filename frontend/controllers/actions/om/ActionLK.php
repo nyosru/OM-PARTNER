@@ -43,12 +43,18 @@ trait ActionLK
                             break;
                         case 'customer':
                             $customer->saveCustomer();
+                            unset($customer);
+                            $customer=new Profile();
                             break;
                         case 'deliv':
                             $customer->saveDeliv();
+                            unset($customer);
+                            $customer=new Profile();
                             break;
                         case 'address':
                             $customer->saveUserDelivery();
+                            unset($customer);
+                            $customer=new Profile();
                             break;
                         case 'add_address':
                             $customer->addUserDelivery();
