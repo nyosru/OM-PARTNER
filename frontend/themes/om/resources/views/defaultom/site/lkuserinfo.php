@@ -312,8 +312,8 @@ for($i=0; $i<$cs; $i++){
                     echo 'У вас уже указано максимальное количество адресов доставки';
                 }
                 else {
-                    $cust->delivery['add']['birthday']=date('Y-m-d');;
-                    $cust->delivery['add']['passportdate']=date('Y-m-d');;
+                    $cust->delivery['add']['birthday']=date('Y-m-d');
+                    $cust->delivery['add']['passportdate']=date('Y-m-d');
                     $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
                     echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Получатель:</div>';
                     echo $form->field($cust, 'delivery[add][lastname]')->label('Фамилия');
@@ -356,7 +356,7 @@ for($i=0; $i<$cs; $i++){
             </div>
         </section>
         <section id="content5">
-            <div style="background: #f5f5f5; position: relative; text-align: left; padding: 0" class="panel-body">
+            <div style="background: #f5f5f5; position: relative; text-align: left; " class="panel-body">
                 Данный функционал временно не работает. Приносим свои извинения.
             </div>
         </section>
@@ -457,7 +457,6 @@ for($i=0; $i<$cs; $i++){
     });
     $(document).on('click', '#state', function () {
         $inid=$(this).parent().siblings().filter('[data-name=state]').attr('id');
-        console.log($inid);
         $('[id='+$inid+']').attr('data-state', this.getAttribute('state'));
         $(this).parent().siblings().filter('[data-name=state]').val($(this).text());
         $(this).parent().filter('.state-drop').hide();

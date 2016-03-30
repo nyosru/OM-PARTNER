@@ -1,9 +1,7 @@
 <?php
 
 $this -> title = 'Корзина';
-echo'<pre>';
-print_r($result);
-echo'</pre>';
+
 $del_add='<select id="shipaddr" name="address">';
 foreach($addr as $key=>$value){
     if($key != $default) {
@@ -12,41 +10,13 @@ foreach($addr as $key=>$value){
         $first .= '<option value="' . $key . '">' . $value . '</option>';
     }
     }
-$plusorders_add='<select id="plusorders" name="plusorders">';
-foreach($plusorders as $key=>$value){
 
-    $plusorders_add .= '<option value="' . $value['orders_id'] . '">' . $value['orders_id'] . '</option>';
 
-}
-$plusorders_add .= '</select>';
+
 $del_add .= $first;
 $del_add .= $options;
 $del_add .= '</select>';
 
-//$man = $this->manufacturers_diapazon_id();
-//$validprice = 0;
-//foreach($proddata as $keyrequest => $valuerequest){
-//    $thisweeekday = date('N')-1;
-//    $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
-//    if(array_key_exists($valuerequest['manufacturers_id'],$man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]){
-//        $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
-//        $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
-//
-//        if(isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)){
-//            $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
-//            $origprod[$valuerequest['products_id']] = $valuerequest;
-//        }else{
-//            unset($proddata[$keyrequest]);
-//            $related[]=$valuerequest;
-//
-//
-//        }
-//
-//    }else{
-//        $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
-//        $origprod[$valuerequest['products_id']] = $valuerequest;
-//    }
-//}
 
 ?>
 
@@ -168,8 +138,8 @@ $(document).on('ready', function () {
                         '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
-                            '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
-                            '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
+                             '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
+                         //   '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
             '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
 
                         '</div>';
@@ -190,11 +160,7 @@ $(document).on('ready', function () {
         '</div>' +
         '</div>' +
         '</div>';
-        <?php if(!Yii::$app->user->isGuest && $plusorders_add ){?>
-        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 40%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; "><input name="order-type" type="radio" checked="checked" value="new"/>Новый заказ<div>Минимальная сумма заказа 5000р.</div></div><div class="plusorder" style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 60%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px;"><input name="order-type" type="radio" value="plus"/>Оформить как дозаказ к заказу:<div class="plusorder" style="display: inline-block;"><?= $plusorders_add?></div><div>Минимальная сумма заказа 1000р.</div></div></div>';
-        <? }else { ?>
-        $innerhtml +=   '<div><div style="float: left; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; border-top: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); text-align: center; line-height: 50px; height: 50px;">Заказ будет оформлен как новый<div>Минимальная сумма заказа 5000р.</div></div></div>';
-        <?}?>
+
         if($i.length>0){
             <?php
             if(!Yii::$app->user->isGuest){?>
