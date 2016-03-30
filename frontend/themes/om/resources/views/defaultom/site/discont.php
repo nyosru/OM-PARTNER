@@ -115,8 +115,11 @@ foreach ($data[0] as $value) {
     }
     $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
         '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
-        '</div>' .
-        '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
+        '</div>';
+         if((integer)($product['products_old_price'])>0){
+             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($value['discount']*100) . ' %</div>';
+         }
+    $innerhtml .=  '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
         '<div style="" class="model">' . $man_time_list . '</div>' .
         '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
         '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
@@ -126,7 +129,6 @@ foreach ($data[0] as $value) {
 
     if((integer)($product['products_old_price'])>0){
         $innerhtml .= '<div style="font-size: 18px; color:red; font-weight: 500;" itemprop="old-price" ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
-
     }
 
     $innerhtml .= '<b itemprop="priceCurrency" style="display:none">RUB</b>' .

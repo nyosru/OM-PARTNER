@@ -112,9 +112,12 @@ trait ActionCatalog
                 if(($findue = Yii::$app->cache->get($finderkey))==TRUE){
 
                 }else{
-                    $prod_attr_query = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->asArray()->one()['products_options_values_name'];
-                    $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
+                    $prod_attr_querys = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->asArray()->one()['products_options_values_name'];
+                    $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_querys . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                     $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->asArray()->all();
+                    if(!$finder){
+                        $findue[] =  $prod_attr_query;
+                    }
                     foreach ($finder as $finderkey => $findervalue) {
                         $findue[] = $findervalue['products_options_values_id'];
                     }
