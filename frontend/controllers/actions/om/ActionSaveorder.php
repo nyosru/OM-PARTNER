@@ -50,15 +50,15 @@ trait ActionSaveorder
         $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
         $comments = Yii::$app->request->post('comments');
-        switch($type_order){
-            case 'plus':
-                $minimal_order = 1000;
-                $comments_plus = '';
-                break;
-            default:
-                $minimal_order = 5000;
-
-        }
+//        switch($type_order){
+//            case 'plus':
+//                $minimal_order = 1000;
+//                $comments_plus = '';
+//                break;
+//            default:
+//                $minimal_order = 5000;
+//
+//        }
 
         $wrap = Yii::$app->request->post('wrap');
         $quant=[];
@@ -95,11 +95,11 @@ trait ActionSaveorder
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
-        if($validprice < $minimal_order ){
+        if($validprice < 1000 ){
             return $this->render('cartresult', [
                 'result'=>  [
                     'code' => 0,
-                    'text'=>'Минимальная сумма заказа '.$minimal_order.'р',
+                    'text'=>'Минимальная сумма заказа 1000 рублей',
                     'data'=>[
                         'paramorder'=>[
                         ],
@@ -417,9 +417,9 @@ trait ActionSaveorder
                 }else{
                     $ordershistory->comments = NULL;
                 }
-                if($type_order == 'plus'){
-                    $ordershistory->comments .= ' Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
-                }
+//                if($type_order == 'plus'){
+//                    $ordershistory->comments .= ' Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
+//                }
                 if($wrap == 'boxes'){
                     $ordershistory->comments .= ' Авто-комментарий - Упаковка: крафт коробки. ';
                 }
