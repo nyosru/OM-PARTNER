@@ -23,7 +23,7 @@ $this->title = $title;
                 href="<?= BASEURL ?>/catalog?cat=1750&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;" src="/images/banners/382_327_1.1.png"></a></div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
-                href="<?= BASEURL ?>/catalog?cat=1976&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                href="<?= BASEURL ?>/catalog?cat=1990&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                     style="width: 100%; height: auto;"    src="/images/banners/382_159_1.1.png"></a></div>
         <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
                 href="<?= BASEURL ?>/catalog?cat=1720&count=20&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
