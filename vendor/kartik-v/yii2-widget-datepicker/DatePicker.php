@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
  * @package yii2-widgets
  * @subpackage yii2-widget-datepicker
- * @version 1.3.7
+ * @version 1.3.9
  */
 
 namespace kartik\date;
@@ -269,7 +269,7 @@ class DatePicker extends InputWidget
     /**
      * Returns the addon to render
      *
-     * @param array $options the HTML attributes for the addon
+     * @param array  $options the HTML attributes for the addon
      * @param string $type whether the addon is the picker or remove
      *
      * @return string
