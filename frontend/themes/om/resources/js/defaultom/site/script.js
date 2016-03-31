@@ -220,13 +220,16 @@ $(document).on('click', '.countdisplay', function index_count_display() {
         $(this).removeClass('count-checked');
     }
 });
+
 $(document).on('keyup', '#input-count', function(){
  $val =   $(this).val();
     if($val == '' || isNaN($val)){
         $val = 0;
     }
+    console.log($val);
     $(this).val(Math.min(parseInt($val), $(this).attr('data-count')));
 });
+
 $(document).on('click', '.reset', function () {
     $(".page-checked").removeClass('page-checked');
     $('.size-checked').removeClass('size-checked');
