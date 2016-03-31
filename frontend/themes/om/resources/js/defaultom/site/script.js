@@ -53,45 +53,43 @@ $(document).on('click', '#del-count', function () {
     }
     $(this).siblings('input')[0].value = (parseInt($count) - 1) < 0 ? 0 : (parseInt($count) - $step);
 });
+var lockdel = false;
 $(document).on('click', '.del-product', function () {
-    $delrow = $(this).parent().attr('data-raw');
-    $new_cart = new Object();
-    $item = JSON.parse(localStorage.getItem('cart-om'));
-    $array_splice = $item.cart;
-    $array_splice.splice($delrow, 1);
-    $nums=[];
-    $('[id=input-count]').each(function(index,value){
-        $nums.push(value.value);
-    });
+    if(lockdel == false) {
+        lockdel = true;
+        $delrow = $(this).parent().attr('data-raw');
+        $new_cart = new Object();
+        $item = JSON.parse(localStorage.getItem('cart-om'));
+        $item.cart.splice($delrow, 1);
+        $ilocal = JSON.stringify($item);
+        localStorage.setItem('cart-om', $ilocal);
+        $(this).parent().next().remove();
+        $(this).parent().remove();
+        $str = $('.cart-row');
+        $.each($str, function(i,item){
+            $(this).attr('data-raw',i);
+        });
 
-    $str=$('.cart-row');;
-    $nums.splice($delrow, 1);
-    $new_cart.cart = $array_splice;
-    $ilocal = JSON.stringify($new_cart);
-    localStorage.setItem('cart-om', $ilocal);
 
-    $.each($str, function(){
-        if($(this).attr('data-raw')==$delrow){
-            $(this).next().remove();
-            $(this).remove();
-        }
-    });
 
-    $(".cart-count").html($amount_prod);
-    $(".cart-price").html($cart_price + ' руб.');
-    var godsprice=0;
-    var wrapprice=0;
-    var check = $("[name='wrap']").filter(':checked').first();
-    if(check.val()=="boxes") wrapprice=15;
+        //$amount_prod == $item.cart.length;
+        $(".cart-count").html($amount_prod);
+        $(".cart-price").html($cart_price + ' руб.');
+        var godsprice = 0;
+        var wrapprice = 0;
+        var check = $("[name='wrap']").filter(':checked').first();
+        if (check.val() == "boxes") wrapprice = 15;
 
-    $indexes = $(".cart-row");
-    $.each($indexes, function () {
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
-    });
-    $('#gods-price').html(godsprice+' руб');
-    $('#total-price').html(godsprice+wrapprice+' руб');
-    $('#wrap-price').html(wrapprice+' руб');
+        $indexes = $(".cart-row");
+        $.each($indexes, function () {
+            var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        });
+        $('#gods-price').html(godsprice + ' руб');
+        $('#total-price').html(godsprice + wrapprice + ' руб');
+        $('#wrap-price').html(wrapprice + ' руб');
+        lockdel = false;
+    }
 });
 $(document).on('click', '.cart-lable', function () {
    $id_product =  this.getAttribute('data-sale');

@@ -122,7 +122,11 @@ if($result['data']['saveproduct']) {
 }elseif($result['code'] == 0 ){
    ?>
 <div style="float:left; width:100%">
-    <?=$result['text'] ?>
+    <?
+    echo '<pre>';
+    print_r($result['text']);
+    echo '</pre>';
+    ?>
     </div>
 <?
     }
