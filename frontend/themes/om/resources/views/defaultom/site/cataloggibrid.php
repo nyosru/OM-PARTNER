@@ -282,10 +282,9 @@ if ($data[0] != 'Не найдено!') {
     $innerhtml = '';
     foreach ($data[0] as $value) {
         $product = $value['products'];
-        $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
+         $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
         $description = $value['productsDescription'];
-        $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
-        ksort($attr_desc,SORT_NATURAL);
+
         $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
 // echo '<pre>';
 //        print_r($attr);
@@ -297,7 +296,10 @@ if ($data[0] != 'Не найдено!') {
 
         <?
         $active_border = 0;
-        if (count($attr_desc) > 0) {
+        if ($attr) {
+
+        $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
+        ksort($attr_desc,SORT_NATURAL);
             foreach ($attr_desc as $key=>$attr_desc_value) {
                 if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
                 $classpos = 'active-options';
@@ -353,8 +355,8 @@ if ($data[0] != 'Не найдено!') {
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
                 'data-count="'. $product['products_quantity'].'"'.
-                'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
-                'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
+                'data-attrname=""'.
+                'data-attr=""'.
                 'data-name="'.  htmlentities($description['products_name'])  .'"'.
                  'data-step="'. $product['products_quantity_order_units'].'"'.
                 'data-min="'. $product['products_quantity_order_min'].'"'.

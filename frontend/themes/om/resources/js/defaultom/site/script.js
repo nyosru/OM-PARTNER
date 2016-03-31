@@ -53,39 +53,43 @@ $(document).on('click', '#del-count', function () {
     }
     $(this).siblings('input')[0].value = (parseInt($count) - 1) < 0 ? 0 : (parseInt($count) - $step);
 });
+var lockdel = false;
 $(document).on('click', '.del-product', function () {
-    $delrow = $(this).parent().attr('data-raw');            // получаем номер строки (data-raw), которую будем удалять
-    $new_cart = new Object();                               // создаем новый пустой объект с корзиной товаров
-    $item = JSON.parse(localStorage.getItem('cart-om'));    // получаем корзину товаров, которая уже набрана
-    $array_splice = $item.cart;                             // присваиваем ее переменной
-    $array_splice.splice($delrow, 1);                       // удаляем из корзины товар, по строке которого щелкнули
-    $str=$('.cart-row');;
-    $new_cart.cart = $array_splice;
-    $ilocal = JSON.stringify($new_cart);
-    localStorage.setItem('cart-om', $ilocal);
+    if(lockdel == false) {
+        lockdel = true;
+        $delrow = $(this).parent().attr('data-raw');
+        $new_cart = new Object();
+        $item = JSON.parse(localStorage.getItem('cart-om'));
+        $item.cart.splice($delrow, 1);
+        $ilocal = JSON.stringify($item);
+        localStorage.setItem('cart-om', $ilocal);
+        $(this).parent().next().remove();
+        $(this).parent().remove();
+        $str = $('.cart-row');
+        $.each($str, function(i,item){
+            $(this).attr('data-raw',i);
+        });
 
-    $.each($str, function(){
-        if($(this).attr('data-raw')==$delrow){
-            $(this).next().remove();
-            $(this).remove();
-        }
-    });
 
-    $(".cart-count").html($amount_prod);
-    $(".cart-price").html($cart_price + ' руб.');
-    var godsprice=0;
-    var wrapprice=0;
-    var check = $("[name='wrap']").filter(':checked').first();
-    if(check.val()=="boxes") wrapprice=15;
 
-    $indexes = $(".cart-row");
-    $.each($indexes, function () {
-        var c=((parseInt($(this).find('#input-count').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-        godsprice+=c;
-    });
-    $('#gods-price').html(godsprice+' руб');
-    $('#total-price').html(godsprice+wrapprice+' руб');
-    $('#wrap-price').html(wrapprice+' руб');
+        //$amount_prod == $item.cart.length;
+        $(".cart-count").html($amount_prod);
+        $(".cart-price").html($cart_price + ' руб.');
+        var godsprice = 0;
+        var wrapprice = 0;
+        var check = $("[name='wrap']").filter(':checked').first();
+        if (check.val() == "boxes") wrapprice = 15;
+
+        $indexes = $(".cart-row");
+        $.each($indexes, function () {
+            var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
+            godsprice += c;
+        });
+        $('#gods-price').html(godsprice + ' руб');
+        $('#total-price').html(godsprice + wrapprice + ' руб');
+        $('#wrap-price').html(wrapprice + ' руб');
+        lockdel = false;
+    }
 });
 $(document).on('click', '.cart-lable', function () {
    $id_product =  this.getAttribute('data-sale');
