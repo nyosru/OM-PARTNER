@@ -54,18 +54,12 @@ $(document).on('click', '#del-count', function () {
     $(this).siblings('input')[0].value = (parseInt($count) - 1) < 0 ? 0 : (parseInt($count) - $step);
 });
 $(document).on('click', '.del-product', function () {
-    $delrow = $(this).parent().attr('data-raw');
-    $new_cart = new Object();
-    $item = JSON.parse(localStorage.getItem('cart-om'));
-    $array_splice = $item.cart;
-    $array_splice.splice($delrow, 1);
-    $nums=[];
-    $('[id=input-count]').each(function(index,value){
-        $nums.push(value.value);
-    });
-
+    $delrow = $(this).parent().attr('data-raw');            // получаем номер строки (data-raw), которую будем удалять
+    $new_cart = new Object();                               // создаем новый пустой объект с корзиной товаров
+    $item = JSON.parse(localStorage.getItem('cart-om'));    // получаем корзину товаров, которая уже набрана
+    $array_splice = $item.cart;                             // присваиваем ее переменной
+    $array_splice.splice($delrow, 1);                       // удаляем из корзины товар, по строке которого щелкнули
     $str=$('.cart-row');;
-    $nums.splice($delrow, 1);
     $new_cart.cart = $array_splice;
     $ilocal = JSON.stringify($new_cart);
     localStorage.setItem('cart-om', $ilocal);

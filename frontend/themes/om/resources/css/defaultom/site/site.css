@@ -3378,3 +3378,6 @@
         margin-bottom: 38px;
         width: 460px;
     }
+    .size-block .size-desc{
+        margin:0 0px 25px;
+    }
