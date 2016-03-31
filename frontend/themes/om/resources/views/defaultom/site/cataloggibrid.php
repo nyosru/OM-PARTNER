@@ -65,7 +65,7 @@ if ($data[0] != 'Не найдено!') {
 //        print_r($data);
 //         echo '</pre>';
 //        die();
-
+echo '<div id="partners-main-right" class="bside">';
     $headbside = '';
     $headbside .= '<div id="partners-main-right" class="headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
@@ -487,6 +487,7 @@ if ($data[0] != 'Не найдено!') {
 
 }
 ?>
+ </div>
     <div id="modal-product" style="border:none; min-height: 300px;">
         <span id="modal-close"><i class="fa fa-times"></i></span>
     </div>
