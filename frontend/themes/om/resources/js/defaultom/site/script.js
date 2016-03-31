@@ -949,8 +949,10 @@ $(document).on('click', '[data-ajax=time]', function(){
     $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
         if($("#time").length) {
             $('#time').html(data);
+            $('#overlay')
+                .css('display','block')
         }else{
-            $('.bside').append('<div id="time" style="display: none;">'+data+'</div>');
+            $('.bside').append('<div id="overlay" style="display: block;"></div><div id="time" style="display: none;">'+data+'</div>');
         }
         $('#time').show();
     });
@@ -1169,7 +1171,9 @@ $(document).on('click','#prod-info',function(){
 })
 $(document).on('click','#overlay, #modal-close',function(){
     $('#modal-product')
-        .css('display','none')
+        .css('display','none');
     $('#overlay')
-        .css('display','none')
+        .css('display','none');
+    $('#time')
+        .css('display','none');
 })
