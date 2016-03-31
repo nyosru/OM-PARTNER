@@ -91,7 +91,9 @@ $(document).on('click', '.del-product', function () {
         $('#gods-price').html(godsprice + ' руб');
         $('#total-price').html(godsprice + wrapprice + ' руб');
         $('#wrap-price').html(wrapprice + ' руб');
+        changeCartCount();
         lockdel = false;
+
     }
 });
 $(document).on('click', '.cart-lable', function () {
@@ -1003,9 +1005,8 @@ $(document).on('click','#prod-info',function(){
         $baseduri=window.location.hostname;
 
         if(typeof (data.product.productsAttributesDescr.keys) == "undefined") {
-
             $.each(data.product.productsAttributesDescr, function (i, item) {
-                if (data.product.products.products_quantity > 0) {
+                if (data.product.productsAttributes[item['products_options_values_id']]['quantity'] > 0) {
                     $classpos = 'active-options';
                     $add_class = 'add-count';
                     $del_class = 'del-count';
