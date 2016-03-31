@@ -374,248 +374,249 @@ $(document).on('click', '#up', function () {
 $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
-$(document).on('ready', function () {
-    function loaddata(){
-        $searchword = '';
-        $count = $('.count-checked').text();
-        $min_price = $('#min-price').val();
-        $sort = $('.sort-checked').attr('data');
-        if ($sort == 'undefined') {
-            $sort = 0;
+function loaddata(){
+    $searchword = '';
+    $count = $('.count-checked').text();
+    $min_price = $('#min-price').val();
+    $sort = $('.sort-checked').attr('data');
+    if ($sort == 'undefined') {
+        $sort = 0;
+    }
+    $check = [];
+    $max_price = $('#max-price').val();
+    if ($max_price == 0 || $max_price == undefined) {
+        $max_price = 1000000;
+    }
+    $('.size-checked').each(function () {
+        $check.push($(this).attr('data-size'));
+    });
+    $page = parseInt($('.pagination-catalog').find('.pagination').find('.active').find('a').attr('data-page'));
+    if (typeof $page == 'undefined') {
+        $page = 0;
+    }
+
+    $prodatrquery = $check.join(',');
+    if ($count == '') {
+        $count = 20;
+    }
+
+
+    $urld = '';
+    $urld = document.location.toString();
+    $urld = '' + $urld.split('?')[1];
+    $urld = split_url($urld);
+    $cat = $urld['cat'][1];
+    $prodatrquery = $urld['prod_attr_query'][1];
+    $searchword = $urld['searchword'][1];
+
+
+    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
+    $url_data = $urld;
+    $.ajax({
+        method:"post",
+        url: "/site/catalog",
+        data: { "_csrf":yii.getCsrfToken(),
+            "cat":$cat,
+            "count":$count,
+            "start_price": $min_price,
+            "end_price": $max_price,
+            "prod_attr_query": $prodatrquery,
+            "page": $page,
+            "sort": $sort,
+            "searchword": $searchword,
+            "json": '1'
+        },
+        cache: false,
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            inProgress = true;
         }
-        $check = [];
-        $max_price = $('#max-price').val();
-        if ($max_price == 0 || $max_price == undefined) {
-            $max_price = 1000000;
-        }
-        $('.size-checked').each(function () {
-            $check.push($(this).attr('data-size'));
-        });
-        $page = parseInt($('.pagination-catalog').find('.pagination').find('.active').find('a').attr('data-page'));
-        if (typeof $page == 'undefined') {
-            $page = 0;
-        }
+    }).done(function (data) {
+        $('body').removeClass('some');
+        $('link').removeClass('some');
+        $('.preload').remove();
+        $loader = $('.loader-inner').html();
+        $('.pagination-catalog').remove();
+        $('.loader-inner').remove();
+        if (data[0] != 'Не найдено!') {
+            $.each(data[0], function () {
+                $product = this.products;
+                $descriptionprod = this.productsDescription;
+                $attr_desc = this['productsAttributesDescr'];
+                $attr = this['productsAttributes'];
+                $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
 
-        $prodatrquery = $check.join(',');
-        if ($count == '') {
-            $count = 20;
-        }
-
-
-            $urld = '';
-            $urld = document.location.toString();
-            $urld = '' + $urld.split('?')[1];
-            $urld = split_url($urld);
-            $cat = $urld['cat'][1];
-            $prodatrquery = $urld['prod_attr_query'][1];
-            $searchword = $urld['searchword'][1];
-
-
-        $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
-        $url_data = $urld;
-        $.ajax({
-            method:"post",
-            url: "/site/catalog",
-            data: { "_csrf":yii.getCsrfToken(),
-                "cat":$cat,
-                "count":$count,
-                "start_price": $min_price,
-                "end_price": $max_price,
-                "prod_attr_query": $prodatrquery,
-                "page": $page,
-                "sort": $sort,
-                "searchword": $searchword,
-                "json": '1'
-            },
-            cache: false,
-            async: true,
-            dataType: 'json',
-            beforeSend: function () {
-                inProgress = true;
-            }
-        }).done(function (data) {
-            $('body').removeClass('some');
-            $('link').removeClass('some');
-            $('.preload').remove();
-            $loader = $('.loader-inner').html();
-            $('.pagination-catalog').remove();
-            $('.loader-inner').remove();
-            if (data[0] != 'Не найдено!') {
-                $.each(data[0], function () {
-                    $product = this.products;
-                    $descriptionprod = this.productsDescription;
-                    $attr_desc = this['productsAttributesDescr'];
-                    $attr = this['productsAttributes'];
-                    $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
-
-                    if ($attr_desc.length > 0) {
-                        $.each($attr_desc, function (index,value) {
-                            if($attr[value['products_options_values_id']]['quantity'] > 0){
-                                $classpos = 'active-options';
-                                $add_class = 'add-count';
-                                $del_class = 'del-count';
-                                $inputpos = '';
-                                $some_text = 0;
-                            }else{
-                                $classpos = 'disable-options';
-                                $inputpos = 'readonly';
-                                $add_class = 'add-count-dis';
-                                $del_class = 'del-count-dis';
-                                $some_text = 'Нет';
-                            }
-                            if((index%2) ==0){
-                                $class='border-right:1px solid #CCC';
-                            }else{
-                                $class='';
-                            }
-                            $attr_html += '<div class="'+$classpos+'" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
-                                '<input '+$inputpos+' id="input-count"'+
-                                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                                'data-prod="'+ $product['products_id']+'"'+
-                                'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
-                                'data-model="'+ $product['products_model']+'"'+
-                                'data-price="'+ parseInt($product['products_price'])+'"'+
-                                'data-image="'+ $product['products_image']+'"'+
-                                'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
-                                'data-step="'+ $product['products_quantity_order_units']+'"'+
-                                'data-min="'+ $product['products_quantity_order_min']+'"'+
-                                'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
-                                'data-attr="'+value['products_options_values_id']+'"'+
-                                'placeholder="0"'+
-                                'type="text">'+
-                                '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
-                                '+'+
-                                '</div>'+
-                                '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
-                                '-'+
-                                '</div>'+
-                                '</div></div></div>';
-                        });
-                    } else {
-                        $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
-                            '<input  id="input-count"'+
+                if ($attr_desc.length > 0) {
+                    $.each($attr_desc, function (index,value) {
+                        if($attr[value['products_options_values_id']]['quantity'] > 0){
+                            $classpos = 'active-options';
+                            $add_class = 'add-count';
+                            $del_class = 'del-count';
+                            $inputpos = '';
+                            $some_text = 0;
+                        }else{
+                            $classpos = 'disable-options';
+                            $inputpos = 'readonly';
+                            $add_class = 'add-count-dis';
+                            $del_class = 'del-count-dis';
+                            $some_text = 'Нет';
+                        }
+                        if((index%2) ==0){
+                            $class='border-right:1px solid #CCC';
+                        }else{
+                            $class='';
+                        }
+                        $attr_html += '<div class="'+$classpos+'" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+                            '<input '+$inputpos+' id="input-count"'+
                             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                             'data-prod="'+ $product['products_id']+'"'+
+                            'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
                             'data-model="'+ $product['products_model']+'"'+
                             'data-price="'+ parseInt($product['products_price'])+'"'+
                             'data-image="'+ $product['products_image']+'"'+
-                            'data-attrname=""'+
-                            'data-attr=""'+
-                            'data-count="'+ $product['products_quantity']+'"'+
-                            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+                            'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
                             'data-step="'+ $product['products_quantity_order_units']+'"'+
                             'data-min="'+ $product['products_quantity_order_min']+'"'+
+                            'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                            'data-attr="'+value['products_options_values_id']+'"'+
                             'placeholder="0"'+
                             'type="text">'+
-                            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+                            '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
                             '+'+
                             '</div>'+
-                            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+                            '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
                             '-'+
                             '</div>'+
                             '</div></div></div>';
-                    }
-                    if( data[14][$product.manufacturers_id] === undefined ) {
-                        $timewrap = '';
-                    }else{
-                        $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
-
-                    }
-                    $('.bside').append('<div class="container-fluid float" id="card" ' + $product.products_id+ '>'+
-                        '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
-                        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
+                    });
+                } else {
+                    $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
+                        '<input  id="input-count"'+
+                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                        'data-prod="'+ $product['products_id']+'"'+
+                        'data-model="'+ $product['products_model']+'"'+
+                        'data-price="'+ parseInt($product['products_price'])+'"'+
+                        'data-image="'+ $product['products_image']+'"'+
+                        'data-attrname=""'+
+                        'data-attr=""'+
+                        'data-count="'+ $product['products_quantity']+'"'+
+                        'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+                        'data-step="'+ $product['products_quantity_order_units']+'"'+
+                        'data-min="'+ $product['products_quantity_order_min']+'"'+
+                        'placeholder="0"'+
+                        'type="text">'+
+                        '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+                        '+'+
                         '</div>'+
-                        '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
-                        '</a>'+
-                        '<div  class="price">'+
-                        '<div style="font-size: 18px; font-weight: 500;">'+
-                        parseInt($product.products_price) + ' Руб.'+
+                        '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+                        '-'+
                         '</div>'+
-                        '</div>'+
-                        '<div style="cursor:pointer">'+
-                        '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="'+$product.products_id+'">'+
-                        'Размеры'+
-                        '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;">'+
-                        '</i>'+
-                        '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
-                        $attr_html+
-                        '</span>'+
-                        '</div>'+
-                        '</div>'+
-
-                        '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
-                        '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
-                        '</i>'+
-                        'Увеличить'+
-                        '</div>'+
-
-                        ''+$timewrap+''+
-                        '</div></div>');
-                });
-                $pager = '';
-                data[1] = parseInt(data[1]);
-                $count = parseInt($count);
-                if(data[1] > $count){
-                    $pager +='<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
-                    if($page <= 0){
-                        $fpclass = 'disable';
-                    }else{
-                        $fpclass = '';
-                    }
-                    $pager += '<ul class="pagination">';
-                    $pager += '<li class="first">';
-                    $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', 0)) + '" data-page="0">';
-                    $pager += 'Первая';
-                    $pager += '</a>';
-                    $pager += '</li>';
-                    $pager += '<li class="prev">';
-                    $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$page-1))) + '" data-page="'+($page-1)+'">';
-                    $pager += '<i class="mdi mdi-arrow-back">';
-                    $pager += '</i>';
-                    $pager += '</a>';
-                    $pager += '</li>';
-                    $checkdelimiter = data[1]%$count;
-                    if($checkdelimiter){
-                        $pagecount = parseInt(data[1]/$count);
-                    }else{
-                        $pagecount = parseInt(data[1]/$count)-1;
-                    }
-                    $endpage = Math.min($pagecount, $page+2);
-                    $startpage = Math.max(0, $page-2);
-                    for($startpage; $startpage<=$endpage ; $startpage++){
-                        if($page == $startpage){
-                            $pager += '<li class="active"><a  href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage+1))) + '" data-page="'+($startpage+1)+'">'+($startpage+1)+'</a></li>';
-
-                        }else{
-                            $pager += '<li><a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage))) + '">'+($startpage+1)+'</a></li>';
-                        }
-                    }
-                    $pager += '<li class="next">';
-                    $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.min($pagecount,$page+1))) + '">';
-                    $pager += '<i class="mdi mdi-arrow-forward">';
-                    $pager += '</i>';
-                    $pager += '</a>';
-                    $pager += '</li>';
-                    $pager += '<li class="last">';
-                    $pager +='<a href="' + new_url(new_suburl(split_url($url), 'page', $pagecount)) + '">';
-                    $pager += 'Последняя';
-                    $pager += '</a>';
-                    $pager +='</li> </ul></div>';
+                        '</div></div></div>';
+                }
+                if( data[14][$product.manufacturers_id] === undefined ) {
+                    $timewrap = '';
+                }else{
+                    $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
 
                 }
+                $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
+                    '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
+                    '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
+                    '</div>'+
+                    '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
+                    '</a>'+
+                    '<div  class="price">'+
+                    '<div style="font-size: 18px; font-weight: 500;">'+
+                    parseInt($product.products_price) + ' Руб.'+
+                    '</div>'+
+                    '</div>'+
+                    '<div style="cursor:pointer">'+
+                    '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="'+$product.products_id+'">'+
+                    'Размеры'+
+                    '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;">'+
+                    '</i>'+
+                    '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
+                    $attr_html+
+                    '</span>'+
+                    '</div>'+
+                    '</div>'+
 
+                    '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
+                    '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
+                    '</i>'+
+                    'Увеличить'+
+                    '</div>'+
 
-                $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
-                inProgress = false;
-            } else {
-                $('#size-slide').html('');
-                $('#filter-button').html('');
-                $('body').removeClass('some');
-                $('link').removeClass('some');
-                $('.preload').remove();
+                    ''+$timewrap+''+
+                    '</div></div>');
+            });
+            $pager = '';
+            data[1] = parseInt(data[1]);
+            $count = parseInt($count);
+            if(data[1] > $count){
+                $pager +='<div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;">';
+                if($page <= 0){
+                    $fpclass = 'disable';
+                }else{
+                    $fpclass = '';
+                }
+                $pager += '<ul class="pagination">';
+                $pager += '<li class="first">';
+                $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', 0)) + '" data-page="0">';
+                $pager += 'Первая';
+                $pager += '</a>';
+                $pager += '</li>';
+                $pager += '<li class="prev">';
+                $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$page-1))) + '" data-page="'+($page-1)+'">';
+                $pager += '<i class="mdi mdi-arrow-back">';
+                $pager += '</i>';
+                $pager += '</a>';
+                $pager += '</li>';
+                $checkdelimiter = data[1]%$count;
+                if($checkdelimiter){
+                    $pagecount = parseInt(data[1]/$count);
+                }else{
+                    $pagecount = parseInt(data[1]/$count)-1;
+                }
+                $endpage = Math.min($pagecount, $page+2);
+                $startpage = Math.max(0, $page-2);
+                for($startpage; $startpage<=$endpage ; $startpage++){
+                    if($page == $startpage){
+                        $pager += '<li class="active"><a  href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage+1))) + '" data-page="'+($startpage+1)+'">'+($startpage+1)+'</a></li>';
+
+                    }else{
+                        $pager += '<li><a href="' + new_url(new_suburl(split_url($url), 'page', Math.max(0,$startpage))) + '">'+($startpage+1)+'</a></li>';
+                    }
+                }
+                $pager += '<li class="next">';
+                $pager += '<a href="' + new_url(new_suburl(split_url($url), 'page', Math.min($pagecount,$page+1))) + '">';
+                $pager += '<i class="mdi mdi-arrow-forward">';
+                $pager += '</i>';
+                $pager += '</a>';
+                $pager += '</li>';
+                $pager += '<li class="last">';
+                $pager +='<a href="' + new_url(new_suburl(split_url($url), 'page', $pagecount)) + '">';
+                $pager += 'Последняя';
+                $pager += '</a>';
+                $pager +='</li> </ul></div>';
+
             }
-        });
-    }
+
+
+            $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
+            inProgress = false;
+        } else {
+            $('#size-slide').html('');
+            $('#filter-button').html('');
+            $('body').removeClass('some');
+            $('link').removeClass('some');
+            $('.preload').remove();
+        }
+    });
+}
+$(document).on('ready', function () {
+
     $(window).scroll(function () {
         $control = $('#control-load option:selected').val();
         if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress && ControlLoad =='auto') {
@@ -1121,17 +1122,25 @@ $(document).on('click','#prod-info',function(){
             '</div>'+
             '</div>';
 
-        $current = $('[itemid='+data.product.products.products_id+']').attr('itemid');
-        $prev = $('[itemid='+data.product.products.products_id+']').prev().attr('itemid');
-        $next = $('[itemid='+data.product.products.products_id+']').next().attr('itemid');
+        $current = $('[id="card"][itemid='+data.product.products.products_id+']').filter('#card').attr('itemid');
+        $prev = $('[id="card"][itemid='+data.product.products.products_id+']').prev('#card').attr('itemid');
+        $next = $('[id="card"][itemid='+data.product.products.products_id+']').next('#card').attr('itemid');
+        console.log($current);
+        console.log($prev);
+        console.log($('[id="card"][itemid='+data.product.products.products_id+']').next('[id=card]'));
         if(typeof($next) != "undefined" ){
             $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
                 '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="'+$next+'" id="prod-info"></i>' +
                 '</div>';
         }else{
+            if (!inProgress) {
+                loaddata();
+            }
+
             $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
                 '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="'+$current+'" id="prod-info"></i>' +
                 '</div>';
+
         }
 
 

@@ -10,12 +10,12 @@ trait Fullopcat
     {
         $key = Yii::$app->cache->buildKey('fullopcatcategories-' . Yii::$app->params['constantapp']['APP_ID']);
         $data = Yii::$app->cache->get($key);
-        if (!isset($data['data'])) {
+        if ($data['data'] == FALSE) {
             $checks = Yii::$app->params['constantapp']['APP_CAT'];
             $categoriess = new PartnersCategories();
             $categoriesd = new PartnersCatDescription();
-            $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->asArray()->All();
-            $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->asArray()->All();
+            $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->createCommand()->queryAll();
+            $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();
             foreach ($f as $value) {
                 if (in_array(intval($value['categories_id']), $checks)) {
                     $catdataallow[] = $value;

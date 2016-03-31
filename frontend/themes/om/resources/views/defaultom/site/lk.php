@@ -132,6 +132,8 @@ $this->title = 'Личный кабинет';
                         }
                         $inner .= '<tr style="background: ' . $col . '">';
                         $inner .= '<td class="col-md-1">' . $count . '</td>';
+                        $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
+
                         $inner .= '<td class="col-md-2">' . $value->products_model . '</td>';
                         if ($data->orders_status != 1) {
                             $omfinalquant = '<br/>В наличии: ' . $positionquantity . '';
@@ -162,7 +164,6 @@ $this->title = 'Личный кабинет';
                     $inner .= '</tbody><tfooter>';
                     $inner .= '<tr>';
                     $inner .= '<th style="border: none" class="col-md-1">Итого</th>';
-                    $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
                     $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
                     $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: ' . $omfirstprice . ' Руб. ' . $finalompriceview . ' </th>';
