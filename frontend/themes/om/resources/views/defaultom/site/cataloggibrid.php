@@ -81,7 +81,7 @@ echo '<div class="partners-main-right bside">';
             echo '</a>';
             echo '</div>';
             echo '</div>';
-            echo '<div style="position: absolute; background: rgb(245, 245, 245) none repeat scroll 0% 0%; z-index: 999; border: 1px solid rgb(204, 204, 204); border-radius: 4px;" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
+            echo '<div style="position: absolute; background: rgb(245, 245, 245) none repeat scroll 0% 0%; z-index: 999;height:0px; border: 1px solid rgb(204, 204, 204); border-radius: 4px;" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">';
             echo '<div class="panel-body"  >';
             echo $menu;
             echo '</div></div></div>';
