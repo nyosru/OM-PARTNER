@@ -137,9 +137,9 @@ trait ActionCatalog
                 $prod_search_query_filt = '';
             }
             if ($searchword != '') {
-                if (preg_match('/^[0-9]+$/', $searchword)) {
-                    $arfilt[':searchword'] = $searchword;
-                    $arfilt_pricemax[':searchword'] = $searchword;
+                if (preg_match('/^[0-9 ]+$/', $searchword)) {
+                    $arfilt[':searchword'] = trim(str_replace(' ','',$searchword));
+                    $arfilt_pricemax[':searchword'] = trim(str_replace(' ','',$searchword));
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'patternsearch-' . urlencode($searchword);
