@@ -43,6 +43,7 @@ $(document).on('click', '#add-count', function () {
     }
     $(this).siblings('input')[0].value = Math.min(parseInt($count) + $step, $countprodpos);
     changeCartCount();
+    changeCart($(this).siblings('#input-count'));
 });
 $(document).on('click', '#del-count', function () {
     $count = $(this).siblings('input')[0].value;
@@ -55,6 +56,7 @@ $(document).on('click', '#del-count', function () {
     }
     $(this).siblings('input')[0].value = (parseInt($count) - 1) < 0 ? 0 : (parseInt($count) - $step);
     changeCartCount();
+    changeCart($(this).siblings('#input-count'));
 });
 var lockdel = false;
 $(document).on('click', '.del-product', function () {
@@ -242,6 +244,7 @@ $(document).on('keyup', '#input-count', function(){
     }
     $(this).val(Math.min(parseInt($val), $(this).attr('data-count')));
     changeCartCount();
+    changeCart($(this));
 });
 
 $(document).on('click', '.reset', function () {
@@ -1176,4 +1179,19 @@ $(document).on('click','#overlay, #modal-close',function(){
         .css('display','none');
     $('#time')
         .css('display','none');
-})
+});
+function changeCart($inputc){
+    $ind=$inputc.parent().attr('data-raw');
+    if (JSON.parse(localStorage.getItem('cart-om'))) {
+        $item = JSON.parse(localStorage.getItem('cart-om'));
+        if (typeof ($item.cart) == 'undefined') {
+            localStorage.removeItem('cart-om');
+            localStorage.removeItem('cart-om-date');
+        }
+        else{
+            $item.cart[$ind][4]=$inputc.val();
+            $newc=JSON.stringify($item);
+            localStorage.setItem('cart-om',$newc);
+        }
+    }
+}

@@ -274,7 +274,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?= $dataset['totalorder'];?></div>
         <div class="desc">
-           <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Заказов сделано</a> мной с начала регистрации на сайте
+           Заказов сделано мной с момента регистрации на сайте
         </div>
     </div>
     <div class="lk-order-stat col-md-3">
@@ -283,7 +283,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?=$dataset['totalproducts'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Товаров доставлено</a> мне с начала регистрации на сайте
+            Товаров доставлено мне с момента регистрации на сайте
         </div>
     </div>
     <div class="lk-order-stat col-md-3">
@@ -292,7 +292,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?=$dataset['totalprice'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Сумма оплаченных</a> мною товаров с начала регистрации на сайте
+            Сумма оплаченных мною товаров с момента регистрации на сайте
         </div>
     </div>
     <div class="lk-order-stat col-md-3">
@@ -301,7 +301,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?=$dataset['totalcancel'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Заказов отменено</a> мной с начала регистрации на сайте
+            Заказов отменено мной с момента регистрации на сайте
         </div>
     </div>
 </div>
