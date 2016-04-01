@@ -22,7 +22,7 @@ $this->title = 'Личный кабинет';
 ?>
 <div class="circular"><i class="mdi mdi-perm-identity"></i></div>
 <div class="" style="float: left; font-size: 24px; font-weight: 500; padding: 20px;">
-    <?= $cust['userinfo']['name']; ?> <?= $cust['userinfo']['name']; ?>
+    <?= $cust['userinfo']['lastname']; ?> <?= $cust['userinfo']['name']; ?>
     <br/><span style="font-size: 18px; color: rgb(204, 204, 204);"><?= $cust['email']; ?></span>
     <br/><span
         style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">id: <?= $cust['userinfo']['customers_id']; ?></span>

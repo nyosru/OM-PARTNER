@@ -341,22 +341,7 @@ $(document).on('click keydown', '.lock-on', function () {
 });
 
 
-$(document).on('click', '#catalog-mode', function () {
 
-    if ($('#partners-main-left-back').attr('style') != 'display: none;') {
-        $('#partners-main-left-back').attr('style', 'display: none;');
-        $('#partners-main-right-back').attr('style', 'width: 100%;margin-left: 0;');
-        $('#partners-main-right-back').prepend('<div id="catalog-mode" class="" style="float: right; position: fixed; z-index: 99; font-size: 11px; line-height: 1.1; width: 24px;height: 24px; text-align: center; border: 1px solid rgb(204, 204, 204); background: rgb(204, 204, 204) none repeat scroll 0% 0%; color: rgb(255, 255, 255);"> <i class="fa fa-2x fa-angle-right"></i></div>');
-
-
-    } else {
-        $('#catalog-mode-back').remove();
-        $('#partners-main-left-back').attr('style', 'display: block;');
-        $('#partners-main-right-back').attr('style', 'width: 83.5%%;');
-        $('#stcat').remove();
-    }
-
-});
 var inProgress = false;
 var ControlLoad = 'manual';
 $(document).on('click', '#down', function () {
@@ -451,26 +436,32 @@ function loaddata(){
                 $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
 
                 if ($attr_desc.length > 0) {
+                    var  innerindex = 0;
                     $.each($attr_desc, function (index,value) {
                         if($attr[value['products_options_values_id']]['quantity'] > 0){
                             $classpos = 'active-options';
                             $add_class = 'add-count';
                             $del_class = 'del-count';
+                            $stylepos = '';
                             $inputpos = '';
                             $some_text = 0;
+                            if((innerindex%2) == 0 && $stylepos == ''){
+                                $class='border-right:1px solid #CCC';
+                                innerindex++;
+                            }else{
+                                $class='';
+                                innerindex++;
+                            }
                         }else{
                             $classpos = 'disable-options';
                             $inputpos = 'readonly';
+                            $stylepos = 'display:none; ';
                             $add_class = 'add-count-dis';
                             $del_class = 'del-count-dis';
                             $some_text = 'Нет';
                         }
-                        if((index%2) ==0){
-                            $class='border-right:1px solid #CCC';
-                        }else{
-                            $class='';
-                        }
-                        $attr_html += '<div class="'+$classpos+'" style="width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+
+                        $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left; '+$class+';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
                             '<input '+$inputpos+' id="input-count"'+
                             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                             'data-prod="'+ $product['products_id']+'"'+
@@ -647,7 +638,7 @@ $('[data-cat]').on('click', function () {
 $(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
-    console.log( $(this).val());
+   // console.log( $(this).val());
     $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;
@@ -749,7 +740,7 @@ $(document).on('ready', function () {
                 $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
             }
         };
-        var accordion = new Accordion($('#accordion'), false);
+        var accordion = new Accordion($('.accordion'), false);
     });
 
 });
@@ -1016,17 +1007,19 @@ $(document).on('click','#prod-info',function(){
                     $classpos = 'active-options';
                     $add_class = 'add-count';
                     $del_class = 'del-count';
+                    $stylepos = '';
                     $inputpos = '';
                     $some_text = 0;
                 } else {
                     $classpos = 'disable-options';
                     $inputpos = 'readonly';
+                    $stylepos = 'display:none; ';
                     $add_class = 'add-count-dis';
                     $del_class = 'del-count-dis';
                     $some_text = '';
                 }
 
-                $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 3px ;">' + item.products_options_values_name + '</div>';
+                $size_html += '<div class="' + $classpos + '" style="'+$stylepos+'width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 3px ;">' + item.products_options_values_name + '</div>';
                 //   $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 5px;">' + item.products_options_values_name + '</div>';
                 $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + parseInt(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="" placeholder="' + $some_text + '" type="text">';
                 $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';

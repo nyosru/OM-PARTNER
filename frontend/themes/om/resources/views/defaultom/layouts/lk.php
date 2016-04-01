@@ -55,28 +55,28 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
-    <div class="" id="partners-main">
-        <div class="" id="partners-main-left-back">
+    <div class="partners-main">
+        <div class="partners-main-left-back">
 
             <div>
-                <div id="partners-main-left" class="suplogo" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
+                <div  class="partners-main-left suplogo" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
                     <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
                         echo '<span style="max-width: 316px;" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                     } else {
                         $logotype = '';
                     }
                     ?>
-                    <a id="partners-main-left" href="/" class="sublogo" >
+                    <a  href="/" class="partners-main-left sublogo" >
                         <i class="fa fa-chevron-left" ></i> На главную
                     </a>
                 </div>
 
-                <div id="partners-main-left" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;"></div>
+                <div class="partners-main-left" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;"></div>
             </div>
 
-                <div id="partners-main-left-cont" class="" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <div id="partners-main-left">
-                        <div id="partners-main-left">
+                <div class="partners-main-left-cont" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
+                    <div class="partners-main-left">
+                        <div class="partners-main-left">
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
@@ -103,12 +103,12 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         </div>       </div>
 
                 </div>
-                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
-                <div id="partners-main-left-cont" class="suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
+                <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
+                <div  class="partners-main-left-cont suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
                                    </div>
             </div>
-            <div class="" id="partners-main-right-back">
-                <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+            <div class="partners-main-right-back">
+                <div class="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
                         <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="<?=BASEURL?>/page?article=howorders">Как сделать заказ</a></div>
                         <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="<?=BASEURL?>/discont">Акции</a></div>
@@ -123,7 +123,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <div class="top-link-cont" style="float: right; padding: 12px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
                     </div>
                 </div>
-                <div id="partners-main-right">
+                <div class="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
                         <form action="<?= BASEURL?>/catalog">
                             <input autocomplete="off" id="" name="cat" value="0"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
@@ -183,7 +183,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
                 </div>
 
-                <div id="partners-main-right" class="bside">
+                <div class="partners-main-right bside">
                     <?= $content ?>
 
 

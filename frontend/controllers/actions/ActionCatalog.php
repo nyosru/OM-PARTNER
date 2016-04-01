@@ -127,7 +127,7 @@ trait ActionCatalog
                     }
 
                 }
-                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).') ';
+                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).')  ';
                   // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
 
                // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
@@ -137,9 +137,9 @@ trait ActionCatalog
                 $prod_search_query_filt = '';
             }
             if ($searchword != '') {
-                if (preg_match('/^[0-9]+$/', $searchword)) {
-                    $arfilt[':searchword'] = $searchword;
-                    $arfilt_pricemax[':searchword'] = $searchword;
+                if (preg_match('/^[0-9 ]+$/', $searchword)) {
+                    $arfilt[':searchword'] = trim(str_replace(' ','',$searchword));
+                    $arfilt_pricemax[':searchword'] = trim(str_replace(' ','',$searchword));
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'patternsearch-' . urlencode($searchword);

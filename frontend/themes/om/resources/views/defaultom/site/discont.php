@@ -33,24 +33,29 @@ foreach ($data[0] as $value) {
             if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
                 $classpos = 'active-options';
                 $add_class = 'add-count';
+                $stylepos = '';
                 $del_class = 'del-count';
                 $inputpos = '';
                 $some_text = 0;
+                if($active_border%2 == 0 && $stylepos == ''){
+                    $class='border-right:1px solid #CCC';
+                    $active_border++;
+                }else{
+                    $class='';
+                    $active_border++;
+                }
             }else{
                 $classpos = 'disable-options';
                 $inputpos = 'readonly';
                 $add_class = 'add-count-dis';
                 $del_class = 'del-count-dis';
+                $stylepos = "display:none; ";
                 $some_text = 'Нет';
             }
 
-            if($active_border%2 == 0){
-                $class='border-right:1px solid #CCC';
-            }else{
-                $class='';
-            }
+
             $active_border++;
-            $attr_html .= '<div class="'.$classpos.'" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
+            $attr_html .= '<div class="'.$classpos.'" style="'.$stylepos.'width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
             $attr_html .= '<input '.$inputpos.' id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.

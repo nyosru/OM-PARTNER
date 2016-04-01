@@ -31,7 +31,6 @@ $(document).on('ready', function () {
     $innerhtml = '<form action="<?= BASEURL;?>/saveorder" method="post"><input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" /><div class="cart-top" style="width: 100%;height:40px;">Товары в моей корзине</div><div class="cart-column1" style="width: 48%;min-width: 500px;float:left;border:1px solid #ccc; border-radius: 4px; margin-right: 5px;">';
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         $item = JSON.parse(localStorage.getItem('cart-om'));
-        $item = JSON.parse(localStorage.getItem('cart-om'));
         $i = $item.cart;
         if(typeof ($i)== 'undefined'){
             localStorage.removeItem('cart-om');
