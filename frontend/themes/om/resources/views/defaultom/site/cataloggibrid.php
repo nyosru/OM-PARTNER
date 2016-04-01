@@ -409,6 +409,7 @@ echo '<div id="partners-main-right" class="bside">';
             '<div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div>' .
             '</div>';
     }
+
     if ($searchword !== '') {
         $thistitle = 'Результаты поиска';
     } elseif ($cat == 0) {

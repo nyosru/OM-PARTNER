@@ -42,8 +42,9 @@ $(document).on('click', '#add-count', function () {
         $count = -1;
     }
     $(this).siblings('input')[0].value = Math.min(parseInt($count) + $step, $countprodpos);
-    changeCartCount();
+   // changeCartCount();
 });
+
 $(document).on('click', '#del-count', function () {
     $count = $(this).siblings('input')[0].value;
     $step=parseInt($(this).siblings('input').attr('data-step'));
@@ -54,7 +55,7 @@ $(document).on('click', '#del-count', function () {
         $count = 1;
     }
     $(this).siblings('input')[0].value = (parseInt($count) - 1) < 0 ? 0 : (parseInt($count) - $step);
-    changeCartCount();
+   // changeCartCount();
 });
 var lockdel = false;
 $(document).on('click', '.del-product', function () {
@@ -97,7 +98,7 @@ $(document).on('click', '.del-product', function () {
     }
 });
 $(document).on('click', '.cart-lable', function () {
-   $id_product =  this.getAttribute('data-sale');
+    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
     $noanimate = false;
@@ -644,7 +645,7 @@ $('[data-cat]').on('click', function () {
 $(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
-    console.log( $(this).val());
+   // console.log( $(this).val());
     $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;

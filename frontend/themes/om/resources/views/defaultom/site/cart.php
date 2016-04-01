@@ -74,7 +74,7 @@ $(document).on('ready', function () {
                 '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
                 '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
                 '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
-                '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;">-</div>' +
+                '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" data-type="incart"  style=" line-height:1.5;">-</div>' +
                 '   <input id="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
                 'data-prod="'+this[0]+'" ' +
                 'data-model="'+this[1]+'" ' +
@@ -94,7 +94,7 @@ $(document).on('ready', function () {
                 'data-min="'+requestdata.responseJSON.product.products.products_quantity_order_min+'" ' +
                 'data-step="'+requestdata.responseJSON.product.products.products_quantity_order_units+'"  ' +
                 'data-id="'+$c+'">' +
-                '   <div id="add-count" style="float: left; line-height:1.5;">+</div></div>' +
+                '   <div id="add-count" data-type="incart"  style="float: left; line-height:1.5;">+</div></div>' +
                 '</div></div>' +
                 '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
                 '</div>'+

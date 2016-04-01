@@ -5,6 +5,7 @@ use common\models\User;
 use common\models\Partners;
 use common\models\Customers;
 use common\models\PartnersUsersInfo;
+use common\traits\Trim_Tags;
 use yii\base\Exception;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -18,6 +19,7 @@ use Yii;
 
 class SignupFormOM extends Model
 {
+    use Trim_Tags;
     public $emails;
     public $password;
     public $passwordcheck;
