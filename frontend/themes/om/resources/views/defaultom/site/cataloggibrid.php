@@ -65,9 +65,9 @@ if ($data[0] != 'Не найдено!') {
 //        print_r($data);
 //         echo '</pre>';
 //        die();
-echo '<div id="partners-main-right" class="bside">';
+echo '<div class="partners-main-right bside">';
     $headbside = '';
-    $headbside .= '<div id="partners-main-right" class="headerbside">';
+    $headbside .= '<div  class="partners-main-right headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
     if($catpath['num'] != 0){
     foreach($catpath['num'] as $key => $catid) {
@@ -117,7 +117,7 @@ echo '<div id="partners-main-right" class="bside">';
     }else{
         $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">Каталог</h3>';
     }
-    $headbside .=  '<form id="partners-main-right" class="filter" action="'.BASEURL.'/catalog">
+    $headbside .=  '<form class="partners-main-right filter" action="'.BASEURL.'/catalog">
                     <div class="panel panel-default">
                          <div class="filter-search" style="float: left; margin: 13px; font-size: 14px; width: 25%;">
                          <form action="'.BASEURL.'/catalog?cat=0">

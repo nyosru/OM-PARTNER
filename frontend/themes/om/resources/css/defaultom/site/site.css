@@ -451,11 +451,11 @@
         min-width: 245px
     }
 
+
     #partners-head {
         width: 100%;
         margin-bottom: 3px
     }
-
     #partners-left-head {
         border-style: solid;
         border-width: 1px;
@@ -550,13 +550,13 @@
         border-color: #E9F1F4 #D8DEE2 #D8DEE2
     }
 
-    #partners-main {
+    .partners-main {
         padding: 0px;
         height: inherit;
         border-left: 1px solid #CCC;
     }
 
-    #partners-main-left-back {
+    .partners-main-left-back {
         float: left;
         height: 100%;
         width: 16.5%;
@@ -580,7 +580,7 @@
     box-sizing: content-box;
     }
 
-    #partners-main-left {
+    .partners-main-left {
         height: 100%;
         overflow: hidden;
         background: #F5F5F5;
@@ -588,7 +588,7 @@
         max-width: 316px;
     }
 
-    #partners-main-left-cont {
+    .partners-main-left-cont {
 
         overflow: hidden;
         width:100%;
@@ -602,7 +602,7 @@
         border-color: #E9F1F4 #D8DEE2 #D8DEE2
     }
 
-    #partners-main-right-back {
+    .partners-main-right-back {
         width: 83.5%;
         padding: 0px;
         height: auto;
@@ -632,7 +632,7 @@
         margin-top: -10px
     }
 
-    #partners-main-right {
+    .partners-main-right {
         height: 100%;
     }
 
@@ -1906,13 +1906,13 @@
         max-height: 100% !important
     }
 
-    #partners-main-left-cont > #accordion > li > div {
+    .partners-main-left-cont > .accordion > li > div {
         padding: 0px 0px 0px 25px;
         margin: 0px 8px 0px -17px;
         font-weight: 400;
     }
 
-    #accordion > li > div {
+    .accordion > li > div {
         margin: 0px 8px 0px 0px;
         padding-left: 15px;
     }
@@ -1924,7 +1924,7 @@
         background: #E0E0E0 !important
     }
 
-    #partners-main-left-cont > ul > li > ul > li > ul > li > div {
+    .partners-main-left-cont > ul > li > ul > li > ul > li > div {
         padding: 3px 0px 3px 20px;
     }
 
