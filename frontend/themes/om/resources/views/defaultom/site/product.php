@@ -17,20 +17,22 @@ if (count($product['productsAttributesDescr']) > 0) {
             $prodinfoattr.='</div><div class="size-column2">';
         }
         $date = $product['products.products_date_added'];
-        $prodinfoattr .= '<div class="size-desc"><div class="pr_op_va_name">' .
-            $item['products_options_values_name'] . '</div><div><div id="del-count">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:25%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' .
-            $product['products']['products_id'] . '" data-model="' .
-            $product['products']['products_model'] . '" data-price="' .
-            $product['products']['products_price'] . '" data-image="' .
-            $product['products']['products_image'] . '" data-attrname="' .
-            $item['products_options_values_name'] . '" data-attr="' .
-            $item['products_options_values_id'] . '"data-name="'.
-            $product['productsDescription']['products_name'].'"data-min="'.
-            $product['products']['products_quantity_order_min'].'"data-step="'.
-            $product['products']['products_quantity_order_units'].'" data-count="'.
-            $product['productsAttributes'][$item['products_options_values_id']]['quantity'].
-            '" type="text" placeholder="0" /><div id="add-count">+</div></div></div>';
-        $sizeCounter++;
+        if($product['productsAttributes'][$item['products_options_values_id']] && $product['productsAttributes'][$item['products_options_values_id']]['quantity'] > 0) {
+            $prodinfoattr .= '<div class="size-desc"><div class="pr_op_va_name">' .
+                $item['products_options_values_name'] . '</div><div><div id="del-count">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:25%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' .
+                $product['products']['products_id'] . '" data-model="' .
+                $product['products']['products_model'] . '" data-price="' .
+                $product['products']['products_price'] . '" data-image="' .
+                $product['products']['products_image'] . '" data-attrname="' .
+                $item['products_options_values_name'] . '" data-attr="' .
+                $item['products_options_values_id'] . '"data-name="' .
+                $product['productsDescription']['products_name'] . '"data-min="' .
+                $product['products']['products_quantity_order_min'] . '"data-step="' .
+                $product['products']['products_quantity_order_units'] . '" data-count="' .
+                $product['productsAttributes'][$item['products_options_values_id']]['quantity'] .
+                '" type="text" placeholder="0" /><div id="add-count">+</div></div></div>';
+            $sizeCounter++;
+        }
     }
     $prodinfoattr .= '</div></div></div><div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
 } else {
@@ -168,26 +170,32 @@ $imsrc=array($product['products']['products_image']);
 
                 <?
                 if (count($attr_desc) > 0) {
+                    $key = 0;
                     foreach ($attr_desc as $key=>$attr_desc_value) {
                         if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
                             $classpos = 'active-options';
                             $add_class = 'add-count';
+                            $stylepos = '';
                             $del_class = 'del-count';
                             $inputpos = '';
                             $some_text = 0;
+                            if($key%2 == 0 && $stylepos == ''){
+                                $class='border-right:1px solid #CCC';
+                                $key++;
+                            }else{
+                                $class='';
+                                $key++;
+                            }
                         }else{
                             $classpos = 'disable-options';
                             $inputpos = 'readonly';
+                            $stylepos = 'display:none; ';
                             $add_class = 'add-count-dis';
                             $del_class = 'del-count-dis';
                             $some_text = 'Нет';
                         }
-                        if($key%2 ==0){
-                            $class='border-right:1px solid #CCC';
-                        }else{
-                            $class='';
-                        }
-                        $attr_html .= '<div class="'.$classpos.'" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
+
+                        $attr_html .= '<div class="'.$classpos.'" style="'.$stylepos.' width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
                         $attr_html .= '<input '.$inputpos.' id="input-count"'.
                             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                             'data-prod="'. $product['products_id'].'"'.

@@ -441,7 +441,7 @@
     }
 
     #card {
-        float: right;
+        float: left;
         min-height: 450px;
         border-radius: 2px;
         box-shadow: 0 0 1px 0 #AFBCAA;
@@ -2731,6 +2731,7 @@
     .headerbside {
         float:left;
         padding: 0px 5px;
+        width: 100%;
     }
 
     .cat-nav > .panel >  a > .panel-heading{
@@ -2749,7 +2750,7 @@
 
     .filter {
         float: right;
-        margin: 54px 5px 16px;
+
     }
 
     .filter > .panel  > a{
@@ -2770,6 +2771,8 @@
         border: 1px solid #CCC;
         border-top: none;
         background: #f5f5f5;
+        position: absolute;
+        width: 100%;
     }
 
     .filter > .panel-default > a + .panel-collapse > .panel-body > .panel-footer{
@@ -2836,10 +2839,12 @@
         display: block;
     }
 
-    .headerbside-filter{
-        width:100% !important;
+    /*.headerbside-filter{*/
+        /*width:100% !important;*/
+    /*}*/
+    .partheaderbside {
+        float: left;
     }
-
     .filter > .panel-default > a > .panel-heading {
         padding: 3px 0px;
         text-align: center;
@@ -3050,7 +3055,7 @@
     #card{
             width: calc(100% / 6 - 10px);
         }
-        .headerbside {
+        .partheaderbside {
             width: calc(100% / 6 * 5 - 10px);
 
         }
@@ -3064,7 +3069,7 @@
             width: calc(100% / 5 - 10px);
         }
 
-        .headerbside {
+        .partheaderbside {
             width: calc(100% / 5 * 4 - 10px);
 
         }
@@ -3077,7 +3082,7 @@
         #card{
             width: calc(100% / 4 - 10px);
         }
-        .headerbside {
+        .partheaderbside {
             width: calc(100% / 4 * 3 - 10px);
 
         }
