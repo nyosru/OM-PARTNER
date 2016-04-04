@@ -19,6 +19,6 @@ class FiguresDays extends ActiveRecordExt{
         ];
     }
     public function getProducts(){
-        return $this->hasMany(FiguresDaysProduct::className(),['id'=>'group_id']);
+        return $this->hasMany(FiguresDaysProduct::className(),['group_id'=>'id']);
     }
 }
