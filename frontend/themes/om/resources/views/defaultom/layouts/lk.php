@@ -42,7 +42,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
     ?>
 </head>
-<body style="font-family: 'Roboto', sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
+<body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
 <?php $this->beginBody(); ?>
 <div class="wrap" >
     <?php
@@ -55,28 +55,28 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     <?= Breadcrumbs::widget([
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
-    <div class="" id="partners-main">
-        <div class="" id="partners-main-left-back">
+    <div class="partners-main">
+        <div class="partners-main-left-back">
 
             <div>
-                <div id="partners-main-left" class="suplogo" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
+                <div  class="partners-main-left suplogo" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
                     <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
                         echo '<span style="max-width: 316px;" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                     } else {
                         $logotype = '';
                     }
                     ?>
-                    <a id="partners-main-left" href="/" class="sublogo" >
+                    <a  href="/" class="partners-main-left sublogo" >
                         <i class="fa fa-chevron-left" ></i> На главную
                     </a>
                 </div>
 
-                <div id="partners-main-left" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;"></div>
+                <div class="partners-main-left" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;"></div>
             </div>
 
-                <div id="partners-main-left-cont" class="" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <div id="partners-main-left">
-                        <div id="partners-main-left">
+                <div class="partners-main-left-cont" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
+                    <div class="partners-main-left">
+                        <div class="partners-main-left">
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
@@ -103,12 +103,12 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         </div>       </div>
 
                 </div>
-                <div id="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
-                <div id="partners-main-left-cont" class="suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
+                <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
+                <div  class="partners-main-left-cont suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
                                    </div>
             </div>
-            <div class="" id="partners-main-right-back">
-                <div id="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
+            <div class="partners-main-right-back">
+                <div class="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
                         <div class="top-link-cont" style="width: calc(100% / 6.9);"><a class="top-link" href="<?=BASEURL?>/page?article=howorders">Как сделать заказ</a></div>
                         <div class="top-link-cont" style="width: calc(100% / 13);"><a class="top-link red" href="<?=BASEURL?>/discont">Акции</a></div>
@@ -116,14 +116,14 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <div class="" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);"><img src="/images/logo/OM_code.png"></div>
                         <?
                         if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
-                            echo '<div style="float: left; padding: 15px 0px; font-size: 16px; font-family: Roboto Regular,sans serif; text-align: center; width: calc(100% / 7);">+7-495-204-15-83</div>';
+                            echo '<div style="float: left; padding: 15px 0px; font-size: 16px; font-weight: 500; text-align: center; width: calc(100% / 7);">+7-495-204-15-83</div>';
                         }
                         ?>
                         <a class="top-link-cont-back" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
                         <div class="top-link-cont" style="float: right; padding: 12px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>
                     </div>
                 </div>
-                <div id="partners-main-right">
+                <div class="partners-main-right">
                     <div style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
                         <form action="<?= BASEURL?>/catalog">
                             <input autocomplete="off" id="" name="cat" value="0"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
@@ -183,7 +183,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
                 </div>
 
-                <div id="partners-main-right" class="bside">
+                <div class="partners-main-right bside">
                     <?= $content ?>
 
 
@@ -306,6 +306,16 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         });
 
     </script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-75056446-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
     </body>
 </html>
 <?php $this->endPage() ?>

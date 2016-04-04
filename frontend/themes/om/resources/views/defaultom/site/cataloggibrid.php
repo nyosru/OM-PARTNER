@@ -65,9 +65,9 @@ if ($data[0] != 'Не найдено!') {
 //        print_r($data);
 //         echo '</pre>';
 //        die();
-
+echo '<div class="partners-main-right bside">';
     $headbside = '';
-    $headbside .= '<div id="partners-main-right" class="headerbside">';
+    $headbside .= '<div  class="partners-main-right headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
     if($catpath['num'] != 0){
     foreach($catpath['num'] as $key => $catid) {
@@ -81,7 +81,7 @@ if ($data[0] != 'Не найдено!') {
             echo '</a>';
             echo '</div>';
             echo '</div>';
-            echo '<div style="position: absolute; background: rgb(245, 245, 245) none repeat scroll 0% 0%; z-index: 999; border: 1px solid rgb(204, 204, 204); border-radius: 4px;" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
+            echo '<div style="position: absolute; background: rgb(245, 245, 245) none repeat scroll 0% 0%; z-index: 999;height:0px; border: 1px solid rgb(204, 204, 204); border-radius: 4px;" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">';
             echo '<div class="panel-body"  >';
             echo $menu;
             echo '</div></div></div>';
@@ -117,77 +117,7 @@ if ($data[0] != 'Не найдено!') {
     }else{
         $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">Каталог</h3>';
     }
-//    if ($data[5] >= $data[1] && $data[4] == 0) {
-//    } else {
-//        $pager = '';
-//        $countpager = floor($data[1] / $count);
-//        if ($data[10] != NULL) {
-//
-//            if (intval($data[10]) < 1) {
-//                $natpage = 1;
-//                $nextpage = 0;
-//            } else if (intval($data[10]) + 1 >= $countpager) {
-//                $natpage = $countpager - 1;
-//                $nextpage = $countpager - 2;
-//            } else {
-//                $natpage = intval($data[10]);
-//                $nextpage = intval($data[10]);
-//            }
-//        } else {
-//            $natpage = 1;
-//            $nextpage = 0;
-//            $data[10] = 0;
-//        }
-//        $pager .= ' <a data-page="' . intval($data[10]) . '" class="page " href="#">' . (intval($data[10]) + 1) . '</a> ';
-//        $pager .= 'из ' . $countpager;
-//        $pager .= ' <a data-page="' . ($natpage - 1) . '" class="fa fa-chevron-left page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($natpage - 1))) . '"></a> ';
-//        $pager .= ' <a data-page="' . ($nextpage + 1) . '" class="fa fa-chevron-right page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($nextpage + 1))) . '"></a> ';
-//        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
-//        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
-//    }
-    $countdisp = [60, 120, 180];
-    $innercount = '';
-    foreach ($countdisp as $key => $countdisp) {
-        if ($countdisp == $count) {
-            $classcount = 'countdisplay count-checked';
-        } else {
-            $classcount = 'countdisplay';
-        }
-        $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url($url), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
-    }
-
-    $headbside .= $topnav;
-    $headbside .= '<div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
-    $headbside .= '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
-
-
-    $headbside .= '<div id="products-pager"></div>';
-    //   $url = new_url(new_suburl(split_url($url), '#!cat', data[16].join('/')));
-
-
-    $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
-    $sortorder = [['дате', 0, 10, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
-    foreach ($sortorder as $value) {
-        if (intval($data[11]) == intval($value[1])) {
-            $dataord = $value[2];
-            $arrow = 'caret-up';
-        } else {
-            $dataord = $value[1];
-            $arrow = 'caret-down';
-        }
-        if ($dataord == $data[11]) {
-            $class = 'sort  sort-checked';
-        } else {
-            $class = 'sort ';
-        }
-        if ($value[1] == $data[11] || $value[2] == $data[11]) {
-            $headbside .= '<a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i class="fa fa-' . $arrow . '"> </i></div></a>';
-        } else {
-            $headbside .= '<a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
-        }
-    }
-    $headbside .= '</div></div>
-                <form id="partners-main-right" class="filter" action="'.BASEURL.'/catalog">
+    $headbside .=  '<form class="partners-main-right filter" action="'.BASEURL.'/catalog">
                     <div class="panel panel-default">
                          <div class="filter-search" style="float: left; margin: 13px; font-size: 14px; width: 25%;">
                          <form action="'.BASEURL.'/catalog?cat=0">
@@ -270,7 +200,7 @@ if ($data[0] != 'Не найдено!') {
     }
 
     $headbside .=                       '<hr style="border-color: #CCC"><div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne">'.
-        '<button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: rgb(224, 224, 224) none repeat scroll 0% 0%; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><a href="'.BASEURL.'/catalog?cat='.$cat.'&amp;count='.$count.'&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" class="btn  reset-filter">Сбросить</a>'.
+        '<button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: #00a5a1; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><a href="'.BASEURL.'/catalog?cat='.$cat.'&amp;count='.$count.'&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" class="btn  reset-filter">Сбросить</a>'.
         '</div>'. '</div>'.
                         '</div>'.
                     '</div>'.
@@ -278,14 +208,83 @@ if ($data[0] != 'Не найдено!') {
         '<input name="sort"  value="0"  type="hidden"/>'.
         '<input name="searchword"   value="" type="hidden"/>'.
                 '</form>';
+//    if ($data[5] >= $data[1] && $data[4] == 0) {
+//    } else {
+//        $pager = '';
+//        $countpager = floor($data[1] / $count);
+//        if ($data[10] != NULL) {
+//
+//            if (intval($data[10]) < 1) {
+//                $natpage = 1;
+//                $nextpage = 0;
+//            } else if (intval($data[10]) + 1 >= $countpager) {
+//                $natpage = $countpager - 1;
+//                $nextpage = $countpager - 2;
+//            } else {
+//                $natpage = intval($data[10]);
+//                $nextpage = intval($data[10]);
+//            }
+//        } else {
+//            $natpage = 1;
+//            $nextpage = 0;
+//            $data[10] = 0;
+//        }
+//        $pager .= ' <a data-page="' . intval($data[10]) . '" class="page " href="#">' . (intval($data[10]) + 1) . '</a> ';
+//        $pager .= 'из ' . $countpager;
+//        $pager .= ' <a data-page="' . ($natpage - 1) . '" class="fa fa-chevron-left page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($natpage - 1))) . '"></a> ';
+//        $pager .= ' <a data-page="' . ($nextpage + 1) . '" class="fa fa-chevron-right page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($nextpage + 1))) . '"></a> ';
+//        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
+//        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
+//    }
+    $countdisp = [60, 120, 180];
+    $innercount = '';
+    foreach ($countdisp as $key => $countdisp) {
+        if ($countdisp == $count) {
+            $classcount = 'countdisplay count-checked';
+        } else {
+            $classcount = 'countdisplay';
+        }
+        $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url(new_url(new_suburl(split_url($url), 'page', 0))), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
+    }
+
+    $headbside .= $topnav;
+    $headbside .= '<div class="partheaderbside"><div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
+    $headbside .= '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
+
+
+    $headbside .= '<div id="products-pager"></div>';
+    //   $url = new_url(new_suburl(split_url($url), '#!cat', data[16].join('/')));
+
+
+    $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
+    $sortorder = [['дате', 0, 10, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
+    foreach ($sortorder as $value) {
+        if (intval($data[11]) == intval($value[1])) {
+            $dataord = $value[2];
+            $arrow = 'caret-up';
+        } else {
+            $dataord = $value[1];
+            $arrow = 'caret-down';
+        }
+        if ($dataord == $data[11]) {
+            $class = 'sort  sort-checked';
+        } else {
+            $class = 'sort ';
+        }
+        if ($value[1] == $data[11] || $value[2] == $data[11]) {
+            $headbside .= '<a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i class="fa fa-' . $arrow . '"> </i></div></a>';
+        } else {
+            $headbside .= '<a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
+        }
+    }
+    $headbside .= '</div></div></div>';
     echo $headbside;
     $innerhtml = '';
     foreach ($data[0] as $value) {
         $product = $value['products'];
-        $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
+         $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
         $description = $value['productsDescription'];
-        $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
-        ksort($attr_desc,SORT_NATURAL);
+
         $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
 // echo '<pre>';
 //        print_r($attr);
@@ -297,29 +296,37 @@ if ($data[0] != 'Не найдено!') {
 
         <?
         $active_border = 0;
-        if (count($attr_desc) > 0) {
+        if ($attr) {
+
+        $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
+        ksort($attr_desc,SORT_NATURAL);
             foreach ($attr_desc as $key=>$attr_desc_value) {
                 if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
                 $classpos = 'active-options';
                 $add_class = 'add-count';
+                $stylepos = '';
                 $del_class = 'del-count';
                 $inputpos = '';
                 $some_text = 0;
+                 if($active_border%2 == 0 && $stylepos == ''){
+                    $class='border-right:1px solid #CCC';
+                    $active_border++;
+                }else{
+                    $class='';
+                    $active_border++;
+                }
                 }else{
                   $classpos = 'disable-options';
+                  $stylepos = 'display:none;';
                   $inputpos = 'readonly';
                    $add_class = 'add-count-dis';
                 $del_class = 'del-count-dis';
                 $some_text = 'Нет';
                 }
 
-                if($active_border%2 == 0){
-                    $class='border-right:1px solid #CCC';
-                }else{
-                    $class='';
-                }
-                $active_border++;
-                $attr_html .= '<div class="'.$classpos.'" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
+
+
+                $attr_html .= '<div class="'.$classpos.'" style="'.$stylepos.' width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
                 $attr_html .= '<input '.$inputpos.' id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
@@ -353,8 +360,8 @@ if ($data[0] != 'Не найдено!') {
                 'data-price="'. (integer)$product['products_price'].'"'.
                 'data-image="'. $product['products_image'].'"'.
                 'data-count="'. $product['products_quantity'].'"'.
-                'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
-                'data-attr="'.$attr_desc_value['products_options_values_id'].'"'.
+                'data-attrname=""'.
+                'data-attr=""'.
                 'data-name="'.  htmlentities($description['products_name'])  .'"'.
                  'data-step="'. $product['products_quantity_order_units'].'"'.
                 'data-min="'. $product['products_quantity_order_min'].'"'.
@@ -407,6 +414,7 @@ if ($data[0] != 'Не найдено!') {
             '<div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div>' .
             '</div>';
     }
+
     if ($searchword !== '') {
         $thistitle = 'Результаты поиска';
     } elseif ($cat == 0) {
@@ -485,6 +493,7 @@ if ($data[0] != 'Не найдено!') {
 
 }
 ?>
+ </div>
     <div id="modal-product" style="border:none; min-height: 300px;">
         <span id="modal-close"><i class="fa fa-times"></i></span>
     </div>

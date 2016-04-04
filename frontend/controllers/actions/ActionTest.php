@@ -1,6 +1,11 @@
 <?php
 namespace frontend\controllers\actions;
 
+use common\models\PartnersProducts;
+use common\models\PartnersProductsAttributes;
+use common\models\PartnersProductsDescription;
+use common\models\PartnersProductsOptionVal;
+use common\models\PartnersProductsToCategories;
 use common\models\Test;
 use common\patch\ActiveRecordExt;
 use common\traits\Imagepreviewfile;
@@ -9,15 +14,34 @@ use common\models\Zones;
 use common\models\Customers;
 use yii\widgets\ActiveForm;
 use Zelenin\yii\SemanticUI\widgets\GridView;
-use app\api\core\partners\Partners;
+
 trait ActionTest
 {
     public function actionTest()
     {
+        $total_numbers = 0;
+        $new_average = 0;
 
-        $part = new Partners();
+           $id = 1027473;
+           $timer['start'] = microtime();
+        $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
+        $timer['stop'] = microtime();
+           echo  $timer['stop']-$timer['start'].'<br>';
 
 
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        $id = 1027473;
+        $timer['start'] = microtime();
+        $data = PartnersProductsToCategories::find()->select([PartnersProducts::tableName().'.*',PartnersProductsDescription::tableName().'.*',PartnersProductsAttributes::tableName().'.*', PartnersProductsOptionVal::tableName().'.*'])->innerJoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->innerJoinWith('productsDescription')->innerJoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->innerJoinWith('productsAttributesDescr')->createCommand()->query()->readAll();
+        $timer['stop'] = microtime();
+        echo  $timer['stop']-$timer['start'].'<br>';
+
+
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
 //        $plain = Yii::$app->request->getQueryParam('pass');
 //        $password = '';
 //        $customers = new Customers();

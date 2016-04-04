@@ -22,34 +22,34 @@ $this->title = 'Личный кабинет';
 ?>
 <div class="circular"><i class="mdi mdi-perm-identity"></i></div>
 <div class="" style="float: left; font-size: 24px; font-weight: 500; padding: 20px;">
-    <?= $cust['userinfo']['name']; ?> <?= $cust['userinfo']['name']; ?>
+    <?= $cust['userinfo']['lastname']; ?> <?= $cust['userinfo']['name']; ?>
     <br/><span style="font-size: 18px; color: rgb(204, 204, 204);"><?= $cust['email']; ?></span>
     <br/><span
         style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">id: <?= $cust['userinfo']['customers_id']; ?></span>
 </div>
-<div class="col-md-12 orders-metro" style="margin-top: 45px;">
-    <div class="lk-order-status col-md-3">
+<div class="orders-metro" style="float: left; width: 100%;">
+    <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Proverka.png"/>
         </div>
         <div class="item"><?= $dataset['countcheck'];?></div>
         <div class="title">Ожидает проверки</div>
     </div>
-    <div class="lk-order-status col-md-3">
+    <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Oplata.png"/>
         </div>
         <div class="item"><?= $dataset['countpay'];?></div>
         <div class="title">Ожидает оплаты</div>
     </div>
-    <div class="lk-order-status col-md-3">
+    <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Sborka.png"/>
         </div>
         <div class="item"><?= $dataset['countsborka'];?></div>
         <div class="title">Ожидает сборки</div>
     </div>
-    <div class="lk-order-status col-md-3">
+    <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Dostavka.png"/>
         </div>
@@ -132,6 +132,8 @@ $this->title = 'Личный кабинет';
                         }
                         $inner .= '<tr style="background: ' . $col . '">';
                         $inner .= '<td class="col-md-1">' . $count . '</td>';
+                        $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
+
                         $inner .= '<td class="col-md-2">' . $value->products_model . '</td>';
                         if ($data->orders_status != 1) {
                             $omfinalquant = '<br/>В наличии: ' . $positionquantity . '';
@@ -162,7 +164,6 @@ $this->title = 'Личный кабинет';
                     $inner .= '</tbody><tfooter>';
                     $inner .= '<tr>';
                     $inner .= '<th style="border: none" class="col-md-1">Итого</th>';
-                    $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
                     $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
                     $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
                     $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: ' . $omfirstprice . ' Руб. ' . $finalompriceview . ' </th>';
@@ -266,41 +267,41 @@ $this->title = 'Личный кабинет';
     ?>
 </div>
 <div id="index-card-4">Моя статистика</div>
-<div class="col-md-12 orders-metro" style="">
-    <div class="lk-order-stat col-md-3">
+<div class="orders-metro" >
+    <div class="lk-order-stat">
         <div class="item">
             <img src="/images/logo/LK_order.png">
         </div>
         <div class="title"><?= $dataset['totalorder'];?></div>
         <div class="desc">
-           <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Заказов сделанно</a> мной с начала регистрации на сайте
+           Заказов сделано мной с момента регистрации на сайте
         </div>
     </div>
-    <div class="lk-order-stat col-md-3">
+    <div class="lk-order-stat">
         <div class="item">
             <img src="/images/logo/LK_goods.png">
         </div>
         <div class="title"><?=$dataset['totalproducts'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Товаров доставленно</a> мне с начала регистрации на сайте
+            Товаров доставлено мне с момента регистрации на сайте
         </div>
     </div>
-    <div class="lk-order-stat col-md-3">
+    <div class="lk-order-stat">
         <div class="item">
             <img src="/images/logo/LK_summ.png">
         </div>
         <div class="title"><?=$dataset['totalprice'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Сумма оплаченных</a> мною товаров с начала регистрации на сайте
+            Сумма оплаченных мною товаров с момента регистрации на сайте
         </div>
     </div>
-    <div class="lk-order-stat col-md-3">
+    <div class="lk-order-stat">
         <div class="item">
             <img src="/images/logo/LK_cancelorder.png">
         </div>
         <div class="title"><?=$dataset['totalcancel'];?></div>
         <div class="desc">
-            <a style="color: rgb(51, 122, 183);" href="<?= BASEURL?>/lk?view=myorder">Заказов отменено</a> мной с начала регистрации на сайте
+            Заказов отменено мной с момента регистрации на сайте
         </div>
     </div>
 </div>

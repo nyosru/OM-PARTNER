@@ -255,10 +255,12 @@ trait ActionSaveorder
                                     if ($ordersprodattr->save()) {
                                         $ordersprodattr =  $ordersprodattr->toArray();
                                    } else {
+                                        print_r($ordersprodattr->errors);
+                                        die();
                                         return $this->render('cartresult', [
                                             'result'=>  [
                                                 'code' => 0,
-                                                'text'=>'Ошибка оформления позиции',
+                                                'text'=>'Ошибка оформления позиции '.$reindexprod[$keyin_order]['products_model'],
                                                 'data'=>[
                                                     'paramorder'=>[
                                                     ],

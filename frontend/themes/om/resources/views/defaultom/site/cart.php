@@ -22,6 +22,7 @@ $del_add .= '</select>';
 
 <script>
 $(document).on('ready', function () {
+    $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);">Ваша корзина пуста</div>');
     //var curPos = $(document).scrollTop();
     //var scrollTime = curPos / 3.73;
     //$("body,html").animate({"scrollTop": 0}, scrollTime);
@@ -66,7 +67,7 @@ $(document).on('ready', function () {
                 $access = 'Данный товар доступен для заказа';
                 $identypay = true;
             }
-            $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c++) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
+            $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
                 '<div class = "access '+$identypay+'" >'+$access+'</div>'+
                 '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></div>' +
                 '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
@@ -74,8 +75,8 @@ $(document).on('ready', function () {
                 '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
                 '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
                 '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
-                '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;">-</div>' +
-                '   <input id="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
+                '   <div class="num-of-items" data-raw="' + ($c++) + '" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" class="del-count" style=" line-height:1.5;">-</div>' +
+                '   <input id="input-count" class="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
                 'data-prod="'+this[0]+'" ' +
                 'data-model="'+this[1]+'" ' +
                 'data-price="'+parseFloat(requestdata.responseJSON.product.products.products_price)+'" ' +
@@ -94,7 +95,7 @@ $(document).on('ready', function () {
                 'data-min="'+requestdata.responseJSON.product.products.products_quantity_order_min+'" ' +
                 'data-step="'+requestdata.responseJSON.product.products.products_quantity_order_units+'"  ' +
                 'data-id="'+$c+'">' +
-                '   <div id="add-count" style="float: left; line-height:1.5;">+</div></div>' +
+                '   <div id="add-count" class="add-count" style="float: left; line-height:1.5;">+</div></div>' +
                 '</div></div>' +
                 '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
                 '</div>'+

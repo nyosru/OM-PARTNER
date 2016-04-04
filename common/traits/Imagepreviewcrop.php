@@ -9,7 +9,7 @@ Trait Imagepreviewcrop
     {
         $id = (integer)$src;
         if ($id > 0) {
-            $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->all();
+            $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->createCommand()->queryAll();
             $x=end($x);
             if(!$x['last_modified']){
                 $x['last_modified'] = $x['add_date'] ;

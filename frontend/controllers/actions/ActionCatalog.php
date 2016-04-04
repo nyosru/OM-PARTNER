@@ -5,6 +5,7 @@ use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsOptionVal;
 use common\models\PartnersProductsToCategories;
 use Yii;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 trait ActionCatalog
@@ -37,11 +38,14 @@ trait ActionCatalog
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
         }
-        if ($page == 'undefined') {
+        if ($page == 'undefined' || !isset($page) || $page == '') {
             $page = 0;
         }
+
         if ($end_price == 'undefined' || !isset($end_price) || $end_price == '' || $end_price == 0) {
             $end_price = 1000000;
+        }else{
+            $end_price++;
         }
         if ($start_price == 'undefined' || !isset($start_price) || $start_price == '') {
             $start_price = 0;
@@ -51,7 +55,7 @@ trait ActionCatalog
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
         $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->createCommand()->queryAll();
         if(!$x['products_last_modified']){
             $x['products_last_modified'] = $x['add_date'] ;
         }
@@ -112,9 +116,9 @@ trait ActionCatalog
                 if(($findue = Yii::$app->cache->get($finderkey))==TRUE){
 
                 }else{
-                    $prod_attr_querys = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->asArray()->one()['products_options_values_name'];
+                    $prod_attr_querys = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->createCommand()->queryOne()['products_options_values_name'];
                     $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_querys . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-                    $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->asArray()->all();
+                    $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->createCommand()->queryAll();
                     if(!$finder){
                         $findue[] =  $prod_attr_query;
                     }
@@ -126,7 +130,7 @@ trait ActionCatalog
                     }
 
                 }
-                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).') ';
+                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).')  ';
                   // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
 
                // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
@@ -136,9 +140,9 @@ trait ActionCatalog
                 $prod_search_query_filt = '';
             }
             if ($searchword != '') {
-                if (preg_match('/^[0-9]+$/', $searchword)) {
-                    $arfilt[':searchword'] = $searchword;
-                    $arfilt_pricemax[':searchword'] = $searchword;
+                if (preg_match('/^[0-9 ]+$/', $searchword)) {
+                    $arfilt[':searchword'] = trim(str_replace(' ','',$searchword));
+                    $arfilt_pricemax[':searchword'] = trim(str_replace(' ','',$searchword));
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'patternsearch-' . urlencode($searchword);
