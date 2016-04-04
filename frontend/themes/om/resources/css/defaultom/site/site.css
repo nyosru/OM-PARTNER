@@ -367,11 +367,13 @@
         padding: 10px;
         margin: 10px 5px;
         width: calc(100% / 4 - 10px);
+        float: left;
     }
     .lk-order-stat{
         padding: 10px;
         margin: 10px 30px;
         width: calc(100% / 4 - 60px);
+        float: left;
     }
     .lk-order-status > .item {
         float: left;
@@ -3082,6 +3084,7 @@
         #card{
             width: calc(100% / 4 - 10px);
         }
+
         .partheaderbside {
             width: calc(100% / 4 * 3 - 10px);
 
