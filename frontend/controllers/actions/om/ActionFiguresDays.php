@@ -8,7 +8,7 @@ use common\models\FiguresDaysProduct;
 trait ActionFiguresDays{
     public function actionFiguresdays(){
         $figuresprovider = new \yii\data\ActiveDataProvider([
-            'query' => FiguresDays::find()->joinWith('products')->asArray(),
+            'query' => FiguresDays::find()->joinWith('products')->joinWith('info')->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->asArray(),
               'pagination' => [
               'defaultPageSize' => 20,
             ],
