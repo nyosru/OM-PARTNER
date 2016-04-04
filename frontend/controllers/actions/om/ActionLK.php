@@ -176,6 +176,9 @@ trait ActionLK
                 ]);
                 return $this->render('lkmyorder',['cust'=>$cust, 'orders'=>$orders, 'sort_order'=>$sort_order]);
                 break;
+            case 'savecomments':
+
+                break;
             default:
                 $orders = new yii\data\ActiveDataProvider([
                     'query' => $model,

@@ -169,6 +169,35 @@ echo \yii\grid\GridView::widget([
                     $inner .= '<td class="col-md-1">'.$attr[$value->orders_products_id]['products_options_values'].'</td>';
                     $inner .= '<td class="col-md-1">'.$value->products_name.'</td>';
                     $inner .= '</tr>';
+                    if($data->orders_status == 5){
+                        $inner .= '<tr><td colspan="7">
+                                            <div class="partners-main-right claim">
+                                                 <div class="panel-group" style="margin: 0px;">
+                                                    <div class="panel panel-default">
+                                                        <a data-toggle="collapse" href="#collapse'.$value->products_model.'-'.$key.'">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                    Претензии к данному товару
+                                                                </h4>
+                                                            </div>
+                                                        </a>
+                                                        <div id="collapse'.$value->products_model.'-'.$key.'" class="panel-collapse collapse">
+                                                            <div class="panel-body"><div style="width:50%; float:left">';
+                        $model = new \common\models\ClaimForm();
+                        $form = \yii\bootstrap\ActiveForm::begin();
+                        $inner .= $form->field($model, 'myphoto')->fileInput()->label('Фото полученного продукта');
+                        $inner .= '<div>Загрузить</div>';
+                        $form =   \yii\bootstrap\ActiveForm::end();
+                        $form = \yii\bootstrap\ActiveForm::begin();
+                        $inner .= $form->field($model, 'pritenwrite')->textarea()->label('Текст претензии');
+                        $inner .= '<div>Отправить</div>';
+                        $form =   \yii\bootstrap\ActiveForm::end();
+                        $inner .=                           '</div><div style="width:50%; float:right"><div style="font-weight: 500">Загруженные фото</div><div style="font-weight: 500">История</div></div></div>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                            </div></td></tr>';
+                    }
                 }
 
                 if($data->orders_status != 1) {
@@ -284,4 +313,26 @@ echo \yii\grid\GridView::widget([
     ],
     'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
 ]);
+
 ?>
+<script>
+//    $(document).on('click', '.panel  > a',  function(){
+//        //  console.log($(this));
+//        if($(this).filter('.claim-cont').attr('class').indexOf('collapse in')+1) {
+//            $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+//                '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+//                'Добавить комментарий <i class="fa fa-caret-down"></i>' +
+//                '</div>' +
+//                ' </div>');
+//            $(this).filter('.claim-cont').removeClass('in');
+//        }else{
+//            $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+//                '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+//                'Добавить комментарий <i class="fa fa-caret-up"></i>' +
+//                '</div>' +
+//                ' </div>');
+//            $(this).find(':first-child').addClass('no-border-bottom-rad');
+//            $(this).siblings().filter('.claim-cont').addClass('in');
+//        }
+//    });
+    </script>
