@@ -38,11 +38,14 @@ trait ActionCatalog
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
         }
-        if ($page == 'undefined') {
+        if ($page == 'undefined' || !isset($page) || $page == '') {
             $page = 0;
         }
+
         if ($end_price == 'undefined' || !isset($end_price) || $end_price == '' || $end_price == 0) {
             $end_price = 1000000;
+        }else{
+            $end_price++;
         }
         if ($start_price == 'undefined' || !isset($start_price) || $start_price == '') {
             $start_price = 0;
