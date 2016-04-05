@@ -48,7 +48,10 @@ function new_suburl($url_obj, $val, $new_var)
 //echo '<pre>';
 //print_r($date);
 //echo '</pre>';
-
+//echo '<pre>';
+//print_r($data[0][0]);
+//echo '</pre>';
+//die();
 $start_url = Yii::$app->request->getQueryString();
 $url_data = split_url(str_replace('&amp;', '&', str_replace('%26', '&', $start_url)));
 $cat = $url_data['cat'][1];
@@ -280,17 +283,14 @@ echo '<div class="partners-main-right bside">';
     $headbside .= '</div></div></div>';
     echo $headbside;
     $innerhtml = '';
+
+
     foreach ($data[0] as $value) {
         $product = $value['products'];
          $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
         $description = $value['productsDescription'];
 
         $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
-// echo '<pre>';
-//        print_r($attr);
-//         echo '</pre>';
-
-
 
         ?>
 
