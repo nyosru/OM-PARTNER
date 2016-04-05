@@ -94,6 +94,10 @@ class Profile extends Model
         $add = AddressBook::find()->where(['address_book_id' => $customer->customers_default_address_id])->one();
         $country = new Countries();
         $zones = new Zones();
+        echo '<pre>';
+        print_r($this);
+        echo '</pre>';
+        die();
         $arrkey='';
         foreach ($this->delivery as $key => $value) {
             $arrkey = $key;
@@ -177,6 +181,9 @@ class Profile extends Model
             $customer->customers_lastname = $this->trim_tags_text($this->delivery[$arrkey]['lastname']);
             $customer->otchestvo = $this->trim_tags_text($this->delivery[$arrkey]['secondname']);
             $customer->pay_adress_id = $add->address_book_id;
+            if($customer->delivery_adress_id ==$customer->customers_default_address_id){
+                $customer->delivery_adress_id=$add->address_book_id;
+            }
             $customer->save();
         }
     }
@@ -217,6 +224,9 @@ class Profile extends Model
         $add->customers_id = $userinfo->customers_id;
         if($add->save()){
             $customer->delivery_adress_id = $add->address_book_id;
+            if ($customer->pay_adress_id == $customer->customers_default_address_id) {
+                $customer->pay_adress_id = $add->address_book_id;
+            }
             $customer->save();
         }
     }
