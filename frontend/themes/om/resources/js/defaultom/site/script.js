@@ -1126,7 +1126,7 @@ $(document).on('click','#prod-info',function(){
             '</div>' +
             '<div>' +
             '<a href="/site/product?id='+data.product.products_id+'" style="color:#007BC1;font-weight: 600;">' +
-            'Перейти в полное описание товара' +
+            'Перейти к полному описание товара' +
             '</a>' +
             '<span style="float: right;padding-right: 10px;">' +
             'Добавлено: '+data.product.products.products_date_added+
