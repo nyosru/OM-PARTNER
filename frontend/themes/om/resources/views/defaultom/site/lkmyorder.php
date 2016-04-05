@@ -174,25 +174,39 @@ echo \yii\grid\GridView::widget([
                                             <div class="partners-main-right claim">
                                                  <div class="panel-group" style="margin: 0px;">
                                                     <div class="panel panel-default">
-                                                        <a data-toggle="collapse" href="#collapse'.$value->products_model.'-'.$key.'">
+                                                        <a data-toggle="collapse" href="#collapse'.$value->orders_products_id.'">
                                                             <div class="panel-heading">
                                                                 <h4 class="panel-title">
                                                                     Претензии к данному товару
                                                                 </h4>
                                                             </div>
                                                         </a>
-                                                        <div id="collapse'.$value->products_model.'-'.$key.'" class="panel-collapse collapse">
-                                                            <div class="panel-body"><div style="width:50%; float:left">';
+                                                        <div id="collapse'.$value->orders_products_id.'" class="panel-collapse collapse">
+                                                            <div class="panel-body"><div style="margin: 5px; width: calc(50% - 10px); float:left">';
                         $model = new \common\models\ClaimForm();
                         $form = \yii\bootstrap\ActiveForm::begin();
-                        $inner .= $form->field($model, 'myphoto')->fileInput()->label('Фото полученного продукта');
-                        $inner .= '<div>Загрузить</div>';
+                        $inner .= $form->field($model, 'myphoto',['inputOptions'=>['data-opid'=>$value->orders_products_id]])->fileInput()->label('Фото полученного продукта');
+                        $inner .= '<div data-post="file" data-id="'.$value->orders_products_id.'" style="background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 4px; padding: 4px; text-align: center; color: beige; font-weight: 500; cursor: pointer;">Загрузить</div>';
                         $form =   \yii\bootstrap\ActiveForm::end();
                         $form = \yii\bootstrap\ActiveForm::begin();
-                        $inner .= $form->field($model, 'pritenwrite')->textarea()->label('Текст претензии');
-                        $inner .= '<div>Отправить</div>';
+                        $inner .= $form->field($model, 'pritenwrite',['inputOptions'=>['style'=>'max-width:100%', 'data-opid'=>$value->orders_products_id]])->textarea()->label('Текст претензии');
+                        $inner .= '<div data-post="comment" data-id="'.$value->orders_products_id.'" style="background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 4px; padding: 4px; text-align: center; color: beige; font-weight: 500; cursor: pointer;">Отправить</div>';
                         $form =   \yii\bootstrap\ActiveForm::end();
-                        $inner .=                           '</div><div style="width:50%; float:right"><div style="font-weight: 500">Загруженные фото</div><div style="font-weight: 500">История</div></div></div>
+                        $inner .=                           '</div>
+                                                <div style="margin: 5px; width: calc(50% - 10px); float:right">
+                                                    <div style="font-weight: 500">
+                                                        <div style="float:left; width:100%">Загруженные фото</div>
+                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
+                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
+                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
+                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
+                                                    </div>
+                                                    <div style="font-weight: 500">
+                                                        <div style="float:left; width:100%">История</div>
+                                                        <div style="float:left; width:100%;max-height: 300px; overflow: auto; border: 1px solid rgb(204, 204, 204); border-radius: 4px;"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                                                    </div>
+                                                </div>
+                                             </div>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -316,23 +330,18 @@ echo \yii\grid\GridView::widget([
 
 ?>
 <script>
-//    $(document).on('click', '.panel  > a',  function(){
-//        //  console.log($(this));
-//        if($(this).filter('.claim-cont').attr('class').indexOf('collapse in')+1) {
-//            $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
-//                '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
-//                'Добавить комментарий <i class="fa fa-caret-down"></i>' +
-//                '</div>' +
-//                ' </div>');
-//            $(this).filter('.claim-cont').removeClass('in');
-//        }else{
-//            $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
-//                '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
-//                'Добавить комментарий <i class="fa fa-caret-up"></i>' +
-//                '</div>' +
-//                ' </div>');
-//            $(this).find(':first-child').addClass('no-border-bottom-rad');
-//            $(this).siblings().filter('.claim-cont').addClass('in');
-//        }
-//    });
+$(document).on('click','[data-post="file"]', function(){
+    $opid = $(this).attr('data-id');
+
+    $.ajax({
+        url: '/site/saveclaim',
+        type: 'POST',
+        data: {'file': $('input[data-opid="'+$opid+'"]')[0].prop('files'),
+               'opid': $opid},
+        async: true,
+        success: function (data) {
+           console.log(data);
+        }
+    });
+});
     </script>
