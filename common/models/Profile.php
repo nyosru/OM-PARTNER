@@ -144,6 +144,7 @@ class Profile extends Model
         $customer = Customers::find()->where(['customers_id' => $userinfo->customers_id])->one();
         if ($customer->pay_adress_id == $customer->customers_default_address_id) {
             $add = new AddressBook();
+            $customer->pay_adress_id =$add->address_book_id;
         } else {
             $add = AddressBook::find()->where(['address_book_id' => $customer->pay_adress_id])->one();
         }
@@ -186,6 +187,7 @@ class Profile extends Model
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
         if($customer->delivery_adress_id==$customer->customers_default_address_id){
             $add=new AddressBook();
+            $customer->delivery_adress_id=$add->address_book_id;
         }else {
             $add = AddressBook::find()->where(['address_book_id' => $customer->delivery_adress_id])->one();
         }
