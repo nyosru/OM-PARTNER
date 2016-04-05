@@ -101,7 +101,16 @@ class SignupFormOM extends Model
 
         ];
     }
-
+    public function validcountryregion(){
+        $entrycountry = Countries::find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
+        $entryzones = Zones::find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
+        if(!$entrycountry || !$entryzones ){
+            $this->addError('country', 'Необходимо выбрать из списка');
+            $this->addError('state', 'Необходимо выбрать из списка');
+        }else{
+            return true;
+        }
+    }
     public function validuser()
     {
         $userCustomer = new Customers();
@@ -164,8 +173,8 @@ class SignupFormOM extends Model
     }
     public function signup()
     {
-        //$transaction = Yii::$app->db->beginTransaction();
-       // try {
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
             $country = new Countries();
             $zones = new Zones();
             $user = new User();
@@ -270,61 +279,26 @@ class SignupFormOM extends Model
 
 
                     if( $newuserpartnerscastid->save()){
-//                        echo'<pre>';
-//                        $userOM->validate();
-//                        print_r($userOM);
-//                        echo'</pre>';
-//
-//                        echo'<pre>';
-//                        $userCustomer->validate();
-//                        print_r($userCustomer);
-//                        echo'</pre>';
-//
-//                        echo'<pre>';
-//                        $userCustomerInfo->validate();
-//                        print_r($userCustomerInfo);
-//                        echo'</pre>';
-//
-//                        echo'<pre>';
-//                        $newuserpartnerscastid->validate();
-//                        print_r($newuserpartnerscastid);
-//                        echo'</pre>';
-//
-//                      die();
-return $user;
+                       return $user;
                     }else{
 
                     }
 
 
                 } else {
-                    echo'<pre>';
-                    print_r($userCustomerInfo);
-                    echo'</pre>';
-                    die();
-
                 }
             } else {
-
-                echo'<pre>';
-                print_r($userCustomer);
-                echo'</pre>';
-                die();
             }
         } else {
-
-            echo'<pre>';
-            print_r($userOM);
-            echo'</pre>';
-            die();
         }
+            $transaction->commit();
+       } catch (\yii\db\Exception $e) {
 
-//       } catch (\Exception $e) {
-//            $transaction->rollBack();
-//            Yii::$app->params['log'][] = $e->getMessage();
-//           print_r(Yii::$app->params['log']);
-//            die();
-//        }
+            $transaction->rollBack();
+
+            die();
+
+        }
     }
 
 

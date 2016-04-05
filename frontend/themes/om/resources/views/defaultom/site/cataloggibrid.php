@@ -489,7 +489,7 @@ echo '<div class="partners-main-right bside">';
 
 
 } else {
-    echo 'Нет результатов';
+    echo '<div style="text-align: center; font-size: 40px; position: relative; clear: right; min-height: 100%;">Нет результатов</div>';
 
 }
 ?>

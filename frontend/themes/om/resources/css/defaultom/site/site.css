@@ -325,6 +325,26 @@
         margin: 0px 10px 0px 20px;
         color: white;
     }
+    .circular-instagramm {
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 500em;
+        position: relative;
+        background: #F0D97B none repeat scroll 0% 0%;
+        box-shadow: 0px 1px 2px 0px rgba(34, 36, 38, 0.15);
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        font-size: 45px;
+        line-height: 1.8;
+        float: left;
+        margin: 0px 10px 0px 20px;
+        color: white;
+    }
+    .circular-instagramm:hover, .circular-instagramm:active , .circular-instagramm:focus   {
+        color: #FFF;
+        box-shadow: 1px 1px 30px rgb(204, 204, 204);
+    }
     .circular-vk:hover, .circular-vk:active , .circular-vk:focus   {
         color: #FFF;
         box-shadow: 1px 1px 30px rgb(204, 204, 204);

@@ -29,6 +29,7 @@ $this->title = 'Регистрация';
 <?= $form->field($model, 'pasportwhere', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Кем выдан паспорт'); ?>
 <?= $form->field($model, 'pasportdate', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Когда выдан паспорт')->widget(\kartik\date\DatePicker::className(), [
     'options' => ['placeholder' => 'Enter event time ...'],
+    'language'=>'ru',
     'pluginOptions' => [
         'autoclose' => true,
         'format' => 'mm-dd-yyyy'

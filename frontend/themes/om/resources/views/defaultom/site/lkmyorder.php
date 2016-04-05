@@ -87,12 +87,12 @@ echo \yii\grid\GridView::widget([
         [
             'attribute' => 'orders_id',
             'label' => 'Номер заказа',
-            'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%;'],
+            'headerOptions' => ['style' => 'background:  none repeat scroll 0% 0%; '],
             'contentOptions' => function ($model, $key, $index, $column) {
                 return ['class' => 'user-order-table-row'];
             },
             'content' => function ($data) {
-                return '<a class="collapse-toggle" href="#expanded-order-'.$data->orders_id.'-collapse1" data-toggle="collapse" data-parent="#expanded-order-'.$data->orders_id.'">'.$data->NumOrder().'<br/>('.$data->orders_id.')</a>';
+                return '<a class="collapse-toggle" style="color:#007BC1" href="#expanded-order-'.$data->orders_id.'-collapse1" data-toggle="collapse" data-parent="#expanded-order-'.$data->orders_id.'">'.$data->NumOrder().'<br/>('.$data->orders_id.')</a>';
             }
         ],
         [
