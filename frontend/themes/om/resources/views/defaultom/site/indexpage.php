@@ -47,7 +47,7 @@ $this->title = $title;
 <img src="/images/logo/low_price.png">
                 </div>
                 <div class="index-icon-title">
-Пожалуй самые низкие цены
+Пожалуй, самые низкие цены
                 </div>
             </div>
             <div class="index-icon-plate">

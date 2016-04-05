@@ -378,7 +378,7 @@ $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
 function loaddata(){
-    $searchword = '';
+
     $count = $('.count-checked').text();
     $min_price = $('#min-price').val();
     $sort = $('.sort-checked').attr('data');
@@ -400,7 +400,7 @@ function loaddata(){
 
     $prodatrquery = $check.join(',');
     if ($count == '') {
-        $count = 20;
+        $count = 60;
     }
 
 
@@ -411,7 +411,7 @@ function loaddata(){
     $cat = $urld['cat'][1];
     $prodatrquery = $urld['prod_attr_query'][1];
     $searchword = $urld['searchword'][1];
-
+console.log($searchword);
 
     $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
     $url_data = $urld;
@@ -1138,9 +1138,7 @@ $(document).on('click','#prod-info',function(){
         $current = $('[id="card"][itemid='+data.product.products.products_id+']').filter('#card').attr('itemid');
         $prev = $('[id="card"][itemid='+data.product.products.products_id+']').prev('#card').attr('itemid');
         $next = $('[id="card"][itemid='+data.product.products.products_id+']').next('#card').attr('itemid');
-        console.log($current);
-        console.log($prev);
-        console.log($('[id="card"][itemid='+data.product.products.products_id+']').next('[id=card]'));
+
         if(typeof($next) != "undefined" ){
             $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
                 '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="'+$next+'" id="prod-info"></i>' +

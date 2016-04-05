@@ -23,6 +23,7 @@ trait ActionCatalog
             $page = (integer)(Yii::$app->request->getQueryParam('page', 0));
             $start_arr = (integer)($page * $count);
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
+            $searchword = Yii::$app->request->getQueryParam('searchword', '');
         }elseif(Yii::$app->request->isPost) {
             $cat_start = (integer)(Yii::$app->request->post('cat'));
             $check = Yii::$app->params['constantapp']['APP_ID'];
@@ -34,6 +35,7 @@ trait ActionCatalog
             $page = (integer)(Yii::$app->request->post('page', 0));
             $start_arr = (integer)($page * $count);
             $sort = (integer)(Yii::$app->request->post('sort', 10));
+            $searchword = Yii::$app->request->post('searchword', '');
         }
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
@@ -54,7 +56,7 @@ trait ActionCatalog
         $categoriesarr = $this->full_op_cat();
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
-        $searchword = Yii::$app->request->getQueryParam('searchword', '');
+
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->createCommand()->queryAll();
         if(!$x['products_last_modified']){
             $x['products_last_modified'] = $x['add_date'] ;
@@ -341,6 +343,9 @@ trait ActionCatalog
 
             $countfilt = count($data);
             $start = $start_arr;
+            if($count_arrs <= $count){
+                $data = 'Не найдено!';
+            }
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $man_time ];
         } else {
