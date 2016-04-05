@@ -13,12 +13,19 @@ trait ActionSignup
         $model = new SignupFormOM();
         if ($model->load(Yii::$app->request->post())) {
             if($model->validuser()) {
-                if ($user = $model->signup()) {
-                    if (Yii::$app->getUser()->login($user)) {
-                        return $this->goHome();
+                if($model->validcountryregion()) {
+
+                    if ($user = $model->signup()) {
+                        if (Yii::$app->getUser()->login($user)) {
+                            return $this->goHome();
+                        }
+                    } else{
+                        return $this->render('signup', ['model' => $model]);
                     }
+                }else {
+                    return $this->render('signup', ['model' => $model]);
                 }
-            }else{
+            }else {
                 return $this->render('signup', ['model' => $model]);
             }
         }

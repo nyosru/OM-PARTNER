@@ -28,13 +28,16 @@ $this->title = 'Личный кабинет';
         style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">id: <?= $cust['userinfo']['customers_id']; ?></span>
 </div>
 <div class="orders-metro" style="float: left; width: 100%;">
-    <div class="lk-order-status">
+    <a href="<?=BASEURL?>/lk?view=myorder&filter=5">
+        <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Proverka.png"/>
         </div>
         <div class="item"><?= $dataset['countcheck'];?></div>
         <div class="title">Ожидает проверки</div>
     </div>
+    </a>
+    <a href="<?=BASEURL?>/lk?view=myorder&filter=4">
     <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Oplata.png"/>
@@ -42,6 +45,8 @@ $this->title = 'Личный кабинет';
         <div class="item"><?= $dataset['countpay'];?></div>
         <div class="title">Ожидает оплаты</div>
     </div>
+    </a>
+    <a href="<?=BASEURL?>/lk?view=myorder&filter=7">
     <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Sborka.png"/>
@@ -49,6 +54,8 @@ $this->title = 'Личный кабинет';
         <div class="item"><?= $dataset['countsborka'];?></div>
         <div class="title">Ожидает сборки</div>
     </div>
+    </a>
+    <a href="<?=BASEURL?>/lk?view=myorder&filter=6">
     <div class="lk-order-status">
         <div class="item">
             <img src="/images/logo/Dostavka.png"/>
@@ -56,6 +63,7 @@ $this->title = 'Личный кабинет';
         <div class="item"><?= $dataset['countdelivery'];?></div>
         <div class="title">Ожидает доставки</div>
     </div>
+    </a>
 </div>
 <div id="index-card-4">Последний заказ</div>
 <div style="float: left; width: 100%; padding: 0px 20px;float: left; width: 100%;">
@@ -73,7 +81,7 @@ $this->title = 'Личный кабинет';
                     return ['class' => 'user-order-table-row'];
                 },
                 'content' => function ($data) {
-                    return '<a class="collapse-toggle" href="#expanded-order-' . $data->orders_id . '-collapse1" data-toggle="collapse" data-parent="#expanded-order-' . $data->orders_id . '">' . $data->NumOrder() . '</a>';
+                    return '<a class="collapse-toggle" style="color:#007BC1" href="#expanded-order-' . $data->orders_id . '-collapse1" data-toggle="collapse" data-parent="#expanded-order-' . $data->orders_id . '">' . $data->NumOrder() . '</a>';
                 }
             ],
             [

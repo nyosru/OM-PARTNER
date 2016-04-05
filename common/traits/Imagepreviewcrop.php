@@ -55,7 +55,12 @@ Trait Imagepreviewcrop
                 if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
                     mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
                 }
-                    $image  = imagecreatefromstring(file_get_contents($from . $filename));
+                $image  = imagecreatefromstring(file_get_contents($from . $filename));
+
+                   if($image  == FALSE){
+                       $image  = imagecreatefromstring(file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.png')));
+                   }
+
                 $width = imagesx($image);
                 $height = imagesy($image);
                 $original_aspect = $width / $height;

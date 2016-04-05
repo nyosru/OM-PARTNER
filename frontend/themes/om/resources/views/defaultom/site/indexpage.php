@@ -47,7 +47,7 @@ $this->title = $title;
 <img src="/images/logo/low_price.png">
                 </div>
                 <div class="index-icon-title">
-Пожалуй самые низкие цены
+Пожалуй, самые низкие цены
                 </div>
             </div>
             <div class="index-icon-plate">
@@ -304,7 +304,7 @@ $this->title = $title;
         ?>
     </div>
     <div id="main-new" style="clear: both;">
-        <div style="float: left;width: 33.333%;">
+        <div style="float: left; width: 31%;">
             <div id="" style="font-size: 20px; font-weight: 400; float: left; margin: 5px;">Новости</div>
             <a id="" href="<?= BASEURL . '/news' ?>"
                style="display: block; font-size: 14px; font-weight: 400; float: right; color: rgb(0, 165, 161); margin: 0px 20px; padding: 10px;">Все
@@ -314,7 +314,7 @@ $this->title = $title;
                 <?= \frontend\widgets\NewsBlockOM::widget() ?>
             </div>
         </div>
-        <div style="float: left;width: 33.333%;">
+        <div style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="http://vk.com/odezdamast_shop" target="_blank" style="display:block; cursor:pointer;" class="circular-vk"><i class="fa fa-vk"></i>
 
@@ -327,7 +327,7 @@ $this->title = $title;
                 </a>
             </div>
         </div>
-        <div style="float: left;width: 33.333%;">
+        <div style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
 
@@ -336,6 +336,19 @@ $this->title = $title;
                     Одежда-Мастер<br/>в Одноклассниках
                 </a>
                 <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  class="circular-link">
+                    следить за новостями >>
+                </a>
+            </div>
+        </div>
+        <div style="float: left; width: 23%;">
+            <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
+                <a href="https://www.instagram.com/odezhda_master/" target="_blank" style="display:block; cursor:pointer;" class="circular-instagramm"><i class="fa fa-instagram"></i>
+
+                </a>
+                <a href="https://www.instagram.com/odezhda_master/" target="_blank"  class="circular-title">
+                    Одежда-Мастер<br/>в Инстаграм
+                </a>
+                <a href="https://www.instagram.com/odezhda_master/" target="_blank"  class="circular-link">
                     следить за новостями >>
                 </a>
             </div>
