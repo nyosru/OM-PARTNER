@@ -94,10 +94,7 @@ class Profile extends Model
         $add = AddressBook::find()->where(['address_book_id' => $customer->customers_default_address_id])->one();
         $country = new Countries();
         $zones = new Zones();
-        echo '<pre>';
-        print_r($this);
-        echo '</pre>';
-        die();
+
         $arrkey='';
         foreach ($this->delivery as $key => $value) {
             $arrkey = $key;
