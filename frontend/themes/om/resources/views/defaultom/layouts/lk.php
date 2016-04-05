@@ -315,6 +315,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
     ga('create', 'UA-75056446-1', 'auto');
     ga('send', 'pageview');
+    ga('require', 'ec');
 
 </script>
     </body>
