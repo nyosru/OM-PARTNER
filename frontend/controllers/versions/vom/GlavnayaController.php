@@ -33,6 +33,7 @@ use frontend\controllers\actions\om\ActionArticle;
 use frontend\controllers\actions\om\ActionDayProduct;
 use frontend\controllers\actions\om\ActionDiscont;
 use frontend\controllers\actions\om\ActionFiguresDays;
+use frontend\controllers\actions\om\ActionSaveClaim;
 use frontend\controllers\actions\om\ActionSavepage;
 use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPaymentMethod;
@@ -138,6 +139,7 @@ class GlavnayaController extends Controller
         ActionDiscont,
         ActionDayProduct,
         ActionFiguresDays,
+        ActionSaveclaim,
         ActionTakeOrder;
 
 

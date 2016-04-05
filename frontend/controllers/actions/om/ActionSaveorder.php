@@ -95,6 +95,7 @@ trait ActionSaveorder
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
+
         if($validprice < 1000 ){
             return $this->render('cartresult', [
                 'result'=>  [
@@ -211,37 +212,38 @@ trait ActionSaveorder
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
 
                 foreach ($product_in_order as $keyin_order => $valuein_order) {
-                            $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order ]['productsAttributesDescr'], 'products_options_values_id');
-                    foreach($valuein_order  as $keyinattr_order => $valueinattr_order){
-                            $ordersprod = new OrdersProducts();
-                            $ordersprod->first_quant = intval($valueinattr_order);
-                            $ordersprod->products_quantity = intval($valueinattr_order);
-                            $ordersprod->orders_id = $orders->orders_id;
-                            $ordersprod->products_id = intval($keyin_order);
-                            $ordersprod->products_model = $reindexprod[$keyin_order]['products_model'];
-                            $ordersprod->products_name = $reindexprod[$keyin_order]['productsDescription']['products_name'];
-                            $ordersprod->final_price = $reindexprod[$keyin_order]['products_price'];
-                            $ordersprod->products_price = $reindexprod[$keyin_order]['products_price'];
-                            $ordersprod->price_coll = $reindexprod[$keyin_order]['price_coll'];
-                            $ordersprod->products_tax = $reindexprod[$keyin_order]['products_tax'];
-                            $ordersprod->products_status = 0;
-                            $ordersprod->checks = 0;
-                            if($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]){
-                                $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
-                            }elseif($comments[$keyin_order]['all']){
-                                $ordersprod->comment =  $this->trim_tags_text($comments[$keyin_order]['all']);
-                            }else {
-                                $ordersprod->comment = NULL;
-                            }
-                            $ordersprod->verificatiuon = 0;
-                            $ordersprod->status_add = NULL;
-                            $ordersprod->stickers_confirmed = 0;
-                            $ordersprod->automatically_sent_to_manufacturer = 0;
-                            $ordersprod->status_add = NULL;
-                            $ordersprod->sub_orders_id = NULL;
-                            $ordersprod->old_orders_id = NULL;
-                            $ordersprod->products_tax = '0.0000';
-                                 if ($ordersprod->save()) {
+                    if(array_key_exists($keyin_order,$origprod)){
+                    $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order]['productsAttributesDescr'], 'products_options_values_id');
+                    foreach ($valuein_order as $keyinattr_order => $valueinattr_order) {
+                        $ordersprod = new OrdersProducts();
+                        $ordersprod->first_quant = intval($valueinattr_order);
+                        $ordersprod->products_quantity = intval($valueinattr_order);
+                        $ordersprod->orders_id = $orders->orders_id;
+                        $ordersprod->products_id = intval($keyin_order);
+                        $ordersprod->products_model = $reindexprod[$keyin_order]['products_model'];
+                        $ordersprod->products_name = $reindexprod[$keyin_order]['productsDescription']['products_name'];
+                        $ordersprod->final_price = $reindexprod[$keyin_order]['products_price'];
+                        $ordersprod->products_price = $reindexprod[$keyin_order]['products_price'];
+                        $ordersprod->price_coll = $reindexprod[$keyin_order]['price_coll'];
+                        $ordersprod->products_tax = $reindexprod[$keyin_order]['products_tax'];
+                        $ordersprod->products_status = 0;
+                        $ordersprod->checks = 0;
+                        if ($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]) {
+                            $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
+                        } elseif ($comments[$keyin_order]['all']) {
+                            $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order]['all']);
+                        } else {
+                            $ordersprod->comment = NULL;
+                        }
+                        $ordersprod->verificatiuon = 0;
+                        $ordersprod->status_add = NULL;
+                        $ordersprod->stickers_confirmed = 0;
+                        $ordersprod->automatically_sent_to_manufacturer = 0;
+                        $ordersprod->status_add = NULL;
+                        $ordersprod->sub_orders_id = NULL;
+                        $ordersprod->old_orders_id = NULL;
+                        $ordersprod->products_tax = '0.0000';
+                        if ($ordersprod->save()) {
                             if ($keyinattr_order) {
                                 $ordersprodattr = new OrdersProductsAttributes();
                                 $ordersprodattr->orders_products_id = $ordersprod->orders_products_id;
@@ -252,47 +254,47 @@ trait ActionSaveorder
                                 $ordersprodattr->vid = $reindexattrdescr[$keyinattr_order]['products_options_values_id'];
                                 $ordersprodattr->oid = '1';
                                 $ordersprodattr->sub_vid = 0;
-                                    if ($ordersprodattr->save()) {
-                                        $ordersprodattr =  $ordersprodattr->toArray();
-                                   } else {
-                                        print_r($ordersprodattr->errors);
-                                        die();
-                                        return $this->render('cartresult', [
-                                            'result'=>  [
-                                                'code' => 0,
-                                                'text'=>'Ошибка оформления позиции '.$reindexprod[$keyin_order]['products_model'],
-                                                'data'=>[
-                                                    'paramorder'=>[
-                                                    ],
-                                                    'origprod' => $origprod,
-                                                    'timeproduct'=>$related,
-                                                    'totalpricesaveproduct'=>$validprice
-                                                ]
+                                if ($ordersprodattr->save()) {
+                                    $ordersprodattr = $ordersprodattr->toArray();
+                                } else {
+                                    print_r($ordersprodattr->errors);
+                                    die();
+                                    return $this->render('cartresult', [
+                                        'result' => [
+                                            'code' => 0,
+                                            'text' => 'Ошибка оформления позиции ' . $reindexprod[$keyin_order]['products_model'],
+                                            'data' => [
+                                                'paramorder' => [
+                                                ],
+                                                'origprod' => $origprod,
+                                                'timeproduct' => $related,
+                                                'totalpricesaveproduct' => $validprice
                                             ]
-                                        ]);
-                                  }
+                                        ]
+                                    ]);
+                                }
                             } else {
                             }
-                                    $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
-                                     $price_total += (float)($price_total) +  $ordersprod->products_price * $ordersprod->products_quantity;
+                            $validproduct[] = [$ordersprod->toArray(), $ordersprodattr];
+                            $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
 
-                                 }else{
-                                     return $this->render('cartresult', [
-                                         'result'=>  [
-                                             'code' => 0,
-                                             'text'=>'Ошибка оформления продукта',
-                                             'data'=>[
-                                                 'paramorder'=>[
-                                                 ],
-                                                 'origprod' => $origprod,
-                                                 'timeproduct'=>$related,
-                                                 'totalpricesaveproduct'=>$validprice
-                                             ]
-                                         ]
-                                     ]);
-                                 }
+                        } else {
+                            return $this->render('cartresult', [
+                                'result' => [
+                                    'code' => 0,
+                                    'text' => 'Ошибка оформления продукта' . $reindexprod[$keyin_order]['products_model'],
+                                    'data' => [
+                                        'paramorder' => [
+                                        ],
+                                        'origprod' => $origprod,
+                                        'timeproduct' => $related,
+                                        'totalpricesaveproduct' => $validprice
+                                    ]
+                                ]
+                            ]);
+                        }
                     }
-
+                }
                 }
                 $orderstotalprice = new OrdersTotal();
                 $orderstotalprice->orders_id = $orders->orders_id;
