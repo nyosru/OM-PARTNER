@@ -3409,3 +3409,6 @@
     .size-block .size-desc{
         margin:0 0px 25px;
     }
+    .days_raw {
+        overflow:hidden;
+    }

@@ -8,13 +8,9 @@
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
 $i=0;   //счетчик для дней
 foreach ($figuresprovider as $value) {
-    echo '<div class="days_raw'.$i++.'" style="overflow:hidden;">';
-    echo '<div class="days-group" style="float: left">
-                <div class="days-group-image"><img src="'.$value['image'].'"/></div>
-                <div class="days-group-descr">'.$value['description'].'</div>
-                <div class="days-group-date">'.$value['date_added'].'</div>
-                <div class="days-group-tags">Теги: '.$value['tags'].'</div>
-           </div>';
+    echo '<div class="days_raw days_raw'.$i++.'">';
+    echo '<div class="days-group-descr" style="padding:5px;">'.$value['description'].'</div>
+          <div class="days-group-image" style="height:700px;float:left;margin-right:30px;"><img style="max-width:100%;max-height:100%;" src="'.$value['image'].'"/></div>';
     foreach ($value['products'] as $k=>$v) {
         $product=$value['info'][$k];
         $desc=$value['productsDescription'][$k];
@@ -113,7 +109,7 @@ foreach ($figuresprovider as $value) {
         } else {
             $man_time_list = '';
         }
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
+        $innerhtml .= '<div style="min-height:340px;" itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' .
             '<div  itemprop="name" class="name">' . htmlentities($description['products_name']) . '</div></a>' .
@@ -122,7 +118,7 @@ foreach ($figuresprovider as $value) {
             '<div  itemprop="description" class="model" style="display:none">' . htmlentities($description['products_description']) . '</div>' .
             '<div  itemprop="category" class="model" style="display:none">' . htmlentities(implode(', ', $catpath['name'])) . '</div>' .
             '<div  itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">' .
-            '<div style="font-size: 18px; font-weight: 500;" itemprop="price" >' . (integer)($product['products_price']) . ' руб.</div>' .
+            '<div style="display:none;font-size: 18px; font-weight: 500;" itemprop="price" >' . (integer)($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>';
 //            if((integer)($product['products_old_price'])>0){
@@ -130,17 +126,17 @@ foreach ($figuresprovider as $value) {
 //
 //             }
 
-        $innerhtml .= '<div style="cursor:pointer">' .
+        $innerhtml .= '<div style="cursor:pointer; display: none;">' .
             '<div data-vis="size-item-desc" data-vis-id="' . $product['products_id'] . '" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="' . $product['products_id'] . '">' . $options_name . '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;"></i>' .
             '<span data-vis="size-item-card" data-vis-id-card="' . $product['products_id'] . '">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .
-            '<div  itemprop="" style="font-size: 12px;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div>' .
+            '<div  itemprop="" style="font-size: 12px; display:none;" id="prod-info" data-prod="' . $product['products_id'] . '"><i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;"></i> Увеличить</div>' .
             '</div>';
         
-        echo '<div class="days-prod' . $k . '" style="width:250px; height:450px;float:left;overflow:hidden;margin:10px;">
-                <div class="days-prod' . $k . '-card">'.$innerhtml.'</div>';
-        echo '<div class="days-prod' . $i . '-desc">'.$v['description'].'</div>
+        echo '<div class="days-prod' . $k . '" style="float:left;overflow:hidden;width:500px;">
+                <div style="float:left;" class="days-prod' . $k . '-card">'.$innerhtml.'</div>';
+        echo '<div style="float:left;padding:10px;width:240px;" class="days-prod' . $i . '-desc">'.$v['description'].'</div>
           </div>';
         echo $value->post;
 //        echo '<pre>';
@@ -148,5 +144,7 @@ foreach ($figuresprovider as $value) {
 //        echo '</pre>';
     }
     echo '</div>';
+    echo '<div style="border-top:1px solid #cccccc;margin-top:20px;"><div style="float:left; width:20%; padding:0 30px;" class="days-group-date">'.$value['date_added'].'</div>
+              <div style="float:right; width:80%;text-align:right;padding:0 30px;" class="days-group-tags">Теги: '.$value['tags'].'</div></div>';
 }
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
