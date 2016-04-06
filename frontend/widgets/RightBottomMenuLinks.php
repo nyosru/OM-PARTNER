@@ -3,7 +3,7 @@ namespace frontend\widgets;
 
 use Yii;
 
-class MenuLinks extends \yii\bootstrap\Widget
+class RightBottomMenuLinks extends \yii\bootstrap\Widget
 {
     public function init()
     {
