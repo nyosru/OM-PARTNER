@@ -173,8 +173,8 @@ class SignupFormOM extends Model
     }
     public function signup()
     {
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
+       // $transaction = Yii::$app->db->beginTransaction();
+       // try {
             $country = new Countries();
             $zones = new Zones();
             $user = new User();
@@ -204,7 +204,7 @@ class SignupFormOM extends Model
                // return $user;
             }
         if(!$this->pasportdate){
-            $this->pasportdate = '0000-00-00';
+            $this->pasportdate = '1970-01-01';
         }
         $userOM->entry_firstname = $this->trim_tags_text($this->name);
         $userOM->entry_lastname = $this->trim_tags_text($this->lastname);
@@ -291,14 +291,14 @@ class SignupFormOM extends Model
             }
         } else {
         }
-            $transaction->commit();
-       } catch (\yii\db\Exception $e) {
+      //      $transaction->commit();
+      // } catch (\yii\db\Exception $e) {
+//
+       //     $transaction->rollBack();
+//
+       //     die();
 
-            $transaction->rollBack();
-
-            die();
-
-        }
+       // }
     }
 
 
