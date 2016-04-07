@@ -4,13 +4,13 @@
 //    echo '</pre>';
 //    die();
 
-
+$this->title='Образ дня';
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
 $i=0;   //счетчик для дней
 echo '<div style="padding:10px;">';
 foreach ($figuresprovider as $value) {
     echo '<div class="days_raw days_raw'.$i++.'">';
-    echo '<div class="days-group-descr" style="padding:5px;">'.$value['description'].'</div>
+    echo '<div class="days-group-descr" style="padding:5px; margin:15px;">'.$value['description'].'</div>
           <div class="days-group-image" style="height:700px;float:left;margin-right:30px;"><img style="max-width:100%;max-height:100%;" src="'.$value['image'].'"/></div>';
     foreach ($value['products'] as $k=>$v) {
         $product=$value['info'][$k];
