@@ -185,7 +185,7 @@ echo \yii\grid\GridView::widget([
                                                             <div class="panel-body"><div style="margin: 5px; width: calc(50% - 10px); float:left">';
                         $model = new \common\models\ClaimForm();
                         $form = \yii\bootstrap\ActiveForm::begin();
-                        $inner .= $form->field($model, 'myphoto',['inputOptions'=>['data-opid'=>$value->orders_products_id]])->fileInput()->label('Фото полученного продукта');
+                        $inner .= $form->field($model, 'myphoto',['inputOptions'=>['data-opid'=>$value->orders_products_id,'multiple'=>'multiple']])->fileInput()->label('Фото полученного продукта');
                         $inner .= '<div data-post="file" data-id="'.$value->orders_products_id.'" style="background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 4px; padding: 4px; text-align: center; color: beige; font-weight: 500; cursor: pointer;">Загрузить</div>';
                         $form =   \yii\bootstrap\ActiveForm::end();
                         $form = \yii\bootstrap\ActiveForm::begin();
@@ -333,14 +333,34 @@ echo \yii\grid\GridView::widget([
 $(document).on('click','[data-post="file"]', function(){
     $opid = $(this).attr('data-id');
 
+    $files = $('[type=file][data-opid='+$opid+']')[0].files;
     $.ajax({
         url: '/site/saveclaim',
         type: 'POST',
-        data: {'file': $('input[data-opid="'+$opid+'"]')[0].prop('files'),
-               'opid': $opid},
+        processData: false,
+        contentType: false,
+        data: {'file': $files,
+               'opid': $opid,
+               'action': 'savefiles'},
         async: true,
         success: function (data) {
            console.log(data);
+        }
+    });
+});
+$(document).on('click','[data-post="comment"]', function(){
+    $opid = $(this).attr('data-id');
+
+    $comment = $('textarea[data-opid='+$opid+']')[0].value;
+    $.ajax({
+        url: '/site/saveclaim',
+        type: 'POST',
+        data: {'comment': $comment,
+               'opid': $opid,
+               'action': 'savecomment'},
+        async: true,
+        success: function (data) {
+            console.log(data);
         }
     });
 });

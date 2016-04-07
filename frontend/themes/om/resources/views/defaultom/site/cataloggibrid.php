@@ -193,7 +193,7 @@ echo '<div class="partners-main-right bside">';
             $headbside .= '<div class="checkbox-overlay fa '.$checked.'" for="checkbox-hidden-group">'.
                 '<input id="checkbox-hidden-group"  class="checkbox-hidden-group" type="checkbox" class="prod_attr_query" value="'.$value['products_options_values_id'].
                 '" name = "prod_attr_query"'.
-                ' '. $checked.' /></div><span class="checkbox-hidden-group-label" style="display: inline; min-width: 100px; color: black; margin-left: 10px; font-family: Roboto,sans-serif; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7; max-width: calc(100% - 50px); overflow: hidden; float: left;">'.$value['products_options_values_name'].'</span>';
+                ' '. $checked.' /></div><span class="checkbox-hidden-group-label" style="display: inline; min-width: 100px; color: black; margin-left: 10px; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7; max-width: calc(100% - 50px); overflow: hidden; float: left;">'.$value['products_options_values_name'].'</span>';
 
     $headbside .=               '</div>';
         }
@@ -428,7 +428,7 @@ echo '<div class="partners-main-right bside">';
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';
 
     if($data[1] > $count){
-      echo '<div class="loader-inner"><div class="loader lock-on"><div style="float: left; text-align: center; width: 100%;">Показать еще <span style="font-family: Roboto  Bold,sans serif; font-weight: 600;">'.end($catpath['name']).'</span></div>'.
+      echo '<div class="loader-inner"><div class="loader lock-on"><div style="float: left; text-align: center; width: 100%;">Показать еще <span style="font-weight: 600;">'.end($catpath['name']).'</span></div>'.
     '</div><div style="text-align: center; width: 25%; float: left; margin: 10px 0px 0px;">'.
     '<select id="control-load" style="background-color: rgba(255, 255, 255, 0);" class="no-shadow-form-control" name="control-load">'.
     '<option value="manual">Ручная загрузка</option>'.
