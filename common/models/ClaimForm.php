@@ -81,23 +81,25 @@ class ClaimForm extends Model
             ($customer = PartnersUsersInfo::find()->select('customers_id')->where(['id' => Yii::$app->user->id])->createCommand()->queryOne()) == TRUE
             && ($products_value = \common\models\Orders::find()->select(['customers_id', 'priten'])->joinWith('products')->where(['orders_products_id' => $this->opid])->asArray()->all()) == TRUE
             && $products_value['customers_id'] == $customer) {
-            $now = date('Y-m-d h:i:s');
-        if (strlen(strip_tags(trim($this->pritenwrite))) > 0) {
-            $claim = new OrdersProductsPriten();
-            $claim->type = '1';
-            $claim->author = $customer;
-            $claim->orders_products_id = $this->opid;
-            $claim->orders_products_priten = addslashes(strip_tags(trim($this->pritenwrite)));
-            $claim->date_add = $now;
-            $claim->av = '1';
-            $claim->save();
-            $orderproducts = OrdersProducts::find()->where(['orders_products_id' => $this->opid])->one();
-            $orderproducts->priten = "1";
-            if ($orderproducts->update()) {
-                return true;
-            }else $this->addError('pritenwrite', 'Ошибка добавления комментария');
+            if(($checkphoto = OrdersProductsPritenPhoto::find()->where(['orders_products_id'=>$this->opid])->createCommand()->queryOne()) == TRUE) {
+                $now = date('Y-m-d h:i:s');
+                if (strlen(strip_tags(trim($this->pritenwrite))) > 0) {
+                    $claim = new OrdersProductsPriten();
+                    $claim->type = '1';
+                    $claim->author = $customer;
+                    $claim->orders_products_id = $this->opid;
+                    $claim->orders_products_priten = addslashes(strip_tags(trim($this->pritenwrite)));
+                    $claim->date_add = $now;
+                    $claim->av = '1';
+                    $claim->save();
+                    $orderproducts = OrdersProducts::find()->where(['orders_products_id' => $this->opid])->one();
+                    $orderproducts->priten = "1";
+                    if ($orderproducts->update()) {
+                        return true;
+                    } else $this->addError('pritenwrite', 'Ошибка добавления комментария');
 
-        }else $this->addError('pritenwrite', 'Ошибка добавления комментария');
+                } else $this->addError('pritenwrite', 'Ошибка добавления комментария');
+            }else $this->addError('pritenwrite', 'Должно быть загружено хотя бы одно изображение');
         }else $this->addError('pritenwrite', 'необходимо авторизоваться');
     }
 }

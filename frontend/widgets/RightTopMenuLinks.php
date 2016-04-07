@@ -11,6 +11,7 @@ class RightTopMenuLinks extends \yii\bootstrap\Widget
             'cooperation'=>'<a href="'.BASEURL.'/discont">Распродажа</a>',
             'ourModels'=>'<a href="'.BASEURL.'/odezhda-i-obuv">Новинки одежда и обувь</a>',
             'cooperationTerms'=>'<a href="'.BASEURL.'/other-product">Другие новинки</a>',
+            'contacts'=>'<a href="'.BASEURL.'/contacts">Контакты</a>',
 
 //       'howToOrder'=>'<a href="'.BASEURL.'/page?article=howorders">Как сделать заказ</a>',
 //        'sberOnline'=>'<a href="'.BASEURL.'/page?article=sberonline">Оплата через Сбербанк Онлайн</a>',
