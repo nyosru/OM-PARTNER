@@ -378,7 +378,10 @@ $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
 function loaddata(){
-
+    $('body').addClass('some');
+    $('link').addClass('some');
+    $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
+    new imageLoader(cImageSrc, 'startAnimation()');
     $count = $('.count-checked').text();
     $min_price = $('#min-price').val();
     $sort = $('.sort-checked').attr('data');

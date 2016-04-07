@@ -3411,4 +3411,9 @@
     }
     .days_raw {
         overflow:hidden;
+        border:1px solid #ccc;
+        border-radius: 4px;
+    }
+    .days_raw:hover{
+        box-shadow: 3px 3px 3px 3px;
     }

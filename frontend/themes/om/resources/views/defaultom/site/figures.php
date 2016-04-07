@@ -7,6 +7,7 @@
 
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
 $i=0;   //счетчик для дней
+echo '<div style="padding:10px;">';
 foreach ($figuresprovider as $value) {
     echo '<div class="days_raw days_raw'.$i++.'">';
     echo '<div class="days-group-descr" style="padding:5px;">'.$value['description'].'</div>
@@ -147,4 +148,4 @@ foreach ($figuresprovider as $value) {
     echo '<div style="border-top:1px solid #cccccc;margin-top:20px;"><div style="float:left; width:20%; padding:0 30px;" class="days-group-date">'.$value['date_added'].'</div>
               <div style="float:right; width:80%;text-align:right;padding:0 30px;" class="days-group-tags">Теги: '.$value['tags'].'</div></div>';
 }
-echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
+echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div></div>';
