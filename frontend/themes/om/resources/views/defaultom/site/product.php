@@ -170,15 +170,6 @@ $imsrc=array($product['products']['products_image']);
                 $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
                 ksort($attr_desc,SORT_NATURAL);
                 $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
-// echo '<pre>';
-//        print_r($attr);
-//         echo '</pre>';
-
-
-
-                ?>
-
-                <?
                 if (count($attr_desc) > 0) {
                     $key = 0;
                     foreach ($attr_desc as $key=>$attr_desc_value) {
