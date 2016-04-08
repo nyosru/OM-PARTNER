@@ -175,7 +175,7 @@ echo \yii\grid\GridView::widget([
                                                  <div class="panel-group" style="margin: 0px;">
                                                     <div class="panel panel-default">
                                                         <a data-toggle="collapse" href="#collapse'.$value->orders_products_id.'">
-                                                            <div class="panel-heading">
+                                                            <div class="panel-heading" data-opid-collapse="'.$value->orders_products_id.'">
                                                                 <h4 class="panel-title">
                                                                     Претензии к данному товару
                                                                 </h4>
@@ -185,25 +185,28 @@ echo \yii\grid\GridView::widget([
                                                             <div class="panel-body"><div style="margin: 5px; width: calc(50% - 10px); float:left">';
                         $model = new \common\models\ClaimForm();
                         $form = \yii\bootstrap\ActiveForm::begin();
-                        $inner .= $form->field($model, 'myphoto',['inputOptions'=>['data-opid'=>$value->orders_products_id,'multiple'=>'multiple']])->fileInput()->label('Фото полученного продукта');
+                        $inner .= $form->field($model, 'myphoto',['inputOptions'=>['data-opid'=>$value->orders_products_id,'multiple'=>'multiple','class'=>'']])->fileInput()->label('Фото полученного продукта');
                         $inner .= '<div data-post="file" data-id="'.$value->orders_products_id.'" style="background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 4px; padding: 4px; text-align: center; color: beige; font-weight: 500; cursor: pointer;">Загрузить</div>';
                         $form =   \yii\bootstrap\ActiveForm::end();
+                        $inner .= '<div class="progress" >
+  <div class="progress-bar" data-progress-opid="' .$value->orders_products_id.'" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+    0%
+  </div>
+</div>';
                         $form = \yii\bootstrap\ActiveForm::begin();
-                        $inner .= $form->field($model, 'pritenwrite',['inputOptions'=>['style'=>'max-width:100%', 'data-opid'=>$value->orders_products_id]])->textarea()->label('Текст претензии');
+                        $inner .= $form->field($model, 'pritenwrite',['inputOptions'=>['style'=>'max-width:100%', 'data-opid'=>$value->orders_products_id]])->textarea()->label('Сообщение');
                         $inner .= '<div data-post="comment" data-id="'.$value->orders_products_id.'" style="background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 4px; padding: 4px; text-align: center; color: beige; font-weight: 500; cursor: pointer;">Отправить</div>';
                         $form =   \yii\bootstrap\ActiveForm::end();
                         $inner .=                           '</div>
                                                 <div style="margin: 5px; width: calc(50% - 10px); float:right">
                                                     <div style="font-weight: 500">
                                                         <div style="float:left; width:100%">Загруженные фото</div>
-                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
-                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
-                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
-                                                        <div style="margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 14px); min-height: 70px;">123</div>
+                                                        <div class="photobank-'.$value->orders_products_id.'"></div>
+                                                    </div>
                                                     </div>
                                                     <div style="font-weight: 500">
                                                         <div style="float:left; width:100%">История</div>
-                                                        <div style="float:left; width:100%;max-height: 300px; overflow: auto; border: 1px solid rgb(204, 204, 204); border-radius: 4px;"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                                                        <div class="message-bank-'. $value->orders_products_id.'" style="float:left; width:100%;max-height: 300px; overflow: auto; border: 1px solid rgb(204, 204, 204); border-radius: 4px;"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
                                                     </div>
                                                 </div>
                                              </div>
@@ -330,23 +333,73 @@ echo \yii\grid\GridView::widget([
 
 ?>
 <script>
+    function reloaddata($opid){
+        $.ajax({
+            url: '/site/loadclaim',
+            type: 'POST',
+            data: {
+                'opid': $opid,
+                },
+            async: true,
+            success: function (data) {
+                console.log(data);
+                $('.photobank-'+data.opid).html('');
+                $.each(data.photo,function(){
+                    $('.photobank-'+data.opid).append('<div style="margin-bottom: 5px; margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 5px); min-height: 100px;background: url(/images/priten/'+data.opid+'/'+this.image_name_server+') no-repeat 50% 50% /contain"></div>');
+                });
+                $('.message-bank-'+data.opid).html('');
+                $.each(data.comments,function(){
+                    $('.message-bank-'+data.opid).append('<div><div>'+this.type+'</div><div>'+this.date_add+'</div><div>'+this.orders_products_priten+'</div></div>');
+                });
+
+            }
+        });
+    }
+    $(document).on('click','[data-opid-collapse]', function(){
+      $opid =   $(this).attr('data-opid-collapse');
+        reloaddata($opid);
+    });
 $(document).on('click','[data-post="file"]', function(){
     $opid = $(this).attr('data-id');
+    var formData = new FormData();
 
-    $files = $('[type=file][data-opid='+$opid+']')[0].files;
-    $.ajax({
-        url: '/site/saveclaim',
-        type: 'POST',
-        processData: false,
-        contentType: false,
-        data: {'file': $files,
-               'opid': $opid,
-               'action': 'savefiles'},
-        async: true,
-        success: function (data) {
-           console.log(data);
+    files = $('[type=file][data-opid="'+$opid+'"]')[0].files;
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (!file.type.match('image.*')) {
+            continue;
         }
-    });
+        formData.append('file['+i+']', file, file.name);
+    }
+
+    formData.append('opid', $opid);
+    formData.append('action', 'savefiles');
+    formData.append('_csrf', yii.getCsrfToken());
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/site/saveclaim', true);
+    xhr.send(formData);
+
+    xhr.upload.onprogress = function(event) {
+        $width = $('.progress').width();
+        $progress =   $width*(event.loaded/event.total);
+        $('[data-progress-opid]').html( 'Загружено на сервер ' + event.loaded + ' байт из ' + event.total );
+        $('[data-progress-opid]').width($progress);
+    }
+
+    xhr.upload.onload = function() {
+        $('[data-progress-opid]').html( 'Данные полностью загружены на сервер!' );
+    }
+
+    xhr.upload.onerror = function() {
+        $('[data-progress-opid]').html( 'Произошла ошибка при загрузке данных на сервер!' );
+    }
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            reloaddata($opid);
+        } else {
+            console.log(xhr);
+        }
+    };
 });
 $(document).on('click','[data-post="comment"]', function(){
     $opid = $(this).attr('data-id');
@@ -358,10 +411,14 @@ $(document).on('click','[data-post="comment"]', function(){
         data: {'comment': $comment,
                'opid': $opid,
                'action': 'savecomment'},
-        async: true,
-        success: function (data) {
-            console.log(data);
+        async: false,
+        success:function (data) {
+            reloaddata($opid);
         }
-    });
+
+        });
 });
+    $(document).on('ready', function(){
+        $('a[rel=light]').light();
+    });
     </script>
