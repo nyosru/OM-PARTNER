@@ -22,7 +22,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         </div>
     <?
     $pack['packages']=['name'=>'Полиэтиленовые пакеты', 'price'=>'0'];
-    $pack['boxes']=['name'=>'Крафт-коробки', 'price'=>'28'];
+    $pack['boxes']=['name'=>'Крафт-коробки', 'price'=>$wrapprice];
     if($result['data']['paramorder']['delivery']) {
         echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Вариант упаковки: </span>'.$pack[$result['data']['paramorder']['wrap']]['name'].'</div>';
     }

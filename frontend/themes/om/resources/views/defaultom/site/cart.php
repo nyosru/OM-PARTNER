@@ -17,7 +17,6 @@ $del_add .= $first;
 $del_add .= $options;
 $del_add .= '</select>';
 
-
 ?>
 
 <script>
@@ -141,7 +140,7 @@ $(document).on('ready', function () {
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
                              '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
                          //   '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
-            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
+            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;"></span> руб.</div></div>' +
 
                         '</div>';
         $innerhtml+=  '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
@@ -235,12 +234,13 @@ $(document).ready(function () {
 //    $('#gods-price').html(overprice+' руб');
 //    $('#total-price').html()
 //});
-
+var wrap=<?=$wrapprice?>;
 $(document).on('change click','.num-of-items',function () {
     var godsprice=0;
     var wrapprice=0;
+    
     var check = $("[name='wrap']").filter(':checked').first();
-    if(check.val()=="boxes") wrapprice=15;
+    if(check.val()=="boxes") wrapprice=wrap;
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {
@@ -283,7 +283,7 @@ $(document).on('click','.wrap-select', function () {
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
  //   console.log();
-    if(check.val()=="boxes") wrapprice=15;
+    if(check.val()=="boxes") wrapprice=wrap;
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {

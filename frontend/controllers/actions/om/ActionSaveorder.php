@@ -3,6 +3,7 @@
 namespace frontend\controllers\actions\om;
 
 
+use common\models\Configuration;
 use common\models\OrdersStatusHistory;
 use Yii;
 use common\models\PartnersOrders;
@@ -28,6 +29,8 @@ trait ActionSaveorder
     {
 
         date_default_timezone_set('Europe/Moscow');
+        $wrapart=Configuration::find()->where(['configuration_key'=>'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
+        $wrapp=PartnersProducts::find()->where(['products_model'=>$wrapart['configuration_value']])->one();
 
         if(Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->asArray()->one()) == FALSE || !isset($user['userinfo']['customers_id']) ){
             return $this->redirect(Yii::$app->request->referrer);
@@ -259,7 +262,7 @@ trait ActionSaveorder
                                 } else {
                                     print_r($ordersprodattr->errors);
                                     die();
-                                    return $this->render('cartresult', [
+                                    return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                                         'result' => [
                                             'code' => 0,
                                             'text' => 'Ошибка оформления позиции ' . $reindexprod[$keyin_order]['products_model'],
@@ -464,7 +467,7 @@ trait ActionSaveorder
             }
             $transaction->commit('suc');
 
-                return $this->render('cartresult', [
+                return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                     'result'=>  [
                         'code' => 200,
                         'text'=>'Спасибо, Ваш заказ оформлен',
@@ -501,10 +504,10 @@ trait ActionSaveorder
             echo '<pre>';
             die();
         }
-        echo'<pre>';
-        print_r($orders->errors);
-        echo '</pre>';
-        die();
+//        echo'<pre>';
+//        print_r($orders->errors);
+//        echo '</pre>';
+//        die();
         return $this->redirect(Yii::$app->request->referrer);
     }
 }
