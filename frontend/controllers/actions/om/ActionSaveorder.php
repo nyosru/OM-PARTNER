@@ -53,16 +53,36 @@ trait ActionSaveorder
         $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
         $comments = Yii::$app->request->post('comments');
-//        switch($type_order){
-//            case 'plus':
-//                $minimal_order = 1000;
-//                $comments_plus = '';
-//                break;
-//            default:
-//                $minimal_order = 5000;
-//
-//        }
+        $ship = Yii::$app->request->post('ship');
+        $shipping = $this->actionShipping()[$ship];
+        Yii::$app->response->format = \yii\web\Response::FORMAT_HTML;
+        if(!$shipping){
+            return $this->render('cartresult', [
+                'result'=>  [
+                    'code' => 0,
+                    'text'=>'Укажите транспортную компанию',
+                    'data'=>[
+                        'paramorder'=>[
+                        ],
 
+                    ]
+                ]
+            ]);
+
+        }elseif($shipping['wantpasport'] && (!$userOM['pasport_seria'] || !$userOM['pasport_nomer']|| !$userOM['pasport_kogda_vidan'] || !$userOM['pasport_kem_vidan'])){
+            return $this->render('cartresult', [
+                'result'=>  [
+                    'code' => 0,
+                    'text'=>'Выбранной транспортной компании требуются ваши паспортные данные. Укажите их пожалуйста в личном кабинете для выбраного адреса',
+                    'data'=>[
+                        'paramorder'=>[
+                        ],
+
+                    ]
+                ]
+            ]);
+
+        }
         $wrap = Yii::$app->request->post('wrap');
         $quant=[];
 
@@ -99,11 +119,16 @@ trait ActionSaveorder
             }
         }
 
-        if($validprice < 1000 ){
+        if(($orders = Orders::findOne(['customers_id'=>$userCustomer['customers_id'], 'orders_status' => 6]))==FALSE){
+            $minprice = 5000;
+        }else{
+            $minprice = 1000;
+        }
+        if($validprice < $minprice ){
             return $this->render('cartresult', [
                 'result'=>  [
                     'code' => 0,
-                    'text'=>'Минимальная сумма заказа 1000 рублей',
+                    'text'=>'Минимальная сумма заказа '.$minprice.' рублей',
                     'data'=>[
                         'paramorder'=>[
                         ],
@@ -121,7 +146,7 @@ trait ActionSaveorder
             $defaultentryzones = Zones::find()->where(['zone_id'=>$default_user_address['entry_zone_id']])->asArray()->one();
             $orders = new Orders();
             $partner_id = $userpartnerdata['id_partners'];
-            $ship = Yii::$app->request->post('ship');
+
             $orders->ur_or_fiz = 'f';
 
             $orders->customers_id = $userCustomer['customers_id'];

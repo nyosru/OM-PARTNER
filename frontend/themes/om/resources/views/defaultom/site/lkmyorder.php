@@ -344,12 +344,19 @@ echo \yii\grid\GridView::widget([
             success: function (data) {
                 console.log(data);
                 $('.photobank-'+data.opid).html('');
+
                 $.each(data.photo,function(){
-                    $('.photobank-'+data.opid).append('<div style="margin-bottom: 5px; margin-right: 5px;float:left;border: 1px solid rgb(204, 204, 204); width: calc(100% / 7 - 5px); min-height: 100px;background: url(/images/priten/'+data.opid+'/'+this.image_name_server+') no-repeat 50% 50% /contain"></div>');
+                    $('.photobank-'+data.opid).append('<a class="pritenphoto"  rel="light" data-gallery="'+data.opid+'" href="/images/priten/'+data.opid+'/'+this.image_name_server+'"><div class="pritenphotoimg" style="background: url(/images/priten/'+data.opid+'/'+this.image_name_server+') no-repeat 50% 50% /contain"></div></a>');
                 });
+
+                    $('a[rel=light]').light();
+
                 $('.message-bank-'+data.opid).html('');
                 $.each(data.comments,function(){
-                    $('.message-bank-'+data.opid).append('<div><div>'+this.type+'</div><div>'+this.date_add+'</div><div>'+this.orders_products_priten+'</div></div>');
+                    $who = {'1':'Клиент',
+                            '2':'Администратор',
+                            '3':'Сборщик'};
+                    $('.message-bank-'+data.opid).append('<div><div style="clear: left;padding: 4px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; float: left; border-radius: 4px; color: rgb(251, 251, 251); font-weight: 500; margin: 10px;">'+$who[this.type]+'</div><div style="padding: 4px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; float: left; border-radius: 4px; color: rgb(251, 251, 251); font-weight: 500; margin: 10px;">'+this.date_add+'</div><div style="padding: 4px; background: rgb(227, 240, 240) none repeat scroll 0% 0%; border-radius: 4px; font-weight: 500; margin: 10px; float: left; clear: both; color: rgb(0, 0, 0);">'+this.orders_products_priten+'</div></div>');
                 });
 
             }
@@ -382,16 +389,16 @@ $(document).on('click','[data-post="file"]', function(){
     xhr.upload.onprogress = function(event) {
         $width = $('.progress').width();
         $progress =   $width*(event.loaded/event.total);
-        $('[data-progress-opid]').html( 'Загружено на сервер ' + event.loaded + ' байт из ' + event.total );
-        $('[data-progress-opid]').width($progress);
+        $('[role="progressbar"]').html( 'Загружено на сервер ' + event.loaded + ' байт из ' + event.total );
+        $('[role="progressbar"]').width($progress);
     }
 
     xhr.upload.onload = function() {
-        $('[data-progress-opid]').html( 'Данные полностью загружены на сервер!' );
+        $('[role="progressbar"]').html( 'Данные полностью загружены на сервер!' );
     }
 
     xhr.upload.onerror = function() {
-        $('[data-progress-opid]').html( 'Произошла ошибка при загрузке данных на сервер!' );
+        $('[role="progressbar"]').html( 'Произошла ошибка при загрузке данных на сервер!' );
     }
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -418,7 +425,5 @@ $(document).on('click','[data-post="comment"]', function(){
 
         });
 });
-    $(document).on('ready', function(){
-        $('a[rel=light]').light();
-    });
+
     </script>
