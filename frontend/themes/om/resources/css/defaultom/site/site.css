@@ -46,7 +46,6 @@
     body, html {
         height: 100%;
         width: 100%;
-        max-width: 1920px;
         background: #F5F5F5 none repeat scroll 0px center;
         margin: auto;
     }
@@ -3082,9 +3081,83 @@
         border-color: #00a5a1;
     }
 
-    /*@media screen and (min-width: 1860px) and ( max-width: 1921px){*/
-    @media screen and (min-width: 1860px){
-    #card{
+    @media screen and (min-width: 3651px) and ( max-width: 4100px){
+        #card{
+            width: calc(100% / 11 - 10px);
+        }
+        .partheaderbside {
+            width: calc(100% / 11 * 10 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 11 - 10px);
+        }
+        .partners-main-right-back{
+            margin-left:8%;
+        }
+    }
+    @media screen and (min-width: 3301px) and ( max-width: 3650px){
+        #card{
+            width: calc(100% / 10 - 10px);
+        }
+        .partheaderbside {
+            width: calc(100% / 10 * 9 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 10 - 10px);
+        }
+        .partners-main-right-back{
+            margin-left:9%;
+        }
+    }
+    @media screen and (min-width: 2871px) and ( max-width: 3300px){
+        #card{
+            width: calc(100% / 9 - 10px);
+        }
+        .partheaderbside {
+            width: calc(100% / 9 * 8 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 9 - 10px);
+        }
+        .partners-main-right-back{
+            margin-left:10.5%;
+        }
+    }
+    @media screen and (min-width: 2551px) and ( max-width: 2870px){
+        #card{
+            width: calc(100% / 8 - 10px);
+        }
+        .partheaderbside {
+            width: calc(100% / 8 * 7 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 8 - 10px);
+        }
+        .partners-main-right-back{
+            margin-left:12.5%;
+        }
+    }
+    @media screen and (min-width: 2201px) and ( max-width: 2550px){
+        #card{
+            width: calc(100% / 7 - 10px);
+        }
+        .partheaderbside {
+            width: calc(100% / 7 * 6 - 10px);
+
+        }
+        .filter {
+            width: calc(100% / 7 - 10px);
+        }
+        .partners-main-right-back{
+            margin-left:14.5%;
+        }
+    }
+    @media screen and (min-width: 1860px) and (max-width:2200px){
+        #card{
             width: calc(100% / 6 - 10px);
         }
         .partheaderbside {
@@ -3093,6 +3166,9 @@
         }
         .filter {
             width: calc(100% / 6 - 10px);
+        }
+        .partners-main-right-back{
+            margin-left:16.5%;
         }
     }
 
