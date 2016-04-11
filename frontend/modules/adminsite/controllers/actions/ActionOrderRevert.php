@@ -15,7 +15,7 @@ trait ActionOrderRevert
             $model = $model::findOne((integer)(Yii::$app->request->getQueryParam('id')));
 
             if ($model->orders_id < 2) {
-                $this->redirect('/admin/');
+                $this->redirect('/adminsite/');
             } else {
                 if (($revert = Yii::$app->request->post('revert')) == TRUE) {
                     $order = unserialize($model->order);
@@ -32,7 +32,7 @@ trait ActionOrderRevert
                 }
             }
         } else {
-            return $this->redirect('/admin/');
+            return $this->redirect('/adminsite/');
         }
     }
 }

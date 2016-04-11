@@ -15,15 +15,15 @@ trait ActionNewsupdate{
                 $model->date_modified = date('Y-m-d H:i:s');
                 $model->partners_id = Yii::$app->params['constantapp']['APP_ID'];
                 if ($model->save()) {
-                    return $this->redirect('/admin/default/newspage');
+                    return $this->redirect('/adminsite/default/newspage');
                 } else {
-                    return $this->redirect('/admin/default/newspage');
+                    return $this->redirect('/adminsite/default/newspage');
                 }
             } else {
                 return $this->render('newsupdate', ['modelform' => $model]);
             }
         } else {
-            return $this->redirect('/admin/default/newspage');
+            return $this->redirect('/adminsite/default/newspage');
         }
     }
 }

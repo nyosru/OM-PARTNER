@@ -112,6 +112,7 @@ $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/v
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
+$application->components['assetsAutoCompress']['enabled'] = false;
 $application->run();
 
 ob_end_flush();
