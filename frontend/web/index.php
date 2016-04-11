@@ -27,7 +27,7 @@ $application = new yii\web\Application($config);
         $run = new Partners();
         $check = $run->GetId($_SERVER['HTTP_HOST']);
         if ($check == '') {
-            // die;
+             die();
         } else {
 
             $key = Yii::$app->cache->buildKey('constantapp-' . $check);

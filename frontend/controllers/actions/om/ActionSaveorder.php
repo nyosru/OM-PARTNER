@@ -122,7 +122,7 @@ trait ActionSaveorder
             }
         }
 
-        if(($orders = Orders::findOne(['customers_id'=>$userCustomer['customers_id'], 'orders_status' => 6]))==FALSE){
+        if(($orders = Orders::findOne(['customers_id'=>$userCustomer['customers_id'], 'orders_status' => 5]))==FALSE){
             $minprice = 5000;
         }else{
             $minprice = 1000;
