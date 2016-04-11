@@ -212,34 +212,6 @@ echo '<div class="partners-main-right bside">';
         '<input name="sort"  value="0"  type="hidden"/>'.
         '<input name="searchword"   value="" type="hidden"/>'.
                 '</form>';
-//    if ($data[5] >= $data[1] && $data[4] == 0) {
-//    } else {
-//        $pager = '';
-//        $countpager = floor($data[1] / $count);
-//        if ($data[10] != NULL) {
-//
-//            if (intval($data[10]) < 1) {
-//                $natpage = 1;
-//                $nextpage = 0;
-//            } else if (intval($data[10]) + 1 >= $countpager) {
-//                $natpage = $countpager - 1;
-//                $nextpage = $countpager - 2;
-//            } else {
-//                $natpage = intval($data[10]);
-//                $nextpage = intval($data[10]);
-//            }
-//        } else {
-//            $natpage = 1;
-//            $nextpage = 0;
-//            $data[10] = 0;
-//        }
-//        $pager .= ' <a data-page="' . intval($data[10]) . '" class="page " href="#">' . (intval($data[10]) + 1) . '</a> ';
-//        $pager .= 'из ' . $countpager;
-//        $pager .= ' <a data-page="' . ($natpage - 1) . '" class="fa fa-chevron-left page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($natpage - 1))) . '"></a> ';
-//        $pager .= ' <a data-page="' . ($nextpage + 1) . '" class="fa fa-chevron-right page  btn btn-default btn-sm lock-on" href="' . new_url(new_suburl(split_url($url), 'page', ($nextpage + 1))) . '"></a> ';
-//        $topnav = '<div id="products-pager" style="display: none">Страница: ' . $pager . '</div>';
-//        $downnav = '<div id="products-pager-down">Страница: ' . $pager . '</div>';
-//    }
     $countdisp = [60, 120, 180];
     $innercount = '';
     foreach ($countdisp as $key => $countdisp) {
@@ -257,7 +229,7 @@ echo '<div class="partners-main-right bside">';
 
 
     $headbside .= '<div id="products-pager"></div>';
-    //   $url = new_url(new_suburl(split_url($url), '#!cat', data[16].join('/')));
+
 
 
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
@@ -287,7 +259,7 @@ echo '<div class="partners-main-right bside">';
 
 
     foreach ($data[0] as $value) {
-        echo ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr']]);
+        echo ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
     }
 
     if ($searchword !== '') {
@@ -361,11 +333,8 @@ echo '<div class="partners-main-right bside">';
    </div>
    <?
 }
-
-
 } else {
     echo '<div style="text-align: center; font-size: 40px; position: relative; clear: right; min-height: 100%;">Нет результатов</div>';
-
 }
 ?>
  </div>
@@ -405,7 +374,6 @@ echo '<div class="partners-main-right bside">';
         $('[class*=checkbox-overlay]').removeClass('fa-check');
     });
     $(document).on('click', '.filter > .panel  > a',  function(){
-
     if($('#filter-cont').attr('class').indexOf('collapse in')+1) {
         $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Показать фильтр </h4> </div>');
         $('#filter-cont').removeClass('in');
@@ -415,20 +383,6 @@ echo '<div class="partners-main-right bside">';
         $('#filter-cont').addClass('in');
     }
     });
-
-
-//    $(document).on('click', '.filter > .panel  > a',  function(){
-//
-//    if($('#filter-cont').attr('class').indexOf('collapse in')+1) {
-//        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Показать фильтр </h4> </div>');
-//        $('#filter-cont').removeClass('in');
-//    }else{
-//        $(this).html('<div class="panel-heading" role="tab" id="headingOne"><h4 class="panel-title">Свернуть фильтр</h4> </div>');
-//        $(this).find(':first-child').addClass('no-border-bottom-rad');
-//        $('#filter-cont').addClass('in');
-//    }
-   // });
-
         $(document).on('click', '[class*=checkbox-overlay]', function(){
             $('[class*=checkbox-overlay]').removeClass('fa-check');
             $inputs=document.getElementsByClassName("checkbox-hidden-group");
@@ -438,16 +392,5 @@ echo '<div class="partners-main-right bside">';
             $(this).children().prop('checked', true);
             $(this).addClass('fa-check');
         });
-
-//    },1000).(function(){
-//
-//    }, 1000);
-
-
-    
-    
     </script>
-
-
-
 <?

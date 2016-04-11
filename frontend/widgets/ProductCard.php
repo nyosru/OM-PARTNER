@@ -53,6 +53,8 @@ class ProductCard extends \yii\bootstrap\Widget
     public $product;
     public $attrib;
     public $attr_descr;
+    public $catpath;
+    public $man_time;
 
 
 
@@ -97,7 +99,7 @@ class ProductCard extends \yii\bootstrap\Widget
                     'data-prod="'. $product['products_id'].'"'.
                     'data-name="'. htmlentities($description['products_name'])  .'"'.
                     'data-model="'. $product['products_model'].'"'.
-                    'data-price="'. (integer)$product['products_price'].'"'.
+                    'data-price="'. round($product['products_price']).'"'.
                     'data-image="'. $product['products_image'].'"'.
                     'data-count="'. $attr[$attr_desc_value['products_options_values_id']]['quantity'].'"'.
                     'data-step="'. $product['products_quantity_order_units'].'"'.
@@ -117,17 +119,17 @@ class ProductCard extends \yii\bootstrap\Widget
                 $attr_html .='</div></div></div>';
             }
         } else {
-            $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>';
-            $attr_html .= '<input '.$inputpos.' id="input-count"'.
+            $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>';
+            $attr_html .= '<input  id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
                 'data-model="'. $product['products_model'].'"'.
-                'data-price="'. (integer)$product['products_price'].'"'.
+                'data-price="'. round($product['products_price']).'"'.
                 'data-image="'. $product['products_image'].'"'.
                 'data-count="'. $product['products_quantity'].'"'.
-                'data-attrname="'.htmlentities($attr_desc_value['products_options_values_name']).'"'.
+                'data-attrname=""'.
                 'data-attr=""'.
-                'data-name=""'.
+                'data-name="'.htmlentities($description['products_name']).'"'.
                 'data-step="'. $product['products_quantity_order_units'].'"'.
                 'data-min="'. $product['products_quantity_order_min'].'"'.
                 'placeholder="0"'.
@@ -149,7 +151,7 @@ class ProductCard extends \yii\bootstrap\Widget
         }else{
             $options_name = 'Количество';
         }
-        if(array_key_exists($product['manufacturers_id'],$man_time)){
+        if(array_key_exists($product['manufacturers_id'],$this->man_time)){
             $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
         }else{
             $man_time_list = '';
@@ -161,9 +163,9 @@ class ProductCard extends \yii\bootstrap\Widget
             '<div style="" class="model">' . $man_time_list . '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
-            '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $catpath['name'])) . '</div>' .
+            '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
             '<div  itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">' .
-            '<div style="font-size: 18px; font-weight: 500;" itemprop="price" >' . (integer)($product['products_price']) . ' руб.</div>' .
+            '<div style="font-size: 18px; font-weight: 500;" itemprop="price" >' . round($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>' .
             '<div style="cursor:pointer">' .

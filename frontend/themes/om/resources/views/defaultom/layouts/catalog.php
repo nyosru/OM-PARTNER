@@ -69,9 +69,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                         <a style="color: : #007BC1;padding: 5px 18px;font-weight: 400;display: block;width: 100%;" class="lock-on " href="<?=BASEURL?>/discont">Распродажа</a>
 
-                        <?=  Menuom::widget(['property' => ['target'=>0, 'opencat' =>  Yii::$app->params['layoutset']['opencat']]]);?>
+                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
+                        <?=  Menuom::widget(['property' => ['id'=> 'main','target'=>'0', 'opencat' =>  Yii::$app->params['layoutset']['opencat']]]);?>
                     </div>
-                        <?= \frontend\widgets\MenuLinks::widget() ?>
+                    <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
                 </div>
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;">
 
