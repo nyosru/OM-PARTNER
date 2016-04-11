@@ -634,12 +634,13 @@
     }
 
     .partners-main-right-back {
-        width: 83.5%;
+        /*width: 83.5%;*/
         padding: 0px;
         height: auto;
         position: relative;
         box-shadow: 10px 0px 20px -20px #000 inset;
         margin-left: 16.5%;
+        /*border-right: 1px solid rgb(204, 204, 204);*/
         box-sizing: content-box;
     }
 #time{
