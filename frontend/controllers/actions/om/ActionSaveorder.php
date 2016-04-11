@@ -31,7 +31,6 @@ trait ActionSaveorder
         date_default_timezone_set('Europe/Moscow');
         $wrapart=Configuration::find()->where(['configuration_key'=>'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
         $wrapp=PartnersProducts::find()->where(['products_model'=>$wrapart['configuration_value']])->one();
-
         if(Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->asArray()->one()) == FALSE || !isset($user['userinfo']['customers_id']) ){
             return $this->redirect(Yii::$app->request->referrer);
         }else{
@@ -50,6 +49,10 @@ trait ActionSaveorder
         $userpartnerdata = $user;
         $userCustomer = $user['customers'];
         $product_in_order = Yii::$app->request->post('product');
+        $wrap = Yii::$app->request->post('wrap');
+        if($wrap=='boxes') {
+            $product_in_order[$wrapp['products_id']] = [0=>1];
+        }
         $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
         $comments = Yii::$app->request->post('comments');
@@ -63,7 +66,6 @@ trait ActionSaveorder
 //
 //        }
 
-        $wrap = Yii::$app->request->post('wrap');
         $quant=[];
 
         foreach($product_in_order as $prodkey =>$prodvalue){
@@ -260,8 +262,8 @@ trait ActionSaveorder
                                 if ($ordersprodattr->save()) {
                                     $ordersprodattr = $ordersprodattr->toArray();
                                 } else {
-                                    print_r($ordersprodattr->errors);
-                                    die();
+//                                    print_r($ordersprodattr->errors);
+//                                    die();
                                     return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                                         'result' => [
                                             'code' => 0,
