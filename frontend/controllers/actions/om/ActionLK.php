@@ -143,6 +143,22 @@ trait ActionLK
                             $statinfilter = [5,6,33];
                             $model = $model->andWhere(['orders_status'=>$statinfilter]);
                             break;
+                        case '4':
+                            $statinfilter = [2];
+                            $model = $model->andWhere(['orders_status'=>$statinfilter]);
+                            break;
+                        case '5':
+                            $statinfilter = [1];
+                            $model = $model->andWhere(['orders_status'=>$statinfilter]);
+                            break;
+                        case '6':
+                            $statinfilter = [4];
+                            $model = $model->andWhere(['orders_status'=>$statinfilter]);
+                            break;
+                        case '7':
+                            $statinfilter = [11];
+                            $model = $model->andWhere(['orders_status'=>$statinfilter]);
+                            break;
                         default:
                             $model = $model->andWhere(['!=','orders_status', '0']);
                             break;
@@ -175,6 +191,9 @@ trait ActionLK
 
                 ]);
                 return $this->render('lkmyorder',['cust'=>$cust, 'orders'=>$orders, 'sort_order'=>$sort_order]);
+                break;
+            case 'savecomments':
+
                 break;
             default:
                 $orders = new yii\data\ActiveDataProvider([

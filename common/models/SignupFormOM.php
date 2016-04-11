@@ -61,7 +61,7 @@ class SignupFormOM extends Model
             ['name','required', 'message' => 'Это обязательное поле.'],
             ['name','string','min'=>2, 'message' => 'Минимальная длина 2 символа'],
 
-            ['pasportdate','date', 'message' => 'Дата'],
+            ['pasportdate','safe', 'message' => 'Дата'],
 
             ['adress','required', 'message' => 'Это обязательное поле.'],
             ['adress','ValidateAdress'],
@@ -83,7 +83,7 @@ class SignupFormOM extends Model
 
             ['password','required', 'message' => 'Это обязательное поле.'],
             ['password','string','min'=>5, 'message' => 'Минимальная длина 5 символов'],
-
+            ['secondname', 'string'],
             ['fax','string'],
             ['pasportser','string'],
             ['pasportnum','string'],
@@ -101,7 +101,16 @@ class SignupFormOM extends Model
 
         ];
     }
-
+    public function validcountryregion(){
+        $entrycountry = Countries::find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
+        $entryzones = Zones::find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
+        if(!$entrycountry || !$entryzones ){
+            $this->addError('country', 'Необходимо выбрать из списка');
+            $this->addError('state', 'Необходимо выбрать из списка');
+        }else{
+            return true;
+        }
+    }
     public function validuser()
     {
         $userCustomer = new Customers();
@@ -164,7 +173,7 @@ class SignupFormOM extends Model
     }
     public function signup()
     {
-      //  $transaction = Yii::$app->db->beginTransaction();
+       // $transaction = Yii::$app->db->beginTransaction();
        // try {
             $country = new Countries();
             $zones = new Zones();
@@ -195,22 +204,25 @@ class SignupFormOM extends Model
                // return $user;
             }
         if(!$this->pasportdate){
-            $this->pasportdate = '00-00-0000';
+            $this->pasportdate = '1970-01-01';
         }
-        $userOM->entry_firstname = $this->name;
-        $userOM->entry_lastname = $this->lastname;
-        $userOM->entry_city =  $this->city;
-        $userOM->entry_street_address =  $this->adress;
-        $userOM->otchestvo =  $this->secondname;
-        $userOM->pasport_seria =  $this->pasportser;
-        $userOM->pasport_nomer =  $this->pasportnum;
-        $userOM->pasport_kem_vidan =  $this->pasportwhere;
-        $userOM->pasport_kogda_vidan =  date('yyyy-mm-dd', strtotime($this->pasportdate));
-        $userOM->entry_postcode =  $this->postcode;
+        $userOM->entry_firstname = $this->trim_tags_text($this->name);
+        $userOM->entry_lastname = $this->trim_tags_text($this->lastname);
+        $userOM->entry_city =  $this->trim_tags_text($this->city);
+        $userOM->entry_street_address =  $this->trim_tags_text($this->adress);
+        $userOM->otchestvo =  $this->trim_tags_text($this->secondname);
+        $userOM->pasport_seria =  $this->trim_tags_text($this->pasportser);
+        $userOM->pasport_nomer =  $this->trim_tags_text($this->pasportnum);
+        $userOM->pasport_kem_vidan =  $this->trim_tags_text($this->pasportwhere);
+        $userOM->pasport_kogda_vidan =  date('Y-m-d', strtotime($this->pasportdate));
+        $userOM->entry_postcode =  $this->trim_tags_text($this->postcode);
         $userOM->entry_gender = 'M';
         $userOM->entry_country_id =  $entrycountry['id'];
         $userOM->entry_zone_id = $entryzones['id'];
+
+
         if ($userOM->save()) {
+            $userCustomer->customers_fax = $this->trim_tags_text($this->fax);
             $userCustomer->customers_firstname = $this->name;
             $userCustomer->customers_lastname =  $this->lastname;
             $userCustomer->otchestvo =  $this->secondname;
@@ -222,6 +234,7 @@ class SignupFormOM extends Model
             $userCustomer->customers_newsletter = '1';
             $userCustomer->delivery_adress_id = $userOM->address_book_id;
             $userCustomer->pay_adress_id = $userOM->address_book_id;
+
             if ($userCustomer->save()) {
                 $customer_id = $userCustomer->customers_id;
                 $userOM->customers_id = $customer_id;
@@ -242,7 +255,7 @@ class SignupFormOM extends Model
                     $newuserpartnerscastid->scenario = '0';
                     $newuserpartnerscastid->name = $this->name;
                     if(!$this->secondname){
-                        $this->secondname = "%20";
+                        $this->secondname = "NULL";
                     }
                     $newuserpartnerscastid->id = $user->getId();
                     $newuserpartnerscastid->secondname = $this->secondname;
@@ -255,30 +268,37 @@ class SignupFormOM extends Model
                     $newuserpartnerscastid->telephone = $this->telephone;
                     $newuserpartnerscastid->pasportser = $this->pasportser;
                     $newuserpartnerscastid->pasportnum = $this->pasportnum;
-                    $newuserpartnerscastid->pasportdate = date('yyyy-mm-dd H:i:s', strtotime($this->pasportdate));;
+                    if($this->pasportdate){
+                    $newuserpartnerscastid->pasportdate = date('Y-m-d H:i:s', strtotime($this->pasportdate));
+                    }else{
+                        $newuserpartnerscastid->pasportdate = date('Y-m-d H:i:s');
+                    }
+
                     $newuserpartnerscastid->pasportwhere = $this->pasportwhere;
                     $newuserpartnerscastid->customers_id = $userCustomer->customers_id;
-                    if( $newuserpartnerscastid->save()){
-                        return $user;
-                    };
 
-                    ;
+
+                    if( $newuserpartnerscastid->save()){
+                       return $user;
+                    }else{
+
+                    }
+
+
                 } else {
-                    return false;
                 }
             } else {
-
-                return false;
             }
         } else {
-            return false;
         }
-
-      //  } catch (Exception $e) {
-      //      $transaction->rollBack();
-        //    Yii::$app->params['log'][] = $e->getMessage();
+      //      $transaction->commit();
+      // } catch (\yii\db\Exception $e) {
+//
+       //     $transaction->rollBack();
+//
        //     die();
-     //   }
+
+       // }
     }
 
 

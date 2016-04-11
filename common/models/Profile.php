@@ -94,12 +94,17 @@ class Profile extends Model
         $add = AddressBook::find()->where(['address_book_id' => $customer->customers_default_address_id])->one();
         $country = new Countries();
         $zones = new Zones();
+
         $arrkey='';
         foreach ($this->delivery as $key => $value) {
             $arrkey = $key;
         }
         $userinfo->name = $this->delivery[$arrkey]['name'];
         $userinfo->secondname =$this->delivery[$arrkey]['secondname'];
+        if($this->delivery[$arrkey]['secondname']==''){
+            $userinfo->secondname='Не указано';
+            $userinfo->save();
+        }
         $userinfo->lastname = $this->delivery[$arrkey]['lastname'];
         $userinfo->telephone = $this->phone;
         $userinfo->adress = $this->delivery[$arrkey]['address'];
@@ -119,6 +124,10 @@ class Profile extends Model
                 $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$arrkey]['state']])->asArray()->one();
                 $add->entry_firstname = $this->trim_tags_text($this->delivery[$arrkey]['name']);
                 $add->otchestvo =$this->trim_tags_text($this->delivery[$arrkey]['secondname']);
+                if($this->delivery[$arrkey]['secondname']==''){
+                    $add->otchestvo='Не указано';
+                    $add->save();
+                }
                 $add->entry_lastname = $this->trim_tags_text($this->delivery[$arrkey]['lastname']);
                 $add->entry_street_address = $this->trim_tags_text($this->delivery[$arrkey]['address']);
                 $add->entry_city = $this->trim_tags_text($this->delivery[$arrkey]['city']);
@@ -144,6 +153,7 @@ class Profile extends Model
         $customer = Customers::find()->where(['customers_id' => $userinfo->customers_id])->one();
         if ($customer->pay_adress_id == $customer->customers_default_address_id) {
             $add = new AddressBook();
+            $customer->pay_adress_id =$add->address_book_id;
         } else {
             $add = AddressBook::find()->where(['address_book_id' => $customer->pay_adress_id])->one();
         }
@@ -176,6 +186,10 @@ class Profile extends Model
             $customer->customers_lastname = $this->trim_tags_text($this->delivery[$arrkey]['lastname']);
             $customer->otchestvo = $this->trim_tags_text($this->delivery[$arrkey]['secondname']);
             $customer->pay_adress_id = $add->address_book_id;
+            if($customer->delivery_adress_id ==$customer->customers_default_address_id){
+                $customer->delivery_adress_id=$add->address_book_id;
+            }
+            $customer->save();
         }
     }
 
@@ -215,6 +229,9 @@ class Profile extends Model
         $add->customers_id = $userinfo->customers_id;
         if($add->save()){
             $customer->delivery_adress_id = $add->address_book_id;
+            if ($customer->pay_adress_id == $customer->customers_default_address_id) {
+                $customer->pay_adress_id = $add->address_book_id;
+            }
             $customer->save();
         }
     }

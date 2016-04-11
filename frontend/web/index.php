@@ -27,7 +27,7 @@ $application = new yii\web\Application($config);
         $run = new Partners();
         $check = $run->GetId($_SERVER['HTTP_HOST']);
         if ($check == '') {
-            // die;
+             die();
         } else {
 
             $key = Yii::$app->cache->buildKey('constantapp-' . $check);
@@ -112,6 +112,7 @@ $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/v
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
+$application->components['assetsAutoCompress']['enabled'] = false;
 $application->run();
 
 ob_end_flush();

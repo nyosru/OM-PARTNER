@@ -3,6 +3,7 @@
 namespace frontend\controllers\actions\om;
 
 
+use common\models\Configuration;
 use common\models\OrdersStatusHistory;
 use Yii;
 use common\models\PartnersOrders;
@@ -28,7 +29,8 @@ trait ActionSaveorder
     {
 
         date_default_timezone_set('Europe/Moscow');
-
+        $wrapart=Configuration::find()->where(['configuration_key'=>'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
+        $wrapp=PartnersProducts::find()->where(['products_model'=>$wrapart['configuration_value']])->one();
         if(Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->asArray()->one()) == FALSE || !isset($user['userinfo']['customers_id']) ){
             return $this->redirect(Yii::$app->request->referrer);
         }else{
@@ -47,19 +49,43 @@ trait ActionSaveorder
         $userpartnerdata = $user;
         $userCustomer = $user['customers'];
         $product_in_order = Yii::$app->request->post('product');
+        $wrap = Yii::$app->request->post('wrap');
+        if($wrap=='boxes') {
+            $product_in_order[$wrapp['products_id']] = [0=>1];
+        }
         $type_order = Yii::$app->request->post('order-type');
         $plusorder = Yii::$app->request->post('plusorder');
         $comments = Yii::$app->request->post('comments');
-//        switch($type_order){
-//            case 'plus':
-//                $minimal_order = 1000;
-//                $comments_plus = '';
-//                break;
-//            default:
-//                $minimal_order = 5000;
-//
-//        }
+        $ship = Yii::$app->request->post('ship');
+        $shipping = $this->actionShipping()[$ship];
+        Yii::$app->response->format = \yii\web\Response::FORMAT_HTML;
+        if(!$shipping){
+            return $this->render('cartresult', [
+                'result'=>  [
+                    'code' => 0,
+                    'text'=>'Укажите транспортную компанию',
+                    'data'=>[
+                        'paramorder'=>[
+                        ],
 
+                    ]
+                ]
+            ]);
+
+        }elseif($shipping['wantpasport'] && (!$userOM['pasport_seria'] || !$userOM['pasport_nomer']|| !$userOM['pasport_kogda_vidan'] || !$userOM['pasport_kem_vidan'])){
+            return $this->render('cartresult', [
+                'result'=>  [
+                    'code' => 0,
+                    'text'=>'Выбранной транспортной компании требуются ваши паспортные данные. Укажите их пожалуйста в личном кабинете для выбраного адреса',
+                    'data'=>[
+                        'paramorder'=>[
+                        ],
+
+                    ]
+                ]
+            ]);
+
+        }
         $wrap = Yii::$app->request->post('wrap');
         $quant=[];
 
@@ -95,11 +121,17 @@ trait ActionSaveorder
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
-        if($validprice < 1000 ){
+
+        if(($orders = Orders::findOne(['customers_id'=>$userCustomer['customers_id'], 'orders_status' => 5]))==FALSE){
+            $minprice = 5000;
+        }else{
+            $minprice = 1000;
+        }
+        if($validprice < $minprice ){
             return $this->render('cartresult', [
                 'result'=>  [
                     'code' => 0,
-                    'text'=>'Минимальная сумма заказа 1000 рублей',
+                    'text'=>'Минимальная сумма заказа '.$minprice.' рублей',
                     'data'=>[
                         'paramorder'=>[
                         ],
@@ -117,7 +149,7 @@ trait ActionSaveorder
             $defaultentryzones = Zones::find()->where(['zone_id'=>$default_user_address['entry_zone_id']])->asArray()->one();
             $orders = new Orders();
             $partner_id = $userpartnerdata['id_partners'];
-            $ship = Yii::$app->request->post('ship');
+
             $orders->ur_or_fiz = 'f';
 
             $orders->customers_id = $userCustomer['customers_id'];
@@ -211,37 +243,38 @@ trait ActionSaveorder
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
 
                 foreach ($product_in_order as $keyin_order => $valuein_order) {
-                            $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order ]['productsAttributesDescr'], 'products_options_values_id');
-                    foreach($valuein_order  as $keyinattr_order => $valueinattr_order){
-                            $ordersprod = new OrdersProducts();
-                            $ordersprod->first_quant = intval($valueinattr_order);
-                            $ordersprod->products_quantity = intval($valueinattr_order);
-                            $ordersprod->orders_id = $orders->orders_id;
-                            $ordersprod->products_id = intval($keyin_order);
-                            $ordersprod->products_model = $reindexprod[$keyin_order]['products_model'];
-                            $ordersprod->products_name = $reindexprod[$keyin_order]['productsDescription']['products_name'];
-                            $ordersprod->final_price = $reindexprod[$keyin_order]['products_price'];
-                            $ordersprod->products_price = $reindexprod[$keyin_order]['products_price'];
-                            $ordersprod->price_coll = $reindexprod[$keyin_order]['price_coll'];
-                            $ordersprod->products_tax = $reindexprod[$keyin_order]['products_tax'];
-                            $ordersprod->products_status = 0;
-                            $ordersprod->checks = 0;
-                            if($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]){
-                                $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
-                            }elseif($comments[$keyin_order]['all']){
-                                $ordersprod->comment =  $this->trim_tags_text($comments[$keyin_order]['all']);
-                            }else {
-                                $ordersprod->comment = NULL;
-                            }
-                            $ordersprod->verificatiuon = 0;
-                            $ordersprod->status_add = NULL;
-                            $ordersprod->stickers_confirmed = 0;
-                            $ordersprod->automatically_sent_to_manufacturer = 0;
-                            $ordersprod->status_add = NULL;
-                            $ordersprod->sub_orders_id = NULL;
-                            $ordersprod->old_orders_id = NULL;
-                            $ordersprod->products_tax = '0.0000';
-                                 if ($ordersprod->save()) {
+                    if(array_key_exists($keyin_order,$origprod)){
+                    $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order]['productsAttributesDescr'], 'products_options_values_id');
+                    foreach ($valuein_order as $keyinattr_order => $valueinattr_order) {
+                        $ordersprod = new OrdersProducts();
+                        $ordersprod->first_quant = intval($valueinattr_order);
+                        $ordersprod->products_quantity = intval($valueinattr_order);
+                        $ordersprod->orders_id = $orders->orders_id;
+                        $ordersprod->products_id = intval($keyin_order);
+                        $ordersprod->products_model = $reindexprod[$keyin_order]['products_model'];
+                        $ordersprod->products_name = $reindexprod[$keyin_order]['productsDescription']['products_name'];
+                        $ordersprod->final_price = $reindexprod[$keyin_order]['products_price'];
+                        $ordersprod->products_price = $reindexprod[$keyin_order]['products_price'];
+                        $ordersprod->price_coll = $reindexprod[$keyin_order]['price_coll'];
+                        $ordersprod->products_tax = $reindexprod[$keyin_order]['products_tax'];
+                        $ordersprod->products_status = 0;
+                        $ordersprod->checks = 0;
+                        if ($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]) {
+                            $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
+                        } elseif ($comments[$keyin_order]['all']) {
+                            $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order]['all']);
+                        } else {
+                            $ordersprod->comment = NULL;
+                        }
+                        $ordersprod->verificatiuon = 0;
+                        $ordersprod->status_add = NULL;
+                        $ordersprod->stickers_confirmed = 0;
+                        $ordersprod->automatically_sent_to_manufacturer = 0;
+                        $ordersprod->status_add = NULL;
+                        $ordersprod->sub_orders_id = NULL;
+                        $ordersprod->old_orders_id = NULL;
+                        $ordersprod->products_tax = '0.0000';
+                        if ($ordersprod->save()) {
                             if ($keyinattr_order) {
                                 $ordersprodattr = new OrdersProductsAttributes();
                                 $ordersprodattr->orders_products_id = $ordersprod->orders_products_id;
@@ -252,47 +285,47 @@ trait ActionSaveorder
                                 $ordersprodattr->vid = $reindexattrdescr[$keyinattr_order]['products_options_values_id'];
                                 $ordersprodattr->oid = '1';
                                 $ordersprodattr->sub_vid = 0;
-                                    if ($ordersprodattr->save()) {
-                                        $ordersprodattr =  $ordersprodattr->toArray();
-                                   } else {
-                                        print_r($ordersprodattr->errors);
-                                        die();
-                                        return $this->render('cartresult', [
-                                            'result'=>  [
-                                                'code' => 0,
-                                                'text'=>'Ошибка оформления позиции '.$reindexprod[$keyin_order]['products_model'],
-                                                'data'=>[
-                                                    'paramorder'=>[
-                                                    ],
-                                                    'origprod' => $origprod,
-                                                    'timeproduct'=>$related,
-                                                    'totalpricesaveproduct'=>$validprice
-                                                ]
+                                if ($ordersprodattr->save()) {
+                                    $ordersprodattr = $ordersprodattr->toArray();
+                                } else {
+//                                    print_r($ordersprodattr->errors);
+//                                    die();
+                                    return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
+                                        'result' => [
+                                            'code' => 0,
+                                            'text' => 'Ошибка оформления позиции ' . $reindexprod[$keyin_order]['products_model'],
+                                            'data' => [
+                                                'paramorder' => [
+                                                ],
+                                                'origprod' => $origprod,
+                                                'timeproduct' => $related,
+                                                'totalpricesaveproduct' => $validprice
                                             ]
-                                        ]);
-                                  }
+                                        ]
+                                    ]);
+                                }
                             } else {
                             }
-                                    $validproduct[]=[$ordersprod->toArray(), $ordersprodattr];
-                                     $price_total += (float)($price_total) +  $ordersprod->products_price * $ordersprod->products_quantity;
+                            $validproduct[] = [$ordersprod->toArray(), $ordersprodattr];
+                            $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
 
-                                 }else{
-                                     return $this->render('cartresult', [
-                                         'result'=>  [
-                                             'code' => 0,
-                                             'text'=>'Ошибка оформления продукта',
-                                             'data'=>[
-                                                 'paramorder'=>[
-                                                 ],
-                                                 'origprod' => $origprod,
-                                                 'timeproduct'=>$related,
-                                                 'totalpricesaveproduct'=>$validprice
-                                             ]
-                                         ]
-                                     ]);
-                                 }
+                        } else {
+                            return $this->render('cartresult', [
+                                'result' => [
+                                    'code' => 0,
+                                    'text' => 'Ошибка оформления продукта' . $reindexprod[$keyin_order]['products_model'],
+                                    'data' => [
+                                        'paramorder' => [
+                                        ],
+                                        'origprod' => $origprod,
+                                        'timeproduct' => $related,
+                                        'totalpricesaveproduct' => $validprice
+                                    ]
+                                ]
+                            ]);
+                        }
                     }
-
+                }
                 }
                 $orderstotalprice = new OrdersTotal();
                 $orderstotalprice->orders_id = $orders->orders_id;
@@ -462,7 +495,7 @@ trait ActionSaveorder
             }
             $transaction->commit('suc');
 
-                return $this->render('cartresult', [
+                return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                     'result'=>  [
                         'code' => 200,
                         'text'=>'Спасибо, Ваш заказ оформлен',
@@ -499,10 +532,10 @@ trait ActionSaveorder
             echo '<pre>';
             die();
         }
-        echo'<pre>';
-        print_r($orders->errors);
-        echo '</pre>';
-        die();
+//        echo'<pre>';
+//        print_r($orders->errors);
+//        echo '</pre>';
+//        die();
         return $this->redirect(Yii::$app->request->referrer);
     }
 }
