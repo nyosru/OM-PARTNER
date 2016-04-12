@@ -1,8 +1,5 @@
 <?php
-//echo '<pre>';
-//print_r($newsprovider);
-//echo '</pre>';
-//die();
+
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
 foreach ($newsprovider as $valuenews) {
     echo '<div class="newspr">';
