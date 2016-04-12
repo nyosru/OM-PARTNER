@@ -106,6 +106,7 @@ Modal::begin([
     ]
 ]);
 $form = ActiveForm::begin(['id' => 'news_add', 'action' => '']);
+
 $l1 = '<div class="">';
 $l1 .= $form->field($modelform, 'name')->label('Заголовок')->input('text');
 $l1 .= '</div>';
@@ -122,6 +123,9 @@ $l1 .= $form->field($modelform, 'tegs')->label('Теги(через запяту
 $l1 .= '</div>';
 $l1 .= '<div class="">';
 $l1 .= $form->field($modelform, 'status')->label('Статус')->dropDownList(['1' => 'Опубликовать', '0' => 'Не опубликовывать']);
+$l1 .= '</div>';
+$l1 .= '<div class="">';
+$l1 .= $form->field($modelform, 'image')->label('Ссылка на изображение')->input('text');
 $l1 .= '</div>';
 $l1 .= '<div class="form-group">';
 $l1 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);

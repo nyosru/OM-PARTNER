@@ -16,6 +16,7 @@ use Yii;
  * @property string $date_added
  * @property string $date_modified
  * @property integer $status
+ * @property string $image
  */
 class PartnersNews extends ActiveRecordExt
 {
@@ -33,9 +34,9 @@ class PartnersNews extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['partners_id', 'name', 'post', 'date_added', 'date_modified', 'status'], 'required'],
+            [['partners_id', 'name', 'post', 'date_added', 'date_modified', 'status','image'], 'required'],
             [['partners_id', 'status'], 'integer'],
-            [['name', 'post', 'tegs'], 'string'],
+            [['name', 'post', 'tegs','image'], 'string'],
             [['date_added', 'date_modified'], 'safe']
         ];
     }
@@ -54,6 +55,7 @@ class PartnersNews extends ActiveRecordExt
             'date_added' => 'Date Added',
             'date_modified' => 'Date Modified',
             'status' => 'Status',
+            'image' => 'Image',
         ];
     }
 }
