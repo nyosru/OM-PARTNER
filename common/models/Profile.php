@@ -261,7 +261,7 @@ class Profile extends Model
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
         $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
-        $saveok=true;
+        $saveok=false;
         foreach ($add as $key=>$value){
             $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$key]['country']])->asArray()->one();
             $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$key]['state']])->asArray()->one();
@@ -280,8 +280,8 @@ class Profile extends Model
             $value->entry_postcode=$this->trim_tags_text($this->delivery[$key]['postcode']);
             $value->entry_street_address=$this->trim_tags_text($this->delivery[$key]['address']);
             $value->customers_id = $userinfo->customers_id;
-            if(!$value->save()){
-                $saveok=false;
+            if($value->save()){
+                $saveok=true;
             }
         }
         return $saveok;
