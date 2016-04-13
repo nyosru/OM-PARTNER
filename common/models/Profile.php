@@ -99,6 +99,10 @@ class Profile extends Model
         foreach ($this->delivery as $key => $value) {
             $arrkey = $key;
         }
+
+        if($this->delivery[$arrkey]['passportdate']=='0000-00-00'){
+            $this->delivery[$arrkey]['passportdate']='1970-01-01';
+        }
         $userinfo->name = $this->delivery[$arrkey]['name'];
         $userinfo->secondname =$this->delivery[$arrkey]['secondname'];
         if($this->delivery[$arrkey]['secondname']==''){
@@ -117,8 +121,11 @@ class Profile extends Model
         $userinfo->pasportdate = $this->delivery[$arrkey]['passportdate'];
         $userinfo->pasportwhere = $this->delivery[$arrkey]['passportwhere'];
         if ($userinfo->save()) {
+            $customer->customers_selected_template='1';
+            $customer->customers_gender ='M';
             $customer->customers_telephone = $this->phone;
             $customer->customers_fax = $this->customers_fax;
+            $customer->otchestvo =$this->delivery[$arrkey]['secondname'];
             if ($customer->save()) {
                 $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$arrkey]['country']])->asArray()->one();
                 $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$arrkey]['state']])->asArray()->one();
