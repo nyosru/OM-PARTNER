@@ -20,9 +20,12 @@ Collapse::widget();
 
 
 <div id="index-card-4">Мои данные</div>
-<div style="margin-bottom: 46px; padding: 0px 20px;">Эта информация никогда не будет доступна третьим лицам</div>
+<div style="margin-bottom: 45px; padding: 0px 20px;">Эта информация никогда не будет доступна третьим лицам</div>
 
 <?
+if($savelk==true){
+    echo '<div style="color: blue;padding: 0px 20px;margin-bottom: 20px;">Изменения были сохранены</div>';
+}
 $sorter = '';
 $cs = count($tab_order);
 for($i=0; $i<$cs; $i++){

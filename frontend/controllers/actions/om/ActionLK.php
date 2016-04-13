@@ -34,30 +34,41 @@ trait ActionLK
         switch (Yii::$app->request->getQueryParam('view')) {
 
             case 'userinfo':
+                $savelk=false;
                 if(Yii::$app->request->post()){
                     $customer=new Profile();
                     $customer->load(Yii::$app->request->post());
                     switch (Yii::$app->request->post()['save_lk']) {
                         case 'user':
-                            $customer->saveUserInfo();
+                            if($customer->saveUserInfo()){
+                                $savelk=true;
+                            };
                             break;
                         case 'customer':
-                            $customer->saveCustomer();
+                            if($customer->saveCustomer()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
                         case 'deliv':
-                            $customer->saveDeliv();
+                            if($customer->saveDeliv()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
                         case 'address':
-                            $customer->saveUserDelivery();
+                            if($customer->saveUserDelivery()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
                         case 'add_address':
-                            $customer->addUserDelivery();
+                            if($customer->addUserDelivery()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -70,7 +81,9 @@ trait ActionLK
                                     break;
                                 }
                             };
-                            $customer->delUserDeliveryAddress($addr_id);
+                            if($customer->delUserDeliveryAddress($addr_id)){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -94,7 +107,9 @@ trait ActionLK
                                     break;
                                 }
                             };
-                            $customer->defaultUserDeliveryAddress($addr_id);
+                            if($customer->defaultUserDeliveryAddress($addr_id)){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -106,7 +121,9 @@ trait ActionLK
                                     break;
                                 }
                             };
-                            $customer->defaultUserPayAddress($addr_id);
+                            if($customer->defaultUserPayAddress($addr_id)){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -119,7 +136,7 @@ trait ActionLK
                 }
                 $customer->loadUserProfile();
                 $this->layout = 'lk';
-                return $this->render('lkuserinfo',['cust'=>$customer]);
+                return $this->render('lkuserinfo',['cust'=>$customer,'savelk'=>$savelk]);
             break;
 
 
