@@ -29,7 +29,12 @@ class SignupFormOM extends Model
     public $name;
     public $secondname;
     public $lastname;
-    public $adress;
+
+    public $adress_street;
+    public $adress_house;
+    public $adress_bildings;
+    public $adress_appartment;
+
     public $city;
     public $state;
     public $country;
@@ -63,9 +68,21 @@ class SignupFormOM extends Model
 
             ['pasportdate','safe', 'message' => 'Дата'],
 
-            ['adress','required', 'message' => 'Это обязательное поле.'],
-            ['adress','ValidateAdress'],
-            ['adress','filter', 'filter' => 'trim'],
+            ['adress_street','required', 'message' => 'Это обязательное поле.'],
+            ['adress_street','string'],
+            ['adress_street','filter', 'filter' => 'trim'],
+
+            ['adress_house','required', 'message' => 'Это обязательное поле.'],
+            ['adress_house','string'],
+            ['adress_house','filter', 'filter' => 'trim'],
+
+
+            ['adress_bildings','string'],
+            ['adress_bildings','filter', 'filter' => 'trim'],
+
+
+            ['adress_appartment','string'],
+            ['adress_appartment','filter', 'filter' => 'trim'],
 
             ['postcode','required', 'message' => 'Это обязательное поле.'],
             ['postcode','string','message' => 'Строка'],
@@ -147,34 +164,12 @@ class SignupFormOM extends Model
 //       }
 //    }
 
-    public function ValidateAdress()
-    {
-        if($this->adress['street']){
 
-        }else{
-            $this->addError('adress[street]', 'Это обязательное поле');
-        }
-        if($this->adress['house']){
-
-        }else{
-            $this->addError('adress[house]', 'Это обязательное поле');
-        }
-        if($this->adress['bilding']){
-
-        }else{
-            $this->addError('adress[bilding]', 'Это обязательное поле');
-        }
-        if($this->adress['apartment']){
-
-        }else{
-            $this->addError('adress[apartment]', 'Это обязательное поле');
-        }
-
-    }
     public function signup()
     {
        // $transaction = Yii::$app->db->beginTransaction();
        // try {
+            $adress =  $this->trim_tags_text($this->adress_street). ' '.$this->trim_tags_text($this->adress_house). ' '.$this->trim_tags_text($this->adress_bildings). ' '.$this->trim_tags_text($this->adress_appartment);
             $country = new Countries();
             $zones = new Zones();
             $user = new User();
@@ -183,7 +178,7 @@ class SignupFormOM extends Model
             $userCustomer = new Customers();
             $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
             $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
-            $this->adress = $this->trim_tags_text(implode(' ',$this->adress));
+
             $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
             $user->username = $this->trim_tags_text($this->emails);
             $user->email = $this->trim_tags_text($this->emails);
@@ -209,7 +204,7 @@ class SignupFormOM extends Model
         $userOM->entry_firstname = $this->trim_tags_text($this->name);
         $userOM->entry_lastname = $this->trim_tags_text($this->lastname);
         $userOM->entry_city =  $this->trim_tags_text($this->city);
-        $userOM->entry_street_address =  $this->trim_tags_text($this->adress);
+        $userOM->entry_street_address =  $adress;
         $userOM->otchestvo =  $this->trim_tags_text($this->secondname);
         $userOM->pasport_seria =  $this->trim_tags_text($this->pasportser);
         $userOM->pasport_nomer =  $this->trim_tags_text($this->pasportnum);
@@ -260,7 +255,7 @@ class SignupFormOM extends Model
                     $newuserpartnerscastid->id = $user->getId();
                     $newuserpartnerscastid->secondname = $this->secondname;
                     $newuserpartnerscastid->lastname = $this->lastname;
-                    $newuserpartnerscastid->adress = $this->adress;
+                    $newuserpartnerscastid->adress = $adress;
                     $newuserpartnerscastid->city = $this->city;
                     $newuserpartnerscastid->country = $this->country;
                     $newuserpartnerscastid->state = $this->state;
