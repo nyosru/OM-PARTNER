@@ -3449,3 +3449,6 @@
         max-height: 300px;
         margin: auto;
     }
+    .relative #prod-info{
+        display: none;
+    }
