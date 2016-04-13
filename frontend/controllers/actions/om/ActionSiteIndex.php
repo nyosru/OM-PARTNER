@@ -2,6 +2,7 @@
 namespace frontend\controllers\actions\om;
 
 
+use common\models\Featured;
 use Yii;
 use common\models\PartnersProductsToCategories;
 
@@ -15,11 +16,16 @@ trait ActionSiteIndex
             $list[] = $value['manufacturers_id'];
         }
         $hide_man = implode(',', $list);
-        $products = '960192894,95833167,95848445,960505788,960503142,960511458';
-        $key = Yii::$app->cache->buildKey('index_optional-1');
+        $featured = Featured::find()->select('products_id')->limit(6)->createCommand()->queryAll();
+        foreach($featured as $featuredkey => $featuredvalue){
+            $featuredproduct[] = $featuredvalue['products_id'];
+
+        }
+        $products = implode(',',$featuredproduct);
+        $key = Yii::$app->cache->buildKey('index_optional-153467');
         $dataproducts = Yii::$app->cache->get($key);
         if (!$dataproducts) {
-            $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN (' . $hide_man . ')  and products.products_model IN (' . $products . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(10)->distinct()->JoinWith('productsAttributesDescr')->asArray()->all();
+            $dataproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN (' . $hide_man . ')  and products.products_id IN (' . $products . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->limit(10)->distinct()->JoinWith('productsAttributesDescr')->asArray()->all();
             Yii::$app->cache->set($key, $dataproducts, 7200);
         }
 

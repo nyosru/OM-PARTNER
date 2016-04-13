@@ -6,7 +6,9 @@ trait View_cat2
     public $output2 = '';
     public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [])
     {
-
+        if($opencat == NULL){
+            $opencat = [];
+        }
         if (empty($arr[$parent_id])) {
             return $this->output2;
         } else {

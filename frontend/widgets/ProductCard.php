@@ -53,13 +53,14 @@ class ProductCard extends \yii\bootstrap\Widget
     public $product;
     public $attrib;
     public $attr_descr;
-    public $catpath;
-    public $man_time;
+    public $catpath = [];
+    public $man_time = [];
 
 
 
     public function init()
     {
+
         $innerhtml = '';
         $product=$this->product;
         $description=$this->description;
@@ -156,11 +157,13 @@ class ProductCard extends \yii\bootstrap\Widget
         }else{
             $man_time_list = '';
         }
+        $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
+     
         $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' .
             '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
-            '<div style="" class="model">' . $man_time_list . '</div>' .
+            '<div style="" class="model">' . $man_time_list . $preview. '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
             '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
