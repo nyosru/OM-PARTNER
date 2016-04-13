@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $message string */
 /* @var $exception Exception */
 
-
+$this->title='Распродажа';
 $data[0] = $products;
 foreach ($data[0] as $value) {
     $product = $value['products'];
