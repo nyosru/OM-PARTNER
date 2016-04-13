@@ -116,20 +116,25 @@ trait ActionCatalog
 
                 }else{
                     $prod_attr_querys = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->createCommand()->queryOne()['products_options_values_name'];
-                    $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_querys . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-                    $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->createCommand()->queryAll();
-                    if(!$finder){
-                        $findue[] =  $prod_attr_query;
-                    }
-                    foreach ($finder as $finderkey => $findervalue) {
-                        $findue[] = $findervalue['products_options_values_id'];
-                    }
-                    foreach ($finder as $finderkey => $findervalue) {
-                        Yii::$app->cache->set($findervalue['products_options_values_id'], $findue, 3600);
+                    if(strlen($prod_attr_querys) == 2){
+                        $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_querys . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
+                        $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->createCommand()->queryAll();
+                        if(!$finder){
+                            $findue[] =  $prod_attr_query;
+                        }
+                        foreach ($finder as $finderkey => $findervalue) {
+                            $findue[] = $findervalue['products_options_values_id'];
+                        }
+                        foreach ($finder as $finderkey => $findervalue) {
+                            Yii::$app->cache->set($findervalue['products_options_values_id'], $findue, 3600);
+                        }
+                    }else{
+                        $findue[] = (int)$prod_attr_query;
+                            Yii::$app->cache->set((int)$prod_attr_query, $findue, 3600);
                     }
 
                 }
-                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).')  ';
+                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).')  and quantity > 0  IN ('.implode(',',$findue).') ';
                   // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
 
                // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
