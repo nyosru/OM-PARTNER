@@ -134,7 +134,7 @@ trait ActionCatalog
                     }
 
                 }
-                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).')  and quanty IN ('.implode(',',$findue).') ';
+                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).')  and quantity > 0  IN ('.implode(',',$findue).') ';
                   // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
 
                // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
