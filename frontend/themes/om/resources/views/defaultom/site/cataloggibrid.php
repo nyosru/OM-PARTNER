@@ -15,6 +15,7 @@ use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use Zelenin\yii\SemanticUI\modules\Checkbox;
+
 function new_url($arr_sub)
 {
     $new_url = Array();
@@ -69,6 +70,7 @@ if ($data[0] != 'Не найдено!') {
 //        print_r($data);
 //         echo '</pre>';
 //        die();
+echo '<div>'.$cache.'</div>';
 echo '<div class="partners-main-right bside">';
     $headbside = '';
     $headbside .= '<div  class="partners-main-right headerbside">';
@@ -391,6 +393,9 @@ echo '<div class="partners-main-right bside">';
             });
             $(this).children().prop('checked', true);
             $(this).addClass('fa-check');
+        });
+        $(document).on('ready', function(){
+            $('a[rel=light]').light();
         });
     </script>
 <?

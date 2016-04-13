@@ -6,7 +6,7 @@ set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
 if(!ob_start("ob_gzhandler")) ob_start();
-defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
+defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -107,11 +107,13 @@ if(!$template_data){
     $theme = $template_data['theme'];
     $partnerset = $template_data['partnerset'];
 }
+$theme = 'defaultom';
 $application->params['partnersset'] = $partnerset;
 $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme);
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
+$application->components['assetsAutoCompress']['enabled'] = false;
 $application->run();
 
 ob_end_flush();

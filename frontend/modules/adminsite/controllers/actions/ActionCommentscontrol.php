@@ -18,15 +18,15 @@ trait ActionCommentscontrol{
                 }
                 $model->date_modified = date('Y-m-d H:i:s');
                 if ($model->save()) {
-                    return $this->redirect('/admin/default/commentspage');
+                    return $this->redirect('/adminsite/default/commentspage');
                 } else {
-                    return $this->redirect('/admin/default/commentspage');
+                    return $this->redirect('/adminsite/default/commentspage');
                 }
             } else {
-                return $this->redirect('/admin/default/commentspage');
+                return $this->redirect('/adminsite/default/commentspage');
             }
         } else {
-            return $this->redirect('/admin/default/commentspage');
+            return $this->redirect('/adminsite/default/commentspage');
         }
     }
 }

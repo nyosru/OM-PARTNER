@@ -67,7 +67,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div  class="partners-main-left target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div class="partners-main-left-cont">
 
-                        <a style="color: : #007BC1;padding: 5px 18px;font-weight: 400;display: block;width: 100%;" class="lock-on " href="<?=BASEURL?>/discont">Распродажа</a>
+                       
 
                         <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
                         <?=  Menuom::widget(['property' => ['id'=> 'main','target'=>'0', 'opencat' =>  Yii::$app->params['layoutset']['opencat']]]);?>

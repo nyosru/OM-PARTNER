@@ -8,19 +8,20 @@ trait Fullopcat
 {
     public function full_op_cat()
     {
-        $key = Yii::$app->cache->buildKey('fullopcatcategories-' . Yii::$app->params['constantapp']['APP_ID']);
+        $key = Yii::$app->cache->buildKey('fullopcatcategories-2353' . Yii::$app->params['constantapp']['APP_ID']);
         $data = Yii::$app->cache->get($key);
         if ($data['data'] == FALSE) {
-            $checks = Yii::$app->params['constantapp']['APP_CAT'];
+           // $checks = Yii::$app->params['constantapp']['APP_CAT'];
             $categoriess = new PartnersCategories();
             $categoriesd = new PartnersCatDescription();
             $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->createCommand()->queryAll();
             $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();
-            foreach ($f as $value) {
-                if (in_array(intval($value['categories_id']), $checks)) {
-                    $catdataallow[] = $value;
-                }
-            }
+//            foreach ($f as $value) {
+//                if (in_array(intval($value['categories_id']), $checks)) {
+//
+//                }
+//            }
+            $catdataallow = $f;
             for ($i = 0; $i < count($catdataallow); $i++) {
                 $row = $catdataallow[$i];
                 if (empty($arr_cat[$row['parent_id']])) {

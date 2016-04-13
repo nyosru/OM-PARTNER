@@ -17,6 +17,7 @@ trait ActionSignup
 
                     if ($user = $model->signup()) {
                         if (Yii::$app->getUser()->login($user)) {
+                            
                             return $this->goHome();
                         }
                     } else{

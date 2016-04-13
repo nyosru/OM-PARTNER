@@ -526,12 +526,16 @@ console.log($searchword);
                         '</div>'+
                         '</div></div></div>';
                 }
+                
                 if( data[14][$product.manufacturers_id] === undefined ) {
                     $timewrap = '';
                 }else{
-                    $timewrap =  '<div style="" class="model"><a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a></div>';
+                    $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
 
                 }
+                  $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
+                $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
+               
                 $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                     '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
@@ -560,7 +564,7 @@ console.log($searchword);
                     'Увеличить'+
                     '</div>'+
 
-                    ''+$timewrap+''+
+                    ''+$timeprew+''+
                     '</div></div>');
             });
             $pager = '';
@@ -617,6 +621,7 @@ console.log($searchword);
 
 
             $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
+             $('a[rel=light]').light();
             inProgress = false;
         } else {
             $('#size-slide').html('');
@@ -971,6 +976,7 @@ $(document).on('click', '[data-ajax=time]', function(){
 });
 $(document).on('click', '.close-modal', function(){
     $(this).parents().find('#time').hide();
+    $('#overlay').css('display','none');
 });
 var lockprodinfo = false;
 $(document).on('click','#prod-info',function(){

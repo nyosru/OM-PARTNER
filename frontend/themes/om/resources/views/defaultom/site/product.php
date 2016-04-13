@@ -107,7 +107,7 @@ $imsrc=array($product['products']['products_image']);
                         <div style="clear: both;"></div>
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
                         <div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; "><?=$product['productsDescription']['products_name']?></div>
-                        <div itemprop="category" class="model" style="display:none"><?=end($catpath->name)?></div>
+<!--                        <div itemprop="category" class="model" style="display:none">--><?//=end($catpath['name'])?><!--</div>-->
                         <div itemprop="priceCurrency" style="display:none">RUB</div>
                         <a itemprop="url" href="/glavnaya/product?id=<?=$product['productsDescription']['products_id']?>"></a>
                     </div>
@@ -163,7 +163,7 @@ $imsrc=array($product['products']['products_image']);
             <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
             <?php
             foreach ($relprod as $value) {
-                echo \frontend\widgets\ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr']]);
+                echo \frontend\widgets\ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
             }
 
             ?>

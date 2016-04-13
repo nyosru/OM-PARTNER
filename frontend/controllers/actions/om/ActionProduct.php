@@ -54,11 +54,6 @@ trait ActionProduct
                     }else{
                         $catpath = $this->Catpath($data['categories_id'],'namenum');
                     }
-                    if(!$catpath['num']) {
-                        $catpath = $data['categories_id'];
-                    }else{
-                        $catpath = $catpath['num'];
-                    }
 
                     $list = array();
                     $hide_man = $this->hide_manufacturers_for_partners();
@@ -67,10 +62,10 @@ trait ActionProduct
                     }
 
                     $hide_man = implode(',', $list);
-                    $relProd=PartnersProductsToCategories::find()->where(['products_to_categories.categories_id'=>$catpath])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0')->limit(100)->asArray()->all();
+                    $relProd=PartnersProductsToCategories::find()->where(['products_to_categories.categories_id'=>$data['categories_id']])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0')->limit(100)->asArray()->all();
 
                     if($relProd) {
-                        $relnum = array_rand($relProd, min(3,count($relProd)));
+                        $relnum = array_rand($relProd, min(6,count($relProd)));
 
 //                             echo'<pre>';
 //                    print_r($relnum);
@@ -99,8 +94,8 @@ trait ActionProduct
                             $relProd[$key]['products_id'] = $value['products_id'];
                         }
                     }
-
-                    return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProduct]);
+                    $man_time = $this->manufacturers_diapazon_id();
+                    return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProduct,  'man_time'=>$man_time]);
                 } else {
                     return $this->redirect('/');
                 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <identifycate>default3</identifycate>
+    <name>Стандартный шаблон(Зеленый)</name>
+    <description>Стандартный набор функционала</description>
+    <version>1.0</version>
+    <autor>CodeTek</autor>
+    <images>
+        <image>
+            <name>Главная страница</name>
+            <description></description>
+            <file>images/main.png</file>
+        </image>
+        <image>
+            <name>Каталог</name>
+            <description></description>
+            <file>images/catalog.png</file>
+        </image>
+        <image>
+            <name>Личный кабинет клиента</name>
+            <description></description>
+            <file>images/clients.png</file>
+        </image>
+    </images>
+    <resources>
+        <views>
+            <name>default2</name>
+        </views>
+        <js>
+            <name>default2</name>
+        </js>
+        <css>
+            <name>default3</name>
+        </css>
+    </resources>
+</template>
