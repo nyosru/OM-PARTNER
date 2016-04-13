@@ -160,7 +160,7 @@ $imsrc=array($product['products']['products_image']);
             </div>
         </div>
             <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
-            <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;margin-bottom: 60px;">
+            <div class="relative" style="height: 400px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
             <?php
             foreach ($relprod as $value) {
                 echo \frontend\widgets\ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr']]);
