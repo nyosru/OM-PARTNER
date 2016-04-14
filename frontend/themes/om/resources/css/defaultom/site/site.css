@@ -3535,7 +3535,24 @@
         margin: auto;
     }
     #slid2 .carousel-control{
-        width: 4%;
+        width: 2%;
+        background-image: none;
+        padding-top: 10%;
+        font-size: xx-large;
+        color:#00A5A1;
+
+    }
+    #slid3,#slid4{
+        float: left;
+        height: 460px;
+        overflow: hidden;
+    }
+    #slid3 .carousel-inner,#slid4 .carousel-inner{
+        width: 100%;
+        margin: auto;
+    }
+    #slid3 .carousel-control,#slid4 .carousel-control{
+        width: 2%;
         background-image: none;
         padding-top: 10%;
         font-size: xx-large;
