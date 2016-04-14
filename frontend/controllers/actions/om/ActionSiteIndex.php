@@ -10,6 +10,8 @@ trait ActionSiteIndex
 {
     public function actionIndex()
     {
+        $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
+        $man_time = $this->manufacturers_diapazon_id();
         $list = array();
         $hide_man = $this->hide_manufacturers_for_partners();
         foreach ($hide_man as $value) {
@@ -40,7 +42,7 @@ trait ActionSiteIndex
         }else{
             $title = Yii::$app->params['constantapp']['APP_NAME'];
         }
-        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts, 'title'=>$title]);
+        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts, 'title'=>$title,'catpath'=>$catpath,'man_time'=>$man_time]);
     }
 }
 ?>
