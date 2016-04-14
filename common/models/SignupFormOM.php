@@ -190,11 +190,7 @@ class SignupFormOM extends Model
             if ($user->save()) {
                 $auth = Yii::$app->authManager;
                 $auth->assign($auth->getRole('register'), $user->getId());
-               // Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
-               //     ->setFrom('support@'.$_SERVER[HTTP_HOST])
-                //    ->setTo($user->email)
-               //     ->setSubject('Регистрация на сайте '.$_SERVER[HTTP_HOST])
-               //     ->send();
+
 
                // return $user;
             }
@@ -274,6 +270,11 @@ class SignupFormOM extends Model
 
 
                     if( $newuserpartnerscastid->save()){
+                         Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
+                             ->setFrom('support@'.$_SERVER[HTTP_HOST])
+                             ->setTo($user->email)
+                             ->setSubject('Регистрация на сайте '.$_SERVER[HTTP_HOST])
+                             ->send();
                        return $user;
                     }else{
 

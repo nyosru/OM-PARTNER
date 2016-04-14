@@ -495,7 +495,31 @@ trait ActionSaveorder
                 ]);
             }
             $transaction->commit('suc');
-
+            Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice'=>(integer)$wrapp['products_price'],
+                'result'=>  [
+                    'code' => 200,
+                    'text'=>'Спасибо, Ваш заказ оформлен',
+                    'data'=>[
+                        'paramorder'=>[
+                            'delivery' => $dostavka[$ship],
+                            'number'=> $orders->orders_id,
+                            'date' => $orders->date_purchased,
+                            'wrap' => $wrap,
+                            'name' => $orders->customers_name,
+                            'telephone' => $orders->customers_telephone,
+                            'email' => $orders->customers_email_address,
+                        ],
+                        'saveproduct'=>$validproduct,
+                        'origprod' => $origprod,
+                        'timeproduct'=>$related,
+                        'totalpricesaveproduct'=>$validprice
+                    ]
+                ]
+            ])
+                ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                ->setTo($orders->customers_email_address)
+                ->setSubject('Заказ на сайте ' . $_SERVER['HTTP_HOST'])
+                ->send();
                 return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                     'result'=>  [
                         'code' => 200,
