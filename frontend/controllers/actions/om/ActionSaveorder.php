@@ -305,6 +305,7 @@ trait ActionSaveorder
                                     ]);
                                 }
                             } else {
+
                             }
                             $validproduct[] = [$ordersprod->toArray(), $ordersprodattr];
                             $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;

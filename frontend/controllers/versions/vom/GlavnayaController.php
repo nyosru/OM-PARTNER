@@ -20,7 +20,7 @@ use frontend\controllers\actions\ActionCart;
 use frontend\controllers\actions\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
 use frontend\controllers\actions\ActionChstatusorder;
-use frontend\controllers\actions\ActionContacts;
+use frontend\controllers\actions\ActionContactForm;
 use frontend\controllers\actions\ActionCountryrequest;
 use frontend\controllers\actions\ActionDelivery;
 use frontend\controllers\actions\ActionFaq;
@@ -105,7 +105,7 @@ class GlavnayaController extends Controller
         ActionLogout,
         ActionCatalog,
         ActionLK,
-        ActionContacts,
+        ActionContactForm,
         ActionDelivery,
         ActionOfferta,
         ActionFaq,
