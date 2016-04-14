@@ -411,16 +411,27 @@ function loaddata(){
     $urld = document.location.toString();
     $urld = '' + $urld.split('?')[1];
     $urld = split_url($urld);
-    $cat = $urld['cat'][1];
-    $prodatrquery = $urld['prod_attr_query'][1];
-    $searchword = $urld['searchword'][1];
-console.log($searchword);
-
+    if($urld['cat']){
+        $cat = $urld['cat'][1];
+    }else{
+        $cat = 0;
+    }
+    
+     if($urld['prod_attr_query']){
+        $prodatrquery = $urld['prod_attr_query'][1];
+    }else{
+        $prodatrquery = '';
+    }
+    if($urld['searchword']){
+        $searchword = $urld['searchword'][1];
+    }else{
+        $searchword = '';
+    }
     $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
     $url_data = $urld;
     $.ajax({
         method:"post",
-        url: "/site/catalog",
+        url: "",
         data: { "_csrf":yii.getCsrfToken(),
             "cat":$cat,
             "count":$count,
@@ -969,7 +980,7 @@ $(document).on('click', '[data-ajax=time]', function(){
             $('#overlay')
                 .css('display','block')
         }else{
-            $('.bside').append('<div id="overlay" style="display: block;"></div><div id="time" style="display: none;">'+data+'</div>');
+            $('.bside').append('<div id="overlay" ></div><div id="time" style="display: none;">'+data+'</div>');
         }
         $('#time').show();
     });

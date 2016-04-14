@@ -35,7 +35,6 @@ class NewsBlockOM extends \yii\bootstrap\Widget
         } else {
             foreach ($newsprovider as $valuenews) {
                 echo '<div>';
-                echo '<div style="float: left; max-width: 150px; max-height: 150px;"><img style="max-width: 90%; max-height: 150px;" src="'.$valuenews->image.'"/></div>';
                 echo '<span style="color: rgb(0, 165, 161);">' . date('Y-m-d', strtotime($valuenews->date_modified)) . '</span><br/>';
                 $text = $this->trim_tags_text($valuenews->name, 90);
                 echo '<span style="display: block; ">';
