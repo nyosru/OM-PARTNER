@@ -62,6 +62,8 @@ use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
 use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
+use frontend\controllers\actions\om\ActionProductsMonth;
+use frontend\controllers\actions\om\ActionProductsCloth;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
@@ -144,6 +146,8 @@ class GlavnayaController extends Controller
         ActionSaveclaim,
         ActionLoadClaim,
         ActionNewProductDay,
+        ActionProductsMonth,
+        ActionProductsCloth,
         ActionTakeOrder;
 
 
@@ -329,6 +333,12 @@ class GlavnayaController extends Controller
                         $search = mb_substr($search, 0, $length, $encode);
                         return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ой' :
+                        $search = mb_substr($search, 0, $length, $encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
+                    case 'ая' :
+                        $search = mb_substr($search, 0, $length, $encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
+                    case 'ую' :
                         $search = mb_substr($search, 0, $length, $encode);
                         return $this->checksklonenie($search, $origsearch, $encode);
                     default:

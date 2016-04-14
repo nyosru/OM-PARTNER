@@ -25,21 +25,24 @@ trait ActionProduct
                 ->joinWith('specificationValuesDescription')
                 ->joinWith('specificationDescription')
                 ->asArray()->groupBy('products_specifications.products_id')->asArray()->one();
+            if($spec){
             $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'] ,'specifications_id');
             $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'] ,'specification_values_id');
-            if ($id > 0) {
-                $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->all();
-                $x=end($x);
-                if(!$x['last_modified']){
-                    $x['last_modified'] = $x['add_date'] ;
-                }
-                if ($x['last_modified']) {
+            }
+                if ($id > 0) {
+                $x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date' )->where(['products_id' => trim($id)])->createCommand()->queryOne();
+                if ( strtotime($x['products_last_modified'])<strtotime($x['add_date']) )
+                    $x['products_last_modified'] = $x['add_date'] ;
+                    $checkcache = $x['products_last_modified'];
+
                     $keyprod = Yii::$app->cache->buildKey('product-' . $id);
                     $data = Yii::$app->cache->get($keyprod);
-                    if (!$data || ($x['last_modified'] != $data['last'])) {
+                    $d1 = trim($checkcache);
+                    $d2 = trim($data['last']);
+                    if (!$data || ($d1 !== $d2)) {
                         $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
                         $data = end($data);
-                        Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $x['last_modified']]);
+                        Yii::$app->cache->set($keyprod, ['data' => $data, 'last' =>$checkcache]);
                     } else {
                         $data = $data['data'];
                     }
@@ -99,9 +102,7 @@ trait ActionProduct
                 } else {
                     return $this->redirect('/');
                 }
-            } else {
-                return $this->redirect('/');
-            }
+
         }
 
         // если запрос пришел через POST

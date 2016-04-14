@@ -6,7 +6,7 @@ set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
 if(!ob_start("ob_gzhandler")) ob_start();
-defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -62,10 +62,11 @@ $config['components']['errorHandler']['errorAction'] = $version['frontend']['err
 $catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
 $config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
 $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
+$config['components']['urlManager']['rules']['<action>'] = '' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
 
-define('BASEURL', '/' . $version['frontend']['defroute']);
-
+//define('BASEURL', '/' . $version['frontend']['defroute']);
+define('BASEURL', '');
 
 unset($version['frontend']);
 foreach ($version as $key => $mvc) {

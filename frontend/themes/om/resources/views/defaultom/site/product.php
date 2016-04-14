@@ -121,12 +121,14 @@ $imsrc=array($product['products']['products_image']);
                         <div class="prod-compos" style="font-size: 12px;">
                             <?
                             // Вывод спецификаций
-                            foreach($spec['productsSpecification'] as $key=>$value){
-                                $specname='';
-                                $specval='';
+                            if(is_array($spec['productsSpecification'])){
+                            foreach ($spec['productsSpecification'] as $key => $value) {
+                                $specname = '';
+                                $specval = '';
                                 $specname = $spec['specificationDescription'][$value['specifications_id']]['specification_name'];
                                 $specval = $spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value'];
-                                echo $specname.': '.$specval.'<br/>';
+                                echo $specname . ': ' . $specval . '<br/>';
+                            }
                             }
                             ?>
                             <br/>
@@ -162,10 +164,11 @@ $imsrc=array($product['products']['products_image']);
             <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
             <div class="relative" style="height: 460px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
             <?php
-            foreach ($relprod as $value) {
-                echo \frontend\widgets\ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
+            if(is_array($relprod)) {
+                foreach ($relprod as $value) {
+                    echo \frontend\widgets\ProductCard::widget(['product' => $value['products'], 'description' => $value['productsDescription'], 'attrib' => $value['productsAttributes'], 'attr_descr' => $value['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                }
             }
-
             ?>
             </div>
         <div id="modal-product" style="border:none; min-height: 300px;">

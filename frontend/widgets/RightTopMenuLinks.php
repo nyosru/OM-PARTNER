@@ -11,7 +11,10 @@ class RightTopMenuLinks extends \yii\bootstrap\Widget
             'cooperation'=>'<a href="'.BASEURL.'/discont">Распродажа</a>',
 //            'ourModels'=>'<a href="'.BASEURL.'/odezhda-i-obuv">Новинки одежда и обувь</a>',
 //            'cooperationTerms'=>'<a href="'.BASEURL.'/other-product">Другие новинки</a>',
-            'contacts'=>'<a href="'.BASEURL.'/contacts">Контакты</a>',
+            'contacts'=>'<a href="'.BASEURL.'/dayproduct">Все новинки за сегодня</a>',
+             'newmonth'=>'<a href="'.BASEURL.'/productsmonth">Все новинки за месяц</a>',
+             'newcloth'=>'<a href="'.BASEURL.'/productscloth">Новинки одежды и обуви за месяц</a>',
+            'newday'=>'<a href="'.BASEURL.'/contacts">Контакты</a>',
 
 //       'howToOrder'=>'<a href="'.BASEURL.'/page?article=howorders">Как сделать заказ</a>',
 //        'sberOnline'=>'<a href="'.BASEURL.'/page?article=sberonline">Оплата через Сбербанк Онлайн</a>',
