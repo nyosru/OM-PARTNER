@@ -81,6 +81,7 @@ $imsrc=array($product['products']['products_image']);
                                 $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " src="'.BASEURL.'/imagepreview?src='.$im[$key].'"/></a>';
                                 $i++;
                             }
+
                             echo Carousel::widget([
                                 'items'=>$items,'id'=>'slid','clientOptions'=>['interval'=>false]
                             ]);
@@ -165,9 +166,32 @@ $imsrc=array($product['products']['products_image']);
             <div class="relative" style="height: 460px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
             <?php
             if(is_array($relprod)) {
-                foreach ($relprod as $value) {
-                    echo \frontend\widgets\ProductCard::widget(['product' => $value['products'], 'description' => $value['productsDescription'], 'attrib' => $value['productsAttributes'], 'attr_descr' => $value['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                $relitems=array();
+                $num=0;
+                $it=0;
+                $relitems[$it]['content']='';
+                foreach ($relprod as $k1=>$val) {
+                    if($num<6){
+                        $relitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                        $num++;
+                    }
+                    else{
+                        $num=0;
+                        $it++;
+                        $relitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                        $num++;
+                    }
                 }
+//                echo '<pre>';
+//                print_r($relitems);
+//                echo '</pre>';
+//                die();
+                echo Carousel::widget([
+                    'items'=>$relitems,'id'=>'slid2','clientOptions'=>['interval'=>10000]
+                ]);
+//                foreach ($relprod as $value) {
+//                    echo \frontend\widgets\ProductCard::widget(['product' => $value['products'], 'description' => $value['productsDescription'], 'attrib' => $value['productsAttributes'], 'attr_descr' => $value['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+//                }
             }
             ?>
             </div>
