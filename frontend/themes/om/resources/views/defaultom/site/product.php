@@ -171,7 +171,7 @@ $imsrc=array($product['products']['products_image']);
                 $it=0;
                 $relitems[$it]['content']='';
                 foreach ($relprod as $k1=>$val) {
-                    if($num<6){
+                    if($num<10){
                         $relitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
                         $num++;
                     }
