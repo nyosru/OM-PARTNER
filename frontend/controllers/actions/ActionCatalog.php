@@ -70,7 +70,7 @@ trait ActionCatalog
         $arfilt[':now'] =$now;
         $arfilt_pricemax[':now'] =  $now;
         $arfilt_attr[':now'] = $now;
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, SUM(products_to_categories.products_id) as prod')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->createCommand()->queryOne();
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, SUM(products_to_categories.products_id) as prod')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->asArray()->one();
          if ( strtotime($x['products_last_modified']) < strtotime($x['add_date']) )
              $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];

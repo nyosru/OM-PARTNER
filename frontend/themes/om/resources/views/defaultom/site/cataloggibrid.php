@@ -47,9 +47,7 @@ function new_suburl($url_obj, $val, $new_var)
 
 
 
-echo '<div>';
-print_r($cache);
-echo '</div>';
+
 //echo '<pre>';
 //print_r($data[0][0]);
 //echo '</pre>';
