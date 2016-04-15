@@ -70,19 +70,19 @@ trait ActionCatalog
         $arfilt[':now'] =$now;
         $arfilt_pricemax[':now'] =  $now;
         $arfilt_attr[':now'] = $now;
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->createCommand()->queryOne();
-         if ( strtotime($x['products_last_modified'])<strtotime($x['add_date']) )
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, SUM(products_to_categories.products_id) as prod')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->createCommand()->queryOne();
+         if ( strtotime($x['products_last_modified']) < strtotime($x['add_date']) )
              $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];
-        $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
-        $init_key_static = $cat . '-' . $start_price . '-' . $end_price  . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key = $cat . '-' .$x['prod'].'-'. $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key_static = $cat . '-'.$x['prod'].'-' . $start_price . '-' . $end_price  . '-' . $prod_attr_query . '-' . $searchword;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
         $d2 = trim($dataque['checkcache']);
         $action = (int)Yii::$app->request->getQueryParam('action');
         if (!$dataque['checkcache'] || $d1 !== $d2 || $action == 1) {
-            $cache = 'игнор кэша-'.$d1.'-'.json_encode($key);
+            $cache = 'игнор кэша-'.$d1.'-'.json_encode($x['prod']);
             switch ($sort) {
                 case 0:
                     $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
@@ -255,7 +255,7 @@ trait ActionCatalog
             }
             Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
         } else {
-            $cache = 'Kэш-'.$d1.'-'.$d2;
+            $cache = 'Kэш-'.$x['prod'].'-'.$x['prod'];
             $productattrib = $dataque['productattrib'];
             $count_arrs = $dataque['count_arrs'];
             $price_max = $dataque['price_max'];
