@@ -9,26 +9,10 @@ Trait Imagepreviewcrop
     {
         $id = (integer)$src;
         if ($id > 0) {
-            $x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date' )->where(['products_id' => trim($id)])->createCommand()->queryOne();
-            if ( strtotime($x['products_last_modified'])<strtotime($x['add_date']) )
-                $x['products_last_modified'] = $x['add_date'] ;
-            $checkcache = $x['products_last_modified'];
 
-            $keyprod = Yii::$app->cache->buildKey('product-' . $id);
-            $data = Yii::$app->cache->get($keyprod);
-            $d1 = trim($checkcache);
-            $d2 = trim($data['last']);
-            if (!$data || ($d1 !== $d2)) {
-                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->createCommand()->queryOne();;
-                Yii::$app->cache->set($keyprod, ['data' => $data, 'last' =>$checkcache]);
-            } else {
-                $data = $data['data'];
-            }
-                if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+            $x = PartnersProducts::find()->select('products.products_image as products_image')->where(['products_id' => trim($id)])->createCommand()->queryOne();
 
-                    $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
-                }
-            $src = $data['products']['products_image'];
+            $src = $x['products_image'];
             if($src == '' || $src == '/' || $src == '\\'){
                 return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
             }
