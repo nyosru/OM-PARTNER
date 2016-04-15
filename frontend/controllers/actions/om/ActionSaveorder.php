@@ -518,7 +518,7 @@ trait ActionSaveorder
             ])
                 ->setFrom('support@' . $_SERVER['HTTP_HOST'])
                 ->setTo($orders->customers_email_address)
-                ->setSubject('Заказ на сайте ' . $_SERVER['HTTP_HOST'])
+                ->setSubject('Вы оформили заказ в интернет-магазине "Одежда-Мастер"')
                 ->send();
                 return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                     'result'=>  [
