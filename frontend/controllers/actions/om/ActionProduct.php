@@ -128,7 +128,9 @@ trait ActionProduct
                     }
 
                     $hide_man = implode(',', $list);
-                    $relProd=PartnersProductsToCategories::find()->where(['products_to_categories.categories_id'=>$data['categories_id']])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0')->limit(60)->asArray()->all();
+                    $now = date('Y-m-d H:i:s');
+
+                    $relProd=PartnersProductsToCategories::find()->where('products_to_categories.categories_id = :categories  and products_date_added < :now and products_last_modified < :now  and products.products_quantity > 0  and products.products_price != 0   and products_status=1 ',[':categories'=>$data['categories_id'], ':now'=>$now])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ')')->limit(60)->asArray()->all();
 
                     if($relProd) {
                         $relnum = array_rand($relProd, min(60,count($relProd)));

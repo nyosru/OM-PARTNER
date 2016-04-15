@@ -64,8 +64,19 @@ class ProductCard extends \yii\bootstrap\Widget
         $innerhtml = '';
         $product=$this->product;
         $description=$this->description;
-        $attr  = \yii\helpers\ArrayHelper::index($this->attrib,'options_values_id');
-        $attr_desc = \yii\helpers\ArrayHelper::index($this->attr_descr, 'products_options_values_name');
+        if($this->attrib){
+            $attr  = \yii\helpers\ArrayHelper::index($this->attrib,'options_values_id');
+        }else{
+            $attr = [];
+        }
+
+        if($this->attr_descr){
+            $attr_desc = \yii\helpers\ArrayHelper::index($this->attr_descr, 'products_options_values_name');
+        }else{
+            $attr_desc = [];
+        }
+
+
         ksort($attr_desc,SORT_NATURAL);
         $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
         if (count($attr_desc) > 0) {
