@@ -9,25 +9,29 @@ Trait Imagepreviewcrop
     {
         $id = (integer)$src;
         if ($id > 0) {
-            $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->createCommand()->queryAll();
-            $x=end($x);
-            if(!$x['last_modified']){
-                $x['last_modified'] = $x['add_date'] ;
+            $x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date' )->where(['products_id' => trim($id)])->createCommand()->queryOne();
+            if ( strtotime($x['products_last_modified'])<strtotime($x['add_date']) )
+                $x['products_last_modified'] = $x['add_date'] ;
+            $checkcache = $x['products_last_modified'];
+
+            $keyprod = Yii::$app->cache->buildKey('product-' . $id);
+            $data = Yii::$app->cache->get($keyprod);
+            $d1 = trim($checkcache);
+            $d2 = trim($data['last']);
+            if (!$data || ($d1 !== $d2)) {
+                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->createCommand()->queryOne();;
+                Yii::$app->cache->set($keyprod, ['data' => $data, 'last' =>$checkcache]);
+            } else {
+                $data = $data['data'];
             }
-                $keyprod = Yii::$app->cache->buildKey('product-' . $id);
-                $data = Yii::$app->cache->get($keyprod);
-                if (!$data || ($x['last_modified'] != $data['last'])) {
-                    $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
-                    $data = end($data);
-                    Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $x['last_modified']]);
-                } else {
-                    $data = $data['data'];
-                }
                 if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
 
                     $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
                 }
             $src = $data['products']['products_image'];
+            if($src == '' || $src == '/' || $src == '\\'){
+                return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
+            }
             $filename = $src;
 
             $split = explode('/', $src);
@@ -55,11 +59,13 @@ Trait Imagepreviewcrop
                 if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
                     mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
                 }
-                $image  = imagecreatefromstring(file_get_contents($from . $filename));
 
-                   if($image  == FALSE){
-                       $image  = imagecreatefromstring(file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.png')));
+
+                   if(( $image  = imagecreatefromstring(file_get_contents($from . $filename)))== FALSE){
+                       return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
                    }
+
+
 
                 $width = imagesx($image);
                 $height = imagesy($image);

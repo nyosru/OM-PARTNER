@@ -59,9 +59,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         <div class="partners-main-left-back">
 
             <div>
-                <div  class="partners-main-left suplogo" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
+                <div  class="partners-main-left suplogo" style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
                     <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
-                        echo '<span style="max-width: 316px;" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
+                        echo '<span style="" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                     } else {
                         $logotype = '';
                     }
@@ -71,7 +71,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </a>
                 </div>
 
-                <div class="partners-main-left" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;"></div>
+                <div class="partners-main-left" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
             </div>
 
                 <div class="partners-main-left-cont" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
@@ -104,7 +104,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                 </div>
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
-                <div  class="partners-main-left-cont suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
+                <div  class="partners-main-left-cont suplogo" style=" background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
                                    </div>
             </div>
             <div class="partners-main-right-back">

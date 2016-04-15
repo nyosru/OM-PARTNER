@@ -56,7 +56,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             <div class="partners-main-left-back">
 
                 <div >
-                    <div class="partners-main-left-cont" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: #CCC 1px solid;">
+                    <div class="partners-main-left-cont" style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: #CCC 1px solid;">
                         <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
                             echo '<span>' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                         } else {
@@ -65,7 +65,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         ?>
                     </div>
 
-                    <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;">
+                    <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
 
                     </div>
                 </div>
@@ -77,7 +77,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
                 </div>
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
-                <div  class="partners-main-left-cont suplogo" style="height: 20px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
+                <div  class="partners-main-left-cont suplogo" style=" background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
                </div>
             </div>
             <div class="partners-main-right-back">

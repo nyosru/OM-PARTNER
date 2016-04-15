@@ -50,9 +50,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             <div  class="partners-main-left-back">
 
                 <div>
-                    <div class="partners-main-left suplogo" style="max-width: 316px;height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
+                    <div class="partners-main-left suplogo" style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
                         <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
-                            echo '<span style="max-width: 316px;" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
+                            echo '<span style="" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                         } else {
                             $logotype = '';
                         }
@@ -74,7 +74,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
                     <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
                 </div>
-                <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);max-width: 316px;">
+                <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
 
                 </div>
             </div>

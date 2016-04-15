@@ -1210,6 +1210,7 @@ $(document).on('click','#overlay, #modal-close',function(){
     $('#time')
         .css('display','none');
 });
+
 function changeCart($inputc){
     $ind=$inputc.parent().attr('data-raw');
     if (JSON.parse(localStorage.getItem('cart-om'))) {
@@ -1225,3 +1226,6 @@ function changeCart($inputc){
         }
     }
 }
+$(document).on('ready', function(){
+    $('a[rel=light]').light();
+});
