@@ -9,10 +9,10 @@ Trait Imagepreviewcrop
     {
         $id = (integer)$src;
         if ($id > 0) {
+            $data = Yii::$app->cache->get('product-'.$id);
 
-            $x = PartnersProducts::find()->select('products.products_image as products_image')->where(['products_id' => trim($id)])->createCommand()->queryOne();
+            $src = $data['data']['products']['products_image'];
 
-            $src = $x['products_image'];
             if($src == '' || $src == '/' || $src == '\\'){
                 return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
             }
