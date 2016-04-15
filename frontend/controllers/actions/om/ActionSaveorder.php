@@ -498,7 +498,7 @@ trait ActionSaveorder
             Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice'=>(integer)$wrapp['products_price'],
                 'result'=>  [
                     'code' => 200,
-                    'text'=>'Спасибо, Ваш заказ оформлен',
+                    'text'=>'<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ в магазине Одежда-Мастер оформлен</div>',
                     'data'=>[
                         'paramorder'=>[
                             'delivery' => $dostavka[$ship],

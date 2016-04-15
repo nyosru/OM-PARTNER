@@ -2,12 +2,8 @@
 <div style="float:left; width:80%">
     <div class="code<?=$result['code']?>"><?=$result['text']?></div>
     <div style="padding: 10px;float: left;  margin: 10px 0px;">
-        Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>подтвержден автоматически.<br>
-        В ближайшее время Вы получите уведомление на электронную почту.<br>
-        Отслеживать состояние заказа можно в Вашем <font color="#007BC1"><a href="<?=BASEURL?>/lk">личном кабинете</a></font><br>
-    </div>
-    <div style="border-bottom: 1px solid rgb(204, 204, 204); border-top: 1px solid rgb(204, 204, 204); float: left; font-size: 24px; font-weight: 400; margin: 0px 10px; padding: 10px 0px; width: calc(100% - 20px);">
-        Номер заказа <font color="#007BC1"><?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?></font>
+        Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>принят и ожидает проверки администратором. <br>
+         Отслеживать состояние заказа можно в Вашем <font color="#007BC1"><a href="http://new.odezhda-master.ru/lk">личном кабинете</a></font><br>
     </div>
     <?
     $pack['packages']=['name'=>'Полиэтиленовые пакеты', 'price'=>'0'];
@@ -38,7 +34,7 @@
     }
     if($result['code']==200) {
         echo '<div style="width: 100%;padding: 10px; margin: 10px 0px; float: left;">'.
-            'Заказанные товары будут Вам отправлены сразу же после проверки и поступления средств от Вас на расчетный счет Одежда-Мастер. <span>Счет будет Вам выслан</span> на указанный адрес электронной почты, а также Вы сможете скачать его в <a href="'.BASEURL.'/lk">личном кабинете</a>'.
+            'После проверки заказа Вам будет выслан счет, который Вы также сможете скачать в <a href="http://new.odezhda-maste.ru">личном кабинете</a>. Заказанные товары будут Вам отправлены сразу же после проверки и поступления средств от Вас на расчетный счет Одежда-Мастер. '.
             '</br>'.
             '<div class="code'.$result['code'].'" style="padding: 10px 0px;">'.
             'Благодарим вас за покупку!'.
@@ -49,14 +45,14 @@
 </div>
 <div style="float:left; width:20%">
     <?
-    //echo '<pre>';
-    //print_r($result['data']);
-    //echo '</pre>';
+//    echo '<pre>';
+//    print_r($result['data']);
+//    echo '</pre>';
     if($result['data']['saveproduct']) {
         echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
         foreach ($result['data']['saveproduct'] as $key => $value) {
             echo '<div style="width: 100%; float: left; border: 1px solid rgb(204, 204, 204);border-bottom: none; padding: 10px 0px;">';
-            echo '<div style="float: left; text-align: center; width: calc(100% / 2);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'] . '" /></div>';
+            echo '<div style="float: left; text-align: center; width: calc(100% / 2);">' .'<img width="100" src="http://odezhda-master.ru/images/'.$result['data']['origprod'][$value[0]['products_id']]['products_image'] . '" /></div>';
             echo '<div style="float: left; font-size: 12px;width: calc(100% / 2);">';
             echo '<div style="float: left; width: 100%;">Код товара:' . $value[0]['products_model'] . '</div>';
             echo '<div style="float: left; width: 100%;">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  . '</div>';
