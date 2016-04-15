@@ -75,7 +75,7 @@ trait ActionCatalog
              $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];
         $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
-        $init_key_static = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key_static = $cat . '-' . $start_price . '-' . $end_price  . '-' . $prod_attr_query . '-' . $searchword;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
@@ -85,34 +85,34 @@ trait ActionCatalog
             $cache = 'игнор кэша-'.$d1.'-'.json_encode($key);
             switch ($sort) {
                 case 0:
-                    $order = ['products_date_added' => SORT_DESC];
+                    $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 1:
-                    $order = ['products.products_price' => SORT_ASC];
+                    $order = ['products.products_price' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 2:
-                    $order = ['products_name' => SORT_ASC];
+                    $order = ['products_name' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 3:
-                    $order = ['products_model' => SORT_ASC];
+                    $order = ['products_model' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 4:
-                    $order = ['products_ordered' => SORT_ASC];
+                    $order = ['products_ordered' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 10:
-                    $order = ['products_date_added' => SORT_ASC];
+                    $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 11:
-                    $order = ['products.products_price' => SORT_DESC];
+                    $order = ['products.products_price' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 12:
-                    $order = ['products_name' => SORT_DESC];
+                    $order = ['products_name' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 13:
-                    $order = ['products_model' => SORT_DESC];
+                    $order = ['products_model' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 14:
-                    $order = ['products_ordered' => SORT_DESC];
+                    $order = ['products_ordered' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
             }
             $hide_man = $this->hide_manufacturers_for_partners();

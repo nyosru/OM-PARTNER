@@ -61,11 +61,18 @@ trait ActionProductsMonth
         $man_time = $this->manufacturers_diapazon_id();
         $categoriesarr = $this->full_op_cat();
         $catinday = [0];
-        $cat = [];
-        foreach($catinday as $catkey => $valuekey){
-            $cat = array_merge($cat,  $this->load_cat($categoriesarr['cat'], $valuekey, $categoriesarr['name'], $checks));
+        $static_cat_key = Yii::$app->cache->buildKey('static_month_key');
+        if(($cats = Yii::$app->cache->get($static_cat_key)) == TRUE){
+            $cat = $cats;
+
+        }else{
+            $cat = [];
+            foreach($catinday as $catkey => $valuekey){
+                $cat = array_merge($cat,  $this->load_cat($categoriesarr['cat'], $valuekey, $categoriesarr['name'], $checks));
+            }
+            $cat = implode(',',$cat );
+            Yii::$app->cache->set($static_cat_key, $cat, 3600);
         }
-        $cat = implode(',',$cat );
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
         $now = date('Y-m-d H:i:s');
         $arfilt[':now'] =$now;
@@ -80,7 +87,7 @@ trait ActionProductsMonth
             $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];
         $init_key = 'month-'.$cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
-        $init_key_static ='month-'. $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key_static ='month-'. $cat . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
@@ -90,34 +97,34 @@ trait ActionProductsMonth
             $cache = 'игнор кэша-'.$d1.'-'.json_encode($key);
             switch ($sort) {
                 case 0:
-                    $order = ['products_date_added' => SORT_DESC];
+                    $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 1:
-                    $order = ['products.products_price' => SORT_ASC];
+                    $order = ['products.products_price' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 2:
-                    $order = ['products_name' => SORT_ASC];
+                    $order = ['products_name' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 3:
-                    $order = ['products_model' => SORT_ASC];
+                    $order = ['products_model' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 4:
-                    $order = ['products_ordered' => SORT_ASC];
+                    $order = ['products_ordered' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 10:
-                    $order = ['products_date_added' => SORT_ASC];
+                    $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_DESC];
                     break;
                 case 11:
-                    $order = ['products.products_price' => SORT_DESC];
+                    $order = ['products.products_price' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 12:
-                    $order = ['products_name' => SORT_DESC];
+                    $order = ['products_name' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 13:
-                    $order = ['products_model' => SORT_DESC];
+                    $order = ['products_model' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 14:
-                    $order = ['products_ordered' => SORT_DESC];
+                    $order = ['products_ordered' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
             }
             $hide_man = $this->hide_manufacturers_for_partners();
@@ -395,7 +402,7 @@ trait ActionProductsMonth
             }
             //ksort($productattrib,'SORT_NATURAL' );
             Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
-            return $this->render('cataloggibridday', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time'=>$man_time, 'cache'=>$cache ]);
+            return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time'=>$man_time, 'cache'=>$cache ]);
         }
     }
 }

@@ -190,7 +190,7 @@
     }
 
     .accordion {
-        max-width: 360px;
+
         transition: all 0.4s linear 0s;
         width: 100%;
         padding: 0px 0px 0px 10px;
@@ -594,7 +594,7 @@
         height: 100%;
         width: 16.5%;
         padding: 0px;
-        max-width: 316px;
+
     }
 
     .arrow-down, .arrow-up {
@@ -618,14 +618,14 @@
         overflow: hidden;
         background: #F5F5F5;
         width: 100%;
-        max-width: 316px;
+
     }
 
     .partners-main-left-cont {
 
         overflow: hidden;
         width:100%;
-        max-width: 316px;
+
     }
     .disable-options > .size-desc  > div > input{
 
@@ -636,12 +636,12 @@
     }
 
     .partners-main-right-back {
-        /*width: 83.5%;*/
+        width: 83.5%;
         padding: 0px;
         height: auto;
         position: relative;
         box-shadow: 10px 0px 20px -20px #000 inset;
-        /*margin-left: 16.5%;*/
+        margin-left: 16.5%;
         /*border-right: 1px solid rgb(204, 204, 204);*/
         box-sizing: content-box;
     }
@@ -1891,7 +1891,7 @@
     }
     .fixedbar-filter{
         position: fixed !important;
-        margin: 10px 4px !important;
+        margin: 10px 0px !important;
         top: 0px !important;
         z-index: 100;
         width: calc(83.5% - 30px) !important;
@@ -3095,9 +3095,7 @@
         .filter {
             width: calc(100% / 11 - 10px);
         }
-        .partners-main-right-back{
-            margin-left:8%;
-        }
+
     }
     @media screen and (min-width: 3301px) and ( max-width: 3650px){
         #card{
@@ -3110,9 +3108,7 @@
         .filter {
             width: calc(100% / 10 - 10px);
         }
-        .partners-main-right-back{
-            margin-left:10%;
-        }
+
     }
     @media screen and (min-width: 2871px) and ( max-width: 3300px){
         #card{
@@ -3125,9 +3121,7 @@
         .filter {
             width: calc(100% / 9 - 10px);
         }
-        .partners-main-right-back{
-            margin-left:10.5%;
-        }
+
     }
     @media screen and (min-width: 2551px) and ( max-width: 2870px){
         #card{
@@ -3140,9 +3134,7 @@
         .filter {
             width: calc(100% / 8 - 10px);
         }
-        .partners-main-right-back{
-            margin-left:12.5%;
-        }
+
     }
     @media screen and (min-width: 2201px) and ( max-width: 2550px){
         #card{
@@ -3155,9 +3147,7 @@
         .filter {
             width: calc(100% / 7 - 10px);
         }
-        .partners-main-right-back{
-            margin-left:14.5%;
-        }
+
     }
     @media screen and (min-width: 1860px) and (max-width:2200px){
         #card{
@@ -3535,11 +3525,14 @@
         margin: auto;
     }
     #slid2 .carousel-control{
-        width: 2%;
-        background-image: none;
-        padding-top: 10%;
         font-size: xx-large;
-        color:#00A5A1;
+        color: #00A5A1;
+        background: #CCC none repeat scroll 0% 0%;
+        z-index: 100;
+        width: 20px;
+        border-radius: 4px 0px 0px 4px;
+        height: 50px;
+        top: 150px;
 
     }
     #slid3,#slid4{
@@ -3552,10 +3545,13 @@
         margin: auto;
     }
     #slid3 .carousel-control,#slid4 .carousel-control{
-        width: 2%;
-        background-image: none;
-        padding-top: 10%;
         font-size: xx-large;
-        color:#00A5A1;
+        color: #00A5A1;
+        background: #CCC none repeat scroll 0% 0%;
+        z-index: 100;
+        width: 20px;
+        border-radius: 4px 0px 0px 4px;
+        height: 50px;
+        top: 150px;
 
     }
