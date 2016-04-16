@@ -166,13 +166,13 @@ $this->title = $title;
         </div>
         <div style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
+                <a href="http://ok.ru/odezhda.master" target="_blank"  style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
 
                 </a>
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  class="circular-title">
+                <a href="http://ok.ru/odezhda.master" target="_blank"  class="circular-title">
                     Одежда-Мастер<br/>в Одноклассниках
                 </a>
-                <a href="http://ok.ru/group52616511881357?st._aid=ExternalGroupWidget_OpenGroup" target="_blank"  class="circular-link">
+                <a href="http://ok.ru/odezhda.master" target="_blank"  class="circular-link">
                     следить за новостями >>
                 </a>
             </div>

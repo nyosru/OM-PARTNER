@@ -559,9 +559,9 @@ function loaddata(){
                     '</div>'+
                     '</div>'+
                     '<div style="cursor:pointer">'+
-                    '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="'+$product.products_id+'">'+
+                    '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right;font-size: 12px;font-weight: 400;display: block;width: 50%;position: absolute;bottom: 35px;right: 20px;margin: 0px 0px -8px;padding: 5px 45px;" data-prod="'+$product.products_id+'">'+
                     'Размеры'+
-                    '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;">'+
+                    '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600;color: rgb(0, 165, 161);font-size: 18px;position: absolute;right: 0px;padding: 3px 0px 0px 40px;">'+
                     '</i>'+
                     '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
                     $attr_html+

@@ -2893,15 +2893,15 @@
     }
 
     div.float span {
-        display: none;
-        background: #F5F5F5 none repeat scroll 0% 0%;
-        position: absolute;
-        bottom: 55px;
-        left: -84%;
-        width: calc(200% - 1px);
-        padding: 10px 7px 65px;
-        color: #000;
-        text-align: right;
+           display: none;
+    background: rgba(245, 245, 245, 0.8) none repeat scroll 0% 0%;
+    position: absolute;
+    bottom: 25px;
+    left: -84%;
+    width: calc(200% - 1px);
+    padding: 10px 7px 65px;
+    color: #000;
+    text-align: right;
     }
 
     div.float span.show {

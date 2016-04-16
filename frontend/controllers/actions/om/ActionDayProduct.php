@@ -82,12 +82,12 @@ trait ActionDayProduct
         $arfilt[':day'] =$day;
         $arfilt_pricemax[':day'] =  $day;
         $arfilt_attr[':day'] = $day;
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, SUM(products_to_categories.products_id) as prod ')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->createCommand()->queryOne();
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->asArray()->one();
         if ( strtotime($x['products_last_modified']) < strtotime($x['add_date']) )
             $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];
-        $init_key = 'day2-'.$cat . '-' .$x['prod'].'-'. $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
-        $init_key_static ='day2-'. $cat . '-' .$x['prod'].'-'. $start_price . '-' . $end_price  . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key = 'day2-'.$cat . '-'. $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key_static ='day2-'. $cat .'-'. $start_price . '-' . $end_price  . '-' . $prod_attr_query . '-' . $searchword;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
