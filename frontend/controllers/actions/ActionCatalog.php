@@ -70,7 +70,7 @@ trait ActionCatalog
         $arfilt[':now'] =$now;
         $arfilt_pricemax[':now'] =  $now;
         $arfilt_attr[':now'] = $now;
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, SUM(products_to_categories.products_id) as prod')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->asArray()->one();
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->asArray()->one();
          if ( strtotime($x['products_last_modified']) < strtotime($x['add_date']) )
              $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];
@@ -179,7 +179,7 @@ trait ActionCatalog
                     $arfilt_pricemax[':searchword'] = trim(str_replace(' ','',$searchword));
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
-                    $patternkey = 'patternsearch2-' . urlencode($searchword);
+                    $patternkey = 'patternsearch2-' . urlencode(trim($searchword));
                     $patterndata = Yii::$app->cache->get($patternkey);
                     if (!$patterndata) {
                         $valsearchin = explode('+', $searchword);
@@ -227,7 +227,7 @@ trait ActionCatalog
                     $cache = $ifht++;
                 }
             }
-            if (isset($nodata) && count($nodata) > 0) {
+            if (count($nodata) > 0) {
                 $prodarr = implode(',', $nodata);
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
                 foreach ($datar as $valuesr) {

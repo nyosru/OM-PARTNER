@@ -78,16 +78,19 @@ trait ActionProductsMonth
         $arfilt[':now'] =$now;
         $arfilt_pricemax[':now'] =  $now;
         $arfilt_attr[':now'] = $now;
-        $day = date('Y-m-00 00:00:00');
-        $arfilt[':day'] =$day;
+        $day = date('Y-m-d H:i:s');
+        $d = new \DateTime($day);
+        $d->modify("-1 month");
+        $day =  $d->format("Y-m-d H:i:s");
+        $arfilt[':day'] = $day;
         $arfilt_pricemax[':day'] =  $day;
         $arfilt_attr[':day'] = $day;
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, SUM(products_to_categories.products_id) as prod')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->createCommand()->queryOne();
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->createCommand()->queryOne();
         if ( strtotime($x['products_last_modified']) < strtotime($x['add_date']) )
             $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];
-        $init_key = 'month-'.$cat . '-' .$x['prod']. '-'. $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
-        $init_key_static ='month-'. $cat . '-' .$x['prod']. '-'. $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key = 'month2-'.$cat . '-' .$x['prod']. '-'. $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
+        $init_key_static ='month2-'. $cat . '-' .$x['prod']. '-'. $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
@@ -151,11 +154,11 @@ trait ActionProductsMonth
                             $findue[] = $findervalue['products_options_values_id'];
                         }
                         foreach ($finder as $finderkey => $findervalue) {
-                            Yii::$app->cache->set('month-'.$findervalue['products_options_values_id'], $findue, 3600);
+                            Yii::$app->cache->set('month2-'.$findervalue['products_options_values_id'], $findue, 3600);
                         }
                     }else{
                         $findue[] = (int)$prod_attr_query;
-                        Yii::$app->cache->set('month-'.(int)$prod_attr_query, $findue, 3600);
+                        Yii::$app->cache->set('month2-'.(int)$prod_attr_query, $findue, 3600);
                     }
 
                 }
@@ -191,7 +194,7 @@ trait ActionProductsMonth
                     $arfilt_pricemax[':searchword'] = trim(str_replace(' ','',$searchword));
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
-                    $patternkey = 'patternsearch-' . urlencode($searchword);
+                    $patternkey = 'patternsearch-' . urlencode(trim($searchword));
                     $patterndata = Yii::$app->cache->get($patternkey);
                     if (!$patterndata) {
                         $valsearchin = explode('+', $searchword);

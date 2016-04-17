@@ -67,7 +67,7 @@ use frontend\controllers\actions\om\ActionProductsCloth;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
-use frontend\controllers\actions\ActionTest;
+use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
 use Yii;
@@ -130,7 +130,7 @@ class GlavnayaController extends Controller
         ActionShipping,
         ActionPaymentMethod,
         ActionPayOrders,
-        ActionTest,
+        ActionTestUnit,
         ActionAddSearch,
         ActionProductinfobymodel,
         ActionCart,
@@ -143,7 +143,8 @@ class GlavnayaController extends Controller
         ActionDiscont,
         ActionDayProduct,
         ActionFiguresDays,
-        ActionSaveclaim,
+        ActionSaveClaim,
+
         ActionLoadClaim,
         ActionNewProductDay,
         ActionProductsMonth,
@@ -227,6 +228,7 @@ class GlavnayaController extends Controller
                         'allow' => true,
                         'roles' => ['@', '?'],
                     ],
+
                 ],
             ],
             'verbs' => [
