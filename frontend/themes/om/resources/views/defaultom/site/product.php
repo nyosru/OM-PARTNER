@@ -78,7 +78,7 @@ $imsrc=array($product['products']['products_image']);
                             <?php
                             $i=0;
                             foreach($imsrc as $key => $img){
-                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " src="'.BASEURL.'/imagepreview?src='.$im[$key].'"/></a>';
+                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " src="'.BASEURL.'/imagepreview?src='.$im[$key].'"/></a>';
                                 $i++;
                             }
 

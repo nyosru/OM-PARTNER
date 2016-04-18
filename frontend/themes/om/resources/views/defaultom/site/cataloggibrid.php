@@ -269,7 +269,7 @@ echo '<div class="partners-main-right bside">';
     } else {
         $thistitle = implode(', ', $catpath['name']);
     }
-    $this->title = $thistitle . ' - ' . ($page + 1);
+    $this->title = $thistitle . ' : Самый большой выбор по самым низким ценам в интернет магазине Одежда Мастер - Страница -' . ($page + 1);
     echo $innerhtml;
 
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';

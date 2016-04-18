@@ -1,7 +1,4 @@
 
-
-      
-
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
     $check = [];
@@ -648,12 +645,12 @@ function loaddata(){
 }
 $(document).on('ready', function () {
 
-    // $(window).scroll(function () {
-    //     $control = $('#control-load option:selected').val();
-    //     if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1800 && !inProgress && ControlLoad =='auto') {
-    //         loaddata();
-    //     }
-    // });
+    $(window).scroll(function () {
+        $control = $('#control-load option:selected').val();
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1800 && !inProgress && ControlLoad =='auto') {
+            loaddata();
+        }
+    });
     $(document).on('click', '.loader', function () {
        $control = $('#control-load option:selected').val();
         if (!inProgress && ControlLoad=='manual') {
