@@ -331,14 +331,38 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         ?>
 </div>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.target').shortscroll();
+<script>
+    (function($) {
+        $(window).load(function () {
+            $('.target').mCustomScrollbar({
+                theme: "dark"
+            });
+            $('.partners-main').mCustomScrollbar({
+                theme: "dark",
+                documentTouchScroll: true,
+                contentTouchScroll: 25,
+                scrollbarPosition: "inside",
+                callbacks: {
+                    whileScrolling: function () {
+
+                        $control = $('#control-load option:selected').val();
+                        var scrollHeight = Math.max(
+                            document.body.scrollHeight, document.documentElement.scrollHeight,
+                            document.body.offsetHeight, document.documentElement.offsetHeight,
+                            document.body.clientHeight, document.documentElement.clientHeight
+                        );
+                        console.log(scrollHeight);
+                        if (this.mcs.top + $(window).height() >= -1800 && !inProgress && ControlLoad == 'auto') {
+                            loaddata();
+                        }
+                    },
+                    alwaysTriggerOffsets: true
+
+                }
+            });
         });
-//        $(document).on('ready', function(){
-//           console.log($('*').length);
-//            $('div').attr('style','border:1px solid red;')
-//        });
+    })(jQuery);
+
 
 
     </script>
@@ -353,37 +377,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         ga('require', 'ec');
 
     </script>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (d, w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter36825930 = new Ya.Metrika({
-                        id:36825930,
-                        clickmap:true,
-                        trackLinks:true,
-                        accurateTrackBounce:true,
-                        webvisor:true,
-                        trackHash:true,
-                        ecommerce:"container-fluid float"
-                    });
-                } catch(e) { }
-            });
-
-            var n = d.getElementsByTagName("script")[0],
-                s = d.createElement("script"),
-                f = function () { n.parentNode.insertBefore(s, n); };
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-            if (w.opera == "[object Opera]") {
-                d.addEventListener("DOMContentLoaded", f, false);
-            } else { f(); }
-        })(document, window, "yandex_metrika_callbacks");
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/36825930" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
     </body>
     </html>
 <?php $this->endPage() ?>
