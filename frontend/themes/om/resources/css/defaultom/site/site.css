@@ -8876,11 +8876,10 @@ div.float:hover {
 .admin-orders-row {
     padding: 5px;
     width: 100%;
-    float: left
+    float: left;
 }
 
-        }
-    }
+
     @media screen and (min-width: 1280px) and ( max-width: 1559px){
         #card{
             width: calc(100% / 4 - 10px);
@@ -8907,7 +8906,7 @@ div.float:hover {
 }
 
         }
-    }
+
     @media screen and (min-width: 1024px) and ( max-width: 1279px){
         #card{
             width: calc(100% / 3 - 10px);
@@ -9031,7 +9030,7 @@ div.float:hover {
             max-width: none !important;
             min-height: 620px !important;
         }
-    }
+
     .filter {
         width: calc(100% / 11 - 10px);
     }
@@ -9266,11 +9265,19 @@ div.float:hover {
         font-size: 15px;
     }
     .cart-amount .num-of-items{
-        font-size: 15px;
+        font-size: 24px;
     }
     .cart-row .del-product{
         float: right !important;
         margin-right:35px !important;
+    }
+    .cart-row #add-count, .cart-row #del-count{
+        width: 30px;
+        height: 30px;
+        line-height: 1.13 !important;
+    }
+    .cart-row #input-count{
+        height: 30px !important;
     }
     .shipping-confirm{
         width: 90% !important;
