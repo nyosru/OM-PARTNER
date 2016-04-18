@@ -221,7 +221,7 @@ trait ActionSaveorder
             $orders->billing_address_format_id = 1;
 
 
-            $orders->customers_referer_url = $_SERVER['HTTP_HOST'];
+            $orders->customers_referer_url = 'ompartnernew';
             $orders->currency = 'RUR';
             $orders->currency_value = '1.000000';
             $orders->last_modified = $nowdate;
