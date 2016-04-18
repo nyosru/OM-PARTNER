@@ -23,6 +23,8 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
     <html lang="ru-RU">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
+        <meta name="description" content="Женская, мужская одежда оптом от производителя. Доставка по всей России. Покупай выгодно в интернет-магазине Одежда Мастер!">
+
         <!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
         <meta name='yandex-verification' content='6af7ec36af3406db'/>
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
@@ -277,6 +279,17 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         $(document).ready(function(){
             $('.target').shortscroll();
         });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.target').shortscroll();
+        });
+        //        $(document).on('ready', function(){
+        //           console.log($('*').length);
+        //            $('div').attr('style','border:1px solid red;')
+        //        });
+
 
     </script>
     <script>

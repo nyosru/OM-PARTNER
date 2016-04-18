@@ -307,6 +307,17 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         });
 
     </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.target').shortscroll();
+    });
+    //        $(document).on('ready', function(){
+    //           console.log($('*').length);
+    //            $('div').attr('style','border:1px solid red;')
+    //        });
+
+
+</script>
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
