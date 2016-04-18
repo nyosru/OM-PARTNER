@@ -2539,16 +2539,14 @@
         float: left;
     }
     .preload {
-        position: absolute;
+        position: fixed;
         background: rgba(60, 60, 60, .18) !important;
         z-index: 2147483647;
-        width: 33px;
-        height: 70px;
+        width: 100%;
+        height: 100%;
         top: 0;
         left: 0;
-        min-height: 8000px;
-        min-width: 100%;
-        overflow: hidden
+        overflow: hidden;
     }
 
     .order-total-discount {
@@ -3179,7 +3177,7 @@
 
         }
     }
-    @media screen and (min-width: 1280px) and ( max-width: 1559px){
+    @media screen and (min-width: 0px) and ( max-width: 1559px){
         #card{
             width: calc(100% / 4 - 10px);
         }
@@ -3191,130 +3189,6 @@
         .filter {
             width: calc(100% / 4 - 10px);
 
-        }
-    }
-    @media screen and (min-width: 1024px) and ( max-width: 1279px){
-        #card{
-            width: calc(100% / 3 - 10px);
-            max-width: 330px !important;
-        }
-        .partners-main-left-back {
-            float: left;
-            height: 100%;
-            width: 20.5%;
-            padding: 0px;
-        }
-        .partners-main-right-back {
-            width: 79.5%;
-            padding: 0px;
-            height: auto;
-            position: relative;
-            box-shadow: 10px 0px 20px -20px #000 inset;
-            margin-left: 20.5%;
-            box-sizing: content-box;
-        }
-        .partheaderbside {
-            width: calc(100% / 3 * 3 - 10px);
-
-        }
-        .filter {
-            width: calc(100% / 3 - 10px);
-
-        }
-        body{
-            min-width: 320px !important;
-
-        }
-
-
-    }
-    @media screen and (min-width: 0px) and ( max-width: 1023px){
-
-        #card:hover, #index-card-1:hover {
-            box-shadow: none;
-        }
-        .partheaderbside {
-            width: 100% !important;
-        }
-        .filter {
-            width: 100% !important;
-
-        }
-        .cart-column1{
-            width: 100% !important;
-        }
-        .cart-column2{
-            width: 100% !important;
-        }
-        #sort-order {
-            width: 100%;
-        }
-        .jb-shortscroll-wrapper {
-            display: none !important;
-        }
-        .top-link-back{
-            display:none;
-        }
-        .partners-main-left-back {
-            display: none !important;
-        }
-
-        .header-sort-item {
-            width: calc(100% / 3) !important;
-            border-left: 1px solid #CCC;
-        }
-        .header-sort-item-model{
-            width: calc(100% / 2) !important;
-        }
-        .header-sort-item-popular {
-            width: calc(100% / 2) !important;
-        }
-        .panel-title{
-            font-size: 35px;
-        }
-        h3, .h3 {
-            font-size: 40px;
-        }
-        .no-shadow-form-control {
-            height: 62px;
-            font-size: 26px;
-        }
-        body{
-            min-width: 320px !important;
-            font-size: 35px !important;
-        }
-        .jb-shortscroll-target .jb-shortscroll-content{
-            overflow: auto !important;
-        }
-        .partners-main-right-back{
-            width:100%;
-            margin-left: 0px;
-        }
-        #prod-data-img{
-            min-height: 450px !important;
-            min-width: 320px !important;
-        }
-        #slid2 .carousel-control{
-            width:90px !important;
-            font-size: 55px !important;
-            height:90px !important;
-        }
-        .fixedbar-filter{
-            width:100% !important;
-        }
-        }
-    @media screen and (min-width: 768px) and ( max-width: 1023px){
-        #card{
-            width: calc(100% / 2 - 10px);
-            max-width: none !important;
-            min-height: 620px !important;
-        }
-    }
-    @media screen and (min-width: 0px) and ( max-width: 767px){
-        #card{
-            width: calc(100% / 1 - 10px);
-            max-width: none !important;
-            min-height: 620px !important;
         }
     }
     .social{

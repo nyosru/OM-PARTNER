@@ -24,27 +24,25 @@ $application = new yii\web\Application($config);
 
 
 
-        $run = new Partners();
-        $check = $run->GetId($_SERVER['HTTP_HOST']);
-        if ($check == '') {
-             die();
-        } else {
-
-            $key = Yii::$app->cache->buildKey('constantapp-' . $check);
-            if (($partner = Yii::$app->cache->get($key)) == FALSE && !isset($partner['APP_ID']) && !isset($partner['APP_CAT']) && !isset($partner['APP_NAME']) && !isset($partner['APP_THEMES'])) {
-                $partner['APP_ID'] = $run->GetId($_SERVER['HTTP_HOST']);
-                $partner['APP_CAT'] = $run->GetAllowCat($check);
-                $partner['APP_NAME'] = $run->GetNamePartner($check);
-                $partner['APP_THEMES'] = $run->GetTemplate($check);
-                // echo 'Не Кэш';
-                Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES']]);
-            } else {
-                // echo 'Кэш';
-            }
+$key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
+if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
+    $run = new Partners();
+    $check = $run->GetId($_SERVER['HTTP_HOST']);
+    if ($check == '') {
+        die();
+    } else {
+        $partner['APP_ID'] = $run->GetId($_SERVER['HTTP_HOST']);
+        $partner['APP_CAT'] = $run->GetAllowCat($check);
+        $partner['APP_NAME'] = $run->GetNamePartner($check);
+        $partner['APP_THEMES'] = $run->GetTemplate($check);
+        // echo 'Не Кэш';
+        Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES']]);
+    }
 
 
+}else{
 
-        }
+}
 //echo '<pre>';
 //print_r($versions);
 //echo '</pre>';
@@ -72,6 +70,35 @@ unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
+
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'logFile' => '@frontend/runtime/logs/request/requests.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000,
+];
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['info'],
+    'logFile' => '@frontend/runtime/logs/response/response.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['error', 'warning'],
+    'categories' => ['yii\swiftmailer\Logger::add'],
+    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['error', 'warning'],
+    'logFile' => '@frontend/runtime/logs/error/error.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
 
 $application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];

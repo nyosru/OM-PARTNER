@@ -175,9 +175,9 @@ trait ActionCatalog
             }
             if ($searchword != '') {
                 if (preg_match('/^[0-9 ]+$/', $searchword)) {
-                    $arfilt[':searchword'] = trim(str_replace(' ','',$searchword));
+                    $arfilt[':searchword'] = '(^'.trim(str_replace(' ','',$searchword)).')';
                     $arfilt_pricemax[':searchword'] = trim(str_replace(' ','',$searchword));
-                    $prod_search_query_filt = '  and products.products_model=:searchword ';
+                    $prod_search_query_filt = '  and products.products_model RLIKE :searchword ';
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'patternsearch2-' . urlencode(trim($searchword));
                     $patterndata = Yii::$app->cache->get($patternkey);
