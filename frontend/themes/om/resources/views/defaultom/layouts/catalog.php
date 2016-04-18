@@ -331,41 +331,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         ?>
 </div>
 
-<script>
-    (function($) {
-        $(window).load(function () {
-            $('.target').mCustomScrollbar({
-                theme: "dark"
-            });
-            $('.partners-main').mCustomScrollbar({
-                theme: "dark",
-                documentTouchScroll: true,
-                contentTouchScroll: 25,
-                scrollbarPosition: "inside",
-                callbacks: {
-                    whileScrolling: function () {
 
-                        $control = $('#control-load option:selected').val();
-                        var scrollHeight = Math.max(
-                            document.body.scrollHeight, document.documentElement.scrollHeight,
-                            document.body.offsetHeight, document.documentElement.offsetHeight,
-                            document.body.clientHeight, document.documentElement.clientHeight
-                        );
-                        console.log(scrollHeight);
-                        if (this.mcs.top + $(window).height() >= -1800 && !inProgress && ControlLoad == 'auto') {
-                            loaddata();
-                        }
-                    },
-                    alwaysTriggerOffsets: true
-
-                }
-            });
-        });
-    })(jQuery);
-
-
-
-    </script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('.target').shortscroll();
