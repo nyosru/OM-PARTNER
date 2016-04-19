@@ -8812,6 +8812,9 @@ div.float:hover {
         .cart-row-content{
             width: 61% !important;
         }
+        .cart-row #input-count{
+            width:45px !important;
+        }
         .col1{
             min-width:0px !important;
         }
@@ -8883,7 +8886,7 @@ div.float:hover {
         }
         .cart-row #input-count{
             height: 50px !important;
-            width:80px !important;
+            width:70px !important;
             font-size:35px;
         }
         h3, .h3 {
