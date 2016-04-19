@@ -150,7 +150,7 @@ if (Yii::$app->params['adminasset']->registerAssetFiles($this)) {
 
 } else {
 
-}; ?>
+}?>
 
 </body>
 </html>
