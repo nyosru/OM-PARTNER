@@ -1,4 +1,6 @@
-
+.class{
+  
+}
 .footer, .wrap {
     width: 100%;
     position: relative;
@@ -6946,117 +6948,7 @@ input[class*="checkbox-hidden-group"]{
 
 
 }
-@media screen and (min-width: 0px) and ( max-width: 1023px){
 
-    #card:hover, #index-card-1:hover {
-        box-shadow: none;
-    }
-    .partheaderbside {
-        width: 100% !important;
-    }
-    .filter {
-        width: 100% !important;
-
-    }
-    .cart-column1{
-        width: 100% !important;
-    }
-    .cart-column2{
-        width: 100% !important;
-    }
-    #sort-order {
-        width: 100%;
-    }
-    .jb-shortscroll-wrapper {
-        display: none !important;
-    }
-    .top-link-back{
-        display:none;
-    }
-    .partners-main-left-back {
-        display: none !important;
-    }
-
-    .header-sort-item {
-        width: calc(100% / 3) !important;
-        border-left: 1px solid #CCC;
-    }
-    .header-sort-item-model{
-        width: calc(100% / 2) !important;
-    }
-    .header-sort-item-popular {
-        width: calc(100% / 2) !important;
-    }
-    .panel-title{
-        font-size: 35px;
-    }
-    h3, .h3 {
-        font-size: 40px;
-    }
-    .no-shadow-form-control {
-        height: 62px;
-        font-size: 26px;
-    }
-    body{
-        min-width: 320px !important;
-        font-size: 35px !important;
-    }
-    .jb-shortscroll-target .jb-shortscroll-content{
-        overflow: auto !important;
-    }
-    .partners-main-right-back{
-        width:100%;
-        margin-left: 0px;
-    }
-    #prod-data-img{
-        min-height: 450px !important;
-        min-width: 320px !important;
-    }
-    #slid2 .carousel-control{
-        width:90px !important;
-        font-size: 55px !important;
-        height:90px !important;
-    }
-    .fixedbar-filter{
-        width:100% !important;
-    }
-    .mini-img{
-        display: none;
-    }
-    .prod-show>.col1{
-        width: 48% !important;
-        min-width: 0% !important;
-    }
-    .prod-show>.col2{
-        min-width: 0% !important;
-        width: 45% !important;
-    }
-    .pr_op_va_name{
-        width: 35%;
-    }
-    .prod-attr .size-desc{
-        width: 170px !important;
-    }
-    .prod-attr .size-column1{
-        width: 180px;
-    }
-    .prod-attr #input-count{
-        font-size: 15px;
-    }
-    .cart-amount .num-of-items{
-        font-size: 15px;
-    }
-    .cart-row .del-product{
-        float: right !important;
-        margin-right:35px !important;
-    }
-    .shipping-confirm{
-        width: 90% !important;
-    }
-    .total-top{
-        height: 50px !important;
-    }
-}
 @media screen and (min-width: 768px) and ( max-width: 1023px){
     #card{
         width: calc(100% / 2 - 10px);
@@ -8885,32 +8777,53 @@ div.float:hover {
             width: calc(100% / 4 - 10px);
         }
 
-.admin-orders-id {
-    display: block;
-    float: left;
-    text-align: center;
-    padding: 5px;
-    margin: 0 1px;
-    overflow: hidden;
-    width: calc(100% / 7 - 10px)
-}
-
-.admin-orders-name {
-    display: block;
-    float: left;
-    text-align: center;
-    padding: 5px;
-    margin: 0 1px;
-    overflow: hidden;
-    width: calc(100% / 4 - 10px)
-}
-
+        .admin-orders-id {
+            display: block;
+            float: left;
+            text-align: center;
+            padding: 5px;
+            margin: 0 1px;
+            overflow: hidden;
+            width: calc(100% / 7 - 10px)
         }
+
+        .admin-orders-name {
+            display: block;
+            float: left;
+            text-align: center;
+            padding: 5px;
+            margin: 0 1px;
+            overflow: hidden;
+            width: calc(100% / 4 - 10px)
+        }
+        .prod-show .col1{
+            min-width: 0px;
+        }
+    }
 
     @media screen and (min-width: 1024px) and ( max-width: 1279px){
         #card{
             width: calc(100% / 3 - 10px);
             max-width: 330px !important;
+        }
+        .cart-prod-price{
+            margin-right: 18px !important;
+        }
+        .cart-row-content{
+            width: 61% !important;
+        }
+        .col1{
+            min-width:0px !important;
+        }
+        .col2{
+            min-width:0px !important;
+            width: 50% !important;
+        }
+        .del-product{
+            float: right !important;
+        }
+        .mini-img{
+            display: none;
         }
         .partners-main-left-back {
             float: left;
@@ -8929,10 +8842,18 @@ div.float:hover {
         }
         .partheaderbside {
             width: calc(100% / 3 * 3 - 10px);
-
+        }
+        .pr_op_va_name{
+            width: 35%;
         }
         .filter {
             width: calc(100% / 3 - 10px);
+        }
+        .size-column1{
+            width:37% !important;
+        }
+        .size-desc{
+            width:150px;
 
         }
         body{
@@ -8943,36 +8864,73 @@ div.float:hover {
 
     }
     @media screen and (min-width: 0px) and ( max-width: 1023px){
+        .cart-amount{
+            margin:0 0 10px !important;
 
+        }
+        .cart-model{
+            font-size: 30px !important;
+        }
+        .cart-row .del-product{
+            float: right !important;
+            margin-right:35px !important;
+        }
+        .cart-row #add-count, .cart-row #del-count{
+            width: 50px;
+            height: 50px;
+            line-height: 1.13 !important;
+            font-size: 45px;
+        }
+        .cart-row #input-count{
+            height: 50px !important;
+            width:80px !important;
+            font-size:35px;
+        }
+        h3, .h3 {
+            font-size: 40px;
+        }
+        body{
+            min-width: 320px !important;
+            font-size: 35px !important;
+        }
         #card:hover, #index-card-1:hover {
             box-shadow: none;
-        }
-        .partheaderbside {
-            width: 100% !important;
-        }
-        .filter {
-            width: 100% !important;
-
-        }
-        .cart-column1{
-            width: 100% !important;
-        }
-        .cart-column2{
-            width: 100% !important;
         }
         #sort-order {
             width: 100%;
         }
-        .jb-shortscroll-wrapper {
-            display: none !important;
+        #slid2 .carousel-control{
+            width:90px !important;
+            font-size: 55px !important;
+            height:90px !important;
         }
-        .top-link-back{
-            display:none;
+        #prod-data-img{
+            min-height: 450px !important;
+            min-width: 320px !important;
         }
-        .partners-main-left-back {
-            display: none !important;
+        .access{
+            font-size:24px;
         }
-
+        .cart-column2{
+            width: 100% !important;
+        }
+        .cart-amount .num-of-items{
+            font-size: 24px;
+        }
+        .cart-row-content{
+            min-width: 0px !important;
+        }
+        .cart-column1{
+            width: 100% !important;
+            min-width: 0px !important;
+            font-size: larger;
+        }
+        .filter {
+            width: 100% !important;
+        }
+        .fixedbar-filter{
+            width:100% !important;
+        }
         .header-sort-item {
             width: calc(100% / 3) !important;
             border-left: 1px solid #CCC;
@@ -8983,40 +8941,65 @@ div.float:hover {
         .header-sort-item-popular {
             width: calc(100% / 2) !important;
         }
-        .panel-title{
-            font-size: 35px;
+        .jb-shortscroll-wrapper {
+            display: none !important;
         }
-        h3, .h3 {
-            font-size: 40px;
+        .jb-shortscroll-target .jb-shortscroll-content{
+            overflow: auto !important;
+        }
+        .mini-img{
+            display: none;
         }
         .no-shadow-form-control {
             height: 62px;
             font-size: 26px;
         }
-        body{
-            min-width: 320px !important;
-            font-size: 35px !important;
+        .panel-title{
+            font-size: 35px;
         }
-        .jb-shortscroll-target .jb-shortscroll-content{
-            overflow: auto !important;
+        .partheaderbside {
+            width: 100% !important;
+        }
+        .partners-main-left-back {
+            display: none !important;
         }
         .partners-main-right-back{
             width:100%;
             margin-left: 0px;
         }
-        #prod-data-img{
-            min-height: 450px !important;
-            min-width: 320px !important;
+        .prod-show>.col1{
+            width: 48% !important;
+            min-width: 0% !important;
         }
-        #slid2 .carousel-control{
-            width:90px !important;
-            font-size: 55px !important;
-            height:90px !important;
+        .prod-show>.col2{
+            min-width: 0% !important;
+            width: 45% !important;
         }
-        .fixedbar-filter{
-            width:100% !important;
+        .pr_op_va_name{
+            width: 35%;
         }
+        .prod-attr .size-desc{
+            width: 170px !important;
         }
+        .prod-attr .size-column1{
+            width: 180px;
+        }
+        .prod-attr #input-count{
+            font-size: 15px;
+        }
+        .top-link-back{
+            display:none;
+        }
+        .total-top{
+            height: 50px !important;
+        }
+        .shipping-confirm{
+            width: 90% !important;
+        }
+        .ov-desc section{
+            font-size: 30px;
+        }
+    }
     @media screen and (min-width: 768px) and ( max-width: 1023px){
         #card{
             width: calc(100% / 2 - 10px);
@@ -9167,125 +9150,7 @@ div.float:hover {
 
 
 }
-@media screen and (min-width: 0px) and ( max-width: 1023px){
 
-    #card:hover, #index-card-1:hover {
-        box-shadow: none;
-    }
-    .partheaderbside {
-        width: 100% !important;
-    }
-    .filter {
-        width: 100% !important;
-
-    }
-    .cart-column1{
-        width: 100% !important;
-    }
-    .cart-column2{
-        width: 100% !important;
-    }
-    #sort-order {
-        width: 100%;
-    }
-    .jb-shortscroll-wrapper {
-        display: none !important;
-    }
-    .top-link-back{
-        display:none;
-    }
-    .partners-main-left-back {
-        display: none !important;
-    }
-
-    .header-sort-item {
-        width: calc(100% / 3) !important;
-        border-left: 1px solid #CCC;
-    }
-    .header-sort-item-model{
-        width: calc(100% / 2) !important;
-    }
-    .header-sort-item-popular {
-        width: calc(100% / 2) !important;
-    }
-    .panel-title{
-        font-size: 35px;
-    }
-    h3, .h3 {
-        font-size: 40px;
-    }
-    .no-shadow-form-control {
-        height: 62px;
-        font-size: 26px;
-    }
-    body{
-        min-width: 320px !important;
-        font-size: 35px !important;
-    }
-    .jb-shortscroll-target .jb-shortscroll-content{
-        overflow: auto !important;
-    }
-    .partners-main-right-back{
-        width:100%;
-        margin-left: 0px;
-    }
-    #prod-data-img{
-        min-height: 450px !important;
-        min-width: 320px !important;
-    }
-    #slid2 .carousel-control{
-        width:90px !important;
-        font-size: 55px !important;
-        height:90px !important;
-    }
-    .fixedbar-filter{
-        width:100% !important;
-    }
-    .mini-img{
-        display: none;
-    }
-    .prod-show>.col1{
-        width: 48% !important;
-        min-width: 0% !important;
-    }
-    .prod-show>.col2{
-        min-width: 0% !important;
-        width: 45% !important;
-    }
-    .pr_op_va_name{
-        width: 35%;
-    }
-    .prod-attr .size-desc{
-        width: 170px !important;
-    }
-    .prod-attr .size-column1{
-        width: 180px;
-    }
-    .prod-attr #input-count{
-        font-size: 15px;
-    }
-    .cart-amount .num-of-items{
-        font-size: 24px;
-    }
-    .cart-row .del-product{
-        float: right !important;
-        margin-right:35px !important;
-    }
-    .cart-row #add-count, .cart-row #del-count{
-        width: 30px;
-        height: 30px;
-        line-height: 1.13 !important;
-    }
-    .cart-row #input-count{
-        height: 30px !important;
-    }
-    .shipping-confirm{
-        width: 90% !important;
-    }
-    .total-top{
-        height: 50px !important;
-    }
-}
 @media screen and (min-width: 768px) and ( max-width: 1023px){
     #card{
         width: calc(100% / 2 - 10px);
@@ -9663,4 +9528,10 @@ div.size-desc:last-child{
 }
 .carousel-indicators{
     display: none;
+}
+.shipping-confirm{
+    width: 90%;
+}
+#shipaddr{
+    width: 90%;
 }
