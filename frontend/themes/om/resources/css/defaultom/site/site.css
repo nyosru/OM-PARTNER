@@ -8490,12 +8490,7 @@ div.float:hover {
 }
 
 #prod-info {
-    text-align: right;
-    display: block;
-    width: 50%;
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
+
 }
 
 #prod-info:hover {

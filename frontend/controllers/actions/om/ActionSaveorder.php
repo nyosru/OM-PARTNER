@@ -5,6 +5,7 @@ namespace frontend\controllers\actions\om;
 
 use common\models\Configuration;
 use common\models\OrdersStatusHistory;
+use common\models\PartnersProductsAttributes;
 use Yii;
 use common\models\PartnersOrders;
 use common\models\User;
@@ -286,6 +287,10 @@ trait ActionSaveorder
                                 $ordersprodattr->oid = '1';
                                 $ordersprodattr->sub_vid = 0;
                                 if ($ordersprodattr->save()) {
+                                    $orderedproducts = new PartnersProductsAttributes();
+                                    $orderedproducts->find()->where('products_attributes.products_id = :products_id and products_attributes.options_values_id = :productattr',[':products_id'=>$keyin_order, ':productattr'=>$reindexattrdescr[$keyinattr_order]['products_options_values_id']])->one();
+                                    $orderedproducts->quantity = max(0,(($orderedproducts->quantity) - ($ordersprod->products_quantity)));
+                                    $orderedproducts->update();
                                     $ordersprodattr = $ordersprodattr->toArray();
                                 } else {
 //                                    print_r($ordersprodattr->errors);
@@ -305,7 +310,13 @@ trait ActionSaveorder
                                     ]);
                                 }
                             } else {
+                                $orderedproductsquantyty = new PartnersProducts();
+                                $orderedproductsquantyty->find()->where('products.products_id = :products_id ',[':products_id'=>$keyin_order])->one();
+                                $orderedproductsquantyty->products_quantity = max(0,(($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
+                                $orderedproductsquantyty->products_last_modified = $nowdate;
+                                $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered+$orderedproductsquantyty->products_quantity;
 
+                                $orderedproductsquantyty->update();
                             }
                             $validproduct[] = [$ordersprod->toArray(), $ordersprodattr];
                             $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
