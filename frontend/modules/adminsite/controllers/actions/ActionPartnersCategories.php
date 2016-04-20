@@ -11,7 +11,6 @@ trait ActionPartnersCategories
     public function actionPartnerscategories()
     {
         if (($post = Yii::$app->request->post('categories_id')) == TRUE) {
-            //print_r($post);
             $model = Partners::findOne(Yii::$app->params['constantapp']['APP_ID']);
             $model->allow_cat = implode(',', $post);
             $model->save();

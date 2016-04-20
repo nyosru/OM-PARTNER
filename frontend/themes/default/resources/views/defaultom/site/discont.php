@@ -13,11 +13,6 @@ foreach ($data[0] as $value) {
     $product = $value['products'];
     $description = $value['productsDescription'];
     $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
-// echo '<pre>';
-//        print_r($attr);
-//         echo '</pre>';
-
-
 
     ?>
     <div id="modal-product" style="border:none; min-height: 300px;">

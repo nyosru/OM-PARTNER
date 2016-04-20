@@ -188,10 +188,7 @@ $imsrc=array($product['products']['products_image']);
                         $num++;
                     }
                 }
-//                echo '<pre>';
-//                print_r($relitems);
-//                echo '</pre>';
-//                die();
+
                 echo Carousel::widget([
                     'items'=>$relitems,'id'=>'slid2','clientOptions'=>['interval'=>10000]
                 ]);

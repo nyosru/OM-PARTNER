@@ -293,8 +293,6 @@ trait ActionSaveorder
                                     $orderedproducts->update();
                                     $ordersprodattr = $ordersprodattr->toArray();
                                 } else {
-//                                    print_r($ordersprodattr->errors);
-//                                    die();
                                     return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                                         'result' => [
                                             'code' => 0,
@@ -568,10 +566,6 @@ trait ActionSaveorder
             echo '<pre>';
             die();
         }
-//        echo'<pre>';
-//        print_r($orders->errors);
-//        echo '</pre>';
-//        die();
         return $this->redirect(Yii::$app->request->referrer);
     }
 }

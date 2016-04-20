@@ -31,10 +31,6 @@ trait ActionRequestadress
             }
             else{
                 $useradressbook = AddressBook::findOne($usercustomers->delivery_adress_id);}
-//            echo'<pre>';
-//            print_r($id);
-//            echo'</pre>';
-//            die();
             $usercountry = Countries::findOne($useradressbook->entry_country_id)->countries_name;
             $userstate = Zones::findOne($useradressbook->entry_zone_id)->zone_name;
             $entryarr = array('name' => $useradressbook->entry_firstname, 'lastname' => $useradressbook->entry_lastname, 'secondname' => $useradressbook->otchestvo, 'country' => $usercountry, 'state' => $userstate, 'city' => $useradressbook->entry_city, 'adress' => $useradressbook->entry_street_address, 'postcode' => $useradressbook->entry_postcode, 'telephone' => $usercustomers->customers_telephone, 'pasportser' => $useradressbook->pasport_seria, 'pasportnum' => $useradressbook->pasport_nomer, 'pasportdate' => $useradressbook->pasport_kogda_vidan, 'pasportwhere' => $useradressbook->pasport_kem_vidan);

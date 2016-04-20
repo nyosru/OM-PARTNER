@@ -14,10 +14,7 @@ use yii\web\User;
 //if ($this->beginCache('partner-index'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] , array('duration'=>600))) {?>
 <?
 $this->title = $title;
-//echo '<pre>';
-//print_r($dataproducts);
-//echo '</pre>';
-//die();
+
 
 
     ?>

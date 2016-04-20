@@ -76,16 +76,9 @@ class LoginFormOM extends Model
                 $customer = $this->getUserOM();
                 $address = AddressBook::find()->where(['address_book_id'=>$customer->customers_default_address_id])->asArray()->one();
                 $customer_info = CustomersInfo::find()->where(['customers_info_id'=>$customer->customers_id])->asArray()->one();
-//            echo '<pre>';
-//            print_r($customer );
-//            print_r( $address);
-//                print_r(  $customer_info);
                $countries =  Countries::find()->where(['countries_id'=>$address['entry_country_id']])->asArray()->one();
                $zones =  Zones::find()->where(['zone_id'=>$address['entry_zone_id']])->asArray()->one();
-//                print_r( $countries);
-//                print_r( $zones);
-//            echo '</pre>';
-//            die();
+
 
                 $newpartuser = new User();
                 $newpartuserinfo = new PartnersUsersInfo();
@@ -125,10 +118,6 @@ class LoginFormOM extends Model
                    if($newpartuserinfo->save()){
                        return Yii::$app->user->login($newpartuser, $this->rememberMe ? 3600 * 24 * 30 : 0);
                    }else{
-                       echo '<pre>';
-                       print_r($newpartuserinfo);
-                       echo '</pre>';
-                       die();
 
                    }
 
