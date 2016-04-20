@@ -175,7 +175,6 @@ $(document).on('ready', function () {
                 "/site/shipping",
                 function (shipdata) {
                     $inht = '';
-                    //   console.log(shipdata);
                     $.each(shipdata, function (index) {
                         if (this.active == '1') {
                             $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
@@ -261,7 +260,6 @@ $(document).on('ready', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
-  //  console.log();
     if(check.val()=="boxes") wrapprice=28;
 
     $indexes = $(".cart-row");
@@ -282,7 +280,6 @@ $(document).on('click','.wrap-select', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
- //   console.log();
     if(check.val()=="boxes") wrapprice=wrap;
 
     $indexes = $(".cart-row");
@@ -315,7 +312,6 @@ $(document).on('change', '.shipping-confirm, #shipaddr', function () {
     );
 });
 $(document).on('click', '.panel  > a',  function(){
-  //  console.log($(this));
     if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
         $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
         '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +

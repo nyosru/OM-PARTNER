@@ -398,7 +398,7 @@ for($i=0; $i<$cs; $i++){
                         $.each(out.response.items, function () {
                             if (this.title == $check) {
                                 $idcountry = this.id;
-                                //     console.log($idcountry);
+                               
                             }
                         });
                         $.ajax({
@@ -412,7 +412,7 @@ for($i=0; $i<$cs; $i++){
                                 $.each(out2.response.items, function () {
                                     $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
                                 });
-                                //      console.log($id);
+                                //   
                                 $('[id='+idnum+']').after('<ul class="dropdown-menu state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
                                 $('[id='+idnum+']').attr('autocomplete', 'off');
                             }
@@ -428,8 +428,7 @@ for($i=0; $i<$cs; $i++){
     });
     $(document).on('click', '#country', function () {
         $inid=$(this).parent().siblings().filter('[data-name=country]').attr('id');
-//            console.log($(this).parent().siblings().filter('[data-name=country]').attr('id'));
-        $('[data-name=state][id='+$inid+']').val('');
+         $('[data-name=state][id='+$inid+']').val('');
         $(this).parent().siblings().filter('[data-name=country]').val($(this).text());
         $('[id='+$inid+']').attr('data-country', this.getAttribute('country'));
         $(this).parent().filter('#country-drop').hide();

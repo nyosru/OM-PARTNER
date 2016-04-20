@@ -120,7 +120,7 @@ $(document).on('click', '.cart-lable', function () {
         $item_add = $(this)[0];
         $item.cart = [];
         $item_add.value = $(this).val();
-        // console.log($item_add);
+       
         if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
@@ -672,7 +672,6 @@ $('[data-cat]').on('click', function () {
 $(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
-   // console.log( $(this).val());
     $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;
@@ -1000,7 +999,6 @@ $(document).on('click','#prod-info',function(){
         $spec_html = '';
 
         $.post('/site/product', {id: dp}, function (data) {
-//           console.log(data['spec']);
             $spec_html = '<div class="spec" style="margin-top:25px; ">';
             $.each(data['spec'].productsSpecification, function (i, item) {
                 if (typeof(data['spec']['specificationDescription'][item.specifications_id]) != "undefined") {
@@ -1023,7 +1021,6 @@ $(document).on('click','#prod-info',function(){
             $imgs2 = new Array(data['product']['products']['products_image']);
             $miniimg = '';
             $bigimg = '';
-            //  console.log(data);
             $.each($imgs, function (i, item) {
                 $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if (i == 0) {

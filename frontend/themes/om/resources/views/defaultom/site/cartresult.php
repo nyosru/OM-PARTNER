@@ -90,18 +90,18 @@ if($result['data']['saveproduct']) {
         $itemcart.cart = [];
         $.each($cart, function(i, item){
           if(item['6'] != '' && $productattr[item['0']]){
-              console.log('del-'+item['0']+'='+item['6']);
+             
 
           }else if($productattr[item['0']] && (item['6'] == '' || item['6'] == 'undefined')){
-              console.log('del-'+item['0']);
+             
           }else{
               $itemcart.cart.push($cart[i]);
 
           }
-            console.log(item);
+            
         });
         if($itemcart.cart.length > 0 ){
-            console.log($itemcart);
+           
             $ilocal = JSON.stringify($itemcart);
             localStorage.setItem('cart-om', $ilocal);
         }else{

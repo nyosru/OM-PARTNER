@@ -342,7 +342,6 @@ echo \yii\grid\GridView::widget([
                 },
             async: true,
             success: function (data) {
-                console.log(data);
                 $('.photobank-'+data.opid).html('');
 
                 $.each(data.photo,function(){
@@ -404,7 +403,7 @@ $(document).on('click','[data-post="file"]', function(){
         if (xhr.status === 200) {
             reloaddata($opid);
         } else {
-            console.log(xhr);
+           
         }
     };
 });

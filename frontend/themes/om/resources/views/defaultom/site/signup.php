@@ -97,7 +97,6 @@ $this->title = 'Регистрация';
             str = $('[data-name="country"]').text();
         }
         $country = $("[data-country]");
-        console.log($country);
         $check = '';
         $.each($country, function () {
             if (str == $(this).html()) {
