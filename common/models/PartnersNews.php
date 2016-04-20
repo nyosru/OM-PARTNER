@@ -34,9 +34,9 @@ class PartnersNews extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['partners_id', 'name', 'post', 'date_added', 'date_modified', 'status','image'], 'required'],
+            [['partners_id', 'name', 'post', 'date_added', 'date_modified', 'status'], 'required'],
             [['partners_id', 'status'], 'integer'],
-            [['name', 'post', 'tegs','image'], 'string'],
+            [['name', 'post', 'tegs'], 'string'],
             [['date_added', 'date_modified'], 'safe']
         ];
     }

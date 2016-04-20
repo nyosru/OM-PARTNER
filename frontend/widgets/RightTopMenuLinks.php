@@ -14,7 +14,7 @@ class RightTopMenuLinks extends \yii\bootstrap\Widget
             'contacts'=>'<a href="'.BASEURL.'/dayproduct">Все новинки за сегодня</a>',
              'newmonth'=>'<a href="'.BASEURL.'/productsmonth">Все новинки за месяц</a>',
              'newcloth'=>'<a href="'.BASEURL.'/productscloth">Новинки одежды и обуви за месяц</a>',
-            'newday'=>'<a href="'.BASEURL.'/contactform">Контакты</a>',
+            'newday'=>'<a href="'.BASEURL.'/contactform"><strong>Контакты</strong></a>',
 
 //       'howToOrder'=>'<a href="'.BASEURL.'/page?article=howorders">Как сделать заказ</a>',
 //        'sberOnline'=>'<a href="'.BASEURL.'/page?article=sberonline">Оплата через Сбербанк Онлайн</a>',

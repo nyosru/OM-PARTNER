@@ -1,6 +1,6 @@
 {
     "name": "moment",
-    "version": "2.12.0",
+    "version": "2.13.0",
     "description": "Parse, validate, manipulate, and display dates",
     "homepage": "http://momentjs.com",
     "author": "Iskren Ivov Chernev <iskren.chernev@gmail.com> (https://github.com/ichernev)",
@@ -23,6 +23,7 @@
         "ender"
     ],
     "main": "./moment.js",
+    "typings": "./moment.d.ts",
     "engines": {
         "node": "*"
     },
@@ -37,7 +38,7 @@
     "devDependencies": {
         "uglify-js": "latest",
         "es6-promise": "latest",
-        "grunt": "latest",
+        "grunt": "~0.4",
         "grunt-cli": "latest",
         "benchmark": "latest",
         "esperanto": "latest",

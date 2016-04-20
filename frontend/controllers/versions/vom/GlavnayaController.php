@@ -111,8 +111,6 @@ class GlavnayaController extends Controller
         ActionFaq,
         ActionPaying,
         ActionSignup,
-        ActionRequestPasswordReset,
-        ActionResetPassword,
         ActionNewComments,
         ActionRequestorders,
         ActionSaveorder,

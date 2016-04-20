@@ -97,6 +97,15 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                             </ul>
                             <ul id="accordion" class="accordion">
                                 <li class="">
+                                    <div id="profile-orders" class="link profile-orders">
+                                        <a href="<?= BASEURL ?>/contactform">
+                                            Связь с администрацией
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul id="accordion" class="accordion">
+                                <li class="">
                                     <div id="profile-call" class="link">Продолжить покупки</div>
                                 </li>
                             </ul>
@@ -199,95 +208,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     <div class="" style="margin: 0px 25px;">
                         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
                         <div style="margin: 0% 25%; float: left;">
-                            <?
-                            if (isset(Yii::$app->params['partnersset']['mailcounter']['value']) && Yii::$app->params['partnersset']['mailcounter']['active'] == 1) {
-                                $mailcounter = Yii::$app->params['partnersset']['mailcounter']['value'];
-                                ?>
-                                <a href="http://top.mail.ru/jump?from=<?= $mailcounter ?>">
-                                    <img src="//top-fwz1.mail.ru/counter?id=<?= $mailcounter ?>;t=502;l=1"
-                                         style="border:0;" height="31" width="88" alt="Рейтинг@Mail.ru"/></a>
-                                <script type="text/javascript">
-                                    var _tmr = _tmr || [];
-                                    _tmr.push({id: <?= $mailcounter ?>, type: "pageView", start: (new Date()).getTime()});
-                                    (function (d, w, id) {
-                                        if (d.getElementById(id)) return;
-                                        var
-                                            ts = d.createElement("script");
-                                        ts.type = "text/javascript";
-                                        ts.async = true;
-                                        ts.id = id;
-                                        ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
-                                        var
-                                            f = function () {
-                                                var
-                                                    s = d.getElementsByTagName("script")[0];
-                                                s.parentNode.insertBefore(ts, s);
-                                            };
-                                        if (w.opera == "[object Opera]") {
-                                            d.addEventListener("DOMContentLoaded", f, false);
-                                        } else {
-                                            f();
-                                        }
-                                    })(document, window, "topmailru-code");
-                                </script>
-                                <noscript>
-                                    <div style="position:absolute;left:-10000px;">
-                                        <img src="//top-fwz1.mail.ru/counter?id=' . $mailcounter . ';js=na" style="border:0;"
-                                             height="1" width="1" alt="Рейтинг@Mail.ru"/>
-                                    </div>
-                                </noscript>
-                            <? } ?>
-
-                            <?
-                            if (isset(Yii::$app->params['partnersset']['yandexcounter']['value']) && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1) {
-                                $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
-                                ?>
-                                <!-- Yandex.Metrika informer -->
-                                <a href="https://metrika.yandex.ru/stat/?id=<?= $yandexcounter ?>&amp;from=informer"
-                                   target="_blank" rel="nofollow"><img
-                                        src="https://informer.yandex.ru/informer/<?= $yandexcounter ?>/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-                                        style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика"
-                                        title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)"
-                                        onclick="try{Ya.Metrika.informer({i:this,id:<?= $yandexcounter ?>,lang:'ru'});return false}catch(e){}"/></a>
-                                <!-- /Yandex.Metrika informer -->
-
-                                <!-- Yandex.Metrika counter -->
-                                <script type="text/javascript">
-                                    (function (d, w, c) {
-                                        (w[c] = w[c] || []).push(function () {
-                                            try {
-                                                w.yaCounter<?=$yandexcounter?> = new Ya.Metrika({
-                                                    id:<?=$yandexcounter?>,
-                                                    clickmap: true,
-                                                    trackLinks: true,
-                                                    accurateTrackBounce: true
-                                                });
-                                            } catch (e) {
-                                            }
-                                        });
-
-                                        var n = d.getElementsByTagName("script")[0],
-                                            s = d.createElement("script"),
-                                            f = function () {
-                                                n.parentNode.insertBefore(s, n);
-                                            };
-                                        s.type = "text/javascript";
-                                        s.async = true;
-                                        s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-                                        if (w.opera == "[object Opera]") {
-                                            d.addEventListener("DOMContentLoaded", f, false);
-                                        } else {
-                                            f();
-                                        }
-                                    })(document, window, "yandex_metrika_callbacks");
-                                </script>
-                                <noscript>
-                                    <div><img src="https://mc.yandex.ru/watch/<?= $yandexcounter ?>"
-                                              style="position:absolute; left:-9999px;" alt=""/></div>
-                                </noscript>
-                                <!-- /Yandex.Metrika counter -->
-                            <? } ?>
+                        <?=\frontend\widgets\Metrics::widget();?>
                         </div>
                         <p class="pull-right"></p>
                     </div>
@@ -295,8 +216,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             </div>
         </div>
         <?php
-        //  $this->registerJsFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/js/script.js', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-        $this->endBody();
+         $this->endBody();
         Yii::$app->params['assetsite']->registerAssetFiles($this);
 
         ?>
@@ -307,59 +227,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         });
 
     </script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.target').shortscroll();
-    });
-    //        $(document).on('ready', function(){
-    //           console.log($('*').length);
-    //            $('div').attr('style','border:1px solid red;')
-    //        });
-
-
-</script>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-75056446-1', 'auto');
-    ga('send', 'pageview');
-    ga('require', 'ec');
-
-</script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter36825930 = new Ya.Metrika({
-                    id:36825930,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true,
-                    trackHash:true,
-                    ecommerce:"container-fluid float"
-                });
-            } catch(e) { }
-        });
-
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/36825930" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
     </body>
 </html>
 <?php $this->endPage() ?>
