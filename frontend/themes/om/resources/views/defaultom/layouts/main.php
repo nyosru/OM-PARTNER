@@ -74,11 +74,11 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
                         <?=  Menuom::widget(['property' => ['id'=> 'main','target'=>'0', 'opencat' =>  Yii::$app->params['layoutset']['opencat']]]);?>
                     </div>
-                        <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
+                    <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
                 </div>
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
                 <div  class="partners-main-left-cont suplogo" style=" background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
-               </div>
+                </div>
             </div>
             <div class="partners-main-right-back">
                 <div class="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
@@ -171,7 +171,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <div style="margin: 0% 25%; float: left;">
                             <?=\frontend\widgets\Metrics::widget();?>
                         </div>
-                </div>
+                    </div>
                 </footer>
             </div>
         </div>
@@ -186,9 +186,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             $('.target').shortscroll();
         });
     </script>
-    <!-- Sliza.ru - Widget -->
-    <script type="text/javascript" src="https://sliza.ru/widget.php?id=842&h=2a7bebeb9808e01a869c9f734db908e3&t=s" async defer></script>
-    <!-- /// -->
+
     </body>
     </html>
 <?php $this->endPage() ?>

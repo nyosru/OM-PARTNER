@@ -11,49 +11,49 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
 ?>
 <!DOCTYPE html>
-    <html lang="ru-RU">
-        <head>
-            <meta charset="<?= Yii::$app->charset ?>">
-                <link rel="search"
-                      type="application/opensearchdescription+xml"
-                      title="Поиск по товарам"
-                      href="<?= BASEURL ?>/addsearch">
+<html lang="ru-RU">
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          title="Поиск по товарам"
+          href="<?= BASEURL ?>/addsearch">
 
-                <?= Html::csrfMetaTags() ?>
-                <title><?= Html::encode($this->title) ?></title>
-                <?php $this->head(); ?>
-        </head>
-        <body style="font-family: Open Sans,Helvetica Neue,sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
-        <?php $this->beginBody(); ?>
-        <div class="wrap">
-            <?php
-                    if (
-                            ($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head(); ?>
+</head>
+<body style="font-family: Open Sans,Helvetica Neue,sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
+<?php $this->beginBody(); ?>
+<div class="wrap">
+    <?php
+    if (
+        ($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
+        &&  Yii::$app->params['partnersset']['logotype']['active'] == 1){
+        $name = $namecustom;
+    } else {
+        $name = Yii::$app->params['constantapp']['APP_NAME'];
+    }
+    ?>
+    <div class="partners-main">
+        <div class="partners-main-left-back">
+            <div>
+                <div class="partners-main-left suplogo"
+                     style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
+                    <? if (
+                        ($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
                         &&  Yii::$app->params['partnersset']['logotype']['active'] == 1){
-                        $name = $namecustom;
+                        echo '<span style="" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                     } else {
-                        $name = Yii::$app->params['constantapp']['APP_NAME'];
-                    }
-            ?>
-            <div class="partners-main">
-                <div class="partners-main-left-back">
-                    <div>
-                        <div class="partners-main-left suplogo"
-                             style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
-                        <? if (
-                                    ($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
-                                &&  Yii::$app->params['partnersset']['logotype']['active'] == 1){
-                                echo '<span style="" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
-                        } else {
                         $logotype = '';
-                        }
-                        ?>
-                        <a href="/" class=" partners-main-left sublogo">
-                            <i class="fa fa-chevron-left"></i> На главную
-                        </a>
-                        </div>
-                        <div class="partners-main-left-cont"
-                             style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
+                    }
+                    ?>
+                    <a href="/" class=" partners-main-left sublogo">
+                        <i class="fa fa-chevron-left"></i> На главную
+                    </a>
+                </div>
+                <div class="partners-main-left-cont"
+                     style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
             </div>
             <div class="partners-main-left target jb-shortscroll-target"
                  style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
@@ -251,17 +251,15 @@ $this->beginPage();
 
     ?>
 </div>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('.target').shortscroll();
-            });
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.target').shortscroll();
+    });
 
-        </script>
-        <!-- Sliza.ru - Widget -->
-        <script type="text/javascript" src="https://sliza.ru/widget.php?id=842&h=2a7bebeb9808e01a869c9f734db908e3&t=s" async defer></script>
-        <!-- /// -->
+</script>
 
-        </body>
+
+</body>
 </html>
 <?php $this->endPage() ?>
 
