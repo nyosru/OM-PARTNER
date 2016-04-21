@@ -91,4 +91,8 @@ class OrdersProducts extends ActiveRecordExt
             'automatically_sent_to_manufacturer' => 'Automatically Sent To Manufacturer',
         ];
     }
+    public function getProducts()
+    {
+        return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id']);
+    }
 }

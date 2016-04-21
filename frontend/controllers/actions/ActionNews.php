@@ -26,7 +26,6 @@ trait ActionNews
             $newsprovider = $newsprovider->getModels();
             Yii::$app->cache->set($key, ['data' => $newsprovider, 'pagination' => $pagination, 'lastupdate' => $x['date_modified']]);
         } else {
-
             $newsprovider = $newsprovider['data'];
             $pagination = $newsprovider['pagination'];
         }
