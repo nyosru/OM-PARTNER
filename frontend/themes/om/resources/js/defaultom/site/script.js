@@ -69,31 +69,31 @@ $(document).on('click', '.del-count', function () {
 
 
 $(document).on('click', '.del-product', function () {
-        $delrow = $(this).parent().attr('data-raw');
-        $new_cart = new Object();
-        $item = JSON.parse(localStorage.getItem('cart-om'));
-        $item.cart.splice($delrow, 1);
-        $ilocal = JSON.stringify($item);
-        localStorage.setItem('cart-om', $ilocal);
-        $(this).parent().next().remove();
-        $(this).parent().remove();
-        $str = $('.cart-row');
-        $str2=$('.num-of-items');
-        $.each($str, function(i,item){
-            $(this).attr('data-raw',i);
-            $(this).children().find('.num-of-items').attr('data-raw',i);
-        });
-        // $.each($str2, function(i,item){
-        //     $(this).attr('data-raw',i);
-        // });
+    $delrow = $(this).parent().attr('data-raw');
+    $new_cart = new Object();
+    $item = JSON.parse(localStorage.getItem('cart-om'));
+    $item.cart.splice($delrow, 1);
+    $ilocal = JSON.stringify($item);
+    localStorage.setItem('cart-om', $ilocal);
+    $(this).parent().next().remove();
+    $(this).parent().remove();
+    $str = $('.cart-row');
+    $str2=$('.num-of-items');
+    $.each($str, function(i,item){
+        $(this).attr('data-raw',i);
+        $(this).children().find('.num-of-items').attr('data-raw',i);
+    });
+    // $.each($str2, function(i,item){
+    //     $(this).attr('data-raw',i);
+    // });
 
 
 
-        //$amount_prod == $item.cart.length;
-        $(".cart-count").html($amount_prod);
-        $(".cart-price").html($cart_price + ' руб.');
-        changeOveralPrice();
-        changeCartCount();
+    //$amount_prod == $item.cart.length;
+    $(".cart-count").html($amount_prod);
+    $(".cart-price").html($cart_price + ' руб.');
+    changeOveralPrice();
+    changeCartCount();
 });
 function changeOveralPrice(){
     var godsprice = 0;
@@ -111,7 +111,7 @@ function changeOveralPrice(){
     $('#wrap-price').html(wrapprice + ' руб');
 }
 $(document).on('click', '.cart-lable', function () {
-   $id_product =  this.getAttribute('data-sale');
+    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
     $noanimate = false;
@@ -120,7 +120,7 @@ $(document).on('click', '.cart-lable', function () {
         $item_add = $(this)[0];
         $item.cart = [];
         $item_add.value = $(this).val();
-       
+        // console.log($item_add);
         if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
@@ -250,7 +250,7 @@ function changeCartCount(){
 }
 
 $(document).on('keyup', '#input-count', function(){
- $val =   $(this).val();
+    $val =   $(this).val();
     if($val == '' || isNaN($val)){
         $val = 0;
     }
@@ -378,8 +378,8 @@ $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
 function loaddata(){
-   // $('body').addClass('some');
-   // $('link').addClass('some');
+    // $('body').addClass('some');
+    // $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
     $count = $('.count-checked').text();
@@ -416,8 +416,8 @@ function loaddata(){
     }else{
         $cat = 0;
     }
-    
-     if($urld['prod_attr_query']){
+
+    if($urld['prod_attr_query']){
         $prodatrquery = $urld['prod_attr_query'][1];
     }else{
         $prodatrquery = '';
@@ -450,8 +450,8 @@ function loaddata(){
             inProgress = true;
         }
     }).done(function (data) {
-       // $('body').removeClass('some');
-       // $('link').removeClass('some');
+        // $('body').removeClass('some');
+        // $('link').removeClass('some');
         $('.preload').remove();
         $loader = $('.loader-inner').html();
         $('.pagination-catalog').remove();
@@ -537,16 +537,16 @@ function loaddata(){
                         '</div>'+
                         '</div></div></div>';
                 }
-                
+
                 if( data[14][$product.manufacturers_id] === undefined ) {
                     $timewrap = '';
                 }else{
                     $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
 
                 }
-                  $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
+                $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
                 $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
-               
+
                 $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                     '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
@@ -632,13 +632,13 @@ function loaddata(){
 
 
             $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
-             $('a[rel=light]').light();
+            $('a[rel=light]').light();
             inProgress = false;
         } else {
             $('#size-slide').html('');
             $('#filter-button').html('');
-          //  $('body').removeClass('some');
-           // $('link').removeClass('some');
+            //  $('body').removeClass('some');
+            // $('link').removeClass('some');
             $('.preload').remove();
         }
     });
@@ -647,12 +647,12 @@ $(document).on('ready', function () {
 
     $(window).scroll(function () {
         $control = $('#control-load option:selected').val();
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1800 && !inProgress && ControlLoad =='auto') {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500 && !inProgress && ControlLoad =='auto') {
             loaddata();
         }
     });
     $(document).on('click', '.loader', function () {
-       $control = $('#control-load option:selected').val();
+        $control = $('#control-load option:selected').val();
         if (!inProgress && ControlLoad=='manual') {
             loaddata();
         }
@@ -672,6 +672,7 @@ $('[data-cat]').on('click', function () {
 $(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
+    // console.log( $(this).val());
     $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;
@@ -965,12 +966,12 @@ $('[id^=carousel-selector-]').click( function(){
 });
 
 $(document).on('click','#prdesc',function() {
-        if($('#prd').is(':not(:visible)')) {
-            jQuery('#prd').attr('style', 'display:block');
-        }
-        else{
-            jQuery('#prd').attr('style','display:none');
-        }});
+    if($('#prd').is(':not(:visible)')) {
+        jQuery('#prd').attr('style', 'display:block');
+    }
+    else{
+        jQuery('#prd').attr('style','display:none');
+    }});
 
 $(document).on('click', '[data-ajax=time]', function(){
     $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
@@ -999,6 +1000,7 @@ $(document).on('click','#prod-info',function(){
         $spec_html = '';
 
         $.post('/site/product', {id: dp}, function (data) {
+//           console.log(data['spec']);
             $spec_html = '<div class="spec" style="margin-top:25px; ">';
             $.each(data['spec'].productsSpecification, function (i, item) {
                 if (typeof(data['spec']['specificationDescription'][item.specifications_id]) != "undefined") {
@@ -1021,6 +1023,7 @@ $(document).on('click','#prod-info',function(){
             $imgs2 = new Array(data['product']['products']['products_image']);
             $miniimg = '';
             $bigimg = '';
+            //  console.log(data);
             $.each($imgs, function (i, item) {
                 $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if (i == 0) {
