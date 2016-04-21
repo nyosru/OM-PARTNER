@@ -3716,6 +3716,9 @@ div.size-desc:last-child{
     height: 50px;
     top: 150px;
 }
+#slid3 #prod-info, #slid4 #prod-info{
+    display:none;
+}
 .carousel-indicators{
     display: none;
 }

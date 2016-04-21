@@ -237,7 +237,7 @@ trait ActionLK
 
                 $orprodstring = implode(',',$orprod);
                 $opprovider = new yii\data\ActiveDataProvider([
-                    'query'=> PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 and products.products_id IN ('.$orprodstring.')')->distinct(),
+                    'query'=> PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 and products.products_id IN ('.$orprodstring.')')->limit(300)->distinct(),
                     'pagination'=>[
                         'defaultPageSize' => 60,
                         'pageSizeLimit'=>[1,60]
