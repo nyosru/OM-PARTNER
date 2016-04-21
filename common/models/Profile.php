@@ -121,7 +121,7 @@ class Profile extends Model
         $userinfo->pasportdate = $this->delivery[$arrkey]['passportdate'];
         $userinfo->pasportwhere = $this->delivery[$arrkey]['passportwhere'];
         if ($userinfo->save()) {
-            $customer->customers_selected_template='1';
+            
             $customer->customers_gender ='M';
             $customer->customers_telephone = $this->phone;
             $customer->customers_fax = $this->customers_fax;

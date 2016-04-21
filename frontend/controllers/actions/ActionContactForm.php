@@ -26,7 +26,7 @@ trait ActionContactForm
                 preg_match('/\<[^>]+\>/', $send_to_array[$model->to], $send_email_array);
                 $send_to_email = preg_replace("/>/", "", $send_email_array[0]);
                 $send_to_email = preg_replace("/</", "", $send_to_email);
-                $model->to = 'desure85@gmail.com';//$send_to_email;
+                $model->to = $send_to_email;
                 if(!Yii::$app->user->isGuest){
                     $cust =User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->one();
                     $model->email  = $cust['email'];
@@ -49,7 +49,7 @@ trait ActionContactForm
                 foreach (explode(",", $to['configuration_value']) as $k => $v) {
                     $send_to_array[] =  preg_replace('/\<[^*]*/', '', $v);
                 }
-             return $this->render('contacts', ['model' => $model, 'to' => $send_to_array, 'result' => $result]);
+                return $this->render('contacts', ['model' => $model, 'to' => $send_to_array, 'result' => $result]);
 
             }else  return $this->render('contacts');
         }

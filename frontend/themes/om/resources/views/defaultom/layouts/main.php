@@ -185,8 +185,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         $(document).ready(function(){
             $('.target').shortscroll();
         });
-
     </script>
+    <!-- Sliza.ru - Widget -->
+    <script type="text/javascript" src="https://sliza.ru/widget.php?id=842&h=2a7bebeb9808e01a869c9f734db908e3&t=s" async defer></script>
+    <!-- /// -->
     </body>
     </html>
 <?php $this->endPage() ?>
