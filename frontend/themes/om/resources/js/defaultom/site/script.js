@@ -15,6 +15,10 @@ $(document).on('click', '.sort', function () {
     $('.sort-checked').removeClass('sort-checked');
     $(this).addClass('sort-checked');
 });
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    return results[1] || 0;
+};
 
 $(document).on('click', '.cart-image', function () {
     $('.image').attr('style', 'display:block;');
@@ -1161,12 +1165,12 @@ $(document).on('click','#prod-info',function(){
             $prev = $('[id="card"][itemid=' + data.product.products.products_id + ']').prev('#card').attr('itemid');
             $next = $('[id="card"][itemid=' + data.product.products.products_id + ']').next('#card').attr('itemid');
 
-            if (typeof($next) != "undefined") {
+            if (typeof($next) != "undefined" ) {
                 $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
                     '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
                     '</div>';
             } else {
-                if (!inProgress) {
+                if (!inProgress&&document.getElementsByClassName('loader').length!=0) {
                     loaddata();
                 }
 
