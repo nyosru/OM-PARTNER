@@ -71,4 +71,5 @@ return array(
     'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
     'Fxp\\Composer\\AssetPlugin\\' => array($vendorDir . '/fxp/composer-asset-plugin'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
+    'Endroid\\QrCode\\' => array($vendorDir . '/endroid/qrcode/src'),
 );

@@ -9,7 +9,7 @@ foreach($addr as $key=>$value){
     }else{
         $first .= '<option value="' . $key . '">' . $value . '</option>';
     }
-    }
+}
 
 
 
@@ -17,17 +17,17 @@ $del_add .= $first;
 $del_add .= $options;
 $del_add .= '</select>';
 
-
 ?>
 
 <script>
 $(document).on('ready', function () {
+    $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);">Ваша корзина пуста</div>');
     //var curPos = $(document).scrollTop();
     //var scrollTime = curPos / 3.73;
     //$("body,html").animate({"scrollTop": 0}, scrollTime);
     $amount_prod = 0;
     $cart_price = 0;
-    $innerhtml = '<form action="<?= BASEURL;?>/saveorder" method="post"><input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" /><div class="cart-top" style="width: 100%;height:40px;">Товары в моей корзине</div><div class="cart-column1" style="width: 48%;min-width: 500px;float:left;border:1px solid #ccc; border-radius: 4px; margin-right: 5px;">';
+    $innerhtml = '<form action="<?= BASEURL;?>/saveorder" method="post"><input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" /><div class="cart-top" style="width: 100%;height:40px;">Товары в моей корзине</div><div class="cart-column1" style="width: 48%;float:left;border:1px solid #ccc; border-radius: 4px; margin-right: 5px;">';
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         $item = JSON.parse(localStorage.getItem('cart-om'));
         $i = $item.cart;
@@ -66,16 +66,16 @@ $(document).on('ready', function () {
                 $access = 'Данный товар доступен для заказа';
                 $identypay = true;
             }
-            $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c++) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
+            $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
                 '<div class = "access '+$identypay+'" >'+$access+'</div>'+
-                '<div class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></div>' +
-                '<div style="overflow:hidden; height:100%;float:left;width:70%;min-width:345px;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
+                '<a target="_blank" href="<?=BASEURL;?>/product?id='+requestdata.responseJSON.product.products.products_id+'" class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></a>' +
+                '<div class="cart-row-content" style="overflow:hidden; height:100%;float:left;width:70%;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
                 '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+requestdata.responseJSON.product.products.products_model +' </span>| <span id="gods-name">'+requestdata.responseJSON.product.productsDescription.products_name+'</span></div>' +
                 '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
                 '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
                 '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
-                '   <div class="num-of-items" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" style=" line-height:1.5;">-</div>' +
-                '   <input id="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
+                '   <div class="num-of-items" data-raw="' + ($c++) + '" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" class="del-count" style=" line-height:1.5;">-</div>' +
+                '   <input id="input-count" class="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
                 'data-prod="'+this[0]+'" ' +
                 'data-model="'+this[1]+'" ' +
                 'data-price="'+parseFloat(requestdata.responseJSON.product.products.products_price)+'" ' +
@@ -94,9 +94,9 @@ $(document).on('ready', function () {
                 'data-min="'+requestdata.responseJSON.product.products.products_quantity_order_min+'" ' +
                 'data-step="'+requestdata.responseJSON.product.products.products_quantity_order_units+'"  ' +
                 'data-id="'+$c+'">' +
-                '   <div id="add-count" style="float: left; line-height:1.5;">+</div></div>' +
+                '   <div id="add-count" class="add-count" style="float: left; line-height:1.5;">+</div></div>' +
                 '</div></div>' +
-                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
+                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
                 '</div>'+
                 '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
                 '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
@@ -140,7 +140,7 @@ $(document).on('ready', function () {
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
                              '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
                          //   '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
-            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;">10234</span> руб.</div></div>' +
+            '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;"></span> руб.</div></div>' +
 
                         '</div>';
         $innerhtml+=  '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
@@ -175,7 +175,6 @@ $(document).on('ready', function () {
                 "/site/shipping",
                 function (shipdata) {
                     $inht = '';
-                    //   console.log(shipdata);
                     $.each(shipdata, function (index) {
                         if (this.active == '1') {
                             $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
@@ -234,12 +233,13 @@ $(document).ready(function () {
 //    $('#gods-price').html(overprice+' руб');
 //    $('#total-price').html()
 //});
-
+var wrap=<?=$wrapprice?>;
 $(document).on('change click','.num-of-items',function () {
     var godsprice=0;
     var wrapprice=0;
+    
     var check = $("[name='wrap']").filter(':checked').first();
-    if(check.val()=="boxes") wrapprice=15;
+    if(check.val()=="boxes") wrapprice=wrap;
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {
@@ -260,7 +260,6 @@ $(document).on('ready', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
-  //  console.log();
     if(check.val()=="boxes") wrapprice=28;
 
     $indexes = $(".cart-row");
@@ -281,8 +280,7 @@ $(document).on('click','.wrap-select', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
- //   console.log();
-    if(check.val()=="boxes") wrapprice=15;
+    if(check.val()=="boxes") wrapprice=wrap;
 
     $indexes = $(".cart-row");
     $.each($indexes, function () {
@@ -314,7 +312,6 @@ $(document).on('change', '.shipping-confirm, #shipaddr', function () {
     );
 });
 $(document).on('click', '.panel  > a',  function(){
-  //  console.log($(this));
     if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
         $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
         '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +

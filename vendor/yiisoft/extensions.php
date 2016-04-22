@@ -327,15 +327,6 @@ return array (
       '@rmrevin/yii/fontawesome' => $vendorDir . '/rmrevin/yii2-fontawesome',
     ),
   ),
-  'zelenin/yii2-semantic-ui' => 
-  array (
-    'name' => 'zelenin/yii2-semantic-ui',
-    'version' => '2.0.8.0',
-    'alias' => 
-    array (
-      '@Zelenin/yii/SemanticUI' => $vendorDir . '/zelenin/yii2-semantic-ui',
-    ),
-  ),
   'mervick/yii2-material-design-icons' => 
   array (
     'name' => 'mervick/yii2-material-design-icons',
@@ -453,15 +444,6 @@ return array (
       '@dosamigos/tinymce' => $vendorDir . '/2amigos/yii2-tinymce-widget/src',
     ),
   ),
-  'kartik-v/yii2-grid' => 
-  array (
-    'name' => 'kartik-v/yii2-grid',
-    'version' => '9999999-dev',
-    'alias' => 
-    array (
-      '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid',
-    ),
-  ),
   'kartik-v/yii2-widget-datepicker' => 
   array (
     'name' => 'kartik-v/yii2-widget-datepicker',
@@ -469,6 +451,24 @@ return array (
     'alias' => 
     array (
       '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
+    ),
+  ),
+  'zelenin/yii2-semantic-ui' => 
+  array (
+    'name' => 'zelenin/yii2-semantic-ui',
+    'version' => '2.0.9.0',
+    'alias' => 
+    array (
+      '@Zelenin/yii/SemanticUI' => $vendorDir . '/zelenin/yii2-semantic-ui',
+    ),
+  ),
+  'kartik-v/yii2-grid' => 
+  array (
+    'name' => 'kartik-v/yii2-grid',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid',
     ),
   ),
 );

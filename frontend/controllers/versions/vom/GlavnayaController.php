@@ -20,18 +20,22 @@ use frontend\controllers\actions\ActionCart;
 use frontend\controllers\actions\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
 use frontend\controllers\actions\ActionChstatusorder;
-use frontend\controllers\actions\ActionContacts;
+use frontend\controllers\actions\ActionContactForm;
 use frontend\controllers\actions\ActionCountryrequest;
 use frontend\controllers\actions\ActionDelivery;
 use frontend\controllers\actions\ActionFaq;
 use frontend\controllers\actions\ActionImagepreview;
 use frontend\controllers\actions\ActionLoginOM;
 use frontend\controllers\actions\ActionLogout;
+use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
 use frontend\controllers\actions\om\ActionArticle;
 use frontend\controllers\actions\om\ActionDayProduct;
 use frontend\controllers\actions\om\ActionDiscont;
+use frontend\controllers\actions\om\ActionFiguresDays;
+use frontend\controllers\actions\om\ActionLoadClaim;
+use frontend\controllers\actions\om\ActionSaveClaim;
 use frontend\controllers\actions\om\ActionSavepage;
 use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPaymentMethod;
@@ -58,10 +62,12 @@ use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
 use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
+use frontend\controllers\actions\om\ActionProductsMonth;
+use frontend\controllers\actions\om\ActionProductsCloth;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
-use frontend\controllers\actions\ActionTest;
+use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
 use Yii;
@@ -99,14 +105,12 @@ class GlavnayaController extends Controller
         ActionLogout,
         ActionCatalog,
         ActionLK,
-        ActionContacts,
+        ActionContactForm,
         ActionDelivery,
         ActionOfferta,
         ActionFaq,
         ActionPaying,
         ActionSignup,
-        ActionRequestPasswordReset,
-        ActionResetPassword,
         ActionNewComments,
         ActionRequestorders,
         ActionSaveorder,
@@ -124,7 +128,7 @@ class GlavnayaController extends Controller
         ActionShipping,
         ActionPaymentMethod,
         ActionPayOrders,
-        ActionTest,
+        ActionTestUnit,
         ActionAddSearch,
         ActionProductinfobymodel,
         ActionCart,
@@ -136,6 +140,13 @@ class GlavnayaController extends Controller
         ActionArticle,
         ActionDiscont,
         ActionDayProduct,
+        ActionFiguresDays,
+        ActionSaveClaim,
+
+        ActionLoadClaim,
+        ActionNewProductDay,
+        ActionProductsMonth,
+        ActionProductsCloth,
         ActionTakeOrder;
 
 
@@ -215,6 +226,7 @@ class GlavnayaController extends Controller
                         'allow' => true,
                         'roles' => ['@', '?'],
                     ],
+
                 ],
             ],
             'verbs' => [
@@ -321,6 +333,12 @@ class GlavnayaController extends Controller
                         $search = mb_substr($search, 0, $length, $encode);
                         return $this->checksklonenie($search, $origsearch, $encode);
                     case 'ой' :
+                        $search = mb_substr($search, 0, $length, $encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
+                    case 'ая' :
+                        $search = mb_substr($search, 0, $length, $encode);
+                        return $this->checksklonenie($search, $origsearch, $encode);
+                    case 'ую' :
                         $search = mb_substr($search, 0, $length, $encode);
                         return $this->checksklonenie($search, $origsearch, $encode);
                     default:

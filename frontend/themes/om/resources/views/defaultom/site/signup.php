@@ -8,13 +8,8 @@ use yii\bootstrap\ActiveForm;
 //$id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
 //$userCustomer = new \common\models\User();
 //$check_part_email = $userCustomer->find()->where(['email' => 'desure85@mail.ru', 'id_partners'=>$id_partners])->asArray()->one();
-//print_r($check_part_email);
 $this->title = 'Регистрация';
 
-//echo '<pre>';
-//        print_r($model);
-//        echo '</pre>';
-//die();
 ?>
 <div style="width: 80%; margin-left: 10px;">
 <div class="regmain" style="font-size: 24px;margin: 0px 15px; font-weight: 300;clear:none">Я регистрируюсь на Одежда-Мастер</div>
@@ -29,21 +24,23 @@ $this->title = 'Регистрация';
 <?= $form->field($model, 'pasportwhere', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Кем выдан паспорт'); ?>
 <?= $form->field($model, 'pasportdate', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Когда выдан паспорт')->widget(\kartik\date\DatePicker::className(), [
     'options' => ['placeholder' => 'Enter event time ...'],
+    'language'=>'ru',
     'pluginOptions' => [
         'autoclose' => true,
         'format' => 'mm-dd-yyyy'
     ]
 ]); ?>
+    
 <div class="regmain" style="font-weight: 400; margin: 15px;">Мой адрес</div>
 <?= $form->field($model, 'country', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control','data'=>['name'=>'country'], 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Страна'); ?>
 <?= $form->field($model, 'state', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control','data'=>['name'=>'state'], 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Регион'); ?>
 <?= $form->field($model, 'city', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Город'); ?>
     <div class="regmain" style="font-weight: 400; margin: 15px;">Мои контактные данные</div>
     <?= $form->field($model, 'postcode', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Индекс'); ?>
-<?= $form->field($model, 'adress[street]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Улица'); ?>
-<?= $form->field($model, 'adress[house]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Дом'); ?>
-<?= $form->field($model, 'adress[bilding]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Корпус'); ?>
-<?= $form->field($model, 'adress[apartment]', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Квартира'); ?>
+<?= $form->field($model, 'adress_street', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Улица'); ?>
+<?= $form->field($model, 'adress_house', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Дом'); ?>
+<?= $form->field($model, 'adress_bildings', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Корпус'); ?>
+<?= $form->field($model, 'adress_appartment', ['options'=>['class' => 'col-md-2'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Квартира'); ?>
 <div class="regmain" style="font-weight: 400; margin: 15px;">Мои контактные данные</div>
 <?= $form->field($model, 'telephone', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Телефон'); ?>
 <?= $form->field($model, 'fax', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Факс'); ?>
@@ -95,7 +92,6 @@ $this->title = 'Регистрация';
             str = $('[data-name="country"]').text();
         }
         $country = $("[data-country]");
-        console.log($country);
         $check = '';
         $.each($country, function () {
             if (str == $(this).html()) {

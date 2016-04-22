@@ -6,7 +6,9 @@ trait View_cat2
     public $output2 = '';
     public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [])
     {
-
+        if($opencat == NULL){
+            $opencat = [];
+        }
         if (empty($arr[$parent_id])) {
             return $this->output2;
         } else {
@@ -15,7 +17,7 @@ trait View_cat2
             } else {
                 $style = 'style="display: none;"';
             }
-            $this->output2 .= '<ul id="accordion" class="accordion" ' . $style . ' data-categories="' . $arr[$parent_id]['categories_id'] . '" data-parent="' . $arr[$parent_id]['parent_id'] . '">';
+            $this->output2 .= '<ul  class="accordion" ' . $style . ' data-categories="' . $arr[$parent_id]['categories_id'] . '" data-parent="' . $arr[$parent_id]['parent_id'] . '">';
             for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                 $catdesc = $arr[$parent_id][$i]['categories_id'];
                 if (!$arr[$parent_id][$i] == '') {

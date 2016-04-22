@@ -5,7 +5,8 @@ use common\models\PartnersSettings;
 set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
-ob_start("ob_gzhandler", 32);
+
+
 defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
@@ -24,31 +25,25 @@ $application = new yii\web\Application($config);
 
 
 
-        $run = new Partners();
-        $check = $run->GetId($_SERVER['HTTP_HOST']);
-        if ($check == '') {
-            // die;
-        } else {
-
-            $key = Yii::$app->cache->buildKey('constantapp-' . $check);
-            if (($partner = Yii::$app->cache->get($key)) == FALSE && !isset($partner['APP_ID']) && !isset($partner['APP_CAT']) && !isset($partner['APP_NAME']) && !isset($partner['APP_THEMES'])) {
-                $partner['APP_ID'] = $run->GetId($_SERVER['HTTP_HOST']);
-                $partner['APP_CAT'] = $run->GetAllowCat($check);
-                $partner['APP_NAME'] = $run->GetNamePartner($check);
-                $partner['APP_THEMES'] = $run->GetTemplate($check);
-                // echo 'Не Кэш';
-                Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES']]);
-            } else {
-                // echo 'Кэш';
-            }
+$key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
+if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
+    $run = new Partners();
+    $check = $run->GetId($_SERVER['HTTP_HOST']);
+    if ($check == '') {
+        die();
+    } else {
+        $partner['APP_ID'] = $run->GetId($_SERVER['HTTP_HOST']);
+        $partner['APP_CAT'] = $run->GetAllowCat($check);
+        $partner['APP_NAME'] = $run->GetNamePartner($check);
+        $partner['APP_THEMES'] = $run->GetTemplate($check);
+        // echo 'Не Кэш';
+        Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES']]);
+    }
 
 
+}else{
 
-        }
-//echo '<pre>';
-//print_r($versions);
-//echo '</pre>';
-//die();
+}
 $partner['APP_VERSION'] = 'om';
 if (($versionnum = $partner['APP_VERSION']) == FALSE) {
     $version = $versions['0'];
@@ -62,15 +57,45 @@ $config['components']['errorHandler']['errorAction'] = $version['frontend']['err
 $catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
 $config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
 $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
+$config['components']['urlManager']['rules']['<action>'] = '' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
 
-define('BASEURL', '/' . $version['frontend']['defroute']);
-
+//define('BASEURL', '/' . $version['frontend']['defroute']);
+define('BASEURL', '');
 
 unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
+
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'logFile' => '@frontend/runtime/logs/request/requests.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000,
+];
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['info'],
+    'logFile' => '@frontend/runtime/logs/response/response.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['error', 'warning'],
+    'categories' => ['yii\swiftmailer\Logger::add'],
+    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['error', 'warning'],
+    'logFile' => '@frontend/runtime/logs/error/error.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
 
 $application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
@@ -107,11 +132,26 @@ if(!$template_data){
     $theme = $template_data['theme'];
     $partnerset = $template_data['partnerset'];
 }
+$theme = 'defaultom';
 $application->params['partnersset'] = $partnerset;
 $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme);
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
-$application->run();
+//$application->on(yii\web\Application::EVENT_BEFORE_REQUEST, function(yii\base\Event $event){
+//    $event->sender->response->on(yii\web\Response::EVENT_BEFORE_SEND, function($e){
+//        ob_start("ob_gzhandler");
+//    });
+//    $event->sender->response->on(yii\web\Response::EVENT_AFTER_SEND, function($e){
+//        ob_end_flush();
+//    });
+//});
 
-ob_end_flush();
+//if(!$application->db->getIsActive() && $_GET['action']!=1) {
+//    echo '<div style="display: table; vertical-align: middle; margin: auto; font-size: 24px">Приносим свои извинения, проводятся технические работы</div>';
+//    die();
+//}else{
+$application->run();
+$application->db->close();
+//}
+

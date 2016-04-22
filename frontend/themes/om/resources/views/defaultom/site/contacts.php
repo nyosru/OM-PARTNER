@@ -20,138 +20,68 @@ use yii\jui\Slider;
 
 $this->title = 'Контакты';
 ?>
-<?
-$graf = Yii::$app->params['partnersset']['contacts']['graf_work'];
-if ($graf['activated'] == 1) {
-    echo '<div class = "contacts-adress"><div class="contacts-adress-name"> График работы</div>';
-    if ($graf['mon']['active'] == 1) {
 
-        // Понедельник
-        if ($graf['mon']['o']['active'] == 1) {
-            echo '<div>Понедельник: с ' . $graf['mon']['w']['in'] . ':' . $graf['mon']['wm']['in'] . ' до ' . $graf['mon']['w']['out'] . ':' . $graf['mon']['wm']['out'] .
-                '<span style="margin-left:30px">Обед:</span> с ' . $graf['mon']['o']['in'] . ':' . $graf['mon']['om']['in'] . ' до ' . $graf['mon']['o']['out'] . ':' . $graf['mon']['om']['out'] . '</div>';
-        } else {
-            echo '<div>Понедельник: с ' . $graf['mon']['w']['in'] . ':' . $graf['mon']['wm']['in'] . ' до ' . $graf['mon']['w']['out'] . ':' . $graf['mon']['wm']['out'] . '</div>';
-        }
-    } else {
-        echo '<div class="contacts-adress-name">&nbsp;</div><div>Понедельник: выходной</div>';
-    }
+<div style=" text-align: justify; padding: 10px;"><i>Уважаемые клиенты! Используя приведенные ниже возможности
+                        Вы можете проконсультироваться по всем вопросам работы сайта, проведения оплаты, отгрузки
+                        товара. Обращаем Ваше внимание, что специалисты контактного центра "Одежда-Мастер" работают по
+                        графику: пн-пт с 9-00 до 18-00. Письменные обращения принимаются 24 часа в сутки, 7 дней в
+                        неделю. Письменные обращения, поступившие в нерабочее время, или в выходные дни, будут
+                        рассмотрены в ближайший рабочий день. <b>Обращаем Ваше внимание</b> - для качественной обработки
+                        Ваших запросов понадобится информация о Вашем заказе(дата, номер) из вашего личного
+                        кабинета.<br>Администрация "Одежда-Мастер" будет признательна Вам за предложения по улучшению
+                        нашей работы и объективные отзывы о работе сотрудников Контактного Центра.</i></div>
+<div style="float: left;margin-top: 20px; width: 30%;">
+<table border="0">
+    <tr>
+        <td width="100" align="center"><i class="fa fa-phone-square " style="font-size: 50px; color: rgb(0, 165, 161); text-shadow: 1px 1px 1px rgb(204, 204, 204);"></i></td>
+        <td style="font-size: 16px"><b>Телефон горячей линии:</b>
 
-    // Вторник
-    if ($graf['tue']['active'] == 1) {
-        if ($graf['tue']['o']['active'] == 1) {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Вторник: с ' . $graf['tue']['w']['in'] . ':' . $graf['tue']['wm']['in'] . ' до ' . $graf['tue']['w']['out'] . ':' . $graf['tue']['wm']['out'] .
-                '<span style="margin-left:30px">Обед:</span> с ' . $graf['tue']['o']['in'] . ':' . $graf['tue']['om']['in'] . ' до ' . $graf['tue']['o']['out'] . ':' . $graf['tue']['om']['out'] . '</div>';
-        } else {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Вторник: с ' . $graf['tue']['w']['in'] . ':' . $graf['tue']['wm']['in'] . ' до ' . $graf['tue']['w']['out'] . ':' . $graf['tue']['wm']['out'] . '</div>';
-        }
-    } else {
-        echo '<div class="contacts-adress-name">&nbsp;</div><div>Вторник: выходной</div>';
-    }
+            <div class="greenContact">+7&nbsp;(495)&nbsp;204-1583</div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><i class="fa fa-skype" style="font-size: 50px; color: rgb(0, 165, 161); text-shadow: 1px 1px 1px rgb(204, 204, 204);"></i></td>
+        <td style="font-size: 16px"><b>Skype:</b><br><a href="skype:odezhda-master1?chat"
+                                                        class="greenContact">odezhda-master1</a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><i class="fa fa-phone-square " style="font-size: 50px; color: rgb(0, 165, 161); text-shadow: 1px 1px 1px rgb(204, 204, 204);"></i></td>
+        <td style="font-size: 16px"><b>Для клиентов из Москвы и МО</b>
 
-    // Среда
-    if ($graf['wed']['active'] == 1) {
-        if ($graf['wed']['o']['active'] == 1) {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Среда: с ' . $graf['wed']['w']['in'] . ':' . $graf['wed']['wm']['in'] . ' до ' . $graf['wed']['w']['out'] . ':' . $graf['wed']['wm']['out'] .
-                '<span style="margin-left:30px">Обед:</span> с ' . $graf['wed']['o']['in'] . ':' . $graf['wed']['om']['in'] . ' до ' . $graf['wed']['o']['out'] . ':' . $graf['wed']['om']['out'] . '</div>';
-        } else {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Среда: с ' . $graf['wed']['w']['in'] . ':' . $graf['wed']['wm']['in'] . ' до ' . $graf['wed']['w']['out'] . ':' . $graf['wed']['wm']['out'] . '</div>';
-        }
-    } else {
-        echo '<div class="contacts-adress-name">&nbsp;</div><div>Среда: выходной</div>';
-    }
-
-    // Четверг
-    if ($graf['thu']['active'] == 1) {
-        if ($graf['thu']['o']['active'] == 1) {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Четверг: с ' . $graf['thu']['w']['in'] . ':' . $graf['thu']['wm']['in'] . ' до ' . $graf['thu']['w']['out'] . ':' . $graf['thu']['wm']['out'] .
-                '<span style="margin-left:30px">Обед:</span> с ' . $graf['thu']['o']['in'] . ':' . $graf['thu']['om']['in'] . ' до ' . $graf['thu']['o']['out'] . ':' . $graf['thu']['om']['out'] . '</div>';
-        } else {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Четверг: с ' . $graf['thu']['w']['in'] . ':' . $graf['thu']['wm']['in'] . ' до ' . $graf['thu']['w']['out'] . ':' . $graf['thu']['wm']['out'] . '</div>';
-        }
-    } else {
-        echo '<div class="contacts-adress-name">&nbsp;</div><div>Четверг: выходной</div>';
-    }
-
-    // Пятница
-    if ($graf['fri']['active'] == 1) {
-        if ($graf['fri']['o']['active'] == 1) {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Пятница: с ' . $graf['fri']['w']['in'] . ':' . $graf['fri']['wm']['in'] . ' до ' . $graf['fri']['w']['out'] . ':' . $graf['fri']['wm']['out'] .
-                '<span style="margin-left:30px">Обед:</span> с ' . $graf['fri']['o']['in'] . ':' . $graf['fri']['om']['in'] . ' до ' . $graf['fri']['o']['out'] . ':' . $graf['fri']['om']['out'] . '</div>';
-        } else {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Пятница: с ' . $graf['fri']['w']['in'] . ':' . $graf['fri']['wm']['in'] . ' до ' . $graf['fri']['w']['out'] . ':' . $graf['fri']['wm']['out'] . '</div>';
-        }
-    } else {
-        echo '<div class="contacts-adress-name">&nbsp;</div><div>Пятница: выходной</div>';
-    }
-
-    // Суббота
-    if ($graf['sat']['active'] == 1) {
-        if ($graf['sat']['o']['active'] == 1) {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Суббота: с ' . $graf['sat']['w']['in'] . ':' . $graf['sat']['wm']['in'] . ' до ' . $graf['sat']['w']['out'] . ':' . $graf['sat']['wm']['out'] .
-                '<span style="margin-left:30px">Обед:</span> с ' . $graf['sat']['o']['in'] . ':' . $graf['sat']['om']['in'] . ' до ' . $graf['sat']['o']['out'] . ':' . $graf['sat']['om']['out'] . '</div>';
-        } else {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Суббота: с ' . $graf['sat']['w']['in'] . ':' . $graf['sat']['wm']['in'] . ' до ' . $graf['sat']['w']['out'] . ':' . $graf['sat']['wm']['out'] . '</div>';
-        }
-    } else {
-        echo '<div class="contacts-adress-name">&nbsp;</div><div>Суббота: выходной</div>';
-    }
-
-    // Воскресенье
-    if ($graf['sun']['active'] == 1) {
-        if ($graf['sun']['o']['active'] == 1) {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Воскресенье: с ' . $graf['sun']['w']['in'] . ':' . $graf['sun']['wm']['in'] . ' до ' . $graf['sun']['w']['out'] . ':' . $graf['sun']['wm']['out'] .
-                '<span style="margin-left:30px">Обед:</span> с ' . $graf['sun']['o']['in'] . ':' . $graf['sun']['om']['in'] . ' до ' . $graf['sun']['o']['out'] . ':' . $graf['sun']['om']['out'] . '</div>';
-        } else {
-            echo '<div class="contacts-adress-name">&nbsp;</div><div>Воскресенье: с ' . $graf['sun']['w']['in'] . ':' . $graf['sun']['wm']['in'] . ' до ' . $graf['sun']['w']['out'] . ':' . $graf['tue']['wm']['out'] . '</div>';
-        }
-    } else {
-        echo '<div class="contacts-adress-name">&nbsp;</div><div>Воскресенье: выходной</div>';
-    }
-    echo '</div>';
-    ?>
-
+            <div class="greenContact">+7&nbsp;(910)&nbsp;996-0134</div>
+        </td>
+    </tr>
+</table>
+    </div>
+<div style="float: left;margin-top: 20px;width: 70%;">
 
     <?php
-}
 
+    $form = ActiveForm::begin([
+      'method'=>'post'
+    ]);
 
-            if (isset(Yii::$app->params['partnersset']['contacts'])) {
-                $contacts = Yii::$app->params['partnersset']['contacts'];
-                if ($contacts['adress']['value'] && $contacts['adress']['active'] == 1) {
-                    ?>
-                    <div class = "contacts-adress">
-                        <div class="contacts-adress-name">Адрес</div>
-                        <div><?= $contacts['adress']['value'] ?></div>
-                    </div>
-                    <?
-                }
-                if ($contacts['telephone']['value'] && $contacts['telephone']['active'] == 1) {
-                    ?>
-                    <div class = "contacts-telephone">
-                        <div class = "contacts-telephone-name">Телефоны
-                        </div>
-                        <div><?= $contacts['telephone']['value'] ?></div>
-                    </div>
-                    <?
-                }
-                if ($contacts['fax']['value'] && $contacts['fax']['active'] == 1) {
-                    ?>
-                    <div class = "contacts-fax">
-                        <div class = "contacts-fax-name">Факсы</div>
-                        <div><?= $contacts['fax']['value'] ?></div>
-                    </div>
-                    <?
-                }
-                if ($contacts['email']['value'] && $contacts['email']['active'] == 1) {
-                    ?>
-                    <div class = "contacts-email">
-                        <div class = "contacts-email-name">E-mail</div>
-                        <div><?= $contacts['email']['value'] ?></div>
-                    </div>
-                    <?
-                }
-            }
+    echo $form->field($model,'to')->dropDownList(
+        $to, ['prompt'=>'Выберите...']
+        )->label('Письмо в');
+    if(Yii::$app->user->isGuest) {
+        echo $form->field($model, 'name')->label('Имя');
+        echo $form->field($model, 'email')->label('e-mail');
+    }
+    echo $form->field($model,'subject')->label('Тема обращения');
+    echo $form->field($model,'body')->textarea()->label('Сообщение');
+    echo Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'save_lk', 'value'=>'user', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
+    ActiveForm::end();
+
+    if($result){
+        echo    '<div>'.$result.'</div>';
+    }
+    ?>
+        <div class="to"></div>
+
+</div>
+<?
 
                  if (Yii::$app->params['partnersset']['googlemap']['value'] && Yii::$app->params['partnersset']['googlemap']['active'] == 1) {
                     ?>

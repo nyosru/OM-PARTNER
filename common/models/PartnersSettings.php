@@ -14,6 +14,7 @@ class PartnersSettings extends Model
 {
     public $mailcounter;
     public $yandexcounter;
+    public $googleanalitycs;
     public $template;
     public $minimalordertotalprice;
     public $discount;
@@ -60,7 +61,7 @@ class PartnersSettings extends Model
     public function rules()
     {
         return [
-            [['mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
+            [['googleanalitycs;','mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
             [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup', 'transport', 'paysystem', 'paymentgate', 'requisites', 'catalog_type'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
