@@ -7,7 +7,6 @@ $(document).ready(function () {
         "/site/shipping",
         function (shipdata) {
             $inht = '';
-            console.log(shipdata);
             $.each(shipdata, function (index) {
                 if (this.active == '1') {
                     $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';

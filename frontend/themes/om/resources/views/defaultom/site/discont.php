@@ -7,16 +7,12 @@ use yii\helpers\Html;
 /* @var $message string */
 /* @var $exception Exception */
 
-
+$this->title='Распродажа';
 $data[0] = $products;
 foreach ($data[0] as $value) {
     $product = $value['products'];
     $description = $value['productsDescription'];
     $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
-// echo '<pre>';
-//        print_r($attr);
-//         echo '</pre>';
-
 
 
     ?>
@@ -25,7 +21,7 @@ foreach ($data[0] as $value) {
     </div>
     <?
     $active_border = 0;
-    if (count($attr_desc) > 0) {
+    if (count($value['productsAttributesDescr']) > 0) {
         $attr  = \yii\helpers\ArrayHelper::index($value['productsAttributes'],'options_values_id');
         $attr_desc = \yii\helpers\ArrayHelper::index($value['productsAttributesDescr'], 'products_options_values_name');
         ksort($attr_desc,SORT_NATURAL);

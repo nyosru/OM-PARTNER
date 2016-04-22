@@ -267,9 +267,7 @@ function dominant_color($img)
         $return['proc'] = round(($return['max_count'] * 100) / $return['all_px'], 0);
 
 //        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-//        echo '<pre>';
-//        print_r($return);
-//        echo '</pre>';
+
 
 //            $headers = Yii::$app->response->headers;
 //            $headers->add('Content-Type', 'image/jpg');

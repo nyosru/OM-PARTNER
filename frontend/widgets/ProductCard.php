@@ -64,10 +64,22 @@ class ProductCard extends \yii\bootstrap\Widget
         $innerhtml = '';
         $product=$this->product;
         $description=$this->description;
-        $attr  = \yii\helpers\ArrayHelper::index($this->attrib,'options_values_id');
-        $attr_desc = \yii\helpers\ArrayHelper::index($this->attr_descr, 'products_options_values_name');
+        if($this->attrib){
+            $attr  = \yii\helpers\ArrayHelper::index($this->attrib,'options_values_id');
+        }else{
+            $attr = [];
+        }
+
+        if($this->attr_descr){
+            $attr_desc = \yii\helpers\ArrayHelper::index($this->attr_descr, 'products_options_values_name');
+        }else{
+            $attr_desc = [];
+        }
+
+
         ksort($attr_desc,SORT_NATURAL);
-        $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
+        $attr_html = '';
+        $activelabel = 0;
         if (count($attr_desc) > 0) {
             $key = 0;
             foreach ($attr_desc as $key=>$attr_desc_value) {
@@ -75,15 +87,16 @@ class ProductCard extends \yii\bootstrap\Widget
                     $classpos = 'active-options';
                     $add_class = 'add-count';
                     $stylepos = '';
+                    $activelabel++;
                     $del_class = 'del-count';
                     $inputpos = '';
                     $some_text = 0;
-                    if($key%2 == 0 && $stylepos == ''){
+                    if($key%2 == 0){
                         $class='border-right:1px solid #CCC';
                         $key++;
                     }else{
                         $class='';
-                        $key++;
+                         $key++;
                     }
                 }else{
                     $classpos = 'disable-options';
@@ -110,16 +123,17 @@ class ProductCard extends \yii\bootstrap\Widget
                     'placeholder="'.$some_text.'"'.
                     'type="text">';
 
-                $attr_html .= '<div id="'.$add_class.'" style="margin: 0px;line-height: 1.6;">'.
+                $attr_html .= '<div id="'.$add_class.'" style="margin: 0px;line-height: 1.6;font-size: 14px;font-weight: 500;">'.
                     '+'.
                     '</div>'.
-                    '<div id="'.$del_class.'" style="margin: 0px;line-height: 1.6;">'.
+                    '<div id="'.$del_class.'" style="margin: 0px;line-height: 1.6;font-size: 14px;font-weight: 500;">'.
                     '-'.
                     '</div>';
 
                 $attr_html .='</div></div></div>';
             }
         } else {
+            $activelabel++;
             $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>';
             $attr_html .= '<input  id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
@@ -135,16 +149,22 @@ class ProductCard extends \yii\bootstrap\Widget
                 'data-min="'. $product['products_quantity_order_min'].'"'.
                 'placeholder="0"'.
                 'type="text">';
-            $attr_html .= '<div id="add-count" style="margin: 0px;line-height: 1.6;">'.
+            $attr_html .= '<div id="add-count" style="margin: 0px;line-height: 1.6;font-size: 14px;font-weight: 500;">'.
                 '+'.
                 '</div>'.
-                '<div id="del-count" style="margin: 0px;line-height: 1.6;">'.
+                '<div id="del-count" style="margin: 0px;line-height: 1.6;font-size: 14px;font-weight: 500;">'.
                 '-'.
                 '</div>';
 
             $attr_html .=  '</div></div></div>';
         }
-        $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
+        if($activelabel > 0) {
+            $cart_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable">В корзину</div>';
+        }else{
+            $cart_html = '<div class="cart-lable" style="background: #E9516D">Продано</div>';
+        }
+        $attr_html = $cart_html.$attr_html;
+            $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
         if(count($attr)){
@@ -159,7 +179,7 @@ class ProductCard extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
      
-        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;"><a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
+        $innerhtml .= '<div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;"><a  itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '"><div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' .
             '<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) . '</div></a>' .
@@ -172,7 +192,7 @@ class ProductCard extends \yii\bootstrap\Widget
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>' .
             '<div style="cursor:pointer">' .
-            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="' . $product['products_id'] . '">'.$options_name.'<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;"></i>'.
+            '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right;font-size: 12px;font-weight: 400;display: block;width: 50%;position: absolute;bottom: 35px;right: 20px;margin: 0px 0px -8px;padding: 5px 45px;" data-prod="' . $product['products_id'] . '">'.$options_name.'<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600;color: rgb(0, 165, 161);font-size: 18px;position: absolute;right: 0px;padding: 3px 0px 0px 40px;"></i>'.
             '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .

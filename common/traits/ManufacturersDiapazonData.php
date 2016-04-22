@@ -8,20 +8,20 @@ Trait ManufacturersDiapazonData
 {
     public function manufacturers_diapazon($id)
     {
-     //  $key = Yii::$app->cache->buildKey('ManDiapazon');
-     //   if(($data = Yii::$app->cache->get($key))==TRUE) {
-        $diapazon = new ManufacturersDiapazon();
-        $List = [];
-        $HTML = '';
-        $diapazon = $diapazon->find()->select(['start_time','stop_time','week_day'])->where(['manufacturers_id'=>$id])->orderBy('week_day')->asArray()->all();
-        if (count($diapazon)>0) {
-        foreach ($diapazon as $key => $val) {
-            $List[$val['week_day']] = ['start_time' => $val['start_time'], 'stop_time' => $val['stop_time']];
-        }
-            $wD = ['0'=>'Понедельник','1'=>'Вторник','2'=>'Среда','3'=>'Четверг','4'=>'Пятница','5'=>'Суббота','6'=>'Воскресение'];
-            $HTML = '<div><strong style="display: inline;">Данный товар доступен к оформление в указаный ниже период. Он будет находится в корзине и Вы сможете его заказать в доступное для оформления время.</strong><div class="close-modal" style="display: inline; color: red; padding: 5px;"><i class="fa fa-close"></i></div>
+        $keys = Yii::$app->cache->buildKey('ManDiapazon2-'.$id);
+        if(($data = Yii::$app->cache->get($keys))==FALSE) {
+            $diapazon = new ManufacturersDiapazon();
+            $List = [];
+            $HTML = '';
+            $diapazon = $diapazon->find()->select(['start_time','stop_time','week_day'])->where(['manufacturers_id'=>$id])->orderBy('week_day')->asArray()->all();
+            if (count($diapazon)>0) {
+                foreach ($diapazon as $key => $val) {
+                    $List[$val['week_day']] = ['start_time' => $val['start_time'], 'stop_time' => $val['stop_time']];
+                }
+                $wD = ['0'=>'Понедельник','1'=>'Вторник','2'=>'Среда','3'=>'Четверг','4'=>'Пятница','5'=>'Суббота','6'=>'Воскресение'];
+                $HTML = '<div><strong style="display: inline;">Данный товар доступен к оформление в указаный ниже период. Он будет находится в корзине и Вы сможете его заказать в доступное для оформления время.</strong><div class="close-modal" style="display: inline; color: red; padding: 5px;"><i class="fa fa-close"></i></div>
 		</div>';
-            $HTML .= '<div class="manDiapazon">';
+                $HTML .= '<div class="manDiapazon">';
                 $emptyDays = 0;
                 for ($i = 0; $i < 7; $i++) {
                     $List[$i]['start_time'] = (isset($List[$i]['start_time']) ? $List[$i]['start_time'] : '0');
@@ -43,24 +43,41 @@ Trait ManufacturersDiapazonData
                     $ret .= '</div>';
                     $HTML .= $ret;
                 }
-            $HTML .= '</div>';
+                $HTML .= '</div>';
                 if ($emptyDays !== 7) {
-                    return $HTML;
+                    $data =  $HTML;
+                    Yii::$app->cache->set($keys, $HTML, 7200);
+                    return  $data;
                 } else {
-                    return '<div><span style="color: red"><strong>Данный товар будет доступен для заказа с 09.01.16 с 16-00 . Приносим свои извинения за временные неудобства!</strong></span><div>';
+                    $data =  '<div><span style="color: red"><strong>Данный товар будет доступен для заказа с 09.01.16 с 16-00 . Приносим свои извинения за временные неудобства!</strong></span><div>';
+                    Yii::$app->cache->set($keys, $data, 7200);
+                    return  $data;
                 }
             }
+        }else{
+
+            return  $data;
+        }
+
     }
     public function manufacturers_diapazon_id()
     {
-        $diapazon = ManufacturersDiapazon::find()->select('manufacturers_id as time, week_day, start_time, stop_time')->asArray()->all();
-        foreach($diapazon as $key => $value){
-             $diapazons[$value['time']][$value['week_day']]['start_time'] = $value['start_time'];
-             $diapazons[$value['time']][$value['week_day']]['stop_time'] = $value['stop_time'];
-             $diapazons[$value['time']]['time'] = $value['time'];
+        $keys = Yii::$app->cache->buildKey('ManDiapazonAll');
+        if(($data = Yii::$app->cache->get($keys))==FALSE) {
+            $diapazon = ManufacturersDiapazon::find()->select('manufacturers_id as time, week_day, start_time, stop_time')->asArray()->all();
+            foreach ($diapazon as $key => $value) {
+                $diapazons[$value['time']][$value['week_day']]['start_time'] = $value['start_time'];
+                $diapazons[$value['time']][$value['week_day']]['stop_time'] = $value['stop_time'];
+                $diapazons[$value['time']]['time'] = $value['time'];
+            }
+
+
+            Yii::$app->cache->set($keys, $diapazons, 7200);
+            return  $diapazons;
+
+        }else{
+            return  $data;
         }
-        $diapazon = $diapazons;
-        return $diapazon;
     }
 
     public function sec2hmTime($time)

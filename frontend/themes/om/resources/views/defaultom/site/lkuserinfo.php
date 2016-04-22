@@ -20,9 +20,12 @@ Collapse::widget();
 
 
 <div id="index-card-4">Мои данные</div>
-<div style="margin-bottom: 46px; padding: 0px 20px;">Эта информация никогда не будет доступна третьим лицам</div>
+<div style="margin-bottom: 45px; padding: 0px 20px;">Эта информация никогда не будет доступна третьим лицам</div>
 
 <?
+if($savelk==true){
+    echo '<div style="color: blue;padding: 0px 20px;margin-bottom: 20px;">Изменения были сохранены</div>';
+}
 $sorter = '';
 $cs = count($tab_order);
 for($i=0; $i<$cs; $i++){
@@ -52,10 +55,7 @@ for($i=0; $i<$cs; $i++){
 //    ]);
     // $sorter .=  '<a class="sort"  ><a aria-expanded="true"  href="#expanded-tab-user'.$i.'" data-toggle="collapse" data-parent="#expanded-tab-user'.$i.'" style="width:calc(100% /5)" class="'.$addclass. '  ">'..'</a></a>';
 }
-//echo '<pre>';
-//    print_r($cust);
-//echo '</pre>';
-//die();
+
 ?>
 <div style="width: 100%; margin-left: -10px;">
     <div class="lkprofile" style="float:left; width: 80%;">
@@ -395,7 +395,7 @@ for($i=0; $i<$cs; $i++){
                         $.each(out.response.items, function () {
                             if (this.title == $check) {
                                 $idcountry = this.id;
-                                //     console.log($idcountry);
+                               
                             }
                         });
                         $.ajax({
@@ -409,7 +409,7 @@ for($i=0; $i<$cs; $i++){
                                 $.each(out2.response.items, function () {
                                     $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
                                 });
-                                //      console.log($id);
+                                //   
                                 $('[id='+idnum+']').after('<ul class="dropdown-menu state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
                                 $('[id='+idnum+']').attr('autocomplete', 'off');
                             }
@@ -425,8 +425,7 @@ for($i=0; $i<$cs; $i++){
     });
     $(document).on('click', '#country', function () {
         $inid=$(this).parent().siblings().filter('[data-name=country]').attr('id');
-//            console.log($(this).parent().siblings().filter('[data-name=country]').attr('id'));
-        $('[data-name=state][id='+$inid+']').val('');
+         $('[data-name=state][id='+$inid+']').val('');
         $(this).parent().siblings().filter('[data-name=country]').val($(this).text());
         $('[id='+$inid+']').attr('data-country', this.getAttribute('country'));
         $(this).parent().filter('#country-drop').hide();

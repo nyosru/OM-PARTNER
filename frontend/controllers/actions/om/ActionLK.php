@@ -2,10 +2,13 @@
 namespace frontend\controllers\actions\om;
 
 use common\models\Customers;
+use common\models\OrdersProducts;
+use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
 use common\models\Profile;
 use common\models\User;
 use common\models\Orders;
+use frontend\widgets\ProductCard;
 use yii;
 
 
@@ -13,13 +16,13 @@ trait ActionLK
 {
     public function actionLk()
     {
-
         if(Yii::$app->user->isGuest || ($cust=User::find()->where(['partners_users.id'=>Yii::$app->user->getId(), 'partners_users.id_partners'=>Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->one()) == FALSE || !isset($cust['customers']['customers_id'])){
             return $this->redirect(Yii::$app->request->referrer);
         }
 
         $this->layout = 'lk';
         $model = \common\models\Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' );
+
         $sort = new yii\data\Sort([
             'attributes' => [
                 'orders_id'=>[
@@ -31,33 +34,45 @@ trait ActionLK
             ],
         ]);
 
+
         switch (Yii::$app->request->getQueryParam('view')) {
 
             case 'userinfo':
+                $savelk=false;
                 if(Yii::$app->request->post()){
                     $customer=new Profile();
                     $customer->load(Yii::$app->request->post());
                     switch (Yii::$app->request->post()['save_lk']) {
                         case 'user':
-                            $customer->saveUserInfo();
+                            if($customer->saveUserInfo()){
+                                $savelk=true;
+                            };
                             break;
                         case 'customer':
-                            $customer->saveCustomer();
+                            if($customer->saveCustomer()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
                         case 'deliv':
-                            $customer->saveDeliv();
+                            if($customer->saveDeliv()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
                         case 'address':
-                            $customer->saveUserDelivery();
+                            if($customer->saveUserDelivery()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
                         case 'add_address':
-                            $customer->addUserDelivery();
+                            if($customer->addUserDelivery()){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -70,7 +85,9 @@ trait ActionLK
                                     break;
                                 }
                             };
-                            $customer->delUserDeliveryAddress($addr_id);
+                            if($customer->delUserDeliveryAddress($addr_id)){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -94,7 +111,9 @@ trait ActionLK
                                     break;
                                 }
                             };
-                            $customer->defaultUserDeliveryAddress($addr_id);
+                            if($customer->defaultUserDeliveryAddress($addr_id)){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -106,7 +125,9 @@ trait ActionLK
                                     break;
                                 }
                             };
-                            $customer->defaultUserPayAddress($addr_id);
+                            if($customer->defaultUserPayAddress($addr_id)){
+                                $savelk=true;
+                            }
                             unset($customer);
                             $customer=new Profile();
                             break;
@@ -119,7 +140,7 @@ trait ActionLK
                 }
                 $customer->loadUserProfile();
                 $this->layout = 'lk';
-                return $this->render('lkuserinfo',['cust'=>$customer]);
+                return $this->render('lkuserinfo',['cust'=>$customer,'savelk'=>$savelk]);
             break;
 
 
@@ -195,6 +216,57 @@ trait ActionLK
             case 'savecomments':
 
                 break;
+
+            case 'orderedproducts':
+                $list=array();
+                $hide_man = $this->hide_manufacturers_for_partners();
+                foreach ($hide_man as $value) {
+                    $list[] = $value['manufacturers_id'];
+                }
+
+                $hide_man = implode(',', $list);
+                $orderedproducts=new yii\data\ActiveDataProvider([
+                    'query'=>OrdersProducts::find()->select('products.products_id')->joinWith('products')->joinWith('order')->where(['customers_id'=> $cust['customers']['customers_id']])->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products.products_status=1  and products.products_quantity > 0 and products.products_price>0')->groupBy('`products_id` DESC' ),
+                    'pagination'=>[
+                        'defaultPageSize' => 60,
+                        'pageSizeLimit'=>[1,60]
+                    ],
+                ]);
+                $pagination=$orderedproducts->getPagination();
+                $orprod=[];
+                $gmorprod=$orderedproducts->getModels();
+                foreach ($gmorprod as $key=>$value){
+                        if(!in_array($value['products_id'], $orprod)) {
+                            $orprod[] = $value['products_id'];
+                    }
+                }
+//
+                $orprodstring = implode(',',$orprod);
+//                echo '<pre>';
+//                print_r($pagination);
+//                echo '</pre>';
+//                die();
+                $opprovider = new yii\data\ActiveDataProvider([
+                    'query'=> PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.products_id IN ('.$orprodstring.')')->distinct(),
+                    'pagination'=>[
+                        'defaultPageSize' => 60,
+                        'pageSizeLimit'=>[1,60]
+                    ],
+                ]);
+
+
+//                echo '<pre>';
+//                print_r($opprovider->getModels());
+//                echo '</pre>';
+//                die();
+//
+                $orderedproducts=$opprovider->getModels();
+                $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
+                $man_time = $this->manufacturers_diapazon_id();
+
+                return $this->render('lkorderedproducts',['orderedproducts' => $orderedproducts,'pagination'=>$pagination, 'catpath'=>$catpath, 'man_time'=>$man_time]);
+                break;
+
             default:
                 $orders = new yii\data\ActiveDataProvider([
                     'query' => $model,
@@ -208,9 +280,10 @@ trait ActionLK
                 $countcheck = Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'1'])->count();
                 $countdelivery = Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'4'])->count();
                 $countsborka = Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->andWhere(['orders.orders_status'=>'11'])->count();
-                $totalorder = Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->count();
+                $totalorder = Orders::find()->where('customers_id = :customer and orders_status = :status',[':customer'=> $cust['customers']['customers_id'], ':status'=>5])->joinWith('products')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC' )->count();
 
-                $totalproducts  = Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->select('SUM(`orders_products`.`products_quantity`) as totalprod, SUM(orders_products_sp.`products_quantity`) as total, SUM(`orders_products`.`products_quantity`*`orders_products`.`products_price`) as total_prod_price, SUM(`orders_products_sp`.`products_quantity`*`orders_products`.`products_price`) as total_prod_price_sp')->joinWith('products')->joinWith('productsSP')->asArray()->all();
+                $totalproducts  = Orders::find()->where('customers_id = :customer and orders_status = :status',[':customer'=> $cust['customers']['customers_id'], ':status'=>5])->select('SUM(`orders_products`.`products_quantity`) as totalprod, SUM(orders_products_sp.`products_quantity`) as total, SUM(`orders_products`.`products_quantity`*`orders_products`.`products_price`) as total_prod_price, SUM(`orders_products_sp`.`products_quantity`*`orders_products`.`products_price`) as total_prod_price_sp')->joinWith('products')->joinWith('productsSP')->asArray()->all();
+
 //                $totalproducts = Orders::find()->where('customers_id=:cust',[':cust'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsSP')->asArray()->all();
 //                $total = 0;
 //                $totalprice = 0;

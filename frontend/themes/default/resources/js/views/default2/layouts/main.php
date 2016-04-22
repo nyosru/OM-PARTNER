@@ -49,9 +49,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             }
             ?>
         </p>
-        <? //        echo '<pre>';
-        //print_r($this->context);
-        //echo '</pre>';?>
+
         <p class="pull-right">
             <a class="top-link" href="<?= BASEURL; ?>/news">Новости</a>
             <a class="top-link" href="<?= BASEURL; ?>/faq">FAQ</a>

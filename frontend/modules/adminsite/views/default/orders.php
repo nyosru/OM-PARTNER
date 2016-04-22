@@ -30,7 +30,7 @@ echo \yii\grid\GridView::widget([
                 return ['class' => 'tbl_column_name'];
             },
             'content' => function ($data) {
-                return $data->id;
+                return $data->user_id;
             }
         ],
         [
@@ -49,138 +49,157 @@ echo \yii\grid\GridView::widget([
                 $discount = $order['discount'];
                 $discounttotalprice = $order['discounttotalprice'];
                 $paymentmethod = $order['paymentmethod'];
-                unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
-                $inner .= '<table class="table table-striped table-bordered table-hover table-responsive">';
-                $inner .= '<thead><tr>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">#</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Артикул</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Цена за шт</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Количество</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Изображение</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Размер</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Описание</th>';
-                $inner .= '</tr></thead><tbody>';
-                $count = 0;
-                $countprod = 0;
-                $totalprice = 0;
-                $totalomquant = 0;
-                $totalomcount = 0;
-                $finalomprice = 0;
-                $omfinalprice = 0;
-                foreach ($order as $key => $value) {
-                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity - $value[8]['count'];
-                    $price = round($value[3] - $value[3] / 100 * $discounttotalprice);
-                    $count++;
-                    $countprod += $value[4];
-                    $totalprice += $price * $value[4];
-                    if ($data->oMOrdersProducts) {
-                        if ($positionquantity == 0 && isset($data->oMOrdersProducts)) {
-                            $col = 'red';
-                        } elseif ($positionquantity == $value[4] && isset($data->oMOrdersProducts)) {
-                            $col = 'green';
-                        } else {
-                            $col = 'yellow';
-                        }
-
-                    } else {
-                        $col = 'white';
-                    }
-                    $inner .= '<tr style="background: ' . $col . '">';
-                    $inner .= '<td class="col-md-1">' . $key . '</td>';
-                    $inner .= '<td class="col-md-2">' . $value[1] . '</td>';
-                    if ($data->oMOrdersProducts) {
-                        $ompriceprod = round($data->oMOrdersProducts[$key]->products_price);
-                        $omprice = '<br/>(ОМ: ' . $ompriceprod . ' Руб.)';
-                        $omfinalquant = '<br/>(В наличии: ' . $positionquantity . ')';
-                        if ($positionquantity > 0) {
-                            $omfinalprice += ($ompriceprod * $positionquantity);
-                            $totalomcount++;
-                            $totalomquant += $positionquantity;
-                            $finalomprice += $price * $positionquantity;
-                        }
-                    } else {
-                        $omprice = '';
-                        $omfinalquant = '';
-                    }
-                    if ($value[6] == 'undefined') {
-                        $value[6] = 'Без размера';
-                    }
-                    $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.' . $omprice . '</td>';
-                    $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
-                    $inner .= '<td class="col-md-3"><img style="width: 50%;" src="' . BASEURL . '/imagepreview?src=' . $value[5] . '"/></td>';
-                    $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
-                    $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
-                    $inner .= '</tr>';
-                }
-                if ($totalomcount > 0) {
-                    $omfinalprice = '<br/>(После сверки ОМ: ' . $omfinalprice . ')';
-                    $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
-                    $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
-                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
-                } else {
-                    $totalomcount = '';
-                    $finalomprice = '';
-                    $totalomquant = '';
-                    $omfinalprice = '';
-                }
-                $inner .= '</tbody><tfooter>';
-                $inner .= '<tr>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Итого</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Наценка: ' . (float)$discount . '%</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (float)$discounttotalprice . '%</th>';
-                $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Стоимость заказа: ' . $totalprice . ' Руб.' . $finalomprice . $omfinalprice . '</th>';
-                $inner .= '</tr>';
-                $inner .= '<tr>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Доставка: </th>';
-                $inner .= '<th colspan="3" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
-                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Оплата: </th>';
-                $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $paymentmethod . '</th>';
-                $inner .= '</tr>';
-                $inner .= '</tfooter></table>';
-                return $inner;
+                return $data->orders_id;
             }
         ],
-        [
-            'attribute' => 'user_id',
-            'label' => 'Пользователь',
-            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-            'contentOptions' => function ($model, $key, $index, $column) {
-                return ['class' => 'tbl_column_name'];
-            },
-            'content' => function ($data) {
-                return $data->user->username;
-            }
-        ],
-        [
-            'attribute' => 'order',
-            'label' => 'Доставка',
-            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
-            'contentOptions' => function ($model, $key, $index, $column) {
-                return ['class' => 'tbl_column_name'];
-            },
-            'content' => function ($data) {
-                $inner = '<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseAdr' . $data->id . '" aria-expanded="false" aria-controls="collapseAdr' . $data->id . '">Просмотр</a><div class="collapse" style="position: absolute; z-index: 999999; height: 0px;" id="collapseAdr' . $data->id . '"><div class="well">';
-                $delivery = unserialize($data->delivery);
-                $inner .= '<div class="col-md-6">Фамилия: </div><div class="col-md-6">' . $delivery['lastname'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Имя: </div><div class="col-md-6">' . $delivery['name'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Отчество: </div><div class="col-md-6">' . $delivery['secondname'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Страна: </div><div class="col-md-6">' . $delivery['country'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Область,регион: </div><div class="col-md-6">' . $delivery['state'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Город: </div><div class="col-md-6">' . $delivery['city'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Адрес: </div><div class="col-md-6">' . $delivery['adress'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Индекс: </div><div class="col-md-6">' . $delivery['postcode'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Телефон: </div><div class="col-md-6">' . $delivery['telephone'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Паспорт(серия): </div><div class="col-md-6">' . $delivery['pasportser'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Паспорт(номер): </div><div class="col-md-6">' . $delivery['pasportnum'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Паспрот(дата выдачи): </div><div class="col-md-6">' . $delivery['pasportdate'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Паспорт(Кем выдан): </div><div class="col-md-6">' . $delivery['pasportwhere'] . '</div><br><br>';
-                $inner .= '<div class="col-md-6">Идентификатор ОМ: </div><div class="col-md-6">' . $data->userDescription->customers_id . '</div><br><br>';
-                $inner .= '</div></div>';
-                return $inner;
-            }
-        ],
+//        [
+//            'attribute' => 'order',
+//            'label' => 'Заказ',
+//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+//            'contentOptions' => function ($model, $key, $index, $column) {
+//                return ['class' => 'tbl_column_name'];
+//            },
+//            'content' => function ($data) {
+//                $shipping = ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'], 'flat7_flat7' => ['value' => 'Почта ЕМС России']];
+//                $shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);
+//                $inner = '<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseOrd' . $data->id . '" aria-expanded="false" aria-controls="collapseOrd' . $data->id . '">Просмотр</a><div class="collapse"  style="position: absolute; z-index: 999999; left: 19px; height: 0px;" id="collapseOrd' . $data->id . '"><div class="well">';
+//                $order = unserialize($data->order);
+//                $ship = $order['ship'];
+//                $discount = $order['discount'];
+//                $discounttotalprice = $order['discounttotalprice'];
+//                $paymentmethod = $order['paymentmethod'];
+//                unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
+//                $inner .= '<table class="table table-striped table-bordered table-hover table-responsive">';
+//                $inner .= '<thead><tr>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">#</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Артикул</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Цена за шт</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Количество</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Изображение</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Размер</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Описание</th>';
+//                $inner .= '</tr></thead><tbody>';
+//                $count = 0;
+//                $countprod = 0;
+//                $totalprice = 0;
+//                $totalomquant = 0;
+//                $totalomcount = 0;
+//                $finalomprice = 0;
+//                $omfinalprice = 0;
+//                foreach ($order as $key => $value) {
+//                    $positionquantity = $data->oMOrdersProducts[$key]->products_quantity + $data->oMOrdersProductsSP[$key]->products_quantity - $value[8]['count'];
+//                    $price = round($value[3] - $value[3] / 100 * $discounttotalprice);
+//                    $count++;
+//                    $countprod += $value[4];
+//                    $totalprice += $price * $value[4];
+//                    if ($data->oMOrdersProducts) {
+//                        if ($positionquantity == 0 && isset($data->oMOrdersProducts)) {
+//                            $col = 'red';
+//                        } elseif ($positionquantity == $value[4] && isset($data->oMOrdersProducts)) {
+//                            $col = 'green';
+//                        } else {
+//                            $col = 'yellow';
+//                        }
+//
+//                    } else {
+//                        $col = 'white';
+//                    }
+//                    $inner .= '<tr style="background: ' . $col . '">';
+//                    $inner .= '<td class="col-md-1">' . $key . '</td>';
+//                    $inner .= '<td class="col-md-2">' . $value[1] . '</td>';
+//                    if ($data->oMOrdersProducts) {
+//                        $ompriceprod = round($data->oMOrdersProducts[$key]->products_price);
+//                        $omprice = '<br/>(ОМ: ' . $ompriceprod . ' Руб.)';
+//                        $omfinalquant = '<br/>(В наличии: ' . $positionquantity . ')';
+//                        if ($positionquantity > 0) {
+//                            $omfinalprice += ($ompriceprod * $positionquantity);
+//                            $totalomcount++;
+//                            $totalomquant += $positionquantity;
+//                            $finalomprice += $price * $positionquantity;
+//                        }
+//                    } else {
+//                        $omprice = '';
+//                        $omfinalquant = '';
+//                    }
+//                    if ($value[6] == 'undefined') {
+//                        $value[6] = 'Без размера';
+//                    }
+//                    $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.' . $omprice . '</td>';
+//                    $inner .= '<td class="col-md-1">' . $value[4] . $omfinalquant . '</td>';
+//                    $inner .= '<td class="col-md-3"><img style="width: 50%;" src="' . BASEURL . '/imagepreview?src=' . $value[5] . '"/></td>';
+//                    $inner .= '<td class="col-md-1">' . $value[6] . '</td>';
+//                    $inner .= '<td class="col-md-1">' . $value[7] . '</td>';
+//                    $inner .= '</tr>';
+//                }
+//                if ($totalomcount > 0) {
+//                    $omfinalprice = '<br/>(После сверки ОМ: ' . $omfinalprice . ')';
+//                    $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
+//                    $finalomprice = '<br/>(После сверки: ' . $finalomprice . ')';
+//                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
+//                } else {
+//                    $totalomcount = '';
+//                    $finalomprice = '';
+//                    $totalomquant = '';
+//                    $omfinalprice = '';
+//                }
+//                $inner .= '</tbody><tfooter>';
+//                $inner .= '<tr>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Итого</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Наценка: ' . (float)$discount . '%</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-3">Скидка: ' . (float)$discounttotalprice . '%</th>';
+//                $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Стоимость заказа: ' . $totalprice . ' Руб.' . $finalomprice . $omfinalprice . '</th>';
+//                $inner .= '</tr>';
+//                $inner .= '<tr>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Доставка: </th>';
+//                $inner .= '<th colspan="3" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
+//                $inner .= '<th style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">Оплата: </th>';
+//                $inner .= '<th colspan="2" style="background: #FFBF08 none repeat scroll 0% 0%;" class="col-md-1">' . $paymentmethod . '</th>';
+//                $inner .= '</tr>';
+//                $inner .= '</tfooter></table>';
+//                return $inner;
+//            }
+//        ],
+//        [
+//            'attribute' => 'user_id',
+//            'label' => 'Пользователь',
+//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+//            'contentOptions' => function ($model, $key, $index, $column) {
+//                return ['class' => 'tbl_column_name'];
+//            },
+//            'content' => function ($data) {
+//                return $data->user->username;
+//            }
+//        ],
+//        [
+//            'attribute' => 'order',
+//            'label' => 'Доставка',
+//            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+//            'contentOptions' => function ($model, $key, $index, $column) {
+//                return ['class' => 'tbl_column_name'];
+//            },
+//            'content' => function ($data) {
+//                $inner = '<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseAdr' . $data->id . '" aria-expanded="false" aria-controls="collapseAdr' . $data->id . '">Просмотр</a><div class="collapse" style="position: absolute; z-index: 999999; height: 0px;" id="collapseAdr' . $data->id . '"><div class="well">';
+//                $delivery = unserialize($data->delivery);
+//                $inner .= '<div class="col-md-6">Фамилия: </div><div class="col-md-6">' . $delivery['lastname'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Имя: </div><div class="col-md-6">' . $delivery['name'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Отчество: </div><div class="col-md-6">' . $delivery['secondname'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Страна: </div><div class="col-md-6">' . $delivery['country'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Область,регион: </div><div class="col-md-6">' . $delivery['state'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Город: </div><div class="col-md-6">' . $delivery['city'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Адрес: </div><div class="col-md-6">' . $delivery['adress'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Индекс: </div><div class="col-md-6">' . $delivery['postcode'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Телефон: </div><div class="col-md-6">' . $delivery['telephone'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Паспорт(серия): </div><div class="col-md-6">' . $delivery['pasportser'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Паспорт(номер): </div><div class="col-md-6">' . $delivery['pasportnum'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Паспрот(дата выдачи): </div><div class="col-md-6">' . $delivery['pasportdate'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Паспорт(Кем выдан): </div><div class="col-md-6">' . $delivery['pasportwhere'] . '</div><br><br>';
+//                $inner .= '<div class="col-md-6">Идентификатор ОМ: </div><div class="col-md-6">' . $data->userDescription->customers_id . '</div><br><br>';
+//                $inner .= '</div></div>';
+//                return $inner;
+//            }
+//        ],
         [
             'attribute' => 'create_date',
             'label' => 'Дата заказа',

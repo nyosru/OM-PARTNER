@@ -25,11 +25,16 @@ class SignupFormOM extends Model
     public $passwordcheck;
     public $id_partners;
     public $role;
-   // public $captcha;
+    // public $captcha;
     public $name;
     public $secondname;
     public $lastname;
-    public $adress;
+
+    public $adress_street;
+    public $adress_house;
+    public $adress_bildings;
+    public $adress_appartment;
+
     public $city;
     public $state;
     public $country;
@@ -49,7 +54,7 @@ class SignupFormOM extends Model
     public function rules()
     {
         return [
-           ['emails','email'],
+            ['emails','email'],
             ['emails','required', 'message' => 'Это обязательное поле.'],
 
 
@@ -63,9 +68,21 @@ class SignupFormOM extends Model
 
             ['pasportdate','safe', 'message' => 'Дата'],
 
-            ['adress','required', 'message' => 'Это обязательное поле.'],
-            ['adress','ValidateAdress'],
-            ['adress','filter', 'filter' => 'trim'],
+            ['adress_street','required', 'message' => 'Это обязательное поле.'],
+            ['adress_street','string'],
+            ['adress_street','filter', 'filter' => 'trim'],
+
+            ['adress_house','required', 'message' => 'Это обязательное поле.'],
+            ['adress_house','string'],
+            ['adress_house','filter', 'filter' => 'trim'],
+
+
+            ['adress_bildings','string'],
+            ['adress_bildings','filter', 'filter' => 'trim'],
+
+
+            ['adress_appartment','string'],
+            ['adress_appartment','filter', 'filter' => 'trim'],
 
             ['postcode','required', 'message' => 'Это обязательное поле.'],
             ['postcode','string','message' => 'Строка'],
@@ -96,7 +113,7 @@ class SignupFormOM extends Model
 
 
 
-       //     ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
+            //     ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
 
 
         ];
@@ -147,69 +164,43 @@ class SignupFormOM extends Model
 //       }
 //    }
 
-    public function ValidateAdress()
-    {
-        if($this->adress['street']){
 
-        }else{
-            $this->addError('adress[street]', 'Это обязательное поле');
-        }
-        if($this->adress['house']){
-
-        }else{
-            $this->addError('adress[house]', 'Это обязательное поле');
-        }
-        if($this->adress['bilding']){
-
-        }else{
-            $this->addError('adress[bilding]', 'Это обязательное поле');
-        }
-        if($this->adress['apartment']){
-
-        }else{
-            $this->addError('adress[apartment]', 'Это обязательное поле');
-        }
-
-    }
     public function signup()
     {
-       // $transaction = Yii::$app->db->beginTransaction();
-       // try {
-            $country = new Countries();
-            $zones = new Zones();
-            $user = new User();
-            $partners = new Partners();
-            $userOM = new AddressBook();
-            $userCustomer = new Customers();
-            $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
-            $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
-            $this->adress = $this->trim_tags_text(implode(' ',$this->adress));
-            $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
-            $user->username = $this->trim_tags_text($this->emails);
-            $user->email = $this->trim_tags_text($this->emails);
-            $user->setPassword($this->password);
-            $user->generateAuthKey();
-            $user->id_partners = $id_partners;
-            $user->role = 'register';
+        // $transaction = Yii::$app->db->beginTransaction();
+        // try {
+        $adress =  $this->trim_tags_text($this->adress_street). ' '.$this->trim_tags_text($this->adress_house). ' '.$this->trim_tags_text($this->adress_bildings). ' '.$this->trim_tags_text($this->adress_appartment);
+        $country = new Countries();
+        $zones = new Zones();
+        $user = new User();
+        $partners = new Partners();
+        $userOM = new AddressBook();
+        $userCustomer = new Customers();
+        $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
+        $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
 
-            if ($user->save()) {
-                $auth = Yii::$app->authManager;
-                $auth->assign($auth->getRole('register'), $user->getId());
-               // Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
-               //     ->setFrom('support@'.$_SERVER[HTTP_HOST])
-                //    ->setTo($user->email)
-               //     ->setSubject('Регистрация на сайте '.$_SERVER[HTTP_HOST])
-               //     ->send();
+        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+        $user->username = $this->trim_tags_text($this->emails);
+        $user->email = $this->trim_tags_text($this->emails);
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->id_partners = $id_partners;
+        $user->role = 'register';
 
-               // return $user;
-            }
+        if ($user->save()) {
+            $auth = Yii::$app->authManager;
+            $auth->assign($auth->getRole('register'), $user->getId());
+
+
+            // return $user;
+        }
         if(!$this->pasportdate){
             $this->pasportdate = '1970-01-01';
         }
         $userOM->entry_firstname = $this->trim_tags_text($this->name);
         $userOM->entry_lastname = $this->trim_tags_text($this->lastname);
         $userOM->entry_city =  $this->trim_tags_text($this->city);
-        $userOM->entry_street_address =  $this->trim_tags_text($this->adress);
+        $userOM->entry_street_address =  $adress;
         $userOM->otchestvo =  $this->trim_tags_text($this->secondname);
         $userOM->pasport_seria =  $this->trim_tags_text($this->pasportser);
         $userOM->pasport_nomer =  $this->trim_tags_text($this->pasportnum);
@@ -228,7 +219,7 @@ class SignupFormOM extends Model
             $userCustomer->otchestvo =  $this->secondname;
             $userCustomer->customers_email_address =  $this->emails;
             $userCustomer->customers_default_address_id = $userOM->address_book_id;
-            $userCustomer->customers_selected_template = '1';
+
             $userCustomer->customers_telephone =  $this->telephone;
             $userCustomer->customers_password = $userCustomer->encrypt_password($this->password);
             $userCustomer->customers_newsletter = '1';
@@ -260,7 +251,7 @@ class SignupFormOM extends Model
                     $newuserpartnerscastid->id = $user->getId();
                     $newuserpartnerscastid->secondname = $this->secondname;
                     $newuserpartnerscastid->lastname = $this->lastname;
-                    $newuserpartnerscastid->adress = $this->adress;
+                    $newuserpartnerscastid->adress = $adress;
                     $newuserpartnerscastid->city = $this->city;
                     $newuserpartnerscastid->country = $this->country;
                     $newuserpartnerscastid->state = $this->state;
@@ -269,7 +260,7 @@ class SignupFormOM extends Model
                     $newuserpartnerscastid->pasportser = $this->pasportser;
                     $newuserpartnerscastid->pasportnum = $this->pasportnum;
                     if($this->pasportdate){
-                    $newuserpartnerscastid->pasportdate = date('Y-m-d H:i:s', strtotime($this->pasportdate));
+                        $newuserpartnerscastid->pasportdate = date('Y-m-d H:i:s', strtotime($this->pasportdate));
                     }else{
                         $newuserpartnerscastid->pasportdate = date('Y-m-d H:i:s');
                     }
@@ -279,7 +270,12 @@ class SignupFormOM extends Model
 
 
                     if( $newuserpartnerscastid->save()){
-                       return $user;
+                        Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
+                            ->setFrom('support@'.$_SERVER[HTTP_HOST])
+                            ->setTo($user->email)
+                            ->setSubject('Регистрация на сайте '.$_SERVER[HTTP_HOST])
+                            ->send();
+                        return $user;
                     }else{
 
                     }
@@ -291,14 +287,14 @@ class SignupFormOM extends Model
             }
         } else {
         }
-      //      $transaction->commit();
-      // } catch (\yii\db\Exception $e) {
+        //      $transaction->commit();
+        // } catch (\yii\db\Exception $e) {
 //
-       //     $transaction->rollBack();
+        //     $transaction->rollBack();
 //
-       //     die();
+        //     die();
 
-       // }
+        // }
     }
 
 

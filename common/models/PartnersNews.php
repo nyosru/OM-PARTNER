@@ -16,6 +16,7 @@ use Yii;
  * @property string $date_added
  * @property string $date_modified
  * @property integer $status
+ * @property string $image
  */
 class PartnersNews extends ActiveRecordExt
 {
@@ -54,6 +55,7 @@ class PartnersNews extends ActiveRecordExt
             'date_added' => 'Date Added',
             'date_modified' => 'Date Modified',
             'status' => 'Status',
+            'image' => 'Image',
         ];
     }
 }

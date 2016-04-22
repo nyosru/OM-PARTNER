@@ -15,6 +15,10 @@ $(document).on('click', '.sort', function () {
     $('.sort-checked').removeClass('sort-checked');
     $(this).addClass('sort-checked');
 });
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    return results[1] || 0;
+};
 
 $(document).on('click', '.cart-image', function () {
     $('.image').attr('style', 'display:block;');
@@ -69,31 +73,31 @@ $(document).on('click', '.del-count', function () {
 
 
 $(document).on('click', '.del-product', function () {
-        $delrow = $(this).parent().attr('data-raw');
-        $new_cart = new Object();
-        $item = JSON.parse(localStorage.getItem('cart-om'));
-        $item.cart.splice($delrow, 1);
-        $ilocal = JSON.stringify($item);
-        localStorage.setItem('cart-om', $ilocal);
-        $(this).parent().next().remove();
-        $(this).parent().remove();
-        $str = $('.cart-row');
-        $str2=$('.num-of-items');
-        $.each($str, function(i,item){
-            $(this).attr('data-raw',i);
-            $(this).children().find('.num-of-items').attr('data-raw',i);
-        });
-        // $.each($str2, function(i,item){
-        //     $(this).attr('data-raw',i);
-        // });
+    $delrow = $(this).parent().attr('data-raw');
+    $new_cart = new Object();
+    $item = JSON.parse(localStorage.getItem('cart-om'));
+    $item.cart.splice($delrow, 1);
+    $ilocal = JSON.stringify($item);
+    localStorage.setItem('cart-om', $ilocal);
+    $(this).parent().next().remove();
+    $(this).parent().remove();
+    $str = $('.cart-row');
+    $str2=$('.num-of-items');
+    $.each($str, function(i,item){
+        $(this).attr('data-raw',i);
+        $(this).children().find('.num-of-items').attr('data-raw',i);
+    });
+    // $.each($str2, function(i,item){
+    //     $(this).attr('data-raw',i);
+    // });
 
 
 
-        //$amount_prod == $item.cart.length;
-        $(".cart-count").html($amount_prod);
-        $(".cart-price").html($cart_price + ' руб.');
-        changeOveralPrice();
-        changeCartCount();
+    //$amount_prod == $item.cart.length;
+    $(".cart-count").html($amount_prod);
+    $(".cart-price").html($cart_price + ' руб.');
+    changeOveralPrice();
+    changeCartCount();
 });
 function changeOveralPrice(){
     var godsprice = 0;
@@ -111,7 +115,7 @@ function changeOveralPrice(){
     $('#wrap-price').html(wrapprice + ' руб');
 }
 $(document).on('click', '.cart-lable', function () {
-   $id_product =  this.getAttribute('data-sale');
+    $id_product =  this.getAttribute('data-sale');
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
     $noanimate = false;
@@ -128,11 +132,11 @@ $(document).on('click', '.cart-lable', function () {
                 if(localStorage.getItem('cart-om-date')){
                     $timecart =  new Date;
                     $timecart = localStorage.getItem('cart-om-date');
-                    if($timenow.getTime() - $timecart > 604800000){
-                        localStorage.removeItem('cart-om');
-                        localStorage.removeItem('cart-om-date');
-                        return false;
-                    }
+                    // if($timenow.getTime() - $timecart > 604800000){
+                    //     localStorage.removeItem('cart-om');
+                    //     localStorage.removeItem('cart-om-date');
+                    //     return false;
+                    // }
                 }else{
                     localStorage.setItem('cart-om-date', $timenow.getTime());
                 }
@@ -250,7 +254,7 @@ function changeCartCount(){
 }
 
 $(document).on('keyup', '#input-count', function(){
- $val =   $(this).val();
+    $val =   $(this).val();
     if($val == '' || isNaN($val)){
         $val = 0;
     }
@@ -284,7 +288,7 @@ function startAnimation() {
     document.getElementById('loaderImage').style.width = cWidth + 'px';
     document.getElementById('loaderImage').style.height = cHeight + 'px';
     FPS = Math.round(100 / cSpeed);
-    SECONDS_BETWEEN_FRAMES = 1 / FPS;
+    SECONDS_BETWEEN_FRAMES = 0 / FPS;
     cPreloaderTimeout = setTimeout('continueAnimation()', SECONDS_BETWEEN_FRAMES / 1000);
 }
 function continueAnimation() {
@@ -378,8 +382,8 @@ $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
 function loaddata(){
-    $('body').addClass('some');
-    $('link').addClass('some');
+    // $('body').addClass('some');
+    // $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
     $count = $('.count-checked').text();
@@ -411,16 +415,27 @@ function loaddata(){
     $urld = document.location.toString();
     $urld = '' + $urld.split('?')[1];
     $urld = split_url($urld);
-    $cat = $urld['cat'][1];
-    $prodatrquery = $urld['prod_attr_query'][1];
-    $searchword = $urld['searchword'][1];
-console.log($searchword);
+    if($urld['cat']){
+        $cat = $urld['cat'][1];
+    }else{
+        $cat = 0;
+    }
 
+    if($urld['prod_attr_query']){
+        $prodatrquery = $urld['prod_attr_query'][1];
+    }else{
+        $prodatrquery = '';
+    }
+    if($urld['searchword']){
+        $searchword = $urld['searchword'][1];
+    }else{
+        $searchword = '';
+    }
     $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
     $url_data = $urld;
     $.ajax({
         method:"post",
-        url: "/site/catalog",
+        url: "",
         data: { "_csrf":yii.getCsrfToken(),
             "cat":$cat,
             "count":$count,
@@ -439,8 +454,8 @@ console.log($searchword);
             inProgress = true;
         }
     }).done(function (data) {
-        $('body').removeClass('some');
-        $('link').removeClass('some');
+        // $('body').removeClass('some');
+        // $('link').removeClass('some');
         $('.preload').remove();
         $loader = $('.loader-inner').html();
         $('.pagination-catalog').remove();
@@ -485,7 +500,7 @@ console.log($searchword);
                             'data-prod="'+ $product['products_id']+'"'+
                             'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
                             'data-model="'+ $product['products_model']+'"'+
-                            'data-price="'+ parseInt($product['products_price'])+'"'+
+                            'data-price="'+ Math.round($product['products_price'])+'"'+
                             'data-image="'+ $product['products_image']+'"'+
                             'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
                             'data-step="'+ $product['products_quantity_order_units']+'"'+
@@ -508,7 +523,7 @@ console.log($searchword);
                         'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                         'data-prod="'+ $product['products_id']+'"'+
                         'data-model="'+ $product['products_model']+'"'+
-                        'data-price="'+ parseInt($product['products_price'])+'"'+
+                        'data-price="'+ Math.round($product['products_price'])+'"'+
                         'data-image="'+ $product['products_image']+'"'+
                         'data-attrname=""'+
                         'data-attr=""'+
@@ -526,16 +541,16 @@ console.log($searchword);
                         '</div>'+
                         '</div></div></div>';
                 }
-                
+
                 if( data[14][$product.manufacturers_id] === undefined ) {
                     $timewrap = '';
                 }else{
                     $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
 
                 }
-                  $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
+                $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
                 $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
-               
+
                 $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
                     '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
                     '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
@@ -544,13 +559,13 @@ console.log($searchword);
                     '</a>'+
                     '<div  class="price">'+
                     '<div style="font-size: 18px; font-weight: 500;">'+
-                    parseInt($product.products_price) + ' Руб.'+
+                    Math.round($product.products_price) + ' Руб.'+
                     '</div>'+
                     '</div>'+
                     '<div style="cursor:pointer">'+
-                    '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 30px; right: 20px; margin: 0px 0px -30px; padding: 30px 26px;" data-prod="'+$product.products_id+'">'+
+                    '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right;font-size: 12px;font-weight: 400;display: block;width: 50%;position: absolute;bottom: 35px;right: 20px;margin: 0px 0px -8px;padding: 5px 45px;" data-prod="'+$product.products_id+'">'+
                     'Размеры'+
-                    '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: 0px; padding: 30px 0px 0px 31px;">'+
+                    '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600;color: rgb(0, 165, 161);font-size: 18px;position: absolute;right: 0px;padding: 3px 0px 0px 40px;">'+
                     '</i>'+
                     '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
                     $attr_html+
@@ -621,13 +636,13 @@ console.log($searchword);
 
 
             $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
-             $('a[rel=light]').light();
+            $('a[rel=light]').light();
             inProgress = false;
         } else {
             $('#size-slide').html('');
             $('#filter-button').html('');
-            $('body').removeClass('some');
-            $('link').removeClass('some');
+            //  $('body').removeClass('some');
+            // $('link').removeClass('some');
             $('.preload').remove();
         }
     });
@@ -636,12 +651,12 @@ $(document).on('ready', function () {
 
     $(window).scroll(function () {
         $control = $('#control-load option:selected').val();
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 800 && !inProgress && ControlLoad =='auto') {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500 && !inProgress && ControlLoad =='auto') {
             loaddata();
         }
     });
     $(document).on('click', '.loader', function () {
-       $control = $('#control-load option:selected').val();
+        $control = $('#control-load option:selected').val();
         if (!inProgress && ControlLoad=='manual') {
             loaddata();
         }
@@ -661,7 +676,7 @@ $('[data-cat]').on('click', function () {
 $(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
-   // console.log( $(this).val());
+    // console.log( $(this).val());
     $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;
@@ -708,11 +723,11 @@ $(document).on('ready', function () {
             if(localStorage.getItem('cart-om-date')){
                 $timecart =  new Date;
                 $timecart = localStorage.getItem('cart-om-date');
-                if($timenow.getTime() - $timecart > 604800000){
-                    localStorage.removeItem('cart-om');
-                    localStorage.removeItem('cart-om-date');
-                    return false;
-                }
+                // if($timenow.getTime() - $timecart > 604800000){
+                //     localStorage.removeItem('cart-om');
+                //     localStorage.removeItem('cart-om-date');
+                //     return false;
+                // }
             }else{
                 localStorage.setItem('cart-om-date', $timenow.getTime());
             }
@@ -844,7 +859,7 @@ function onAjaxSuccessinfo(data) {
         }
     });
     $('.address').remove();
-    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept">Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div><button class=" btn btn-sm btn-info" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
+    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с договором оферты.</div><button class=" btn btn-sm btn-info" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",
@@ -955,12 +970,12 @@ $('[id^=carousel-selector-]').click( function(){
 });
 
 $(document).on('click','#prdesc',function() {
-        if($('#prd').is(':not(:visible)')) {
-            jQuery('#prd').attr('style', 'display:block');
-        }
-        else{
-            jQuery('#prd').attr('style','display:none');
-        }});
+    if($('#prd').is(':not(:visible)')) {
+        jQuery('#prd').attr('style', 'display:block');
+    }
+    else{
+        jQuery('#prd').attr('style','display:none');
+    }});
 
 $(document).on('click', '[data-ajax=time]', function(){
     $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
@@ -969,7 +984,7 @@ $(document).on('click', '[data-ajax=time]', function(){
             $('#overlay')
                 .css('display','block')
         }else{
-            $('.bside').append('<div id="overlay" style="display: block;"></div><div id="time" style="display: none;">'+data+'</div>');
+            $('.bside').append('<div id="overlay" ></div><div id="time" style="display: none;">'+data+'</div>');
         }
         $('#time').show();
     });
@@ -1047,7 +1062,7 @@ $(document).on('click','#prod-info',function(){
 
                     $size_html += '<div class="' + $classpos + '" style="' + $stylepos + 'width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 3px ;">' + item.products_options_values_name + '</div>';
                     //   $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 5px;">' + item.products_options_values_name + '</div>';
-                    $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + parseInt(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="" placeholder="' + $some_text + '" type="text">';
+                    $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="" placeholder="' + $some_text + '" type="text">';
                     $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
                 });
 
@@ -1069,7 +1084,7 @@ $(document).on('click','#prod-info',function(){
                 $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;">' +
                     '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;">' +
                     '<div style="margin: auto; width: 100%;">' +
-                    '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + parseInt(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="" data-attr="" placeholder="' + $some_text + '" type="text" />' +
+                    '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="" data-attr="" placeholder="' + $some_text + '" type="text" />' +
                     '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">' +
                     '+</div>' +
                     '<div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-' +
@@ -1115,7 +1130,7 @@ $(document).on('click','#prod-info',function(){
                 'Цена' +
                 '</div>' +
                 '<div class="prod-price" itemprop="price" style="float: right; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;">' +
-                parseFloat(data['product']['products']['products_price']) + ' руб' +
+                Math.round(data['product']['products']['products_price']) + ' руб' +
                 '</div>' +
                 '</div>' +
                 '<div style="margin-bottom: 20px;">' +
@@ -1150,12 +1165,12 @@ $(document).on('click','#prod-info',function(){
             $prev = $('[id="card"][itemid=' + data.product.products.products_id + ']').prev('#card').attr('itemid');
             $next = $('[id="card"][itemid=' + data.product.products.products_id + ']').next('#card').attr('itemid');
 
-            if (typeof($next) != "undefined") {
+            if (typeof($next) != "undefined" ) {
                 $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
                     '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
                     '</div>';
             } else {
-                if (!inProgress) {
+                if (!inProgress&&document.getElementsByClassName('loader').length!=0) {
                     loaddata();
                 }
 
@@ -1199,6 +1214,7 @@ $(document).on('click','#overlay, #modal-close',function(){
     $('#time')
         .css('display','none');
 });
+
 function changeCart($inputc){
     $ind=$inputc.parent().attr('data-raw');
     if (JSON.parse(localStorage.getItem('cart-om'))) {
@@ -1214,3 +1230,6 @@ function changeCart($inputc){
         }
     }
 }
+$(document).on('ready', function(){
+    $('a[rel=light]').light();
+});

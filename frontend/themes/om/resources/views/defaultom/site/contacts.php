@@ -59,7 +59,7 @@ $this->title = 'Контакты';
     <?php
 
     $form = ActiveForm::begin([
-
+      'method'=>'post'
     ]);
 
     echo $form->field($model,'to')->dropDownList(

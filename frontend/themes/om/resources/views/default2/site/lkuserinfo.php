@@ -52,10 +52,7 @@ for($i=0; $i<$cs; $i++){
 //    ]);
     // $sorter .=  '<a class="sort"  ><a aria-expanded="true"  href="#expanded-tab-user'.$i.'" data-toggle="collapse" data-parent="#expanded-tab-user'.$i.'" style="width:calc(100% /5)" class="'.$addclass. '  ">'..'</a></a>';
 }
-//echo '<pre>';
-//    print_r($cust);
-//echo '</pre>';
-//die();
+
 ?>
 <div style="width: 100%; margin-left: -10px;">
     <div class="lkprofile" style="float:left; width: 80%;">

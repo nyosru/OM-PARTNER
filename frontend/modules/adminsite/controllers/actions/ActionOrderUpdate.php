@@ -41,9 +41,6 @@ trait ActionOrderUpdate{
                     }
                     if (($postnew = Yii::$app->request->post('new')) == TRUE) {
 //                        $chekorderconsitent = new ArrayHelper();
-//                        echo '<pre>';
-//                        print_r($chekorderconsitent->map($order));
-//                        echo '</pre>';
                         foreach ($postnew as $keypost => $valuepost) {
                             foreach ($valuepost['attr'] as $attrkey => $attrvalue) {
                                 if (isset($attrvalue['name']) && isset($attrvalue['count'])) {
@@ -61,11 +58,7 @@ trait ActionOrderUpdate{
                             }
                         }
                     }
-//                    echo '<pre>';
-//                    print_r($order);
-//                    print_r($postnew);
-//                    print_r(Yii::$app->request->post());
-//                    echo '<pre>';
+
                     $model->order = serialize($order);
                     $model->save();
                     return $this->render('orderupdate', ['modelform' => $model]);

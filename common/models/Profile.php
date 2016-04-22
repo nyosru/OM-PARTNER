@@ -99,6 +99,10 @@ class Profile extends Model
         foreach ($this->delivery as $key => $value) {
             $arrkey = $key;
         }
+
+        if($this->delivery[$arrkey]['passportdate']=='0000-00-00'){
+            $this->delivery[$arrkey]['passportdate']='1970-01-01';
+        }
         $userinfo->name = $this->delivery[$arrkey]['name'];
         $userinfo->secondname =$this->delivery[$arrkey]['secondname'];
         if($this->delivery[$arrkey]['secondname']==''){
@@ -117,8 +121,11 @@ class Profile extends Model
         $userinfo->pasportdate = $this->delivery[$arrkey]['passportdate'];
         $userinfo->pasportwhere = $this->delivery[$arrkey]['passportwhere'];
         if ($userinfo->save()) {
+            
+            $customer->customers_gender ='M';
             $customer->customers_telephone = $this->phone;
             $customer->customers_fax = $this->customers_fax;
+            $customer->otchestvo =$this->delivery[$arrkey]['secondname'];
             if ($customer->save()) {
                 $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$arrkey]['country']])->asArray()->one();
                 $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$arrkey]['state']])->asArray()->one();
@@ -140,7 +147,11 @@ class Profile extends Model
                 $add->pasport_kem_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportwhere']);
                 $add->pasport_kogda_vidan = $this->trim_tags_text($this->delivery[$arrkey]['passportdate']);
                 $add->customers_id = $userinfo->customers_id;
-                $add->save();
+                if($add->save()){
+                    return true;
+                }else{
+                    return false;
+                }
 
             }
         }
@@ -189,7 +200,11 @@ class Profile extends Model
             if($customer->delivery_adress_id ==$customer->customers_default_address_id){
                 $customer->delivery_adress_id=$add->address_book_id;
             }
-            $customer->save();
+            if($customer->save()){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 
@@ -232,7 +247,11 @@ class Profile extends Model
             if ($customer->pay_adress_id == $customer->customers_default_address_id) {
                 $customer->pay_adress_id = $add->address_book_id;
             }
-            $customer->save();
+            if($customer->save()){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 
@@ -242,6 +261,7 @@ class Profile extends Model
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
         $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
+        $saveok=false;
         foreach ($add as $key=>$value){
             $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->delivery[$key]['country']])->asArray()->one();
             $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->delivery[$key]['state']])->asArray()->one();
@@ -260,20 +280,25 @@ class Profile extends Model
             $value->entry_postcode=$this->trim_tags_text($this->delivery[$key]['postcode']);
             $value->entry_street_address=$this->trim_tags_text($this->delivery[$key]['address']);
             $value->customers_id = $userinfo->customers_id;
-            $value->save();
+            if($value->save()){
+                $saveok=true;
+            }
         }
+        return $saveok;
     }
     public function delUserDeliveryAddress($addr_id){
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
         $ids=[];
+        $delok=false;
         foreach($add as $key=>$value){
             $ids[]=$value['address_book_id'];
         }
         if(in_array($addr_id,$ids)){
             $add = AddressBook::find()->where(['address_book_id' => $addr_id])->one();
-            $add->delete();
+            if($add->delete()) $delok=true;
         }
+        return $delok;
     }
     public function addUserDelivery(){
         $country = new Countries();
@@ -298,54 +323,46 @@ class Profile extends Model
         $add->entry_postcode=$this->trim_tags_text($this->delivery['add']['postcode']);
         $add->entry_street_address=$this->trim_tags_text($this->delivery['add']['address']);
         $add->customers_id=$userinfo->customers_id;
-        $add->save();
+        if($add->save()){
+            return true;
+        }else{
+            return false;
+        }
     }
-//    public function defaultUserAddress($addr_id){
-//        $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
-//        $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
-//        $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
-//        $ids=[];
-//        foreach($add as $key=>$value){
-//            $ids[]=$value['address_book_id'];
-//        }
-//
-//        if(in_array($addr_id,$ids)) {
-//            $customer->customers_default_address_id = (integer)$addr_id;
-//            $customer->validate();
-//  //          echo '<pre>';
-////        echo $addr_id;
-////        print_r($ids);
-////            print_r($customer);
-////            echo '</pre>';
-////            die();
-//            $customer->save();
-//        }
-//    }
+
     public function defaultUserDeliveryAddress($addr_id){
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
         $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
         $ids=[];
+        $changeok=false;
         foreach($add as $key=>$value){
             $ids[]=$value['address_book_id'];
         }
         if(in_array($addr_id,$ids)) {
             $customer->delivery_adress_id = $addr_id;
-            $customer->save();
+            if($customer->save()){
+                $changeok=true;
+            }
         }
+        return $changeok;
     }
     public function defaultUserPayAddress($addr_id){
         $userinfo=PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->one();
         $customer=Customers::find()->where(['customers_id'=>$userinfo->customers_id])->one();
         $add=AddressBook::find()->where(['customers_id'=>$userinfo->customers_id])->all();
         $ids=[];
+        $changeok=false;
         foreach($add as $key=>$value){
             $ids[]=$value['address_book_id'];
         }
         if(in_array($addr_id,$ids)) {
             $customer->pay_adress_id = $addr_id;
-            $customer->save();
+            if($customer->save()){
+                $changeok=true;
+            }
         }
+        return $changeok;
     }
     public function loadUserProfile(){
         $country = new Countries();

@@ -2,11 +2,6 @@
 $this -> title = 'Обработка заказа';
 
 
-//echo '<pre>';
-//print_r($result['data']['timeproduct']);
-//print_r($result['data']['saveproduct']);
-//echo '</pre>';
-
 if($result['code'] == 200 && $result['data']['paramorder']['number']){
 ?>
 
@@ -60,9 +55,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 </div>
 <div style="float:left; width:20%">
 <?
-//echo '<pre>';
-//print_r($result['data']);
-//echo '</pre>';
+
 if($result['data']['saveproduct']) {
     echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
     foreach ($result['data']['saveproduct'] as $key => $value) {
