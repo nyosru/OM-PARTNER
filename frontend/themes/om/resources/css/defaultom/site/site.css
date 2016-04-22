@@ -642,9 +642,8 @@ a:active {
     padding: 0px;
     height: auto;
     position: relative;
-
     margin-left: 16.5%;
-    /*border-right: 1px solid rgb(204, 204, 204);*/
+    border-left: 1px solid rgb(204, 204, 204) !important;
     box-sizing: content-box;
 }
 #time{
@@ -4389,7 +4388,6 @@ a:active {
 
 .partners-main-right {
     height: 100%;
-    border-left:1px solid #CCC;
 }
 
 .partners-comp-main {
