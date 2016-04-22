@@ -12,30 +12,30 @@ $this -> title = 'Мои заказы';
 ?>
 <form>
     <input type="hidden" value="myorder" name="view">
-<div style="float: left; width: 100%;">
-    <?
-    $sorter = '';
-    $cs = count($sort_order);
-    for($i=0; $i<$cs; $i++){
-        switch($i){
-            case '0':
-                $addclass = 'first-sorter';
-                break;
-            case $cs-1:
-                $addclass = 'last-sorter';
-                break;
-            default:
-                $addclass = '';
-                break;
-        }
+    <div style="float: left; width: 100%;">
+        <?
+        $sorter = '';
+        $cs = count($sort_order);
+        for($i=0; $i<$cs; $i++){
+            switch($i){
+                case '0':
+                    $addclass = 'first-sorter';
+                    break;
+                case $cs-1:
+                    $addclass = 'last-sorter';
+                    break;
+                default:
+                    $addclass = '';
+                    break;
+            }
 
-        $sorter .=  '<a class="sort" name="order"  type="submit" href="" ><button name="filter" type="submit" value="'.$i.'" class="'.$addclass.' header-sort-item active lock-on">'.$sort_order[$i].'</button></a>';
-    }
-    ?>
-    <div id="sort-order" style="width: 50%;">
-        <?= $sorter?>
-    </div>
-    <div id="find-date" style="float: right; width: 30%; text-align: right;">
+            $sorter .=  '<a class="sort" name="order"  type="submit" href="" ><button name="filter" type="submit" value="'.$i.'" class="'.$addclass.' header-sort-item active lock-on">'.$sort_order[$i].'</button></a>';
+        }
+        ?>
+        <div id="sort-order" style="width: 50%;">
+            <?= $sorter?>
+        </div>
+        <div id="find-date" style="float: right; width: 30%; text-align: right;">
 
             <?
             echo \kartik\date\DatePicker::widget( [
@@ -63,15 +63,15 @@ $this -> title = 'Мои заказы';
             ]);?>
             <button style="background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); width: 10%; height: 33px; line-height: 1.2; margin-right: 0px;" class="btn" type="submit">»</button>
 
-    </div>
-    <div id="find-order"  style="float: right; width: 20%; text-align: right;">
+        </div>
+        <div id="find-order"  style="float: right; width: 20%; text-align: right;">
 
             <input name="id" value="<?= Yii::$app->request->getQueryParam('id');?>" class="no-shadow-form-control" type="text" placeholder="числовой идентификатор"></input>
             <button style="width: 10%; height: 32px; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); margin-right: 0px; float: left; position: relative; left: 90%; bottom: 33px; line-height: 1.2;" class="btn" type="submit">»</button>
 
-    </div>
+        </div>
 
-</div>
+    </div>
 </form><?
 echo \yii\grid\GridView::widget([
     'dataProvider' => $orders,
@@ -151,7 +151,7 @@ echo \yii\grid\GridView::widget([
                     }
                     $inner .= '<tr style="background: ' . $col . '">';
                     $inner .= '<td class="col-md-1">' . $count . '</td>';
-                    $inner .= '<td class="col-md-1"><a target="_blank" href="'.BASEURL.'/product?id='.$value->products_id.'" style="display:block;clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></a></td>';
+                    $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
                     $inner .= '<td class="col-md-2">'.$value->products_model.'</td>';
                     if($data->orders_status != 1) {
                         $omfinalquant = '<br/>В наличии: ' . $positionquantity . '';
@@ -161,8 +161,8 @@ echo \yii\grid\GridView::widget([
                     if ($positionquantity > 0) {
                         $totalomcount++;
                         $totalomquant += (int)$positionquantity;
-                        $finalomprice += (float)$price * (int)$firstcountprod;
-                        }
+                        $finalomprice += (float)$price * (int)$positionquantity;
+                    }
                     $omfirstprice += (float)$price * (int)$firstcountprod;
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
                     $inner .= '<td class="col-md-1">Заказано: ' . $firstcountprod . $omfinalquant . '</td>';
@@ -268,27 +268,27 @@ echo \yii\grid\GridView::widget([
             },
             'content' => function ($data) {
                 switch ($data->orders_status) {
-                        case '100':
-                            return 'Обработка заказа';
-                        case '1':
-                            return 'Ожидает проверки';
-                        case '2':
-                            return 'Ждём оплаты';
-                        case '3':
-                            return 'Оплачен';
-                        case '4':
-                            return 'Оплачен - Доставляется';
-                        case '5':
-                            return 'Оплачен - Доставлен';
-                        case '6':
-                            return 'Отменён';
-                        case '11':
-                            return 'Сборка';
-                        case '0':
-                            return 'Спецпредложение';
-                        default:
-                            return $data->orders_status;
-                    }
+                    case '100':
+                        return 'Обработка заказа';
+                    case '1':
+                        return 'Ожидает проверки';
+                    case '2':
+                        return 'Ждём оплаты';
+                    case '3':
+                        return 'Оплачен';
+                    case '4':
+                        return 'Оплачен - Доставляется';
+                    case '5':
+                        return 'Оплачен - Доставлен';
+                    case '6':
+                        return 'Отменён';
+                    case '11':
+                        return 'Сборка';
+                    case '0':
+                        return 'Спецпредложение';
+                    default:
+                        return $data->orders_status;
+                }
 
             }
 
@@ -339,22 +339,23 @@ echo \yii\grid\GridView::widget([
             type: 'POST',
             data: {
                 'opid': $opid,
-                },
+            },
             async: true,
             success: function (data) {
+                console.log(data);
                 $('.photobank-'+data.opid).html('');
 
                 $.each(data.photo,function(){
                     $('.photobank-'+data.opid).append('<a class="pritenphoto"  rel="light" data-gallery="'+data.opid+'" href="/images/priten/'+data.opid+'/'+this.image_name_server+'"><div class="pritenphotoimg" style="background: url(/images/priten/'+data.opid+'/'+this.image_name_server+') no-repeat 50% 50% /contain"></div></a>');
                 });
 
-                    $('a[rel=light]').light();
+                $('a[rel=light]').light();
 
                 $('.message-bank-'+data.opid).html('');
                 $.each(data.comments,function(){
                     $who = {'1':'Клиент',
-                            '2':'Администратор',
-                            '3':'Сборщик'};
+                        '2':'Администратор',
+                        '3':'Сборщик'};
                     $('.message-bank-'+data.opid).append('<div><div style="clear: left;padding: 4px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; float: left; border-radius: 4px; color: rgb(251, 251, 251); font-weight: 500; margin: 10px;">'+$who[this.type]+'</div><div style="padding: 4px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; float: left; border-radius: 4px; color: rgb(251, 251, 251); font-weight: 500; margin: 10px;">'+this.date_add+'</div><div style="padding: 4px; background: rgb(227, 240, 240) none repeat scroll 0% 0%; border-radius: 4px; font-weight: 500; margin: 10px; float: left; clear: both; color: rgb(0, 0, 0);">'+this.orders_products_priten+'</div></div>');
                 });
 
@@ -362,67 +363,67 @@ echo \yii\grid\GridView::widget([
         });
     }
     $(document).on('click','[data-opid-collapse]', function(){
-      $opid =   $(this).attr('data-opid-collapse');
+        $opid =   $(this).attr('data-opid-collapse');
         reloaddata($opid);
     });
-$(document).on('click','[data-post="file"]', function(){
-    $opid = $(this).attr('data-id');
-    var formData = new FormData();
+    $(document).on('click','[data-post="file"]', function(){
+        $opid = $(this).attr('data-id');
+        var formData = new FormData();
 
-    files = $('[type=file][data-opid="'+$opid+'"]')[0].files;
-    for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        if (!file.type.match('image.*')) {
-            continue;
+        files = $('[type=file][data-opid="'+$opid+'"]')[0].files;
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (!file.type.match('image.*')) {
+                continue;
+            }
+            formData.append('file['+i+']', file, file.name);
         }
-        formData.append('file['+i+']', file, file.name);
-    }
 
-    formData.append('opid', $opid);
-    formData.append('action', 'savefiles');
-    formData.append('_csrf', yii.getCsrfToken());
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/site/saveclaim', true);
-    xhr.send(formData);
+        formData.append('opid', $opid);
+        formData.append('action', 'savefiles');
+        formData.append('_csrf', yii.getCsrfToken());
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/site/saveclaim', true);
+        xhr.send(formData);
 
-    xhr.upload.onprogress = function(event) {
-        $width = $('.progress').width();
-        $progress =   $width*(event.loaded/event.total);
-        $('[role="progressbar"]').html( 'Загружено на сервер ' + event.loaded + ' байт из ' + event.total );
-        $('[role="progressbar"]').width($progress);
-    }
-
-    xhr.upload.onload = function() {
-        $('[role="progressbar"]').html( 'Данные полностью загружены на сервер!' );
-    }
-
-    xhr.upload.onerror = function() {
-        $('[role="progressbar"]').html( 'Произошла ошибка при загрузке данных на сервер!' );
-    }
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            reloaddata($opid);
-        } else {
-           
+        xhr.upload.onprogress = function(event) {
+            $width = $('.progress').width();
+            $progress =   $width*(event.loaded/event.total);
+            $('[role="progressbar"]').html( 'Загружено на сервер ' + event.loaded + ' байт из ' + event.total );
+            $('[role="progressbar"]').width($progress);
         }
-    };
-});
-$(document).on('click','[data-post="comment"]', function(){
-    $opid = $(this).attr('data-id');
 
-    $comment = $('textarea[data-opid='+$opid+']')[0].value;
-    $.ajax({
-        url: '/site/saveclaim',
-        type: 'POST',
-        data: {'comment': $comment,
-               'opid': $opid,
-               'action': 'savecomment'},
-        async: false,
-        success:function (data) {
-            reloaddata($opid);
+        xhr.upload.onload = function() {
+            $('[role="progressbar"]').html( 'Данные полностью загружены на сервер!' );
         }
+
+        xhr.upload.onerror = function() {
+            $('[role="progressbar"]').html( 'Произошла ошибка при загрузке данных на сервер!' );
+        }
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                reloaddata($opid);
+            } else {
+                console.log(xhr);
+            }
+        };
+    });
+    $(document).on('click','[data-post="comment"]', function(){
+        $opid = $(this).attr('data-id');
+
+        $comment = $('textarea[data-opid='+$opid+']')[0].value;
+        $.ajax({
+            url: '/site/saveclaim',
+            type: 'POST',
+            data: {'comment': $comment,
+                'opid': $opid,
+                'action': 'savecomment'},
+            async: false,
+            success:function (data) {
+                reloaddata($opid);
+            }
 
         });
-});
+    });
 
-    </script>
+</script>

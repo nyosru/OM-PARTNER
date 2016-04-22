@@ -30,39 +30,39 @@ $this->title = 'Личный кабинет';
 <div class="orders-metro" style="float: left; width: 100%;">
     <a href="<?=BASEURL?>/lk?view=myorder&filter=5">
         <div class="lk-order-status">
-        <div class="item">
-            <img src="/images/logo/Proverka.png"/>
+            <div class="item">
+                <img src="/images/logo/Proverka.png"/>
+            </div>
+            <div class="item"><?= $dataset['countcheck'];?></div>
+            <div class="title">Ожидает проверки</div>
         </div>
-        <div class="item"><?= $dataset['countcheck'];?></div>
-        <div class="title">Ожидает проверки</div>
-    </div>
     </a>
     <a href="<?=BASEURL?>/lk?view=myorder&filter=4">
-    <div class="lk-order-status">
-        <div class="item">
-            <img src="/images/logo/Oplata.png"/>
+        <div class="lk-order-status">
+            <div class="item">
+                <img src="/images/logo/Oplata.png"/>
+            </div>
+            <div class="item"><?= $dataset['countpay'];?></div>
+            <div class="title">Ожидает оплаты</div>
         </div>
-        <div class="item"><?= $dataset['countpay'];?></div>
-        <div class="title">Ожидает оплаты</div>
-    </div>
     </a>
     <a href="<?=BASEURL?>/lk?view=myorder&filter=7">
-    <div class="lk-order-status">
-        <div class="item">
-            <img src="/images/logo/Sborka.png"/>
+        <div class="lk-order-status">
+            <div class="item">
+                <img src="/images/logo/Sborka.png"/>
+            </div>
+            <div class="item"><?= $dataset['countsborka'];?></div>
+            <div class="title">Ожидает сборки</div>
         </div>
-        <div class="item"><?= $dataset['countsborka'];?></div>
-        <div class="title">Ожидает сборки</div>
-    </div>
     </a>
     <a href="<?=BASEURL?>/lk?view=myorder&filter=6">
-    <div class="lk-order-status">
-        <div class="item">
-            <img src="/images/logo/Dostavka.png"/>
+        <div class="lk-order-status">
+            <div class="item">
+                <img src="/images/logo/Dostavka.png"/>
+            </div>
+            <div class="item"><?= $dataset['countdelivery'];?></div>
+            <div class="title">Ожидает доставки</div>
         </div>
-        <div class="item"><?= $dataset['countdelivery'];?></div>
-        <div class="title">Ожидает доставки</div>
-    </div>
     </a>
 </div>
 <div id="index-card-4">Последний заказ</div>
@@ -151,7 +151,7 @@ $this->title = 'Личный кабинет';
                         if ($positionquantity > 0) {
                             $totalomcount++;
                             $totalomquant += (int)$positionquantity;
-                            $finalomprice += (float)$price * (int)$firstcountprod;
+                            $finalomprice += (float)$price * (int)$positionquantity;
                         }
                         $omfirstprice += (float)$price * (int)$firstcountprod;
                         $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
@@ -282,7 +282,7 @@ $this->title = 'Личный кабинет';
         </div>
         <div class="title"><?= $dataset['totalorder'];?></div>
         <div class="desc">
-           Заказов сделано мной с момента регистрации на сайте
+            Заказов сделано мной с момента регистрации на сайте
         </div>
     </div>
     <div class="lk-order-stat">
