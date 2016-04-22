@@ -226,7 +226,7 @@ trait ActionLK
 
                 $hide_man = implode(',', $list);
                 $orderedproducts=new yii\data\ActiveDataProvider([
-                    'query'=>OrdersProducts::find()->select('products_id')->joinWith('order')->where(['customers_id'=> $cust['customers']['customers_id']])->groupBy('`products_id` DESC' ),
+                    'query'=>OrdersProducts::find()->select('products.products_id')->joinWith('products')->joinWith('order')->where(['customers_id'=> $cust['customers']['customers_id']])->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products.products_status=1  and products.products_quantity > 0 and products.products_price>0')->groupBy('`products_id` DESC' ),
                     'pagination'=>[
                         'defaultPageSize' => 60,
                         'pageSizeLimit'=>[1,60]
@@ -256,9 +256,10 @@ trait ActionLK
 
 
 //                echo '<pre>';
-//                print_r($pagination);
+//                print_r($opprovider->getModels());
 //                echo '</pre>';
-//                die();products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 and
+//                die();
+//
                 $orderedproducts=$opprovider->getModels();
                 $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
                 $man_time = $this->manufacturers_diapazon_id();

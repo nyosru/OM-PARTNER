@@ -90,7 +90,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
                                         <a href="<?= BASEURL ?>/lk?view=orderedproducts">
-                                            Товары, ранее заказанные Вами
+                                            Мои товары
                                         </a>
                                     </div>
                                 </li>
