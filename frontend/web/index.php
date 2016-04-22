@@ -6,6 +6,7 @@ set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
 
+
 defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
 defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
@@ -141,14 +142,20 @@ $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/v
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
-$application->on(yii\web\Application::EVENT_BEFORE_REQUEST, function(yii\base\Event $event){
-    $event->sender->response->on(yii\web\Response::EVENT_BEFORE_SEND, function($e){
-        ob_start("ob_gzhandler");
-    });
-    $event->sender->response->on(yii\web\Response::EVENT_AFTER_SEND, function($e){
-        ob_end_flush();
-    });
-});
+//$application->on(yii\web\Application::EVENT_BEFORE_REQUEST, function(yii\base\Event $event){
+//    $event->sender->response->on(yii\web\Response::EVENT_BEFORE_SEND, function($e){
+//        ob_start("ob_gzhandler");
+//    });
+//    $event->sender->response->on(yii\web\Response::EVENT_AFTER_SEND, function($e){
+//        ob_end_flush();
+//    });
+//});
 
+//if(!$application->db->getIsActive() && $_GET['action']!=1) {
+//    echo '<div style="display: table; vertical-align: middle; margin: auto; font-size: 24px">Приносим свои извинения, проводятся технические работы</div>';
+//    die();
+//}else{
 $application->run();
+$application->db->close();
+//}
 

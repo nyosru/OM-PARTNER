@@ -531,6 +531,31 @@ trait ActionSaveorder
                 ->setTo($orders->customers_email_address)
                 ->setSubject('Вы оформили заказ в интернет-магазине "Одежда-Мастер"')
                 ->send();
+            Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice'=>(integer)$wrapp['products_price'],
+                'result'=>  [
+                    'code' => 200,
+                    'text'=>'<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ в магазине Одежда-Мастер оформлен</div>',
+                    'data'=>[
+                        'paramorder'=>[
+                            'delivery' => $dostavka[$ship],
+                            'number'=> $orders->orders_id,
+                            'date' => $orders->date_purchased,
+                            'wrap' => $wrap,
+                            'name' => $orders->customers_name,
+                            'telephone' => $orders->customers_telephone,
+                            'email' => $orders->customers_email_address,
+                        ],
+                        'saveproduct'=>$validproduct,
+                        'origprod' => $origprod,
+                        'timeproduct'=>$related,
+                        'totalpricesaveproduct'=>$validprice
+                    ]
+                ]
+            ])
+                ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                ->setTo('desure85@gmail.com')
+                ->setSubject('Новый заказ"')
+                ->send();
                 return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
                     'result'=>  [
                         'code' => 200,
@@ -554,19 +579,23 @@ trait ActionSaveorder
                 ]);
 
         } catch (\Exception $e) {
+            Yii::$app->mailer->compose()
+                ->setFrom('support@newodezhdamaster.com')
+                ->setTo('desure85@gmail.com')
+                ->setSubject('Ошибка оформления')
+                ->setTextBody(
 
+              $orders->orders_id.'/////'.
+             $e->getCode().'/////'.
+             $e->getFile().'/////'.
+             $e->getLine().'/////'.
+             $e->getMessage().'/////'.
+             $e->getTrace().'/////'.
+             $e->getPrevious()
+                )
+                ->send();
             $transaction->rollBack();
-            echo '<pre>';
-            echo  $orders->orders_id;
-            echo $e->getCode();
-            echo $e->getFile();
-            echo $e->getLine();
-            echo $e->getMessage();
-            echo $e->getTrace();
-            echo $e->getPrevious();
-            var_dump($this);
-            echo '<pre>';
-            die();
+           
         }
 //        echo'<pre>';
 //        print_r($orders->errors);
