@@ -642,7 +642,7 @@ a:active {
     padding: 0px;
     height: auto;
     position: relative;
-    box-shadow: 10px 0px 20px -20px #000 inset;
+
     margin-left: 16.5%;
     /*border-right: 1px solid rgb(204, 204, 204);*/
     box-sizing: content-box;
@@ -3211,7 +3211,7 @@ input[class*="checkbox-hidden-group"]{
         padding: 0px;
         height: auto;
         position: relative;
-        box-shadow: 10px 0px 20px -20px #000 inset;
+
         margin-left: 20.5%;
         box-sizing: content-box;
     }
@@ -4363,7 +4363,6 @@ a:active {
     padding: 0px;
     height: auto;
     position: relative;
-    box-shadow: 10px 0px 20px -20px #000 inset;
     margin-left: 16.5%;
     /*border-right: 1px solid rgb(204, 204, 204);*/
     box-sizing: content-box;
@@ -4390,6 +4389,7 @@ a:active {
 
 .partners-main-right {
     height: 100%;
+    border-left:1px solid #CCC;
 }
 
 .partners-comp-main {
@@ -6932,7 +6932,7 @@ input[class*="checkbox-hidden-group"]{
         padding: 0px;
         height: auto;
         position: relative;
-        box-shadow: 10px 0px 20px -20px #000 inset;
+
         margin-left: 20.5%;
         box-sizing: content-box;
     }
@@ -7974,7 +7974,7 @@ a:active {
     padding: 0px;
     height: auto;
     position: relative;
-    box-shadow: 10px 0px 20px -20px #000 inset;
+
     margin-left: 16.5%;
     /*border-right: 1px solid rgb(204, 204, 204);*/
     box-sizing: content-box;
@@ -8837,7 +8837,7 @@ div.float:hover {
             padding: 0px;
             height: auto;
             position: relative;
-            box-shadow: 10px 0px 20px -20px #000 inset;
+
             margin-left: 20.5%;
             box-sizing: content-box;
         }
@@ -9744,7 +9744,7 @@ a:active {
     padding: 0px;
     height: auto;
     position: relative;
-    /*box-shadow: 10px 0px 20px -20px #000 inset;*/
+
     margin-left: 16.5%;
     /*border-right: 1px solid rgb(204, 204, 204);*/
     box-sizing: content-box;
