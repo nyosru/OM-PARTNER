@@ -190,6 +190,23 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(OrdersProducts::className(), ['orders_id' => 'orders_id']);
     }
+    public function getProduct()
+    {
+        return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id'])->via('products');
+    }
+    public function getProductsDescription()
+    {
+        return $this->hasOne(PartnersProductsDescription::className(), ['products_id' => 'products_id'])->via('products');
+    }
+    public function getProductsAttributes()
+    {
+        return $this->hasMany(PartnersProductsAttributes::className(), ['products_id' => 'products_id'])->via('products');
+    }
+
+    public function getProductsAttributesDescr()
+    {
+        return $this->hasMany(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
+    }
     public function getProductsAttr()
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
@@ -198,6 +215,7 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(PartnersOrdersProductsSp::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
     }
+
     public function NumOrder()
     {
         $literaltyear = date('y',strtotime($this->date_purchased));

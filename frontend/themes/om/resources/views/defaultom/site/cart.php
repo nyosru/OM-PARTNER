@@ -9,7 +9,7 @@ foreach($addr as $key=>$value){
     }else{
         $first .= '<option value="' . $key . '">' . $value . '</option>';
     }
-    }
+}
 
 
 
@@ -96,7 +96,7 @@ $(document).on('ready', function () {
                 'data-id="'+$c+'">' +
                 '   <div id="add-count" class="add-count" style="float: left; line-height:1.5;">+</div></div>' +
                 '</div></div>' +
-                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; position:relative; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
+                '<div class="del-product" style="width: 12px; margin-left:5px; float: left; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
                 '</div>'+
                 '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
                 '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+

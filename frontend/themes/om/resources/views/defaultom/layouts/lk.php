@@ -89,6 +89,15 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
+                                        <a href="<?= BASEURL ?>/lk?view=orderedproducts">
+                                            Мои товары
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul id="accordion" class="accordion">
+                                <li class="">
+                                    <div id="profile-orders" class="link profile-orders">
                                         <a href="<?= BASEURL ?>/lk?view=userinfo">
                                             Мои данные
                                         </a>

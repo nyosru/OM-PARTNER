@@ -8,13 +8,8 @@ use yii\bootstrap\ActiveForm;
 //$id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
 //$userCustomer = new \common\models\User();
 //$check_part_email = $userCustomer->find()->where(['email' => 'desure85@mail.ru', 'id_partners'=>$id_partners])->asArray()->one();
-//print_r($check_part_email);
 $this->title = 'Регистрация';
 
-//echo '<pre>';
-//        print_r($model);
-//        echo '</pre>';
-//die();
 ?>
 <div style="width: 80%; margin-left: 10px;">
 <div class="regmain" style="font-size: 24px;margin: 0px 15px; font-weight: 300;clear:none">Я регистрируюсь на Одежда-Мастер</div>

@@ -48,10 +48,6 @@ function new_suburl($url_obj, $val, $new_var)
 
 
 
-//echo '<pre>';
-//print_r($data[0][0]);
-//echo '</pre>';
-//die();
 $start_url = Yii::$app->request->getQueryString();
 $url_data = split_url(str_replace('&amp;', '&', str_replace('%26', '&', $start_url)));
 $cat = $url_data['cat'][1];
@@ -64,10 +60,7 @@ $sort = $url_data['sort'][1];
 $searchword = $url_data['searchword'][1];
 $url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword;
 if ($data[0] != 'Не найдено!') {
-// echo '<pre>';
-//        print_r($data);
-//         echo '</pre>';
-//        die();
+
 
 echo '<div class="partners-main-right bside">';
     $headbside = '';

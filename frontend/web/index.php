@@ -44,10 +44,6 @@ if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
 }else{
 
 }
-//echo '<pre>';
-//print_r($versions);
-//echo '</pre>';
-//die();
 $partner['APP_VERSION'] = 'om';
 if (($versionnum = $partner['APP_VERSION']) == FALSE) {
     $version = $versions['0'];

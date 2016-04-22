@@ -1,8 +1,4 @@
 <?php
-//    echo '<pre>';
-//    print_r($value['products']);
-//    echo '</pre>';
-//    die();
 
 $this->title='Образ дня';
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
@@ -140,9 +136,7 @@ foreach ($figuresprovider as $value) {
         echo '<div style="float:left;padding:10px;width:240px;" class="days-prod' . $i . '-desc">'.$v['description'].'</div>
           </div>';
         echo $value->post;
-//        echo '<pre>';
-//        print_r($figuresprovider);
-//        echo '</pre>';
+
     }
     echo '</div>';
     echo '<div style="border-top:1px solid #cccccc;margin-top:20px;"><div style="float:left; width:20%; padding:0 30px;" class="days-group-date">'.$value['date_added'].'</div>

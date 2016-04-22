@@ -11,9 +11,6 @@ use yii\helpers\BaseHtml;
 use dosamigos\ckeditor\CKEditor;
 
 $this->title = 'Админка';
-//echo '<pre>';
-//print_r($model);
-//echo '</pre>';
 $form = ActiveForm::begin(['id' => 'partners-settings', 'action' => '/adminsite/default/savesettings']);
 $path = Yii::getAlias('@app') .'/themes/'. Yii::$app->params['constantapp']['APP_VERSION']['themesversion'].'/';
 $templatedir = opendir($path);
