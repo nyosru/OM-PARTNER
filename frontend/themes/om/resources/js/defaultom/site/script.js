@@ -1147,7 +1147,7 @@ $(document).on('click','#prod-info',function(){
                 '</div>' +
                 '</div>' +
                 '<div class="prod-compos" style="font-size: 12px; width:100%;float: left;padding-left: 10px;">' +
-                '<div itemprop="description" id="prd" style="display: block; width: 333px;max-height:350px; overflow:auto; font-size: 12px !important; font-weight: 400 !important; ">' +
+                '<div itemprop="description" id="prd" style="display: block; max-height:350px; overflow:auto; font-size: 12px !important; font-weight: 400 !important; ">' +
                 data.product.productsDescription.products_description + ' ' + $spec_html + '' +
                 '</div>' +
                 '<div>' +
