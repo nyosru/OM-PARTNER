@@ -95,4 +95,7 @@ class OrdersProducts extends ActiveRecordExt
     {
         return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id']);
     }
+    public  function getOrder(){
+        return $this->hasOne(Orders::className(),['orders_id'=>'orders_id'] );
+    }
 }

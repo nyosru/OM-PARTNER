@@ -2,6 +2,7 @@
 namespace frontend\controllers\actions\om;
 
 use common\models\Customers;
+use common\models\OrdersProducts;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
 use common\models\Profile;
@@ -224,26 +225,40 @@ trait ActionLK
                 }
 
                 $hide_man = implode(',', $list);
-                $orderedproducts=Orders::find()->where(['customers_id'=> $cust['customers']['customers_id']])->joinWith('products')->asArray()->all();
-                $orprod=[];
-
-                foreach ($orderedproducts as $key=>$value){
-                    foreach ($value['products'] as $k=>$v){
-                        if(!in_array($v['products_id'], $orprod)) {
-                            $orprod[] = $v['products_id'];
-                        }
-                    }
-                }
-
-                $orprodstring = implode(',',$orprod);
-                $opprovider = new yii\data\ActiveDataProvider([
-                    'query'=> PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 and products.products_id IN ('.$orprodstring.')')->limit(300)->distinct(),
+                $orderedproducts=new yii\data\ActiveDataProvider([
+                    'query'=>OrdersProducts::find()->select('products_id')->joinWith('order')->where(['customers_id'=> $cust['customers']['customers_id']])->groupBy('`products_id` DESC' ),
                     'pagination'=>[
                         'defaultPageSize' => 60,
                         'pageSizeLimit'=>[1,60]
                     ],
                 ]);
-                $pagination=$opprovider->getPagination();
+                $pagination=$orderedproducts->getPagination();
+                $orprod=[];
+                $gmorprod=$orderedproducts->getModels();
+                foreach ($gmorprod as $key=>$value){
+                        if(!in_array($value['products_id'], $orprod)) {
+                            $orprod[] = $value['products_id'];
+                    }
+                }
+//
+                $orprodstring = implode(',',$orprod);
+//                echo '<pre>';
+//                print_r($pagination);
+//                echo '</pre>';
+//                die();
+                $opprovider = new yii\data\ActiveDataProvider([
+                    'query'=> PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.products_id IN ('.$orprodstring.')')->distinct(),
+                    'pagination'=>[
+                        'defaultPageSize' => 60,
+                        'pageSizeLimit'=>[1,60]
+                    ],
+                ]);
+
+
+//                echo '<pre>';
+//                print_r($pagination);
+//                echo '</pre>';
+//                die();products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 and
                 $orderedproducts=$opprovider->getModels();
                 $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
                 $man_time = $this->manufacturers_diapazon_id();
