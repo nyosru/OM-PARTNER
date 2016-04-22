@@ -151,7 +151,7 @@ echo \yii\grid\GridView::widget([
                     }
                     $inner .= '<tr style="background: ' . $col . '">';
                     $inner .= '<td class="col-md-1">' . $count . '</td>';
-                    $inner .= '<td class="col-md-1"><div style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></div></td>';
+                    $inner .= '<td class="col-md-1"><a target="_blank" href="'.BASEURL.'/product?id='. $value->products_id.'" style="display:block;clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></a></td>';
                     $inner .= '<td class="col-md-2">'.$value->products_model.'</td>';
                     if($data->orders_status != 1) {
                         $omfinalquant = '<br/>В наличии: ' . $positionquantity . '';
