@@ -67,35 +67,35 @@ unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
-
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'logFile' => '@frontend/runtime/logs/request/requests.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000,
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['info'],
-    'logFile' => '@frontend/runtime/logs/response/response.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['error', 'warning'],
-    'categories' => ['yii\swiftmailer\Logger::add'],
-    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['error', 'warning'],
-    'logFile' => '@frontend/runtime/logs/error/error.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
+//
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'logFile' => '@frontend/runtime/logs/request/requests.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000,
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['info'],
+//    'logFile' => '@frontend/runtime/logs/response/response.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['error', 'warning'],
+//    'categories' => ['yii\swiftmailer\Logger::add'],
+//    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['error', 'warning'],
+//    'logFile' => '@frontend/runtime/logs/error/error.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
 
 $application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];

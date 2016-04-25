@@ -559,7 +559,7 @@ trait ActionSaveorder
                     ]
                 ]);
             }
-            unset($_POST);
+
             $transaction->commit('suc');
             Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice'=>(integer)$wrapp['products_price'],
                 'result'=>  [
@@ -586,7 +586,7 @@ trait ActionSaveorder
                 ->setTo('desure85@gmail.com')
                 ->setSubject('Новый заказ"')
                 ->send();
-            return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
+            Yii::$app->session->set('order-succes', ['wrapprice'=>(integer)$wrapp['products_price'],
                 'result'=>  [
                     'code' => 200,
                     'text'=>'Спасибо, Ваш заказ оформлен',
@@ -607,6 +607,7 @@ trait ActionSaveorder
                     ]
                 ]
             ]);
+            return header('location: '.BASEURL.'/cartresult');
 
         } catch (\Exception $e) {
             Yii::$app->mailer->compose()
