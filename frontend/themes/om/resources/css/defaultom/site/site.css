@@ -476,14 +476,13 @@
         float: left;
         min-height: 450px;
         border-radius: 2px;
-        box-shadow: 0 0 1px 0 #AFBCAA;
+        border: 1px solid #E6E6E6;
         margin: 5px;
         width: calc(100% / 4 - 10px);
         padding: 20px;
         min-width: 245px;
         max-width: 300px;
     }
-
 
     #partners-head {
         width: 100%;
@@ -2450,7 +2449,7 @@
     }
 
     #index-card-1, #index-card-2, #index-card-3, #index-card-5, #index-card-6 {
-        box-shadow: 0 0 1px 0 #AFBCAA
+        border: 1px solid #E6E6E6;
     }
 
     #index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {

@@ -70,6 +70,7 @@ trait ActionDayProduct
             foreach($catinday as $catkey => $valuekey){
                 $cat = array_merge($cat,  $this->load_cat($categoriesarr['cat'], $valuekey, $categoriesarr['name'], $checks));
             }
+            unset($cat[327]);
             $cat = implode(',',$cat );
             Yii::$app->cache->set($static_cat_key, $cat, 3600);
         }
@@ -86,7 +87,7 @@ trait ActionDayProduct
         $arfilt[':day'] = $day;
         $arfilt_pricemax[':day'] =  $day;
         $arfilt_attr[':day'] = $day;
-        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->asArray()->one();
+        $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ')  and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->asArray()->one();
         if ( strtotime($x['products_last_modified']) < strtotime($x['add_date']) )
             $x['products_last_modified'] = $x['add_date'] ;
         $checkcache = $x['products_last_modified'];

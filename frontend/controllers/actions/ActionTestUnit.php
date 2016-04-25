@@ -1,107 +1,66 @@
 <?php
 namespace frontend\controllers\actions;
 
+use common\models\Customers;
 use common\models\PartnersCategories;
+use common\models\PartnersProducts;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-function get_rand_data() {
-    return [
-        'a' => mt_rand(1, 1000),
-        'b' => mt_rand(1, 1000),
-        'c' => mt_rand(1, 1000),
-        'd' => mt_rand(1, 1000),
-        'e' => mt_rand(1, 1000),
-    ];
-}
-function prepare_data(&$data) {
-    return ($data['a'] * $data['b'] / ( $data['c'] * $data['d'] )) / $data['e'];
-}
-
-class Data {
-    protected $data = [];
-    public function __construct(array &$data = []) {
-        $this->data = $data;
-    }
-    public function run() {
-        return ($this->data['a'] * $this->data['b'] / ( $this->data['c'] * $this->data['d'] )) / $this->data['e'];
-    }
-    public function setData(array &$data) {
-        $this->data = $data;
-        return $this;
-    }
-    public function setDataNotReturn(array &$data) {
-        $this->data = $data;
-    }
-}
-class StaticData {
-    public static function run(&$data) {
-        return ($data['a'] * $data['b'] / ( $data['c'] * $data['d'] )) / $data['e'];
-    }
-}
-function show_delta($end, $start, $text) {
-    return $text.': '.round(($end-$start), 5). " seconds\n";
-}
 
 trait ActionTestUnit
 {
     public function actionTestunit()
     {
-        $test_iteration = 500000;
+       if(Yii::$app->user->can('admin')){
+           $manid = 3418;
+       //  $x =  PartnersProducts::find()->where(['products_id'=>[1451992,1451993]])->all();
 
-        $start = microtime(1);
-        for($i =0; $i<$test_iteration; ++$i) {
-            $data = get_rand_data();
-            prepare_data($data);
-        }
+//           $thisweeekday = date('N')-1;
+//           $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
+//           if(array_key_exists($id,$man) && $man[$id][$thisweeekday]){
+//               $stop_time = (int)$man[$id][$thisweeekday]['stop_time'];
+//               $start_time = (int)$man[$id][$thisweeekday]['start_time'];
+//
+//               if(isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)){
+//                   return ['answer'=>true];
+//               }else{
+//                   return ['answer'=>false];
+//               }
+//           }else{
+//               return ['answer'=>true];
+//           }
+//
+//
+//
+//
+//           $man = $this->manufacturers_diapazon_id();
+//           $thisweeekday = date('N')-1;
+//           $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
+//           if(array_key_exists($manid,$man) && $man[$manid][$thisweeekday]){
+//               $stop_time = (int)$man[$manid][$thisweeekday]['stop_time'];
+//               $start_time = (int)$man[$manid][$thisweeekday]['start_time'];
+//               if(isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)){
+//                   $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+//                   $origprod[$valuerequest['products_id']] = $valuerequest;
+//               }else{
+//                   unset($proddata[$keyrequest]);
+//                   $related[]=$valuerequest;
+//               }
+//           }else{
+//               echo 'no set';
+//               $validprice += ((float)$valuerequest['products_price']*(int)$quant[$valuerequest['products_id']]);
+//               $origprod[$valuerequest['products_id']] = $valuerequest;
+//           }
+           $timstamp_now = (integer)mktime(date('H'),date('i'), date('s'), 1, 1, 1970);
+           echo '<pre>';
+           date_default_timezone_set('Europe/Moscow');
+         //  echo  $thisweeekday = date('N')-1;
+           print_r($timstamp_now);
 
-        $out = show_delta(microtime(1), $start, 'Array mode').'</br>';
+           echo '</pre>';
 
-        $start = microtime(1);
-        for($i =0; $i<$test_iteration; ++$i) {
-            $data = get_rand_data();
-            $result = ($data['a'] * $data['b'] / ( $data['c'] * $data['d'] )) / $data['e'];
-        }
-
-        $out .=  show_delta(microtime(1), $start, 'Array run body for mode').'</br>';
-
-        $start = microtime(1);
-        for($i =0; $i<$test_iteration; ++$i) {
-            $data = get_rand_data();
-            (new Data($data))->run();
-        }
-
-        $out .=   show_delta(microtime(1), $start, 'Object mode').'</br>';
-
-        $start = microtime(1);
-        $runner = new Data();
-        for($i =0; $i<$test_iteration; ++$i) {
-            $data = get_rand_data();
-            $runner->setData($data)->run();
-        }
-
-        $out .=    show_delta(microtime(1), $start, 'Object mode (v2)').'</br>';
-
-        $start = microtime(1);
-        $runner = new Data();
-        for($i =0; $i<$test_iteration; ++$i) {
-            $data = get_rand_data();
-            $runner->setDataNotReturn($data);
-            $runner->run();
-        }
-
-        $out .= show_delta(microtime(1), $start, 'Object mode (v3)').'</br>';
-
-        $start = microtime(1);
-        for($i =0; $i<$test_iteration; ++$i) {
-            $data = get_rand_data();
-            StaticData::run($data);
-        }
-
-        $delta = microtime(1) - $start;
-
-        $out .= show_delta(microtime(1), $start, 'Static object mode').'</br>';
-
-        return $out;
+       }
+        return '';
     }
 }

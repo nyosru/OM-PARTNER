@@ -66,49 +66,53 @@ echo '<div class="partners-main-right bside">';
     $headbside = '';
     $headbside .= '<div  class="partners-main-right headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
-    if($catpath['num'] != 0){
-    foreach($catpath['num'] as $key => $catid) {
-        $menu = Menuom::widget(['property' => ['id' => 'in'.$catid, 'target' => $catid, 'opencat' => Yii::$app->params['layoutset']['opencat']]]);
-        if ($menu != false) {
-            echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
-            echo '<div class="panel-heading" role="tab" style="border: medium none;" id="headingOne">';
-            echo '<div class="panel-title" style="font-size: 14px;">';
-            echo '<a class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
-            echo $catpath['name'][$key] . '<i class="fa fa-caret-down" style="padding: 5px;"></i>';
-            echo '</a>';
-            echo '</div>';
-            echo '</div>';
-            echo '<div style="position: absolute; background: rgb(245, 245, 245) none repeat scroll 0% 0%; z-index: 999;height:0px; border: 1px solid rgb(204, 204, 204); border-radius: 4px;" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">';
-            echo '<div class="panel-body"  >';
-            echo $menu;
-            echo '</div></div></div>';
-    }else{
+    if($this->beginCache('Top-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) {
+
+        if ($catpath['num'] != 0) {
+            foreach ($catpath['num'] as $key => $catid) {
+                $menu = Menuom::widget(['property' => ['id' => 'in' . $catid, 'target' => $catid, 'opencat' => Yii::$app->params['layoutset']['opencat']]]);
+                if ($menu != false) {
+                    echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
+                    echo '<div class="panel-heading" role="tab" style="border: medium none;" id="headingOne">';
+                    echo '<div class="panel-title" style="font-size: 14px;">';
+                    echo '<a class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
+                    echo $catpath['name'][$key] . '<i class="fa fa-caret-down" style="padding: 5px;"></i>';
+                    echo '</a>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '<div style="position: absolute; background: rgb(245, 245, 245) none repeat scroll 0% 0%; z-index: 999;height:0px; border: 1px solid rgb(204, 204, 204); border-radius: 4px;" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">';
+                    echo '<div class="panel-body"  >';
+                    echo $menu;
+                    echo '</div></div></div>';
+                } else {
+                    echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
+                    echo '<div class="panel-heading" style="border-bottom: medium none;  border-top-left-radius: 0px; color: #00A5A1;" role="tab" id="headingOne">';
+                    echo '<div class="panel-title" style="font-size: 14px;">';
+                    echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
+                    echo $catpath['name'][$key];
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '<div style="" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
+                    echo '</div></div>';
+                }
+
+            }
+        } else {
             echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
             echo '<div class="panel-heading" style="border-bottom: medium none;  border-top-left-radius: 0px; color: #00A5A1;" role="tab" id="headingOne">';
             echo '<div class="panel-title" style="font-size: 14px;">';
-            echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catid . '" href="#collapseOne' . $catid . '" aria-expanded="true" aria-controls="collapseOne' . $catid . '">';
-            echo $catpath['name'][$key];
+            echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catpath['num'] . '" href="#collapseOne' . $catpath['num'] . '" aria-expanded="true" aria-controls="collapseOne' . $catpath['num'] . '">';
+            echo 'Каталог';
             echo '</div>';
             echo '</div>';
             echo '</div>';
-            echo '<div style="" aria-expanded="false" id="collapseOne' . $catid . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
+            echo '<div style="" aria-expanded="false" id="collapseOne' . $catpath['num'] . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
             echo '</div></div>';
         }
-
+        echo '</div>';
+        $this->endCache();
     }
-    }else{
-        echo '<div class="panel panel-default" style="width: auto; margin: 0px; float: left; border: medium none; box-shadow: none;">';
-        echo '<div class="panel-heading" style="border-bottom: medium none;  border-top-left-radius: 0px; color: #00A5A1;" role="tab" id="headingOne">';
-        echo '<div class="panel-title" style="font-size: 14px;">';
-        echo '<div style="line-height: 24px;  padding: 0px 4px;" class="" role="button" data-toggle="collapse" data-parent="#accordion' . $catpath['num']  . '" href="#collapseOne' . $catpath['num']  . '" aria-expanded="true" aria-controls="collapseOne' . $catpath['num']  . '">';
-        echo 'Каталог';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '<div style="" aria-expanded="false" id="collapseOne' . $catpath['num'] . '" class="panel-collapse collapse" role="tabpanel" style="height:0px;" aria-labelledby="headingOne">';
-        echo '</div></div>';
-    }
-    echo '</div>';
     if($catpath['num'] != 0) {
         $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">' . end($catpath['name']) . '</h3>';
     }else{

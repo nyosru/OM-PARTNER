@@ -70,6 +70,7 @@ trait ActionProductsCloth
             foreach($catinday as $catkey => $valuekey){
                 $cat = array_merge($cat,  $this->load_cat($categoriesarr['cat'], $valuekey, $categoriesarr['name'], $checks));
             }
+            unset($cat[327]);
             $cat = implode(',',$cat );
             Yii::$app->cache->set($static_cat_key, $cat, 3600);
         }

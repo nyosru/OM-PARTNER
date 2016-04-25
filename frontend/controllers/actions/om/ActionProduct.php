@@ -19,18 +19,21 @@ trait ActionProduct
         // Если запрос пришел через GET
         if(Yii::$app->request->isGet){
             $id = (integer)Yii::$app->request->getQueryParam('id');
-            $spec=PartnersProductsToCategories::find()
-                ->where(['products_to_categories.products_id'=>$id])
-                ->joinWith('productsSpecification')
-                ->joinWith('specificationValuesDescription')
-                ->joinWith('specificationDescription')
-                ->asArray()->groupBy('products_specifications.products_id')->asArray()->one();
-            if($spec){
-            $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'] ,'specifications_id');
-            $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'] ,'specification_values_id');
-            }
-                if ($id > 0) {
-                $x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date' )->where(['products_id' => trim($id)])->createCommand()->queryOne();
+
+                if ($id > 0 && ($x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date' )->where(['products_id' => trim($id)])->createCommand()->queryOne()) == TRUE ) {
+
+                    $spec=PartnersProductsToCategories::find()
+                        ->where(['products_to_categories.products_id'=>$id])
+                        ->joinWith('productsSpecification')
+                        ->joinWith('specificationValuesDescription')
+                        ->joinWith('specificationDescription')
+                        ->asArray()->groupBy('products_specifications.products_id')->asArray()->one();
+                    if($spec){
+                        $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'] ,'specifications_id');
+                        $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'] ,'specification_values_id');
+                    }
+
+
                 if ( strtotime($x['products_last_modified'])<strtotime($x['add_date']) )
                     $x['products_last_modified'] = $x['add_date'] ;
                     $checkcache = $x['products_last_modified'];
@@ -40,6 +43,7 @@ trait ActionProduct
                     $d1 = trim($checkcache);
                     $d2 = trim($data['last']);
                     if (!$data || ($d1 !== $d2)) {
+
                         $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
                         $data = end($data);
                         unset(
@@ -115,7 +119,7 @@ trait ActionProduct
 
                     }
 
-                    if($data['categories_id'] == 0){
+                    if($data['categories_id'] == 0 || $data['categories_id'] == 327){
                         $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
                     }else{
                         $catpath = $this->Catpath($data['categories_id'],'namenum');
@@ -126,7 +130,15 @@ trait ActionProduct
                     foreach ($hide_man as $value) {
                         $list[] = $value['manufacturers_id'];
                     }
-
+                    $x  = PartnersProducts::find()->select('products_status')->where(['products_id'=> $data['products']['products_id']])->asArray()->one();
+                    if(in_array($data['products']['manufacturers_id'],  $list) || $x['products_status'] != 1 ){
+                        $data['products']['products_quantity'] = 0;
+                        if($data['productsAttributes']){
+                            foreach($data['productsAttributes'] as $keyattr2=>$valueattr2){
+                                    $data['productsAttributes'][$keyattr2]['quantity'] = 0;
+                            }
+                        }
+                    }
                     $hide_man = implode(',', $list);
                     $now = date('Y-m-d H:i:s');
 
