@@ -517,6 +517,7 @@ function loaddata(){
                         }
 
                         $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+                            
                             '<input '+$inputpos+' id="input-count"'+
                             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                             'data-prod="'+ $product['products_id']+'"'+
@@ -573,14 +574,17 @@ function loaddata(){
                 $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
                 $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
 
-                $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
-                    '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
+                $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+
+                    '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
+                    '<a id="prod-info" data-prod="' + $product.products_id + '" >'+
                     '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                     '</div>'+
-                    '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
+                    '<div  itemprop="model" class="model" style="display:none">' + $product.products_model + '</div>' +
+                    '<div  itemprop="description" class="model" style="display:none">' +$descriptionprod.products_description + '</div>' +
+                    '<div itemprop="name" class="name">' + $descriptionprod.products_name  +'</div>'+
                     '</a>'+
-                    '<div  class="price">'+
-                    '<div style="font-size: 18px; font-weight: 500;">'+
+                    '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">'+
+                    '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
                     Math.round($product.products_price) + ' Руб.'+
                     '</div>'+
                     '</div>'+
@@ -595,11 +599,11 @@ function loaddata(){
                     '</div>'+
                     '</div>'+
 
-                    '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
-                    '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
+                    '<a itemprop="url" href="/glavnaya/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+                    '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
                     '</i>'+
-                    'Увеличить'+
-                    '</div>'+
+                    'В карточку'+
+                    '</a>'+
 
                     ''+$timeprew+''+
                     '</div></div>');
@@ -673,7 +677,7 @@ $(document).on('ready', function () {
 
     $(window).scroll(function () {
         $control = $('#control-load option:selected').val();
-        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 500 && !inProgress && ControlLoad =='auto') {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 1800 && !inProgress && ControlLoad =='auto') {
             loaddata();
         }
     });
@@ -881,7 +885,7 @@ function onAjaxSuccessinfo(data) {
         }
     });
     $('.address').remove();
-    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с договором оферты.</div><button class=" btn btn-sm btn-info" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
+    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с договором оферты.</div><button class=" btn btn-sm btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",
@@ -1017,7 +1021,7 @@ $(document).on('click', '.close-modal', function(){
 });
 var lockprodinfo = false;
 $(document).on('click','#prod-info',function(){
-    if(!lockprodinfo) {
+    if(lockprodinfo !== true) {
         lockprodinfo = true;
         var dp = $(this).attr('data-prod');
 
@@ -1189,7 +1193,7 @@ $(document).on('click','#prod-info',function(){
 
             if (typeof($next) != "undefined" ) {
                 $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
                     '</div>';
             } else {
                 if (!inProgress&&document.getElementsByClassName('loader').length!=0) {
@@ -1197,7 +1201,7 @@ $(document).on('click','#prod-info',function(){
                 }
 
                 $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $current + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $current + '" id="prod-info"></i>' +
                     '</div>';
 
             }
@@ -1205,11 +1209,11 @@ $(document).on('click','#prod-info',function(){
 
             if (typeof($prev) != "undefined") {
                 $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
                     '</div>';
             } else {
                 $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $current + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $current + '" id="prod-info"></i>' +
                     '</div>';
             }
 

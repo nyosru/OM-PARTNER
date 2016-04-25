@@ -213,12 +213,56 @@ trait ActionSaveorder
             $payentryzones = Zones::find()->where(['zone_id'=>$pay_user_address['entry_zone_id']])->asArray()->one();
 
 
-            $orders->billing_name = $pay_user_address['entry_lastname'].' '.$pay_user_address['entry_firstname'].' '.$pay_user_address['otchestvo'];
-            $orders->billing_country = $payentrycountry['countries_name'];
-            $orders->billing_state = $payentryzones['zone_name'];
-            $orders->billing_city = $pay_user_address['entry_street_address'];
-            $orders->billing_street_address = $pay_user_address['entry_street_address'];
-            $orders->billing_postcode = $pay_user_address['entry_postcode'];
+            if($pay_user_address['entry_lastname']) {
+                $orders->billing_name = $pay_user_address['entry_lastname'] . ' ' . $pay_user_address['entry_firstname'] . ' ' . $pay_user_address['otchestvo'];
+            }else{
+                $orders->billing_name = $orders->customers_name;
+
+            }
+
+            if($payentrycountry['countries_name']) {
+                $orders->billing_country = $payentrycountry['countries_name'];
+            }else{
+                $orders->billing_country =   $orders->customers_country;
+
+            }
+
+            if($payentryzones['zone_name']) {
+                $orders->billing_state = $payentryzones['zone_name'];
+            }else{
+                $orders->billing_state =   $orders->customers_state;
+
+            }
+
+            if($payentryzones['zone_name']) {
+                $orders->billing_state = $payentryzones['zone_name'];
+            }else{
+                $orders->billing_state =   $orders->customers_state;
+
+            }
+
+            if($pay_user_address['entry_city']) {
+                $orders->billing_city =   $pay_user_address['entry_city'];
+            }else{
+                $orders->billing_city =     $orders->customers_city;
+
+            }
+
+            if($pay_user_address['entry_street_address']) {
+                $orders->billing_street_address =    $pay_user_address['entry_street_address'];
+            }else{
+                $orders->billing_street_address =      $orders->customers_street_address;
+
+            }
+
+            if($pay_user_address['entry_postcode']) {
+                $orders->billing_postcode =    $pay_user_address['entry_postcode'];
+            }else{
+                $orders->billing_postcode =      $orders->customers_postcode;
+
+            }
+
+
             $orders->billing_address_format_id = 1;
 
 
@@ -515,6 +559,7 @@ trait ActionSaveorder
                     ]
                 ]);
             }
+
             $transaction->commit('suc');
             Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice'=>(integer)$wrapp['products_price'],
                 'result'=>  [
@@ -541,7 +586,7 @@ trait ActionSaveorder
                 ->setTo('desure85@gmail.com')
                 ->setSubject('Новый заказ"')
                 ->send();
-            return $this->render('cartresult', ['wrapprice'=>(integer)$wrapp['products_price'],
+            Yii::$app->session->set('order-succes', ['wrapprice'=>(integer)$wrapp['products_price'],
                 'result'=>  [
                     'code' => 200,
                     'text'=>'Спасибо, Ваш заказ оформлен',
@@ -562,6 +607,7 @@ trait ActionSaveorder
                     ]
                 ]
             ]);
+            return header('location: '.BASEURL.'/cartresult');
 
         } catch (\Exception $e) {
             Yii::$app->mailer->compose()

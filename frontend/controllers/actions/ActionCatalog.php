@@ -63,6 +63,7 @@ trait ActionCatalog
            $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks);
            Yii::$app->cache->set($static_cat_key, $cat, 3600);  
         }
+        unset($cat[327]);
          $cat = implode(',', $cat);
      
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);

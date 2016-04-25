@@ -70,11 +70,15 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
                 </div>
                 <div  class="partners-main-left target jb-shortscroll-target" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <div class="partners-main-left-cont">
-                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
-                        <?=  Menuom::widget(['property' => ['id'=> 'main','target'=>'0', 'opencat' =>  Yii::$app->params['layoutset']['opencat']]]);?>
-                    </div>
-                    <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
+                    <?if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                        <div class="partners-main-left-cont">
+                            <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
+
+                            <?= Menuom::widget(['property' => ['id' => 'main', 'target' => '0', 'opencat' => Yii::$app->params['layoutset']['opencat']]]); ?>
+                        </div>
+                        <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
+                        <? $this->endCache();
+                    }?>
                 </div>
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
                 <div  class="partners-main-left-cont suplogo" style=" background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
