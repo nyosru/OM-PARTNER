@@ -138,7 +138,7 @@ $this->title = $title;
         ?>
     </div>
     <div id="main-new" style="clear: both;">
-        <div style="float: left; width: 31%;">
+        <div class="main-news" style="float: left; width: 31%;">
             <div id="" style="font-size: 20px; font-weight: 400; float: left; margin: 5px;">Новости</div>
             <a id="" href="<?= BASEURL . '/news' ?>"
                style="display: block; font-size: 14px; font-weight: 400; float: right; color: rgb(0, 165, 161); margin: 0px 20px; padding: 10px;">Все
@@ -148,7 +148,7 @@ $this->title = $title;
                 <?= \frontend\widgets\NewsBlockOM::widget() ?>
             </div>
         </div>
-        <div style="float: left; width: 23%;">
+        <div class="main-soc" style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="http://vk.com/odezdamast_shop" target="_blank" style="display:block; cursor:pointer;" class="circular-vk"><i class="fa fa-vk"></i>
 
@@ -161,7 +161,7 @@ $this->title = $title;
                 </a>
             </div>
         </div>
-        <div style="float: left; width: 23%;">
+        <div class="main-soc" style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="http://ok.ru/odezhda.master" target="_blank"  style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
 
@@ -174,7 +174,7 @@ $this->title = $title;
                 </a>
             </div>
         </div>
-        <div style="float: left; width: 23%;">
+        <div class="main-soc" style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="https://www.instagram.com/odezhda_master/" target="_blank" style="display:block; cursor:pointer;" class="circular-instagramm"><i class="fa fa-instagram"></i>
 
@@ -190,7 +190,7 @@ $this->title = $title;
     </div>
     <div style="clear: both;">
 
-        <div style="margin: 0px 15px;float: left;">
+        <div style="margin: 0px 15px;float: left;margin-top:30px;">
             <?
             if (Yii::$app->user->can('admin')) {
             }

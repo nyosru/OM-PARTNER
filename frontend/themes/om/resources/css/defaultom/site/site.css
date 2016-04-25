@@ -3085,276 +3085,7 @@ input[class*="checkbox-hidden-group"]{
     border-color: #00a5a1;
 }
 
-/*@media screen and (min-width: 1860px) and ( max-width: 1921px){*/
-@media screen and (min-width: 3651px) and ( max-width: 4100px){
-    #card{
-        width: calc(100% / 11 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 11 * 10 - 10px);
 
-    }
-    .filter {
-        width: calc(100% / 11 - 10px);
-    }
-
-}
-@media screen and (min-width: 3301px) and ( max-width: 3650px){
-    #card{
-        width: calc(100% / 10 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 10 * 9 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 10 - 10px);
-    }
-
-}
-@media screen and (min-width: 2871px) and ( max-width: 3300px){
-    #card{
-        width: calc(100% / 9 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 9 * 8 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 9 - 10px);
-    }
-
-}
-@media screen and (min-width: 2551px) and ( max-width: 2870px){
-    #card{
-        width: calc(100% / 8 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 8 * 7 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 8 - 10px);
-    }
-
-}
-@media screen and (min-width: 2201px) and ( max-width: 2550px){
-    #card{
-        width: calc(100% / 7 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 7 * 6 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 7 - 10px);
-    }
-
-}
-@media screen and (min-width: 1860px) and (max-width:2200px){
-    #card{
-        width: calc(100% / 6 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 6 * 5 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 6 - 10px);
-    }
-    .partners-main-right-back{
-        margin-left:16.5%;
-    }
-}
-
-@media screen and (min-width: 1560px) and ( max-width: 1870px){
-    #card{
-        width: calc(100% / 5 - 10px);
-    }
-
-    .partheaderbside {
-        width: calc(100% / 5 * 4 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 5 - 10px);
-
-    }
-}
-@media screen and (min-width: 1280px) and ( max-width: 1559px){
-    #card{
-        width: calc(100% / 4 - 10px);
-    }
-
-    .partheaderbside {
-        width: calc(100% / 4 * 3 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 4 - 10px);
-
-    }
-}
-@media screen and (min-width: 1024px) and ( max-width: 1279px){
-    #card{
-        width: calc(100% / 3 - 10px);
-        max-width: 330px !important;
-    }
-    .partners-main-left-back {
-        float: left;
-        height: 100%;
-        width: 20.5%;
-        padding: 0px;
-    }
-    .partners-main-right-back {
-        width: 79.5%;
-        padding: 0px;
-        height: auto;
-        position: relative;
-
-        margin-left: 20.5%;
-        box-sizing: content-box;
-    }
-    .partheaderbside {
-        width: calc(100% / 3 * 3 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 3 - 10px);
-
-    }
-    body{
-        min-width: 320px !important;
-
-    }
-
-
-}
-@media screen and (min-width: 0px) and ( max-width: 1023px){
-
-    #card:hover, #index-card-1:hover {
-        box-shadow: none;
-    }
-    .partheaderbside {
-        width: 100% !important;
-    }
-    .filter {
-        width: 100% !important;
-
-    }
-    .cart-column1{
-        width: 100% !important;
-    }
-    .cart-column2{
-        width: 100% !important;
-    }
-    #sort-order {
-        width: 100%;
-    }
-    .jb-shortscroll-wrapper {
-        display: none !important;
-    }
-    .top-link-back{
-        display:none;
-    }
-    .partners-main-left-back {
-        display: none !important;
-    }
-
-    .header-sort-item {
-        width: calc(100% / 3) !important;
-        border-left: 1px solid #CCC;
-    }
-    .header-sort-item-model{
-        width: calc(100% / 2) !important;
-    }
-    .header-sort-item-popular {
-        width: calc(100% / 2) !important;
-    }
-    .panel-title{
-        font-size: 35px;
-    }
-    h3, .h3 {
-        font-size: 40px;
-    }
-    .no-shadow-form-control {
-        height: 62px;
-        font-size: 26px;
-    }
-    body{
-        min-width: 320px !important;
-        font-size: 35px !important;
-    }
-    .jb-shortscroll-target .jb-shortscroll-content{
-        overflow: auto !important;
-    }
-    .partners-main-right-back{
-        width:100%;
-        margin-left: 0px;
-    }
-    #prod-data-img{
-        min-height: 450px !important;
-        min-width: 320px !important;
-    }
-    #slid2 .carousel-control{
-        width:90px !important;
-        font-size: 55px !important;
-        height:90px !important;
-    }
-    .fixedbar-filter{
-        width:100% !important;
-    }
-    .mini-img{
-        display: none;
-    }
-    .prod-show>.col1{
-        width: 48% !important;
-        min-width: 0% !important;
-    }
-    .prod-show>.col2{
-        min-width: 0% !important;
-        width: 45% !important;
-    }
-    .pr_op_va_name{
-        width: 35%;
-    }
-    .prod-attr .size-desc{
-        width: 170px !important;
-    }
-    .prod-attr .size-column1{
-        width: 180px;
-    }
-    .prod-attr #input-count{
-        font-size: 15px;
-    }
-    .cart-amount .num-of-items{
-        font-size: 15px;
-    }
-    .cart-row .del-product{
-        float: right !important;
-        margin-right:35px !important;
-    }
-    .shipping-confirm{
-        width: 90% !important;
-    }
-    .total-top{
-        height: 50px !important;
-    }
-}
-@media screen and (min-width: 768px) and ( max-width: 1023px){
-    #card{
-        width: calc(100% / 2 - 10px);
-        max-width: none !important;
-        min-height: 620px !important;
-    }
-}
-@media screen and (min-width: 0px) and ( max-width: 767px){
-    #card{
-        width: calc(100% / 1 - 10px);
-        max-width: none !important;
-        min-height: 620px !important;
-    }
-}
 .social{
     float: left;
     width: 20px;
@@ -6806,166 +6537,8 @@ input[class*="checkbox-hidden-group"]{
     border-color: #00a5a1;
 }
 
-/*@media screen and (min-width: 1860px) and ( max-width: 1921px){*/
-@media screen and (min-width: 3651px) and ( max-width: 4100px){
-    #card{
-        width: calc(100% / 11 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 11 * 10 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 11 - 10px);
-    }
-
-}
-@media screen and (min-width: 3301px) and ( max-width: 3650px){
-    #card{
-        width: calc(100% / 10 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 10 * 9 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 10 - 10px);
-    }
-
-}
-@media screen and (min-width: 2871px) and ( max-width: 3300px){
-    #card{
-        width: calc(100% / 9 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 9 * 8 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 9 - 10px);
-    }
-
-}
-@media screen and (min-width: 2551px) and ( max-width: 2870px){
-    #card{
-        width: calc(100% / 8 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 8 * 7 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 8 - 10px);
-    }
-
-}
-@media screen and (min-width: 2201px) and ( max-width: 2550px){
-    #card{
-        width: calc(100% / 7 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 7 * 6 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 7 - 10px);
-    }
-
-}
-@media screen and (min-width: 1860px) and (max-width:2200px){
-    #card{
-        width: calc(100% / 6 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 6 * 5 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 6 - 10px);
-    }
-    .partners-main-right-back{
-        margin-left:16.5%;
-    }
-}
-
-@media screen and (min-width: 1560px) and ( max-width: 1870px){
-    #card{
-        width: calc(100% / 5 - 10px);
-    }
-
-    .partheaderbside {
-        width: calc(100% / 5 * 4 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 5 - 10px);
-
-    }
-}
-@media screen and (min-width: 1280px) and ( max-width: 1559px){
-    #card{
-        width: calc(100% / 4 - 10px);
-    }
-
-    .partheaderbside {
-        width: calc(100% / 4 * 3 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 4 - 10px);
-
-    }
-}
-@media screen and (min-width: 1024px) and ( max-width: 1279px){
-    #card{
-        width: calc(100% / 3 - 10px);
-        max-width: 330px !important;
-    }
-    .partners-main-left-back {
-        float: left;
-        height: 100%;
-        width: 20.5%;
-        padding: 0px;
-    }
-    .partners-main-right-back {
-        width: 79.5%;
-        padding: 0px;
-        height: auto;
-        position: relative;
-
-        margin-left: 20.5%;
-        box-sizing: content-box;
-    }
-    .partheaderbside {
-        width: calc(100% / 3 * 3 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 3 - 10px);
-
-    }
-    body{
-        min-width: 320px !important;
-
-    }
 
 
-}
-
-@media screen and (min-width: 768px) and ( max-width: 1023px){
-    #card{
-        width: calc(100% / 2 - 10px);
-        max-width: none !important;
-        min-height: 620px !important;
-    }
-}
-@media screen and (min-width: 0px) and ( max-width: 767px){
-    #card{
-        width: calc(100% / 1 - 10px);
-        max-width: none !important;
-        min-height: 620px !important;
-    }
-}
 .social{
     float: left;
     width: 20px;
@@ -7167,51 +6740,7 @@ div.size-desc:last-child{
     display:none;
 }
 
-/*Стили для табов в профиле*/
-.lkprofile {
-    padding: 0px;
-    min-width:980px;
-}
-/* стили секций с содержанием */
-.lkprofile section {
-    display: none;
-    padding: 15px;
-}
-.lkprofile>input {
-    display: none;
-}
-/* стили вкладок (табов) */
-.lkprofile>label {
-    display: inline-block;
-    margin: 0 0 -1px;
-    padding: 3px 10px;
-    text-align: center;
-    color: #aaa;
-    font-weight: normal;
-    font-size: 16px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    background-color: #ffffff;
-}
-.lkprofile > label:nth-child(2){
-    margin-left: 30px;
-}
-.lkprofile .header-catalog{
-    display: none;
-}
 
-/* изменения стиля заголовков вкладок при наведении */
-.lkprofile label:hover {
-    color: #888;
-    cursor: pointer;
-}
-/* стили для активной вкладки */
-.lkprofile input:checked + label {
-    box-shadow: 3px 3px 3px #cccccc;
-    color: #555;
-    border: 1px solid #00a5a1;
-}
 /* активация секций с помощью переключателя :checked */
 #tab1:checked ~ #content1,
 #tab2:checked ~ #content2,
@@ -8767,340 +8296,6 @@ div.float:hover {
     padding: 5px;
     width: 100%;
     float: left;
-}
-
-
-    @media screen and (min-width: 1280px) and ( max-width: 1559px){
-        #card{
-            width: calc(100% / 4 - 10px);
-        }
-
-        .admin-orders-id {
-            display: block;
-            float: left;
-            text-align: center;
-            padding: 5px;
-            margin: 0 1px;
-            overflow: hidden;
-            width: calc(100% / 7 - 10px)
-        }
-
-        .admin-orders-name {
-            display: block;
-            float: left;
-            text-align: center;
-            padding: 5px;
-            margin: 0 1px;
-            overflow: hidden;
-            width: calc(100% / 4 - 10px)
-        }
-        .prod-show .col1{
-            min-width: 0px;
-        }
-    }
-
-    @media screen and (min-width: 1024px) and ( max-width: 1279px){
-        #card{
-            width: calc(100% / 3 - 10px);
-            max-width: 330px !important;
-        }
-        .cart-prod-price{
-            margin-right: 18px !important;
-        }
-        .cart-row-content{
-            width: 61% !important;
-        }
-        .cart-row #input-count{
-            width:45px !important;
-        }
-        .col1{
-            min-width:0px !important;
-        }
-        .col2{
-            min-width:0px !important;
-            width: 50% !important;
-        }
-        .del-product{
-            float: right !important;
-        }
-        .mini-img{
-            display: none;
-        }
-        .partners-main-left-back {
-            float: left;
-            height: 100%;
-            width: 20.5%;
-            padding: 0px;
-        }
-        .partners-main-right-back {
-            width: 79.5%;
-            padding: 0px;
-            height: auto;
-            position: relative;
-
-            margin-left: 20.5%;
-            box-sizing: content-box;
-        }
-        .partheaderbside {
-            width: calc(100% / 3 * 3 - 10px);
-        }
-        .pr_op_va_name{
-            width: 35%;
-        }
-        .filter {
-            width: calc(100% / 3 - 10px);
-        }
-        .size-column1{
-            width:37% !important;
-        }
-        .size-desc{
-            width:150px;
-
-        }
-        body{
-            min-width: 320px !important;
-
-        }
-
-
-    }
-    @media screen and (min-width: 0px) and ( max-width: 1023px){
-        .cart-amount{
-            margin:0 0 10px !important;
-
-        }
-        .cart-model{
-            font-size: 30px !important;
-        }
-        .cart-row .del-product{
-            float: right !important;
-            margin-right:35px !important;
-        }
-        .cart-row #add-count, .cart-row #del-count{
-            width: 50px;
-            height: 50px;
-            line-height: 1.13 !important;
-            font-size: 45px;
-        }
-        .cart-row #input-count{
-            height: 50px !important;
-            width:70px !important;
-            font-size:35px;
-        }
-        h3, .h3 {
-            font-size: 40px;
-        }
-        body{
-            min-width: 320px !important;
-            font-size: 35px !important;
-        }
-        #card:hover, #index-card-1:hover {
-            box-shadow: none;
-        }
-        #sort-order {
-            width: 100%;
-        }
-        #slid2 .carousel-control{
-            width:90px !important;
-            font-size: 55px !important;
-            height:90px !important;
-        }
-        #prod-data-img{
-            min-height: 450px !important;
-            min-width: 320px !important;
-        }
-        .access{
-            font-size:24px;
-        }
-        .cart-column2{
-            width: 100% !important;
-        }
-        .cart-amount .num-of-items{
-            font-size: 24px;
-        }
-        .cart-row-content{
-            min-width: 0px !important;
-        }
-        .cart-column1{
-            width: 100% !important;
-            min-width: 0px !important;
-            font-size: larger;
-        }
-        .filter {
-            width: 100% !important;
-        }
-        .fixedbar-filter{
-            width:100% !important;
-        }
-        .header-sort-item {
-            width: calc(100% / 3) !important;
-            border-left: 1px solid #CCC;
-        }
-        .header-sort-item-model{
-            width: calc(100% / 2) !important;
-        }
-        .header-sort-item-popular {
-            width: calc(100% / 2) !important;
-        }
-        .jb-shortscroll-wrapper {
-            display: none !important;
-        }
-        .jb-shortscroll-target .jb-shortscroll-content{
-            overflow: auto !important;
-        }
-        .mini-img{
-            display: none;
-        }
-        .no-shadow-form-control {
-            height: 62px;
-            font-size: 26px;
-        }
-        .panel-title{
-            font-size: 35px;
-        }
-        .partheaderbside {
-            width: 100% !important;
-        }
-        .partners-main-left-back {
-            display: none !important;
-        }
-        .partners-main-right-back{
-            width:100%;
-            margin-left: 0px;
-        }
-        .prod-show>.col1{
-            width: 48% !important;
-            min-width: 0% !important;
-        }
-        .prod-show>.col2{
-            min-width: 0% !important;
-            width: 45% !important;
-        }
-        .pr_op_va_name{
-            width: 35%;
-        }
-        .prod-attr .size-desc{
-            width: 170px !important;
-        }
-        .prod-attr .size-column1{
-            width: 180px;
-        }
-        .prod-attr #input-count{
-            font-size: 15px;
-        }
-        .top-link-back{
-            display:none;
-        }
-        .total-top{
-            height: 50px !important;
-        }
-        .shipping-confirm{
-            width: 90% !important;
-        }
-        .ov-desc section{
-            font-size: 30px;
-        }
-    }
-    @media screen and (min-width: 768px) and ( max-width: 1023px){
-        #card{
-            width: calc(100% / 2 - 10px);
-            max-width: none !important;
-            min-height: 620px !important;
-        }
-    }
-    @media screen and (min-width: 0px) and ( max-width: 767px){
-        #card{
-            width: calc(100% / 1 - 10px);
-            max-width: none !important;
-            min-height: 620px !important;
-        }
-
-    .filter {
-        width: calc(100% / 11 - 10px);
-    }
-
-}
-@media screen and (min-width: 3301px) and ( max-width: 3650px){
-    #card{
-        width: calc(100% / 10 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 10 * 9 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 10 - 10px);
-    }
-
-}
-@media screen and (min-width: 2871px) and ( max-width: 3300px){
-    #card{
-        width: calc(100% / 9 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 9 * 8 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 9 - 10px);
-    }
-
-}
-@media screen and (min-width: 2551px) and ( max-width: 2870px){
-    #card{
-        width: calc(100% / 8 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 8 * 7 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 8 - 10px);
-    }
-
-}
-@media screen and (min-width: 2201px) and ( max-width: 2550px){
-    #card{
-        width: calc(100% / 7 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 7 * 6 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 7 - 10px);
-    }
-
-}
-@media screen and (min-width: 1860px) and (max-width:2200px){
-    #card{
-        width: calc(100% / 6 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 6 * 5 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 6 - 10px);
-    }
-    .partners-main-right-back{
-        margin-left:16.5%;
-    }
-}
-
-@media screen and (min-width: 1560px) and ( max-width: 1870px){
-    #card{
-        width: calc(100% / 5 - 10px);
-    }
-
-    .partheaderbside {
-        width: calc(100% / 5 * 4 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 5 - 10px);
-
-    }
 }
 
 .footer, .wrap {
@@ -12185,176 +11380,6 @@ input[class*="checkbox-hidden-group"]{
     border-color: #00a5a1;
 }
 
-/*@media screen and (min-width: 1860px) and ( max-width: 1921px){*/
-@media screen and (min-width: 3651px) and ( max-width: 4100px){
-    #card{
-        width: calc(100% / 11 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 11 * 10 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 11 - 10px);
-    }
-
-}
-@media screen and (min-width: 3301px) and ( max-width: 3650px){
-    #card{
-        width: calc(100% / 10 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 10 * 9 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 10 - 10px);
-    }
-
-}
-@media screen and (min-width: 2871px) and ( max-width: 3300px){
-    #card{
-        width: calc(100% / 9 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 9 * 8 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 9 - 10px);
-    }
-
-}
-@media screen and (min-width: 2551px) and ( max-width: 2870px){
-    #card{
-        width: calc(100% / 8 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 8 * 7 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 8 - 10px);
-    }
-
-}
-@media screen and (min-width: 2201px) and ( max-width: 2550px){
-    #card{
-        width: calc(100% / 7 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 7 * 6 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 7 - 10px);
-    }
-
-}
-@media screen and (min-width: 1860px) and (max-width:2200px){
-    #card{
-        width: calc(100% / 6 - 10px);
-    }
-    .partheaderbside {
-        width: calc(100% / 6 * 5 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 6 - 10px);
-    }
-    .partners-main-right-back{
-        margin-left:16.5%;
-    }
-}
-
-@media screen and (min-width: 1560px) and ( max-width: 1870px){
-    #card{
-        width: calc(100% / 5 - 10px);
-    }
-
-    .partheaderbside {
-        width: calc(100% / 5 * 4 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 5 - 10px);
-
-    }
-}
-@media screen and (min-width: 1280px) and ( max-width: 1559px){
-    #card{
-        width: calc(100% / 4 - 10px);
-    }
-
-    .partheaderbside {
-        width: calc(100% / 4 * 3 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 4 - 10px);
-
-    }
-}
-@media screen and (min-width: 0px) and ( max-width: 1279px){
-    #card{
-        width: calc(100% / 3 - 10px);
-        max-width: 330px !important;
-    }
-    .fixedbar-filter {
-        width: calc(79.5% - 30px) !important;
-
-    }
-    .partners-main-left-back {
-        float: left;
-        height: 100%;
-        width: 20.5%;
-        padding: 0px;
-    }
-    .partners-main-right-back {
-        width: 79.5%;
-        padding: 0px;
-        height: auto;
-        position: relative;
-        /*box-shadow: 10px 0px 20px -20px #000 inset;*/
-        margin-left: 20.5%;
-        box-sizing: content-box;
-    }
-    .partheaderbside {
-        width: calc(100% / 3 * 3 - 10px);
-
-    }
-    .filter {
-        width: calc(100% / 3 - 10px);
-
-    }
-    body{
-        min-width: 1024px !important;
-
-    }
-    .bside {
-        min-width: 1024px !important;
-        padding: 0px !important;
-    }
-    .partners-main-right-back {
-        width: 100% !important;
-    }
-
-}
-
-/*@media screen and (min-width: 0px) and ( max-width: 1559px){*/
-/*#card{*/
-/*width: calc(100% / 4 - 10px);*/
-/*}*/
-
-/*.partheaderbside {*/
-/*width: calc(100% / 4 * 3 - 10px);*/
-
-/*}*/
-/*.filter {*/
-/*width: calc(100% / 4 - 10px);*/
-
-/*}*/
-/*}*/
 .social{
     float: left;
     width: 20px;
@@ -12557,50 +11582,7 @@ div.size-desc:last-child{
 }
 
 /*Стили для табов в профиле*/
-.lkprofile {
-    padding: 0px;
-    min-width:980px;
-}
-/* стили секций с содержанием */
-.lkprofile section {
-    display: none;
-    padding: 15px;
-}
-.lkprofile>input {
-    display: none;
-}
-/* стили вкладок (табов) */
-.lkprofile>label {
-    display: inline-block;
-    margin: 0 0 -1px;
-    padding: 3px 10px;
-    text-align: center;
-    color: #aaa;
-    font-weight: normal;
-    font-size: 16px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    background-color: #ffffff;
-}
-.lkprofile > label:nth-child(2){
-    margin-left: 30px;
-}
-.lkprofile .header-catalog{
-    display: none;
-}
 
-/* изменения стиля заголовков вкладок при наведении */
-.lkprofile label:hover {
-    color: #888;
-    cursor: pointer;
-}
-/* стили для активной вкладки */
-.lkprofile input:checked + label {
-    box-shadow: 3px 3px 3px #cccccc;
-    color: #555;
-    border: 1px solid #00a5a1;
-}
 /* активация секций с помощью переключателя :checked */
 #tab1:checked ~ #content1,
 #tab2:checked ~ #content2,
@@ -12719,20 +11701,7 @@ div.size-desc:last-child{
 .carousel-indicators{
     display: none;
 }
-@media screen and (min-width: 768px) and ( max-width: 1023px){
-    #card{
-        width: calc(100% / 2 - 10px);
-        max-width: none !important;
-        min-height: 620px !important;
-    }
-}
-@media screen and (min-width: 0px) and ( max-width: 767px){
-    #card{
-        width: calc(100% / 1 - 10px);
-        max-width: none !important;
-        min-height: 620px !important;
-    }
-}
+
 .social{
     float: left;
     width: 20px;
@@ -12934,51 +11903,7 @@ div.size-desc:last-child{
     display:none;
 }
 
-/*Стили для табов в профиле*/
-.lkprofile {
-    padding: 0px;
-    min-width:980px;
-}
-/* стили секций с содержанием */
-.lkprofile section {
-    display: none;
-    padding: 15px;
-}
-.lkprofile>input {
-    display: none;
-}
-/* стили вкладок (табов) */
-.lkprofile>label {
-    display: inline-block;
-    margin: 0 0 -1px;
-    padding: 3px 10px;
-    text-align: center;
-    color: #aaa;
-    font-weight: normal;
-    font-size: 16px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    background-color: #ffffff;
-}
-.lkprofile > label:nth-child(2){
-    margin-left: 30px;
-}
-.lkprofile .header-catalog{
-    display: none;
-}
 
-/* изменения стиля заголовков вкладок при наведении */
-.lkprofile label:hover {
-    color: #888;
-    cursor: pointer;
-}
-/* стили для активной вкладки */
-.lkprofile input:checked + label {
-    box-shadow: 3px 3px 3px #cccccc;
-    color: #555;
-    border: 1px solid #00a5a1;
-}
 /* активация секций с помощью переключателя :checked */
 #tab1:checked ~ #content1,
 #tab2:checked ~ #content2,
@@ -13102,4 +12027,411 @@ div.size-desc:last-child{
 }
 #shipaddr{
     width: 90%;
+}
+
+@media screen and (min-width: 3651px) and ( max-width: 4100px){
+    #card{
+        width: calc(100% / 11 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 11 * 10 - 10px);
+
+    }
+    .filter {
+        width: calc(100% / 11 - 10px);
+    }
+}
+@media screen and (min-width: 3301px) and ( max-width: 3650px){
+    #card{
+        width: calc(100% / 10 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 10 * 9 - 10px);
+    }
+    .filter {
+        width: calc(100% / 10 - 10px);
+    }
+}
+@media screen and (min-width: 2871px) and ( max-width: 3300px){
+    #card{
+        width: calc(100% / 9 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 9 * 8 - 10px);
+    }
+    .filter {
+        width: calc(100% / 9 - 10px);
+    }
+}
+@media screen and (min-width: 2551px) and ( max-width: 2870px){
+    #card{
+        width: calc(100% / 8 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 8 * 7 - 10px);
+    }
+    .filter {
+        width: calc(100% / 8 - 10px);
+    }
+}
+@media screen and (min-width: 2201px) and ( max-width: 2550px){
+    #card{
+        width: calc(100% / 7 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 7 * 6 - 10px);
+    }
+    .filter {
+        width: calc(100% / 7 - 10px);
+    }
+}
+@media screen and (min-width: 1860px) and (max-width:2200px){
+    #card{
+        width: calc(100% / 6 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 6 * 5 - 10px);
+
+    }
+    .filter {
+        width: calc(100% / 6 - 10px);
+    }
+    .partners-main-right-back{
+        margin-left:16.5%;
+    }
+}
+
+@media screen and (min-width: 1560px) and ( max-width: 1870px){
+    #card{
+        width: calc(100% / 5 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 5 * 4 - 10px);
+    }
+    .filter {
+        width: calc(100% / 5 - 10px);
+    }
+}
+@media screen and (min-width: 1280px) and ( max-width: 1559px){
+    #card{
+        width: calc(100% / 4 - 10px);
+    }
+    .partheaderbside {
+        width: calc(100% / 4 * 3 - 10px);
+    }
+    .filter {
+        width: calc(100% / 4 - 10px);
+    }
+    .admin-orders-id {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0 1px;
+        overflow: hidden;
+        width: calc(100% / 7 - 10px)
+    }
+
+    .admin-orders-name {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 5px;
+        margin: 0 1px;
+        overflow: hidden;
+        width: calc(100% / 4 - 10px)
+    }
+    .prod-show .col1{
+        min-width: 0px;
+    }
+}
+@media screen and (min-width: 1024px) and ( max-width: 1279px){
+    #card{
+        width: calc(100% / 3 - 10px);
+        max-width: 330px !important;
+    }
+    .cart-prod-price{
+        margin-right: 18px !important;
+    }
+    .cart-row-content{
+        width: 61% !important;
+    }
+    .cart-row #input-count{
+        width:45px !important;
+    }
+    .col1{
+        min-width:0px !important;
+    }
+    .col2{
+        min-width:0px !important;
+        width: 50% !important;
+    }
+    .del-product{
+        float: right !important;
+    }
+    .fixedbar-filter {
+        width: calc(79.5% - 30px) !important;
+    }
+    .mini-img{
+        display: none;
+    }
+    .partners-main-left-back {
+        float: left;
+        height: 100%;
+        width: 20.5%;
+        padding: 0px;
+    }
+    .partners-main-right-back {
+        width: 80% !important;
+        padding: 0px;
+        height: auto;
+        position: relative;
+        margin-left: 20% !important;
+        box-sizing: content-box;
+    }
+    .partheaderbside {
+        width: calc(100% / 3 * 3 - 10px);
+    }
+    .pr_op_va_name{
+        width: 35%;
+    }
+    .filter {
+        width: calc(100% / 3 - 10px);
+    }
+    body{
+        min-width: 320px !important;
+    }
+    .size-column1{
+        width:37% !important;
+    }
+    .size-desc{
+        width:150px;
+    }
+    .top-link-cont-back{
+        display: none;
+    }
+    #main-index{
+        display:none;
+    }
+}
+@media screen and (min-width: 0px) and ( max-width: 1023px){
+    #card{
+        width: calc(100% / 2 - 10px);
+        max-width: none !important;
+        min-height: 620px !important;
+    }
+    #card:hover, #index-card-1:hover {
+        box-shadow: none;
+    }
+    #main-index{
+        display: none;
+    }
+    .cart-row-content{
+        min-width: 0px !important;
+    }
+    .access{
+        font-size:24px;
+    }
+    .partheaderbside {
+        width: 100% !important;
+    }
+    .filter {
+        width: 100% !important;
+    }
+    .cart-column1{
+        width: 100% !important;
+        min-width: 0px !important;
+        font-size: larger;
+    }
+    .cart-column2{
+        width: 100% !important;
+    }
+    .cart-top{
+        margin-bottom:15px;
+    }
+    #sort-order {
+        width: 100%;
+    }
+    .jb-shortscroll-wrapper {
+        display: none !important;
+    }
+    .top-link-back{
+        display:none;
+    }
+    .partners-main-left-back {
+        display: none;
+    }
+    .header-sort-item {
+        width: calc(100% / 3) !important;
+        border-left: 1px solid #CCC;
+    }
+    .header-sort-item-model{
+        width: calc(100% / 2) !important;
+    }
+    .header-sort-item-popular {
+        width: calc(100% / 2) !important;
+    }
+    .panel-title{
+        font-size: 35px;
+    }
+    h3, .h3 {
+        font-size: 40px;
+    }
+    .main-news{
+        width:100% !important;
+    }
+    .main-soc{
+        width:100% !important;
+    }
+    .no-shadow-form-control {
+        height: 62px;
+        font-size: 26px;
+    }
+    body{
+        min-width: 320px !important;
+        font-size: 35px !important;
+    }
+    .jb-shortscroll-target .jb-shortscroll-content{
+        overflow: auto !important;
+    }
+    .partners-main-right-back{
+        width:100% !important;
+        margin-left: 0px !important;
+    }
+    #prod-data-img{
+        min-height: 450px !important;
+        min-width: 320px !important;
+    }
+    #slid2 .carousel-control{
+        width:90px !important;
+        font-size: 55px !important;
+        height:90px !important;
+    }
+    .fixedbar-filter{
+        width:100% !important;
+    }
+    .mini-img{
+        display: none;
+    }
+    .prod-show>.col1{
+        width: 48% !important;
+        min-width: 0% !important;
+    }
+    .prod-show>.col2{
+        min-width: 0% !important;
+        width: 45% !important;
+    }
+    .pr_op_va_name{
+        width: 35%;
+    }
+    .prod-attr .size-desc{
+        width: 170px !important;
+    }
+    .prod-attr .size-column1{
+        width: 180px;
+    }
+    .prod-attr #input-count{
+        font-size: 15px;
+    }
+    .cart-amount{
+        margin:0 0 10px !important;
+    }
+    .cart-amount .num-of-items{
+        font-size: 15px;
+    }
+    .cart-model{
+        font-size: 30px !important;
+    }
+    .cart-row .del-product{
+        float: right !important;
+        margin-right:35px !important;
+    }
+    .cart-row #add-count, .cart-row #del-count{
+        width: 50px;
+        height: 50px;
+        line-height: 1.13 !important;
+        font-size: 45px;
+    }
+    .cart-row #input-count{
+        height: 50px !important;
+        width:70px !important;
+        font-size:35px;
+    }
+    .cart-amount .num-of-items{
+        font-size: 24px;
+    }
+    .shipping-confirm{
+        width: 90% !important;
+    }
+    .total-top{
+        height: 50px !important;
+    }
+    .large{
+        display: none;
+    }
+    .alarge{
+        display:block !important;
+        margin-left:20%;
+    }
+    .alk{
+        display: block !important;
+    }
+    .logindiv{
+        font-size: 18px;
+    }
+    #sort-order{
+        width:100% !important;
+    }
+    #products-counter{
+        float:left !important;
+    }
+    .omcode{
+        margin-left:5%;
+    }
+    .om-code{
+        margin-left:40%;
+    }
+    .absolute-catalog{
+        display: block !important;
+        position: absolute;
+        width: 70% !important;
+    }
+    .absolute-lk{
+        display: block !important;
+        position: absolute;
+        width: 35% !important;
+    }
+    #slid2 .carousel-control{
+        width:90px !important;
+        font-size: 55px !important;
+        height:90px !important;
+    }
+    .ov-desc section{
+        font-size: 30px;
+    }
+    .accordion .link {
+        font-size: 35px !important;
+        line-height: 45px !important;
+    }
+}
+
+@media screen and (min-width: 768px) and ( max-width: 1023px){
+    #card{
+        width: calc(100% / 2 - 10px);
+        max-width: none !important;
+        min-height: 620px !important;
+    }
+}
+@media screen and (min-width: 0px) and ( max-width: 767px){
+    #card{
+        width: calc(100% / 1 - 10px);
+        max-width: none !important;
+        min-height: 620px !important;
+    }
+    .large{
+        display: none;
+    }
+    .filter {
+        width: calc(100% / 11 - 10px);
+    }
 }

@@ -4,6 +4,28 @@ $(document).on('click', '.size', function () {
     $check = [];
     $(this).addClass('size-checked');
 });
+$(document).on('click', '.alarge', function () {
+    if($('.partners-main-left-back').hasClass('absolute-catalog')){
+        $('.partners-main-left-back').removeClass('absolute-catalog');
+        $('.partners-main-left').removeClass('absolute-catalog');
+        $('.partners-main-left-back').hide();
+    }else {
+        $('.partners-main-left-back').addClass('absolute-catalog');
+        $('.partners-main-left').addClass('absolute-catalog');
+        $('.partners-main-left-back').show();
+    }
+});
+$(document).on('click', '.alk', function () {
+    if($('.partners-main-left-back').hasClass('absolute-lk')){
+        $('.partners-main-left-back').removeClass('absolute-lk');
+        $('.partners-main-left-cont').removeClass('absolute-lk');
+        $('.partners-main-left-back').hide();
+    }else {
+        $('.partners-main-left-back').addClass('absolute-lk');
+        $('.partners-main-left-cont').addClass('absolute-lk');
+        $('.partners-main-left-back').show();
+    }
+});
 $(document).on('click', '.addfilter', function () {
     $(".page-checked").removeClass('page-checked');
 });
