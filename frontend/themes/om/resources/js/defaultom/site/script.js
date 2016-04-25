@@ -554,7 +554,7 @@ function loaddata(){
 
                 $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+
                     '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
-                    '<a itemprop="url" href="/glavnaya/product?id=' + $product.products_id+ '">'+
+                    '<a id="prod-info" data-prod="' + $product.products_id + '" >'+
                     '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
                     '</div>'+
                     '<div  itemprop="model" class="model" style="display:none">' + $product.products_model + '</div>' +
@@ -577,11 +577,11 @@ function loaddata(){
                     '</div>'+
                     '</div>'+
 
-                    '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
-                    '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
+                    '<a itemprop="url" href="/glavnaya/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+                    '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
                     '</i>'+
-                    'Увеличить'+
-                    '</div>'+
+                    'В карточку'+
+                    '</a>'+
 
                     ''+$timeprew+''+
                     '</div></div>');
@@ -999,7 +999,7 @@ $(document).on('click', '.close-modal', function(){
 });
 var lockprodinfo = false;
 $(document).on('click','#prod-info',function(){
-    if(!lockprodinfo) {
+    if(lockprodinfo !== true) {
         lockprodinfo = true;
         var dp = $(this).attr('data-prod');
 
@@ -1171,7 +1171,7 @@ $(document).on('click','#prod-info',function(){
 
             if (typeof($next) != "undefined" ) {
                 $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
                     '</div>';
             } else {
                 if (!inProgress&&document.getElementsByClassName('loader').length!=0) {
@@ -1179,7 +1179,7 @@ $(document).on('click','#prod-info',function(){
                 }
 
                 $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $current + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $current + '" id="prod-info"></i>' +
                     '</div>';
 
             }
@@ -1187,11 +1187,11 @@ $(document).on('click','#prod-info',function(){
 
             if (typeof($prev) != "undefined") {
                 $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
                     '</div>';
             } else {
                 $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $current + '" id="prod-info"></i>' +
+                    '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $current + '" id="prod-info"></i>' +
                     '</div>';
             }
 
