@@ -105,7 +105,7 @@ $this->title = $title;
                 }
             }
             echo Carousel::widget([
-                'items'=>$specitems,'id'=>'slid3','clientOptions'=>['interval'=>10000]
+                'items'=>$specitems,'id'=>'slid3','clientOptions'=>['interval'=>10000000]
             ]);
         }
         ?>

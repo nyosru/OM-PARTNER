@@ -484,7 +484,6 @@ a:active {
     max-width: 300px;
 }
 
-
 #partners-head {
     width: 100%;
     margin-bottom: 3px
@@ -3444,6 +3443,52 @@ div.size-desc:last-child{
     display: none;
 }
 
+.inht{
+    float: left;
+    margin:5px;
+    width: calc(100% / 2 - 10px);
+    border-radius: 2px;
+    box-shadow: 0 0 1px 0 #AFBCAA;
+}
+.inht:hover{
+    box-shadow: 0 -2px 15px #9e9e9e;
+}
+.inht .price{
+    bottom:5px;
+}
+#card2 {
+    float: left;
+    min-height: 380px;
+    margin: 5px;
+    padding: 20px;
+    min-width: 230px;
+    max-width: 300px;
+}
+
+#card2size{
+    float: left;
+    width: 45%;
+    padding-top: 15px;
+}
+
+#card2size .cart-lable{
+    position: inherit !important;
+    width: 125px !important;
+    margin-top:250px;
+    margin-left: 48%;
+}
+#card2size .active-options{
+
+}
+
+.change-cart{
+    width:50px;
+    height:50px;
+    background-color:blue;
+    float: right;
+    display: none;
+}
+
 
 @media screen and (min-width: 3651px) and ( max-width: 4100px){
     #card{
@@ -3459,6 +3504,9 @@ div.size-desc:last-child{
     #modal-product{
         margin-left:350px;
     }
+    .inht{
+        width: calc(100% / 6 - 10px);
+    }
 }
 @media screen and (min-width: 3301px) and ( max-width: 3650px){
     #card{
@@ -3472,6 +3520,9 @@ div.size-desc:last-child{
     }
     #modal-product{
         margin-left:350px;
+    }
+    .inht{
+        width: calc(100% / 5 - 10px);
     }
 }
 @media screen and (min-width: 2871px) and ( max-width: 3300px){
@@ -3487,6 +3538,12 @@ div.size-desc:last-child{
     #modal-product{
         margin-left:250px;
     }
+    .inht{
+        width: calc(100% / 4 - 10px);
+    }
+    #card2{
+        min-width: 300px;
+    }
 }
 @media screen and (min-width: 2551px) and ( max-width: 2870px){
     #card{
@@ -3501,10 +3558,16 @@ div.size-desc:last-child{
     #modal-product{
         margin-left:250px;
     }
+    .inht{
+        width: calc(100% / 4 - 10px);
+    }
 }
 @media screen and (min-width: 2201px) and ( max-width: 2550px){
     #card{
         width: calc(100% / 7 - 10px);
+    }
+    #card2{
+        min-width: 300px;
     }
     .partheaderbside {
         width: calc(100% / 7 * 6 - 10px);
@@ -3514,6 +3577,9 @@ div.size-desc:last-child{
     }
     #modal-product{
         margin-left:150px;
+    }
+    .inht{
+        width: calc(100% / 3 - 10px);
     }
 }
 @media screen and (min-width: 1860px) and (max-width:2200px){
@@ -3531,11 +3597,21 @@ div.size-desc:last-child{
         margin-left:16.5%;
     }
     #modal-product{
-        margin-left:150px;
+        margin-left:200px;
+    }
+    .inht{
+        width: calc(100% / 3 - 10px);
     }
 }
 
-@media screen and (min-width: 1560px) and ( max-width: 1870px){
+@media screen and (min-width: 1560px) and ( max-width: 1859px){
+    .inht{
+        width: calc(100% / 3 - 10px);
+    }
+    #card2{
+        min-width: 210px;
+        padding:5px;
+    }
     #card{
         width: calc(100% / 5 - 10px);
     }
@@ -3548,6 +3624,7 @@ div.size-desc:last-child{
     #modal-product{
         margin-left:150px;
     }
+
 }
 @media screen and (min-width: 1280px) and ( max-width: 1559px){
     #card{
@@ -3655,6 +3732,13 @@ div.size-desc:last-child{
     }
     #modal-product{
         margin-left:-50px;
+    }
+    #card2{
+        padding:1px;
+        min-width:200px;
+    }
+    #card2size .cart-lable{
+        margin-left:20px;
     }
 }
 @media screen and (min-width: 0px) and ( max-width: 1023px){

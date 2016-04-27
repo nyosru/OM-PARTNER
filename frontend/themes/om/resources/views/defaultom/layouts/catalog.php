@@ -135,6 +135,7 @@ $this->beginPage();
                             Найти
                         </button>
                     </form>
+                    <a class="change-cart" href="<?=BASEURL?>/changecardview"></a>
                     <div class="logindiv" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                         <?
                         if (Yii::$app->user->isGuest) {
@@ -169,6 +170,7 @@ $this->beginPage();
                             echo '<div style="float: right;"><a href="' . BASEURL . '/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
                         }
                         ?>
+                        <a href="<?=BASEURL?>/changecardview"><i class="fa fa-desktop" title="Изменить вид карточек" style="float: right; color:#00a5a1; margin-right: 30px; font-size: 24px;" aria-hidden="true"></i></a>
                     </div>
                     <div class="result_search_word"
                          style="background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; z-index: 5000; overflow-y: auto; max-height: 300px; position: relative; width: 65%;"></div>

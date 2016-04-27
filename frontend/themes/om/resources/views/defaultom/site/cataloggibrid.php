@@ -14,6 +14,7 @@ use kartik\slider\SliderAsset;
 use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
+use frontend\widgets\ProductCard2;
 use Zelenin\yii\SemanticUI\modules\Checkbox;
 
 function new_url($arr_sub)
@@ -254,9 +255,14 @@ echo '<div class="partners-main-right bside">';
     echo $headbside;
     $innerhtml = '';
 
-
-    foreach ($data[0] as $value) {
-        echo ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
+    if($_COOKIE['cardview']==1){
+        foreach ($data[0] as $value) {
+            echo ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
+        }
+    }else{
+        foreach ($data[0] as $value) {
+            echo ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
+        }
     }
 
     if ($searchword !== '') {
