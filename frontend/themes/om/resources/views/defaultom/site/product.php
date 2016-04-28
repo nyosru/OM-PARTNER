@@ -73,6 +73,9 @@ $items=array();
 $i=0;
 $im=array($product['products']['products_id']);
 $imsrc=array($product['products']['products_image']);
+if(!$product['products']['products_image']){
+    $imsrc = array();
+}
 ?>
 <div class="product">
     <div class="product-top">
@@ -90,8 +93,10 @@ $imsrc=array($product['products']['products_image']);
                             ?>
                         </div>
                         <div style="float: right; width: 63%; min-width: 440px;">
+
                             <?php
                             $i=0;
+                            $items = [];
                             foreach($imsrc as $key => $img){
                                 $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " src="'.BASEURL.'/imagepreview?src='.$im[$key].'"/></a>';
                                 $i++;

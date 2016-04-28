@@ -20,7 +20,7 @@ Collapse::widget();
 
 
 <div id="index-card-4">Мои данные</div>
-<div style="margin-bottom: 45px; padding: 0px 20px; font-size:14px;">Эта информация никогда не будет доступна третьим лицам</div>
+<div style="margin-bottom: 45px; padding: 0px 20px;">Эта информация никогда не будет доступна третьим лицам</div>
 
 <?
 if($savelk==true){
@@ -57,8 +57,8 @@ for($i=0; $i<$cs; $i++){
 }
 
 ?>
-<div style="width: 100%; ">
-    <div class="lkprofile" style="float:left; width: 80%;margin-left:-10px;">
+<div style="width: 100%; margin-left: -10px;">
+    <div class="lkprofile" style="float:left; width: 80%;">
         <input id="tab1" type="radio" name="tabs" checked>
         <label for="tab1" title="Мои данные">Мои данные</label>
 

@@ -75,13 +75,13 @@ $this->beginPage();
             <div class="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                 <div>
                     <div class="top-link-cont large" style="width: calc(100% / 6.9);"><a class="top-link"
-                                                                                   href="<?= BASEURL ?>/page?article=howorders">Как
+                                                                                         href="<?= BASEURL ?>/page?article=howorders">Как
                             сделать заказ</a></div>
                     <div class="top-link-cont large" style="width: calc(100% / 13);"><a class="top-link red"
-                                                                                  href="<?= BASEURL ?>/discont">Акции</a>
+                                                                                        href="<?= BASEURL ?>/discont">Акции</a>
                     </div>
                     <div class="top-link-cont large" style="width: calc(100% / 5.1);"><a class="top-link"
-                                                                                   href="<?= BASEURL ?>/page?article=contributionrules">Условия
+                                                                                         href="<?= BASEURL ?>/page?article=contributionrules">Условия
                             сотрудничества</a></div>
                     <div class="top-link-cont alarge" style="width: calc(100% / 5.1);display: none;"><a class="top-link"       href="#">Показать каталог</a></div>
                     <div class="omcode"
