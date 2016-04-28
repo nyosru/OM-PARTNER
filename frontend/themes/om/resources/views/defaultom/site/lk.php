@@ -103,7 +103,17 @@ $this->title = 'Личный кабинет';
                     return ['class' => 'user-order-table-row'];
                 },
                 'content' => function ($data) {
-                    $shipping = ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'], 'flat7_flat7' => ['value' => 'Почта ЕМС России']];
+                    $shipping = [
+                        'flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'],
+                        'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'],
+                        'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'],
+                        'flat7_flat7' => ['value' => 'Почта ЕМС России'],
+                        'flat11_flat11' => ['value'=>'Бесплатная доставка до ТК КИТ'],
+                        'flat10_flat10' => ['value'=>'Бесплатная доставка до ТК ОПТИМА'],
+                        'flat9_flat9' => ['value'=>'Бесплатная доставка до ТК Севертранс'],
+                        'flat12_flat12' => ['value'=>'Бесплатная доставка до ТК ЭНЕРГИЯ'],
+                        'russianpostpf_russianpostpf'=> ['value'=>'Почта России - http://pochta.ru/']
+                    ];
                     $shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);
                     $inner = '';
                     $ship = $data->shipping_module;

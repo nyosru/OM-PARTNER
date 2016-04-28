@@ -88,7 +88,7 @@ if(!$product['products']['products_image']){
                             foreach($im as $img){
                                 if($i!=0) echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
                                 else echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item selected"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
-                                $i++;
+                                    $i++;
                             }
                             ?>
                         </div>
@@ -105,7 +105,7 @@ if(!$product['products']['products_image']){
                             echo Carousel::widget([
                                 'items'=>$items,'id'=>'slid','clientOptions'=>['interval'=>false]
                             ]);
-                            //
+//
                             ?>
                             <div class="social" style="height: 50px; bottom: 0px; width: 100%;position: relative">
                                 <div style="font-size: 14px;font-weight: 300; float: left; width: 100px; margin-top:10px;text-align: left;position: relative;left:67px;">Поделиться:</div>
@@ -124,32 +124,32 @@ if(!$product['products']['products_image']){
                 <div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;min-width:455px;">
                     <div style="font-family: 'Roboto', sans-serif; font-weight: 300;">
                         <div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: <?=$product['products']['products_model']?></div>
-                        <!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
+<!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
                         <div style="clear: both;"></div>
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
                         <div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; "><?=$product['productsDescription']['products_name']?></div>
-                        <!--                        <div itemprop="category" class="model" style="display:none">--><?//=end($catpath['name'])?><!--</div>-->
+<!--                        <div itemprop="category" class="model" style="display:none">--><?//=end($catpath['name'])?><!--</div>-->
                         <div itemprop="priceCurrency" style="display:none">RUB</div>
                         <a itemprop="url" href="/glavnaya/product?id=<?=$product['productsDescription']['products_id']?>"></a>
                     </div>
                     <div class="prod-pricing" style="margin-bottom: 25px;">
                         <div class="prod-price-lable" style="clear: both; font-size: 12px; margin-bottom: 7px;">Цена</div>
                         <div class="prod-price" itemprop="price" style="float: left; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;"><?=(int)$product['products']['products_price']?> руб</div>
-                        <!--                        <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px; font-size: 14px;line-height: 2;">Старая цена</div>-->
-                        <!--                        <div class="prod-discount" style="color:gray; border: 1px solid #ccc; padding: 2px;float: left;font-size: 12px;line-height: 1.3; top:4px;position: relative;border-radius: 4px;">Скидка много рублей</div>-->
+<!--                        <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px; font-size: 14px;line-height: 2;">Старая цена</div>-->
+<!--                        <div class="prod-discount" style="color:gray; border: 1px solid #ccc; padding: 2px;float: left;font-size: 12px;line-height: 1.3; top:4px;position: relative;border-radius: 4px;">Скидка много рублей</div>-->
                         <div style="clear: both"></div>
                         <div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;"><? if (count($product['productsAttributesDescr']) > 0) echo '<div style="margin: 0 0 20px 0">Размеры</div>'; ?><?=$prodinfoattr?></div>
                         <div class="prod-compos" style="font-size: 12px;">
                             <?
                             // Вывод спецификаций
                             if(is_array($spec['productsSpecification'])){
-                                foreach ($spec['productsSpecification'] as $key => $value) {
-                                    $specname = '';
-                                    $specval = '';
-                                    $specname = $spec['specificationDescription'][$value['specifications_id']]['specification_name'];
-                                    $specval = $spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value'];
-                                    echo $specname . ': ' . $specval . '<br/>';
-                                }
+                            foreach ($spec['productsSpecification'] as $key => $value) {
+                                $specname = '';
+                                $specval = '';
+                                $specname = $spec['specificationDescription'][$value['specifications_id']]['specification_name'];
+                                $specval = $spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value'];
+                                echo $specname . ': ' . $specval . '<br/>';
+                            }
                             }
                             ?>
                             <br/>
@@ -161,7 +161,7 @@ if(!$product['products']['products_image']){
                 </div>
 
             </div>
-        </div>
+            </div>
         <div style="width: 100%;overflow: hidden; float: left;">
             <a name="descr"></a>
             <div class="ov-desc" style="float:left; ">
@@ -182,8 +182,8 @@ if(!$product['products']['products_image']){
                 </section>
             </div>
         </div>
-        <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
-        <div class="relative" style="height: 460px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
+            <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
+            <div class="relative" style="height: 460px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
             <?php
             if(is_array($relprod)) {
                 $relitems=array();
@@ -211,27 +211,27 @@ if(!$product['products']['products_image']){
 //                }
             }
             ?>
-        </div>
+            </div>
         <div id="modal-product" style="border:none; min-height: 300px;">
             <span id="modal-close"><i class="fa fa-times"></i></span>
         </div>
         <div id="overlay"></div>
-        <!--    <div class="seen" style="float: left">-->
-        <!--        <div class="seen-title" style="font-size: x-large; font-weight: 500; margin-bottom: 20px;">Вы недавно смотрели</div>-->
-        <!--        <div class="seen-items" style="height: 250px; ">-->
-        <!--            <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">-->
-        <!--                <div class="seen-img" style="height: 70%;">-->
-        <!--                    --><?//='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
-        <!--                </div>-->
-        <!--                <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>-->
-        <!--                <div class="seen-price">200 руб</div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--    </div>-->
-    </div>
+<!--    <div class="seen" style="float: left">-->
+<!--        <div class="seen-title" style="font-size: x-large; font-weight: 500; margin-bottom: 20px;">Вы недавно смотрели</div>-->
+<!--        <div class="seen-items" style="height: 250px; ">-->
+<!--            <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">-->
+<!--                <div class="seen-img" style="height: 70%;">-->
+<!--                    --><?//='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
+<!--                </div>-->
+<!--                <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>-->
+<!--                <div class="seen-price">200 руб</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
     <script>
         $(document).on('ready', function(){
             $('a[rel=light]').light();
         });
 
-    </script>
+        </script>
