@@ -9,6 +9,7 @@ use common\models\OrdersStatusHistory;
 use common\models\OrdersToPartners;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersToRegion;
+use common\models\SpsrZones;
 use Yii;
 use common\models\PartnersOrders;
 use common\models\User;
@@ -146,8 +147,8 @@ trait ActionSaveorder
                 ]
             ]);
         }
-        //  $transaction = Yii::$app->db->beginTransaction();
-        // try {
+          $transaction = Yii::$app->db->beginTransaction();
+         try {
         $nowdate = date('Y-m-d H:i:s');
         $defaultentrycountry = Countries::find()->where(['countries_id'=>$default_user_address['entry_country_id']])->asArray()->one();
         $defaultentryzones = Zones::find()->where(['zone_id'=>$default_user_address['entry_zone_id']])->asArray()->one();
@@ -294,7 +295,7 @@ trait ActionSaveorder
                     $last_partner_id = 0;
                     foreach ($region_partners as $key_region => $value_region) {
                         $last_partner_id = $value_region['partner_id'];
-                        $partners[$last_partner_id]['name'] = $value_region['partnersCompanies']['short_name'];
+                        $partners[$last_partner_id]['name'] = $value_region['partnersCompanies']['lname'].' '.mb_substr($value_region['partnersCompanies']['fname'], 0,1,'UTF-8').' '.mb_substr($value_region['partnersCompanies']['oname'],0,1,'UTF-8');
                         $partners[$last_partner_id]['parent_ids'][] = (int)$value_region['parent_companies_id'];
                         $partners[$last_partner_id]['default_region'] = $value_region['partnersCompanies']['default_region'];
                         $partners[$last_partner_id]['active_after'] = (int)$value_region['partnersCompanies']['active_after'];
@@ -324,88 +325,77 @@ trait ActionSaveorder
 
                     if ($region_id != 0) {
 
-                        $year = date('y', strtotime($nowdate));
+                        $year = date('Y', strtotime($nowdate));
                         // проверяем: когда был сделан заказ и когда был создан партнер, если заказ был создан после создания партнера и на момент создания заказа клиент оплатил более min_raiting заказов, а так же не находится в ЧС, то пытаемся переключить заказ на регионала
-                        if ($partners[$last_partner_id]['support_black_list'] && $userCustomer['customers_groups_id'] != 3) {
+                        if (!$partners[$last_partner_id]['support_black_list'] && $userCustomer['customers_groups_id'] != 3) {
                             $in_black_list = false;
                         } else {
                             $in_black_list = true;
                         }
 
                         $rating = Orders::find()->where(['customers_id' => $orders->customers_id, 'orders_status' => 5]);
-                        if (isset($orders->date_purchased) && $orders->date_purchased > 1) {
-                            $rating->andWhere('unix_timestamp(date_purchased) < "' . $orders->date_purchased . '"');
-                        }
+                        $rating->andWhere('date_purchased < "' . $orders->date_purchased . '"');
                         $rating = $rating->asArray()->count();
 
-                        echo '<pre>';
-                        print_r($partners[$last_partner_id]['min_raiting']);
-                        echo '</pre>';
-                        die();
 
 //                        // заказы со статусами: Оплачен, Оплачен-доставляется, Оплачен-доставлен
-//
-                        if ((int)$orders->date_purchased >= $partners[$last_partner_id]['active_after'] && $rating >= $partners[$last_partner_id]['min_raiting'] && !$in_black_list) {
 
-//                            $response['partner_id'] = $last_partner_id;
-//                            $response['company_name'] = $partners[$last_partner_id]['name'];
-//                            $cur_year = (int)$year == 0 ? date('y', time()) : (int)$year;
-//                            if (trim($cur_year) == '') {
-//                                $cur_year = date('y', time());
-//                            }
-//                            $field = 'order_id';
-//                            $cur_year = (int)$cur_year == 0 ? date('y', time()) : (int)$cur_year;
-//                            echo '<pre>';
-//                            print_r($cur_year);
-//                            echo '</pre>';
-//                            die();
-//                            if ((int)$region_id == 0) {
-//                                if (($response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partner_id' => (int)$partner_id, 'year' => $cur_year, 'region_id' => $info['default_region']])->asArray()->one()) == FALSE) {
-//                                    $response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partner_id' => (int)$partner_id, 'year' => $cur_year, 'region_id' => $region_id])->asArray()->one();
-//                                }
-//                                $last_insert_id = $response[$field] + 1;
-//
-//                                $response['name'] = $cur_year . '-' . partnerRegionAndLitera($last_partner_id) . '-' . $last_insert_id;
-//                                $OrdersToPartners = new OrdersToPartners();
-//                                $OrdersToPartners->order_id = $orders->orders_id;
-//                                $OrdersToPartners->partner_id = $last_partner_id;
-//                                $OrdersToPartners->region_id = $region_id;
-//                                $OrdersToPartners->order_name = $response['name'];
-//                                $OrdersToPartners->order_number = $last_insert_id;
-//                                if ($OrdersToPartners->save()) {
-//
-//                                    //     inc_last_partner_id('order_id', $last_partner_id, 0, $order_info['year']);
-//                                } else {
-//
-//                                    // $response['name'] = $order_info['year'] . $order_info['litera'] . '-' . $order_info['buh_orders_id'];
-//                                    $response['partner_id'] = 0;
-//
-//                                }
-//
-//                            }
-//
 
+                        if ((int)$year >= $partners[$last_partner_id]['active_after'] && $rating >= $partners[$last_partner_id]['min_raiting'] && !$in_black_list) {
+                            $response['partner_id'] = $last_partner_id;
+                            $response['company_name'] = $partners[$last_partner_id]['name'];
+                            $cur_year = date('y',strtotime($nowdate));
+                            $field = 'order_id';
+
+
+                                if (($response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $info['default_region']])->asArray()->one()) == FALSE) {
+                                    $response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $region_id])->asArray()->one();
+                                }
+                                $last_insert_id = $response[$field] + 1;
+
+                                // $response = $region_number['id'] . (count($partner['parent_ids']) > 1 ? ((int)$region_number['num_of_region'] > 1 ? '/' . $region_number['num_of_region'] : '') : $pr_litr[$partner['parent_ids'][0]]);
+
+                            $spsr_region = SpsrZones::find()->where(['zone_id'=>$response['region_id']])->asArray()->one();
+
+                            $response['name'] = $cur_year . '-' . $spsr_region['id'] . '-' . $last_insert_id;
+                                $OrdersToPartners = new OrdersToPartners();
+                                $OrdersToPartners->order_id = $orders->orders_id;
+                                $OrdersToPartners->partner_id = $last_partner_id;
+                                $OrdersToPartners->region_id = $region_id;
+                                $OrdersToPartners->order_name = $response['name'];
+                                $OrdersToPartners->order_number = $last_insert_id;
+                          
+                                if ($OrdersToPartners->save()) {
+                                    if(($lastids = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year'=>$cur_year,'region_id' => $info['default_region']])->one()) == FALSE){
+                                        $lastids = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year'=>$cur_year])->one();
+                                    }
+                                    $lastids->order_id = $last_insert_id;
+                                    if($lastids->save()){
+                                        $numberorders =  $response['name'] ;
+                                        $flag_to_region = true;
+                                    }else{
+                                        $numberorders =    $orders->NumOrder();
+                                    }
+
+                                     } else {
+
+                                 $numberorders =    $orders->NumOrder();
+
+                                }
                         } else {
-                            $response['name'] = $order_info['year'] . $order_info['litera'] . '-' . $order_info['buh_orders_id'];
-                            $response['partner_id'] = 0;
+                            $numberorders =    $orders->NumOrder();
                         }
-
                     } else {
-                        $response['name'] = $order_info['year'] . $order_info['litera'] . '-' . $order_info['buh_orders_id'];
-                        $response['partner_id'] = 0;
+                        $numberorders =    $orders->NumOrder();
                     }
+                }else{
+                    $numberorders =    $orders->NumOrder();
                 }
 
                 } else {
-                    $about_order = tep_db_fetch_array(tep_db_query('SELECT o2p.partner_id, o2p.order_name, CONCAT(pc.lname, " ", LEFT(pc.fname,1), ".", LEFT(pc.oname,1)) AS short_name FROM orders_to_partners AS o2p LEFT JOIN partners_companies AS pc ON(o2p.partner_id=pc.partner_id) WHERE o2p.order_id=' . (int)$order_id . ' LIMIT 1'));
-                    $response['name'] = $about_order['order_name'];
-                    $response['partner_id'] = (int)$about_order['partner_id'];
-                    $response['company_name'] = $about_order['short_name'];
+                $numberorders =    $orders->NumOrder();
 
                 }
-
-
-
 
                 $price_total = 0;
             $reindexprod = ArrayHelper::index($proddata, 'products_id');
@@ -683,15 +673,15 @@ trait ActionSaveorder
             ]);
         }
 
-        //  $transaction->commit('suc');
+          $transaction->commit('suc');
         Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice'=>(integer)$wrapp['products_price'],
             'result'=>  [
                 'code' => 200,
-                'text'=>'<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ в магазине Одежда-Мастер оформлен</div>',
+                'text'=>'<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ '.$numberorders.' в магазине Одежда-Мастер оформлен</div>',
                 'data'=>[
                     'paramorder'=>[
                         'delivery' => $dostavka[$ship],
-                        'number'=> $orders->orders_id,
+                        'number'=> $orders->orders_id.' ('.$numberorders.')',
                         'date' => $orders->date_purchased,
                         'wrap' => $wrap,
                         'name' => $orders->customers_name,
@@ -709,6 +699,31 @@ trait ActionSaveorder
             ->setTo($orders->customers_email_address)
             ->setSubject('Новый заказ"')
             ->send();
+             Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice'=>(integer)$wrapp['products_price'],
+                 'result'=>  [
+                     'code' => 200,
+                     'text'=>'<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ '.$numberorders.' в магазине Одежда-Мастер оформлен</div>',
+                     'data'=>[
+                         'paramorder'=>[
+                             'delivery' => $dostavka[$ship],
+                             'number'=> $orders->orders_id.' ('.$numberorders.')',
+                             'date' => $orders->date_purchased,
+                             'wrap' => $wrap,
+                             'name' => $orders->customers_name,
+                             'telephone' => $orders->customers_telephone,
+                             'email' => $orders->customers_email_address,
+                         ],
+                         'saveproduct'=>$validproduct,
+                         'origprod' => $origprod,
+                         'timeproduct'=>$related,
+                         'totalpricesaveproduct'=>$validprice
+                     ]
+                 ]
+             ])
+                 ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                 ->setTo('desure85@gmail.com')
+                 ->setSubject('Новый заказ"')
+                 ->send();
         Yii::$app->session->set('order-succes', ['wrapprice'=>(integer)$wrapp['products_price'],
             'result'=>  [
                 'code' => 200,
@@ -716,7 +731,7 @@ trait ActionSaveorder
                 'data'=>[
                     'paramorder'=>[
                         'delivery' => $dostavka[$ship],
-                        'number'=> $orders->orders_id,
+                        'number'=> $orders->orders_id.' ('.$numberorders.')',
                         'date' => $orders->date_purchased,
                         'wrap' => $wrap,
                         'name' => $orders->customers_name,
@@ -730,30 +745,30 @@ trait ActionSaveorder
                 ]
             ]
         ]);
-       // return header('location: '.BASEURL.'/cartresult');
+        return header('location: '.BASEURL.'/cartresult');
 
-//        } catch (\Exception $e) {
-//            Yii::$app->mailer->compose()
-//                ->setFrom('support@newodezhdamaster.com')
-//                ->setTo('desure85@gmail.com')
-//                ->setSubject('Ошибка оформления')
-//                ->setTextBody(
-//
-//                    $orders->orders_id.'/////'.
-//                    $e->getCode().'/////'.
-//                    $e->getFile().'/////'.
-//                    $e->getLine().'/////'.
-//                    $e->getMessage().'/////'.
-//                    $e->getTrace().'/////'.
-//                    $e->getPrevious()
-//                )
-//                ->send();
-//            $transaction->rollBack();
-//        }
+        } catch (\Exception $e) {
+            Yii::$app->mailer->compose()
+                ->setFrom('support@newodezhdamaster.com')
+                ->setTo('desure85@gmail.com')
+                ->setSubject('Ошибка оформления')
+                ->setTextBody(
+
+                    $orders->orders_id.'/////'.
+                    $e->getCode().'/////'.
+                    $e->getFile().'/////'.
+                    $e->getLine().'/////'.
+                    $e->getMessage().'/////'.
+                    $e->getTrace().'/////'.
+                    $e->getPrevious()
+                )
+                ->send();
+            $transaction->rollBack();
+        }
 //        echo'<pre>';
-//        print_r($orders->errors);
+//       print_r($orders->errors);
 //        echo '</pre>';
 //        die();
-        //    return $this->redirect(Yii::$app->request->referrer);
+            return $this->redirect(Yii::$app->request->referrer);
     }
 }
