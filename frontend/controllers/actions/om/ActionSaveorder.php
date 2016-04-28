@@ -478,6 +478,12 @@ trait ActionSaveorder
                                         if(empty($orderedproducts->products_attributes_weight_prefix)){
                                             $orderedproducts->products_attributes_weight_prefix = '-';
                                         }
+                                        if(($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ',[':products_id'=>$keyin_order])->one())== TRUE){
+                                            $orderedproductsquantyty->products_quantity = max(0,(($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
+                                            $orderedproductsquantyty->products_last_modified = $nowdate;
+                                            $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered+$orderedproductsquantyty->products_quantity;
+                                            $orderedproductsquantyty->save();
+                                        }
                                         $orderedproducts->quantity = max(0, (($orderedproducts->quantity) - ($ordersprod->products_quantity)));
                                         $orderedproducts->save();
                                     }
