@@ -9,6 +9,7 @@ use common\models\OrdersStatusHistory;
 use common\models\OrdersToPartners;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersToRegion;
+use common\models\SelerAnket;
 use common\models\SpsrZones;
 use Yii;
 use common\models\PartnersOrders;
@@ -284,12 +285,35 @@ trait ActionSaveorder
         $orders->print_torg = 'b';
         $orders->default_provider = $userCustomer['default_provider'];
         $orders->payment_method = 'Оплата <font size="4" color="red">Для физических лиц</font>';
-        $buh_id = Orders::find()->where(['default_provider' => $userCustomer['default_provider']])->andWhere('DATE_FORMAT(date_purchased, "%y")='.date("y"))->orderBy('buh_orders_id DESC')->asArray()->one();
-        $orders->buh_orders_id = intval($buh_id['buh_orders_id']) + 1;
+        $buh_id = Orders::find()->select('MAX(buh_orders_id) as buh_orders_id')->where(['default_provider' => $userCustomer['default_provider']])->andWhere('DATE_FORMAT(date_purchased, "%y")='.date("y"))->asArray()->one();
+        $orders->buh_orders_id = (integer)($buh_id['buh_orders_id']) + 1;
 
-        if ($orders->save()) {
+             $latestseller = Orders::find()->select('seller_id as seller')->orderBy('date_purchased DESC')->asArray()->one();
+             $new_seller_id = 0;
+             $first_seller_id = 0;
+             $seller_key = false;
+             $iterator = 0;
+             $active_seller = SelerAnket::find()->select('seler_anket_id as id')->where('active_seller = 1')->orderBy('seler_anket_id')->asArray()->all();
+             while(list($key_active_seller, $value_active_seller) = each($active_seller)) {
+                 if ($first_seller_id == 0){
+                     $first_seller_id = $value_active_seller['id'];}
+                 if ($seller_key) {
+                     $new_seller_id = $value_active_seller['id'];
+                     $seller_key = false;
+                     break;
+                 }
+                 if ($latestseller['seller'] == $value_active_seller['id']){
+                     $seller_key = true;
+                 }
+             }
+             if ($new_seller_id == 0){
+                 $new_seller_id = $first_seller_id;
+             }
+            $orders->seller_id = $new_seller_id;
 
-            if (($check = OrdersToPartners::find()->where(['order_id' => $default_user_address['entry_zone_id']])->one()) == FALSE) {
+             if ($orders->save()) {
+
+             if (($check = OrdersToPartners::find()->where(['order_id' => $default_user_address['entry_zone_id']])->one()) == FALSE) {
                 if (($region_partners = PartnersToRegion::find()->joinWith('partnersCompanies')->where(['region_id' => $default_user_address['entry_zone_id']])->andWhere('active > 0')->asArray()->all()) == TRUE) {
                     $partners = [];
                     $last_partner_id = 0;
@@ -371,6 +395,8 @@ trait ActionSaveorder
                                     }
                                     $lastids->order_id = $last_insert_id;
                                     if($lastids->save()){
+                                        $orders->buh_orders_id = 0;
+                                        $orders->save();
                                         $numberorders =  $response['name'] ;
                                         $flag_to_region = true;
                                     }else{
@@ -397,7 +423,7 @@ trait ActionSaveorder
 
                 }
 
-                $price_total = 0;
+            $price_total = 0;
             $reindexprod = ArrayHelper::index($proddata, 'products_id');
 
             foreach ($product_in_order as $keyin_order => $valuein_order) {
@@ -517,6 +543,7 @@ trait ActionSaveorder
                 'flat10_flat10' => 'Бесплатная доставка до ТК ОПТИМА',
                 'flat9_flat9' => 'Бесплатная доставка до ТК Севертранс',
                 'flat12_flat12' => 'Бесплатная доставка до ТК ЭНЕРГИЯ',
+                'russianpostpf_russianpostpf'=> 'Почта России - http://pochta.ru/'
             ];
             if (!$dostavka[$ship]) {
                 $dostavka[$ship] = 'Партнерская доставка';
