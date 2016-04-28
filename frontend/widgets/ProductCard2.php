@@ -11,12 +11,12 @@ class ProductCard2 extends \yii\bootstrap\Widget
     public $attr_descr;
     public $catpath = [];
     public $man_time = [];
+    public $showdiscount=0;
 
 
 
     public function init()
     {
-
         $innerhtml = '<div class="inht">';
         $product=$this->product;
         $description=$this->description;
@@ -31,8 +31,9 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $attr_desc = [];
         }
-
-
+        if($product['products_old_price']>$product['products_price']){
+            $discount=100-round($product['products_price']*100/$product['products_old_price']);
+        }
         ksort($attr_desc,SORT_NATURAL);
         $attr_html = '';
         $activelabel = 0;
@@ -143,8 +144,12 @@ class ProductCard2 extends \yii\bootstrap\Widget
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
-            '</div>' .
-            '</div>' .
+            '</div>' ;
+        if ((integer)($product['products_old_price']) > 0&&$this->showdiscount==1) {
+            $innerhtml .= '<div style="font-size: 18px; color:red; font-weight: 500;" itemprop="old-price" ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
+            $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
+        }
+        $innerhtml.='</div>' .
             '<div style="" class="model">' . $man_time_list . $preview. '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
