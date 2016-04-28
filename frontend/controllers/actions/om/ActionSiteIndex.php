@@ -23,7 +23,7 @@ trait ActionSiteIndex
         }
         $man_time = $this->manufacturers_diapazon_id();
         $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
-        $cat = [327.1354];
+        $cat = [327,1354];
         $nocat = implode(',',$cat);
         $products = implode(',',$featuredproduct);
         $key = Yii::$app->cache->buildKey('index_optional-156237');
