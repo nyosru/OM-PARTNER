@@ -52,6 +52,11 @@ trait ActionShipping
                     'active' => '1',
                     'wantpasport' => '0'
                 ],
+                'russianpostpf_russianpostpf' => [
+                    'value' => 'Почта России - http://pochta.ru/',
+                    'active' => '1',
+                    'wantpasport' => '0'
+                ],
             ];
         }
     }
