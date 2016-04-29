@@ -54,8 +54,8 @@ class Customers extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['customers_firstname', 'customers_lastname', 'customers_email_address', 'customers_telephone', 'customers_password', 'customers_selected_template'], 'required'],
-            [['customers_dob'], 'safe'],
+            [['customers_firstname', 'customers_lastname', 'customers_email_address', 'customers_telephone', 'customers_password'], 'required'],
+            [['customers_selected_template','customers_dob'], 'safe'],
             [['customers_default_address_id', 'delivery_adress_id', 'pay_adress_id', 'customers_groups_id', 'customers_status', 'default_provider'], 'integer'],
             [['customers_discount'], 'number'],
             [['comment', 'separate_document', 'separate_deliv', 'separate_checkin', 'pay_priority'], 'string'],
