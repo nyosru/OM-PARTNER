@@ -591,7 +591,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
             '</div>'+
             '</div></div></div>';
     }
-    $attr_html+='<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
+    $attr_html+='<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: '+$product['products_date_added']+'</div>';
 
     if( $time[$product.manufacturers_id] === undefined ) {
         $timewrap = '';
