@@ -438,9 +438,9 @@ trait ActionSaveorder
             } else {
 
                 $id_config = Configuration::find()->where(['configuration_key' => 'LAST_BANK_ID_TO_USER_' . $userCustomer['default_provider']])->one();
-                $id = $id_config->configuration_value;
+                $id = (int)$id_config->configuration_value;
                 $ratio_config = Configuration::find()->where(['configuration_key' => 'LAST_BANK_RATIO_TO_USER_' . $userCustomer['default_provider']])->one();
-                $ratio = $ratio_config->configuration_value;
+                $ratio = (int)$ratio_config->configuration_value;
                 $customerBankQuery = AdminCompaniesBank::find()->where(['admin_companies_id' => $userCustomer['default_provider'], 'bank_active' => '1'])->orderBy('admin_companies_bank_id')->asArray()->all();
                 $bankKey = false;
                 $customerBankQueryRowsCount = count($customerBankQuery);

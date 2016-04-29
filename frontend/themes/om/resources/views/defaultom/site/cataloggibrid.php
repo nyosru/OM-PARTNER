@@ -67,7 +67,7 @@ echo '<div class="partners-main-right bside">';
     $headbside = '';
     $headbside .= '<div  class="partners-main-right headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
-    echo '<a href="'.BASEURL.'/changecardview"><i class="fa fa-object-group" title="Изменить вид карточек" style="float: right; color:#00a5a1; margin-right: 30px; font-size: 24px;" aria-hidden="true"></i></a>';
+    echo '<a href="'.BASEURL.'/changecardview"><i class="fa fa-bars" title="Изменить вид карточек" style="float: right; color:#00a5a1; margin-right: 30px; font-size: 24px;" aria-hidden="true"></i></a>';
     if($this->beginCache('Top-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) {
 
         if ($catpath['num'] != 0) {
