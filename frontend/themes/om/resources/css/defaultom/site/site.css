@@ -3630,10 +3630,6 @@ div.size-desc:last-child{
     #card2size .price{
         margin-left:-10px !important;
     }
-    .model .fa-search-plus{
-        bottom: 80px !important;
-        right: 10px !important;
-    }
 }
 @media screen and (min-width: 1280px) and ( max-width: 1559px){
     #card{
@@ -3751,10 +3747,6 @@ div.size-desc:last-child{
     }
     #card2size .price{
         margin-left:-65px !important;
-    }
-    .model .fa-search-plus{
-        bottom:80px !important;
-        right: 10px !important;
     }
     a.top-link-back.large{
         display: none;
