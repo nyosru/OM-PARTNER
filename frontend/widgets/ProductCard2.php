@@ -120,7 +120,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $cart_html = '<div class="cart-lable" style="background: #E9516D">Продано</div>';
         }
-        $attr_html .= $cart_html.'<div style="font-size:11px; text-align:right;margin-top:5px;">Добавлено: '.$product['products_date_added'].'</div>';
+        $attr_html .= $cart_html.'<div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: '.$product['products_date_added'].'</div>';
         $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
