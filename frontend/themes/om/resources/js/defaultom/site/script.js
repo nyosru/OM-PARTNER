@@ -592,18 +592,14 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
             '</div></div></div>';
     }
     $attr_html+='<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
-    $attr_html+='<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price" style="position:inherit;margin-top:-30px;margin-left:5px;" >'+
-        '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
-        Math.round($product.products_price) + ' Руб.'+
-        '</div>'+
-        '</div>';
+
     if( $time[$product.manufacturers_id] === undefined ) {
         $timewrap = '';
     }else{
         $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
 
     }
-    $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:65px; right:25px;" aria-hidden="true"></i></a>';
+    $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
     $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
 
     $('.bside').append('<div class="inht"><div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card2" itemid="' + $product.products_id+ '">'+
@@ -626,6 +622,11 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
         '</i>'+
         'В карточку'+
         '</a>'+
+        '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price" style="margin-left:130px;" >'+
+        '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
+        Math.round($product.products_price) + ' Руб.'+
+        '</div>'+
+        '</div>'+
         '</div>' +
         '<div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
         '<div itemprop="name" class="name">' + $descriptionprod.products_name  +'</div>'+
