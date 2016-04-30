@@ -3471,6 +3471,11 @@ div.size-desc:last-child{
     padding-top: 15px;
 }
 
+#card2 .fa-clock-o{
+    left:50px;
+    bottom:30px;
+    position: absolute;
+}
 #card2size .cart-lable{
     position: inherit !important;
     width: 125px !important;
