@@ -587,8 +587,7 @@ trait ActionSaveorder
 
 
                                 } else {
-//                                    print_r($ordersprodattr->errors);
-//                                    die();
+
                                     return $this->render('cartresult', ['wrapprice' => (integer)$wrapp['products_price'],
                                         'result' => [
                                             'code' => 0,

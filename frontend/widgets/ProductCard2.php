@@ -17,9 +17,10 @@ class ProductCard2 extends \yii\bootstrap\Widget
 
     public function init()
     {
-        $innerhtml = '<div class="inht">';
         $product=$this->product;
         $description=$this->description;
+        $innerhtml = '<div class="inht" itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '" >';
+
         if($this->attrib){
             $attr  = \yii\helpers\ArrayHelper::index($this->attrib,'options_values_id');
         }else{
@@ -137,7 +138,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
 
         $innerhtml .= '
-                        <div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card2" style="float:left;">
+                        <div  class="container-fluid float" id="card2" style="float:left;">
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; margin-bottom:5px; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .

@@ -602,7 +602,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
     $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
 
-    $('.bside').append('<div class="inht"><div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card2" itemid="' + $product.products_id+ '">'+
+    $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -1362,9 +1362,9 @@ $(document).on('click','#prod-info',function(){
                         '</div>';
                 }
             }else{
-                $current = $('[id="card2"][itemid=' + data.product.products.products_id + ']').filter('#card2').attr('itemid');
-                $prev = $('[id="card2"][itemid=' + data.product.products.products_id + ']').prev('#card2').attr('itemid');
-                $next = $('[id="card2"][itemid=' + data.product.products.products_id + ']').next('#card2').attr('itemid');
+                $current = $('[class="inht"][itemid=' + data.product.products.products_id + ']').filter('.inht').attr('itemid');
+                $prev = $('[class="inht"][itemid=' + data.product.products.products_id + ']').prev('.inht').attr('itemid');
+                $next = $('[class="inht"][itemid=' + data.product.products.products_id + ']').next('.inht').attr('itemid');
 
                 if (typeof($next) != "undefined") {
                     $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
