@@ -11,6 +11,7 @@ use common\models\OrdersStatusHistory;
 use common\models\OrdersToPartners;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersToRegion;
+use common\models\ProductsCache;
 use common\models\SelerAnket;
 use common\models\SpsrZones;
 use Yii;
@@ -578,6 +579,7 @@ trait ActionSaveorder
                                             $orderedproductsquantyty->products_last_modified = $nowdate;
                                             $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
                                             $orderedproductsquantyty->save();
+                                            ProductsCache::find()->where(['products_id'=>$keyin_order])->one()->delete();
                                             
                                         }
                                         $orderedproducts->quantity = max(0, (($orderedproducts->quantity) - ($ordersprod->products_quantity)));

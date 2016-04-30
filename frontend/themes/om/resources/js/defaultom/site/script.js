@@ -1202,7 +1202,7 @@ $(document).on('click','#prod-info',function(){
             $.each($imgs, function (i, item) {
                 $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if (i == 0) {
-                    $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom" href="http://odezhda-master.ru/images/' + data.product.products.products_image+'"><img class="cloudzoom" style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
+                    $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom"  href="http://odezhda-master.ru/images/' + data.product.products.products_image+'"><img  style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
                 }
                 else {
                     $bigimg += '<div class="item"><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></div>';
@@ -1398,15 +1398,21 @@ $(document).on('click','#prod-info',function(){
                 '<i class="fa fa-times" style="font-size:24px;"></i>' +
                 '</span>' + $prod_html + '' + $prevlink + '' + $nextlink);
         });
-
-
+        var cloud = function () {
+            $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
+                'position' : 'inside'
+            });
+        };
+       setTimeout(cloud, 500);
         $('#overlay')
             .css('display', 'block');
         $('#modal-product')
             .css('display', 'block');
         lockprodinfo = false;
     }
-})
+
+});
+
 $(document).on('click','#overlay, #modal-close',function(){
     $('#modal-product')
         .css('display','none');
