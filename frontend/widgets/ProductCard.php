@@ -139,7 +139,7 @@ class ProductCard extends \yii\bootstrap\Widget
             $man_time_list = '';
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
-        $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"  ><i class="fa fa-star" aria-hidden="true"></i></a>';
+        $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
         $product_menu = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
 
         $innerhtml .= '

@@ -260,13 +260,13 @@ $(document).on('click', '.cart-lable', function () {
             $(".cart-price").html($cart_price + ' руб.');
         } });
 });
-$(document).on('click', '.select-product', function () {
-    $id_product =  this.getAttribute('data-product');
+$(document).on('click', '.selected-product', function () {
+    $id_product =   parseInt(this.getAttribute('data-product'));
     $checkzero = 0;
     $noanimate = false;
         var $item = new Object();
         $item.products = [];
-        if($item_add.value > 0) {
+        if($id_product > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('selected-product-om'))) {
                 $timenow  =  new Date;
@@ -289,22 +289,22 @@ $(document).on('click', '.select-product', function () {
                 $i = 0;
             }
             x = 0;
-            if ($item.cart.length > 0) {
+            if ($id_product > 0) {
                 if($noanimate == false) {
                     $noanimate = true;
-                    $($(this).parent().parent())
+                    $($(this))
                         .clone()
                         .css({
                             'position': 'absolute',
                             'z-index': '11100',
-                            top: $(this).parent().parent().offset()['top'],
-                            left: $(this).parent().parent().offset()['left']
+                            top: $(this).offset()['top'],
+                            left: $(this).offset()['left']
                         })
                         .appendTo("body")
                         .animate({
                             opacity: 0.05,
-                            left: $(".cart-count").offset()['left'],
-                            top: $(".cart-count").offset()['top'],
+                            left: $(".selected-count").offset()['left'],
+                            top: $(".selected-count").offset()['top'],
                             width: 20,
                         }, 1000, function () {
                             $(this).remove();
@@ -313,8 +313,8 @@ $(document).on('click', '.select-product', function () {
 
                 }
                 $.each($item.products, function () {
-                    if ($id_product== this[0]) {
-
+                    if ($id_product == this) {
+                         x = 1;
                     }
                 });
             } else {
@@ -324,52 +324,46 @@ $(document).on('click', '.select-product', function () {
                     .css({
                         'position': 'absolute',
                         'z-index': '11100',
-                        top: $(this).parent().parent().offset()['top'],
-                        left: $(this).parent().parent().offset()['left']
+                        top: $(this).offset()['top'],
+                        left: $(this).offset()['left']
                     })
                     .appendTo("body")
                     .animate({
                         opacity: 0.05,
-                        left: $(".cart-count").offset()['left'],
-                        top: $(".cart-count").offset()['top'],
+                        left: $(".selected-count").offset()['left'],
+                        top: $(".selected-count").offset()['top'],
                         width: 20,
                     }, 1000, function () {
                         $(this).remove();
                         $noanimate = false;
                     });
-                $item.products[$i] = [$id_product];
+                $item.products[$i] = $id_product;
             }
             if (x == 0) {
-                $($(this).parent().parent())
+                $($(this))
                     .clone()
                     .css({
                         'position': 'absolute',
                         'z-index': '11100',
-                        top: $(this).parent().parent().offset()['top'],
-                        left: $(this).parent().parent().offset()['left']
+                        top: $(this).offset()['top'],
+                        left: $(this).offset()['left']
                     })
                     .appendTo("body")
                     .animate({
                         opacity: 0.05,
-                        left: $(".cart-count").offset()['left'],
-                        top: $(".cart-count").offset()['top'],
+                        left: $(".selected-count").offset()['left'],
+                        top: $(".selected-count").offset()['top'],
                         width: 20,
                     }, 1000, function () {
                         $(this).remove();
                     });
-                $item.cart[$i] = [$id_product];
+                $item.products[$i] = $id_product;
             }
             $ilocal = JSON.stringify($item);
-            localStorage.setItem('cart-om', $ilocal);
-            $arr_prod = $item.cart;
+            localStorage.setItem('selected-product-om', $ilocal);
+            $arr_prod = $item.products;
             $amount_prod = 0;
-            $cart_price = 0;
-            $.each($arr_prod, function () {
-                $amount_prod = $amount_prod + parseInt(this[4]);
-                $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
-            });
-            $(".cart-count").html($amount_prod);
-            $(".cart-price").html($cart_price + ' руб.');
+            $(".selected-count").html($item.products.length);
         }
 });
 $(document).on('click', '.countdisplay', function index_count_display() {
@@ -585,7 +579,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
 
     }
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"  ><i class="fa fa-star" aria-hidden="true"></i></a>';
+    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" ><i class="fa fa-star" aria-hidden="true"></i></a>';
     $product_menu = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
 
     $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
@@ -1001,7 +995,6 @@ $(document).on('click', '.input_search_word', function () {
 $(document).on('ready', function () {
 
     $amount_prod = 0;
-    $cart_price = 0;
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         if (JSON.parse(localStorage.getItem('cart-om'))) {
             $timenow  =  new Date;
@@ -1031,10 +1024,45 @@ $(document).on('ready', function () {
         });
     } else {
         $i = 0;
-        $price_cart = '0 руб.'
+
     }
     $(".cart-count").html($amount_prod);
-    $(".cart-price").html($cart_price + ' руб.');
+
+    $amount_products = 0;
+    if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+        if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+            $timenow  =  new Date;
+            if(localStorage.getItem('selected-product-om-date')){
+                $timecart =  new Date;
+                $timecart = localStorage.getItem('selected-product-om-date');
+                // if($timenow.getTime() - $timecart > 604800000){
+                //     localStorage.removeItem('cart-om');
+                //     localStorage.removeItem('cart-om-date');
+                //     return false;
+                // }
+            }else{
+                localStorage.setItem('selected-product-om-date', $timenow.getTime());
+            }
+            $item = JSON.parse(localStorage.getItem('selected-product-om'));
+            $i = $item.products.length;
+        } else {
+            var $time = new Date;
+            localStorage.setItem('selected-product-om-date', $time.getTime());
+            $i = 0;
+        }
+        $item = JSON.parse(localStorage.getItem('selected-product-om'));
+        $i = $item.products;
+        $.each($i, function () {
+            $amount_products++ ;
+        });
+    } else {
+        $i = 0;
+
+    }
+    $(".selected-count").html($amount_products);
+
+
+
     $(function accord() {
         var Accordion = function (el, multiple) {
             this.el = el || {};

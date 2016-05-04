@@ -3655,6 +3655,9 @@ div.size-desc:last-child{
     }
 }
 @media screen and (min-width: 1280px) and ( max-width: 1559px){
+    .top-link-cont-back{
+        display: none;   
+    }
     #card{
         width: calc(100% / 4 - 10px);
     }
