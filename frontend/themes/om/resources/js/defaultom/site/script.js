@@ -251,13 +251,13 @@ $(document).on('click', '.cart-lable', function () {
             localStorage.setItem('cart-om', $ilocal);
             $arr_prod = $item.cart;
             $amount_prod = 0;
-            $cart_price = 0;
+
             $.each($arr_prod, function () {
                 $amount_prod = $amount_prod + parseInt(this[4]);
-                $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
+
             });
             $(".cart-count").html($amount_prod);
-            $(".cart-price").html($cart_price + ' руб.');
+           
         } });
 });
 $(document).on('click', '.selected-product', function () {
