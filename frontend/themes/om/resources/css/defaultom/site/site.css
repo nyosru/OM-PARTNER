@@ -3496,7 +3496,15 @@ div.size-desc:last-child{
     display: none;
 }
 
-
+.product-menu-rel{
+    height: 71%;
+    position: absolute;
+    width: 100%;
+    border: 1px solid;
+    top: 0px;
+    left: 0px;
+    background: rgba(245, 245, 245, 0.9) none repeat scroll 0% 0%;
+}
 @media screen and (min-height: 0px) and (max-height: 800px){
     #modal-product{
         top:4%;
