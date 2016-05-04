@@ -206,7 +206,7 @@ trait ActionCatalog
                         }
                     }
                     $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-                    $prod_search_query_filt = ' and (LOWER(products_description.products_name) RLIKE :searchword or LOWER(products_description.products_description) RLIKE :searchword)';
+                    $prod_search_query_filt = ' and (LOWER(products_description.products_name) RLIKE :searchword )';
                 }
             } else {
                 $prod_search_query_filt = '';
