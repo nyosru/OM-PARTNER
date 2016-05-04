@@ -579,7 +579,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
 
     }
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" ><i class="fa fa-star" aria-hidden="true"></i></a>';
+    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product"  data-product="'+$product['products_id']+'"><i class="fa fa-star" aria-hidden="true"></i></a>';
     $product_menu = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
 
     $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
@@ -750,8 +750,6 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
         '</div></div>');
 }
 $(document).on('click keydown', '.lock-on', function () {
-    $('body').addClass('some');
-    $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
 });
@@ -779,8 +777,6 @@ $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
 function loaddata(){
-    // $('body').addClass('some');
-    // $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
     $count = $('.count-checked').text();
@@ -851,8 +847,6 @@ function loaddata(){
             inProgress = true;
         }
     }).done(function (data) {
-        // $('body').removeClass('some');
-        // $('link').removeClass('some');
         $('.preload').remove();
         $loader = $('.loader-inner').html();
         $('.pagination-catalog').remove();
@@ -926,8 +920,6 @@ function loaddata(){
         } else {
             $('#size-slide').html('');
             $('#filter-button').html('');
-            //  $('body').removeClass('some');
-            // $('link').removeClass('some');
             $('.preload').remove();
         }
     });
@@ -1026,7 +1018,6 @@ $(document).on('ready', function () {
         $i = $item.cart;
         $.each($i, function () {
             $amount_prod = $amount_prod + parseInt(this[4]);
-            $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
         });
     } else {
         $i = 0;
