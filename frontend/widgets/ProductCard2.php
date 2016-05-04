@@ -162,7 +162,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '<div style="font-size: 18px; font-weight: 500; min-width:100px;" itemprop="price" >' . round($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>'.
-            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div  itemprop="name" class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
+            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div  itemprop="name" class="name" >'.htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
         echo $innerhtml;
     }
 }
