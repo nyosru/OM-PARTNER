@@ -1268,7 +1268,7 @@ $(document).on('click','#prod-info',function(){
             $prod_html += '<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;">' +
                 '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
                 '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:10px;">' +
-                '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px;">' +
+                '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px; margin-right: 10px;">' +
                 '<div style=" min-width: 380px;">' +
                 '<div id="carousel" class="carousel slide">' +
                 '<div class="carousel-inner">' +
@@ -1318,7 +1318,7 @@ $(document).on('click','#prod-info',function(){
                 '</div>' +
                 '</div>' +
                 '<div class="prod-compos" style="font-size: 12px; width:100%;float: left;padding-left: 10px;">' +
-                '<div itemprop="description" id="prd" style="display: block; max-height:350px; overflow:auto; font-size: 12px !important; font-weight: 400 !important; ">' +
+                '<div itemprop="description" id="prd" style="display: block; max-height:340px; overflow:auto; font-size: 12px !important; font-weight: 400 !important; ">' +
                 data.product.productsDescription.products_description + ' ' + $spec_html + '' +
                 '</div>' +
                 '<div>' +

@@ -16,7 +16,4 @@ if($_COOKIE['cardview']==1) {
 }
 echo '</div><div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div>';
 ?>
-<div id="modal-product" style="border:none; min-height: 300px;">
-    <span id="modal-close"><i class="fa fa-times"></i></span>
-</div>
-<div id="overlay"></div>
+

@@ -344,10 +344,7 @@ echo '<div class="partners-main-right bside">';
 }
 ?>
  </div>
-    <div id="modal-product" style="border:none; min-height: 300px;">
-        <span id="modal-close"><i class="fa fa-times"></i></span>
-    </div>
-    <div id="overlay"></div>
+
     <script>
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);

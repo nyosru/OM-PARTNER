@@ -180,6 +180,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
                 </footer>
             </div>
+            <div id="modal-product" style="border:none; min-height: 300px;">
+                <span id="modal-close"><i class="fa fa-times"></i></span>
+            </div>
+            <div id="overlay"></div>
         </div>
         <?php
         //  $this->registerJsFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/js/script.js', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);

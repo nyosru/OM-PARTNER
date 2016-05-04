@@ -3238,17 +3238,18 @@ div.size-desc:last-child{
     color:black;
 }
 #modal-product{
-    width: 810px;
+    width: 70%;
     height: auto;
     border-radius: 4px;
     border: none;
     background: #f5f5f5;
     position: fixed;
-    margin-left: 65px;
+    margin-left: 15%;
     display: none;
     z-index: 1000;
     padding: 20px 10px;
     min-height: 300px;
+    top:30px;
 }
 #modal-product #modal-close{
     width: 21px;
@@ -3495,6 +3496,15 @@ div.size-desc:last-child{
 }
 
 
+@media screen and (min-height: 0px) and (max-height: 800px){
+    #modal-product{
+        top:4%;
+    }
+    #modal-product #prd{
+        max-height: 110px !important;
+    }
+}
+
 @media screen and (min-width: 3651px) and ( max-width: 4100px){
     #card{
         width: calc(100% / 11 - 10px);
@@ -3506,11 +3516,12 @@ div.size-desc:last-child{
     .filter {
         width: calc(100% / 11 - 10px);
     }
-    #modal-product{
-        margin-left:350px;
-    }
     .inht{
         width: calc(100% / 6 - 10px);
+    }
+    #modal-product{
+        width: 28%;
+        margin-left:36%;
     }
 }
 @media screen and (min-width: 3301px) and ( max-width: 3650px){
@@ -3523,11 +3534,12 @@ div.size-desc:last-child{
     .filter {
         width: calc(100% / 10 - 10px);
     }
-    #modal-product{
-        margin-left:350px;
-    }
     .inht{
         width: calc(100% / 5 - 10px);
+    }
+    #modal-product{
+        width: 28%;
+        margin-left:36%;
     }
 }
 @media screen and (min-width: 2871px) and ( max-width: 3300px){
@@ -3540,14 +3552,15 @@ div.size-desc:last-child{
     .filter {
         width: calc(100% / 9 - 10px);
     }
-    #modal-product{
-        margin-left:250px;
-    }
     .inht{
         width: calc(100% / 4 - 10px);
     }
     #card2{
         min-width: 300px;
+    }
+    #modal-product{
+        width: 28%;
+        margin-left:36%;
     }
 }
 @media screen and (min-width: 2551px) and ( max-width: 2870px){
@@ -3560,11 +3573,12 @@ div.size-desc:last-child{
     .filter {
         width: calc(100% / 8 - 10px);
     }
-    #modal-product{
-        margin-left:250px;
-    }
     .inht{
         width: calc(100% / 4 - 10px);
+    }
+    #modal-product{
+        width: 36%;
+        margin-left:32%;
     }
 }
 @media screen and (min-width: 2201px) and ( max-width: 2550px){
@@ -3580,11 +3594,12 @@ div.size-desc:last-child{
     .filter {
         width: calc(100% / 7 - 10px);
     }
-    #modal-product{
-        margin-left:150px;
-    }
     .inht{
         width: calc(100% / 3 - 10px);
+    }
+    #modal-product{
+        width: 40%;
+        margin-left:30%;
     }
 }
 @media screen and (min-width: 1860px) and (max-width:2200px){
@@ -3601,11 +3616,12 @@ div.size-desc:last-child{
     .partners-main-right-back{
         margin-left:16.5%;
     }
-    #modal-product{
-        margin-left:200px;
-    }
     .inht{
         width: calc(100% / 3 - 10px);
+    }
+    #modal-product{
+        width:50%;
+        margin-left: 25%;
     }
 }
 
@@ -3626,14 +3642,15 @@ div.size-desc:last-child{
     .filter {
         width: calc(100% / 5 - 10px);
     }
-    #modal-product{
-        margin-left:150px;
-    }
     #card2size .cart-lable{
         margin-left:35%;
     }
     #card2size .price{
         margin-left:-10px !important;
+    }
+    #modal-product{
+        width:60%;
+        margin-left:20%;
     }
 }
 @media screen and (min-width: 1280px) and ( max-width: 1559px){
@@ -3667,9 +3684,10 @@ div.size-desc:last-child{
     }
     .prod-show .col1{
         min-width: 0px;
-
     }
 }
+
+
 @media screen and (min-width: 1024px) and ( max-width: 1279px){
     #card{
         width: calc(100% / 3 - 10px);
@@ -3740,9 +3758,6 @@ div.size-desc:last-child{
     #main-index{
         display:none;
     }
-    #modal-product{
-        margin-left:-50px;
-    }
     #card2{
         padding:1px;
         min-width:200px;
@@ -3757,6 +3772,7 @@ div.size-desc:last-child{
         display: none;
     }
 }
+
 /*@media screen and (min-width: 0px) and ( max-width: 1023px){*/
     /*#card{*/
         /*width: calc(100% / 2 - 10px);*/

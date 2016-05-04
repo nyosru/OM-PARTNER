@@ -56,6 +56,10 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
     ]) ?>
     <div class="partners-main">
+        <div id="modal-product" style="border:none; min-height: 300px;">
+            <span id="modal-close"><i class="fa fa-times"></i></span>
+        </div>
+        <div id="overlay"></div>
         <div class="partners-main-left-back">
 
             <div>
