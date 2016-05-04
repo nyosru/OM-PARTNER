@@ -3450,6 +3450,7 @@ div.size-desc:last-child{
     width: calc(100% / 2 - 10px);
     border-radius: 2px;
     box-shadow: 0 0 1px 0 #AFBCAA;
+    height: 416px;
 }
 .inht:hover{
     box-shadow: 0 -2px 15px #9e9e9e;
