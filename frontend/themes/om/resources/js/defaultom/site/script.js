@@ -1283,11 +1283,11 @@ $(document).on('click','#prod-info',function(){
                 '</div>' +
                 '<div class="col2" style="float: left;width: 340px;position: relative; overflow: hidden;line-height: 1; color: black; font-weight: 400;">' +
                 '<div style=" font-weight: 300;">' +
-                '<div itemprop="model" class="prod-code" style="width: 100%;float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">' +
-                'Код товара: ' + data['product']['products']['products_model'] +
-                '</div>' +
                 '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
                 'Минимальный оптовый заказ: ' + data['product']['products']['products_quantity_order_min'] + ' шт.' +
+                '</div>' +
+                '<div itemprop="model" class="prod-code" style="width: 100%;float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">' +
+                'Код товара: ' + data['product']['products']['products_model'] +
                 '</div>' +
                 '<div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">' +
                 data['product']['productsDescription']['products_name'] +
