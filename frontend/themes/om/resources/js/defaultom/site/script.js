@@ -624,6 +624,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '';
+    $activelabel=0;
     if ($attr_desc.length > 0) {
         var  innerindex = 0;
         $.each($attr_desc, function (index,value) {
@@ -631,6 +632,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
                 $classpos = 'active-options';
                 $add_class = 'add-count';
                 $del_class = 'del-count';
+                $activelabel++;
                 $stylepos = '';
                 $inputpos = '';
                 $some_text = 0;
@@ -676,6 +678,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
 
         });
     } else {
+        $activelabel++;
         $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;margin-top:20px;"><div style="margin: auto; width: 100%;"><div></div>'+
             '<input  id="input-count"'+
             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
@@ -699,8 +702,11 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
             '</div>'+
             '</div></div></div>';
     }
-    $attr_html+='<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: '+$product['products_date_added']+'</div>';
-
+    if($activelabel>0) {
+        $attr_html += '<div data-sale="' + $product['products_id'] + '" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: ' + $product['products_date_added'] + '</div>';
+    }else{
+        $attr_html += '<div style="background: #E9516D" class="cart-lable">Продано</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: ' + $product['products_date_added'] + '</div>';
+    }
     if( $time[$product.manufacturers_id] === undefined ) {
         $timewrap = '';
     }else{
@@ -1335,12 +1341,29 @@ $(document).on('click','#prod-info',function(){
             });
 
             $spec_html += '</div>';
-            $size_html += '<div data-sale="' + data.product.products_id + '" class="cart-lable" style="left:0">В корзину</div>';
+            $activelabel=0;
+            if(Array.isArray(data.product.productsAttributes)){
+                if(parseInt(data.product.products.products_quantity)>0){
+                    $activelabel++;
+                }
+            }
+            else{
+                $.each(data.product.productsAttributes,function(i,item){
+                    if(item.quantity>0){
+                        $activelabel++;
+                    }
+                })
+            }
+            if($activelabel>0) {
+                $size_html += '<div data-sale="' + data.product.products_id + '" class="cart-lable" style="left:0">В корзину</div>';
+            }else{
+                $size_html += '<div class="cart-lable" style="left:0; background: #E9516D;">Продано</div>';
+            }
             $imgs = new Array('/site/imagepreview?src=' + data['product']['products']['products_id']);
             $imgs2 = new Array(data['product']['products']['products_image']);
             $miniimg = '';
             $bigimg = '';
-            //  console.log(data);
+
             $.each($imgs, function (i, item) {
                 $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if (i == 0) {
