@@ -97,7 +97,7 @@ trait ActionProductsMonth
         $d1 = trim($checkcache);
         $d2 = trim($dataque['checkcache']);
         $action = (int)Yii::$app->request->getQueryParam('action');
-        if (!$dataque['checkcache'] || $d1 !== $d2 || $action == 1) {
+        if (!$dataque['checkcache'] || $d1 !== $d2 || $x['quantity'] !== $dataque['quantity']) {
             $cache = 'игнор кэша-'.$d1.'-'.json_encode($key);
             switch ($sort) {
                 case 0:
@@ -225,7 +225,7 @@ trait ActionProductsMonth
             } else {
                 $prod_search_query_filt = '';
             }
-            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('  categories_id IN (' . $cat . ') and products_status = 1 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt. $end_price_query_filt.'  and  products.products_quantity > 0  and  products.products_price != 0    and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now  and products_date_added > :day ', $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
+            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('  categories_id IN (' . $cat . ') and products_status = 1 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt. $end_price_query_filt.'  and  products.products_quantity > 0  and  products.products_price != 0    and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now  and products_date_added > :day ', $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
             $ifht = 0;
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
@@ -237,7 +237,7 @@ trait ActionProductsMonth
                 $d2 = trim($values['last']);
                 $d1 = trim($dataprod['last']);
 
-                if ($dataprod['data'] && $d1 === $d2) {
+                if ($dataprod['data'] && $d1 === $d2 || $values['quantity'] == $dataprod['quantity']) {
                 } else {
                     $nodata[] = $values['prod'];
                     $cache = $ifht++;
@@ -248,7 +248,7 @@ trait ActionProductsMonth
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
                 foreach ($datar as $valuesr) {
                     $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
-                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
+                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified'],'quantity' => $valuesr['products']['products_quantity']]);
                 }
             }
             foreach($prod as $keyin=>$values){
@@ -269,7 +269,7 @@ trait ActionProductsMonth
                 $count_arrs = $stats['data']['count_arrs'];
                 $price_max = $stats['data']['price_max'];
             }
-            Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
+            Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache, 'quantity'=>$x['quantity']]);
         } else {
             $cache = 'Kэш-'.$d1.'-'.$d2;
             $productattrib = $dataque['productattrib'];
