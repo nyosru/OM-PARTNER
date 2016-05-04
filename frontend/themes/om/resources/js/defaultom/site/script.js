@@ -260,7 +260,118 @@ $(document).on('click', '.cart-lable', function () {
             $(".cart-price").html($cart_price + ' руб.');
         } });
 });
+$(document).on('click', '.select-product', function () {
+    $id_product =  this.getAttribute('data-product');
+    $checkzero = 0;
+    $noanimate = false;
+        var $item = new Object();
+        $item.products = [];
+        if($item_add.value > 0) {
+            $checkzero = 1;
+            if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+                $timenow  =  new Date;
+                if(localStorage.getItem('selected-product-om-date')){
+                    $timecart =  new Date;
+                    $timecart = localStorage.getItem('selected-product-om-date');
+                    // if($timenow.getTime() - $timecart > 604800000){
+                    //     localStorage.removeItem('cart-om');
+                    //     localStorage.removeItem('cart-om-date');
+                    //     return false;
+                    // }
+                }else{
+                    localStorage.setItem('selected-product-om-date', $timenow.getTime());
+                }
+                $item = JSON.parse(localStorage.getItem('selected-product-om'));
+                $i = $item.products.length;
+            } else {
+                var $time = new Date;
+                localStorage.setItem('selected-product-om-date', $time.getTime());
+                $i = 0;
+            }
+            x = 0;
+            if ($item.cart.length > 0) {
+                if($noanimate == false) {
+                    $noanimate = true;
+                    $($(this).parent().parent())
+                        .clone()
+                        .css({
+                            'position': 'absolute',
+                            'z-index': '11100',
+                            top: $(this).parent().parent().offset()['top'],
+                            left: $(this).parent().parent().offset()['left']
+                        })
+                        .appendTo("body")
+                        .animate({
+                            opacity: 0.05,
+                            left: $(".cart-count").offset()['left'],
+                            top: $(".cart-count").offset()['top'],
+                            width: 20,
+                        }, 1000, function () {
+                            $(this).remove();
+                            $noanimate = false;
+                        });
 
+                }
+                $.each($item.products, function () {
+                    if ($id_product== this[0]) {
+
+                    }
+                });
+            } else {
+                $noanimate = true;
+                $($(this).parent().parent())
+                    .clone()
+                    .css({
+                        'position': 'absolute',
+                        'z-index': '11100',
+                        top: $(this).parent().parent().offset()['top'],
+                        left: $(this).parent().parent().offset()['left']
+                    })
+                    .appendTo("body")
+                    .animate({
+                        opacity: 0.05,
+                        left: $(".cart-count").offset()['left'],
+                        top: $(".cart-count").offset()['top'],
+                        width: 20,
+                    }, 1000, function () {
+                        $(this).remove();
+                        $noanimate = false;
+                    });
+                $item.products[$i] = [$id_product];
+            }
+            if (x == 0) {
+                $($(this).parent().parent())
+                    .clone()
+                    .css({
+                        'position': 'absolute',
+                        'z-index': '11100',
+                        top: $(this).parent().parent().offset()['top'],
+                        left: $(this).parent().parent().offset()['left']
+                    })
+                    .appendTo("body")
+                    .animate({
+                        opacity: 0.05,
+                        left: $(".cart-count").offset()['left'],
+                        top: $(".cart-count").offset()['top'],
+                        width: 20,
+                    }, 1000, function () {
+                        $(this).remove();
+                    });
+                $item.cart[$i] = [$id_product];
+            }
+            $ilocal = JSON.stringify($item);
+            localStorage.setItem('cart-om', $ilocal);
+            $arr_prod = $item.cart;
+            $amount_prod = 0;
+            $cart_price = 0;
+            $.each($arr_prod, function () {
+                $amount_prod = $amount_prod + parseInt(this[4]);
+                $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
+            });
+            $(".cart-count").html($amount_prod);
+            $(".cart-price").html($cart_price + ' руб.');
+        }
+});
 $(document).on('click', '.countdisplay', function index_count_display() {
     $('.page-checked').removeClass('page-checked');
     $(".countdisplay").removeClass('count-checked');
@@ -474,7 +585,10 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
 
     }
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
+    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"  ><i class="fa fa-star" aria-hidden="true"></i></a>';
+    $product_menu = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
+
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
 
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
