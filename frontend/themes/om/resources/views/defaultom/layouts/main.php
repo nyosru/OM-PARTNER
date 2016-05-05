@@ -181,7 +181,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
                 </footer>
             </div>
-            <div id="modal-product" style="border:none; min-height: 300px;">
+            <div id="modal-product" style="min-height: 300px;">
                 <span id="modal-close"><i class="fa fa-times"></i></span>
             </div>
             <div id="overlay"></div>
