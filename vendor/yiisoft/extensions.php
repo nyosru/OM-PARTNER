@@ -318,15 +318,6 @@ return array (
       '@vova07/imperavi' => $vendorDir . '/vova07/yii2-imperavi-widget/src',
     ),
   ),
-  'rmrevin/yii2-fontawesome' => 
-  array (
-    'name' => 'rmrevin/yii2-fontawesome',
-    'version' => '2.13.0.0',
-    'alias' => 
-    array (
-      '@rmrevin/yii/fontawesome' => $vendorDir . '/rmrevin/yii2-fontawesome',
-    ),
-  ),
   'mervick/yii2-material-design-icons' => 
   array (
     'name' => 'mervick/yii2-material-design-icons',
@@ -460,6 +451,15 @@ return array (
     'alias' => 
     array (
       '@Zelenin/yii/SemanticUI' => $vendorDir . '/zelenin/yii2-semantic-ui',
+    ),
+  ),
+  'rmrevin/yii2-fontawesome' => 
+  array (
+    'name' => 'rmrevin/yii2-fontawesome',
+    'version' => '2.14.0.0',
+    'alias' => 
+    array (
+      '@rmrevin/yii/fontawesome' => $vendorDir . '/rmrevin/yii2-fontawesome',
     ),
   ),
   'kartik-v/yii2-grid' => 

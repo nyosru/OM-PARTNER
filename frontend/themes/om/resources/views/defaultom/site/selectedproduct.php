@@ -23,19 +23,24 @@ $this -> title = 'Избранные продукты';
                         method: 'post',
                         url: "/site/selectedproduct",
                         async: false,
-                        data: {products:$i}
+                        data: {products:$i},
+                        success: function (data) {
+                            $.each(data, function(i,item){
+
+                                if(getCookie('cardview')==1) {
+                                    renderProduct2(item.products, item.productsDescription,item['productsAttributes'], item['productsAttributesDescr'], '');
+                                    $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; cursor: pointer; color: red; font-size: 25px; position: relative;"><i  class="fa fa-times"></i></div>');
+
+                                }else{
+                                    renderProduct(item.products, item.productsDescription, item['productsAttributes'], item['productsAttributesDescr'], '');
+                                    $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; position: absolute; cursor: pointer; color: red; font-size: 25px;"><i  class="fa fa-times"></i></div>');
+
+                                }
+
+                            });
+                        }
                     });
 
-                 $.each(requestdata.responseJSON, function(){
-
-                     if(getCookie('cardview')==1) {
-                         renderProduct2(this, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], '')
-                     }else{
-                         renderProduct(this, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], '')
-                     }
-                     $('[itemid = "'+this.products_id+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; position: absolute; cursor: pointer; color: red; font-size: 25px;"><i  class="fa fa-times"></i></div>');
-
-                 });
 
 
                     
