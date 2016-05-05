@@ -188,10 +188,6 @@ $this->title = $title;
             </div>
         </div>
     </div>
-    <div id="modal-product" style="border:none; min-height: 300px; position: fixed; top:50px;">
-        <span id="modal-close"><i class="fa fa-times"></i></span>
-    </div>
-    <div id="overlay"></div>
     <div style="clear: both;">
 
         <div style="margin: 0px 15px;float: left;margin-top:30px;">

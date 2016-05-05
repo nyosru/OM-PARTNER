@@ -15,9 +15,6 @@ foreach ($data[0] as $value) {
     $attr_html = '<div data-sale="'.$product['products_id'].'" class="cart-lable">В корзину</div>';
 
     ?>
-    <div id="modal-product" style="border:none; min-height: 300px;">
-        <span id="modal-close"><i class="fa fa-times"></i></span>
-    </div>
     <?
     $active_border = 0;
     if (count($attr_desc) > 0) {

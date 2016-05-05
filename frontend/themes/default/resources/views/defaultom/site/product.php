@@ -168,10 +168,6 @@ $imsrc=array($product['products']['products_image']);
 
             ?>
             </div>
-        <div id="modal-product" style="border:none; min-height: 300px;">
-            <span id="modal-close"><i class="fa fa-times"></i></span>
-        </div>
-        <div id="overlay"></div>
 <!--    <div class="seen" style="float: left">-->
 <!--        <div class="seen-title" style="font-size: x-large; font-weight: 500; margin-bottom: 20px;">Вы недавно смотрели</div>-->
 <!--        <div class="seen-items" style="height: 250px; ">-->

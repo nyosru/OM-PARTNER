@@ -186,7 +186,6 @@ class SignupFormOM extends Model
         $user->generateAuthKey();
         $user->id_partners = $id_partners;
         $user->role = 'register';
-
         if ($user->save()) {
             $auth = Yii::$app->authManager;
             $auth->assign($auth->getRole('register'), $user->getId());
@@ -210,8 +209,6 @@ class SignupFormOM extends Model
         $userOM->entry_gender = 'M';
         $userOM->entry_country_id =  $entrycountry['id'];
         $userOM->entry_zone_id = $entryzones['id'];
-
-
         if ($userOM->save()) {
             $userCustomer->customers_fax = $this->trim_tags_text($this->fax);
             $userCustomer->customers_firstname = $this->name;
@@ -223,9 +220,10 @@ class SignupFormOM extends Model
             $userCustomer->customers_telephone =  $this->telephone;
             $userCustomer->customers_password = $userCustomer->encrypt_password($this->password);
             $userCustomer->customers_newsletter = '1';
+            $userCustomer->customers_selected_template = '';
             $userCustomer->delivery_adress_id = $userOM->address_book_id;
             $userCustomer->pay_adress_id = $userOM->address_book_id;
-
+            
             if ($userCustomer->save()) {
                 $customer_id = $userCustomer->customers_id;
                 $userOM->customers_id = $customer_id;

@@ -74,7 +74,7 @@ $this->beginPage();
         <div class="partners-main-right-back">
             <div class="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                 <div>
-                    <div class="top-link-cont large" style="width: calc(100% / 6.9);"><a class="top-link"
+                    <div class="top-link-cont large" style="width: width: calc(100% / 6.5);"><a class="top-link"
                                                                                          href="<?= BASEURL ?>/page?article=howorders">Как
                             сделать заказ</a></div>
                     <div class="top-link-cont large" style="width: calc(100% / 13);"><a class="top-link red"
@@ -93,14 +93,10 @@ $this->beginPage();
                     }
                     ?>
                     <a style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 7);"
-                       class="top-link-back large" href="http://odezhda-master.ru">На старую версию сайта</a>
-                    <div class="top-link-cont"
-                         style="float: right; padding: 12px; text-align: right; width: calc(100% / 9);min-width: 115px;">
-                        <div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;"
-                             class="cart-count badge"></div>
-                        <a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart"
-                                                                     style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a>
-                    </div>
+                       class="top-link-cont-back large" href="http://odezhda-master.ru">На старую версию сайта</a>
+                    <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="selected-count badge"></div><a class="top-link" href="/glavnaya/selectedproduct"><i class="fa fa-star" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
+                    <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
+
                 </div>
             </div>
             <div class="partners-main-right">
@@ -248,6 +244,11 @@ $this->beginPage();
                 </div>
             </footer>
         </div>
+
+        <div id="modal-product" style="min-height: 300px;">
+            <span id="modal-close"><i class="fa fa-times"></i></span>
+        </div>
+        <div id="overlay"></div>
     </div>
     <?php
     $this->endBody();

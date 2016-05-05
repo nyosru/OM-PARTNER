@@ -145,9 +145,11 @@ echo \yii\grid\GridView::widget([
                 $finalomprice = 0;
                 $omfirstquant = 0;
                 $omfirstprice = 0;
+                $orig_products = \yii\helpers\ArrayHelper::index($data->products, 'orders_products_id');
                 $attr = \yii\helpers\ArrayHelper::index($data->productsAttr, 'orders_products_id');
-                foreach ($data->products as $key => $value) {
-                    $positionquantity =  (int)$value->products_quantity + (int)$data->productsSP[$key]->products_quantity;
+                $sp  = \yii\helpers\ArrayHelper::index($data->productsSP, 'orders_products_id');
+                foreach ($orig_products as $key => $value) {
+                    $positionquantity =  min($value->first_quant,((int)$value->products_quantity + (int)$sp[$key]['products_quantity']));
                     $price = round($value->final_price);
                     $count++;
                     $countprod += (int)$value->first_quant;

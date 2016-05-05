@@ -20,7 +20,7 @@ trait ActionProduct
         if(Yii::$app->request->isGet){
             $id = (integer)Yii::$app->request->getQueryParam('id');
 
-            if ($id > 0 && ($x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date' )->where(['products_id' => trim($id)])->createCommand()->queryOne()) == TRUE ) {
+            if ($id > 0 && ($x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date ' )->where(['products_id' => trim($id)])->createCommand()->queryOne()) == TRUE ) {
 
                 $spec=PartnersProductsToCategories::find()
                     ->where(['products_to_categories.products_id'=>$id])
@@ -189,15 +189,15 @@ trait ActionProduct
             $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'] ,'specification_values_id');
 
             if ($id > 0) {
-                $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date')->where(['products_id' => trim($id)])->asArray()->One();
+                $x = PartnersProducts::find()->select('`products_last_modified` as last_modified, products_date_added as add_date ,products_quantity as quantity')->where(['products_id' => trim($id)])->asArray()->One();
                 if(!$x['last_modified']){
                     $x['last_modified'] = $x['add_date'] ;
                 }
                 $keyprod = Yii::$app->cache->buildKey('product-' . $id);
                 $data = Yii::$app->cache->get($keyprod);
-                if (!$data || ($x['last_modified'] != $data['last'])) {
+                if (!$data || ($x['last_modified'] != $data['last']) || $data['quantity'] != $x['quantity']) {
                     $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->one();
-                    Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $x['last_modified']]);
+                    Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $x['last_modified'], 'quantity'=>$x['quantity']]);
                 } else {
                     $data = $data['data'];
                 }

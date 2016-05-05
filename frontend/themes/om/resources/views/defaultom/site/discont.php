@@ -18,4 +18,3 @@ if($_COOKIE['cardview']==1){
         echo \frontend\widgets\ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'showdiscount'=>1]);
     }
 }
-echo '<div id="modal-product" style="border:none; min-height: 300px; top:20px;"><span id="modal-close"><i class="fa fa-times"></i></span></div><div id="overlay"></div>';
