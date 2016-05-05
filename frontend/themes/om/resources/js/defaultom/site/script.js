@@ -1286,7 +1286,13 @@ $(document).on('click','#prdesc',function() {
     else{
         jQuery('#prd').attr('style','display:none');
     }});
-
+$(document).on('click','.product-menu',function() {
+    if($('.product-menu-rel').is(':not(:visible)')) {
+        jQuery('.product-menu-rel').attr('style', 'display:block');
+    }
+    else{
+        jQuery('.product-menu-rel').attr('style','display:none');
+    }});
 $(document).on('click', '[data-ajax=time]', function(){
     $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
         if($("#time").length) {
