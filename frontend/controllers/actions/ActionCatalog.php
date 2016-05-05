@@ -14,8 +14,6 @@ trait ActionCatalog
     {
         if(Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
-            $check = Yii::$app->params['constantapp']['APP_ID'];
-            $checks = Yii::$app->params['constantapp']['APP_CAT'];
             $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
             $end_price = (integer)(Yii::$app->request->getQueryParam('end_price'));
             $prod_attr_query = (integer)(Yii::$app->request->getQueryParam('prod_attr_query', ''));
@@ -25,8 +23,6 @@ trait ActionCatalog
             $searchword = Yii::$app->request->getQueryParam('searchword', '');
         }elseif(Yii::$app->request->isPost) {
             $cat_start = (integer)(Yii::$app->request->post('cat'));
-            $check = Yii::$app->params['constantapp']['APP_ID'];
-            $checks = Yii::$app->params['constantapp']['APP_CAT'];
             $start_price = (integer)(Yii::$app->request->post('start_price', 0));
             $end_price = (integer)(Yii::$app->request->post('end_price', 1000000));
             $prod_attr_query = (integer)(Yii::$app->request->post('prod_attr_query', ''));
@@ -35,6 +31,9 @@ trait ActionCatalog
             $sort = (integer)(Yii::$app->request->post('sort', 10));
             $searchword = urldecode(Yii::$app->request->post('searchword', ''));
         }
+        $check = Yii::$app->params['constantapp']['APP_ID'];
+        $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
         }

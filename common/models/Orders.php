@@ -217,13 +217,13 @@ class Orders extends ActiveRecordExt
     }
     public function getPartnersOrders()
     {
-        return $this->hasOne(OrdersToPartners::className(), ['order_id' => 'orders_id']);
+        return $this->hasMany(OrdersToPartners::className(), ['order_id' => 'orders_id']);
     }
     public function NumOrder()
     {
         if(($order = $this->getPartnersOrders()->where(['order_id'=>$this->orders_id])->one()) == TRUE){
-           return $order->order_name;
-    }
+            return $order->order_name;
+        }
         $literaltyear = date('y',strtotime($this->date_purchased));
         $literalchar = ['1'=>'A','2'=>'Б'];
         $literalchar = $literalchar[$this->default_provider];
