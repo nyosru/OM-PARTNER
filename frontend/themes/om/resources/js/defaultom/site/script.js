@@ -1308,7 +1308,6 @@ $(document).on('click','#prod-info',function(){
     if(lockprodinfo !== true) {
         lockprodinfo = true;
         var dp = $(this).attr('data-prod');
-        console.log(this.getBoundingClientRect().top);
         $prod_html = '';
         $size_html = '';
         $spec_html = '';
@@ -1549,10 +1548,10 @@ $(document).on('click','#prod-info',function(){
                 }
             }
 
-            $('#modal-product').html(
+            setTimeout($('#modal-product').html(
                 '<span id="modal-close">' +
                 '<i class="fa fa-times" style="font-size:24px;"></i>' +
-                '</span>' + $prod_html + '' + $prevlink + '' + $nextlink);
+                '</span>' + $prod_html + '' + $prevlink + '' + $nextlink),700)
         });
         var cloud = function () {
             $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
