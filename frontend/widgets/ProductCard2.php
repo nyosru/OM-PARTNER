@@ -135,10 +135,15 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $man_time_list = '';
         }
+        if(in_array($product['manufacturers_id'], [749,2700,1241,2058,3412,3473,3481])){
+            $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="'.BASEURL.'/images/logo/ok.png"></div>';
+        }else{
+            $man_in_sklad = '';
+        }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
 
         $innerhtml .= '
-                        <div  class="container-fluid float" id="card2" style="float:left;">
+                        <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; margin-bottom:5px; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .

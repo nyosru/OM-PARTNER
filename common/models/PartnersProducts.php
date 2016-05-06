@@ -122,6 +122,10 @@ class PartnersProducts extends ActiveRecordExt
     {
         return $this->hasOne(PartnersProductsDescription::className(), ['products_id' => 'products_id']);
     }
+    public function getCategories()
+    {
+        return $this->hasOne(PartnersProductsToCategories::className(), ['products_id' => 'products_id']);
+    }
     public function getProductsAttributes()
     {
         return $this->hasMany(PartnersProductsAttributes::className(), ['products_id' => 'products_id']);
@@ -137,6 +141,17 @@ class PartnersProducts extends ActiveRecordExt
         $var = $this->find()->select('products_id')->where(['categories_id' => $cat])->asArray()->All();
         return $var;
     }
-
+    public function getSpecificationValuesDescription()
+    {
+        return $this->hasMany(SpecificationValuesDescription::className(), ['specification_values_id' => 'specification_values_id'])->via('productsSpecification');
+    }
+    public function getProductsSpecification()
+    {
+        return $this->hasMany(ProductsSpecifications::className(), ['products_id' => 'products_id']);
+    }
+    public function  getSpecificationDescription()
+    {
+        return $this->hasMany(SpecificationDescription::className(), ['specifications_id' => 'specifications_id'])->via('productsSpecification');
+    }
 
 }

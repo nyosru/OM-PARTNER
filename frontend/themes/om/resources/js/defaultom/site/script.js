@@ -490,7 +490,11 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
-
+    if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481']) != -1){
+        $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><img src="/images/logo/ok.png"></div>';
+    }else{
+        $man_in_sklad = '';
+    }
     if ($attr_desc.length > 0) {
         var  innerindex = 0;
         $.each($attr_desc, function (index,value) {
@@ -522,7 +526,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
                             $descriptionprod['products_name']="Не указано";
                         }
 
-                        console.log(value);
+
                         $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
                             '<input '+$inputpos+' id="input-count"'+
@@ -584,7 +588,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
 
     $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
 
-    $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+
+    $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
         '<a id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
@@ -625,6 +629,11 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
     $attr = $attrib;
     $attr_html = '';
     $activelabel=0;
+    if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481"]) != -1){
+        $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="/images/logo/ok.png"></div>';
+    }else{
+        $man_in_sklad = '';
+    }
     if ($attr_desc.length > 0) {
         var  innerindex = 0;
         $.each($attr_desc, function (index,value) {
@@ -716,7 +725,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
     $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
 
-    $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+
+    $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
