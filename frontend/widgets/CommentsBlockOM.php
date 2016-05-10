@@ -25,7 +25,7 @@ class CommentsBlockOM extends \yii\bootstrap\Widget
         <div id="partners-main-left-cont">
         <div class="header-catalog"> <?= $this->nameblock[$this->category] ?>
             </div>
-        <?
+        <?php
     $commentsprovider = new \yii\data\ActiveDataProvider([
                 'query' => \common\models\PartnersComments::find()->where(['relate_id' => $this->relateID, 'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID'],
                     'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),

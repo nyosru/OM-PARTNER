@@ -65,7 +65,7 @@ class NewsBlock extends \yii\bootstrap\Widget
 
                 echo '</div>';
             }
-            ?></div><?
+            ?></div><?php
         }
     }
 }

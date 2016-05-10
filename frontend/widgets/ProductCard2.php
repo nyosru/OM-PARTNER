@@ -50,7 +50,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
                     $inputpos = '';
                     $some_text = 0;
                     if($key%2 == 0){
-                        $class='border-right:1px solid #CCC';
+                        $class='border-right:1px solid #CCC;';
                         $key++;
                     }else{
                         $class='';
@@ -65,9 +65,9 @@ class ProductCard2 extends \yii\bootstrap\Widget
                     $some_text = 'Нет';
                 }
 
-                $attr_html .= '<div class="'.$classpos.'" style="'.$stylepos.' width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
+                $attr_html .= '<div class="'.$classpos.'" style="'.$stylepos.' width: 50%; overflow: hidden; float: left; '.$class.'"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
                 $attr_html .= '<input '.$inputpos.' id="input-count"'.
-                    'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
+                    'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;" '.
                     'data-prod="'. $product['products_id'].'"'.
                     'data-name="'. htmlentities($description['products_name'])  .'"'.
                     'data-model="'. $product['products_model'].'"'.
@@ -152,7 +152,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $innerhtml .= '<div style="font-size: 18px; color:red; font-weight: 500; margin-left: 130px;" itemprop="old-price" ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
         }
-        $innerhtml.='</div>' .
+        $innerhtml.=        '</div>' .
             '<div style="" class="model">' . $man_time_list . $preview. '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
@@ -167,7 +167,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '<div style="font-size: 18px; font-weight: 500; min-width:100px;" itemprop="price" >' . round($product['products_price']) . ' руб.</div>' .
             '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
             '</div>'.
-            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div  itemprop="name" class="name" >'.htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
+            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div  itemprop="name" class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
         echo $innerhtml;
     }
 }

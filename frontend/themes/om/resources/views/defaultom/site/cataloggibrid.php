@@ -337,7 +337,7 @@ echo '<div class="partners-main-right bside">';
 </ul>
 
    </div>
-   <?
+   <?php
 }
 } else {
     echo '<div style="text-align: center; font-size: 40px; position: relative;  min-height: 100%;">Нет результатов</div>';

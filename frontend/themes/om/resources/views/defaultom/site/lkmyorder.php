@@ -13,7 +13,7 @@ $this -> title = 'Мои заказы';
 <form>
     <input type="hidden" value="myorder" name="view">
     <div style="float: left; width: 100%;">
-        <?
+        <?php
         $sorter = '';
         $cs = count($sort_order);
         for($i=0; $i<$cs; $i++){
@@ -37,7 +37,7 @@ $this -> title = 'Мои заказы';
         </div>
         <div id="find-date" style="float: right; width: 30%; text-align: right;">
 
-            <?
+            <?php
             echo \kartik\date\DatePicker::widget( [
                 'language'=>'ru',
                 'name' => 'di',
@@ -49,7 +49,7 @@ $this -> title = 'Мои заказы';
                     'format' => 'dd.mm.yyyy'
                 ]
             ]);?>
-            <?
+            <?php
             echo \kartik\date\DatePicker::widget( [
                 'language'=>'ru',
                 'name' => 'do',
@@ -72,7 +72,7 @@ $this -> title = 'Мои заказы';
         </div>
 
     </div>
-</form><?
+</form><?php
 echo \yii\grid\GridView::widget([
     'dataProvider' => $orders,
     'layout' => "{pager}\n{items}",

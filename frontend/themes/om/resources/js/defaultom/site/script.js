@@ -521,60 +521,60 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
                 $some_text = 'Нет';
             }
 
-                        if($descriptionprod == "null"){
-                            $descriptionprod.products_description="Без Описания";
-                            $descriptionprod['products_name']="Не указано";
-                        }
+            if($descriptionprod == "null"){
+                $descriptionprod.products_description="Без Описания";
+                $descriptionprod['products_name']="Не указано";
+            }
 
+            console.log(value);
+            $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
-                        $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
-
-                            '<input '+$inputpos+' id="input-count"'+
-                            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                            'data-prod="'+ $product['products_id']+'"'+
-                            'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
-                            'data-model="'+ $product['products_model']+'"'+
-                            'data-price="'+ Math.round($product['products_price'])+'"'+
-                            'data-image="'+ $product['products_image']+'"'+
-                            'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
-                            'data-step="'+ $product['products_quantity_order_units']+'"'+
-                            'data-min="'+ $product['products_quantity_order_min']+'"'+
-                            'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
-                            'data-attr="'+value.products_options_values_id+'"'+
-                            'placeholder="0"'+
-                            'type="text">'+
-                            '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
-                            '+'+
-                            '</div>'+
-                            '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
-                            '-'+
-                            '</div>'+
-                            '</div></div></div>';
-                    });
-                } else {
-                    $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
-                        '<input  id="input-count"'+
-                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                        'data-prod="'+ $product['products_id']+'"'+
-                        'data-model="'+ $product['products_model']+'"'+
-                        'data-price="'+ Math.round($product['products_price'])+'"'+
-                        'data-image="'+ $product['products_image']+'"'+
-                        'data-attrname=""'+
-                        'data-attr=""'+
-                        'data-count="'+ $product['products_quantity']+'"'+
-                        'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
-                        'data-step="'+ $product['products_quantity_order_units']+'"'+
-                        'data-min="'+ $product['products_quantity_order_min']+'"'+
-                        'placeholder="0"'+
-                        'type="text">'+
-                        '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
-                        '+'+
-                        '</div>'+
-                        '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
-                        '-'+
-                        '</div>'+
-                        '</div></div></div>';
-                }
+                '<input '+$inputpos+' id="input-count"'+
+                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                'data-prod="'+ $product['products_id']+'"'+
+                'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
+                'data-model="'+ $product['products_model']+'"'+
+                'data-price="'+ Math.round($product['products_price'])+'"'+
+                'data-image="'+ $product['products_image']+'"'+
+                'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
+                'data-step="'+ $product['products_quantity_order_units']+'"'+
+                'data-min="'+ $product['products_quantity_order_min']+'"'+
+                'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                'data-attr="'+value.products_options_values_id+'"'+
+                'placeholder="0"'+
+                'type="text">'+
+                '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '+'+
+                '</div>'+
+                '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '-'+
+                '</div>'+
+                '</div></div></div>';
+        });
+    } else {
+        $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
+            '<input  id="input-count"'+
+            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+            'data-prod="'+ $product['products_id']+'"'+
+            'data-model="'+ $product['products_model']+'"'+
+            'data-price="'+ Math.round($product['products_price'])+'"'+
+            'data-image="'+ $product['products_image']+'"'+
+            'data-attrname=""'+
+            'data-attr=""'+
+            'data-count="'+ $product['products_quantity']+'"'+
+            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+            'data-step="'+ $product['products_quantity_order_units']+'"'+
+            'data-min="'+ $product['products_quantity_order_min']+'"'+
+            'placeholder="0"'+
+            'type="text">'+
+            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+            '+'+
+            '</div>'+
+            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+            '-'+
+            '</div>'+
+            '</div></div></div>';
+    }
 
     if( $time[$product.manufacturers_id] === undefined ) {
         $timewrap = '';
@@ -583,10 +583,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
 
     }
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product"  data-product="'+$product['products_id']+'"><i class="fa fa-star" aria-hidden="true"></i></a>';
-    $product_menu = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
-
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
 
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -628,7 +625,6 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '';
-    $activelabel=0;
     if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481"]) != -1){
         $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="/images/logo/ok.png"></div>';
     }else{
@@ -641,7 +637,6 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
                 $classpos = 'active-options';
                 $add_class = 'add-count';
                 $del_class = 'del-count';
-                $activelabel++;
                 $stylepos = '';
                 $inputpos = '';
                 $some_text = 0;
@@ -687,7 +682,6 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
 
         });
     } else {
-        $activelabel++;
         $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;margin-top:20px;"><div style="margin: auto; width: 100%;"><div></div>'+
             '<input  id="input-count"'+
             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
@@ -711,11 +705,8 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
             '</div>'+
             '</div></div></div>';
     }
-    if($activelabel>0) {
-        $attr_html += '<div data-sale="' + $product['products_id'] + '" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: ' + $product['products_date_added'] + '</div>';
-    }else{
-        $attr_html += '<div style="background: #E9516D" class="cart-lable">Продано</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: ' + $product['products_date_added'] + '</div>';
-    }
+    $attr_html+='<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: '+$product['products_date_added']+'</div>';
+
     if( $time[$product.manufacturers_id] === undefined ) {
         $timewrap = '';
     }else{
@@ -759,10 +750,11 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
         '</div></div>');
 }
 $(document).on('click keydown', '.lock-on', function () {
+    $('body').addClass('some');
+    $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
 });
-
 
 
 var inProgress = false;

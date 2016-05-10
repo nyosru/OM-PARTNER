@@ -11,9 +11,16 @@ trait ActionIndex{
         $model = new PartnersSettings();
         $paramset = Yii::$app->params['partnersset'];
         $contacts = Yii::$app->params['partnersset']['contacts'];
-        $model->mailcounter['value'] = $paramset['mailcounter']['value'];
-        $model->mailcounter['active'] = $paramset['mailcounter']['active'];
-        $model->yandexcounter['value'] = $paramset['yandexcounter']['value'];
+        if(isset($paramset['mailcounter']['value'])){
+            $model->mailcounter['value'] = $paramset['mailcounter']['value'];
+        }
+        if(isset($paramset['mailcounter']['active'])){
+            $model->mailcounter['active'] = $paramset['mailcounter']['active'];
+        }
+        if(isset($paramset['yandexcounter']['value'])){
+            $model->yandexcounter['value'] = $paramset['yandexcounter']['value'];
+        }
+
         $model->yandexcounter['active'] = $paramset['yandexcounter']['active'];
         $model->discount['value'] = $paramset['discount']['value'];
         $model->discount['active'] = $paramset['discount']['active'];

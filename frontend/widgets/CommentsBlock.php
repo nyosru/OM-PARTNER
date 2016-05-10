@@ -25,7 +25,7 @@ class CommentsBlock extends \yii\bootstrap\Widget
         <div id="partners-main-left-cont">
         <div class="header-catalog"> <?= $this->nameblock[$this->category] ?>
             </div>
-        <?
+        <?php
 
         $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['relate_id' => $this->relateID,
             'category' => $this->category, 'partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
