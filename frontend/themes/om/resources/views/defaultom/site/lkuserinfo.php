@@ -1,7 +1,7 @@
 <?php
 use yii\filters\AccessControl;
 use yii\web\User;
-/* @var $this yii\web\View */
+/* 1@var $this yii\web\View */
 ?>
 <?php
 $this->title='Данные пользователя';
