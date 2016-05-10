@@ -139,7 +139,6 @@ trait ActionLK
                     $customer=new Profile();
                 }
                 $customer->loadUserProfile();
-                $this->layout = 'lk';
                 return $this->render('lkuserinfo',['cust'=>$customer,'savelk'=>$savelk]);
             break;
 

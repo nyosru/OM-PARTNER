@@ -1604,3 +1604,53 @@ function changeCart($inputc){
 $(document).on('ready', function(){
     $('a[rel=light]').light();
 });
+
+function getProductCart(){
+    $elems=$('.input-count');
+    $data=new Array();
+    $.each($elems, function($i,$item){
+        $elem=new Object();
+        $elem.id=$item.getAttribute('data-prod');
+        $elem.attr=$item.getAttribute('data-attr');
+        $elem.attrname=$item.getAttribute('data-attrname');
+        $elem.number=$item.getAttribute('value');
+        $data[$i]=$elem;
+    });
+    $comments=new Array();
+    $comments=$('#comment-cart-save')[0].value;
+    if($('#save-chk').hasClass('chk-unchecked')){
+        $shara=0;
+    }else{
+        $shara=1;
+    }
+    $baseduri = '/savecart';
+    console.log($data);
+    $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
+        function(data){
+            if(data==1){
+                alert('Корзина записана');
+            }else{
+                alert('Ошибка');
+            }
+        });
+}
+$(document).on('click','#save-set-btn',function () {
+    getProductCart();
+});
+
+$(document).on('click','#save-chk',function () {
+    if($(this).hasClass('chk-unchecked')){
+        $(this).removeClass('chk-unchecked');
+    }else{
+        $(this).addClass('chk-unchecked');
+    }
+});
+
+$(document).on('click','#save-set',function(){
+    $('#modal-save-set').css('display', 'block');
+    $('#overlay-save-cart').css('display','block');
+})
+$(document).on('click','#overlay-save-cart, #close-cart-save',function(){
+    $('#modal-save-set').hide();
+    $('#overlay-save-cart').hide();
+})
