@@ -132,9 +132,9 @@ $(document).on('ready', function () {
         <?php
            if(!Yii::$app->user->isGuest){?>
         $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
-        <? }else { ?>
+        <?php }else { ?>
         $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
-        <?}?>
+        <?php }?>
         $innerhtml+=               '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>' +
                         '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
@@ -169,9 +169,9 @@ $(document).on('ready', function () {
 
                 '<a class="save-order" style="display: block;position: relative" href="<?=BASEURL;?>/cart?action=1">Оформить заказ</a>' +
                 '</span></form></div>';
-            <? }else { ?>
+            <?php }else { ?>
             $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
-            <?}?>
+            <?php }?>
             $.post(
                 "/site/shipping",
                 function (shipdata) {
@@ -213,9 +213,9 @@ $(document).on('ready', function () {
 //    <?php
 //    if(!Yii::$app->user->isGuest){?>
 //        $(".bside").append('<span class="cart-auth" style="display: block; overflow: hidden;"><a class="save-order" style="display: block;position: relative" href="<?//=BASEURL;?>///cart?action=1">Оформить заказ</a></span>');
-//    <?// }else { ?>
+//    <?php// }else { ?>
 //        $(".bside").append('<span class="cart-auth"  style="display: block; overflow: hidden;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span>');
-//    <?//}?>
+//    <?php//}?>
 //    }
 });
 $(document).ready(function () {

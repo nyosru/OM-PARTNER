@@ -13,7 +13,7 @@ $this->beginPage();
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <meta charset="<?= Yii::$app->charset ?>" />
     <link rel="search"
           type="application/opensearchdescription+xml"
           title="Поиск по товарам"
@@ -40,7 +40,7 @@ $this->beginPage();
             <div>
                 <div class="partners-main-left suplogo"
                      style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
-                    <? if (
+                    <?php if (
                         ($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
                         &&  Yii::$app->params['partnersset']['logotype']['active'] == 1){
                         echo '<span style="" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
@@ -57,14 +57,14 @@ $this->beginPage();
             </div>
             <div class="partners-main-left target jb-shortscroll-target"
                  style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                <?if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                <?php if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
                         <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
 
                         <?= Menuom::widget(['property' => ['id' => 'main', 'target' => '0', 'opencat' => Yii::$app->params['layoutset']['opencat']]]); ?>
                     </div>
                     <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
-                    <? $this->endCache();
+                    <?php $this->endCache();
                 }?>
             </div>
             <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
@@ -87,7 +87,7 @@ $this->beginPage();
                     <div class="omcode"
                          style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);">
                         <img alt="Одежда-Мастер" src="/images/logo/OM_code.png"></div>
-                    <?
+                    <?php
                     if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
                         echo '<div style="float: left; padding: 15px 0px; font-size: 16px; font-weight: 500; text-align: center; width: calc(100% / 7);margin-left:30px;min-width: 130px;">+7-495-204-15-83</div>';
                     }
@@ -133,7 +133,7 @@ $this->beginPage();
                     </form>
                     <a class="change-cart" href="<?=BASEURL?>/changecardview"></a>
                     <div class="logindiv" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
-                        <?
+                        <?php
                         if (Yii::$app->user->isGuest) {
                             echo '<div style="float: right;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i>';
                             $model = new \common\models\LoginFormOM();
@@ -179,7 +179,7 @@ $this->beginPage();
             <?= $content ?>
 
             <div style="width: calc(100% - 30px); margin: 0px 15px;float: left;">
-                <?
+                <?php
                 if (Yii::$app->user->can('admin')) {
                 }
                 $page = 'catindex' . (int)Yii::$app->request->getQueryParam('cat');
@@ -192,7 +192,7 @@ $this->beginPage();
                     ?>
                     <div id="my-textarea-id"></div>
 
-                <? } ?>
+                <?php } ?>
                 <?php if (Yii::$app->user->can('admin')) {
 
                     echo \vova07\imperavi\Widget::widget([
@@ -220,7 +220,7 @@ $this->beginPage();
                             alert('Изменения сохранены');
                         });
                     </script>
-                <? } ?>
+                <?php } ?>
             </div>
 
             <div style="clear: both;">

@@ -91,18 +91,6 @@ trait ActionLK
                             unset($customer);
                             $customer=new Profile();
                             break;
-//                        case 'addr_default':
-//                            $addr_id='';
-//                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
-//                                if(isset($value['address_book_id'])){
-//                                    $addr_id=$value['address_book_id'];
-//                                    break;
-//                                }
-//                            };
-//                            $customer->defaultUserAddress($addr_id);
-//                            unset($customer);
-//                            $customer=new Profile();
-//                            break;
                         case 'addr_default':
                             $addr_id='';
                             foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){

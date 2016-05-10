@@ -16,7 +16,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
     <div style="border-bottom: 1px solid rgb(204, 204, 204); border-top: 1px solid rgb(204, 204, 204); float: left; font-size: 24px; font-weight: 400; margin: 0px 10px; padding: 10px 0px; width: calc(100% - 20px);">
         Номер заказа <font color="#007BC1"><?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?></font>
         </div>
-    <?
+    <?php
     $pack['packages']=['name'=>'Полиэтиленовые пакеты', 'price'=>'0'];
     $pack['boxes']=['name'=>'Крафт-коробки', 'price'=>$wrapprice];
     if($result['data']['paramorder']['delivery']) {
@@ -55,7 +55,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
     ?>
 </div>
 <div style="float:left; width:20%">
-<?
+<?php
 
 if($result['data']['saveproduct']) {
     echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
@@ -108,16 +108,16 @@ if($result['data']['saveproduct']) {
     });
 
     </script>
-<?
+<?php
 }elseif($result['code'] == 0 ){
    ?>
 <div style="float:left; width:100%">
-    <?
+    <?php
     echo '<pre>';
     print_r($result['text']);
     echo '</pre>';
     ?>
     </div>
-<?
+<?php
     }
 ?>

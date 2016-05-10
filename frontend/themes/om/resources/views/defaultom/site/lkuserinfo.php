@@ -15,14 +15,14 @@ use yii\helpers\BaseUrl;
 use yii\jui\Slider;
 use \common\models\Profile;
 use yii\bootstrap\Collapse;
-Collapse::widget();
+
 ?>
 
 
 <div id="index-card-4">Мои данные</div>
 <div style="margin-bottom: 45px; padding: 0px 20px;">Эта информация никогда не будет доступна третьим лицам</div>
 
-<?
+<?php
 if($savelk==true){
     echo '<div style="color: blue;padding: 0px 20px;margin-bottom: 20px;">Изменения были сохранены</div>';
 }
@@ -75,7 +75,7 @@ for($i=0; $i<$cs; $i++){
         <label for="tab5" title="Сменить пароль">Сменить пароль</label>
         <section id="content1">
             <div  style="background: #f5f5f5; position: relative;  text-align: left; padding: 0" class="panel-body">
-                <?
+                <?php
                 $defid='';
                 foreach ($cust->delivery as $key=>$value){
                     if($cust->customers_default_address_id==$value['address_book_id']){
@@ -116,7 +116,7 @@ for($i=0; $i<$cs; $i++){
         </section>
         <section id="content2">
             <div style="background: #f5f5f5; position: relative; text-align: left; padding: 0" class="panel-body">
-                <?
+                <?php
                 $payid='';
                 foreach ($cust->delivery as $key=>$value){
                     if($cust->pay_adress_id==$value['address_book_id']){
@@ -161,7 +161,7 @@ for($i=0; $i<$cs; $i++){
         </section>
         <section id="content3">
             <div style="background: #f5f5f5; position: relative;  text-align: left; padding: 0" class="panel-body">
-                <?
+                <?php
                 $i=-1;
                 foreach($cust['delivery'] as $key=>$value){
                     if($value['address_book_id']===$cust['delivery_adress_id']){
@@ -215,7 +215,7 @@ for($i=0; $i<$cs; $i++){
         </section>
         <section id="content4">
             <div style="background: #f5f5f5; position: relative; text-align: left;  padding-left: 15px;" class="panel-body">
-                <?
+                <?php
                 echo '<div style="overflow: hidden"><div style="float: right; width:45px;height: 20px;"></div>';
                 echo '<div style="float: right; width:160px;">Адрес плательщика</div>';
                 echo '<div style="float: right; width:160px;">Адрес доставки</div></div>';

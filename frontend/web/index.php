@@ -5,7 +5,7 @@ use common\models\PartnersSettings;
 set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
-
+error_reporting(E_ERROR | E_STRICT);
 
 defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'prod');

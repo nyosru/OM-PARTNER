@@ -42,7 +42,7 @@ echo '<span>' . $adress_shop . '</span>';
         <td width="25%"><?= $phone_client ?></td>
     </tr>
 </table>
-<?
+<?php
 $shipping = ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'], 'flat7_flat7' => ['value' => 'Почта ЕМС России']];
 $shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);
 $inner = '';

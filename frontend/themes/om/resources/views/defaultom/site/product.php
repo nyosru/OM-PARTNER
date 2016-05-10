@@ -84,7 +84,7 @@ if(!$product['products']['products_image']){
                 <div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 550px;">
                     <div class="prod-img" style="overflow: hidden; margin-bottom: 10px;">
                         <div class="mini-img" style="float: left; width: 20%; ">
-                            <?
+                            <?php
                             foreach($im as $img){
                                 if($i!=0) echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
                                 else echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item selected"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
@@ -138,9 +138,9 @@ if(!$product['products']['products_image']){
 <!--                        <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px; font-size: 14px;line-height: 2;">Старая цена</div>-->
 <!--                        <div class="prod-discount" style="color:gray; border: 1px solid #ccc; padding: 2px;float: left;font-size: 12px;line-height: 1.3; top:4px;position: relative;border-radius: 4px;">Скидка много рублей</div>-->
                         <div style="clear: both"></div>
-                        <div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;"><? if (count($product['productsAttributesDescr']) > 0) echo '<div style="margin: 0 0 20px 0">Размеры</div>'; ?><?=$prodinfoattr?></div>
+                        <div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;"><?php if (count($product['productsAttributesDescr']) > 0) echo '<div style="margin: 0 0 20px 0">Размеры</div>'; ?><?=$prodinfoattr?></div>
                         <div class="prod-compos" style="font-size: 12px;">
-                            <?
+                            <?php
                             // Вывод спецификаций
                             if(is_array($spec['productsSpecification'])){
                             foreach ($spec['productsSpecification'] as $key => $value) {
@@ -217,7 +217,7 @@ if(!$product['products']['products_image']){
 <!--        <div class="seen-items" style="height: 250px; ">-->
 <!--            <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">-->
 <!--                <div class="seen-img" style="height: 70%;">-->
-<!--                    --><?//='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
+<!--                    --><?php//='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
 <!--                </div>-->
 <!--                <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>-->
 <!--                <div class="seen-price">200 руб</div>-->

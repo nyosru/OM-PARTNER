@@ -10,13 +10,7 @@ use yii\jui\Slider;
 use yii\caching\Cache;
 use yii\filters\AccessControl;
 use yii\web\User;
-
-//if ($this->beginCache('partner-index'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] , array('duration'=>600))) {?>
-<?
 $this->title = $title;
-
-
-
     ?>
     <div id="main-index">
         <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><a
@@ -86,7 +80,7 @@ $this->title = $title;
     </div>
     <div id="main-spec">
         <div id="index-card-4">Специальные предложения</div>
-        <?
+        <?php
         if(is_array($dataproducts)) {
             $specitems=array();
             $num=0;
@@ -112,7 +106,7 @@ $this->title = $title;
     </div>
     <div id="main-new" style="clear: both;">
         <div id="index-card-4">Новые поступления</div>
-        <?
+        <?php
         if(is_array($newproducts)) {
             $specitems=array();
             $num=0;
@@ -191,7 +185,7 @@ $this->title = $title;
     <div style="clear: both;">
 
         <div style="margin: 0px 15px;float: left;margin-top:30px;">
-            <?
+            <?php
             if (Yii::$app->user->can('admin')) {
             }
             $page = 'seoindex';
@@ -204,7 +198,7 @@ $this->title = $title;
                 ?>
             <div id="my-textarea-id"></div>
 
-            <? } ?>
+            <?php } ?>
             <?php if (Yii::$app->user->can('admin')) {
 
                 echo \vova07\imperavi\Widget::widget([
@@ -230,8 +224,6 @@ $this->title = $title;
                         alert('Изменения сохранены');
                     });
                 </script>
-            <? } ?>
+            <?php } ?>
         </div>
     </div>
-
-<? //  $this->endCache(); }?>

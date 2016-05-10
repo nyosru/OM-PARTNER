@@ -67,7 +67,7 @@ $this->title = 'Личный кабинет';
 </div>
 <div id="index-card-4">Последний заказ</div>
 <div style="float: left; width: 100%; padding: 0px 20px;float: left; width: 100%;">
-    <?
+    <?php
     echo \yii\grid\GridView::widget([
         'dataProvider' => $orders,
         'layout' => "{items}",
