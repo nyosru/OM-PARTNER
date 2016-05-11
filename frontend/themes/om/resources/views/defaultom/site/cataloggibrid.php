@@ -235,6 +235,7 @@ echo '<div class="partners-main-right bside">';
 
 
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
+
     $sortorder = [['дате', 0, 10, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
     foreach ($sortorder as $value) {
         if (intval($data[11]) == intval($value[1])) {

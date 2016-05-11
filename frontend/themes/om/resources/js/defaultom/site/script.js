@@ -526,7 +526,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
                 $descriptionprod['products_name']="Не указано";
             }
 
-            console.log(value);
+         
             $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
                 '<input '+$inputpos+' id="input-count"'+
@@ -1628,7 +1628,7 @@ function getProductCart(){
         $shara=1;
     }
     $baseduri = '/savecart';
-    console.log($data);
+   
     $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
         function(data){
             if(data==1){
@@ -1653,8 +1653,35 @@ $(document).on('click','#save-chk',function () {
 $(document).on('click','#save-set',function(){
     $('#modal-save-set').css('display', 'block');
     $('#overlay-save-cart').css('display','block');
-})
+});
 $(document).on('click','#overlay-save-cart, #close-cart-save',function(){
     $('#modal-save-set').hide();
     $('#overlay-save-cart').hide();
-})
+});
+$(document).on('click','.del-products',function(){
+    console.log($(this).parent().filter('[itemid]').attr('itemid'));
+    $id =  $(this).parent().filter('[itemid]').attr('itemid');
+    $('[itemid='+$id+']').remove();
+    $new_cart = new Object();
+    $item = JSON.parse(localStorage.getItem('cart-om'));
+    $item.cart.splice($delrow, 1);
+    $ilocal = JSON.stringify($item);
+    localStorage.setItem('cart-om', $ilocal);
+    $(this).parent().next().remove();
+    $(this).parent().remove();
+    $str = $('.cart-row');
+    $str2=$('.num-of-items');
+    $.each($str, function(i,item){
+        $(this).attr('data-raw',i);
+        $(this).children().find('.num-of-items').attr('data-raw',i);
+    });
+    // $.each($str2, function(i,item){
+    //     $(this).attr('data-raw',i);
+    // });
+
+
+
+    //$amount_prod == $item.cart.length;
+    $(".cart-count").html($amount_prod);
+    $(".cart-price").html($cart_price + ' руб.');
+});
