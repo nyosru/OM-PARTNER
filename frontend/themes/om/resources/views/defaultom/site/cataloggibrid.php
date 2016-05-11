@@ -67,7 +67,22 @@ echo '<div class="partners-main-right bside">';
     $headbside = '';
     $headbside .= '<div  class="partners-main-right headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
-    echo '<a href="'.BASEURL.'/changecardview"><i class="fa fa-bars" title="Изменить вид карточек" style="float: right; color:#00a5a1; margin-right: 30px; font-size: 24px;" aria-hidden="true"></i></a>';
+    $countdisp = [60, 120, 180];
+    $innercount = '';
+    foreach ($countdisp as $key => $countdisp) {
+        if ($countdisp == $count) {
+            $classcount = 'countdisplay count-checked';
+        } else {
+            $classcount = 'countdisplay';
+        }
+        $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url(new_url(new_suburl(split_url($url), 'page', 0))), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
+    }
+    echo '<div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
+    echo '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
+
+
+    echo '<div id="products-pager"></div>';
+
     if($this->beginCache('Top-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) {
 
         if ($catpath['num'] != 0) {
@@ -211,24 +226,12 @@ echo '<div class="partners-main-right bside">';
         '<input name="sort"  value="0"  type="hidden"/>'.
         '<input name="searchword"   value="" type="hidden"/>'.
                 '</form>';
-    $countdisp = [60, 120, 180];
-    $innercount = '';
-    foreach ($countdisp as $key => $countdisp) {
-        if ($countdisp == $count) {
-            $classcount = 'countdisplay count-checked';
-        } else {
-            $classcount = 'countdisplay';
-        }
-        $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url(new_url(new_suburl(split_url($url), 'page', 0))), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
-    }
+
 
     $headbside .= $topnav;
-    $headbside .= '<div class="partheaderbside"><div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
-    $headbside .= '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
+    $headbside .= '<div class="partheaderbside">';
 
-
-    $headbside .= '<div id="products-pager"></div>';
-
+    $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
 
 
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
