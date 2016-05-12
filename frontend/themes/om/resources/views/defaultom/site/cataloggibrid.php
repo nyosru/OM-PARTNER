@@ -1,52 +1,42 @@
 <?php
-use yii\filters\AccessControl;
-use yii\web\User;
 /* @var $this yii\web\View */
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
-use yii\bootstrap\Dropdown;
-use yii\bootstrap\Carousel;
-use yii\helpers\BaseUrl;
-use common\traits\Imagepreviewfile;
-use kartik\slider\SliderAsset;
 use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
-use Zelenin\yii\SemanticUI\modules\Checkbox;
-
-function new_url($arr_sub)
-{
-    $new_url = Array();
-    foreach ($arr_sub as $value) {
-        $new_url[] = $value[0] . '=' . $value[1];
+if (!function_exists('new_url')) {
+    function new_url($arr_sub)
+    {
+        $new_url = Array();
+        foreach ($arr_sub as $value) {
+            $new_url[] = $value[0] . '=' . $value[1];
+        }
+        return implode('&', $new_url);
     }
-    return implode('&', $new_url);
 }
-
-function split_url($url)
-{
-    $url_arr = explode('&', $url);
-    $arr_sub = Array();
-    foreach ($url_arr as $value) {
-        $spl = explode('=', $value);
-        $arr_sub[$spl[0]] = $spl;
+if (!function_exists('split_url')) {
+    function split_url($url)
+    {
+        $url_arr = explode('&', $url);
+        $arr_sub = Array();
+        foreach ($url_arr as $value) {
+            $spl = explode('=', $value);
+            $arr_sub[$spl[0]] = $spl;
+        }
+        return $arr_sub;
     }
-    return $arr_sub;
 }
+if (!function_exists('new_suburl')) {
+    function new_suburl($url_obj, $val, $new_var)
+    {
+        $value = $url_obj[$val];
+        $value[1] = $new_var;
 
-function new_suburl($url_obj, $val, $new_var)
-{
-    $value = $url_obj[$val];
-    $value[1] = $new_var;
+        $url_obj[$val] = $value;
+        return $url_obj;
+    }
 
-    $url_obj[$val] = $value;
-    return $url_obj;
 }
-
-
 
 
 $start_url = Yii::$app->request->getQueryString();
@@ -233,7 +223,9 @@ echo '<div class="partners-main-right bside">';
 
     $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
 
+    $headbside .= ' <a href="#demo" style="float: left;color: rgb(0, 165, 161);margin-right: 30px;font-size: 16px;border: 1px solid rgb(204, 204, 204);padding: 0px 25px;border-radius: 4px;font-weight: 500;" data-toggle="collapse">Сортировка</a>';
 
+    $headbside .= '<div id="demo" class="collapse">';
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
 
     $sortorder = [['дате', 0, 10, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
@@ -256,7 +248,7 @@ echo '<div class="partners-main-right bside">';
             $headbside .= '<a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
         }
     }
-    $headbside .= '</div></div></div>';
+    $headbside .= '</div></div></div></div>';
     echo $headbside;
     $innerhtml = '';
 

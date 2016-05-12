@@ -1663,25 +1663,10 @@ $(document).on('click','.del-products',function(){
     $id =  $(this).parent().filter('[itemid]').attr('itemid');
     $('[itemid='+$id+']').remove();
     $new_cart = new Object();
-    $item = JSON.parse(localStorage.getItem('cart-om'));
+    $item = JSON.parse(localStorage.getItem('selected-product-om'));
     $item.cart.splice($delrow, 1);
     $ilocal = JSON.stringify($item);
-    localStorage.setItem('cart-om', $ilocal);
-    $(this).parent().next().remove();
-    $(this).parent().remove();
-    $str = $('.cart-row');
-    $str2=$('.num-of-items');
-    $.each($str, function(i,item){
-        $(this).attr('data-raw',i);
-        $(this).children().find('.num-of-items').attr('data-raw',i);
-    });
-    // $.each($str2, function(i,item){
-    //     $(this).attr('data-raw',i);
-    // });
-
-
-
-    //$amount_prod == $item.cart.length;
+    localStorage.setItem('selected-product-om', $ilocal);
     $(".cart-count").html($amount_prod);
     $(".cart-price").html($cart_price + ' руб.');
 });

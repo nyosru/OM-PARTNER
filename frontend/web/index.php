@@ -8,7 +8,8 @@ date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR | E_STRICT);
 
 defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
-defined('YII_ENV') or define('YII_ENV', 'prod');
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
 require(__DIR__ . '/../../common/config/bootstrap.php');
@@ -67,7 +68,7 @@ unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
-//
+
 $config['components']['log']['targets'][] = [
     'class' => 'yii\log\FileTarget',
     'logFile' => '@frontend/runtime/logs/request/requests.log',
@@ -96,6 +97,8 @@ $config['components']['log']['targets'][] = [
     'maxFileSize' => 1024 * 2,
     'maxLogFiles' => 1000
 ];
+
+   
 
 $application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
@@ -151,6 +154,7 @@ $application->params['adminasset'] = $adminasset;
 //    echo '<div style="display: table; vertical-align: middle; margin: auto; font-size: 24px">Приносим свои извинения, проводятся технические работы</div>';
 //    die();
 //}else{
+
 $application->run();
 $application->db->close();
 //}

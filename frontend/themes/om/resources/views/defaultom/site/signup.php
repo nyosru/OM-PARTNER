@@ -52,12 +52,7 @@ $this->title = 'Регистрация';
 <?= $form->field($model, 'password', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->passwordInput()->passwordInput()->label('Пароль') ?>
 <?= $form->field($model, 'passwordcheck', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->passwordInput()->passwordInput()->label('Подтвердить пароль') ?>
 
-<?//= $form->field($model, 'captcha', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->widget(\yii\captcha\Captcha::classname(), [
-//                'template' => '{input}{image}',
-//                'options' => ['class'=>' col-md-12', 'style'=>'height: 36px; border-radius: 4px; border: 1px solid rgb(204, 204, 204);'],
-//    //'inputOptions'=>['class'=>'col-md-8'],
-//    'imageOptions'=>['class'=>'', 'style'=>'height:36px;'],
-//            ])->label('Введите текст на картинке') ?>
+
 
             <div class="col-md-12" style="margin: 20px 0px;">
                 <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary', 'name' => 'signup-button', 'style'=>'height: 36px; color: rgb(255, 255, 255);background: rgb(0, 165, 161) none repeat scroll 0% 0%;']) ?>
