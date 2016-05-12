@@ -1647,14 +1647,6 @@ $(document).on('click','#overlay-save-cart, #close-cart-save,#save-set-btn',func
     $('#modal-save-set').hide();
     $('#overlay-save-cart').hide();
 })
-$(document).on('click','.open-set',function(){
-    $row=$(this).data('row');
-    if($('[data-row=cont'+$row+']').is(':visible')) {
-        $('[data-row=cont' + $row + ']').hide();
-    }else{
-        $('[data-row=cont' + $row + ']').show();
-    }
-})
 
 $(document).on('click','.share-set',function () {
     $id=$(this).data('id');
@@ -1680,12 +1672,20 @@ $(document).on('click','.share-set',function () {
 
 $(document).on('click','.del-cart-set',function () {
     $id=$(this).data('id');
+    $row=$(this).data('row');
     $baseduri = '/savecart';
     $.post($baseduri,{'id':$id,'param':'delete'},
         function(data){
             if(data==1){
-                $row=$('[class="cart-set-row"][data-id="'+$id+'"]');
-                $row.remove();
+                if(localStorage.getItem('cart-set')){
+                    $set=JSON.parse(localStorage.getItem('cart-set'));
+                    $set.splice($row,1);
+                    $set=JSON.stringify($set);
+                    localStorage.removeItem('cart-set');
+                    localStorage.setItem('cart-set',$set);
+                }
+                $rows=$('[class="cart-set-row"][data-id="'+$id+'"]');
+                $rows.remove();
             }else if(data==2){
                 console.log('Корзина создана не вами');
             }else{
@@ -1693,3 +1693,112 @@ $(document).on('click','.del-cart-set',function () {
             }
         });
 });
+function drawLeftCart($item){
+    $i = $item.cart;
+    if(typeof ($i)== 'undefined'){
+        localStorage.removeItem('cart-om');
+        localStorage.removeItem('cart-om-date');
+    }
+    $c = 0;
+
+    
+    $.each($i, function () {
+        var mandata = [];
+        var requestdata = [];
+
+        requestdata = $.ajax({
+            method:'post',
+            url: "/site/product",
+            async: false,
+            data: {id: this[0]}
+        });
+
+        mandata = $.ajax({
+            method:'post',
+            url: "/site/manlist",
+            async: false,
+            data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+        });
+        if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
+            $access = 'В данный момент товар отсутствует' ;
+            $identypay = false;
+        }else if(JSON.parse(mandata.responseText).answer == false){
+            $access = 'К сожалению, товар в данный момент недоступен для оформления. Он останется в вашей корзине. Время оформления для данного товара вы можете посмотреть <a data-ajax=time data-href="'+requestdata.responseJSON.product.products.manufacturers_id+'">тут</a>';
+            $identypay = false;
+        }else{
+            $access = 'Данный товар доступен для заказа';
+            $identypay = true;
+        }
+        $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
+            '<div class = "access '+$identypay+'" >'+$access+'</div>'+
+            '<a target="_blank" href="/product?id='+requestdata.responseJSON.product.products.products_id+'" class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></a>' +
+            '<div class="cart-row-content" style="overflow:hidden; height:100%;float:left;width:70%;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
+            '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+requestdata.responseJSON.product.products.products_model +' </span>| <span id="gods-name">'+requestdata.responseJSON.product.productsDescription.products_name+'</span></div>' +
+            '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
+            '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
+            '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
+            '   <div class="num-of-items" data-raw="' + ($c++) + '" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" class="del-count" style=" line-height:1.5;">-</div>' +
+            '   <input id="input-count" class="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
+            'data-prod="'+this[0]+'" ' +
+            'data-model="'+this[1]+'" ' +
+            'data-price="'+parseFloat(requestdata.responseJSON.product.products.products_price)+'" ' +
+            'data-image="'+requestdata.responseJSON.product.products.products_image+'" ';
+
+        if(typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined'){
+            $innerhtml +=   'data-count="'+requestdata.responseJSON.product.productsAttributes[this[2]].quantity+'" '+
+                'data-attr="'+requestdata.responseJSON.product.productsAttributesDescr[this[6]].products_options_values_id+'" ' +
+                'data-attrname="'+requestdata.responseJSON.product.productsAttributesDescr[this[6]].products_options_values_name+'" '+
+                'value="' + Math.min(this[4],requestdata.responseJSON.product.productsAttributes[this[2]].quantity) + '" ';
+        }else{
+            $innerhtml +=   'data-count="'+requestdata.responseJSON.product.products.products_quantity+'"  data-attr="" data-attrname="" '+
+                'value="' + Math.min(this[4],requestdata.responseJSON.product.products.products_quantity) + '" ';
+        }
+        $innerhtml += 'data-name="'+requestdata.responseJSON.product.productsDescription.products_name+'" ' +
+            'data-min="'+requestdata.responseJSON.product.products.products_quantity_order_min+'" ' +
+            'data-step="'+requestdata.responseJSON.product.products.products_quantity_order_units+'"  ' +
+            'data-id="'+$c+'">' +
+            '   <div id="add-count" class="add-count" style="float: left; line-height:1.5;">+</div></div>' +
+            '</div></div>' +
+            '<div class="del-product" style="width: 12px; margin-left:5px; float: left; top:35%;color:#ea516d;"><i class="fa fa-times"></i></div>' +
+            '</div>'+
+            '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC; display: none;">' +
+            '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
+            '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
+            '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+            '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+            'Добавить комментарий к этому товару <i class="fa fa-caret-down"></i>' +
+            '</div>' +
+            ' </div>' +
+            '</a>'+
+            '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+            '<div class="panel-body" style="padding: 0px 5px;">' +
+            '<div style="padding: 10px 0px;">';
+
+        if(typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined'){
+            $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+']['+requestdata.responseJSON.product.productsAttributesDescr[this[6]].products_options_values_id+']" style="width: 100%;" ></textarea>';
+
+        }else{
+            $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+'][all]" style="width: 100%;" ></textarea>';
+
+        }
+        $innerhtml +=    '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'+
+            '</div>';
+    });
+}
+$(document).on('click','.open-set',function(){
+    $row=$(this).data('row');
+    if($('[data-row='+$row+'][class=cart-set-content]').is(':visible')) {
+        $('[data-row=' + $row + '][class=cart-set-content]').hide();
+    }else{
+        $('[data-row=' + $row + '][class=cart-set-content]').show();
+    }
+    $innerhtml='';
+    $text=$('[class=cart-set-content][data-row='+$row+']').html();
+    $content=JSON.parse($text);
+    drawLeftCart($content);
+    $('[class=cart-set-content][data-row='+$row+']').html($innerhtml);
+})
+

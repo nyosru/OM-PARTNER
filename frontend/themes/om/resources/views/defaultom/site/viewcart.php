@@ -1,3 +1,6 @@
+<script>
+    $cartset=[];
+</script>
 <div class="cart-set-row" style="height: 45px;">
     <div class="cart-set-num" style="line-height: 20px">Номер корзины</div>
     <div class="cart-set-share">Доступна другим</div>
@@ -6,6 +9,7 @@
 </div>
 <?php
 foreach ($cart as $k=>$v) {
+    $body=unserialize($v->cart_body);
     ?>
     <div class="cart-set-row" data-row="<?=$k?>" data-id="<?=$v->id?>">
         <div class="cart-set-lable">
@@ -21,15 +25,30 @@ foreach ($cart as $k=>$v) {
             </div>
             <div class="cart-set-info"><?=$v->comment?></div>
             <div class="cart-set-control">
-                <i title="Удалить корзину" class="checkbox-overlay fa fa-times del-cart-set"  data-id="<?=$v->id?>" style="background-color:transparent;color:#ea516d;border-color: #cccccc;"></i>
+                <i title="Удалить корзину" class="checkbox-overlay fa fa-times del-cart-set" data-row="<?=$k?>"  data-id="<?=$v->id?>" style="background-color:transparent;color:#ea516d;border-color: #cccccc;"></i>
                 <i title="Редактировать корзину" class="checkbox-overlay fa fa-pencil" style="background-color:transparent;color:#007BC1;border-color: #cccccc;"></i>
                 <i title="Посмотреть корзину" data-row="<?=$k?>" class="checkbox-overlay fa fa-arrow-down open-set" style="background-color:transparent;color:#00A5A1;border-color: #cccccc;"></i>
             </div>
         </div>
-        <div class="cart-set-content" data-row="cont<?=$k?>" style="">
-
+        <div class="cart-set-content" data-row="<?=$k?>" style="">
+            <?=$body?>
         </div>
     </div>
+    <script>
+        $cartset[<?=$k?>]=<?=$body?>;
+    </script>
 <?php
 }
 ?>
+<script>
+    function saveCartSet($cartset){
+        $cartset=JSON.stringify($cartset);
+        if (JSON.parse(localStorage.getItem('cart-set'))) {
+            localStorage.removeItem('cart-set')
+            localStorage.setItem('cart-set', $cartset);
+        }else{
+            localStorage.setItem('cart-set', $cartset);
+        }
+    }
+    saveCartSet($cartset);
+</script>
