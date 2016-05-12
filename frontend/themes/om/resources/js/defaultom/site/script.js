@@ -1608,16 +1608,7 @@ $(document).on('ready', function(){
 
 function getProductCart(){
     $elems=$('.input-count');
-    $data=new Array();
-    $.each($elems, function($i,$item){
-        $elem=new Object();
-        $elem.id=$item.getAttribute('data-prod');
-        $elem.attr=$item.getAttribute('data-attr');
-        $elem.attrname=$item.getAttribute('data-attrname');
-        $elem.number=$item.getAttribute('value');
-        $data[$i]=$elem;
-    });
-    $comments=new Array();
+    $data=localStorage.getItem('cart-om');
     $comments=$('#comment-cart-save')[0].value;
     if($('#save-chk').hasClass('chk-unchecked')){
         $shara=0;
@@ -1625,11 +1616,12 @@ function getProductCart(){
         $shara=1;
     }
     $baseduri = '/savecart';
-    console.log($data);
     $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
         function(data){
             if(data==1){
                 alert('Корзина записана');
+            }else if(data==2){
+                alert('Сохранять корзину могут только зарегистрированные пользователи. Войдите на сайт и попробуйте еще раз')
             }else{
                 alert('Ошибка');
             }
@@ -1651,7 +1643,53 @@ $(document).on('click','#save-set',function(){
     $('#modal-save-set').css('display', 'block');
     $('#overlay-save-cart').css('display','block');
 })
-$(document).on('click','#overlay-save-cart, #close-cart-save',function(){
+$(document).on('click','#overlay-save-cart, #close-cart-save,#save-set-btn',function(){
     $('#modal-save-set').hide();
     $('#overlay-save-cart').hide();
 })
+$(document).on('click','.open-set',function(){
+    $row=$(this).data('row');
+    if($('[data-row=cont'+$row+']').is(':visible')) {
+        $('[data-row=cont' + $row + ']').hide();
+    }else{
+        $('[data-row=cont' + $row + ']').show();
+    }
+})
+
+$(document).on('click','.share-set',function () {
+    $id=$(this).data('id');
+    if($(this).hasClass('chk-unchecked')){
+        $(this).removeClass('chk-unchecked');
+        $data=1;
+    }else{
+        $(this).addClass('chk-unchecked');
+        $data=0;
+    }
+    $baseduri = '/savecart';
+    $.post($baseduri,{'id':$id,'param':'share','data':$data},
+        function(data){
+            if(data==1){
+                console.log(data);
+            }else if(data==2){
+                console.log('Корзина создана не вами');
+            }else{
+                console.log(data);
+            }
+        });
+});
+
+$(document).on('click','.del-cart-set',function () {
+    $id=$(this).data('id');
+    $baseduri = '/savecart';
+    $.post($baseduri,{'id':$id,'param':'delete'},
+        function(data){
+            if(data==1){
+                $row=$('[class="cart-set-row"][data-id="'+$id+'"]');
+                $row.remove();
+            }else if(data==2){
+                console.log('Корзина создана не вами');
+            }else{
+                console.log('Ошибка');
+            }
+        });
+});

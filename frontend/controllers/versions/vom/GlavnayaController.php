@@ -73,6 +73,7 @@ use frontend\controllers\actions\ActionSiteSearchword;
 use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
+use frontend\controllers\actions\om\ActionViewCart;
 use Yii;
 use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
@@ -152,6 +153,7 @@ class GlavnayaController extends Controller
         ActionProductsCloth,
         ActionSelectedProduct,
         ActionSaveCart,
+        ActionViewCart,
         ActionTakeOrder;
 
 

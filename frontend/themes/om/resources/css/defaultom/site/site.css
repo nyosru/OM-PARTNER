@@ -3563,6 +3563,58 @@ div.size-desc:last-child{
     display:none;
 }
 
+.cart-set-row{
+    width:97%;
+    margin-left: 1%;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    overflow: hidden;
+    float: left;
+}
+.cart-set-num{
+    float: left;
+    width:80px;
+    text-align: center;
+    line-height: 5;
+}
+.cart-set-share{
+    float: left;
+    height: 100%;
+    width: 80px;
+    text-align: center;
+}
+.cart-set-info{
+    float: left;
+    width: 50%;
+    height: 70px;
+    margin: 25px 40px;
+}
+
+.cart-set-control{
+    float: right;
+    width: 130px;
+    text-align: center;
+}
+.cart-set-control .checkbox-overlay{
+    margin-top: 20px;
+    font-size:23px;
+    height: 30px;
+    width: 30px;
+    float: right;
+    margin-right: 13px;
+}
+.cart-set-lable{
+    height: 70px;
+    overflow: hidden;
+}
+.cart-set-content{
+    background-color: #989898;
+    width: 100%;
+    min-height: 30px;
+    float: left;
+    display: none;
+}
+
 @media screen and (min-width: 3651px) and ( max-width: 4100px){
     #card{
         width: calc(100% / 11 - 10px);

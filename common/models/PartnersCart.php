@@ -50,4 +50,13 @@ class PartnersCart extends \yii\db\ActiveRecord
             'date_modified' => 'Date Modified',
         ];
     }
+
+    public function loadCart($id){
+        $cart=PartnersCart::find()->where(['id'=>$id])->one();
+        if($cart->user_id==yii::$app->user->id) {
+            return $cart;
+        }else{
+            return 2;
+        }
+    }
 }
