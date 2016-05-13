@@ -3274,7 +3274,36 @@ div.size-desc:last-child{
     cursor:pointer;
     display:none;
 }
+#all-categories > ul > li{
+    display: block;
+    float: left;
+    width: calc(100%/3);
+    margin-bottom: 20px;
+}
+#all-categories > ul{
+    display: block;
+    float: left;
+    width:100%;
+}
+#all-categories > ul > li > div{
+    display: block;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+}#all-categories > ul > li > div >a {
+     color: #00A5A1;
+     font-weight: 500;
+ }
 
+#all-categories > ul > li:nth-child(3n) {
+    clear: right;
+}
+#all-categories > ul > li:nth-child(3n+1) {
+    clear: left;
+}
+#all-categories > ul > li > ul {
+    display: block !important;
+
+}
 /*Стили для табов в профиле*/
 .lkprofile {
     padding: 0px;
