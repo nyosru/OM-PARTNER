@@ -1686,6 +1686,12 @@ $(document).on('click','.del-cart-set',function () {
                 }
                 $rows=$('[class="cart-set-row"][data-id="'+$id+'"]');
                 $rows.remove();
+                $recount=$('[data-row]');
+                $.each($recount,function ($i,$item) {
+                    $num=parseInt($item.getAttribute('data-row'));
+                    $num--;
+                    $item.setAttribute('data-row',$num);
+                })
             }else if(data==2){
                 console.log('Корзина создана не вами');
             }else{
