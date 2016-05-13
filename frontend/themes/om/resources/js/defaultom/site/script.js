@@ -120,7 +120,7 @@ $(document).on('click', '.del-product', function () {
 
 
 
-    //$amount_prod == $item.cart.length;
+    //$amount_prod == $item.cart.length;;;
     $(".cart-count").html($amount_prod);
     $(".cart-price").html($cart_price + ' руб.');
     changeOveralPrice();
