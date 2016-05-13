@@ -4,6 +4,8 @@
 //echo '<pre>';
 //die();
 
+$this->title='Мои товары';
+
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div><div style="overflow: hidden">';
 if($_COOKIE['cardview']==1) {
     foreach ($orderedproducts as $val) {

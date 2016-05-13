@@ -1,3 +1,6 @@
+<?php
+$this->title='Просмотр сохраненных корзин';
+?>
 <script>
     $cartset=[];
 </script>
@@ -26,7 +29,7 @@ foreach ($cart as $k=>$v) {
             <div class="cart-set-info"><?=$v->comment?></div>
             <div class="cart-set-control">
                 <i title="Удалить корзину" class="checkbox-overlay fa fa-times del-cart-set" data-row="<?=$k?>"  data-id="<?=$v->id?>" style="background-color:transparent;color:#ea516d;border-color: #cccccc;"></i>
-                <i title="Редактировать корзину" class="checkbox-overlay fa fa-pencil" style="background-color:transparent;color:#007BC1;border-color: #cccccc;"></i>
+                <i title="Добавить товары в текущую корзину" data-row="<?=$k?>" class="checkbox-overlay fa fa-cart-arrow-down add-cart-set" style="background-color:transparent;color:#007BC1;border-color: #cccccc;"></i>
                 <i title="Посмотреть корзину" data-row="<?=$k?>" class="checkbox-overlay fa fa-arrow-down open-set" style="background-color:transparent;color:#00A5A1;border-color: #cccccc;"></i>
             </div>
         </div>
@@ -51,4 +54,53 @@ foreach ($cart as $k=>$v) {
         }
     }
     saveCartSet($cartset);
+    function addSetToCart($row){
+        if(JSON.parse(localStorage.getItem('cart-om'))) {
+            $cart = JSON.parse(localStorage.getItem('cart-om'));
+            $set = JSON.parse(localStorage.getItem('cart-set'));
+            $set = $set[$row];
+            $count=parseInt($('.cart-count')[0].innerHTML);
+            $count2=0;
+            if($cart!=null) {
+                $.each($set.cart, function ($i, $item) {
+                    if ($cart.cart.length > 0) {
+                        $.each($cart.cart, function ($k, $v) {
+                            if ($item[0] == $v[0] && $item[2] == $v[2]) {
+                                $cart.cart[$k][4] = parseInt($item[4]) + parseInt($cart.cart[$k][4]);
+                                $count2+=parseInt($item[4])
+                            } else {
+                                $cart.cart.push($item);
+                                $count2+=parseInt($item[4])
+                            }
+                            return false;
+                        })
+
+                    } else {
+                        $cart.cart.push($item);
+                        $count2+=parseInt($item[4])
+                    }
+                })
+            }else{
+                $cart.cart=[];
+                $cart.cart.push($item);
+                $count2+=parseInt($item[4])
+            }
+            $cart = JSON.stringify($cart);
+            localStorage.removeItem('cart-om');
+            localStorage.setItem('cart-om', $cart);
+        }else {
+            console.log('Отсутствует корзина');
+            $set = JSON.parse(localStorage.getItem('cart-set'));
+            $set = JSON.stringify($set[$row]);
+            localStorage.setItem('cart-om', $set);
+            console.log('Корзина сохранена');
+        }
+        $count+=$count2;
+        $('.cart-count').html($count);
+    }
+
+    $(document).on('click','.add-cart-set',function(){
+        $row=$(this).data('row')
+        addSetToCart($row);
+    })
 </script>

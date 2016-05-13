@@ -1731,7 +1731,7 @@ function drawLeftCart($item){
         }
         $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 420px;margin-left: 60px; padding: 5px;">' +
             '<div class = "access '+$identypay+'" >'+$access+'</div>'+
-            '<a target="_blank" href="/product?id='+requestdata.responseJSON.product.products.products_id+'" class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></a>' +
+            '<a target="_blank" href="/product?id='+requestdata.responseJSON.product.products.products_id+'" class="cart-image" style="float: left; width:120px;height: 180px;"><img style="width: 100%; max-height:100%;" src="/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></a>' +
             '<div class="cart-row-content" style="overflow:hidden; height:100%;float:left;width:70%;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
             '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+requestdata.responseJSON.product.products.products_model +' </span>| <span id="gods-name">'+requestdata.responseJSON.product.productsDescription.products_name+'</span></div>' +
             '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +

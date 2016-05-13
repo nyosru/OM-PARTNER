@@ -31,7 +31,7 @@ $this->beginPage();
           href="<?= BASEURL ?>/addsearch" />
 
     <?= Html::csrfMetaTags() ?>
-
+    <title><?= Html::encode($this->title) ?></title>
     <?php $this->head();
 
      ?>
@@ -75,6 +75,15 @@ $this->beginPage();
                 <div class="partners-main-left-cont" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div class="partners-main-left">
                         <div class="partners-main-left">
+                            <ul id="accordion" class="accordion">
+                                <li class="">
+                                    <div id="profile-orders" class="link profile-orders">
+                                        <a href="<?= BASEURL ?>/viewcart">
+                                            Мои наборы товаров
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
