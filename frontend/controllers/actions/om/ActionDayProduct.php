@@ -50,10 +50,11 @@ trait ActionDayProduct
                 'searchword' => $searchword
             ],
             $options = [
+                'date'=>'offset',
                 'typeresponse'=> $json,
                 'maxtime'=>date('Y-m-d H:i:s'),
-                'offsettime'=>'-5 months',
-                'cachelistkeyprefix' => 'catalog-5month',
+                'offsettime'=>'-7 months',
+                'cachelistkeyprefix' => 'catalog-7month',
                 'cacheproductkey'=> 'product'
             ]);
 

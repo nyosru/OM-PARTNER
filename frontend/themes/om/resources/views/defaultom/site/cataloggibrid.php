@@ -179,6 +179,33 @@ echo '<div class="partners-main-right bside">';
                                 'range' => true,
                                 ],
                             ]);
+        $headbside .=   '<div><hr style="border-color: #CCC">'.
+        'Дата'.
+           '</div>'.\kartik\date\DatePicker::widget([
+                'options'=>[
+                    'placeholder'=>'C',
+                ],
+
+                'language'=>'ru',
+                'name' => 'date_start',
+                'value' => '',
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'dd-mm-yyyy'
+                ]
+            ]).\kartik\date\DatePicker::widget([
+                'options'=>[
+                    'placeholder'=>'До',
+                ],
+
+                'language'=>'ru',
+                'name' => 'date_end',
+                'value' => '',
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'dd-mm-yyyy'
+                ]
+            ]);
     if(count($data[3])>1){
     $headbside .=           '<div><hr style="border-color: #CCC">'.
                             'Размеры'.
@@ -223,9 +250,9 @@ echo '<div class="partners-main-right bside">';
 
     $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
 
-    $headbside .= ' <a href="#demo" style="float: left;color: rgb(0, 165, 161);margin-right: 30px;font-size: 16px;border: 1px solid rgb(204, 204, 204);padding: 0px 25px;border-radius: 4px;font-weight: 500;" data-toggle="collapse">Сортировка</a>';
+    $headbside .= ' <a href="#demo" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" data-toggle="collapse">Сортировка</a>';
 
-    $headbside .= '<div id="demo" class="collapse">';
+    $headbside .= '<div id="demo" style="width: 200px; position: absolute; margin-top: 25px; z-index: 98;" class="collapse">';
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
 
     $sortorder = [['дате', 0, 10, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
@@ -243,7 +270,7 @@ echo '<div class="partners-main-right bside">';
             $class = 'sort ';
         }
         if ($value[1] == $data[11] || $value[2] == $data[11]) {
-            $headbside .= '<a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i class="fa fa-' . $arrow . '"> </i></div></a>';
+            $headbside .= '<a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i style="float: right; padding: 3px 10px;" class="fa fa-' . $arrow . '"> </i></div></a>';
         } else {
             $headbside .= '<a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
         }

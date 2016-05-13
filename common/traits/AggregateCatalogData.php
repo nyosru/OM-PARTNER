@@ -24,9 +24,10 @@ trait AggregateCatalogData
             'count'=>'', 
             'page'=>'', 
             'sort'=>'', 
-            'searchword'=>''
+            'searchword'=>'',
         ],
         $options = [
+            'date'=> '',
             'typeresponse'=> 'array',
             'maxtime'=>'',
             'offsettime'=>'',
@@ -42,6 +43,9 @@ trait AggregateCatalogData
         $count = (integer)($params['count']);
         $page = (integer)($params['page']);
         $sort = (integer)($params['sort']);
+        $date = $options['date'];
+        $maxtime = $options['maxtime'];
+        $offsettime = $options['offsettime'];
         $searchword = urldecode(($params['searchword']));
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];
@@ -77,25 +81,42 @@ trait AggregateCatalogData
             $cat = implode(',', $cat);
             Yii::$app->cache->set($static_cat_key, $cat, 3600);
         }
+        switch ($date){
+            case 'offset' :
+                $now = date('Y-m-d H:i:s');
+                $arfilt[':now'] =$now;
+                $arfilt_pricemax[':now'] =  $now;
+                $arfilt_attr[':now'] = $now;
+                $day = date('Y-m-d H:i:s');
+                $d = new \DateTime($day);
+                $d->modify($offsettime);
+                $day = $d->format("Y-m-d H:i:s");
+                $arfilt[':day'] = $day;
+                $arfilt_pricemax[':day'] = $day;
+                $arfilt_attr[':day'] = $day;
+                $prod_day_query_filt = ' and products_date_added > :day';
+                break;
+            case 'param':
+                $now = date('Y-m-d H:i:s',strtotime($maxtime));
+                $arfilt[':now'] =$now;
+                $arfilt_pricemax[':now'] =  $now;
+                $arfilt_attr[':now'] = $now;
+                $day =  date('Y-m-d H:i:s',strtotime($offsettime));
+                $arfilt[':day'] = $day;
+                $arfilt_pricemax[':day'] = $day;
+                $arfilt_attr[':day'] = $day;
+                $prod_day_query_filt = ' and products_date_added > :day';
+                break;
+            default:
+                $now = date('Y-m-d H:i:s');
+                $arfilt[':now'] =$now;
+                $arfilt_pricemax[':now'] =  $now;
+                $arfilt_attr[':now'] = $now;
+                $prod_day_query_filt = '';
 
-        // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
-        $now = date('Y-m-d H:i:s');
-        $arfilt[':now'] =$now;
-        $arfilt_pricemax[':now'] =  $now;
-        $arfilt_attr[':now'] = $now;
-        if($options['offsettime']) {
-            $day = date('Y-m-d H:i:s');
-            $d = new \DateTime($day);
-            $d->modify($options['offsettime']);
-            $day = $d->format("Y-m-d H:i:s");
-            $arfilt[':day'] = $day;
-            $arfilt_pricemax[':day'] = $day;
-            $arfilt_attr[':day'] = $day;
-            $prod_day_query_filt = ' and products_date_added > :day';
-        }else{
-
-            $prod_day_query_filt = '';
         }
+
+
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now' ,[':now'=>$now])->limit($count)->offset($start_arr)->asArray()->one();
         $ds1 =  strtotime($x['products_last_modified']);
         $ds2 =  strtotime($x['add_date']);

@@ -56,10 +56,12 @@ $config['controllerNamespace'] = 'frontend\controllers\versions' . $version['fro
 $application->defaultRoute = $version['frontend']['defroute'] . '/index';
 $config['components']['errorHandler']['errorAction'] = $version['frontend']['erraction'] . '/error';
 $catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
+
 $config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
 $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['<action>'] = '' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
+
 
 //define('BASEURL', '/' . $version['frontend']['defroute']);
 define('BASEURL', '');

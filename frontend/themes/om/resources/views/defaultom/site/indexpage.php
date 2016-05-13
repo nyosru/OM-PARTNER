@@ -14,23 +14,23 @@ $this->title = $title;
     ?>
     <div id="main-index">
         <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><a
-                href="<?= BASEURL ?>/catalog?cat=1750&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;" src="/images/banners/382_327_1.1.png"></a></div>
+                href="<?= BASEURL ?>/catalog?cat=1734&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                    style="width: 100%; height: auto;" src="/images/banners/13052016_1.png"></a></div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
-                href="<?= BASEURL ?>/catalog?cat=1990&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"    src="/images/banners/382_159_1.1.png"></a></div>
+                href="<?= BASEURL ?>/catalog?cat=1983&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                    style="width: 100%; height: auto;"    src="/images/banners/13052016_3.png"></a></div>
         <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
                 href="<?= BASEURL ?>/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"  src="/images/banners/773_496.1.png"></a></div>
+                    style="width: 100%; height: auto;"  src="/images/banners/13052016_5.gif"></a></div>
         <div id="index-card-5" style="float:right" class="data-j index-card banner-card" data-cat="2047"><a
-                href="<?= BASEURL ?>/catalog?cat=1544&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"  src="/images/banners/382_327_2.1.png"></a></div>
+                href="<?= BASEURL ?>/catalog?cat=1775&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                    style="width: 100%; height: auto;"  src="/images/banners/13052016_2.png"></a></div>
         <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><a
-                href="<?= BASEURL ?>/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"  src="/images/banners/382_159_2.1.png"></a></div>
+                href="<?= BASEURL ?>/catalog?cat=2047&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                    style="width: 100%; height: auto;"  src="/images/banners/13052016_4.png"></a></div>
         <div id="index-card-6" style="width: calc(100% - 10px);"class="data-j index-card banner-card" data-cat="1836"><a
-                href="<?= BASEURL ?>/catalog?cat=2040&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;" src="/images/banners/1570_160_1.png"></a></div>
+                href="<?= BASEURL ?>/catalog?cat=1523&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                    style="width: 100%; height: auto;" src="/images/banners/13052016_6.gif"></a></div>
     </div>
 
 

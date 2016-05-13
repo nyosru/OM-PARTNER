@@ -1659,14 +1659,17 @@ $(document).on('click','#overlay-save-cart, #close-cart-save',function(){
     $('#overlay-save-cart').hide();
 });
 $(document).on('click','.del-products',function(){
-    console.log($(this).parent().filter('[itemid]').attr('itemid'));
     $id =  $(this).parent().filter('[itemid]').attr('itemid');
     $('[itemid='+$id+']').remove();
     $new_cart = new Object();
     $item = JSON.parse(localStorage.getItem('selected-product-om'));
-    $item.cart.splice($delrow, 1);
+    $.each($item.products, function(i,item){
+        if(item == $id){
+            $item.products.splice(i, 1);
+        }
+    });
+
     $ilocal = JSON.stringify($item);
     localStorage.setItem('selected-product-om', $ilocal);
-    $(".cart-count").html($amount_prod);
-    $(".cart-price").html($cart_price + ' руб.');
+
 });
