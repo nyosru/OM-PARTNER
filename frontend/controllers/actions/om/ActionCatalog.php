@@ -1,23 +1,18 @@
 <?php
 namespace frontend\controllers\actions\om;
 
-use common\models\PartnersPage;
-use common\models\PartnersProducts;
+use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsOptionVal;
 use common\models\PartnersProductsToCategories;
-use yii\bootstrap\Tabs;
-use Faker\Provider\zh_TW\DateTime;
 use Yii;
-use common\models\PartnersConfig;
-use yii\data\ActiveDataProvider;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
-trait ActionDayProduct
+trait ActionCatalog
 {
-    public function actionDayproduct()
+    public function actionCatalog()
     {
-
-        if (Yii::$app->request->isGet) {
+        if(Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
             $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
             $end_price = (integer)(Yii::$app->request->getQueryParam('end_price'));
@@ -25,9 +20,13 @@ trait ActionDayProduct
             $count = (integer)(Yii::$app->request->getQueryParam('count', 60));
             $page = (integer)(Yii::$app->request->getQueryParam('page', 0));
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
+            $date_start = Yii::$app->request->getQueryParam('date_start');
+            if(($date_end = Yii::$app->request->getQueryParam('date_end')) == FALSE){
+                $date_end = date('Y-m-d H:i:s');
+            }
             $searchword = Yii::$app->request->getQueryParam('searchword', '');
             $json = Yii::$app->request->post('json');
-        } elseif (Yii::$app->request->isPost) {
+        }elseif(Yii::$app->request->isPost) {
             $cat_start = (integer)(Yii::$app->request->post('cat'));
             $start_price = (integer)(Yii::$app->request->post('start_price', 0));
             $end_price = (integer)(Yii::$app->request->post('end_price', 1000000));
@@ -36,25 +35,30 @@ trait ActionDayProduct
             $page = (integer)(Yii::$app->request->post('page', 0));
             $sort = (integer)(Yii::$app->request->post('sort', 10));
             $searchword = urldecode(Yii::$app->request->post('searchword', ''));
+            $date_start = Yii::$app->request->getQueryParam('date_start');
+            if(($date_end = Yii::$app->request->getQueryParam('date_end')) == FALSE){
+                $date_end = date('Y-m-d H:i:s');
+            }
             $json = Yii::$app->request->post('json');
         }
         $data = $this->AggregateCatalogData(
-            $params = [
-                'cat_start' => $cat_start,
-                'start_price' => $start_price,
-                'end_price' => $end_price,
-                'prod_attr_query' => $prod_attr_query,
-                'count' => $count,
-                'page' => $page,
-                'sort' => $sort,
-                'searchword' => $searchword
+            $params=[
+                'cat_start'=>$cat_start,
+                'start_price'=>$start_price,
+                'end_price'=>$end_price,
+                'prod_attr_query'=>$prod_attr_query,
+                'count'=>$count,
+                'page'=>$page,
+                'sort'=>$sort,
+                'searchword'=>$searchword,
+
             ],
             $options = [
-                'date'=>'offset',
+                'date'=>'param',
                 'typeresponse'=> $json,
-                'maxtime'=>date('Y-m-d H:i:s'),
-                'offsettime'=>'-7 months',
-                'cachelistkeyprefix' => 'catalog-7month',
+                'maxtime'=>$date_end,
+                'offsettime'=>$date_start,
+                'cachelistkeyprefix' => 'catalog',
                 'cacheproductkey'=> 'product'
             ]);
 
@@ -62,7 +66,7 @@ trait ActionDayProduct
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return $data;
         } else {
-            return $this->render('cataloggibrid', $data);
+           return $this->render('cataloggibrid', $data);
         }
     }
 }
