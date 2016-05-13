@@ -162,14 +162,14 @@ trait ActionSaveorder
             $orders->ur_or_fiz = 'f';
 
             $orders->customers_id = $userCustomer['customers_id'];
-            $orders->customers_name = $default_user_address['entry_lastname'] . ' ' . $default_user_address['entry_firstname'] . ' ' . $default_user_address['otchestvo'];
+            $orders->customers_name = substr($default_user_address['entry_lastname'] . ' ' . $default_user_address['entry_firstname'] . ' ' . $default_user_address['otchestvo'],0,64);
             $orders->customers_groups_id = $userCustomer['customers_groups_id'];
             $orders->customers_company = $default_user_address['entry_company'];
             $orders->customers_suburb = $default_user_address['entry_suburb'];
             $orders->customers_country = $defaultentrycountry['countries_name'];
             $orders->customers_state = $defaultentryzones['zone_name'];
             $orders->customers_city = $default_user_address['entry_city'];
-            $orders->customers_street_address = $default_user_address['entry_street_address'];
+            $orders->customers_street_address = substr($default_user_address['entry_street_address'],0,64);
             if ($default_user_address['entry_postcode']) {
                 $orders->customers_postcode = $default_user_address['entry_postcode'];
             } else {
@@ -593,7 +593,7 @@ trait ActionSaveorder
                                         return $this->render('cartresult', ['wrapprice' => (integer)$wrapp['products_price'],
                                             'result' => [
                                                 'code' => 0,
-                                                'text' => 'Ошибка оформления позиции ' . $reindexprod[$keyin_order]['products_model'],
+                                                'text' => 'Ошибка оформления позиции код 345 ' . $reindexprod[$keyin_order]['products_model'],
                                                 'data' => [
                                                     'paramorder' => [
                                                     ],
@@ -621,7 +621,7 @@ trait ActionSaveorder
                                 return $this->render('cartresult', [
                                     'result' => [
                                         'code' => 0,
-                                        'text' => 'Ошибка оформления продукта' . $reindexprod[$keyin_order]['products_model'],
+                                        'text' => 'Ошибка оформления продукта код 425' . $reindexprod[$keyin_order]['products_model'],
                                         'data' => [
                                             'paramorder' => [
                                             ],
@@ -662,7 +662,7 @@ trait ActionSaveorder
                     return $this->render('cartresult', [
                         'result' => [
                             'code' => 0,
-                            'text' => 'Ошибка оформления заказа',
+                            'text' => 'Ошибка оформления заказа код 101',
                             'data' => [
                                 'paramorder' => [
                                 ],
@@ -687,7 +687,7 @@ trait ActionSaveorder
                     return $this->render('cartresult', [
                         'result' => [
                             'code' => 0,
-                            'text' => 'Ошибка оформления заказа',
+                            'text' => 'Ошибка оформления заказа код 102',
                             'data' => [
                                 'paramorder' => [
                                 ],
@@ -712,7 +712,7 @@ trait ActionSaveorder
                     return $this->render('cartresult', [
                         'result' => [
                             'code' => 0,
-                            'text' => 'Ошибка оформления заказа',
+                            'text' => 'Ошибка оформления заказа код 103',
                             'data' => [
                                 'paramorder' => [
                                 ],
@@ -739,7 +739,7 @@ trait ActionSaveorder
                     return $this->render('cartresult', [
                         'result' => [
                             'code' => 0,
-                            'text' => 'Ошибка оформления заказа',
+                            'text' => 'Ошибка оформления заказа код 104',
                             'data' => [
                                 'paramorder' => [
                                 ],
@@ -775,7 +775,7 @@ trait ActionSaveorder
                     return $this->render('cartresult', [
                         'result' => [
                             'code' => 0,
-                            'text' => 'Ошибка оформления заказа',
+                            'text' => 'Ошибка оформления заказа код 105',
                             'data' => [
                                 'paramorder' => [
                                 ],
@@ -788,10 +788,11 @@ trait ActionSaveorder
                 }
 
             } else {
+                $orders->validate();
                 return $this->render('cartresult', [
                     'result' => [
                         'code' => 0,
-                        'text' => 'Ошибка оформления заказа',
+                        'text' => 'Ошибка оформления заказа код 106 '.json_encode($orders->errors),
                         'data' => [
                             'paramorder' => [
                             ],
@@ -881,7 +882,7 @@ trait ActionSaveorder
             Yii::$app->mailer->compose()
                 ->setFrom('support@newodezhdamaster.com')
                 ->setTo('desure85@gmail.com')
-                ->setSubject('Ошибка оформления')
+                ->setSubject('Ошибка оформления 7')
                 ->setTextBody(
 
                     $orders->orders_id.'/////'.
