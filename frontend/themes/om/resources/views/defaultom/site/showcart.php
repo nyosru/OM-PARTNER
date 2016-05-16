@@ -6,7 +6,7 @@
 <?php
 if(isset($success)){
     if($success==0){
-        echo '<div>Корзины с таким номером не обнаружено, попробуйте ввести другой</div>';
+        echo '<div>Корзины с таким номером не обнаружено, попробуйте ввести другой.</div>';
     }elseif($success==1){
         $body=unserialize($cart->cart_body);
         $cartset=[];
