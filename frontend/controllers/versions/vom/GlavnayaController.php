@@ -156,7 +156,7 @@ class GlavnayaController extends Controller
         ActionSelectedProduct,
         ActionSaveCart,
         ActionViewCart,
-        ActionTakeOrder;
+        ActionTakeOrder,
         ActionAllCategories,
         AggregateCatalogData;
 
