@@ -120,7 +120,7 @@ $(document).on('click', '.del-product', function () {
 
 
 
-    //$amount_prod == $item.cart.length;;;
+    //$amount_prod == $item.cart.length;
     $(".cart-count").html($amount_prod);
     $(".cart-price").html($cart_price + ' руб.');
     changeOveralPrice();
@@ -526,7 +526,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
                 $descriptionprod['products_name']="Не указано";
             }
 
-            console.log(value);
+         
             $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
                 '<input '+$inputpos+' id="input-count"'+
@@ -582,8 +582,11 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
         $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
 
     }
+    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'+$product['products_id']+'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
+    $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">12</div>';
+
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
 
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -1792,3 +1795,19 @@ $(document).on('click','.open-set',function(){
     drawLeftCart($content);
     $('[class=cart-set-content][data-row='+$row+']').html($innerhtml);
 })
+
+$(document).on('click','.del-products',function(){
+    $id =  $(this).parent().filter('[itemid]').attr('itemid');
+    $('[itemid='+$id+']').remove();
+    $new_cart = new Object();
+    $item = JSON.parse(localStorage.getItem('selected-product-om'));
+    $.each($item.products, function(i,item){
+        if(item == $id){
+            $item.products.splice(i, 1);
+        }
+    });
+
+    $ilocal = JSON.stringify($item);
+    localStorage.setItem('selected-product-om', $ilocal);
+
+});

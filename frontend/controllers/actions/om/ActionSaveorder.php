@@ -106,7 +106,7 @@ trait ActionSaveorder
             $queryproduct[] = $prodkey;
         }
         if ($queryproduct) {
-            $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->all();
+            $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ' )->asArray()->all();
         } else {
             return $this->redirect(Yii::$app->request->referrer);
         }
@@ -354,7 +354,7 @@ trait ActionSaveorder
 
                             $year = date('Y', strtotime($nowdate));
                             // проверяем: когда был сделан заказ и когда был создан партнер, если заказ был создан после создания партнера и на момент создания заказа клиент оплатил более min_raiting заказов, а так же не находится в ЧС, то пытаемся переключить заказ на регионала
-                            if (!$partners[$last_partner_id]['support_black_list'] && $userCustomer['customers_groups_id'] != 3) {
+                            if ($partners[$last_partner_id]['support_black_list'] || $userCustomer['customers_groups_id'] != 3) {
                                 $in_black_list = false;
                             } else {
                                 $in_black_list = true;
