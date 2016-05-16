@@ -135,7 +135,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $man_time_list = '';
         }
-        if(in_array($product['manufacturers_id'], [749,2700,1241,2058,3412,3473,3481])){
+        if(in_array($product['manufacturers_id'], [749,2700,1241,2058,3412,3473,3481,3512])){
             $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="'.BASEURL.'/images/logo/ok.png"></div>';
         }else{
             $man_in_sklad = '';

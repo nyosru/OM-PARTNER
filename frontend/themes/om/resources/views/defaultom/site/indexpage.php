@@ -182,6 +182,7 @@ $this->title = $title;
             </div>
         </div>
     </div>
+
     <div style="clear: both;">
 
         <div style="margin: 0px 15px;float: left;margin-top:30px;">

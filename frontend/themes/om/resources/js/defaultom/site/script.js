@@ -490,7 +490,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
-    if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481']) != -1){
+    if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481','3512']) != -1){
         $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><img src="/images/logo/ok.png"></div>';
     }else{
         $man_in_sklad = '';
@@ -628,7 +628,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '';
-    if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481"]) != -1){
+    if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481",'3512']) != -1){
         $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="/images/logo/ok.png"></div>';
     }else{
         $man_in_sklad = '';
@@ -753,8 +753,6 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
         '</div></div>');
 }
 $(document).on('click keydown', '.lock-on', function () {
-    $('body').addClass('some');
-    $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
 });
@@ -1568,7 +1566,7 @@ $(document).on('click','#prod-info',function(){
                 'position' : 'inside'
             });
         };
-        setTimeout(cloud, 500);
+        setTimeout(cloud, 1000);
         var cont_top = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
         $('#overlay')
             .css('display', 'block');
