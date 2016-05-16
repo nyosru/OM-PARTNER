@@ -65,6 +65,7 @@ use frontend\controllers\actions\ActionSavehtml;
 use frontend\controllers\actions\om\ActionSaveorder;
 use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
+use frontend\controllers\actions\om\ActionShowCart;
 use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
 use frontend\controllers\actions\om\ActionProductsMonth;
@@ -156,8 +157,9 @@ class GlavnayaController extends Controller
         ActionSelectedProduct,
         ActionSaveCart,
         ActionViewCart,
-        ActionTakeOrder;
+        ActionTakeOrder,
         ActionAllCategories,
+        ActionShowCart,
         AggregateCatalogData;
 
 

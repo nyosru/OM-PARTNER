@@ -257,69 +257,42 @@ $(document).on('click', '.cart-lable', function () {
 
             });
             $(".cart-count").html($amount_prod);
-           
+
         } });
 });
 $(document).on('click', '.selected-product', function () {
     $id_product =   parseInt(this.getAttribute('data-product'));
     $checkzero = 0;
     $noanimate = false;
-        var $item = new Object();
-        $item.products = [];
-        if($id_product > 0) {
-            $checkzero = 1;
-            if (JSON.parse(localStorage.getItem('selected-product-om'))) {
-                $timenow  =  new Date;
-                if(localStorage.getItem('selected-product-om-date')){
-                    $timecart =  new Date;
-                    $timecart = localStorage.getItem('selected-product-om-date');
-                    // if($timenow.getTime() - $timecart > 604800000){
-                    //     localStorage.removeItem('cart-om');
-                    //     localStorage.removeItem('cart-om-date');
-                    //     return false;
-                    // }
-                }else{
-                    localStorage.setItem('selected-product-om-date', $timenow.getTime());
-                }
-                $item = JSON.parse(localStorage.getItem('selected-product-om'));
-                $i = $item.products.length;
-            } else {
-                var $time = new Date;
-                localStorage.setItem('selected-product-om-date', $time.getTime());
-                $i = 0;
+    var $item = new Object();
+    $item.products = [];
+    if($id_product > 0) {
+        $checkzero = 1;
+        if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+            $timenow  =  new Date;
+            if(localStorage.getItem('selected-product-om-date')){
+                $timecart =  new Date;
+                $timecart = localStorage.getItem('selected-product-om-date');
+                // if($timenow.getTime() - $timecart > 604800000){
+                //     localStorage.removeItem('cart-om');
+                //     localStorage.removeItem('cart-om-date');
+                //     return false;
+                // }
+            }else{
+                localStorage.setItem('selected-product-om-date', $timenow.getTime());
             }
-            x = 0;
-            if ($id_product > 0) {
-                if($noanimate == false) {
-                    $noanimate = true;
-                    $($(this))
-                        .clone()
-                        .css({
-                            'position': 'absolute',
-                            'z-index': '11100',
-                            top: $(this).offset()['top'],
-                            left: $(this).offset()['left']
-                        })
-                        .appendTo("body")
-                        .animate({
-                            opacity: 0.05,
-                            left: $(".selected-count").offset()['left'],
-                            top: $(".selected-count").offset()['top'],
-                            width: 20,
-                        }, 1000, function () {
-                            $(this).remove();
-                            $noanimate = false;
-                        });
-
-                }
-                $.each($item.products, function () {
-                    if ($id_product == this) {
-                         x = 1;
-                    }
-                });
-            } else {
+            $item = JSON.parse(localStorage.getItem('selected-product-om'));
+            $i = $item.products.length;
+        } else {
+            var $time = new Date;
+            localStorage.setItem('selected-product-om-date', $time.getTime());
+            $i = 0;
+        }
+        x = 0;
+        if ($id_product > 0) {
+            if($noanimate == false) {
                 $noanimate = true;
-                $($(this).parent().parent())
+                $($(this))
                     .clone()
                     .css({
                         'position': 'absolute',
@@ -337,34 +310,61 @@ $(document).on('click', '.selected-product', function () {
                         $(this).remove();
                         $noanimate = false;
                     });
-                $item.products[$i] = $id_product;
+
             }
-            if (x == 0) {
-                $($(this))
-                    .clone()
-                    .css({
-                        'position': 'absolute',
-                        'z-index': '11100',
-                        top: $(this).offset()['top'],
-                        left: $(this).offset()['left']
-                    })
-                    .appendTo("body")
-                    .animate({
-                        opacity: 0.05,
-                        left: $(".selected-count").offset()['left'],
-                        top: $(".selected-count").offset()['top'],
-                        width: 20,
-                    }, 1000, function () {
-                        $(this).remove();
-                    });
-                $item.products[$i] = $id_product;
-            }
-            $ilocal = JSON.stringify($item);
-            localStorage.setItem('selected-product-om', $ilocal);
-            $arr_prod = $item.products;
-            $amount_prod = 0;
-            $(".selected-count").html($item.products.length);
+            $.each($item.products, function () {
+                if ($id_product == this) {
+                    x = 1;
+                }
+            });
+        } else {
+            $noanimate = true;
+            $($(this).parent().parent())
+                .clone()
+                .css({
+                    'position': 'absolute',
+                    'z-index': '11100',
+                    top: $(this).offset()['top'],
+                    left: $(this).offset()['left']
+                })
+                .appendTo("body")
+                .animate({
+                    opacity: 0.05,
+                    left: $(".selected-count").offset()['left'],
+                    top: $(".selected-count").offset()['top'],
+                    width: 20,
+                }, 1000, function () {
+                    $(this).remove();
+                    $noanimate = false;
+                });
+            $item.products[$i] = $id_product;
         }
+        if (x == 0) {
+            $($(this))
+                .clone()
+                .css({
+                    'position': 'absolute',
+                    'z-index': '11100',
+                    top: $(this).offset()['top'],
+                    left: $(this).offset()['left']
+                })
+                .appendTo("body")
+                .animate({
+                    opacity: 0.05,
+                    left: $(".selected-count").offset()['left'],
+                    top: $(".selected-count").offset()['top'],
+                    width: 20,
+                }, 1000, function () {
+                    $(this).remove();
+                });
+            $item.products[$i] = $id_product;
+        }
+        $ilocal = JSON.stringify($item);
+        localStorage.setItem('selected-product-om', $ilocal);
+        $arr_prod = $item.products;
+        $amount_prod = 0;
+        $(".selected-count").html($item.products.length);
+    }
 });
 $(document).on('click', '.countdisplay', function index_count_display() {
     $('.page-checked').removeClass('page-checked');
@@ -526,7 +526,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
                 $descriptionprod['products_name']="Не указано";
             }
 
-         
+            console.log(value);
             $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
                 '<input '+$inputpos+' id="input-count"'+
@@ -582,11 +582,8 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
         $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
 
     }
-    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'+$product['products_id']+'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
-    $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">12</div>';
-
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
 
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -1568,7 +1565,7 @@ $(document).on('click','#prod-info',function(){
                 'position' : 'inside'
             });
         };
-       setTimeout(cloud, 500);
+        setTimeout(cloud, 500);
         var cont_top = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
         $('#overlay')
             .css('display', 'block');
@@ -1646,8 +1643,7 @@ $(document).on('click','#save-set',function(){
     $('#modal-save-set').css('display', 'block');
     $('#overlay-save-cart').css('display','block');
 })
-
-$(document).on('click','#overlay-save-cart, #close-cart-save',function(){
+$(document).on('click','#overlay-save-cart, #close-cart-save,#save-set-btn',function(){
     $('#modal-save-set').hide();
     $('#overlay-save-cart').hide();
 })
@@ -1711,7 +1707,7 @@ function drawLeftCart($item){
     }
     $c = 0;
 
-    
+
     $.each($i, function () {
         var mandata = [];
         var requestdata = [];
@@ -1796,21 +1792,3 @@ $(document).on('click','.open-set',function(){
     drawLeftCart($content);
     $('[class=cart-set-content][data-row='+$row+']').html($innerhtml);
 })
-
-
-});
-$(document).on('click','.del-products',function(){
-    $id =  $(this).parent().filter('[itemid]').attr('itemid');
-    $('[itemid='+$id+']').remove();
-    $new_cart = new Object();
-    $item = JSON.parse(localStorage.getItem('selected-product-om'));
-    $.each($item.products, function(i,item){
-        if(item == $id){
-            $item.products.splice(i, 1);
-        }
-    });
-
-    $ilocal = JSON.stringify($item);
-    localStorage.setItem('selected-product-om', $ilocal);
-
-});
