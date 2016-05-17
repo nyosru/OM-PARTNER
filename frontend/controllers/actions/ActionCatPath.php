@@ -2,7 +2,7 @@
 namespace frontend\controllers\actions;
 
 
-use Yii;
+use yii;
 
 trait   ActionCatPath
 {

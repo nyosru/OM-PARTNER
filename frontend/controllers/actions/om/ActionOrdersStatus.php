@@ -1,5 +1,5 @@
 <?php
-namespace frontend\controllers\om;
+namespace frontend\controllers\actions\om;
 
 use yii;
 use common\traits\OrdersStatusData;
