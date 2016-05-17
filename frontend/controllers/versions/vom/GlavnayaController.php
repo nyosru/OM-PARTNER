@@ -7,11 +7,13 @@ use common\traits\AggregateCatalogData;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
 use common\traits\Fullopcat;
+use common\traits\GetSuppliers;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
 use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
+use common\traits\OrdersStatusData;
 use common\traits\Reformat_cat_array;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
@@ -77,6 +79,8 @@ use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
 use frontend\controllers\actions\om\ActionViewCart;
+use frontend\controllers\om\ActionOrdersStatus;
+use frontend\controllers\om\ActionSuppliers;
 use Yii;
 use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
@@ -100,8 +104,11 @@ class GlavnayaController extends Controller
         Hide_manufacturers_for_partners,
         OpenSearch,
         CatPath,
+        GetSuppliers,
+        OrdersStatusData,
         ManufacturersDiapazonData,
         ActionSiteIndex,
+        ActionSuppliers,
         ActionSiteRequest,
         ActionSiteSearchword,
         ActionSiteSaveUserProfile,
@@ -118,6 +125,7 @@ class GlavnayaController extends Controller
         ActionFaq,
         ActionPaying,
         ActionSignup,
+        ActionOrdersStatus,
         ActionNewComments,
         ActionRequestorders,
         ActionSaveorder,
