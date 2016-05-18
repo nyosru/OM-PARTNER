@@ -1,10 +1,15 @@
 <?php
 namespace frontend\widgets;
 
-use Yii;
+use common\traits\Categories_for_partner;
+use common\traits\RecursCat;
+use yii;
+use common\traits\CatPath;
 
 class ProductCard2 extends \yii\bootstrap\Widget
 {
+    use CatPath,Categories_for_partner,RecursCat;
+    public $category=0;
     public $description;
     public $product;
     public $attrib;
@@ -17,6 +22,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
 
     public function init()
     {
+        $categ=array_pop($this->Catpath($this->category,'name'));
         $product=$this->product;
         $description=$this->description;
         $innerhtml = '<div class="inht" itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '" >';
@@ -141,6 +147,8 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $man_in_sklad = '';
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
+        $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'.$product['products_id'].'" aria-hidden="true"></i>';
+        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'">Категория: '.$categ.'</a></div>';
 
         $innerhtml .= '
                         <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.'
@@ -153,7 +161,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
         }
         $innerhtml.=        '</div>' .
-            '<div style="" class="model">' . $man_time_list . $preview. '</div>' .
+            '<div style="" class="model">' . $man_time_list . $preview.$chosen.$product_menu. '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
             '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .

@@ -1,11 +1,16 @@
 <?php
 namespace frontend\widgets;
 
+use common\traits\Categories_for_partner;
+use common\traits\CatPath;
+use common\traits\RecursCat;
 use Yii;
 
 class ProductCard extends \yii\bootstrap\Widget
 {
+    use CatPath,Categories_for_partner,RecursCat;
     public $description;
+    public $category=0;
     public $product;
     public $attrib;
     public $attr_descr;
@@ -17,6 +22,7 @@ class ProductCard extends \yii\bootstrap\Widget
 
     public function init()
     {
+        $categ=array_pop($this->Catpath($this->category,'name'));
         $innerhtml = '';
         $product=$this->product;
         $description=$this->description;
@@ -146,7 +152,7 @@ class ProductCard extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
-        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">12</div>';
+        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">Категория: '.$categ.'</div>';
 
         $innerhtml .= '
                         <div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'

@@ -296,7 +296,7 @@ $(document).on('click', '.selected-product', function () {
                     .clone()
                     .css({
                         'position': 'absolute',
-                        'z-index': '11100',
+                        'z-index': '91100',
                         top: $(this).offset()['top'],
                         left: $(this).offset()['left']
                     })
@@ -323,7 +323,7 @@ $(document).on('click', '.selected-product', function () {
                 .clone()
                 .css({
                     'position': 'absolute',
-                    'z-index': '11100',
+                    'z-index': '91100',
                     top: $(this).offset()['top'],
                     left: $(this).offset()['left']
                 })
@@ -344,7 +344,7 @@ $(document).on('click', '.selected-product', function () {
                 .clone()
                 .css({
                     'position': 'absolute',
-                    'z-index': '11100',
+                    'z-index': '91100',
                     top: $(this).offset()['top'],
                     left: $(this).offset()['left']
                 })
@@ -717,7 +717,9 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
 
     }
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
+    $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'+$product['products_id']+'" aria-hidden="true"></i>';
+    $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none">12</div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
 
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
