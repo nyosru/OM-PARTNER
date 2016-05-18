@@ -22,7 +22,14 @@ class ProductCard2 extends \yii\bootstrap\Widget
 
     public function init()
     {
-        $categ=array_pop($this->Catpath($this->category,'name'));
+        if($this->category==0){
+            $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
+            $categ=$categ->categories_id;
+            $categ=array_pop($this->Catpath($categ, 'name'));
+        }
+        else {
+            $categ = array_pop($this->Catpath($this->category, 'name'));
+        }
         $product=$this->product;
         $description=$this->description;
         $innerhtml = '<div class="inht" itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '" >';

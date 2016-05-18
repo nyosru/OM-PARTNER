@@ -9,6 +9,7 @@ use yii\helpers\Html;
 
 $this->title='Распродажа';
 $data[0] = $products;
+
 if($_COOKIE['cardview']==1){
     foreach ($data[0] as $value) {
         echo \frontend\widgets\ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath'=>$catpath, 'man_time'=>$man_time, 'showdiscount'=>1]);

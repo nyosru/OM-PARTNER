@@ -484,7 +484,11 @@ function new_suburl($url_obj, $val, $new_var) {
     return $url_obj;
 }
 
-function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
+function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
+    $.post('/catpath',{'category':$category},
+        function(data){
+            $('[data-cat='+$prod['products_id']+']').html('<a href=/catalog?cat='+$category+'>Категория: '+data+'</a>');
+        });
     $product = $prod;
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
@@ -586,7 +590,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
     $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">12</div>';
 
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"></div></div>';
 
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -622,7 +626,11 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
         ''+$timeprew+''+
         '</div></div>');
 }
-function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
+function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
+    $.post('/catpath',{'category':$category},
+        function(data){
+            $('[data-cat='+$prod['products_id']+']').html('<a href=/catalog?cat='+$category+'>Категория: '+data+'</a>');
+        });
     $product = $prod;
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
@@ -719,7 +727,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
     $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'+$product['products_id']+'" aria-hidden="true"></i>';
     $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none">12</div>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"></div></div>';
 
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
@@ -858,11 +866,11 @@ function loaddata(){
         if (data[0] != 'Не найдено!') {
             if(getCookie('cardview')==1) {
                 $.each(data[0], function (i, item) {
-                    renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14])
+                    renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.categories_id)
                 });
             }else{
                 $.each(data[0], function (i, item) {
-                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14])
+                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.categories_id)
                 });
             }
             $pager = '';

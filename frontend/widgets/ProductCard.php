@@ -1,6 +1,7 @@
 <?php
 namespace frontend\widgets;
 
+use common\models\PartnersProductsToCategories;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
 use common\traits\RecursCat;
@@ -22,7 +23,14 @@ class ProductCard extends \yii\bootstrap\Widget
 
     public function init()
     {
-        $categ=array_pop($this->Catpath($this->category,'name'));
+        if($this->category==0){
+            $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
+            $categ=$categ->categories_id;
+            $categ=array_pop($this->Catpath($categ, 'name'));
+        }
+        else {
+            $categ = array_pop($this->Catpath($this->category, 'name'));
+        }
         $innerhtml = '';
         $product=$this->product;
         $description=$this->description;

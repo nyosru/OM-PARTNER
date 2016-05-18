@@ -79,7 +79,7 @@ $this->beginPage();
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
                                         <a href="<?= BASEURL ?>/viewcart">
-                                            Мои наборы товаров
+                                            Мои корзины
                                         </a>
                                     </div>
                                 </li>
