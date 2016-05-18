@@ -10,6 +10,7 @@ use common\models\PartnersToRegion;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\web\User;
 
 trait ActionTestUnit
 {
@@ -17,8 +18,12 @@ trait ActionTestUnit
     {
         
        if(Yii::$app->user->can('admin')){
-           $x = Orders::find()->where(['orders_id'=>'638465'])->joinWith('products');
-
+           $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
+           $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
+          echo '<pre>';
+           print_r($user);
+           print_r($customer);
+           echo '</pre>';
        }
         return '';
     }
