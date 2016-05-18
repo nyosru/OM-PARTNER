@@ -3542,10 +3542,17 @@ div.size-desc:last-child{
 }
 
 #save-set{
-    float: right;
-    width: 120px;
-    height: 30px;
+    width: 154px;
+    height: 25px;
     cursor: pointer;
+    float: right;
+    color: rgb(0, 165, 161);
+    margin-right: 40px;
+    font-size: 16px;
+    border: 1px solid rgb(204, 204, 204);
+    padding: 0px 5px;
+    border-radius: 4px;
+    font-weight: 500;
 }
 
 #modal-save-set{
