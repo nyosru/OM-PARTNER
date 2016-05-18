@@ -168,6 +168,8 @@ class GlavnayaController extends Controller
         ActionTakeOrder,
         ActionAllCategories,
         ActionShowCart,
+        ActionRequestPasswordReset,
+        ActionResetPassword,
         AggregateCatalogData;
 
 

@@ -48,6 +48,14 @@ trait ActionLK
                                 $savelk=true;
                             };
                             break;
+                        case 'chpassword':
+                            $chpass = $customer;
+                            $chpass->scenario = 'chpass';
+                            $chpass->load(Yii::$app->request->post());
+                            if($chpass->changePassword()){
+                                $savelk=true;
+                            }
+                            break;
                         case 'customer':
                             if($customer->saveCustomer()){
                                 $savelk=true;
