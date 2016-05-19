@@ -41,6 +41,7 @@ use frontend\controllers\actions\om\ActionDayProduct;
 use frontend\controllers\actions\om\ActionDiscont;
 use frontend\controllers\actions\om\ActionFiguresDays;
 use frontend\controllers\actions\om\ActionLoadClaim;
+use frontend\controllers\actions\om\ActionPayView;
 use frontend\controllers\actions\om\ActionSaveCart;
 use frontend\controllers\actions\om\ActionSaveClaim;
 use frontend\controllers\actions\om\ActionSavepage;
@@ -170,6 +171,7 @@ class GlavnayaController extends Controller
         ActionShowCart,
         ActionRequestPasswordReset,
         ActionResetPassword,
+        ActionPayView,
         AggregateCatalogData;
 
 

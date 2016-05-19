@@ -1,6 +1,7 @@
 <?php
 namespace frontend\widgets;
 
+use common\models\PartnersProductsToCategories;
 use common\traits\Categories_for_partner;
 use common\traits\RecursCat;
 use yii;
