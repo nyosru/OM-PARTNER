@@ -567,7 +567,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/120198f907231348a29cbcb362ec4d41ea22c1dc",
+            "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/191fc2b648e1b00ad4725fcae0ab0729537725c8",
             "reference": "120198f907231348a29cbcb362ec4d41ea22c1dc",
             "shasum": ""
         },
@@ -782,7 +782,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/0473f04f1af0f8c93c3270c658db9602e97f5f9e",
+            "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/2f39c05ec05b39452e818c2c49d1d1cee5f51771",
             "reference": "0473f04f1af0f8c93c3270c658db9602e97f5f9e",
             "shasum": ""
         },
@@ -5374,5 +5374,152 @@
         ],
         "description": "Symfony Process Component",
         "homepage": "https://symfony.com"
+    },
+    {
+        "name": "rybakit/msgpack",
+        "version": "v0.1.0",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rybakit/msgpack.php.git",
+            "reference": "7ae17f9936ccc13285feaab67ad13c6cb2d516d8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rybakit/msgpack.php/zipball/7ae17f9936ccc13285feaab67ad13c6cb2d516d8",
+            "reference": "7ae17f9936ccc13285feaab67ad13c6cb2d516d8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2015-12-22 09:46:41",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MessagePack\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Eugene Leonovich",
+                "email": "gen.work@gmail.com"
+            }
+        ],
+        "description": "A pure PHP implementation of the MessagePack serialization format.",
+        "keywords": [
+            "messagepack",
+            "msgpack",
+            "pure",
+            "streaming"
+        ]
+    },
+    {
+        "name": "tarantool/client",
+        "version": "v0.1.0",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/tarantool-php/client.git",
+            "reference": "b2e4a128c4b0da2442a55389d27c8229f76874c3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/tarantool-php/client/zipball/b2e4a128c4b0da2442a55389d27c8229f76874c3",
+            "reference": "b2e4a128c4b0da2442a55389d27c8229f76874c3",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.4|^7.0"
+        },
+        "require-dev": {
+            "ext-msgpack": "@dev",
+            "rybakit/msgpack": "@dev"
+        },
+        "suggest": {
+            "ext-msgpack": "For using Pecl- or PeclLitePacker.",
+            "rybakit/msgpack": "For using PurePacker."
+        },
+        "time": "2016-03-14 15:57:24",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Tarantool\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Eugene Leonovich",
+                "email": "gen.work@gmail.com"
+            }
+        ],
+        "description": "PHP client for Tarantool.",
+        "keywords": [
+            "client",
+            "nosql",
+            "pure",
+            "tarantool"
+        ]
+    },
+    {
+        "name": "fgh151/yii2-tarantool",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fgh151/yii2-tarantool.git",
+            "reference": "eb27e183d4ac1afa6ec3dbbdb04ce2d73b77fbc7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fgh151/yii2-tarantool/zipball/eb27e183d4ac1afa6ec3dbbdb04ce2d73b77fbc7",
+            "reference": "eb27e183d4ac1afa6ec3dbbdb04ce2d73b77fbc7",
+            "shasum": ""
+        },
+        "require": {
+            "rybakit/msgpack": "^0.1.0",
+            "tarantool/client": "^0.1.0",
+            "yiisoft/yii2": "*"
+        },
+        "time": "2016-05-12 13:30:58",
+        "type": "yii2-extension",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "fgh151\\tarantool\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fedor B Gorsky",
+                "email": "fedor@support-pc.org"
+            }
+        ],
+        "description": "Tarantool yii2 module",
+        "keywords": [
+            " db",
+            " tarantool",
+            "extension",
+            "yii2"
+        ]
     }
 ]

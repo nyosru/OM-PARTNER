@@ -2,6 +2,7 @@
 namespace frontend\widgets;
 
 use common\models\PartnersProductsToCategories;
+use common\traits\GetSuppliers;
 use common\traits\Categories_for_partner;
 use common\traits\RecursCat;
 use yii;
@@ -9,7 +10,7 @@ use common\traits\CatPath;
 
 class ProductCard2 extends \yii\bootstrap\Widget
 {
-    use CatPath,Categories_for_partner,RecursCat;
+    use CatPath,Categories_for_partner,RecursCat, GetSuppliers;
     public $category=0;
     public $description;
     public $product;
@@ -149,7 +150,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $man_time_list = '';
         }
-        if(in_array($product['manufacturers_id'], [749,2700,1241,2058,3412,3473,3481,3512])){
+        if(in_array($product['manufacturers_id'], $this->oksuppliers())){
             $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="'.BASEURL.'/images/logo/ok.png"></div>';
         }else{
             $man_in_sklad = '';
