@@ -825,7 +825,11 @@ function loaddata(){
     }else{
         $cat = 0;
     }
-
+    if($urld['ok']){
+        $ok = $urld['ok'][1];
+    }else{
+        $ok = 0;
+    }
     if($urld['prod_attr_query']){
         $prodatrquery = $urld['prod_attr_query'][1];
     }else{
@@ -836,7 +840,7 @@ function loaddata(){
     }else{
         $searchword = '';
     }
-    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
+    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok;
     $url_data = $urld;
     $.ajax({
         method:"post",
@@ -849,6 +853,7 @@ function loaddata(){
             "prod_attr_query": $prodatrquery,
             "page": $page,
             "sort": $sort,
+            "ok": $ok,
             "searchword": $searchword,
             "json": '1'
         },

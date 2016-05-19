@@ -25,8 +25,9 @@ trait ActionDayProduct
             $count = (integer)(Yii::$app->request->getQueryParam('count', 60));
             $page = (integer)(Yii::$app->request->getQueryParam('page', 0));
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
+            $ok = (integer)Yii::$app->request->getQueryParam('ok');
             $searchword = Yii::$app->request->getQueryParam('searchword', '');
-            $json = Yii::$app->request->post('json');
+            $json = Yii::$app->request->getQueryParam('json');
         } elseif (Yii::$app->request->isPost) {
             $cat_start = (integer)(Yii::$app->request->post('cat'));
             $start_price = (integer)(Yii::$app->request->post('start_price', 0));
@@ -35,6 +36,7 @@ trait ActionDayProduct
             $count = (integer)(Yii::$app->request->post('count', 60));
             $page = (integer)(Yii::$app->request->post('page', 0));
             $sort = (integer)(Yii::$app->request->post('sort', 10));
+            $ok = (integer)Yii::$app->request->post('ok');
             $searchword = urldecode(Yii::$app->request->post('searchword', ''));
             $json = Yii::$app->request->post('json');
         }
@@ -50,11 +52,12 @@ trait ActionDayProduct
                 'searchword' => $searchword
             ],
             $options = [
+                'ok'=>$ok,
                 'date'=>'offset',
                 'typeresponse'=> $json,
                 'maxtime'=>date('Y-m-d H:i:s'),
                 'offsettime'=>'-7 months',
-                'cachelistkeyprefix' => 'catalog-7month',
+                'cachelistkeyprefix' => 'catalog-7month'.$ok,
                 'cacheproductkey'=> 'product'
             ]);
 

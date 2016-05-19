@@ -247,17 +247,20 @@ $this->title = 'Личный кабинет';
                 }
 
             ],
-//            [
-//                'attribute' => 'delivery_adress',
-//                'label' => 'Оплатить заказ',
-//                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-//                'contentOptions' => function ($model, $key, $index, $column) {
-//                    return ['class' => 'user-order-table-row'];
-//                },
-//                'content' => function ($data) {
-//                    return 'Инструкция по оплате';
-//                }
-//            ],
+            [
+                'attribute' => 'payment',
+                'label' => 'Счет',
+                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    if($data->orders_status != 1) {
+                        return '<a href="' . BASEURL . '/payview?id=' . $data->orders_id . '">Счет</a>';
+                    }else{
+                        return 'Не выставлен';
+                    }  }
+            ],
 //            [
 //                'attribute' => 'delivery_adress',
 //                'label' => 'Квитанция',

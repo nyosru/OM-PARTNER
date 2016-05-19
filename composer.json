@@ -61,7 +61,8 @@
         "skeeks/yii2-assets-auto-compress": "*",
         "skeeks/yii2-ckeditor": "1.0.4",
         "2amigos/yii2-tinymce-widget" : "*",
-        "endroid/qrcode" : "*"
+        "endroid/qrcode" : "*",
+        "fgh151/yii2-tarantool": "dev-master"
     },
     "require-dev": {
     },
