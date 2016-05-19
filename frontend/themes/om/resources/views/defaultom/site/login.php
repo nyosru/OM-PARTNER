@@ -11,9 +11,6 @@ $this->title = 'Вход';
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
             <?= $form->field($model, 'username')->label('Логин') ?>
             <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
-<!--            --><?//= $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
-//                'template' => '{image}{input}'
-//            ])->label('Введите текст на картинке') ?>
             <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить меня') ?>
 
             <div style="color:#999;margin:1em 0">

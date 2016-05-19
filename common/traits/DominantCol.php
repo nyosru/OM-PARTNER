@@ -1,4 +1,4 @@
-<?
+<?php
 namespace common\traits;
 
 use Yii;

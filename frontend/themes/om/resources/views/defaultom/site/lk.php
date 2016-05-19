@@ -67,7 +67,7 @@ $this->title = 'Личный кабинет';
 </div>
 <div id="index-card-4">Последний заказ</div>
 <div style="float: left; width: 100%; padding: 0px 20px;float: left; width: 100%;">
-    <?
+    <?php
     echo \yii\grid\GridView::widget([
         'dataProvider' => $orders,
         'layout' => "{items}",
@@ -247,17 +247,20 @@ $this->title = 'Личный кабинет';
                 }
 
             ],
-//            [
-//                'attribute' => 'delivery_adress',
-//                'label' => 'Оплатить заказ',
-//                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-//                'contentOptions' => function ($model, $key, $index, $column) {
-//                    return ['class' => 'user-order-table-row'];
-//                },
-//                'content' => function ($data) {
-//                    return 'Инструкция по оплате';
-//                }
-//            ],
+            [
+                'attribute' => 'payment',
+                'label' => 'Счет',
+                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+                    if($data->orders_status != 1) {
+                        return '<a href="' . BASEURL . '/payview?id=' . $data->orders_id . '">Счет</a>';
+                    }else{
+                        return 'Не выставлен';
+                    }  }
+            ],
 //            [
 //                'attribute' => 'delivery_adress',
 //                'label' => 'Квитанция',

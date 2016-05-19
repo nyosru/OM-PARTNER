@@ -18,29 +18,23 @@ use frontend\widgets\Menuom;
 /* @var $content string */
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
+$this->beginPage();
+
 ?>
-<?php $this->beginPage();
-//if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-10', ['duration' => 10])) {
-// ?>
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <!--        <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta charset="<?= Yii::$app->charset ?>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name='yandex-verification' content='6af7ec36af3406db'/>
     <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
-          href="<?= BASEURL ?>/addsearch">
-    <!--       --><?// $this->endCache();
-    //        }
-    //?>
+          href="<?= BASEURL ?>/addsearch" />
+
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <!--   --><?// if ($this->beginCache(Yii::$app->params['constantapp'].'catalog-static-5', ['duration' => 10])) {
-    //    ?>
     <?php $this->head();
 
-    //    $this->registerCssFile('/themes/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/css/site.css', ['depends' => ['yii\web\JqueryAsset', 'yii\jui\JuiAsset']]);
-    ?>
+     ?>
 </head>
 <body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
 <?php $this->beginBody(); ?>
@@ -64,7 +58,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
             <div>
                 <div  class="partners-main-left suplogo" style="height: 55px;background: #F5F5F5; position: fixed; width: 16.5%; z-index: 100; min-width: 211px;">
-                    <? if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
+                    <?php if (($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE && Yii::$app->params['partnersset']['logotype']['active'] == 1) {
                         echo '<span style="" class="supspan">' . str_replace('</p>', '', str_replace('<p>', '', $logotype)) . '</span>';
                     } else {
                         $logotype = '';
@@ -81,6 +75,15 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div class="partners-main-left-cont" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                     <div class="partners-main-left">
                         <div class="partners-main-left">
+                            <ul id="accordion" class="accordion">
+                                <li class="">
+                                    <div id="profile-orders" class="link profile-orders">
+                                        <a href="<?= BASEURL ?>/viewcart">
+                                            Мои корзины
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
@@ -137,12 +140,12 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <div class="top-link-cont large" style="width: calc(100% / 5.1);"><a class="top-link" href="<?=BASEURL?>/page?article=contributionrules">Условия сотрудничества</a></div>
 
                         <div class="om-code" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);"><img src="/images/logo/OM_code.png"></div>
-                        <?
+                        <?php
                         if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
                             echo '<div style="float: left; padding: 15px 0px; font-size: 16px; font-weight: 500; text-align: center; width: calc(100% / 7);min-width: 155px;">+7-495-204-15-83</div>';
                         }
                         ?>
-                        <a class="top-link-cont-back large" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a>
+                        <a class="top-link-cont-back large" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 6);"  href="http://odezhda-master.ru">На старую версию сайта</a>
                         <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="selected-count badge"></div><a class="top-link" href="/glavnaya/selectedproduct"><i class="fa fa-star" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
                         <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
                         <div class="top-link-cont alk" style="width: calc(100% / 6);display: none; float: right;"><a class="top-link" href="#">Показать меню</a></div>
@@ -162,7 +165,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                             </button>
                         </form>
                         <div class="logindiv" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
-                            <?
+                            <?php
                             if(Yii::$app->user->isGuest){
                                 echo '<div style="float: right;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i>';
                                 $model = new \common\models\LoginFormOM();
@@ -177,10 +180,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                                 ]);
                                 echo $form->field($model, 'username', ['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->label('Электронная почта');
                                 echo $form->field($model, 'password',['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">'.Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']).'</span>') ;
-//                                echo $form->field($model, 'captcha')->widget(\yii\captcha\Captcha::classname(), [
-//                                    'template' => '{input}{image}',
-//                                    'options' =>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']
-//                                ])->label('Введите текст на картинке');
                                 echo' <div style="color:#999;margin:1em 0">';
                                 echo    Html::a('Зарегистрироваться', [BASEURL . '/signup'],  ['class'=>'btn' , 'style'=>'height: 36px; color: rgb(0, 0, 0); position: absolute; right: 30px; text-decoration: underline;' ]) ;
                                 echo    Html::submitButton('Вход', ['class' => 'btn', 'name' => 'partners-settings-button', 'style'=>'height: 36px; color: rgb(255, 255, 255); position: absolute; left: 30px; background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
@@ -205,8 +204,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                     </div>
 
 
-                    <!--                    <ul class="nav navbar-nav navbar-left cart"><i class="fa fa-cart-arrow-down fa-3x"></i><span-->
-                    <!--                            class="cart-count"></span><span class="cart-price"></span></ul>-->
                 </div>
 
                 <div class="partners-main-right bside">

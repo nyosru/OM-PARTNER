@@ -48,7 +48,7 @@ class Metrics extends \yii\bootstrap\Widget
                 })(document, window, "topmailru-code");
             </script>
 
-        <? }
+        <?php }
 
         /** Счетчик майл End**/
 
@@ -68,7 +68,7 @@ class Metrics extends \yii\bootstrap\Widget
                 ga('send', 'pageview');
                 //                    ga('require', 'ec');
             </script>
-        <? }
+        <?php }
 
         /** Счетчик Google Analitics End**/
 
@@ -109,7 +109,7 @@ class Metrics extends \yii\bootstrap\Widget
                 })(document, window, "yandex_metrika_callbacks");
             </script>
             <noscript><div><img src="https://mc.yandex.ru/watch/<?=$yandexcounter?>" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <? }
+        <?php }
 
         /** Счетчик Yandex Metrix End**/
 
@@ -119,7 +119,7 @@ class Metrics extends \yii\bootstrap\Widget
         <script type="text/javascript" src="https://sliza.ru/widget.php?id=842&h=2a7bebeb9808e01a869c9f734db908e3&t=s" async defer></script>
         <!-- /// -->
 
-        <?
+        <?php
     }
 
 

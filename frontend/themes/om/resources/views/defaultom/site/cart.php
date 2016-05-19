@@ -27,7 +27,8 @@ $(document).on('ready', function () {
     //$("body,html").animate({"scrollTop": 0}, scrollTime);
     $amount_prod = 0;
     $cart_price = 0;
-    $innerhtml = '<form action="<?= BASEURL;?>/saveorder" method="post"><input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" /><div class="cart-top" style="width: 100%;height:40px;">Товары в моей корзине</div><div class="cart-column1" style="width: 48%;float:left;border:1px solid #ccc; border-radius: 4px; margin-right: 5px;">';
+    $modalsaveset='<div style="height:40px;background-color: #E1F5E1;text-align: center;font-size: 24px;line-height: 1.7;">Сохранение корзины<div style="width:30px;float: right"><i style="cursor:pointer; color:#ea516d;" id="close-cart-save" class="fa fa-times" aria-hidden="true"></i></div></div><div><div style="width:90%;margin-left: 5%; height:40px;line-height:4;">Введите комментарий для сохраняемой корзины:</div><input id="comment-cart-save" class="no-shadow-form-control" style="width:90%; margin-left:5%;"></div><div style="width:90%; margin-left:5%; line-height: 4; height: 40px;">Сделать корзину публичной (вы сможете давать ссылки на нее другим)<i class="checkbox-overlay fa fa-check chk-unchecked" id="save-chk" style="margin-top:15px;margin-right:15px;"></i></div><div id="save-set-btn">Сохранить</div>'
+    $innerhtml = '<div id="modal-save-set" style="display:none">'+$modalsaveset+'</div><div id="overlay-save-cart"></div><form action="<?= BASEURL;?>/saveorder" method="post"><input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" /><div class="cart-top" style="width: 100%;height:40px;">Товары в моей корзине<div id="save-set">Сохранить корзину</div></div><div class="cart-column1" style="width: 48%;float:left;border:1px solid #ccc; border-radius: 4px; margin-right: 5px;">';
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         $item = JSON.parse(localStorage.getItem('cart-om'));
         $i = $item.cart;
@@ -131,9 +132,9 @@ $(document).on('ready', function () {
         <?php
            if(!Yii::$app->user->isGuest){?>
         $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
-        <? }else { ?>
+        <?php }else { ?>
         $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
-        <?}?>
+        <?php }?>
         $innerhtml+=               '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>' +
                         '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
@@ -168,9 +169,9 @@ $(document).on('ready', function () {
 
                 '<a class="save-order" style="display: block;position: relative" href="<?=BASEURL;?>/cart?action=1">Оформить заказ</a>' +
                 '</span></form></div>';
-            <? }else { ?>
+            <?php }else { ?>
             $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
-            <?}?>
+            <?php }?>
             $.post(
                 "/site/shipping",
                 function (shipdata) {
@@ -212,9 +213,9 @@ $(document).on('ready', function () {
 //    <?php
 //    if(!Yii::$app->user->isGuest){?>
 //        $(".bside").append('<span class="cart-auth" style="display: block; overflow: hidden;"><a class="save-order" style="display: block;position: relative" href="<?//=BASEURL;?>///cart?action=1">Оформить заказ</a></span>');
-//    <?// }else { ?>
+//    <?php// }else { ?>
 //        $(".bside").append('<span class="cart-auth"  style="display: block; overflow: hidden;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span>');
-//    <?//}?>
+//    <?php//}?>
 //    }
 });
 $(document).ready(function () {
@@ -330,4 +331,4 @@ $(document).on('click', '.panel  > a',  function(){
     }
 });
 </script>
-<?
+

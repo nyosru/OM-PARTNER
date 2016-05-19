@@ -13,7 +13,7 @@ $this -> title = 'Мои заказы';
 <form>
     <input type="hidden" value="myorder" name="view">
     <div style="float: left; width: 100%;">
-        <?
+        <?php
         $sorter = '';
         $cs = count($sort_order);
         for($i=0; $i<$cs; $i++){
@@ -29,15 +29,15 @@ $this -> title = 'Мои заказы';
                     break;
             }
 
-            $sorter .=  '<a class="sort" name="order"  type="submit" href="" ><button name="filter" type="submit" value="'.$i.'" class="'.$addclass.' header-sort-item active lock-on">'.$sort_order[$i].'</button></a>';
+            $sorter .=  '<a class="sort" name="order"  type="submit" href="" ><button style="background: rgb(245, 245, 245) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); float: left; color: rgb(0, 165, 161); font-size: 16px; border-radius: 4px; font-weight: 500; margin: 0px;" name="filter" type="submit" value="'.$i.'" class="'.$addclass.'">'.$sort_order[$i].'</button></a>';
         }
         ?>
-        <div id="sort-order" style="width: 50%;">
+        <div id="" style="width: 50%;">
             <?= $sorter?>
         </div>
         <div id="find-date" style="float: right; width: 30%; text-align: right;">
 
-            <?
+            <?php
             echo \kartik\date\DatePicker::widget( [
                 'language'=>'ru',
                 'name' => 'di',
@@ -49,7 +49,7 @@ $this -> title = 'Мои заказы';
                     'format' => 'dd.mm.yyyy'
                 ]
             ]);?>
-            <?
+            <?php
             echo \kartik\date\DatePicker::widget( [
                 'language'=>'ru',
                 'name' => 'do',
@@ -72,7 +72,8 @@ $this -> title = 'Мои заказы';
         </div>
 
     </div>
-</form><?
+</form><?php
+
 echo \yii\grid\GridView::widget([
     'dataProvider' => $orders,
     'layout' => "{pager}\n{items}",
@@ -133,6 +134,7 @@ echo \yii\grid\GridView::widget([
                 $inner .= '<th style="border: none" class="col-md-1">#</th>';
                 $inner .= '<th style="border: none" class="col-md-1">Изображение</th>';
                 $inner .= '<th style="border: none" class="col-md-2">Артикул</th>';
+                $inner .= '<th style="border: none" class="col-md-2">Комментарий</th>';
                 $inner .= '<th style="border: none" class="col-md-2">Цена за шт</th>';
                 $inner .= '<th style="border: none" class="col-md-1">Количество</th>';
                 $inner .= '<th style="border: none" class="col-md-1">Размер</th>';
@@ -176,6 +178,7 @@ echo \yii\grid\GridView::widget([
                         $finalomprice += (float)$price * (int)$positionquantity;
                     }
                     $omfirstprice += (float)$price * (int)$firstcountprod;
+                    $inner .= '<td class="col-md-2">'.$value->comment.'</td>';
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
                     $inner .= '<td class="col-md-1">Заказано: ' . $firstcountprod . $omfinalquant . '</td>';
                     $inner .= '<td class="col-md-1">'.$attr[$value->orders_products_id]['products_options_values'].'</td>';
@@ -251,6 +254,7 @@ echo \yii\grid\GridView::widget([
                 $inner .= '<th colspan="6" style="border: none" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
                 $inner .= '</tr>';
                 $inner .= '</tfooter></table>';
+                
                 //$inner = '<a class="" role="" data-toggle="collapse" href="#collapseOrd' . $data->orders_id . '" aria-expanded="false" aria-controls="collapseOrd' . $data->orders_id . '">'. $finalomprice . ' Руб</a><div class="collapse"  style="position: absolute; z-index: 999999; left: 19px; height: 0px;" id="collapseOrd' . $data->orders_id . '"><div class="well">';
                 return Collapse::widget([
                     'items' => [
@@ -305,17 +309,21 @@ echo \yii\grid\GridView::widget([
             }
 
         ],
-//        [
-//            'attribute' => 'delivery_adress',
-//            'label' => 'Оплатить заказ',
-//            'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-//            'contentOptions' => function ($model, $key, $index, $column) {
-//                return ['class' => 'user-order-table-row'];
-//            },
-//            'content' => function ($data) {
-//                return 'Инструкция по оплате';
-//            }
-//        ],
+       [
+        'attribute' => 'payment',
+        'label' => 'Счет',
+        'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+        'contentOptions' => function ($model, $key, $index, $column) {
+            return ['class' => 'user-order-table-row'];
+        },
+        'content' => function ($data) {
+            if($data->orders_status != 1) {
+                return '<a href="' . BASEURL . '/payview?id=' . $data->orders_id . '">Счет</a>';
+            }else{
+                return 'Не выставлен';
+            }
+        }
+        ],
 //        [
 //            'attribute' => 'delivery_adress',
 //            'label' => 'Квитанция',
@@ -341,7 +349,9 @@ echo \yii\grid\GridView::widget([
 
     ],
     'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
+
 ]);
+
 
 ?>
 <script>

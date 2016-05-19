@@ -31,7 +31,7 @@ $this -> title = 'F.A.Q.';
 
 
                 НАЖМИТЕ ТУТ ЧТО БЫ ИЗМЕНИТЬ ОПИСАНИЕ
-            <?}?>
+            <?php}?>
             <?php if(Yii::$app->user->can('admin')){CKEditorInline::end(); ?>
                 <button class="savehtml">Сохранить</button>
                 <script>
@@ -48,4 +48,4 @@ $this -> title = 'F.A.Q.';
 
                     });
                 </script>
-            <?}?>
+            <?php}?>

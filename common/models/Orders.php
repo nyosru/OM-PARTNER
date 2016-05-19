@@ -219,6 +219,10 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(OrdersToPartners::className(), ['order_id' => 'orders_id']);
     }
+    public function getOrdersBanks()
+    {
+        return $this->hasOne(AdminCompaniesBankToOrders::className(), ['orders_id' => 'orders_id']);
+    }
     public function NumOrder()
     {
         if(($order = $this->getPartnersOrders()->where(['order_id'=>$this->orders_id])->one()) == TRUE){
@@ -230,4 +234,5 @@ class Orders extends ActiveRecordExt
         $literalnum = $this->buh_orders_id;
         return $literaltyear.$literalchar.'-'.$literalnum;
     }
+    
 }

@@ -48,6 +48,14 @@ trait ActionLK
                                 $savelk=true;
                             };
                             break;
+                        case 'chpassword':
+                            $chpass = $customer;
+                            $chpass->scenario = 'chpass';
+                            $chpass->load(Yii::$app->request->post());
+                            if($chpass->changePassword()){
+                                $savelk=true;
+                            }
+                            break;
                         case 'customer':
                             if($customer->saveCustomer()){
                                 $savelk=true;
@@ -91,18 +99,6 @@ trait ActionLK
                             unset($customer);
                             $customer=new Profile();
                             break;
-//                        case 'addr_default':
-//                            $addr_id='';
-//                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
-//                                if(isset($value['address_book_id'])){
-//                                    $addr_id=$value['address_book_id'];
-//                                    break;
-//                                }
-//                            };
-//                            $customer->defaultUserAddress($addr_id);
-//                            unset($customer);
-//                            $customer=new Profile();
-//                            break;
                         case 'addr_default':
                             $addr_id='';
                             foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
@@ -139,7 +135,6 @@ trait ActionLK
                     $customer=new Profile();
                 }
                 $customer->loadUserProfile();
-                $this->layout = 'lk';
                 return $this->render('lkuserinfo',['cust'=>$customer,'savelk'=>$savelk]);
             break;
 

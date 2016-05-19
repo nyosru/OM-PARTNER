@@ -38,7 +38,7 @@ trait ActionSelectedProduct{
             }
             if (count($nodata) > 0) {
                 $prodarr = implode(',', $nodata);
-                $datar = PartnersProducts::find()->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
+                $datar = PartnersProductsToCategories::find()->where('products.products_id IN (' . $prodarr . ')')->joinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
                 foreach ($datar as $valuesr) {
                     $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
                     Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified'], 'quantity' => $valuesr['products']['products_quantity']]);

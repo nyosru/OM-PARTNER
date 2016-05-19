@@ -211,7 +211,6 @@ trait ActionCatalog
                 $prod_search_query_filt = '';
             }
             $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('  categories_id IN (' . $cat . ') and products_status = 1 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt. $end_price_query_filt.'  and  products.products_quantity > 0  and  products.products_price != 0    and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now', $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
-            $ifht = 0;
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
@@ -222,10 +221,9 @@ trait ActionCatalog
                 $d2 = trim($values['last']);
                 $d1 = trim($dataprod['last']);
 
-                if ($dataprod['data'] && $d1 === $d2 || $values['quantity'] == $dataprod['quantity']) {
+                if ($dataprod['data'] && $d1 === $d2 || $values['quantity'] == $dataprod['quantity'] || $values['price'] == $dataprod['price']) {
                 } else {
                     $nodata[] = $values['prod'];
-                    $cache = $ifht++;
                 }
             }
             if (count($nodata) > 0) {
@@ -233,7 +231,7 @@ trait ActionCatalog
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
                 foreach ($datar as $valuesr) {
                     $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
-                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified'], 'quantity' => $valuesr['products']['products_quantity']]);
+                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified'], 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']]);
                 }
             }
             foreach($prod as $keyin=>$values){

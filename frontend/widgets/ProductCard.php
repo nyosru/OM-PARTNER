@@ -1,11 +1,18 @@
 <?php
 namespace frontend\widgets;
 
+use common\models\PartnersProductsToCategories;
+use common\traits\GetSuppliers;
+use common\traits\Categories_for_partner;
+use common\traits\CatPath;
+use common\traits\RecursCat;
 use Yii;
 
 class ProductCard extends \yii\bootstrap\Widget
 {
+    use CatPath,Categories_for_partner,RecursCat, GetSuppliers;
     public $description;
+    public $category=0;
     public $product;
     public $attrib;
     public $attr_descr;
@@ -17,6 +24,14 @@ class ProductCard extends \yii\bootstrap\Widget
 
     public function init()
     {
+        if($this->category==0){
+            $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
+            $categ=$categ->categories_id;
+            $categ=array_pop($this->Catpath($categ, 'name'));
+        }
+        else {
+            $categ = array_pop($this->Catpath($this->category, 'name'));
+        }
         $innerhtml = '';
         $product=$this->product;
         $description=$this->description;
@@ -43,6 +58,7 @@ class ProductCard extends \yii\bootstrap\Widget
         $activelabel = 0;
         if (count($attr_desc) > 0) {
             $key = 0;
+            $class = '';
             foreach ($attr_desc as $key=>$attr_desc_value) {
                 if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
                     $classpos = 'active-options';
@@ -138,12 +154,17 @@ class ProductCard extends \yii\bootstrap\Widget
         }else{
             $man_time_list = '';
         }
+        if(in_array($product['manufacturers_id'], $this->oksuppliers())){
+          $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><img src="'.BASEURL.'/images/logo/ok.png"></div>';
+        }else{
+            $man_in_sklad = '';
+        }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
-        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">12</div>';
+        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">Категория: '.$categ.'</div>';
 
         $innerhtml .= '
-                        <div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">
+                        <div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
                                     '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';

@@ -37,7 +37,7 @@ class Menuom extends \yii\bootstrap\Widget
 
     public function run(){
         parent::run();
-	        return $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat);
+	        return '<div id="'.$this->id.'">'.$this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat).'</div>';
 	    }
 
 }

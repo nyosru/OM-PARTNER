@@ -471,4 +471,13 @@ return array (
       '@kartik/grid' => $vendorDir . '/kartik-v/yii2-grid',
     ),
   ),
+  'fgh151/yii2-tarantool' => 
+  array (
+    'name' => 'fgh151/yii2-tarantool',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@fgh151/tarantool' => $vendorDir . '/fgh151/yii2-tarantool/src',
+    ),
+  ),
 );

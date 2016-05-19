@@ -1,6 +1,7 @@
 <?php
 namespace frontend\models;
 
+use Yii;
 use common\models\User;
 use yii\base\Model;
 
@@ -39,6 +40,7 @@ class PasswordResetRequestForm extends Model
         $user = User::findOne([
             'status' => User::STATUS_ACTIVE,
             'email' => $this->email,
+            'id_partners' => Yii::$app->params['constantapp']['APP_ID']
         ]);
 
         if ($user) {

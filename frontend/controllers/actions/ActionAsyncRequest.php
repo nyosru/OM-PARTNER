@@ -1,4 +1,4 @@
-<?
+<?php
 namespace frontend\controllers\actions;
 
 use common\models\PartnersProductsToCategories;

@@ -1,52 +1,41 @@
 <?php
-use yii\filters\AccessControl;
-use yii\web\User;
 /* @var $this yii\web\View */
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Button;
-use yii\bootstrap\Dropdown;
-use yii\bootstrap\Carousel;
-use yii\helpers\BaseUrl;
-use common\traits\Imagepreviewfile;
-use kartik\slider\SliderAsset;
 use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
-use Zelenin\yii\SemanticUI\modules\Checkbox;
-
-function new_url($arr_sub)
-{
-    $new_url = Array();
-    foreach ($arr_sub as $value) {
-        $new_url[] = $value[0] . '=' . $value[1];
+if (!function_exists('new_url')) {
+    function new_url($arr_sub)
+    {
+        $new_url = Array();
+        foreach ($arr_sub as $value) {
+            $new_url[] = $value[0] . '=' . $value[1];
+        }
+        return implode('&', $new_url);
     }
-    return implode('&', $new_url);
 }
-
-function split_url($url)
-{
-    $url_arr = explode('&', $url);
-    $arr_sub = Array();
-    foreach ($url_arr as $value) {
-        $spl = explode('=', $value);
-        $arr_sub[$spl[0]] = $spl;
+if (!function_exists('split_url')) {
+    function split_url($url)
+    {
+        $url_arr = explode('&', $url);
+        $arr_sub = Array();
+        foreach ($url_arr as $value) {
+            $spl = explode('=', $value);
+            $arr_sub[$spl[0]] = $spl;
+        }
+        return $arr_sub;
     }
-    return $arr_sub;
 }
+if (!function_exists('new_suburl')) {
+    function new_suburl($url_obj, $val, $new_var)
+    {
+        $value = $url_obj[$val];
+        $value[1] = $new_var;
 
-function new_suburl($url_obj, $val, $new_var)
-{
-    $value = $url_obj[$val];
-    $value[1] = $new_var;
-
-    $url_obj[$val] = $value;
-    return $url_obj;
+        $url_obj[$val] = $value;
+        return $url_obj;
+    }
 }
-
-
 
 
 $start_url = Yii::$app->request->getQueryString();
@@ -58,8 +47,9 @@ $max_price = $url_data['end_price'][1];
 $prodatrquery = $url_data['prod_attr_query'][1];
 $page = $url_data['page'][1];
 $sort = $url_data['sort'][1];
+$ok = $url_data['ok'][1];
 $searchword = $url_data['searchword'][1];
-$url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword;
+$url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword.'&ok='.$ok;
 if ($data[0] != 'Не найдено!') {
 
 
@@ -67,7 +57,22 @@ echo '<div class="partners-main-right bside">';
     $headbside = '';
     $headbside .= '<div  class="partners-main-right headerbside">';
     echo '<div style="width: 100%; height: 100%; float: left;" class="cat-nav">';
-    echo '<a href="'.BASEURL.'/changecardview"><i class="fa fa-bars" title="Изменить вид карточек" style="float: right; color:#00a5a1; margin-right: 30px; font-size: 24px;" aria-hidden="true"></i></a>';
+    $countdisp = [60, 120, 180];
+    $innercount = '';
+    foreach ($countdisp as $key => $countdisp) {
+        if ($countdisp == $count) {
+            $classcount = 'countdisplay count-checked';
+        } else {
+            $classcount = 'countdisplay';
+        }
+        $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url(new_url(new_suburl(split_url($url), 'page', 0))), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
+    }
+    echo '<div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
+    echo '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
+
+
+    echo '<div id="products-pager"></div>';
+
     if($this->beginCache('Top-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) {
 
         if ($catpath['num'] != 0) {
@@ -128,7 +133,7 @@ echo '<div class="partners-main-right bside">';
                         <button class="btn btn-default data-j" type="submit" style="width: 25%; height: 27px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; left: -5px; margin-right: 0px; float: left; font-size: 14px; line-height: 0.9;">
                             Найти
                         </button></form></div>';
-    $headbside .='<div class="filter-cart" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i>Корзина</a></div>';
+    $headbside .='<div class="filter-cart" style="float: right; padding: 12px 6px; text-align: right; width: calc(100% / 9);"><div style="background: #FFBF08;font-size: 12px; right: 65px; position: absolute;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161); margin-right: 10px;"></i></a></div>';
 
     $headbside .='<div class="filter-auth" style="float: right; width: 25%; padding: 14px; font-size: 14px; font-weight: 300;">';
 
@@ -174,6 +179,33 @@ echo '<div class="partners-main-right bside">';
                                 'range' => true,
                                 ],
                             ]);
+        $headbside .=   '<div><hr style="border-color: #CCC">'.
+        'Дата'.
+           '</div>'.\kartik\date\DatePicker::widget([
+                'options'=>[
+                    'placeholder'=>'C',
+                ],
+
+                'language'=>'ru',
+                'name' => 'date_start',
+                'value' => '',
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'dd-mm-yyyy'
+                ]
+            ]).\kartik\date\DatePicker::widget([
+                'options'=>[
+                    'placeholder'=>'До',
+                ],
+
+                'language'=>'ru',
+                'name' => 'date_end',
+                'value' => '',
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'dd-mm-yyyy'
+                ]
+            ]);
     if(count($data[3])>1){
     $headbside .=           '<div><hr style="border-color: #CCC">'.
                             'Размеры'.
@@ -211,27 +243,19 @@ echo '<div class="partners-main-right bside">';
         '<input name="sort"  value="0"  type="hidden"/>'.
         '<input name="searchword"   value="" type="hidden"/>'.
                 '</form>';
-    $countdisp = [60, 120, 180];
-    $innercount = '';
-    foreach ($countdisp as $key => $countdisp) {
-        if ($countdisp == $count) {
-            $classcount = 'countdisplay count-checked';
-        } else {
-            $classcount = 'countdisplay';
-        }
-        $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url(new_url(new_suburl(split_url($url), 'page', 0))), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
-    }
+
 
     $headbside .= $topnav;
-    $headbside .= '<div class="partheaderbside"><div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
-    $headbside .= '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] . ' из ' . $data[1] . '</div>';
+    $headbside .= '<div class="partheaderbside">';
 
+    $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
 
-    $headbside .= '<div id="products-pager"></div>';
+    $headbside .= ' <a href="#demo" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" data-toggle="collapse">Сортировка</a>';
+    $headbside .= ' <a href="' . new_url(new_suburl(split_url($url),'ok', abs($ok-1))).'" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;">ОК</a>';
 
-
-
+    $headbside .= '<div id="demo" style="width: 200px; position: absolute; margin-top: 25px; z-index: 98;" class="collapse">';
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
+
     $sortorder = [['дате', 0, 10, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
     foreach ($sortorder as $value) {
         if (intval($data[11]) == intval($value[1])) {
@@ -247,22 +271,22 @@ echo '<div class="partners-main-right bside">';
             $class = 'sort ';
         }
         if ($value[1] == $data[11] || $value[2] == $data[11]) {
-            $headbside .= '<a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i class="fa fa-' . $arrow . '"> </i></div></a>';
+            $headbside .= '<a class="' . $class . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i style="float: right; padding: 3px 10px;" class="fa fa-' . $arrow . '"> </i></div></a>';
         } else {
             $headbside .= '<a class="' . $class . '" data="' . $dataord . '" href="' . new_url(new_suburl(split_url($url), 'sort', $dataord)) . '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
         }
     }
-    $headbside .= '</div></div></div>';
+    $headbside .= '</div></div></div></div>';
     echo $headbside;
     $innerhtml = '';
 
     if($_COOKIE['cardview']==1){
         foreach ($data[0] as $value) {
-            echo ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
+            echo ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id']]);
         }
     }else{
         foreach ($data[0] as $value) {
-            echo ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time]);
+            echo ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time,'category'=>$value['categories_id']]);
         }
     }
 
@@ -337,7 +361,7 @@ echo '<div class="partners-main-right bside">';
 </ul>
 
    </div>
-   <?
+   <?php
 }
 } else {
     echo '<div style="text-align: center; font-size: 40px; position: relative;  min-height: 100%;">Нет результатов</div>';

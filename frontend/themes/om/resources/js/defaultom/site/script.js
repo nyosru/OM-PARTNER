@@ -257,73 +257,46 @@ $(document).on('click', '.cart-lable', function () {
 
             });
             $(".cart-count").html($amount_prod);
-           
+
         } });
 });
 $(document).on('click', '.selected-product', function () {
     $id_product =   parseInt(this.getAttribute('data-product'));
     $checkzero = 0;
     $noanimate = false;
-        var $item = new Object();
-        $item.products = [];
-        if($id_product > 0) {
-            $checkzero = 1;
-            if (JSON.parse(localStorage.getItem('selected-product-om'))) {
-                $timenow  =  new Date;
-                if(localStorage.getItem('selected-product-om-date')){
-                    $timecart =  new Date;
-                    $timecart = localStorage.getItem('selected-product-om-date');
-                    // if($timenow.getTime() - $timecart > 604800000){
-                    //     localStorage.removeItem('cart-om');
-                    //     localStorage.removeItem('cart-om-date');
-                    //     return false;
-                    // }
-                }else{
-                    localStorage.setItem('selected-product-om-date', $timenow.getTime());
-                }
-                $item = JSON.parse(localStorage.getItem('selected-product-om'));
-                $i = $item.products.length;
-            } else {
-                var $time = new Date;
-                localStorage.setItem('selected-product-om-date', $time.getTime());
-                $i = 0;
+    var $item = new Object();
+    $item.products = [];
+    if($id_product > 0) {
+        $checkzero = 1;
+        if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+            $timenow  =  new Date;
+            if(localStorage.getItem('selected-product-om-date')){
+                $timecart =  new Date;
+                $timecart = localStorage.getItem('selected-product-om-date');
+                // if($timenow.getTime() - $timecart > 604800000){
+                //     localStorage.removeItem('cart-om');
+                //     localStorage.removeItem('cart-om-date');
+                //     return false;
+                // }
+            }else{
+                localStorage.setItem('selected-product-om-date', $timenow.getTime());
             }
-            x = 0;
-            if ($id_product > 0) {
-                if($noanimate == false) {
-                    $noanimate = true;
-                    $($(this))
-                        .clone()
-                        .css({
-                            'position': 'absolute',
-                            'z-index': '11100',
-                            top: $(this).offset()['top'],
-                            left: $(this).offset()['left']
-                        })
-                        .appendTo("body")
-                        .animate({
-                            opacity: 0.05,
-                            left: $(".selected-count").offset()['left'],
-                            top: $(".selected-count").offset()['top'],
-                            width: 20,
-                        }, 1000, function () {
-                            $(this).remove();
-                            $noanimate = false;
-                        });
-
-                }
-                $.each($item.products, function () {
-                    if ($id_product == this) {
-                         x = 1;
-                    }
-                });
-            } else {
+            $item = JSON.parse(localStorage.getItem('selected-product-om'));
+            $i = $item.products.length;
+        } else {
+            var $time = new Date;
+            localStorage.setItem('selected-product-om-date', $time.getTime());
+            $i = 0;
+        }
+        x = 0;
+        if ($id_product > 0) {
+            if($noanimate == false) {
                 $noanimate = true;
-                $($(this).parent().parent())
+                $($(this))
                     .clone()
                     .css({
                         'position': 'absolute',
-                        'z-index': '11100',
+                        'z-index': '91100',
                         top: $(this).offset()['top'],
                         left: $(this).offset()['left']
                     })
@@ -337,34 +310,61 @@ $(document).on('click', '.selected-product', function () {
                         $(this).remove();
                         $noanimate = false;
                     });
-                $item.products[$i] = $id_product;
+
             }
-            if (x == 0) {
-                $($(this))
-                    .clone()
-                    .css({
-                        'position': 'absolute',
-                        'z-index': '11100',
-                        top: $(this).offset()['top'],
-                        left: $(this).offset()['left']
-                    })
-                    .appendTo("body")
-                    .animate({
-                        opacity: 0.05,
-                        left: $(".selected-count").offset()['left'],
-                        top: $(".selected-count").offset()['top'],
-                        width: 20,
-                    }, 1000, function () {
-                        $(this).remove();
-                    });
-                $item.products[$i] = $id_product;
-            }
-            $ilocal = JSON.stringify($item);
-            localStorage.setItem('selected-product-om', $ilocal);
-            $arr_prod = $item.products;
-            $amount_prod = 0;
-            $(".selected-count").html($item.products.length);
+            $.each($item.products, function () {
+                if ($id_product == this) {
+                    x = 1;
+                }
+            });
+        } else {
+            $noanimate = true;
+            $($(this).parent().parent())
+                .clone()
+                .css({
+                    'position': 'absolute',
+                    'z-index': '91100',
+                    top: $(this).offset()['top'],
+                    left: $(this).offset()['left']
+                })
+                .appendTo("body")
+                .animate({
+                    opacity: 0.05,
+                    left: $(".selected-count").offset()['left'],
+                    top: $(".selected-count").offset()['top'],
+                    width: 20,
+                }, 1000, function () {
+                    $(this).remove();
+                    $noanimate = false;
+                });
+            $item.products[$i] = $id_product;
         }
+        if (x == 0) {
+            $($(this))
+                .clone()
+                .css({
+                    'position': 'absolute',
+                    'z-index': '91100',
+                    top: $(this).offset()['top'],
+                    left: $(this).offset()['left']
+                })
+                .appendTo("body")
+                .animate({
+                    opacity: 0.05,
+                    left: $(".selected-count").offset()['left'],
+                    top: $(".selected-count").offset()['top'],
+                    width: 20,
+                }, 1000, function () {
+                    $(this).remove();
+                });
+            $item.products[$i] = $id_product;
+        }
+        $ilocal = JSON.stringify($item);
+        localStorage.setItem('selected-product-om', $ilocal);
+        $arr_prod = $item.products;
+        $amount_prod = 0;
+        $(".selected-count").html($item.products.length);
+    }
 });
 $(document).on('click', '.countdisplay', function index_count_display() {
     $('.page-checked').removeClass('page-checked');
@@ -484,13 +484,21 @@ function new_suburl($url_obj, $val, $new_var) {
     return $url_obj;
 }
 
-function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
+function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
+    $.post('/catpath',{'category':$category},
+        function(data){
+            $('[data-cat='+$prod['products_id']+']').html('<a href=/catalog?cat='+$category+'>Категория: '+data+'</a>');
+        });
     $product = $prod;
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
-
+    if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481','3512']) != -1){
+        $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><img src="/images/logo/ok.png"></div>';
+    }else{
+        $man_in_sklad = '';
+    }
     if ($attr_desc.length > 0) {
         var  innerindex = 0;
         $.each($attr_desc, function (index,value) {
@@ -517,60 +525,60 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
                 $some_text = 'Нет';
             }
 
-                        if($descriptionprod == "null"){
-                            $descriptionprod.products_description="Без Описания";
-                            $descriptionprod['products_name']="Не указано";
-                        }
+            if($descriptionprod == "null"){
+                $descriptionprod.products_description="Без Описания";
+                $descriptionprod['products_name']="Не указано";
+            }
 
-                        console.log(value);
-                        $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+         
+            $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
-                            '<input '+$inputpos+' id="input-count"'+
-                            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                            'data-prod="'+ $product['products_id']+'"'+
-                            'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
-                            'data-model="'+ $product['products_model']+'"'+
-                            'data-price="'+ Math.round($product['products_price'])+'"'+
-                            'data-image="'+ $product['products_image']+'"'+
-                            'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
-                            'data-step="'+ $product['products_quantity_order_units']+'"'+
-                            'data-min="'+ $product['products_quantity_order_min']+'"'+
-                            'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
-                            'data-attr="'+value.products_options_values_id+'"'+
-                            'placeholder="0"'+
-                            'type="text">'+
-                            '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
-                            '+'+
-                            '</div>'+
-                            '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
-                            '-'+
-                            '</div>'+
-                            '</div></div></div>';
-                    });
-                } else {
-                    $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
-                        '<input  id="input-count"'+
-                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                        'data-prod="'+ $product['products_id']+'"'+
-                        'data-model="'+ $product['products_model']+'"'+
-                        'data-price="'+ Math.round($product['products_price'])+'"'+
-                        'data-image="'+ $product['products_image']+'"'+
-                        'data-attrname=""'+
-                        'data-attr=""'+
-                        'data-count="'+ $product['products_quantity']+'"'+
-                        'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
-                        'data-step="'+ $product['products_quantity_order_units']+'"'+
-                        'data-min="'+ $product['products_quantity_order_min']+'"'+
-                        'placeholder="0"'+
-                        'type="text">'+
-                        '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
-                        '+'+
-                        '</div>'+
-                        '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
-                        '-'+
-                        '</div>'+
-                        '</div></div></div>';
-                }
+                '<input '+$inputpos+' id="input-count"'+
+                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                'data-prod="'+ $product['products_id']+'"'+
+                'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
+                'data-model="'+ $product['products_model']+'"'+
+                'data-price="'+ Math.round($product['products_price'])+'"'+
+                'data-image="'+ $product['products_image']+'"'+
+                'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
+                'data-step="'+ $product['products_quantity_order_units']+'"'+
+                'data-min="'+ $product['products_quantity_order_min']+'"'+
+                'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                'data-attr="'+value.products_options_values_id+'"'+
+                'placeholder="0"'+
+                'type="text">'+
+                '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '+'+
+                '</div>'+
+                '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '-'+
+                '</div>'+
+                '</div></div></div>';
+        });
+    } else {
+        $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
+            '<input  id="input-count"'+
+            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+            'data-prod="'+ $product['products_id']+'"'+
+            'data-model="'+ $product['products_model']+'"'+
+            'data-price="'+ Math.round($product['products_price'])+'"'+
+            'data-image="'+ $product['products_image']+'"'+
+            'data-attrname=""'+
+            'data-attr=""'+
+            'data-count="'+ $product['products_quantity']+'"'+
+            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+            'data-step="'+ $product['products_quantity_order_units']+'"'+
+            'data-min="'+ $product['products_quantity_order_min']+'"'+
+            'placeholder="0"'+
+            'type="text">'+
+            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+            '+'+
+            '</div>'+
+            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+            '-'+
+            '</div>'+
+            '</div></div></div>';
+    }
 
     if( $time[$product.manufacturers_id] === undefined ) {
         $timewrap = '';
@@ -578,13 +586,13 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
         $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
 
     }
+    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'+$product['products_id']+'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
+    $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none">12</div>';
+
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product"  data-product="'+$product['products_id']+'"><i class="fa fa-star" aria-hidden="true"></i></a>';
-    $product_menu = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"></div></div>';
 
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'</div>';
-
-    $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+
+    $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
         '<a id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
@@ -618,13 +626,21 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time){
         ''+$timeprew+''+
         '</div></div>');
 }
-function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
+function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
+    $.post('/catpath',{'category':$category},
+        function(data){
+            $('[data-cat='+$prod['products_id']+']').html('<a href=/catalog?cat='+$category+'>Категория: '+data+'</a>');
+        });
     $product = $prod;
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '';
-    $activelabel=0;
+    if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481",'3512']) != -1){
+        $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="/images/logo/ok.png"></div>';
+    }else{
+        $man_in_sklad = '';
+    }
     if ($attr_desc.length > 0) {
         var  innerindex = 0;
         $.each($attr_desc, function (index,value) {
@@ -632,7 +648,6 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
                 $classpos = 'active-options';
                 $add_class = 'add-count';
                 $del_class = 'del-count';
-                $activelabel++;
                 $stylepos = '';
                 $inputpos = '';
                 $some_text = 0;
@@ -678,7 +693,6 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
 
         });
     } else {
-        $activelabel++;
         $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;margin-top:20px;"><div style="margin: auto; width: 100%;"><div></div>'+
             '<input  id="input-count"'+
             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
@@ -702,11 +716,8 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
             '</div>'+
             '</div></div></div>';
     }
-    if($activelabel>0) {
-        $attr_html += '<div data-sale="' + $product['products_id'] + '" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: ' + $product['products_date_added'] + '</div>';
-    }else{
-        $attr_html += '<div style="background: #E9516D" class="cart-lable">Продано</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: ' + $product['products_date_added'] + '</div>';
-    }
+    $attr_html+='<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: '+$product['products_date_added']+'</div>';
+
     if( $time[$product.manufacturers_id] === undefined ) {
         $timewrap = '';
     }else{
@@ -714,9 +725,11 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time){
 
     }
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
+    $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'+$product['products_id']+'" aria-hidden="true"></i>';
+    $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none">12</div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"></div></div>';
 
-    $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+
+    $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -753,7 +766,6 @@ $(document).on('click keydown', '.lock-on', function () {
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
 });
-
 
 
 var inProgress = false;
@@ -813,7 +825,11 @@ function loaddata(){
     }else{
         $cat = 0;
     }
-
+    if($urld['ok']){
+        $ok = $urld['ok'][1];
+    }else{
+        $ok = 0;
+    }
     if($urld['prod_attr_query']){
         $prodatrquery = $urld['prod_attr_query'][1];
     }else{
@@ -824,7 +840,7 @@ function loaddata(){
     }else{
         $searchword = '';
     }
-    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
+    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok;
     $url_data = $urld;
     $.ajax({
         method:"post",
@@ -837,6 +853,7 @@ function loaddata(){
             "prod_attr_query": $prodatrquery,
             "page": $page,
             "sort": $sort,
+            "ok": $ok,
             "searchword": $searchword,
             "json": '1'
         },
@@ -854,11 +871,11 @@ function loaddata(){
         if (data[0] != 'Не найдено!') {
             if(getCookie('cardview')==1) {
                 $.each(data[0], function (i, item) {
-                    renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14])
+                    renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.categories_id)
                 });
             }else{
                 $.each(data[0], function (i, item) {
-                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14])
+                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.categories_id)
                 });
             }
             $pager = '';
@@ -1564,7 +1581,7 @@ $(document).on('click','#prod-info',function(){
                 'position' : 'inside'
             });
         };
-       setTimeout(cloud, 500);
+        setTimeout(cloud, 1000);
         var cont_top = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
         $('#overlay')
             .css('display', 'block');
@@ -1603,4 +1620,207 @@ function changeCart($inputc){
 }
 $(document).on('ready', function(){
     $('a[rel=light]').light();
+});
+
+function getProductCart(){
+    $elems=$('.input-count');
+    $data=localStorage.getItem('cart-om');
+    $comments=$('#comment-cart-save')[0].value;
+    if($('#save-chk').hasClass('chk-unchecked')){
+        $shara=0;
+    }else{
+        $shara=1;
+    }
+    $baseduri = '/savecart';
+    $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
+        function(data){
+            if(data==1){
+                alert('Корзина записана');
+            }else if(data==2){
+                alert('Сохранять корзину могут только зарегистрированные пользователи. Войдите на сайт и попробуйте еще раз')
+            }else{
+                alert('Ошибка');
+            }
+        });
+}
+$(document).on('click','#save-set-btn',function () {
+    getProductCart();
+});
+
+$(document).on('click','#save-chk',function () {
+    if($(this).hasClass('chk-unchecked')){
+        $(this).removeClass('chk-unchecked');
+    }else{
+        $(this).addClass('chk-unchecked');
+    }
+});
+
+$(document).on('click','#save-set',function(){
+    $('#modal-save-set').css('display', 'block');
+    $('#overlay-save-cart').css('display','block');
+})
+$(document).on('click','#overlay-save-cart, #close-cart-save,#save-set-btn',function(){
+    $('#modal-save-set').hide();
+    $('#overlay-save-cart').hide();
+})
+
+$(document).on('click','.share-set',function () {
+    $id=$(this).data('id');
+    if($(this).hasClass('chk-unchecked')){
+        $(this).removeClass('chk-unchecked');
+        $data=1;
+    }else{
+        $(this).addClass('chk-unchecked');
+        $data=0;
+    }
+    $baseduri = '/savecart';
+    $.post($baseduri,{'id':$id,'param':'share','data':$data},
+        function(data){
+            if(data==1){
+                console.log(data);
+            }else if(data==2){
+                console.log('Корзина создана не вами');
+            }else{
+                console.log(data);
+            }
+        });
+});
+
+$(document).on('click','.del-cart-set',function () {
+    $id=$(this).data('id');
+    $row=$(this).data('row');
+    $baseduri = '/savecart';
+    $.post($baseduri,{'id':$id,'param':'delete'},
+        function(data){
+            if(data==1){
+                if(localStorage.getItem('cart-set')){
+                    $set=JSON.parse(localStorage.getItem('cart-set'));
+                    $set.splice($row,1);
+                    $set=JSON.stringify($set);
+                    localStorage.removeItem('cart-set');
+                    localStorage.setItem('cart-set',$set);
+                }
+                $rows=$('[class="cart-set-row"][data-id="'+$id+'"]');
+                $rows.remove();
+                $recount=$('[data-row]');
+                $.each($recount,function ($i,$item) {
+                    $num=parseInt($item.getAttribute('data-row'));
+                    $num--;
+                    $item.setAttribute('data-row',$num);
+                })
+            }else if(data==2){
+                console.log('Корзина создана не вами');
+            }else{
+                console.log('Ошибка');
+            }
+        });
+});
+function drawLeftCart($item){
+    $i = $item.cart;
+    if(typeof ($i)== 'undefined'){
+        localStorage.removeItem('cart-om');
+        localStorage.removeItem('cart-om-date');
+    }
+    $c = 0;
+
+
+    $.each($i, function () {
+        var mandata = [];
+        var requestdata = [];
+
+        requestdata = $.ajax({
+            method:'post',
+            url: "/site/product",
+            async: false,
+            data: {id: this[0]}
+        });
+
+        mandata = $.ajax({
+            method:'post',
+            url: "/site/manlist",
+            async: false,
+            data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+        });
+        if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
+            $access = 'В данный момент товар отсутствует' ;
+            $identypay = false;
+        }else if(JSON.parse(mandata.responseText).answer == false){
+            $access = 'К сожалению, товар в данный момент недоступен для оформления. Он останется в вашей корзине. Время оформления для данного товара вы можете посмотреть <a data-ajax=time data-href="'+requestdata.responseJSON.product.products.manufacturers_id+'">тут</a>';
+            $identypay = false;
+        }else{
+            $access = 'Данный товар доступен для заказа';
+            $identypay = true;
+        }
+        $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 420px;margin-left: 60px; padding: 5px;">' +
+            '<div class = "access '+$identypay+'" >'+$access+'</div>'+
+            '<a target="_blank" href="/product?id='+requestdata.responseJSON.product.products.products_id+'" class="cart-image" style="float: left; width:120px;height: 180px;"><img style="width: 100%; max-height:100%;" src="/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></a>' +
+            '<div class="cart-row-content" style="overflow:hidden; height:100%;float:left;width:70%;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
+            '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+requestdata.responseJSON.product.products.products_model +' </span>| <span id="gods-name">'+requestdata.responseJSON.product.productsDescription.products_name+'</span></div>' +
+            '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
+            '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
+            '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
+            '   <div class="num-of-items" data-raw="' + ($c++) + '" style="position:relative;top:7px;overflow:hidden;">';
+
+        if(typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined'){
+            $quan = Math.min(this[4],requestdata.responseJSON.product.productsAttributes[this[2]].quantity);
+        }else{
+            $quan = Math.min(this[4],requestdata.responseJSON.product.products.products_quantity);
+        }
+        $innerhtml +='<div id="input-count" class="input-count">'+$quan+'</div>';
+        $innerhtml += '</div></div></div></div>'+
+            '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC; display: none;">' +
+            '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
+            '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
+            '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+            '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+            'Добавить комментарий к этому товару <i class="fa fa-caret-down"></i>' +
+            '</div>' +
+            ' </div>' +
+            '</a>'+
+            '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+            '<div class="panel-body" style="padding: 0px 5px;">' +
+            '<div style="padding: 10px 0px;">';
+
+        if(typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined'){
+            $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+']['+requestdata.responseJSON.product.productsAttributesDescr[this[6]].products_options_values_id+']" style="width: 100%;" ></textarea>';
+
+        }else{
+            $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+'][all]" style="width: 100%;" ></textarea>';
+
+        }
+        $innerhtml +=    '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'+
+            '</div>';
+    });
+}
+$(document).on('click','.open-set',function(){
+    $row=$(this).data('row');
+    if($('[data-row='+$row+'][class=cart-set-content]').is(':visible')) {
+        $('[data-row=' + $row + '][class=cart-set-content]').hide();
+    }else{
+        $('[data-row=' + $row + '][class=cart-set-content]').show();
+    }
+    $innerhtml='';
+    $text=$('[class=cart-set-content][data-row='+$row+']').html();
+    $content=JSON.parse($text);
+    drawLeftCart($content);
+    $('[class=cart-set-content][data-row='+$row+']').html($innerhtml);
+})
+
+$(document).on('click','.del-products',function(){
+    $id =  $(this).parent().filter('[itemid]').attr('itemid');
+    $('[itemid='+$id+']').remove();
+    $new_cart = new Object();
+    $item = JSON.parse(localStorage.getItem('selected-product-om'));
+    $.each($item.products, function(i,item){
+        if(item == $id){
+            $item.products.splice(i, 1);
+        }
+    });
+
+    $ilocal = JSON.stringify($item);
+    localStorage.setItem('selected-product-om', $ilocal);
+
 });
