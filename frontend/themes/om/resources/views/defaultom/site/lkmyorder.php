@@ -73,6 +73,7 @@ $this -> title = 'Мои заказы';
 
     </div>
 </form><?php
+
 echo \yii\grid\GridView::widget([
     'dataProvider' => $orders,
     'layout' => "{pager}\n{items}",
@@ -133,6 +134,7 @@ echo \yii\grid\GridView::widget([
                 $inner .= '<th style="border: none" class="col-md-1">#</th>';
                 $inner .= '<th style="border: none" class="col-md-1">Изображение</th>';
                 $inner .= '<th style="border: none" class="col-md-2">Артикул</th>';
+                $inner .= '<th style="border: none" class="col-md-2">Комментарий</th>';
                 $inner .= '<th style="border: none" class="col-md-2">Цена за шт</th>';
                 $inner .= '<th style="border: none" class="col-md-1">Количество</th>';
                 $inner .= '<th style="border: none" class="col-md-1">Размер</th>';
@@ -176,6 +178,7 @@ echo \yii\grid\GridView::widget([
                         $finalomprice += (float)$price * (int)$positionquantity;
                     }
                     $omfirstprice += (float)$price * (int)$firstcountprod;
+                    $inner .= '<td class="col-md-2">'.$value->comment.'</td>';
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
                     $inner .= '<td class="col-md-1">Заказано: ' . $firstcountprod . $omfinalquant . '</td>';
                     $inner .= '<td class="col-md-1">'.$attr[$value->orders_products_id]['products_options_values'].'</td>';
@@ -251,6 +254,7 @@ echo \yii\grid\GridView::widget([
                 $inner .= '<th colspan="6" style="border: none" class="col-md-1">' . $shipping[$ship]['value'] . '</th>';
                 $inner .= '</tr>';
                 $inner .= '</tfooter></table>';
+                
                 //$inner = '<a class="" role="" data-toggle="collapse" href="#collapseOrd' . $data->orders_id . '" aria-expanded="false" aria-controls="collapseOrd' . $data->orders_id . '">'. $finalomprice . ' Руб</a><div class="collapse"  style="position: absolute; z-index: 999999; left: 19px; height: 0px;" id="collapseOrd' . $data->orders_id . '"><div class="well">';
                 return Collapse::widget([
                     'items' => [
@@ -341,7 +345,9 @@ echo \yii\grid\GridView::widget([
 
     ],
     'tableOptions' => ['class' => 'table table-striped admin-news-grid'],
+
 ]);
+
 
 ?>
 <script>

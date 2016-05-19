@@ -217,7 +217,7 @@ if(!$product['products']['products_image']){
 <!--        <div class="seen-items" style="height: 250px; ">-->
 <!--            <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">-->
 <!--                <div class="seen-img" style="height: 70%;">-->
-<!--                    --><?php//='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'?>
+<!--                    //='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'-->
 <!--                </div>-->
 <!--                <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>-->
 <!--                <div class="seen-price">200 руб</div>-->

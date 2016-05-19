@@ -35,7 +35,6 @@ if (!function_exists('new_suburl')) {
         $url_obj[$val] = $value;
         return $url_obj;
     }
-
 }
 
 
