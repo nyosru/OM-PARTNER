@@ -19,7 +19,7 @@ $this->beginPage();
 <body>
 <?php $this->beginBody(); ?>
 <?= $content ?>
-<?
+<?php
 $this->endBody();
 Yii::$app->params['assetsite']->registerAssetFiles($this);
 

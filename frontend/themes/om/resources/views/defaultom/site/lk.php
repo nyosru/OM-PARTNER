@@ -255,8 +255,11 @@ $this->title = 'Личный кабинет';
                     return ['class' => 'user-order-table-row'];
                 },
                 'content' => function ($data) {
-                    return '<a href="'.BASEURL.'/payview?id='.$data->orders_id.'">Счет</a>';
-                }
+                    if($data->orders_status != 1) {
+                        return '<a href="' . BASEURL . '/payview?id=' . $data->orders_id . '">Счет</a>';
+                    }else{
+                        return 'Не выставлен';
+                    }  }
             ],
 //            [
 //                'attribute' => 'delivery_adress',

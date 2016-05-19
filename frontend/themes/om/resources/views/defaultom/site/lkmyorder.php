@@ -32,7 +32,7 @@ $this -> title = 'Мои заказы';
             $sorter .=  '<a class="sort" name="order"  type="submit" href="" ><button style="background: rgb(245, 245, 245) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); float: left; color: rgb(0, 165, 161); font-size: 16px; border-radius: 4px; font-weight: 500; margin: 0px;" name="filter" type="submit" value="'.$i.'" class="'.$addclass.'">'.$sort_order[$i].'</button></a>';
         }
         ?>
-        <div id="sort-order" style="width: 50%;">
+        <div id="" style="width: 50%;">
             <?= $sorter?>
         </div>
         <div id="find-date" style="float: right; width: 30%; text-align: right;">
@@ -313,7 +313,11 @@ echo \yii\grid\GridView::widget([
             return ['class' => 'user-order-table-row'];
         },
         'content' => function ($data) {
-            return '<a href="'.BASEURL.'/payview?id='.$data->orders_id.'">Счет</a>';
+            if($data->orders_status != 1) {
+                return '<a href="' . BASEURL . '/payview?id=' . $data->orders_id . '">Счет</a>';
+            }else{
+                return 'Не выставлен';
+            }
         }
         ],
 //        [
