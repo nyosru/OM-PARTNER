@@ -3532,6 +3532,7 @@ div.size-desc:last-child{
 }
 
 .product-menu-rel{
+    padding: 5px;
     height: 71%;
     position: absolute;
     width: 100%;

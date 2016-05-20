@@ -28,6 +28,7 @@ class AppAsset extends AssetBundle
         'yii\web\JqueryAsset',
         'yii\jui\JuiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+      //  'Zelenin\yii\SemanticUI\assets\SemanticUICSSAsset',
         '\\yii\\materialicons\\AssetBundle',
 
 
