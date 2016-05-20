@@ -36,8 +36,12 @@ if(isset($success)){
         $count2=0;
         if(JSON.parse(localStorage.getItem('cart-om'))) {
             $cart = JSON.parse(localStorage.getItem('cart-om'));
-            $set = JSON.parse(localStorage.getItem('cart-set'));
-            $set = $set[$row];
+            if(JSON.parse(localStorage.getItem('cart-set'))){
+                localStorage.removeItem('cart-set');
+            }
+            console.log($body);
+            console.log($cart);
+            $set = $body;
             if($cart!=null) {
                 $.each($set.cart, function ($i, $item) {
                     if ($cart.cart.length > 0) {
