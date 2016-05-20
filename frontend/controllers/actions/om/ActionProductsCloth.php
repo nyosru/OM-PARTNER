@@ -58,8 +58,8 @@ trait ActionProductsCloth
                     'date'=>'offset',
                     'typeresponse'=> $json,
                     'maxtime'=>date('Y-m-d H:i:s'),
-                    'offsettime'=>'-1 day',
-                    'cachelistkeyprefix' => 'clothmonth-'.$ok,
+                    'offsettime'=>'-1 month',
+                    'cachelistkeyprefix' => 'clothzmonth1'.$ok,
                     'cacheproductkey'=> 'product'
                 ]);
 

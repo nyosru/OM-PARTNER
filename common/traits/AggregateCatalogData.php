@@ -80,11 +80,10 @@ trait AggregateCatalogData
         }else{
 
             $categoriesarr = $this->full_op_cat();
-            if(!$allowcat){
-                $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks);
-            }else{
-                $cat = $allowcat;
+            if($allowcat){
+
             }
+            $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks);
             unset($cat[327]);
             unset($cat[1354]);
             $cat = implode(',', $cat);
