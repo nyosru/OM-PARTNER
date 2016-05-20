@@ -186,7 +186,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             $('.target').shortscroll();
         });
     </script>
-
+    <?php
+    echo '<div style="position: fixed; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
+    ?>
     </body>
     </html>
 <?php $this->endPage() ?>
