@@ -21,7 +21,7 @@ $del_add .= '</select>';
 
 <script>
 $(document).on('ready', function () {
-    $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);">Ваша корзина пуста</div>');
+    $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);"></div>');
     //var curPos = $(document).scrollTop();
     //var scrollTime = curPos / 3.73;
     //$("body,html").animate({"scrollTop": 0}, scrollTime);
@@ -204,7 +204,7 @@ $(document).on('ready', function () {
             );
         }
         else {
-            $innerhtml='<div style="text-align: center; padding: calc(100% / 4);">Ваша корзина пуста</div>';
+            $innerhtml='<div style="text-align: center; padding: calc(100% / 4);"></div>';
         }
         $('.bside').html($innerhtml);
     }
