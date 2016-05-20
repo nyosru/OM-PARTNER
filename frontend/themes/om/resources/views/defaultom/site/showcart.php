@@ -1,5 +1,5 @@
 <form method="get" style="margin-bottom:30px;">
-    <input type="number" class="no-shadow-form-control" min="0" name="cart" placeholder="Введите номер набора" style="width: 40%; min-width: 300px; float: left;"/>
+    <input type="number" class="no-shadow-form-control" name="cart" min="0" placeholder="Введите номер корзины" style="width: 40%; min-width: 300px; float: left;"/>
     <input type="submit" class="btn btn-primary">
 </form>
 
