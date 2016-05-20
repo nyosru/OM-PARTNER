@@ -28,7 +28,7 @@ foreach ($cart as $k=>$v) {
                 ?>
             </div>
             <div class="cart-set-info"><?=$v->comment?></div>
-            <div class="cart-set-link" style="float: left;width: 25%;margin-top: 20px;"><input style="width: 95%;" class="no-shadow-form-control" type="text" value="http://new.odezhda-master.ru/showcart?cart=<?=$v->id?>"></div>
+            <div class="cart-set-link" style="float: left;width: 25%;margin-top: 20px;"><input style="width: 95%;" class="no-shadow-form-control" type="text" value="http://<?=$_SERVER['HTTP_HOST']?>/showcart?cart=<?=$v->id?>"></div>
             <div class="cart-set-control">
                 <i title="Удалить корзину" class="checkbox-overlay fa fa-times del-cart-set" data-row="<?=$k?>"  data-id="<?=$v->id?>" style="background-color:transparent;color:#ea516d;border-color: #cccccc;"></i>
                 <i title="Добавить товары в текущую корзину" data-row="<?=$k?>" class="checkbox-overlay fa fa-cart-arrow-down add-cart-set" style="background-color:transparent;color:#007BC1;border-color: #cccccc;"></i>
