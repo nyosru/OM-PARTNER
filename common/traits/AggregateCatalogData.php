@@ -27,6 +27,7 @@ trait AggregateCatalogData
             'searchword'=>'',
         ],
         $options = [
+            'allowcat' =>'',
             'ok'=> '',
             'date'=> '',
             'typeresponse'=> 'array',
@@ -51,6 +52,7 @@ trait AggregateCatalogData
         $searchword = urldecode(($params['searchword']));
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $allowcat = $options['allowcat'];
         $json = (integer)($options['typeresponse']);
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
@@ -72,12 +74,17 @@ trait AggregateCatalogData
         $start_arr = (integer)($page * $count);
         $man_time = $this->manufacturers_diapazon_id();
 
-        $static_cat_key = Yii::$app->cache->buildKey('static-cat-'.$cat_start );
+        $static_cat_key = Yii::$app->cache->buildKey('static-cat-'.$cat_start.'-'.$options['cachelistkeyprefix'] );
         if(($cat = Yii::$app->cache->get($static_cat_key))==TRUE){
 
         }else{
+
             $categoriesarr = $this->full_op_cat();
-            $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks);
+            if(!$allowcat){
+                $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks);
+            }else{
+                $cat = $allowcat;
+            }
             unset($cat[327]);
             unset($cat[1354]);
             $cat = implode(',', $cat);

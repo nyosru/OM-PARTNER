@@ -56,8 +56,8 @@ trait ActionDayProduct
                 'date'=>'offset',
                 'typeresponse'=> $json,
                 'maxtime'=>date('Y-m-d H:i:s'),
-                'offsettime'=>'-7 months',
-                'cachelistkeyprefix' => 'catalog-7month'.$ok,
+                'offsettime'=>'-1 day',
+                'cachelistkeyprefix' => 'day-day-'.$ok,
                 'cacheproductkey'=> 'product'
             ]);
 
