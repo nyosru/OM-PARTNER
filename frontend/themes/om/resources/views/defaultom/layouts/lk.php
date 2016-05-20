@@ -79,7 +79,7 @@ $this->beginPage();
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
                                         <a href="<?= BASEURL ?>/showcart">
-                                            Просмотр корзин по номеру
+                                            Найти корзину
                                         </a>
                                     </div>
                                 </li>

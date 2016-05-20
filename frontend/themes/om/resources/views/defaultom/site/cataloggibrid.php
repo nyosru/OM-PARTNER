@@ -68,7 +68,7 @@ echo '<div class="partners-main-right bside">';
         $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . new_url(new_suburl(split_url(new_url(new_suburl(split_url($url), 'page', 0))), 'count', $countdisp)) . '">' . $countdisp . '</a></div>';
     }
     echo '<div id="count-display" style="float: right;"> | Показать ' . $innercount . ' </div>';
-    echo '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] .  ($data[1]? 'из' . $data[1] : '' ) . '</div>';
+    echo '<div id="products-counter" style="float: right;">' . $data[4] . '-' . $data[5] .  ($data[1]? ' из ' . $data[1] : '' ) . '</div>';
 
 
     echo '<div id="products-pager"></div>';
