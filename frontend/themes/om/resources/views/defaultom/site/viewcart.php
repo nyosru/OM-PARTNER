@@ -4,6 +4,10 @@ $this->title='Просмотр сохраненных корзин';
 <script>
     $cartset=[];
 </script>
+<div style="margin-left: 15px"><div id="save-set" style="float: right;">Сохранить текущую корзину</div><form method="get" action="<?=BASEURL?>/showcart" style="margin-bottom:30px;">
+        <input type="number" class="no-shadow-form-control" name="cart" min="0" placeholder="Введите номер корзины для просмотра" style="width: 40%; min-width: 300px; float: left;"/>
+        <input type="submit" class="btn btn-primary">
+    </form></div>
 <div class="cart-set-row" style="height: 45px;">
     <div class="cart-set-num" style="line-height: 20px">Номер корзины</div>
     <div class="cart-set-share">Доступна другим</div>
