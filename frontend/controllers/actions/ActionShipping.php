@@ -53,10 +53,14 @@ trait ActionShipping
                     'wantpasport' => '0'
                 ],
                 'russianpostpf_russianpostpf' => [
-                    'value' => 'Почта России - http://pochta.ru/',
+                    'value' => 'Почта России - http://pochta.ru',
                     'active' => '1',
                     'wantpasport' => '0'
                 ],
+                'courier_express' => [
+                    'value'=>'Служба доставки Экспресс-Курьер http://www.edostavka.ru',
+                    'active' => '1',
+                    'wantpasport' => '0']
             ];
         }
     }

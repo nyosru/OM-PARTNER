@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
-    <identifycate>omdesign</identifycate>
-    <name>ОМ</name>
-    <description>Стандартный набор функционала</description>
+    <identifycate>omdefault2</identifycate>
+    <name>omdesign</name>
+    <description>Стандартный набор функционалаD</description>
     <version>1.0</version>
     <autor>CodeTek</autor>
     <images>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
-    <identifycate>default2</identifycate>
+    <identifycate>omdesign</identifycate>
     <name>Стандартный шаблон(Салатовый)</name>
     <description>Стандартный набор функционала</description>
     <version>1.0</version>
@@ -24,13 +24,13 @@
     </images>
     <resources>
         <views>
-            <name>default2</name>
+            <name>omdesign</name>
         </views>
         <js>
-            <name>default2</name>
+            <name>omdesign</name>
         </js>
         <css>
-            <name>default2</name>
+            <name>omdesign</name>
         </css>
     </resources>
 </template>
