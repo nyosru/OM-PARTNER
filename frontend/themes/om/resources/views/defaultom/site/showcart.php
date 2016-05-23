@@ -37,50 +37,34 @@ if(isset($success)){
             if(JSON.parse(localStorage.getItem('cart-set'))){
                 localStorage.removeItem('cart-set');
             }
-            console.log($body);
-            console.log($cart);
             $set = $body;
-            if($cart!=null) {
-                $.each($set.cart, function ($i, $item) {
-                    if ($cart.cart.length > 0) {
-                        $.each($cart.cart, function ($k, $v) {
-//                            if ($item[0] == $v[0] && $item[2] == $v[2]) {
-//                                $cart.cart[$k][4] = parseInt($item[4]) + parseInt($cart.cart[$k][4]);
-//                                $count2+=parseInt($item[4])
-//                            } else {
-                            $cart.cart.push($item);
-                            $count2+=parseInt($item[4])
-//                            }
-                            return false;
-                        })
-
-                    } else {
+            $.each($set.cart, function ($i, $item) {
+                if ($cart.cart.length > 0) {
+                    $.each($cart.cart, function ($k, $v) {
                         $cart.cart.push($item);
-                        $count2+=parseInt($item[4])
-                    }
-                })
-            }else{
-                $cart.cart=[];
-                $cart.cart.push($item);
-                $count2+=parseInt($item[4])
-            }
+                        $count2+=parseInt($item[4]);
+                        return false;
+                    })
+
+                } else {
+                    $cart.cart.push($item);
+                    $count2+=parseInt($item[4])
+                }
+            })
             $cart=fixCart($cart);
             $cart = JSON.stringify($cart);
             localStorage.removeItem('cart-om');
             localStorage.setItem('cart-om', $cart);
         }else {
-            console.log('Отсутствует корзина');
             if(JSON.parse(localStorage.getItem('cart-set'))){
                 localStorage.removeItem('cart-set')
             }
             $set = $body;
-            console.log($set);
             $.each($set['cart'],function($i,$item){
                 $count2+=parseInt($item[4]);
             });
             $set = JSON.stringify($set);
             localStorage.setItem('cart-om', $set);
-            console.log('Корзина сохранена');
         }
         $count+=$count2;
         $('.cart-count').html($count);

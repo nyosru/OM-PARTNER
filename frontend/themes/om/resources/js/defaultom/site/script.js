@@ -487,7 +487,7 @@ function new_suburl($url_obj, $val, $new_var) {
 function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
     $.post('/catpath',{'category':$category},
         function(data){
-            $('[data-cat='+$prod['products_id']+']').html('<a href=/catalog?cat='+$category+'>Категория: '+data+'</a>');
+            $('[data-cat='+$prod['products_id']+']').html('<p><a href=/catalog?cat='+$category+'>Категория: '+data+'</a></p><p>Артикул: '+$prod['products_model']+'</p><p>Наименование: '+escapeHtml($descr['products_name'])+'</p><p>Цена: '+Math.round($product.products_price)+' руб.</p>');
         });
     $product = $prod;
     $descriptionprod = $descr;
@@ -629,7 +629,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
 function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
     $.post('/catpath',{'category':$category},
         function(data){
-            $('[data-cat='+$prod['products_id']+']').html('<a href=/catalog?cat='+$category+'>Категория: '+data+'</a>');
+            $('[data-cat='+$prod['products_id']+']').html('<p><a href=/catalog?cat='+$category+'>Категория: '+data+'</a></p><p>Артикул: '+$prod['products_model']+'</p><p>Наименование: '+escapeHtml($descr['products_name'])+'</p><p>Цена: '+Math.round($product.products_price)+' руб.</p>');
         });
     $product = $prod;
     $descriptionprod = $descr;

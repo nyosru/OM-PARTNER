@@ -3532,7 +3532,6 @@ div.size-desc:last-child{
 }
 
 .product-menu-rel{
-    padding: 5px;
     height: 71%;
     position: absolute;
     width: 100%;
@@ -3540,6 +3539,8 @@ div.size-desc:last-child{
     top: 0px;
     left: 0px;
     background: rgba(245, 245, 245, 0.9) none repeat scroll 0% 0%;
+    padding: 10px;
+    color:#333;
 }
 
 #save-set{
