@@ -9,8 +9,6 @@ if(isset($success)){
         echo '<div>Корзины с таким номером не обнаружено, попробуйте ввести другой.</div>';
     }elseif($success==1){
         $body=unserialize($cart->cart_body);
-        $cartset=[];
-        $carset[]=$body;
         echo '<script>$body='.$body.'</script>';
         ?>
         <div class="cart-set-row" data-row="0" data-id="<?=$cart->id?>">
@@ -72,11 +70,15 @@ if(isset($success)){
             localStorage.setItem('cart-om', $cart);
         }else {
             console.log('Отсутствует корзина');
-            $set = JSON.parse(localStorage.getItem('cart-set'));
-            $.each($set[$row]['cart'],function($i,$item){
-                $count++;
-            })
-            $set = JSON.stringify($set[$row]);
+            if(JSON.parse(localStorage.getItem('cart-set'))){
+                localStorage.removeItem('cart-set')
+            }
+            $set = $body;
+            console.log($set);
+            $.each($set['cart'],function($i,$item){
+                $count2+=parseInt($item[4]);
+            });
+            $set = JSON.stringify($set);
             localStorage.setItem('cart-om', $set);
             console.log('Корзина сохранена');
         }
