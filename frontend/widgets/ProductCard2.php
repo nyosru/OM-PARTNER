@@ -26,10 +26,11 @@ class ProductCard2 extends \yii\bootstrap\Widget
     {
         if($this->category==0){
             $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
-            $categ=$categ->categories_id;
-            $categ=array_pop($this->Catpath($categ, 'name'));
+            $catnum=$categ->categories_id;
+            $categ=array_pop($this->Catpath($catnum, 'name'));
         }
         else {
+            $catnum=$this->category;
             $categ = array_pop($this->Catpath($this->category, 'name'));
         }
         $product=$this->product;
@@ -157,7 +158,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
         $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'.$product['products_id'].'" aria-hidden="true"></i>';
-        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none; "><p><a href="'.BASEURL.'/catalog?cat='.$this->category.'">Категория: '.$categ.'</a></p><p>Артикул: '.$product['products_model'].'</p><p>Наименование: '.htmlentities($description['products_name']).'</p><p>Цена: '.round($product['products_price']).' руб.</p></div>';
+        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none; "><p><a href="'.BASEURL.'/catalog?cat='.$catnum.'">Категория: '.$categ.'</a></p><p>Артикул: '.$product['products_model'].'</p><p>Наименование: '.htmlentities($description['products_name']).'</p><p>Цена: '.round($product['products_price']).' руб.</p></div>';
 
         $innerhtml .= '
                         <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.'
