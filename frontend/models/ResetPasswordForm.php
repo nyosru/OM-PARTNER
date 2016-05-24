@@ -1,7 +1,6 @@
 <?php
 namespace frontend\models;
 
-use common\models\Profile;
 use common\models\User;
 use yii\base\InvalidParamException;
 use yii\base\Model;
@@ -58,13 +57,9 @@ class ResetPasswordForm extends Model
     public function resetPassword()
     {
         $user = $this->_user;
-        $chpass = new Profile();
-        $chpass->scenario = 'chpass';
-        $chpass->password = trim($this->password);
-        $chpass->id = (integer)$user->id;
-        if($chpass->resetPassword()){
-            return $this->redirect(BASEURL.'/login');
-        }
-        return false;
+        $user->setPassword($this->password);
+        $user->removePasswordResetToken();
+
+        return $user->save(false);
     }
 }
