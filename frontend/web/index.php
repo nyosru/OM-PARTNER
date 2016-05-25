@@ -156,7 +156,7 @@ $application->params['adminasset'] = $adminasset;
 //    echo '<div style="display: table; vertical-align: middle; margin: auto; font-size: 24px">Приносим свои извинения, проводятся технические работы</div>';
 //    die();
 //}else{
-echo '<div style="position: absolute; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
+//echo '<div style="position: absolute; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
 $application->run();
 $application->db->close();
 //}

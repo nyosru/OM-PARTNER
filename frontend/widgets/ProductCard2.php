@@ -27,11 +27,11 @@ class ProductCard2 extends \yii\bootstrap\Widget
         if($this->category==0){
             $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
             $catnum=$categ->categories_id;
-            $categ=array_pop($this->Catpath($catnum, 'name'));
+            $categ=end($this->Catpath($catnum, 'name'));
         }
         else {
             $catnum=$this->category;
-            $categ = array_pop($this->Catpath($this->category, 'name'));
+            $categ = end($this->Catpath($this->category, 'name'));
         }
         $product=$this->product;
         $description=$this->description;
