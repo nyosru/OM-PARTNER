@@ -232,8 +232,8 @@ trait AggregateCatalogData
                 $end_price_query_filt = '';
             }
             if ($searchword != '') {
-                if (preg_match('/^[0-9 ]+$/', $searchword)) {
-                    $arfilt[':searchword'] = $arfilt_pricemax[':searchword']= trim(str_replace(' ','',$searchword)).'%';
+                if (preg_match('/^[0-9\s]+/', $searchword)) {
+                    $arfilt[':searchword'] = $arfilt_pricemax[':searchword']= '%'.trim(str_replace(' ','',$searchword)).'%';
                     $prod_search_query_filt = '  and products.products_model LIKE :searchword ';
                     $nostat = true;
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {

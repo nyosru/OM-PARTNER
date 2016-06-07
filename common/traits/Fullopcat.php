@@ -8,7 +8,7 @@ trait Fullopcat
 {
     public function full_op_cat()
     {
-        $key = Yii::$app->cache->buildKey('fullopcatcategories-2353' . Yii::$app->params['constantapp']['APP_ID']);
+        $key = Yii::$app->cache->buildKey('fullopcatcategories-23534' . Yii::$app->params['constantapp']['APP_ID']);
         $data = Yii::$app->cache->get($key);
         if ($data['data'] == FALSE) {
            // $checks = Yii::$app->params['constantapp']['APP_CAT'];
@@ -32,7 +32,7 @@ trait Fullopcat
             foreach ($s as $value) {
                 $catnamearr[$value['categories_id']] = $value['categories_name'];
             }
-            Yii::$app->cache->set($key, ['data' => ['cat' => $arr_cat, 'name' => $catnamearr]]);
+            Yii::$app->cache->set($key, ['data' => ['cat' => $arr_cat, 'name' => $catnamearr]], 1800);
         } else {
             $arr_cat = $data['data']['cat'];
             $catnamearr = $data['data']['name'];
