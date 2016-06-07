@@ -762,9 +762,7 @@ trait ActionSaveorder
                 } else {
                     $ordershistory->comments = NULL;
                 }
-//                if($type_order == 'plus'){
-//                    $ordershistory->comments .= ' Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
-//                }
+
                 if ($wrap == 'boxes') {
                     $ordershistory->comments .= ' Авто-комментарий - Упаковка: крафт коробки. ';
                 }

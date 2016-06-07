@@ -268,7 +268,6 @@ trait ActionProduct
                         $data['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
                     );
                 }
-                // $catpath = json_decode(file_get_contents('http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/catpath?cat=' . $data['categories_id'] . '&action=namenum'));
                 $list = array();
                 $hide_man = $this->hide_manufacturers_for_partners();
                 foreach ($hide_man as $value) {

@@ -55,8 +55,7 @@ trait ActionNewProductDay
         $man_time = $this->manufacturers_diapazon_id();
         $categoriesarr = $this->full_op_cat();
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
-        // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
-
+      
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->createCommand()->queryAll();
         if (!$x['products_last_modified']) {
             $x['products_last_modified'] = $x['add_date'];
@@ -133,11 +132,7 @@ trait ActionNewProductDay
 
                 }
                 $prod_attr_query_filt = ' and options_values_id IN (' . implode(',', $findue) . ')  ';
-                // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-
-                // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
-
-
+               
             } else {
                 $prod_search_query_filt = '';
             }
@@ -288,7 +283,6 @@ trait ActionNewProductDay
                         $data[$key]['products']['products_image_xl_4'],
                         $data[$key]['products']['products_image_xl_5'],
                         $data[$key]['products']['products_image_xl_6'],
-                        //$data[$key]['products']['products_old_price'],
                         $data[$key]['products']['products_ordered'],
                         $data[$key]['products']['price_coll'],
                         $data[$key]['products']['products_sort_order'],
@@ -355,7 +349,6 @@ trait ActionNewProductDay
             } else {
                 $catpath = $this->Catpath($cat_start, 'namenum');
             }
-            //ksort($productattrib,'SORT_NATURAL' );
             Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
             return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time]);
         }
