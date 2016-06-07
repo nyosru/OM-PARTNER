@@ -10,6 +10,7 @@ class Menu extends \yii\bootstrap\Widget
 {
     use View_cat, Reformat_cat_array, Categories_for_partner;
     public $opencat = [];
+
     public function init()
     {
         $categoriesarr = $this->categories_for_partners();

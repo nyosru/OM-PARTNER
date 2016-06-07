@@ -6,12 +6,13 @@ use common\traits\Reformat_cat_array;
 use common\traits\View_cat2;
 use yii\helpers\Html;
 use Yii;
+
 class Menuom extends \yii\bootstrap\Widget
 {
     use View_cat2, Reformat_cat_array, Categories_for_partner;
     public $property;
     private $categoriesarr;
-    private $categories ;
+    private $categories;
     private $cat = 0;
     private $checks;
     private $check;
@@ -20,6 +21,7 @@ class Menuom extends \yii\bootstrap\Widget
     private $startcat;
     private $opencat;
     private $rend;
+
     public function init()
     {
         parent::init();
@@ -35,9 +37,10 @@ class Menuom extends \yii\bootstrap\Widget
     }
 
 
-    public function run(){
+    public function run()
+    {
         parent::run();
-	        return '<div id="'.$this->id.'">'.$this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat).'</div>';
-	    }
+        return '<div id="' . $this->id . '">' . $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat) . '</div>';
+    }
 
 }

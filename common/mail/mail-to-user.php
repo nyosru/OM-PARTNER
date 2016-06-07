@@ -6,8 +6,9 @@ use yii\helpers\Html;
 
 ?>
 <html>
-<head></head>
-<body>
-<?= $letter; ?>
-</body>
+    <head>
+    </head>
+    <body>
+        <?= $letter; ?>
+    </body>
 </html>
