@@ -6,8 +6,12 @@ set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
 error_reporting(E_ERROR | E_STRICT);
+if($_GET['admin'] == 1){
+    defined('YII_DEBUG') or define('YII_DEBUG', true);
+}else{
+    defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+}
 
-defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
 require(__DIR__ . '/../../vendor/autoload.php');
@@ -71,34 +75,34 @@ foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
 
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'logFile' => '@frontend/runtime/logs/request/requests.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000,
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['info'],
-    'logFile' => '@frontend/runtime/logs/response/response.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['error', 'warning'],
-    'categories' => ['yii\swiftmailer\Logger::add'],
-    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['error', 'warning'],
-    'logFile' => '@frontend/runtime/logs/error/error.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'logFile' => '@frontend/runtime/logs/request/requests.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000,
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['info'],
+//    'logFile' => '@frontend/runtime/logs/response/response.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['error', 'warning'],
+//    'categories' => ['yii\swiftmailer\Logger::add'],
+//    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['error', 'warning'],
+//    'logFile' => '@frontend/runtime/logs/error/error.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
 
    
 
@@ -158,6 +162,7 @@ $application->params['adminasset'] = $adminasset;
 //}else{
 //echo '<div style="position: absolute; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
 $application->run();
+//echo '<div style="position: fixed; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
 $application->db->close();
 //}
 

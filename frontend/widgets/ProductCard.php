@@ -26,12 +26,14 @@ class ProductCard extends \yii\bootstrap\Widget
     {
         if($this->category==0){
             $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
-            $catnum=$categ->categories_id;
-            $categ=end($this->Catpath($catnum, 'name'));
+            $categ=$categ->categories_id;
+            $catpath = $this->Catpath($categ, 'name');
+            $categ=end($catpath);
         }
         else {
-            $catnum=$this->category;
-            $categ = end($this->Catpath($this->category, 'name'));
+            $name = 'name';
+            $catpath = $this->Catpath($this->category, $name);
+            $categ = end($catpath);
         }
         $innerhtml = '';
         $product=$this->product;
@@ -162,7 +164,7 @@ class ProductCard extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
-        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none; "><p><a href="'.BASEURL.'/catalog?cat='.$catnum.'">Категория: '.$categ.'</a></p><p>Артикул: '.$product['products_model'].'</p><p>Наименование: '.htmlentities($description['products_name']).'</p><p>Цена: '.round($product['products_price']).' руб.</p></div>';
+        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'">Категория: '.$categ.'</a></div>';
 
         $innerhtml .= '
                         <div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'

@@ -27,6 +27,7 @@ trait AggregateCatalogData
             'searchword'=>'',
         ],
         $options = [
+            'allowcat' =>'',
             'ok'=> '',
             'date'=> '',
             'typeresponse'=> 'array',
@@ -51,6 +52,7 @@ trait AggregateCatalogData
         $searchword = urldecode(($params['searchword']));
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];
+        $allowcat = $options['allowcat'];
         $json = (integer)($options['typeresponse']);
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
             $sort = 0;
@@ -72,11 +74,15 @@ trait AggregateCatalogData
         $start_arr = (integer)($page * $count);
         $man_time = $this->manufacturers_diapazon_id();
 
-        $static_cat_key = Yii::$app->cache->buildKey('static-cat-'.$cat_start );
+        $static_cat_key = Yii::$app->cache->buildKey('static-cat-'.$cat_start.'-'.$options['cachelistkeyprefix'] );
         if(($cat = Yii::$app->cache->get($static_cat_key))==TRUE){
 
         }else{
+
             $categoriesarr = $this->full_op_cat();
+            if($allowcat){
+
+            }
             $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks);
             unset($cat[327]);
             unset($cat[1354]);
@@ -309,7 +315,7 @@ trait AggregateCatalogData
                 $count_arrs = $stats['data']['count_arrs'];
                 $price_max = $stats['data']['price_max'];
             }
-            Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache]);
+            Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache], 3600);
         } else {
             $cache = 'Kэш-'.$x['prod'].'-'.$x['prod'];
             $productattrib = $dataque['productattrib'];
@@ -358,6 +364,8 @@ trait AggregateCatalogData
                     if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
                         $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
                     }
+                    $data[$key]['catpath'] = $this->Catpath($data[$key]['categories_id'],'namenum');
+
                     unset(
                         $data[$key]['old_categories_id'],
                         $data[$key]['products']['country_id'],

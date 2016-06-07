@@ -18,11 +18,12 @@ trait ActionTestUnit
     {
         
        if(Yii::$app->user->can('admin')){
-           $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
-           $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
+        //   $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
+        //   $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
+        $x = PartnersProducts::find()->where(['products_model'=>960814824])->asArray()->all();
           echo '<pre>';
-           print_r($user);
-           print_r($customer);
+           print_r($x);
+         //  print_r($customer);
            echo '</pre>';
        }
         return '';

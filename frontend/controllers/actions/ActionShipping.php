@@ -38,7 +38,7 @@ trait ActionShipping
                     'wantpasport' => '0'
                 ],
                 'flat9_flat9' => [
-                    'value'=>'Бесплатная доставка до ТК Севертранс',
+                    'value'=>'Бесплатная доставка до ТК Севертранс http://severtrans-msk.ru/',
                     'active'=>'1',
                     'wantpasport' => '0'
                 ],

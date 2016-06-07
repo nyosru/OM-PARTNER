@@ -485,17 +485,22 @@ function new_suburl($url_obj, $val, $new_var) {
 }
 
 function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
-    $.post('/catpath',{'category':$category},
-        function(data){
-            $('[data-cat='+$prod['products_id']+']').html('<p><a href=/catalog?cat='+$category+'>Категория: '+data+'</a></p><p>Артикул: '+$prod['products_model']+'</p><p>Наименование: '+escapeHtml($descr['products_name'])+'</p><p>Цена: '+Math.round($product.products_price)+' руб.</p>');
-        });
+    if($category.lenght  ==  0 ) {
+        $catname = '';
+        $catnum = '';
+    }else{
+
+        $catname = $category.name[$category.name.length - 1];
+        $catnum = $category.num[$category.num.length - 1];
+    }
+
     $product = $prod;
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
     if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481','3512']) != -1){
-        $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." ><img src="/images/logo/ok.png"></a></div>';
+        $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><img src="/images/logo/ok.png"></div>';
     }else{
         $man_in_sklad = '';
     }
@@ -530,7 +535,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
                 $descriptionprod['products_name']="Не указано";
             }
 
-         
+
             $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
                 '<input '+$inputpos+' id="input-count"'+
@@ -590,7 +595,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
     $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
 
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"></div></div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
 
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -627,17 +632,15 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
         '</div></div>');
 }
 function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
-    $.post('/catpath',{'category':$category},
-        function(data){
-            $('[data-cat='+$prod['products_id']+']').html('<p><a href=/catalog?cat='+$category+'>Категория: '+data+'</a></p><p>Артикул: '+$prod['products_model']+'</p><p>Наименование: '+escapeHtml($descr['products_name'])+'</p><p>Цена: '+Math.round($product.products_price)+' руб.</p>');
-        });
+    $catname = $category['name'][$category['name'].length - 1];
+    $catnum = $category['num'][$category['num'].length - 1];
     $product = $prod;
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '';
     if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481",'3512']) != -1){
-        $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." ><img src="/images/logo/ok.png"></a></div>';
+        $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="/images/logo/ok.png"></div>';
     }else{
         $man_in_sklad = '';
     }
@@ -727,7 +730,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
     $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'+$product['products_id']+'" aria-hidden="true"></i>';
     $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"></div></div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
 
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
@@ -871,11 +874,11 @@ function loaddata(){
         if (data[0] != 'Не найдено!') {
             if(getCookie('cardview')==1) {
                 $.each(data[0], function (i, item) {
-                    renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.categories_id)
+                    renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath)
                 });
             }else{
                 $.each(data[0], function (i, item) {
-                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.categories_id)
+                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath)
                 });
             }
             $pager = '';
