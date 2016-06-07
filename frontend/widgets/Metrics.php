@@ -53,11 +53,12 @@ class Metrics extends \yii\bootstrap\Widget
         /** Счетчик майл End**/
 
         /** Счетчик Google Analitics Begin**/
-
-        if (   Yii::$app->params['partnersset']['googleanalitycs']['value']
-            && Yii::$app->params['partnersset']['googleanalitycs']['active'] == 1){
-
-            $googleanalitycs = Yii::$app->params['partnersset']['googleanalitycs']['value'];
+//
+//        if (   Yii::$app->params['partnersset']['googleanalitycs']['value']
+//            && Yii::$app->params['partnersset']['googleanalitycs']['active'] == 1){
+if(true){
+      //      $googleanalitycs = Yii::$app->params['partnersset']['googleanalitycs']['value'];
+              $googleanalitycs = 'UA-75056446-1';
             ?>
             <script>
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -75,10 +76,11 @@ class Metrics extends \yii\bootstrap\Widget
         /** Счетчик Yandex Metrix Begin**/
 
 
-        if (   Yii::$app->params['partnersset']['yandexcounter']['value']
-            && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1){
-
-            $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
+//        if (   Yii::$app->params['partnersset']['yandexcounter']['value']
+//            && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1){
+if(true){
+          //  $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
+    $yandexcounter = '36825930';
             ?>
             <script type="text/javascript">
                 (function (d, w, c) {

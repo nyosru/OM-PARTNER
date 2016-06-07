@@ -2438,7 +2438,6 @@ div.float:hover {
 }
 
 #index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
-    min-width: 245px;
     margin: 5px
 }
 
@@ -3539,10 +3538,11 @@ div.size-desc:last-child{
     top: 0px;
     left: 0px;
     background: rgba(245, 245, 245, 0.9) none repeat scroll 0% 0%;
+    padding: 10px;
+    color:#333;
 }
 
 #save-set{
-    width: 154px;
     height: 25px;
     cursor: pointer;
     float: right;
@@ -3629,7 +3629,7 @@ div.size-desc:last-child{
 }
 .cart-set-info{
     float: left;
-    width: 50%;
+    width: 25%;
     height: 70px;
     margin: 25px 40px;
 }
@@ -3911,9 +3911,9 @@ div.size-desc:last-child{
     .top-link-cont-back{
         display: none;
     }
-    #main-index{
-        display:none;
-    }
+    /*#main-index{*/
+        /*display:none;*/
+    /*}*/
     #card2{
         padding:1px;
         min-width:200px;

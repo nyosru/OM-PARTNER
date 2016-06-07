@@ -206,6 +206,7 @@ trait ActionProduct
                     $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
 
                 }
+
                 unset(
                     $data['old_categories_id'],
                     $data['products']['country_id'],
@@ -279,7 +280,7 @@ trait ActionProduct
                 $data['productsAttributesDescr'] = ArrayHelper::index($data['productsAttributesDescr'], 'products_options_values_name');
                 $data['productsAttributes'] = ArrayHelper::index($data['productsAttributes'], 'options_values_id');
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
+              
                 return ['product' => $data,  'spec'=>$spec];
 
             } else {

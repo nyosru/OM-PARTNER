@@ -21,18 +21,19 @@ trait ThemeResources
         if(file_exists($path)) {
             $xmlinfo = simplexml_load_file($path)->resources;
             if($xmlinfo){
-            $viewpath = $xmlinfo->views->name;
-            $csspath = $xmlinfo->css->name;
-            $jspath = $xmlinfo->js->name;
+                $viewpath = $xmlinfo->views->name;
+                $csspath = $xmlinfo->css->name;
+                $jspath = $xmlinfo->js->name;
                 if(!$csspath){
                     return ['exception' => 'Подключаемый ресурс css не существует'];
                 }else{
-                  $csspathpub =  Yii::$app->assetManager->publish($resourcespath.'/css/'.$csspath.'/'.$side);
-                  $resdir = opendir($csspathpub[0]);
+                    $csspathpub =  Yii::$app->assetManager->publish($resourcespath.'/css/'.$csspath.'/'.$side);
+                    $resdir = opendir($csspathpub[0]);
                     $css = Array();
                     if($resdir){
                         while (false !== ($file = readdir($resdir))) {
-                            if(end(explode('.', $file)) == 'css'){
+                            $cssar = explode('.', $file);
+                            if(end($cssar) == 'css'){
                                 $css[] = $csspathpub[1].'/'.$file.'?v='.filemtime($resourcespath.'/css/'.$csspath.'/'.$side.'/'.$file);
                             };
                         }
@@ -42,12 +43,13 @@ trait ThemeResources
                     return ['exception' => 'Подключаемый ресурс js не существует'];
                 }else{
 
-                  $jspathpub =  Yii::$app->assetManager->publish($resourcespath.'/js/'.$jspath.'/'.$side);
+                    $jspathpub =  Yii::$app->assetManager->publish($resourcespath.'/js/'.$jspath.'/'.$side);
                     $resdir = opendir($jspathpub[0]);
                     $js = Array();
                     if($resdir){
                         while (false !== ($file = readdir($resdir))) {
-                            if(end(explode('.', $file)) == 'js'){
+                            $jsarr = explode('.', $file);
+                            if(end($jsarr) == 'js'){
                                 $js[] = $jspathpub[1] . '/' . $file . '?v=' . filemtime($resourcespath . '/js/' . $jspath . '/' . $side . '/' . $file);
                             };
                         }

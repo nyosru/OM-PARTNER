@@ -1,13 +1,19 @@
 <?php
 $this->title='Просмотр сохраненных корзин';
+$modalsaveset='<div style="height:40px;background-color: #E1F5E1;text-align: center;font-size: 24px;line-height: 1.7;">Сохранение корзины<div style="width:30px;float: right"><i style="cursor:pointer; color:#ea516d;" id="close-cart-save" class="fa fa-times" aria-hidden="true"></i></div></div><div><div style="width:90%;margin-left: 5%; height:40px;line-height:4;">Введите комментарий для сохраняемой корзины:</div><input id="comment-cart-save" class="no-shadow-form-control" style="width:90%; margin-left:5%;"></div><div style="width:90%; margin-left:5%; line-height: 4; height: 40px;">Сделать корзину публичной (вы сможете давать ссылки на нее другим)<i class="checkbox-overlay fa fa-check chk-unchecked" id="save-chk" style="margin-top:15px;margin-right:15px;"></i></div><div id="save-set-btn">Сохранить</div>';
 ?>
 <script>
     $cartset=[];
 </script>
+<div style="margin-left: 15px"><div id="modal-save-set" style="display:none"><?=$modalsaveset?></div><div id="save-set" style="float: right;">Сохранить текущую корзину</div><form method="get" action="<?=BASEURL?>/showcart" style="margin-bottom:30px;">
+        <input type="number" class="no-shadow-form-control" name="cart" min="0" placeholder="Введите номер корзины для просмотра" style="width: 40%; min-width: 300px; float: left;"/>
+        <input type="submit" class="btn btn-primary">
+    </form></div>
 <div class="cart-set-row" style="height: 45px;">
     <div class="cart-set-num" style="line-height: 20px">Номер корзины</div>
     <div class="cart-set-share">Доступна другим</div>
     <div class="cart-set-info" style="text-align: center; margin-top: 10px;">Комментарий к корзине</div>
+    <div class="cart-set-info" style="text-align: center; margin-top: 10px;float: left;width: 20%;">Ссылка на корзину</div>
     <div class="cart-set-control" style="margin-top: 2px">Управление корзиной</div>
 </div>
 <?php
@@ -27,6 +33,7 @@ foreach ($cart as $k=>$v) {
                 ?>
             </div>
             <div class="cart-set-info"><?=$v->comment?></div>
+            <div class="cart-set-link" style="float: left;width: 25%;margin-top: 20px;"><input style="width: 95%;" class="no-shadow-form-control" type="text" value="http://<?=$_SERVER['HTTP_HOST']?>/showcart?cart=<?=$v->id?>"></div>
             <div class="cart-set-control">
                 <i title="Удалить корзину" class="checkbox-overlay fa fa-times del-cart-set" data-row="<?=$k?>"  data-id="<?=$v->id?>" style="background-color:transparent;color:#ea516d;border-color: #cccccc;"></i>
                 <i title="Добавить товары в текущую корзину" data-row="<?=$k?>" class="checkbox-overlay fa fa-cart-arrow-down add-cart-set" style="background-color:transparent;color:#007BC1;border-color: #cccccc;"></i>

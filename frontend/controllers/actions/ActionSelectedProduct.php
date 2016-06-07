@@ -54,6 +54,7 @@ trait ActionSelectedProduct{
                     if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
                         $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
                     }
+                    $data[$key]['catpath'] = $this->Catpath($data[$key]['categories_id'],'namenum');
                     unset(
                         $data[$key]['old_categories_id'],
                         $data[$key]['products']['country_id'],

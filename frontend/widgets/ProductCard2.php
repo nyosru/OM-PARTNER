@@ -27,10 +27,13 @@ class ProductCard2 extends \yii\bootstrap\Widget
         if($this->category==0){
             $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
             $categ=$categ->categories_id;
-            $categ=array_pop($this->Catpath($categ, 'name'));
+            $catpath = $this->Catpath($categ, 'name');
+            $categ=end($catpath);
         }
         else {
-            $categ = array_pop($this->Catpath($this->category, 'name'));
+            $name = 'name';
+            $catpath = $this->Catpath($this->category, $name);
+            $categ = end($catpath);
         }
         $product=$this->product;
         $description=$this->description;
@@ -151,7 +154,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $man_time_list = '';
         }
         if(in_array($product['manufacturers_id'], $this->oksuppliers())){
-            $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="'.BASEURL.'/images/logo/ok.png"></div>';
+            $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." ><img src="'.BASEURL.'/images/logo/ok.png"></a></div>';
         }else{
             $man_in_sklad = '';
         }

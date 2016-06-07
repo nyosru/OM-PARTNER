@@ -1,5 +1,5 @@
 <form method="get" style="margin-bottom:30px;">
-    <input type="number" class="no-shadow-form-control" name="cart" placeholder="Введите номер набора" style="width: 40%; min-width: 300px; float: left;"/>
+    <input type="number" class="no-shadow-form-control" name="cart" min="0" placeholder="Введите номер корзины" style="width: 40%; min-width: 300px; float: left;"/>
     <input type="submit" class="btn btn-primary">
 </form>
 
@@ -9,8 +9,6 @@ if(isset($success)){
         echo '<div>Корзины с таким номером не обнаружено, попробуйте ввести другой.</div>';
     }elseif($success==1){
         $body=unserialize($cart->cart_body);
-        $cartset=[];
-        $carset[]=$body;
         echo '<script>$body='.$body.'</script>';
         ?>
         <div class="cart-set-row" data-row="0" data-id="<?=$cart->id?>">
@@ -36,45 +34,37 @@ if(isset($success)){
         $count2=0;
         if(JSON.parse(localStorage.getItem('cart-om'))) {
             $cart = JSON.parse(localStorage.getItem('cart-om'));
-            $set = JSON.parse(localStorage.getItem('cart-set'));
-            $set = $set[$row];
-            if($cart!=null) {
-                $.each($set.cart, function ($i, $item) {
-                    if ($cart.cart.length > 0) {
-                        $.each($cart.cart, function ($k, $v) {
-//                            if ($item[0] == $v[0] && $item[2] == $v[2]) {
-//                                $cart.cart[$k][4] = parseInt($item[4]) + parseInt($cart.cart[$k][4]);
-//                                $count2+=parseInt($item[4])
-//                            } else {
-                            $cart.cart.push($item);
-                            $count2+=parseInt($item[4])
-//                            }
-                            return false;
-                        })
-
-                    } else {
-                        $cart.cart.push($item);
-                        $count2+=parseInt($item[4])
-                    }
-                })
-            }else{
-                $cart.cart=[];
-                $cart.cart.push($item);
-                $count2+=parseInt($item[4])
+            if(JSON.parse(localStorage.getItem('cart-set'))){
+                localStorage.removeItem('cart-set');
             }
+            $set = $body;
+            $.each($set.cart, function ($i, $item) {
+                if ($cart.cart.length > 0) {
+                    $.each($cart.cart, function ($k, $v) {
+                        $cart.cart.push($item);
+                        $count2+=parseInt($item[4]);
+                        return false;
+                    })
+
+                } else {
+                    $cart.cart.push($item);
+                    $count2+=parseInt($item[4])
+                }
+            })
             $cart=fixCart($cart);
             $cart = JSON.stringify($cart);
             localStorage.removeItem('cart-om');
             localStorage.setItem('cart-om', $cart);
         }else {
-            console.log('Отсутствует корзина');
-            $set = JSON.parse(localStorage.getItem('cart-set'));
-            $.each($set[$row]['cart'],function($i,$item){
-                $count++;
-            })
-            $set = JSON.stringify($set[$row]);
+            if(JSON.parse(localStorage.getItem('cart-set'))){
+                localStorage.removeItem('cart-set')
+            }
+            $set = $body;
+            $.each($set['cart'],function($i,$item){
+                $count2+=parseInt($item[4]);
+            });
+            $set = JSON.stringify($set);
             localStorage.setItem('cart-om', $set);
-            console.log('Корзина сохранена');
         }
         $count+=$count2;
         $('.cart-count').html($count);
