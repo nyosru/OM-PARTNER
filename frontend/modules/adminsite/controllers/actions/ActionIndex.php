@@ -5,19 +5,21 @@ use common\models\PartnersCatDescription;
 use common\models\PartnersCategories;
 use Yii;
 use common\models\PartnersSettings;
-trait ActionIndex{
+
+trait ActionIndex
+{
     public function actionIndex()
     {
         $model = new PartnersSettings();
         $paramset = Yii::$app->params['partnersset'];
         $contacts = Yii::$app->params['partnersset']['contacts'];
-        if(isset($paramset['mailcounter']['value'])){
+        if (isset($paramset['mailcounter']['value'])) {
             $model->mailcounter['value'] = $paramset['mailcounter']['value'];
         }
-        if(isset($paramset['mailcounter']['active'])){
+        if (isset($paramset['mailcounter']['active'])) {
             $model->mailcounter['active'] = $paramset['mailcounter']['active'];
         }
-        if(isset($paramset['yandexcounter']['value'])){
+        if (isset($paramset['yandexcounter']['value'])) {
             $model->yandexcounter['value'] = $paramset['yandexcounter']['value'];
         }
 
@@ -148,11 +150,11 @@ trait ActionIndex{
         $model->paysystem['value']['bankpay']['name'] = 'Банковский перевод';
         $model->paysystem['value']['nalozhplat']['name'] = 'Наложенный платеж';
         $model->paysystem['value']['bankcard']['name'] = 'Банковская карта';
-        $model->paymentgate['active']=$paramset['paymentgate']['active'];
-        $model->paymentgate['value']=$paramset['paymentgate']['value'];
-        $model->paymentgate['activegate']=$paramset['paymentgate']['activegate'];
-        $model->requisites['value']=$paramset['requisites']['value'];
-        $model->requisites['active']=$paramset['requisites']['active'];
+        $model->paymentgate['active'] = $paramset['paymentgate']['active'];
+        $model->paymentgate['value'] = $paramset['paymentgate']['value'];
+        $model->paymentgate['activegate'] = $paramset['paymentgate']['activegate'];
+        $model->requisites['value'] = $paramset['requisites']['value'];
+        $model->requisites['active'] = $paramset['requisites']['active'];
         $model->recomendedwares['value'] = $paramset['recomendedwares']['value'];
 
         $categoriess = new PartnersCategories();

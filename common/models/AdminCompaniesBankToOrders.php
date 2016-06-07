@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "admin_companies_bank_to_orders".
  *
@@ -26,6 +28,7 @@ class AdminCompaniesBankToOrders extends ActiveRecordExt
     {
         return 'admin_companies_bank_to_orders';
     }
+
     /**
      * @inheritdoc
      */
@@ -40,6 +43,7 @@ class AdminCompaniesBankToOrders extends ActiveRecordExt
             [['short_name'], 'string', 'max' => 8]
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -64,6 +68,7 @@ class AdminCompaniesBankToOrders extends ActiveRecordExt
     {
         return $this->hasOne(Orders::class, ['orders_id' => 'orders_id']);
     }
+
     /**
      * @return ActiveQuery
      */

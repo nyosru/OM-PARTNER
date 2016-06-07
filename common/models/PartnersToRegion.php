@@ -7,6 +7,7 @@ use common\models\PartnersCompanies;
 use common\patch\ActiveRecordExt;
 use Yii;
 use yii\db\ActiveQuery;
+
 /**
  * This is the model class for table "partners_to_region".
  *
@@ -26,6 +27,7 @@ class PartnersToRegion extends ActiveRecordExt
     {
         return 'partners_to_region';
     }
+
     /**
      * @inheritdoc
      */
@@ -36,6 +38,7 @@ class PartnersToRegion extends ActiveRecordExt
             [['partner_id', 'region_id', 'parent_companies_id'], 'integer']
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -55,6 +58,7 @@ class PartnersToRegion extends ActiveRecordExt
     {
         return $this->hasOne(AdminCompanies::class, ['companies_id' => 'parent_companies_id']);
     }
+
     public function getPartnersCompanies()
     {
         return $this->hasOne(PartnersCompanies::class, ['partner_id' => 'partner_id']);
@@ -62,6 +66,6 @@ class PartnersToRegion extends ActiveRecordExt
     /**
      * @return ActiveQuery
      */
-   
+
     // RELATIONS END ///////////////////////////////////////////////////////////////////////////////////////////////////
 }

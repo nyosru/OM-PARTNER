@@ -4,7 +4,8 @@ namespace frontend\modules\adminsite\controllers\actions;
 use Yii;
 use common\models\PartnersNews;
 
-trait ActionNewsupdate{
+trait ActionNewsupdate
+{
     public function actionNewsupdate()
     {
         if (Yii::$app->request->getQueryParam('id')) {

@@ -3,6 +3,7 @@ namespace common\models;
 
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "spsr_zones".
  *
@@ -22,6 +23,7 @@ class SpsrZones extends ActiveRecordExt
     {
         return 'spsr_zones';
     }
+
     /**
      * @inheritdoc
      */
@@ -32,6 +34,7 @@ class SpsrZones extends ActiveRecordExt
             [['zone_id', 'spsr_zone_id'], 'required'],
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -43,7 +46,9 @@ class SpsrZones extends ActiveRecordExt
             'spsr_zone_id' => 'Spsr Zone ID',
         ];
     }
-    public function getZones(){
+
+    public function getZones()
+    {
         return $this->hasOne(Zones::class, ['zone_id' => 'zone_id']);
     }
 }

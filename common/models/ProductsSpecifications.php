@@ -91,7 +91,8 @@ class ProductsSpecifications extends ActiveRecordExt
         return $this->hasOne(SpecificationValuesDescription::className(), ['specification_values_id' => 'specification_values_id']);
     }
 
-    public function extraFields(){
+    public function extraFields()
+    {
 
         return [
             'specificationDescription',

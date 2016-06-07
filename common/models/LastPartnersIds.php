@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "last_partners_ids".
  *
@@ -21,6 +23,7 @@ class LastPartnersIds extends ActiveRecordExt
     {
         return 'last_partners_ids';
     }
+
     /**
      * @inheritdoc
      */
@@ -31,6 +34,7 @@ class LastPartnersIds extends ActiveRecordExt
             [['partner_id', 'region_id', 'year', 'order_id', 'act_id', 'order_act'], 'integer']
         ];
     }
+
     /**
      * @inheritdoc
      */

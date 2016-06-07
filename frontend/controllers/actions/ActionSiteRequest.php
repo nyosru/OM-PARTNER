@@ -1,9 +1,8 @@
 <?php
 
 
-
-
 namespace frontend\controllers\actions;
+
 use common\models\PartnersProductsToCategories;
 use Yii;
 
@@ -50,8 +49,8 @@ trait ActionSiteRequest
         // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
         $searchword = Yii::$app->request->post('searchword', '');
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date ')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->asArray()->one();
-        if(!$x['products_last_modified']){
-            $x['products_last_modified'] = $x['add_date'] ;
+        if (!$x['products_last_modified']) {
+            $x['products_last_modified'] = $x['add_date'];
         }
         $checkcache = $x['products_last_modified'];
         $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
@@ -64,7 +63,7 @@ trait ActionSiteRequest
         $d2 = strtotime(trim($dataque['checkcache']));
 
         $markers = $d2 - $d1;
-        if (!isset($dataque['checkcache']) || $markers > 0 ) {
+        if (!isset($dataque['checkcache']) || $markers > 0) {
             switch ($sort) {
                 case 0:
                     $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -149,15 +148,14 @@ trait ActionSiteRequest
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
-                if(!$values['last']){
+                if (!$values['last']) {
                     $values['last'] = $values['add_date'];
-
 
 
                 }
                 $d2 = strtotime(trim($values['last']));
                 $d1 = strtotime(trim($dataprod['last']));
-                $marker = $d2-$d1;
+                $marker = $d2 - $d1;
                 if (isset($dataprod['data']) && $marker > 0) {
                     $data[] = $dataprod['data'];
                 } else {
@@ -225,8 +223,8 @@ trait ActionSiteRequest
 
         if (isset($data[0])) {
             foreach ($data as $key => $dataval) {
-            if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
-                $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
+                if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                    $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
                 }
                 unset(
                     $data[$key]['old_categories_id'],
@@ -259,43 +257,43 @@ trait ActionSiteRequest
                     $data[$key]['products']['removable'],
                     $data[$key]['products']['products_date_available'],
                     $data[$key]['products']['products_date_view']
-            );
-           foreach($data[$key]['productsAttributes'] as $keyattr=>$valueattr){
-               unset(
-                   $data[$key]['productsAttributes'][$keyattr]['options_id'],
-                   $data[$key]['productsAttributes'][$keyattr]['options_values_price'],
-                   $data[$key]['productsAttributes'][$keyattr]['price_prefix'],
-                   $data[$key]['productsAttributes'][$keyattr]['product_attributes_one_time'],
-                   $data[$key]['productsAttributes'][$keyattr]['products_attributes_id'],
-                   $data[$key]['productsAttributes'][$keyattr]['products_attributes_units'],
-                   $data[$key]['productsAttributes'][$keyattr]['products_attributes_units_price'],
-                   $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight'],
-                   $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight_prefix'],
-                   $data[$key]['productsAttributes'][$keyattr]['products_options_sort_order'],
-                   $data[$key]['productsAttributes'][$keyattr]['sub_options_values_id']
+                );
+                foreach ($data[$key]['productsAttributes'] as $keyattr => $valueattr) {
+                    unset(
+                        $data[$key]['productsAttributes'][$keyattr]['options_id'],
+                        $data[$key]['productsAttributes'][$keyattr]['options_values_price'],
+                        $data[$key]['productsAttributes'][$keyattr]['price_prefix'],
+                        $data[$key]['productsAttributes'][$keyattr]['product_attributes_one_time'],
+                        $data[$key]['productsAttributes'][$keyattr]['products_attributes_id'],
+                        $data[$key]['productsAttributes'][$keyattr]['products_attributes_units'],
+                        $data[$key]['productsAttributes'][$keyattr]['products_attributes_units_price'],
+                        $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight'],
+                        $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight_prefix'],
+                        $data[$key]['productsAttributes'][$keyattr]['products_options_sort_order'],
+                        $data[$key]['productsAttributes'][$keyattr]['sub_options_values_id']
 
-               );
-           }
-                foreach($data[$key]['productsAttributesDescr'] as $keyattrdesc=>$valueattrdesc){
+                    );
+                }
+                foreach ($data[$key]['productsAttributesDescr'] as $keyattrdesc => $valueattrdesc) {
                     unset(
                         $data[$key]['productsAttributesDescr'][$keyattrdesc]['language_id'],
                         $data[$key]['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
                     );
                 }
-                    unset(
-                        $data[$key]['productsDescription']['language_id'],
-                        $data[$key]['productsDescription']['products_head_desc_tag'],
-                        $data[$key]['productsDescription']['products_head_keywords_tag'],
-                        $data[$key]['productsDescription']['products_head_title_tag'],
-                        $data[$key]['productsDescription']['products_tab_1'],
-                        $data[$key]['productsDescription']['products_tab_2'],
-                        $data[$key]['productsDescription']['products_tab_3'],
-                        $data[$key]['productsDescription']['products_tab_4'],
-                        $data[$key]['productsDescription']['products_tab_5'],
-                        $data[$key]['productsDescription']['products_tab_6'],
-                        $data[$key]['productsDescription']['products_url'],
-                        $data[$key]['productsDescription']['products_viewed']
-                    );
+                unset(
+                    $data[$key]['productsDescription']['language_id'],
+                    $data[$key]['productsDescription']['products_head_desc_tag'],
+                    $data[$key]['productsDescription']['products_head_keywords_tag'],
+                    $data[$key]['productsDescription']['products_head_title_tag'],
+                    $data[$key]['productsDescription']['products_tab_1'],
+                    $data[$key]['productsDescription']['products_tab_2'],
+                    $data[$key]['productsDescription']['products_tab_3'],
+                    $data[$key]['productsDescription']['products_tab_4'],
+                    $data[$key]['productsDescription']['products_tab_5'],
+                    $data[$key]['productsDescription']['products_tab_6'],
+                    $data[$key]['productsDescription']['products_url'],
+                    $data[$key]['productsDescription']['products_viewed']
+                );
 
             }
         } else {
@@ -312,10 +310,11 @@ trait ActionSiteRequest
 
         } else {
             $this->layout = 'catalog';
-            if($cat_start == 0){
-                $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
-            }else{
-                $catpath = $this->Catpath($cat_start,'namenum');           }
+            if ($cat_start == 0) {
+                $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
+            } else {
+                $catpath = $this->Catpath($cat_start, 'namenum');
+            }
             Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
             return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath]);
 

@@ -42,6 +42,7 @@ class Configuration extends ActiveRecordExt
             [['configuration_key'], 'string', 'max' => 64]
         ];
     }
+
     /**
      * @inheritdoc
      */

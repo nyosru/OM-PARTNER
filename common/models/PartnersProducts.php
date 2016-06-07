@@ -8,6 +8,7 @@ use Yii;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsOptionVal;
 use common\models\PartnersProductsDescription;
+
 /**
  * This is the model class for table "products".
  *
@@ -16,29 +17,29 @@ use common\models\PartnersProductsDescription;
  * @property integer $products_model
  * @property string $products_image
 // * @property string $products_image_med
-// * @property string $products_image_lrg
-// * @property string $products_image_sm_1
-// * @property string $products_image_xl_1
-// * @property string $products_image_sm_2
-// * @property string $products_image_xl_2
-// * @property string $products_image_sm_3
-// * @property string $products_image_xl_3
-// * @property string $products_image_sm_4
-// * @property string $products_image_xl_4
-// * @property string $products_image_sm_5
-// * @property string $products_image_xl_5
-// * @property string $products_image_sm_6
-// * @property string $products_image_xl_6
+ * // * @property string $products_image_lrg
+ * // * @property string $products_image_sm_1
+ * // * @property string $products_image_xl_1
+ * // * @property string $products_image_sm_2
+ * // * @property string $products_image_xl_2
+ * // * @property string $products_image_sm_3
+ * // * @property string $products_image_xl_3
+ * // * @property string $products_image_sm_4
+ * // * @property string $products_image_xl_4
+ * // * @property string $products_image_sm_5
+ * // * @property string $products_image_xl_5
+ * // * @property string $products_image_sm_6
+ * // * @property string $products_image_xl_6
  * @property string $products_price
 // * @property string $products_old_price
  * @property string $products_date_added
 // * @property string $products_date_view
  * @property string $products_last_modified
 // * @property string $products_date_available
-// * @property string $products_weight
+ * // * @property string $products_weight
  * @property integer $products_status
 // * @property integer $products_to_xml
-// * @property integer $products_tax_class_id
+ * // * @property integer $products_tax_class_id
  * @property string $manufacturers_id
  * @property integer $products_ordered
  * @property integer $products_quantity_order_min
@@ -122,10 +123,12 @@ class PartnersProducts extends ActiveRecordExt
     {
         return $this->hasOne(PartnersProductsDescription::className(), ['products_id' => 'products_id']);
     }
+
     public function getCategories()
     {
         return $this->hasOne(PartnersProductsToCategories::className(), ['products_id' => 'products_id']);
     }
+
     public function getProductsAttributes()
     {
         return $this->hasMany(PartnersProductsAttributes::className(), ['products_id' => 'products_id']);
@@ -135,21 +138,25 @@ class PartnersProducts extends ActiveRecordExt
     {
         return $this->hasMany(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
     }
+
     public function getproductlist($cat)
     {
 
         $var = $this->find()->select('products_id')->where(['categories_id' => $cat])->asArray()->All();
         return $var;
     }
+
     public function getSpecificationValuesDescription()
     {
         return $this->hasMany(SpecificationValuesDescription::className(), ['specification_values_id' => 'specification_values_id'])->via('productsSpecification');
     }
+
     public function getProductsSpecification()
     {
         return $this->hasMany(ProductsSpecifications::className(), ['products_id' => 'products_id']);
     }
-    public function  getSpecificationDescription()
+
+    public function getSpecificationDescription()
     {
         return $this->hasMany(SpecificationDescription::className(), ['specifications_id' => 'specifications_id'])->via('productsSpecification');
     }

@@ -5,6 +5,7 @@ namespace common\models;
 use common\patch\ActiveRecordExt;
 use Yii;
 use common\models\PartnersProducts;
+
 /**
  * This is the model class for table "products_to_categories".
  *
@@ -49,10 +50,12 @@ class PartnersProductsToCategories extends ActiveRecordExt
     {
         return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id']);
     }
+
     public function getProductsDescription()
     {
         return $this->hasOne(PartnersProductsDescription::className(), ['products_id' => 'products_id'])->via('products');
     }
+
     public function getProductsAttributes()
     {
         return $this->hasMany(PartnersProductsAttributes::className(), ['products_id' => 'products_id'])->via('products');
@@ -62,21 +65,25 @@ class PartnersProductsToCategories extends ActiveRecordExt
     {
         return $this->hasMany(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
     }
+
     public function getproductlist($cat)
     {
 
         $var = $this->find()->select('products_id')->where(['categories_id' => $cat])->asArray()->All();
         return $var;
     }
+
     public function getSpecificationValuesDescription()
     {
         return $this->hasMany(SpecificationValuesDescription::className(), ['specification_values_id' => 'specification_values_id'])->via('productsSpecification');
     }
+
     public function getProductsSpecification()
     {
         return $this->hasMany(ProductsSpecifications::className(), ['products_id' => 'products_id']);
     }
-    public function  getSpecificationDescription()
+
+    public function getSpecificationDescription()
     {
         return $this->hasMany(SpecificationDescription::className(), ['specifications_id' => 'specifications_id'])->via('productsSpecification');
     }

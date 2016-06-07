@@ -6,7 +6,7 @@ Trait Reformat_cat_array
     {
 //        foreach ($catdata as $value) {
 //            if (in_array(intval($value['categories_id']), $checks)) {
-                $catdataallow = $catdata;
+        $catdataallow = $catdata;
 //            }
 //        }
         for ($i = 0; $i < count($catdataallow); $i++) {

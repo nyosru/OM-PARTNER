@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
 
@@ -10,19 +11,22 @@ class ManufacturersDiapazon extends ActiveRecordExt
     {
         return 'manufacturers_diapazon';
     }
+
     public static function primaryKey()
     {
         return ['manufacturers_id', 'week_day'];
     }
+
     public function rules()
     {
         return [
             [['manufacturers_id', 'week_day'], 'required'],
             [['manufacturers_id'], 'integer'],
-            [['week_day'], 'in', 'range' => [0, 1, 2, 3, 4, 5, 6] ],
-            [['start_time', 'stop_time'], 'integer', 'min' =>0, 'max' =>  86400],
+            [['week_day'], 'in', 'range' => [0, 1, 2, 3, 4, 5, 6]],
+            [['start_time', 'stop_time'], 'integer', 'min' => 0, 'max' => 86400],
         ];
     }
+
     public function attributeLabels()
     {
         return [
@@ -32,6 +36,7 @@ class ManufacturersDiapazon extends ActiveRecordExt
             'stop_time' => 'Время окончания (в сек.)',
         ];
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */

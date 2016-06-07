@@ -5,7 +5,9 @@ use common\models\Partners;
 use common\models\PartnersSettings;
 use frontend\assets\AppAsset;
 use Yii;
-trait ActionSavesettings{
+
+trait ActionSavesettings
+{
     public function actionSavesettings()
     {
         $model = new PartnersSettings();

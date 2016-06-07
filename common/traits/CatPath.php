@@ -11,10 +11,10 @@ trait   CatPath
     {
         $cat = (integer)$id;
 
-        $key = Yii::$app->cache->buildKey('chpu-'.$cat);
-        if(($chpu = Yii::$app->cache->get($key)) == TRUE) {
+        $key = Yii::$app->cache->buildKey('chpu-' . $cat);
+        if (($chpu = Yii::$app->cache->get($key)) == TRUE) {
 
-        }else{
+        } else {
             $catdataarr = $this->categories_for_partners();
             $catdata = $catdataarr[0];
             $categories = $catdataarr[1];
@@ -29,7 +29,7 @@ trait   CatPath
             Yii::$app->cache->set($key, $chpu, 3600);
         }
 
-        if ($action  == TRUE && $action == 'name') {
+        if ($action == TRUE && $action == 'name') {
             $resultchpu = [];
             foreach ($chpu as $key => $value) {
                 $resultchpu[] = $value['name'];

@@ -1,7 +1,9 @@
 <?php
 namespace frontend\controllers\actions;
+
 use common\models\PartnersProducts;
 use Yii;
+
 trait ActionSiteSearchword
 {
     public function actionSearchword()

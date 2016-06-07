@@ -5,7 +5,8 @@ use common\models\PartnersNews;
 use Yii;
 use yii\data\ActiveDataProvider;
 
-trait ActionRequestnews{
+trait ActionRequestnews
+{
     public function actionRequestnews()
     {
 

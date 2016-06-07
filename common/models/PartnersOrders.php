@@ -31,7 +31,7 @@ class PartnersOrders extends ActiveRecordExt
     {
         return [
             [['partners_id', 'user_id', 'status', 'orders_id'], 'integer'],
-            [['order','delivery'], 'string']
+            [['order', 'delivery'], 'string']
         ];
     }
 
@@ -75,6 +75,7 @@ class PartnersOrders extends ActiveRecordExt
     {
         return $this->hasMany(PartnersOrdersProductsSp::className(), ['orders_products_id' => 'orders_products_id'])->via('oMOrdersProducts');
     }
+
     public function getOMOrdersProductsAttr()
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('oMOrdersProducts');

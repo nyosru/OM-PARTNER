@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "admin_companies_bank".
  *
@@ -19,6 +21,7 @@ class AdminCompaniesBank extends ActiveRecordExt
 {
     const STATUS_INACTIVE = '0';
     const STATUS_ACTIVE = '1';
+
     /**
      * @inheritdoc
      */
@@ -26,6 +29,7 @@ class AdminCompaniesBank extends ActiveRecordExt
     {
         return 'admin_companies_bank';
     }
+
     /**
      * @inheritdoc
      */
@@ -40,6 +44,7 @@ class AdminCompaniesBank extends ActiveRecordExt
             [['short_name'], 'string', 'max' => 8]
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -55,6 +60,6 @@ class AdminCompaniesBank extends ActiveRecordExt
             'default_b' => 'Default B',
         ];
     }
-   
+
 
 }

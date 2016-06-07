@@ -3,6 +3,7 @@ namespace common\models;
 
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "orders_to_partners".
  *
@@ -23,6 +24,7 @@ class OrdersToPartners extends ActiveRecordExt
     {
         return 'orders_to_partners';
     }
+
     /**
      * @inheritdoc
      */
@@ -35,6 +37,7 @@ class OrdersToPartners extends ActiveRecordExt
             [['order_id'], 'unique']
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -48,6 +51,7 @@ class OrdersToPartners extends ActiveRecordExt
             'order_number' => 'Order Number',
         ];
     }
+
     public function getPartnersCompanies()
     {
         return $this->hasOne(PartnersCompanies::class, ['partner_id' => 'partner_id']);

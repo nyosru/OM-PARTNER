@@ -5,7 +5,8 @@ use Yii;
 use common\models\PartnersNews;
 use yii\data\ActiveDataProvider;
 
-trait ActionNewspage{
+trait ActionNewspage
+{
     public function actionNewspage()
     {
         $model = new PartnersNews();

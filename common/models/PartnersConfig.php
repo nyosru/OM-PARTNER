@@ -44,6 +44,7 @@ class PartnersConfig extends ActiveRecordExt
             [['partners_id', 'active'], 'integer']
         ];
     }
+
     public function attributeLabels()
     {
         return [

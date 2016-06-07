@@ -10,16 +10,16 @@ trait ActionContactForm
 {
     public function actionContactform()
     {
-        $to = Configuration::find()->select(['configuration_value'])->where(['configuration_key'=>'CONTACT_US_LIST'])->createCommand()->queryOne();
+        $to = Configuration::find()->select(['configuration_value'])->where(['configuration_key' => 'CONTACT_US_LIST'])->createCommand()->queryOne();
 
 
         $model = new ContactForm();
-        if(!Yii::$app->request->post()){
+        if (!Yii::$app->request->post()) {
             foreach (explode(",", $to['configuration_value']) as $k => $v) {
-                $send_to_array[] =  preg_replace('/\<[^*]*/', '', $v);
+                $send_to_array[] = preg_replace('/\<[^*]*/', '', $v);
             }
-            return $this->render('contacts',['model'=>$model, 'to'=>$send_to_array]);
-        }else{
+            return $this->render('contacts', ['model' => $model, 'to' => $send_to_array]);
+        } else {
 
 //            if($model->load(Yii::$app->request->post())) {
 //                $send_to_array = explode(",", $to['configuration_value']);
@@ -51,7 +51,7 @@ trait ActionContactForm
 //                }
 //             return $this->render('contacts', ['model' => $model, 'to' => $send_to_array, 'result' => $result]);
             return $this->render('contacts');
- //           }else  return $this->render('contacts');
+            //           }else  return $this->render('contacts');
         }
     }
 }

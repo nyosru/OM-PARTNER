@@ -50,26 +50,23 @@ class PartnersUsersInfo extends ActiveRecordExt
     }
 
 
-
-
-
-
     public function scenarios()
     {
         return [
             'update_customers' => ['customers_id'],
             'update_passport' => ['pasportser', 'pasportnum', 'pasportdate', 'pasportwhere'],
-            'default' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone', 'customers_id'],
-            'flat1_flat1' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportdate', 'pasportwhere'],
-            'flat2_flat2' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
+            'default' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone', 'customers_id'],
+            'flat1_flat1' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportdate', 'pasportwhere'],
+            'flat2_flat2' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone'],
             '1' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportdate', 'pasportwhere'],
             '0' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone'],
-            'flat3_flat3' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
-            'flat7_flat7' => ['id', 'name', 'secondname', 'lastname', 'country',  'state', 'city', 'adress', 'postcode', 'telephone'],
+            'flat3_flat3' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone'],
+            'flat7_flat7' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone'],
             'commentsuserinfo' => ['id', 'name', 'lastname'],
 
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -93,6 +90,7 @@ class PartnersUsersInfo extends ActiveRecordExt
             'customers_id' => 'Customers ID',
         ];
     }
+
     public function getCustomers()
     {
         return $this->hasOne(Customers::className(), ['customers_id' => 'customers_id']);

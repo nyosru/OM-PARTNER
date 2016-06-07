@@ -1,5 +1,6 @@
 <?php
 namespace common\models;
+
 use common\models\PartnersContracts;
 use common\models\Zones;
 use common\patch\ActiveRecordExt;
@@ -7,6 +8,7 @@ use common\models\Bank;
 use common\models\ExZones;
 use common\models\SpsrZones;
 use Yii;
+
 /**
  * This is the model class for table "partners_companies".
  *
@@ -52,6 +54,7 @@ class PartnersCompanies extends ActiveRecordExt
     {
         return 'partners_companies';
     }
+
     /**
      * @inheritdoc
      */
@@ -69,6 +72,7 @@ class PartnersCompanies extends ActiveRecordExt
             [['telephone'], 'unique']
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -104,15 +108,18 @@ class PartnersCompanies extends ActiveRecordExt
             'active_bank_id' => 'Active Bank ID',
         ];
     }
+
     // RELATIONS BEGIN /////////////////////////////////////////////////////////////////////////////////////////////////
     public function getPartnersToRegions()
     {
         return $this->hasMany(PartnersToRegion::class, ['partner_id' => 'partner_id']);
     }
+
     public function getDefaultRegion()
     {
         return $this->hasOne(Zones::class, ['zone_id' => 'default_region']);
     }
+
     public function getSpsrZone()
     {
         return $this->hasOne(SpsrZones::class, ['zone_id' => 'zone_id'])->via('defaultRegion');
@@ -125,10 +132,12 @@ class PartnersCompanies extends ActiveRecordExt
     {
         return $this->bank;
     }
+
     public function getBank()
     {
         return $this->hasOne(Bank::class, ['bank_id' => 'active_bank_id']);
     }
+
     /**
      * Номер оферты. В данный момент соответствует номеру региона.
      * @return int
@@ -137,6 +146,7 @@ class PartnersCompanies extends ActiveRecordExt
     {
         return $this->spsrZone->id;
     }
+
     /**
      * Литера-идентификатор. Соответствует номеру региона.
      * @return string
@@ -145,6 +155,7 @@ class PartnersCompanies extends ActiveRecordExt
     {
         return (string)$this->spsrZone->id;
     }
+
     /**
      * @return string фамилия и инициалы, в просторечии ФИО
      */
@@ -155,6 +166,7 @@ class PartnersCompanies extends ActiveRecordExt
         $o = mb_substr($this->oname, 0, 1, 'UTF-8');
         return "$f $i.$o.";
     }
+
     /**
      * @return string полные фамилия, имя и отчество
      */
@@ -165,14 +177,17 @@ class PartnersCompanies extends ActiveRecordExt
         $o = $this->oname;
         return "$f $i $o";
     }
+
     public function getBanks()
     {
         return $this->hasMany(Bank::class, ['owner_id' => 'partner_id']);
     }
+
     public function getContracts()
     {
         return $this->hasMany(PartnersContracts::class, ['partner_id' => 'partner_id']);
     }
+
     /**
      * Получаем инфу о регионах, которые обслуживает партнер, и поставщиках для каждого региона
      * @return ExZones[]
@@ -191,6 +206,7 @@ class PartnersCompanies extends ActiveRecordExt
         }
         return $regions;
     }
+
     // RELATIONS END ///////////////////////////////////////////////////////////////////////////////////////////////////
     public function extraFields()
     {
@@ -203,5 +219,5 @@ class PartnersCompanies extends ActiveRecordExt
             'contracts', // получение всех контрактов партнера
         ];
     }
-   
+
 }

@@ -4,7 +4,8 @@ namespace common\models;
 use common\patch\ActiveRecordExt;
 use Yii;
 
-class FiguresDaysProduct extends ActiveRecordExt{
+class FiguresDaysProduct extends ActiveRecordExt
+{
 
     public static function tableName()
     {
@@ -14,9 +15,9 @@ class FiguresDaysProduct extends ActiveRecordExt{
     public function rules()
     {
         return [
-            ['description', 'string' ],
-            [['description','group_id','product_id'], 'required'],
-            [['group_id','product_id'],'integer']
+            ['description', 'string'],
+            [['description', 'group_id', 'product_id'], 'required'],
+            [['group_id', 'product_id'], 'integer']
         ];
     }
 }
