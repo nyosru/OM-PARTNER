@@ -7,6 +7,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 use common\models\Partners;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 

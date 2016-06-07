@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * Договор между регионалом и ИП (на закупку)
  *
@@ -13,7 +15,6 @@ use Yii;
  *
  * @ingroup partners
  */
-
 class PartnersContracts extends ActiveRecordExt
 {
     /**
@@ -23,6 +24,7 @@ class PartnersContracts extends ActiveRecordExt
     {
         return 'partners_contracts';
     }
+
     /**
      * @inheritdoc
      */
@@ -35,6 +37,7 @@ class PartnersContracts extends ActiveRecordExt
             [['contract_prefix', 'contract_number'], 'string', 'max' => 12]
         ];
     }
+
     /**
      * @inheritdoc
      */

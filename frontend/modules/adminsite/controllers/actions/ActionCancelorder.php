@@ -4,7 +4,9 @@ namespace frontend\modules\adminsite\controllers\actions;
 use Yii;
 use common\models\PartnersOrders;
 use common\models\User;
-trait ActionCancelorder{
+
+trait ActionCancelorder
+{
     public function actionCancelorder()
     {
         $id = Yii::$app->request->getQueryParam('id');

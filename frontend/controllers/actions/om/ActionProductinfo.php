@@ -13,8 +13,8 @@ trait ActionProductinfo
         } else {
             $id = Yii::$app->request->getQueryParam('id');
         }
-        $spec=PartnersProductsToCategories::find()
-            ->where(['products_to_categories.products_id'=>$id])
+        $spec = PartnersProductsToCategories::find()
+            ->where(['products_to_categories.products_id' => $id])
             ->joinWith('productsSpecification')
             ->joinWith('specificationValuesDescription')
             ->joinWith('specificationDescription')
@@ -32,7 +32,7 @@ trait ActionProductinfo
             $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
 
         }
-        return ['data' => $data, 'spec'=> $spec ];
+        return ['data' => $data, 'spec' => $spec];
 
     }
 }

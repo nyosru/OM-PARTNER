@@ -12,8 +12,6 @@ use Yii;
 /**
  * Signup form
  */
-
-
 class SignupForm extends Model
 {
     public $email;
@@ -70,28 +68,29 @@ class SignupForm extends Model
             $user->id_partners = $id_partners;
             $user->role = 'register';
             if ($user->save()) {
-              $auth = Yii::$app->authManager;
-              $auth->assign($auth->getRole('register'), $user->getId());
-                Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait'=>$_SERVER[HTTP_HOST]])
-                    ->setFrom('support@'.$_SERVER[HTTP_HOST])
+                $auth = Yii::$app->authManager;
+                $auth->assign($auth->getRole('register'), $user->getId());
+                Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait' => $_SERVER[HTTP_HOST]])
+                    ->setFrom('support@' . $_SERVER[HTTP_HOST])
                     ->setTo($user->email)
-                    ->setSubject('Регистрация на сайте '.$_SERVER[HTTP_HOST])
+                    ->setSubject('Регистрация на сайте ' . $_SERVER[HTTP_HOST])
                     ->send();
                 return $user;
             }
         }
     }
+
     public function validateUserEmail()
     {
         $userCustomer = new Customers();
         $partners = new Partners();
         $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
-        $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom'.$id_partners.'@@@'.$this->email])->asArray()->one();
+        $check_email = $userCustomer->find()->where(['customers_email_address' => 'partnerom' . $id_partners . '@@@' . $this->email])->asArray()->one();
         $userCustomer = new User();
-        $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners'=>$id_partners])->asArray()->one();
-        if(!$check_email && !$check_part_email){
+        $check_part_email = $userCustomer->find()->where(['email' => $this->email, 'id_partners' => $id_partners])->asArray()->one();
+        if (!$check_email && !$check_part_email) {
             return true;
-        }else {
+        } else {
             $this->addError('email', 'Почтовый адрес уже используется в системе');
         }
     }

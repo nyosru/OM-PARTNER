@@ -5,7 +5,8 @@ use Yii;
 use common\models\PartnersRequest;
 use yii\data\ActiveDataProvider;
 
-trait ActionRequestpage{
+trait ActionRequestpage
+{
     public function actionRequestpage()
     {
 

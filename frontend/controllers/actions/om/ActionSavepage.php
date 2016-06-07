@@ -11,11 +11,11 @@ trait ActionSavepage
     public function actionSavepage()
     {
         $name = $this->trim_tags_text(Yii::$app->request->post('article'));
-        $page = PartnersPage::find()->where(['partners_id'=>Yii::$app->params['constantapp']['APP_ID'], 'type'=>'stringpost', 'name'=>$name])->one();
-        if(!$page){
+        $page = PartnersPage::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type' => 'stringpost', 'name' => $name])->one();
+        if (!$page) {
             $page = new PartnersPage();
         }
-        if(Yii::$app->request->post('html') && Yii::$app->user->can('admin')){
+        if (Yii::$app->request->post('html') && Yii::$app->user->can('admin')) {
 
             $page->content = stripcslashes(Yii::$app->request->post('html'));
             $page->name = $name;
@@ -25,11 +25,11 @@ trait ActionSavepage
             $page->date_modify = 'NULL';
             $page->partners_id = Yii::$app->params['constantapp']['APP_ID'];
             $page->tags = 'NULL';
-            $page->viewed= 0;
+            $page->viewed = 0;
             $page->validate();
 
             $page->save();
-        }else{
+        } else {
 
         }
 

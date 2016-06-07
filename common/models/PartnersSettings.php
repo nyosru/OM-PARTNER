@@ -35,6 +35,7 @@ class PartnersSettings extends Model
     public $recomendedwares;
     public $mainbanners;
     public $catalog_type;
+
     /**
      * @inheritdoc
      */
@@ -46,9 +47,9 @@ class PartnersSettings extends Model
     private function loadmodelpartners()
     {
         $id = Yii::$app->params['constantapp']['APP_ID'];
-         $set = ArrayHelper::index($this->partnersmodel()->find()->select(['id', 'type', 'value', 'active'])->where(['partners_id' => $id])->asArray()->all(), 'type');
-        foreach($set as $key =>$value){
-            if(unserialize($value['value'])){
+        $set = ArrayHelper::index($this->partnersmodel()->find()->select(['id', 'type', 'value', 'active'])->where(['partners_id' => $id])->asArray()->all(), 'type');
+        foreach ($set as $key => $value) {
+            if (unserialize($value['value'])) {
                 $inarr = $value;
                 unset($inarr['value']);
                 $set[$key] = unserialize($value['value']);
@@ -61,19 +62,21 @@ class PartnersSettings extends Model
     public function rules()
     {
         return [
-            [['googleanalitycs;','mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
+            [['googleanalitycs;', 'mailcounter', 'discount', 'yandexcounter', 'minimalordertotalprice', 'newsonindex', 'commentsonindex'], 'integer'],
             [['template', 'googlemap', 'yandexmap', 'slogan', 'logotype', 'discounttotalorderprice', 'discounttotalorder', 'discountgroup', 'transport', 'paysystem', 'paymentgate', 'requisites', 'catalog_type'], 'string'],
             [['contacts'], 'ValidateArr']
         ];
     }
+
     public function ValidateArr()
     {
-       if(is_array($this->contacts)){
-           return true;
-       }else{
-           return false;
-       }
+        if (is_array($this->contacts)) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
     public function SaveSet()
     {
         foreach ($this as $key => $value) {

@@ -26,23 +26,26 @@ class ClaimForm extends Model
     private $valid_formats = ["jpg", "png", "gif", "jpeg"];
     public $pritenwrite;
 
-    public function rules(){
-     return [
-         ['myphoto','file'],
-         ['opid', 'integer'],
-         [['opid','pritenwrite'], 'required'],
-         ['pritenwrite', 'string']
-     ];
+    public function rules()
+    {
+        return [
+            ['myphoto', 'file'],
+            ['opid', 'integer'],
+            [['opid', 'pritenwrite'], 'required'],
+            ['pritenwrite', 'string']
+        ];
     }
+
     public function formimagesave()
     {
 
         if (
             ($customer = PartnersUsersInfo::find()->select('customers_id')->where(['id' => Yii::$app->user->id])->createCommand()->queryOne()) == TRUE
             && ($products_value = \common\models\Orders::find()->select(['customers_id', 'priten'])->joinWith('products')->where(['orders_products_id' => $this->opid])->asArray()->one()) == TRUE
-            && $products_value['customers_id'] == $customer['customers_id']) {
+            && $products_value['customers_id'] == $customer['customers_id']
+        ) {
             $now = date('Y-m-d h:i:s');
-            $path = Yii::getAlias($this->urlPatr).'/'.$this->opid.'/';
+            $path = Yii::getAlias($this->urlPatr) . '/' . $this->opid . '/';
             $name = trim($this->myphoto['name']);
             $size = $this->myphoto['size'];
             if (strlen($name)) {
@@ -53,16 +56,16 @@ class ClaimForm extends Model
                         $actual_image_name = $this->opid . '_' . md5($name) . "." . $ext;
                         $tmp = $this->myphoto['tempName'];
                         if (is_file($tmp)) {
-                            if(mkdir($path, 0777,true)){
-                             return $this->addError('myphoto', $path);
+                            if (mkdir($path, 0777, true)) {
+                                return $this->addError('myphoto', $path);
                             }
-                            if (move_uploaded_file($tmp, $path .$actual_image_name)) {
+                            if (move_uploaded_file($tmp, $path . $actual_image_name)) {
                                 $countphoto = OrdersProductsPritenPhoto::find()->where(['orders_products_id' => $this->opid])->count();
-                                if($countphoto >= 10){
-                                   return $this->addError('myphoto', 'Максимум 10 фотографий');
+                                if ($countphoto >= 10) {
+                                    return $this->addError('myphoto', 'Максимум 10 фотографий');
                                 }
-                                $photo = OrdersProductsPritenPhoto::find()->where(['orders_products_id' => $this->opid,'image_name_server'=>$actual_image_name])->one();
-                                if(!$photo){
+                                $photo = OrdersProductsPritenPhoto::find()->where(['orders_products_id' => $this->opid, 'image_name_server' => $actual_image_name])->one();
+                                if (!$photo) {
                                     $photo = new  OrdersProductsPritenPhoto();
                                 }
                                 $photo->customer_id = $customer['customers_id'];
@@ -75,27 +78,30 @@ class ClaimForm extends Model
                                     $orderproducts->priten = "1";
                                     $orderproducts->validate();
                                     if ($orderproducts->save()) {
-                                       return  ['name'=>$actual_image_name,'state'=>'succes'];
-                                    } return  ['name'=>$actual_image_name,'state'=>'error'];;
+                                        return ['name' => $actual_image_name, 'state' => 'succes'];
+                                    }
+                                    return ['name' => $actual_image_name, 'state' => 'error'];;
                                 } else $this->addError('myphoto', $photo->errors);
                             } else $this->addError('myphoto', $tmp);
-                        } else $this->addError('myphoto',  $this->myphoto);
+                        } else $this->addError('myphoto', $this->myphoto);
                     } else  $this->addError('myphoto', 'Ошибка копирования файла');
                 } else $this->addError('myphoto', 'Максимальный размер файла 4 MB');
             } else $this->addError('myphoto', 'Неправильный формат файла..');
         } else {
-        return $this->addError('myphoto', 'Необходимо авторизоваться5');
+            return $this->addError('myphoto', 'Необходимо авторизоваться5');
         }
 
     }
 
 
-    public function formcommentsave(){
+    public function formcommentsave()
+    {
         if (
             ($customer = PartnersUsersInfo::find()->select('customers_id')->where(['id' => Yii::$app->user->id])->createCommand()->queryOne()) == TRUE
             && ($products_value = \common\models\Orders::find()->select(['customers_id', 'priten'])->joinWith('products')->where(['orders_products_id' => $this->opid])->asArray()->one()) == TRUE
-            && $products_value['customers_id'] == $customer['customers_id']) {
-            if(($checkphoto = OrdersProductsPritenPhoto::find()->where(['orders_products_id'=>$this->opid])->createCommand()->queryOne()) == TRUE) {
+            && $products_value['customers_id'] == $customer['customers_id']
+        ) {
+            if (($checkphoto = OrdersProductsPritenPhoto::find()->where(['orders_products_id' => $this->opid])->createCommand()->queryOne()) == TRUE) {
                 $now = date('Y-m-d h:i:s');
                 if (strlen(strip_tags(trim($this->pritenwrite))) > 0) {
                     $claim = new OrdersProductsPriten();
@@ -110,11 +116,11 @@ class ClaimForm extends Model
                     $orderproducts->priten = "1";
                     $orderproducts->validate();
                     if ($orderproducts->save()) {
-                        return ['state'=>'succes'];
+                        return ['state' => 'succes'];
                     } else $this->addError('pritenwrite', 'Ошибка добавления комментария');
 
                 } else $this->addError('pritenwrite', 'Ошибка добавления комментария');
-            }else $this->addError('pritenwrite', 'Должно быть загружено хотя бы одно изображение');
-        }else $this->addError('pritenwrite', 'Необходимо авторизоваться');
+            } else $this->addError('pritenwrite', 'Должно быть загружено хотя бы одно изображение');
+        } else $this->addError('pritenwrite', 'Необходимо авторизоваться');
     }
 }

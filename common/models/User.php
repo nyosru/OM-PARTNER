@@ -22,11 +22,11 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-
 class User extends ActiveRecordExt implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+
     /**
      * Возвращает имя таблицы
      *
@@ -119,7 +119,7 @@ class User extends ActiveRecordExt implements IdentityInterface
         }
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         $parts = explode('_', $token);
-        $timestamp = (int) end($parts);
+        $timestamp = (int)end($parts);
         return $timestamp + $expire >= time();
     }
 
@@ -138,6 +138,7 @@ class User extends ActiveRecordExt implements IdentityInterface
     {
         return $this->auth_key;
     }
+
     public function getUsermame()
     {
         return $this->username;
@@ -150,8 +151,6 @@ class User extends ActiveRecordExt implements IdentityInterface
     {
         return $this->getAuthKey() === $authKey;
     }
-
-
 
 
     /**
@@ -198,14 +197,17 @@ class User extends ActiveRecordExt implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
     public function getUserinfo()
     {
         return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'id']);
     }
+
     public function getCustomers()
     {
         return $this->hasOne(Customers::className(), ['customers_id' => 'customers_id'])->via('userinfo');
     }
+
     public function getAddressBook()
     {
         return $this->hasMany(AddressBook::className(), ['customers_id' => 'customers_id'])->via('userinfo');

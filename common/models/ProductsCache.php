@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "products_cache".
  *
@@ -20,6 +22,7 @@ class ProductsCache extends ActiveRecordExt
     {
         return 'products_cache';
     }
+
     /**
      * @inheritdoc
      */
@@ -30,6 +33,7 @@ class ProductsCache extends ActiveRecordExt
             [['cache_time'], 'safe']
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -41,6 +45,7 @@ class ProductsCache extends ActiveRecordExt
             'cache_time' => 'Cache Time',
         ];
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */

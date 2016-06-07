@@ -87,15 +87,18 @@ class OrdersProducts extends ActiveRecordExt
             'comment' => 'Comment',
             'status_add' => 'Status Add',
             'admin_sver' => 'Admin Sver',
-            'stickers_confirmed'                 => 'Stickers Confirmed',
+            'stickers_confirmed' => 'Stickers Confirmed',
             'automatically_sent_to_manufacturer' => 'Automatically Sent To Manufacturer',
         ];
     }
+
     public function getProducts()
     {
         return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id']);
     }
-    public  function getOrder(){
-        return $this->hasOne(Orders::className(),['orders_id'=>'orders_id'] );
+
+    public function getOrder()
+    {
+        return $this->hasOne(Orders::className(), ['orders_id' => 'orders_id']);
     }
 }

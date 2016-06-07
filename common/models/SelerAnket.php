@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
+
 use Yii;
 use common\patch\ActiveRecordExt;
+
 /**
  * This is the model class for table "seler_anket".
  *
@@ -34,6 +36,7 @@ class SelerAnket extends ActiveRecordExt
     {
         return 'seler_anket';
     }
+
     /**
      * @inheritdoc
      */
@@ -51,6 +54,7 @@ class SelerAnket extends ActiveRecordExt
             [['seler_fio_kem'], 'string', 'max' => 200]
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -77,6 +81,7 @@ class SelerAnket extends ActiveRecordExt
             'active_seller' => 'Active Seller',
         ];
     }
+
     /**
      * @return string фамилия и инициалы, в просторечии ФИО
      */
@@ -87,6 +92,7 @@ class SelerAnket extends ActiveRecordExt
         $o = mb_substr($this->seler_mname, 0, 1, 'UTF-8');
         return "$f $i.$o.";
     }
+
     /**
      * @return string полные фамилия, имя и отчество
      */
@@ -97,6 +103,7 @@ class SelerAnket extends ActiveRecordExt
         $o = $this->seler_mname;
         return "$f $i $o";
     }
+
     /**
      * Все активные чурки
      * @return SelerAnket[]

@@ -65,7 +65,8 @@ class SpecificationValues extends ActiveRecordExt
         return $this->getSpecificationValuesDescription();
     }
 
-    public function extraFields(){
+    public function extraFields()
+    {
 
         return [
             'specificationValuesDescription'

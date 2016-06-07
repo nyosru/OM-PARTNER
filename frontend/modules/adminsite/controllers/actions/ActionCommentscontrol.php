@@ -4,7 +4,8 @@ namespace frontend\modules\adminsite\controllers\actions;
 use Yii;
 use common\models\PartnersComments;
 
-trait ActionCommentscontrol{
+trait ActionCommentscontrol
+{
     public function actionCommentscontrol()
     {
         if (Yii::$app->request->getQueryParam('id')) {

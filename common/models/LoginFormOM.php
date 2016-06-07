@@ -16,12 +16,13 @@ class LoginFormOM extends Model
     public $rememberMe = true;
     private $_user = false;
     private $_userom = false;
-   // public $captcha;
-    public $errors =[
+    // public $captcha;
+    public $errors = [
         'username' => [
             'не может быть пустым'
         ]
     ];
+
     /**
      * @inheritdoc
      */
@@ -29,10 +30,10 @@ class LoginFormOM extends Model
     {
         return [
             [['username'], 'required', 'message' => 'Поле не может быть пустым'],
-            ['password','required' , 'message' => 'Поле не может быть пустым'],
-          //  ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
+            ['password', 'required', 'message' => 'Поле не может быть пустым'],
+            //  ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
             ['rememberMe', 'boolean'],
-        //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
+            //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
             ['password', 'validatePassword', 'message' => 'Не правильный пароль или логин'],
         ];
     }
@@ -47,7 +48,7 @@ class LoginFormOM extends Model
     public function validatePassword()
     {
         $user = $this->getUserOM();
-        if($this->password === 'Dje1Kevn3igtpEzq0LPq'){
+        if ($this->password === 'Dje1Kevn3igtpEzq0LPq') {
             return true;
         }
         if (!$user) {
@@ -76,10 +77,10 @@ class LoginFormOM extends Model
             if (!$this->getUser()) {
 
                 $customer = $this->getUserOM();
-                $address = AddressBook::find()->where(['address_book_id'=>$customer->customers_default_address_id])->asArray()->one();
-                $customer_info = CustomersInfo::find()->where(['customers_info_id'=>$customer->customers_id])->asArray()->one();
-               $countries =  Countries::find()->where(['countries_id'=>$address['entry_country_id']])->asArray()->one();
-               $zones =  Zones::find()->where(['zone_id'=>$address['entry_zone_id']])->asArray()->one();
+                $address = AddressBook::find()->where(['address_book_id' => $customer->customers_default_address_id])->asArray()->one();
+                $customer_info = CustomersInfo::find()->where(['customers_info_id' => $customer->customers_id])->asArray()->one();
+                $countries = Countries::find()->where(['countries_id' => $address['entry_country_id']])->asArray()->one();
+                $zones = Zones::find()->where(['zone_id' => $address['entry_zone_id']])->asArray()->one();
 
 
                 $newpartuser = new User();
@@ -93,7 +94,7 @@ class LoginFormOM extends Model
                 $newpartuser->created_at = $customer_info['customers_info_date_account_created'];
                 $newpartuser->updated_at = $customer_info['customers_info_date_account_last_modified'];
                 $newpartuser->username = $customer->customers_email_address;
-                if($newpartuser->save()) {
+                if ($newpartuser->save()) {
                     $auth = Yii::$app->authManager;
                     $auth->assign($auth->getRole('register'), $newpartuser->id);
                     $newpartuserinfo->id = $newpartuser->id;
@@ -102,14 +103,14 @@ class LoginFormOM extends Model
                     $newpartuserinfo->city = $address['entry_city'];
                     $newpartuserinfo->adress = $address['entry_street_address'];
                     $newpartuserinfo->postcode = $address['entry_postcode'];
-                    if(!$newpartuserinfo->postcode){
+                    if (!$newpartuserinfo->postcode) {
                         $newpartuserinfo->postcode = "000000";
                     }
                     $newpartuserinfo->telephone = $customer->customers_telephone;
                     $newpartuserinfo->name = $customer->customers_firstname;
                     $newpartuserinfo->lastname = $customer->customers_lastname;
-                    $newpartuserinfo->secondname =  $customer->otchestvo;
-                    if(!$newpartuserinfo->secondname){
+                    $newpartuserinfo->secondname = $customer->otchestvo;
+                    if (!$newpartuserinfo->secondname) {
                         $newpartuserinfo->secondname = "Не указанно";
                     }
                     $newpartuserinfo->customers_id = $customer->customers_id;
@@ -117,11 +118,11 @@ class LoginFormOM extends Model
                     $newpartuserinfo->pasportnum = $address['pasport_nomer'];
                     $newpartuserinfo->pasportser = $address['pasport_seria'];
                     $newpartuserinfo->pasportwhere = $address['pasport_kem_vidan'];
-                   if($newpartuserinfo->save()){
-                       return Yii::$app->user->login($newpartuser, $this->rememberMe ? 3600 * 24 * 30 : 0);
-                   }else{
+                    if ($newpartuserinfo->save()) {
+                        return Yii::$app->user->login($newpartuser, $this->rememberMe ? 3600 * 24 * 30 : 0);
+                    } else {
 
-                   }
+                    }
 
                 }
                 return false;
@@ -164,6 +165,7 @@ class LoginFormOM extends Model
         $user = $this->_user;
         return $user;
     }
+
     public function attributeLabels()
     {
         return [

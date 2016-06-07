@@ -8,9 +8,8 @@ trait ActionTimeOrderProducts
 {
 
 
-
     public function actionTimeorderproducts()
     {
-     return  $this->manufacturers_diapazon((int)Yii::$app->request->getQueryParam('id'));
+        return $this->manufacturers_diapazon((int)Yii::$app->request->getQueryParam('id'));
     }
 }

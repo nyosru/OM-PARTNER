@@ -33,7 +33,7 @@ class OrdersTotal extends ActiveRecordExt
     public function rules()
     {
         return [
-            [[ 'title', 'text', 'class'], 'required'],
+            [['title', 'text', 'class'], 'required'],
             [['orders_total_id', 'orders_id', 'sort_order'], 'integer'],
             [['value'], 'number'],
             [['comment'], 'string'],

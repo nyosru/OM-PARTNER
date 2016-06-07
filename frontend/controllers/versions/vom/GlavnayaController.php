@@ -239,7 +239,7 @@ class GlavnayaController extends Controller
                     [
                         'actions' => ['takeorder'],
                         'allow' => true,
-                        'roles' => ['register','admin'],
+                        'roles' => ['register', 'admin'],
                     ],
                     [
                         'actions' => ['savehtml'],

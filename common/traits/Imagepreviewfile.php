@@ -28,12 +28,12 @@ class Imagepreviewfile
         }
         $dirfile = md5($namefile);
         $subdir = '';
-        for($i=0; $i<5; $i++){
-            $subdir .= '/'.substr($dirfile, $i*2 , 2);
+        for ($i = 0; $i < 5; $i++) {
+            $subdir .= '/' . substr($dirfile, $i * 2, 2);
         }
         if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . $ras[0]) || $action == 'refresh') {
             if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
-                    mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
+                mkdir(Yii::getAlias($where) . $dir . $subdir, 0777, true);
             }
             if ($ras[0] == 'jpg' || $ras[0] == 'jpeg') {
                 $image = imagecreatefromjpeg($from . $filename);

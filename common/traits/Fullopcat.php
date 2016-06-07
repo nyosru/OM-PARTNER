@@ -1,5 +1,6 @@
 <?php
 namespace common\traits;
+
 use Yii;
 use common\models\PartnersCategories;
 use common\models\PartnersCatDescription;
@@ -11,7 +12,7 @@ trait Fullopcat
         $key = Yii::$app->cache->buildKey('fullopcatcategories-23534' . Yii::$app->params['constantapp']['APP_ID']);
         $data = Yii::$app->cache->get($key);
         if ($data['data'] == FALSE) {
-           // $checks = Yii::$app->params['constantapp']['APP_CAT'];
+            // $checks = Yii::$app->params['constantapp']['APP_CAT'];
             $categoriess = new PartnersCategories();
             $categoriesd = new PartnersCatDescription();
             $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->createCommand()->queryAll();

@@ -1,8 +1,10 @@
 <?php
 namespace common\traits;
+
 use Yii;
 use common\models\PartnersCategories;
 use common\models\PartnersCatDescription;
+
 Trait Categories_for_partner
 {
     public function categories_for_partners()

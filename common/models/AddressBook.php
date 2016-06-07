@@ -49,7 +49,7 @@ class AddressBook extends ActiveRecordExt
             [['birth_day', 'pasport_kogda_vidan'], 'safe'],
             [['pasport_kem_vidan'], 'string'],
             [['entry_gender'], 'string', 'max' => 1],
-            [['entry_company', 'entry_firstname', 'entry_lastname', 'entry_suburb', 'entry_city', 'entry_state','entry_country_id'], 'string', 'max' => 255],
+            [['entry_company', 'entry_firstname', 'entry_lastname', 'entry_suburb', 'entry_city', 'entry_state', 'entry_country_id'], 'string', 'max' => 255],
             [['otchestvo'], 'string', 'max' => 128],
             [['pasport_seria', 'entry_postcode'], 'string', 'max' => 10],
             [['pasport_nomer'], 'string', 'max' => 20],

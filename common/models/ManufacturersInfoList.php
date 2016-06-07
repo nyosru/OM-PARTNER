@@ -6,7 +6,6 @@ use common\patch\ActiveRecordExt;
 use Yii;
 
 
-
 class ManufacturersInfoList extends ActiveRecordExt
 {
     /**

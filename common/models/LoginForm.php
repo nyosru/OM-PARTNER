@@ -4,6 +4,7 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use common\models\User;
+
 /**
  * Login form
  */
@@ -53,7 +54,7 @@ class LoginForm extends Model
                 $this->addError('password', 'Не соответствует пара логин - пароль.');
             } elseif (($user->id_partners) == NULL) {
                 return true;
-            }else{
+            } else {
                 return true;
             }
         }
@@ -74,8 +75,6 @@ class LoginForm extends Model
     }
 
 
-
-
     /**
      * Finds user by [[username]]
      *
@@ -88,7 +87,7 @@ class LoginForm extends Model
             $run = new Partners();
             if ($_SERVER['HTTP_HOST'] == 'http://globaladmin.egorov.odezhda-master.ru' || $_SERVER['HTTP_HOST'] == 'http://globaladmin.partnerom.odezhda-master.ru') {
                 $check = 'NULL';
-            }else{
+            } else {
                 $check = $run->GetId($_SERVER['HTTP_HOST']);
             }
             $this->_user = $userq->find()->where(['username' => $this->username, 'id_partners' => $check])->one();

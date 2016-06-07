@@ -1,5 +1,6 @@
 <?php
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
 use yii\web\HttpException;
@@ -16,6 +17,7 @@ class PaymentsToPartners extends ActiveRecordExt
     const PAYMENT_TYPE_CASH = 1;
     //Безнал
     const PAYMENT_TYPE_CASHLESS = 2;
+
     /**
      * @inheritdoc
      */
@@ -23,6 +25,7 @@ class PaymentsToPartners extends ActiveRecordExt
     {
         return 'payments_to_partners';
     }
+
     /**
      * @inheritdoc
      */
@@ -33,6 +36,7 @@ class PaymentsToPartners extends ActiveRecordExt
             [['payment_id', 'payment_type'], 'integer']
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -43,12 +47,14 @@ class PaymentsToPartners extends ActiveRecordExt
             'payment_type' => 'Payment Type',
         ];
     }
+
     public static function primaryKey()
     {
         return [
             'payment_id'
         ];
     }
+
     /**
      * @param $payment_id
      * @param $payment_type
@@ -56,7 +62,8 @@ class PaymentsToPartners extends ActiveRecordExt
      * @throws ObjectException
      * @author Alexander Levin
      */
-    public static function addPaymentType($payment_id, $payment_type){
+    public static function addPaymentType($payment_id, $payment_type)
+    {
         $payment_to_partners = new self;
         $payment_to_partners->payment_id = $payment_id;
         $payment_to_partners->payment_type = $payment_type;
