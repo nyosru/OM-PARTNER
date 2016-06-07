@@ -3,7 +3,6 @@ namespace frontend\controllers\actions;
 
 use common\models\Customers;
 use common\models\Orders;
-use common\models\OrdersStatus;
 use common\models\OrdersToPartners;
 use common\models\PartnersCategories;
 use common\models\PartnersProducts;
@@ -21,7 +20,7 @@ trait ActionTestUnit
        if(Yii::$app->user->can('admin')){
         //   $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
         //   $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
-        $x = Customers::find()->where(['customers_email_address'=>'Nusha7688@gmail.com'])->asArray()->all();
+        $x = PartnersProducts::find()->where(['products_model'=>960814824])->asArray()->all();
           echo '<pre>';
            print_r($x);
          //  print_r($customer);
