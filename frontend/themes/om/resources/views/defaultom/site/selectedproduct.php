@@ -32,11 +32,11 @@ $this -> title = 'Избранные продукты';
                                 if(getCookie('cardview')==1) {
 
 
-                                    renderProduct2(item.products, item.productsDescription,item['productsAttributes'], item['productsAttributesDescr'], '',item.categories_id);
+                                    renderProduct2(item.products, item.productsDescription,item['productsAttributes'], item['productsAttributesDescr'], '',item.catpath);
                                     $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; cursor: pointer; color: red; font-size: 25px; position: relative;"><i  class="fa fa-times"></i></div>');
 
                                 }else{
-                                    renderProduct(item.products, item.productsDescription, item['productsAttributes'], item['productsAttributesDescr'], '',item.categories_id);
+                                    renderProduct(item.products, item.productsDescription, item['productsAttributes'], item['productsAttributesDescr'], '',item.catpath);
                                     $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; position: absolute; cursor: pointer; color: red; font-size: 25px;"><i  class="fa fa-times"></i></div>');
 
                                 }

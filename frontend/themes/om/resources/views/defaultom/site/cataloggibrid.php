@@ -47,9 +47,11 @@ $max_price = $url_data['end_price'][1];
 $prodatrquery = $url_data['prod_attr_query'][1];
 $page = $url_data['page'][1];
 $sort = $url_data['sort'][1];
+$date_start = $url_data['date_start'][1];
+$date_end = $url_data['date_end'][1];
 $ok = $url_data['ok'][1];
 $searchword = $url_data['searchword'][1];
-$url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword.'&ok='.$ok;
+$url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword.'&ok='.$ok.'&date_start='.$date_start.'&date_end='.$date_end;
 if ($data[0] != 'Не найдено!') {
 
 
