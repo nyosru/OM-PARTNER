@@ -236,12 +236,9 @@ trait ActionLK
                         $orprod[] = $value['products_id'];
                     }
                 }
-//
+
                 $orprodstring = implode(',', $orprod);
-//                echo '<pre>';
-//                print_r($pagination);
-//                echo '</pre>';
-//                die();
+           
                 $opprovider = new yii\data\ActiveDataProvider([
                     'query' => PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.products_id IN (' . $orprodstring . ')')->distinct(),
                     'pagination' => [
@@ -249,13 +246,7 @@ trait ActionLK
                         'pageSizeLimit' => [0, 60]
                     ],
                 ]);
-
-
-//                echo '<pre>';
-//                print_r($opprovider->getModels());
-//                echo '</pre>';
-//                die();
-//
+                
                 $orderedproducts = $opprovider->getModels();
                 $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
                 $man_time = $this->manufacturers_diapazon_id();
@@ -280,26 +271,10 @@ trait ActionLK
 
                 $totalproducts = Orders::find()->where('customers_id = :customer and orders_status = :status', [':customer' => $cust['customers']['customers_id'], ':status' => 5])->select('SUM(`orders_products`.`products_quantity`) as totalprod, SUM(orders_products_sp.`products_quantity`) as total, SUM(`orders_products`.`products_quantity`*`orders_products`.`products_price`) as total_prod_price, SUM(`orders_products_sp`.`products_quantity`*`orders_products`.`products_price`) as total_prod_price_sp')->joinWith('products')->joinWith('productsSP')->asArray()->all();
 
-//                $totalproducts = Orders::find()->where('customers_id=:cust',[':cust'=> $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsSP')->asArray()->all();
-//                $total = 0;
-//                $totalprice = 0;
-                //   var_dump($totalproducts);
+             
                 $totalprice = (float)$totalproducts[0]['total_prod_price'] + (float)$totalproducts[0]['total_prod_price_sp'];
                 $totalproducts = $totalproducts[0]['totalprod'] + $totalproducts[0]['total'];
 
-//echo  $totalproducts[0]['total_prod_price_sp'];
-                // die();
-//                foreach($totalproducts as $totval) {
-//                    foreach ($totval as $value) {
-//                        $total += $value['products_quantity'];
-//                        $totalprice += $value['products_quantity']*$value['products_price'];
-//                    }
-//                    foreach ($totval as $value) {
-//                        $total += $value['products_quantity'];
-//                        $totalprice += $value['products_quantity']*$value['products_price'];
-//                    }
-//                }
-//                $totalproducts = $total;
                 $totalcancel = \common\models\Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC')->andWhere(['orders.orders_status' => '6'])->count();
 
                 return $this->render('lk', ['cust' => $cust, 'orders' => $orders, 'dataset' => ['countpay' => $countpay, 'countcheck' => $countcheck, 'countsborka' => $countsborka, 'countdelivery' => $countdelivery, 'totalorder' => $totalorder, 'totalproducts' => $totalproducts, 'totalprice' => $totalprice, 'totalcancel' => $totalcancel]]);
