@@ -23,22 +23,23 @@ class Pages extends \yii\bootstrap\Widget
     private $viewed;
     private $date_modify;
     private $date_add;
+
     public function init()
     {
 
 
-
     }
 
-    private function load(){
-        $this->active       =   $this->options['active'];
-        $this->content      =   $this->options['content'];
-        $this->date_add     =   $this->options['date_add'];
-        $this->date_modify  =   $this->options['date_modify'];
-        $this->name         =   $this->options['name'];
-        $this->partners_id  =   $this->options['partners_id'];
-        $this->tags         =   $this->options['tags'];
-        $this->type         =   $this->options['type'];
-        $this->viewed       =   $this->options['viewed'];
+    private function load()
+    {
+        $this->active = $this->options['active'];
+        $this->content = $this->options['content'];
+        $this->date_add = $this->options['date_add'];
+        $this->date_modify = $this->options['date_modify'];
+        $this->name = $this->options['name'];
+        $this->partners_id = $this->options['partners_id'];
+        $this->tags = $this->options['tags'];
+        $this->type = $this->options['type'];
+        $this->viewed = $this->options['viewed'];
     }
 }

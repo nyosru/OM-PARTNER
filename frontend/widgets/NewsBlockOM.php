@@ -15,14 +15,14 @@ class NewsBlockOM extends \yii\bootstrap\Widget
     public function init()
     {
         $x = PartnersNews::find()->select('MAX(`date_modified`) as last_modified ')->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
-        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-newspage-' . (integer)(Yii::$app->request->post('page')).'-set-'.(integer)(Yii::$app->params['partnersset']['newsonindex']['value']));
+        $key = Yii::$app->cache->buildKey('partner-' . Yii::$app->params['constantapp']['APP_ID'] . '-newspage-' . (integer)(Yii::$app->request->post('page')) . '-set-' . (integer)(Yii::$app->params['partnersset']['newsonindex']['value']));
         if (($newsprovider = Yii::$app->cache->get($key)) == FALSE || $x['last_modified'] !== $newsprovider['lastupdate']) {
             $newsprovider = new \yii\data\ActiveDataProvider([
-            'query' => \common\models\PartnersNews::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
-            'pagination' => [
-                'defaultPageSize' => (integer)(Yii::$app->params['partnersset']['newsonindex']['value']),
-            ],
-        ]);
+                'query' => \common\models\PartnersNews::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'status' => '1'])->orderBy(['date_modified' => SORT_DESC, 'id' => SORT_DESC]),
+                'pagination' => [
+                    'defaultPageSize' => (integer)(Yii::$app->params['partnersset']['newsonindex']['value']),
+                ],
+            ]);
             $newsprovider = $newsprovider->getModels();
             Yii::$app->cache->set($key, ['data' => $newsprovider, 'lastupdate' => $x['last_modified']]);
         } else {
@@ -39,9 +39,9 @@ class NewsBlockOM extends \yii\bootstrap\Widget
                 $text = $this->trim_tags_text($valuenews->name, 90);
                 echo '<span style="display: block; ">';
                 Modal::begin([
-                    'header' =>  $valuenews->name,
-                    'headerOptions'=> [
-                        'class'=>'newsmodhead',
+                    'header' => $valuenews->name,
+                    'headerOptions' => [
+                        'class' => 'newsmodhead',
                     ],
                     'toggleButton' => ['label' => $text,
                         'tag' => 'div',
@@ -59,7 +59,7 @@ class NewsBlockOM extends \yii\bootstrap\Widget
 
                 echo '</div>';
             }
-            
+
         }
     }
 }
