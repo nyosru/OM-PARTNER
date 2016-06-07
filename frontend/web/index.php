@@ -6,11 +6,11 @@ set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
 error_reporting(E_ERROR | E_STRICT);
-//if($_GET['admin'] == 1){
-//    defined('YII_DEBUG') or define('YII_DEBUG', true);
-//}else{
+if($_GET['admin'] == 1){
+    defined('YII_DEBUG') or define('YII_DEBUG', true);
+}else{
     defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
-//}
+}
 
 defined('YII_ENV') or define('YII_ENV', 'dev');
 

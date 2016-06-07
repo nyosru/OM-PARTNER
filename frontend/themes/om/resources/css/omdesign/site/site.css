@@ -2438,7 +2438,6 @@ div.float:hover {
 }
 
 #index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
-    min-width: 245px;
     margin: 5px
 }
 
@@ -3911,9 +3910,9 @@ div.size-desc:last-child{
     .top-link-cont-back{
         display: none;
     }
-    #main-index{
-        display:none;
-    }
+    /*#main-index{*/
+        /*display:none;*/
+    /*}*/
     #card2{
         padding:1px;
         min-width:200px;
