@@ -48,6 +48,14 @@ trait ActionLK
                                 $savelk=true;
                             };
                             break;
+                        case 'chpassword':
+                            $chpass = $customer;
+                            $chpass->scenario = 'chpass';
+                            $chpass->load(Yii::$app->request->post());
+                            if($chpass->changePassword()){
+                                $savelk=true;
+                            }
+                            break;
                         case 'customer':
                             if($customer->saveCustomer()){
                                 $savelk=true;
@@ -91,18 +99,6 @@ trait ActionLK
                             unset($customer);
                             $customer=new Profile();
                             break;
-//                        case 'addr_default':
-//                            $addr_id='';
-//                            foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
-//                                if(isset($value['address_book_id'])){
-//                                    $addr_id=$value['address_book_id'];
-//                                    break;
-//                                }
-//                            };
-//                            $customer->defaultUserAddress($addr_id);
-//                            unset($customer);
-//                            $customer=new Profile();
-//                            break;
                         case 'addr_default':
                             $addr_id='';
                             foreach(Yii::$app->request->post()['Profile']['delivery'] as $key=>$value){
@@ -139,7 +135,6 @@ trait ActionLK
                     $customer=new Profile();
                 }
                 $customer->loadUserProfile();
-                $this->layout = 'lk';
                 return $this->render('lkuserinfo',['cust'=>$customer,'savelk'=>$savelk]);
             break;
 
@@ -229,7 +224,7 @@ trait ActionLK
                     'query'=>OrdersProducts::find()->select('products.products_id')->joinWith('products')->joinWith('order')->where(['customers_id'=> $cust['customers']['customers_id']])->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') and products.products_status=1  and products.products_quantity > 0 and products.products_price>0')->groupBy('`products_id` DESC' ),
                     'pagination'=>[
                         'defaultPageSize' => 60,
-                        'pageSizeLimit'=>[1,60]
+                        'pageSizeLimit'=>[0,60]
                     ],
                 ]);
                 $pagination=$orderedproducts->getPagination();
@@ -250,7 +245,7 @@ trait ActionLK
                     'query'=> PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.products_id IN ('.$orprodstring.')')->distinct(),
                     'pagination'=>[
                         'defaultPageSize' => 60,
-                        'pageSizeLimit'=>[1,60]
+                        'pageSizeLimit'=>[0,60]
                     ],
                 ]);
 

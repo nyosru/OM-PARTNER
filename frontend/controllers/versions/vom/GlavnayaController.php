@@ -3,21 +3,25 @@
 namespace frontend\controllers\versions\vom;
 
 
+use common\traits\AggregateCatalogData;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
 use common\traits\Fullopcat;
+use common\traits\GetSuppliers;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
 use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
+use common\traits\OrdersStatusData;
 use common\traits\Reformat_cat_array;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
 use frontend\controllers\actions\ActionAddSearch;
 use frontend\controllers\actions\ActionCart;
-use frontend\controllers\actions\ActionCatalog;
+use frontend\controllers\actions\om\ActionAllCategories;
+use frontend\controllers\actions\om\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
 use frontend\controllers\actions\ActionChstatusorder;
 use frontend\controllers\actions\ActionContactForm;
@@ -27,6 +31,8 @@ use frontend\controllers\actions\ActionFaq;
 use frontend\controllers\actions\ActionImagepreview;
 use frontend\controllers\actions\ActionLoginOM;
 use frontend\controllers\actions\ActionLogout;
+use frontend\controllers\actions\ActionSelectedProduct;
+use frontend\controllers\actions\om\ActionChangeCardView;
 use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
@@ -35,6 +41,8 @@ use frontend\controllers\actions\om\ActionDayProduct;
 use frontend\controllers\actions\om\ActionDiscont;
 use frontend\controllers\actions\om\ActionFiguresDays;
 use frontend\controllers\actions\om\ActionLoadClaim;
+use frontend\controllers\actions\om\ActionPayView;
+use frontend\controllers\actions\om\ActionSaveCart;
 use frontend\controllers\actions\om\ActionSaveClaim;
 use frontend\controllers\actions\om\ActionSavepage;
 use frontend\controllers\actions\ActionPaying;
@@ -60,6 +68,7 @@ use frontend\controllers\actions\ActionSavehtml;
 use frontend\controllers\actions\om\ActionSaveorder;
 use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
+use frontend\controllers\actions\om\ActionShowCart;
 use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
 use frontend\controllers\actions\om\ActionProductsMonth;
@@ -70,6 +79,9 @@ use frontend\controllers\actions\ActionSiteSearchword;
 use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
+use frontend\controllers\actions\om\ActionViewCart;
+use frontend\controllers\actions\om\ActionOrdersStatus;
+use frontend\controllers\actions\om\ActionSuppliers;
 use Yii;
 use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
@@ -93,8 +105,11 @@ class GlavnayaController extends Controller
         Hide_manufacturers_for_partners,
         OpenSearch,
         CatPath,
+        GetSuppliers,
+        OrdersStatusData,
         ManufacturersDiapazonData,
         ActionSiteIndex,
+        ActionSuppliers,
         ActionSiteRequest,
         ActionSiteSearchword,
         ActionSiteSaveUserProfile,
@@ -111,6 +126,7 @@ class GlavnayaController extends Controller
         ActionFaq,
         ActionPaying,
         ActionSignup,
+        ActionOrdersStatus,
         ActionNewComments,
         ActionRequestorders,
         ActionSaveorder,
@@ -142,12 +158,21 @@ class GlavnayaController extends Controller
         ActionDayProduct,
         ActionFiguresDays,
         ActionSaveClaim,
-
+        ActionChangeCardView,
         ActionLoadClaim,
         ActionNewProductDay,
         ActionProductsMonth,
         ActionProductsCloth,
-        ActionTakeOrder;
+        ActionSelectedProduct,
+        ActionSaveCart,
+        ActionViewCart,
+        ActionTakeOrder,
+        ActionAllCategories,
+        ActionShowCart,
+        ActionRequestPasswordReset,
+        ActionResetPassword,
+        ActionPayView,
+        AggregateCatalogData;
 
 
     /**

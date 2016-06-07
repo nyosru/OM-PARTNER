@@ -5,10 +5,15 @@ use common\models\PartnersSettings;
 set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 
+error_reporting(E_ERROR | E_STRICT);
+if($_GET['admin'] == 1){
+    defined('YII_DEBUG') or define('YII_DEBUG', true);
+}else{
+    defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+}
 
+defined('YII_ENV') or define('YII_ENV', 'dev');
 
-defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
-defined('YII_ENV') or define('YII_ENV', 'prod');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
 require(__DIR__ . '/../../common/config/bootstrap.php');
@@ -55,10 +60,12 @@ $config['controllerNamespace'] = 'frontend\controllers\versions' . $version['fro
 $application->defaultRoute = $version['frontend']['defroute'] . '/index';
 $config['components']['errorHandler']['errorAction'] = $version['frontend']['erraction'] . '/error';
 $catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
+
 $config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
 $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['<action>'] = '' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
+
 
 //define('BASEURL', '/' . $version['frontend']['defroute']);
 define('BASEURL', '');
@@ -68,34 +75,36 @@ foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
 
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'logFile' => '@frontend/runtime/logs/request/requests.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000,
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['info'],
-    'logFile' => '@frontend/runtime/logs/response/response.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['error', 'warning'],
-    'categories' => ['yii\swiftmailer\Logger::add'],
-    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
-$config['components']['log']['targets'][] = [
-    'class' => 'yii\log\FileTarget',
-    'levels' => ['error', 'warning'],
-    'logFile' => '@frontend/runtime/logs/error/error.log',
-    'maxFileSize' => 1024 * 2,
-    'maxLogFiles' => 1000
-];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'logFile' => '@frontend/runtime/logs/request/requests.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000,
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['info'],
+//    'logFile' => '@frontend/runtime/logs/response/response.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['error', 'warning'],
+//    'categories' => ['yii\swiftmailer\Logger::add'],
+//    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
+//$config['components']['log']['targets'][] = [
+//    'class' => 'yii\log\FileTarget',
+//    'levels' => ['error', 'warning'],
+//    'logFile' => '@frontend/runtime/logs/error/error.log',
+//    'maxFileSize' => 1024 * 2,
+//    'maxLogFiles' => 1000
+//];
+
+   
 
 $application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
@@ -151,7 +160,9 @@ $application->params['adminasset'] = $adminasset;
 //    echo '<div style="display: table; vertical-align: middle; margin: auto; font-size: 24px">Приносим свои извинения, проводятся технические работы</div>';
 //    die();
 //}else{
+//echo '<div style="position: absolute; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
 $application->run();
+//echo '<div style="position: fixed; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
 $application->db->close();
 //}
 

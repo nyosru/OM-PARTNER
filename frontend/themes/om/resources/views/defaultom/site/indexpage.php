@@ -10,35 +10,32 @@ use yii\jui\Slider;
 use yii\caching\Cache;
 use yii\filters\AccessControl;
 use yii\web\User;
-
-//if ($this->beginCache('partner-index'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] , array('duration'=>600))) {?>
-<?
 $this->title = $title;
-
-
-
     ?>
-    <div id="main-index">
-        <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><a
-                href="<?= BASEURL ?>/catalog?cat=1750&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;" src="/images/banners/382_327_1.1.png"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
-                href="<?= BASEURL ?>/catalog?cat=1990&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"    src="/images/banners/382_159_1.1.png"></a></div>
-        <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
-                href="<?= BASEURL ?>/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"  src="/images/banners/773_496.1.png"></a></div>
-        <div id="index-card-5" style="float:right" class="data-j index-card banner-card" data-cat="2047"><a
-                href="<?= BASEURL ?>/catalog?cat=1544&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"  src="/images/banners/382_327_2.1.png"></a></div>
-        <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><a
-                href="<?= BASEURL ?>/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;"  src="/images/banners/382_159_2.1.png"></a></div>
-        <div id="index-card-6" style="width: calc(100% - 10px);"class="data-j index-card banner-card" data-cat="1836"><a
-                href="<?= BASEURL ?>/catalog?cat=2040&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                    style="width: 100%; height: auto;" src="/images/banners/1570_160_1.png"></a></div>
-    </div>
 
+<div id="modal-product" style="min-height: 300px;">
+    <span id="modal-close"><i class="fa fa-times"></i></span>
+</div>
+<div id="main-index">
+    <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><a
+            href="<?= BASEURL ?>/catalog?cat=1991&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                style="width: 100%; height: auto;" src="/images/banners/01062016_1.png"></a></div>
+    <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
+            href="<?= BASEURL ?>/catalog?cat=2725&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                style="width: 100%; height: auto;"    src="/images/banners/01062016_3.png"></a></div>
+    <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
+            href="<?= BASEURL ?>/catalog?cat=1729&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                style="width: 100%; height: auto;"  src="/images/banners/01062016_5.png"></a></div>
+    <div id="index-card-5" style="float:right" class="data-j index-card banner-card" data-cat="2047"><a
+            href="<?= BASEURL ?>/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                style="width: 100%; height: auto;"  src="/images/banners/01062016_2.png"></a></div>
+    <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><a
+            href="<?= BASEURL ?>/catalog?cat=1275&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                style="width: 100%; height: auto;"  src="/images/banners/01062016_4.png"></a></div>
+    <div id="index-card-6" style="width: calc(100% - 10px);"class="data-j index-card banner-card" data-cat="1836"><a
+            href="<?= BASEURL ?>/catalog?cat=2764&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+                style="width: 100%; height: auto;" src="/images/banners/01062016_6.png"></a></div>
+</div>
 
     <div id="main-spec">
         <div id="index-card-4" style=' border-bottom: 1px solid rgb(204, 204, 204); border-radius: 0px;'>
@@ -86,7 +83,7 @@ $this->title = $title;
     </div>
     <div id="main-spec">
         <div id="index-card-4">Специальные предложения</div>
-        <?
+        <?php
         if(is_array($dataproducts)) {
             $specitems=array();
             $num=0;
@@ -94,25 +91,25 @@ $this->title = $title;
             $specitems[$it]['content']='';
             foreach ($dataproducts as $k1=>$val) {
                 if($num<10){
-                    $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                    $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
                     $num++;
                 }
                 else{
                     $num=0;
                     $it++;
-                    $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                    $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time]);
                     $num++;
                 }
             }
             echo Carousel::widget([
-                'items'=>$specitems,'id'=>'slid3','clientOptions'=>['interval'=>10000]
+                'items'=>$specitems,'id'=>'slid3','clientOptions'=>['interval'=>10000000]
             ]);
         }
         ?>
     </div>
     <div id="main-new" style="clear: both;">
         <div id="index-card-4">Новые поступления</div>
-        <?
+        <?php
         if(is_array($newproducts)) {
             $specitems=array();
             $num=0;
@@ -138,7 +135,7 @@ $this->title = $title;
         ?>
     </div>
     <div id="main-new" style="clear: both;">
-        <div style="float: left; width: 31%;">
+        <div class="main-news" style="float: left; width: 31%;">
             <div id="" style="font-size: 20px; font-weight: 400; float: left; margin: 5px;">Новости</div>
             <a id="" href="<?= BASEURL . '/news' ?>"
                style="display: block; font-size: 14px; font-weight: 400; float: right; color: rgb(0, 165, 161); margin: 0px 20px; padding: 10px;">Все
@@ -148,7 +145,7 @@ $this->title = $title;
                 <?= \frontend\widgets\NewsBlockOM::widget() ?>
             </div>
         </div>
-        <div style="float: left; width: 23%;">
+        <div class="main-soc" style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="http://vk.com/odezdamast_shop" target="_blank" style="display:block; cursor:pointer;" class="circular-vk"><i class="fa fa-vk"></i>
 
@@ -161,7 +158,7 @@ $this->title = $title;
                 </a>
             </div>
         </div>
-        <div style="float: left; width: 23%;">
+        <div class="main-soc" style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="http://ok.ru/odezhda.master" target="_blank"  style="display:block; cursor:pointer;" class="circular-ok"><i class="fa fa-odnoklassniki "></i>
 
@@ -174,7 +171,7 @@ $this->title = $title;
                 </a>
             </div>
         </div>
-        <div style="float: left; width: 23%;">
+        <div class="main-soc" style="float: left; width: 23%;">
             <div style="height: 200px; text-align: center; padding: 60px 0px; margin: 5px;">
                 <a href="https://www.instagram.com/odezhda_master/" target="_blank" style="display:block; cursor:pointer;" class="circular-instagramm"><i class="fa fa-instagram"></i>
 
@@ -188,10 +185,11 @@ $this->title = $title;
             </div>
         </div>
     </div>
+
     <div style="clear: both;">
 
-        <div style="margin: 0px 15px;float: left;">
-            <?
+        <div style="margin: 0px 15px;float: left;margin-top:30px;">
+            <?php
             if (Yii::$app->user->can('admin')) {
             }
             $page = 'seoindex';
@@ -204,7 +202,7 @@ $this->title = $title;
                 ?>
             <div id="my-textarea-id"></div>
 
-            <? } ?>
+            <?php } ?>
             <?php if (Yii::$app->user->can('admin')) {
 
                 echo \vova07\imperavi\Widget::widget([
@@ -230,8 +228,6 @@ $this->title = $title;
                         alert('Изменения сохранены');
                     });
                 </script>
-            <? } ?>
+            <?php } ?>
         </div>
     </div>
-
-<? //  $this->endCache(); }?>

@@ -16,8 +16,7 @@ trait Trim_Tags
             "'&(iexcl|#161);'i",
             "'&(cent|#162);'i",
             "'&(pound|#163);'i",
-            "'&(copy|#169);'i",
-            "'&#(\d+);'e");
+            "'&(copy|#169);'i");
 
         $replace = array("",
             "",

@@ -26,7 +26,12 @@ trait ActionCartResult
 {
     public function actionCartresult()
     {
+        if(($result =   Yii::$app->session->get('order-succes'))== TRUE){
+            Yii::$app->session->set('order-succes','');
+            return  $this->render('cartresult', $result );
+        }else{
+           return header('location:'.BASEURL.'/');
+        }
 
-      return  $this->render('cartresult');
     }
 }

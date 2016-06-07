@@ -94,4 +94,8 @@ class Manufacturers extends ActiveRecordExt
     {
         return $this->hasMany(ManufacturersDiapazon::class, ['manufacturers_id' => 'manufacturers_id']);
     }
+    public function getManufacturersInfo()
+    {
+        return $this->hasMany(ManufacturersInfoList::class, ['manufacturers_id' => 'manufacturers_id']);
+    }
 }

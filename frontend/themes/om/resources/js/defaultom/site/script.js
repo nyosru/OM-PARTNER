@@ -1,8 +1,35 @@
-
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
     $check = [];
     $(this).addClass('size-checked');
+});
+$(document).on('click', '.alarge', function () {
+    if($('.partners-main-left-back').hasClass('absolute-catalog')){
+        $('.partners-main-left-back').removeClass('absolute-catalog');
+        $('.partners-main-left').removeClass('absolute-catalog');
+        $('.partners-main-left-back').hide();
+    }else {
+        $('.partners-main-left-back').addClass('absolute-catalog');
+        $('.partners-main-left').addClass('absolute-catalog');
+        $('.partners-main-left-back').show();
+    }
+});
+$(document).on('click', '.alk', function () {
+    if($('.partners-main-left-back').hasClass('absolute-lk')){
+        $('.partners-main-left-back').removeClass('absolute-lk');
+        $('.partners-main-left-cont').removeClass('absolute-lk');
+        $('.partners-main-left-back').hide();
+    }else {
+        $('.partners-main-left-back').addClass('absolute-lk');
+        $('.partners-main-left-cont').addClass('absolute-lk');
+        $('.partners-main-left-back').show();
+    }
 });
 $(document).on('click', '.addfilter', function () {
     $(".page-checked").removeClass('page-checked');
@@ -224,16 +251,121 @@ $(document).on('click', '.cart-lable', function () {
             localStorage.setItem('cart-om', $ilocal);
             $arr_prod = $item.cart;
             $amount_prod = 0;
-            $cart_price = 0;
+
             $.each($arr_prod, function () {
                 $amount_prod = $amount_prod + parseInt(this[4]);
-                $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
+
             });
             $(".cart-count").html($amount_prod);
-            $(".cart-price").html($cart_price + ' руб.');
+
         } });
 });
+$(document).on('click', '.selected-product', function () {
+    $id_product =   parseInt(this.getAttribute('data-product'));
+    $checkzero = 0;
+    $noanimate = false;
+    var $item = new Object();
+    $item.products = [];
+    if($id_product > 0) {
+        $checkzero = 1;
+        if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+            $timenow  =  new Date;
+            if(localStorage.getItem('selected-product-om-date')){
+                $timecart =  new Date;
+                $timecart = localStorage.getItem('selected-product-om-date');
+                // if($timenow.getTime() - $timecart > 604800000){
+                //     localStorage.removeItem('cart-om');
+                //     localStorage.removeItem('cart-om-date');
+                //     return false;
+                // }
+            }else{
+                localStorage.setItem('selected-product-om-date', $timenow.getTime());
+            }
+            $item = JSON.parse(localStorage.getItem('selected-product-om'));
+            $i = $item.products.length;
+        } else {
+            var $time = new Date;
+            localStorage.setItem('selected-product-om-date', $time.getTime());
+            $i = 0;
+        }
+        x = 0;
+        if ($id_product > 0) {
+            if($noanimate == false) {
+                $noanimate = true;
+                $($(this))
+                    .clone()
+                    .css({
+                        'position': 'absolute',
+                        'z-index': '91100',
+                        top: $(this).offset()['top'],
+                        left: $(this).offset()['left']
+                    })
+                    .appendTo("body")
+                    .animate({
+                        opacity: 0.05,
+                        left: $(".selected-count").offset()['left'],
+                        top: $(".selected-count").offset()['top'],
+                        width: 20,
+                    }, 1000, function () {
+                        $(this).remove();
+                        $noanimate = false;
+                    });
 
+            }
+            $.each($item.products, function () {
+                if ($id_product == this) {
+                    x = 1;
+                }
+            });
+        } else {
+            $noanimate = true;
+            $($(this).parent().parent())
+                .clone()
+                .css({
+                    'position': 'absolute',
+                    'z-index': '91100',
+                    top: $(this).offset()['top'],
+                    left: $(this).offset()['left']
+                })
+                .appendTo("body")
+                .animate({
+                    opacity: 0.05,
+                    left: $(".selected-count").offset()['left'],
+                    top: $(".selected-count").offset()['top'],
+                    width: 20,
+                }, 1000, function () {
+                    $(this).remove();
+                    $noanimate = false;
+                });
+            $item.products[$i] = $id_product;
+        }
+        if (x == 0) {
+            $($(this))
+                .clone()
+                .css({
+                    'position': 'absolute',
+                    'z-index': '91100',
+                    top: $(this).offset()['top'],
+                    left: $(this).offset()['left']
+                })
+                .appendTo("body")
+                .animate({
+                    opacity: 0.05,
+                    left: $(".selected-count").offset()['left'],
+                    top: $(".selected-count").offset()['top'],
+                    width: 20,
+                }, 1000, function () {
+                    $(this).remove();
+                });
+            $item.products[$i] = $id_product;
+        }
+        $ilocal = JSON.stringify($item);
+        localStorage.setItem('selected-product-om', $ilocal);
+        $arr_prod = $item.products;
+        $amount_prod = 0;
+        $(".selected-count").html($item.products.length);
+    }
+});
 $(document).on('click', '.countdisplay', function index_count_display() {
     $('.page-checked').removeClass('page-checked');
     $(".countdisplay").removeClass('count-checked');
@@ -352,13 +484,291 @@ function new_suburl($url_obj, $val, $new_var) {
     return $url_obj;
 }
 
+function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
+    if($category.lenght  ==  0 ) {
+        $catname = '';
+        $catnum = '';
+    }else{
+
+        $catname = $category.name[$category.name.length - 1];
+        $catnum = $category.num[$category.num.length - 1];
+    }
+
+    $product = $prod;
+    $descriptionprod = $descr;
+    $attr_desc = $attribdescr;
+    $attr = $attrib;
+    $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
+    if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481','3512']) != -1){
+        $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><img src="/images/logo/ok.png"></div>';
+    }else{
+        $man_in_sklad = '';
+    }
+    if ($attr_desc.length > 0) {
+        var  innerindex = 0;
+        $.each($attr_desc, function (index,value) {
+            if($attr[value['products_options_values_id']]['quantity'] > 0){
+                $classpos = 'active-options';
+                $add_class = 'add-count';
+                $del_class = 'del-count';
+                $stylepos = '';
+                $inputpos = '';
+                $some_text = 0;
+                if((innerindex%2) == 0 && $stylepos == ''){
+                    $class='border-right:1px solid #CCC';
+                    innerindex++;
+                }else{
+                    $class='';
+                    innerindex++;
+                }
+            }else{
+                $classpos = 'disable-options';
+                $inputpos = 'readonly';
+                $stylepos = 'display:none; ';
+                $add_class = 'add-count-dis';
+                $del_class = 'del-count-dis';
+                $some_text = 'Нет';
+            }
+
+            if($descriptionprod == "null"){
+                $descriptionprod.products_description="Без Описания";
+                $descriptionprod['products_name']="Не указано";
+            }
+
+
+            $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+
+                '<input '+$inputpos+' id="input-count"'+
+                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                'data-prod="'+ $product['products_id']+'"'+
+                'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
+                'data-model="'+ $product['products_model']+'"'+
+                'data-price="'+ Math.round($product['products_price'])+'"'+
+                'data-image="'+ $product['products_image']+'"'+
+                'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
+                'data-step="'+ $product['products_quantity_order_units']+'"'+
+                'data-min="'+ $product['products_quantity_order_min']+'"'+
+                'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                'data-attr="'+value.products_options_values_id+'"'+
+                'placeholder="0"'+
+                'type="text">'+
+                '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '+'+
+                '</div>'+
+                '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '-'+
+                '</div>'+
+                '</div></div></div>';
+        });
+    } else {
+        $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
+            '<input  id="input-count"'+
+            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+            'data-prod="'+ $product['products_id']+'"'+
+            'data-model="'+ $product['products_model']+'"'+
+            'data-price="'+ Math.round($product['products_price'])+'"'+
+            'data-image="'+ $product['products_image']+'"'+
+            'data-attrname=""'+
+            'data-attr=""'+
+            'data-count="'+ $product['products_quantity']+'"'+
+            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+            'data-step="'+ $product['products_quantity_order_units']+'"'+
+            'data-min="'+ $product['products_quantity_order_min']+'"'+
+            'placeholder="0"'+
+            'type="text">'+
+            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+            '+'+
+            '</div>'+
+            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+            '-'+
+            '</div>'+
+            '</div></div></div>';
+    }
+
+    if( $time[$product.manufacturers_id] === undefined ) {
+        $timewrap = '';
+    }else{
+        $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
+
+    }
+    $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'+$product['products_id']+'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
+    $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
+
+    $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
+
+    $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
+        '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
+        '<a id="prod-info" data-prod="' + $product.products_id + '" >'+
+        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
+        '</div>'+
+        '<div  itemprop="model" class="model" style="display:none">' + $product.products_model + '</div>' +
+        '<div  itemprop="description" class="model" style="display:none">' +$descriptionprod.products_description + '</div>' +
+        '<div itemprop="name" class="name">' + $descriptionprod.products_name  +'</div>'+
+        '</a>'+
+        '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">'+
+        '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
+        Math.round($product.products_price) + ' Руб.'+
+        '</div>'+
+        '</div>'+
+        '<div style="cursor:pointer">'+
+        '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right;font-size: 12px;font-weight: 400;display: block;width: 50%;position: absolute;bottom: 35px;right: 20px;margin: 0px 0px -8px;padding: 5px 45px;" data-prod="'+$product.products_id+'">'+
+        'Размеры'+
+        '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600;color: rgb(0, 165, 161);font-size: 18px;position: absolute;right: 0px;padding: 3px 0px 0px 40px;">'+
+        '</i>'+
+        '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
+        $attr_html+
+        '</span>'+
+        '</div>'+
+        '</div>'+
+
+        '<a itemprop="url" href="/glavnaya/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+        '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
+        '</i>'+
+        'В карточку'+
+        '</a>'+
+
+        ''+$timeprew+''+
+        '</div></div>');
+}
+function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
+    $catname = $category['name'][$category['name'].length - 1];
+    $catnum = $category['num'][$category['num'].length - 1];
+    $product = $prod;
+    $descriptionprod = $descr;
+    $attr_desc = $attribdescr;
+    $attr = $attrib;
+    $attr_html = '';
+    if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481",'3512']) != -1){
+        $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="/images/logo/ok.png"></div>';
+    }else{
+        $man_in_sklad = '';
+    }
+    if ($attr_desc.length > 0) {
+        var  innerindex = 0;
+        $.each($attr_desc, function (index,value) {
+            if($attr[value['products_options_values_id']]['quantity'] > 0){
+                $classpos = 'active-options';
+                $add_class = 'add-count';
+                $del_class = 'del-count';
+                $stylepos = '';
+                $inputpos = '';
+                $some_text = 0;
+                if((innerindex%2) == 0 && $stylepos == ''){
+                    $class='border-right:1px solid #CCC';
+                    innerindex++;
+                }else{
+                    $class='';
+                    innerindex++;
+                }
+            }else{
+                $classpos = 'disable-options';
+                $inputpos = 'readonly';
+                $stylepos = 'display:none; ';
+                $add_class = 'add-count-dis';
+                $del_class = 'del-count-dis';
+                $some_text = 'Нет';
+            }
+
+            $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
+
+                '<input '+$inputpos+' id="input-count"'+
+                'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+                'data-prod="'+ $product['products_id']+'"'+
+                'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
+                'data-model="'+ $product['products_model']+'"'+
+                'data-price="'+ Math.round($product['products_price'])+'"'+
+                'data-image="'+ $product['products_image']+'"'+
+                'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
+                'data-step="'+ $product['products_quantity_order_units']+'"'+
+                'data-min="'+ $product['products_quantity_order_min']+'"'+
+                'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
+                'data-attr="'+value['products_options_values_id']+'"'+
+                'placeholder="0"'+
+                'type="text">'+
+                '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '+'+
+                '</div>'+
+                '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
+                '-'+
+                '</div>'+
+                '</div></div></div>';
+
+        });
+    } else {
+        $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;margin-top:20px;"><div style="margin: auto; width: 100%;"><div></div>'+
+            '<input  id="input-count"'+
+            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
+            'data-prod="'+ $product['products_id']+'"'+
+            'data-model="'+ $product['products_model']+'"'+
+            'data-price="'+ Math.round($product['products_price'])+'"'+
+            'data-image="'+ $product['products_image']+'"'+
+            'data-attrname=""'+
+            'data-attr=""'+
+            'data-count="'+ $product['products_quantity']+'"'+
+            'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
+            'data-step="'+ $product['products_quantity_order_units']+'"'+
+            'data-min="'+ $product['products_quantity_order_min']+'"'+
+            'placeholder="0"'+
+            'type="text">'+
+            '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
+            '+'+
+            '</div>'+
+            '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
+            '-'+
+            '</div>'+
+            '</div></div></div>';
+    }
+    $attr_html+='<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div><div style="font-size:13px; text-align:right;margin-top:5px;">Добавлено: '+$product['products_date_added']+'</div>';
+
+    if( $time[$product.manufacturers_id] === undefined ) {
+        $timewrap = '';
+    }else{
+        $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
+
+    }
+    $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
+    $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'+$product['products_id']+'" aria-hidden="true"></i>';
+    $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
+
+    $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
+        '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
+        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
+        '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
+        '</div></div>'+
+        ''+$timeprew+''+
+        '<div  itemprop="model" class="model" style="display: none;">' + $product.products_model + '</div>' +
+        '<div  itemprop="description" class="model" style="display:none">' +$descriptionprod.products_description + '</div>' +
+        '<div style="cursor:pointer">'+
+        '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right;font-size: 12px;font-weight: 400;display: none;width: 50%;position: absolute;bottom: 35px;right: 20px;margin: 0px 0px -8px;padding: 5px 45px;" data-prod="'+$product.products_id+'">'+
+        'Размеры'+
+        '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600;color: rgb(0, 165, 161);font-size: 18px;position: absolute;right: 0px;padding: 3px 0px 0px 40px;">'+
+        '</i>'+
+        '</div>'+
+        '</div>'+
+        '<a itemprop="url" href="/glavnaya/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
+        '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
+        '</i>'+
+        'В карточку'+
+        '</a>'+
+        '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price" style="margin-left:130px;" >'+
+        '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
+        Math.round($product.products_price) + ' Руб.'+
+        '</div>'+
+        '</div>'+
+        '</div>' +
+        '<div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
+        '<div itemprop="name" class="name">' + $descriptionprod.products_name  +'</div>'+
+        '<div  itemprop="model" class="model">' + $product.products_model + '</div>' +
+        $attr_html+
+        '</span></div>'+
+        '</div></div>');
+}
 $(document).on('click keydown', '.lock-on', function () {
-    $('body').addClass('some');
-    $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
 });
-
 
 
 var inProgress = false;
@@ -382,8 +792,6 @@ $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
 function loaddata(){
-    // $('body').addClass('some');
-    // $('link').addClass('some');
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
     new imageLoader(cImageSrc, 'startAnimation()');
     $count = $('.count-checked').text();
@@ -420,7 +828,11 @@ function loaddata(){
     }else{
         $cat = 0;
     }
-
+    if($urld['ok']){
+        $ok = $urld['ok'][1];
+    }else{
+        $ok = 0;
+    }
     if($urld['prod_attr_query']){
         $prodatrquery = $urld['prod_attr_query'][1];
     }else{
@@ -431,7 +843,7 @@ function loaddata(){
     }else{
         $searchword = '';
     }
-    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword;
+    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok;
     $url_data = $urld;
     $.ajax({
         method:"post",
@@ -444,6 +856,7 @@ function loaddata(){
             "prod_attr_query": $prodatrquery,
             "page": $page,
             "sort": $sort,
+            "ok": $ok,
             "searchword": $searchword,
             "json": '1'
         },
@@ -454,134 +867,20 @@ function loaddata(){
             inProgress = true;
         }
     }).done(function (data) {
-        // $('body').removeClass('some');
-        // $('link').removeClass('some');
         $('.preload').remove();
         $loader = $('.loader-inner').html();
         $('.pagination-catalog').remove();
         $('.loader-inner').remove();
         if (data[0] != 'Не найдено!') {
-            $.each(data[0], function () {
-                $product = this.products;
-                $descriptionprod = this.productsDescription;
-                $attr_desc = this['productsAttributesDescr'];
-                $attr = this['productsAttributes'];
-                $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
-
-                if ($attr_desc.length > 0) {
-                    var  innerindex = 0;
-                    $.each($attr_desc, function (index,value) {
-                        if($attr[value['products_options_values_id']]['quantity'] > 0){
-                            $classpos = 'active-options';
-                            $add_class = 'add-count';
-                            $del_class = 'del-count';
-                            $stylepos = '';
-                            $inputpos = '';
-                            $some_text = 0;
-                            if((innerindex%2) == 0 && $stylepos == ''){
-                                $class='border-right:1px solid #CCC';
-                                innerindex++;
-                            }else{
-                                $class='';
-                                innerindex++;
-                            }
-                        }else{
-                            $classpos = 'disable-options';
-                            $inputpos = 'readonly';
-                            $stylepos = 'display:none; ';
-                            $add_class = 'add-count-dis';
-                            $del_class = 'del-count-dis';
-                            $some_text = 'Нет';
-                        }
-
-                        $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
-                            '<input '+$inputpos+' id="input-count"'+
-                            'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                            'data-prod="'+ $product['products_id']+'"'+
-                            'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
-                            'data-model="'+ $product['products_model']+'"'+
-                            'data-price="'+ Math.round($product['products_price'])+'"'+
-                            'data-image="'+ $product['products_image']+'"'+
-                            'data-count="'+ $attr[value['products_options_values_id']]['quantity']+'"'+
-                            'data-step="'+ $product['products_quantity_order_units']+'"'+
-                            'data-min="'+ $product['products_quantity_order_min']+'"'+
-                            'data-attrname="'+escapeHtml(value['products_options_values_name'])+'"'+
-                            'data-attr="'+value['products_options_values_id']+'"'+
-                            'placeholder="0"'+
-                            'type="text">'+
-                            '<div id="'+$add_class+'" style="margin: 0px;line-height: 1.6;">'+
-                            '+'+
-                            '</div>'+
-                            '<div id="'+$del_class+'" style="margin: 0px;line-height: 1.6;">'+
-                            '-'+
-                            '</div>'+
-                            '</div></div></div>';
-                    });
-                } else {
-                    $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
-                        '<input  id="input-count"'+
-                        'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
-                        'data-prod="'+ $product['products_id']+'"'+
-                        'data-model="'+ $product['products_model']+'"'+
-                        'data-price="'+ Math.round($product['products_price'])+'"'+
-                        'data-image="'+ $product['products_image']+'"'+
-                        'data-attrname=""'+
-                        'data-attr=""'+
-                        'data-count="'+ $product['products_quantity']+'"'+
-                        'data-name="'+  escapeHtml($descriptionprod['products_name'] ) +'"'+
-                        'data-step="'+ $product['products_quantity_order_units']+'"'+
-                        'data-min="'+ $product['products_quantity_order_min']+'"'+
-                        'placeholder="0"'+
-                        'type="text">'+
-                        '<div id="add-count" style="margin: 0px;line-height: 1.6;">'+
-                        '+'+
-                        '</div>'+
-                        '<div id="del-count" style="margin: 0px;line-height: 1.6;">'+
-                        '-'+
-                        '</div>'+
-                        '</div></div></div>';
-                }
-
-                if( data[14][$product.manufacturers_id] === undefined ) {
-                    $timewrap = '';
-                }else{
-                    $timewrap =  '<a data-ajax="time" style="cursor:pointer;" data-href="'+$product['manufacturers_id']+'"><i class="fa fa-clock-o"></i></a>';
-
-                }
-                $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
-                $timeprew = '<div style="" class="model">'+$timewrap+$preview+'</div>';
-
-                $('.bside').append('<div class="container-fluid float" id="card" itemid="' + $product.products_id+ '">'+
-                    '<a href="/glavnaya/product?id=' + $product.products_id+ '">'+
-                    '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
-                    '</div>'+
-                    '<div  class="name">' + $descriptionprod.products_name  +'</div>'+
-                    '</a>'+
-                    '<div  class="price">'+
-                    '<div style="font-size: 18px; font-weight: 500;">'+
-                    Math.round($product.products_price) + ' Руб.'+
-                    '</div>'+
-                    '</div>'+
-                    '<div style="cursor:pointer">'+
-                    '<div data-vis="size-item-desc" data-vis-id="'+$product.products_id+'" style="text-align: right;font-size: 12px;font-weight: 400;display: block;width: 50%;position: absolute;bottom: 35px;right: 20px;margin: 0px 0px -8px;padding: 5px 45px;" data-prod="'+$product.products_id+'">'+
-                    'Размеры'+
-                    '<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600;color: rgb(0, 165, 161);font-size: 18px;position: absolute;right: 0px;padding: 3px 0px 0px 40px;">'+
-                    '</i>'+
-                    '<span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
-                    $attr_html+
-                    '</span>'+
-                    '</div>'+
-                    '</div>'+
-
-                    '<div itemprop="" style="font-size: 12px;" id="prod-info" data-prod="'+$product.products_id+'">'+
-                    '<i class="mdi mdi-visibility" style="right: 65px; font-weight: 500; color: #00A5A1; font-size: 15px; padding: 0px 0px 0px 45px; position: absolute;">'+
-                    '</i>'+
-                    'Увеличить'+
-                    '</div>'+
-
-                    ''+$timeprew+''+
-                    '</div></div>');
-            });
+            if(getCookie('cardview')==1) {
+                $.each(data[0], function (i, item) {
+                    renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath)
+                });
+            }else{
+                $.each(data[0], function (i, item) {
+                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath)
+                });
+            }
             $pager = '';
             data[1] = parseInt(data[1]);
             $count = parseInt($count);
@@ -641,8 +940,6 @@ function loaddata(){
         } else {
             $('#size-slide').html('');
             $('#filter-button').html('');
-            //  $('body').removeClass('some');
-            // $('link').removeClass('some');
             $('.preload').remove();
         }
     });
@@ -716,7 +1013,6 @@ $(document).on('click', '.input_search_word', function () {
 $(document).on('ready', function () {
 
     $amount_prod = 0;
-    $cart_price = 0;
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         if (JSON.parse(localStorage.getItem('cart-om'))) {
             $timenow  =  new Date;
@@ -742,14 +1038,48 @@ $(document).on('ready', function () {
         $i = $item.cart;
         $.each($i, function () {
             $amount_prod = $amount_prod + parseInt(this[4]);
-            $cart_price = $cart_price + (parseInt(this[3]) * parseInt(this[4]));
         });
     } else {
         $i = 0;
-        $price_cart = '0 руб.'
+
     }
     $(".cart-count").html($amount_prod);
-    $(".cart-price").html($cart_price + ' руб.');
+
+    $amount_products = 0;
+    if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+        if (JSON.parse(localStorage.getItem('selected-product-om'))) {
+            $timenow  =  new Date;
+            if(localStorage.getItem('selected-product-om-date')){
+                $timecart =  new Date;
+                $timecart = localStorage.getItem('selected-product-om-date');
+                // if($timenow.getTime() - $timecart > 604800000){
+                //     localStorage.removeItem('cart-om');
+                //     localStorage.removeItem('cart-om-date');
+                //     return false;
+                // }
+            }else{
+                localStorage.setItem('selected-product-om-date', $timenow.getTime());
+            }
+            $item = JSON.parse(localStorage.getItem('selected-product-om'));
+            $i = $item.products.length;
+        } else {
+            var $time = new Date;
+            localStorage.setItem('selected-product-om-date', $time.getTime());
+            $i = 0;
+        }
+        $item = JSON.parse(localStorage.getItem('selected-product-om'));
+        $i = $item.products;
+        $.each($i, function () {
+            $amount_products++ ;
+        });
+    } else {
+        $i = 0;
+
+    }
+    $(".selected-count").html($amount_products);
+
+
+
     $(function accord() {
         var Accordion = function (el, multiple) {
             this.el = el || {};
@@ -859,7 +1189,7 @@ function onAjaxSuccessinfo(data) {
         }
     });
     $('.address').remove();
-    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с договором оферты.</div><button class=" btn btn-sm btn-info" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
+    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с договором оферты.</div><button class=" btn btn-sm btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",
@@ -976,7 +1306,13 @@ $(document).on('click','#prdesc',function() {
     else{
         jQuery('#prd').attr('style','display:none');
     }});
-
+$(document).on('click','.product-menu',function() {
+    if($('.product-menu-rel').is(':not(:visible)')) {
+        jQuery('.product-menu-rel').attr('style', 'display:block');
+    }
+    else{
+        jQuery('.product-menu-rel').attr('style','display:none');
+    }});
 $(document).on('click', '[data-ajax=time]', function(){
     $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
         if($("#time").length) {
@@ -995,10 +1331,9 @@ $(document).on('click', '.close-modal', function(){
 });
 var lockprodinfo = false;
 $(document).on('click','#prod-info',function(){
-    if(!lockprodinfo) {
+    if(lockprodinfo !== true) {
         lockprodinfo = true;
         var dp = $(this).attr('data-prod');
-
         $prod_html = '';
         $size_html = '';
         $spec_html = '';
@@ -1022,16 +1357,33 @@ $(document).on('click','#prod-info',function(){
             });
 
             $spec_html += '</div>';
-            $size_html += '<div data-sale="' + data.product.products_id + '" class="cart-lable" style="left:0">В корзину</div>';
+            $activelabel=0;
+            if(Array.isArray(data.product.productsAttributes)){
+                if(parseInt(data.product.products.products_quantity)>0){
+                    $activelabel++;
+                }
+            }
+            else{
+                $.each(data.product.productsAttributes,function(i,item){
+                    if(item.quantity>0){
+                        $activelabel++;
+                    }
+                })
+            }
+            if($activelabel>0) {
+                $size_html += '<div data-sale="' + data.product.products_id + '" class="cart-lable" style="left:0">В корзину</div>';
+            }else{
+                $size_html += '<div class="cart-lable" style="left:0; background: #E9516D;">Продано</div>';
+            }
             $imgs = new Array('/site/imagepreview?src=' + data['product']['products']['products_id']);
             $imgs2 = new Array(data['product']['products']['products_image']);
             $miniimg = '';
             $bigimg = '';
-            //  console.log(data);
+
             $.each($imgs, function (i, item) {
                 $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if (i == 0) {
-                    $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"><a href="http://odezhda-master.ru/images/' + data.product.products.products_image + '"><img src="/images/logo/download.png" /></a></div><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></div>';
+                    $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom"  href="http://odezhda-master.ru/images/' + data.product.products.products_image+'"><img  style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
                 }
                 else {
                     $bigimg += '<div class="item"><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></div>';
@@ -1062,7 +1414,7 @@ $(document).on('click','#prod-info',function(){
 
                     $size_html += '<div class="' + $classpos + '" style="' + $stylepos + 'width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 3px ;">' + item.products_options_values_name + '</div>';
                     //   $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 5px;">' + item.products_options_values_name + '</div>';
-                    $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="" placeholder="' + $some_text + '" type="text">';
+                    $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="'+data.product.productsAttributesDescr[i].products_options_values_id+'" placeholder="' + $some_text + '" type="text">';
                     $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
                 });
 
@@ -1096,8 +1448,8 @@ $(document).on('click','#prod-info',function(){
             $size_html += '</div>';
             $prod_html += '<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;">' +
                 '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
-                '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:10px;">' +
-                '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px;">' +
+                '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:4px;">' +
+                '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px; margin-right: 10px;">' +
                 '<div style=" min-width: 380px;">' +
                 '<div id="carousel" class="carousel slide">' +
                 '<div class="carousel-inner">' +
@@ -1112,11 +1464,11 @@ $(document).on('click','#prod-info',function(){
                 '</div>' +
                 '<div class="col2" style="float: left;width: 340px;position: relative; overflow: hidden;line-height: 1; color: black; font-weight: 400;">' +
                 '<div style=" font-weight: 300;">' +
-                '<div itemprop="model" class="prod-code" style="width: 100%;float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">' +
-                'Код товара: ' + data['product']['products']['products_model'] +
-                '</div>' +
                 '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
                 'Минимальный оптовый заказ: ' + data['product']['products']['products_quantity_order_min'] + ' шт.' +
+                '</div>' +
+                '<div itemprop="model" class="prod-code" style="width: 100%;float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">' +
+                'Код товара: ' + data['product']['products']['products_model'] +
                 '</div>' +
                 '<div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">' +
                 data['product']['productsDescription']['products_name'] +
@@ -1147,7 +1499,7 @@ $(document).on('click','#prod-info',function(){
                 '</div>' +
                 '</div>' +
                 '<div class="prod-compos" style="font-size: 12px; width:100%;float: left;padding-left: 10px;">' +
-                '<div itemprop="description" id="prd" style="display: block; width: 333px;max-height:350px; overflow:auto; font-size: 12px !important; font-weight: 400 !important; ">' +
+                '<div itemprop="description" id="prd" style="display: block; max-height:340px; overflow:auto; font-size: 12px !important; font-weight: 400 !important; ">' +
                 data.product.productsDescription.products_description + ' ' + $spec_html + '' +
                 '</div>' +
                 '<div>' +
@@ -1160,52 +1512,91 @@ $(document).on('click','#prod-info',function(){
                 '</div>' +
                 '</div>' +
                 '</div>';
+            if($('[id="card"]').length > 0) {
+                $current = $('[id="card"][itemid=' + data.product.products.products_id + ']').filter('#card').attr('itemid');
+                $prev = $('[id="card"][itemid=' + data.product.products.products_id + ']').prev('#card').attr('itemid');
+                $next = $('[id="card"][itemid=' + data.product.products.products_id + ']').next('#card').attr('itemid');
 
-            $current = $('[id="card"][itemid=' + data.product.products.products_id + ']').filter('#card').attr('itemid');
-            $prev = $('[id="card"][itemid=' + data.product.products.products_id + ']').prev('#card').attr('itemid');
-            $next = $('[id="card"][itemid=' + data.product.products.products_id + ']').next('#card').attr('itemid');
+                if (typeof($next) != "undefined") {
+                    $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
+                        '</div>';
+                } else {
+                    if (!inProgress && document.getElementsByClassName('loader').length != 0) {
+                        loaddata();
+                    }
 
-            if (typeof($next) != "undefined" ) {
-                $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
-                    '</div>';
-            } else {
-                if (!inProgress&&document.getElementsByClassName('loader').length!=0) {
-                    loaddata();
+                    $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $current + '" id="prod-info"></i>' +
+                        '</div>';
+
                 }
 
-                $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 11px;" class="fa fa-chevron-right" data-prod="' + $current + '" id="prod-info"></i>' +
-                    '</div>';
 
+                if (typeof($prev) != "undefined") {
+                    $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
+                        '</div>';
+                } else {
+                    $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $current + '" id="prod-info"></i>' +
+                        '</div>';
+                }
+            }else{
+                $current = $('[class="inht"][itemid=' + data.product.products.products_id + ']').filter('.inht').attr('itemid');
+                $prev = $('[class="inht"][itemid=' + data.product.products.products_id + ']').prev('.inht').attr('itemid');
+                $next = $('[class="inht"][itemid=' + data.product.products.products_id + ']').next('.inht').attr('itemid');
+
+                if (typeof($next) != "undefined") {
+                    $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
+                        '</div>';
+                } else {
+                    if (!inProgress && document.getElementsByClassName('loader').length != 0) {
+                        loaddata();
+                    }
+
+                    $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $current + '" id="prod-info"></i>' +
+                        '</div>';
+
+                }
+
+
+                if (typeof($prev) != "undefined") {
+                    $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
+                        '</div>';
+                } else {
+                    $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
+                        '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $current + '" id="prod-info"></i>' +
+                        '</div>';
+                }
             }
 
-
-            if (typeof($prev) != "undefined") {
-                $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
-                    '</div>';
-            } else {
-                $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
-                    '<i style="font-size: 30px; line-height: 0.6; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $current + '" id="prod-info"></i>' +
-                    '</div>';
-            }
-
-
-            $('#modal-product').html(
+            setTimeout($('#modal-product').html(
                 '<span id="modal-close">' +
                 '<i class="fa fa-times" style="font-size:24px;"></i>' +
-                '</span>' + $prod_html + '' + $prevlink + '' + $nextlink);
+                '</span>' + $prod_html + '' + $prevlink + '' + $nextlink),700)
         });
-
-
+        var cloud = function () {
+            $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
+                'position' : 'inside'
+            });
+        };
+        setTimeout(cloud, 1000);
+        var cont_top = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
         $('#overlay')
             .css('display', 'block');
         $('#modal-product')
             .css('display', 'block');
+        var cont_top = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
+        $('#modal-product').css('top',cont_top+100);
         lockprodinfo = false;
     }
-})
+
+});
+
 $(document).on('click','#overlay, #modal-close',function(){
     $('#modal-product')
         .css('display','none');
@@ -1232,4 +1623,207 @@ function changeCart($inputc){
 }
 $(document).on('ready', function(){
     $('a[rel=light]').light();
+});
+
+function getProductCart(){
+    $elems=$('.input-count');
+    $data=localStorage.getItem('cart-om');
+    $comments=$('#comment-cart-save')[0].value;
+    if($('#save-chk').hasClass('chk-unchecked')){
+        $shara=0;
+    }else{
+        $shara=1;
+    }
+    $baseduri = '/savecart';
+    $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
+        function(data){
+            if(data==1){
+                alert('Корзина записана');
+            }else if(data==2){
+                alert('Сохранять корзину могут только зарегистрированные пользователи. Войдите на сайт и попробуйте еще раз')
+            }else{
+                alert('Ошибка');
+            }
+        });
+}
+$(document).on('click','#save-set-btn',function () {
+    getProductCart();
+});
+
+$(document).on('click','#save-chk',function () {
+    if($(this).hasClass('chk-unchecked')){
+        $(this).removeClass('chk-unchecked');
+    }else{
+        $(this).addClass('chk-unchecked');
+    }
+});
+
+$(document).on('click','#save-set',function(){
+    $('#modal-save-set').css('display', 'block');
+    $('#overlay-save-cart').css('display','block');
+})
+$(document).on('click','#overlay-save-cart, #close-cart-save,#save-set-btn',function(){
+    $('#modal-save-set').hide();
+    $('#overlay-save-cart').hide();
+})
+
+$(document).on('click','.share-set',function () {
+    $id=$(this).data('id');
+    if($(this).hasClass('chk-unchecked')){
+        $(this).removeClass('chk-unchecked');
+        $data=1;
+    }else{
+        $(this).addClass('chk-unchecked');
+        $data=0;
+    }
+    $baseduri = '/savecart';
+    $.post($baseduri,{'id':$id,'param':'share','data':$data},
+        function(data){
+            if(data==1){
+                console.log(data);
+            }else if(data==2){
+                console.log('Корзина создана не вами');
+            }else{
+                console.log(data);
+            }
+        });
+});
+
+$(document).on('click','.del-cart-set',function () {
+    $id=$(this).data('id');
+    $row=$(this).data('row');
+    $baseduri = '/savecart';
+    $.post($baseduri,{'id':$id,'param':'delete'},
+        function(data){
+            if(data==1){
+                if(localStorage.getItem('cart-set')){
+                    $set=JSON.parse(localStorage.getItem('cart-set'));
+                    $set.splice($row,1);
+                    $set=JSON.stringify($set);
+                    localStorage.removeItem('cart-set');
+                    localStorage.setItem('cart-set',$set);
+                }
+                $rows=$('[class="cart-set-row"][data-id="'+$id+'"]');
+                $rows.remove();
+                $recount=$('[data-row]');
+                $.each($recount,function ($i,$item) {
+                    $num=parseInt($item.getAttribute('data-row'));
+                    $num--;
+                    $item.setAttribute('data-row',$num);
+                })
+            }else if(data==2){
+                console.log('Корзина создана не вами');
+            }else{
+                console.log('Ошибка');
+            }
+        });
+});
+function drawLeftCart($item){
+    $i = $item.cart;
+    if(typeof ($i)== 'undefined'){
+        localStorage.removeItem('cart-om');
+        localStorage.removeItem('cart-om-date');
+    }
+    $c = 0;
+
+
+    $.each($i, function () {
+        var mandata = [];
+        var requestdata = [];
+
+        requestdata = $.ajax({
+            method:'post',
+            url: "/site/product",
+            async: false,
+            data: {id: this[0]}
+        });
+
+        mandata = $.ajax({
+            method:'post',
+            url: "/site/manlist",
+            async: false,
+            data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+        });
+        if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
+            $access = 'В данный момент товар отсутствует' ;
+            $identypay = false;
+        }else if(JSON.parse(mandata.responseText).answer == false){
+            $access = 'К сожалению, товар в данный момент недоступен для оформления. Он останется в вашей корзине. Время оформления для данного товара вы можете посмотреть <a data-ajax=time data-href="'+requestdata.responseJSON.product.products.manufacturers_id+'">тут</a>';
+            $identypay = false;
+        }else{
+            $access = 'Данный товар доступен для заказа';
+            $identypay = true;
+        }
+        $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 420px;margin-left: 60px; padding: 5px;">' +
+            '<div class = "access '+$identypay+'" >'+$access+'</div>'+
+            '<a target="_blank" href="/product?id='+requestdata.responseJSON.product.products.products_id+'" class="cart-image" style="float: left; width:120px;height: 180px;"><img style="width: 100%; max-height:100%;" src="/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></a>' +
+            '<div class="cart-row-content" style="overflow:hidden; height:100%;float:left;width:70%;"><div style="width: 95%; margin-left: 5px; float: left; height: 30%;">' +
+            '  <div class="cart-model" style="width: 100%; height:100%; font-size:16px;font-weight:300; margin:0; min-width:200px;"><span class="artik" style="color:#399ee4;font-size:12px;">Код: '+requestdata.responseJSON.product.products.products_model +' </span>| <span id="gods-name">'+requestdata.responseJSON.product.productsDescription.products_name+'</span></div>' +
+            '</div><div style="width:100%; height:30%; margin:0;" data-attr="' + this[2] + '" class="cart-attr">' + this[6] + '</div>' +
+            '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
+            '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
+            '   <div class="num-of-items" data-raw="' + ($c++) + '" style="position:relative;top:7px;overflow:hidden;">';
+
+        if(typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined'){
+            $quan = Math.min(this[4],requestdata.responseJSON.product.productsAttributes[this[2]].quantity);
+        }else{
+            $quan = Math.min(this[4],requestdata.responseJSON.product.products.products_quantity);
+        }
+        $innerhtml +='<div id="input-count" class="input-count">'+$quan+'</div>';
+        $innerhtml += '</div></div></div></div>'+
+            '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC; display: none;">' +
+            '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
+            '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
+            '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
+            '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
+            'Добавить комментарий к этому товару <i class="fa fa-caret-down"></i>' +
+            '</div>' +
+            ' </div>' +
+            '</a>'+
+            '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
+            '<div class="panel-body" style="padding: 0px 5px;">' +
+            '<div style="padding: 10px 0px;">';
+
+        if(typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined'){
+            $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+']['+requestdata.responseJSON.product.productsAttributesDescr[this[6]].products_options_values_id+']" style="width: 100%;" ></textarea>';
+
+        }else{
+            $innerhtml += '<textarea name="comments['+requestdata.responseJSON.product.products.products_id+'][all]" style="width: 100%;" ></textarea>';
+
+        }
+        $innerhtml +=    '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'+
+            '</div>';
+    });
+}
+$(document).on('click','.open-set',function(){
+    $row=$(this).data('row');
+    if($('[data-row='+$row+'][class=cart-set-content]').is(':visible')) {
+        $('[data-row=' + $row + '][class=cart-set-content]').hide();
+    }else{
+        $('[data-row=' + $row + '][class=cart-set-content]').show();
+    }
+    $innerhtml='';
+    $text=$('[class=cart-set-content][data-row='+$row+']').html();
+    $content=JSON.parse($text);
+    drawLeftCart($content);
+    $('[class=cart-set-content][data-row='+$row+']').html($innerhtml);
+})
+
+$(document).on('click','.del-products',function(){
+    $id =  $(this).parent().filter('[itemid]').attr('itemid');
+    $('[itemid='+$id+']').remove();
+    $new_cart = new Object();
+    $item = JSON.parse(localStorage.getItem('selected-product-om'));
+    $.each($item.products, function(i,item){
+        if(item == $id){
+            $item.products.splice(i, 1);
+        }
+    });
+
+    $ilocal = JSON.stringify($item);
+    localStorage.setItem('selected-product-om', $ilocal);
+
 });

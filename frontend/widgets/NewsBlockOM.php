@@ -59,7 +59,7 @@ class NewsBlockOM extends \yii\bootstrap\Widget
 
                 echo '</div>';
             }
-            ?><?
+            
         }
     }
 }

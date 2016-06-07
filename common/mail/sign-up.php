@@ -32,7 +32,7 @@ unset($order['discounttotalprice']);
                     </td>
                     <td style="background-color: #00ca6d;">
                         <p style="padding-left:35px;">
-                            <?
+                            <?php
                             if (Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
                                 $tel = Yii::$app->params['partnersset']['contacts']['telephone']['value'];
                                 echo '<span class="wmi-callto">' . $tel . '</span>';

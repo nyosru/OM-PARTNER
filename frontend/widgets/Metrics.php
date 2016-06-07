@@ -48,16 +48,17 @@ class Metrics extends \yii\bootstrap\Widget
                 })(document, window, "topmailru-code");
             </script>
 
-        <? }
+        <?php }
 
         /** Счетчик майл End**/
 
         /** Счетчик Google Analitics Begin**/
-
-        if (   Yii::$app->params['partnersset']['googleanalitycs']['value']
-            && Yii::$app->params['partnersset']['googleanalitycs']['active'] == 1){
-
-            $googleanalitycs = Yii::$app->params['partnersset']['googleanalitycs']['value'];
+//
+//        if (   Yii::$app->params['partnersset']['googleanalitycs']['value']
+//            && Yii::$app->params['partnersset']['googleanalitycs']['active'] == 1){
+if(true){
+      //      $googleanalitycs = Yii::$app->params['partnersset']['googleanalitycs']['value'];
+              $googleanalitycs = 'UA-75056446-1';
             ?>
             <script>
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -68,17 +69,18 @@ class Metrics extends \yii\bootstrap\Widget
                 ga('send', 'pageview');
                 //                    ga('require', 'ec');
             </script>
-        <? }
+        <?php }
 
         /** Счетчик Google Analitics End**/
 
         /** Счетчик Yandex Metrix Begin**/
 
 
-        if (   Yii::$app->params['partnersset']['yandexcounter']['value']
-            && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1){
-
-            $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
+//        if (   Yii::$app->params['partnersset']['yandexcounter']['value']
+//            && Yii::$app->params['partnersset']['yandexcounter']['active'] == 1){
+if(true){
+          //  $yandexcounter = Yii::$app->params['partnersset']['yandexcounter']['value'];
+    $yandexcounter = '36825930';
             ?>
             <script type="text/javascript">
                 (function (d, w, c) {
@@ -109,7 +111,7 @@ class Metrics extends \yii\bootstrap\Widget
                 })(document, window, "yandex_metrika_callbacks");
             </script>
             <noscript><div><img src="https://mc.yandex.ru/watch/<?=$yandexcounter?>" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <? }
+        <?php }
 
         /** Счетчик Yandex Metrix End**/
 
@@ -119,7 +121,7 @@ class Metrics extends \yii\bootstrap\Widget
         <script type="text/javascript" src="https://sliza.ru/widget.php?id=842&h=2a7bebeb9808e01a869c9f734db908e3&t=s" async defer></script>
         <!-- /// -->
 
-        <?
+        <?php
     }
 
 
