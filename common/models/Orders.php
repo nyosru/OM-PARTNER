@@ -226,6 +226,11 @@ class Orders extends ActiveRecordExt
         return $this->hasMany(OrdersToPartners::className(), ['order_id' => 'orders_id']);
     }
 
+    public function getOrdersReports()
+    {
+        return $this->hasMany(OrdersReportsOrders::className(), ['orders_id' => 'orders_id']);
+    }
+
     public function getOrdersBanks()
     {
         return $this->hasOne(AdminCompaniesBankToOrders::className(), ['orders_id' => 'orders_id']);

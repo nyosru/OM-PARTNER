@@ -20,6 +20,7 @@ use common\traits\Trim_Tags;
 use common\traits\View_cat;
 use frontend\controllers\actions\ActionAddSearch;
 use frontend\controllers\actions\ActionCart;
+use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\om\ActionAllCategories;
 use frontend\controllers\actions\om\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
@@ -76,9 +77,9 @@ use frontend\controllers\actions\om\ActionProductsCloth;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
-use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
+use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
 use frontend\controllers\actions\om\ActionOrdersStatus;
 use frontend\controllers\actions\om\ActionSuppliers;
@@ -144,7 +145,6 @@ class GlavnayaController extends Controller
         ActionShipping,
         ActionPaymentMethod,
         ActionPayOrders,
-        ActionTestUnit,
         ActionAddSearch,
         ActionProductinfobymodel,
         ActionCart,
@@ -172,6 +172,8 @@ class GlavnayaController extends Controller
         ActionRequestPasswordReset,
         ActionResetPassword,
         ActionPayView,
+        ActionTcncopy,
+        ActionTestUnit,
         AggregateCatalogData;
 
 
