@@ -17,7 +17,6 @@ trait ActionPage
             $page = new PartnersPage();
         }
         if (Yii::$app->request->post('PartnersPage')['content'] && Yii::$app->user->can('admin')) {
-
             $page->content = stripcslashes(Yii::$app->request->post('PartnersPage')['content']);
             $page->name = $name;
             $page->type = 'post';
@@ -28,7 +27,6 @@ trait ActionPage
             $page->tags = 'NULL';
             $page->viewed = 0;
             $page->validate();
-
             $page->save();
         } else {
 

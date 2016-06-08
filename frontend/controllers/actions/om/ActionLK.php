@@ -21,7 +21,7 @@ trait ActionLK
         }
 
         $this->layout = 'lk';
-        $model = \common\models\Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC');
+        $model = \common\models\Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->joinWith('ordersReports')->groupBy('orders.`orders_id` DESC');
 
         $sort = new yii\data\Sort([
             'attributes' => [
