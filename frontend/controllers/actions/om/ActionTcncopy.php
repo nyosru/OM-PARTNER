@@ -27,16 +27,23 @@ trait ActionTcncopy
                 $accountingReportOrderID = (int)$otchet['orders_id'];
                 $accountingReportID = (int)$otchet['orders_reports_id'];
                 $accountingReportGroupID = (int)$otchet['groups_id'];
-                $orderFiles = OrdersReportsOrdersFiles::find()->where('(orders_reports_id = '.$accountingReportID.' AND orders_reports_id > 0 AND orders_id = '.$accountingReportOrderID.' AND groups_id = 0) OR (orders_reports_id = '.$accountingReportID.' AND orders_reports_id > 0 AND groups_id > 0 AND groups_id = '.$accountingReportGroupID.')')->orderBy('files_time')->asArray()->all();
-                foreach ($orderFiles as $key=>$value){
-                    $orderFilesID = $value['id'];
-                    $fn = explode('.', $value['filex_servername']);
-                    $ext = strtoupper(end($fn));
-                    echo "<div data-imid=\"$orderFilesID\" class=\"PhotoList\">" . '<a href="Load_Files_catalog.php?tab=repf&fid=' . $orderFilesID . '"><img src="' . $_SERVER['HTTP_SERVER'] . '/images/File_Icons/' . $ext . '.png" width="50"><br>копия&nbsp;накладной&nbsp;ТК</a></div>';
+                $orderFiles = OrdersReportsOrdersFiles::find()->where('(orders_reports_id = '.$accountingReportID.' AND orders_reports_id > 0 AND orders_id = '.$accountingReportOrderID.' AND groups_id = 0) OR (orders_reports_id = '.$accountingReportID.' AND orders_reports_id > 0 AND groups_id > 0 AND groups_id = '.$accountingReportGroupID.')')->orderBy('files_time')->asArray()->one();
+                $fn = explode('.', $orderFiles['filex_servername']);
+                $ext = strtoupper(end($fn));
+                $headers = Yii::$app->response->headers;
+                $headers->add('Content-Type', 'image/'.$ext);
+                Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+                $file = 'http://odezhda-master.ru/images/' . $orderFiles['filex_servername'];
+                $attach = 'http://odezhda-master.ru/images/' . $orderFiles['filex_servername'];
+                $headers->add('Content-Transfer-Encoding', 'binary');
+                $headers->add('Expires', '0');
+                $headers->add('Cache-Control', 'must-revalidate');
+                $headers->add('Pragma', 'public');
+                return file_get_contents($file);
 
-                }
+                //print_r($orderFiles);
             }else{
-                echo 'print';
+                return $this->redirect(Yii::$app->request->referrer);
             }
 
 

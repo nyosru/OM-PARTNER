@@ -270,8 +270,9 @@ $this->title = 'Личный кабинет';
                     return ['class' => 'user-order-table-row'];
                 },
                 'content' => function ($data) {
-
-                    return '<a href="'.BASEURL.'/tcncopy?id='.$data->ordersReports['orders_id'].'" target="_blank">Открыть</a>';
+                    if($data->ordersReports){
+                        return '<a href="'.BASEURL.'/tcncopy?id='.$data->orders_id.'" target="_blank">Открыть</a>';
+                    }
                 }
             ],
 //            [
