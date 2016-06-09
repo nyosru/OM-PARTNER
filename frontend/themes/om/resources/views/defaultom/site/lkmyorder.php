@@ -325,19 +325,19 @@ echo \yii\grid\GridView::widget([
             }
         }
         ],
-//      [
-//        'attribute' => 'ads',
-//        'label' => 'Копия ТН ТК',
-//        'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-//        'contentOptions' => function ($model, $key, $index, $column) {
-//            return ['class' => 'user-order-table-row'];
-//        },
-//        'content' => function ($data) {
-//
-//            return '<a href="'.BASEURL.'/tcncopy?id='.$data->ordersReports['orders_id'].'" target="_blank">Открыть</a>';
-//
-//        }
-//    ],
+    [
+        'attribute' => 'delivery_adress',
+        'label' => 'Копия ТН ТК',
+        'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+        'contentOptions' => function ($model, $key, $index, $column) {
+            return ['class' => 'user-order-table-row'];
+        },
+        'content' => function ($data) {
+            if($data->ordersReports){
+                return '<a href="'.BASEURL.'/tcncopy?id='.$data->orders_id.'" target="_blank">Открыть</a>';
+            }
+        }
+    ],
 //        [
 //            'attribute' => 'customers_name',
 //            'label' => 'Действия',
