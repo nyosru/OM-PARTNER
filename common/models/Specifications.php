@@ -43,7 +43,7 @@ class Specifications extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['specification_group_id', 'specification_sort_order','specifications_id'], 'integer'],
+            [['specification_group_id', 'specification_sort_order', 'specifications_id'], 'integer'],
             [['show_comparison', 'show_products', 'show_filter', 'column_justify', 'filter_class', 'filter_display', 'filter_show_all', 'enter_values'], 'string'],
             [['products_column_name'], 'required'],
             [['products_column_name'], 'string', 'max' => 255]
@@ -135,7 +135,7 @@ class Specifications extends ActiveRecordExt
     {
         $alreadyIn = $this->getCategories()->where(['categories_id' => $category->categories_id])->one();
 
-        if (!$alreadyIn){
+        if (!$alreadyIn) {
             $this->link('categories', $category);
         }
     }
@@ -164,8 +164,8 @@ class Specifications extends ActiveRecordExt
     }
 
 
-
-    public function extraFields(){
+    public function extraFields()
+    {
 
         return [
             'specificationDescription'

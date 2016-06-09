@@ -1,8 +1,10 @@
 <?php
 namespace common\traits;
+
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
 use Yii;
+
 Trait Imagepreviewcrop
 {
     public function Imagepreviewcrop($from, $src, $where, $action = 'none')
@@ -11,16 +13,15 @@ Trait Imagepreviewcrop
         if ($id > 0) {
 
 
-
-            if(($dataprod = Yii::$app->cache->get('product-'.$id)) == TRUE){
+            if (($dataprod = Yii::$app->cache->get('product-' . $id)) == TRUE) {
                 $src = $dataprod['data']['products']['products_image'];
-            }else{
+            } else {
                 $dataprod = PartnersProducts::find()->where(['products_id' => trim($id)])->asArray()->one();
                 $src = $dataprod['products_image'];
             }
 
 
-            if($src == '' || $src == '/' || $src == '\\'){
+            if ($src == '' || $src == '/' || $src == '\\') {
                 return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
             }
             $filename = $src;
@@ -43,19 +44,18 @@ Trait Imagepreviewcrop
             $dirfile = md5($namefile);
             $subdir = '';
 
-            for($i=0; $i<5; $i++){
-                $subdir .= '/'.substr($dirfile, $i*2 , 2);
+            for ($i = 0; $i < 5; $i++) {
+                $subdir .= '/' . substr($dirfile, $i * 2, 2);
             }
             if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg') || $action == 'refresh') {
                 if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
-                    mkdir(Yii::getAlias($where) .$dir. $subdir, 0777,  true);
+                    mkdir(Yii::getAlias($where) . $dir . $subdir, 0777, true);
                 }
 
 
-                   if(( $image  = imagecreatefromstring(file_get_contents($from . $filename)))== FALSE){
-                       return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
-                   }
-
+                if (($image = imagecreatefromstring(file_get_contents($from . $filename))) == FALSE) {
+                    return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
+                }
 
 
                 $width = imagesx($image);
@@ -87,14 +87,14 @@ Trait Imagepreviewcrop
                     0, 0,
                     $new_width, $new_height,
                     $width, $height);
-                 //  header('Content-Type: image/jpg');
-                   imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 70);
+                //  header('Content-Type: image/jpg');
+                imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 70);
 
-                   return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
-            }else {
+                return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
+            } else {
                 return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             }
-        //        return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProd]);
+            //        return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProd]);
 
         } else {
             return $this->redirect('/');
@@ -102,4 +102,5 @@ Trait Imagepreviewcrop
 
     }
 }
+
 ?>

@@ -34,16 +34,12 @@ class Partners extends ActiveRecordExt
 
             [['allow_cat', 'allow_prod', 'banks_details'], 'string'],
             [['name', 'domain', 'template'], 'string', 'max' => 45],
-            [['customers_id'],'integer']
+            [['customers_id'], 'integer']
         ];
     }
 
 
-
-
-
-
-/**
+    /**
      * @inheritdoc
      */
     public function attributeLabels()
@@ -59,6 +55,7 @@ class Partners extends ActiveRecordExt
             'customers_id' => 'Customer id'
         ];
     }
+
     public function GetId($server)
     {
         $var = $this->find()->where(['domain' => $server])->asArray()->One();
@@ -73,7 +70,6 @@ class Partners extends ActiveRecordExt
     }
 
 
-
     public function GetAllowCat($id)
     {
         $var = $this->find()->where(['id' => $id])->asArray()->One();
@@ -86,6 +82,7 @@ class Partners extends ActiveRecordExt
         $var = $this->find()->where(['id' => $id])->asArray()->One();
         return $var['name'];
     }
+
     public function GetTemplate($id)
     {
         $var = $this->find()->where(['id' => $id])->asArray()->One();

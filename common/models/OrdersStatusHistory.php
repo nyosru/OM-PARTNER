@@ -1,7 +1,9 @@
 <?php
 namespace common\models;
+
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "orders_status_history".
  *

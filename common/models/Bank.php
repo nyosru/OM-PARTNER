@@ -1,9 +1,11 @@
 <?php
 namespace common\models;
+
 use common\models\PartnersCompanies;
 
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "bank".
  *
@@ -25,6 +27,7 @@ class Bank extends ActiveRecordExt
     {
         return 'bank';
     }
+
     /**
      * @inheritdoc
      */
@@ -40,6 +43,7 @@ class Bank extends ActiveRecordExt
             [['is_deleted'], 'string', 'max' => 1],
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -58,16 +62,19 @@ class Bank extends ActiveRecordExt
             'is_deleted' => 'Is Deleted',
         ];
     }
+
     public function getOwner()
     {
         return $this->hasOne(PartnersCompanies::class, ['partner_id' => 'owner_id']);
     }
+
     public function extraFields()
     {
         return [
             'owner', // получение владельца банковского счета
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -83,6 +90,7 @@ class Bank extends ActiveRecordExt
         }
         return $result;
     }
+
     /**
      * @return bool
      */

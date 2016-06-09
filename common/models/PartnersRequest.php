@@ -40,14 +40,16 @@ class PartnersRequest extends ActiveRecordExt
             [['comments'], 'ValidateArr']
         ];
     }
+
     public function ValidateArr()
     {
-        if(is_array($this->comments)){
+        if (is_array($this->comments)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     /**
      * @inheritdoc
      */

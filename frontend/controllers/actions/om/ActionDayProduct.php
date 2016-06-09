@@ -52,13 +52,13 @@ trait ActionDayProduct
                 'searchword' => $searchword
             ],
             $options = [
-                'ok'=>$ok,
-                'date'=>'offset',
-                'typeresponse'=> $json,
-                'maxtime'=>date('Y-m-d H:i:s'),
-                'offsettime'=>'-1 day',
-                'cachelistkeyprefix' => 'day-day1-'.$ok,
-                'cacheproductkey'=> 'product'
+                'ok' => $ok,
+                'date' => 'offset',
+                'typeresponse' => $json,
+                'maxtime' => date('Y-m-d H:i:s'),
+                'offsettime' => '-1 day',
+                'cachelistkeyprefix' => 'day-day1-' . $ok,
+                'cacheproductkey' => 'product'
             ]);
 
         if ($json) {

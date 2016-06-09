@@ -5,7 +5,8 @@ use Yii;
 use common\models\PartnersComments;
 use yii\data\ActiveDataProvider;
 
-trait ActionCommentspage{
+trait ActionCommentspage
+{
     public function actionCommentspage()
     {
         $commentssprovider = new ActiveDataProvider([

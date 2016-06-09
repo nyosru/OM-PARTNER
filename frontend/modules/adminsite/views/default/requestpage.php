@@ -119,12 +119,12 @@ Modal::begin([
 ]);
 $form = ActiveForm::begin(['id' => 'request_add', 'action' => '']);
 $l1 .= '<div class="">';
-$l1 .= $form->field($modelform, 'post')->label('Текст заявки')->input('text')->widget('\vova07\imperavi\Widget',[
+$l1 .= $form->field($modelform, 'post')->label('Текст заявки')->input('text')->widget('\vova07\imperavi\Widget', [
     'settings' => [
-        'verifiedTags' => ['div','a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
         'lang' => 'ru',
         'minHeight' => 200,
-        'plugins' => ['fontsize','fontcolor', 'table']]]);
+        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
 $l1 .= '</div>';
 $l1 .= '<div class="form-group">';
 $l1 .= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'partners-settings-button']);

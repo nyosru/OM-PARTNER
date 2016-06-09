@@ -12,12 +12,12 @@ use dosamigos\ckeditor\CKEditor;
 
 $this->title = 'Админка';
 $form = ActiveForm::begin(['id' => 'partners-settings', 'action' => '/adminsite/default/savesettings']);
-$path = Yii::getAlias('@app') .'/themes/'. Yii::$app->params['constantapp']['APP_VERSION']['themesversion'].'/';
+$path = Yii::getAlias('@app') . '/themes/' . Yii::$app->params['constantapp']['APP_VERSION']['themesversion'] . '/';
 $templatedir = opendir($path);
 $count = 0;
 $file = readdir($templatedir);
 while ($file = readdir($templatedir)) {
-    if (is_dir($path . $file)  && file_exists($path . $file . '/template.xml')) {
+    if (is_dir($path . $file) && file_exists($path . $file . '/template.xml')) {
         $xmlinfo = simplexml_load_file($path . $file . '/template.xml');
 
         $identifycate = (string)$xmlinfo->identifycate;
@@ -54,23 +54,23 @@ $l1 .= '</div>';
 $l1 .= '</div>';
 $l1 .= '<div class="box" style="background: snow">';
 $l1 .= '<div class="box-body">';
-$l1 .= $form->field($model, 'logotype[value]', ['options' => ['class' => ''], 'labelOptions' => ['class' => 'box-header with-border']])->label('Логотип' . \frontend\widgets\Hint::widget(['hint' => 'logo']))->input('text')->widget('\vova07\imperavi\Widget',[
+$l1 .= $form->field($model, 'logotype[value]', ['options' => ['class' => ''], 'labelOptions' => ['class' => 'box-header with-border']])->label('Логотип' . \frontend\widgets\Hint::widget(['hint' => 'logo']))->input('text')->widget('\vova07\imperavi\Widget', [
     'settings' => [
-        'verifiedTags' => ['div','a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
         'lang' => 'ru',
         'minHeight' => 200,
-        'plugins' => ['fontsize','fontcolor', 'table']]]);
+        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
 $l1 .= $form->field($model, 'logotype[active]', ['options' => ['style' => 'position: absolute; right: 20px; z-index: 10; top: 0px;']])->checkbox()->label('');
 $l1 .= '</div>';
 $l1 .= '</div>';
 $l1 .= '<div class="box" style="background: snow">';
 $l1 .= '<div class="box-body">';
-$l1 .= $form->field($model, 'slogan[value]', ['options' => ['class' => ''], 'labelOptions' => ['class' => 'box-header with-border']])->label('Слоган' . \frontend\widgets\Hint::widget(['hint' => 'slog']))->input('text')->widget('\vova07\imperavi\Widget',[
+$l1 .= $form->field($model, 'slogan[value]', ['options' => ['class' => ''], 'labelOptions' => ['class' => 'box-header with-border']])->label('Слоган' . \frontend\widgets\Hint::widget(['hint' => 'slog']))->input('text')->widget('\vova07\imperavi\Widget', [
     'settings' => [
-        'verifiedTags' => ['div','a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
         'lang' => 'ru',
         'minHeight' => 200,
-        'plugins' => ['fontsize','fontcolor', 'table']]]);
+        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
 $l1 .= $form->field($model, 'slogan[active]', ['options' => ['style' => 'position: absolute; right: 20px; z-index: 10; top: 0px;']])->checkbox()->label('');
 $l1 .= '</div>';
 $l1 .= '</div>';

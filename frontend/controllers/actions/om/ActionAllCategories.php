@@ -11,11 +11,6 @@ trait ActionAllCategories
 {
     public function actionAllcategories()
     {
-
-
-            return $this->render('allcategories');
-
-
-
+        return $this->render('allcategories');
     }
 }

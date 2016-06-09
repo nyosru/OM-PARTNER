@@ -73,6 +73,7 @@ class OrdersProductsPriten extends ActiveRecordExt
     {
         return $this->hasMany(OrdersProducts::className(), ['orders_products_id' => 'orders_products_id'])->from(OrdersProducts::tableName() . ' op');
     }
+
     public function getOrdersProduct()
     {
         return $this->hasOne(OrdersProducts::className(), ['orders_products_id' => 'orders_products_id']);

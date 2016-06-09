@@ -106,7 +106,7 @@ trait ActionSaveorder
             $queryproduct[] = $prodkey;
         }
         if ($queryproduct) {
-            $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ' )->asArray()->all();
+            $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->all();
         } else {
             return $this->redirect(Yii::$app->request->referrer);
         }
@@ -162,14 +162,14 @@ trait ActionSaveorder
             $orders->ur_or_fiz = 'f';
 
             $orders->customers_id = $userCustomer['customers_id'];
-            $orders->customers_name = substr($default_user_address['entry_lastname'] . ' ' . $default_user_address['entry_firstname'] . ' ' . $default_user_address['otchestvo'],0,64);
+            $orders->customers_name = substr($default_user_address['entry_lastname'] . ' ' . $default_user_address['entry_firstname'] . ' ' . $default_user_address['otchestvo'], 0, 64);
             $orders->customers_groups_id = $userCustomer['customers_groups_id'];
             $orders->customers_company = $default_user_address['entry_company'];
             $orders->customers_suburb = $default_user_address['entry_suburb'];
             $orders->customers_country = $defaultentrycountry['countries_name'];
             $orders->customers_state = $defaultentryzones['zone_name'];
             $orders->customers_city = $default_user_address['entry_city'];
-            $orders->customers_street_address = substr($default_user_address['entry_street_address'],0,64);
+            $orders->customers_street_address = substr($default_user_address['entry_street_address'], 0, 64);
             if ($default_user_address['entry_postcode']) {
                 $orders->customers_postcode = $default_user_address['entry_postcode'];
             } else {
@@ -516,7 +516,7 @@ trait ActionSaveorder
                 $admin_companies_bank_to_orders->short_name = $bankID['short_name'];
                 $admin_companies_bank_to_orders->validate();
 
-                if($admin_companies_bank_to_orders->save()){
+                if ($admin_companies_bank_to_orders->save()) {
 
                 }
                 $price_total = 0;
@@ -762,9 +762,7 @@ trait ActionSaveorder
                 } else {
                     $ordershistory->comments = NULL;
                 }
-//                if($type_order == 'plus'){
-//                    $ordershistory->comments .= ' Авто-комментарий - Дозаказ к заказу №'. (integer)Yii::$app->request->post('plusorders');
-//                }
+
                 if ($wrap == 'boxes') {
                     $ordershistory->comments .= ' Авто-комментарий - Упаковка: крафт коробки. ';
                 }
@@ -793,7 +791,7 @@ trait ActionSaveorder
                 return $this->render('cartresult', [
                     'result' => [
                         'code' => 0,
-                        'text' => 'Ошибка оформления заказа код 106 '.json_encode($orders->errors),
+                        'text' => 'Ошибка оформления заказа код 106 ' . json_encode($orders->errors),
                         'data' => [
                             'paramorder' => [
                             ],
@@ -886,12 +884,12 @@ trait ActionSaveorder
                 ->setSubject('Ошибка оформления 7')
                 ->setTextBody(
 
-                    $orders->orders_id.'/////'.
-                    $e->getCode().'/////'.
-                    $e->getFile().'/////'.
-                    $e->getLine().'/////'.
-                    $e->getMessage().'/////'.
-                    $e->getTrace().'/////'.
+                    $orders->orders_id . '/////' .
+                    $e->getCode() . '/////' .
+                    $e->getFile() . '/////' .
+                    $e->getLine() . '/////' .
+                    $e->getMessage() . '/////' .
+                    $e->getTrace() . '/////' .
                     $e->getPrevious()
                 )
                 ->send();

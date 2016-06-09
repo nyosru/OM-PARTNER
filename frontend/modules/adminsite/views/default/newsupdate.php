@@ -15,12 +15,12 @@ $l1 = '<div class="">';
 $l1 .= $form->field($modelform, 'name')->label('Заголовок')->input('text');
 $l1 .= '</div>';
 $l1 .= '<div class="">';
-$l1 .= $form->field($modelform, 'post')->label('Текст новости')->input('text')->widget('\vova07\imperavi\Widget',[
+$l1 .= $form->field($modelform, 'post')->label('Текст новости')->input('text')->widget('\vova07\imperavi\Widget', [
     'settings' => [
-        'verifiedTags' => ['div','a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
         'lang' => 'ru',
         'minHeight' => 200,
-        'plugins' => ['fontsize','fontcolor', 'table']]]);
+        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
 $l1 .= '</div>';
 $l1 .= '<div class="">';
 $l1 .= $form->field($modelform, 'tegs')->label('Теги(через запятую)')->input('text');

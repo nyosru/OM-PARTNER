@@ -12,21 +12,21 @@ trait ActionSignup
 
         $model = new SignupFormOM();
         if ($model->load(Yii::$app->request->post())) {
-            if($model->validuser()) {
-                if($model->validcountryregion()) {
+            if ($model->validuser()) {
+                if ($model->validcountryregion()) {
 
                     if ($user = $model->signup()) {
                         if (Yii::$app->getUser()->login($user)) {
-                            
+
                             return $this->goHome();
                         }
-                    } else{
+                    } else {
                         return $this->render('signup', ['model' => $model]);
                     }
-                }else {
+                } else {
                     return $this->render('signup', ['model' => $model]);
                 }
-            }else {
+            } else {
                 return $this->render('signup', ['model' => $model]);
             }
         }

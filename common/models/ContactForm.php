@@ -26,20 +26,21 @@ class ContactForm extends Model
     public $to;
 
 
-    public function rules(){
-     return [
-         [['email'],'email','message'=>'Введите правильный электронный адрес'],
-         [['subject','body','to','name','email'], 'required', 'message'=>'Обязательное поле'],
-         [['subject','body','name','to'],'string'],
+    public function rules()
+    {
+        return [
+            [['email'], 'email', 'message' => 'Введите правильный электронный адрес'],
+            [['subject', 'body', 'to', 'name', 'email'], 'required', 'message' => 'Обязательное поле'],
+            [['subject', 'body', 'name', 'to'], 'string'],
 
 
-     ];
+        ];
     }
 
     public function sendEmail()
     {
 
-      return   Yii::$app->mailer->compose()
+        return Yii::$app->mailer->compose()
             ->setTo($this->to)
             ->setFrom([$this->email => $this->name])
             ->setSubject($this->subject)

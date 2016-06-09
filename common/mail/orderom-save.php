@@ -1,6 +1,7 @@
-
 <div style="float:left; width:80%">
-    <div class="code<?=$result['code']?>"><?=$result['text']?></div>
+    <div class="code<?=$result['code']?>">
+        <?=$result['text']?>
+    </div>
     <div style="padding: 10px;float: left;  margin: 10px 0px;">
         Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>подтвержден автоматически.<br>
         В ближайшее время Вы получите уведомление на электронную почту.<br>

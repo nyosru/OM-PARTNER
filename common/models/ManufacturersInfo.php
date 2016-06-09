@@ -3,6 +3,7 @@ namespace common\models;
 
 use common\patch\ActiveRecordExt;
 use Yii;
+
 /**
  * This is the model class for table "manufacturers_info".
  *
@@ -29,6 +30,7 @@ class ManufacturersInfo extends ActiveRecordExt
     {
         return 'manufacturers_info';
     }
+
     /**
      * @inheritdoc
      */
@@ -42,6 +44,7 @@ class ManufacturersInfo extends ActiveRecordExt
             [['manufacturers_name', 'manufacturers_url'], 'string', 'max' => 255]
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -60,6 +63,7 @@ class ManufacturersInfo extends ActiveRecordExt
             'date_last_click' => 'Date Last Click',
         ];
     }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -67,15 +71,18 @@ class ManufacturersInfo extends ActiveRecordExt
     {
         return $this->hasOne(Manufacturers::className(), ['manufacturers_id' => 'manufacturers_id']);
     }
+
     public function getManufacturersInfoLists()
     {
         return $this->hasMany(ManufacturersInfoList::className(), ['manufacturers_id' => 'manufacturers_id']);
     }
+
     public function getManufacturersInfoListDefault()
     {
         return $this->hasOne(ManufacturersInfoList::className(), ['manufacturers_id' => 'manufacturers_id'])
             ->where(['set_default' => '1']);
     }
+
     public function getDefault()
     {
         $result = $this->manufacturersInfoListDefault;

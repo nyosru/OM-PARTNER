@@ -11,9 +11,9 @@ trait   ActionCatPath
 
     public function actionCatpath()
     {
-        $post=Yii::$app->request->post();
-        $cat = $this->Catpath($post['category'],'name');
-        $cat=end($cat);
+        $post = Yii::$app->request->post();
+        $cat = $this->Catpath($post['category'], 'name');
+        $cat = end($cat);
         return $cat;
     }
 }

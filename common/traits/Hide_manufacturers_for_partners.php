@@ -1,5 +1,6 @@
 <?php
 namespace common\traits;
+
 use Yii;
 use common\models\Manufacturers;
 
@@ -19,4 +20,5 @@ Trait Hide_manufacturers_for_partners
         return $hide_man;
     }
 }
+
 ?>

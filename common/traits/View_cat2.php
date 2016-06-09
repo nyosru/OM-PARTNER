@@ -4,9 +4,10 @@ namespace common\traits;
 trait View_cat2
 {
     public $output2 = '';
+
     public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [])
     {
-        if($opencat == NULL){
+        if ($opencat == NULL) {
             $opencat = [];
         }
         if (empty($arr[$parent_id])) {
@@ -26,22 +27,22 @@ trait View_cat2
                     } else {
                         $openli = '';
                     }
-                    $xcat = count($opencat)-1;
-                    if($catdesc == $opencat[$xcat]){
-                        $aclass =  'checked';
-                    }else{
-                        $aclass =  '';
+                    $xcat = count($opencat) - 1;
+                    if ($catdesc == $opencat[$xcat]) {
+                        $aclass = 'checked';
+                    } else {
+                        $aclass = '';
                     }
-                    if($parent_id == 0){
+                    if ($parent_id == 0) {
                         $exthtml = '';
-                    }elseif(!$arr[$arr[$parent_id][$i]['categories_id']]){
+                    } elseif (!$arr[$arr[$parent_id][$i]['categories_id']]) {
                         $exthtml = '&nbsp;';
-                    }elseif(in_array($catdesc, $opencat)){
+                    } elseif (in_array($catdesc, $opencat)) {
                         $exthtml = '- ';
-                    }else{
+                    } else {
                         $exthtml = '+ ';
                     }
-                    $this->output2 .= '<li class=" ' . $openli .'"><div class="link '.$aclass.'"  data-cat="' . $catdesc . '"> '.$exthtml.'<a class="lock-on '.$aclass.'" href="' . BASEURL . '/catalog?cat=' . $catdesc . '&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
+                    $this->output2 .= '<li class=" ' . $openli . '"><div class="link ' . $aclass . '"  data-cat="' . $catdesc . '"> ' . $exthtml . '<a class="lock-on ' . $aclass . '" href="' . BASEURL . '/catalog?cat=' . $catdesc . '&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=">' . $catnamearr["$catdesc"] . '</a></div>';
                     $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);
                     $this->output2 .= '</li>';
                 }
@@ -50,6 +51,7 @@ trait View_cat2
         }
         return $this->output2;
     }
+
     public function view_cat($arr, $parent_id = 0, $catnamearr, $allow_cat)
     {
         static $output;

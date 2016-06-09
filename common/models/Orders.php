@@ -190,14 +190,17 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(OrdersProducts::className(), ['orders_id' => 'orders_id']);
     }
+
     public function getProduct()
     {
         return $this->hasOne(PartnersProducts::className(), ['products_id' => 'products_id'])->via('products');
     }
+
     public function getProductsDescription()
     {
         return $this->hasOne(PartnersProductsDescription::className(), ['products_id' => 'products_id'])->via('products');
     }
+
     public function getProductsAttributes()
     {
         return $this->hasMany(PartnersProductsAttributes::className(), ['products_id' => 'products_id'])->via('products');
@@ -207,32 +210,42 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(PartnersProductsOptionVal::className(), ['products_options_values_id' => 'options_values_id'])->via('productsAttributes');
     }
+
     public function getProductsAttr()
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
     }
+
     public function getProductsSP()
     {
         return $this->hasMany(PartnersOrdersProductsSp::className(), ['orders_products_id' => 'orders_products_id'])->via('products');
     }
+
     public function getPartnersOrders()
     {
         return $this->hasMany(OrdersToPartners::className(), ['order_id' => 'orders_id']);
     }
+
+    public function getOrdersReports()
+    {
+        return $this->hasMany(OrdersReportsOrders::className(), ['orders_id' => 'orders_id']);
+    }
+
     public function getOrdersBanks()
     {
         return $this->hasOne(AdminCompaniesBankToOrders::className(), ['orders_id' => 'orders_id']);
     }
+
     public function NumOrder()
     {
-        if(($order = $this->getPartnersOrders()->where(['order_id'=>$this->orders_id])->one()) == TRUE){
+        if (($order = $this->getPartnersOrders()->where(['order_id' => $this->orders_id])->one()) == TRUE) {
             return $order->order_name;
         }
-        $literaltyear = date('y',strtotime($this->date_purchased));
-        $literalchar = ['1'=>'A','2'=>'Б'];
+        $literaltyear = date('y', strtotime($this->date_purchased));
+        $literalchar = ['1' => 'A', '2' => 'Б'];
         $literalchar = $literalchar[$this->default_provider];
         $literalnum = $this->buh_orders_id;
-        return $literaltyear.$literalchar.'-'.$literalnum;
+        return $literaltyear . $literalchar . '-' . $literalnum;
     }
-    
+
 }

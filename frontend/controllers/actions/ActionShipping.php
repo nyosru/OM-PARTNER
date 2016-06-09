@@ -28,23 +28,23 @@ trait ActionShipping
                     'wantpasport' => '0'
                 ],
                 'flat11_flat11' => [
-                    'value'=>'Бесплатная доставка до ТК КИТ',
-                    'active'=>'1',
+                    'value' => 'Бесплатная доставка до ТК КИТ',
+                    'active' => '1',
                     'wantpasport' => '0'
                 ],
                 'flat10_flat10' => [
-                    'value'=>'Бесплатная доставка до ТК ОПТИМА',
-                    'active'=>'1',
+                    'value' => 'Бесплатная доставка до ТК ОПТИМА',
+                    'active' => '1',
                     'wantpasport' => '0'
                 ],
                 'flat9_flat9' => [
-                    'value'=>'Бесплатная доставка до ТК Севертранс http://severtrans-msk.ru/',
-                    'active'=>'1',
+                    'value' => 'Бесплатная доставка до ТК Севертранс http://severtrans-msk.ru/',
+                    'active' => '1',
                     'wantpasport' => '0'
                 ],
                 'flat12_flat12' => [
-                    'value'=>'Бесплатная доставка до ТК ЭНЕРГИЯ',
-                    'active'=>'1',
+                    'value' => 'Бесплатная доставка до ТК ЭНЕРГИЯ',
+                    'active' => '1',
                     'wantpasport' => '0'
                 ],
                 'flat7_flat7' => [
@@ -58,7 +58,7 @@ trait ActionShipping
                     'wantpasport' => '0'
                 ],
                 'courier_express' => [
-                    'value'=>'Служба доставки Экспресс-Курьер http://www.edostavka.ru',
+                    'value' => 'Служба доставки Экспресс-Курьер http://www.edostavka.ru',
                     'active' => '1',
                     'wantpasport' => '0']
             ];

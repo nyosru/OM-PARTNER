@@ -12,7 +12,7 @@ trait ActionNewProductDay
 {
     public function actionActionNewProductDay()
     {
-        if(Yii::$app->request->isGet) {
+        if (Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
             $check = Yii::$app->params['constantapp']['APP_ID'];
             $checks = Yii::$app->params['constantapp']['APP_CAT'];
@@ -24,7 +24,7 @@ trait ActionNewProductDay
             $start_arr = (integer)($page * $count);
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
             $searchword = Yii::$app->request->getQueryParam('searchword', '');
-        }elseif(Yii::$app->request->isPost) {
+        } elseif (Yii::$app->request->isPost) {
             $cat_start = (integer)(Yii::$app->request->post('cat'));
             $check = Yii::$app->params['constantapp']['APP_ID'];
             $checks = Yii::$app->params['constantapp']['APP_CAT'];
@@ -46,7 +46,7 @@ trait ActionNewProductDay
 
         if ($end_price == 'undefined' || !isset($end_price) || $end_price == '' || $end_price == 0) {
             $end_price = 1000000;
-        }else{
+        } else {
             $end_price++;
         }
         if ($start_price == 'undefined' || !isset($start_price) || $start_price == '') {
@@ -55,11 +55,10 @@ trait ActionNewProductDay
         $man_time = $this->manufacturers_diapazon_id();
         $categoriesarr = $this->full_op_cat();
         $cat = implode(',', $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks));
-        // $this->chpu = Requrscat($categoriesarr['cat'], $cat_start ,$categoriesarr['name']);
-
+      
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, products_date_added as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ')')->createCommand()->queryAll();
-        if(!$x['products_last_modified']){
-            $x['products_last_modified'] = $x['add_date'] ;
+        if (!$x['products_last_modified']) {
+            $x['products_last_modified'] = $x['add_date'];
         }
         $checkcache = $x['products_last_modified'];
         $init_key = $cat . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword;
@@ -68,11 +67,11 @@ trait ActionNewProductDay
         $dataque = Yii::$app->cache->get($key);
         $d1 = strtotime(trim($checkcache));
         $d2 = strtotime(trim($dataque['checkcache']));
-        Yii::$app->params['log']['date']['dt'][][1] =  $d1;
-        Yii::$app->params['log']['date']['dt'][][2] =  $d2;
+        Yii::$app->params['log']['date']['dt'][][1] = $d1;
+        Yii::$app->params['log']['date']['dt'][][2] = $d2;
         $markers = $d2 - $d1;
-        Yii::$app->params['log']['date']['dt'][]['c'] =  $markers;
-        if (!isset($dataque['checkcache']) || $markers  !== 0 ) {
+        Yii::$app->params['log']['date']['dt'][]['c'] = $markers;
+        if (!isset($dataque['checkcache']) || $markers !== 0) {
             switch ($sort) {
                 case 0:
                     $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_ASC, 'products_options_values_name' => SORT_ASC];
@@ -114,15 +113,15 @@ trait ActionNewProductDay
             $arfilt_pricemax = array();
             $hide_man = implode(',', $list);
             if ($prod_attr_query != '') {
-                $finderkey = Yii::$app->cache->buildKey('productattrfinder-'.$prod_attr_query);
-                if(($findue = Yii::$app->cache->get($finderkey))==TRUE){
+                $finderkey = Yii::$app->cache->buildKey('productattrfinder-' . $prod_attr_query);
+                if (($findue = Yii::$app->cache->get($finderkey)) == TRUE) {
 
-                }else{
+                } else {
                     $prod_attr_querys = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->createCommand()->queryOne()['products_options_values_name'];
                     $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_querys . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                     $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->createCommand()->queryAll();
-                    if(!$finder){
-                        $findue[] =  $prod_attr_query;
+                    if (!$finder) {
+                        $findue[] = $prod_attr_query;
                     }
                     foreach ($finder as $finderkey => $findervalue) {
                         $findue[] = $findervalue['products_options_values_id'];
@@ -132,19 +131,15 @@ trait ActionNewProductDay
                     }
 
                 }
-                    $prod_attr_query_filt = ' and options_values_id IN ('.implode(',',$findue).')  ';
-                  // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-
-               // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
-
-
+                $prod_attr_query_filt = ' and options_values_id IN (' . implode(',', $findue) . ')  ';
+               
             } else {
                 $prod_search_query_filt = '';
             }
             if ($searchword != '') {
                 if (preg_match('/^[0-9 ]+$/', $searchword)) {
-                    $arfilt[':searchword'] = trim(str_replace(' ','',$searchword));
-                    $arfilt_pricemax[':searchword'] = trim(str_replace(' ','',$searchword));
+                    $arfilt[':searchword'] = trim(str_replace(' ', '', $searchword));
+                    $arfilt_pricemax[':searchword'] = trim(str_replace(' ', '', $searchword));
                     $prod_search_query_filt = '  and products.products_model=:searchword ';
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'patternsearch-' . urlencode($searchword);
@@ -164,9 +159,9 @@ trait ActionNewProductDay
                         }
                         Yii::$app->cache->set($patternkey, ['data' => $searchword], 86400);
                     } else {
-                        if(is_array($patterndata['data'])) {
+                        if (is_array($patterndata['data'])) {
                             $searchword = implode('|', $searchword['data']);
-                        }else{
+                        } else {
                             $searchword = explode(' ', $patterndata['data']);
                             $searchword = implode('|', $searchword);
                         }
@@ -181,15 +176,15 @@ trait ActionNewProductDay
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
-                if(!$values['last']){
+                if (!$values['last']) {
                     $values['last'] = $values['add_date'];
                 }
-               $d2 = strtotime(trim($values['last']));
-               $d1 = strtotime(trim($dataprod['last']));
-                $marker = $d2-$d1;
-                Yii::$app->params['log']['date']['dt'][][1] =  $d1;
-                Yii::$app->params['log']['date']['dt'][][2] =  $d2;
-                Yii::$app->params['log']['date']['dt'][]['c'] =  $marker;
+                $d2 = strtotime(trim($values['last']));
+                $d1 = strtotime(trim($dataprod['last']));
+                $marker = $d2 - $d1;
+                Yii::$app->params['log']['date']['dt'][][1] = $d1;
+                Yii::$app->params['log']['date']['dt'][][2] = $d2;
+                Yii::$app->params['log']['date']['dt'][]['c'] = $marker;
                 if (isset($dataprod['data']) && $marker !== 0) {
                 } else {
                     $nodata[] = $values['prod'];
@@ -203,11 +198,11 @@ trait ActionNewProductDay
                     Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified']]);
                 }
             }
-           foreach($prod as $key=>$values){
-               $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
-               $dataprod = Yii::$app->cache->get($keyprod);
-               $data[] = $dataprod['data'];
-           }
+            foreach ($prod as $key => $values) {
+                $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
+                $dataprod = Yii::$app->cache->get($keyprod);
+                $data[] = $dataprod['data'];
+            }
             $statickey = Yii::$app->cache->buildKey('static' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
             if (!$stats['data']) {
@@ -266,8 +261,8 @@ trait ActionNewProductDay
             }
             if (isset($data[0])) {
                 foreach ($data as $key => $dataval) {
-                    if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
-                        $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
+                    if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                        $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
                     }
                     unset(
                         $data[$key]['old_categories_id'],
@@ -288,7 +283,6 @@ trait ActionNewProductDay
                         $data[$key]['products']['products_image_xl_4'],
                         $data[$key]['products']['products_image_xl_5'],
                         $data[$key]['products']['products_image_xl_6'],
-                        //$data[$key]['products']['products_old_price'],
                         $data[$key]['products']['products_ordered'],
                         $data[$key]['products']['price_coll'],
                         $data[$key]['products']['products_sort_order'],
@@ -300,7 +294,7 @@ trait ActionNewProductDay
                         $data[$key]['products']['products_date_available'],
                         $data[$key]['products']['products_date_view']
                     );
-                    foreach($data[$key]['productsAttributes'] as $keyattr=>$valueattr){
+                    foreach ($data[$key]['productsAttributes'] as $keyattr => $valueattr) {
                         unset(
                             $data[$key]['productsAttributes'][$keyattr]['options_id'],
                             $data[$key]['productsAttributes'][$keyattr]['options_values_price'],
@@ -315,7 +309,7 @@ trait ActionNewProductDay
                             $data[$key]['productsAttributes'][$keyattr]['sub_options_values_id']
                         );
                     }
-                    foreach($data[$key]['productsAttributesDescr'] as $keyattrdesc=>$valueattrdesc){
+                    foreach ($data[$key]['productsAttributesDescr'] as $keyattrdesc => $valueattrdesc) {
                         unset(
                             $data[$key]['productsAttributesDescr'][$keyattrdesc]['language_id'],
                             $data[$key]['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
@@ -335,7 +329,7 @@ trait ActionNewProductDay
                         $data[$key]['productsDescription']['products_url'],
                         $data[$key]['productsDescription']['products_viewed']
                     );
-                    $data[$key]['productsAttributes'] = ArrayHelper::index($data[$key]['productsAttributes'],'options_values_id');
+                    $data[$key]['productsAttributes'] = ArrayHelper::index($data[$key]['productsAttributes'], 'options_values_id');
                 }
             } else {
                 $data = 'Не найдено!';
@@ -343,21 +337,20 @@ trait ActionNewProductDay
 
             $countfilt = count($data);
             $start = $start_arr;
-            if($count_arrs <= $count){
+            if ($count_arrs <= $count) {
                 $data = 'Не найдено!';
             }
-                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $man_time ];
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $man_time];
         } else {
             $this->layout = 'catalog';
-            if($cat_start == 0){
-                $catpath = ['num'=>['0' => 0], 'name'=>['0' =>'Каталог']];
-            }else{
-                $catpath = $this->Catpath($cat_start,'namenum');
+            if ($cat_start == 0) {
+                $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
+            } else {
+                $catpath = $this->Catpath($cat_start, 'namenum');
             }
-            //ksort($productattrib,'SORT_NATURAL' );
-                    Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
-                return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time'=>$man_time]);
+            Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
+            return $this->render('cataloggibrid', ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time]);
         }
     }
 }

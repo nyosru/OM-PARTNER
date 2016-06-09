@@ -30,7 +30,7 @@ class Test extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['id','tt'], 'required'],
+            [['id', 'tt'], 'required'],
 
         ];
     }

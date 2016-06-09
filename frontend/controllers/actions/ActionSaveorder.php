@@ -152,8 +152,8 @@ trait ActionSaveorder
                 $user_total_order_price = (integer)Yii::$app->user->identity->total_order;
                 if ($user_total_order_price > 0) {
                     foreach (Yii::$app->params['partnersset']['discounttotalorder']['value'] as $valuediscontorder) {
-                        if($valuediscontorder['in'] <= $user_total_order_price && $user_total_order_price < $valuediscontorder['out'] && (integer)($valuediscontorder['value']) > 0){
-                            $order['discounttotalprice'] =  max((integer)$valuediscontorder['value'],(integer)$order['discounttotalprice']);
+                        if ($valuediscontorder['in'] <= $user_total_order_price && $user_total_order_price < $valuediscontorder['out'] && (integer)($valuediscontorder['value']) > 0) {
+                            $order['discounttotalprice'] = max((integer)$valuediscontorder['value'], (integer)$order['discounttotalprice']);
                         }
                     }
                 }

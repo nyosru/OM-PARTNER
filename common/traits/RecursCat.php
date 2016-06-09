@@ -13,10 +13,11 @@ trait RecursCat
 {
     public $chpu;
     public $item;
+
     public function Requrscat($arr, $firstval, $catnamearr)
     {
-      //  static $this->chpu;
-      //  static $this->item;
+        //  static $this->chpu;
+        //  static $this->item;
         $this->item = $firstval;
         if (isset($arr[$this->item])) {
             while ($arr[$this->item] != '0') {

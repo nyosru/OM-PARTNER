@@ -262,17 +262,18 @@ $this->title = 'Личный кабинет';
                         return 'Не выставлен';
                     }  }
             ],
-//            [
-//                'attribute' => 'delivery_adress',
-//                'label' => 'Квитанция',
-//                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
-//                'contentOptions' => function ($model, $key, $index, $column) {
-//                    return ['class' => 'user-order-table-row'];
-//                },
-//                'content' => function ($data) {
-//                    return 'Счет';
-//                }
-//            ],
+            [
+                'attribute' => 'delivery_adress',
+                'label' => 'Копия ТН ТК',
+                'headerOptions' => ['style' => 'background: none repeat scroll 0% 0%;'],
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['class' => 'user-order-table-row'];
+                },
+                'content' => function ($data) {
+
+                    return 'Счет'.$data->orders_reports_orders['orders_id'];
+                }
+            ],
 //            [
 //                'attribute' => 'customers_name',
 //                'label' => 'Действия',

@@ -189,12 +189,12 @@ echo \yii\grid\GridView::widget([
                     $modal .= $form->field($mailmodel, 'email')->hiddenInput()->label(false);
                     $modal .= $form->field($mailmodel, 'name')->hiddenInput()->label(false);
                     $modal .= '<input type="hidden" name="_csrf" value="" />';
-                    $modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget('\vova07\imperavi\Widget',[
+                    $modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget('\vova07\imperavi\Widget', [
                         'settings' => [
-                            'verifiedTags' => ['div','a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+                            'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
                             'lang' => 'ru',
                             'minHeight' => 200,
-                            'plugins' => ['fontsize','fontcolor', 'table']]]);
+                            'plugins' => ['fontsize', 'fontcolor', 'table']]]);
                     ActiveForm::end();
                     $modal .= '</div><div class="form-group">';
                     $modal .= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'mailtouser']);

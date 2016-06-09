@@ -18,13 +18,14 @@ class CommentsBlock extends \yii\bootstrap\Widget
     ];
     public $relateID;
     public $category;
+
     public function init()
     {
 
         ?>
         <div id="partners-main-left-cont">
         <div class="header-catalog"> <?= $this->nameblock[$this->category] ?>
-            </div>
+        </div>
         <?php
 
         $x = PartnersComments::find()->select('MAX(`date_modified`) as last_modified ')->where(['relate_id' => $this->relateID,
@@ -53,9 +54,9 @@ class CommentsBlock extends \yii\bootstrap\Widget
                 echo '<span style=" none repeat scroll 0% 0%; padding: 4px 25px; width: 100%; box-shadow: 2px 1px 5px -4px black;">' . $valuecomments->date_modified . '</span><br/>';
                 $userinfoview = new PartnersUsersInfo();
                 $userinfoview = $userinfoview->findOne($valuecomments->user_id);
-                if(isset($userinfoview->name) && isset($userinfoview->lastname)) {
+                if (isset($userinfoview->name) && isset($userinfoview->lastname)) {
                     echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-weight: 600;">' . $userinfoview->name . ' ' . $userinfoview->lastname . '</span>';
-                }else{
+                } else {
                     echo '<span style="padding: 10px 25px; margin: 0px; display: block; none repeat scroll 0% 0%; font-style: italic; font-weight: 600;">Роман Колпаков</span>';
                 }
                 $text = $this->trim_tags_text($valuecomments->post, 400);
@@ -68,8 +69,8 @@ class CommentsBlock extends \yii\bootstrap\Widget
         if (!Yii::$app->user->isGuest) {
             $modelform = new \common\models\PartnersComments();
             $userinfo = new PartnersUsersInfo();
-            $userinfo = $userinfo::findOne(['id'=>Yii::$app->user->id]);
-            if(!$userinfo){
+            $userinfo = $userinfo::findOne(['id' => Yii::$app->user->id]);
+            if (!$userinfo) {
                 $userinfo = new PartnersUsersInfo();
             }
             $form = \yii\bootstrap\ActiveForm::begin(['id' => 'comments_add', 'action' => BASEURL . '/newcomments', 'options' => ['style' => 'width: 95%;margin: auto;']]);

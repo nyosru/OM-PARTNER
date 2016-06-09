@@ -7,6 +7,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 use common\models\Partners;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -15,7 +16,7 @@ $check = Yii::$app->params['constantapp']['APP_ID'];
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 
-if($check == ''){
+if ($check == '') {
     die;
 }
 $name = Yii::$app->params['constantapp']['APP_NAME'];
@@ -58,24 +59,23 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
     ]);
 
     ?>
-      <?
+    <?
 
     $menuItems = [];
-    if(Yii::$app->user->can('admin')){
+    if (Yii::$app->user->can('admin')) {
         $menuItems[] = ['label' => 'Админ', 'url' => ['/adminsite']];
 
     }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Войти', 'url' => [BASEURL . '/login']];
         $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => [BASEURL . '/signup']];
-    }else{
+    } else {
         $menuItems[] = [
             'label' => 'Выход (' . Yii::$app->user->identity->username . ')',
             'url' => [BASEURL . '/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];
     }
-
 
 
     echo Nav::widget([
@@ -135,22 +135,22 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                 <?= $content ?>
             </div>
         </div>
-</div>
-<div style="height: 60px"></div>
-<footer class="footer">
-    <hr style="width: 55%; border: 1px solid rgb(255, 191, 8); position: absolute; right: 1px; top: 15px;">
-    <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid rgb(2, 243, 200);">
-    <div class="container">
-        <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
     </div>
-</footer>
+    <div style="height: 60px"></div>
+    <footer class="footer">
+        <hr style="width: 55%; border: 1px solid rgb(255, 191, 8); position: absolute; right: 1px; top: 15px;">
+        <hr style="width: 55%; position: absolute; left: 1px; top: 1px; border: 1px solid rgb(2, 243, 200);">
+        <div class="container">
+            <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
+        </div>
+    </footer>
 
-<?php $this->endBody();
-if (Yii::$app->params['adminasset']->registerAssetFiles($this)) {
+    <?php $this->endBody();
+    if (Yii::$app->params['adminasset']->registerAssetFiles($this)) {
 
-} else {
+    } else {
 
-}?>
+    } ?>
 
 </body>
 </html>

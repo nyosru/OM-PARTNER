@@ -11,14 +11,15 @@ use common\models\PartnersUsersInfo;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-trait ActionSelectedProduct{
+trait ActionSelectedProduct
+{
     public function actionSelectedproduct()
     {
-        if(($products = Yii::$app->request->post('products'))==TRUE && is_array($products)) {
-            foreach ($products as $products_key => $products_value){
+        if (($products = Yii::$app->request->post('products')) == TRUE && is_array($products)) {
+            foreach ($products as $products_key => $products_value) {
                 $products[$products_key] = (int)$products_value;
             }
-            $prod = PartnersProducts::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where(['products.products_id'=>$products])->distinct()->orderBy('products_date_added')->asArray()->all();
+            $prod = PartnersProducts::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where(['products.products_id' => $products])->distinct()->orderBy('products_date_added')->asArray()->all();
             $ifht = 0;
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
@@ -51,10 +52,10 @@ trait ActionSelectedProduct{
             }
             if (is_array($data)) {
                 foreach ($data as $key => $dataval) {
-                    if(isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
-                        $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price'])/100*intval(Yii::$app->params['partnersset']['discount']['value']));
+                    if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                        $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
                     }
-                    $data[$key]['catpath'] = $this->Catpath($data[$key]['categories_id'],'namenum');
+                    $data[$key]['catpath'] = $this->Catpath($data[$key]['categories_id'], 'namenum');
                     unset(
                         $data[$key]['old_categories_id'],
                         $data[$key]['products']['country_id'],
@@ -86,7 +87,7 @@ trait ActionSelectedProduct{
                         $data[$key]['products']['products_date_available'],
                         $data[$key]['products']['products_date_view']
                     );
-                    foreach($data[$key]['productsAttributes'] as $keyattr=>$valueattr){
+                    foreach ($data[$key]['productsAttributes'] as $keyattr => $valueattr) {
                         unset(
                             $data[$key]['productsAttributes'][$keyattr]['options_id'],
                             $data[$key]['productsAttributes'][$keyattr]['options_values_price'],
@@ -101,7 +102,7 @@ trait ActionSelectedProduct{
                             $data[$key]['productsAttributes'][$keyattr]['sub_options_values_id']
                         );
                     }
-                    foreach($data[$key]['productsAttributesDescr'] as $keyattrdesc=>$valueattrdesc){
+                    foreach ($data[$key]['productsAttributesDescr'] as $keyattrdesc => $valueattrdesc) {
                         unset(
                             $data[$key]['productsAttributesDescr'][$keyattrdesc]['language_id'],
                             $data[$key]['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
@@ -121,14 +122,14 @@ trait ActionSelectedProduct{
                         $data[$key]['productsDescription']['products_url'],
                         $data[$key]['productsDescription']['products_viewed']
                     );
-                    $data[$key]['productsAttributes'] = ArrayHelper::index($data[$key]['productsAttributes'],'options_values_id');
+                    $data[$key]['productsAttributes'] = ArrayHelper::index($data[$key]['productsAttributes'], 'options_values_id');
                 }
             } else {
                 $data = 'Не найдено!';
             }
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return $data;
-        }else{
+        } else {
             return $this->render('selectedproduct');
         }
 

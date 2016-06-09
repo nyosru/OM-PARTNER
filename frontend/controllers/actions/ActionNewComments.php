@@ -8,7 +8,6 @@ use yii\base\Exception;
 use yii\data\ActiveDataProvider;
 
 
-
 trait ActionNewComments
 {
     public function actionNewcomments()
@@ -79,10 +78,10 @@ trait ActionNewComments
                 } else {
                     return $this->goHome();
                 }
-                } else {
+            } else {
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return $this->redirect(Yii::$app->request->referrer);
-                }
+                return $this->redirect(Yii::$app->request->referrer);
+            }
 
 
         }

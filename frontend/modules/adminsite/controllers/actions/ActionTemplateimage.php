@@ -2,7 +2,9 @@
 namespace frontend\modules\adminsite\controllers\actions;
 
 use Yii;
-trait ActionTemplateimage{
+
+trait ActionTemplateimage
+{
     public function actionTemplateimage()
     {
         $src = Yii::$app->request->getQueryParam('src');

@@ -11,14 +11,12 @@ trait ActionArticle
 {
     public function actionArticle()
     {
-      $param =  $this->trim_tags_text(Yii::$app->request->getQueryParam('view'));
+        $param = $this->trim_tags_text(Yii::$app->request->getQueryParam('view'));
         try {
             $this->layout = 'catalog';
-          return  $this->render('article/' . $param);
-        }catch (\Exception $e){
+            return $this->render('article/' . $param);
+        } catch (\Exception $e) {
             return $this->redirect(Yii::$app->homeUrl);
         }
-
-
     }
 }
