@@ -845,6 +845,7 @@ function loaddata(){
     }
     $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok;
     $url_data = $urld;
+    console.log('awdawdaw');
     $.ajax({
         method:"post",
         url: "",

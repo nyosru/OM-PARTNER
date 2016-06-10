@@ -18,11 +18,11 @@ trait ActionProduct
 
         // Если запрос пришел через GET
         if (Yii::$app->request->isGet) {
-
-        }else{
-
-        }
             $id = (integer)Yii::$app->request->getQueryParam('id');
+        }else{
+            $id = (integer)Yii::$app->request->post('id');
+        }
+
 
             if ($id > 0 && ($x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date ')->where(['products_id' => trim($id)])->createCommand()->queryOne()) == TRUE) {
 

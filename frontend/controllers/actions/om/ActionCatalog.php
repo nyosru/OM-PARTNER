@@ -22,6 +22,7 @@ trait ActionCatalog
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
             $date_start = Yii::$app->request->getQueryParam('date_start');
             $ok = (integer)Yii::$app->request->getQueryParam('ok');
+            $sfilt = Yii::$app->request->getQueryParam('sfilt');
             if (($date_end = Yii::$app->request->getQueryParam('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
             }
@@ -37,12 +38,14 @@ trait ActionCatalog
             $sort = (integer)(Yii::$app->request->post('sort', 10));
             $searchword = urldecode(Yii::$app->request->post('searchword', ''));
             $date_start = Yii::$app->request->post('date_start');
+            $sfilt = Yii::$app->request->post('sfilt');
             $ok = (integer)Yii::$app->request->post('ok');
             if (($date_end = Yii::$app->request->post('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
             }
             $json = Yii::$app->request->post('json');
         }
+       
         $data = $this->AggregateCatalogData(
             $params = [
                 'cat_start' => $cat_start,
@@ -62,9 +65,10 @@ trait ActionCatalog
                 'maxtime' => $date_end,
                 'offsettime' => $date_start,
                 'cachelistkeyprefix' => 'catalog1' . $ok,
-                'cacheproductkey' => 'product'
+                'cacheproductkey' => 'product',
+                'sfilt'=>$sfilt
             ]);
-
+        
         if ($json) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return $data;
