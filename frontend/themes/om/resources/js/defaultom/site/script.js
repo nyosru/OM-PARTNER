@@ -4,6 +4,18 @@ function getCookie(name) {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+(function($){
+    $.getQuery = function (name, url) {
+        var rQuery = new RegExp(name + '=([^&#]*)(&|#|$)', 'g'),
+            url = url && url.split ? url.split('?')[1] : window.location.search,
+            ret = url && url.match(rQuery);
+        $.each(ret, function (index, value) {
+           ret[index] = this.split('=')[1].replace('&', '');
+        });
+        return ret && name ? ret : null;
+    }
+})(jQuery);
+
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
     $check = [];
@@ -843,7 +855,10 @@ function loaddata(){
     }else{
         $searchword = '';
     }
-    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok;
+
+    $sfilt = $.getQuery('sfilt%5B%5D');
+    $sfilt_url_param = $sfilt.join('&sfilt[]=');
+    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok+$sfilt_url_param;
     $url_data = $urld;
     console.log('awdawdaw');
     $.ajax({
@@ -859,7 +874,8 @@ function loaddata(){
             "sort": $sort,
             "ok": $ok,
             "searchword": $searchword,
-            "json": '1'
+            "json": '1',
+            "sfilt":$sfilt
         },
         cache: false,
         async: true,
