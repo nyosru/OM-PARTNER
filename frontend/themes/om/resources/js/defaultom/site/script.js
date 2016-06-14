@@ -857,10 +857,15 @@ function loaddata(){
     }
 
     $sfilt = $.getQuery('sfilt%5B%5D');
-    $sfilt_url_param = $sfilt.join('&sfilt[]=');
+    if($sfilt != null){
+        $sfilt_url_param = $sfilt.join('&sfilt[]=');
+    }else{
+        $sfilt_url_param = '';
+    }
+
     $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok+$sfilt_url_param;
     $url_data = $urld;
-    console.log('awdawdaw');
+
     $.ajax({
         method:"post",
         url: "",
@@ -1697,11 +1702,11 @@ $(document).on('click','.share-set',function () {
     $.post($baseduri,{'id':$id,'param':'share','data':$data},
         function(data){
             if(data==1){
-                console.log(data);
+
             }else if(data==2){
-                console.log('Корзина создана не вами');
+
             }else{
-                console.log(data);
+
             }
         });
 });
@@ -1729,9 +1734,9 @@ $(document).on('click','.del-cart-set',function () {
                     $item.setAttribute('data-row',$num);
                 })
             }else if(data==2){
-                console.log('Корзина создана не вами');
+
             }else{
-                console.log('Ошибка');
+
             }
         });
 });

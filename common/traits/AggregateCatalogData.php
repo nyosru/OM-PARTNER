@@ -153,8 +153,8 @@ trait AggregateCatalogData
         if ($ds1 < $ds2)
             $x['products_last_modified'] = $x['add_date'];
         $checkcache = $x['products_last_modified'];
-        $init_key = $options['cachelistkeyprefix'] . '-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key;
-        $init_key_static = $options['cachelistkeyprefix'] . '-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key;
+        $init_key = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key;
+        $init_key_static = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
@@ -318,7 +318,7 @@ trait AggregateCatalogData
                 $dataprod = Yii::$app->cache->get($keyprod);
                 $data[] = $dataprod['data'];
             }
-            $statickey = Yii::$app->cache->buildKey('static' . $init_key_static);
+            $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
              if (!is_array($stats['data']) && !$nostat) {
                  $spec = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name', 'specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ') and specification_name IS NOT NULL  and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt, $arfilt_attr)->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->distinct()->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->asArray()->all();
