@@ -858,14 +858,18 @@ function loaddata(){
 
     $sfilt = $.getQuery('sfilt%5B%5D');
     if($sfilt != null){
-        $sfilt_url_param = $sfilt.join('&sfilt[]=');
+        $sfilt_url_param = $sfilt.join('&sfilt%5B%5D=');
     }else{
-        $sfilt_url_param = '';
+        if($urld['sfilt[]']){
+            $sfilt = [$urld['sfilt[]'][1]];
+            $sfilt_url_param ='&sfilt%5B%5D='+$sfilt;
+        }else{
+            $sfilt_url_param  = '';
+        }
     }
-
     $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok+$sfilt_url_param;
     $url_data = $urld;
-
+    console.log($urld);
     $.ajax({
         method:"post",
         url: "",
