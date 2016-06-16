@@ -4,6 +4,18 @@ function getCookie(name) {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+(function($){
+    $.getQuery = function (name, url) {
+        var rQuery = new RegExp(name + '=([^&#]*)(&|#|$)', 'g'),
+            url = url && url.split ? url.split('?')[1] : window.location.search,
+            ret = url && url.match(rQuery);
+        $.each(ret, function (index, value) {
+           ret[index] = this.split('=')[1].replace('&', '');
+        });
+        return ret && name ? ret : null;
+    }
+})(jQuery);
+
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
     $check = [];
@@ -843,8 +855,21 @@ function loaddata(){
     }else{
         $searchword = '';
     }
-    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok;
+
+    $sfilt = $.getQuery('sfilt%5B%5D');
+    if($sfilt != null){
+        $sfilt_url_param = $sfilt.join('&sfilt%5B%5D=');
+    }else{
+        if($urld['sfilt[]']){
+            $sfilt = [$urld['sfilt[]'][1]];
+            $sfilt_url_param ='&sfilt%5B%5D='+$sfilt;
+        }else{
+            $sfilt_url_param  = '';
+        }
+    }
+    $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok+$sfilt_url_param;
     $url_data = $urld;
+    console.log($urld);
     $.ajax({
         method:"post",
         url: "",
@@ -858,7 +883,8 @@ function loaddata(){
             "sort": $sort,
             "ok": $ok,
             "searchword": $searchword,
-            "json": '1'
+            "json": '1',
+            "sfilt":$sfilt
         },
         cache: false,
         async: true,
@@ -1680,11 +1706,11 @@ $(document).on('click','.share-set',function () {
     $.post($baseduri,{'id':$id,'param':'share','data':$data},
         function(data){
             if(data==1){
-                console.log(data);
+
             }else if(data==2){
-                console.log('Корзина создана не вами');
+
             }else{
-                console.log(data);
+
             }
         });
 });
@@ -1712,9 +1738,9 @@ $(document).on('click','.del-cart-set',function () {
                     $item.setAttribute('data-row',$num);
                 })
             }else if(data==2){
-                console.log('Корзина создана не вами');
+
             }else{
-                console.log('Ошибка');
+
             }
         });
 });

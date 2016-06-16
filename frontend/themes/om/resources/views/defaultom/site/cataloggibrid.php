@@ -4,6 +4,8 @@ use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
+
+
 if (!function_exists('new_url')) {
     function new_url($arr_sub)
     {
@@ -51,7 +53,14 @@ $date_start = $url_data['date_start'][1];
 $date_end = $url_data['date_end'][1];
 $ok = $url_data['ok'][1];
 $searchword = $url_data['searchword'][1];
-$url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword.'&ok='.$ok.'&date_start='.$date_start.'&date_end='.$date_end;
+$sfqueryparam ='';
+if(($sfilt = Yii::$app->request->getQueryParam('sfilt')) == TRUE){
+    foreach ($sfilt as $sfkey=>$sfvalue){
+        $sfqueryparam .= '&sfilt[]='.$sfvalue;
+    }
+}
+
+$url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword.'&ok='.$ok.'&date_start='.$date_start.'&date_end='.$date_end.$sfqueryparam;
 if ($data[0] != 'Не найдено!') {
 
 
@@ -237,7 +246,35 @@ echo '<div class="partners-main-right bside">';
     }
         $headbside .=               '</div>';
     }
+    if($spec) {
+        foreach ($spec as $speckey => $specval) {
+            if ($speckey == '77') {
+                $headbside .= '<div><hr style="border-color: #CCC">' .
+                    $specval['name'] .
+                    '</div>' .
+                    '<div class="size-inner" style="">';
+                foreach ($specval['dataset'] as $keyr => $valuer) {
+                    if ($valuer['products_options_values_id'] == $prodatrquery) {
+                        $checked = ' fa-check';
+                    } else {
+                        $checked = '';
+                    }
+                    if ($valuer) {
+                        $headbside .= '<div class="filter-item-size">';
 
+                        $headbside .= '<div class="checkboxmty-overlay fa' . $checked . '" for="checkbox-hidden-group">' .
+                            '<input id="checkbox-hidden-group"  class="checkbox-hidden-group" type="checkbox" class="prod_attr_query" value="' . $keyr .
+                            '" name = "sfilt[]"' .
+                            ' ' . $checked . ' /></div><span class="checkbox-hidden-group-label" style="display: inline; min-width: 100px; color: black; margin-left: 10px; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7; max-width: calc(100% - 50px); overflow: hidden; float: left;">' . $valuer . '</span>';
+
+                        $headbside .= '</div>';
+                    }
+
+                }
+                $headbside .= '</div>';
+            }
+        }
+    }
     $headbside .=                       '<hr style="border-color: #CCC"><div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne">'.
         '<button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: #00a5a1; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><a href="?cat='.$cat.'&amp;count='.$count.'&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" class="btn  reset-filter">Сбросить</a>'.
         '</div>'. '</div>'.
@@ -423,6 +460,17 @@ echo '<div class="partners-main-right bside">';
             $(this).children().prop('checked', true);
             $(this).addClass('fa-check');
         });
+    $(document).on('click', '[class*=checkboxmty-overlay]', function(){
+        if($(this).hasClass('fa-check')){
+            $(this).children().prop('checked', false);
+            $(this).removeClass('fa-check');
+        }else{
+
+            $(this).children().prop('checked', true);
+            $(this).addClass('fa-check');
+        }
+
+    });
         $(document).on('ready', function(){
             $('a[rel=light]').light();
         });

@@ -14,6 +14,8 @@ class RightTopMenuLinks extends \yii\bootstrap\Widget
             'newcloth' => '<a href="' . BASEURL . '/productscloth">Новинки одежды и обуви за месяц</a>',
             'newday' => '<a href="' . BASEURL . '/contactform"><strong>Контакты</strong></a>',
             'allcategories' => '<a href="' . BASEURL . '/allcategories"><strong>Все категории</strong></a>',
+                'allbrands' => '<a href="' . BASEURL . '/allbrands"><strong>Бренды</strong></a>',
+
 
         ];
 
