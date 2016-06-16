@@ -55,7 +55,7 @@ $this->beginPage();
                 <div class="partners-main-left-cont"
                      style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
             </div>
-            <div class="partners-main-left target jb-shortscroll-target"
+            <div class="partners-main-left  mCustomScrollbar" data-mcs-theme="dark"
                  style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                 <?php if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">

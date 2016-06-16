@@ -16,29 +16,39 @@ trait ActionProductsMonth
 {
     public function actionProductsmonth()
     {
-            if (Yii::$app->request->isGet) {
-                $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
-                $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
-                $end_price = (integer)(Yii::$app->request->getQueryParam('end_price'));
-                $prod_attr_query = (integer)(Yii::$app->request->getQueryParam('prod_attr_query', ''));
-                $count = (integer)(Yii::$app->request->getQueryParam('count', 60));
-                $page = (integer)(Yii::$app->request->getQueryParam('page', 0));
-                $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
-                $ok = (integer)Yii::$app->request->getQueryParam('ok');
-                $searchword = Yii::$app->request->getQueryParam('searchword', '');
-                $json = Yii::$app->request->getQueryParam('json');
-            } elseif (Yii::$app->request->isPost) {
-                $cat_start = (integer)(Yii::$app->request->post('cat'));
-                $start_price = (integer)(Yii::$app->request->post('start_price', 0));
-                $end_price = (integer)(Yii::$app->request->post('end_price', 1000000));
-                $prod_attr_query = (integer)(Yii::$app->request->post('prod_attr_query', ''));
-                $count = (integer)(Yii::$app->request->post('count', 60));
-                $page = (integer)(Yii::$app->request->post('page', 0));
-                $sort = (integer)(Yii::$app->request->post('sort', 10));
-                $ok = (integer)Yii::$app->request->post('ok');
-                $searchword = urldecode(Yii::$app->request->post('searchword', ''));
-                $json = Yii::$app->request->post('json');
+        if (Yii::$app->request->isGet) {
+            $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
+            $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
+            $end_price = (integer)(Yii::$app->request->getQueryParam('end_price'));
+            $prod_attr_query = (integer)(Yii::$app->request->getQueryParam('prod_attr_query', ''));
+            $count = (integer)(Yii::$app->request->getQueryParam('count', 60));
+            $page = (integer)(Yii::$app->request->getQueryParam('page', 0));
+            $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
+            $date_start = Yii::$app->request->getQueryParam('date_start');
+            $ok = (integer)Yii::$app->request->getQueryParam('ok');
+            $sfilt = Yii::$app->request->getQueryParam('sfilt');
+            if (($date_end = Yii::$app->request->getQueryParam('date_end')) == FALSE) {
+                $date_end = date('Y-m-d H:i:s');
             }
+            $searchword = Yii::$app->request->getQueryParam('searchword', '');
+            $json = Yii::$app->request->post('json');
+        } elseif (Yii::$app->request->isPost) {
+            $cat_start = (integer)(Yii::$app->request->post('cat'));
+            $start_price = (integer)(Yii::$app->request->post('start_price', 0));
+            $end_price = (integer)(Yii::$app->request->post('end_price', 1000000));
+            $prod_attr_query = (integer)(Yii::$app->request->post('prod_attr_query', ''));
+            $count = (integer)(Yii::$app->request->post('count', 60));
+            $page = (integer)(Yii::$app->request->post('page', 0));
+            $sort = (integer)(Yii::$app->request->post('sort', 10));
+            $searchword = urldecode(Yii::$app->request->post('searchword', ''));
+            $date_start = Yii::$app->request->post('date_start');
+            $sfilt = Yii::$app->request->post('sfilt');
+            $ok = (integer)Yii::$app->request->post('ok');
+            if (($date_end = Yii::$app->request->post('date_end')) == FALSE) {
+                $date_end = date('Y-m-d H:i:s');
+            }
+            $json = Yii::$app->request->post('json');
+        }
             $data = $this->AggregateCatalogData(
                 $params = [
                     'cat_start' => $cat_start,
@@ -57,7 +67,8 @@ trait ActionProductsMonth
                     'maxtime' => date('Y-m-d H:i:s'),
                     'offsettime' => '-1 month',
                     'cachelistkeyprefix' => 'month-month1-'.$ok,
-                    'cacheproductkey'=> 'product'
+                    'cacheproductkey'=> 'product',
+                    'sfilt'=>$sfilt
                 ]);
 
             if ($json) {
