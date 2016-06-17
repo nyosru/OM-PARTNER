@@ -86,7 +86,7 @@ class Specifications extends ActiveRecordExt
     {
         return $this->hasOne(SpecificationDescription::className(), ['specifications_id' => 'specifications_id'])->andOnCondition(['language_id' => $this->defaultLanguageID]);
     }
-
+   
     /**
      * @return ActiveQuery
      */
