@@ -9,6 +9,7 @@ use yii\bootstrap\Collapse;
 
 
 $this -> title = 'Мои заказы';
+
 ?>
 <form>
     <input type="hidden" value="myorder" name="view">
@@ -333,7 +334,9 @@ echo \yii\grid\GridView::widget([
             return ['class' => 'user-order-table-row'];
         },
         'content' => function ($data) {
+
             if($data->ordersReports){
+               if(($datakostyl = \common\models\OrdersReportsOrdersFiles::find()->where(['orders_reports_id'=>$data->ordersReports[0]['orders_reports_id'], 'groups_id'=> $data->ordersReports[0]['groups_id']])->asArray()->one()) == TRUE)
                 return '<a href="'.BASEURL.'/tcncopy?id='.$data->orders_id.'" target="_blank">Открыть</a>';
             }
         }
