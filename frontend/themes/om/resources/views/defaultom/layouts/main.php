@@ -85,6 +85,9 @@ $this->beginPage();
                 <div  class="partners-main-left-cont suplogo" style=" background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
                 </div>
             </div>
+            <div id="modal-product" style="min-height: 300px;">
+                <span id="modal-close"><i class="fa fa-times"></i></span>
+            </div>
             <div class="partners-main-right-back">
                 <div class="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
                     <div>
