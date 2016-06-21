@@ -31,7 +31,7 @@ $this->title = $title;
             href="<?= BASEURL ?>/catalog?cat=1275&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                 style="width: 100%; height: auto;"  src="/images/banners/01062016_4.png"></a></div>
     <div id="index-card-6" style="width: calc(100% - 10px);"class="data-j index-card banner-card" data-cat="1836"><a
-            href="<?= BASEURL ?>/catalog?cat=2764&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
+            href="<?= BASEURL ?>/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
                 style="width: 100%; height: auto;" src="/images/banners/01062016_6.png"></a></div>
 </div>
 
@@ -89,13 +89,13 @@ $this->title = $title;
         $specitems[$it]['content']='';
         foreach ($dataproducts as $k1=>$val) {
             if($num<10){
-                $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
+                $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
                 $num++;
             }
             else{
                 $num=0;
                 $it++;
-                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time]);
                 $num++;
             }
         }
@@ -115,13 +115,13 @@ $this->title = $title;
         $specitems[$it]['content']='';
         foreach ($newproducts as $k1=>$val) {
             if($num<10){
-                $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id']]);
                 $num++;
             }
             else{
                 $num=0;
                 $it++;
-                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id']]);
                 $num++;
             }
         }
