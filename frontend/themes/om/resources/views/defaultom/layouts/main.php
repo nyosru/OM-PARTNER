@@ -15,9 +15,9 @@ use frontend\widgets\Menuom;
 /* @var $content string */
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
- $this->beginPage();
+$this->beginPage();
 
- ?>
+?>
     <!DOCTYPE html>
     <html lang="ru-RU">
     <head>
@@ -65,7 +65,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 </div>
                 <div  class="partners-main-left   mCustomScrollbar" data-mcs-theme="dark"
                       style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <?php if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                    <?php if($this->beginCache('Rightu-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                         <div class="partners-main-left-cont">
                             <?= \frontend\widgets\RightTopMenuLinks::widget();
                             if(isset(Yii::$app->params['layoutset']['opencat'])){
@@ -84,6 +84,9 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
                 <div  class="partners-main-left-cont suplogo" style=" background: rgb(245, 245, 245) none repeat scroll 0% 0%; position: fixed; width: 16.5%; z-index: 100; min-width: 211px; border-bottom: 1px solid rgb(204, 204, 204); bottom: 0px;">
                 </div>
+            </div>
+            <div id="modal-product" style="min-height: 300px;">
+                <span id="modal-close"><i class="fa fa-times"></i></span>
             </div>
             <div class="partners-main-right-back">
                 <div class="partners-main-right" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
@@ -108,8 +111,6 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
                         <form action="<?= BASEURL?>/catalog">
                             <input  name="cat" value="0"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
                             <input  name="count" value="60"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
-                            <input  name="start_price" value="<?=(integer)Yii::$app->request->getQueryParam('start_price')?>"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
-                            <input  name="end_price" value="<?=(integer)Yii::$app->request->getQueryParam('end_price')?>"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
                             <input  name="prod_attr_query" value="<?=(integer)Yii::$app->request->getQueryParam('prod_attr_query')?>"  style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
                             <input   name="searchword" class="search no-shadow-form-control" placeholder="Введите артикул или название" style="height: 40px; float: left; width: 65%; color: rgb(119, 119, 119); background: transparent none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; margin-top: 0px;" type="text">
                             <button class="btn btn-default data-j" type="submit" style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
@@ -156,7 +157,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
 
                     </div>
 
-   </div>
+                </div>
 
                 <div  class=" partners-main-right bside">
 
@@ -177,7 +178,7 @@ rmrevin\yii\fontawesome\AssetBundle::register($this);
             </div>
         </div>
         <?php
-           $this->endBody();
+        $this->endBody();
         Yii::$app->params['assetsite']->registerAssetFiles($this);
         ?>
     </div>

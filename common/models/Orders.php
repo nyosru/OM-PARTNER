@@ -230,7 +230,10 @@ class Orders extends ActiveRecordExt
     {
         return $this->hasMany(OrdersReportsOrders::className(), ['orders_id' => 'orders_id']);
     }
-
+    public function getOrdersReportsFiles()
+    {
+        return $this->hasMany(OrdersReportsOrders::className(), ['orders_reports_id' => 'orders_reports_id', ])->via('ordersReports');
+    }
     public function getOrdersBanks()
     {
         return $this->hasOne(AdminCompaniesBankToOrders::className(), ['orders_id' => 'orders_id']);
