@@ -138,7 +138,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'data-ride' => 'carousel',
             ],
             'clientOptions'=>[
-                'interval'=>5000,
+                'interval'=>7000,
                 'pause'=> 'load',
 
             ]
