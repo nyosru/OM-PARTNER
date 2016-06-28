@@ -11,29 +11,11 @@ use yii\caching\Cache;
 use yii\filters\AccessControl;
 use yii\web\User;
 $this->title = $title;
+echo \frontend\widgets\MainBanner::widget();
 ?>
 
 
-<div id="main-index">
-    <div id="index-card-5" class="data-j index-card banner-card" data-cat="1720"><a
-            href="<?= BASEURL ?>/catalog?cat=1991&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                style="width: 100%; height: auto;" src="/images/banners/01062016_1.png"></a></div>
-    <div id="index-card-6" class="data-j index-card banner-card" data-cat="2008"><a
-            href="<?= BASEURL ?>/catalog?cat=2725&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                style="width: 100%; height: auto;"    src="/images/banners/01062016_3.png"></a></div>
-    <div id="index-card-3" class="sort data-j index-sort banner-card" data-cat="0"><a
-            href="<?= BASEURL ?>/catalog?cat=1729&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                style="width: 100%; height: auto;"  src="/images/banners/01062016_5.png"></a></div>
-    <div id="index-card-5" style="float:right" class="data-j index-card banner-card" data-cat="2047"><a
-            href="<?= BASEURL ?>/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                style="width: 100%; height: auto;"  src="/images/banners/01062016_2.png"></a></div>
-    <div id="index-card-6" class="data-j index-card banner-card" data-cat="1762"><a
-            href="<?= BASEURL ?>/catalog?cat=1275&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                style="width: 100%; height: auto;"  src="/images/banners/01062016_4.png"></a></div>
-    <div id="index-card-6" style="width: calc(100% - 10px);"class="data-j index-card banner-card" data-cat="1836"><a
-            href="<?= BASEURL ?>/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword="><img
-                style="width: 100%; height: auto;" src="/images/banners/01062016_6.png"></a></div>
-</div>
+
 
 <div id="main-spec">
     <div id="index-card-4" style=' border-bottom: 1px solid rgb(204, 204, 204); border-radius: 0px;'>
