@@ -320,7 +320,7 @@ trait AggregateCatalogData
             }
             $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
-            if (!is_array($stats['data']) && !$nostat) {
+            if (!is_array($stats['data']) && !$nostat && !$searchword ) {
                 if(!$sfilt_query_filt) {
                     $spec = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name', 'specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ') and specification_name IS NOT NULL   < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt, $arfilt_attr)->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->distinct()->asArray()->all();
                     $spectotal = [];
