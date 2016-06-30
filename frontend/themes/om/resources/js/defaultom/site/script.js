@@ -1625,7 +1625,7 @@ $(document).on('click','#prod-info',function(){
 
 $(document).on('click','#overlay, #modal-close',function(){
     $('#modal-product')
-        .css('display','none');
+        .html('').hide('');
     $('#overlay')
         .css('display','none');
     $('#time')
