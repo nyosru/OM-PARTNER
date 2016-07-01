@@ -54,7 +54,7 @@ trait AggregateCatalogData
             $sfilt_part_key = '-'.md5(implode('',$sfilt));
             $sfilt = implode(',',$sfilt);
             $sfilt_query_filt = ' and products_specifications.specification_values_id IN ('.$sfilt.')';
-            $nosfilt = true;
+
         }else{
             $sfilt_part_key = '';
             $sfilt_query_filt = '';
@@ -253,6 +253,7 @@ trait AggregateCatalogData
                     $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '%' . trim(str_replace(' ', '', $searchword)) . '%';
                     $prod_search_query_filt = '  and products.products_model LIKE :searchword ';
                     $nostat = true;
+                    $nosfilt = true;
                 } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
                     $patternkey = 'patternsearch2-' . urlencode(trim($searchword));
                     $patterndata = Yii::$app->cache->get($patternkey);
@@ -281,6 +282,7 @@ trait AggregateCatalogData
                     $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                     $prod_search_query_filt = ' and (LOWER(products_description.products_name) RLIKE :searchword )';
                 }
+                $nosfilt = true;
             } else {
                 $prod_search_query_filt = '';
             }
@@ -321,9 +323,9 @@ trait AggregateCatalogData
             }
             $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
-            $statickeyspec = Yii::$app->cache->buildKey('specification-' . $init_key_static);
+            $statickeyspec = Yii::$app->cache->buildKey('specification-' . $cat);
             $statsspec = Yii::$app->cache->get($statickeyspec);
-            if(!$statsspec && !$nostat &&  !$nosfilt) {
+            if(!is_array($statsspec) && !$nostat ) {
                 $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ') and specification_name IS NOT NULL   < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt, $arfilt_attr)->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->JoinWith('productsAttributes')->distinct()->asArray()->all();
                 $spectotal = [];
 
