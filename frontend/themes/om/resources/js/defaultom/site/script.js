@@ -519,6 +519,11 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
     if ($attr_desc.length > 0) {
         var  innerindex = 0;
         $.each($attr_desc, function (index,value) {
+            if($product['products_quantity_order_units'] === '1'  || $product['products_quantity_order_min'] === '1'){
+                $disable_for_stepping = '';
+            }else{
+                $disable_for_stepping = 'disabled';
+            }
             if($attr[value['products_options_values_id']]['quantity'] > 0){
                 $classpos = 'active-options';
                 $add_class = 'add-count';
@@ -550,7 +555,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
 
             $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
 
-                '<input '+$inputpos+' id="input-count"'+
+                '<input  '+ $disable_for_stepping +'  '+$inputpos+' id="input-count"'+
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                 'data-prod="'+ $product['products_id']+'"'+
                 'data-name="'+ escapeHtml($descriptionprod['products_name'])  +'"'+
@@ -573,8 +578,13 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
                 '</div></div></div>';
         });
     } else {
+        if($product['products_quantity_order_units'] === '1'  || $product['products_quantity_order_min'] === '1'){
+            $disable_for_stepping = '';
+        }else{
+            $disable_for_stepping = 'disabled';
+        }
         $attr_html += '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>'+
-            '<input  id="input-count"'+
+            '<input '+ $disable_for_stepping +' id="input-count"'+
             'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
             'data-prod="'+ $product['products_id']+'"'+
             'data-model="'+ $product['products_model']+'"'+
@@ -1421,6 +1431,13 @@ $(document).on('click','#prod-info',function(){
             $baseduri = window.location.hostname;
 
             if (typeof (data.product.productsAttributesDescr.keys) == "undefined") {
+
+                if(data.product.products.products_quantity_order_units === '1'  || data.product.products.products_quantity_order_min === '1'){
+                    $disable_for_stepping = '';
+                }else{
+                    $disable_for_stepping = 'disabled';
+                }
+
                 $.each(data.product.productsAttributesDescr, function (i, item) {
                     if (data.product.productsAttributes[item['products_options_values_id']]['quantity'] > 0) {
                         $classpos = 'active-options';
@@ -1440,12 +1457,16 @@ $(document).on('click','#prod-info',function(){
 
                     $size_html += '<div class="' + $classpos + '" style="' + $stylepos + 'width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 3px ;">' + item.products_options_values_name + '</div>';
                     //   $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 5px;">' + item.products_options_values_name + '</div>';
-                    $size_html += '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="'+data.product.productsAttributesDescr[i].products_options_values_id+'" placeholder="' + $some_text + '" type="text">';
+                    $size_html += '<input '+ $disable_for_stepping +' ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="'+data.product.productsAttributesDescr[i].products_options_values_id+'" placeholder="' + $some_text + '" type="text">';
                     $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
                 });
 
             } else {
-
+                if(data.product.products.products_quantity_order_units === '1'  || data.product.products.products_quantity_order_min === '1'){
+                    $disable_for_stepping = '';
+                }else{
+                    $disable_for_stepping = 'disabled';
+                }
                 if (data.product.products.products_quantity > 0) {
                     $classpos = 'active-options';
                     $add_class = 'add-count';
@@ -1462,7 +1483,7 @@ $(document).on('click','#prod-info',function(){
                 $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;">' +
                     '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;">' +
                     '<div style="margin: auto; width: 100%;">' +
-                    '<input ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="" data-attr="" placeholder="' + $some_text + '" type="text" />' +
+                    '<input  '+ $disable_for_stepping +'  ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="" data-attr="" placeholder="' + $some_text + '" type="text" />' +
                     '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">' +
                     '+</div>' +
                     '<div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-' +

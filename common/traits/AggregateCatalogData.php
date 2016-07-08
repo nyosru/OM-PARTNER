@@ -323,10 +323,10 @@ trait AggregateCatalogData
             }
             $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
-            $statickeyspec = Yii::$app->cache->buildKey('specification-' . $cat);
+            $statickeyspec = Yii::$app->cache->buildKey('specification34545sa-' . $cat);
             $statsspec = Yii::$app->cache->get($statickeyspec);
-            if(!is_array($statsspec) && !$nostat ) {
-                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ') and specification_name IS NOT NULL   and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt, $arfilt_attr)->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->JoinWith('productsAttributes')->distinct()->asArray()->all();
+            if(!$statsspec) {
+                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
                 $spectotal = [];
 
                 foreach ($spec as $speckey => $specval) {
@@ -339,11 +339,14 @@ trait AggregateCatalogData
 
                 }
 
-                Yii::$app->cache->set($statickeyspec, $spectotal, 10800);
+                Yii::$app->cache->set($statickeyspec, ['data'=>$spectotal], 10800);
                 $spec = $spectotal;
+
             }else{
-                $spec = $statsspec;
+                $spec = $statsspec['data'];
+
             }
+
             if (!is_array($stats['data']) && !$nostat ) {
                 $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt_attr)->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->asArray()->all();
                 $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1 and products.products_price != 0  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->distinct()->count();
@@ -356,15 +359,14 @@ trait AggregateCatalogData
                 $price_max = $stats['data']['price_max'];
 
             }
-            Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'spec'=>$spectotal,  'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache], 6400);
+            Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'spec'=>$spec,  'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache], 6400);
         } else {
             $cache = 'Kэш-' . $x['prod'] . '-' . $x['prod'];
             $productattrib = $dataque['productattrib'];
             $count_arrs = $dataque['count_arrs'];
             $price_max = $dataque['price_max'];
             $data = $dataque['data'];
-            $statickeyspec = Yii::$app->cache->buildKey('specification-' . $init_key_static);
-            $spec = Yii::$app->cache->get($statickeyspec);
+            $spec = $dataque['spec'];;
 
         }
         $count_arr = count($data);

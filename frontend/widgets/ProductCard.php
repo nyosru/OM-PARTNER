@@ -63,6 +63,11 @@ class ProductCard extends \yii\bootstrap\Widget
             $key = 0;
             $class = '';
             foreach ($attr_desc as $key=>$attr_desc_value) {
+                if($product['products_quantity_order_units'] === '1'  || $product['products_quantity_order_min'] === '1'){
+                    $disable_for_stepping = '';
+                }else{
+                    $disable_for_stepping = 'disabled';
+                }
                 if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
                     $classpos = 'active-options';
                     $add_class = 'add-count';
@@ -76,7 +81,7 @@ class ProductCard extends \yii\bootstrap\Widget
                         $key++;
                     }else{
                         $class='';
-                        $key++;
+                         $key++;
                     }
                 }else{
                     $classpos = 'disable-options';
@@ -88,7 +93,7 @@ class ProductCard extends \yii\bootstrap\Widget
                 }
 
                 $attr_html .= '<div class="'.$classpos.'" style="'.$stylepos.' width: 50%; overflow: hidden; float: left; '.$class.';"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
-                $attr_html .= '<input '.$inputpos.' id="input-count"'.
+                $attr_html .= '<input '. $disable_for_stepping. ' '.$inputpos.' id="input-count"'.
                     'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                     'data-prod="'. $product['products_id'].'"'.
                     'data-name="'. htmlentities($description['products_name'])  .'"'.
@@ -113,9 +118,14 @@ class ProductCard extends \yii\bootstrap\Widget
                 $attr_html .='</div></div></div>';
             }
         } else {
+            if($product['products_quantity_order_units'] === '1'  || $product['products_quantity_order_min'] === '1'){
+                $disable_for_stepping = '';
+            }else{
+                $disable_for_stepping = 'disabled';
+            }
             $activelabel++;
             $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div></div>';
-            $attr_html .= '<input  id="input-count"'.
+            $attr_html .= '<input  '. $disable_for_stepping. '   id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
                 'data-model="'. $product['products_model'].'"'.
@@ -144,7 +154,7 @@ class ProductCard extends \yii\bootstrap\Widget
             $cart_html = '<div class="cart-lable" style="background: #E9516D">Продано</div>';
         }
         $attr_html = $cart_html.$attr_html;
-        $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
+            $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
         if(count($attr)){
@@ -158,7 +168,7 @@ class ProductCard extends \yii\bootstrap\Widget
             $man_time_list = '';
         }
         if(in_array($product['manufacturers_id'], $this->oksuppliers())){
-            $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." ><img src="'.BASEURL.'/images/logo/ok.png"></a></div>';
+          $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." ><img src="'.BASEURL.'/images/logo/ok.png"></a></div>';
         }else{
             $man_in_sklad = '';
         }
@@ -170,13 +180,13 @@ class ProductCard extends \yii\bootstrap\Widget
                         <div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
-            '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';
+                                    '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';
         if ((integer)($product['products_old_price']) > 0&&$this->showdiscount==1&&isset($discount)) {
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . $discount . ' %</div>';
             $innerhtml .= '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;" itemprop="old-price" ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
         }
-        $innerhtml.='<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) .
-            '</div>
+                                $innerhtml.='<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) .
+                                '</div>
                             </div>' .
             '<div style="" class="model">' . $man_time_list . $preview. $chosen.$product_menu . '</div>' .
             '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .

@@ -12,59 +12,63 @@ class MainBanner extends \yii\bootstrap\Widget
     public $position = [
         'medium1' => [
             [
-                'image' => '/images/banners/23062016_1.png',
-                'referal'=> '/catalog?count=60&sfilt%5B%5D=2696 ',
+                'image' => '/images/banners/01072016_1.png',
+                'referal'=> '/catalog?cat=1776&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
             [
-                'image' => '/images/banners/27062016_1.png',
-                'referal'=> '/catalog?cat=2054&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/04072016_1.png',
+                'referal'=> '/catalog?cat=1558&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/23062016_2.png',
-                'referal'=> '/catalog?cat=835&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/01072016_2.png',
+                'referal'=> '/catalog?cat=1986&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
             [
-                'image' => '/images/banners/27062016_2.png',
-                'referal'=> '/catalog?cat=1839&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/04072016_2.png',
+                'referal'=> '/catalog?cat=2902&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
 
         ],
         'small1' => [
             [
-                'image' => '/images/banners/23062016_3.png',
-                'referal'=> '/catalog?cat=1734&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/01072016_3.png',
+                'referal'=> '/catalog?cat=1984&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
             [
-                'image' => '/images/banners/27062016_3.png',
-                'referal'=> '/catalog?cat=1727&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/04072016_3.png',
+                'referal'=> '/catalog?cat=2926&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
         ],
         'small2' => [
             [
-                'image' => '/images/banners/23062016_4.png',
-                'referal'=> '/catalog?cat=1434&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/01072016_4.png',
+                'referal'=> '/catalog?cat=1867&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
             [
-                'image' => '/images/banners/27062016_4.png',
-                'referal'=> '/catalog?cat=1983&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/04072016_4.png',
+                'referal'=> '/catalog?cat=2008&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= '
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/23062016_5.png',
-                'referal'=> '/catalog?cat=1787&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/01072016_5.png',
+                'referal'=> '/catalog?cat=1792&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
             [
-                'image' => '/images/banners/27062016_5.png',
-                'referal'=> '/catalog?cat=1911&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/04072016_5.png',
+                'referal'=> '/catalog?cat=543&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
             ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/01062016_6.png',
-                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=undefined&sort=0&searchword=',
+                'image' => '/images/banners/01072016_6.png',
+                'referal'=> '/catalog?cat=2684&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
+            ],
+            [
+                'image' => '/images/banners//04072016_6.png',
+                'referal'=> '/catalog?cat=2954&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
             ],
 
         ],
@@ -138,7 +142,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'data-ride' => 'carousel',
             ],
             'clientOptions'=>[
-                'interval'=>7000,
+                'interval'=>5000,
                 'pause'=> 'load',
 
             ]
