@@ -6,4 +6,4 @@
  * Time: 10:47
  */
 
-echo \frontend\widgets\Menuom::widget(['property' => ['id' => 'all-categories', 'target' => '0', []]]);;
+echo \frontend\widgets\Menuom::widget(['property' => ['id' => 'all-categories', 'target' => '0', []]]);

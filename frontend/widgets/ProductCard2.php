@@ -59,6 +59,11 @@ class ProductCard2 extends \yii\bootstrap\Widget
         if (count($attr_desc) > 0) {
             $key = 0;
             foreach ($attr_desc as $key=>$attr_desc_value) {
+                if($product['products_quantity_order_units'] === '1'  || $product['products_quantity_order_min'] === '1'){
+                    $disable_for_stepping = '';
+                }else{
+                    $disable_for_stepping = 'disabled';
+                }
                 if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
                     $classpos = 'active-options';
                     $add_class = 'add-count';
@@ -84,7 +89,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
                 }
 
                 $attr_html .= '<div class="'.$classpos.'" style="'.$stylepos.' width: 50%; overflow: hidden; float: left; '.$class.'"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'.$attr_desc_value['products_options_values_name'].'</div>';
-                $attr_html .= '<input '.$inputpos.' id="input-count"'.
+                $attr_html .= '<input   '. $disable_for_stepping. '   '.$inputpos.' id="input-count"'.
                     'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;" '.
                     'data-prod="'. $product['products_id'].'"'.
                     'data-name="'. htmlentities($description['products_name'])  .'"'.
@@ -109,9 +114,14 @@ class ProductCard2 extends \yii\bootstrap\Widget
                 $attr_html .='</div></div></div>';
             }
         } else {
+            if($product['products_quantity_order_units'] === '1'  || $product['products_quantity_order_min'] === '1'){
+                $disable_for_stepping = '';
+            }else{
+                $disable_for_stepping = 'disabled';
+            }
             $activelabel++;
             $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%; margin-top:20px;"><div style="margin: auto; width: 100%;"><div></div>';
-            $attr_html .= '<input  id="input-count"'.
+            $attr_html .= '<input    '. $disable_for_stepping. '   id="input-count"'.
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'.
                 'data-prod="'. $product['products_id'].'"'.
                 'data-model="'. $product['products_model'].'"'.

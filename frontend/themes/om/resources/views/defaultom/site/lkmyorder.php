@@ -169,11 +169,7 @@ echo \yii\grid\GridView::widget([
                     $inner .= '<td class="col-md-1">' . $count . '</td>';
                     $inner .= '<td class="col-md-1"><a target="_blank" href="'.BASEURL.'/product?id='. $value->products_id.'" style="display:block;clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $value->products_id . ');"></a></td>';
                     $inner .= '<td class="col-md-2">'.$value->products_model.'</td>';
-                    if($data->orders_status != 1) {
-                        $omfinalquant = '<br/>В наличии: ' . $positionquantity . '';
-                    }else{
-                        $omfinalquant = '';
-                    }
+                    $omfinalquant = $positionquantity . ' шт';
                     if ($positionquantity > 0) {
                         $totalomcount++;
                         $totalomquant += (int)$positionquantity;
@@ -182,7 +178,7 @@ echo \yii\grid\GridView::widget([
                     $omfirstprice += (float)$price * (int)$firstcountprod;
                     $inner .= '<td class="col-md-2">'.$value->comment.'</td>';
                     $inner .= '<td class="col-md-2">' . (float)$price . ' Руб.</td>';
-                    $inner .= '<td class="col-md-1">Заказано: ' . $firstcountprod . $omfinalquant . '</td>';
+                    $inner .= '<td class="col-md-1">'. $omfinalquant . '</td>';
                     $inner .= '<td class="col-md-1">'.$attr[$value->orders_products_id]['products_options_values'].'</td>';
                     $inner .= '<td class="col-md-1">'.$value->products_name.'</td>';
                     $inner .= '</tr>';
@@ -234,22 +230,13 @@ echo \yii\grid\GridView::widget([
                     }
                 }
 
-                if($data->orders_status != 1) {
-                    $totalomcount = '<br/>(После сверки: ' . $totalomcount . ')';
-                    $totalomquant = '<br/>(После сверки: ' . $totalomquant . ')';
-                    $finalompriceview = '<br/>(После сверки ' . $finalomprice . ' Руб.)';
-                }else{
-                    $totalomcount = '';
-                    $totalomquant = '';
-                    $finalompriceview = '';
-                }
 
                 $inner .= '</tbody><tfooter>';
                 $inner .= '<tr>';
                 $inner .= '<th style="border: none" class="col-md-1">Итого</th>';
-                $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $count . ' шт' . $totalomcount . '</th>';
-                $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $countprod . ' шт' . $totalomquant . '</th>';
-                $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: '.$omfirstprice. ' Руб. '.$finalompriceview.'</th>';
+                $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $totalomcount . ' шт </th>';
+                $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $totalomquant . ' шт</th>';
+                $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: '.$finalomprice. ' Руб. </th>';
                 $inner .= '</tr>';
                 $inner .= '<tr>';
                 $inner .= '<th style="border: none" class="col-md-1">Доставка: </th>';
@@ -290,6 +277,8 @@ echo \yii\grid\GridView::widget([
                         return 'Обработка заказа';
                     case '1':
                         return 'Ожидает проверки';
+                    case '22':
+                        return 'Объединен';
                     case '2':
                         return 'Ждём оплаты';
                     case '3':

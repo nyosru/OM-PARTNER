@@ -39,7 +39,7 @@ trait ActionSaveorder
 
         date_default_timezone_set('Europe/Moscow');
         $wrapart = Configuration::find()->where(['configuration_key' => 'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
-        $wrapp = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->one();
+           $wrapp = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
         if (Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id' => Yii::$app->user->getId(), 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->asArray()->one()) == FALSE || !isset($user['userinfo']['customers_id'])) {
             return $this->redirect(Yii::$app->request->referrer);
         } else {
@@ -95,7 +95,6 @@ trait ActionSaveorder
             ]);
 
         }
-        $wrap = Yii::$app->request->post('wrap');
         $quant = [];
 
         foreach ($product_in_order as $prodkey => $prodvalue) {
@@ -112,6 +111,9 @@ trait ActionSaveorder
         }
         $man = $this->manufacturers_diapazon_id();
         $validprice = 0;
+        if ($wrap == 'boxes') {
+            $proddata[$wrapp['products_id']] =  $wrapp;
+        }
         foreach ($proddata as $keyrequest => $valuerequest) {
             $thisweeekday = date('N') - 1;
             $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
@@ -130,8 +132,8 @@ trait ActionSaveorder
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }
         }
-
-        if (($orders = Orders::findOne(['customers_id' => $userCustomer['customers_id']])) == FALSE) {
+     
+                if (($orders = Orders::findOne(['customers_id' => $userCustomer['customers_id']])) == FALSE) {
             $minprice = 5000;
         } else {
             $minprice = 1000;
