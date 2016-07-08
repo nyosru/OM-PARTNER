@@ -248,7 +248,7 @@ echo '<div class="partners-main-right bside">';
     }
     if($spec) {
         foreach ($spec as $speckey => $specval) {
-            if ($speckey == '77') {
+            if ($speckey == '77' || $speckey == '4119') {
                 $headbside .= '<div><hr style="border-color: #CCC">' .
                     $specval['name'] .
                     '</div>' .

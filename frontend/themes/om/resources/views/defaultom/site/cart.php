@@ -67,6 +67,11 @@ $(document).on('ready', function () {
                 $access = 'Данный товар доступен для заказа';
                 $identypay = true;
             }
+            if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
+                $disable_for_stepping = '';
+            }else{
+                $disable_for_stepping = 'disabled';
+            }
             $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
                 '<div class = "access '+$identypay+'" >'+$access+'</div>'+
                 '<a target="_blank" href="<?=BASEURL;?>/product?id='+requestdata.responseJSON.product.products.products_id+'" class="cart-image" style="float: left; width:120px;"><img style="width: 100%; max-height:100%;" src="<?=BASEURL;?>/imagepreview?src=' + requestdata.responseJSON.product.products.products_id + '"/></a>' +
@@ -76,7 +81,7 @@ $(document).on('ready', function () {
                 '<div class="cart-amount" style="float: left;width: 100%; margin:0;height:40%; position:relative;">' +
                 '<div class="cart-prod-price" style="float: left; height: 100%; width:85px; font-size:18px; font-weight:400;margin-right:60px;">' + parseInt(requestdata.responseJSON.product.products.products_price) + ' руб.</div>'+
                 '   <div class="num-of-items" data-raw="' + ($c++) + '" style="position:relative;top:7px;overflow:hidden;"><div id="del-count" class="del-count" style=" line-height:1.5;">-</div>' +
-                '   <input id="input-count" class="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
+                '   <input '+ $disable_for_stepping +' id="input-count" class="input-count" name="product['+this[0]+']['+this[2]+']" style="width: 50px;float: left;margin:0 3px;height: 22px; text-align:center; border:none; background-color:#f5f5f5;" ' +
                 'data-prod="'+this[0]+'" ' +
                 'data-model="'+this[1]+'" ' +
                 'data-price="'+parseFloat(requestdata.responseJSON.product.products.products_price)+'" ' +
