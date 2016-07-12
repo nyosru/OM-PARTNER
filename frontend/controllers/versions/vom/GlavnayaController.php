@@ -14,7 +14,11 @@ use common\traits\Load_cat;
 use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
 use common\traits\OrdersStatusData;
+use common\traits\Products\FeaturedProducts;
+use common\traits\Products\NewProducts;
+use common\traits\Products\RelatedProducts;
 use common\traits\Reformat_cat_array;
+use common\traits\Categories\RestrictedCatalog;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
@@ -35,6 +39,7 @@ use frontend\controllers\actions\ActionLoginOM;
 use frontend\controllers\actions\ActionLogout;
 use frontend\controllers\actions\ActionSelectedProduct;
 use frontend\controllers\actions\om\ActionChangeCardView;
+use frontend\controllers\actions\om\ActionInfo;
 use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
@@ -176,6 +181,11 @@ class GlavnayaController extends Controller
         ActionTcncopy,
         ActionTestUnit,
         ActionAllBrands,
+        RestrictedCatalog,
+        FeaturedProducts,
+        NewProducts,
+        RelatedProducts,
+        ActionInfo,
         AggregateCatalogData;
 
 
