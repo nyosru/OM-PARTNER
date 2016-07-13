@@ -163,7 +163,6 @@ $(document).on('click', '.cart-lable', function () {
         $item_add = $(this)[0];
         $item.cart = [];
         $item_add.value = $(this).val();
-        // console.log($item_add);
         if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
@@ -879,7 +878,6 @@ function loaddata(){
     }
     $url = '?cat=' + $cat + '&count=' + $count + '&start_price=' + $min_price + '&end_price=' + $max_price + '&prod_attr_query=' + $prodatrquery + '&page=' + $page + '&sort=' + $sort + '&searchword=' + $searchword+'&ok='+$ok+$sfilt_url_param;
     $url_data = $urld;
-    console.log($urld);
     $.ajax({
         method:"post",
         url: "",
@@ -971,7 +969,9 @@ function loaddata(){
 
 
             $('.bside').append('<div class="loader-inner">'+$loader+'</div><div class="pagination-catalog" style="float: right; margin: auto; text-align: center; width: 100%;" ><ul class="pagination">'+$pager+'</ul></div>');
-            $('a[rel=light]').light();
+            $(document).on('load', 'a[rel=light]', function(){
+                $(this).light();
+            });
             inProgress = false;
         } else {
             $('#size-slide').html('');
@@ -1009,7 +1009,6 @@ $('[data-cat]').on('click', function () {
 $(document).on('keyup', '.search', function () {
     $('.result_search_word').show();
     $('.result_search_word').html('');
-    // console.log( $(this).val());
     $text = $(this).val();
     $text = $text.split(' ');
     $count = $text.length;
@@ -1375,7 +1374,6 @@ $(document).on('click','#prod-info',function(){
         $spec_html = '';
 
         $.post('/site/product', {id: dp}, function (data) {
-//           console.log(data['spec']);
             $spec_html = '<div class="spec" style="margin-top:25px; ">';
             $.each(data['spec'].productsSpecification, function (i, item) {
                 if (typeof(data['spec']['specificationDescription'][item.specifications_id]) != "undefined") {
@@ -1668,7 +1666,7 @@ function changeCart($inputc){
         }
     }
 }
-$(document).on('ready', function(){
+$(document).on('load', function(){
     $('a[rel=light]').light();
 });
 
