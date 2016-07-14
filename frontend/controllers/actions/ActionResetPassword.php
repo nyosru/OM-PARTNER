@@ -17,9 +17,9 @@ trait ActionResetPassword
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash('success', 'Новый пароль сохранен.');
+           // Yii::$app->getSession()->setFlash('success', 'Новый пароль сохранен.');
 
-            return $this->goHome();
+            return $this->redirect('/');
         }
 
         return $this->render('resetPassword', [
