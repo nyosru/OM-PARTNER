@@ -10,10 +10,11 @@ use yii\helpers\Html;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,400italic,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif;">
+<body style="font-family: Roboto,Helvetica Neue,sans-serif,sans-serif; font-weight: 300; color: rgb(51, 51, 51); font-size: 1.2vw;">
 <?php $this->beginBody() ?>
 <div class="wrapper" style="border:1px solid black; width:100%; margin:auto; padding:10px; box-sizing: border-box">
     <div class="logo" style=" width:100%; margin:auto; text-align:center ;box-sizing: border-box">
@@ -33,19 +34,15 @@ use yii\helpers\Html;
         <hr style="width:75%; border:1px solid rgb(0, 165, 161);"/>
         <hr style="width:70%; border:1px solid rgb(254, 213, 23);"/>
     </div>
-
-
     <?= $content ?>
-
-
     <div class="new-products">
         <div class="new-product-wrap">
-            <div class="head" style="text-align:center;line-height:1.5; padding: 10px 10px;text-decoration: none; color: black; font-size: 18px">
+            <div class="header-slide">
                 Обратите внимание на наши новинки
             </div>
             <div class="products" style="text-align: center;">
                 <div class="product" style="margin: auto; display: inline-block; width: 15%;">
-                    <img src="img.jpg" style="width:100%" />
+                    <img src="img.jpg" style="width:100%">
                     <div style="overflow: hidden; max-height: 40px; min-height: 40px; font-size: 1vw">
                         Описание
                     </div>
@@ -54,7 +51,7 @@ use yii\helpers\Html;
                     </div>
                 </div>
                 <div class="product" style="margin: auto; display: inline-block; width: 15%;">
-                    <img src="img.jpg" style="width:100%" />
+                    <img src="img.jpg" style="width:100%">
                     <div style="overflow: hidden; max-height: 40px; min-height: 40px; font-size: 1vw">
                         Описание
                     </div>
@@ -63,7 +60,7 @@ use yii\helpers\Html;
                     </div>
                 </div>
                 <div class="product" style="margin: auto; display: inline-block; width: 15%;">
-                    <img src="img.jpg" style="width:100%" />
+                    <img src="img.jpg" style="width:100%">
                     <div style="overflow: hidden; max-height: 40px; min-height: 40px; font-size: 1vw">
                         Описание
                     </div>
@@ -72,7 +69,7 @@ use yii\helpers\Html;
                     </div>
                 </div>
                 <div class="product" style="margin: auto; display: inline-block; width: 15%;">
-                    <img src="img.jpg" style="width:100%" />
+                    <img src="img.jpg" style="width:100%">
                     <div style="overflow: hidden; max-height: 40px; min-height: 40px; font-size: 1vw">
                         Описание
                     </div>
@@ -81,7 +78,7 @@ use yii\helpers\Html;
                     </div>
                 </div>
                 <div class="product" style="margin: auto; display: inline-block; width: 15%;">
-                    <img src="img.jpg" style="width:100%" />
+                    <img src="img.jpg" style="width:100%">
                     <div style="overflow: hidden; max-height: 40px; min-height: 40px; font-size: 1vw">
                         Описание ОписаниеОписаниеОписаниеОписаниеОписание ОписаниеОписание
                     </div>
@@ -90,7 +87,7 @@ use yii\helpers\Html;
                     </div>
                 </div>
                 <div class="product" style="margin: auto; display: inline-block; width: 15%;">
-                    <img src="img.jpg" style="width:100%" />
+                    <img src="img.jpg" style="width:100%">
                     <div style="overflow: hidden; max-height: 40px; min-height: 40px; font-size: 1vw">
                         Описание
                     </div>
@@ -100,7 +97,7 @@ use yii\helpers\Html;
                 </div>
             </div>
             <div class="footer" style="margin:auto; padding: 30px ;text-align: center">
-                <a href="#" style="color:#007BC1;">Все новинки за сегодня</a>
+                <a href="#" style="color: rgb(0, 123, 193); text-decoration: none;">Все новинки за сегодня</a>
             </div>
         </div>
     </div>
@@ -111,13 +108,13 @@ use yii\helpers\Html;
         </div>
         <div class="support-link">
             <div class="online" style="padding:5px; display: inline-block; color:rgb(0, 165, 161); width: 25%; min-width: 320px;height: 50px;border: 1px solid rgb(0, 165, 161); border-radius: 4px; margin: 17px;">
-                Помощь<br/>онлайн
+                Помощь<br>онлайн
             </div>
             <div class="number" style="padding:5px; display: inline-block; width: 25%; color:rgb(234, 81, 109); min-width: 320px; height: 50px;border: 1px solid rgb(234, 81, 109); border-radius: 4px; margin: 17px;">
-                Телефон<br/>+7 (495) 204-1583
+                Телефон<br>+7 (495) 204-1583
             </div>
             <div class="mail" style="padding:5px; display: inline-block; width: 25%; min-width: 320px; color:#007BC1; height: 50px;border: 1px solid #007BC1; border-radius: 4px; margin: 17px;">
-                емейл<br/>odezhda-master1
+                емейл<br>odezhda-master1
             </div>
         </div>
     </div>
@@ -127,26 +124,26 @@ use yii\helpers\Html;
         </div>
         <div class="social-link" style="width: 25%; display: inline-block; text-align: right;">
             <div style="width: 30%; display: inline-block;">
-                <img src="/images/mailer/vk.png"/>
+                <img src="vk.png">
             </div>
             <div style="width: 30%; display: inline-block;">
-                <img src="/images/mailer/ok.png"/>
+                <img src="ok.png">
             </div>
             <div style="width: 30%; display: inline-block;">
-                <img src="/images/mailer/inst.png"/>
+                <img src="inst.png">
             </div>
         </div>
     </div>
     <div class="mobile" style="margin: auto; width: 90%; font-size: 18px; text-align: center; padding: 20px;">
-        <div class="pretext"  style="width: 70%; display: inline-block; text-align: left;">
+        <div class="pretext" style="width: 70%; display: inline-block; text-align: left;">
             Хотите заказывать новинки где угодно одним из самых первых? Тогда скачайте наше приложение
         </div>
-        <div class="playmarket-link"  style="width: 25%; display: inline-block; text-align: right;">
+        <div class="playmarket-link" style="width: 25%; display: inline-block; text-align: right;">
             <div class="play-market" style="width: 48%; display: inline-block;">
-                <img src="/images/mailer/google.png" style="width: 75%;"/>
+                <img src="google.png" style="width: 75%;">
             </div>
             <div class="app-store" style="width: 48%; display: inline-block;">
-                <img src="/images/mailer/app-store.png" style="width: 75%;"/>
+                <img src="app-store.png" style="width: 75%;">
             </div>
         </div>
     </div>

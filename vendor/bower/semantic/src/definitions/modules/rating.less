@@ -3,11 +3,11 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 
 /*******************************
             Theme
@@ -27,7 +27,6 @@
   white-space: @whiteSpace;
   vertical-align: @verticalAlign;
 }
-
 .ui.rating:last-child {
   margin-right: 0em;
 }
@@ -46,9 +45,11 @@
   transition: @iconTransition;
 }
 
+
 /*******************************
              Types
 *******************************/
+
 
 /*-------------------
       Standard
@@ -72,6 +73,7 @@
   background: @selectedBackground;
   color: @selectedColor;
 }
+
 
 /*-------------------
         Star
@@ -101,6 +103,7 @@
   text-shadow: @starSelectedTextShadow !important;
 }
 
+
 /*-------------------
         Heart
 --------------------*/
@@ -128,6 +131,7 @@
   text-shadow: @heartSelectedTextShadow !important;
 }
 
+
 /*******************************
              States
 *******************************/
@@ -141,6 +145,7 @@
   cursor: default;
 }
 
+
 /*-------------------
    User Interactive
 --------------------*/
@@ -149,11 +154,12 @@
 .ui.rating.selected .active.icon {
   opacity: @interactiveActiveIconOpacity;
 }
-
 .ui.rating.selected .icon.selected,
 .ui.rating .icon.selected {
   opacity: @interactiveSelectedIconOpacity;
 }
+
+
 
 /*******************************
           Variations
@@ -162,29 +168,24 @@
 .ui.mini.rating {
   font-size: @mini;
 }
-
 .ui.tiny.rating {
   font-size: @tiny;
 }
-
 .ui.small.rating {
   font-size: @small;
 }
-
 .ui.rating {
   font-size: @medium;
 }
-
 .ui.large.rating {
   font-size: @large;
 }
-
 .ui.huge.rating {
   font-size: @huge;
 }
-
 .ui.massive.rating {
   font-size: @massive;
 }
+
 
 .loadUIOverrides();

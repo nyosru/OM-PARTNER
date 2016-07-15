@@ -5,7 +5,7 @@
  * @version   3.1.2
  *
  * Grid grouping jquery library created for yii2-grid.
- * 
+ *
  * Author: Kartik Visweswaran
  * Copyright: 2015, Kartik Visweswaran, Krajee.com
  * For more JQuery plugins visit http://plugins.krajee.com
@@ -48,8 +48,12 @@ var kvGridGroup;
          * @returns string
          */
         formatNumber = function (n, d, c, s, x) {
-            var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
-                num = n.toFixed(Math.max(0, Math.floor(d)));
+            var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')', num = parseFloat(n),
+                dec = parseInt(d);
+            if (isNaN(num)) {
+                return '';
+            }
+            num = num.toFixed(isNaN(dec) || dec < 0 ? 0 : dec);
             return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
         };
         applyFormat = function (source, config, $tr, $td, i) {
@@ -111,7 +115,7 @@ var kvGridGroup;
                 $row = $row.next(':not(.kv-grid-group-row');
                 while (!j && $row.length) {
                     $row.find('td[data-col-seq="' + i + '"]').each(function () {
-                        var out = $(this).text().replace(/[\s,]+/g, '');
+                        var out = $(this).is('[data-raw-value]') ? $(this).attr('data-raw-value') : $(this).text().replace(/[\s,]+/g, '');
                         out = parseFloat(out);
                         data.push(out);
                     }); // jshint ignore:line
@@ -121,7 +125,7 @@ var kvGridGroup;
             } else {
                 while (j <= rowspan && $row.length) {
                     $row.find('td[data-col-seq="' + i + '"]').each(function () {
-                        var out = $(this).text().replace(/[\s,]+/g, '');
+                        var out = $(this).is('[data-raw-value]') ? $(this).attr('data-raw-value') : $(this).text().replace(/[\s,]+/g, '');
                         out = parseFloat(out);
                         data.push(out);
                     }); // jshint ignore:line
