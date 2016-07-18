@@ -3,11 +3,11 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 
 /*******************************
             Theme
@@ -17,6 +17,7 @@
 @element : 'image';
 
 @import (multiple) '../../theme.config';
+
 
 /*******************************
              Image
@@ -41,6 +42,7 @@ img.ui.image {
   height: auto;
 }
 
+
 /*******************************
             States
 *******************************/
@@ -49,6 +51,12 @@ img.ui.image {
 .ui.hidden.image {
   display: none;
 }
+.ui.hidden.transition.images,
+.ui.hidden.transition.image {
+  display: block;
+  visibility: hidden;
+}
+
 
 .ui.disabled.images,
 .ui.disabled.image {
@@ -56,9 +64,11 @@ img.ui.image {
   opacity: @disabledOpacity;
 }
 
+
 /*******************************
           Variations
 *******************************/
+
 
 /*--------------
      Inline
@@ -81,7 +91,6 @@ img.ui.image {
   display: inline-block;
   vertical-align: top;
 }
-
 .ui.middle.aligned.images .image,
 .ui.middle.aligned.image,
 .ui.middle.aligned.image svg,
@@ -89,7 +98,6 @@ img.ui.image {
   display: inline-block;
   vertical-align: middle;
 }
-
 .ui.bottom.aligned.images .image,
 .ui.bottom.aligned.image,
 .ui.bottom.aligned.image svg,
@@ -155,6 +163,7 @@ img.ui.bordered.image {
   height: auto;
 }
 
+
 /*--------------
      Avatar
 ---------------*/
@@ -206,7 +215,6 @@ img.ui.bordered.image {
   margin-right: @floatedHorizontalMargin;
   margin-bottom: @floatedVerticalMargin;
 }
-
 .ui.right.floated.images,
 .ui.right.floated.image {
   float: right;
@@ -219,6 +227,7 @@ img.ui.bordered.image {
 .ui.floated.image:last-child {
   margin-bottom: 0em;
 }
+
 
 .ui.centered.images,
 .ui.centered.image {
@@ -238,7 +247,6 @@ img.ui.bordered.image {
   height: auto;
   font-size: @mini;
 }
-
 .ui.tiny.images .image,
 .ui.tiny.images img,
 .ui.tiny.images svg,
@@ -247,7 +255,6 @@ img.ui.bordered.image {
   height: auto;
   font-size: @tiny;
 }
-
 .ui.small.images .image,
 .ui.small.images img,
 .ui.small.images svg,
@@ -256,7 +263,6 @@ img.ui.bordered.image {
   height: auto;
   font-size: @small;
 }
-
 .ui.medium.images .image,
 .ui.medium.images img,
 .ui.medium.images svg,
@@ -265,7 +271,6 @@ img.ui.bordered.image {
   height: auto;
   font-size: @medium;
 }
-
 .ui.large.images .image,
 .ui.large.images img,
 .ui.large.images svg,
@@ -274,7 +279,6 @@ img.ui.bordered.image {
   height: auto;
   font-size: @large;
 }
-
 .ui.big.images .image,
 .ui.big.images img,
 .ui.big.images svg,
@@ -283,7 +287,6 @@ img.ui.bordered.image {
   height: auto;
   font-size: @big;
 }
-
 .ui.huge.images .image,
 .ui.huge.images img,
 .ui.huge.images svg,
@@ -292,7 +295,6 @@ img.ui.bordered.image {
   height: auto;
   font-size: @huge;
 }
-
 .ui.massive.images .image,
 .ui.massive.images img,
 .ui.massive.images svg,
@@ -301,6 +303,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: @massive;
 }
+
 
 /*******************************
               Groups

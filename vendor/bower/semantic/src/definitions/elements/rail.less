@@ -3,7 +3,6 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -65,6 +64,7 @@
   margin: 0em @splitDistance 0em 0em;
 }
 
+
 /*--------------
     Dividing
 ---------------*/
@@ -72,13 +72,11 @@
 .ui.dividing.rail {
   width: @dividingWidth;
 }
-
 .ui.left.dividing.rail {
   padding: 0em @splitDividingDistance 0em 0em;
   margin: 0em @splitDividingDistance 0em 0em;
   border-right: @dividingBorder;
 }
-
 .ui.right.dividing.rail {
   border-left: @dividingBorder;
   padding: 0em 0em 0em @splitDividingDistance;
@@ -92,12 +90,10 @@
 .ui.close.rail {
   width: @closeWidth;
 }
-
 .ui.close.left.rail {
   padding: 0em @splitCloseDistance 0em 0em;
   margin: 0em @splitCloseDistance 0em 0em;
 }
-
 .ui.close.right.rail {
   padding: 0em 0em 0em @splitCloseDistance;
   margin: 0em 0em 0em @splitCloseDistance;
@@ -106,12 +102,10 @@
 .ui.very.close.rail {
   width: @veryCloseWidth;
 }
-
 .ui.very.close.left.rail {
   padding: 0em @splitVeryCloseDistance 0em 0em;
   margin: 0em @splitVeryCloseDistance 0em 0em;
 }
-
 .ui.very.close.right.rail {
   padding: 0em 0em 0em @splitVeryCloseDistance;
   margin: 0em 0em 0em @splitVeryCloseDistance;
@@ -131,8 +125,30 @@
      Sizing
 ---------------*/
 
+.ui.mini.rail {
+  font-size: @mini;
+}
+.ui.tiny.rail {
+  font-size: @tiny;
+}
+.ui.small.rail {
+  font-size: @small;
+}
 .ui.rail {
   font-size: @medium;
 }
+.ui.large.rail {
+  font-size: @large;
+}
+.ui.big.rail {
+  font-size: @big;
+}
+.ui.huge.rail {
+  font-size: @huge;
+}
+.ui.massive.rail {
+  font-size: @massive;
+}
+
 
 .loadUIOverrides();

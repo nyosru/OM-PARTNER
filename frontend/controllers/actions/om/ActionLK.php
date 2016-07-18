@@ -237,17 +237,21 @@ trait ActionLK
                     }
                 }
 
-                $orprodstring = implode(',', $orprod);
-           
-                $opprovider = new yii\data\ActiveDataProvider([
-                    'query' => PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.products_id IN (' . $orprodstring . ')')->distinct(),
-                    'pagination' => [
-                        'defaultPageSize' => 60,
-                        'pageSizeLimit' => [0, 60]
-                    ],
-                ]);
-                
-                $orderedproducts = $opprovider->getModels();
+                if($orprod) {
+                    $orprodstring = implode(',', $orprod);
+
+                    $opprovider = new yii\data\ActiveDataProvider([
+                        'query' => PartnersProducts::find()->joinWith('productsDescription')->joinWith('productsAttributes')->joinWith('productsAttributesDescr')->where('products.products_id IN (' . $orprodstring . ')')->distinct(),
+                        'pagination' => [
+                            'defaultPageSize' => 60,
+                            'pageSizeLimit' => [0, 60]
+                        ],
+                    ]);
+                    $orderedproducts = $opprovider->getModels();
+                }else{
+                    $orderedproducts = [];
+                }
+
                 $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
                 $man_time = $this->manufacturers_diapazon_id();
 

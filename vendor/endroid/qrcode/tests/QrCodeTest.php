@@ -26,7 +26,7 @@ class QrCodeTest extends PHPUnit_Framework_TestCase
      */
     public function testGetDataUri()
     {
-        $qrCode = $this->createQrCode();
+        $qrCode = $this->getQrCode();
         $dataUri = $qrCode->getDataUri();
 
         $this->assertTrue(is_string($dataUri));
@@ -40,25 +40,10 @@ class QrCodeTest extends PHPUnit_Framework_TestCase
      */
     public function testGetImageString()
     {
-        $qrCode = $this->createQrCode();
+        $qrCode = $this->getQrCode();
         $imageString = $qrCode->get('png');
 
         $this->assertTrue(is_string($imageString));
-    }
-
-    /**
-     * Tests if the resulting image size is correct.
-     */
-    public function testImageSize()
-    {
-        $qrCode = $this->createQrCode();
-
-        $size = $qrCode->getSize();
-        $padding = $qrCode->getPadding();
-        $image = $qrCode->getImage();
-
-        $this->assertTrue($padding > 0);
-        $this->assertTrue(imagesx($image) == $size + 2 * $padding);
     }
 
     /**
@@ -76,6 +61,18 @@ class QrCodeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Returns a QR code.
+     */
+    protected function getQrCode()
+    {
+        if (!$this->qrCode) {
+            $this->qrCode = $this->createQrCode();
+        }
+
+        return $this->qrCode;
+    }
+
+    /**
      * Creates a QR code.
      *
      * @return QrCode
@@ -83,26 +80,19 @@ class QrCodeTest extends PHPUnit_Framework_TestCase
     protected function createQrCode()
     {
         $qrCode = new QrCode();
-        $qrCode
-            ->setText('Life is too short to be generating QR codes')
-            ->setSize(300)
-            ->setPadding(20);
+        $qrCode->setText('Life is too short to be generating QR codes');
+        $qrCode->setSize(300);
 
         return $qrCode;
     }
 
-    /**
-     * Creates a QR code with a logo.
-     *
-     * @return QrCode
-     */
     protected function createQrCodeWithLogo()
     {
-        $qrCode = $this->createQrCode();
-        $qrCode
-            ->setLogo(dirname(__DIR__).'/assets/image/logo.png')
-            ->setLogoSize(60)
-        ;
+        $qrCode = new QrCode();
+        $qrCode->setText('Life is too short to be generating QR codes')
+        ->setSize(300)
+        ->setLogo(dirname(__DIR__).'/assets/image/logo.png')
+        ->setLogoSize(60);
 
         return $qrCode;
     }

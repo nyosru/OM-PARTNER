@@ -81,8 +81,6 @@ class LoginFormOM extends Model
                 $customer_info = CustomersInfo::find()->where(['customers_info_id' => $customer->customers_id])->asArray()->one();
                 $countries = Countries::find()->where(['countries_id' => $address['entry_country_id']])->asArray()->one();
                 $zones = Zones::find()->where(['zone_id' => $address['entry_zone_id']])->asArray()->one();
-
-
                 $newpartuser = new User();
                 $newpartuserinfo = new PartnersUsersInfo();
                 $newpartuser->email = $customer->customers_email_address;

@@ -3,11 +3,11 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 
 /*******************************
             Theme
@@ -17,6 +17,7 @@
 @element : 'icon';
 
 @import (multiple) '../../theme.config';
+
 
 /*******************************
              Icon
@@ -72,14 +73,13 @@ i.icon.loading {
   line-height: 1;
   animation: icon-loading @loadingDuration linear infinite;
 }
-
 @keyframes icon-loading {
-  from {
+ from {
     transform: rotate(0deg);
-  }
-  to {
+ }
+ to {
     transform: rotate(360deg);
-  }
+ }
 }
 
 /*******************************
@@ -102,9 +102,11 @@ i.disabled.icon {
   opacity: @disabledOpacity !important;
 }
 
+
 /*******************************
            Variations
 *******************************/
+
 
 /*-------------------
         Fitted
@@ -124,7 +126,6 @@ i.link.icon {
   opacity: @linkOpacity;
   transition: opacity @defaultDuration @defaultEasing;
 }
-
 i.link.icon:hover {
   opacity: 1 !important;
 }
@@ -143,7 +144,6 @@ i.circular.icon {
   width: @circularSize !important;
   height: @circularSize !important;
 }
-
 i.circular.inverted.icon {
   border: none;
   box-shadow: none;
@@ -157,7 +157,6 @@ i.flipped.icon,
 i.horizontally.flipped.icon {
   transform: scale(-1, 1);
 }
-
 i.vertically.flipped.icon {
   transform: scale(1, -1);
 }
@@ -190,7 +189,6 @@ i.bordered.icon {
   padding: @borderedVerticalPadding @borderedHorizontalPadding !important;
   box-shadow: @borderedShadow;
 }
-
 i.bordered.inverted.icon {
   border: none;
   box-shadow: none;
@@ -211,6 +209,7 @@ i.inverted.icon {
   color: @white;
 }
 
+
 /*-------------------
        Colors
 --------------------*/
@@ -219,11 +218,9 @@ i.inverted.icon {
 i.red.icon {
   color: @red !important;
 }
-
 i.inverted.red.icon {
   color: @lightRed !important;
 }
-
 i.inverted.bordered.red.icon,
 i.inverted.circular.red.icon {
   background-color: @red !important;
@@ -234,11 +231,9 @@ i.inverted.circular.red.icon {
 i.orange.icon {
   color: @orange !important;
 }
-
 i.inverted.orange.icon {
   color: @lightOrange !important;
 }
-
 i.inverted.bordered.orange.icon,
 i.inverted.circular.orange.icon {
   background-color: @orange !important;
@@ -249,11 +244,9 @@ i.inverted.circular.orange.icon {
 i.yellow.icon {
   color: @yellow !important;
 }
-
 i.inverted.yellow.icon {
   color: @lightYellow !important;
 }
-
 i.inverted.bordered.yellow.icon,
 i.inverted.circular.yellow.icon {
   background-color: @yellow !important;
@@ -264,11 +257,9 @@ i.inverted.circular.yellow.icon {
 i.olive.icon {
   color: @olive !important;
 }
-
 i.inverted.olive.icon {
   color: @lightOlive !important;
 }
-
 i.inverted.bordered.olive.icon,
 i.inverted.circular.olive.icon {
   background-color: @olive !important;
@@ -279,11 +270,9 @@ i.inverted.circular.olive.icon {
 i.green.icon {
   color: @green !important;
 }
-
 i.inverted.green.icon {
   color: @lightGreen !important;
 }
-
 i.inverted.bordered.green.icon,
 i.inverted.circular.green.icon {
   background-color: @green !important;
@@ -294,11 +283,9 @@ i.inverted.circular.green.icon {
 i.teal.icon {
   color: @teal !important;
 }
-
 i.inverted.teal.icon {
   color: @lightTeal !important;
 }
-
 i.inverted.bordered.teal.icon,
 i.inverted.circular.teal.icon {
   background-color: @teal !important;
@@ -309,11 +296,9 @@ i.inverted.circular.teal.icon {
 i.blue.icon {
   color: @blue !important;
 }
-
 i.inverted.blue.icon {
   color: @lightBlue !important;
 }
-
 i.inverted.bordered.blue.icon,
 i.inverted.circular.blue.icon {
   background-color: @blue !important;
@@ -324,11 +309,9 @@ i.inverted.circular.blue.icon {
 i.violet.icon {
   color: @violet !important;
 }
-
 i.inverted.violet.icon {
   color: @lightViolet !important;
 }
-
 i.inverted.bordered.violet.icon,
 i.inverted.circular.violet.icon {
   background-color: @violet !important;
@@ -339,11 +322,9 @@ i.inverted.circular.violet.icon {
 i.purple.icon {
   color: @purple !important;
 }
-
 i.inverted.purple.icon {
   color: @lightPurple !important;
 }
-
 i.inverted.bordered.purple.icon,
 i.inverted.circular.purple.icon {
   background-color: @purple !important;
@@ -354,11 +335,9 @@ i.inverted.circular.purple.icon {
 i.pink.icon {
   color: @pink !important;
 }
-
 i.inverted.pink.icon {
   color: @lightPink !important;
 }
-
 i.inverted.bordered.pink.icon,
 i.inverted.circular.pink.icon {
   background-color: @pink !important;
@@ -369,11 +348,9 @@ i.inverted.circular.pink.icon {
 i.brown.icon {
   color: @brown !important;
 }
-
 i.inverted.brown.icon {
   color: @lightBrown !important;
 }
-
 i.inverted.bordered.brown.icon,
 i.inverted.circular.brown.icon {
   background-color: @brown !important;
@@ -384,11 +361,9 @@ i.inverted.circular.brown.icon {
 i.grey.icon {
   color: @grey !important;
 }
-
 i.inverted.grey.icon {
   color: @lightGrey !important;
 }
-
 i.inverted.bordered.grey.icon,
 i.inverted.circular.grey.icon {
   background-color: @grey !important;
@@ -399,12 +374,10 @@ i.inverted.circular.grey.icon {
 i.black.icon {
   color: @black !important;
 }
-
 i.inverted.black.icon {
   color: @lightBlack !important;
 }
-
-i.inverted.bordeblack.black.icon,
+i.inverted.bordered.black.icon,
 i.inverted.circular.black.icon {
   background-color: @black !important;
   color: @white !important;
@@ -419,45 +392,38 @@ i.mini.icons {
   line-height: 1;
   font-size: @mini;
 }
-
 i.tiny.icon,
 i.tiny.icons {
   line-height: 1;
   font-size: @tiny;
 }
-
 i.small.icon,
 i.small.icons {
   line-height: 1;
   font-size: @small;
 }
-
 i.icon,
 i.icons {
   font-size: @medium;
 }
-
 i.large.icon,
 i.large.icons {
   line-height: 1;
   vertical-align: middle;
   font-size: @large;
 }
-
 i.big.icon,
 i.big.icons {
   line-height: 1;
   vertical-align: middle;
   font-size: @big;
 }
-
 i.huge.icon,
 i.huge.icons {
   line-height: 1;
   vertical-align: middle;
   font-size: @huge;
 }
-
 i.massive.icon,
 i.massive.icons {
   line-height: 1;

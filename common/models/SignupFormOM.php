@@ -268,7 +268,7 @@ class SignupFormOM extends Model
                     echo '<pre>';
                     Yii::$app->mailer->htmlLayout = 'layouts-om/html';
                     if ($newuserpartnerscastid->save()) {
-                        Yii::$app->mailer->compose('sign-up-om', ['username' => $user->username, 'password' => $this->password])
+                        Yii::$app->mailer->compose('sign-up-om', ['name'=>$this->name,'id'=>$userCustomer->customers_id,'username' => $user->username, 'password' => $this->password])
                             ->setFrom('support@' . $_SERVER['HTTP_HOST'])
                             ->setTo($user->email)
                             ->setSubject('Регистрация на сайте ' . $_SERVER['HTTP_HOST'])

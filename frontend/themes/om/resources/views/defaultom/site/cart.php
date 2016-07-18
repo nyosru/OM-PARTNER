@@ -70,7 +70,7 @@ $(document).on('ready', function () {
             if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
                 $disable_for_stepping = '';
             }else{
-                $disable_for_stepping = 'disabled';
+                $disable_for_stepping = 'readonly';
             }
             $innerhtml += '<div data-calc="'+$identypay+'" data-raw="' + ($c) + '" class="cart-row" style="float: left; height: auto; margin: 0px; border-bottom: 1px solid rgb(204, 204, 204); width: 100%; padding: 5px;">' +
                 '<div class = "access '+$identypay+'" >'+$access+'</div>'+

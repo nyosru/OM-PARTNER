@@ -1,7 +1,8 @@
 <?php
 \frontend\assets\AppAsset::register($this);
 use yii\helpers\Html;
-
+AppAsset::register($this);
+rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
 ?>
 <!DOCTYPE html>
@@ -57,7 +58,7 @@ $this->beginPage();
 
     </head>
 </head>
-<body>
+<body  style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; ">
 <?php $this->beginBody(); ?>
 <?= $content ?>
 <?php
