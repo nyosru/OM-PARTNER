@@ -265,12 +265,13 @@ class SignupFormOM extends Model
                     $newuserpartnerscastid->pasportwhere = $this->pasportwhere;
                     $newuserpartnerscastid->customers_id = $userCustomer->customers_id;
 
-
+                    echo '<pre>';
+                    Yii::$app->mailer->htmlLayout = 'layouts-om/html';
                     if ($newuserpartnerscastid->save()) {
-                        Yii::$app->mailer->compose(['html' => 'sign-up'], ['username' => $user->username, 'password' => $this->password, 'sait' => $_SERVER[HTTP_HOST]])
-                            ->setFrom('support@' . $_SERVER[HTTP_HOST])
+                        Yii::$app->mailer->compose('sign-up-om', ['name'=>$this->name,'id'=>$userCustomer->customers_id,'username' => $user->username, 'password' => $this->password])
+                            ->setFrom('support@' . $_SERVER['HTTP_HOST'])
                             ->setTo($user->email)
-                            ->setSubject('Регистрация на сайте ' . $_SERVER[HTTP_HOST])
+                            ->setSubject('Регистрация на сайте ' . $_SERVER['HTTP_HOST'])
                             ->send();
                         return $user;
                     } else {

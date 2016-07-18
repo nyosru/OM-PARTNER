@@ -82,6 +82,16 @@ if(!$product['products']['products_image']){
         <div class="prod-attr" itemtype="http://schema.org/ProductModel" itemid="#<?=$product['productsDescription']['products_id']?>" style="width: 100%; position: relative;float: left; overflow: hidden;">
             <div class="prod-show" style="position: relative; float: left;width: 100%; right: 50%">
                 <div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 550px;">
+                    <div style="padding-bottom: 10px; margin-bottom: 5px;">
+                       <?php
+                       $breadcruumpsresult = array();
+                       foreach ($catpath['num'] as $breadcrumpskey => $breadcrumpsvalue){
+                           $breadcruumpsresult[] = '<a href="/catalog?cat='.$breadcrumpsvalue.'">'.$catpath['name'][$breadcrumpskey].'</a>';
+                       }
+                       $breadcruumpsresult = implode(' / ', $breadcruumpsresult);
+                       echo $breadcruumpsresult;
+                       ?>
+                    </div>
                     <div class="prod-img" style="overflow: hidden; margin-bottom: 10px;">
                         <div class="mini-img" style="float: left; width: 20%; ">
                             <?php

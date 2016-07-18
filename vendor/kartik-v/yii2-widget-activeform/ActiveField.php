@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @copyright  Copyright &copy; Kartik Visweswaran, Krajee.com, 2015
+ * @copyright  Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2016
  * @package    yii2-widgets
  * @subpackage yii2-widget-activeform
- * @version    1.4.7
+ * @version    1.4.8
  */
 
 namespace kartik\form;
@@ -100,7 +100,7 @@ class ActiveField extends \yii\widgets\ActiveField
      *     displayed.
      * - placement: string, the placement of the help popover on hover or click of the icon or label. Defaults to
      *     `top`.
-     * - container: string, the specific element to which the popover will be appended to. Defaults to `table` when
+     * - container: string, the specific element to which the popover will be appended to. Defaults to `table` when 
      *     `iconBesideInput` is `true`, else defaults to `form`
      * - animation: bool, whether to add a CSS fade transition effect when opening and closing the popover. Defaults to
      *     `true`.
@@ -276,7 +276,7 @@ class ActiveField extends \yii\widgets\ActiveField
     /**
      * Renders a checkbox. This method will generate the "checked" tag attribute according to the model attribute value.
      *
-     * @param array $options the tag options in terms of name-value pairs. The following options are specially
+     * @param array   $options the tag options in terms of name-value pairs. The following options are specially
      * handled:
      *
      * - uncheck: string, the value associated with the uncheck state of the checkbox. If not set,
@@ -433,7 +433,7 @@ class ActiveField extends \yii\widgets\ActiveField
      * Renders a radio button. This method will generate the "checked" tag attribute according to the model attribute
      * value.
      *
-     * @param array $options the tag options in terms of name-value pairs. The following options are specially
+     * @param array   $options the tag options in terms of name-value pairs. The following options are specially
      *     handled:
      * - uncheck: string, the value associated with the uncheck state of the radio button. If not set, it will take the
      *     default value '0'. This method will render a hidden input so that if the radio button is not checked and is
@@ -688,8 +688,8 @@ class ActiveField extends \yii\widgets\ActiveField
      * Generates a toggle field (checkbox or radio)
      *
      * @param string $type the toggle input type 'checkbox' or 'radio'.
-     * @param array $options options (name => config) for the toggle input list container tag.
-     * @param bool $enclosedByLabel whether the input is enclosed by the label tag
+     * @param array  $options options (name => config) for the toggle input list container tag.
+     * @param bool   $enclosedByLabel whether the input is enclosed by the label tag
      *
      * @return ActiveField object
      */
@@ -744,7 +744,7 @@ class ActiveField extends \yii\widgets\ActiveField
      * Gets configuration parameter from formConfig
      *
      * @param string $param the parameter name
-     * @param mixed $default the default parameter value
+     * @param mixed  $default the default parameter value
      *
      * @return bool the parsed parameter value
      */
@@ -881,7 +881,7 @@ class ActiveField extends \yii\widgets\ActiveField
      *
      * @param string $type the layout element type
      * @param string $css the css class for the container
-     * @param bool $chk whether to create the container for the layout element
+     * @param bool   $chk whether to create the container for the layout element
      */
     protected function setLayoutContainer($type, $css = '', $chk = true)
     {
@@ -898,7 +898,7 @@ class ActiveField extends \yii\widgets\ActiveField
         if ($this->hintType !== self::HINT_SPECIAL) {
             return;
         }
-        $container = ArrayHelper::getValue($this->hintSettings, 'iconBesideInput') ? 'table' : 'form';
+        $container = ArrayHelper::getValue($this->hintSettings, 'iconBesideInput') ?  'table' : 'form';
         $this->hintSettings = array_replace_recursive([
             'showIcon' => true,
             'iconBesideInput' => false,
@@ -954,7 +954,7 @@ class ActiveField extends \yii\widgets\ActiveField
      * Gets a hint configuration setting value
      *
      * @param string $key the hint setting key to fetch
-     * @param mixed $default the default value if not set
+     * @param mixed  $default the default value if not set
      *
      * @return mixed
      */
@@ -1009,10 +1009,10 @@ class ActiveField extends \yii\widgets\ActiveField
         $newInput = $this->contentBeforeInput . $this->generateAddon() . $this->renderFeedbackIcon() . $this->contentAfterInput;
         $newError = "{$this->contentBeforeError}{error}{$this->contentAfterError}";
         $this->template = strtr($this->template, [
-            '{label}' => $showLabels ? "{$this->contentBeforeLabel}{label}{$this->contentAfterLabel}" : "",
-            '{input}' => str_replace('{input}', $newInput, $input),
-            '{error}' => $showErrors ? str_replace('{error}', $newError, $error) : '',
-        ]);
+           '{label}' => $showLabels ? "{$this->contentBeforeLabel}{label}{$this->contentAfterLabel}" : "",
+           '{input}' => str_replace('{input}', $newInput, $input),
+           '{error}' => $showErrors ? str_replace('{error}', $newError, $error) : '',
+       ]);
     }
 
     /**
@@ -1060,7 +1060,7 @@ class ActiveField extends \yii\widgets\ActiveField
     /**
      * Generates a feedback icon
      *
-     * @param array $config the feedback icon configuration
+     * @param array  $config the feedback icon configuration
      * @param string $cat the feedback icon category
      * @param string $type the feedback icon type
      * @param string $prefix the feedback icon prefix
@@ -1091,10 +1091,10 @@ class ActiveField extends \yii\widgets\ActiveField
      * value of the model attribute.
      *
      * @param string $type the toggle input type 'checkbox' or 'radio'.
-     * @param array $items the data item used to generate the checkbox / radio buttons. The array keys are the labels,
+     * @param array  $items the data item used to generate the checkbox / radio buttons. The array keys are the labels,
      *     while the array values are the corresponding checkbox / radio button values. Note that the labels will NOT
      *     be HTML-encoded, while the values will be encoded.
-     * @param array $options options (name => config) for the checkbox / radio button list. The following options are
+     * @param array  $options options (name => config) for the checkbox / radio button list. The following options are
      *     specially handled:
      *
      * - unselect: string, the value that should be submitted when none of the checkbox / radio buttons is selected. By
@@ -1114,7 +1114,7 @@ class ActiveField extends \yii\widgets\ActiveField
      *     the checkbox/ radio button; and $name, $value and $checked represent the name, value and the checked status
      *     of the checkbox/ radio button input.
      *
-     * @param bool $asButtonGroup whether to generate the toggle list as a bootstrap button group
+     * @param bool   $asButtonGroup whether to generate the toggle list as a bootstrap button group
      *
      * @return ActiveField object
      */

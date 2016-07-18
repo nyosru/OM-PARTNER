@@ -3,11 +3,11 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
+
 
 /*******************************
             Theme
@@ -70,6 +70,7 @@
   white-space: nowrap;
 }
 
+
 /*--------------
   Hidden Input
 ---------------*/
@@ -89,16 +90,15 @@
   font-size: @dropdownIconSize;
   margin: @dropdownIconMargin;
 }
-
 .ui.dropdown .menu > .item .dropdown.icon {
   width: auto;
   float: @itemDropdownIconFloat;
   margin: @itemDropdownIconMargin;
 }
-
 .ui.dropdown .menu > .item .dropdown.icon + .text {
   margin-right: @itemDropdownIconDistance;
 }
+
 
 /*--------------
       Text
@@ -133,7 +133,6 @@
   box-shadow: @itemBoxShadow;
   -webkit-touch-callout: none;
 }
-
 .ui.dropdown .menu > .item:first-child {
   border-top-width: 0px;
 }
@@ -148,7 +147,6 @@
   margin-right: 0em !important;
   margin-left: @floatedDistance !important;
 }
-
 .ui.dropdown > .text > [class*="left floated"],
 .ui.dropdown .menu .item > [class*="left floated"] {
   float: left !important;
@@ -162,6 +160,7 @@
 .ui.dropdown .menu .item > img.floated {
   margin-top: @itemLineHeightOffset;
 }
+
 
 /*--------------
   Menu Divider
@@ -188,15 +187,12 @@
   margin: @menuInputMargin;
   min-width: @menuInputMinWidth;
 }
-
 .ui.dropdown .menu > .header + .input {
   margin-top: 0em;
 }
-
 .ui.dropdown .menu > .input:not(.transparent) input {
   padding: @menuInputPadding;
 }
-
 .ui.dropdown .menu > .input:not(.transparent) .button,
 .ui.dropdown .menu > .input:not(.transparent) .icon,
 .ui.dropdown .menu > .input:not(.transparent) .label {
@@ -223,7 +219,6 @@
   padding: @messagePadding;
   font-weight: @messageFontWeight;
 }
-
 .ui.dropdown .menu > .message:not(.ui) {
   color: @messageColor;
 }
@@ -258,12 +253,11 @@
 .ui.dropdown > .text > .image {
   margin-top: @textLineHeightOffset;
 }
-
 .ui.dropdown .menu > .item > .icon,
 .ui.dropdown .menu > .item > .label,
 .ui.dropdown .menu > .item > .flag,
 .ui.dropdown .menu > .item > .image,
-.ui.dropdown .menu > .item > img {
+.ui.dropdown .menu > .item > img  {
   margin-top: @itemLineHeightOffset;
 }
 
@@ -276,7 +270,7 @@
 .ui.dropdown .menu > .item > .label,
 .ui.dropdown .menu > .item > .flag,
 .ui.dropdown .menu > .item > .image,
-.ui.dropdown .menu > .item > img {
+.ui.dropdown .menu > .item > img  {
   margin-left: 0em;
   float: @itemElementFloat;
   margin-right: @itemElementDistance;
@@ -296,9 +290,11 @@
   max-height: @menuImageMaxHeight;
 }
 
+
 /*******************************
             Coupling
 *******************************/
+
 
 /*--------------
       Menu
@@ -340,10 +336,11 @@
 .ui.dropdown.icon.button > .dropdown.icon {
   margin: 0em;
 }
-
 .ui.button.dropdown .menu {
   min-width: 100%;
 }
+
+
 
 /*******************************
               Types
@@ -374,7 +371,6 @@
   border-radius: @selectionBorderRadius;
   transition: @selectionTransition;
 }
-
 .ui.selection.dropdown.visible,
 .ui.selection.dropdown.active {
   z-index: @selectionZIndex;
@@ -386,25 +382,26 @@ select.ui.dropdown {
   border: @selectBorder;
   visibility: @selectVisibility;
 }
-
 .ui.selection.dropdown > .search.icon,
 .ui.selection.dropdown > .delete.icon,
 .ui.selection.dropdown > .dropdown.icon {
   cursor: pointer;
   position: absolute;
-  top: auto;
   width: auto;
+  height: auto;
+  line-height: @searchSelectionLineHeight;
+  top: @selectionVerticalPadding;
+  right: @selectionHorizontalPadding;
   z-index: @selectionIconZIndex;
   margin: @selectionIconMargin;
   padding: @selectionIconPadding;
-  right: @selectionHorizontalPadding;
   opacity: @selectionIconOpacity;
   transition: @selectionIconTransition;
 }
 
 /* Compact */
 .ui.compact.selection.dropdown {
-  min-width: 0px;
+  min-width:  0px;
 }
 
 /*  Selection Menu */
@@ -424,7 +421,6 @@ select.ui.dropdown {
   box-shadow: @selectionMenuBoxShadow;
   transition: @selectionMenuTransition;
 }
-
 .ui.selection.dropdown .menu:after,
 .ui.selection.dropdown .menu:before {
   display: none;
@@ -438,24 +434,21 @@ select.ui.dropdown {
   padding: @selectionMessagePadding;
 }
 
-@media only screen and (max-width: @largestMobileScreen) {
+@media only screen and (max-width : @largestMobileScreen) {
   .ui.selection.dropdown .menu {
     max-height: @selectionMobileMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @tabletBreakpoint) {
   .ui.selection.dropdown .menu {
     max-height: @selectionTabletMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @computerBreakpoint) {
   .ui.selection.dropdown .menu {
     max-height: @selectionComputerMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @widescreenMonitorBreakpoint) {
   .ui.selection.dropdown .menu {
     max-height: @selectionWidescreenMaxMenuHeight;
@@ -470,6 +463,11 @@ select.ui.dropdown {
   word-wrap: normal;
 }
 
+/* User Item */
+.ui.selection.dropdown .menu > .hidden.addition.item {
+  display: none;
+}
+
 /* Hover */
 .ui.selection.dropdown:hover {
   border-color: @selectionHoverBorderColor;
@@ -481,7 +479,6 @@ select.ui.dropdown {
   border-color: @selectionVisibleBorderColor;
   box-shadow: @selectionVisibleBoxShadow;
 }
-
 .ui.selection.active.dropdown .menu {
   border-color: @selectionVisibleBorderColor;
   box-shadow: @selectionVisibleMenuBoxShadow;
@@ -492,7 +489,6 @@ select.ui.dropdown {
   border-color: @selectionFocusBorderColor;
   box-shadow: @selectionFocusBoxShadow;
 }
-
 .ui.selection.dropdown:focus .menu {
   border-color: @selectionFocusBorderColor;
   box-shadow: @selectionFocusMenuBoxShadow;
@@ -509,7 +505,6 @@ select.ui.dropdown {
   border-color: @selectionActiveHoverBorderColor;
   box-shadow: @selectionActiveHoverBoxShadow;
 }
-
 .ui.selection.active.dropdown:hover .menu {
   border-color: @selectionActiveHoverBorderColor;
   box-shadow: @selectionActiveHoverMenuBoxShadow;
@@ -528,6 +523,16 @@ select.ui.dropdown {
   border-bottom-right-radius: @selectionVisibleConnectingBorder !important;
 }
 
+/* Empty Connecting Border */
+.ui.active.empty.selection.dropdown {
+  border-radius: @selectionBorderRadius !important;
+  box-shadow: @selectionBoxShadow !important;
+}
+.ui.active.empty.selection.dropdown .menu {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /*--------------
    Searchable
 ---------------*/
@@ -542,7 +547,7 @@ select.ui.dropdown {
   background: none transparent !important;
   border: none !important;
   box-shadow: none !important;
-  cursor: pointer;
+  cursor: text;
   top: 0em;
   left: 0em;
   width: 100%;
@@ -556,10 +561,10 @@ select.ui.dropdown {
   position: absolute;
   z-index: 2;
 }
-
 .ui.search.dropdown > .text {
   cursor: text;
   position: relative;
+  left: @textCursorSpacing;
   z-index: 3;
 }
 
@@ -569,12 +574,19 @@ select.ui.dropdown {
   padding: @searchSelectionInputPadding;
 }
 
+/* Used to size multi select input to character width */
+.ui.search.selection.dropdown > span.sizer {
+  line-height: @searchSelectionLineHeight;
+  padding: @searchSelectionInputPadding;
+  display: none;
+  white-space: pre;
+}
+
 /* Active/Visible Search */
 .ui.search.dropdown.active > input.search,
 .ui.search.dropdown.visible > input.search {
   cursor: auto;
 }
-
 .ui.search.dropdown.active > .text,
 .ui.search.dropdown.visible > .text {
   pointer-events: none;
@@ -585,7 +597,6 @@ select.ui.dropdown {
 .ui.active.search.dropdown input.search:focus + .text .flag {
   opacity: @selectionTextUnderlayIconOpacity;
 }
-
 .ui.active.search.dropdown input.search:focus + .text {
   color: @selectionTextUnderlayColor !important;
 }
@@ -597,25 +608,21 @@ select.ui.dropdown {
   backface-visibility: hidden;
   -webkit-overflow-scrolling: touch;
 }
-
-@media only screen and (max-width: @largestMobileScreen) {
+@media only screen and (max-width : @largestMobileScreen) {
   .ui.search.dropdown .menu {
     max-height: @searchMobileMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @tabletBreakpoint) {
   .ui.search.dropdown .menu {
     max-height: @searchTabletMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @computerBreakpoint) {
   .ui.search.dropdown .menu {
     max-height: @searchComputerMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @widescreenMonitorBreakpoint) {
   .ui.search.dropdown .menu {
     max-height: @searchWidescreenMaxMenuHeight;
@@ -630,7 +637,6 @@ select.ui.dropdown {
 .ui.multiple.dropdown {
   padding: @multipleSelectionPadding;
 }
-
 .ui.multiple.dropdown .menu {
   cursor: auto;
 }
@@ -667,7 +673,9 @@ select.ui.dropdown {
   margin: @multipleSelectionChildMargin;
   line-height: @multipleSelectionChildLineHeight;
 }
-
+.ui.multiple.dropdown > .label ~ input.search {
+  margin-left: @multipleSelectionSearchAfterLabelDistance !important;
+}
 .ui.multiple.dropdown > .label ~ .text {
   display: none;
 }
@@ -701,6 +709,7 @@ select.ui.dropdown {
   line-height: @multipleSelectionChildLineHeight;
 }
 
+
 /*--------------
      Inline
 ---------------*/
@@ -710,25 +719,24 @@ select.ui.dropdown {
   display: inline-block;
   color: @inlineTextColor;
 }
-
 .ui.inline.dropdown .dropdown.icon {
   margin: @inlineIconMargin;
   vertical-align: baseline;
 }
-
 .ui.inline.dropdown > .text {
   font-weight: @inlineTextFontWeight;
 }
-
 .ui.inline.dropdown .menu {
   cursor: auto;
   margin-top: @inlineMenuDistance;
   border-radius: @inlineMenuBorderRadius;
 }
 
+
 /*******************************
             States
 *******************************/
+
 
 /*--------------------
         Active
@@ -742,6 +750,7 @@ select.ui.dropdown {
   box-shadow: @activeItemBoxShadow;
   z-index: @activeItemZIndex;
 }
+
 
 /*--------------------
         Hover
@@ -758,22 +767,10 @@ select.ui.dropdown {
        Loading
 ---------------------*/
 
-/* Positioning */
-.ui.loading.dropdown > i.icon:before,
-.ui.loading.dropdown > i.icon:after {
-  left: 30% !important;
-}
-
 .ui.loading.dropdown > i.icon {
-  top: 50% !important;
+  height: @relative14px !important;
+  padding: @relative16px @relative15px !important;
 }
-
-.ui.multiple.loading.dropdown > i.icon:before,
-.ui.multiple.loading.dropdown > i.icon:after {
-  top: 0% !important;
-  left: 0% !important;
-}
-
 .ui.loading.dropdown > i.icon:before {
   position: absolute;
   content: '';
@@ -787,7 +784,6 @@ select.ui.dropdown {
   border-radius: @circularRadius;
   border: @loaderLineWidth solid @loaderFillColor;
 }
-
 .ui.loading.dropdown > i.icon:after {
   position: absolute;
   content: '';
@@ -824,20 +820,19 @@ select.ui.dropdown {
   }
 }
 
+
 /*--------------------
      Default Text
 ----------------------*/
 
-.ui.dropdown > .default.text,
-.ui.default.dropdown > .text {
+.ui.dropdown:not(.button) > .default.text,
+.ui.default.dropdown:not(.button) > .text {
   color: @defaultTextColor;
 }
-
-.ui.dropdown:hover > .default.text,
-.ui.default.dropdown:hover > .text {
-  color: @defaultTextHoverColor;
+.ui.dropdown:not(.button) > input:focus + .default.text,
+.ui.default.dropdown:not(.button) > input:focus + .text {
+  color: @defaultTextFocusColor;
 }
-
 /*--------------------
         Loading
 ----------------------*/
@@ -864,6 +859,7 @@ select.ui.dropdown {
   color: @selectedColor;
 }
 
+
 /*--------------------
     Search Filtered
 ----------------------*/
@@ -872,10 +868,10 @@ select.ui.dropdown {
 .ui.dropdown > .filtered.text {
   visibility: hidden;
 }
-
 .ui.dropdown .filtered.item {
   display: none !important;
 }
+
 
 /*--------------------
         Error
@@ -891,7 +887,6 @@ select.ui.dropdown {
   background: @errorBackgroundColor;
   border-color: @errorBorderColor;
 }
-
 .ui.selection.dropdown.error:hover {
   border-color: @errorBorderColor;
 }
@@ -900,11 +895,9 @@ select.ui.dropdown {
 .ui.dropdown.error > .menu .menu {
   border-color: @errorBorderColor;
 }
-
 .ui.dropdown.error > .menu > .item {
   color: @errorItemTextColor;
 }
-
 .ui.multiple.selection.error.dropdown > .label {
   border-color: @errorBorderColor;
 }
@@ -919,6 +912,8 @@ select.ui.dropdown {
   background-color: @errorItemActiveBackground;
 }
 
+
+
 /*--------------------
         Disabled
 ----------------------*/
@@ -930,6 +925,7 @@ select.ui.dropdown {
   pointer-events: none;
   opacity: @disabledOpacity;
 }
+
 
 /*******************************
            Variations
@@ -943,6 +939,7 @@ select.ui.dropdown {
 .ui.dropdown .menu {
   left: 0px;
 }
+
 
 /* Default Side (Right) */
 .ui.dropdown .right.menu > .menu,
@@ -966,18 +963,17 @@ select.ui.dropdown {
   float: @leftMenuDropdownIconFloat;
   margin: @leftMenuDropdownIconMargin;
 }
-
 .ui.dropdown .item .left.dropdown.icon,
 .ui.dropdown .left.menu .item .dropdown.icon {
   width: auto;
   float: @leftMenuDropdownIconFloat;
   margin: @leftMenuDropdownIconMargin;
 }
-
 .ui.dropdown .item .left.dropdown.icon + .text,
 .ui.dropdown .left.menu .item .dropdown.icon + .text {
   margin-left: @itemDropdownIconDistance;
 }
+
 
 /*--------------
      Upward
@@ -1002,7 +998,6 @@ select.ui.dropdown {
 .ui.simple.upward.dropdown:hover {
   border-radius: @borderRadius @borderRadius 0em 0em !important;
 }
-
 .ui.upward.dropdown.button:not(.pointing):not(.floating).active {
   border-radius: @borderRadius @borderRadius 0em 0em;
 }
@@ -1013,7 +1008,6 @@ select.ui.dropdown {
   border-bottom-width: 0px !important;
   box-shadow: @upwardSelectionMenuBoxShadow;
 }
-
 .ui.upward.selection.dropdown:hover {
   box-shadow: @upwardSelectionHoverBoxShadow;
 }
@@ -1033,7 +1027,6 @@ select.ui.dropdown {
 .ui.upward.active.selection.dropdown:hover {
   box-shadow: @upwardSelectionActiveHoverBoxShadow;
 }
-
 .ui.upward.active.selection.dropdown:hover .menu {
   box-shadow: @upwardSelectionActiveHoverMenuBoxShadow;
 }
@@ -1069,52 +1062,45 @@ select.ui.dropdown {
   width: auto !important;
   border-top: @menuBorder;
 }
-
 .ui.scrolling.dropdown .menu .item.item.item,
 .ui.dropdown .scrolling.menu > .item.item.item {
   border-top: @scrollingMenuItemBorder;
   padding-right: @scrollingMenuRightItemPadding !important;
 }
-
 .ui.scrolling.dropdown .menu .item:first-child,
 .ui.dropdown .scrolling.menu .item:first-child {
   border-top: none;
 }
-
 .ui.dropdown > .animating.menu .scrolling.menu,
 .ui.dropdown > .visible.menu .scrolling.menu {
   display: block;
 }
 
 /* Scrollbar in IE */
-@media all and (-ms-high-contrast: none) {
+@media all and (-ms-high-contrast:none) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     min-width: ~"calc(100% - "@scrollbarWidth~")";
   }
 }
-
-@media only screen and (max-width: @largestMobileScreen) {
+@media only screen and (max-width : @largestMobileScreen) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     max-height: @scrollingMobileMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @tabletBreakpoint) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     max-height: @scrollingTabletMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @computerBreakpoint) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
     max-height: @scrollingComputerMaxMenuHeight;
   }
 }
-
 @media only screen and (min-width: @widescreenMonitorBreakpoint) {
   .ui.scrolling.dropdown .menu,
   .ui.dropdown .scrolling.menu {
@@ -1132,7 +1118,6 @@ select.ui.dropdown {
 .ui.simple.dropdown .menu:after {
   display: none;
 }
-
 .ui.simple.dropdown .menu {
   position: absolute;
   display: block;
@@ -1158,7 +1143,6 @@ select.ui.dropdown {
   top: 100% !important;
   opacity: 1;
 }
-
 .ui.simple.dropdown > .menu > .item:active > .menu,
 .ui.simple.dropdown:hover > .menu > .item:hover > .menu {
   overflow: visible;
@@ -1168,7 +1152,6 @@ select.ui.dropdown {
   left: 100% !important;
   opacity: 1;
 }
-
 .ui.simple.disabled.dropdown:hover .menu {
   display: none;
   height: 0px;
@@ -1190,10 +1173,10 @@ select.ui.dropdown {
   width: 100%;
   min-width: 0em;
 }
-
 .ui.fluid.dropdown > .dropdown.icon {
   float: right;
 }
+
 
 /*--------------
     Floating
@@ -1205,7 +1188,6 @@ select.ui.dropdown {
   box-shadow: @floatingMenuBoxShadow !important;
   border-radius: @floatingMenuBorderRadius !important;
 }
-
 .ui.floating.dropdown > .menu {
   margin-top: @floatingMenuDistance !important;
   border-radius: @floatingMenuBorderRadius !important;
@@ -1250,7 +1232,6 @@ select.ui.dropdown {
   right: auto;
   margin: @pointingArrowDistanceFromEdge 0em 0em;
 }
-
 .ui.top.left.pointing.dropdown > .menu {
   top: 100%;
   bottom: auto;
@@ -1258,7 +1239,6 @@ select.ui.dropdown {
   right: auto;
   margin: @pointingArrowDistanceFromEdge 0em 0em;
 }
-
 .ui.top.left.pointing.dropdown > .menu:after {
   top: @pointingArrowOffset;
   left: @pointingArrowDistanceFromEdge;
@@ -1266,7 +1246,6 @@ select.ui.dropdown {
   margin: 0em;
   transform: rotate(45deg);
 }
-
 /* Top Right  Pointing */
 .ui.top.right.pointing.dropdown > .menu {
   top: 100%;
@@ -1275,7 +1254,6 @@ select.ui.dropdown {
   left: auto;
   margin: @pointingArrowDistanceFromEdge 0em 0em;
 }
-
 .ui.top.right.pointing.dropdown > .menu:after {
   top: @pointingArrowOffset;
   left: auto;
@@ -1291,7 +1269,6 @@ select.ui.dropdown {
   right: auto;
   margin: 0em 0em 0em @pointingArrowDistanceFromEdge;
 }
-
 .ui.left.pointing.dropdown > .menu:after {
   top: 1em;
   left: @pointingArrowOffset;
@@ -1306,7 +1283,6 @@ select.ui.dropdown {
   right: 100%;
   margin: 0em @pointingArrowDistanceFromEdge 0em 0em;
 }
-
 .ui.right.pointing.dropdown > .menu:after {
   top: 1em;
   left: auto;
@@ -1321,9 +1297,8 @@ select.ui.dropdown {
   bottom: 100%;
   left: 0%;
   right: auto;
-  margin: 0em 0em @pointingArrowDistanceFromEdge;
+  margin: 0em 0em @pointingArrowDistanceFromEdge ;
 }
-
 .ui.bottom.pointing.dropdown > .menu:after {
   top: auto;
   bottom: @pointingArrowOffset;
@@ -1331,7 +1306,6 @@ select.ui.dropdown {
   margin: 0em;
   transform: rotate(-135deg);
 }
-
 /* Reverse Sub-Menu Direction */
 .ui.bottom.pointing.dropdown > .menu .menu {
   top: auto !important;
@@ -1343,7 +1317,6 @@ select.ui.dropdown {
   left: 0%;
   right: auto;
 }
-
 .ui.bottom.left.pointing.dropdown > .menu:after {
   left: @pointingArrowDistanceFromEdge;
   right: auto;
@@ -1354,7 +1327,6 @@ select.ui.dropdown {
   right: 0%;
   left: auto;
 }
-
 .ui.bottom.right.pointing.dropdown > .menu:after {
   left: auto;
   right: @pointingArrowDistanceFromEdge;
@@ -1368,7 +1340,6 @@ select.ui.dropdown {
   margin: 0em 0em @pointingMenuDistance;
   border-radius: @pointingUpwardMenuBorderRadius;
 }
-
 .ui.upward.pointing.dropdown > .menu:after,
 .ui.upward.top.pointing.dropdown > .menu:after {
   top: 100%;
@@ -1376,5 +1347,6 @@ select.ui.dropdown {
   box-shadow: @pointingUpwardArrowBoxShadow;
   margin: @pointingArrowOffset 0em 0em;
 }
+
 
 .loadUIOverrides();
