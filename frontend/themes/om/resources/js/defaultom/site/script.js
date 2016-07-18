@@ -1491,9 +1491,17 @@ $(document).on('click','#prod-info',function(){
                     '</div>';
             }
             $size_html += '</div>';
+            $breadcruumpsresult = [];
+            $.each(data.catpath['num'], function(i, index){
+
+                $breadcruumpsresult.push('<a href="/catalog?cat='+data.catpath['num'][i]+'">'+data.catpath['name'][i]+'</a>');
+
+            });
+            $breadcruumpsresult =  $breadcruumpsresult.join(' &#47; ');
             $prod_html += '<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;">' +
                 '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
                 '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:4px;">' +
+                '<div>'+$breadcruumpsresult+'</div>'+
                 '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px; margin-right: 10px;">' +
                 '<div style=" min-width: 380px;">' +
                 '<div id="carousel" class="carousel slide">' +
