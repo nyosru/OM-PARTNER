@@ -12,18 +12,44 @@ class ProductCard extends \yii\bootstrap\Widget
 {
     use CatPath,Categories_for_partner,RecursCat, GetSuppliers;
     public $description;
-    public $category=0;
+    public $category = 0;
     public $product;
     public $attrib;
     public $attr_descr;
     public $catpath = [];
     public $man_time = [];
-    public $showdiscount=0;
+    public $showdiscount = 0;
+    public $writeitemprop = 1;
 
 
 
     public function init()
     {
+        if($this->writeitemprop === 1){
+            $product_itemscope = ' itemscope itemtype="http://schema.org/ProductModel" ' ;
+            $product_itemprop_model = ' itemprop="model" ';
+            $product_itemprop_image = 'itemprop="image"';
+            $product_itemprop_old_price = 'itemprop="old-price"';
+            $product_itemprop_name = 'itemprop="name"';
+            $product_itemprop_description = 'itemprop="description" ';
+            $product_itemprop_offers = 'itemprop="offers" itemscope itemtype="http://schema.org/Offer"';
+            $product_itemprop_category = 'itemprop="category"';
+            $product_itemprop_priceCurrency = 'itemprop="priceCurrency" ';
+            $product_itemprop_price = 'itemprop="price" ';
+            $product_itemprop_url = 'itemprop="url"';
+        }else{
+            $product_itemscope = '';
+            $product_itemprop_model = '';
+            $product_itemprop_image = 'name="image"';
+            $product_itemprop_old_price = '';
+            $product_itemprop_name = '';
+            $product_itemprop_description = '';
+            $product_itemprop_offers = '';
+            $product_itemprop_category = '';
+            $product_itemprop_priceCurrency = '';
+            $product_itemprop_price = '';
+            $product_itemprop_url = '';
+        }
         if($this->category==0){
             $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
             $categ=$categ->categories_id;
@@ -149,18 +175,18 @@ class ProductCard extends \yii\bootstrap\Widget
             $attr_html .=  '</div></div></div>';
         }
         if($activelabel > 0) {
-            $cart_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable">В корзину</div>';
+            $cart_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable"><noindex>В корзину</noindex></div>';
         }else{
-            $cart_html = '<div class="cart-lable" style="background: #E9516D">Продано</div>';
+            $cart_html = '<div class="cart-lable" style="background: #E9516D"><noindex>Продано</noindex></div>';
         }
         $attr_html = $cart_html.$attr_html;
             $product['products_image'] = str_replace(')', ']]]]', $product['products_image']);
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
         if(count($attr)){
-            $options_name = 'Размеры';
+            $options_name = '<noindex>Размеры</noindex>';
         }else{
-            $options_name = 'Количество';
+            $options_name = '<noindex>Количество</noindex>';
         }
         if(array_key_exists($product['manufacturers_id'],$this->man_time)){
             $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
@@ -174,34 +200,34 @@ class ProductCard extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
-        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'">Категория: '.$categ.'</a></div>';
+        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true"><noindex>more_horiz</noindex></i></a><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'"><noindex>Категория: </noindex>'.$categ.'</a></div>';
 
         $innerhtml .= '
-                        <div itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'
+                        <div '.$product_itemscope.'  itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
-                                    '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';
+                                    '<meta '.$product_itemprop_image.'  content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';
         if ((integer)($product['products_old_price']) > 0&&$this->showdiscount==1&&isset($discount)) {
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . $discount . ' %</div>';
-            $innerhtml .= '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;" itemprop="old-price" ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
+            $innerhtml .= '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;"  '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . '<noindex> руб.</noindex></strike></div>';
         }
-                                $innerhtml.='<div  itemprop="name" class="name">'  .htmlentities($description['products_name']) .
+                                $innerhtml.='<div '.$product_itemprop_name.' class="name">'  .htmlentities($description['products_name']) .
                                 '</div>
                             </div>' .
             '<div style="" class="model">' . $man_time_list . $preview. $chosen.$product_menu . '</div>' .
-            '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
-            '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
-            '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
-            '<div  itemprop="offers" itemscope itemtype="http://schema.org/Offer" '.$offersstyle.' class="price">' .
-            '<div style="font-size: 18px; font-weight: 500; margin: -5px 5px;" itemprop="price" >' . round($product['products_price']) . ' руб.</div>' .
-            '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
+            '<div  '.$product_itemprop_model.' class="model" style="display:none">' . $product['products_model'] . '</div>' .
+            '<div  '.$product_itemprop_description.'class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
+            '<div  '.$product_itemprop_category.' class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
+            '<div  '.$product_itemprop_offers.' '.$offersstyle.' class="price">' .
+            '<div style="font-size: 18px; font-weight: 500; margin: -5px 5px;" '.$product_itemprop_price.' >' . round($product['products_price']) . '<noindex> руб.</noindex></div>' .
+            '<b '.$product_itemprop_priceCurrency.' style="display:none"><noindex>RUB</noindex></b>' .
             '</div>' .
             '<div style="cursor:pointer">' .
             '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 35px; right: 30px; margin: 0px 0px -8px; padding: 5px 45px;" data-prod="' . $product['products_id'] . '">'.$options_name.'<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: -20px; padding: 5px 0px 0px 40px;"></i>'.
             '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .
-            '<a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
+            '<a '.$product_itemprop_url.'  href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i><noindex> В карточку</noindex></a>' .
             '</div>';
         echo $innerhtml;
     }

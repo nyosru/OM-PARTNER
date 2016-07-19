@@ -14,28 +14,34 @@ class MainBanner extends \yii\bootstrap\Widget
             [
                 'image' => '/images/banners/11072016_1.png',
                 'referal'=> '/catalog?cat=1839&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Мужские поло'
             ],
             [
                 'image' => '/images/banners/OM_14072016_1.png',
                 'referal'=> '/catalog?cat=1977&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Балетки'
             ],
             [
                 'image' => '/images/banners/04072016_1.png',
                 'referal'=> '/catalog?cat=1558&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
+                'alttext' => 'Школьная форма'
             ],
         ],
         'medium2' => [
             [
                 'image' => '/images/banners/11072016_3.png',
                 'referal'=> '/catalog?cat=1714&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Босоножки'
             ],
             [
                 'image' => '/images/banners/OM_14072016_2.png',
                 'referal'=> '/catalog?cat=1348&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Футболки для мальчиков'
             ],
             [
                 'image' => '/images/banners/04072016_2.png',
                 'referal'=> '/catalog?cat=2902&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
+                'alttext' => 'Тетради'
             ],
 
         ],
@@ -43,58 +49,98 @@ class MainBanner extends \yii\bootstrap\Widget
             [
                 'image' => '/images/banners/11072016_5.png',
                 'referal'=> '/catalog?cat=2449&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Все для вечиринки'
             ],
             [
                 'image' => '/images/banners/OM_14072016_3.png',
                 'referal'=> '/catalog?cat=1714&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Кофточки'
             ],
             [
                 'image' => '/images/banners/04072016_3.png',
                 'referal'=> '/catalog?cat=2926&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
+                'alttext' => 'Письменные принадлежности'
             ],
         ],
         'small2' => [
             [
                 'image' => '/images/banners/11072016_4.png',
                 'referal'=> '/catalog?cat=1549&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Модная бижутерия'
             ],
             [
                 'image' => '/images/banners/OM_14072016_4.png',
                 'referal'=> '/catalog?cat=2548&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
+                'alttext' => 'Стильные рюкзачки'
             ],
             [
                 'image' => '/images/banners/04072016_4.png',
-                'referal'=> '/catalog?cat=2008&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= '
+                'referal'=> '/catalog?cat=2008&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
+                'alttext' => 'Детская обувь'
             ],
         ],
         'large' => [
             [
                 'image' => '/images/banners/11072016_2.png',
                 'referal'=> '/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Новинки платьев'
             ],
             [
                 'image' => '/images/banners/OM_14072016_5.png',
                 'referal'=> '/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Новинки платьев'
             ],
             [
                 'image' => '/images/banners/04072016_5.png',
                 'referal'=> '/catalog?cat=543&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
+                'alttext' => 'Ранцы'
             ],
         ],
         'long' => [
             [
                 'image' => '/images/banners/11072016_6.png',
                 'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Обворожительное белье'
             ],
             [
                 'image' => '/images/banners/11072016_6.png',
                 'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Обворожительное белье'
             ],
             [
                 'image' => '/images/banners//04072016_6.png',
                 'referal'=> '/catalog?cat=2954&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Канцелярские товары'
             ],
 
+        ],
+        'discont1' => [
+            [
+                'image' => '/images/banners/11072016_4.png',
+                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Обворожительное белье'
+            ],
+        ],
+        'discont2' => [
+            [
+                'image' => '/images/banners/11072016_4.png',
+                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Обворожительное белье'
+            ],
+        ],
+        'discont3' => [
+            [
+                'image' => '/images/banners/11072016_4.png',
+                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Обворожительное белье'
+            ],
+        ],
+        'discont4' => [
+            [
+                'image' => '/images/banners/11072016_4.png',
+                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Обворожительное белье'
+            ],
         ],
     ];
 
@@ -138,6 +184,32 @@ class MainBanner extends \yii\bootstrap\Widget
                 'position'=> 'long',
                 'style'=>'style="width: calc(100% - 10px);"'
             ]
+        ],
+        'discont' => [
+            '1' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'discont1',
+                'style'=>''
+            ],
+            '2' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'discont2',
+                'style'=>''
+            ],
+            '3' => [
+                'id'=>'index-card-6',
+                'class'=>'sort data-j index-sort banner-card',
+                'position'=> 'discont3',
+                'style'=>''
+            ],
+            '4' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'discont4',
+                'style'=>'style="float:right"'
+            ],
         ]
     ];
     public function init()
@@ -145,6 +217,7 @@ class MainBanner extends \yii\bootstrap\Widget
     ?>
         <div id="main-index">
         <?php
+        echo $this->formatting_template($this->template['discont'], $this->position);
         echo $this->formatting_template($this->template['main'], $this->position) ;?>
         </div>
 <?php
@@ -154,7 +227,7 @@ class MainBanner extends \yii\bootstrap\Widget
         $item = [];
         foreach ($position as $key=>$value){
             $item[] = '<a href="'.BASEURL.$value['referal'].'" >'.
-                '<img src="'.$value['image'].'" >'.
+                '<img src="'.$value['image'].'"  alt="'.$value['alttext'].'">'.
                 '</a>';
         }
         $result =  Carousel::widget([
