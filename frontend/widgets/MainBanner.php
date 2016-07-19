@@ -116,30 +116,30 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'discont1' => [
             [
-                'image' => '/images/banners/11072016_4.png',
-                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Обворожительное белье'
+                'image' => '/images/banners/B_19072016_1.png',
+                'referal'=> '/product?id=902601',
+                'alttext' => 'Лодка Intex 68347 Seahawk 200'
             ],
         ],
         'discont2' => [
             [
-                'image' => '/images/banners/11072016_4.png',
-                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Обворожительное белье'
+                'image' => '/images/banners/B_19072016_2.png',
+                'referal'=> '/product?id=902491',
+                'alttext' => 'Бассейн Intex 28200/56997 на опорах'
             ],
         ],
         'discont3' => [
             [
-                'image' => '/images/banners/11072016_4.png',
-                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Обворожительное белье'
+                'image' => '/images/banners/B_19072016_3.png',
+                'referal'=> '/product?id=1461925',
+                'alttext' => 'Игровой центр-бассейн'
             ],
         ],
         'discont4' => [
             [
-                'image' => '/images/banners/11072016_4.png',
-                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Обворожительное белье'
+                'image' => '/images/banners/B_19072016_4.png',
+                'referal'=> '/product?id=1398409',
+                'alttext' => 'Матрас-кровать CLASSIC DOWNY'
             ],
         ],
     ];

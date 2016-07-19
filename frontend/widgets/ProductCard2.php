@@ -217,7 +217,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '' .
             '</div>' .
             '</div>' .
-            '<a '.$product_itemprop_url.' href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> <noindex>В карточку<</a>' .
+            '<a '.$product_itemprop_url.' href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> <noindex>В карточку</noindex></a>' .
             '<div  '.$product_itemprop_offers.' class="price" style="margin-left:130px;">' .
             '<div style="font-size: 18px; font-weight: 500; min-width:100px;" '.$product_itemprop_price.'>' . round($product['products_price']) . '<noindex> руб.</noindex></div>' .
             '<b '.$product_itemprop_priceCurrency.' style="display:none"><noindex>RUB</noindex></b>' .
