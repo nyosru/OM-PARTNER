@@ -1,5 +1,4 @@
 <?php
-
 use common\models\Partners;
 use common\models\PartnersSettings;
 set_time_limit ( 800 );
@@ -104,29 +103,38 @@ $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version[
 
           //      if(($cachesitemap == $application->cache->get('sitemap')) == FALSE) {
 
-        $cachesitemap  = '<?xml version="1.0" encoding="UTF-8"?>';
-        $cachesitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
-            $path = new LoadTraitIndex();
-            $cat = implode(',', $path->RestrictedCatalog());
+        $path = new LoadTraitIndex();
+        $cat = implode(',', $path->RestrictedCatalog());
         $hide_man = implode(',', $path->HideMan());
-        $x = \common\models\PartnersProductsToCategories::find()->select('products.products_id as prod')->innerJoinWith('products')->where('  categories_id NOT IN (' . $cat . ') and products_status = 1  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ')')->limit(40000)->distinct()->orderBy('products_to_categories.products_id DESC')->asArray()->all();
+        $count = \common\models\PartnersProductsToCategories::find()->select('products.products_id as prod')->innerJoinWith('products')->where('  categories_id NOT IN (' . $cat . ') and products_status = 1  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ')')->distinct()->orderBy('products_to_categories.products_id DESC')->count();
+        $c = 0;
+        for($i = 0; $i<$count; $i+=25000){
+            $cachesitemap  = '<?xml version="1.0" encoding="UTF-8"?>';
+            $cachesitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
+            $x = \common\models\PartnersProductsToCategories::find()->select('products.products_id as prod')->innerJoinWith('products')->where('  categories_id NOT IN (' . $cat . ') and products_status = 1  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ')')->offset($i)->limit(25000)->distinct()->orderBy('products_to_categories.products_id DESC')->asArray()->all();
+            foreach ($x as $keyx => $valuex) {
+                  $url = 'http://' . $_SERVER['HTTP_HOST'] . BASEURL.'/product?id=' . $valuex['prod'];
+                $cachesitemap .=  '<url>';
+                $cachesitemap .=  '   <loc>' . $url . '</loc>';
+                $cachesitemap .=  '  <changefreq>hourly</changefreq>';
+                $cachesitemap .=  ' </url>';
+            }
+            $cachesitemap .= '</urlset>';
+            file_put_contents('sitemap'.$c++.'.xml', $cachesitemap, 0777);
+        }
+
+        $cachecatsitemap  = '<?xml version="1.0" encoding="UTF-8"?>';
+        $cachecatsitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
         $categoriess = new \common\models\PartnersCategories();
         $f = $categoriess->find()->select(['categories.categories_id'])->where('categories_status != 0')->innerJoinWith('categoriesDescription')->asArray()->all();
         foreach ($f as $key => $value) {
                 $url = 'http://' . $_SERVER['HTTP_HOST'] . BASEURL.'/catalog?cat=' . $value['categories_id'] . '&amp;count=60';
-                $cachesitemap .=  '<url>';
-                $cachesitemap .=  '   <loc>' . $url . '</loc>';
-                $cachesitemap .=  '  <changefreq>hourly</changefreq>';
-                $cachesitemap .=  ' </url>';
+            $cachecatsitemap .=  '<url>';
+            $cachecatsitemap .=  '   <loc>' . $url . '</loc>';
+            $cachecatsitemap .=  '  <changefreq>hourly</changefreq>';
+            $cachecatsitemap .=  ' </url>';
         }
-        foreach ($x as $keyx => $valuex) {
-                $url = 'http://' . $_SERVER['HTTP_HOST'] . BASEURL.'/product?id=' . $valuex['products_id'];
-                $cachesitemap .=  '<url>';
-                $cachesitemap .=  '   <loc>' . $url . '</loc>';
-                $cachesitemap .=  '  <changefreq>hourly</changefreq>';
-                $cachesitemap .=  ' </url>';
-        }
-        $cachesitemap .= '</urlset>';
-         file_put_contents('sitemap.xml', $cachesitemap, 0777);
+         $cachecatsitemap .= '</urlset>';
+         file_put_contents('sitemap.xml', $cachecatsitemap, 0777);
 
 ?>
