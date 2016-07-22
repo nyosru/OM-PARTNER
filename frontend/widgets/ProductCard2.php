@@ -19,11 +19,36 @@ class ProductCard2 extends \yii\bootstrap\Widget
     public $catpath = [];
     public $man_time = [];
     public $showdiscount=0;
-
+    public $writeitemprop = 1;
 
 
     public function init()
     {
+        if($this->writeitemprop === 1){
+            $product_itemscope = ' itemscope itemtype="http://schema.org/ProductModel" ' ;
+            $product_itemprop_model = ' itemprop="model" ';
+            $product_itemprop_image = 'itemprop="image"';
+            $product_itemprop_old_price = 'itemprop="old-price"';
+            $product_itemprop_name = 'itemprop="name"';
+            $product_itemprop_description = 'itemprop="description" ';
+            $product_itemprop_offers = 'itemprop="offers" itemscope itemtype="http://schema.org/Offer"';
+            $product_itemprop_category = 'itemprop="category"';
+            $product_itemprop_priceCurrency = 'itemprop="priceCurrency" ';
+            $product_itemprop_price = 'itemprop="price" ';
+            $product_itemprop_url = 'itemprop="url"';
+        }else{
+            $product_itemscope = '';
+            $product_itemprop_model = '';
+            $product_itemprop_image = 'name="image"';
+            $product_itemprop_old_price = '';
+            $product_itemprop_name = '';
+            $product_itemprop_description = '';
+            $product_itemprop_offers = '';
+            $product_itemprop_category = '';
+            $product_itemprop_priceCurrency = '';
+            $product_itemprop_price = '';
+            $product_itemprop_url = '';
+        }
         if($this->category==0){
             $categ=PartnersProductsToCategories::find()->where(['products_id'=>$this->product['products_id']])->one();
             $categ=$categ->categories_id;
@@ -37,7 +62,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }
         $product=$this->product;
         $description=$this->description;
-        $innerhtml = '<div class="inht" itemscope itemtype="http://schema.org/ProductModel" itemid="' . $product['products_id'] . '" >';
+        $innerhtml = '<div class="inht" '.$product_itemscope.' itemid="' . $product['products_id'] . '" >';
 
         if($this->attrib){
             $attr  = \yii\helpers\ArrayHelper::index($this->attrib,'options_values_id');
@@ -145,7 +170,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $attr_html .=  '</div></div></div>';
         }
         if($activelabel > 0) {
-            $cart_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable">В корзину</div>';
+            $cart_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable"><noindex>В корзину</noindex></div>';
         }else{
             $cart_html = '<div class="cart-lable" style="background: #E9516D">Продано</div>';
         }
@@ -154,9 +179,9 @@ class ProductCard2 extends \yii\bootstrap\Widget
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
         if(count($attr)){
-            $options_name = 'Размеры';
+            $options_name = '<noindex>Размеры</noindex>';
         }else{
-            $options_name = 'Количество';
+            $options_name = '<noindex>Количество</noindex>';
         }
         if(array_key_exists($product['manufacturers_id'],$this->man_time)){
             $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
@@ -170,34 +195,34 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
         $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'.$product['products_id'].'" aria-hidden="true"></i>';
-        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'">Категория: '.$categ.'</a></div>';
+        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true"><noindex>more_horiz</noindex></i><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'"><noindex>Категория: </noindex>'.$categ.'</a></div>';
 
         $innerhtml .= '
                         <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; margin-bottom:5px; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
-            '<meta itemprop="image" content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
+            '<meta '.$product_itemprop_image.' content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' ;
         if ((integer)($product['products_old_price']) > 0&&$this->showdiscount==1) {
-            $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" itemprop="old-price" ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
+            $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . '<noindex> руб.</noindex></strike></div>';
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
         }
         $innerhtml.=        '</div>' .
             '<div style="" class="model">' . $man_time_list . $preview.$chosen.$product_menu. '</div>' .
-            '<div  itemprop="model" class="model" style="display:none">' . $product['products_model'] . '</div>' .
-            '<div  itemprop="description" class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
-            '<div  itemprop="category" class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
+            '<div  '.$product_itemprop_model.'class="model" style="display:none">' . $product['products_model'] . '</div>' .
+            '<div  '.$product_itemprop_description.' class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
+            '<div  '.$product_itemprop_category.' class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
             '<div style="cursor:pointer">' .
             '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: none; width: 50%; position: absolute; bottom: 35px; right: 30px; margin: 0px 0px -8px; padding: 5px 45px;" data-prod="' . $product['products_id'] . '">'.$options_name.'<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: -20px; padding: 5px 0px 0px 40px;"></i>'.
             '' .
             '</div>' .
             '</div>' .
-            '<a itemprop="url" href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
-            '<div  itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price" style="margin-left:130px;">' .
-            '<div style="font-size: 18px; font-weight: 500; min-width:100px;" itemprop="price" >' . round($product['products_price']) . ' руб.</div>' .
-            '<b itemprop="priceCurrency" style="display:none">RUB</b>' .
+            '<a '.$product_itemprop_url.' href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> <noindex>В карточку</noindex></a>' .
+            '<div  '.$product_itemprop_offers.' class="price" style="margin-left:130px;">' .
+            '<div style="font-size: 18px; font-weight: 500; min-width:100px;" '.$product_itemprop_price.'>' . round($product['products_price']) . '<noindex> руб.</noindex></div>' .
+            '<b '.$product_itemprop_priceCurrency.' style="display:none"><noindex>RUB</noindex></b>' .
             '</div>'.
-            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div  itemprop="name" class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
+            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div '.$product_itemprop_name.' class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
         echo $innerhtml;
     }
 }

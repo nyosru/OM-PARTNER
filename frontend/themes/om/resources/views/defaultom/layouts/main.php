@@ -93,7 +93,7 @@ $this->beginPage();
                     <div>
                         <div class="top-link-cont large" style="width: calc(100% / 6.5);"><a class="top-link" href="<?=BASEURL?>/page?article=howorders">Как сделать заказ</a></div>
                         <div class="top-link-cont large" style="width: calc(100% / 13);"><a class="top-link red" href="<?=BASEURL?>/discont">Акции</a></div>
-                        <div class="top-link-cont large" style="width: calc(100% / 5.1);"><a class="top-link" href="<?=BASEURL?>/page?article=contributionrules">Условия сотрудничества</a></div>
+                        <div class="top-link-cont large" style="width: calc(100% / 5.1);"><a class="top-link" href="<?=BASEURL?>/info">Сотрудничество</a></div>
                         <div class="top-link-cont alarge" style="width: calc(100% / 5.1);display: none;"><a class="top-link"       href="#">Показать каталог</a></div>
                         <div class="omcode" style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);"><img src="/images/logo/OM_code.png"></div>
                         <?php
@@ -102,8 +102,8 @@ $this->beginPage();
                         }
                         ?>
                         <a class="top-link-cont-back large" style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 7);" class="top-link-back" href="http://odezhda-master.ru">На старую версию сайта</a></a>
-                        <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="selected-count badge"></div><a class="top-link" href="/glavnaya/selectedproduct"><i class="fa fa-star" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
-                        <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
+                        <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="selected-count badge"></div><a  rel="nofollow"  class="top-link" href="/glavnaya/selectedproduct"><i class="fa fa-star" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
+                        <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="cart-count badge"></div><a  rel="nofollow"  class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
                     </div>
                 </div>
                 <div class="partners-main-right">
@@ -117,7 +117,7 @@ $this->beginPage();
                                 Найти
                             </button>
                         </form>
-                        <a class="change-cart" href="#"></a>
+                        <a  rel="nofollow"  class="change-cart" href="#"></a>
                         <div class="logindiv" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                             <?php
                             if(Yii::$app->user->isGuest){
@@ -146,10 +146,10 @@ $this->beginPage();
 
 
                                 echo '</div>';
-                                echo '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+                                echo '<div style="float: right;"><a  rel="nofollow"  href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
                             }else{
-                                echo '<div style="float: right;"><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
-                                echo '<div style="float: right;"><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                                echo '<div style="float: right;"><a  rel="nofollow" href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
+                                echo '<div style="float: right;"><a rel="nofollow"  href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
                             }
                             ?>
                         </div>

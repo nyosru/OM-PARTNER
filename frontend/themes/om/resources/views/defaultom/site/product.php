@@ -47,7 +47,7 @@ if (count($product['productsAttributesDescr']) > 0) {
         }
     }
     if($countproductreal > 0) {
-        $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
+        $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;"><noindex>В корзину</noindex></div>';
     }else{
         $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; background: #E9516D; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">Продано</div>';
     }
@@ -79,7 +79,7 @@ if(!$product['products']['products_image']){
 ?>
 <div class="product">
     <div class="product-top">
-        <div class="prod-attr" itemtype="http://schema.org/ProductModel" itemid="#<?=$product['productsDescription']['products_id']?>" style="width: 100%; position: relative;float: left; overflow: hidden;">
+        <div class="prod-attr" itemscope itemtype="http://schema.org/ProductModel" itemid="#<?=$product['productsDescription']['products_id']?>" style="width: 100%; position: relative;float: left; overflow: hidden;">
             <div class="prod-show" style="position: relative; float: left;width: 100%; right: 50%">
                 <div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 550px;">
                     <div style="padding-bottom: 10px; margin-bottom: 5px;">
@@ -108,7 +108,7 @@ if(!$product['products']['products_image']){
                             $i=0;
                             $items = [];
                             foreach($imsrc as $key => $img){
-                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " src="'.BASEURL.'/imagepreview?src='.$im[$key].'"/></a>';
+                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
                                 $i++;
                             }
 
@@ -137,18 +137,19 @@ if(!$product['products']['products_image']){
 <!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
                         <div style="clear: both;"></div>
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
-                        <div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; "><?=$product['productsDescription']['products_name']?></div>
-<!--                        <div itemprop="category" class="model" style="display:none">--><?//=end($catpath['name'])?><!--</div>-->
-                        <div itemprop="priceCurrency" style="display:none">RUB</div>
+                        <div class="prodname" itemprop="name" style="font-size: 24px;margin-bottom: 15px; "><?=$product['productsDescription']['products_name']?></div>
+                        <div itemprop="category" class="model" style="display:none"><?=end($catpath['name'])?><</div>
                         <a itemprop="url" href="/glavnaya/product?id=<?=$product['productsDescription']['products_id']?>"></a>
                     </div>
-                    <div class="prod-pricing" style="margin-bottom: 25px;">
-                        <div class="prod-price-lable" style="clear: both; font-size: 12px; margin-bottom: 7px;">Цена</div>
-                        <div class="prod-price" itemprop="price" style="float: left; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;"><?=(int)$product['products']['products_price']?> руб</div>
-<!--                        <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px; font-size: 14px;line-height: 2;">Старая цена</div>-->
+                    <div class="prod-pricing" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="margin-bottom: 25px;">
+                        <div class="prod-price-lable"  style="clear: both; font-size: 12px; margin-bottom: 7px;">Цена</div>
+                        <div class="prod-price" itemprop="price" style="float: left; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;"><?=(int)$product['products']['products_price']?><noindex> руб</noindex></div>
+                        <div itemprop="priceCurrency" style="display:none"><noindex>RUB</noindex></div>
+                        <!--
+  <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px; font-size: 14px;line-height: 2;">Старая цена</div>-->
 <!--                        <div class="prod-discount" style="color:gray; border: 1px solid #ccc; padding: 2px;float: left;font-size: 12px;line-height: 1.3; top:4px;position: relative;border-radius: 4px;">Скидка много рублей</div>-->
                         <div style="clear: both"></div>
-                        <div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;"><?php if (count($product['productsAttributesDescr']) > 0) echo '<div style="margin: 0 0 20px 0">Размеры</div>'; ?><?=$prodinfoattr?></div>
+                        <div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;"><?php if (count($product['productsAttributesDescr']) > 0) echo '<div style="margin: 0 0 20px 0"><noindex>Размеры</noindex></div>'; ?><?=$prodinfoattr?></div>
                         <div class="prod-compos" style="font-size: 12px;">
                             <?php
                             // Вывод спецификаций
@@ -202,13 +203,13 @@ if(!$product['products']['products_image']){
                 $relitems[$it]['content']='';
                 foreach ($relprod as $k1=>$val) {
                     if($num<10){
-                        $relitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                        $relitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time, 'writeitemprop'=>FALSE]);
                         $num++;
                     }
                     else{
                         $num=0;
                         $it++;
-                        $relitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                        $relitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time, 'writeitemprop'=>FALSE]);
                         $num++;
                     }
                 }
@@ -216,24 +217,10 @@ if(!$product['products']['products_image']){
                 echo Carousel::widget([
                     'items'=>$relitems,'id'=>'slid2','clientOptions'=>['interval'=>10000]
                 ]);
-//                foreach ($relprod as $value) {
-//                    echo \frontend\widgets\ProductCard::widget(['product' => $value['products'], 'description' => $value['productsDescription'], 'attrib' => $value['productsAttributes'], 'attr_descr' => $value['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time]);
-//                }
             }
             ?>
             </div>
-<!--    <div class="seen" style="float: left">-->
-<!--        <div class="seen-title" style="font-size: x-large; font-weight: 500; margin-bottom: 20px;">Вы недавно смотрели</div>-->
-<!--        <div class="seen-items" style="height: 250px; ">-->
-<!--            <div class="seen-item" style="border: 1px solid lightgray; width: 170px;height: 100%; text-align: center;">-->
-<!--                <div class="seen-img" style="height: 70%;">-->
-<!--                    //='<img style="max-width:100%; max-height: 100%; display: block; margin: auto" src="http://odezhda-master.ru/images/'.$product['products']['products_image'].'"/>'-->
-<!--                </div>-->
-<!--                <div class="seen-name" style="margin: 10px;"><a href="#" style="color: #00A5A1; font-weight: bolder;" >Одежда</a></div>-->
-<!--                <div class="seen-price">200 руб</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+
 </div>
     <script>
         $(document).on('ready', function(){
