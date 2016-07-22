@@ -194,7 +194,7 @@ trait ActionSaveorder
                 $orders->delivery_country = '176';
             }
 
-            $orders->delivery_state = $entryzones['zone_name'];
+            $orders->delivery_state = $entryzones['zone_nameDrk.xbnt еуфь'];
             $orders->delivery_city = $userOM['entry_city'];
 
             if ($userOM['entry_street_address']) {
@@ -827,7 +827,7 @@ trait ActionSaveorder
                     ]
                 ]
             ])
-                ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                ->setFrom('odezhdamaster@gmail.com')
                 ->setTo($orders->customers_email_address)
                 ->setSubject('Новый заказ"')
                 ->send();
@@ -852,7 +852,7 @@ trait ActionSaveorder
                     ]
                 ]
             ])
-                ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                ->setFrom('odezhdamaster@gmail.com')
                 ->setTo('desure85@gmail.com')
                 ->setSubject('Новый заказ"')
                 ->send();
@@ -881,7 +881,7 @@ trait ActionSaveorder
 
         } catch (\Exception $e) {
             Yii::$app->mailer->compose()
-                ->setFrom('support@newodezhdamaster.com')
+                ->setFrom('odezhdamaster@gmail.com')
                 ->setTo('desure85@gmail.com')
                 ->setSubject('Ошибка оформления 7')
                 ->setTextBody(

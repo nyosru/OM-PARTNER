@@ -13,6 +13,7 @@ $this->beginPage();
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="<?= Yii::$app->charset ?>" />
     <link rel="search"
           type="application/opensearchdescription+xml"
@@ -80,9 +81,7 @@ $this->beginPage();
                     <div class="top-link-cont large" style="width: calc(100% / 13);"><a class="top-link red"
                                                                                         href="<?= BASEURL ?>/discont">Акции</a>
                     </div>
-                    <div class="top-link-cont large" style="width: calc(100% / 5.1);"><a class="top-link"
-                                                                                         href="<?= BASEURL ?>/page?article=contributionrules">Условия
-                            сотрудничества</a></div>
+                    <div class="top-link-cont large" style="width: calc(100% / 5.1);"><a class="top-link" href="<?=BASEURL?>/info">Сотрудничество</a></div>
                     <div class="top-link-cont alarge" style="width: calc(100% / 5.1);display: none;"><a class="top-link"       href="#">Показать каталог</a></div>
                     <div class="omcode"
                          style="float: left; background: rgb(245, 245, 245) none repeat scroll 0% 0%; text-align: center; width: calc(100% / 6.5);">
@@ -94,8 +93,8 @@ $this->beginPage();
                     ?>
                     <a style="float: left; font-size: 13px; padding: 17px 0px; width: calc(100% / 7);"
                        class="top-link-cont-back large" href="http://odezhda-master.ru">На старую версию сайта</a>
-                    <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="selected-count badge"></div><a class="top-link" href="/glavnaya/selectedproduct"><i class="fa fa-star" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
-                    <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="cart-count badge"></div><a class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
+                    <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="selected-count badge"></div><a  rel="nofollow"  class="top-link" href="/glavnaya/selectedproduct"><i class="fa fa-star" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
+                    <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="cart-count badge"></div><a  rel="nofollow"  class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
 
                 </div>
             </div>
@@ -131,7 +130,7 @@ $this->beginPage();
                             Найти
                         </button>
                     </form>
-                    <a class="change-cart" href="<?=BASEURL?>/changecardview"></a>
+                    <a  rel="nofollow"  class="change-cart" href="<?=BASEURL?>/changecardview"></a>
                     <div class="logindiv" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                         <?php
                         if (Yii::$app->user->isGuest) {
@@ -149,7 +148,7 @@ $this->beginPage();
                             echo $form->field($model, 'username', ['inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;']])->label('Электронная почта');
                             echo $form->field($model, 'password', ['inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">' . Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']) . '</span>');
                             echo ' <div style="color:#999;margin:1em 0">';
-                            echo Html::a('Зарегистрироваться', [BASEURL . '/signup'], ['class' => 'btn', 'style' => 'height: 36px; color: rgb(0, 0, 0); position: absolute; right: 30px; text-decoration: underline;']);
+                            echo Html::a('Зарегистрироваться', [BASEURL . '/signup'], ['class' => 'btn', 'rel'=>'nofollow', 'style' => 'height: 36px; color: rgb(0, 0, 0); position: absolute; right: 30px; text-decoration: underline;']);
                             echo Html::submitButton('Вход', ['class' => 'btn', 'name' => 'partners-settings-button', 'style' => 'height: 36px; color: rgb(255, 255, 255); position: absolute; left: 30px; background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
                             echo '</div>';
                             echo $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:80px']])->checkbox()->label('Запомнить меня');
@@ -160,10 +159,10 @@ $this->beginPage();
 
 
                             echo '</div>';
-                            echo '<div style="float: right;"><a href="' . BASEURL . '/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+                            echo '<div style="float: right;"><a rel="nofollow" href="' . BASEURL . '/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
                         } else {
-                            echo '<div style="float: right;"><a href="' . BASEURL . '/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
-                            echo '<div style="float: right;"><a href="' . BASEURL . '/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                            echo '<div style="float: right;"><a rel="nofollow"  href="' . BASEURL . '/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
+                            echo '<div style="float: right;"><a rel="nofollow"  href="' . BASEURL . '/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
                         }
                         ?>
                     </div>
