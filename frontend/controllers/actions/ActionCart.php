@@ -32,10 +32,15 @@ trait ActionCart
                 $default = Customers::find()->select('delivery_adress_id as default')->where(['customers_id' => $userinfo['customers_id']])->asArray()->one();
                 // $plusorders=Orders::find()->select('orders_id')->where(['customers_id'=>$userinfo['customers_id'], 'orders_status'=>[1,2]])->asArray()->all();
                 $addr = [];
-                foreach ($add as $key => $value) {
+                if( $userinfo['customers_id'] && (!$lastorders = Orders::find()->select('orders.date_purchased')->where(['customers_id' => $userinfo['customers_id']])->orderBy('orders.orders_id DESC')->asArray()->one()) == TRUE){
+                    $lastorders = '-';
+                }elseif(isset($lastorders['date_purchased'])){
+                    $lastorders = $lastorders['date_purchased'];
+                }
+                 foreach ($add as $key => $value) {
                     $addr[$value['address_book_id']] = $value['entry_city'] . ', ' . $value['entry_street_address'];
                 }
-                return $this->render('cart', ['addr' => $addr, 'default' => $default['default'], 'wrapprice' => $wrap]);
+                return $this->render('cart', ['addr' => $addr, 'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders]);
         }
     }
 }

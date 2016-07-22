@@ -471,7 +471,7 @@ echo '<div class="partners-main-right bside">';
         }
 
     });
-        $(document).on('ready', function(){
+        $(document).on('load', function(){
             $('a[rel=light]').light();
         });
     </script>
