@@ -5,7 +5,7 @@ use common\models\PartnersSettings;
 set_time_limit ( 800 );
 date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR | E_STRICT);
-defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
