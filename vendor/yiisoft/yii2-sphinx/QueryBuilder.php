@@ -202,8 +202,8 @@ class QueryBuilder extends Object
         }
 
         return $statement . ' INTO ' . $this->db->quoteIndexName($index)
-        . ' (' . implode(', ', $names) . ') VALUES ('
-        . implode(', ', $placeholders) . ')';
+            . ' (' . implode(', ', $names) . ') VALUES ('
+            . implode(', ', $placeholders) . ')';
     }
 
     /**
@@ -295,7 +295,7 @@ class QueryBuilder extends Object
         }
 
         return $statement . ' INTO ' . $this->db->quoteIndexName($index)
-        . ' (' . implode(', ', $notNullColumns) . ') VALUES ' . implode(', ', $values);
+            . ' (' . implode(', ', $notNullColumns) . ') VALUES ' . implode(', ', $values);
     }
 
     /**
@@ -425,7 +425,7 @@ class QueryBuilder extends Object
             $optionSql = '';
         }
 
-        return 'CALL SNIPPETS(' . $dataSql . ', ' . $indexParamName . ', ' . $matchParamName . $optionSql . ')';
+        return 'CALL SNIPPETS(' . $dataSql. ', ' . $indexParamName . ', ' . $matchParamName . $optionSql. ')';
     }
 
     /**
@@ -692,7 +692,7 @@ class QueryBuilder extends Object
     public function buildCondition($indexes, $condition, &$params)
     {
         if (!is_array($condition)) {
-            return (string)$condition;
+            return (string) $condition;
         } elseif (empty($condition)) {
             return '';
         }
@@ -862,7 +862,7 @@ class QueryBuilder extends Object
         if ($values instanceof Query) {
             // sub-query
             list($sql, $params) = $this->build($values, $params);
-            $column = (array)$column;
+            $column = (array) $column;
             if (is_array($column)) {
                 foreach ($column as $i => $col) {
                     if (strpos($col, '(') === false) {
@@ -878,7 +878,7 @@ class QueryBuilder extends Object
             }
         }
 
-        $values = (array)$values;
+        $values = (array) $values;
 
         if (count($column) > 1) {
             return $this->buildCompositeInCondition($indexes, $operator, $column, $values, $params);
@@ -963,7 +963,7 @@ class QueryBuilder extends Object
             throw new InvalidParamException("Operator '$operator' requires two operands.");
         }
 
-        $escape = isset($operands[2]) ? $operands[2] : ['%' => '\%', '_' => '\_', '\\' => '\\\\'];
+        $escape = isset($operands[2]) ? $operands[2] : ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\'];
         unset($operands[2]);
 
         list($column, $values) = $operands;
@@ -1175,7 +1175,7 @@ class QueryBuilder extends Object
             $phName = $showMeta->expression;
         } else {
             $phName = self::PARAM_PREFIX . count($params);
-            $escape = ['%' => '\%', '_' => '\_', '\\' => '\\\\'];
+            $escape = ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\'];
             $params[$phName] = '%' . strtr($showMeta, $escape) . '%';
         }
 

@@ -58,7 +58,7 @@ class HandlebarsFilter extends BaseNodeFilter
         }
 
         $inputDirPath = FilesystemUtils::createThrowAwayDirectory('handlebars_in');
-        $inputPath = $inputDirPath . DIRECTORY_SEPARATOR . $templateName;
+        $inputPath = $inputDirPath.DIRECTORY_SEPARATOR.$templateName;
         $outputPath = FilesystemUtils::createTemporaryFile('handlebars_out');
 
         file_put_contents($inputPath, $asset->getContent());

@@ -29,16 +29,16 @@ class Smarty_Internal_Runtime_SubTemplate
      * Runtime function to render subtemplate
      *
      * @param \Smarty_Internal_Template $parent
-     * @param string $template template name
-     * @param mixed $cache_id cache id
-     * @param mixed $compile_id compile id
-     * @param integer $caching cache mode
-     * @param integer $cache_lifetime life time of cache data
-     * @param array $data passed parameter template variables
-     * @param int $scope scope in which {include} should execute
-     * @param bool $forceTplCache cache template object
-     * @param string $uid file dependency uid
-     * @param string $content_func function name
+     * @param string                    $template       template name
+     * @param mixed                     $cache_id       cache id
+     * @param mixed                     $compile_id     compile id
+     * @param integer                   $caching        cache mode
+     * @param integer                   $cache_lifetime life time of cache data
+     * @param array                     $data           passed parameter template variables
+     * @param int                       $scope          scope in which {include} should execute
+     * @param bool                      $forceTplCache  cache template object
+     * @param string                    $uid            file dependency uid
+     * @param string                    $content_func   function name
      *
      */
     public function render(Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
@@ -55,7 +55,7 @@ class Smarty_Internal_Runtime_SubTemplate
             $tpl = clone $this->tplObjects[$_templateId];
             $tpl->parent = $parent;
             // if $caching mode changed the compiled resource is invalid
-            if ((bool)$tpl->caching !== (bool)$caching) {
+            if ((bool) $tpl->caching !== (bool) $caching) {
                 unset($tpl->compiled);
             }
             // get variables from calling scope
@@ -83,9 +83,9 @@ class Smarty_Internal_Runtime_SubTemplate
                         list($filepath, $timestamp, $resource) = $tpl->compiled->file_dependency[$uid];
                         $tpl->source =
                             new Smarty_Template_Source(isset($tpl->smarty->_cache['resource_handlers'][$resource]) ?
-                                $tpl->smarty->_cache['resource_handlers'][$resource] :
-                                Smarty_Resource::load($tpl->smarty, $resource), $tpl->smarty,
-                                $filepath, $resource, $filepath);
+                                                           $tpl->smarty->_cache['resource_handlers'][$resource] :
+                                                           Smarty_Resource::load($tpl->smarty, $resource), $tpl->smarty,
+                                                       $filepath, $resource, $filepath);
                         $tpl->source->filepath = $filepath;
                         $tpl->source->timestamp = $timestamp;
                         $tpl->source->exists = true;

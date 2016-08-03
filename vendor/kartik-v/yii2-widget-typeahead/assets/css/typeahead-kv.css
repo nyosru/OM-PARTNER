@@ -9,19 +9,16 @@
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
  */
-.tt-scrollable-menu .tt-menu {
+.tt-scrollable-menu  .tt-menu {
     max-height: 140px;
     overflow-y: auto;
 }
-
 .tt-rtl .tt-menu {
     text-align: right;
 }
-
 .tt-input.loading {
     background: transparent url('../img/loading.gif') no-repeat scroll right center content-box !important;
 }
-
 .twitter-typeahead input[disabled], input[readonly], fieldset[disabled] .twitter-typeahead input {
     background-color: #EEEEEE;
     cursor: not-allowed;

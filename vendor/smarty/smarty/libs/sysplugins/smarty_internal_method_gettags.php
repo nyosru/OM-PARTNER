@@ -25,7 +25,7 @@ class Smarty_Internal_Method_GetTags
      * @link http://www.smarty.net/docs/en/api.get.tags.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param null|string|Smarty_Internal_Template $template
+     * @param null|string|Smarty_Internal_Template                            $template
      *
      * @return array of tag/attributes
      * @throws \SmartyException

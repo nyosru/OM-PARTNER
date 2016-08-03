@@ -24,10 +24,10 @@ class Smarty_Internal_Method_ClearCompiledTemplate
      * @api  Smarty::clearCompiledTemplate()
      * @link http://www.smarty.net/docs/en/api.clear.compiled.template.tpl
      *
-     * @param \Smarty $smarty
-     * @param  string $resource_name template name
-     * @param  string $compile_id compile id
-     * @param  integer $exp_time expiration time
+     * @param \Smarty  $smarty
+     * @param  string  $resource_name template name
+     * @param  string  $compile_id    compile id
+     * @param  integer $exp_time      expiration time
      *
      * @return integer number of template files deleted
      */
@@ -69,7 +69,8 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         try {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             // NOTE: UnexpectedValueException thrown for PHP >= 5.3
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return 0;
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
@@ -78,7 +79,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 continue;
             }
 
-            $_filepath = (string)$_file;
+            $_filepath = (string) $_file;
 
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
@@ -90,11 +91,11 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) &&
                             $a = !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length))) &&
                     (!isset($resource_name) || (isset($_filepath[$_resource_part_1_length]) &&
-                            substr_compare($_filepath, $_resource_part_1, -$_resource_part_1_length,
-                                $_resource_part_1_length) == 0) ||
+                            substr_compare($_filepath, $_resource_part_1, - $_resource_part_1_length,
+                                           $_resource_part_1_length) == 0) ||
                         (isset($_filepath[$_resource_part_2_length]) &&
-                            substr_compare($_filepath, $_resource_part_2, -$_resource_part_2_length,
-                                $_resource_part_2_length) == 0))
+                            substr_compare($_filepath, $_resource_part_2, - $_resource_part_2_length,
+                                           $_resource_part_2_length) == 0))
                 ) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_filepath) >= $exp_time) {
@@ -106,7 +107,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 }
 
                 if ($unlink && @unlink($_filepath)) {
-                    $_count++;
+                    $_count ++;
                     if (function_exists('opcache_invalidate')) {
                         opcache_invalidate($_filepath);
                     }

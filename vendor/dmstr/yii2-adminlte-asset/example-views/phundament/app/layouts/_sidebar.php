@@ -9,13 +9,13 @@ use yii\helpers\Html;
         <div class="pull-left image">
             <?php echo \cebe\gravatar\Gravatar::widget(
                 [
-                    'email' => (\Yii::$app->user->identity->profile->gravatar_email === null)
-                        ? \Yii::$app->user->identity->email
-                        : \Yii::$app->user->identity->profile->gravatar_email,
+                    'email'   => (\Yii::$app->user->identity->profile->gravatar_email === null)
+                                ? \Yii::$app->user->identity->email 
+                                : \Yii::$app->user->identity->profile->gravatar_email,
                     'options' => [
                         'alt' => \Yii::$app->user->identity->username
                     ],
-                    'size' => 64
+                    'size'    => 64
                 ]
             ); ?>
         </div>
@@ -45,18 +45,18 @@ use yii\helpers\Html;
 // prepare menu items, get all modules
 $menuItems = [];
 
-$favouriteMenuItems[] = ['label' => 'MAIN NAVIGATION', 'options' => ['class' => 'header']];
+$favouriteMenuItems[] = ['label'=>'MAIN NAVIGATION', 'options'=>['class'=>'header']];
 $developerMenuItems = [];
 
 foreach (\dmstr\helpers\Metadata::getModules() as $name => $module) {
-    $role = $name;
+    $role                        = $name;
 
     $defaultItem = [
         'icon' => 'fa fa-cube',
-        'label' => $name,
-        'url' => ['/' . $name],
+        'label'   => $name,
+        'url'     => ['/' . $name],
         'visible' => Yii::$app->user->can($role) || (Yii::$app->user->identity && Yii::$app->user->identity->isAdmin),
-        'items' => []
+        'items'   => []
     ];
 
     // check for module configuration and assign to favourites
@@ -65,9 +65,9 @@ foreach (\dmstr\helpers\Metadata::getModules() as $name => $module) {
         (isset($module['params']['menuItems']) ? $module['params']['menuItems'] : []);
     switch (true) {
         case (!empty($moduleConfigItem)):
-            $moduleConfigItem = array_merge($defaultItem, $moduleConfigItem);
+            $moduleConfigItem            = array_merge($defaultItem, $moduleConfigItem);
             $moduleConfigItem['visible'] = \dmstr\helpers\RouteAccess::can($moduleConfigItem['url']);
-            $favouriteMenuItems[] = $moduleConfigItem;
+            $favouriteMenuItems[]        = $moduleConfigItem;
             continue 2;
             break;
         default:
@@ -82,8 +82,8 @@ if (Yii::$app->user->identity && Yii::$app->user->identity->isAdmin) {
     $menuItems[] = [
         'url' => '#',
         'icon' => 'fa fa-cog',
-        'label' => 'Developer',
-        'items' => $developerMenuItems,
+        'label'   => 'Developer',
+        'items'   => $developerMenuItems,
         'options' => ['class' => 'treeview'],
         'visible' => Yii::$app->user->identity->isAdmin
     ];

@@ -1,10 +1,7 @@
-
 <?php
 use yii\bootstrap\Carousel;
 use yii\helpers\Html;
-
 $this->title = $product['productsDescription']['products_name'];
-
 $this->registerMetaTag(['content' => $product['productsDescription']['products_description'], 'name' => 'description',]);
 $this->registerMetaTag(['content' => Html::encode($product['productsDescription']['products_name']), 'property' => 'og:title',]);
 $this->registerMetaTag(['content' => 'product', 'property' => 'og:type',]);
@@ -12,7 +9,6 @@ $this->registerMetaTag(['content' => Html::encode($_SERVER['SERVER_NAME'].BASEUR
 $this->registerMetaTag(['content' => 'http://odezhda-master.ru/images/'.$product['products']['products_image'], 'property' => 'og:image',]);
 $this->registerMetaTag(['content' => 'Одежда Мастер. Интернет-магазин', 'property' => 'og:site_name',]);
 $this->registerMetaTag(['content' => 'Цена: '.(integer)$product['products']['products_price'].' рублей. '.Html::encode($product['productsDescription']['products_description']), 'property' => 'og:description',]);
-
 $prodinfoattr='<div class="size-block">';
 if (count($product['productsAttributesDescr']) > 0) {
     $numInFirstColumn=(int)(count($product['productsAttributesDescr'])/2);
@@ -20,17 +16,21 @@ if (count($product['productsAttributesDescr']) > 0) {
     $sizeCounter=0;
     $product['productsAttributesDescr']=\yii\helpers\ArrayHelper::index($product['productsAttributesDescr'],'products_options_values_name');
     $product['productsAttributes']=\yii\helpers\ArrayHelper::index($product['productsAttributes'],'options_values_id');
-
     ksort($product['productsAttributesDescr'],SORT_NATURAL);
     $prodinfoattr.='<div class="size-column1">';
     foreach ($product['productsAttributesDescr'] as $item) {
         if($sizeCounter==($numInFirstColumn)){
             $prodinfoattr.='</div><div class="size-column2">';
         }
+        if( $product['products']['products_quantity_order_units'] === '1'  ||  $product['products']['products_quantity_order_min']  === '1'){
+            $disable_for_stepping = 'read';
+        }else{
+            $disable_for_stepping = 'readonly';
+        }
         $date = $product['products.products_date_added'];
         if($product['productsAttributes'][$item['products_options_values_id']] && $product['productsAttributes'][$item['products_options_values_id']]['quantity'] > 0) {
             $prodinfoattr .= '<div class="size-desc"><div class="pr_op_va_name">' .
-                $item['products_options_values_name'] . '</div><div><div id="del-count">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:25%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' .
+                $item['products_options_values_name'] . '</div><div><div id="del-count">-</div><input '.$disable_for_stepping.' id="input-count" class="no-shadow-form-control" style="display:inline; width:25%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' .
                 $product['products']['products_id'] . '" data-model="' .
                 $product['products']['products_model'] . '" data-price="' .
                 $product['products']['products_price'] . '" data-image="' .
@@ -51,24 +51,24 @@ if (count($product['productsAttributesDescr']) > 0) {
     }else{
         $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; background: #E9516D; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">Продано</div>';
     }
-
     $prodinfoattr .= '</div></div></div>'.$cart_html;
 } else {
     $date = $product['products']['products_date_added'];
-    $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 170px;"><div id="del-count" style="position: absolute; left: 0px; bottom: 1px;">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:55%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
+    if( $product['products']['products_quantity_order_units'] === '1'  ||  $product['products']['products_quantity_order_min']  === '1'){
+        $disable_for_stepping = 'read';
+    }else{
+        $disable_for_stepping = 'readonly';
+    }
+    $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 170px;"><div id="del-count" style="position: absolute; left: 0px; bottom: 1px;">-</div><input '.$disable_for_stepping.' id="input-count" class="no-shadow-form-control" style="display:inline; width:55%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
         $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="" data-attr="" data-name="'.
         $product['productsDescription']['products_name'].'"data-min="'.$product['products']['products_quantity_order_min'].'"data-step="'.$product['products']['products_quantity_order_units'].'" data-count="'.$product['products']['products_quantity'].'" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 1px;">+</div></div>';
-
-
     if($product['products']['products_quantity'] > 0) {
         $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
     }else{
         $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; background: #E9516D; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">Продано</div>';
     }
-
     $prodinfoattr .= '</div>'.$cart_html;
 }
-
 $items=array();
 $i=0;
 $im=array($product['products']['products_id']);
@@ -83,14 +83,14 @@ if(!$product['products']['products_image']){
             <div class="prod-show" style="position: relative; float: left;width: 100%; right: 50%">
                 <div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 550px;">
                     <div style="padding-bottom: 10px; margin-bottom: 5px;">
-                       <?php
-                       $breadcruumpsresult = array();
-                       foreach ($catpath['num'] as $breadcrumpskey => $breadcrumpsvalue){
-                           $breadcruumpsresult[] = '<a href="/catalog?cat='.$breadcrumpsvalue.'">'.$catpath['name'][$breadcrumpskey].'</a>';
-                       }
-                       $breadcruumpsresult = implode(' / ', $breadcruumpsresult);
-                       echo $breadcruumpsresult;
-                       ?>
+                        <?php
+                        $breadcruumpsresult = array();
+                        foreach ($catpath['num'] as $breadcrumpskey => $breadcrumpsvalue){
+                            $breadcruumpsresult[] = '<a href="/catalog?cat='.$breadcrumpsvalue.'">'.$catpath['name'][$breadcrumpskey].'</a>';
+                        }
+                        $breadcruumpsresult = implode(' / ', $breadcruumpsresult);
+                        echo $breadcruumpsresult;
+                        ?>
                     </div>
                     <div class="prod-img" style="overflow: hidden; margin-bottom: 10px;">
                         <div class="mini-img" style="float: left; width: 20%; ">
@@ -98,7 +98,7 @@ if(!$product['products']['products_image']){
                             foreach($im as $img){
                                 if($i!=0) echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
                                 else echo '<div id="carousel-selector-' . $i . '" style=" width: 100px; margin-top: 5px; overflow: hidden" class="mini-img-item selected"><img style="width: 100%; display: block; margin: auto;" src="'.BASEURL.'/imagepreview?src=' . $img . '"/> </div>';
-                                    $i++;
+                                $i++;
                             }
                             ?>
                         </div>
@@ -111,11 +111,10 @@ if(!$product['products']['products_image']){
                                 $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
                                 $i++;
                             }
-
                             echo Carousel::widget([
                                 'items'=>$items,'id'=>'slid','clientOptions'=>['interval'=>false]
                             ]);
-//
+                            //
                             ?>
                             <div class="social" style="height: 50px; bottom: 0px; width: 100%;position: relative">
                                 <div style="font-size: 14px;font-weight: 300; float: left; width: 100px; margin-top:10px;text-align: left;position: relative;left:67px;">Поделиться:</div>
@@ -134,7 +133,7 @@ if(!$product['products']['products_image']){
                 <div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;min-width:455px;">
                     <div style="font-family: 'Roboto', sans-serif; font-weight: 300;">
                         <div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: <?=$product['products']['products_model']?></div>
-<!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
+                        <!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
                         <div style="clear: both;"></div>
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
                         <div class="prodname" itemprop="name" style="font-size: 24px;margin-bottom: 15px; "><?=$product['productsDescription']['products_name']?></div>
@@ -147,20 +146,20 @@ if(!$product['products']['products_image']){
                         <div itemprop="priceCurrency" style="display:none"><noindex>RUB</noindex></div>
                         <!--
   <div class="prod-price-old" style="text-decoration: line-through; float: left; color: gray;margin-right: 30px; font-size: 14px;line-height: 2;">Старая цена</div>-->
-<!--                        <div class="prod-discount" style="color:gray; border: 1px solid #ccc; padding: 2px;float: left;font-size: 12px;line-height: 1.3; top:4px;position: relative;border-radius: 4px;">Скидка много рублей</div>-->
+                        <!--                        <div class="prod-discount" style="color:gray; border: 1px solid #ccc; padding: 2px;float: left;font-size: 12px;line-height: 1.3; top:4px;position: relative;border-radius: 4px;">Скидка много рублей</div>-->
                         <div style="clear: both"></div>
                         <div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;"><?php if (count($product['productsAttributesDescr']) > 0) echo '<div style="margin: 0 0 20px 0"><noindex>Размеры</noindex></div>'; ?><?=$prodinfoattr?></div>
                         <div class="prod-compos" style="font-size: 12px;">
                             <?php
                             // Вывод спецификаций
                             if(is_array($spec['productsSpecification'])){
-                            foreach ($spec['productsSpecification'] as $key => $value) {
-                                $specname = '';
-                                $specval = '';
-                                $specname = $spec['specificationDescription'][$value['specifications_id']]['specification_name'];
-                                $specval = $spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value'];
-                                echo $specname . ': ' . $specval . '<br/>';
-                            }
+                                foreach ($spec['productsSpecification'] as $key => $value) {
+                                    $specname = '';
+                                    $specval = '';
+                                    $specname = $spec['specificationDescription'][$value['specifications_id']]['specification_name'];
+                                    $specval = $spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value'];
+                                    echo $specname . ': ' . $specval . '<br/>';
+                                }
                             }
                             ?>
                             <br/>
@@ -172,7 +171,7 @@ if(!$product['products']['products_image']){
                 </div>
 
             </div>
-            </div>
+        </div>
         <div style="width: 100%;overflow: hidden; float: left;">
             <a name="descr"></a>
             <div class="ov-desc" style="float:left; ">
@@ -193,8 +192,8 @@ if(!$product['products']['products_image']){
                 </section>
             </div>
         </div>
-            <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
-            <div class="relative" style="height: 460px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
+        <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
+        <div class="relative" style="height: 460px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
             <?php
             if(is_array($relprod)) {
                 $relitems=array();
@@ -213,18 +212,16 @@ if(!$product['products']['products_image']){
                         $num++;
                     }
                 }
-
                 echo Carousel::widget([
                     'items'=>$relitems,'id'=>'slid2','clientOptions'=>['interval'=>10000]
                 ]);
             }
             ?>
-            </div>
+        </div>
 
-</div>
+    </div>
     <script>
-        $(document).on('ready', function(){
+        $(document).on('load', function(){
             $('a[rel=light]').light();
         });
-
-        </script>
+    </script>

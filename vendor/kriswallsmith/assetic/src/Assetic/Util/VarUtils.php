@@ -22,8 +22,8 @@ abstract class VarUtils
      * Resolves variable placeholders.
      *
      * @param string $template A template string
-     * @param array $vars Variable names
-     * @param array $values Variable values
+     * @param array  $vars     Variable names
+     * @param array  $values   Variable values
      *
      * @return string The resolved string
      *
@@ -33,7 +33,7 @@ abstract class VarUtils
     {
         $map = array();
         foreach ($vars as $var) {
-            if (false === strpos($template, '{' . $var . '}')) {
+            if (false === strpos($template, '{'.$var.'}')) {
                 continue;
             }
 
@@ -41,7 +41,7 @@ abstract class VarUtils
                 throw new \InvalidArgumentException(sprintf('The template "%s" contains the variable "%s", but was not given any value for it.', $template, $var));
             }
 
-            $map['{' . $var . '}'] = $values[$var];
+            $map['{'.$var.'}'] = $values[$var];
         }
 
         return strtr($template, $map);

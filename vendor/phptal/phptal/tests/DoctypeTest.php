@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class DoctypeTest extends PHPTAL_TestCase
 {
     function testSimple()
@@ -28,11 +29,11 @@ class DoctypeTest extends PHPTAL_TestCase
     {
         $src = "<!DOCTYPE html>\n\n\n<html></html>";
         $tpl = $this->newPHPTAL()->setSource($src);
-        $this->assertEquals($src, $tpl->execute());
+        $this->assertEquals($src,$tpl->execute());
 
         $src = "<!DOCTYPE html>\n<html></html>";
         $tpl->setSource($src);
-        $this->assertEquals($src, $tpl->execute());
+        $this->assertEquals($src,$tpl->execute());
     }
 
     function testMacro()
@@ -88,6 +89,6 @@ class DoctypeTest extends PHPTAL_TestCase
         <hack tal:define="hack php:tpl.setSource(&quot;&lt;hacked/&gt;&quot;)" tal:content="structure hack/execute"/>');
 
         $this->assertEquals(normalize_html('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><hack><hacked></hacked></hack>'),
-            normalize_html($tpl->execute()));
+                            normalize_html($tpl->execute()));
     }
 }

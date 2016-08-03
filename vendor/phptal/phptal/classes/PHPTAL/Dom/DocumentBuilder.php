@@ -55,8 +55,7 @@ abstract class PHPTAL_Dom_DocumentBuilder
 
     public function setSource($file, $line)
     {
-        $this->file = $file;
-        $this->line = $line;
+        $this->file = $file; $this->line = $line;
     }
 
     abstract public function setEncoding($encoding);

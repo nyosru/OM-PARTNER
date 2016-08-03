@@ -37,14 +37,14 @@ class FunctionReflector extends BaseReflector
      * Initializes the reflector using the function statement object of
      * PHP-Parser.
      *
-     * @param PHPParser_Node_Stmt $node Function object coming from PHP-Parser.
-     * @param Context $context The context in which the node occurs.
+     * @param PHPParser_Node_Stmt $node    Function object coming from PHP-Parser.
+     * @param Context             $context The context in which the node occurs.
      */
     public function __construct(PHPParser_Node_Stmt $node, Context $context)
     {
         parent::__construct($node, $context);
 
-        /** @var PHPParser_Node_Param $param */
+        /** @var PHPParser_Node_Param $param  */
         foreach ($node->params as $param) {
             $reflector = new FunctionReflector\ArgumentReflector(
                 $param,

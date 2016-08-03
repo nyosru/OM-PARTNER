@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class ContentInterpolationTest extends PHPTAL_TestCase
 {
     public function testInterpol()
@@ -279,16 +280,18 @@ EOT;
 
         $tpl = $this->newPHPTAL();
         $tpl->setSource('<p>test<? print("<x>"); ?>test<?= "&amp;" ?>test</p>');
-        try {
+        try
+        {
             if (version_compare(PHP_VERSION, '5.4.0') < 0) {
                 // unlike attributes, this isn't going to be escaped, because it gets parsed as a real processing instruction
                 $this->assertEquals('<p>test<? print("<x>"); ?>test<?= "&amp;" ?>test</p>', $tpl->execute());
-            } else {
+            }
+            else {
                 // PHP 5.4: short tag <?= is always enabled.
                 $this->assertEquals('<p>test<? print("<x>"); ?>test&amp;test</p>', $tpl->execute());
             }
-        } catch (PHPTAL_ParserException $e) {/* xml ill-formedness error is ok too */
         }
+        catch(PHPTAL_ParserException $e) {/* xml ill-formedness error is ok too */}
         ini_restore('short_open_tag');
     }
 

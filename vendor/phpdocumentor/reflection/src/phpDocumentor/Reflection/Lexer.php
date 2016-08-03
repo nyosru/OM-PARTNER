@@ -34,7 +34,7 @@ class Lexer extends PHPParser_Lexer
      * Retrieves the next token and determines the associated attributes and
      * returns the token id.
      *
-     * @param string $value
+     * @param string   $value
      * @param string[] $startAttributes
      * @param string[] $endAttributes
      *
@@ -44,8 +44,7 @@ class Lexer extends PHPParser_Lexer
         &$value = null,
         &$startAttributes = null,
         &$endAttributes = null
-    )
-    {
+    ) {
         $tokenId = parent::getNextToken($value, $startAttributes, $endAttributes);
 
         if ($this->isTokenScalar($tokenId)) {
@@ -69,7 +68,7 @@ class Lexer extends PHPParser_Lexer
     protected function isTokenScalar($tokenId)
     {
         return $tokenId == PHPParser_Parser::T_CONSTANT_ENCAPSED_STRING
-        || $tokenId == PHPParser_Parser::T_LNUMBER
-        || $tokenId == PHPParser_Parser::T_DNUMBER;
+            || $tokenId == PHPParser_Parser::T_LNUMBER
+            || $tokenId == PHPParser_Parser::T_DNUMBER;
     }
 }

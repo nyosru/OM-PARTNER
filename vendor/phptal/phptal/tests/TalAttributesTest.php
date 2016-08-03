@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class TalAttributesTest extends PHPTAL_TestCase
 {
     function testSimple()
@@ -177,29 +178,29 @@ EOT;
     function testBoolean()
     {
         $booleanAttrs = array(
-            'checked', 'disabled', 'autoplay', 'async', 'autofocus', 'controls',
-            'default', 'defer', 'formnovalidate', 'hidden', 'ismap', 'itemscope',
-            'loop', 'multiple', 'novalidate', 'open', 'pubdate', 'readonly',
-            'required', 'reversed', 'scoped', 'seamless', 'selected'
+            'checked','disabled','autoplay','async','autofocus','controls',
+            'default','defer','formnovalidate','hidden','ismap','itemscope',
+            'loop','multiple','novalidate','open','pubdate','readonly',
+            'required','reversed','scoped','seamless','selected'
         );
-        foreach ($booleanAttrs as $name) {
+        foreach($booleanAttrs as $name) {
             // XHTML
             $tpl = $this->newPHPTAL();
             $tpl->setOutputMode(PHPTAL::XHTML);
-            $tpl->setSource('<p ' . $name . '="123" tal:attributes="' . $name . ' attrval"></p>');
+            $tpl->setSource('<p '.$name.'="123" tal:attributes="'.$name.' attrval"></p>');
             $tpl->attrval = true;
             $res = $tpl->execute();
-            $this->assertEquals('<p ' . $name . '="' . $name . '"></p>', $res);
+            $this->assertEquals('<p '.$name.'="'.$name.'"></p>', $res);
             $tpl->attrval = false;
             $res = $tpl->execute();
             $this->assertEquals('<p></p>', $res);
             // HTML5
             $tpl = $this->newPHPTAL();
             $tpl->setOutputMode(PHPTAL::HTML5);
-            $tpl->setSource('<p ' . $name . '="123" tal:attributes="' . $name . ' attrval"></p>');
+            $tpl->setSource('<p '.$name.'="123" tal:attributes="'.$name.' attrval"></p>');
             $tpl->attrval = true;
             $res = $tpl->execute();
-            $this->assertEquals('<p ' . $name . '></p>', $res);
+            $this->assertEquals('<p '.$name.'></p>', $res);
             $tpl->attrval = false;
             $res = $tpl->execute();
             $this->assertEquals('<p></p>', $res);

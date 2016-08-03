@@ -13,8 +13,7 @@ class PHPParser_Lexer
     /**
      * Creates a Lexer.
      */
-    public function __construct()
-    {
+    public function __construct() {
         // map from internal tokens to PHPParser tokens
         $this->tokenMap = $this->createTokenMap();
 
@@ -30,8 +29,7 @@ class PHPParser_Lexer
      *
      * @throws PHPParser_Error on lexing errors (unterminated comment or unexpected character)
      */
-    public function startLexing($code)
-    {
+    public function startLexing($code) {
         $scream = ini_set('xdebug.scream', 0);
 
         $this->resetErrors();
@@ -41,25 +39,20 @@ class PHPParser_Lexer
         ini_set('xdebug.scream', $scream);
 
         $this->code = $code; // keep the code around for __halt_compiler() handling
-        $this->pos = -1;
-        $this->line = 1;
+        $this->pos  = -1;
+        $this->line =  1;
     }
 
-    protected function resetErrors()
-    {
+    protected function resetErrors() {
         // set error_get_last() to defined state by forcing an undefined variable error
         set_error_handler(array($this, 'dummyErrorHandler'), 0);
         @$undefinedVariable;
         restore_error_handler();
     }
 
-    private function dummyErrorHandler()
-    {
-        return false;
-    }
+    private function dummyErrorHandler() { return false; }
 
-    protected function handleErrors()
-    {
+    protected function handleErrors() {
         $error = error_get_last();
 
         if (preg_match(
@@ -88,23 +81,22 @@ class PHPParser_Lexer
     /**
      * Fetches the next token.
      *
-     * @param mixed $value Variable to store token content in
+     * @param mixed $value           Variable to store token content in
      * @param mixed $startAttributes Variable to store start attributes in
-     * @param mixed $endAttributes Variable to store end attributes in
+     * @param mixed $endAttributes   Variable to store end attributes in
      *
      * @return int Token id
      */
-    public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null)
-    {
+    public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null) {
         $startAttributes = array();
-        $endAttributes = array();
+        $endAttributes   = array();
 
         while (isset($this->tokens[++$this->pos])) {
             $token = $this->tokens[$this->pos];
 
             if (is_string($token)) {
                 $startAttributes['startLine'] = $this->line;
-                $endAttributes['endLine'] = $this->line;
+                $endAttributes['endLine']     = $this->line;
 
                 // bug in token_get_all
                 if ('b"' === $token) {
@@ -124,7 +116,7 @@ class PHPParser_Lexer
                 } elseif (!isset($this->dropTokens[$token[0]])) {
                     $value = $token[1];
                     $startAttributes['startLine'] = $token[2];
-                    $endAttributes['endLine'] = $this->line;
+                    $endAttributes['endLine']     = $this->line;
 
                     return $this->tokenMap[$token[0]];
                 }
@@ -142,8 +134,7 @@ class PHPParser_Lexer
      *
      * @return string Remaining text
      */
-    public function handleHaltCompiler()
-    {
+    public function handleHaltCompiler() {
         // get the length of the text before the T_HALT_COMPILER token
         $textBefore = '';
         for ($i = 0; $i <= $this->pos; ++$i) {
@@ -168,7 +159,7 @@ class PHPParser_Lexer
         $this->pos = count($this->tokens);
 
         // return with (); removed
-        return (string)substr($textAfter, strlen($matches[0])); // (string) converts false to ''
+        return (string) substr($textAfter, strlen($matches[0])); // (string) converts false to ''
     }
 
     /**
@@ -180,8 +171,7 @@ class PHPParser_Lexer
      *
      * @return array The token map
      */
-    protected function createTokenMap()
-    {
+    protected function createTokenMap() {
         $tokenMap = array();
 
         // 256 is the minimum possible token number, as everything below
@@ -190,15 +180,15 @@ class PHPParser_Lexer
             // T_DOUBLE_COLON is equivalent to T_PAAMAYIM_NEKUDOTAYIM
             if (T_DOUBLE_COLON === $i) {
                 $tokenMap[$i] = PHPParser_Parser::T_PAAMAYIM_NEKUDOTAYIM;
-                // T_OPEN_TAG_WITH_ECHO with dropped T_OPEN_TAG results in T_ECHO
-            } elseif (T_OPEN_TAG_WITH_ECHO === $i) {
+            // T_OPEN_TAG_WITH_ECHO with dropped T_OPEN_TAG results in T_ECHO
+            } elseif(T_OPEN_TAG_WITH_ECHO === $i) {
                 $tokenMap[$i] = PHPParser_Parser::T_ECHO;
-                // T_CLOSE_TAG is equivalent to ';'
-            } elseif (T_CLOSE_TAG === $i) {
+            // T_CLOSE_TAG is equivalent to ';'
+            } elseif(T_CLOSE_TAG === $i) {
                 $tokenMap[$i] = ord(';');
-                // and the others can be mapped directly
+            // and the others can be mapped directly
             } elseif ('UNKNOWN' !== ($name = token_name($i))
-                && defined($name = 'PHPParser_Parser::' . $name)
+                      && defined($name = 'PHPParser_Parser::' . $name)
             ) {
                 $tokenMap[$i] = constant($name);
             }

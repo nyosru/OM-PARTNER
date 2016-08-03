@@ -43,7 +43,7 @@ interface PHPParser_Node
      * Sets an attribute on a node.
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function setAttribute($key, $value);
 
@@ -60,7 +60,7 @@ interface PHPParser_Node
      * Returns the value of an attribute.
      *
      * @param string $key
-     * @param mixed $default
+     * @param mixed  $default
      *
      * @return mixed
      */

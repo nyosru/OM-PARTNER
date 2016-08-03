@@ -378,10 +378,10 @@ class Smarty_Security
     {
         // check for internal always required tags
         if (in_array($tag_name, array('assign', 'call', 'private_filter', 'private_block_plugin',
-            'private_function_plugin', 'private_object_block_function',
-            'private_object_function', 'private_registered_function',
-            'private_registered_block', 'private_special_variable',
-            'private_print_expression', 'private_modifier'))) {
+                                      'private_function_plugin', 'private_object_block_function',
+                                      'private_object_function', 'private_registered_function',
+                                      'private_registered_block', 'private_special_variable',
+                                      'private_print_expression', 'private_modifier'))) {
             return true;
         }
         // check security settings
@@ -456,7 +456,7 @@ class Smarty_Security
     /**
      * Check if constants are enabled or trusted
      *
-     * @param  string $const constant name
+     * @param  string $const    constant name
      * @param  object $compiler compiler object
      *
      * @return bool
@@ -500,7 +500,7 @@ class Smarty_Security
     /**
      * Check if directory of file resource is trusted.
      *
-     * @param  string $filepath
+     * @param  string   $filepath
      * @param null|bool $isConfig
      *
      * @return bool true if directory is trusted
@@ -552,15 +552,15 @@ class Smarty_Security
             }
             $this->smarty->_cache['config_dir_new'] = false;
         }
-        if ($this->_secure_dir !== (array)$this->secure_dir) {
+        if ($this->_secure_dir !== (array) $this->secure_dir) {
             foreach ($this->_secure_dir as $directory) {
                 unset($this->_resource_dir[$directory]);
             }
-            foreach ((array)$this->secure_dir as $directory) {
+            foreach ((array) $this->secure_dir as $directory) {
                 $directory = $this->smarty->_realpath($directory . DS, true);
                 $this->_resource_dir[$directory] = true;
             }
-            $this->_secure_dir = (array)$this->secure_dir;
+            $this->_secure_dir = (array) $this->secure_dir;
         }
         $this->_resource_dir = $this->_checkDir($filepath, $this->_resource_dir);
         return true;
@@ -612,7 +612,7 @@ class Smarty_Security
             $this->_php_resource_dir = array();
 
             $this->_trusted_dir = $this->trusted_dir;
-            foreach ((array)$this->trusted_dir as $directory) {
+            foreach ((array) $this->trusted_dir as $directory) {
                 $directory = $this->smarty->_realpath($directory . DS, true);
                 $this->_php_resource_dir[$directory] = true;
             }
@@ -631,7 +631,7 @@ class Smarty_Security
      */
     public function startTemplate($template)
     {
-        if ($this->max_template_nesting > 0 && $this->_current_template_nesting++ >= $this->max_template_nesting) {
+        if ($this->max_template_nesting > 0 && $this->_current_template_nesting ++ >= $this->max_template_nesting) {
             throw new SmartyException("maximum template nesting level of '{$this->max_template_nesting}' exceeded when calling '{$template->template_resource}'");
         }
     }
@@ -644,7 +644,7 @@ class Smarty_Security
     public function exitTemplate()
     {
         if ($this->max_template_nesting > 0) {
-            $this->_current_template_nesting--;
+            $this->_current_template_nesting --;
         }
     }
 
@@ -652,7 +652,7 @@ class Smarty_Security
      * Check if file is inside a valid directory
      *
      * @param string $filepath
-     * @param array $dirs valid directories
+     * @param array  $dirs valid directories
      *
      * @return array
      * @throws \SmartyException
@@ -686,7 +686,7 @@ class Smarty_Security
     /**
      * Loads security class and enables security
      *
-     * @param \Smarty $smarty
+     * @param \Smarty                 $smarty
      * @param  string|Smarty_Security $security_class if a string is used, it must be class-name
      *
      * @return \Smarty current Smarty instance for chaining

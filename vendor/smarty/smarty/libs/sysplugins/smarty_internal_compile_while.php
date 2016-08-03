@@ -19,9 +19,9 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {while} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array                                       $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param  array                                       $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
             }
         } else {
             $_output .= "while ({$parameter['if condition']}) {?>";
-        }
+         }
         return $_output;
     }
 }
@@ -90,7 +90,7 @@ class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/while} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array                                       $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code

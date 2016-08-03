@@ -12,107 +12,45 @@ class MainBanner extends \yii\bootstrap\Widget
     public $position = [
         'medium1' => [
             [
-                'image' => '/images/banners/11072016_1.png',
-                'referal'=> '/catalog?cat=1839&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Мужские поло'
-            ],
-            [
-                'image' => '/images/banners/OM_14072016_1.png',
-                'referal'=> '/catalog?cat=1977&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Балетки'
-            ],
-            [
-                'image' => '/images/banners/04072016_1.png',
-                'referal'=> '/catalog?cat=1558&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
-                'alttext' => 'Школьная форма'
+                'image' => '/images/banners/O_2807201_1.png',
+                'referal'=> '/catalog?cat=0&count=60&start_price=0&end_price=1000000&prod_attr_query=0&searchword=электрическая%2Bпилка',
+                'alttext' => 'Электрическая пилка '
             ],
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/11072016_3.png',
-                'referal'=> '/catalog?cat=1714&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Босоножки'
+                'image' => '/images/banners/O_2807201_2.png',
+                'referal'=> '/catalog?cat=0&count=60&start_price=0&end_price=1000000&prod_attr_query=0&searchword=tangle%2Bteezer',
+                'alttext' => 'Tangle Teezer'
             ],
-            [
-                'image' => '/images/banners/OM_14072016_2.png',
-                'referal'=> '/catalog?cat=1348&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Футболки для мальчиков'
-            ],
-            [
-                'image' => '/images/banners/04072016_2.png',
-                'referal'=> '/catalog?cat=2902&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
-                'alttext' => 'Тетради'
-            ],
-
         ],
         'small1' => [
             [
-                'image' => '/images/banners/11072016_5.png',
-                'referal'=> '/catalog?cat=2449&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Все для вечиринки'
-            ],
-            [
-                'image' => '/images/banners/OM_14072016_3.png',
-                'referal'=> '/catalog?cat=1714&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Кофточки'
-            ],
-            [
-                'image' => '/images/banners/04072016_3.png',
-                'referal'=> '/catalog?cat=2926&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
-                'alttext' => 'Письменные принадлежности'
+                'image' => '/images/banners/O_2807201_3.png',
+                'referal'=> '/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Платья'
             ],
         ],
         'small2' => [
             [
-                'image' => '/images/banners/11072016_4.png',
-                'referal'=> '/catalog?cat=1549&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Модная бижутерия'
-            ],
-            [
-                'image' => '/images/banners/OM_14072016_4.png',
-                'referal'=> '/catalog?cat=2548&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
-                'alttext' => 'Стильные рюкзачки'
-            ],
-            [
-                'image' => '/images/banners/04072016_4.png',
-                'referal'=> '/catalog?cat=2008&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
-                'alttext' => 'Детская обувь'
+                'image' => '/images/banners/O_2807201_4.png',
+                'referal'=> '/catalog?cat=1574&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Куклы и мягкие игрушки'
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/11072016_2.png',
-                'referal'=> '/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Новинки платьев'
-            ],
-            [
-                'image' => '/images/banners/OM_14072016_5.png',
-                'referal'=> '/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Новинки платьев'
-            ],
-            [
-                'image' => '/images/banners/04072016_5.png',
-                'referal'=> '/catalog?cat=543&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword= ',
-                'alttext' => 'Ранцы'
+                'image' => '/images/banners/O_2807201_5.png',
+                'referal'=> '/catalog?cat=2884&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Офис и школа'
             ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/11072016_6.png',
-                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Обворожительное белье'
+                'image' => '/images/banners/O_2807201_6.png',
+                'referal'=> '/catalog?cat=1978&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Босоножки, сандалии'
             ],
-            [
-                'image' => '/images/banners/11072016_6.png',
-                'referal'=> '/catalog?cat=1762&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Обворожительное белье'
-            ],
-            [
-                'image' => '/images/banners//04072016_6.png',
-                'referal'=> '/catalog?cat=2954&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Канцелярские товары'
-            ],
-
         ],
         'discont1' => [
             [
@@ -147,17 +85,17 @@ class MainBanner extends \yii\bootstrap\Widget
     public $template = [
         'main' => [
             '1' => [
-                 'id'=>'index-card-5',
-                 'class'=>'data-j index-card banner-card',
-                 'position'=> 'medium1',
-                 'style'=>''
+                'id'=>'index-card-5',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'medium1',
+                'style'=>''
             ],
             '2' => [
-                    'id'=>'index-card-6',
-                    'class'=>'data-j index-card banner-card',
-                    'position'=> 'small1',
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'small1',
                 'style'=>''
-                ],
+            ],
             '3' => [
                 'id'=>'index-card-3',
                 'class'=>'sort data-j index-sort banner-card',
@@ -214,13 +152,13 @@ class MainBanner extends \yii\bootstrap\Widget
     ];
     public function init()
     {
-    ?>
+        ?>
         <div id="main-index">
-        <?php
-        echo $this->formatting_template($this->template['discont'], $this->position);
-        echo $this->formatting_template($this->template['main'], $this->position) ;?>
+            <?php
+            //  echo $this->formatting_template($this->template['discont'], $this->position);
+            echo $this->formatting_template($this->template['main'], $this->position) ;?>
         </div>
-<?php
+        <?php
     }
     private function formatting_position($position = []){
         $result = '';
@@ -239,7 +177,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'data-ride' => 'carousel',
             ],
             'clientOptions'=>[
-                'interval'=>5000,
+                'interval'=>1000000000,
                 'pause'=> 'load',
 
             ]
@@ -255,9 +193,9 @@ class MainBanner extends \yii\bootstrap\Widget
             $result .=
                 '<div id="'.$value['id'].'"  '.$value['style'].'  data-position="'.$key.'">'.
 
-                    $this->formatting_position($position[$value['position']]).
+                $this->formatting_position($position[$value['position']]).
 
-            '</div>';
+                '</div>';
 
         }
         return $result;

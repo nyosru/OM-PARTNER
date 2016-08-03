@@ -13,7 +13,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param  Smarty_Template_Source $source source object
+     * @param  Smarty_Template_Source   $source    source object
      * @param  Smarty_Internal_Template $_template template object
      *
      * @return void
@@ -29,10 +29,11 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
                 if (!$s->exists) {
                     continue;
                 }
-                $sources[$s->uid] = $s;
+                $sources[ $s->uid ] = $s;
                 $uid .= $s->filepath;
                 $timestamp = $s->timestamp > $timestamp ? $s->timestamp : $timestamp;
-            } catch (SmartyException $e) {
+            }
+            catch (SmartyException $e) {
             }
         }
         if (!$sources) {

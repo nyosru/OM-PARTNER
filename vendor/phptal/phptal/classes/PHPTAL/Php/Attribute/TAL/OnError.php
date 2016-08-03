@@ -44,8 +44,8 @@ class PHPTAL_Php_Attribute_TAL_OnError extends PHPTAL_Php_Attribute
         $var = $codewriter->createTempVariable();
 
         $codewriter->pushCode('ob_end_flush()');
-        $codewriter->doCatch('Exception ' . $var);
-        $codewriter->pushCode('$tpl->addError(' . $var . ')');
+        $codewriter->doCatch('Exception '.$var);
+        $codewriter->pushCode('$tpl->addError('.$var.')');
         $codewriter->pushCode('ob_end_clean()');
 
         $expression = $this->extractEchoType($this->expression);

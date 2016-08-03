@@ -34,7 +34,7 @@ class BaseReflectorTest extends PHPUnit_Framework_TestCase
      */
     public function testSetNameSpace()
     {
-        /** @var BaseReflector $base_reflector */
+        /** @var BaseReflector $base_reflector  */
         $base_reflector = new BaseReflectorMock(
             $this->getMock('PHPParser_Node_Stmt'),
             new Context()
@@ -55,7 +55,7 @@ class BaseReflectorTest extends PHPUnit_Framework_TestCase
      */
     public function testSetNameSpaceInvalidArgument()
     {
-        /** @var BaseReflector $base_reflector */
+        /** @var BaseReflector $base_reflector  */
         $base_reflector = new BaseReflectorMock(
             $this->getMock('PHPParser_Node_Stmt'),
             new Context()

@@ -46,7 +46,6 @@
         "yiisoft/yii2-faker": "2.0.3",
         "yiisoft/yii2-elasticsearch": "2.0.3",
         "yiisoft/yii2-coding-standards": "2.0.1",
-        "rmrevin/yii2-minify-view": "1.9.1",
         "e-frank/yii2-moment": "dev-master",
         "kartik-v/yii2-widgets": "3.4.0.x-dev",
         "wbraganca/yii2-dynamicform": "v2.0.2",
@@ -59,10 +58,9 @@
         "rmrevin/yii2-ionicon": "1.1.1",
         "kartik-v/yii2-slider": "1.4.0.x-dev",
         "skeeks/yii2-assets-auto-compress": "*",
-        "skeeks/yii2-ckeditor": "1.0.4",
-        "2amigos/yii2-tinymce-widget" : "*",
         "endroid/qrcode" : "*",
-        "fgh151/yii2-tarantool": "dev-master"
+        "fgh151/yii2-tarantool": "dev-master",
+        "phalcon/zephir": "^0.9.3"
     },
     "require-dev": {
     },

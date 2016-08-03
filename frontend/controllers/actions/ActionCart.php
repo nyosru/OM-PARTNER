@@ -1,6 +1,5 @@
 <?php
 namespace frontend\controllers\actions;
-
 use common\models\AddressBook;
 use common\models\Configuration;
 use common\models\Customers;
@@ -8,7 +7,6 @@ use common\models\Orders;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
 use Yii;
-
 trait ActionCart
 {
     public function actionCart()
@@ -37,7 +35,7 @@ trait ActionCart
                 }elseif(isset($lastorders['date_purchased'])){
                     $lastorders = $lastorders['date_purchased'];
                 }
-                 foreach ($add as $key => $value) {
+                foreach ($add as $key => $value) {
                     $addr[$value['address_book_id']] = $value['entry_city'] . ', ' . $value['entry_street_address'];
                 }
                 return $this->render('cart', ['addr' => $addr, 'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders]);

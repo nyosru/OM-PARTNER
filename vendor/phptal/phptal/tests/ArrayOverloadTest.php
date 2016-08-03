@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,11 +12,12 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
 class MyArray implements ArrayAccess
 {
     public function push($value)
     {
-        $this->_values[] = $value;
+        $this->_values[] =  $value;
     }
 
     public function offsetGet($index)
@@ -49,7 +49,7 @@ class ArrayOverloadTest extends PHPTAL_TestCase
     function testIt()
     {
         $arr = new MyArray();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i=0; $i<20; $i++) {
             $val = new stdClass;
             $val->foo = "foo value $i";
             $arr->push($val);

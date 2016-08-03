@@ -14,6 +14,7 @@
  */
 
 
+
 if (!class_exists('Test_PHPTAL_Namespace', false)) {
     class Test_PHPTAL_Namespace extends PHPTAL_Namespace_Builtin
     {
@@ -49,7 +50,7 @@ class NamespacesTest extends PHPTAL_TestCase
     function testOverwriteBuiltinNamespace()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->setSource($src = '<metal:block xmlns:metal="non-zope" metal:use-macro="just kidding">ok</metal:block>');
+        $tpl->setSource($src='<metal:block xmlns:metal="non-zope" metal:use-macro="just kidding">ok</metal:block>');
         $this->assertEquals(normalize_html($src), normalize_html($tpl->execute()));
     }
 
@@ -60,7 +61,7 @@ class NamespacesTest extends PHPTAL_TestCase
                            <block xmlns="http://xml.zope.org/namespaces/tal" content="string:works" />
                          </metal:block>');
         $this->assertEquals(normalize_html('<metal:block xmlns:metal="non-zope"> works </metal:block>'),
-            normalize_html($tpl->execute()));
+                            normalize_html($tpl->execute()));
     }
 
     function testRedefineBuiltinNamespace()
@@ -71,7 +72,7 @@ class NamespacesTest extends PHPTAL_TestCase
                            <metal:block xmlns="http://xml.zope.org/namespaces/i18n" xmlns:metal="http://xml.zope.org/namespaces/tal" metal:content="string:properly" />
                          </metal:block>');
         $this->assertEquals(normalize_html('<metal:block xmlns:metal="non-zope"> works properly </metal:block>'),
-            normalize_html($tpl->execute()));
+                            normalize_html($tpl->execute()));
     }
 
     // different kind of namespace

@@ -31,15 +31,14 @@ class PropertyReflector extends BaseReflector
         PHPParser_Node_Stmt_Property $property,
         Context $context,
         PHPParser_Node_Stmt_PropertyProperty $node
-    )
-    {
+    ) {
         parent::__construct($node, $context);
         $this->property = $property;
     }
 
     public function getName()
     {
-        return '$' . parent::getName();
+        return '$'.parent::getName();
     }
 
     /**
@@ -93,7 +92,7 @@ class PropertyReflector extends BaseReflector
      */
     public function isStatic()
     {
-        return (bool)($this->property->type & PHPParser_Node_Stmt_Class::MODIFIER_STATIC);
+        return (bool) ($this->property->type & PHPParser_Node_Stmt_Class::MODIFIER_STATIC);
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,6 +11,7 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
 class ClosureTalesValueTest extends PHPTAL_TestCase
 {
     function testClosureVariable()
@@ -125,8 +125,7 @@ HTML;
         $this->assertEquals($expected, $tpl->execute());
     }
 
-    function testNestedClosure()
-    {
+    function testNestedClosure() {
         if (strpos(phpversion(), '5.2') === 0) {
             $this->markTestSkipped();
         }
@@ -154,8 +153,7 @@ HTML;
         $this->assertEquals($expected, $tpl->execute());
     }
 
-    function testClosureFromMethod()
-    {
+    function testClosureFromMethod() {
         if (strpos(phpversion(), '5.2') === 0) {
             $this->markTestSkipped();
         }
@@ -184,5 +182,4 @@ HTML;
         $this->assertEquals($expected, $tpl->execute());
     }
 }
-
 ?>

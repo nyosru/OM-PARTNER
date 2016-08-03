@@ -26,6 +26,7 @@
  * </code>
  *
  */
+
 class Yii2_Sniffs_PHP_DisallowLongArraySyntaxSniff implements PHP_CodeSniffer_Sniff
 {
     /**
@@ -42,7 +43,7 @@ class Yii2_Sniffs_PHP_DisallowLongArraySyntaxSniff implements PHP_CodeSniffer_Sn
      * Processes the tokens that this sniff is interested in.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file where the token was found.
-     * @param int $stackPtr The position in the stack where
+     * @param int                  $stackPtr  The position in the stack where
      *                                        the token was found.
      *
      * @return void
@@ -52,7 +53,7 @@ class Yii2_Sniffs_PHP_DisallowLongArraySyntaxSniff implements PHP_CodeSniffer_Sn
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['content'] === 'array') {
             $error = 'Expected [], found %s';
-            $data = array(trim($tokens[$stackPtr]['content']));
+            $data  = array(trim($tokens[$stackPtr]['content']));
             $phpcsFile->addError($error, $stackPtr, '', $data);
         }
 

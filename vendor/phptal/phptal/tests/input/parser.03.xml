@@ -1,5 +1,5 @@
 <html>
-    <a href= badattribute">foo</a>
+  <a href=badattribute">foo</a>
 	<p tal:condition="foo">
 	  This is my <strong>content</strong>
 	</p>

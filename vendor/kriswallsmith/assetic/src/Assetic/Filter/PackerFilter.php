@@ -36,12 +36,12 @@ class PackerFilter implements FilterInterface
 
     public function setFastDecode($fastDecode)
     {
-        $this->fastDecode = (bool)$fastDecode;
+        $this->fastDecode = (bool) $fastDecode;
     }
 
     public function setSpecialChars($specialChars)
     {
-        $this->specialChars = (bool)$specialChars;
+        $this->specialChars = (bool) $specialChars;
     }
 
     public function filterLoad(AssetInterface $asset)

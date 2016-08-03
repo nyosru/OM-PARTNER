@@ -13,9 +13,9 @@ class Smarty_Internal_Runtime_UpdateScope
     /**
      * Update new assigned template variable in other effected scopes
      *
-     * @param \Smarty_Internal_Template $tpl template object
+     * @param \Smarty_Internal_Template $tpl     template object
      * @param string $varName variable name
-     * @param int $scope scope to which bubble up variable value
+     * @param int    $scope   scope to which bubble up variable value
      */
     public function updateScope(Smarty_Internal_Template $tpl, $varName, $scope = Smarty::SCOPE_LOCAL)
     {

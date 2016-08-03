@@ -22,7 +22,6 @@
 class PHPTAL_UnknownModifierException extends PHPTAL_TemplateException
 {
     private $modifier_name;
-
     public function __construct($msg, $modifier_name = null)
     {
         $this->modifier_name = $modifier_name;

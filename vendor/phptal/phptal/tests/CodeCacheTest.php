@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,10 +11,11 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class PHPTAL_TestCodeCache extends PHPTAL
 {
     public $testHasParsed = false;
-
     function parse()
     {
         $this->testHasParsed = true;
@@ -35,9 +35,10 @@ class CodeCacheTest extends PHPTAL_TestCase
         $this->assertFalse($this->phptal->getForceReparse());
 
         if (function_exists('sys_get_temp_dir')) {
-            $tmpdirpath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'temp_output';
+            $tmpdirpath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'temp_output';
             if (!is_dir($tmpdirpath)) mkdir($tmpdirpath);
-        } else $this->markTestSkipped("Newer PHP needed");
+        }
+        else $this->markTestSkipped("Newer PHP needed");
 
         $this->assertTrue(is_dir($tmpdirpath));
         $this->assertTrue(is_writable($tmpdirpath));
@@ -48,8 +49,8 @@ class CodeCacheTest extends PHPTAL_TestCase
 
     private function clearCache()
     {
-        $this->assertContains(DIRECTORY_SEPARATOR . 'temp_output' . DIRECTORY_SEPARATOR, $this->codeDestination);
-        foreach (glob($this->codeDestination . 'tpl_*') as $tpl) {
+        $this->assertContains(DIRECTORY_SEPARATOR.'temp_output'.DIRECTORY_SEPARATOR, $this->codeDestination);
+        foreach (glob($this->codeDestination.'tpl_*') as $tpl) {
             $this->assertTrue(unlink($tpl), "Delete $tpl");
         }
     }
@@ -123,7 +124,7 @@ class CodeCacheTest extends PHPTAL_TestCase
 
     function testGarbageRemoval()
     {
-        $src = '<test uniq="' . time() . mt_rand() . '" phptal:cache="1d" />';
+        $src = '<test uniq="'.time().mt_rand().'" phptal:cache="1d" />';
         $this->phptal->setSource($src);
         $this->phptal->execute();
 
@@ -135,11 +136,11 @@ class CodeCacheTest extends PHPTAL_TestCase
 
         $this->assertFalse($this->phptal->testHasParsed, "Reparse!?");
 
-        $files = glob($this->codeDestination . '*');
+        $files = glob($this->codeDestination.'*');
         $this->assertEquals(2, count($files)); // one for template, one for cache
         foreach ($files as $file) {
             $this->assertFileExists($file);
-            touch($file, time() - 3600 * 24 * 100);
+            touch($file, time() - 3600*24*100);
         }
         clearstatcache();
 

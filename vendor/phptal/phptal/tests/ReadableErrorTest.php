@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class ReadableErrorTest extends PHPTAL_TestCase
 {
     function testSimple()
@@ -88,11 +89,12 @@ class ReadableErrorTest extends PHPTAL_TestCase
             $tpl->a_number = 1;
             $res = $tpl->execute();
             $this->fail("Not thrown");
-        } catch (PHPTAL_TemplateException $e) {
+        }
+        catch (PHPTAL_TemplateException $e) {
             $msg = $e->getMessage();
-            $this->assertInternalType('string', $e->srcFile, $msg);
+            $this->assertInternalType('string',$e->srcFile, $msg);
             $this->assertContains($expected_file ? $expected_file : $file, $e->srcFile, $msg);
-            $this->assertEquals($line, $e->srcLine, "Wrong line number: " . $msg . "\n" . $tpl->getCodePath());
+            $this->assertEquals($line, $e->srcLine, "Wrong line number: ". $msg . "\n". $tpl->getCodePath());
         }
     }
 }

@@ -39,6 +39,6 @@ class TraversableString implements \IteratorAggregate, \Countable
 
     public function __toString()
     {
-        return (string)$this->one;
+        return (string) $this->one;
     }
 }

@@ -2,8 +2,7 @@
 
 class PHPParser_Tests_ErrorTest extends PHPUnit_Framework_TestCase
 {
-    public function testConstruct()
-    {
+    public function testConstruct() {
         $error = new PHPParser_Error('Some error', 10);
 
         $this->assertEquals('Some error', $error->getRawMessage());
@@ -16,8 +15,7 @@ class PHPParser_Tests_ErrorTest extends PHPUnit_Framework_TestCase
     /**
      * @depends testConstruct
      */
-    public function testSetMessageAndLine(PHPParser_Error $error)
-    {
+    public function testSetMessageAndLine(PHPParser_Error $error) {
         $error->setRawMessage('Some other error');
         $error->setRawLine(15);
 
@@ -26,8 +24,7 @@ class PHPParser_Tests_ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Some other error on line 15', $error->getMessage());
     }
 
-    public function testUnknownLine()
-    {
+    public function testUnknownLine() {
         $error = new PHPParser_Error('Some error');
 
         $this->assertEquals(-1, $error->getRawLine());

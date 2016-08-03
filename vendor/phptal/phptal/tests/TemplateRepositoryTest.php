@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,12 +12,14 @@
  * @version  SVN: $Id: $
  * @link     http://phptal.org/
  */
+
+
 class TemplateRepositoryTest extends PHPTAL_TestCase
 {
     function testLooksInRepo()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->setTemplateRepository(dirname(__FILE__) . '/input');
+        $tpl->setTemplateRepository(dirname(__FILE__).'/input');
         $tpl->setTemplate('phptal.01.html');
         $tpl->execute();
     }
@@ -26,9 +27,9 @@ class TemplateRepositoryTest extends PHPTAL_TestCase
     function testSkipsNotFound()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->setTemplateRepository(dirname(__FILE__) . '/invalid');
-        $tpl->setTemplateRepository(dirname(__FILE__) . '/input');
-        $tpl->setTemplateRepository(dirname(__FILE__) . '/bogus');
+        $tpl->setTemplateRepository(dirname(__FILE__).'/invalid');
+        $tpl->setTemplateRepository(dirname(__FILE__).'/input');
+        $tpl->setTemplateRepository(dirname(__FILE__).'/bogus');
         $tpl->setTemplate('phptal.02.html');
         $tpl->execute();
     }
@@ -39,9 +40,9 @@ class TemplateRepositoryTest extends PHPTAL_TestCase
     function testFailsIfNoneMatch()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->setTemplateRepository(dirname(__FILE__) . '/invalid');
-        $tpl->setTemplateRepository(dirname(__FILE__) . '/error');
-        $tpl->setTemplateRepository(dirname(__FILE__) . '/bogus');
+        $tpl->setTemplateRepository(dirname(__FILE__).'/invalid');
+        $tpl->setTemplateRepository(dirname(__FILE__).'/error');
+        $tpl->setTemplateRepository(dirname(__FILE__).'/bogus');
         $tpl->setTemplate('phptal.01.html');
         $tpl->execute();
     }
@@ -57,7 +58,8 @@ class TemplateRepositoryTest extends PHPTAL_TestCase
         $this->assertInternalType('array', $repos);
         $this->assertEquals(3, count($repos));
 
-        foreach ($repos as $repo) {
+        foreach($repos as $repo)
+        {
             $this->assertInternalType('string', $repo);
             $this->assertContains('test', $repo);
         }

@@ -19,9 +19,9 @@ use Composer\Config;
  */
 class RequireCssProcessTest extends ProcessTest
 {
-    /**
-     * @var RequireCssProcess
-     */
+	/**
+	 * @var RequireCssProcess
+	 */
     protected $process;
 
     public function setUp()
@@ -29,14 +29,13 @@ class RequireCssProcessTest extends ProcessTest
         parent::setUp();
         $this->process = new RequireCssProcess($this->composer, $this->io);
     }
-
     /**
      * testPackageStyles
      *
      * @dataProvider providerPackageStyles
-     * @param array $packages
-     * @param array $config
-     * @param array $expected
+	 * @param array $packages
+	 * @param array $config
+	 * @param array $expected
      */
     public function testPackageStyles(array $packages, array $config, $expected = null)
     {

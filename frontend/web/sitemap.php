@@ -1,4 +1,5 @@
 <?php
+
 use common\models\Partners;
 use common\models\PartnersSettings;
 set_time_limit ( 800 );
@@ -108,6 +109,9 @@ $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version[
         $hide_man = implode(',', $path->HideMan());
         $count = \common\models\PartnersProductsToCategories::find()->select('products.products_id as prod')->innerJoinWith('products')->where('  categories_id NOT IN (' . $cat . ') and products_status = 1  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ')')->distinct()->orderBy('products_to_categories.products_id DESC')->count();
         $c = 0;
+
+
+
         for($i = 0; $i<$count; $i+=25000){
             $cachesitemap  = '<?xml version="1.0" encoding="UTF-8"?>';
             $cachesitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
@@ -120,7 +124,7 @@ $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version[
                 $cachesitemap .=  ' </url>';
             }
             $cachesitemap .= '</urlset>';
-            file_put_contents('sitemap'.$c++.'.xml', $cachesitemap, 0777);
+          file_put_contents('../sitemap.xml', $cachesitemap);
         }
 
         $cachecatsitemap  = '<?xml version="1.0" encoding="UTF-8"?>';

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,8 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-class TalesPhpTest extends PHPTAL_TestCase
-{
+
+
+class TalesPhpTest extends PHPTAL_TestCase {
 
     function testMix()
     {

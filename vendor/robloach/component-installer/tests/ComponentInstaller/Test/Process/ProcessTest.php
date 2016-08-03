@@ -25,44 +25,44 @@ use ComponentInstaller\Installer;
  */
 class ProcessTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Composer
-     */
+	/**
+	 * @var Composer
+	 */
     protected $composer;
 
-    /**
-     * @var Config
-     */
+	/**
+	 * @var Config
+	 */
     protected $config;
 
-    /**
-     * @var NullIO
-     */
+	/**
+	 * @var NullIO
+	 */
     protected $io;
 
-    /**
-     * @var Filesystem
-     */
+	/**
+	 * @var Filesystem
+	 */
     protected $filesystem;
 
-    /**
-     * @var string
-     */
+	/**
+	 * @var string
+	 */
     protected $componentDir;
 
-    /**
-     * @var string
-     */
+	/**
+	 * @var string
+	 */
     protected $vendorDir;
 
-    /**
-     * @var string
-     */
+	/**
+	 * @var string
+	 */
     protected $binDir;
 
-    /**
-     * @var InstallationManager
-     */
+	/**
+	 * @var InstallationManager
+	 */
     protected $installationManager;
 
     public function setUp()
@@ -72,9 +72,9 @@ class ProcessTest extends \PHPUnit_Framework_TestCase
         $this->config = new Config();
         $this->io = new NullIO();
 
-        $this->componentDir = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . 'component-installer-componentDir';
-        $this->vendorDir = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . 'component-installer-vendorDir';
-        $this->binDir = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . 'component-installer-binDir';
+        $this->componentDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'component-installer-componentDir';
+        $this->vendorDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'component-installer-vendorDir';
+        $this->binDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'component-installer-binDir';
 
         foreach (array($this->componentDir, $this->vendorDir, $this->binDir) as $dir) {
             if (is_dir($dir)) {
@@ -109,9 +109,9 @@ class ProcessTest extends \PHPUnit_Framework_TestCase
      * testGetComponentName
      *
      * @dataProvider providerGetComponentName
-     * @param string $prettyName
-     * @param array $extra
-     * @param string $expected
+	 * @param string $prettyName
+	 * @param array $extra
+	 * @param string $expected
      */
     public function testGetComponentName($prettyName, array $extra, $expected)
     {

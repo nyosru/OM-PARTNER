@@ -36,5 +36,4 @@ class PHPTAL_NothingKeyword implements PHPTAL_Keywords
         return null;
     }
 }
-
 ?>

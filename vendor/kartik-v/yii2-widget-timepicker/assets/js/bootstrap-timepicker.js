@@ -279,12 +279,12 @@
                 '<td class="separator">&nbsp;</td>' +
                 '<td><a href="#" data-action="incrementMinute"><i class="' + this.upArrowStyle + '"></i></a></td>' +
                 (this.showSeconds ?
-                '<td class="separator">&nbsp;</td>' +
-                '<td><a href="#" data-action="incrementSecond"><i class="' + this.upArrowStyle + '"></i></a></td>'
+                    '<td class="separator">&nbsp;</td>' +
+                        '<td><a href="#" data-action="incrementSecond"><i class="' + this.upArrowStyle + '"></i></a></td>'
                     : '') +
                 (this.showMeridian ?
-                '<td class="separator">&nbsp;</td>' +
-                '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="' + this.upArrowStyle + '"></i></a></td>'
+                    '<td class="separator">&nbsp;</td>' +
+                        '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="' + this.upArrowStyle + '"></i></a></td>'
                     : '') +
                 '</tr>' +
                 '<tr>' +
@@ -292,12 +292,12 @@
                 '<td class="separator">:</td>' +
                 '<td>' + minuteTemplate + '</td> ' +
                 (this.showSeconds ?
-                '<td class="separator">:</td>' +
-                '<td>' + secondTemplate + '</td>'
+                    '<td class="separator">:</td>' +
+                        '<td>' + secondTemplate + '</td>'
                     : '') +
                 (this.showMeridian ?
-                '<td class="separator">&nbsp;</td>' +
-                '<td>' + meridianTemplate + '</td>'
+                    '<td class="separator">&nbsp;</td>' +
+                        '<td>' + meridianTemplate + '</td>'
                     : '') +
                 '</tr>' +
                 '<tr>' +
@@ -305,12 +305,12 @@
                 '<td class="separator"></td>' +
                 '<td><a href="#" data-action="decrementMinute"><i class="' + this.downArrowStyle + '"></i></a></td>' +
                 (this.showSeconds ?
-                '<td class="separator">&nbsp;</td>' +
-                '<td><a href="#" data-action="decrementSecond"><i class="' + this.downArrowStyle + '"></i></a></td>'
+                    '<td class="separator">&nbsp;</td>' +
+                        '<td><a href="#" data-action="decrementSecond"><i class="' + this.downArrowStyle + '"></i></a></td>'
                     : '') +
                 (this.showMeridian ?
-                '<td class="separator">&nbsp;</td>' +
-                '<td><a href="#" data-action="toggleMeridian"><i class="' + this.downArrowStyle + '"></i></a></td>'
+                    '<td class="separator">&nbsp;</td>' +
+                        '<td><a href="#" data-action="toggleMeridian"><i class="' + this.downArrowStyle + '"></i></a></td>'
                     : '') +
                 '</tr>' +
                 '</table>';

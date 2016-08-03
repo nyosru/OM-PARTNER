@@ -2,22 +2,21 @@
 
 class PHPParser_Tests_Builder_PropertyTest extends PHPUnit_Framework_TestCase
 {
-    public function createPropertyBuilder($name)
-    {
+    public function createPropertyBuilder($name) {
         return new PHPParser_Builder_Property($name);
     }
 
-    public function testModifiers()
-    {
+    public function testModifiers() {
         $node = $this->createPropertyBuilder('test')
             ->makePrivate()
             ->makeStatic()
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals(
             new PHPParser_Node_Stmt_Property(
                 PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE
-                | PHPParser_Node_Stmt_Class::MODIFIER_STATIC,
+              | PHPParser_Node_Stmt_Class::MODIFIER_STATIC,
                 array(
                     new PHPParser_Node_Stmt_PropertyProperty('test')
                 )
@@ -27,7 +26,8 @@ class PHPParser_Tests_Builder_PropertyTest extends PHPUnit_Framework_TestCase
 
         $node = $this->createPropertyBuilder('test')
             ->makeProtected()
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals(
             new PHPParser_Node_Stmt_Property(
@@ -41,7 +41,8 @@ class PHPParser_Tests_Builder_PropertyTest extends PHPUnit_Framework_TestCase
 
         $node = $this->createPropertyBuilder('test')
             ->makePublic()
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals(
             new PHPParser_Node_Stmt_Property(
@@ -57,17 +58,16 @@ class PHPParser_Tests_Builder_PropertyTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideTestDefaultValues
      */
-    public function testDefaultValues($value, $expectedValueNode)
-    {
+    public function testDefaultValues($value, $expectedValueNode) {
         $node = $this->createPropertyBuilder('test')
             ->setDefault($value)
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals($expectedValueNode, $node->props[0]->default);
     }
 
-    public function provideTestDefaultValues()
-    {
+    public function provideTestDefaultValues() {
         return array(
             array(
                 null,

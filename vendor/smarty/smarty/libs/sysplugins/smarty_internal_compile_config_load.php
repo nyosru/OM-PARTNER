@@ -42,16 +42,16 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
 
     /**
      * Valid scope names
-     *
+     * 
      * @var array
      */
-    public $valid_scopes = array('local' => true, 'parent' => true, 'root' => true, 'global' => true,
-        'smarty' => true, 'tpl_root' => true);
+    public $valid_scopes = array('local'  => true, 'parent' => true, 'root' => true, 'global' => true,
+                                 'smarty' => true, 'tpl_root' => true);
 
     /**
      * Compiles code for the {config_load} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array                                $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code

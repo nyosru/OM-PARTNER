@@ -79,7 +79,7 @@ class Numeral
     public function getPlural($amount, array $variants, $absence = null)
     {
         if ($amount || $absence === null) {
-            $result = RUtils::formatNumber($amount) . ' ' . $this->choosePlural($amount, $variants);
+            $result = RUtils::formatNumber($amount).' '.$this->choosePlural($amount, $variants);
         } else {
             $result = $absence;
         }
@@ -136,7 +136,7 @@ class Numeral
         }
 
         if ($amount == 0) {
-            return trim('ноль ' . $variants[2]);
+            return trim('ноль '.$variants[2]);
         }
 
         $result = '';
@@ -195,7 +195,7 @@ class Numeral
         //check last digits are 0
         if ($rest == 0) {
             if (!$prevResult) {
-                $prevResult = $fiveItems . ' ';
+                $prevResult = $fiveItems.' ';
             }
             return array($prevResult, $tmpVal);
         }

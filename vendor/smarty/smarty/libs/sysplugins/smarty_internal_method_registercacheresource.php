@@ -25,8 +25,8 @@ class Smarty_Internal_Method_RegisterCacheResource
      * @link http://www.smarty.net/docs/en/api.register.cacheresource.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string $name name of resource type
-     * @param \Smarty_CacheResource $resource_handler
+     * @param  string                                                         $name name of resource type
+     * @param \Smarty_CacheResource                                           $resource_handler
      *
      * @return \Smarty|\Smarty_Internal_Template
      */

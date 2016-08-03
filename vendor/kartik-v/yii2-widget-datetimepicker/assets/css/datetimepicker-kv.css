@@ -10,7 +10,7 @@
  * Year: 2014
  * For more Yii related demos visit http://demos.krajee.com
  */
-.input-group.date.disabled .input-group-addon .glyphicon {
+.input-group.date.disabled  .input-group-addon .glyphicon {
     cursor: not-allowed;
     filter: alpha(opacity=65);
     -webkit-box-shadow: none;

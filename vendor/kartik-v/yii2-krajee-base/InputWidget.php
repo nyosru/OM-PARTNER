@@ -189,7 +189,7 @@ class InputWidget extends \yii\widgets\InputWidget
     /**
      * Initialize the plugin language
      *
-     * @param string $property the name of language property in [[pluginOptions]].
+     * @param string  $property the name of language property in [[pluginOptions]].
      * @param boolean $full whether to use the full language string. Defaults to `false`
      * which is the 2 (or 3) digit ISO-639 format.
      * Defaults to 'language'.
@@ -245,7 +245,7 @@ class InputWidget extends \yii\widgets\InputWidget
      * Generates an input
      *
      * @param string $type the input type
-     * @param bool $list whether the input is of dropdown list type
+     * @param bool   $list whether the input is of dropdown list type
      *
      * @return mixed
      */

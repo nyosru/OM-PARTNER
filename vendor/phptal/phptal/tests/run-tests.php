@@ -23,12 +23,15 @@ if (isset($argv) && count($argv) >= 2) {
     array_shift($argv);
     foreach ($argv as $entry) {
         echo "-> running standalone test units $entry\n";
-        try {
+        try
+        {
             $suite = createTestSuiteForFile($entry);
             $runner = new PHPUnit_TextUI_TestRunner();
             $runner->doRun($suite);
-        } catch (Exception $e) {
-            echo "Exception during execution of $entry: " . $e->getMessage() . "\n\n";
+        }
+        catch(Exception $e)
+        {
+            echo "Exception during execution of $entry: ".$e->getMessage()."\n\n";
         }
 
     }
@@ -36,7 +39,7 @@ if (isset($argv) && count($argv) >= 2) {
 }
 
 $alltests = new PHPUnit_Framework_TestSuite();
-foreach (new DirectoryIterator(dirname(__FILE__)) as $f) {
+foreach (new DirectoryIterator( dirname(__FILE__) ) as $f) {
     if ($f->isDot() || !$f->isFile()) continue;
 
     if (preg_match('/(.*?Test).php$/', $f->getFileName())) {
