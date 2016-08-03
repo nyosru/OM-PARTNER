@@ -2,9 +2,9 @@
 
 use common\models\Partners;
 use common\models\PartnersSettings;
-set_time_limit ( 800 );
+set_time_limit ( 60 );
 date_default_timezone_set('Europe/Moscow');
-error_reporting(E_ERROR | E_STRICT);
+
 defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 require(__DIR__ . '/../../vendor/autoload.php');
@@ -19,7 +19,12 @@ $config = yii\helpers\ArrayHelper::merge(
 );
 $versions = require(__DIR__ . '/../config/versions.php');
 $application = new yii\web\Application($config);
+function off($application){
+    $application->db->close();
+}
+register_shutdown_function('off', $application);
 $key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
+
 if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
     $run = new Partners();
     $check = $run->GetId($_SERVER['HTTP_HOST']);

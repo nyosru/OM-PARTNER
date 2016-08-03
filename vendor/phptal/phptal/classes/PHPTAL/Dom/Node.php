@@ -99,7 +99,7 @@ abstract class PHPTAL_Dom_Node
 
     function __toString()
     {
-        return " “" . $this->getValue() . "” ";
+        return " “".$this->getValue()."” ";
     }
 }
 

@@ -34,8 +34,8 @@ class TwigFormulaLoader implements FormulaLoaderInterface
     public function load(ResourceInterface $resource)
     {
         try {
-            $tokens = $this->twig->tokenize($resource->getContent(), (string)$resource);
-            $nodes = $this->twig->parse($tokens);
+            $tokens = $this->twig->tokenize($resource->getContent(), (string) $resource);
+            $nodes  = $this->twig->parse($tokens);
         } catch (\Exception $e) {
             if ($this->logger) {
                 $this->logger->error(sprintf('The template "%s" contains an error: %s', $resource, $e->getMessage()));
@@ -63,11 +63,11 @@ class TwigFormulaLoader implements FormulaLoaderInterface
                 $node->getAttribute('inputs'),
                 $node->getAttribute('filters'),
                 array(
-                    'output' => $node->getAttribute('asset')->getTargetPath(),
-                    'name' => $node->getAttribute('name'),
-                    'debug' => $node->getAttribute('debug'),
+                    'output'  => $node->getAttribute('asset')->getTargetPath(),
+                    'name'    => $node->getAttribute('name'),
+                    'debug'   => $node->getAttribute('debug'),
                     'combine' => $node->getAttribute('combine'),
-                    'vars' => $node->getAttribute('vars'),
+                    'vars'    => $node->getAttribute('vars'),
                 ),
             );
         } elseif ($node instanceof \Twig_Node_Expression_Function) {
@@ -76,12 +76,12 @@ class TwigFormulaLoader implements FormulaLoaderInterface
             if ($this->twig->getFunction($name) instanceof AsseticFilterFunction) {
                 $arguments = array();
                 foreach ($node->getNode('arguments') as $argument) {
-                    $arguments[] = eval('return ' . $this->twig->compile($argument) . ';');
+                    $arguments[] = eval('return '.$this->twig->compile($argument).';');
                 }
 
                 $invoker = $this->twig->getExtension('assetic')->getFilterInvoker($name);
 
-                $inputs = isset($arguments[0]) ? (array)$arguments[0] : array();
+                $inputs  = isset($arguments[0]) ? (array) $arguments[0] : array();
                 $filters = $invoker->getFilters();
                 $options = array_replace($invoker->getOptions(), isset($arguments[1]) ? $arguments[1] : array());
 

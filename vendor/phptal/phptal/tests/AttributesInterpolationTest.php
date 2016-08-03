@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class AttributesInterpolationTest extends PHPTAL_TestCase
 {
     public function testInterpol()
@@ -70,7 +71,7 @@ EOT;
         $src = <<<EOT
 <span tal:attributes="title php:'\${foo}\${foo}'"></span>
 EOT;
-        $exp = <<<EOT
+    $exp = <<<EOT
 <span title="\${foo}\${foo}"></span>
 EOT;
         $tpl = $this->newPHPTAL()->setSource($src);
@@ -84,7 +85,7 @@ EOT;
         $src = <<<EOT
 <span title="<?php echo '\${foo}\${foo}' ?>"></span>
 EOT;
-        $exp = <<<EOT
+    $exp = <<<EOT
 <span title="\${foo}\${foo}"></span>
 EOT;
         $tpl = $this->newPHPTAL()->setSource($src);
@@ -129,7 +130,7 @@ EOT;
         $tpl = $this->newPHPTAL();
         $tpl->setSource('<p test=\'te&amp;st<?php echo "<x>"; ?>test<?php print("&amp;") ?>test\'/>');
         $this->assertEquals('<p test="te&amp;st<x>test&amp;test"></p>', $tpl->execute());
-    }
+}
 
     public function testPHPBlockShort()
     {
@@ -149,10 +150,11 @@ EOT;
 
         $tpl = $this->newPHPTAL();
         $tpl->setSource('<p test=\'te&amp;st noshort<? print("<x>"); ?>test<?= "&amp;" ?>test\'/>');
-        try {
+        try
+        {
             $this->assertEquals(normalize_html('<p test="te&amp;st noshort&lt;? print(&quot;&lt;x&gt;&quot;); ?&gt;test&lt;?= &quot;&amp;&quot; ?&gt;test"></p>'), normalize_html($tpl->execute()));
-        } catch (PHPTAL_ParserException $e) {/* xml ill-formedness error is ok too */
         }
+        catch(PHPTAL_ParserException $e) {/* xml ill-formedness error is ok too */}
         ini_restore('short_open_tag');
     }
 }

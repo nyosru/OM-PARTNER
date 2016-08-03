@@ -94,7 +94,7 @@ class Config
      * Validate a single extension dependency
      *
      * @param string $name the extension class name (without vendor namespace prefix)
-     * @param mixed $repo the extension package repository names (without vendor name prefix)
+     * @param mixed  $repo the extension package repository names (without vendor name prefix)
      * @param string $reason a user friendly message for dependency validation failure
      *
      * @throws InvalidConfigException if extension fails dependency validation

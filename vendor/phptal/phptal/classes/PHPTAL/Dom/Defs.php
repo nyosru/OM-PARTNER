@@ -59,7 +59,7 @@ class PHPTAL_Dom_Defs
     public function isEmptyTagNS($namespace_uri, $local_name)
     {
         return ($namespace_uri === 'http://www.w3.org/1999/xhtml' || $namespace_uri === '')
-        && in_array(strtolower($local_name), self::$XHTML_EMPTY_TAGS);
+            && in_array(strtolower($local_name), self::$XHTML_EMPTY_TAGS);
     }
 
     /**
@@ -106,7 +106,7 @@ class PHPTAL_Dom_Defs
     public function isCDATAElementInHTML($namespace_uri, $local_name)
     {
         return ($local_name === 'script' || $local_name === 'style')
-        && ($namespace_uri === 'http://www.w3.org/1999/xhtml' || $namespace_uri === '');
+            && ($namespace_uri === 'http://www.w3.org/1999/xhtml' || $namespace_uri === '');
     }
 
     /**
@@ -164,7 +164,7 @@ class PHPTAL_Dom_Defs
         $this->prefix_to_uri[$ns->getPrefix()] = $ns->getNamespaceURI();
         $prefix = strtolower($ns->getPrefix());
         foreach ($ns->getAttributes() as $name => $attribute) {
-            $key = $prefix . ':' . strtolower($name);
+            $key = $prefix.':'.strtolower($name);
             $this->_dictionary[$key] = $attribute;
         }
     }
@@ -176,8 +176,8 @@ class PHPTAL_Dom_Defs
      */
     private $namespaces_by_uri = array();
     private $prefix_to_uri = array(
-        'xml' => 'http://www.w3.org/XML/1998/namespace',
-        'xmlns' => 'http://www.w3.org/2000/xmlns/',
+        'xml'=>'http://www.w3.org/XML/1998/namespace',
+        'xmlns'=>'http://www.w3.org/2000/xmlns/',
     );
 
     /**

@@ -14,19 +14,19 @@
  *
  * @author Monte Ohrt <monte at ohrt dot com>
  *
- * @param array|object $var variable to be formatted
- * @param int $max maximum recursion depth if $var is an array or object
- * @param int $length maximum string length if $var is a string
- * @param int $depth actual recursion depth
- * @param array $objects processed objects in actual depth to prevent recursive object processing
+ * @param array|object $var     variable to be formatted
+ * @param int          $max     maximum recursion depth if $var is an array or object
+ * @param int          $length  maximum string length if $var is a string
+ * @param int          $depth   actual recursion depth
+ * @param array        $objects processed objects in actual depth to prevent recursive object processing
  *
  * @return string
  */
 function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth = 0, $objects = array())
 {
     $_replace = array("\n" => '\n',
-        "\r" => '\r',
-        "\t" => '\t'
+                      "\r" => '\r',
+                      "\t" => '\t'
     );
     switch (gettype($var)) {
         case 'array' :
@@ -37,8 +37,8 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
             foreach ($var as $curr_key => $curr_val) {
                 $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
                     . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
-                    . smarty_modifier_debug_print_var($curr_val, $max, $length, ++$depth, $objects);
-                $depth--;
+                    . smarty_modifier_debug_print_var($curr_val, $max, $length, ++ $depth, $objects);
+                $depth --;
             }
             break;
 
@@ -56,8 +56,8 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
             foreach ($object_vars as $curr_key => $curr_val) {
                 $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
                     . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
-                    . smarty_modifier_debug_print_var($curr_val, $max, $length, ++$depth, $objects);
-                $depth--;
+                    . smarty_modifier_debug_print_var($curr_val, $max, $length, ++ $depth, $objects);
+                $depth --;
             }
             break;
 
@@ -71,14 +71,14 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
             } elseif (null === $var) {
                 $results = 'null';
             } else {
-                $results = htmlspecialchars((string)$var);
+                $results = htmlspecialchars((string) $var);
             }
             $results = '<i>' . $results . '</i>';
             break;
 
         case 'integer' :
         case 'float' :
-            $results = htmlspecialchars((string)$var);
+            $results = htmlspecialchars((string) $var);
             break;
 
         case 'string' :
@@ -98,7 +98,7 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
 
         case 'unknown type' :
         default :
-            $results = strtr((string)$var, $_replace);
+            $results = strtr((string) $var, $_replace);
             if (Smarty::$_MBSTRING) {
                 if (mb_strlen($results, Smarty::$_CHARSET) > $length) {
                     $results = mb_substr($results, 0, $length - 3, Smarty::$_CHARSET) . '...';

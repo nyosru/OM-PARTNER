@@ -58,9 +58,9 @@ class PHPTAL_Php_Attribute_METAL_FillSlot extends PHPTAL_Php_Attribute
     public function before(PHPTAL_Php_CodeWriter $codewriter)
     {
         if ($this->shouldUseCallback()) {
-            $function_base_name = 'slot_' . preg_replace('/[^a-z0-9]/', '_', $this->expression) . '_' . (self::$uid++);
+            $function_base_name = 'slot_'.preg_replace('/[^a-z0-9]/', '_', $this->expression).'_'.(self::$uid++);
             $codewriter->doFunction($function_base_name, 'PHPTAL $_thistpl, PHPTAL $tpl');
-            $this->function_name = $codewriter->getFunctionPrefix() . $function_base_name;
+            $this->function_name = $codewriter->getFunctionPrefix().$function_base_name;
 
             $codewriter->doSetVar('$ctx', '$tpl->getContext()');
             $codewriter->doInitTranslator();
@@ -74,9 +74,9 @@ class PHPTAL_Php_Attribute_METAL_FillSlot extends PHPTAL_Php_Attribute
     {
         if ($this->function_name !== null) {
             $codewriter->doEnd();
-            $codewriter->pushCode('$ctx->fillSlotCallback(' . $codewriter->str($this->expression) . ', ' . $codewriter->str($this->function_name) . ', $_thistpl, clone $tpl)');
+            $codewriter->pushCode('$ctx->fillSlotCallback('.$codewriter->str($this->expression).', '.$codewriter->str($this->function_name).', $_thistpl, clone $tpl)');
         } else {
-            $codewriter->pushCode('$ctx->fillSlot(' . $codewriter->str($this->expression) . ', ob_get_clean())');
+            $codewriter->pushCode('$ctx->fillSlot('.$codewriter->str($this->expression).', ob_get_clean())');
         }
     }
 
@@ -105,10 +105,10 @@ class PHPTAL_Php_Attribute_METAL_FillSlot extends PHPTAL_Php_Attribute
             return 0;
         }
 
-        $estimated_bytes = 2 * (3 + strlen($element->getQualifiedName()));
+        $estimated_bytes = 2*(3+strlen($element->getQualifiedName()));
 
         foreach ($element->getAttributeNodes() as $attr) {
-            $estimated_bytes += 4 + strlen($attr->getQualifiedName());
+            $estimated_bytes += 4+strlen($attr->getQualifiedName());
             if ($attr->getReplacedState() === PHPTAL_Dom_Attr::NOT_REPLACED) {
                 $estimated_bytes += strlen($attr->getValueEscaped()); // this is shoddy for replaced attributes
             }
@@ -117,8 +117,7 @@ class PHPTAL_Php_Attribute_METAL_FillSlot extends PHPTAL_Php_Attribute
         $has_repeat_attr = $element->hasAttributeNS('http://xml.zope.org/namespaces/tal', 'repeat');
 
         if ($element->hasAttributeNS('http://xml.zope.org/namespaces/tal', 'content') ||
-            $element->hasAttributeNS('http://xml.zope.org/namespaces/tal', 'replace')
-        ) {
+            $element->hasAttributeNS('http://xml.zope.org/namespaces/tal', 'replace')) {
             // assume that output in loops is shorter (e.g. table rows) than outside (main content)
             $estimated_bytes += ($has_repeat_attr || $is_nested_in_repeat) ? 500 : 2000;
         } else {

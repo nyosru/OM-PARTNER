@@ -36,5 +36,4 @@ class PHPTAL_DefaultKeyword implements Countable
         return new stdClass;
     }
 }
-
 ?>

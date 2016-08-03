@@ -1,9 +1,22 @@
 CHANGELOG
 ==============
 
-1.1.1.pre
+1.2.1
 -----------------
-  * fix bug download css from remoute
+ * Html compression by default no extra
+
+1.2.0
+-----------------
+ * Added html compression
+
+1.1.2
+-----------------
+ * fixed bug https://github.com/skeeks-semenov/yii2-assets-auto-compress/issues/7
+ * Processing of files with 404 titles
+
+1.1.1
+-----------------
+  * fixed bug download css from remoute server
 
 1.1
 -----------------

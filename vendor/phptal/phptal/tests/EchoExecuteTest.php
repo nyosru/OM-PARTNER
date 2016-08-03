@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id: $
  * @link     http://phptal.org/
  */
+
+
 class EchoExecuteTest extends PHPTAL_TestCase
 {
     private function echoExecute(PHPTAL $tpl)
@@ -21,7 +22,8 @@ class EchoExecuteTest extends PHPTAL_TestCase
             ob_start();
             $this->assertEquals(0, strlen($tpl->echoExecute()));
             $res = ob_get_clean();
-        } catch (Exception $e) {
+        }
+        catch(Exception $e) {
             ob_end_clean();
             throw $e;
         }
@@ -54,12 +56,15 @@ class EchoExecuteTest extends PHPTAL_TestCase
 
     function testEchoExecuteDeclsMacro()
     {
-        try {
+        try
+        {
             $tpl = $this->newPHPTAL();
             $tpl->setSource('<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><hello><m metal:define-macro="test">test</m><x metal:use-macro="test"/></hello>');
 
             $this->assertEquals(normalize_html('<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><hello><m>test</m></hello>'), $this->echoExecute($tpl));
-        } catch (PHPTAL_ConfigurationException $e) {
+        }
+        catch(PHPTAL_ConfigurationException $e)
+        {
             // this is fine. Combination of macros and echoExecute is not supported yet (if it were, the test above is valid)
             $this->assertContains("echoExecute", $e->getMessage());
         }

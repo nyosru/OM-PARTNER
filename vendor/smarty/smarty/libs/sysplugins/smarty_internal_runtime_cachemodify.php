@@ -14,7 +14,7 @@ class Smarty_Internal_Runtime_CacheModify
      * check client side cache
      *
      * @param Smarty_Internal_Template $_template
-     * @param  string $content
+     * @param  string                  $content
      */
     public function cacheModifiedCheck(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $content)
     {

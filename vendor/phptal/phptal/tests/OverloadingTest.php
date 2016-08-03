@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,16 +12,17 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
 class OverloadTestClass
 {
-    public $vars = array('foo' => 'bar', 'baz' => 'biz');
+    public $vars = array('foo'=>'bar', 'baz'=>'biz');
 
-    public function __set($name, $value)
+    public function __set( $name, $value )
     {
         $this->vars[$name] = $value;
     }
 
-    public function __get($name)
+    public function __get( $name )
     {
         if (array_key_exists($name, $this->vars)) {
             return $this->vars[$name];
@@ -30,16 +30,17 @@ class OverloadTestClass
         return null;
     }
 
-    public function __isset($key)
+    public function __isset( $key )
     {
         return isset($this->$key) || array_key_exists($key, $this->vars);
     }
 
-    public function __call($func, $args)
+    public function __call( $func, $args )
     {
-        return "$func()=" . join(',', $args);
+        return "$func()=".join(',', $args);
     }
 }
+
 
 
 class OverloadingTest extends PHPTAL_TestCase

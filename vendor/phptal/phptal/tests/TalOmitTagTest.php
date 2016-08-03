@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class TalOmitTagTest extends PHPTAL_TestCase
 {
     function testSimple()
@@ -32,7 +34,6 @@ class TalOmitTagTest extends PHPTAL_TestCase
     }
 
     private $call_count;
-
     function callCount()
     {
         $this->call_count++;
@@ -40,7 +41,7 @@ class TalOmitTagTest extends PHPTAL_TestCase
 
     function testCalledOnlyOnce()
     {
-        $this->call_count = 0;
+        $this->call_count=0;
         $tpl = $this->newPHPTAL();
         $tpl->setSource('<p tal:omit-tag="test/callCount" />');
 
@@ -54,7 +55,7 @@ class TalOmitTagTest extends PHPTAL_TestCase
 
     function testNestedConditions()
     {
-        $this->call_count = 0;
+        $this->call_count=0;
         $tpl = $this->newPHPTAL();
         $tpl->setSource('<span tal:omit-tag="php:true">a<span tal:omit-tag="php:false">b<span tal:omit-tag="php:true">c<span tal:omit-tag="php:false">d<span tal:omit-tag="php:false">e<span tal:omit-tag="php:true">f<span tal:omit-tag="php:true">g</span>h</span>i</span>j</span>k</span></span></span>');
 

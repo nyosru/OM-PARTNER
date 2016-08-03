@@ -16,7 +16,7 @@ class Smarty_Internal_Runtime_ValidateCompiled
      * - Check if compiled or cache file is valid
      *
      * @param  array $properties special template properties
-     * @param  bool $cache flag if called from cache file
+     * @param  bool  $cache      flag if called from cache file
      *
      * @return bool  flag if compiled or cache file is valid
      */
@@ -45,7 +45,7 @@ class Smarty_Internal_Runtime_ValidateCompiled
                 } else {
                     $handler = Smarty_Resource::load($tpl->smarty, $_file_to_check[2]);
                     if ($handler->checkTimestamps()) {
-                        $source = Smarty_Template_Source::load($tpl, $tpl->smarty, $_file_to_check[0]);
+                        $source = Smarty_Template_Source::load($tpl, $tpl->smarty, $_file_to_check[ 0 ]);
                         $mtime = $source->getTimeStamp();
                     } else {
                         continue;

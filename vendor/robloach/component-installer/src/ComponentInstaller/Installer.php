@@ -82,7 +82,8 @@ class Installer extends LibraryInstaller
 
         if (isset($customComponents[$prettyName]) && is_array($customComponents[$prettyName])) {
             $component = $customComponents[$prettyName];
-        } else {
+        }
+        else {
             $extra = $package->getExtra();
             $component = isset($extra['component']) ? $extra['component'] : array();
         }
@@ -176,11 +177,11 @@ class Installer extends LibraryInstaller
 
         // Initialize and execute each process in sequence.
         foreach ($processes as $class) {
-            if (!class_exists($class)) {
+            if(!class_exists($class)){
                 $io->write("<warning>Process class '$class' not found, skipping this process</warning>");
                 continue;
             }
-
+            
             /** @var \ComponentInstaller\Process\Process $process */
             $process = new $class($composer, $io);
             // When an error occurs during initialization, end the process.

@@ -31,8 +31,8 @@ class StylusFilter extends BaseNodeFilter implements DependencyExtractorInterfac
     /**
      * Constructs filter.
      *
-     * @param string $nodeBin The path to the node binary
-     * @param array $nodePaths An array of node paths
+     * @param string $nodeBin   The path to the node binary
+     * @param array  $nodePaths An array of node paths
      */
     public function __construct($nodeBin = '/usr/bin/node', array $nodePaths = array())
     {

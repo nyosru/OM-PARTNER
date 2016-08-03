@@ -37,9 +37,9 @@ class CompilerApiFilter extends BaseCompilerFilter
     public function filterDump(AssetInterface $asset)
     {
         $query = array(
-            'js_code' => $asset->getContent(),
+            'js_code'       => $asset->getContent(),
             'output_format' => 'json',
-            'output_info' => 'compiled_code',
+            'output_info'   => 'compiled_code',
         );
 
         if (null !== $this->compilationLevel) {
@@ -76,8 +76,8 @@ class CompilerApiFilter extends BaseCompilerFilter
 
         if (preg_match('/1|yes|on|true/i', ini_get('allow_url_fopen'))) {
             $contextOptions = array('http' => array(
-                'method' => 'POST',
-                'header' => 'Content-Type: application/x-www-form-urlencoded',
+                'method'  => 'POST',
+                'header'  => 'Content-Type: application/x-www-form-urlencoded',
                 'content' => http_build_query($query),
             ));
             if (null !== $this->timeout) {
@@ -85,7 +85,7 @@ class CompilerApiFilter extends BaseCompilerFilter
             }
             if ($this->proxy) {
                 $contextOptions['http']['proxy'] = $this->proxy;
-                $contextOptions['http']['request_fulluri'] = (Boolean)$this->proxyFullUri;
+                $contextOptions['http']['request_fulluri'] = (Boolean) $this->proxyFullUri;
             }
             $context = stream_context_create($contextOptions);
 
@@ -115,13 +115,13 @@ class CompilerApiFilter extends BaseCompilerFilter
 
         if (isset($data->serverErrors) && 0 < count($data->serverErrors)) {
             // @codeCoverageIgnoreStart
-            throw new \RuntimeException(sprintf('The Google Closure Compiler API threw some server errors: ' . print_r($data->serverErrors, true)));
+            throw new \RuntimeException(sprintf('The Google Closure Compiler API threw some server errors: '.print_r($data->serverErrors, true)));
             // @codeCoverageIgnoreEnd
         }
 
         if (isset($data->errors) && 0 < count($data->errors)) {
             // @codeCoverageIgnoreStart
-            throw new \RuntimeException(sprintf('The Google Closure Compiler API threw some errors: ' . print_r($data->errors, true)));
+            throw new \RuntimeException(sprintf('The Google Closure Compiler API threw some errors: '.print_r($data->errors, true)));
             // @codeCoverageIgnoreEnd
         }
 

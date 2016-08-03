@@ -35,7 +35,7 @@ class ScssphpFilter implements DependencyExtractorInterface
 
     public function enableCompass($enable = true)
     {
-        $this->compass = (Boolean)$enable;
+        $this->compass = (Boolean) $enable;
     }
 
     public function isCompassEnabled()

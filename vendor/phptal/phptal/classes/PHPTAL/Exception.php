@@ -12,7 +12,6 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-
 /**
  * @package PHPTAL
  * @subpackage Exception

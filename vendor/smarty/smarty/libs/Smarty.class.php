@@ -149,7 +149,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * define constant for clearing cache files be saved expiration dates
      */
-    const CLEAR_EXPIRED = -1;
+    const CLEAR_EXPIRED = - 1;
 
     /**
      * define compile check modes
@@ -680,8 +680,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var string[]
      */
     private static $obsoleteProperties = array('resource_caching', 'template_resource_caching',
-        'direct_access_security', '_dir_perms', '_file_perms',
-        'plugin_search_order', 'inheritance_merge_compiled_includes');
+                                               'direct_access_security', '_dir_perms', '_file_perms',
+                                               'plugin_search_order', 'inheritance_merge_compiled_includes');
 
     /**
      * List of private properties which will call getter/setter ona direct access
@@ -689,8 +689,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var array
      */
     private static $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
-        'plugins_dir' => 'PluginsDir', 'compile_dir' => 'CompileDir',
-        'cache_dir' => 'CacheDir',);
+                                      'plugins_dir'  => 'PluginsDir', 'compile_dir' => 'CompileDir',
+                                      'cache_dir'    => 'CacheDir',);
 
     /**#@-*/
 
@@ -787,7 +787,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Set template directory
      *
      * @param  string|array $template_dir directory(s) of template sources
-     * @param bool $isConfig true for config_dir
+     * @param bool          $isConfig     true for config_dir
      *
      * @return \Smarty current Smarty instance for chaining
      */
@@ -795,7 +795,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $type = $isConfig ? 'config_dir' : 'template_dir';
         $joined = '_joined_' . $type;
-        $this->{$type} = (array)$template_dir;
+        $this->{$type} = (array) $template_dir;
         $this->{$joined} = join(' # ', $this->{$type});
         $this->_cache[$type . '_new'] = true;
         $this->_cache[$type] = false;
@@ -806,8 +806,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Add template directory(s)
      *
      * @param  string|array $template_dir directory(s) of template sources
-     * @param  string $key of the array element to assign the template dir to
-     * @param bool $isConfig true for config_dir
+     * @param  string       $key          of the array element to assign the template dir to
+     * @param bool          $isConfig     true for config_dir
      *
      * @return Smarty          current Smarty instance for chaining
      */
@@ -816,12 +816,12 @@ class Smarty extends Smarty_Internal_TemplateBase
         $type = $isConfig ? 'config_dir' : 'template_dir';
         $joined = '_joined_' . $type;
         if (!isset($this->_cache[$type])) {
-            $this->{$type} = (array)$this->{$type};
+            $this->{$type} = (array) $this->{$type};
             $this->{$joined} = join(' # ', $this->{$type});
             $this->_cache[$type . '_new'] = true;
             $this->_cache[$type] = false;
         }
-        $this->{$joined} .= ' # ' . join(' # ', (array)$template_dir);
+        $this->{$joined} .= ' # ' . join(' # ', (array) $template_dir);
         $this->_addDir($type, $template_dir, $key);
         return $this;
     }
@@ -829,8 +829,8 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Get template directories
      *
-     * @param mixed $index index of directory to get, null to get all
-     * @param bool $isConfig true for config_dir
+     * @param mixed $index    index of directory to get, null to get all
+     * @param bool  $isConfig true for config_dir
      *
      * @return array list of template directories, or directory of $index
      */
@@ -839,7 +839,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         $type = $isConfig ? 'config_dir' : 'template_dir';
         if (!isset($this->_cache[$type])) {
             $joined = '_joined_' . $type;
-            $this->{$type} = (array)$this->{$type};
+            $this->{$type} = (array) $this->{$type};
             $this->{$joined} = join(' # ', $this->{$type});
             $this->_cache[$type] = false;
         }
@@ -872,7 +872,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Add config directory(s)
      *
      * @param string|array $config_dir directory(s) of config sources
-     * @param mixed $key key of the array element to assign the config dir to
+     * @param mixed        $key        key of the array element to assign the config dir to
      *
      * @return Smarty current Smarty instance for chaining
      */
@@ -902,7 +902,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setPluginsDir($plugins_dir)
     {
-        $this->plugins_dir = (array)$plugins_dir;
+        $this->plugins_dir = (array) $plugins_dir;
         if (isset($this->_cache['plugins_dir'])) {
             unset($this->_cache['plugins_dir']);
         }
@@ -921,7 +921,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (!isset($this->plugins_dir)) {
             $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
         }
-        $this->plugins_dir = array_merge((array)$this->plugins_dir, (array)$plugins_dir);
+        $this->plugins_dir = array_merge((array) $this->plugins_dir, (array) $plugins_dir);
         if (isset($this->_cache['plugins_dir'])) {
             unset($this->_cache['plugins_dir']);
         }
@@ -939,7 +939,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             if (!isset($this->plugins_dir)) {
                 $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
             } else {
-                $plugins_dir = (array)$this->plugins_dir;
+                $plugins_dir = (array) $this->plugins_dir;
                 $this->plugins_dir = array();
                 foreach ($plugins_dir as $v) {
                     $this->plugins_dir[] = $this->_realpath($v . DS, true);
@@ -1023,9 +1023,9 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * add directories to given property name
      *
-     * @param string $dirName directory property name
-     * @param string|array $dir directory string or array of strings
-     * @param mixed $key optional key
+     * @param string       $dirName directory property name
+     * @param string|array $dir     directory string or array of strings
+     * @param mixed        $key     optional key
      */
     private function _addDir($dirName, $dir, $key = null)
     {
@@ -1056,11 +1056,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * creates a template object
      *
-     * @param  string $template the resource handle of the template file
-     * @param  mixed $cache_id cache id to be used with this template
-     * @param  mixed $compile_id compile id to be used with this template
-     * @param  object $parent next higher level of Smarty variables
-     * @param  boolean $do_clone flag is Smarty object shall be cloned
+     * @param  string  $template   the resource handle of the template file
+     * @param  mixed   $cache_id   cache id to be used with this template
+     * @param  mixed   $compile_id compile id to be used with this template
+     * @param  object  $parent     next higher level of Smarty variables
+     * @param  boolean $do_clone   flag is Smarty object shall be cloned
      *
      * @return object  template object
      */
@@ -1115,7 +1115,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * plugin filename format: plugintype.pluginname.php
      *
      * @param  string $plugin_name class plugin name to load
-     * @param  bool $check check if already loaded
+     * @param  bool   $check       check if already loaded
      *
      * @throws SmartyException
      * @return string |boolean filepath of loaded file or false
@@ -1128,10 +1128,10 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Get unique template id
      *
-     * @param string $template_name
+     * @param string     $template_name
      * @param null|mixed $cache_id
      * @param null|mixed $compile_id
-     * @param null $caching
+     * @param null       $caching
      *
      * @return string
      */
@@ -1139,7 +1139,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
-        $caching = (int)($caching === null ? $this->caching : $caching);
+        $caching = (int) ($caching === null ? $this->caching : $caching);
 
         if ($this->allow_ambiguous_resources) {
             $_templateId =
@@ -1158,8 +1158,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      *  - remove /./ and /../
      *  - make it absolute if required
      *
-     * @param string $path file path
-     * @param bool $realpath leave $path relative
+     * @param string $path     file path
+     * @param bool   $realpath leave $path relative
      *
      * @return string
      */
@@ -1363,8 +1363,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Calls the appropriate setter function.
      * Issues an E_USER_NOTICE if no valid setter is found.
      *
-     * @param string $name property name
-     * @param mixed $value parameter passed to setter
+     * @param string $name  property name
+     * @param mixed  $value parameter passed to setter
      */
     public function __set($name, $value)
     {
@@ -1431,7 +1431,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
             if (Smarty::$_previous_error_handler) {
                 return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline,
-                    $errcontext);
+                                      $errcontext);
             } else {
                 return false;
             }

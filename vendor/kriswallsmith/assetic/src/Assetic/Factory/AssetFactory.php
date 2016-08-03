@@ -40,15 +40,15 @@ class AssetFactory
     /**
      * Constructor.
      *
-     * @param string $root The default root directory
+     * @param string  $root  The default root directory
      * @param Boolean $debug Filters prefixed with a "?" will be omitted in debug mode
      */
     public function __construct($root, $debug = false)
     {
-        $this->root = rtrim($root, '/');
-        $this->debug = $debug;
-        $this->output = 'assetic/*';
-        $this->workers = array();
+        $this->root      = rtrim($root, '/');
+        $this->debug     = $debug;
+        $this->output    = 'assetic/*';
+        $this->workers   = array();
     }
 
     /**
@@ -144,9 +144,9 @@ class AssetFactory
      *  * debug:  Forces debug mode on or off for this asset
      *  * root:   An array or string of more root directories
      *
-     * @param array|string $inputs An array of input strings
+     * @param array|string $inputs  An array of input strings
      * @param array|string $filters An array of filter names
-     * @param array $options An array of options
+     * @param array        $options An array of options
      *
      * @return AssetCollection An asset collection
      */
@@ -213,21 +213,21 @@ class AssetFactory
         if (!empty($options['vars'])) {
             $toAdd = array();
             foreach ($options['vars'] as $var) {
-                if (false !== strpos($options['output'], '{' . $var . '}')) {
+                if (false !== strpos($options['output'], '{'.$var.'}')) {
                     continue;
                 }
 
-                $toAdd[] = '{' . $var . '}';
+                $toAdd[] = '{'.$var.'}';
             }
 
             if ($toAdd) {
-                $options['output'] = str_replace('*', '*.' . implode('.', $toAdd), $options['output']);
+                $options['output'] = str_replace('*', '*.'.implode('.', $toAdd), $options['output']);
             }
         }
 
         // append consensus extension if missing
         if (1 == count($extensions) && !pathinfo($options['output'], PATHINFO_EXTENSION) && $extension = key($extensions)) {
-            $options['output'] .= '.' . $extension;
+            $options['output'] .= '.'.$extension;
         }
 
         // output --> target url
@@ -245,7 +245,7 @@ class AssetFactory
 
         ksort($options);
 
-        return substr(sha1(serialize($inputs) . serialize($filters) . serialize($options)), 0, 7);
+        return substr(sha1(serialize($inputs).serialize($filters).serialize($options)), 0, 7);
     }
 
     public function getLastModified(AssetInterface $asset)
@@ -295,8 +295,8 @@ class AssetFactory
      *
      * Both globs and paths will be absolutized using the current root directory.
      *
-     * @param string $input An input string
-     * @param array $options An array of options
+     * @param string $input   An input string
+     * @param array  $options An array of options
      *
      * @return AssetInterface An asset
      */
@@ -317,9 +317,9 @@ class AssetFactory
                 $path = null;
             }
         } else {
-            $root = $this->root;
-            $path = $input;
-            $input = $this->root . '/' . $path;
+            $root  = $this->root;
+            $path  = $input;
+            $input = $this->root.'/'.$path;
         }
 
         if (false !== strpos($input, '*')) {
@@ -408,8 +408,8 @@ class AssetFactory
     /**
      * Loops through the root directories and returns the first match.
      *
-     * @param string $path An absolute path
-     * @param array $roots An array of root directories
+     * @param string $path  An absolute path
+     * @param array  $roots An array of root directories
      *
      * @return string|null The matching root directory, if found
      */

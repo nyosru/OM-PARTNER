@@ -60,7 +60,7 @@ class JpegoptimFilter extends BaseProcessFilter
         }
 
         if ($this->max) {
-            $pb->add('--max=' . $this->max);
+            $pb->add('--max='.$this->max);
         }
 
         $pb->add($input = FilesystemUtils::createTemporaryFile('jpegoptim'));

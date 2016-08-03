@@ -107,9 +107,9 @@ class FileReflector extends ReflectionAbstract implements PHPParser_NodeVisitor
      * If the validation checks out, the file's contents are read, converted to
      * UTF-8 and the object is created from those contents.
      *
-     * @param string $file Name of the file.
+     * @param string  $file     Name of the file.
      * @param boolean $validate Whether to check the file using PHP Lint.
-     * @param string $encoding The encoding of the file.
+     * @param string  $encoding The encoding of the file.
      *
      * @throws Exception\UnreadableFile If the filename is incorrect or
      *   the file cannot be opened
@@ -226,7 +226,7 @@ class FileReflector extends ReflectionAbstract implements PHPParser_NodeVisitor
         }
 
         if ($node) {
-            $comments = (array)$node->getAttribute('comments');
+            $comments = (array) $node->getAttribute('comments');
 
             // remove non-DocBlock comments
             $comments = array_values(
@@ -241,7 +241,7 @@ class FileReflector extends ReflectionAbstract implements PHPParser_NodeVisitor
             if (!empty($comments)) {
                 try {
                     $docblock = new DocBlock(
-                        (string)$comments[0],
+                        (string) $comments[0],
                         null,
                         new Location($comments[0]->getLine())
                     );
@@ -254,8 +254,8 @@ class FileReflector extends ReflectionAbstract implements PHPParser_NodeVisitor
                     //   require, class, function, define, const)
                     if (count($comments) > 1
                         || (!$node instanceof PHPParser_Node_Stmt_Class
-                            && !$node instanceof PHPParser_Node_Stmt_Interface
-                            && $docblock->hasTag('package'))
+                        && !$node instanceof PHPParser_Node_Stmt_Interface
+                        && $docblock->hasTag('package'))
                         || !$this->isNodeDocumentable($node)
                     ) {
                         $this->doc_block = $docblock;
@@ -278,7 +278,7 @@ class FileReflector extends ReflectionAbstract implements PHPParser_NodeVisitor
             Dispatcher::getInstance()->dispatch(
                 'reflection.docblock-extraction.post',
                 PostDocBlockExtractionEvent
-                    ::createInstance($this)->setDocblock($this->doc_block)
+                ::createInstance($this)->setDocblock($this->doc_block)
             );
         }
 
@@ -308,16 +308,16 @@ class FileReflector extends ReflectionAbstract implements PHPParser_NodeVisitor
     protected function isNodeDocumentable(PHPParser_Node $node)
     {
         return ($node instanceof PHPParser_Node_Stmt_Class)
-        || ($node instanceof PHPParser_Node_Stmt_Interface)
-        || ($node instanceof PHPParser_Node_Stmt_ClassConst)
-        || ($node instanceof PHPParser_Node_Stmt_ClassMethod)
-        || ($node instanceof PHPParser_Node_Stmt_Const)
-        || ($node instanceof PHPParser_Node_Stmt_Function)
-        || ($node instanceof PHPParser_Node_Stmt_Property)
-        || ($node instanceof PHPParser_Node_Stmt_PropertyProperty)
-        || ($node instanceof PHPParser_Node_Stmt_Trait)
-        || ($node instanceof PHPParser_Node_Expr_Include)
-        || ($node instanceof PHPParser_Node_Expr_FuncCall
+            || ($node instanceof PHPParser_Node_Stmt_Interface)
+            || ($node instanceof PHPParser_Node_Stmt_ClassConst)
+            || ($node instanceof PHPParser_Node_Stmt_ClassMethod)
+            || ($node instanceof PHPParser_Node_Stmt_Const)
+            || ($node instanceof PHPParser_Node_Stmt_Function)
+            || ($node instanceof PHPParser_Node_Stmt_Property)
+            || ($node instanceof PHPParser_Node_Stmt_PropertyProperty)
+            || ($node instanceof PHPParser_Node_Stmt_Trait)
+            || ($node instanceof PHPParser_Node_Expr_Include)
+            || ($node instanceof PHPParser_Node_Expr_FuncCall
             && ($node->name instanceof PHPParser_Node_Name)
             && $node->name == 'define');
     }

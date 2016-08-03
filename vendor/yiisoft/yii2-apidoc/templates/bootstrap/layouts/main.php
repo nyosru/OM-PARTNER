@@ -16,7 +16,7 @@ $this->registerJs(<<<JS
     if (location.hash) shiftWindow();
     window.addEventListener("hashchange", shiftWindow);
 JS
-    ,
+,
     \yii\web\View::POS_READY
 );
 
@@ -27,7 +27,7 @@ $this->beginPage();
 <head>
     <meta charset="<?= Yii::$app->charset ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="language" content="en"/>
+    <meta name="language" content="en" />
     <?= Html::csrfMetaTags() ?>
     <?php $this->head() ?>
     <title><?php if (isset($type)) {
@@ -37,7 +37,7 @@ $this->beginPage();
         } else {
             echo Html::encode($this->context->pageTitle);
         }
-        ?></title>
+    ?></title>
 </head>
 <body>
 
@@ -79,13 +79,13 @@ $this->beginPage();
         'view' => $this,
         'params' => [],
     ]);
-    ?>
-    <div class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-            <input id="searchbox" type="text" class="form-control" placeholder="Search">
-        </div>
-    </div>
-    <?php
+?>
+<div class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+  </div>
+</div>
+<?php
     \yii\apidoc\templates\bootstrap\assets\JsSearchAsset::register($this);
 
     // defer loading of the search index: https://developers.google.com/speed/docs/best-practices/payload?csw=1#DeferLoadingJS
@@ -94,7 +94,7 @@ var element = document.createElement("script");
 element.src = "./jssearch.index.js";
 document.body.appendChild(element);
 JS
-    );
+);
 
     $this->registerJs(<<<JS
 
@@ -171,7 +171,7 @@ searchBox.bind('click', function(e) { e.stopPropagation(); });
 $('#search-resultbox').bind('click', function(e) { e.stopPropagation(); });
 
 JS
-    );
+);
 
     NavBar::end();
     ?>
@@ -187,9 +187,7 @@ JS
 
 <footer class="footer">
     <?php /* <p class="pull-left">&copy; My Company <?= date('Y') ?></p> */ ?>
-    <p class="pull-right">
-        <small>Page generated on <?= date('r') ?></small>
-    </p>
+    <p class="pull-right"><small>Page generated on <?= date('r') ?></small></p>
     <?= Yii::powered() ?>
 </footer>
 

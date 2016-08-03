@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,6 +11,7 @@
  * @version  SVN: $Id:$
  * @link     http://phptal.org/
  */
+
 class PHPTAL_Tokenizer
 {
     private $regex, $names, $offset, $str;
@@ -24,7 +24,7 @@ class PHPTAL_Tokenizer
         $this->str = $str;
         $this->end = strlen($str);
 
-        $this->regex = '/(' . str_replace('/', '\/', implode(')|(', $tokens)) . ')|(.)/Ssi';
+        $this->regex = '/('.str_replace('/', '\/', implode(')|(', $tokens)).')|(.)/Ssi';
         $this->names = array_keys($tokens);
         $this->names[] = 'OTHER';
     }
@@ -52,7 +52,7 @@ class PHPTAL_Tokenizer
         $this->offset += strlen($m[0]); // in bytes
 
         $this->current_value = $m[0];
-        $this->current_token = $this->names[count($m) - 2]; // -1 for usual length/offset confusion, and minus one extra for $m[0]
+        $this->current_token = $this->names[count($m)-2]; // -1 for usual length/offset confusion, and minus one extra for $m[0]
 
         return $this->current_token;
     }

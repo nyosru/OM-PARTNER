@@ -1,18 +1,18 @@
 <span>
   <table phptal:id="myTable">
-      <thead>
+    <thead>
       <tr>
-          <th>foo</th>
-          <th>bar</th>
-          <th>baz</th>
+        <th>foo</th>
+        <th>bar</th>
+        <th>baz</th>
       </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
       <tr tal:repeat="item result">
-          <td tal:content="repeat/item/index"/>
-          <td tal:content="repeat/item/odd"/>
-          <td tal:content="item"/>
+        <td tal:content="repeat/item/index"/>
+        <td tal:content="repeat/item/odd"/>
+        <td tal:content="item"/>
       </tr>
-      </tbody>
+    </tbody>
   </table>
 </span>

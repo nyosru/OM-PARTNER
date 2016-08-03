@@ -26,7 +26,7 @@ $renderer = $this->context;
         echo 'Class ';
     }
     echo $type->name;
-    ?></h1>
+?></h1>
 <div id="nav">
     <a href="index.html">All Classes</a>
     <?php if (!($type instanceof InterfaceDoc) && !empty($type->properties)): ?>
@@ -45,67 +45,40 @@ $renderer = $this->context;
 
 <table class="summaryTable docClass table table-bordered">
     <colgroup>
-        <col class="col-name"/>
-        <col class="col-value"/>
+        <col class="col-name" />
+        <col class="col-value" />
     </colgroup>
     <?php if ($type instanceof ClassDoc): ?>
-        <tr>
-            <th>Inheritance</th>
-            <td><?= $renderer->renderInheritance($type) ?></td>
-        </tr>
+        <tr><th>Inheritance</th><td><?= $renderer->renderInheritance($type) ?></td></tr>
     <?php endif; ?>
     <?php if ($type instanceof ClassDoc && !empty($type->interfaces)): ?>
-        <tr>
-            <th>Implements</th>
-            <td><?= $renderer->renderInterfaces($type->interfaces) ?></td>
-        </tr>
+        <tr><th>Implements</th><td><?= $renderer->renderInterfaces($type->interfaces) ?></td></tr>
     <?php endif; ?>
     <?php if ($type instanceof InterfaceDoc && !empty($type->parentInterfaces)): ?>
-        <tr>
-            <th>Implements</th>
-            <td><?= $renderer->renderInterfaces($type->parentInterfaces) ?></td>
-        </tr>
+        <tr><th>Implements</th><td><?= $renderer->renderInterfaces($type->parentInterfaces) ?></td></tr>
     <?php endif; ?>
     <?php if (!($type instanceof InterfaceDoc) && !empty($type->traits)): ?>
-        <tr>
-            <th>Uses Traits</th>
-            <td><?= $renderer->renderTraits($type->traits) ?></td>
-        </tr>
+        <tr><th>Uses Traits</th><td><?= $renderer->renderTraits($type->traits) ?></td></tr>
     <?php endif; ?>
     <?php if ($type instanceof ClassDoc && !empty($type->subclasses)): ?>
-        <tr>
-            <th>Subclasses</th>
-            <td><?= $renderer->renderClasses($type->subclasses) ?></td>
-        </tr>
+        <tr><th>Subclasses</th><td><?= $renderer->renderClasses($type->subclasses) ?></td></tr>
     <?php endif; ?>
     <?php if ($type instanceof InterfaceDoc && !empty($type->implementedBy)): ?>
-        <tr>
-            <th>Implemented by</th>
-            <td><?= $renderer->renderClasses($type->implementedBy) ?></td>
-        </tr>
+        <tr><th>Implemented by</th><td><?= $renderer->renderClasses($type->implementedBy) ?></td></tr>
     <?php endif; ?>
     <?php if ($type instanceof TraitDoc && !empty($type->usedBy)): ?>
-        <tr>
-            <th>Implemented by</th>
-            <td><?= $renderer->renderClasses($type->usedBy) ?></td>
-        </tr>
+        <tr><th>Implemented by</th><td><?= $renderer->renderClasses($type->usedBy) ?></td></tr>
     <?php endif; ?>
     <?php if (!empty($type->since)): ?>
-        <tr>
-            <th>Available since version</th>
-            <td><?= $type->since ?></td>
-        </tr>
+        <tr><th>Available since version</th><td><?= $type->since ?></td></tr>
     <?php endif; ?>
     <?php if (!empty($type->deprecatedSince) || !empty($type->deprecatedReason)): ?>
-        <tr class="deprecated">
-            <th>Deprecated since version</th>
-            <td><?= $type->deprecatedSince ?> <?= $type->deprecatedReason ?></td>
-        </tr>
+        <tr class="deprecated"><th>Deprecated since version</th><td><?= $type->deprecatedSince ?> <?= $type->deprecatedReason ?></td></tr>
     <?php endif; ?>
     <?php if (($sourceUrl = $renderer->getSourceUrl($type)) !== null): ?>
         <tr>
-            <th>Source Code</th>
-            <td><a href="<?= $sourceUrl ?>"><?= $sourceUrl ?></a></td>
+          <th>Source Code</th>
+          <td><a href="<?= $sourceUrl ?>"><?= $sourceUrl ?></a></td>
         </tr>
     <?php endif; ?>
 </table>

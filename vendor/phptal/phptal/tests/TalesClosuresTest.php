@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class TalesClosuresTest extends PHPTAL_TestCase
 {
     function testClosure()
@@ -66,7 +68,7 @@ class TestInvocable
 {
     function __invoke()
     {
-        return array('testif' => array('works' => 'well'));
+        return array('testif'=>array('works'=>'well'));
     }
 
     public $prop = 'ok';

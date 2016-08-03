@@ -12,7 +12,6 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-
 /**
  * Stores XMLNS aliases fluctuation in the xml flow.
  *
@@ -77,10 +76,7 @@ class PHPTAL_Dom_XmlnsState
                 $prefix_to_uri[$prefix] = $value;
             }
 
-            if ($qname == 'xmlns') {
-                $changed = true;
-                $current_default = $value;
-            }
+            if ($qname == 'xmlns') {$changed=true;$current_default = $value;}
         }
 
         if ($changed) {

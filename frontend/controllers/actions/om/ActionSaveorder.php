@@ -155,6 +155,7 @@ trait ActionSaveorder
         }
         $transaction = Yii::$app->db->beginTransaction();
         try {
+            $express_man = $this->oksuppliers();
             $nowdate = date('Y-m-d H:i:s');
             $defaultentrycountry = Countries::find()->where(['countries_id' => $default_user_address['entry_country_id']])->asArray()->one();
             $defaultentryzones = Zones::find()->where(['zone_id' => $default_user_address['entry_zone_id']])->asArray()->one();
@@ -194,7 +195,7 @@ trait ActionSaveorder
                 $orders->delivery_country = '176';
             }
 
-            $orders->delivery_state = $entryzones['zone_nameDrk.xbnt еуфь'];
+            $orders->delivery_state = $entryzones['zone_name'];
             $orders->delivery_city = $userOM['entry_city'];
 
             if ($userOM['entry_street_address']) {
@@ -523,10 +524,14 @@ trait ActionSaveorder
                 }
                 $price_total = 0;
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
-
+                $express_key = TRUE;
                 foreach ($product_in_order as $keyin_order => $valuein_order) {
                     if (array_key_exists($keyin_order, $origprod)) {
                         $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order]['productsAttributesDescr'], 'products_options_values_id');
+                        $checkprod[] = $reindexprod[$keyin_order]['manufacturers_id'];
+                        if($express_key && !in_array($reindexprod[$keyin_order]['manufacturers_id'], $express_man)){
+                            $express_key = FALSE;
+                        }
                         foreach ($valuein_order as $keyinattr_order => $valueinattr_order) {
                             $ordersprod = new OrdersProducts();
                             $ordersprod->first_quant = intval($valueinattr_order);
@@ -636,6 +641,10 @@ trait ActionSaveorder
                             }
                         }
                     }
+                }
+                if($express_key){
+                    $orders->express = (int)$express_key;
+                    $orders->save();
                 }
                 $orderstotalprice = new OrdersTotal();
                 $orderstotalprice->orders_id = $orders->orders_id;

@@ -14,16 +14,16 @@
  */
 
 
+
 function phptal_tales_custom($src, $nothrow)
 {
-    return 'sprintf("%01.2f", ' . PHPTAL_Php_TalesInternal::path($src, $nothrow) . ')';
+    return 'sprintf("%01.2f", '.PHPTAL_Php_TalesInternal::path($src, $nothrow).')';
 }
 
 class MyTalesClass implements PHPTAL_Tales
 {
-    public static function reverse($exp, $nothrow)
-    {
-        return 'strrev(' . phptal_tales($exp, $nothrow) . ')';
+    public static function reverse($exp,$nothrow){
+        return 'strrev('.phptal_tales($exp, $nothrow).')';
     }
 }
 
@@ -72,7 +72,7 @@ class TalesTest extends PHPTAL_TestCase
     {
         $tpl = $this->newPHPTAL()->setSource('<div tal:condition="exists:a | nothing">ok</div>');
         $tpl->a = array(1);
-        $this->assertEquals('<div>ok</div>', $tpl->execute());
+        $this->assertEquals('<div>ok</div>',$tpl->execute());
     }
 
     function testNotPath()
@@ -106,7 +106,7 @@ class TalesTest extends PHPTAL_TestCase
     {
         $src = 'custom: some/path';
         $this->assertEquals('sprintf("%01.2f", $ctx->path($ctx->some, \'path\'))',
-            phptal_tales($src));
+                            phptal_tales($src));
     }
 
     function testCustomClass()
@@ -168,7 +168,7 @@ class TalesTest extends PHPTAL_TestCase
     function testInterpolatedPHP2()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->somearray = array(1 => 9, 9, 9);
+        $tpl->somearray = array(1=>9, 9, 9);
         $tpl->setSource('<div tal:repeat="x php:somearray"><x tal:replace=\'repeat/${php:
             "x"}/key\'/></div>');
         $this->assertEquals('<div>1</div><div>2</div><div>3</div>', $tpl->execute());
@@ -204,10 +204,13 @@ class TalesTest extends PHPTAL_TestCase
 
     function testThrowsUnknownModifier()
     {
-        try {
+        try
+        {
             phptal_tales('testidontexist:foo');
             $this->fail();
-        } catch (PHPTAL_UnknownModifierException $e) {
+        }
+        catch(PHPTAL_UnknownModifierException $e)
+        {
             $this->assertEquals('testidontexist', $e->getModifierName());
         }
     }

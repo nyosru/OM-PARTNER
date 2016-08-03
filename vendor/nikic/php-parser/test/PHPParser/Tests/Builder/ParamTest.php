@@ -2,25 +2,23 @@
 
 class PHPParser_Tests_Builder_ParamTest extends PHPUnit_Framework_TestCase
 {
-    public function createParamBuilder($name)
-    {
+    public function createParamBuilder($name) {
         return new PHPParser_Builder_Param($name);
     }
 
     /**
      * @dataProvider provideTestDefaultValues
      */
-    public function testDefaultValues($value, $expectedValueNode)
-    {
+    public function testDefaultValues($value, $expectedValueNode) {
         $node = $this->createParamBuilder('test')
             ->setDefault($value)
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals($expectedValueNode, $node->default);
     }
 
-    public function provideTestDefaultValues()
-    {
+    public function provideTestDefaultValues() {
         return array(
             array(
                 null,
@@ -74,11 +72,11 @@ class PHPParser_Tests_Builder_ParamTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTypeHints()
-    {
+    public function testTypeHints() {
         $node = $this->createParamBuilder('test')
             ->setTypeHint('array')
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals(
             new PHPParser_Node_Param('test', null, 'array'),
@@ -87,7 +85,8 @@ class PHPParser_Tests_Builder_ParamTest extends PHPUnit_Framework_TestCase
 
         $node = $this->createParamBuilder('test')
             ->setTypeHint('callable')
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals(
             new PHPParser_Node_Param('test', null, 'callable'),
@@ -96,7 +95,8 @@ class PHPParser_Tests_Builder_ParamTest extends PHPUnit_Framework_TestCase
 
         $node = $this->createParamBuilder('test')
             ->setTypeHint('Some\Class')
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals(
             new PHPParser_Node_Param('test', null, new PHPParser_Node_Name('Some\Class')),
@@ -104,11 +104,11 @@ class PHPParser_Tests_Builder_ParamTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testByRef()
-    {
+    public function testByRef() {
         $node = $this->createParamBuilder('test')
             ->makeByRef()
-            ->getNode();
+            ->getNode()
+        ;
 
         $this->assertEquals(
             new PHPParser_Node_Param('test', null, null, true),

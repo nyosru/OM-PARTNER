@@ -254,7 +254,7 @@ class Context extends Component
         );
 
         $methods = [];
-        foreach ($inheritanceCandidates as $candidate) {
+        foreach($inheritanceCandidates as $candidate) {
             if (isset($candidate->methods[$method->name])) {
                 $cmethod = $candidate->methods[$method->name];
                 if ($cmethod->hasTag('inheritdoc')) {
@@ -286,7 +286,7 @@ class Context extends Component
     private function getInterfaces($class)
     {
         $interfaces = [];
-        foreach ($class->interfaces as $interface) {
+        foreach($class->interfaces as $interface) {
             if (isset($this->interfaces[$interface])) {
                 $interfaces[] = $this->interfaces[$interface];
             }

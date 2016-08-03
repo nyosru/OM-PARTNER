@@ -66,11 +66,11 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w]+!', '_', $_template->compile_id) : null;
         if ($_template->source->isConfig) {
             $_flag = '_' .
-                ((int)$_template->smarty->config_read_hidden + (int)$_template->smarty->config_booleanize * 2 +
-                    (int)$_template->smarty->config_overwrite * 4);
+                ((int) $_template->smarty->config_read_hidden + (int) $_template->smarty->config_booleanize * 2 +
+                    (int) $_template->smarty->config_overwrite * 4);
         } else {
             $_flag =
-                '_' . ((int)$_template->smarty->merge_compiled_includes + (int)$_template->smarty->escape_html * 2);
+                '_' . ((int) $_template->smarty->merge_compiled_includes + (int) $_template->smarty->escape_html * 2);
         }
         $_filepath = $_template->source->uid . $_flag;
         // if use_sub_dirs, break file into directories
@@ -128,7 +128,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 ob_start();
                 try {
                     eval("?>" . $this->content);
-                } catch (Exception $e) {
+                }
+                catch (Exception $e) {
                     while (ob_get_level() > $level) {
                         ob_end_clean();
                     }
@@ -233,7 +234,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         try {
             $_template->loadCompiler();
             $code = $_template->compiler->compileTemplate($_template);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             // restore old timestamp in case of error
             if (!$_template->source->handler->recompiled && $saved_timestamp) {
                 touch($_template->compiled->filepath, $saved_timestamp);
@@ -255,7 +257,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      * Write compiled code by handler
      *
      * @param Smarty_Internal_Template $_template template object
-     * @param string $code compiled code
+     * @param string                   $code      compiled code
      *
      * @return boolean success
      */

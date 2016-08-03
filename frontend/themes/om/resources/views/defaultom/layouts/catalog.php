@@ -256,10 +256,10 @@ $this->beginPage();
     ?>
 </div>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).on('load', function(){
+        $('a[rel=light]').light();
         $('.target').shortscroll();
     });
-
 </script>
 
 

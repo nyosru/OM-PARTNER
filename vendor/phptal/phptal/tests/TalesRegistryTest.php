@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,12 +11,14 @@
  * @version  SVN: $Id: $
  * @link     http://phptal.org/
  */
+
+
 class TalesRegistryTest extends PHPTAL_TestCase
 {
     function testInstance()
     {
         $this->assertSame(PHPTAL_TalesRegistry::getInstance(), PHPTAL_TalesRegistry::getInstance());
-        $this->assertInstanceOf('PHPTAL_TalesRegistry', PHPTAL_TalesRegistry::getInstance());
+        $this->assertInstanceOf('PHPTAL_TalesRegistry',PHPTAL_TalesRegistry::getInstance());
     }
 
     function testRegisterFunction()
@@ -32,13 +33,12 @@ class TalesRegistryTest extends PHPTAL_TestCase
      * @param Text_Template $template
      * @return void
      */
-    public function prepareTemplate(Text_Template $template)
-    {
-        $template->setVar(array(
-            'constants' => '',
+    public function prepareTemplate( Text_Template $template ) {
+        $template->setVar( array(
+            'constants'    => '',
             'zz_constants' => PHPUnit_Util_GlobalState::getConstantsAsString()
         ));
-        parent::prepareTemplate($template);
+        parent::prepareTemplate( $template );
     }
 
     /**
@@ -50,7 +50,7 @@ class TalesRegistryTest extends PHPTAL_TestCase
         $test_prefix = 'testprefix';
         PHPTAL_TalesRegistry::getInstance()->registerPrefix($test_prefix, 'registry_test_callback3');
         PHPTAL_TalesRegistry::getInstance()->unregisterPrefix($test_prefix);
-        $this->newPHPTAL()->setSource('<p tal:content="' . $test_prefix . ':"/>')->execute();
+        $this->newPHPTAL()->setSource('<p tal:content="'.$test_prefix.':"/>')->execute();
     }
 
     /**

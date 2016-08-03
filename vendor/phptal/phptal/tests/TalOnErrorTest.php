@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,7 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
 class OnErrorDummyObject
 {
     function throwException()

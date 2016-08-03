@@ -87,8 +87,8 @@ class Dt
 
         $search = array('D', 'l', 'M', 'F');
         $replace = array(
-            $prepos . self::$_DAY_NAMES[$weekday][0],
-            $prepos . self::$_DAY_NAMES[$weekday][$dayIdx],
+            $prepos.self::$_DAY_NAMES[$weekday][0],
+            $prepos.self::$_DAY_NAMES[$weekday][$dayIdx],
             self::$_MONTH_NAMES[$month][0],
             self::$_MONTH_NAMES[$month][$monthIdx],
         );
@@ -314,7 +314,7 @@ class Dt
      */
     private function _addResultSuffix(\DateInterval $interval, $result)
     {
-        return $interval->invert ? self::$PREFIX_IN . "\xC2\xA0" . $result : $result . "\xC2\xA0" . self::$SUFFIX_AGO;
+        return $interval->invert ? self::$PREFIX_IN."\xC2\xA0".$result : $result."\xC2\xA0".self::$SUFFIX_AGO;
     }
 
     private function _getTwoDaysResult(\DateInterval $interval, \DateTime $toTime, \DateTimeZone $timeZone = null)

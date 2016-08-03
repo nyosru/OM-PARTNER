@@ -35,8 +35,8 @@
  * @author Laurent Bedubourg <lbedubourg@motion-twin.com>
  */
 class PHPTAL_Php_Attribute_TAL_Define
-    extends PHPTAL_Php_Attribute
-    implements PHPTAL_Php_TalesChainReader
+extends PHPTAL_Php_Attribute
+implements PHPTAL_Php_TalesChainReader
 {
     private $tmp_content_var;
     private $_buffered = false;
@@ -46,7 +46,7 @@ class PHPTAL_Php_Attribute_TAL_Define
     /**
      * Prevents generation of invalid PHP code when given invalid TALES
      */
-    private $_chainPartGenerated = false;
+    private $_chainPartGenerated=false;
 
     public function before(PHPTAL_Php_CodeWriter $codewriter)
     {
@@ -79,7 +79,7 @@ class PHPTAL_Php_Attribute_TAL_Define
             $code = $codewriter->evaluateExpression($expression);
             if (is_array($code)) {
                 $this->chainedDefine($codewriter, $code);
-            } elseif ($code == PHPTAL_Php_TalesInternal::NOTHING_KEYWORD) {
+            } elseif ( $code == PHPTAL_Php_TalesInternal::NOTHING_KEYWORD) {
                 $this->doDefineVarWith($codewriter, 'null');
             } else {
                 $this->doDefineVarWith($codewriter, $code);
@@ -127,12 +127,12 @@ class PHPTAL_Php_Attribute_TAL_Define
 
     public function talesChainPart(PHPTAL_Php_TalesChainExecutor $executor, $exp, $islast)
     {
-        $this->_chainPartGenerated = true;
+        $this->_chainPartGenerated=true;
 
         if ($this->_defineScope == 'global') {
-            $var = '$tpl->getGlobalContext()->' . $this->_defineVar;
+            $var = '$tpl->getGlobalContext()->'.$this->_defineVar;
         } else {
-            $var = '$ctx->' . $this->_defineVar;
+            $var = '$ctx->'.$this->_defineVar;
         }
 
         $cw = $executor->getCodeWriter();
@@ -140,11 +140,11 @@ class PHPTAL_Php_Attribute_TAL_Define
         if (!$islast) {
             // must use temp variable, because expression could refer to itself
             $tmp = $cw->createTempVariable();
-            $executor->doIf('(' . $tmp . ' = ' . $exp . ') !== null');
+            $executor->doIf('('.$tmp.' = '.$exp.') !== null');
             $cw->doSetVar($var, $tmp);
             $cw->recycleTempVariable($tmp);
         } else {
-            $executor->doIf('(' . $var . ' = ' . $exp . ') !== null');
+            $executor->doIf('('.$var.' = '.$exp.') !== null');
         }
     }
 
@@ -154,7 +154,7 @@ class PHPTAL_Php_Attribute_TAL_Define
     public function parseExpression($exp)
     {
         $defineScope = false; // (local | global)
-        $defineVar = false; // var to define
+        $defineVar   = false; // var to define
 
         // extract defineScope from expression
         $exp = trim($exp);
@@ -173,7 +173,7 @@ class PHPTAL_Php_Attribute_TAL_Define
     {
         if (!$this->_buffered) {
             $this->tmp_content_var = $codewriter->createTempVariable();
-            $codewriter->pushCode('ob_start()');
+            $codewriter->pushCode( 'ob_start()' );
             $this->phpelement->generateContent($codewriter);
             $codewriter->doSetVar($this->tmp_content_var, 'ob_get_clean()');
             $this->_buffered = true;
@@ -184,9 +184,9 @@ class PHPTAL_Php_Attribute_TAL_Define
     private function doDefineVarWith(PHPTAL_Php_CodeWriter $codewriter, $code)
     {
         if ($this->_defineScope == 'global') {
-            $codewriter->doSetVar('$tpl->getGlobalContext()->' . $this->_defineVar, $code);
+            $codewriter->doSetVar('$tpl->getGlobalContext()->'.$this->_defineVar, $code);
         } else {
-            $codewriter->doSetVar('$ctx->' . $this->_defineVar, $code);
+            $codewriter->doSetVar('$ctx->'.$this->_defineVar, $code);
         }
     }
 }

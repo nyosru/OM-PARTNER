@@ -58,5 +58,5 @@ interface PHPTAL_TranslationService
      * @param string $key - translation key, e.g. "hello ${username}!"
      * @param string $htmlescape - if true, you should HTML-escape translated string. You should never HTML-escape interpolated variables.
      */
-    function translate($key, $htmlescape = true);
+    function translate($key, $htmlescape=true);
 }

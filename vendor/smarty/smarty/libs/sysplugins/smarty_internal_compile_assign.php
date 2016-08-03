@@ -21,15 +21,15 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
      *
      * @var array
      */
-    public $valid_scopes = array('local' => true, 'parent' => true, 'root' => true, 'global' => true,
-        'smarty' => true, 'tpl_root' => true);
+    public $valid_scopes = array('local'  => true, 'parent' => true, 'root' => true, 'global' => true,
+                                 'smarty' => true, 'tpl_root' => true);
 
     /**
      * Compiles code for the {assign} tag
      *
-     * @param  array $args array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array                                $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param  array                                $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException

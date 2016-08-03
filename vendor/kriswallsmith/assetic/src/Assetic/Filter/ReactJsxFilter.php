@@ -30,9 +30,9 @@ class ReactJsxFilter extends BaseNodeFilter
             : array($this->jsxBin));
 
         $inputDir = FilesystemUtils::createThrowAwayDirectory('jsx_in');
-        $inputFile = $inputDir . DIRECTORY_SEPARATOR . 'asset.js';
+        $inputFile = $inputDir.DIRECTORY_SEPARATOR.'asset.js';
         $outputDir = FilesystemUtils::createThrowAwayDirectory('jsx_out');
-        $outputFile = $outputDir . DIRECTORY_SEPARATOR . 'asset.js';
+        $outputFile = $outputDir.DIRECTORY_SEPARATOR.'asset.js';
 
         // create the asset file
         file_put_contents($inputFile, $asset->getContent());
@@ -40,7 +40,8 @@ class ReactJsxFilter extends BaseNodeFilter
         $builder
             ->add($inputDir)
             ->add($outputDir)
-            ->add('--no-cache-dir');
+            ->add('--no-cache-dir')
+        ;
 
         $proc = $builder->getProcess();
         $code = $proc->run();

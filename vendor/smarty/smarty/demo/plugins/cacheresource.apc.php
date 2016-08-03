@@ -41,8 +41,8 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
     /**
      * Save values for a set of keys to cache
      *
-     * @param  array $keys list of values to save
-     * @param  int $expire expiration time
+     * @param  array $keys   list of values to save
+     * @param  int   $expire expiration time
      *
      * @return boolean true on success, false on failure
      */

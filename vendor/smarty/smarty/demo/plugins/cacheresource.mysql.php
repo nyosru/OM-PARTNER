@@ -34,7 +34,8 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
     {
         try {
             $this->db = new PDO("mysql:dbname=test;host=127.0.0.1", "smarty");
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e) {
             throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
         }
         $this->fetch = $this->db->prepare('SELECT modified, content FROM output_cache WHERE id = :id');
@@ -46,12 +47,12 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
     /**
      * fetch cached content and its modification time from data source
      *
-     * @param  string $id unique cache content identifier
-     * @param  string $name template name
-     * @param  string $cache_id cache id
-     * @param  string $compile_id compile id
-     * @param  string $content cached content
-     * @param  integer $mtime cache modification timestamp (epoch)
+     * @param  string  $id         unique cache content identifier
+     * @param  string  $name       template name
+     * @param  string  $cache_id   cache id
+     * @param  string  $compile_id compile id
+     * @param  string  $content    cached content
+     * @param  integer $mtime      cache modification timestamp (epoch)
      *
      * @return void
      */
@@ -74,9 +75,9 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
      *
      * @note implementing this method is optional. Only implement it if modification times can be accessed faster than loading the complete cached content.
      *
-     * @param  string $id unique cache content identifier
-     * @param  string $name template name
-     * @param  string $cache_id cache id
+     * @param  string $id         unique cache content identifier
+     * @param  string $name       template name
+     * @param  string $cache_id   cache id
      * @param  string $compile_id compile id
      *
      * @return integer|boolean timestamp (epoch) the template was modified, or false if not found
@@ -93,24 +94,24 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
     /**
      * Save content to cache
      *
-     * @param  string $id unique cache content identifier
-     * @param  string $name template name
-     * @param  string $cache_id cache id
-     * @param  string $compile_id compile id
-     * @param  integer|null $exp_time seconds till expiration time in seconds or null
-     * @param  string $content content to cache
+     * @param  string       $id         unique cache content identifier
+     * @param  string       $name       template name
+     * @param  string       $cache_id   cache id
+     * @param  string       $compile_id compile id
+     * @param  integer|null $exp_time   seconds till expiration time in seconds or null
+     * @param  string       $content    content to cache
      *
      * @return boolean      success
      */
     protected function save($id, $name, $cache_id, $compile_id, $exp_time, $content)
     {
         $this->save->execute(array(
-            'id' => $id,
-            'name' => $name,
-            'cache_id' => $cache_id,
-            'compile_id' => $compile_id,
-            'content' => $content,
-        ));
+                                 'id'         => $id,
+                                 'name'       => $name,
+                                 'cache_id'   => $cache_id,
+                                 'compile_id' => $compile_id,
+                                 'content'    => $content,
+                             ));
 
         return !!$this->save->rowCount();
     }
@@ -118,10 +119,10 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
     /**
      * Delete content from cache
      *
-     * @param  string $name template name
-     * @param  string $cache_id cache id
-     * @param  string $compile_id compile id
-     * @param  integer|null $exp_time seconds till expiration or null
+     * @param  string       $name       template name
+     * @param  string       $cache_id   cache id
+     * @param  string       $compile_id compile id
+     * @param  integer|null $exp_time   seconds till expiration or null
      *
      * @return integer      number of deleted caches
      */
@@ -132,7 +133,7 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
             // returning the number of deleted caches would require a second query to count them
             $query = $this->db->query('TRUNCATE TABLE output_cache');
 
-            return -1;
+            return - 1;
         }
         // build the filter
         $where = array();

@@ -35,12 +35,12 @@ abstract class Smarty_Resource
      *
      * @var array
      */
-    public static $sysplugins = array('file' => 'smarty_internal_resource_file.php',
-        'string' => 'smarty_internal_resource_string.php',
-        'extends' => 'smarty_internal_resource_extends.php',
-        'stream' => 'smarty_internal_resource_stream.php',
-        'eval' => 'smarty_internal_resource_eval.php',
-        'php' => 'smarty_internal_resource_php.php');
+    public static $sysplugins = array('file'    => 'smarty_internal_resource_file.php',
+                                      'string'  => 'smarty_internal_resource_string.php',
+                                      'extends' => 'smarty_internal_resource_extends.php',
+                                      'stream'  => 'smarty_internal_resource_stream.php',
+                                      'eval'    => 'smarty_internal_resource_eval.php',
+                                      'php'     => 'smarty_internal_resource_php.php');
 
     /**
      * Flag if resource does implement populateCompiledFilepath() method
@@ -83,7 +83,7 @@ abstract class Smarty_Resource
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty_Template_Source $source source object
+     * @param Smarty_Template_Source   $source    source object
      * @param Smarty_Internal_Template $_template template object
      */
     abstract public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null);
@@ -101,9 +101,9 @@ abstract class Smarty_Resource
     /**
      * modify resource_name according to resource handlers specifications
      *
-     * @param  Smarty $smarty Smarty instance
-     * @param  string $resource_name resource_name to make unique
-     * @param  boolean $isConfig flag for config resource
+     * @param  Smarty  $smarty        Smarty instance
+     * @param  string  $resource_name resource_name to make unique
+     * @param  boolean $isConfig      flag for config resource
      *
      * @return string unique resource name
      */
@@ -138,7 +138,7 @@ abstract class Smarty_Resource
      * Load Resource Handler
      *
      * @param  Smarty $smarty smarty object
-     * @param  string $type name of the resource
+     * @param  string $type   name of the resource
      *
      * @throws SmartyException
      * @return Smarty_Resource Resource Handler
@@ -170,8 +170,8 @@ abstract class Smarty_Resource
                 return $smarty->_cache['resource_handlers'][$type] = new $_resource_class();
             } else {
                 $smarty->registerResource($type,
-                    array("smarty_resource_{$type}_source", "smarty_resource_{$type}_timestamp",
-                        "smarty_resource_{$type}_secure", "smarty_resource_{$type}_trusted"));
+                                          array("smarty_resource_{$type}_source", "smarty_resource_{$type}_timestamp",
+                                                "smarty_resource_{$type}_secure", "smarty_resource_{$type}_trusted"));
                 // give it another try, now that the resource is registered properly
                 return self::load($smarty, $type);
             }
@@ -197,7 +197,7 @@ abstract class Smarty_Resource
      * extract resource_type and resource_name from template_resource and config_resource
      * @note "C:/foo.tpl" was forced to file resource up till Smarty 3.1.3 (including).
      *
-     * @param  string $resource_name template_resource or config_resource to parse
+     * @param  string $resource_name    template_resource or config_resource to parse
      * @param  string $default_resource the default resource_type defined in $smarty
      *
      * @return array with parsed resource name and type
@@ -219,8 +219,8 @@ abstract class Smarty_Resource
     /**
      * modify template_resource according to resource handlers specifications
      *
-     * @param  \Smarty_Internal_Template|\Smarty $obj Smarty instance
-     * @param  string $template_resource template_resource to extract resource handler and name of
+     * @param  \Smarty_Internal_Template|\Smarty $obj               Smarty instance
+     * @param  string                            $template_resource template_resource to extract resource handler and name of
      *
      * @return string unique resource name
      */
@@ -246,8 +246,7 @@ abstract class Smarty_Resource
      *
      * @return bool
      */
-    public function checkTimestamps()
-    {
+    public function checkTimestamps() {
         return true;
     }
 
@@ -256,9 +255,9 @@ abstract class Smarty_Resource
      * wrapper for backward compatibility to versions < 3.1.22
      * Either [$_template] or [$smarty, $template_resource] must be specified
      *
-     * @param  Smarty_Internal_Template $_template template object
-     * @param  Smarty $smarty smarty object
-     * @param  string $template_resource resource identifier
+     * @param  Smarty_Internal_Template $_template         template object
+     * @param  Smarty                   $smarty            smarty object
+     * @param  string                   $template_resource resource identifier
      *
      * @return Smarty_Template_Source   Source Object
      */

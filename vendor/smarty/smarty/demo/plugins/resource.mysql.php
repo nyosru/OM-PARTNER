@@ -30,7 +30,8 @@ class Smarty_Resource_Mysql extends Smarty_Resource_Custom
     {
         try {
             $this->db = new PDO("mysql:dbname=test;host=127.0.0.1", "smarty");
-        } catch (PDOException $e) {
+        }
+        catch (PDOException $e) {
             throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
         }
         $this->fetch = $this->db->prepare('SELECT modified, source FROM templates WHERE name = :name');
@@ -40,9 +41,9 @@ class Smarty_Resource_Mysql extends Smarty_Resource_Custom
     /**
      * Fetch a template and its modification time from database
      *
-     * @param  string $name template name
-     * @param  string $source template source
-     * @param  integer $mtime template modification timestamp (epoch)
+     * @param  string  $name   template name
+     * @param  string  $source template source
+     * @param  integer $mtime  template modification timestamp (epoch)
      *
      * @return void
      */

@@ -31,15 +31,16 @@ class DartFilter extends BaseProcessFilter
 
     public function filterLoad(AssetInterface $asset)
     {
-        $input = FilesystemUtils::createTemporaryFile('dart');
+        $input  = FilesystemUtils::createTemporaryFile('dart');
         $output = FilesystemUtils::createTemporaryFile('dart');
 
         file_put_contents($input, $asset->getContent());
 
         $pb = $this->createProcessBuilder()
             ->add($this->dartBin)
-            ->add('-o' . $output)
-            ->add($input);
+            ->add('-o'.$output)
+            ->add($input)
+        ;
 
         $proc = $pb->getProcess();
         $code = $proc->run();
@@ -65,7 +66,7 @@ class DartFilter extends BaseProcessFilter
 
     private function cleanup($file)
     {
-        foreach (glob($file . '*') as $related) {
+        foreach (glob($file.'*') as $related) {
             unlink($related);
         }
     }

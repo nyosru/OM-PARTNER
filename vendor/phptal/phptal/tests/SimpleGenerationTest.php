@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class SimpleGenerationTest extends PHPTAL_TestCase
 {
     function testTreeGeneration()
@@ -21,7 +23,7 @@ class SimpleGenerationTest extends PHPTAL_TestCase
 
         $parser = new PHPTAL_Dom_SaxXmlParser($tpl->getEncoding());
         $treeGen = $parser->parseFile(new PHPTAL_Dom_PHPTALDocumentBuilder(), 'input/parser.01.xml')->getResult();
-        $state = new PHPTAL_Php_State($tpl);
+        $state     = new PHPTAL_Php_State($tpl);
         $codewriter = new PHPTAL_Php_CodeWriter($state);
         $codewriter->doFunction('test', '$tpl');
         $treeGen->generateCode($codewriter);

@@ -22,7 +22,7 @@ class PHPTAL_Dom_Comment extends PHPTAL_Dom_Node
     public function generateCode(PHPTAL_Php_CodeWriter $codewriter)
     {
         if (!preg_match('/^\s*!/', $this->getValueEscaped())) {
-            $codewriter->pushHTML('<!--' . $this->getValueEscaped() . '-->');
+            $codewriter->pushHTML('<!--'.$this->getValueEscaped().'-->');
         }
     }
 }

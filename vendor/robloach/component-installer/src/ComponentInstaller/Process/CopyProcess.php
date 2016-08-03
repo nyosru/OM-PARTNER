@@ -48,15 +48,15 @@ class CopyProcess extends Process
                 if (isset($extra['component'][$type]) && is_array($extra['component'][$type])) {
                     foreach ($extra['component'][$type] as $file) {
                         // Make sure the file itself is available.
-                        $source = $packageDir . DIRECTORY_SEPARATOR . $file;
+                        $source = $packageDir.DIRECTORY_SEPARATOR.$file;
 
                         // Perform a recursive glob file search on the pattern.
                         foreach ($this->fs->recursiveGlobFiles($source) as $filesource) {
                             // Find the final destination without the package directory.
-                            $withoutPackageDir = str_replace($packageDir . DIRECTORY_SEPARATOR, '', $filesource);
+                            $withoutPackageDir = str_replace($packageDir.DIRECTORY_SEPARATOR, '', $filesource);
 
                             // Construct the final file destination.
-                            $destination = $this->componentDir . DIRECTORY_SEPARATOR . $componentName . DIRECTORY_SEPARATOR . $withoutPackageDir;
+                            $destination = $this->componentDir.DIRECTORY_SEPARATOR.$componentName.DIRECTORY_SEPARATOR.$withoutPackageDir;
 
                             // Ensure the directory is available.
                             $this->fs->ensureDirectoryExists(dirname($destination));

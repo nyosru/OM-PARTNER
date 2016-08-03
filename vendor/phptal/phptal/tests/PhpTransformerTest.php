@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class PhpTransformerTest extends PHPTAL_TestCase
 {
     function testBooleanOperators()
@@ -56,16 +58,16 @@ class PhpTransformerTest extends PHPTAL_TestCase
         $this->assertEquals('"prout"', PHPTAL_Php_Transformer::transform('"prout"'));
         $this->assertEquals("'prout'", PHPTAL_Php_Transformer::transform("'prout'"));
         $this->assertEquals('"my string\" still in string"',
-            PHPTAL_Php_Transformer::transform('"my string\" still in string"'));
+                            PHPTAL_Php_Transformer::transform('"my string\" still in string"'));
         $this->assertEquals("'my string\' still in string'",
-            PHPTAL_Php_Transformer::transform("'my string\' still in string'"));
+                            PHPTAL_Php_Transformer::transform("'my string\' still in string'"));
     }
 
     function testStringParams()
     {
         $this->assertEquals('strtolower(\'AAA\')',
-            PHPTAL_Php_Transformer::transform('strtolower(\'AAA\')')
-        );
+                            PHPTAL_Php_Transformer::transform('strtolower(\'AAA\')')
+                           );
     }
 
     function testEvals()

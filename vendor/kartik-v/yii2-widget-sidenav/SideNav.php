@@ -69,7 +69,7 @@ class SideNav extends \yii\widgets\Menu
      * for usage with glyphicons available with Bootstrap.
      */
     public $iconPrefix = 'glyphicon glyphicon-';
-
+    
     /**
      * @var array string/boolean the sidenav heading. This is not HTML encoded
      * When set to false or null, no heading container will be displayed.
@@ -214,7 +214,7 @@ class SideNav extends \yii\widgets\Menu
             if (empty($item['items'])) {
                 $template = str_replace('{icon}', $this->indItem . '{icon}', $template);
             } else {
-                $template = isset($item['template']) ? $item['template'] : '<a href="{url}" class="kv-toggle">{icon}{label}</a>';
+                $template = isset($item['template']) ? $item['template'] :'<a href="{url}" class="kv-toggle">{icon}{label}</a>';
                 $openOptions = ($item['active']) ? ['class' => 'opened'] : ['class' => 'opened', 'style' => 'display:none'];
                 $closeOptions = ($item['active']) ? ['class' => 'closed', 'style' => 'display:none'] : ['class' => 'closed'];
                 $indicator = Html::tag('span', $this->indMenuOpen, $openOptions) . Html::tag('span', $this->indMenuClose, $closeOptions);

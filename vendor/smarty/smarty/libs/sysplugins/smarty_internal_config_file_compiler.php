@@ -76,9 +76,9 @@ class Smarty_Internal_Config_File_Compiler
     /**
      * Initialize compiler
      *
-     * @param string $lexer_class class name
+     * @param string $lexer_class  class name
      * @param string $parser_class class name
-     * @param Smarty $smarty global instance
+     * @param Smarty $smarty       global instance
      */
     public function __construct($lexer_class, $parser_class, Smarty $smarty)
     {
@@ -102,19 +102,19 @@ class Smarty_Internal_Config_File_Compiler
     {
         $this->template = $template;
         $this->template->compiled->file_dependency[$this->template->source->uid] = array($this->template->source->filepath,
-            $this->template->source->getTimeStamp(),
-            $this->template->source->type);
+                                                                                             $this->template->source->getTimeStamp(),
+                                                                                             $this->template->source->type);
         if ($this->smarty->debugging) {
             $this->smarty->_debug->start_compile($this->template);
         }
         // init the lexer/parser to compile the config file
         /* @var Smarty_Internal_ConfigFileLexer $lex */
         $lex = new $this->lexer_class(str_replace(array("\r\n", "\r"), "\n", $template->source->getContent()) .
-            "\n", $this);
+                                      "\n", $this);
         /* @var Smarty_Internal_ConfigFileParser $parser */
         $parser = new $this->parser_class($lex, $this);
 
-        if (function_exists('mb_internal_encoding') && ((int)ini_get('mbstring.func_overload')) & 2) {
+        if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
             $mbEncoding = mb_internal_encoding();
             mb_internal_encoding('ASCII');
         } else {

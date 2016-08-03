@@ -64,7 +64,7 @@ class CoalescingDirectoryResource implements IteratorResourceInterface
     {
         $parts = array();
         foreach ($this->directories as $directory) {
-            $parts[] = (string)$directory;
+            $parts[] = (string) $directory;
         }
 
         return implode(',', $parts);
@@ -78,14 +78,14 @@ class CoalescingDirectoryResource implements IteratorResourceInterface
     /**
      * Returns the relative version of a filename.
      *
-     * @param ResourceInterface $file The file
+     * @param ResourceInterface $file      The file
      * @param ResourceInterface $directory The directory
      *
      * @return string The name to compare with files from other directories
      */
     protected function getRelativeName(ResourceInterface $file, ResourceInterface $directory)
     {
-        return substr((string)$file, strlen((string)$directory));
+        return substr((string) $file, strlen((string) $directory));
     }
 
     /**

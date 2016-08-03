@@ -18,8 +18,7 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @param string $name Name of the class
      */
-    public function __construct($name)
-    {
+    public function __construct($name) {
         $this->name = $name;
 
         $this->type = 0;
@@ -36,8 +35,7 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Class The builder instance (for fluid interface)
      */
-    public function extend($class)
-    {
+    public function extend($class) {
         $this->extends = $this->normalizeName($class);
 
         return $this;
@@ -51,8 +49,7 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Class The builder instance (for fluid interface)
      */
-    public function implement()
-    {
+    public function implement() {
         foreach (func_get_args() as $interface) {
             $this->implements[] = $this->normalizeName($interface);
         }
@@ -65,8 +62,7 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Class The builder instance (for fluid interface)
      */
-    public function makeAbstract()
-    {
+    public function makeAbstract() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT);
 
         return $this;
@@ -77,8 +73,7 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Class The builder instance (for fluid interface)
      */
-    public function makeFinal()
-    {
+    public function makeFinal() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_FINAL);
 
         return $this;
@@ -91,14 +86,13 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Class The builder instance (for fluid interface)
      */
-    public function addStmt($stmt)
-    {
+    public function addStmt($stmt) {
         $stmt = $this->normalizeNode($stmt);
 
         $targets = array(
-            'Stmt_TraitUse' => &$this->uses,
-            'Stmt_ClassConst' => &$this->constants,
-            'Stmt_Property' => &$this->properties,
+            'Stmt_TraitUse'    => &$this->uses,
+            'Stmt_ClassConst'  => &$this->constants,
+            'Stmt_Property'    => &$this->properties,
             'Stmt_ClassMethod' => &$this->methods,
         );
 
@@ -119,8 +113,7 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Class The builder instance (for fluid interface)
      */
-    public function addStmts(array $stmts)
-    {
+    public function addStmts(array $stmts) {
         foreach ($stmts as $stmt) {
             $this->addStmt($stmt);
         }
@@ -133,8 +126,7 @@ class PHPParser_Builder_Class extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Node_Stmt_Class The built class node
      */
-    public function getNode()
-    {
+    public function getNode() {
         return new PHPParser_Node_Stmt_Class($this->name, array(
             'type' => $this->type,
             'extends' => $this->extends,

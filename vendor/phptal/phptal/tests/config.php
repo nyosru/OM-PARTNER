@@ -13,7 +13,7 @@
  * @link     http://phptal.org/
  */
 
-error_reporting(E_ALL | E_STRICT);
+error_reporting( E_ALL | E_STRICT );
 assert_options(ASSERT_ACTIVE, 1);
 
 // This is needed to run tests ran individually without run-tests.php script
@@ -22,10 +22,10 @@ if (!class_exists('PHPTAL')) {
 
     // try local copy of PHPTAL first, otherwise it might be testing
     // PEAR version (or another in include path) causing serious WTF!?s.
-    if (file_exists(dirname(__FILE__) . '/../classes/PHPTAL.php')) {
-        require_once dirname(__FILE__) . '/../classes/PHPTAL.php';
-    } elseif (file_exists(dirname(__FILE__) . '/../PHPTAL.php')) {
-        require_once dirname(__FILE__) . '/../PHPTAL.php';
+    if (file_exists(dirname(__FILE__).'/../classes/PHPTAL.php')) {
+        require_once dirname(__FILE__).'/../classes/PHPTAL.php';
+    } elseif (file_exists(dirname(__FILE__).'/../PHPTAL.php')) {
+        require_once dirname(__FILE__).'/../PHPTAL.php';
     } else {
         require_once "PHPTAL.php";
     }
@@ -66,8 +66,7 @@ abstract class PHPTAL_TestCase extends PHPUnit_Framework_TestCase
         // ensure that test hasn't left buffering on
         $unflushed = 0;
         while (ob_get_level() > $this->buffer_level) {
-            ob_end_flush();
-            $unflushed++;
+            ob_end_flush(); $unflushed++;
         }
 
         if (strlen($content)) throw new Exception("Test {$this->getName()} output: $content");
@@ -112,13 +111,11 @@ if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set(@date_default_timezone_get());
 }
 
-function normalize_html_file($src)
-{
+function normalize_html_file($src) {
     return normalize_html(file_get_contents($src));
 }
 
-function normalize_html($src)
-{
+function normalize_html($src) {
     $src = trim($src);
     $src = preg_replace('/\s+/usm', ' ', $src);
     $src = preg_replace('/(?<!]])&gt;/', '>', $src); // > may or may not be escaped, except ]]>
@@ -128,12 +125,11 @@ function normalize_html($src)
     return $src;
 }
 
-function normalize_phpsource($code, $ignore_newlines = false)
-{
+function normalize_phpsource($code, $ignore_newlines = false) {
 
     // ignore debug
-    $code = preg_replace('!<\?php\s+/\* tag ".*?" from line \d+ \*/ ?; \?>!', '', $code);
-    $code = preg_replace('!/\* tag ".*?" from line \d+ \*/ ?;!', '', $code);
+    $code = preg_replace('!<\?php\s+/\* tag ".*?" from line \d+ \*/ ?; \?>!','', $code);
+    $code = preg_replace('!/\* tag ".*?" from line \d+ \*/ ?;!','', $code);
 
     $code = str_replace('<?php use pear2\HTML\Template\PHPTAL as P; ?>', '', $code);
 
@@ -143,7 +139,7 @@ function normalize_phpsource($code, $ignore_newlines = false)
         $line = trim($line);
         $code .= $line;
         if ($ignore_newlines) {
-            if (preg_match('/[A-Z0-9_]$/i', $line)) $code .= ' ';
+            if (preg_match('/[A-Z0-9_]$/i',$line)) $code .= ' ';
         } else $code .= "\n";
     }
 

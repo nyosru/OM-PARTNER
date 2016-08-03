@@ -208,7 +208,7 @@ class Typo
         }
 
         foreach ($rules as $rule) {
-            $funcName = 'rl' . $rule;
+            $funcName = 'rl'.$rule;
             $text = call_user_func(array($this, $funcName), $text);
         }
         return $text;

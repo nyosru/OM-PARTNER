@@ -33,9 +33,9 @@ class Smarty_Internal_Method_RegisterFilter
      * @link http://www.smarty.net/docs/en/api.register.filter.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string $type filter type
-     * @param  callback $callback
-     * @param  string|null $name optional filter name
+     * @param  string                                                         $type filter type
+     * @param  callback                                                       $callback
+     * @param  string|null                                                    $name optional filter name
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException

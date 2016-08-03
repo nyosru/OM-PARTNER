@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,13 +12,19 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class GetTextTest extends PHPTAL_TestCase
 {
     private function getTextTranslator()
     {
-        try {
+        try
+        {
             return new PHPTAL_GetTextTranslator();
-        } catch (PHPTAL_Exception $e) {
+        }
+        catch(PHPTAL_Exception $e)
+        {
             $this->markTestSkipped($e->getMessage());
         }
     }
@@ -44,7 +49,7 @@ class GetTextTest extends PHPTAL_TestCase
         $gettext = $this->getTextTranslator();
         try {
             $gettext->setLanguage('fr_FR', 'fr_FR@euro', 'fr_FR.utf8');
-        } catch (PHPTAL_ConfigurationException $e) {
+        } catch(PHPTAL_ConfigurationException $e) {
             $this->markTestSkipped($e->getMessage());
         }
         $gettext->addDomain('test');
@@ -62,7 +67,7 @@ class GetTextTest extends PHPTAL_TestCase
         $gettext = $this->getTextTranslator();
         try {
             $gettext->setLanguage('fr_FR', 'fr_FR@euro', 'fr_FR.utf8');
-        } catch (PHPTAL_ConfigurationException $e) {
+        } catch(PHPTAL_ConfigurationException $e) {
             $this->markTestSkipped($e->getMessage());
         }
         $gettext->setEncoding('UTF-8');
@@ -84,7 +89,7 @@ class GetTextTest extends PHPTAL_TestCase
         $gettext->setEncoding('UTF-8');
         try {
             $gettext->setLanguage('fr_FR', 'fr_FR@euro', 'fr_FR.utf8');
-        } catch (PHPTAL_ConfigurationException $e) {
+        } catch(PHPTAL_ConfigurationException $e) {
             $this->markTestSkipped($e->getMessage());
         }
         $gettext->addDomain('test');

@@ -440,8 +440,8 @@ class Command extends Component
         $body = Json::encode([
             'template' => $pattern,
             'order' => $order,
-            'settings' => (object)$settings,
-            'mappings' => (object)$mappings,
+            'settings' => (object) $settings,
+            'mappings' => (object) $mappings,
         ]);
 
         return $this->db->put(['_template', $name], [], $body);

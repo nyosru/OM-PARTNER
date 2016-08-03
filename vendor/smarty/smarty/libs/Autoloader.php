@@ -102,7 +102,7 @@ class Smarty_Autoloader
             return;
         }
         if (preg_match('/^(smarty_(((template_(source|config|cache|compiled|resource_base))|((cached|compiled)?resource)|(variable|security)))|(smarty(bc)?)$)/',
-            $_class, $match)) {
+                       $_class, $match)) {
             if (!empty($match[3])) {
                 @include $file;
                 return;

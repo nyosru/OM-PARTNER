@@ -43,7 +43,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {include_php} tag
      *
-     * @param  array $args array with attributes from parser
+     * @param  array                                $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string
@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
                 $_dir = $compiler->smarty->trusted_dir;
             }
             if (!empty($_dir)) {
-                foreach ((array)$_dir as $_script_dir) {
+                foreach ((array) $_dir as $_script_dir) {
                     $_path = $compiler->smarty->_realpath($_script_dir . DS . $_file, true);
                     if (file_exists($_path)) {
                         $_filepath = $_path;

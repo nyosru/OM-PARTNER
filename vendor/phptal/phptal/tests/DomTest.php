@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id: $
  * @link     http://phptal.org/
  */
+
+
+
 class DOMTest extends PHPTAL_TestCase
 {
     private function newElement($name = 'foo', $ns = '')

@@ -90,8 +90,8 @@ var Handlebars = (function () {
         var isFunction;
         __exports__.isFunction = isFunction;
         var isArray = Array.isArray || function (value) {
-                return (value && typeof value === 'object') ? toString.call(value) === '[object Array]' : false;
-            };
+            return (value && typeof value === 'object') ? toString.call(value) === '[object Array]' : false;
+        };
         __exports__.isArray = isArray;
 
         function escapeExpression(string) {
@@ -221,7 +221,7 @@ var Handlebars = (function () {
 
             instance.registerHelper('blockHelperMissing', function (context, options) {
                 var inverse = options.inverse || function () {
-                    }, fn = options.fn;
+                }, fn = options.fn;
 
                 if (isFunction(context)) {
                     context = context.call(this);
@@ -262,7 +262,7 @@ var Handlebars = (function () {
                                 data.first = (i === 0);
                                 data.last = (i === (context.length - 1));
                             }
-                            ret = ret + fn(context[i], {data: data});
+                            ret = ret + fn(context[i], { data: data });
                         }
                     } else {
                         for (var key in context) {
@@ -302,11 +302,7 @@ var Handlebars = (function () {
             });
 
             instance.registerHelper('unless', function (conditional, options) {
-                return instance.helpers['if'].call(this, conditional, {
-                    fn: options.inverse,
-                    inverse: options.fn,
-                    hash: options.hash
-                });
+                return instance.helpers['if'].call(this, conditional, {fn: options.inverse, inverse: options.fn, hash: options.hash});
             });
 
             instance.registerHelper('with', function (context, options) {
@@ -324,7 +320,7 @@ var Handlebars = (function () {
         }
 
         var logger = {
-            methodMap: {0: 'debug', 1: 'info', 2: 'warn', 3: 'error'},
+            methodMap: { 0: 'debug', 1: 'info', 2: 'warn', 3: 'error' },
 
             // State enum
             DEBUG: 0,
@@ -401,8 +397,8 @@ var Handlebars = (function () {
                 }
 
                 if (env.compile) {
-                    var options = {helpers: helpers, partials: partials, data: data};
-                    partials[name] = env.compile(partial, {data: data !== undefined}, env);
+                    var options = { helpers: helpers, partials: partials, data: data };
+                    partials[name] = env.compile(partial, { data: data !== undefined }, env);
                     return partials[name](context, options);
                 } else {
                     throw new Exception("The partial " + name + " could not be compiled when running in runtime-only mode");
@@ -491,7 +487,7 @@ var Handlebars = (function () {
 
         __exports__.program = program;
         function invokePartial(partial, name, context, helpers, partials, data) {
-            var options = {partial: true, helpers: helpers, partials: partials, data: data};
+            var options = { partial: true, helpers: helpers, partials: partials, data: data };
 
             if (partial === undefined) {
                 throw new Exception("The partial " + name + " could not be found");
@@ -726,76 +722,11 @@ var Handlebars = (function () {
         /* jshint ignore:start */
         /* Jison generated parser */
         var handlebars = (function () {
-            var parser = {
-                trace: function trace() {
-                },
+            var parser = {trace: function trace() {
+            },
                 yy: {},
-                symbols_: {
-                    "error": 2,
-                    "root": 3,
-                    "statements": 4,
-                    "EOF": 5,
-                    "program": 6,
-                    "simpleInverse": 7,
-                    "statement": 8,
-                    "openInverse": 9,
-                    "closeBlock": 10,
-                    "openBlock": 11,
-                    "mustache": 12,
-                    "partial": 13,
-                    "CONTENT": 14,
-                    "COMMENT": 15,
-                    "OPEN_BLOCK": 16,
-                    "inMustache": 17,
-                    "CLOSE": 18,
-                    "OPEN_INVERSE": 19,
-                    "OPEN_ENDBLOCK": 20,
-                    "path": 21,
-                    "OPEN": 22,
-                    "OPEN_UNESCAPED": 23,
-                    "CLOSE_UNESCAPED": 24,
-                    "OPEN_PARTIAL": 25,
-                    "partialName": 26,
-                    "partial_option0": 27,
-                    "inMustache_repetition0": 28,
-                    "inMustache_option0": 29,
-                    "dataName": 30,
-                    "param": 31,
-                    "STRING": 32,
-                    "INTEGER": 33,
-                    "BOOLEAN": 34,
-                    "hash": 35,
-                    "hash_repetition_plus0": 36,
-                    "hashSegment": 37,
-                    "ID": 38,
-                    "EQUALS": 39,
-                    "DATA": 40,
-                    "pathSegments": 41,
-                    "SEP": 42,
-                    "$accept": 0,
-                    "$end": 1
-                },
-                terminals_: {
-                    2: "error",
-                    5: "EOF",
-                    14: "CONTENT",
-                    15: "COMMENT",
-                    16: "OPEN_BLOCK",
-                    18: "CLOSE",
-                    19: "OPEN_INVERSE",
-                    20: "OPEN_ENDBLOCK",
-                    22: "OPEN",
-                    23: "OPEN_UNESCAPED",
-                    24: "CLOSE_UNESCAPED",
-                    25: "OPEN_PARTIAL",
-                    32: "STRING",
-                    33: "INTEGER",
-                    34: "BOOLEAN",
-                    38: "ID",
-                    39: "EQUALS",
-                    40: "DATA",
-                    42: "SEP"
-                },
+                symbols_: {"error": 2, "root": 3, "statements": 4, "EOF": 5, "program": 6, "simpleInverse": 7, "statement": 8, "openInverse": 9, "closeBlock": 10, "openBlock": 11, "mustache": 12, "partial": 13, "CONTENT": 14, "COMMENT": 15, "OPEN_BLOCK": 16, "inMustache": 17, "CLOSE": 18, "OPEN_INVERSE": 19, "OPEN_ENDBLOCK": 20, "path": 21, "OPEN": 22, "OPEN_UNESCAPED": 23, "CLOSE_UNESCAPED": 24, "OPEN_PARTIAL": 25, "partialName": 26, "partial_option0": 27, "inMustache_repetition0": 28, "inMustache_option0": 29, "dataName": 30, "param": 31, "STRING": 32, "INTEGER": 33, "BOOLEAN": 34, "hash": 35, "hash_repetition_plus0": 36, "hashSegment": 37, "ID": 38, "EQUALS": 39, "DATA": 40, "pathSegments": 41, "SEP": 42, "$accept": 0, "$end": 1},
+                terminals_: {2: "error", 5: "EOF", 14: "CONTENT", 15: "COMMENT", 16: "OPEN_BLOCK", 18: "CLOSE", 19: "OPEN_INVERSE", 20: "OPEN_ENDBLOCK", 22: "OPEN", 23: "OPEN_UNESCAPED", 24: "CLOSE_UNESCAPED", 25: "OPEN_PARTIAL", 32: "STRING", 33: "INTEGER", 34: "BOOLEAN", 38: "ID", 39: "EQUALS", 40: "DATA", 42: "SEP"},
                 productions_: [0, [3, 2], [3, 1], [6, 2], [6, 3], [6, 2], [6, 1], [6, 1], [6, 0], [4, 1], [4, 2], [8, 3], [8, 3], [8, 1], [8, 1], [8, 1], [8, 1], [11, 3], [9, 3], [10, 3], [12, 3], [12, 3], [13, 4], [7, 2], [17, 3], [17, 1], [31, 1], [31, 1], [31, 1], [31, 1], [31, 1], [35, 1], [37, 3], [26, 1], [26, 1], [26, 1], [30, 2], [21, 1], [41, 3], [41, 1], [27, 0], [27, 1], [28, 0], [28, 2], [29, 0], [29, 1], [36, 1], [36, 2]],
                 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate, $$, _$) {
 
@@ -940,207 +871,35 @@ var Handlebars = (function () {
                     }
                 },
                 table: [
-                    {
-                        3: 1,
-                        4: 2,
-                        5: [1, 3],
-                        8: 4,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 11],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
+                    {3: 1, 4: 2, 5: [1, 3], 8: 4, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 11], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
                     {1: [3]},
-                    {
-                        5: [1, 16],
-                        8: 17,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 11],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
+                    {5: [1, 16], 8: 17, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 11], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
                     {1: [2, 2]},
-                    {
-                        5: [2, 9],
-                        14: [2, 9],
-                        15: [2, 9],
-                        16: [2, 9],
-                        19: [2, 9],
-                        20: [2, 9],
-                        22: [2, 9],
-                        23: [2, 9],
-                        25: [2, 9]
-                    },
-                    {
-                        4: 20,
-                        6: 18,
-                        7: 19,
-                        8: 4,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 21],
-                        20: [2, 8],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
-                    {
-                        4: 20,
-                        6: 22,
-                        7: 19,
-                        8: 4,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 21],
-                        20: [2, 8],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
-                    {
-                        5: [2, 13],
-                        14: [2, 13],
-                        15: [2, 13],
-                        16: [2, 13],
-                        19: [2, 13],
-                        20: [2, 13],
-                        22: [2, 13],
-                        23: [2, 13],
-                        25: [2, 13]
-                    },
-                    {
-                        5: [2, 14],
-                        14: [2, 14],
-                        15: [2, 14],
-                        16: [2, 14],
-                        19: [2, 14],
-                        20: [2, 14],
-                        22: [2, 14],
-                        23: [2, 14],
-                        25: [2, 14]
-                    },
-                    {
-                        5: [2, 15],
-                        14: [2, 15],
-                        15: [2, 15],
-                        16: [2, 15],
-                        19: [2, 15],
-                        20: [2, 15],
-                        22: [2, 15],
-                        23: [2, 15],
-                        25: [2, 15]
-                    },
-                    {
-                        5: [2, 16],
-                        14: [2, 16],
-                        15: [2, 16],
-                        16: [2, 16],
-                        19: [2, 16],
-                        20: [2, 16],
-                        22: [2, 16],
-                        23: [2, 16],
-                        25: [2, 16]
-                    },
+                    {5: [2, 9], 14: [2, 9], 15: [2, 9], 16: [2, 9], 19: [2, 9], 20: [2, 9], 22: [2, 9], 23: [2, 9], 25: [2, 9]},
+                    {4: 20, 6: 18, 7: 19, 8: 4, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 21], 20: [2, 8], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
+                    {4: 20, 6: 22, 7: 19, 8: 4, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 21], 20: [2, 8], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
+                    {5: [2, 13], 14: [2, 13], 15: [2, 13], 16: [2, 13], 19: [2, 13], 20: [2, 13], 22: [2, 13], 23: [2, 13], 25: [2, 13]},
+                    {5: [2, 14], 14: [2, 14], 15: [2, 14], 16: [2, 14], 19: [2, 14], 20: [2, 14], 22: [2, 14], 23: [2, 14], 25: [2, 14]},
+                    {5: [2, 15], 14: [2, 15], 15: [2, 15], 16: [2, 15], 19: [2, 15], 20: [2, 15], 22: [2, 15], 23: [2, 15], 25: [2, 15]},
+                    {5: [2, 16], 14: [2, 16], 15: [2, 16], 16: [2, 16], 19: [2, 16], 20: [2, 16], 22: [2, 16], 23: [2, 16], 25: [2, 16]},
                     {17: 23, 21: 24, 30: 25, 38: [1, 28], 40: [1, 27], 41: 26},
                     {17: 29, 21: 24, 30: 25, 38: [1, 28], 40: [1, 27], 41: 26},
                     {17: 30, 21: 24, 30: 25, 38: [1, 28], 40: [1, 27], 41: 26},
                     {17: 31, 21: 24, 30: 25, 38: [1, 28], 40: [1, 27], 41: 26},
                     {21: 33, 26: 32, 32: [1, 34], 33: [1, 35], 38: [1, 28], 41: 26},
                     {1: [2, 1]},
-                    {
-                        5: [2, 10],
-                        14: [2, 10],
-                        15: [2, 10],
-                        16: [2, 10],
-                        19: [2, 10],
-                        20: [2, 10],
-                        22: [2, 10],
-                        23: [2, 10],
-                        25: [2, 10]
-                    },
+                    {5: [2, 10], 14: [2, 10], 15: [2, 10], 16: [2, 10], 19: [2, 10], 20: [2, 10], 22: [2, 10], 23: [2, 10], 25: [2, 10]},
                     {10: 36, 20: [1, 37]},
-                    {
-                        4: 38,
-                        8: 4,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 11],
-                        20: [2, 7],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
-                    {
-                        7: 39,
-                        8: 17,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 21],
-                        20: [2, 6],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
+                    {4: 38, 8: 4, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 11], 20: [2, 7], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
+                    {7: 39, 8: 17, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 21], 20: [2, 6], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
                     {17: 23, 18: [1, 40], 21: 24, 30: 25, 38: [1, 28], 40: [1, 27], 41: 26},
                     {10: 41, 20: [1, 37]},
                     {18: [1, 42]},
                     {18: [2, 42], 24: [2, 42], 28: 43, 32: [2, 42], 33: [2, 42], 34: [2, 42], 38: [2, 42], 40: [2, 42]},
                     {18: [2, 25], 24: [2, 25]},
-                    {
-                        18: [2, 37],
-                        24: [2, 37],
-                        32: [2, 37],
-                        33: [2, 37],
-                        34: [2, 37],
-                        38: [2, 37],
-                        40: [2, 37],
-                        42: [1, 44]
-                    },
+                    {18: [2, 37], 24: [2, 37], 32: [2, 37], 33: [2, 37], 34: [2, 37], 38: [2, 37], 40: [2, 37], 42: [1, 44]},
                     {21: 45, 38: [1, 28], 41: 26},
-                    {
-                        18: [2, 39],
-                        24: [2, 39],
-                        32: [2, 39],
-                        33: [2, 39],
-                        34: [2, 39],
-                        38: [2, 39],
-                        40: [2, 39],
-                        42: [2, 39]
-                    },
+                    {18: [2, 39], 24: [2, 39], 32: [2, 39], 33: [2, 39], 34: [2, 39], 38: [2, 39], 40: [2, 39], 42: [2, 39]},
                     {18: [1, 46]},
                     {18: [1, 47]},
                     {24: [1, 48]},
@@ -1148,149 +907,23 @@ var Handlebars = (function () {
                     {18: [2, 33], 38: [2, 33]},
                     {18: [2, 34], 38: [2, 34]},
                     {18: [2, 35], 38: [2, 35]},
-                    {
-                        5: [2, 11],
-                        14: [2, 11],
-                        15: [2, 11],
-                        16: [2, 11],
-                        19: [2, 11],
-                        20: [2, 11],
-                        22: [2, 11],
-                        23: [2, 11],
-                        25: [2, 11]
-                    },
+                    {5: [2, 11], 14: [2, 11], 15: [2, 11], 16: [2, 11], 19: [2, 11], 20: [2, 11], 22: [2, 11], 23: [2, 11], 25: [2, 11]},
                     {21: 51, 38: [1, 28], 41: 26},
-                    {
-                        8: 17,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 11],
-                        20: [2, 3],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
-                    {
-                        4: 52,
-                        8: 4,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 11],
-                        20: [2, 5],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
-                    {
-                        14: [2, 23],
-                        15: [2, 23],
-                        16: [2, 23],
-                        19: [2, 23],
-                        20: [2, 23],
-                        22: [2, 23],
-                        23: [2, 23],
-                        25: [2, 23]
-                    },
-                    {
-                        5: [2, 12],
-                        14: [2, 12],
-                        15: [2, 12],
-                        16: [2, 12],
-                        19: [2, 12],
-                        20: [2, 12],
-                        22: [2, 12],
-                        23: [2, 12],
-                        25: [2, 12]
-                    },
-                    {
-                        14: [2, 18],
-                        15: [2, 18],
-                        16: [2, 18],
-                        19: [2, 18],
-                        20: [2, 18],
-                        22: [2, 18],
-                        23: [2, 18],
-                        25: [2, 18]
-                    },
-                    {
-                        18: [2, 44],
-                        21: 56,
-                        24: [2, 44],
-                        29: 53,
-                        30: 60,
-                        31: 54,
-                        32: [1, 57],
-                        33: [1, 58],
-                        34: [1, 59],
-                        35: 55,
-                        36: 61,
-                        37: 62,
-                        38: [1, 63],
-                        40: [1, 27],
-                        41: 26
-                    },
+                    {8: 17, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 11], 20: [2, 3], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
+                    {4: 52, 8: 4, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 11], 20: [2, 5], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
+                    {14: [2, 23], 15: [2, 23], 16: [2, 23], 19: [2, 23], 20: [2, 23], 22: [2, 23], 23: [2, 23], 25: [2, 23]},
+                    {5: [2, 12], 14: [2, 12], 15: [2, 12], 16: [2, 12], 19: [2, 12], 20: [2, 12], 22: [2, 12], 23: [2, 12], 25: [2, 12]},
+                    {14: [2, 18], 15: [2, 18], 16: [2, 18], 19: [2, 18], 20: [2, 18], 22: [2, 18], 23: [2, 18], 25: [2, 18]},
+                    {18: [2, 44], 21: 56, 24: [2, 44], 29: 53, 30: 60, 31: 54, 32: [1, 57], 33: [1, 58], 34: [1, 59], 35: 55, 36: 61, 37: 62, 38: [1, 63], 40: [1, 27], 41: 26},
                     {38: [1, 64]},
                     {18: [2, 36], 24: [2, 36], 32: [2, 36], 33: [2, 36], 34: [2, 36], 38: [2, 36], 40: [2, 36]},
-                    {
-                        14: [2, 17],
-                        15: [2, 17],
-                        16: [2, 17],
-                        19: [2, 17],
-                        20: [2, 17],
-                        22: [2, 17],
-                        23: [2, 17],
-                        25: [2, 17]
-                    },
-                    {
-                        5: [2, 20],
-                        14: [2, 20],
-                        15: [2, 20],
-                        16: [2, 20],
-                        19: [2, 20],
-                        20: [2, 20],
-                        22: [2, 20],
-                        23: [2, 20],
-                        25: [2, 20]
-                    },
-                    {
-                        5: [2, 21],
-                        14: [2, 21],
-                        15: [2, 21],
-                        16: [2, 21],
-                        19: [2, 21],
-                        20: [2, 21],
-                        22: [2, 21],
-                        23: [2, 21],
-                        25: [2, 21]
-                    },
+                    {14: [2, 17], 15: [2, 17], 16: [2, 17], 19: [2, 17], 20: [2, 17], 22: [2, 17], 23: [2, 17], 25: [2, 17]},
+                    {5: [2, 20], 14: [2, 20], 15: [2, 20], 16: [2, 20], 19: [2, 20], 20: [2, 20], 22: [2, 20], 23: [2, 20], 25: [2, 20]},
+                    {5: [2, 21], 14: [2, 21], 15: [2, 21], 16: [2, 21], 19: [2, 21], 20: [2, 21], 22: [2, 21], 23: [2, 21], 25: [2, 21]},
                     {18: [1, 65]},
                     {18: [2, 41]},
                     {18: [1, 66]},
-                    {
-                        8: 17,
-                        9: 5,
-                        11: 6,
-                        12: 7,
-                        13: 8,
-                        14: [1, 9],
-                        15: [1, 10],
-                        16: [1, 12],
-                        19: [1, 11],
-                        20: [2, 4],
-                        22: [1, 13],
-                        23: [1, 14],
-                        25: [1, 15]
-                    },
+                    {8: 17, 9: 5, 11: 6, 12: 7, 13: 8, 14: [1, 9], 15: [1, 10], 16: [1, 12], 19: [1, 11], 20: [2, 4], 22: [1, 13], 23: [1, 14], 25: [1, 15]},
                     {18: [2, 24], 24: [2, 24]},
                     {18: [2, 43], 24: [2, 43], 32: [2, 43], 33: [2, 43], 34: [2, 43], 38: [2, 43], 40: [2, 43]},
                     {18: [2, 45], 24: [2, 45]},
@@ -1301,49 +934,10 @@ var Handlebars = (function () {
                     {18: [2, 30], 24: [2, 30], 32: [2, 30], 33: [2, 30], 34: [2, 30], 38: [2, 30], 40: [2, 30]},
                     {18: [2, 31], 24: [2, 31], 37: 67, 38: [1, 68]},
                     {18: [2, 46], 24: [2, 46], 38: [2, 46]},
-                    {
-                        18: [2, 39],
-                        24: [2, 39],
-                        32: [2, 39],
-                        33: [2, 39],
-                        34: [2, 39],
-                        38: [2, 39],
-                        39: [1, 69],
-                        40: [2, 39],
-                        42: [2, 39]
-                    },
-                    {
-                        18: [2, 38],
-                        24: [2, 38],
-                        32: [2, 38],
-                        33: [2, 38],
-                        34: [2, 38],
-                        38: [2, 38],
-                        40: [2, 38],
-                        42: [2, 38]
-                    },
-                    {
-                        5: [2, 22],
-                        14: [2, 22],
-                        15: [2, 22],
-                        16: [2, 22],
-                        19: [2, 22],
-                        20: [2, 22],
-                        22: [2, 22],
-                        23: [2, 22],
-                        25: [2, 22]
-                    },
-                    {
-                        5: [2, 19],
-                        14: [2, 19],
-                        15: [2, 19],
-                        16: [2, 19],
-                        19: [2, 19],
-                        20: [2, 19],
-                        22: [2, 19],
-                        23: [2, 19],
-                        25: [2, 19]
-                    },
+                    {18: [2, 39], 24: [2, 39], 32: [2, 39], 33: [2, 39], 34: [2, 39], 38: [2, 39], 39: [1, 69], 40: [2, 39], 42: [2, 39]},
+                    {18: [2, 38], 24: [2, 38], 32: [2, 38], 33: [2, 38], 34: [2, 38], 38: [2, 38], 40: [2, 38], 42: [2, 38]},
+                    {5: [2, 22], 14: [2, 22], 15: [2, 22], 16: [2, 22], 19: [2, 22], 20: [2, 22], 22: [2, 22], 23: [2, 22], 25: [2, 22]},
+                    {5: [2, 19], 14: [2, 19], 15: [2, 19], 16: [2, 19], 19: [2, 19], 20: [2, 19], 22: [2, 19], 23: [2, 19], 25: [2, 19]},
                     {18: [2, 47], 24: [2, 47], 38: [2, 47]},
                     {39: [1, 69]},
                     {21: 56, 30: 60, 31: 70, 32: [1, 57], 33: [1, 58], 34: [1, 59], 38: [1, 28], 40: [1, 27], 41: 26},
@@ -1405,13 +999,7 @@ var Handlebars = (function () {
                                 } else {
                                     errStr = "Parse error on line " + (yylineno + 1) + ": Unexpected " + (symbol == 1 ? "end of input" : "'" + (this.terminals_[symbol] || symbol) + "'");
                                 }
-                                this.parseError(errStr, {
-                                    text: this.lexer.match,
-                                    token: this.terminals_[symbol] || symbol,
-                                    line: this.lexer.yylineno,
-                                    loc: yyloc,
-                                    expected: expected
-                                });
+                                this.parseError(errStr, {text: this.lexer.match, token: this.terminals_[symbol] || symbol, line: this.lexer.yylineno, loc: yyloc, expected: expected});
                             }
                         }
                         if (action[0] instanceof Array && action.length > 1) {
@@ -1439,12 +1027,7 @@ var Handlebars = (function () {
                             case 2:
                                 len = this.productions_[action[1]][1];
                                 yyval.$ = vstack[vstack.length - len];
-                                yyval._$ = {
-                                    first_line: lstack[lstack.length - (len || 1)].first_line,
-                                    last_line: lstack[lstack.length - 1].last_line,
-                                    first_column: lstack[lstack.length - (len || 1)].first_column,
-                                    last_column: lstack[lstack.length - 1].last_column
-                                };
+                                yyval._$ = {first_line: lstack[lstack.length - (len || 1)].first_line, last_line: lstack[lstack.length - 1].last_line, first_column: lstack[lstack.length - (len || 1)].first_column, last_column: lstack[lstack.length - 1].last_column};
                                 if (ranges) {
                                     yyval._$.range = [lstack[lstack.length - (len || 1)].range[0], lstack[lstack.length - 1].range[1]];
                                 }
@@ -1481,8 +1064,7 @@ var Handlebars = (function () {
 
             /* Jison generated lexer */
             var lexer = (function () {
-                var lexer = ({
-                    EOF: 1,
+                var lexer = ({EOF: 1,
                     parseError: function parseError(str, hash) {
                         if (this.yy.parser) {
                             this.yy.parser.parseError(str, hash);
@@ -1535,13 +1117,12 @@ var Handlebars = (function () {
                         if (lines.length - 1) this.yylineno -= lines.length - 1;
                         var r = this.yylloc.range;
 
-                        this.yylloc = {
-                            first_line: this.yylloc.first_line,
+                        this.yylloc = {first_line: this.yylloc.first_line,
                             last_line: this.yylineno + 1,
                             first_column: this.yylloc.first_column,
                             last_column: lines ?
-                            (lines.length === oldLines.length ? this.yylloc.first_column : 0) + oldLines[oldLines.length - lines.length].length - lines[0].length :
-                            this.yylloc.first_column - len
+                                (lines.length === oldLines.length ? this.yylloc.first_column : 0) + oldLines[oldLines.length - lines.length].length - lines[0].length :
+                                this.yylloc.first_column - len
                         };
 
                         if (this.options.ranges) {
@@ -1600,12 +1181,10 @@ var Handlebars = (function () {
                         if (match) {
                             lines = match[0].match(/(?:\r\n?|\n).*/g);
                             if (lines) this.yylineno += lines.length;
-                            this.yylloc = {
-                                first_line: this.yylloc.last_line,
+                            this.yylloc = {first_line: this.yylloc.last_line,
                                 last_line: this.yylineno + 1,
                                 first_column: this.yylloc.last_column,
-                                last_column: lines ? lines[lines.length - 1].length - lines[lines.length - 1].match(/\r?\n?/)[0].length : this.yylloc.last_column + match[0].length
-                            };
+                                last_column: lines ? lines[lines.length - 1].length - lines[lines.length - 1].match(/\r?\n?/)[0].length : this.yylloc.last_column + match[0].length};
                             this.yytext += match[0];
                             this.match += match[0];
                             this.matches = match;
@@ -1650,8 +1229,7 @@ var Handlebars = (function () {
                     },
                     pushState: function begin(condition) {
                         this.begin(condition);
-                    }
-                });
+                    }});
                 lexer.options = {};
                 lexer.performAction = function anonymous(yy, yy_, $avoiding_name_collisions, YY_START) {
 
@@ -1780,15 +1358,7 @@ var Handlebars = (function () {
                     }
                 };
                 lexer.rules = [/^(?:[^\x00]*?(?=(\{\{)))/, /^(?:[^\x00]+)/, /^(?:[^\x00]{2,}?(?=(\{\{|\\\{\{|\\\\\{\{|$)))/, /^(?:[\s\S]*?--\}\})/, /^(?:\{\{(~)?>)/, /^(?:\{\{(~)?#)/, /^(?:\{\{(~)?\/)/, /^(?:\{\{(~)?\^)/, /^(?:\{\{(~)?\s*else\b)/, /^(?:\{\{(~)?\{)/, /^(?:\{\{(~)?&)/, /^(?:\{\{!--)/, /^(?:\{\{![\s\S]*?\}\})/, /^(?:\{\{(~)?)/, /^(?:=)/, /^(?:\.\.)/, /^(?:\.(?=([=~}\s\/.])))/, /^(?:[\/.])/, /^(?:\s+)/, /^(?:\}(~)?\}\})/, /^(?:(~)?\}\})/, /^(?:"(\\["]|[^"])*")/, /^(?:'(\\[']|[^'])*')/, /^(?:@)/, /^(?:true(?=([~}\s])))/, /^(?:false(?=([~}\s])))/, /^(?:-?[0-9]+(?=([~}\s])))/, /^(?:([^\s!"#%-,\.\/;->@\[-\^`\{-~]+(?=([=~}\s\/.]))))/, /^(?:\[[^\]]*\])/, /^(?:.)/, /^(?:$)/];
-                lexer.conditions = {
-                    "mu": {
-                        "rules": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-                        "inclusive": false
-                    },
-                    "emu": {"rules": [2], "inclusive": false},
-                    "com": {"rules": [3], "inclusive": false},
-                    "INITIAL": {"rules": [0, 1, 30], "inclusive": true}
-                };
+                lexer.conditions = {"mu": {"rules": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30], "inclusive": false}, "emu": {"rules": [2], "inclusive": false}, "com": {"rules": [3], "inclusive": false}, "INITIAL": {"rules": [0, 1, 30], "inclusive": true}};
                 return lexer;
             })()
             parser.lexer = lexer;
@@ -1905,16 +1475,16 @@ var Handlebars = (function () {
                 this.name = this.environment.name;
                 this.isChild = !!context;
                 this.context = context || {
-                        programs: [],
-                        environments: [],
-                        aliases: {}
-                    };
+                    programs: [],
+                    environments: [],
+                    aliases: { }
+                };
 
                 this.preamble();
 
                 this.stackSlot = 0;
                 this.stackVars = [];
-                this.registers = {list: []};
+                this.registers = { list: [] };
                 this.compileStack = [];
                 this.inlineStack = [];
 
@@ -2626,12 +2196,12 @@ var Handlebars = (function () {
 
             quotedString: function (str) {
                 return '"' + str
-                        .replace(/\\/g, '\\\\')
-                        .replace(/"/g, '\\"')
-                        .replace(/\n/g, '\\n')
-                        .replace(/\r/g, '\\r')
-                        .replace(/\u2028/g, '\\u2028')   // Per Ecma-262 7.3 + 7.8.4
-                        .replace(/\u2029/g, '\\u2029') + '"';
+                    .replace(/\\/g, '\\\\')
+                    .replace(/"/g, '\\"')
+                    .replace(/\n/g, '\\n')
+                    .replace(/\r/g, '\\r')
+                    .replace(/\u2028/g, '\\u2028')   // Per Ecma-262 7.3 + 7.8.4
+                    .replace(/\u2029/g, '\\u2029') + '"';
             },
 
             setupHelper: function (paramSize, name, missingParams) {
@@ -2708,21 +2278,21 @@ var Handlebars = (function () {
 
         var reservedWords = (
             "break else new var" +
-            " case finally return void" +
-            " catch for switch while" +
-            " continue function this with" +
-            " default if throw" +
-            " delete in try" +
-            " do instanceof typeof" +
-            " abstract enum int short" +
-            " boolean export interface static" +
-            " byte extends long super" +
-            " char final native synchronized" +
-            " class float package throws" +
-            " const goto private transient" +
-            " debugger implements protected volatile" +
-            " double import public let yield"
-        ).split(" ");
+                " case finally return void" +
+                " catch for switch while" +
+                " continue function this with" +
+                " default if throw" +
+                " delete in try" +
+                " do instanceof typeof" +
+                " abstract enum int short" +
+                " boolean export interface static" +
+                " byte extends long super" +
+                " char final native synchronized" +
+                " class float package throws" +
+                " const goto private transient" +
+                " debugger implements protected volatile" +
+                " double import public let yield"
+            ).split(" ");
 
         var compilerWords = JavaScriptCompiler.RESERVED_WORDS = {};
 
@@ -3088,11 +2658,11 @@ var Handlebars = (function () {
 
             // HELPERS
             opcode: function (name) {
-                this.opcodes.push({opcode: name, args: [].slice.call(arguments, 1)});
+                this.opcodes.push({ opcode: name, args: [].slice.call(arguments, 1) });
             },
 
             declare: function (name, value) {
-                this.opcodes.push({opcode: 'DECLARE', name: name, value: value});
+                this.opcodes.push({ opcode: 'DECLARE', name: name, value: value });
             },
 
             addDepth: function (depth) {

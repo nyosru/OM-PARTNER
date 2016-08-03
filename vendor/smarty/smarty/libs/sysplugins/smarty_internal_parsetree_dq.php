@@ -20,7 +20,7 @@ class Smarty_Internal_ParseTree_Dq extends Smarty_Internal_ParseTree
     /**
      * Create parse tree buffer for double quoted string subtrees
      *
-     * @param object $parser parser object
+     * @param object                    $parser  parser object
      * @param Smarty_Internal_ParseTree $subtree parse tree buffer
      */
     public function __construct($parser, Smarty_Internal_ParseTree $subtree)
@@ -35,7 +35,7 @@ class Smarty_Internal_ParseTree_Dq extends Smarty_Internal_ParseTree
      * Append buffer to subtree
      *
      * @param \Smarty_Internal_Templateparser $parser
-     * @param Smarty_Internal_ParseTree $subtree parse tree buffer
+     * @param Smarty_Internal_ParseTree       $subtree parse tree buffer
      */
     public function append_subtree(Smarty_Internal_Templateparser $parser, Smarty_Internal_ParseTree $subtree)
     {

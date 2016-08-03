@@ -36,8 +36,8 @@
  * @author Laurent Bedubourg <lbedubourg@motion-twin.com>
  */
 class PHPTAL_Php_Attribute_TAL_Attributes
-    extends PHPTAL_Php_Attribute
-    implements PHPTAL_Php_TalesChainReader
+extends PHPTAL_Php_Attribute
+implements PHPTAL_Php_TalesChainReader
 {
     /** before creates several variables that need to be freed in after */
     private $vars_to_recycle = array();
@@ -116,9 +116,9 @@ class PHPTAL_Php_Attribute_TAL_Attributes
         $codewriter->doIf("null !== ($attkey = ($code))");
 
         if ($this->_echoType !== PHPTAL_Php_Attribute::ECHO_STRUCTURE)
-            $codewriter->doSetVar($attkey, $codewriter->str(" $qname=\"") . "." . $codewriter->escapeCode($attkey) . ".'\"'");
+            $codewriter->doSetVar($attkey, $codewriter->str(" $qname=\"").".".$codewriter->escapeCode($attkey).".'\"'");
         else
-            $codewriter->doSetVar($attkey, $codewriter->str(" $qname=\"") . "." . $codewriter->stringifyCode($attkey) . ".'\"'");
+            $codewriter->doSetVar($attkey, $codewriter->str(" $qname=\"").".".$codewriter->stringifyCode($attkey).".'\"'");
 
         $codewriter->doElse();
         $codewriter->doSetVar($attkey, "''");
@@ -144,9 +144,9 @@ class PHPTAL_Php_Attribute_TAL_Attributes
         $attkey = $this->getVarName($qname, $codewriter);
 
         if ($codewriter->getOutputMode() === PHPTAL::HTML5) {
-            $value = "' $qname'";
+            $value  = "' $qname'";
         } else {
-            $value = "' $qname=\"$qname\"'";
+            $value  = "' $qname=\"$qname\"'";
         }
         $codewriter->doIf($code);
         $codewriter->doSetVar($attkey, $value);
@@ -185,7 +185,7 @@ class PHPTAL_Php_Attribute_TAL_Attributes
         $codewriter = $executor->getCodeWriter();
         $executor->doElse();
         $attr_str = ($this->_default_escaped !== false)
-            ? ' ' . $this->_attribute . '=' . $codewriter->quoteAttributeValue($this->_default_escaped)  // default value
+            ? ' '.$this->_attribute.'='.$codewriter->quoteAttributeValue($this->_default_escaped)  // default value
             : '';                                 // do not print attribute
         $codewriter->doSetVar($this->_attkey, $codewriter->str($attr_str));
         $executor->breakChain();
@@ -207,7 +207,7 @@ class PHPTAL_Php_Attribute_TAL_Attributes
         else
             $value = $codewriter->escapeCode($this->_attkey);
 
-        $codewriter->doSetVar($this->_attkey, $codewriter->str(" {$this->_attribute}=\"") . ".$value.'\"'");
+        $codewriter->doSetVar($this->_attkey, $codewriter->str(" {$this->_attribute}=\"").".$value.'\"'");
     }
 }
 

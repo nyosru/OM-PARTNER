@@ -35,8 +35,8 @@ abstract class ReflectionAbstract
     /**
      * Dispatches a logging request.
      *
-     * @param string $message The message to log.
-     * @param int $priority The logging priority, the lower,
+     * @param string $message  The message to log.
+     * @param int    $priority The logging priority, the lower,
      *  the more important. Ranges from 1 to 7
      *
      * @return void
@@ -47,7 +47,7 @@ abstract class ReflectionAbstract
             Dispatcher::getInstance()->dispatch(
                 'system.log',
                 LogEvent::createInstance($this)
-                    ->setMessage($message)->setPriority($priority)
+                ->setMessage($message)->setPriority($priority)
             );
         }
     }
@@ -65,7 +65,7 @@ abstract class ReflectionAbstract
             Dispatcher::getInstance()->dispatch(
                 'system.debug',
                 DebugEvent::createInstance($this)
-                    ->setMessage($message)
+                ->setMessage($message)
             );
         }
     }

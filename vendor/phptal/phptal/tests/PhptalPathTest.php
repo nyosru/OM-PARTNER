@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class PhptalPathTest_DummyClass
 {
     public $foo;
@@ -36,7 +38,7 @@ class PhptalPathTest extends PHPTAL_TestCase
 {
     function testZeroIndex()
     {
-        $data = array(1, 0, 3);
+        $data   = array(1, 0, 3);
         $result = PHPTAL_Context::path($data, '0');
         $this->assertEquals(1, $result);
     }
@@ -62,11 +64,11 @@ class PhptalPathTest extends PHPTAL_TestCase
     function testNestedArrays()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->arr = array('items' => array(
-            array(
-                'details' => array()
-            )
-        ));
+        $tpl->arr = array('items' => array (
+                array (
+                    'details' => array()
+                )
+            ) );
         $tpl->setSource('<test tal:content="arr/items/0/details/0/notfound"></test>');
 
         try {

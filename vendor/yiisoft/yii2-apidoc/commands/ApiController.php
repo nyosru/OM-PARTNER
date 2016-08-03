@@ -129,15 +129,15 @@ class ApiController extends BaseController
         $path = FileHelper::normalizePath($path);
         $options = [
             'filter' => function ($path) {
-                if (is_file($path)) {
-                    $file = basename($path);
-                    if ($file[0] < 'A' || $file[0] > 'Z') {
-                        return false;
+                    if (is_file($path)) {
+                        $file = basename($path);
+                        if ($file[0] < 'A' || $file[0] > 'Z') {
+                            return false;
+                        }
                     }
-                }
 
-                return null;
-            },
+                    return null;
+                },
             'only' => ['*.php'],
             'except' => $except,
         ];

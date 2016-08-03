@@ -18,7 +18,7 @@ class Smarty_Internal_Undefined
      * - Check if compiled or cache file is valid
      *
      * @param  array $properties special template properties
-     * @param  bool $cache flag if called from cache file
+     * @param  bool  $cache      flag if called from cache file
      *
      * @return bool  flag if compiled or cache file is valid
      */
@@ -36,7 +36,7 @@ class Smarty_Internal_Undefined
      * Call error handler for undefined method
      *
      * @param string $name unknown method-name
-     * @param array $args argument array
+     * @param array  $args argument array
      *
      * @return mixed
      * @throws SmartyException

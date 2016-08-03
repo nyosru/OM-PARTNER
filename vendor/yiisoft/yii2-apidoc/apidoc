@@ -42,9 +42,9 @@ if (!class_exists('Yii')) {
 Yii::setAlias('@yii/apidoc', __DIR__);
 
 $application = new yii\console\Application([
-    'id' => 'yii2-apidoc',
-    'basePath' => __DIR__,
-    'enableCoreCommands' => false,
+    'id'                  => 'yii2-apidoc',
+    'basePath'            => __DIR__,
+    'enableCoreCommands'  => false,
     'controllerNamespace' => 'yii\\apidoc\\commands',
 ]);
 if ($vendorPath !== null) {

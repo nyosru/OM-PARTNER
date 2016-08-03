@@ -7,23 +7,22 @@ class PHPParser_Node_Scalar_String extends PHPParser_Node_Scalar
 {
     protected static $replacements = array(
         '\\' => '\\',
-        '$' => '$',
-        'n' => "\n",
-        'r' => "\r",
-        't' => "\t",
-        'f' => "\f",
-        'v' => "\v",
-        'e' => "\x1B",
+        '$'  =>  '$',
+        'n'  => "\n",
+        'r'  => "\r",
+        't'  => "\t",
+        'f'  => "\f",
+        'v'  => "\v",
+        'e'  => "\x1B",
     );
 
     /**
      * Constructs a string scalar node.
      *
-     * @param string $value Value of the string
-     * @param array $attributes Additional attributes
+     * @param string $value      Value of the string
+     * @param array  $attributes Additional attributes
      */
-    public function __construct($value = '', array $attributes = array())
-    {
+    public function __construct($value = '', array $attributes = array()) {
         parent::__construct(
             array(
                 'value' => $value
@@ -39,8 +38,7 @@ class PHPParser_Node_Scalar_String extends PHPParser_Node_Scalar
      *
      * @return string The parsed string
      */
-    public static function parse($str)
-    {
+    public static function parse($str) {
         $bLength = 0;
         if ('b' === $str[0]) {
             $bLength = 1;
@@ -49,7 +47,7 @@ class PHPParser_Node_Scalar_String extends PHPParser_Node_Scalar
         if ('\'' === $str[$bLength]) {
             return str_replace(
                 array('\\\\', '\\\''),
-                array('\\', '\''),
+                array(  '\\',   '\''),
                 substr($str, $bLength + 1, -1)
             );
         } else {
@@ -60,13 +58,12 @@ class PHPParser_Node_Scalar_String extends PHPParser_Node_Scalar
     /**
      * Parses escape sequences in strings (all string types apart from single quoted).
      *
-     * @param string $str String without quotes
+     * @param string      $str   String without quotes
      * @param null|string $quote Quote type
      *
      * @return string String with escape sequences parsed
      */
-    public static function parseEscapeSequences($str, $quote)
-    {
+    public static function parseEscapeSequences($str, $quote) {
         if (null !== $quote) {
             $str = str_replace('\\' . $quote, $quote, $str);
         }
@@ -78,8 +75,7 @@ class PHPParser_Node_Scalar_String extends PHPParser_Node_Scalar
         );
     }
 
-    public static function parseCallback($matches)
-    {
+    public static function parseCallback($matches) {
         $str = $matches[1];
 
         if (isset(self::$replacements[$str])) {
@@ -95,12 +91,11 @@ class PHPParser_Node_Scalar_String extends PHPParser_Node_Scalar
      * Parses a constant doc string.
      *
      * @param string $startToken Doc string start token content (<<<SMTHG)
-     * @param string $str String token content
+     * @param string $str        String token content
      *
      * @return string Parsed string
      */
-    public static function parseDocString($startToken, $str)
-    {
+    public static function parseDocString($startToken, $str) {
         // strip last newline (thanks tokenizer for sticking it into the string!)
         $str = preg_replace('~(\r\n|\n|\r)$~', '', $str);
 

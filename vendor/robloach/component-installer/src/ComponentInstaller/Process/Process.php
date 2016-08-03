@@ -111,7 +111,8 @@ class Process implements ProcessInterface
             if (isset($customComponents[$name]) && is_array($customComponents[$name])) {
                 $package['extra'] = array('component' => $customComponents[$name]);
                 $this->packages[] = $package;
-            } else {
+            }
+            else {
                 $extra = isset($package['extra']) ? $package['extra'] : array();
                 if (isset($extra['component']) && is_array($extra['component'])) {
                     $this->packages[] = $package;
@@ -201,9 +202,9 @@ class Process implements ProcessInterface
         if (isset($package['is-root']) && $package['is-root'] === true) {
             $path = getcwd();
 
-            if (!file_exists($path . DIRECTORY_SEPARATOR . 'composer.json')) {
+            if (!file_exists($path.DIRECTORY_SEPARATOR.'composer.json')) {
                 for ($temp = __DIR__; strlen($temp) > 3; $temp = dirname($temp)) {
-                    if (file_exists($temp . DIRECTORY_SEPARATOR . 'composer.json')) {
+                    if (file_exists($temp.DIRECTORY_SEPARATOR.'composer.json')) {
                         $path = $temp;
                     }
                 }

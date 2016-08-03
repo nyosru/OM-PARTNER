@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class MetalMacroTest extends PHPTAL_TestCase
 {
     function testSimple()

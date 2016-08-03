@@ -21,7 +21,7 @@
 class PHPTAL_Php_TalesChainExecutor
 {
     const CHAIN_BREAK = 1;
-    const CHAIN_CONT = 2;
+    const CHAIN_CONT  = 2;
 
     public function __construct(PHPTAL_Php_CodeWriter $codewriter, array $chain, PHPTAL_Php_TalesChainReader $reader)
     {
@@ -66,8 +66,7 @@ class PHPTAL_Php_TalesChainExecutor
     {
         $this->codewriter->noThrow(true);
 
-        end($this->_chain);
-        $lastkey = key($this->_chain);
+        end($this->_chain); $lastkey = key($this->_chain);
 
         foreach ($this->_chain as $key => $exp) {
             $this->_state = 0;

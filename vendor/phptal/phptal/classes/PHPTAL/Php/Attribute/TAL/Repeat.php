@@ -69,7 +69,6 @@
 class PHPTAL_Php_Attribute_TAL_Repeat extends PHPTAL_Php_Attribute
 {
     private $var;
-
     public function before(PHPTAL_Php_CodeWriter $codewriter)
     {
         $this->var = $codewriter->createTempVariable();
@@ -81,12 +80,12 @@ class PHPTAL_Php_Attribute_TAL_Repeat extends PHPTAL_Php_Attribute
         $code = $codewriter->evaluateExpression($expression);
 
         // instantiate controller using expression
-        $codewriter->doSetVar($this->var . '->' . $varName, 'new PHPTAL_RepeatController(' . $code . ')' . "\n");
+        $codewriter->doSetVar( $this->var.'->'.$varName, 'new PHPTAL_RepeatController('.$code.')'."\n" );
 
         $codewriter->pushContext();
 
         // Lets loop the iterator with a foreach construct
-        $codewriter->doForeach('$ctx->' . $varName, $this->var . '->' . $varName);
+        $codewriter->doForeach('$ctx->'.$varName, $this->var.'->'.$varName);
     }
 
     public function after(PHPTAL_Php_CodeWriter $codewriter)

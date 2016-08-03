@@ -36,14 +36,13 @@ class ConstantReflector extends BaseReflector
      * Registers the Constant Statement and Node with this reflector.
      *
      * @param PHPParser_Node_Stmt_Const $stmt
-     * @param PHPParser_Node_Const $node
+     * @param PHPParser_Node_Const      $node
      */
     public function __construct(
         PHPParser_Node_Stmt_Const $stmt,
         Context $context,
         PHPParser_Node_Const $node
-    )
-    {
+    ) {
         parent::__construct($node, $context);
         $this->constant = $stmt;
     }

@@ -521,9 +521,9 @@ class Schema extends Object
         if ($e instanceof Exception) {
             return $e;
         } else {
-            $message = $e->getMessage() . "\nThe SQL being executed was: $rawSql";
+            $message = $e->getMessage()  . "\nThe SQL being executed was: $rawSql";
             $errorInfo = $e instanceof \PDOException ? $e->errorInfo : null;
-            return new Exception($message, $errorInfo, (int)$e->getCode(), $e);
+            return new Exception($message, $errorInfo, (int) $e->getCode(), $e);
         }
     }
 

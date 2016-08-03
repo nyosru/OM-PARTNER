@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,6 +11,7 @@
  * @version  SVN: $Id: $
  * @link     http://phptal.org/
  */
+
 class PHPTAL_PreFilter_StripComments extends PHPTAL_PreFilter
 {
     function filterDOM(PHPTAL_Dom_Element $element)

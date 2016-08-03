@@ -33,9 +33,9 @@ class EnsureFilterWorker implements WorkerInterface
     /**
      * Constructor.
      *
-     * @param string $pattern A regex for checking the asset's target URL
-     * @param FilterInterface $filter A filter to apply if the regex matches
-     * @param integer $flags Flags for what to check
+     * @param string          $pattern A regex for checking the asset's target URL
+     * @param FilterInterface $filter  A filter to apply if the regex matches
+     * @param integer         $flags   Flags for what to check
      */
     public function __construct($pattern, FilterInterface $filter, $flags = null)
     {

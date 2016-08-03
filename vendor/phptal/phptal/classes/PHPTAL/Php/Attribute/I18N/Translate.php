@@ -34,11 +34,8 @@ class PHPTAL_Php_Attribute_I18N_Translate extends PHPTAL_Php_Attribute_TAL_Conte
         $escape = true;
         $this->_echoType = PHPTAL_Php_Attribute::ECHO_TEXT;
         if (preg_match('/^(text|structure)(?:\s+(.*)|\s*$)/', $this->expression, $m)) {
-            if ($m[1] == 'structure') {
-                $escape = false;
-                $this->_echoType = PHPTAL_Php_Attribute::ECHO_STRUCTURE;
-            }
-            $this->expression = isset($m[2]) ? $m[2] : '';
+            if ($m[1]=='structure') { $escape=false; $this->_echoType = PHPTAL_Php_Attribute::ECHO_STRUCTURE; }
+            $this->expression = isset($m[2])?$m[2]:'';
         }
 
         $this->_prepareNames($codewriter, $this->phpelement);
@@ -47,10 +44,10 @@ class PHPTAL_Php_Attribute_I18N_Translate extends PHPTAL_Php_Attribute_TAL_Conte
         // a translation key
         if (strlen(trim($this->expression)) == 0) {
             $key = $this->_getTranslationKey($this->phpelement, !$escape, $codewriter->getEncoding());
-            $key = trim(preg_replace('/\s+/sm' . ($codewriter->getEncoding() == 'UTF-8' ? 'u' : ''), ' ', $key));
+            $key = trim(preg_replace('/\s+/sm'.($codewriter->getEncoding()=='UTF-8'?'u':''), ' ', $key));
             if ('' === trim($key)) {
                 throw new PHPTAL_TemplateException("Empty translation key",
-                    $this->phpelement->getSourceFile(), $this->phpelement->getSourceLine());
+                            $this->phpelement->getSourceFile(), $this->phpelement->getSourceLine());
             }
             $code = $codewriter->str($key);
         } else {
@@ -61,7 +58,7 @@ class PHPTAL_Php_Attribute_I18N_Translate extends PHPTAL_Php_Attribute_TAL_Conte
             $code = $codewriter->evaluateExpression($this->expression);
         }
 
-        $codewriter->pushCode('echo ' . $codewriter->getTranslatorReference() . '->translate(' . $code . ',' . ($escape ? 'true' : 'false') . ');');
+        $codewriter->pushCode('echo '.$codewriter->getTranslatorReference().'->translate('.$code.','.($escape ? 'true':'false').');');
     }
 
     public function after(PHPTAL_Php_CodeWriter $codewriter)
@@ -73,10 +70,10 @@ class PHPTAL_Php_Attribute_I18N_Translate extends PHPTAL_Php_Attribute_TAL_Conte
         $codewriter = $executor->getCodeWriter();
 
         $escape = !($this->_echoType == PHPTAL_Php_Attribute::ECHO_STRUCTURE);
-        $exp = $codewriter->getTranslatorReference() . "->translate($exp, " . ($escape ? 'true' : 'false') . ')';
+        $exp = $codewriter->getTranslatorReference()."->translate($exp, " . ($escape ? 'true':'false') . ')';
         if (!$islast) {
             $var = $codewriter->createTempVariable();
-            $executor->doIf('!phptal_isempty(' . $var . ' = ' . $exp . ')');
+            $executor->doIf('!phptal_isempty('.$var.' = '.$exp.')');
             $codewriter->pushCode("echo $var");
             $codewriter->recycleTempVariable($var);
         } else {
@@ -101,13 +98,13 @@ class PHPTAL_Php_Attribute_I18N_Translate extends PHPTAL_Php_Attribute_TAL_Conte
                 } else {
 
                     if ($preserve_tags) {
-                        $result .= '<' . $child->getQualifiedName();
+                        $result .= '<'.$child->getQualifiedName();
                         foreach ($child->getAttributeNodes() as $attr) {
                             if ($attr->getReplacedState() === PHPTAL_Dom_Attr::HIDDEN) continue;
 
-                            $result .= ' ' . $attr->getQualifiedName() . '="' . $attr->getValueEscaped() . '"';
+                            $result .= ' '.$attr->getQualifiedName().'="'.$attr->getValueEscaped().'"';
                         }
-                        $result .= '>' . $this->_getTranslationKey($child, $preserve_tags, $encoding) . '</' . $child->getQualifiedName() . '>';
+                        $result .= '>'.$this->_getTranslationKey($child, $preserve_tags, $encoding) . '</'.$child->getQualifiedName().'>';
                     } else {
                         $result .= $this->_getTranslationKey($child, $preserve_tags, $encoding);
                     }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,15 +12,12 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-class DummyPhpNode extends PHPTAL_Dom_Element
-{
-    function __construct()
-    {
-    }
 
-    function generateCode(PHPTAL_Php_CodeWriter $codewriter)
-    {
-    }
+
+
+class DummyPhpNode extends PHPTAL_Dom_Element {
+    function __construct() {}
+    function generateCode(PHPTAL_Php_CodeWriter $codewriter) {}
 }
 
 class TalCommentTest extends PHPTAL_TestCase
@@ -42,7 +38,7 @@ class TalCommentTest extends PHPTAL_TestCase
 
     function testComment()
     {
-        $this->newComment('my dummy comment');
+        $this->newComment( 'my dummy comment');
         $this->_att->before($this->_gen);
         $this->_att->after($this->_gen);
         $res = $this->_gen->getResult();
@@ -62,7 +58,7 @@ class TalCommentTest extends PHPTAL_TestCase
     function testTrickyComment()
     {
         $comment = "my dummy */ comment\non more than one\nline";
-        $this->newComment($comment);
+        $this->newComment(  $comment);
         $this->_att->before($this->_gen);
         $this->_att->after($this->_gen);
         $res = $this->_gen->getResult();

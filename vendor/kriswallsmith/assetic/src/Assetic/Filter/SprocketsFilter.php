@@ -37,7 +37,7 @@ class SprocketsFilter extends BaseProcessFilter implements DependencyExtractorIn
      * Constructor.
      *
      * @param string $sprocketsLib Path to the Sprockets lib/ directory
-     * @param string $rubyBin Path to the ruby binary
+     * @param string $rubyBin      Path to the ruby binary
      */
     public function __construct($sprocketsLib = null, $rubyBin = '/usr/bin/ruby')
     {
@@ -79,11 +79,11 @@ EOF;
         $more = '';
 
         foreach ($this->includeDirs as $directory) {
-            $more .= 'options[:load_path] << ' . var_export($directory, true) . "\n";
+            $more .= 'options[:load_path] << '.var_export($directory, true)."\n";
         }
 
         if (null !== $this->assetRoot) {
-            $more .= 'options[:asset_root] = ' . var_export($this->assetRoot, true) . "\n";
+            $more .= 'options[:asset_root] = '.var_export($this->assetRoot, true)."\n";
         }
 
         if ($more) {

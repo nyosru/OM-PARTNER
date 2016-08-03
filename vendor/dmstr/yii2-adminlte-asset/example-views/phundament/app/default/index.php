@@ -4,7 +4,7 @@
         <div class="small-box bg-blue">
             <div class="inner">
                 <h3>
-                    <?= YII_ENV ?>
+                     <?= YII_ENV ?>
                 </h3>
 
                 <p>
@@ -105,8 +105,8 @@
                 foreach (\Yii::$app->urlManager->languages AS $name) {
                     echo yii\helpers\Html::a(
                         $name,
-                        ['', \Yii::$app->urlManager->languageParam => $name],
-                        ['class' => 'btn btn-default btn-flat ' . (Yii::$app->language == $name ? 'active' : '')]
+                        ['', \Yii::$app->urlManager->languageParam=>$name],
+                        ['class' => 'btn btn-default btn-flat '.(Yii::$app->language == $name?'active':'')]
                     );
                 }
                 ?>

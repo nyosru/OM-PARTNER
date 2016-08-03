@@ -157,7 +157,7 @@ class DateTimePicker extends InputWidget
     /**
      * Returns the addon to render
      *
-     * @param array $options the HTML attributes for the addon
+     * @param array  $options the HTML attributes for the addon
      * @param string $type whether the addon is the picker or remove
      *
      * @return string

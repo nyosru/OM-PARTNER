@@ -16,12 +16,12 @@ $favourites = ($favourites) ?: [];
             <?=
             insolita\wgadminlte\SmallBox::widget(
                 [
-                    'head' => $controller['head'],
-                    'type' => $controller['color'],
-                    'text' => $controller['label'],
-                    'footer' => 'Manage',
+                    'head'        => $controller['head'],
+                    'type'        => $controller['color'],
+                    'text'        => $controller['label'],
+                    'footer'      => 'Manage',
                     'footer_link' => $controller['route'],
-                    'icon' => 'fa fa-' . $controller['icon']
+                    'icon'        => 'fa fa-' . $controller['icon']
                 ]
             );
             ?>
@@ -37,7 +37,7 @@ $favourites = ($favourites) ?: [];
                     <?php
                     $dataProvider = new \yii\data\ArrayDataProvider(
                         [
-                            'allModels' => $controllers,
+                            'allModels'  => $controllers,
                             'pagination' => [
                                 'pageSize' => 100
                             ]
@@ -46,7 +46,7 @@ $favourites = ($favourites) ?: [];
                     echo \yii\widgets\ListView::widget(
                         [
                             'dataProvider' => $dataProvider,
-                            'itemView' => function ($data) {
+                            'itemView'     => function ($data) {
                                 return '<li class="list-group-item">' . \yii\helpers\Html::a(
                                     $data['label'],
                                     $data['route']

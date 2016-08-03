@@ -180,15 +180,15 @@ class ActiveDataProvider extends \yii\data\ActiveDataProvider
             $meta = $this->getMeta();
 
             if (isset($meta['total_found'])) {
-                return (int)$meta['total_found'];
+                return (int) $meta['total_found'];
             }
 
             if (isset($meta['total'])) {
-                return (int)$meta['total'];
+                return (int) $meta['total'];
             }
         }
 
         $query = clone $this->query;
-        return (int)$query->limit(-1)->offset(-1)->orderBy([])->facets([])->showMeta(false)->count('*', $this->db);
+        return (int) $query->limit(-1)->offset(-1)->orderBy([])->facets([])->showMeta(false)->count('*', $this->db);
     }
 }

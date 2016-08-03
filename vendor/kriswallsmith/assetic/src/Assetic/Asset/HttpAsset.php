@@ -27,17 +27,17 @@ class HttpAsset extends BaseAsset
     /**
      * Constructor.
      *
-     * @param string $sourceUrl The source URL
-     * @param array $filters An array of filters
+     * @param string  $sourceUrl    The source URL
+     * @param array   $filters      An array of filters
      * @param Boolean $ignoreErrors
-     * @param array $vars
+     * @param array   $vars
      *
      * @throws \InvalidArgumentException If the first argument is not an URL
      */
     public function __construct($sourceUrl, $filters = array(), $ignoreErrors = false, array $vars = array())
     {
         if (0 === strpos($sourceUrl, '//')) {
-            $sourceUrl = 'http:' . $sourceUrl;
+            $sourceUrl = 'http:'.$sourceUrl;
         } elseif (false === strpos($sourceUrl, '://')) {
             throw new \InvalidArgumentException(sprintf('"%s" is not a valid URL.', $sourceUrl));
         }
@@ -48,7 +48,7 @@ class HttpAsset extends BaseAsset
         list($scheme, $url) = explode('://', $sourceUrl, 2);
         list($host, $path) = explode('/', $url, 2);
 
-        parent::__construct($filters, $scheme . '://' . $host, $path, $vars);
+        parent::__construct($filters, $scheme.'://'.$host, $path, $vars);
     }
 
     public function load(FilterInterface $additionalFilter = null)

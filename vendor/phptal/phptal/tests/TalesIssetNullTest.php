@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,35 +12,32 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
 class DummyObjectX
 {
     public function __contruct()
     {
         $this->_data = array();
     }
-
     public function __isset($var)
     {
         return array_key_exists($var, $this->_data);
     }
-
     public function __get($var)
     {
         return $this->_data[$var];
     }
-
     public function __set($var, $value)
     {
         $this->_data[$var] = $value;
     }
-
     public function __call($method, $params)
     {
         return '__call';
     }
-
     private $_data;
 }
+
 
 
 class TalesIssetNullTest extends PHPTAL_TestCase

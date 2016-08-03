@@ -12,17 +12,15 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
      */
     protected $aliases;
 
-    public function beforeTraverse(array $nodes)
-    {
+    public function beforeTraverse(array $nodes) {
         $this->namespace = null;
-        $this->aliases = array();
+        $this->aliases   = array();
     }
 
-    public function enterNode(PHPParser_Node $node)
-    {
+    public function enterNode(PHPParser_Node $node) {
         if ($node instanceof PHPParser_Node_Stmt_Namespace) {
             $this->namespace = $node->name;
-            $this->aliases = array();
+            $this->aliases   = array();
         } elseif ($node instanceof PHPParser_Node_Stmt_UseUse) {
             $aliasName = strtolower($node->alias);
             if (isset($this->aliases[$aliasName])) {
@@ -61,10 +59,10 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
                 $this->addNamespacedName($const);
             }
         } elseif ($node instanceof PHPParser_Node_Expr_StaticCall
-            || $node instanceof PHPParser_Node_Expr_StaticPropertyFetch
-            || $node instanceof PHPParser_Node_Expr_ClassConstFetch
-            || $node instanceof PHPParser_Node_Expr_New
-            || $node instanceof PHPParser_Node_Expr_Instanceof
+                  || $node instanceof PHPParser_Node_Expr_StaticPropertyFetch
+                  || $node instanceof PHPParser_Node_Expr_ClassConstFetch
+                  || $node instanceof PHPParser_Node_Expr_New
+                  || $node instanceof PHPParser_Node_Expr_Instanceof
         ) {
             if ($node->class instanceof PHPParser_Node_Name) {
                 $node->class = $this->resolveClassName($node->class);
@@ -72,7 +70,7 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
         } elseif ($node instanceof PHPParser_Node_Stmt_Catch) {
             $node->type = $this->resolveClassName($node->type);
         } elseif ($node instanceof PHPParser_Node_Expr_FuncCall
-            || $node instanceof PHPParser_Node_Expr_ConstFetch
+                  || $node instanceof PHPParser_Node_Expr_ConstFetch
         ) {
             if ($node->name instanceof PHPParser_Node_Name) {
                 $node->name = $this->resolveOtherName($node->name);
@@ -82,16 +80,15 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
                 $trait = $this->resolveClassName($trait);
             }
         } elseif ($node instanceof PHPParser_Node_Param
-            && $node->type instanceof PHPParser_Node_Name
+                  && $node->type instanceof PHPParser_Node_Name
         ) {
             $node->type = $this->resolveClassName($node->type);
         }
     }
 
-    protected function resolveClassName(PHPParser_Node_Name $name)
-    {
+    protected function resolveClassName(PHPParser_Node_Name $name) {
         // don't resolve special class names
-        if (in_array((string)$name, array('self', 'parent', 'static'))) {
+        if (in_array((string) $name, array('self', 'parent', 'static'))) {
             return $name;
         }
 
@@ -104,7 +101,7 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
         $aliasName = strtolower($name->getFirst());
         if (!$name->isRelative() && isset($this->aliases[$aliasName])) {
             $name->setFirst($this->aliases[$aliasName]);
-            // if no alias exists prepend current namespace
+        // if no alias exists prepend current namespace
         } elseif (null !== $this->namespace) {
             $name->prepend($this->namespace);
         }
@@ -112,8 +109,7 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
         return new PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
     }
 
-    protected function resolveOtherName(PHPParser_Node_Name $name)
-    {
+    protected function resolveOtherName(PHPParser_Node_Name $name) {
         // fully qualified names are already resolved and we can't do anything about unqualified
         // ones at compiler-time
         if ($name->isFullyQualified() || $name->isUnqualified()) {
@@ -124,7 +120,7 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
         $aliasName = strtolower($name->getFirst());
         if ($name->isQualified() && isset($this->aliases[$aliasName])) {
             $name->setFirst($this->aliases[$aliasName]);
-            // prepend namespace for relative names
+        // prepend namespace for relative names
         } elseif (null !== $this->namespace) {
             $name->prepend($this->namespace);
         }
@@ -132,8 +128,7 @@ class PHPParser_NodeVisitor_NameResolver extends PHPParser_NodeVisitorAbstract
         return new PHPParser_Node_Name_FullyQualified($name->parts, $name->getAttributes());
     }
 
-    protected function addNamespacedName(PHPParser_Node $node)
-    {
+    protected function addNamespacedName(PHPParser_Node $node) {
         if (null !== $this->namespace) {
             $node->namespacedName = clone $this->namespace;
             $node->namespacedName->append($node->name);

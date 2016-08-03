@@ -55,7 +55,7 @@ class AssetManager
     /**
      * Registers an asset to the current asset manager.
      *
-     * @param string $name The asset name
+     * @param string         $name  The asset name
      * @param AssetInterface $asset The asset
      *
      * @throws \InvalidArgumentException If the asset name is invalid

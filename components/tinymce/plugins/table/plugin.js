@@ -518,22 +518,8 @@ define("tinymce/tableplugin/TableGrid", [
 
 				// Set row/col span to start cell
 				startCell = getCell(startX, startY).elm;
-				var colSpan = (endX - startX) + 1;
-				var rowSpan = (endY - startY) + 1;
-
-				// All cells in table selected then just make it a table with one cell
-				if (colSpan === gridWidth && rowSpan === grid.length) {
-					colSpan = 1;
-					rowSpan = 1;
-				}
-
-				// Multiple whole rows selected then just make it one rowSpan
-				if (colSpan === gridWidth && rowSpan > 1) {
-					rowSpan = 1;
-				}
-
-				setSpanVal(startCell, 'colSpan', colSpan);
-				setSpanVal(startCell, 'rowSpan', rowSpan);
+				setSpanVal(startCell, 'colSpan', (endX - startX) + 1);
+				setSpanVal(startCell, 'rowSpan', (endY - startY) + 1);
 
 				// Remove other cells and add it's contents to the start cell
 				for (y = startY; y <= endY; y++) {
@@ -575,7 +561,7 @@ define("tinymce/tableplugin/TableGrid", [
 		}
 
 		function insertRow(before) {
-			var posY, cell, lastCell, x, rowElm, newRow, newCell, otherCell, rowSpan, spanValue;
+			var posY, cell, lastCell, x, rowElm, newRow, newCell, otherCell, rowSpan;
 
 			// Find first/last row
 			each(grid, function(row, y) {
@@ -602,14 +588,13 @@ define("tinymce/tableplugin/TableGrid", [
 				return;
 			}
 
-			for (x = 0, spanValue = 0; x < grid[0].length; x += spanValue) {
+			for (x = 0; x < grid[0].length; x++) {
 				// Cell not found could be because of an invalid table structure
 				if (!grid[posY][x]) {
 					continue;
 				}
 
 				cell = grid[posY][x].elm;
-				spanValue = getSpanVal(cell, 'colspan');
 
 				if (cell != lastCell) {
 					if (!before) {
@@ -830,17 +815,12 @@ define("tinymce/tableplugin/TableGrid", [
 		function pasteRows(rows, before) {
 			var selectedRows = getSelectedRows(),
 				targetRow = selectedRows[before ? 0 : selectedRows.length - 1],
-				targetCellCount = targetRow.cells.length,
-				newRows;
+				targetCellCount = targetRow.cells.length;
 
 			// Nothing to paste
 			if (!rows) {
 				return;
 			}
-
-			newRows = Tools.map(rows, function (row) {
-				return row.cloneNode(true);
-			});
 
 			// Calc target cell count
 			each(grid, function(row) {
@@ -863,10 +843,10 @@ define("tinymce/tableplugin/TableGrid", [
 			});
 
 			if (!before) {
-				newRows.reverse();
+				rows.reverse();
 			}
 
-			each(newRows, function(row) {
+			each(rows, function(row) {
 				var i, cellCount = row.cells.length, cell;
 
 				fireNewRow(row);
@@ -981,15 +961,13 @@ define("tinymce/tableplugin/TableGrid", [
 				maxX = endX;
 				maxY = endY;
 
-				// This logic tried to expand the selection to always be a rectangle
 				// Expand startX
-				/*for (y = startY; y <= maxY; y++) {
+				for (y = startY; y <= maxY; y++) {
 					cell = grid[y][startX];
 
 					if (!cell.real) {
-						newX = startX - (cell.colspan - 1);
-						if (newX < startX && newX >= 0) {
-							startX = newX;
+						if (startX - (cell.colspan - 1) < startX) {
+							startX -= cell.colspan - 1;
 						}
 					}
 				}
@@ -999,12 +977,11 @@ define("tinymce/tableplugin/TableGrid", [
 					cell = grid[startY][x];
 
 					if (!cell.real) {
-						newY = startY - (cell.rowspan - 1);
-						if (newY < startY && newY >= 0) {
-							startY = newY;
+						if (startY - (cell.rowspan - 1) < startY) {
+							startY -= cell.rowspan - 1;
 						}
 					}
-				}*/
+				}
 
 				// Find max X, Y
 				for (y = startY; y <= endY; y++) {
@@ -1530,7 +1507,7 @@ define("tinymce/tableplugin/CellSelection", [
 	"tinymce/dom/TreeWalker",
 	"tinymce/util/Tools"
 ], function(TableGrid, TreeWalker, Tools) {
-	return function(editor, selectionChange) {
+	return function(editor) {
 		var dom = editor.dom, tableGrid, startCell, startTable, lastMouseOverTarget, hasCellSelection = true, resizing;
 
 		function clear(force) {
@@ -1542,11 +1519,6 @@ define("tinymce/tableplugin/CellSelection", [
 				hasCellSelection = false;
 			}
 		}
-
-		var endSelection = function () {
-			startCell = tableGrid = startTable = lastMouseOverTarget = null;
-			selectionChange(false);
-		};
 
 		function isCellInTable(table, cell) {
 			if (!table || !cell) {
@@ -1581,8 +1553,6 @@ define("tinymce/tableplugin/CellSelection", [
 				if (startCell === currentCell && !hasCellSelection) {
 					return;
 				}
-
-				selectionChange(true);
 
 				if (isCellInTable(startTable, currentCell)) {
 					e.preventDefault();
@@ -1698,13 +1668,13 @@ define("tinymce/tableplugin/CellSelection", [
 				}
 
 				editor.nodeChanged();
-				endSelection();
+				startCell = tableGrid = startTable = lastMouseOverTarget = null;
 			}
 		});
 
 		editor.on('KeyUp Drop SetContent', function(e) {
 			clear(e.type == 'setcontent');
-			endSelection();
+			startCell = tableGrid = startTable = lastMouseOverTarget = null;
 			resizing = false;
 		});
 
@@ -3454,8 +3424,6 @@ define("tinymce/tableplugin/ResizeBars", [
 				var initialTop = editor.dom.getPos(target).y;
 				editor.dom.setAttrib(target, RESIZE_BAR_ROW_DATA_INITIAL_TOP_ATTRIBUTE, initialTop);
 				setupRowDrag(target);
-			} else {
-				clearBars();
 			}
 		}
 
@@ -3883,11 +3851,7 @@ define("tinymce/tableplugin/Plugin", [
 		self.quirks = new Quirks(editor);
 
 		editor.on('Init', function() {
-			self.cellSelection = new CellSelection(editor, function (selecting) {
-				if (selecting) {
-					resizeBars.clearBars();
-				}
-			});
+			self.cellSelection = new CellSelection(editor);
 			self.resizeBars = resizeBars;
 		});
 
@@ -4105,14 +4069,6 @@ define("tinymce/tableplugin/Plugin", [
 			);
 		}
 
-		function getClipboardRows() {
-			return clipboardRows;
-		}
-
-		function setClipboardRows(rows) {
-			clipboardRows = rows;
-		}
-
 		addButtons();
 		addToolbars();
 
@@ -4143,8 +4099,6 @@ define("tinymce/tableplugin/Plugin", [
 		}
 
 		self.insertTable = insertTable;
-		self.setClipboardRows = setClipboardRows;
-		self.getClipboardRows = getClipboardRows;
 	}
 
 	PluginManager.add('table', Plugin);

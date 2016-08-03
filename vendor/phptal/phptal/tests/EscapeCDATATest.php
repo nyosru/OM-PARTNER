@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,8 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-class EscapeCDATATest extends PHPTAL_TestCase
-{
+
+
+class EscapeCDATATest extends PHPTAL_TestCase {
 
     private $last_code_path;
 
@@ -41,8 +41,7 @@ class EscapeCDATATest extends PHPTAL_TestCase
 
     }
 
-    function testDoesEscapeHTMLContent()
-    {
+    function testDoesEscapeHTMLContent(){
         $tpl = $this->newPHPTAL('input/escape.html');
         $exp = normalize_html_file('output/escape.html');
         $res = normalize_html($tpl->execute());
@@ -135,6 +134,7 @@ class EscapeCDATATest extends PHPTAL_TestCase
     }
 
 
+
     function testAutoCDATA()
     {
         $res = $this->executeString('<script> 1 < 2 </script>');
@@ -155,7 +155,7 @@ class EscapeCDATATest extends PHPTAL_TestCase
 
     function testNoAutoCDATA2()
     {
-        $res = $this->executeString('<script> a && ${structure foo} </script><script xmlns="foo"> 1 &lt; 2 </script>', array('foo' => '<foo/>'));
+        $res = $this->executeString('<script> a && ${structure foo} </script><script xmlns="foo"> 1 &lt; 2 </script>', array('foo'=>'<foo/>'));
         $this->assertEquals('<script> a &amp;&amp; <foo/> </script><script xmlns="foo"> 1 &lt; 2 </script>', $res, $this->last_code_path);
     }
 

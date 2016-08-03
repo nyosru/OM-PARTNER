@@ -49,8 +49,8 @@ class LessFilter extends BaseNodeFilter implements DependencyExtractorInterface
     /**
      * Constructor.
      *
-     * @param string $nodeBin The path to the node binary
-     * @param array $nodePaths An array of node paths
+     * @param string $nodeBin   The path to the node binary
+     * @param array  $nodePaths An array of node paths
      */
     public function __construct($nodeBin = '/usr/bin/node', array $nodePaths = array())
     {
@@ -188,7 +188,7 @@ EOF;
             }
 
             foreach ($loadPaths as $loadPath) {
-                if (file_exists($file = $loadPath . '/' . $reference)) {
+                if (file_exists($file = $loadPath.'/'.$reference)) {
                     $coll = $factory->createAsset($file, array(), array('root' => $loadPath));
                     foreach ($coll as $leaf) {
                         $leaf->ensureFilter($this);

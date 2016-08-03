@@ -5,6 +5,7 @@
  * @package yii2-widgets
  * @subpackage yii2-widget-typeahead
  * @version 1.0.1
+
  */
 
 namespace kartik\typeahead;
@@ -39,19 +40,19 @@ class TypeaheadBasic extends \kartik\base\InputWidget
      * @var bool whether RTL support is to be enabled
      */
     public $rtl = false;
-
+    
     /**
      * @var array dataset an object that defines a set of data that hydrates suggestions.
-     * For TypeaheadBasic, this is a single dimensional array consisting of following settings.
-     * For Typeahead, this is a multi-dimensional array, with each array item being an array that
+     * For TypeaheadBasic, this is a single dimensional array consisting of following settings. 
+     * For Typeahead, this is a multi-dimensional array, with each array item being an array that 
      * consists of the following settings.
-     * - source: The backing data source for suggestions. Expected to be a function with the
+     * - source: The backing data source for suggestions. Expected to be a function with the 
      *   signature `(query, syncResults, asyncResults)`. This can also be a Bloodhound instance.
      *   If not set, this will be automatically generated based on the bloodhound specific
      *   properties in the next section below.
      * - display: string the key used to access the value of the datum in the datum
      *   object. Defaults to 'value'.
-     * - async: boolean, lets the dataset know if async suggestions should be expected. Defaults to `true`.
+     * - async: boolean, lets the dataset know if async suggestions should be expected. Defaults to `true`.     
      * - limit: integer the max number of suggestions from the dataset to display for
      *   a given query. Defaults to 5.
      * - templates: array the templates used to render suggestions.

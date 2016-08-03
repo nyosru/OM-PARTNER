@@ -142,7 +142,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             if($product['products_quantity_order_units'] === '1'  || $product['products_quantity_order_min'] === '1'){
                 $disable_for_stepping = '';
             }else{
-                $disable_for_stepping = 'disabled';
+                $disable_for_stepping = 'readonly';
             }
             $activelabel++;
             $attr_html .= '<div class="" style="width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%; margin-top:20px;"><div style="margin: auto; width: 100%;"><div></div>';

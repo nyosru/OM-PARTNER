@@ -36,7 +36,7 @@ class ApiMarkdownLaTeX extends GithubMarkdown
     protected function renderApiLink($block)
     {
         // TODO allow break also on camel case
-        $latex = '\texttt{' . str_replace(['\\textbackslash', '::'], ['\allowbreak{}\\textbackslash', '\allowbreak{}::\allowbreak{}'], $this->escapeLatex(strip_tags($block[1]))) . '}';
+        $latex = '\texttt{'.str_replace(['\\textbackslash', '::'], ['\allowbreak{}\\textbackslash', '\allowbreak{}::\allowbreak{}'], $this->escapeLatex(strip_tags($block[1]))).'}';
         return $latex;
     }
 

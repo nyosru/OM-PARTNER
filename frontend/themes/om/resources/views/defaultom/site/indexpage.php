@@ -64,6 +64,7 @@ echo \frontend\widgets\MainBanner::widget();
 <div id="main-spec">
     <div id="index-card-4">Специальные предложения</div>
     <?php
+
     if(is_array($dataproducts)) {
         $specitems=array();
         $num=0;
@@ -71,13 +72,13 @@ echo \frontend\widgets\MainBanner::widget();
         $specitems[$it]['content']='';
         foreach ($dataproducts as $k1=>$val) {
             if($num<10){
-                $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
+                $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'],  'man_time' => $man_time,'showdiscount'=>1]);
                 $num++;
             }
             else{
                 $num=0;
                 $it++;
-                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time]);
+                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'man_time' => $man_time]);
                 $num++;
             }
         }

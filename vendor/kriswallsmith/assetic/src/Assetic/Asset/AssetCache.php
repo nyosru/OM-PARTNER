@@ -138,9 +138,9 @@ class AssetCache implements AssetInterface
      *  * last modified
      *  * filters
      *
-     * @param AssetInterface $asset The asset
+     * @param AssetInterface  $asset            The asset
      * @param FilterInterface $additionalFilter Any additional filter being applied
-     * @param string $salt Salt for the key
+     * @param string          $salt             Salt for the key
      *
      * @return string A key for identifying the current asset
      */
@@ -151,7 +151,7 @@ class AssetCache implements AssetInterface
             $asset->ensureFilter($additionalFilter);
         }
 
-        $cacheKey = $asset->getSourceRoot();
+        $cacheKey  = $asset->getSourceRoot();
         $cacheKey .= $asset->getSourcePath();
         $cacheKey .= $asset->getTargetPath();
         $cacheKey .= $asset->getLastModified();
@@ -169,6 +169,6 @@ class AssetCache implements AssetInterface
             $cacheKey .= serialize($values);
         }
 
-        return md5($cacheKey . $salt);
+        return md5($cacheKey.$salt);
     }
 }

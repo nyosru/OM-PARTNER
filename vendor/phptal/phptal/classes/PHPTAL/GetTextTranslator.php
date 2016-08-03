@@ -82,7 +82,7 @@ class PHPTAL_GetTextTranslator implements PHPTAL_TranslationService
             if ($langCode) return $langCode;
         }
 
-        throw new PHPTAL_ConfigurationException('Language(s) code(s) "' . implode(', ', $langs) . '" not supported by your system');
+        throw new PHPTAL_ConfigurationException('Language(s) code(s) "'.implode(', ', $langs).'" not supported by your system');
     }
 
     private function trySettingLanguages($category, array $langs)
@@ -103,7 +103,7 @@ class PHPTAL_GetTextTranslator implements PHPTAL_TranslationService
      *
      * Encoding must be set before calling addDomain!
      */
-    public function addDomain($domain, $path = './locale/')
+    public function addDomain($domain, $path='./locale/')
     {
         bindtextdomain($domain, $path);
         if ($this->_encoding) {
@@ -140,7 +140,7 @@ class PHPTAL_GetTextTranslator implements PHPTAL_TranslationService
      *
      * @param bool $htmlencode if true, output will be HTML-escaped.
      */
-    public function translate($key, $htmlencode = true)
+    public function translate($key, $htmlencode=true)
     {
         if ($this->_canonicalize) $key = self::_canonicalizeKey($key);
 
@@ -152,7 +152,7 @@ class PHPTAL_GetTextTranslator implements PHPTAL_TranslationService
         while (preg_match('/\${(.*?)\}/sm', $value, $m)) {
             list($src, $var) = $m;
             if (!array_key_exists($var, $this->_vars)) {
-                throw new PHPTAL_VariableNotFoundException('Interpolation error. Translation uses ${' . $var . '}, which is not defined in the template (via i18n:name)');
+                throw new PHPTAL_VariableNotFoundException('Interpolation error. Translation uses ${'.$var.'}, which is not defined in the template (via i18n:name)');
             }
             $value = str_replace($src, $this->_vars[$var], $value);
         }
@@ -168,11 +168,11 @@ class PHPTAL_GetTextTranslator implements PHPTAL_TranslationService
         $key_ = trim($key_);
         $key_ = str_replace("\n", "", $key_);
         $key_ = str_replace("\r", "", $key_);
-        for ($i = 0; $i < strlen($key_); $i++) {
+        for ($i = 0; $i<strlen($key_); $i++) {
             $c = $key_[$i];
             $o = ord($c);
             if ($o < 5 || $o > 127) {
-                $result .= 'C<' . $o . '>';
+                $result .= 'C<'.$o.'>';
             } else {
                 $result .= $c;
             }

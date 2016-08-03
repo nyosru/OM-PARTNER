@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class PhptalTest extends PHPTAL_TestCase
 {
     function test01()
@@ -37,7 +38,9 @@ class PhptalTest extends PHPTAL_TestCase
         ob_start();
         try {
             $res = $tpl->execute();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
         }
         $c = ob_get_contents();
         ob_end_clean();
@@ -163,7 +166,9 @@ class PhptalTest extends PHPTAL_TestCase
             $tpl = $this->newPHPTAL();
             $tpl->setOutputMode('unknown');
             $this->assertTrue(false);
-        } catch (PHPTAL_Exception $e) {
+        }
+        catch (PHPTAL_Exception $e)
+        {
             $this->assertTrue(true);
         }
     }
@@ -191,10 +196,12 @@ class PhptalTest extends PHPTAL_TestCase
             $tpl = $this->newPHPTAL(dirname(__FILE__));
             $tpl->execute();
             $this->fail("Executed directory as if it was a template file");
-        } catch (PHPTAL_IOException $e) {
+        }
+        catch(PHPTAL_IOException $e) {
             // ok
-        } catch (PHPTAL_Exception $e) {
-            $this->fail("Thrown exception " . get_class($e) . " (" . $e->getMessage() . ") rather than PHPTAL_IOException");
+        }
+        catch(PHPTAL_Exception $e) {
+            $this->fail("Thrown exception ".get_class($e)." (".$e->getMessage().") rather than PHPTAL_IOException");
         }
     }
 
@@ -213,10 +220,11 @@ class PhptalTest extends PHPTAL_TestCase
         $tpl = $this->newPHPTAL()->setSource('<x tal:content="php:\'deliberate parse\' \'error test\'"/>');
 
         ob_start();
-        echo "\n" . __CLASS__ . "::testPHPParseErrorDoesNotStopPHPTAL2 failed\n";
+        echo "\n".__CLASS__."::testPHPParseErrorDoesNotStopPHPTAL2 failed\n";
         try {
             @$tpl->execute(); // if test dies for no apparent reason, the reason is '@'
-        } catch (Exception $e) {
+        }
+        catch(Exception $e) {
             ob_end_clean();
             throw $e;
         }
@@ -239,7 +247,8 @@ class PhptalTest extends PHPTAL_TestCase
         try {
             $obj->execute();
             $this->fail("Should not execute without template");
-        } catch (PHPTAL_ConfigurationException $e) {
+        }
+        catch(PHPTAL_ConfigurationException $e) {
             $this->assertContains('No template', $e->getMessage());
         }
     }
@@ -263,7 +272,7 @@ class PhptalTest extends PHPTAL_TestCase
         $tpl2->setTemplate('input/phptal.09.html');
         $res = $tpl2->execute();
 
-        $this->assertContains('DOCTYPE', $res);
+        $this->assertContains('DOCTYPE',$res);
     }
 
     function testDoctypeWithoutClone()
@@ -275,6 +284,6 @@ class PhptalTest extends PHPTAL_TestCase
         $tpl->setTemplate('input/phptal.09.html');
         $res = $tpl->execute();
 
-        $this->assertContains('DOCTYPE', $res);
+        $this->assertContains('DOCTYPE',$res);
     }
 }

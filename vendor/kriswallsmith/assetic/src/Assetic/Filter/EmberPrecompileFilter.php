@@ -47,7 +47,7 @@ class EmberPrecompileFilter extends BaseNodeFilter
         }
 
         $inputDirPath = FilesystemUtils::createThrowAwayDirectory('ember_in');
-        $inputPath = $inputDirPath . DIRECTORY_SEPARATOR . $templateName;
+        $inputPath = $inputDirPath.DIRECTORY_SEPARATOR.$templateName;
         $outputPath = FilesystemUtils::createTemporaryFile('ember_out');
 
         file_put_contents($inputPath, $asset->getContent());
