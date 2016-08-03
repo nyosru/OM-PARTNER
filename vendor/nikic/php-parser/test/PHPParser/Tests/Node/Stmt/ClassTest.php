@@ -2,8 +2,7 @@
 
 class PHPParser_Tests_Node_Stmt_ClassTest extends PHPUnit_Framework_TestCase
 {
-    public function testIsAbstract()
-    {
+    public function testIsAbstract() {
         $class = new PHPParser_Node_Stmt_Class('Foo', array('type' => PHPParser_Node_Stmt_Class::MODIFIER_ABSTRACT));
         $this->assertTrue($class->isAbstract());
 
@@ -11,8 +10,7 @@ class PHPParser_Tests_Node_Stmt_ClassTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($class->isAbstract());
     }
 
-    public function testIsFinal()
-    {
+    public function testIsFinal() {
         $class = new PHPParser_Node_Stmt_Class('Foo', array('type' => PHPParser_Node_Stmt_Class::MODIFIER_FINAL));
         $this->assertTrue($class->isFinal());
 
@@ -20,8 +18,7 @@ class PHPParser_Tests_Node_Stmt_ClassTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($class->isFinal());
     }
 
-    public function testGetMethods()
-    {
+    public function testGetMethods() {
         $methods = array(
             new PHPParser_Node_Stmt_ClassMethod('foo'),
             new PHPParser_Node_Stmt_ClassMethod('bar'),

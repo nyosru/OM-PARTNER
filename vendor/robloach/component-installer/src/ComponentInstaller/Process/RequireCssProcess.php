@@ -44,7 +44,7 @@ class RequireCssProcess extends Process
         $styles = $this->packageStyles($this->packages);
         foreach ($styles as $package => $packageStyles) {
             $packageAssets = new AssetCollection();
-            $packagePath = $this->componentDir . '/' . $package;
+            $packagePath = $this->componentDir.'/'.$package;
 
             foreach ($packageStyles as $style => $paths) {
                 foreach ($paths as $path) {
@@ -56,7 +56,7 @@ class RequireCssProcess extends Process
                     $sourcePath = $package . '/' . $style;
                     //Replace glob patterns with filenames.
                     $filename = basename($style);
-                    if (preg_match('~^\*(\.[^\.]+)$~', $filename, $matches)) {
+                    if(preg_match('~^\*(\.[^\.]+)$~', $filename, $matches)){
                         $sourcePath = str_replace($filename, basename($assetPath), $sourcePath);
                     }
                     // Where the final CSS will be generated.
@@ -66,14 +66,14 @@ class RequireCssProcess extends Process
                     $asset->setTargetPath($targetPath);
                     $assets->add($asset);
                     // Add asset to package collection.
-                    $sourcePath = preg_replace('{^.*' . preg_quote($package) . '/}', '', $sourcePath);
+                    $sourcePath = preg_replace('{^.*'.preg_quote($package).'/}', '', $sourcePath);
                     $asset = new FileAsset($assetPath, $filterCollection, $sourceRoot, $sourcePath);
                     $asset->setTargetPath($packagePath);
                     $packageAssets->add($asset);
                 }
             }
 
-            if (file_put_contents($packagePath . '/' . $package . '-built.css', $packageAssets->dump()) === FALSE) {
+            if (file_put_contents($packagePath.'/'.$package.'-built.css', $packageAssets->dump()) === FALSE) {
                 $this->io->write("<error>Error writing $package-built.css to destination</error>");
             }
         }
@@ -111,7 +111,7 @@ class RequireCssProcess extends Process
             // Loop through each style.
             foreach ($styles as $style) {
                 // Find the style path from the vendor directory.
-                $path = strtr($vendorDir . '/' . $style, '/', DIRECTORY_SEPARATOR);
+                $path = strtr($vendorDir.'/'.$style, '/', DIRECTORY_SEPARATOR);
 
                 // Search for the candidate with a glob recursive file search.
                 $files = $this->fs->recursiveGlobFiles($path);

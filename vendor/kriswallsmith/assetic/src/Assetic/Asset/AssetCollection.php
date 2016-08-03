@@ -35,10 +35,10 @@ class AssetCollection implements \IteratorAggregate, AssetCollectionInterface
     /**
      * Constructor.
      *
-     * @param array $assets Assets for the current collection
-     * @param array $filters Filters for the current collection
+     * @param array  $assets     Assets for the current collection
+     * @param array  $filters    Filters for the current collection
      * @param string $sourceRoot The root directory
-     * @param array $vars
+     * @param array  $vars
      */
     public function __construct($assets = array(), $filters = array(), $sourceRoot = null, array $vars = array())
     {

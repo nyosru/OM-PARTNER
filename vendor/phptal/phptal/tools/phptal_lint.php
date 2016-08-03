@@ -25,8 +25,9 @@ class PHPTAL_Lint_CLI
 {
     function main()
     {
-        try {
-            if (!empty($_SERVER['REQUEST_URI'])) {
+        try
+        {
+            if (! empty($_SERVER['REQUEST_URI'])) {
                 throw new Exception("Please use this tool from command line");
             }
 
@@ -69,23 +70,23 @@ class PHPTAL_Lint_CLI
             }
 
             echo "\n\n";
-            echo "Checked " . $this->plural($lint->checked, 'file') . ".";
+            echo "Checked ".$this->plural($lint->checked, 'file').".";
 
             if ($lint->skipped) {
-                echo " Skipped " . $this->plural($lint->skipped, "non-template file") . ".";
+                echo " Skipped ".$this->plural($lint->skipped, "non-template file").".";
             }
             echo "\n";
-            if (!$custom_extensions && count($lint->skipped_filenames)) {
+            if (! $custom_extensions && count($lint->skipped_filenames)) {
                 echo "Skipped file(s): ", implode(', ', array_keys($lint->skipped_filenames)), ".\n";
             }
 
             if (count($lint->errors)) {
-                echo "Found " . $this->plural(count($lint->errors), "error") . ":\n";
+                echo "Found ".$this->plural(count($lint->errors), "error").":\n";
                 $this->display_erorr_array($lint->errors);
                 echo "\n";
                 exit(2);
             } else if (count($lint->warnings)) {
-                echo "Found " . $this->plural(count($lint->warnings), "warning") . ":\n";
+                echo "Found ".$this->plural(count($lint->warnings),"warning").":\n";
                 $this->display_erorr_array($lint->warnings);
                 echo "\n";
                 exit(0);
@@ -93,7 +94,8 @@ class PHPTAL_Lint_CLI
                 echo "No errors found!\n";
                 exit($lint->checked ? 0 : 1);
             }
-        } catch (Exception $e) {
+        }
+        catch(Exception $e) {
             fwrite(STDERR, $e->getMessage() . "\n");
             $errcode = $e->getCode();
             exit($errcode ? $errcode : 1);
@@ -117,7 +119,7 @@ class PHPTAL_Lint_CLI
     function usage()
     {
         $this->require_phptal();
-        echo "PHPTAL Lint 1.1.3 (PHPTAL ", strtr(PHPTAL_VERSION, "_", "."), ")\n";
+        echo "PHPTAL Lint 1.1.3 (PHPTAL ", strtr(PHPTAL_VERSION,"_","."), ")\n";
 
         echo "Usage: phptal_lint.php [-e extensions] [-i php_file_or_directory] file_or_directory_to_check ...\n";
         echo "  -e comma-separated list of extensions\n";
@@ -133,15 +135,15 @@ class PHPTAL_Lint_CLI
 
     function extended_getopt(array $options)
     {
-        $results = array('--filenames--' => array());
-        for ($i = 1; $i < count($_SERVER['argv']); $i++) {
+        $results = array('--filenames--'=>array());
+        for ($i = 1; $i < count($_SERVER['argv']); $i ++) {
             if (in_array($_SERVER['argv'][$i], $options)) {
-                $results[substr($_SERVER['argv'][$i], 1)][] = $_SERVER['argv'][++$i];
+                $results[substr($_SERVER['argv'][$i], 1)][] = $_SERVER['argv'][++ $i];
             } else if ($_SERVER['argv'][$i] == '--') {
-                $results['--filenames--'] = array_merge($results['--filenames--'], array_slice($_SERVER['argv'], $i + 1));
+                $results['--filenames--'] = array_merge($results['--filenames--'], array_slice($_SERVER['argv'],$i+1));
                 break;
             } else if (substr($_SERVER['argv'][$i], 0, 1) == '-') {
-                $this->usage();
+                    $this->usage();
                 throw new Exception("{$_SERVER['argv'][$i]} is not a valid option\n\n");
             } else {
                 $results['--filenames--'][] = $_SERVER['argv'][$i];
@@ -156,11 +158,11 @@ class PHPTAL_Lint_CLI
             if (is_dir($path)) {
                 foreach (new DirectoryIterator($path) as $file) {
                     if (preg_match('/\.php$/', "$path/$file") && is_file("$path/$file")) {
-                        include_once("$path/$file");
+                        include_once ("$path/$file");
                     }
                 }
             } else if (preg_match('/\.php$/', $path) && is_file($path)) {
-                include_once("$path");
+                include_once ("$path");
             }
         }
     }
@@ -199,8 +201,7 @@ class PHPTAL_Lint
         $this->skipUnknownModifiers = $bool;
     }
 
-    function acceptExtensions(array $ext)
-    {
+    function acceptExtensions(array $ext) {
         $this->accept_pattern = '/\.(?:' . implode('|', $ext) . ')$/i';
     }
 
@@ -229,7 +230,7 @@ class PHPTAL_Lint
                 continue;
             }
 
-            if (!preg_match($this->accept_pattern, $filename)) {
+            if (! preg_match($this->accept_pattern, $filename)) {
                 $this->skipped++;
                 $this->skipped_filenames[$filename] = true;
                 continue;
@@ -257,23 +258,25 @@ class PHPTAL_Lint
     function testFile($fullpath)
     {
         try {
-            $this->checked++;
+            $this->checked ++;
             $phptal = new PHPTAL($fullpath);
             $phptal->setForceReparse(true);
             $phptal->prepare();
             return self::TEST_OK;
-        } catch (PHPTAL_UnknownModifierException $e) {
+        }
+        catch(PHPTAL_UnknownModifierException $e) {
             if ($this->skipUnknownModifiers && is_callable(array($e, 'getModifierName'))) {
-                $this->warnings[] = array(dirname($fullpath), basename($fullpath), "Unknown expression modifier: " . $e->getModifierName() . " (use -i to include your custom modifier functions)", $e->getLine());
+                $this->warnings[] = array(dirname($fullpath), basename($fullpath), "Unknown expression modifier: ".$e->getModifierName()." (use -i to include your custom modifier functions)", $e->getLine());
                 return self::TEST_SKIPPED;
             }
             $log_exception = $e;
-        } catch (Exception $e) {
+        }
+        catch(Exception $e) {
             $log_exception = $e;
         }
 
         // Takes exception from either of the two catch blocks above
-        $this->errors[] = array(dirname($fullpath), basename($fullpath), $log_exception->getMessage(), $log_exception->getLine());
+        $this->errors[] = array(dirname($fullpath) , basename($fullpath) , $log_exception->getMessage() , $log_exception->getLine());
         return self::TEST_ERROR;
     }
 }

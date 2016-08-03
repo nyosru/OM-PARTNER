@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,9 +11,10 @@
  * @version  SVN: $Id: $
  * @link     http://phptal.org/
  */
+
 class MyTestResolver implements PHPTAL_SourceResolver
 {
-    public $called = 0;
+    public $called=0;
 
     function resolve($path)
     {
@@ -51,7 +51,7 @@ class MyCustomSource implements PHPTAL_Source
 
     function getData()
     {
-        return '<p class="custom">' . $this->path . ' ' . mt_rand() . '</p>';
+        return '<p class="custom">'.$this->path.' '.mt_rand().'</p>';
     }
 }
 
@@ -74,14 +74,14 @@ class SourceTest extends PHPTAL_TestCase
     function testResolverCalledEachTime()
     {
         $tpl = $this->newPHPTAL()->addSourceResolver($r = new MyTestResolver());
-        $this->assertEquals(0, $r->called);
+        $this->assertEquals(0,$r->called);
         $tpl->setTemplate("testing123");
         $this->assertEquals('<p>found testing123</p>', $tpl->execute());
-        $this->assertEquals(1, $r->called);
+        $this->assertEquals(1,$r->called);
 
         $tpl->setTemplate("testing123");
         $this->assertEquals('<p>found testing123</p>', $tpl->execute());
-        $this->assertEquals(2, $r->called);
+        $this->assertEquals(2,$r->called);
     }
 
     function testCustomSource()

@@ -12,7 +12,6 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-
 /**
  * Fake template source that makes PHPTAL->setString() work
  *
@@ -25,7 +24,7 @@ class PHPTAL_StringSource implements PHPTAL_Source
     public function __construct($data, $realpath = null)
     {
         $this->_data = $data;
-        $this->_realpath = $realpath ? $realpath : self::NO_PATH_PREFIX . md5($data) . '>';
+        $this->_realpath = $realpath ? $realpath : self::NO_PATH_PREFIX.md5($data).'>';
     }
 
     public function getLastModifiedTime()

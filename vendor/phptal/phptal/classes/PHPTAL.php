@@ -51,7 +51,7 @@ class PHPTAL
      * @see setOutputMode()
      */
     const XHTML = 11;
-    const XML = 22;
+    const XML   = 22;
     const HTML5 = 55;
 
     /**
@@ -175,7 +175,7 @@ class PHPTAL
      *
      * @param string $path Template file path.
      */
-    public function __construct($path = false)
+    public function __construct($path=false)
     {
         $this->_path = $path;
         $this->_globalContext = new stdClass();
@@ -203,7 +203,7 @@ class PHPTAL
      *
      * @return PHPTAL
      */
-    public static function create($path = false)
+    public static function create($path=false)
     {
         return new PHPTAL($path);
     }
@@ -350,7 +350,7 @@ class PHPTAL
         $this->resetPrepared();
 
         if ($mode != PHPTAL::XHTML && $mode != PHPTAL::XML && $mode != PHPTAL::HTML5) {
-            throw new PHPTAL_ConfigurationException('Unsupported output mode ' . $mode);
+            throw new PHPTAL_ConfigurationException('Unsupported output mode '.$mode);
         }
         $this->_outputMode = $mode;
         return $this;
@@ -457,7 +457,7 @@ class PHPTAL
      */
     public function setForceReparse($bool)
     {
-        $this->_forceReparse = (bool)$bool;
+        $this->_forceReparse = (bool) $bool;
         return $this;
     }
 
@@ -548,13 +548,13 @@ class PHPTAL
     private function getPreFiltersCacheId()
     {
         $cacheid = '';
-        foreach ($this->getPreFilters() as $key => $prefilter) {
+        foreach($this->getPreFilters() as $key => $prefilter) {
             if ($prefilter instanceof PHPTAL_PreFilter) {
-                $cacheid .= $key . $prefilter->getCacheId();
+                $cacheid .= $key.$prefilter->getCacheId();
             } elseif ($prefilter instanceof PHPTAL_Filter) {
-                $cacheid .= $key . get_class($prefilter);
+                $cacheid .= $key.get_class($prefilter);
             } else {
-                $cacheid .= $key . $prefilter;
+                $cacheid .= $key.$prefilter;
             }
         }
         return $cacheid;
@@ -569,7 +569,7 @@ class PHPTAL
     {
         $prefilters = $this->getPreFilters();
 
-        foreach ($prefilters as $prefilter) {
+        foreach($prefilters as $prefilter) {
             if ($prefilter instanceof PHPTAL_PreFilter) {
                 $prefilter->setPHPTAL($this);
             }
@@ -652,7 +652,8 @@ class PHPTAL
      */
     public function execute()
     {
-        try {
+        try
+        {
             if (!$this->_prepared) {
                 // includes generated template PHP code
                 $this->prepare();
@@ -665,7 +666,9 @@ class PHPTAL
                 ob_start();
                 $templateFunction($this, $this->_context);
                 $res = ob_get_clean();
-            } catch (Exception $e) {
+            }
+            catch (Exception $e)
+            {
                 ob_end_clean();
                 throw $e;
             }
@@ -683,7 +686,9 @@ class PHPTAL
             if ($this->_postfilter) {
                 return $this->_postfilter->filter($res);
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             PHPTAL_ExceptionHandler::handleException($e, $this->getEncoding());
         }
 
@@ -712,7 +717,9 @@ class PHPTAL
 
             $templateFunction = $this->getFunctionName();
             $templateFunction($this, $this->_context);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             PHPTAL_ExceptionHandler::handleException($e, $this->getEncoding());
         }
     }
@@ -774,7 +781,7 @@ class PHPTAL
             if (!function_exists($fun)) {
                 throw new PHPTAL_MacroMissingException("Macro '$path' is not defined", $local_tpl->_source->getRealPath());
             }
-            $fun($local_tpl, $this);
+            $fun( $local_tpl, $this);
         }
     }
 
@@ -812,14 +819,14 @@ class PHPTAL
 
                 // i'm not sure where that belongs, but not in normal path of execution
                 // because some sites have _a lot_ of files in temp
-                if ($this->getCachePurgeFrequency() && mt_rand() % $this->getCachePurgeFrequency() == 0) {
+                if ($this->getCachePurgeFrequency() && mt_rand()%$this->getCachePurgeFrequency() == 0) {
                     $this->cleanUpGarbage();
                 }
 
                 $result = $this->parse();
 
                 if (!file_put_contents($this->getCodePath(), $result)) {
-                    throw new PHPTAL_IOException('Unable to open ' . $this->getCodePath() . ' for writing');
+                    throw new PHPTAL_IOException('Unable to open '.$this->getCodePath().' for writing');
                 }
 
                 // the awesome thing about eval() is that parse errors don't stop PHP.
@@ -827,8 +834,9 @@ class PHPTAL
                 // can be captured with output buffering
                 ob_start();
                 try {
-                    eval("?>\n" . $result);
-                } catch (Exception $e) {
+                    eval("?>\n".$result);
+                }
+                catch(Exception $e) {
                     ob_end_clean();
                     throw $e;
                 }
@@ -837,7 +845,7 @@ class PHPTAL
                     $msg = str_replace('eval()\'d code', $this->getCodePath(), ob_get_clean());
 
                     // greedy .* ensures last match
-                    if (preg_match('/.*on line (\d+)$/m', $msg, $m)) $line = $m[1]; else $line = 0;
+                    if (preg_match('/.*on line (\d+)$/m', $msg, $m)) $line=$m[1]; else $line=0;
                     throw new PHPTAL_TemplateException(trim($msg), $this->getCodePath(), $line);
                 }
                 ob_end_clean();
@@ -958,30 +966,30 @@ class PHPTAL
      */
     public function getFunctionName()
     {
-        // function name is used as base for caching, so it must be unique for
-        // every combination of settings that changes code in compiled template
+       // function name is used as base for caching, so it must be unique for
+       // every combination of settings that changes code in compiled template
 
-        if (!$this->_functionName) {
+       if (!$this->_functionName) {
 
             // just to make tempalte name recognizable
             $basename = preg_replace('/\.[a-z]{3,5}$/', '', basename($this->_source->getRealPath()));
             $basename = substr(trim(preg_replace('/[^a-zA-Z0-9]+/', '_', $basename), "_"), 0, 20);
 
             $hash = md5(PHPTAL_VERSION . PHP_VERSION
-                . $this->_source->getRealPath()
-                . $this->getEncoding()
-                . $this->getPrefiltersCacheId()
-                . $this->getOutputMode(),
-                true
-            );
+                    . $this->_source->getRealPath()
+                    . $this->getEncoding()
+                    . $this->getPrefiltersCacheId()
+                    . $this->getOutputMode(),
+                    true
+                    );
 
             // uses base64 rather than hex to make filename shorter.
             // there is loss of some bits due to name constraints and case-insensivity,
             // but that's still over 110 bits in addition to basename and timestamp.
-            $hash = strtr(rtrim(base64_encode($hash), "="), "+/=", "_A_");
+            $hash = strtr(rtrim(base64_encode($hash),"="),"+/=","_A_");
 
             $this->_functionName = $this->getFunctionNamePrefix($this->_source->getLastModifiedTime()) .
-                $basename . '__' . $hash;
+                                   $basename . '__' . $hash;
         }
         return $this->_functionName;
     }
@@ -998,7 +1006,7 @@ class PHPTAL
     {
         // tpl_ prefix and last modified time must not be changed,
         // because cache cleanup relies on that
-        return 'tpl_' . sprintf("%08x", $timestamp) . '_';
+        return 'tpl_' . sprintf("%08x", $timestamp) .'_';
     }
 
     /**
@@ -1028,7 +1036,7 @@ class PHPTAL
      */
     public function addError(Exception $error)
     {
-        $this->_errors[] = $error;
+        $this->_errors[] =  $error;
     }
 
     /**
@@ -1084,7 +1092,7 @@ class PHPTAL
         $data = $this->_source->getData();
 
         $prefilters = $this->getPreFilterInstances();
-        foreach ($prefilters as $prefilter) {
+        foreach($prefilters as $prefilter) {
             $data = $prefilter->filter($data);
         }
 
@@ -1094,7 +1102,7 @@ class PHPTAL
         $builder = new PHPTAL_Dom_PHPTALDocumentBuilder();
         $tree = $parser->parseString($builder, $data, $realpath)->getResult();
 
-        foreach ($prefilters as $prefilter) {
+        foreach($prefilters as $prefilter) {
             if ($prefilter instanceof PHPTAL_PreFilter) {
                 if ($prefilter->filterDOM($tree) !== NULL) {
                     throw new PHPTAL_ConfigurationException("Don't return value from filterDOM()");
@@ -1141,7 +1149,7 @@ class PHPTAL
         }
 
         if (!$this->_source) {
-            throw new PHPTAL_IOException('Unable to locate template file ' . $this->_path);
+            throw new PHPTAL_IOException('Unable to locate template file '.$this->_path);
         }
     }
 
@@ -1181,7 +1189,7 @@ class PHPTAL
 
         if (substr($class, 0, 7) !== 'PHPTAL_') return;
 
-        $path = dirname(__FILE__) . strtr("_" . $class, "_", DIRECTORY_SEPARATOR) . '.php';
+        $path = dirname(__FILE__) . strtr("_".$class, "_", DIRECTORY_SEPARATOR) . '.php';
 
         require $path;
     }
@@ -1206,9 +1214,9 @@ class PHPTAL
         // Prepending PHPTAL's autoloader helps if there are other autoloaders
         // that throw/die when file is not found. Only >5.3 though.
         if (version_compare(PHP_VERSION, '5.3', '>=')) {
-            spl_autoload_register(array(__CLASS__, 'autoload'), false, true);
+            spl_autoload_register(array(__CLASS__,'autoload'), false, true);
         } else {
-            spl_autoload_register(array(__CLASS__, 'autoload'));
+            spl_autoload_register(array(__CLASS__,'autoload'));
         }
 
         if ($uses_autoload) {

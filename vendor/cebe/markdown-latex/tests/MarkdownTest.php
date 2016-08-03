@@ -17,15 +17,15 @@ use cebe\markdown\latex\Markdown;
  */
 class MarkdownTest extends BaseMarkdownLatexTest
 {
-    public function createMarkdown()
-    {
-        return new Markdown();
-    }
+	public function createMarkdown()
+	{
+		return new Markdown();
+	}
 
-    public function getDataPaths()
-    {
-        return [
-            'markdown-data' => __DIR__ . '/markdown-data',
-        ];
-    }
+	public function getDataPaths()
+	{
+		return [
+			'markdown-data' => __DIR__ . '/markdown-data',
+		];
+	}
 }

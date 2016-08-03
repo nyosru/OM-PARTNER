@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,7 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
 class OldTest extends PHPTAL_TestCase
 {
     function test03()
@@ -63,7 +63,7 @@ class OldTest extends PHPTAL_TestCase
     {
         $tpl = $this->newPHPTAL('input/old-13.html');
         $l = new stdClass(); // DummyTag();
-        $l->href = "http://www.example.com";
+        $l->href= "http://www.example.com";
         $l->title = "example title";
         $l->name = "my link content";
         $tpl->a2 = "a value";
@@ -170,11 +170,11 @@ class OldTest extends PHPTAL_TestCase
         $o = array(
             'title' => 'my object',
             'children' => array(
-                array('title' => 'o.1', 'children' => array(
-                    array('title' => 'o.1.1', 'children' => array()),
-                    array('title' => 'o.1.2', 'children' => array()),
-                )),
-                array('title' => 'o.2', 'children' => array()),
+                array('title' => 'o.1', 'children'=>array(
+                    array('title'=>'o.1.1', 'children'=>array()),
+                    array('title'=>'o.1.2', 'children'=>array()),
+                      )),
+                array('title' => 'o.2', 'children'=>array()),
             )
         );
 
@@ -187,7 +187,7 @@ class OldTest extends PHPTAL_TestCase
 }
 
 
-function phptal_tales_my_modifier($arg, $nothrow)
+function phptal_tales_my_modifier( $arg, $nothrow )
 {
     return "strtoupper('$arg')";
 }

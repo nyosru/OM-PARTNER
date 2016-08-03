@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class TalesExistTest extends PHPTAL_TestCase
 {
     function testLevel1()

@@ -60,7 +60,7 @@ abstract class BaseReflector extends ReflectionAbstract
      * PHP-Parser.
      *
      * @param PHPParser_NodeAbstract $node
-     * @param Context $context
+     * @param Context                $context
      *
      * @link http://github.com/nikic/PHP-Parser
      */
@@ -126,7 +126,7 @@ abstract class BaseReflector extends ReflectionAbstract
         if ($comment) {
             try {
                 $doc_block = new DocBlock(
-                    (string)$comment,
+                    (string) $comment,
                     $this->context,
                     new Location($comment->getLine())
                 );
@@ -139,7 +139,7 @@ abstract class BaseReflector extends ReflectionAbstract
             Dispatcher::getInstance()->dispatch(
                 'reflection.docblock-extraction.post',
                 PostDocBlockExtractionEvent
-                    ::createInstance($this)->setDocblock($doc_block)
+                ::createInstance($this)->setDocblock($doc_block)
             );
         }
 
@@ -154,7 +154,7 @@ abstract class BaseReflector extends ReflectionAbstract
     public function getName()
     {
         if (isset($this->node->namespacedName)) {
-            return '\\' . implode('\\', $this->node->namespacedName->parts);
+            return '\\'.implode('\\', $this->node->namespacedName->parts);
         }
 
         return $this->getShortName();
@@ -169,7 +169,7 @@ abstract class BaseReflector extends ReflectionAbstract
     {
         return isset($this->node->name)
             ? $this->node->name
-            : (string)$this->node;
+            : (string) $this->node;
     }
 
     /**
@@ -298,8 +298,7 @@ abstract class BaseReflector extends ReflectionAbstract
      */
     protected function getRepresentationOfValue(
         PHPParser_Node_Expr $value = null
-    )
-    {
+    ) {
         if (null === $value) {
             return '';
         }

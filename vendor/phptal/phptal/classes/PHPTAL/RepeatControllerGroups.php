@@ -47,20 +47,20 @@ class PHPTAL_RepeatControllerGroups
     /**
      * Checks if the data passed is the first one in a group
      *
-     * @param mixed $data The data to evaluate
+     * @param mixed $data   The data to evaluate
      *
      * @return Mixed    True if the first item in the group, false if not and
      *                  this same object if the path is not finished
      */
     public function first($data)
     {
-        if (!is_array($data) && !is_object($data) && !is_null($data)) {
+        if ( !is_array($data) && !is_object($data) && !is_null($data) ) {
 
-            if (!isset($this->cache['F'])) {
+            if ( !isset($this->cache['F']) ) {
 
                 $hash = md5($data);
 
-                if (!isset($this->dict['F']) || $this->dict['F'] !== $hash) {
+                if ( !isset($this->dict['F']) || $this->dict['F'] !== $hash ) {
                     $this->dict['F'] = $hash;
                     $res = true;
                 } else {
@@ -82,16 +82,16 @@ class PHPTAL_RepeatControllerGroups
     /**
      * Checks if the data passed is the last one in a group
      *
-     * @param mixed $data The data to evaluate
+     * @param mixed $data   The data to evaluate
      *
      * @return Mixed    True if the last item in the group, false if not and
      *                  this same object if the path is not finished
      */
     public function last($data)
     {
-        if (!is_array($data) && !is_object($data) && !is_null($data)) {
+        if ( !is_array($data) && !is_object($data) && !is_null($data) ) {
 
-            if (!isset($this->cache['L'])) {
+            if ( !isset($this->cache['L']) ) {
 
                 $hash = md5($data);
 
@@ -120,7 +120,7 @@ class PHPTAL_RepeatControllerGroups
     /**
      * Handles variable accesses for the tal path resolver
      *
-     * @param string $var The variable name to check
+     * @param string $var   The variable name to check
      *
      * @return Mixed    An object/array if the path is not over or a boolean
      *
@@ -131,7 +131,7 @@ class PHPTAL_RepeatControllerGroups
         // When the iterator item is empty we just let the tal
         // expression consume by continuously returning this
         // same object which should evaluate to true for 'last'
-        if (is_null($this->data)) {
+        if ( is_null($this->data) ) {
             return $this;
         }
 
@@ -139,7 +139,7 @@ class PHPTAL_RepeatControllerGroups
         $value = PHPTAL_Context::path($this->data, $var, true);
 
         // Check if it's an object or an array
-        if (is_array($value) || is_object($value)) {
+        if ( is_array($value) || is_object($value) ) {
             // Move the context to the requested variable and return
             $this->data = $value;
             $this->addVarName($var);
@@ -153,9 +153,9 @@ class PHPTAL_RepeatControllerGroups
         $path = $this->branch . $this->getVarPath() . $var;
 
         // If we don't know about this var store in the dictionary
-        if (!isset($this->cache[$path])) {
+        if ( !isset($this->cache[$path]) ) {
 
-            if (!isset($this->dict[$path])) {
+            if ( !isset($this->dict[$path]) ) {
                 $this->dict[$path] = $hash;
                 $res = $this->branch === 'F';
             } else {
@@ -178,7 +178,7 @@ class PHPTAL_RepeatControllerGroups
     /**
      * Adds a variable name to the current path of variables
      *
-     * @param string $varname The variable name to store as a path part
+     * @param string $varname  The variable name to store as a path part
      * @access protected
      */
     protected function addVarName($varname)

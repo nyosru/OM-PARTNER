@@ -34,7 +34,7 @@ class UglifyJsFilter extends BaseNodeFilter
 
     /**
      * @param string $uglifyjsBin Absolute path to the uglifyjs executable
-     * @param string $nodeBin Absolute path to the folder containg node.js executable
+     * @param string $nodeBin     Absolute path to the folder containg node.js executable
      */
     public function __construct($uglifyjsBin = '/usr/bin/uglifyjs', $nodeBin = null)
     {
@@ -99,8 +99,8 @@ class UglifyJsFilter extends BaseNodeFilter
     {
         $pb = $this->createProcessBuilder(
             $this->nodeBin
-                ? array($this->nodeBin, $this->uglifyjsBin)
-                : array($this->uglifyjsBin)
+            ? array($this->nodeBin, $this->uglifyjsBin)
+            : array($this->uglifyjsBin)
         );
 
         if ($this->noCopyright) {
@@ -126,7 +126,7 @@ class UglifyJsFilter extends BaseNodeFilter
         }
 
         // input and output files
-        $input = FilesystemUtils::createTemporaryFile('uglifyjs_in');
+        $input  = FilesystemUtils::createTemporaryFile('uglifyjs_in');
         $output = FilesystemUtils::createTemporaryFile('uglifyjs_out');
 
         file_put_contents($input, $asset->getContent());

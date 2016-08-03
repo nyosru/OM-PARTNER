@@ -317,13 +317,13 @@ class Connection extends Component
         $body = '';
 
         $options = [
-            CURLOPT_USERAGENT => 'Yii Framework ' . Yii::getVersion() . ' ' . __CLASS__,
+            CURLOPT_USERAGENT      => 'Yii Framework ' . Yii::getVersion() . ' ' . __CLASS__,
             CURLOPT_RETURNTRANSFER => false,
-            CURLOPT_HEADER => false,
+            CURLOPT_HEADER         => false,
             // http://www.php.net/manual/en/function.curl-setopt.php#82418
-            CURLOPT_HTTPHEADER => ['Expect:'],
+            CURLOPT_HTTPHEADER     => ['Expect:'],
 
-            CURLOPT_WRITEFUNCTION => function ($curl, $data) use (&$body) {
+            CURLOPT_WRITEFUNCTION  => function ($curl, $data) use (&$body) {
                 $body .= $data;
                 return mb_strlen($data, '8bit');
             },
@@ -335,7 +335,7 @@ class Connection extends Component
                 }
                 return mb_strlen($data, '8bit');
             },
-            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_CUSTOMREQUEST  => $method,
         ];
         if ($this->connectionTimeout !== null) {
             $options[CURLOPT_CONNECTTIMEOUT] = $this->connectionTimeout;
@@ -442,7 +442,7 @@ class Connection extends Component
                 $decoded['error'] = preg_replace('/\b\w+?Exception\[/', "<span style=\"color: red;\">\\0</span>\n               ", $decoded['error']);
             }
             return $decoded;
-        } catch (InvalidParamException $e) {
+        } catch(InvalidParamException $e) {
             return $body;
         }
     }

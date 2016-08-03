@@ -12,8 +12,7 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @param string $name Name of the property
      */
-    public function __construct($name)
-    {
+    public function __construct($name) {
         $this->name = $name;
 
         $this->type = 0;
@@ -25,8 +24,7 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Property The builder instance (for fluid interface)
      */
-    public function makePublic()
-    {
+    public function makePublic() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC);
 
         return $this;
@@ -37,8 +35,7 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Property The builder instance (for fluid interface)
      */
-    public function makeProtected()
-    {
+    public function makeProtected() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED);
 
         return $this;
@@ -49,8 +46,7 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Property The builder instance (for fluid interface)
      */
-    public function makePrivate()
-    {
+    public function makePrivate() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE);
 
         return $this;
@@ -61,8 +57,7 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Property The builder instance (for fluid interface)
      */
-    public function makeStatic()
-    {
+    public function makeStatic() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_STATIC);
 
         return $this;
@@ -75,8 +70,7 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Property The builder instance (for fluid interface)
      */
-    public function setDefault($value)
-    {
+    public function setDefault($value) {
         $this->default = $this->normalizeValue($value);
 
         return $this;
@@ -87,8 +81,7 @@ class PHPParser_Builder_Property extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Node_Stmt_Property The built property node
      */
-    public function getNode()
-    {
+    public function getNode() {
         return new PHPParser_Node_Stmt_Property(
             $this->type !== 0 ? $this->type : PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
             array(

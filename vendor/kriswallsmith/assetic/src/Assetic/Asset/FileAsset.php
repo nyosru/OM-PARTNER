@@ -26,11 +26,11 @@ class FileAsset extends BaseAsset
     /**
      * Constructor.
      *
-     * @param string $source An absolute path
-     * @param array $filters An array of filters
+     * @param string $source     An absolute path
+     * @param array  $filters    An array of filters
      * @param string $sourceRoot The source asset root directory
      * @param string $sourcePath The source asset path
-     * @param array $vars
+     * @param array  $vars
      *
      * @throws \InvalidArgumentException If the supplied root doesn't match the source when guessing the path
      */

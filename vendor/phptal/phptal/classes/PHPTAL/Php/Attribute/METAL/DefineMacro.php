@@ -42,7 +42,7 @@ class PHPTAL_Php_Attribute_METAL_DefineMacro extends PHPTAL_Php_Attribute
     {
         $macroname = strtr(trim($this->expression), '-', '_');
         if (!preg_match('/^[a-z0-9_]+$/i', $macroname)) {
-            throw new PHPTAL_ParserException('Bad macro name "' . $macroname . '"',
+            throw new PHPTAL_ParserException('Bad macro name "'.$macroname.'"',
                 $this->phpelement->getSourceFile(), $this->phpelement->getSourceLine());
         }
 

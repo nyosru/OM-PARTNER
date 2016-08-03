@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,15 +12,13 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-class DummyDefinePhpNode extends PHPTAL_Dom_Element
-{
-    function __construct()
-    {
-    }
 
-    function generateCode(PHPTAL_Php_CodeWriter $codewriter)
-    {
-    }
+
+
+
+class DummyDefinePhpNode extends PHPTAL_Dom_Element {
+    function __construct() {}
+    function generateCode(PHPTAL_Php_CodeWriter $codewriter) {}
 }
 
 class TalDefineTest extends PHPTAL_TestCase
@@ -205,7 +202,7 @@ class TalDefineTest extends PHPTAL_TestCase
     {
         $tal = $this->newPHPTAL();
         $tal->setSource('<div class="blank_bg" tal:define="book relative/book" tal:condition="php: count(book)>0"></div>');
-        $tal->relative = array('book' => 1);
+        $tal->relative = array('book'=>1);
 
         $this->assertEquals($tal->execute(), '<div class="blank_bg"></div>');
     }
@@ -288,7 +285,7 @@ class TalDefineTest extends PHPTAL_TestCase
         $tpl = $this->newPHPTAL();
         $tpl->varvar = 'ok';
         $tpl->varname = 'varvar';
-        $tpl->setSource('<div tal:define="test php:${' . get_class($this) . '::VARNAME}">${test}</div>');
+        $tpl->setSource('<div tal:define="test php:${'.get_class($this).'::VARNAME}">${test}</div>');
         $this->assertEquals('<div>ok</div>', $tpl->execute());
     }
 

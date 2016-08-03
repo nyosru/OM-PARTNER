@@ -27,10 +27,10 @@ class AsseticFilterInvoker
         $this->factory = $factory;
 
         if (is_array($filter) && isset($filter['filter'])) {
-            $this->filters = (array)$filter['filter'];
-            $this->options = isset($filter['options']) ? (array)$filter['options'] : array();
+            $this->filters = (array) $filter['filter'];
+            $this->options = isset($filter['options']) ? (array) $filter['options'] : array();
         } else {
-            $this->filters = (array)$filter;
+            $this->filters = (array) $filter;
             $this->options = array();
         }
     }

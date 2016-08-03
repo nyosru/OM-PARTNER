@@ -48,13 +48,13 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      * Start logging template
      *
      * @param \Smarty_Internal_Template $template template
-     * @param null $mode true: display   false: fetch  null: subtemplate
+     * @param null                      $mode     true: display   false: fetch  null: subtemplate
      */
     public function start_template(Smarty_Internal_Template $template, $mode = null)
     {
         if (isset($mode)) {
-            $this->index++;
-            $this->offset++;
+            $this->index ++;
+            $this->offset ++;
             $this->template_data[$this->index] = null;
         }
         $key = $this->get_key($template);
@@ -192,12 +192,12 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      * Opens a window for the Smarty Debugging Console and display the data
      *
      * @param Smarty_Internal_Template|Smarty $obj object to debug
-     * @param bool $full
+     * @param bool                            $full
      */
     public function display_debug($obj, $full = false)
     {
         if (!$full) {
-            $this->offset++;
+            $this->offset ++;
             $savedIndex = $this->index;
             $this->index = 9999;
         }
@@ -255,7 +255,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $_template->assign('offset', $this->offset * 50);
         echo $_template->fetch();
         if (isset($full)) {
-            $this->index--;
+            $this->index --;
         }
         if (!$full) {
             $this->index = $savedIndex;
@@ -346,7 +346,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             }
         }
 
-        return (object)array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
+        return (object) array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
     }
 
     /**

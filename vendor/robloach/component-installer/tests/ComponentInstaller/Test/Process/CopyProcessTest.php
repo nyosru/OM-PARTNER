@@ -18,9 +18,9 @@ use ComponentInstaller\Process\CopyProcess;
  */
 class CopyProcessTest extends ProcessTest
 {
-    /**
-     * @var CopyProcess
-     */
+	/**
+	 * @var CopyProcess
+	 */
     protected $process;
 
     public function setUp()
@@ -33,8 +33,8 @@ class CopyProcessTest extends ProcessTest
      * testCopy
      *
      * @dataProvider providerCopyStyles
-     * @param array $packages
-     * @param array $files
+	 * @param array $packages
+	 * @param array $files
      */
     public function testCopyStyles($packages, $files)
     {
@@ -42,7 +42,7 @@ class CopyProcessTest extends ProcessTest
         $this->process->init();
         $this->process->copy($packages);
         foreach ($files as $file) {
-            $this->assertFileExists($this->componentDir . '/' . $file, sprintf('Failed to find the destination file: %s', $file));
+            $this->assertFileExists($this->componentDir.'/' . $file, sprintf('Failed to find the destination file: %s', $file));
         }
     }
 

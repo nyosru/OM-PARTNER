@@ -40,7 +40,6 @@ class ParamTag extends ReturnTag
         }
         return $this->content;
     }
-
     /**
      * {@inheritdoc}
      */

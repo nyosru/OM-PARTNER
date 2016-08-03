@@ -84,7 +84,7 @@ class TranslitTest extends \PHPUnit_Framework_TestCase
      */
     public function testUniqueness()
     {
-        $originalText = file_get_contents(__DIR__ . '/data/zarathustra.txt');
+        $originalText = file_get_contents(__DIR__.'/data/zarathustra.txt');
 
         $translitText = $this->_object->translify($originalText);
         $cyrText = $this->_object->detranslify($translitText);

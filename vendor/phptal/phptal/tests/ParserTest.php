@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,10 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
+
 class ParserTest extends PHPTAL_TestCase
 {
     public function testParseSimpleDocument()
@@ -33,7 +36,9 @@ class ParserTest extends PHPTAL_TestCase
         try {
             $tree = $parser->parseFile(new PHPTAL_Dom_PHPTALDocumentBuilder(), 'input/parser.02.xml')->getResult();
             $this->assertTrue(true);
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             $this->assertTrue(false);
         }
     }
@@ -43,9 +48,11 @@ class ParserTest extends PHPTAL_TestCase
         try {
             $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
             $parser->parseFile(new PHPTAL_Dom_PHPTALDocumentBuilder(), 'input/parser.03.xml')->getResult();
-        } catch (Exception $e) {
-            $this->assertContains('href', $e->getMessage());
-            $this->assertContains('quote', $e->getMessage());
+        }
+        catch (Exception $e)
+        {
+            $this->assertContains( 'href', $e->getMessage() );
+            $this->assertContains( 'quote', $e->getMessage() );
         }
     }
 
@@ -66,23 +73,25 @@ class ParserTest extends PHPTAL_TestCase
     public function testIllegalElementNames1()
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
-        try {
+        try
+        {
             $parser->parseString(new PHPTAL_Dom_PHPTALDocumentBuilder(), '<?xml version="1.0" encoding="UTF-8"?>
             <t><1element /></t>')->getResult();
 
             $this->fail("Accepted invalid element name starting with a number");
-        } catch (PHPTAL_Exception $e) {
         }
+        catch(PHPTAL_Exception $e) {}
     }
 
     public function testIllegalElementNames2()
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
-        try {
+        try
+        {
             $parser->parseString(new PHPTAL_Dom_PHPTALDocumentBuilder(), '<t><element~ /></t>');
             $this->fail("Accepted invalid element name")->getResult();
-        } catch (PHPTAL_Exception $e) {
         }
+        catch(PHPTAL_Exception $e) {}
     }
 
 }

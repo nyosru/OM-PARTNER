@@ -62,21 +62,11 @@ class DebugAction extends Action
         $db = \Yii::$app->get($this->db);
         $time = microtime(true);
         switch ($method) {
-            case 'GET':
-                $result = $db->get($url, $options, $body, true);
-                break;
-            case 'POST':
-                $result = $db->post($url, $options, $body, true);
-                break;
-            case 'PUT':
-                $result = $db->put($url, $options, $body, true);
-                break;
-            case 'DELETE':
-                $result = $db->delete($url, $options, $body, true);
-                break;
-            case 'HEAD':
-                $result = $db->head($url, $options, $body);
-                break;
+            case 'GET': $result = $db->get($url, $options, $body, true); break;
+            case 'POST': $result = $db->post($url, $options, $body, true); break;
+            case 'PUT': $result = $db->put($url, $options, $body, true); break;
+            case 'DELETE': $result = $db->delete($url, $options, $body, true); break;
+            case 'HEAD': $result = $db->head($url, $options, $body); break;
             default:
                 throw new NotSupportedException("Request method '$method' is not supported by elasticsearch.");
         }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class DummyTranslator implements PHPTAL_TranslationService
 {
     public $vars = array();
@@ -23,9 +24,7 @@ class DummyTranslator implements PHPTAL_TranslationService
     {
     }
 
-    public function setEncoding($enc)
-    {
-    }
+    public function setEncoding($enc) {}
 
     public function useDomain($domain)
     {
