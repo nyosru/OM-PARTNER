@@ -34,8 +34,8 @@ class BuildJsProcess extends Process
     public function compile($packages)
     {
         // Set up the initial require-build.js file.
-        $destination = $this->componentDir . DIRECTORY_SEPARATOR . 'require-built.js';
-        $require = $this->componentDir . DIRECTORY_SEPARATOR . 'require.js';
+        $destination = $this->componentDir.DIRECTORY_SEPARATOR.'require-built.js';
+        $require = $this->componentDir.DIRECTORY_SEPARATOR.'require.js';
         copy($require, $destination);
 
         // Cycle through each package and add it to the built require.js file.
@@ -46,8 +46,8 @@ class BuildJsProcess extends Process
             $componentName = $this->getComponentName($name, $extra);
 
             // Find where the source file is located.
-            $packageDir = $this->componentDir . DIRECTORY_SEPARATOR . $componentName;
-            $source = $packageDir . DIRECTORY_SEPARATOR . $componentName . '-built.js';
+            $packageDir = $this->componentDir.DIRECTORY_SEPARATOR.$componentName;
+            $source = $packageDir.DIRECTORY_SEPARATOR.$componentName.'-built.js';
 
             // Make sure the source script is available.
             if (file_exists($source)) {

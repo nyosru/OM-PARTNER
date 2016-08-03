@@ -15,8 +15,8 @@
  * @subpackage Template
  *
  * @property Smarty_Template_Source|Smarty_Template_Config $source
- * @property Smarty_Template_Compiled $compiled
- * @property Smarty_Template_Cached $cached
+ * @property Smarty_Template_Compiled                      $compiled
+ * @property Smarty_Template_Cached                        $cached
  * @method bool mustCompile()
  */
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
@@ -82,14 +82,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
      *
-     * @param string $template_resource template resource string
-     * @param Smarty $smarty Smarty instance
-     * @param \Smarty_Internal_Template|\Smarty|\Smarty_Internal_Data $_parent back pointer to parent object
+     * @param string                                                  $template_resource template resource string
+     * @param Smarty                                                  $smarty            Smarty instance
+     * @param \Smarty_Internal_Template|\Smarty|\Smarty_Internal_Data $_parent           back pointer to parent object
      *                                                                                   with variables or null
-     * @param mixed $_cache_id cache   id or null
-     * @param mixed $_compile_id compile id or null
-     * @param bool $_caching use caching?
-     * @param int $_cache_lifetime cache life-time in seconds
+     * @param mixed                                                   $_cache_id         cache   id or null
+     * @param mixed                                                   $_compile_id       compile id or null
+     * @param bool                                                    $_caching          use caching?
+     * @param int                                                     $_cache_lifetime   cache life-time in seconds
      *
      * @throws \SmartyException
      */
@@ -115,9 +115,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * render template
      *
-     * @param  bool $merge_tpl_vars if true parent template variables merged in to local scope
+     * @param  bool $merge_tpl_vars   if true parent template variables merged in to local scope
      * @param  bool $no_output_filter if true do not run output filter
-     * @param  bool $display true: display, false: fetch null: subtemplate
+     * @param  bool $display          true: display, false: fetch null: subtemplate
      *
      * @throws Exception
      * @throws SmartyException
@@ -163,7 +163,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if ($display) {
             if ($this->caching && $this->smarty->cache_modified_check) {
                 $this->smarty->ext->_cachemodify->cacheModifiedCheck($this->cached, $this,
-                    isset($content) ? $content : ob_get_clean());
+                                                                     isset($content) ? $content : ob_get_clean());
             } else {
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
                     !$no_output_filter && (isset($this->smarty->autoload_filters['output']) ||
@@ -284,15 +284,15 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->smarty->loadPlugin($this->source->handler->compiler_class);
         }
         $this->compiler = new $this->source->handler->compiler_class($this->source->handler->template_lexer_class,
-            $this->source->handler->template_parser_class,
-            $this->smarty);
+                                                                     $this->source->handler->template_parser_class,
+                                                                     $this->smarty);
     }
 
     /**
      * Handle unknown class methods
      *
      * @param string $name unknown method-name
-     * @param array $args argument array
+     * @param array  $args argument array
      *
      * @return mixed
      * @throws SmartyException
@@ -311,7 +311,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * set Smarty property in template context
      *
      * @param string $property_name property name
-     * @param mixed $value value
+     * @param mixed  $value         value
      *
      * @throws SmartyException
      */

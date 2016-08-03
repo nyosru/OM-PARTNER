@@ -5,8 +5,7 @@ class PHPParser_Tests_NodeVisitor_NameResolverTest extends PHPUnit_Framework_Tes
     /**
      * @covers PHPParser_NodeVisitor_NameResolver
      */
-    public function testResolveNames()
-    {
+    public function testResolveNames() {
         $code = <<<EOC
 <?php
 
@@ -74,9 +73,9 @@ namespace {
 }
 EOC;
 
-        $parser = new PHPParser_Parser(new PHPParser_Lexer_Emulative);
+        $parser        = new PHPParser_Parser(new PHPParser_Lexer_Emulative);
         $prettyPrinter = new PHPParser_PrettyPrinter_Default;
-        $traverser = new PHPParser_NodeTraverser;
+        $traverser     = new PHPParser_NodeTraverser;
         $traverser->addVisitor(new PHPParser_NodeVisitor_NameResolver);
 
         $stmts = $parser->parse($code);
@@ -88,8 +87,7 @@ EOC;
     /**
      * @covers PHPParser_NodeVisitor_NameResolver
      */
-    public function testResolveLocations()
-    {
+    public function testResolveLocations() {
         $code = <<<EOC
 <?php
 namespace NS;
@@ -142,9 +140,9 @@ try {
 }
 EOC;
 
-        $parser = new PHPParser_Parser(new PHPParser_Lexer_Emulative);
+        $parser        = new PHPParser_Parser(new PHPParser_Lexer_Emulative);
         $prettyPrinter = new PHPParser_PrettyPrinter_Default;
-        $traverser = new PHPParser_NodeTraverser;
+        $traverser     = new PHPParser_NodeTraverser;
         $traverser->addVisitor(new PHPParser_NodeVisitor_NameResolver);
 
         $stmts = $parser->parse($code);
@@ -153,8 +151,7 @@ EOC;
         $this->assertEquals($expectedCode, $prettyPrinter->prettyPrint($stmts));
     }
 
-    public function testNoResolveSpecialName()
-    {
+    public function testNoResolveSpecialName() {
         $stmts = array(new PHPParser_Node_Expr_New(new PHPParser_Node_Name('self')));
 
         $traverser = new PHPParser_NodeTraverser;
@@ -163,16 +160,14 @@ EOC;
         $this->assertEquals($stmts, $traverser->traverse($stmts));
     }
 
-    protected function createNamespacedAndNonNamespaced(array $stmts)
-    {
+    protected function createNamespacedAndNonNamespaced(array $stmts) {
         return array(
             new PHPParser_Node_Stmt_Namespace(new PHPParser_Node_Name('NS'), $stmts),
-            new PHPParser_Node_Stmt_Namespace(null, $stmts),
+            new PHPParser_Node_Stmt_Namespace(null,                          $stmts),
         );
     }
 
-    public function testAddNamespacedName()
-    {
+    public function testAddNamespacedName() {
         $stmts = $this->createNamespacedAndNonNamespaced(array(
             new PHPParser_Node_Stmt_Class('A'),
             new PHPParser_Node_Stmt_Interface('B'),
@@ -187,18 +182,17 @@ EOC;
 
         $stmts = $traverser->traverse($stmts);
 
-        $this->assertEquals('NS\\A', (string)$stmts[0]->stmts[0]->namespacedName);
-        $this->assertEquals('NS\\B', (string)$stmts[0]->stmts[1]->namespacedName);
-        $this->assertEquals('NS\\C', (string)$stmts[0]->stmts[2]->namespacedName);
-        $this->assertEquals('NS\\D', (string)$stmts[0]->stmts[3]->consts[0]->namespacedName);
-        $this->assertEquals('A', (string)$stmts[1]->stmts[0]->namespacedName);
-        $this->assertEquals('B', (string)$stmts[1]->stmts[1]->namespacedName);
-        $this->assertEquals('C', (string)$stmts[1]->stmts[2]->namespacedName);
-        $this->assertEquals('D', (string)$stmts[1]->stmts[3]->consts[0]->namespacedName);
+        $this->assertEquals('NS\\A', (string) $stmts[0]->stmts[0]->namespacedName);
+        $this->assertEquals('NS\\B', (string) $stmts[0]->stmts[1]->namespacedName);
+        $this->assertEquals('NS\\C', (string) $stmts[0]->stmts[2]->namespacedName);
+        $this->assertEquals('NS\\D', (string) $stmts[0]->stmts[3]->consts[0]->namespacedName);
+        $this->assertEquals('A',     (string) $stmts[1]->stmts[0]->namespacedName);
+        $this->assertEquals('B',     (string) $stmts[1]->stmts[1]->namespacedName);
+        $this->assertEquals('C',     (string) $stmts[1]->stmts[2]->namespacedName);
+        $this->assertEquals('D',     (string) $stmts[1]->stmts[3]->consts[0]->namespacedName);
     }
 
-    public function testAddTraitNamespacedName()
-    {
+    public function testAddTraitNamespacedName() {
         $stmts = $this->createNamespacedAndNonNamespaced(array(
             new PHPParser_Node_Stmt_Trait('A')
         ));
@@ -208,20 +202,19 @@ EOC;
 
         $stmts = $traverser->traverse($stmts);
 
-        $this->assertEquals('NS\\A', (string)$stmts[0]->stmts[0]->namespacedName);
-        $this->assertEquals('A', (string)$stmts[1]->stmts[0]->namespacedName);
+        $this->assertEquals('NS\\A', (string) $stmts[0]->stmts[0]->namespacedName);
+        $this->assertEquals('A',     (string) $stmts[1]->stmts[0]->namespacedName);
     }
 
     /**
      * @expectedException        PHPParser_Error
      * @expectedExceptionMessage Cannot use "C" as "B" because the name is already in use on line 2
      */
-    public function testAlreadyInUseError()
-    {
+    public function testAlreadyInUseError() {
         $stmts = array(
             new PHPParser_Node_Stmt_Use(array(
                 new PHPParser_Node_Stmt_UseUse(new PHPParser_Node_Name('A\B'), 'B', array('startLine' => 1)),
-                new PHPParser_Node_Stmt_UseUse(new PHPParser_Node_Name('C'), 'B', array('startLine' => 2)),
+                new PHPParser_Node_Stmt_UseUse(new PHPParser_Node_Name('C'),   'B', array('startLine' => 2)),
             ))
         );
 

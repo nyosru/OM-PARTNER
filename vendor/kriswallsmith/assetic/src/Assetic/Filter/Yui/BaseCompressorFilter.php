@@ -59,8 +59,8 @@ abstract class BaseCompressorFilter extends BaseProcessFilter
      * Compresses a string.
      *
      * @param string $content The content to compress
-     * @param string $type The type of content, either "js" or "css"
-     * @param array $options An indexed array of additional options
+     * @param string $type    The type of content, either "js" or "css"
+     * @param array  $options An indexed array of additional options
      *
      * @return string The compressed content
      */
@@ -69,7 +69,7 @@ abstract class BaseCompressorFilter extends BaseProcessFilter
         $pb = $this->createProcessBuilder(array($this->javaPath));
 
         if (null !== $this->stackSize) {
-            $pb->add('-Xss' . $this->stackSize);
+            $pb->add('-Xss'.$this->stackSize);
         }
 
         $pb->add('-jar')->add($this->jarPath);

@@ -11,7 +11,6 @@ use common\traits\GetSuppliers;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
-use common\traits\Manufacturers\HideMan;
 use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
 use common\traits\OrdersStatusData;
@@ -186,7 +185,6 @@ class GlavnayaController extends Controller
         FeaturedProducts,
         NewProducts,
         RelatedProducts,
-        HideMan,
         ActionInfo,
         AggregateCatalogData;
 

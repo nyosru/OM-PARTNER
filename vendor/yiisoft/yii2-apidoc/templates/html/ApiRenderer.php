@@ -239,7 +239,7 @@ class ApiRenderer extends BaseApiRenderer implements ViewContextInterface
         }
 
         return $this->createTypeLink($property->types) . ' ' . $this->createSubjectLink($property, $property->name) . ' '
-        . ApiMarkdown::highlight('= ' . ($property->defaultValue === null ? 'null' : $property->defaultValue), 'php');
+                . ApiMarkdown::highlight('= ' . ($property->defaultValue === null ? 'null' : $property->defaultValue), 'php');
     }
 
     /**
@@ -257,9 +257,9 @@ class ApiRenderer extends BaseApiRenderer implements ViewContextInterface
         }
 
         return ($method->isReturnByReference ? '<b>&</b>' : '')
-        . ($method->returnType === null ? 'void' : $this->createTypeLink($method->returnTypes))
-        . ' <strong>' . $this->createSubjectLink($method, $method->name) . '</strong>'
-        . ApiMarkdown::highlight(str_replace('  ', ' ', '( ' . implode(', ', $params) . ' )'), 'php');
+            . ($method->returnType === null ? 'void' : $this->createTypeLink($method->returnTypes))
+            . ' <strong>' . $this->createSubjectLink($method, $method->name) . '</strong>'
+            . ApiMarkdown::highlight(str_replace('  ', ' ', '( ' . implode(', ', $params) . ' )'), 'php');
     }
 
     /**

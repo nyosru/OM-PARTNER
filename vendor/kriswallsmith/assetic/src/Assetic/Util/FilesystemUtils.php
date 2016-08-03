@@ -59,7 +59,7 @@ class FilesystemUtils
      */
     public static function createThrowAwayDirectory($prefix)
     {
-        $directory = self::getTemporaryDirectory() . DIRECTORY_SEPARATOR . uniqid('assetic_' . $prefix);
+        $directory = self::getTemporaryDirectory().DIRECTORY_SEPARATOR.uniqid('assetic_'.$prefix);
         mkdir($directory);
 
         return $directory;
@@ -74,7 +74,7 @@ class FilesystemUtils
      */
     public static function createTemporaryFile($prefix)
     {
-        return tempnam(self::getTemporaryDirectory(), 'assetic_' . $prefix);
+        return tempnam(self::getTemporaryDirectory(), 'assetic_'.$prefix);
     }
 
     public static function getTemporaryDirectory()

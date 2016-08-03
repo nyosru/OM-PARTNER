@@ -19,9 +19,9 @@ use Composer\Config;
  */
 class RequireJsProcessTest extends ProcessTest
 {
-    /**
-     * @var RequireJsProcess
-     */
+	/**
+	 * @var RequireJsProcess
+	 */
     protected $process;
 
     public function setUp()
@@ -34,8 +34,8 @@ class RequireJsProcessTest extends ProcessTest
      * testRequireJs
      *
      * @dataProvider providerRequireJs
-     * @param array $json
-     * @param string $expected
+	 * @param array $json
+	 * @param string $expected
      */
     public function testRequireJs(array $json = array(), $expected = '')
     {
@@ -71,9 +71,9 @@ EOT;
      * testRequireJson
      *
      * @dataProvider providerRequireJson
-     * @param array $packages
-     * @param array $config
-     * @param string $expected
+	 * @param array $packages
+	 * @param array $config
+	 * @param string $expected
      */
     public function testRequireJson(array $packages, array $config, $expected = null)
     {
@@ -280,7 +280,7 @@ EOT;
             'extra' => array(
                 'component' => array(
                     'config' => array(
-                        'color' => 'blue',
+                       'color' => 'blue',
                     ),
                 ),
             ),
@@ -309,7 +309,7 @@ EOT;
             'extra' => array(
                 'component' => array(
                     'config' => array(
-                        'color' => 'blue',
+                       'color' => 'blue',
                     ),
                 ),
             ),

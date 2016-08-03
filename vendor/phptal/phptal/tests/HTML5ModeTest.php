@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class HTML5ModeTest extends PHPTAL_TestCase
 {
     function testCDATAScript()
@@ -122,16 +123,16 @@ class HTML5ModeTest extends PHPTAL_TestCase
     function testEmptyAll()
     {
         $emptyElements = array(
-            'area', 'base', 'basefont', 'br', 'col',
-            'command', 'embed', 'frame', 'hr', 'img', 'input', 'isindex', 'keygen', 'link',
-            'meta', 'param', 'wbr', 'source', 'track',
+            'area','base','basefont','br','col',
+            'command','embed','frame','hr','img','input','isindex','keygen','link',
+            'meta','param','wbr','source','track',
         );
-        foreach ($emptyElements as $name) {
+        foreach($emptyElements as $name) {
             $tpl = $this->newPHPTAL();
             $tpl->setOutputMode(PHPTAL::HTML5);
-            $tpl->setSource('<' . $name . ' id="123">foo</' . $name . '>');
+            $tpl->setSource('<'.$name.' id="123">foo</'.$name.'>');
             $res = $tpl->execute();
-            $this->assertEquals('<' . $name . ' id=123>', $res);
+            $this->assertEquals('<'.$name.' id=123>', $res);
         }
     }
 
@@ -171,27 +172,27 @@ class HTML5ModeTest extends PHPTAL_TestCase
                     <script defer></script>
                 </body>
                 </html>', $res);
-    }
+   }
 
-    function testMixedModes()
-    {
-        $tpl = $this->newPHPTAL();
-        $tpl->setOutputMode(PHPTAL::HTML5);
-        $tpl->setSource('<input checked="checked"/>');
-        $this->assertEquals('<input checked>', $tpl->execute());
+   function testMixedModes()
+   {
+       $tpl = $this->newPHPTAL();
+       $tpl->setOutputMode(PHPTAL::HTML5);
+       $tpl->setSource('<input checked="checked"/>');
+       $this->assertEquals('<input checked>',$tpl->execute());
 
-        $tpl->setOutputMode(PHPTAL::XHTML);
-        $this->assertEquals('<input checked="checked"/>', $tpl->execute());
-    }
+       $tpl->setOutputMode(PHPTAL::XHTML);
+       $this->assertEquals('<input checked="checked"/>',$tpl->execute());
+   }
 
-    private function decodeNumericEntities($str)
-    {
-        return normalize_html(@preg_replace('/&#x?[a-f0-9]+;/ie', 'htmlspecialchars(html_entity_decode("\\0"))', $str));
-    }
+   private function decodeNumericEntities($str)
+   {
+       return normalize_html(@preg_replace('/&#x?[a-f0-9]+;/ie','htmlspecialchars(html_entity_decode("\\0"))', $str));
+   }
 
-    function testAttributeQuotes()
-    {
-        $res = $this->newPHPTAL()->setSource('<a test=\'${php:chr(34)}\' tal:attributes="foo php:chr(34)"
+   function testAttributeQuotes()
+   {
+       $res = $this->newPHPTAL()->setSource('<a test=\'${php:chr(34)}\' tal:attributes="foo php:chr(34)"
        class=\'email
         href="mailto:me"
        \'
@@ -200,13 +201,13 @@ class HTML5ModeTest extends PHPTAL_TestCase
        &#x20;&#x6d;&#97;i&#108;&#x74;o&#x3a;&#x20;&#37;&#55;0o&#x72;&#110;&#x65;%&#x36;&#x63;&#x25;&#x34;&#x30;&#x70;&#37;6&#102;%7&#x32;&#x6e;e%&#x36;c&#37;2en&#x65;t?
        \'>contact me</a>')->execute();
 
-        $this->assertEquals($this->decodeNumericEntities('<a test="&quot;"
+       $this->assertEquals($this->decodeNumericEntities('<a test="&quot;"
           class="email
            href=&quot;mailto:me&quot;
           "
           href="
            mailto: %70orne%6c%40p%6f%72ne%6c%2enet?
-          " foo="&quot;">contact me</a>'), $this->decodeNumericEntities($res));
-    }
+          " foo="&quot;">contact me</a>'),$this->decodeNumericEntities($res));
+   }
 }
 

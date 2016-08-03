@@ -47,8 +47,8 @@ class CleanCssFilter extends BaseNodeFilter
 
 
     /**
-     * @param string $cleanCssBin Absolute path to the cleancss executable
-     * @param string $nodeBin Absolute path to the folder containg node.js executable
+     * @param string $cleanCssBin  Absolute path to the cleancss executable
+     * @param string $nodeBin      Absolute path to the folder containg node.js executable
      */
     public function __construct($cleanCssBin = '/usr/bin/cleancss', $nodeBin = null)
     {
@@ -82,7 +82,6 @@ class CleanCssFilter extends BaseNodeFilter
     {
         $this->onlyKeepFirstSpecialComment = $onlyKeepFirstSpecialComment;
     }
-
     /**
      * Enables unsafe mode by assuming BEM-like semantic stylesheets (warning, this may break your styling!)
      * @param bool $semanticMerging True to enable
@@ -109,7 +108,6 @@ class CleanCssFilter extends BaseNodeFilter
     {
         $this->skipImport = $skipImport;
     }
-
     /**
      * Per connection timeout when fetching remote @imports; defaults to 5 seconds
      * @param int $timeout
@@ -252,7 +250,7 @@ class CleanCssFilter extends BaseNodeFilter
         }
 
         if ($this->compatibility) {
-            $pb->add('--compatibility ' . $this->compatibility);
+            $pb->add('--compatibility ' .$this->compatibility);
         }
 
         if ($this->debug) {
@@ -260,7 +258,7 @@ class CleanCssFilter extends BaseNodeFilter
         }
 
         if ($this->rootPath) {
-            $pb->add('--root ' . $this->rootPath);
+            $pb->add('--root ' .$this->rootPath);
         }
 
         if ($this->skipImport) {
@@ -268,11 +266,11 @@ class CleanCssFilter extends BaseNodeFilter
         }
 
         if ($this->timeout) {
-            $pb->add('--timeout ' . $this->timeout);
+            $pb->add('--timeout ' .$this->timeout);
         }
 
         if ($this->roundingPrecision) {
-            $pb->add('--rounding-precision ' . $this->roundingPrecision);
+            $pb->add('--rounding-precision ' .$this->roundingPrecision);
         }
 
         if ($this->removeSpecialComments) {
@@ -296,7 +294,7 @@ class CleanCssFilter extends BaseNodeFilter
         }
 
         if ($this->skipImportFrom) {
-            $pb->add('--skip-import-from ' . $this->skipImportFrom);
+            $pb->add('--skip-import-from ' .$this->skipImportFrom);
         }
 
         if ($this->mediaMerging) {

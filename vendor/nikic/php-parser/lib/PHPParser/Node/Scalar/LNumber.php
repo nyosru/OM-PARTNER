@@ -8,11 +8,10 @@ class PHPParser_Node_Scalar_LNumber extends PHPParser_Node_Scalar
     /**
      * Constructs an integer number scalar node.
      *
-     * @param int $value Value of the number
+     * @param int   $value      Value of the number
      * @param array $attributes Additional attributes
      */
-    public function __construct($value = 0, array $attributes = array())
-    {
+    public function __construct($value = 0, array $attributes = array()) {
         parent::__construct(
             array(
                 'value' => $value
@@ -28,8 +27,7 @@ class PHPParser_Node_Scalar_LNumber extends PHPParser_Node_Scalar
      *
      * @return int The parsed number
      */
-    public static function parse($str)
-    {
+    public static function parse($str) {
         // handle plain 0 specially
         if ('0' === $str) {
             return 0;
@@ -52,6 +50,6 @@ class PHPParser_Node_Scalar_LNumber extends PHPParser_Node_Scalar
         }
 
         // dec
-        return (int)$str;
+        return (int) $str;
     }
 }

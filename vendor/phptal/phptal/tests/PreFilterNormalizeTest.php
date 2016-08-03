@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id: $
  * @link     http://phptal.org/
  */
+
+
+
 class PreFilterNormalizeTest extends PHPTAL_TestCase
 {
     function testBasic()
@@ -62,8 +64,8 @@ class PreFilterNormalizeTest extends PHPTAL_TestCase
 
         $tpl->addPreFilter(new PHPTAL_PreFilter_Normalize());
 
-        $this->assertEquals('<p title="foo bar baz"> <span xml:space="preserve" title=" spa  ced "> ' .
-            "\n" . ' </span> </p>', $tpl->execute());
+        $this->assertEquals('<p title="foo bar baz"> <span xml:space="preserve" title=" spa  ced "> '.
+        "\n".' </span> </p>',$tpl->execute());
     }
 
     function testResumesXMLSpaceDefault()
@@ -73,8 +75,8 @@ class PreFilterNormalizeTest extends PHPTAL_TestCase
 
         $tpl->addPreFilter(new PHPTAL_PreFilter_Normalize());
 
-        $this->assertEquals('<p title="foo bar baz"> <span xml:space="preserve" title=" spa  ced "> ' .
-            "\n" . ' <x xml:space="default" y="a"> </x> </span> </p>', $tpl->execute());
+        $this->assertEquals('<p title="foo bar baz"> <span xml:space="preserve" title=" spa  ced "> '.
+        "\n".' <x xml:space="default" y="a"> </x> </span> </p>',$tpl->execute());
     }
 
 

@@ -25,7 +25,7 @@ abstract class Smarty_CacheResource
     /**
      * populate Cached Object with meta data from Resource
      *
-     * @param Smarty_Template_Cached $cached cached object
+     * @param Smarty_Template_Cached   $cached    cached object
      * @param Smarty_Internal_Template $_template template object
      *
      * @return void
@@ -45,8 +45,8 @@ abstract class Smarty_CacheResource
      * Read the cached template and process header
      *
      * @param Smarty_Internal_Template $_template template object
-     * @param Smarty_Template_Cached $cached cached object
-     * @param bool $update flag if called because cache update
+     * @param Smarty_Template_Cached   $cached    cached object
+     * @param bool                     $update    flag if called because cache update
      *
      * @return bool true or false if the cached content does not exist
      */
@@ -56,7 +56,7 @@ abstract class Smarty_CacheResource
      * Write the rendered template output to cache
      *
      * @param Smarty_Internal_Template $_template template object
-     * @param string $content content to cache
+     * @param string                   $content   content to cache
      *
      * @return boolean success
      */
@@ -84,7 +84,7 @@ abstract class Smarty_CacheResource
     /**
      * Empty cache
      *
-     * @param Smarty $smarty Smarty object
+     * @param Smarty  $smarty   Smarty object
      * @param integer $exp_time expiration time (number of seconds, not timestamp)
      *
      * @return integer number of cache files deleted
@@ -94,18 +94,18 @@ abstract class Smarty_CacheResource
     /**
      * Empty cache for a specific template
      *
-     * @param Smarty $smarty Smarty object
-     * @param string $resource_name template name
-     * @param string $cache_id cache id
-     * @param string $compile_id compile id
-     * @param integer $exp_time expiration time (number of seconds, not timestamp)
+     * @param Smarty  $smarty        Smarty object
+     * @param string  $resource_name template name
+     * @param string  $cache_id      cache id
+     * @param string  $compile_id    compile id
+     * @param integer $exp_time      expiration time (number of seconds, not timestamp)
      *
      * @return integer number of cache files deleted
      */
     abstract public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time);
 
     /**
-     * @param Smarty $smarty
+     * @param Smarty                 $smarty
      * @param Smarty_Template_Cached $cached
      *
      * @return bool|null
@@ -130,7 +130,7 @@ abstract class Smarty_CacheResource
     /**
      * Check is cache is locked for this template
      *
-     * @param Smarty $smarty
+     * @param Smarty                 $smarty
      * @param Smarty_Template_Cached $cached
      *
      * @return bool
@@ -144,7 +144,7 @@ abstract class Smarty_CacheResource
     /**
      * Lock cache for this template
      *
-     * @param Smarty $smarty
+     * @param Smarty                 $smarty
      * @param Smarty_Template_Cached $cached
      *
      * @return bool
@@ -158,7 +158,7 @@ abstract class Smarty_CacheResource
     /**
      * Unlock cache for this template
      *
-     * @param Smarty $smarty
+     * @param Smarty                 $smarty
      * @param Smarty_Template_Cached $cached
      *
      * @return bool
@@ -173,7 +173,7 @@ abstract class Smarty_CacheResource
      * Load Cache Resource Handler
      *
      * @param Smarty $smarty Smarty object
-     * @param string $type name of the cache resource
+     * @param string $type   name of the cache resource
      *
      * @throws SmartyException
      * @return Smarty_CacheResource Cache Resource Handler

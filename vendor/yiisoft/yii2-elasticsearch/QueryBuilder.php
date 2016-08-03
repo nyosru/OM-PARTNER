@@ -51,7 +51,7 @@ class QueryBuilder extends \yii\base\Object
         } elseif ($query->fields !== null) {
             $fields = [];
             $scriptFields = [];
-            foreach ($query->fields as $key => $field) {
+            foreach($query->fields as $key => $field) {
                 if (is_int($key)) {
                     $fields[] = $field;
                 } else {
@@ -72,11 +72,11 @@ class QueryBuilder extends \yii\base\Object
             $parts['size'] = $query->limit;
         }
         if ($query->offset > 0) {
-            $parts['from'] = (int)$query->offset;
+            $parts['from'] = (int) $query->offset;
         }
 
         if (empty($query->query)) {
-            $parts['query'] = ["match_all" => (object)[]];
+            $parts['query'] = ["match_all" => (object) []];
         } else {
             $parts['query'] = $query->query;
         }
@@ -290,7 +290,7 @@ class QueryBuilder extends \yii\base\Object
 
         list($column, $values) = $operands;
 
-        $values = (array)$values;
+        $values = (array) $values;
 
         if (empty($values) || $column === []) {
             return $operator === 'in' ? ['terms' => ['_uid' => []]] : []; // this condition is equal to WHERE false

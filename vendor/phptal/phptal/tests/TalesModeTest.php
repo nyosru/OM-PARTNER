@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class TalesModeTest extends PHPTAL_TestCase
 {
     public function testUnsupportedMode()
@@ -21,7 +22,9 @@ class TalesModeTest extends PHPTAL_TestCase
             $tpl = $this->newPHPTAL('input/tales.mode.01.xml');
             $tpl->execute();
             $this->assertTrue(false);
-        } catch (PHPTAL_Exception $e) {
+        }
+        catch (PHPTAL_Exception $e)
+        {
             $this->assertTrue(true);
         }
     }

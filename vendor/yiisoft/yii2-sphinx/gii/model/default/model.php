@@ -19,49 +19,49 @@ namespace <?= $generator->ns ?>;
 use Yii;
 
 /**
-* This is the model class for index "<?= $indexName ?>".
-*
+ * This is the model class for index "<?= $indexName ?>".
+ *
 <?php foreach ($indexSchema->columns as $column): ?>
-    * @property <?= $column->isMva ? 'array' : $column->phpType ?> <?= "\${$column->name}\n" ?>
+ * @property <?= $column->isMva ? 'array' : $column->phpType ?> <?= "\${$column->name}\n" ?>
 <?php endforeach; ?>
-*/
+ */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
-/**
-* @inheritdoc
-*/
-public static function indexName()
-{
-return '<?= $generator->generateIndexName($indexName) ?>';
-}
+    /**
+     * @inheritdoc
+     */
+    public static function indexName()
+    {
+        return '<?= $generator->generateIndexName($indexName) ?>';
+    }
 <?php if ($generator->db !== 'sphinx'): ?>
 
     /**
-    * @return \yii\sphinx\Connection the database connection used by this AR class.
-    */
+     * @return \yii\sphinx\Connection the database connection used by this AR class.
+     */
     public static function getDb()
     {
-    return Yii::$app->get('<?= $generator->db ?>');
+        return Yii::$app->get('<?= $generator->db ?>');
     }
 <?php endif; ?>
 
-/**
-* @inheritdoc
-*/
-public function rules()
-{
-return [<?= "\n            " . implode(",\n            ", $rules) . "\n        " ?>];
-}
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [<?= "\n            " . implode(",\n            ", $rules) . "\n        " ?>];
+    }
 
-/**
-* @inheritdoc
-*/
-public function attributeLabels()
-{
-return [
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
 <?php foreach ($labels as $name => $label): ?>
-    <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
+            <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
 <?php endforeach; ?>
-];
-}
+        ];
+    }
 }

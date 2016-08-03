@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,10 +12,13 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class MyTrigger implements PHPTAL_Trigger
 {
     public $useCache = false;
-    private $_cache = null;
+    private $_cache  = null;
 
     public function start($id, $tpl)
     {

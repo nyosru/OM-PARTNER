@@ -49,16 +49,16 @@ abstract class BaseSassFilter extends BaseProcessFilter implements DependencyExt
                 );
             } else {
                 $needles = array(
-                    $reference . '.scss',
-                    $reference . '.sass',
-                    self::partialize($reference) . '.scss',
-                    self::partialize($reference) . '.sass',
+                    $reference.'.scss',
+                    $reference.'.sass',
+                    self::partialize($reference).'.scss',
+                    self::partialize($reference).'.sass',
                 );
             }
 
             foreach ($loadPaths as $loadPath) {
                 foreach ($needles as $needle) {
-                    if (file_exists($file = $loadPath . '/' . $needle)) {
+                    if (file_exists($file = $loadPath.'/'.$needle)) {
                         $coll = $factory->createAsset($file, array(), array('root' => $loadPath));
                         foreach ($coll as $leaf) {
                             /** @var $leaf AssetInterface */
@@ -81,13 +81,13 @@ abstract class BaseSassFilter extends BaseProcessFilter implements DependencyExt
         $parts = pathinfo($reference);
 
         if ('.' === $parts['dirname']) {
-            $partial = '_' . $parts['filename'];
+            $partial = '_'.$parts['filename'];
         } else {
-            $partial = $parts['dirname'] . DIRECTORY_SEPARATOR . '_' . $parts['filename'];
+            $partial = $parts['dirname'].DIRECTORY_SEPARATOR.'_'.$parts['filename'];
         }
 
         if (isset($parts['extension'])) {
-            $partial .= '.' . $parts['extension'];
+            $partial .= '.'.$parts['extension'];
         }
 
         return $partial;

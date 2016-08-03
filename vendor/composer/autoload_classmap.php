@@ -539,4 +539,12 @@ return array(
     'aCssRulesetEndToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',
     'aCssRulesetStartToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',
     'aCssToken' => $vendorDir . '/natxet/CssMin/src/CssMin.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteraction' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteraction.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteractionBottomArea' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionBottomArea.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteractionBottomSlide' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionBottomSlide.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteractionIcons' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionIcons.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteractionModal' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionModal.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteractionPageScale' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionPageScale.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteractionReveal' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionReveal.php',
+    'yii\\DragDropInteractions\\assets\\DragDropInteractionSidebar' => $vendorDir . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionSidebar.php',
 );

@@ -46,13 +46,13 @@ class IncludeReflector extends BaseReflector
                 return 'Require Once';
             default:
                 throw new Exception(
-                    'Unknown include type detected: ' . $this->node->type
+                    'Unknown include type detected: '.$this->node->type
                 );
         }
     }
 
     public function getShortName()
     {
-        return (string)$this->node->expr->value;
+        return (string) $this->node->expr->value;
     }
 }

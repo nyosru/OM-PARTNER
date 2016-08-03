@@ -28,18 +28,18 @@ class AsseticTokenParser extends \Twig_TokenParser
      * Attributes can be added to the tag by passing names as the options
      * array. These values, if found, will be passed to the factory and node.
      *
-     * @param AssetFactory $factory The asset factory
-     * @param string $tag The tag name
-     * @param string $output The default output string
-     * @param Boolean $single Whether to force a single asset
-     * @param array $extensions Additional attribute names to look for
+     * @param AssetFactory $factory    The asset factory
+     * @param string       $tag        The tag name
+     * @param string       $output     The default output string
+     * @param Boolean      $single     Whether to force a single asset
+     * @param array        $extensions Additional attribute names to look for
      */
     public function __construct(AssetFactory $factory, $tag, $output, $single = false, array $extensions = array())
     {
-        $this->factory = $factory;
-        $this->tag = $tag;
-        $this->output = $output;
-        $this->single = $single;
+        $this->factory    = $factory;
+        $this->tag        = $tag;
+        $this->output     = $output;
+        $this->single     = $single;
         $this->extensions = $extensions;
     }
 
@@ -49,9 +49,9 @@ class AsseticTokenParser extends \Twig_TokenParser
         $filters = array();
         $name = null;
         $attributes = array(
-            'output' => $this->output,
+            'output'   => $this->output,
             'var_name' => 'asset_url',
-            'vars' => array(),
+            'vars'     => array(),
         );
 
         $stream = $this->parser->getStream();
@@ -143,18 +143,18 @@ class AsseticTokenParser extends \Twig_TokenParser
 
     public function testEndTag(\Twig_Token $token)
     {
-        return $token->test(array('end' . $this->getTag()));
+        return $token->test(array('end'.$this->getTag()));
     }
 
     /**
      * @param AssetInterface $asset
-     * @param \Twig_Node $body
-     * @param array $inputs
-     * @param array $filters
-     * @param string $name
-     * @param array $attributes
-     * @param int $lineno
-     * @param string $tag
+     * @param \Twig_Node     $body
+     * @param array          $inputs
+     * @param array          $filters
+     * @param string         $name
+     * @param array          $attributes
+     * @param int            $lineno
+     * @param string         $tag
      *
      * @return \Twig_Node
      */
@@ -172,14 +172,14 @@ class AsseticTokenParser extends \Twig_TokenParser
     }
 
     /**
-     * @param AssetInterface $asset
+     * @param AssetInterface      $asset
      * @param \Twig_NodeInterface $body
-     * @param array $inputs
-     * @param array $filters
-     * @param string $name
-     * @param array $attributes
-     * @param int $lineno
-     * @param string $tag
+     * @param array               $inputs
+     * @param array               $filters
+     * @param string              $name
+     * @param array               $attributes
+     * @param int                 $lineno
+     * @param string              $tag
      *
      * @return \Twig_Node
      *

@@ -15,23 +15,21 @@
     padding-right: 10px;
 }
 
-.kv-ind-container.kv-size-large .kv-ind-toggle {
+.kv-ind-container.kv-size-large .kv-ind-toggle{
     margin: 8px;
 }
 
-.kv-ind-container.kv-size-normal .kv-ind-toggle {
+.kv-ind-container.kv-size-normal .kv-ind-toggle{
     margin: 6px;
 }
 
 .kv-ind-container.kv-size-small .kv-ind-toggle {
     margin: 4px;
-}
-
+} 
 .kv-ind-container.kv-size-mini .kv-ind-toggle {
     margin: 2px;
     font-size: 1.25em;
 }
-
 .kv-switch-container .bootstrap-switch + label,
 .kv-switch-container .bootstrap-switch + .bootstrap-switch {
     margin-left: 8px;

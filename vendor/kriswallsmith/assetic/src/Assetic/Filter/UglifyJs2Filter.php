@@ -82,8 +82,8 @@ class UglifyJs2Filter extends BaseNodeFilter
     {
         $pb = $this->createProcessBuilder(
             $this->nodeBin
-                ? array($this->nodeBin, $this->uglifyjsBin)
-                : array($this->uglifyjsBin)
+            ? array($this->nodeBin, $this->uglifyjsBin)
+            : array($this->uglifyjsBin)
         );
 
         if ($this->compress) {
@@ -119,7 +119,7 @@ class UglifyJs2Filter extends BaseNodeFilter
         }
 
         // input and output files
-        $input = FilesystemUtils::createTemporaryFile('uglifyjs2_in');
+        $input  = FilesystemUtils::createTemporaryFile('uglifyjs2_in');
         $output = FilesystemUtils::createTemporaryFile('uglifyjs2_out');
 
         file_put_contents($input, $asset->getContent());

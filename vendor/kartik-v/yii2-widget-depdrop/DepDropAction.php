@@ -104,7 +104,7 @@ class DepDropAction extends Action
      * Return select option values output
      *
      * @param string $id the selected value identifier
-     * @param array $params the parameters passed
+     * @param array  $params the parameters passed
      *
      * @return mixed the option values
      */
@@ -117,7 +117,7 @@ class DepDropAction extends Action
      * Return selected value
      *
      * @param string $id the selected value identifier
-     * @param array $params the parameters passed
+     * @param array  $params the parameters passed
      *
      * @return string the selected value
      */
@@ -131,7 +131,7 @@ class DepDropAction extends Action
      *
      * @param string $funcName the function name
      * @param string $id the selected value identifier
-     * @param array $params the parameters passed
+     * @param array  $params the parameters passed
      *
      * @return mixed the parsed value
      */

@@ -41,7 +41,7 @@ $this->beginContent('@yii/apidoc/templates/bootstrap/layouts/main.php', isset($t
             'id' => 'navigation',
             'items' => $nav,
             'view' => $this,
-        ]) ?>
+        ])?>
     </div>
     <div class="col-md-9 api-content" role="main">
         <?= $content ?>
@@ -53,11 +53,11 @@ $this->beginContent('@yii/apidoc/templates/bootstrap/layouts/main.php', isset($t
     $("a.toggle").on('click', function () {
         var $this = $(this);
         if ($this.hasClass('properties-hidden')) {
-            $this.text($this.text().replace(/Show/, 'Hide'));
+            $this.text($this.text().replace(/Show/,'Hide'));
             $this.parents(".summary").find(".inherited").show();
             $this.removeClass('properties-hidden');
         } else {
-            $this.text($this.text().replace(/Hide/, 'Show'));
+            $this.text($this.text().replace(/Hide/,'Show'));
             $this.parents(".summary").find(".inherited").hide();
             $this.addClass('properties-hidden');
         }

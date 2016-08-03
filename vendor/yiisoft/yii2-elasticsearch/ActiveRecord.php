@@ -102,7 +102,7 @@ class ActiveRecord extends BaseActiveRecord
         if (ArrayHelper::isAssociative($condition)) {
             return $query->andWhere($condition)->all();
         } else {
-            return static::mget((array)$condition);
+            return static::mget((array) $condition);
         }
     }
 
@@ -324,7 +324,7 @@ class ActiveRecord extends BaseActiveRecord
         if (isset($row['fields'])) {
             // reset fields in case it is scalar value
             $arrayAttributes = $record->arrayAttributes();
-            foreach ($row['fields'] as $key => $value) {
+            foreach($row['fields'] as $key => $value) {
                 if (!isset($arrayAttributes[$key]) && count($value) == 1) {
                     $row['fields'][$key] = reset($value);
                 }
@@ -483,7 +483,7 @@ class ActiveRecord extends BaseActiveRecord
      * @throws StaleObjectException if optimistic locking is enabled and the data being updated is outdated.
      * @throws InvalidParamException if no [[version]] is available and optimistic locking is enabled.
      * @throws Exception in case update failed.
-     */
+    */
     public function update($runValidation = true, $attributeNames = null, $options = [])
     {
         if ($runValidation && !$this->validate($attributeNames)) {
@@ -530,7 +530,7 @@ class ActiveRecord extends BaseActiveRecord
                 $values,
                 $options
             );
-        } catch (Exception $e) {
+        } catch(Exception $e) {
             // HTTP 409 is the response in case of failed optimistic locking
             // http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/optimistic-concurrency-control.html
             if (isset($e->errorInfo['responseCode']) && $e->errorInfo['responseCode'] == 409) {
@@ -732,7 +732,7 @@ class ActiveRecord extends BaseActiveRecord
                 $this->getOldPrimaryKey(false),
                 $options
             );
-        } catch (Exception $e) {
+        } catch(Exception $e) {
             // HTTP 409 is the response in case of failed optimistic locking
             // http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/optimistic-concurrency-control.html
             if (isset($e->errorInfo['responseCode']) && $e->errorInfo['responseCode'] == 409) {
@@ -781,12 +781,12 @@ class ActiveRecord extends BaseActiveRecord
         $bulk = '';
         foreach ($primaryKeys as $pk) {
             $bulk .= Json::encode([
-                    "delete" => [
-                        "_id" => $pk,
-                        "_type" => static::type(),
-                        "_index" => static::index(),
-                    ],
-                ]) . "\n";
+                "delete" => [
+                    "_id" => $pk,
+                    "_type" => static::type(),
+                    "_index" => static::index(),
+                ],
+            ]) . "\n";
         }
 
         // TODO do this via command

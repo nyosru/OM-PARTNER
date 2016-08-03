@@ -67,12 +67,12 @@
         if (!animations[name]) {
             sheet.insertRule(
                 '@' + pre + 'keyframes ' + name + '{' +
-                '0%{opacity:' + z + '}' +
-                start + '%{opacity:' + alpha + '}' +
-                (start + 0.01) + '%{opacity:1}' +
-                (start + trail) % 100 + '%{opacity:' + alpha + '}' +
-                '100%{opacity:' + z + '}' +
-                '}', sheet.cssRules.length)
+                    '0%{opacity:' + z + '}' +
+                    start + '%{opacity:' + alpha + '}' +
+                    (start + 0.01) + '%{opacity:1}' +
+                    (start + trail) % 100 + '%{opacity:' + alpha + '}' +
+                    '100%{opacity:' + z + '}' +
+                    '}', sheet.cssRules.length)
 
             animations[name] = 1
         }
@@ -122,7 +122,7 @@
      * Returns the absolute page-offset of the given element.
      */
     function pos(el) {
-        var o = {x: el.offsetLeft, y: el.offsetTop}
+        var o = { x: el.offsetLeft, y: el.offsetTop }
         while ((el = el.offsetParent))
             o.x += el.offsetLeft, o.y += el.offsetTop
 
@@ -178,11 +178,7 @@
 
             var self = this
                 , o = self.opts
-                , el = self.el = css(createEl(0, {className: o.className}), {
-                    position: o.position,
-                    width: 0,
-                    zIndex: o.zIndex
-                })
+                , el = self.el = css(createEl(0, {className: o.className}), {position: o.position, width: 0, zIndex: o.zIndex})
                 , mid = o.radius + o.length + o.width
 
             if (target) {
@@ -301,7 +297,7 @@
                         coordsize: s + ' ' + s,
                         coordorigin: -r + ' ' + -r
                     }),
-                    {width: s, height: s}
+                    { width: s, height: s }
                 )
             }
 
@@ -313,12 +309,12 @@
                 ins(g,
                     ins(css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx}),
                         ins(css(vml('roundrect', {arcsize: o.corners}), {
-                                width: r,
-                                height: o.width,
-                                left: o.radius,
-                                top: -o.width >> 1,
-                                filter: filter
-                            }),
+                            width: r,
+                            height: o.width,
+                            left: o.radius,
+                            top: -o.width >> 1,
+                            filter: filter
+                        }),
                             vml('fill', {color: getColor(o.color, i), opacity: o.opacity}),
                             vml('stroke', {opacity: 0}) // transparent stroke to fix color bleeding upon opacity change
                         )

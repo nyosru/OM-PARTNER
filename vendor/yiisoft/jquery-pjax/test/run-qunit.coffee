@@ -34,7 +34,7 @@ page.open phantom.args[0], ->
 
     result = page.evaluate ->
       result = document.getElementById('qunit-testresult')
-      tests = document.getElementById('qunit-tests').children
+      tests  = document.getElementById('qunit-tests').children
 
       if result.innerText.match /completed/
         console.error ""

@@ -24,7 +24,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
      * @api  Smarty::registerDefaultTemplateHandler()
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  callable $callback class/method name
+     * @param  callable                                                       $callback class/method name
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws SmartyException              if $callback is not callable
@@ -54,7 +54,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
         }
         $_content = $_timestamp = null;
         $_return = call_user_func_array($default_handler, array($source->type, $source->name, &$_content, &$_timestamp,
-            $source->smarty));
+                                                                $source->smarty));
         if (is_string($_return)) {
             $source->exists = is_file($_return);
             if ($source->exists) {

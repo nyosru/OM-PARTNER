@@ -12,7 +12,6 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-
 /**
  * TAL Specifications 1.4
  *
@@ -32,8 +31,8 @@
  * @author Laurent Bedubourg <lbedubourg@motion-twin.com>
  */
 class PHPTAL_Php_Attribute_TAL_Replace
-    extends PHPTAL_Php_Attribute
-    implements PHPTAL_Php_TalesChainReader
+extends PHPTAL_Php_Attribute
+implements PHPTAL_Php_TalesChainReader
 {
     public function before(PHPTAL_Php_CodeWriter $codewriter)
     {
@@ -94,7 +93,7 @@ class PHPTAL_Php_Attribute_TAL_Replace
     {
         if (!$islast) {
             $var = $executor->getCodeWriter()->createTempVariable();
-            $executor->doIf('!phptal_isempty(' . $var . ' = ' . $exp . ')');
+            $executor->doIf('!phptal_isempty('.$var.' = '.$exp.')');
             $this->doEchoAttribute($executor->getCodeWriter(), $var);
             $executor->getCodeWriter()->recycleTempVariable($var);
         } else {

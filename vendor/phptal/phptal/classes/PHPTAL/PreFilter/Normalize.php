@@ -50,7 +50,7 @@ class PHPTAL_PreFilter_Normalize extends PHPTAL_PreFilter
                     $root->removeChild($node);
                 } else if ($lastTextNode) {
                     // "foo " . " bar" gives 2 spaces.
-                    $norm = $lastTextNode->getValueEscaped() . ltrim($norm, ' ');
+                    $norm = $lastTextNode->getValueEscaped().ltrim($norm,' ');
 
                     $lastTextNode->setValueEscaped($norm); // assumes all nodes use same encoding (they do)
                     $root->removeChild($node);
@@ -70,7 +70,7 @@ class PHPTAL_PreFilter_Normalize extends PHPTAL_PreFilter
     {
         $ln = $element->getLocalName();
         return ($ln === 'script' || $ln === 'pre' || $ln === 'textarea')
-        && ($element->getNamespaceURI() === 'http://www.w3.org/1999/xhtml' || $element->getNamespaceURI() === '');
+            && ($element->getNamespaceURI() === 'http://www.w3.org/1999/xhtml' || $element->getNamespaceURI() === '');
     }
 
     protected function findElementToFilter(PHPTAL_Dom_Element $root)
@@ -89,9 +89,9 @@ class PHPTAL_PreFilter_Normalize extends PHPTAL_PreFilter
      */
     protected function normalizeSpace($text, $encoding)
     {
-        $utf_regex_mod = ($encoding == 'UTF-8' ? 'u' : '');
+        $utf_regex_mod = ($encoding=='UTF-8'?'u':'');
 
-        return preg_replace('/[ \t\r\n]+/' . $utf_regex_mod, ' ', $text); // \s removes nbsp
+        return preg_replace('/[ \t\r\n]+/'.$utf_regex_mod, ' ', $text); // \s removes nbsp
     }
 
     protected function normalizeAttributes(PHPTAL_Dom_Element $element)

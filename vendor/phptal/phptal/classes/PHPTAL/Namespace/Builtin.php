@@ -28,9 +28,9 @@ class PHPTAL_Namespace_Builtin extends PHPTAL_Namespace
 
         // case is important when using autoload on case-sensitive filesystems
         if (version_compare(PHP_VERSION, '5.3', '>=') && __NAMESPACE__) {
-            $class = 'PHPTALNAMESPACE\\Php\\Attribute\\' . strtoupper($this->getPrefix()) . '\\' . $name;
+            $class = 'PHPTALNAMESPACE\\Php\\Attribute\\'.strtoupper($this->getPrefix()).'\\'.$name;
         } else {
-            $class = 'PHPTAL_Php_Attribute_' . strtoupper($this->getPrefix()) . '_' . $name;
+            $class = 'PHPTAL_Php_Attribute_'.strtoupper($this->getPrefix()).'_'.$name;
         }
         $result = new $class($tag, $expression);
         return $result;

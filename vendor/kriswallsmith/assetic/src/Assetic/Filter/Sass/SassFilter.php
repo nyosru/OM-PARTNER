@@ -23,9 +23,9 @@ use Assetic\Util\FilesystemUtils;
  */
 class SassFilter extends BaseSassFilter
 {
-    const STYLE_NESTED = 'nested';
-    const STYLE_EXPANDED = 'expanded';
-    const STYLE_COMPACT = 'compact';
+    const STYLE_NESTED     = 'nested';
+    const STYLE_EXPANDED   = 'expanded';
+    const STYLE_COMPACT    = 'compact';
     const STYLE_COMPRESSED = 'compressed';
 
     private $sassPath;

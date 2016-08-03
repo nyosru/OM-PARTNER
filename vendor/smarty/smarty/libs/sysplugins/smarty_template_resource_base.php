@@ -93,7 +93,7 @@ abstract class Smarty_Template_Resource_Base
      */
     abstract public function process(Smarty_Internal_Template $_template);
 
-    /**
+     /**
      * get rendered template content by calling compiled or cached template code
      *
      * @param string $unifunc function with template code
@@ -128,11 +128,12 @@ abstract class Smarty_Template_Resource_Base
                 $_template->smarty->security_policy->exitTemplate();
             }
             return null;
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-            if (isset($_template->smarty->security_policy)) {
+             if (isset($_template->smarty->security_policy)) {
                 $_template->smarty->security_policy->exitTemplate();
             }
             throw $e;

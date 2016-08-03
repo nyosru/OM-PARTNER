@@ -2,19 +2,18 @@
 
 /**
  * @property PHPParser_Node_Name $name  Namespace/Class to alias
- * @property string $alias Alias
+ * @property string              $alias Alias
  */
 class PHPParser_Node_Stmt_UseUse extends PHPParser_Node_Stmt
 {
     /**
      * Constructs an alias (use) node.
      *
-     * @param PHPParser_Node_Name $name Namespace/Class to alias
-     * @param null|string $alias Alias
-     * @param array $attributes Additional attributes
+     * @param PHPParser_Node_Name $name       Namespace/Class to alias
+     * @param null|string         $alias      Alias
+     * @param array               $attributes Additional attributes
      */
-    public function __construct(PHPParser_Node_Name $name, $alias = null, array $attributes = array())
-    {
+    public function __construct(PHPParser_Node_Name $name, $alias = null, array $attributes = array()) {
         if (null === $alias) {
             $alias = $name->getLast();
         }
@@ -28,7 +27,7 @@ class PHPParser_Node_Stmt_UseUse extends PHPParser_Node_Stmt
 
         parent::__construct(
             array(
-                'name' => $name,
+                'name'  => $name,
                 'alias' => $alias,
             ),
             $attributes

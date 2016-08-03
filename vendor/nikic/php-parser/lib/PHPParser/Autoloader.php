@@ -6,8 +6,8 @@
 class PHPParser_Autoloader
 {
     /**
-     * Registers PHPParser_Autoloader as an SPL autoloader.
-     */
+    * Registers PHPParser_Autoloader as an SPL autoloader.
+    */
     static public function register()
     {
         ini_set('unserialize_callback_func', 'spl_autoload_call');
@@ -15,10 +15,10 @@ class PHPParser_Autoloader
     }
 
     /**
-     * Handles autoloading of classes.
-     *
-     * @param string $class A class name.
-     */
+    * Handles autoloading of classes.
+    *
+    * @param string $class A class name.
+    */
     static public function autoload($class)
     {
         if (0 !== strpos($class, 'PHPParser')) {

@@ -31,11 +31,11 @@ class TextToLatexTest extends \PHPUnit_Framework_TestCase
      * @param string $character The character to test.
      *
      * @dataProvider provideReservedCharacters
-     * @covers       MikeVanRiel::TextToLatex
+     * @covers MikeVanRiel::TextToLatex
      */
     public function testConvertsReservedCharactersToEscapedVersion($character)
     {
-        $this->assertSame('\\' . $character, $this->fixture->convert($character));
+        $this->assertSame('\\'.$character, $this->fixture->convert($character));
     }
 
     /**

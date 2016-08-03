@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,11 +11,14 @@
  * @version  SVN: $Id:$
  * @link     http://phptal.org/
  */
+
+
+
 class TokenizerTest extends PHPTAL_TestCase
 {
     function testParse()
     {
-        $t = new PHPTAL_Tokenizer('123', array('DIGIT' => '\d'));
+        $t = new PHPTAL_Tokenizer('123', array('DIGIT'=>'\d'));
 
         $this->assertEquals('DIGIT', $t->nextToken());
         $this->assertEquals('1', $t->tokenValue());
@@ -28,7 +30,7 @@ class TokenizerTest extends PHPTAL_TestCase
 
     function testParse2()
     {
-        $t = new PHPTAL_Tokenizer('2+3', array('DIGIT' => '\d+', 'PLUS' => '\+'));
+        $t = new PHPTAL_Tokenizer('2+3', array('DIGIT'=>'\d+', 'PLUS'=>'\+'));
 
         $this->assertEquals('DIGIT', $t->nextToken());
         $this->assertEquals('2', $t->tokenValue());
@@ -52,7 +54,7 @@ class TokenizerTest extends PHPTAL_TestCase
 
     function testSkipSpace()
     {
-        $t = new PHPTAL_Tokenizer('2   + 3', array('DIGIT' => '\d+', 'PLUS' => '\+', 'SPACE' => ' '));
+        $t = new PHPTAL_Tokenizer('2   + 3', array('DIGIT'=>'\d+', 'PLUS'=>'\+', 'SPACE'=>' '));
 
         $this->assertEquals('DIGIT', $t->nextToken());
         $this->assertEquals('2', $t->tokenValue());

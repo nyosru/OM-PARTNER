@@ -25,8 +25,8 @@ class Smarty_Internal_Method_ConfigLoad
      * @link http://www.smarty.net/docs/en/api.config.load.tpl
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
-     * @param  string $config_file filename
-     * @param  mixed $sections array of section names, single
+     * @param  string                                                 $config_file filename
+     * @param  mixed                                                  $sections    array of section names, single
      *                                                                             section or null
      *
      * @return \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template
@@ -45,10 +45,10 @@ class Smarty_Internal_Method_ConfigLoad
      * @link http://www.smarty.net/docs/en/api.config.load.tpl
      *
      * @param \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template $data
-     * @param  string $config_file filename
-     * @param  mixed $sections array of section names, single
+     * @param  string                                                 $config_file filename
+     * @param  mixed                                                  $sections    array of section names, single
      *                                                                             section or null
-     * @param int $scope scope into which config variables
+     * @param int                                                     $scope       scope into which config variables
      *                                                                             shall be loaded
      *
      * @return \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template
@@ -76,7 +76,7 @@ class Smarty_Internal_Method_ConfigLoad
      * load config variables into template object
      *
      * @param \Smarty_Internal_Template $tpl
-     * @param  array $_config_vars
+     * @param  array                    $_config_vars
      *
      */
     public function _loadConfigVars(Smarty_Internal_Template $tpl, $_config_vars)
@@ -120,9 +120,9 @@ class Smarty_Internal_Method_ConfigLoad
     /**
      * Assign all config variables in given scope
      *
-     * @param \Smarty_Internal_Data $scope_ptr
+     * @param \Smarty_Internal_Data     $scope_ptr
      * @param \Smarty_Internal_Template $tpl
-     * @param  array $_config_vars
+     * @param  array                    $_config_vars
      */
     public function _assignConfigVars(Smarty_Internal_Data $scope_ptr, Smarty_Internal_Template $tpl, $_config_vars)
     {
@@ -132,20 +132,20 @@ class Smarty_Internal_Method_ConfigLoad
                 $scope_ptr->config_vars[$variable] = $value;
             } else {
                 $scope_ptr->config_vars[$variable] =
-                    array_merge((array)$scope_ptr->config_vars[$variable], (array)$value);
+                    array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
             }
         }
         // scan sections
         $sections = $tpl->source->config_sections;
         if (!empty($sections)) {
-            foreach ((array)$sections as $tpl_section) {
+            foreach ((array) $sections as $tpl_section) {
                 if (isset($_config_vars['sections'][$tpl_section])) {
                     foreach ($_config_vars['sections'][$tpl_section]['vars'] as $variable => $value) {
                         if ($tpl->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
                             $scope_ptr->config_vars[$variable] = $value;
                         } else {
                             $scope_ptr->config_vars[$variable] =
-                                array_merge((array)$scope_ptr->config_vars[$variable], (array)$value);
+                                array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
                         }
                     }
                 }
@@ -156,9 +156,9 @@ class Smarty_Internal_Method_ConfigLoad
     /**
      * gets  a config variable value
      *
-     * @param \Smarty_Internal_Template $tpl template object
-     * @param string $varName the name of the config variable
-     * @param bool $errorEnable
+     * @param \Smarty_Internal_Template $tpl     template object
+     * @param string                    $varName the name of the config variable
+     * @param bool                      $errorEnable
      *
      * @return mixed  the value of the config variable
      */

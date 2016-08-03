@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class XHTMLModeTest extends PHPTAL_TestCase
 {
     function testEmpty()
@@ -68,21 +69,21 @@ class XHTMLModeTest extends PHPTAL_TestCase
     function testEmptyAll()
     {
         $emptyElements = array(
-            'area', 'base', 'basefont', 'br', 'col',
-            'command', 'embed', 'frame', 'hr', 'img', 'input', 'isindex', 'keygen', 'link',
-            'meta', 'param', 'wbr', 'source', 'track',
+            'area','base','basefont','br','col',
+            'command','embed','frame','hr','img','input','isindex','keygen','link',
+            'meta','param','wbr','source','track',
         );
-        foreach ($emptyElements as $name) {
+        foreach($emptyElements as $name) {
             $tpl = $this->newPHPTAL();
             $tpl->setOutputMode(PHPTAL::XHTML);
-            $tpl->setSource('<' . $name . '>foo</' . $name . '>');
+            $tpl->setSource('<'.$name.'>foo</'.$name.'>');
             $res = $tpl->execute();
-            $this->assertEquals('<' . $name . '/>', $res);
+            $this->assertEquals('<'.$name.'/>', $res);
         }
     }
 
-    function testColgroup()
-    {
+   function testColgroup()
+   {
         $code = '<colgroup>
 <col class="col1" />
 <col class="col2" />
@@ -90,7 +91,7 @@ class XHTMLModeTest extends PHPTAL_TestCase
 </colgroup>';
 
         $this->assertHTMLEquals($this->newPHPTAL()->setSource($code)->execute($code), $code);
-    }
+   }
 
     function testBoolean()
     {
@@ -139,19 +140,19 @@ class XHTMLModeTest extends PHPTAL_TestCase
         </select>');
 
         $tpl->options = array(
-            array(
-                'label' => 'Option1',
-                'value' => 1
-            ),
-            array(
-                'label' => 'Option2',
-                'value' => 2,
-                'isSelected' => true
-            ),
-            array(
-                'label' => 'Option3',
-                'value' => 3
-            )
+          array(
+             'label' => 'Option1',
+             'value' => 1
+          ),
+          array(
+             'label'      => 'Option2',
+             'value'      => 2,
+             'isSelected' => true
+          ),
+          array(
+             'label' => 'Option3',
+             'value' => 3
+          )
         );
 
         $this->assertEquals(normalize_html('<select>

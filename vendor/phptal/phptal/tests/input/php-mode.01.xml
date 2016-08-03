@@ -1,4 +1,4 @@
 <html phptal:tales="php">
-    <span tal:content="strtolower('AAAA')"/>
-    <span tal:replace="strtolower('AAAA')"/>
+  <span tal:content="strtolower('AAAA')"/>
+  <span tal:replace="strtolower('AAAA')"/>
 </html>

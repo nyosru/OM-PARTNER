@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita94a1b4119759a106b84483cd77579e1
+class ComposerStaticInit423664e26325927a85a38e4519dc8357
 {
     public static $files = array (
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
@@ -50,12 +50,10 @@ class ComposerStaticInita94a1b4119759a106b84483cd77579e1
         ),
         's' => 
         array (
-            'skeeks\\yii2\\ckeditor\\' => 21,
             'skeeks\\yii2\\assetsAuto\\' => 23,
         ),
         'r' => 
         array (
-            'rmrevin\\yii\\minify\\' => 19,
             'rmrevin\\yii\\ionicon\\' => 20,
             'rmrevin\\yii\\fontawesome\\' => 24,
         ),
@@ -94,7 +92,6 @@ class ComposerStaticInita94a1b4119759a106b84483cd77579e1
         ),
         'd' => 
         array (
-            'dosamigos\\tinymce\\' => 18,
             'dosamigos\\ckeditor\\' => 19,
             'dmstr\\' => 6,
         ),
@@ -106,6 +103,7 @@ class ComposerStaticInita94a1b4119759a106b84483cd77579e1
         ),
         'Z' => 
         array (
+            'Zephir\\' => 7,
             'Zelenin\\yii\\SemanticUI\\' => 23,
         ),
         'T' => 
@@ -224,17 +222,9 @@ class ComposerStaticInita94a1b4119759a106b84483cd77579e1
         array (
             0 => __DIR__ . '/..' . '/vova07/yii2-imperavi-widget/src',
         ),
-        'skeeks\\yii2\\ckeditor\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/skeeks/yii2-ckeditor',
-        ),
         'skeeks\\yii2\\assetsAuto\\' => 
         array (
             0 => __DIR__ . '/..' . '/skeeks/yii2-assets-auto-compress',
-        ),
-        'rmrevin\\yii\\minify\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/rmrevin/yii2-minify-view',
         ),
         'rmrevin\\yii\\ionicon\\' => 
         array (
@@ -352,10 +342,6 @@ class ComposerStaticInita94a1b4119759a106b84483cd77579e1
         array (
             0 => __DIR__ . '/..' . '/fgh151/yii2-tarantool/src',
         ),
-        'dosamigos\\tinymce\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/2amigos/yii2-tinymce-widget/src',
-        ),
         'dosamigos\\ckeditor\\' => 
         array (
             0 => __DIR__ . '/..' . '/2amigos/yii2-ckeditor-widget/src',
@@ -375,6 +361,10 @@ class ComposerStaticInita94a1b4119759a106b84483cd77579e1
         'cebe\\jssearch\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/js-search/lib',
+        ),
+        'Zephir\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phalcon/zephir/Library',
         ),
         'Zelenin\\yii\\SemanticUI\\' => 
         array (
@@ -1049,15 +1039,23 @@ class ComposerStaticInita94a1b4119759a106b84483cd77579e1
         'aCssRulesetEndToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
         'aCssRulesetStartToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
         'aCssToken' => __DIR__ . '/..' . '/natxet/CssMin/src/CssMin.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteraction' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteraction.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteractionBottomArea' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionBottomArea.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteractionBottomSlide' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionBottomSlide.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteractionIcons' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionIcons.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteractionModal' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionModal.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteractionPageScale' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionPageScale.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteractionReveal' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionReveal.php',
+        'yii\\DragDropInteractions\\assets\\DragDropInteractionSidebar' => __DIR__ . '/..' . '/yiisoft/yii2-drag-drop-interactions/assets/DragDropInteractionSidebar.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita94a1b4119759a106b84483cd77579e1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita94a1b4119759a106b84483cd77579e1::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita94a1b4119759a106b84483cd77579e1::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita94a1b4119759a106b84483cd77579e1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit423664e26325927a85a38e4519dc8357::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit423664e26325927a85a38e4519dc8357::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit423664e26325927a85a38e4519dc8357::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit423664e26325927a85a38e4519dc8357::$classMap;
 
         }, null, ClassLoader::class);
     }

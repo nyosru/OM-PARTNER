@@ -74,7 +74,7 @@ class Extension
             trigger_error("path: missing 'route' parameter");
         }
 
-        array_unshift($params, $params['route']);
+        array_unshift($params, $params['route']) ;
         unset($params['route']);
 
         return Url::to($params);
@@ -100,7 +100,7 @@ class Extension
             trigger_error("path: missing 'route' parameter");
         }
 
-        array_unshift($params, $params['route']);
+        array_unshift($params, $params['route']) ;
         unset($params['route']);
 
         return Url::to($params, true);
@@ -291,8 +291,8 @@ PHP;
             $content = preg_replace('/\s+/', ' ', trim($content));
 
             Yii::$app->getView()->registerMetaTag(['name' => 'description',
-                'content' => $content],
-                'description');
+                                                   'content' => $content],
+                                                   'description');
         }
     }
 
@@ -353,8 +353,8 @@ PHP;
             $position = isset($params['position']) ? $params['position'] : null;
 
             Yii::$app->getView()->registerJs($content,
-                $this->getViewConstVal($position, View::POS_READY),
-                $key);
+                                             $this->getViewConstVal($position, View::POS_READY),
+                                             $key);
         }
     }
 
@@ -415,16 +415,16 @@ PHP;
     }
 
     /**
-     * Helper function to convert a textual constant identifier to a View class
-     * integer constant value.
-     *
-     * @param string $string Constant identifier name
-     * @param integer $default Default value
-     * @return mixed
-     */
-    protected function getViewConstVal($string, $default)
-    {
-        $val = @constant('yii\web\View::' . $string);
-        return isset($val) ? $val : $default;
-    }
+    * Helper function to convert a textual constant identifier to a View class
+    * integer constant value.
+    *
+    * @param string $string Constant identifier name
+    * @param integer $default Default value
+    * @return mixed
+    */
+   protected function getViewConstVal($string, $default)
+   {
+      $val = @constant('yii\web\View::' . $string);
+      return isset($val) ? $val : $default;
+   }
 } 

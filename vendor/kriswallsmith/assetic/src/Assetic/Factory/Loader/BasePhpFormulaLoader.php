@@ -37,7 +37,7 @@ abstract class BasePhpFormulaLoader implements FormulaLoaderInterface
 
     public function addPrototype($prototype, array $options = array())
     {
-        $tokens = token_get_all('<?php ' . $prototype);
+        $tokens = token_get_all('<?php '.$prototype);
         array_shift($tokens);
 
         $this->prototypes[$prototype] = array($tokens, $options);
@@ -60,25 +60,21 @@ abstract class BasePhpFormulaLoader implements FormulaLoaderInterface
             $current = self::tokenToString($token);
             // loop through each prototype (by reference)
             foreach (array_keys($this->prototypes) as $i) {
-                $prototype = &$this->prototypes[$i][0];
+                $prototype = & $this->prototypes[$i][0];
                 $options = $this->prototypes[$i][1];
-                $buffer = &$buffers[$i];
-                $level = &$bufferLevels[$i];
+                $buffer = & $buffers[$i];
+                $level = & $bufferLevels[$i];
 
                 if (isset($buffersInWildcard[$i])) {
                     switch ($current) {
-                        case '(':
-                            ++$level;
-                            break;
-                        case ')':
-                            --$level;
-                            break;
+                        case '(': ++$level; break;
+                        case ')': --$level; break;
                     }
 
                     $buffer .= $current;
 
                     if (!$level) {
-                        $calls[] = array($buffer . ';', $options);
+                        $calls[] = array($buffer.';', $options);
                         $buffer = '';
                         unset($buffersInWildcard[$i]);
                     }
@@ -113,10 +109,10 @@ abstract class BasePhpFormulaLoader implements FormulaLoaderInterface
             $call,
             'echo serialize($_call);',
         )));
-        $args = unserialize(shell_exec('php ' . escapeshellarg($tmp)));
+        $args = unserialize(shell_exec('php '.escapeshellarg($tmp)));
         unlink($tmp);
 
-        $inputs = isset($args[0]) ? self::argumentToArray($args[0]) : array();
+        $inputs  = isset($args[0]) ? self::argumentToArray($args[0]) : array();
         $filters = isset($args[1]) ? self::argumentToArray($args[1]) : array();
         $options = isset($args[2]) ? $args[2] : array();
 

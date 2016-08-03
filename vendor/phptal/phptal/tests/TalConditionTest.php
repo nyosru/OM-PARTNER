@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class TalConditionTest extends PHPTAL_TestCase
 {
     function testSimple()
@@ -46,7 +48,9 @@ class TalConditionTest extends PHPTAL_TestCase
         $tpl->somevar = true;
         try {
             $tpl->execute();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
         }
         $this->assertEquals(true, isset($e));
         // $exp = normalize_html_file('output/tal-condition.04.html');
@@ -58,7 +62,9 @@ class TalConditionTest extends PHPTAL_TestCase
         $tpl = $this->newPHPTAL()->setSource('<div tal:condition="true:doesntexist/nope"></div>');
         try {
             $this->assertEquals('', $tpl->execute());
-        } catch (Exception $e) {
+        }
+        catch(Exception $e)
+        {
             $this->fail($tpl->getCodePath());
         }
     }
@@ -66,7 +72,7 @@ class TalConditionTest extends PHPTAL_TestCase
     function testFalsyValues()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->falsyValues = array(0, false, null, '0', "", array(), new CountableImpl());
+        $tpl->falsyValues = array(0,false,null,'0',"",array(),new CountableImpl());
 
         $tpl->setSource('<div tal:repeat="val falsyValues">
             val ${repeat/val/key}
@@ -91,7 +97,7 @@ class TalConditionTest extends PHPTAL_TestCase
     function testTruthyValuesSimple()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->truthyValues = array(-1, 0.00001, true, 'null', '00', " ", array(false), new CountableImpl(1));
+        $tpl->truthyValues = array(-1,0.00001,true,'null','00'," ",array(false),new CountableImpl(1));
 
         $tpl->setSource('<div tal:repeat="val truthyValues">
             val ${repeat/val/key}
@@ -115,7 +121,7 @@ class TalConditionTest extends PHPTAL_TestCase
     function testTruthyValuesComplex()
     {
         $tpl = $this->newPHPTAL();
-        $tpl->truthyValues = array(-1, 0.00001, true, 'null', '00', " ", array(false), new CountableImpl(1));
+        $tpl->truthyValues = array(-1,0.00001,true,'null','00'," ",array(false),new CountableImpl(1));
 
         $tpl->setSource('<div tal:repeat="val truthyValues">
             val ${repeat/val/key}
@@ -171,40 +177,34 @@ class TalConditionTest extends PHPTAL_TestCase
 
         $tal->set('event', $event);
 
-        $this->assertEquals("", $tal->execute(), $tal->getCodePath());
+        $this->assertEquals("",$tal->execute(), $tal->getCodePath());
     }
 }
 
 
-class CountableImpl implements Countable
-{
+class CountableImpl implements Countable {
 
-    function __construct($cnt = 0)
-    {
-        $this->cnt = $cnt;
-    }
-
-    /**
-     * @see Countable
-     */
-    public function count()
-    {
-        return $this->cnt;
-    }
+        function __construct($cnt=0)
+        {
+            $this->cnt = $cnt;
+        }
+        /**
+         * @see Countable
+         */
+        public function count() {
+                return $this->cnt;
+        }
 }
 
-class Event
-{
+class Event {
 
-    private $artists;
+        private $artists;
 
-    public function setArtists($artists)
-    {
-        $this->artists = $artists;
-    }
+        public function setArtists($artists) {
+                $this->artists = $artists;
+        }
 
-    public function getArtists()
-    {
-        return $this->artists;
-    }
+        public function getArtists() {
+                return $this->artists;
+        }
 }

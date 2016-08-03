@@ -14,7 +14,7 @@ class Smarty_Internal_Runtime_Hhvm
 {
     /**
      * @param \Smarty_Internal_Template $_template
-     * @param string $file file name
+     * @param string                    $file file name
      *
      * @return mixed
      */

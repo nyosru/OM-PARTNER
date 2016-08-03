@@ -25,7 +25,7 @@ class Smarty_Internal_Method_LoadPlugin
      *
      * @param \Smarty $smarty
      * @param  string $plugin_name class plugin name to load
-     * @param  bool $check check if already loaded
+     * @param  bool   $check       check if already loaded
      *
      * @return bool|string
      * @throws \SmartyException

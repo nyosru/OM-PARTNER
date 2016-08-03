@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     /**
      * Scan sources for used tag attributes
      *
-     * @param  array $attributes
+     * @param  array                                $attributes
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
      */
     public function scanForProperties($attributes, Smarty_Internal_TemplateCompilerBase $compiler)
@@ -104,7 +104,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     /**
      * Build property preg string
      *
-     * @param bool $named
+     * @param bool  $named
      * @param array $attributes
      */
     public function buildPropertyPreg($named, $attributes)
@@ -174,8 +174,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
                 if ($_content != '') {
                     // run pre filter if required
                     if ((isset($nextCompiler->smarty->autoload_filters['pre']) ||
-                        isset($nextCompiler->smarty->registered_filters['pre']))
-                    ) {
+                            isset($nextCompiler->smarty->registered_filters['pre']))) {
                         $_content = $nextCompiler->smarty->ext->_filter_Handler->runFilter('pre', $_content, $nextCompiler->template);
                     }
                     $this->matchProperty($_content);
@@ -197,21 +196,21 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     /**
      * Compiles code for the {$smarty.foreach.xxx} or {$smarty.section.xxx}tag
      *
-     * @param  array $args array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
-     * @param  array $parameter array with compilation parameter
+     * @param  array                                $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param  array                                $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
     public function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $tag = strtolower(trim($parameter[0], '"\''));
-        $name = isset($parameter[1]) ? $compiler->getId($parameter[1]) : false;
+        $tag = strtolower(trim($parameter[ 0 ], '"\''));
+        $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : false;
         if (!$name) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
-        $property = isset($parameter[2]) ? strtolower($compiler->getId($parameter[2])) : false;
+        $property = isset($parameter[ 2 ]) ? strtolower($compiler->getId($parameter[ 2 ])) : false;
         if (!$property || !in_array($property, $this->nameProperties)) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", null, true);
         }

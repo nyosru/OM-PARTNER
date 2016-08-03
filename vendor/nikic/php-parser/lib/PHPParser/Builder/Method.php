@@ -14,8 +14,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @param string $name Name of the method
      */
-    public function __construct($name)
-    {
+    public function __construct($name) {
         $this->name = $name;
 
         $this->type = 0;
@@ -29,8 +28,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function makePublic()
-    {
+    public function makePublic() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC);
 
         return $this;
@@ -41,8 +39,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function makeProtected()
-    {
+    public function makeProtected() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PROTECTED);
 
         return $this;
@@ -53,8 +50,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function makePrivate()
-    {
+    public function makePrivate() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_PRIVATE);
 
         return $this;
@@ -65,8 +61,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function makeStatic()
-    {
+    public function makeStatic() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_STATIC);
 
         return $this;
@@ -77,8 +72,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function makeAbstract()
-    {
+    public function makeAbstract() {
         if (!empty($this->stmts)) {
             throw new LogicException('Cannot make method with statements abstract');
         }
@@ -94,8 +88,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function makeFinal()
-    {
+    public function makeFinal() {
         $this->setModifier(PHPParser_Node_Stmt_Class::MODIFIER_FINAL);
 
         return $this;
@@ -106,8 +99,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function makeReturnByRef()
-    {
+    public function makeReturnByRef() {
         $this->returnByRef = true;
 
         return $this;
@@ -120,8 +112,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function addParam($param)
-    {
+    public function addParam($param) {
         $param = $this->normalizeNode($param);
 
         if (!$param instanceof PHPParser_Node_Param) {
@@ -140,8 +131,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function addParams(array $params)
-    {
+    public function addParams(array $params) {
         foreach ($params as $param) {
             $this->addParam($param);
         }
@@ -156,8 +146,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function addStmt($stmt)
-    {
+    public function addStmt($stmt) {
         if (null === $this->stmts) {
             throw new LogicException('Cannot add statements to an abstract method');
         }
@@ -174,8 +163,7 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Builder_Method The builder instance (for fluid interface)
      */
-    public function addStmts(array $stmts)
-    {
+    public function addStmts(array $stmts) {
         foreach ($stmts as $stmt) {
             $this->addStmt($stmt);
         }
@@ -188,13 +176,12 @@ class PHPParser_Builder_Method extends PHPParser_BuilderAbstract
      *
      * @return PHPParser_Node_Stmt_ClassMethod The built method node
      */
-    public function getNode()
-    {
+    public function getNode() {
         return new PHPParser_Node_Stmt_ClassMethod($this->name, array(
-            'type' => $this->type !== 0 ? $this->type : PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
-            'byRef' => $this->returnByRef,
+            'type'   => $this->type !== 0 ? $this->type : PHPParser_Node_Stmt_Class::MODIFIER_PUBLIC,
+            'byRef'  => $this->returnByRef,
             'params' => $this->params,
-            'stmts' => $this->stmts,
+            'stmts'  => $this->stmts,
         ));
     }
 }

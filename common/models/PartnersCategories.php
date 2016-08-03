@@ -70,9 +70,4 @@ class PartnersCategories extends ActiveRecordExt
         ];
     }
 
-    public function getCategoriesDescription()
-    {
-        return $this->hasOne(PartnersCatDescription::className(), ['categories_id' => 'categories_id']);
-    }
-
 }

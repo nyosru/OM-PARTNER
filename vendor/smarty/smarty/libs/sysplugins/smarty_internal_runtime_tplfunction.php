@@ -13,10 +13,10 @@ class Smarty_Internal_Runtime_TplFunction
     /**
      * Call template function
      *
-     * @param \Smarty_Internal_Template $tpl template object
-     * @param string $name template function name
-     * @param array $params parameter array
-     * @param bool $nocache true if called nocache
+     * @param \Smarty_Internal_Template $tpl     template object
+     * @param string                    $name    template function name
+     * @param array                     $params  parameter array
+     * @param bool                      $nocache true if called nocache
      *
      * @throws \SmartyException
      */
@@ -50,8 +50,8 @@ class Smarty_Internal_Runtime_TplFunction
      * Add template function to cache file for nocache calls
      *
      * @param Smarty_Internal_Template $tpl
-     * @param string $_name template function name
-     * @param string $_function PHP function name
+     * @param string                   $_name     template function name
+     * @param string                   $_function PHP function name
      *
      * @return bool
      */
@@ -84,8 +84,8 @@ class Smarty_Internal_Runtime_TplFunction
                                 $content = preg_replace("/('file_dependency'(.*?)\()/", "\\1{$match1[0]}", $content);
                             }
                             $tplPtr->smarty->ext->_updateCache->write($cache, $tplPtr, preg_replace('/\s*\?>\s*$/', "\n", $content) . "\n" .
-                                preg_replace(array('/^\s*<\?php\s+/', '/\s*\?>\s*$/'), "\n",
-                                    $match[0]));
+                                                 preg_replace(array('/^\s*<\?php\s+/', '/\s*\?>\s*$/'), "\n",
+                                                              $match[0]));
                         }
                     }
                     return true;

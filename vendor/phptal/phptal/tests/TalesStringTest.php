@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,8 +12,10 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-class TalesStringTest extends PHPTAL_TestCase
-{
+
+
+
+class TalesStringTest extends PHPTAL_TestCase {
 
     function testSimple()
     {
@@ -88,7 +89,7 @@ class TalesStringTest extends PHPTAL_TestCase
             <x y="${structure string:&lt;foo/&gt;}" tal:content="structure string:&lt;foo/&gt;" />
         </p>');
         $this->assertEquals(normalize_html('<p>&lt;foo/&gt;<foo/><x y="&lt;foo/&gt;">&lt;foo/&gt;</x><x y="<foo/>"><foo/></x></p>'),
-            normalize_html($tpl->execute()));
+                            normalize_html($tpl->execute()));
     }
 }
 

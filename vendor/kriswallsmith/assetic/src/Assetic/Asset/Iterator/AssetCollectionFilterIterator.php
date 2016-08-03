@@ -28,8 +28,8 @@ class AssetCollectionFilterIterator extends \RecursiveFilterIterator
      * Constructor.
      *
      * @param AssetCollectionIterator $iterator The inner iterator
-     * @param array $visited An array of visited asset objects
-     * @param array $sources An array of visited source strings
+     * @param array                   $visited  An array of visited asset objects
+     * @param array                   $sources  An array of visited source strings
      */
     public function __construct(AssetCollectionIterator $iterator, array $visited = array(), array $sources = array())
     {
@@ -63,7 +63,7 @@ class AssetCollectionFilterIterator extends \RecursiveFilterIterator
         $sourceRoot = $asset->getSourceRoot();
         $sourcePath = $asset->getSourcePath();
         if ($sourceRoot && $sourcePath) {
-            $source = $sourceRoot . '/' . $sourcePath;
+            $source = $sourceRoot.'/'.$sourcePath;
             if (in_array($source, $this->sources)) {
                 $duplicate = true;
             } else {

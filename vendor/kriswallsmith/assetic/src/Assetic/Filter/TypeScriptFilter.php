@@ -45,7 +45,7 @@ class TypeScriptFilter extends BaseNodeFilter
         }
 
         $inputDirPath = FilesystemUtils::createThrowAwayDirectory('typescript_in');
-        $inputPath = $inputDirPath . DIRECTORY_SEPARATOR . $templateName . '.ts';
+        $inputPath = $inputDirPath.DIRECTORY_SEPARATOR.$templateName.'.ts';
         $outputPath = FilesystemUtils::createTemporaryFile('typescript_out');
 
         file_put_contents($inputPath, $asset->getContent());

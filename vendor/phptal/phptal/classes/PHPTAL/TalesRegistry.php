@@ -111,7 +111,7 @@ class PHPTAL_TalesRegistry
             }
         }
 
-        $this->_callbacks[$prefix] = array('callback' => $callback, 'is_fallback' => $is_fallback);
+        $this->_callbacks[$prefix] = array('callback'=>$callback, 'is_fallback'=>$is_fallback);
     }
 
     /**
@@ -129,7 +129,7 @@ class PHPTAL_TalesRegistry
         // class method
         if (strpos($typePrefix, '.')) {
             $classCallback = explode('.', $typePrefix, 2);
-            $callbackName = null;
+            $callbackName  = null;
             if (!is_callable($classCallback, false, $callbackName)) {
                 throw new PHPTAL_UnknownModifierException("Unknown phptal modifier $typePrefix. Function $callbackName does not exists or is not statically callable", $typePrefix);
             }
@@ -141,13 +141,13 @@ class PHPTAL_TalesRegistry
         }
 
         // check if it is implemented via code-generating function
-        $func = 'phptal_tales_' . str_replace('-', '_', $typePrefix);
+        $func = 'phptal_tales_'.str_replace('-', '_', $typePrefix);
         if (function_exists($func)) {
             return $func;
         }
 
         // The following code is automatically modified in version for PHP 5.3
-        $func = 'PHPTALNAMESPACE\\phptal_tales_' . str_replace('-', '_', $typePrefix);
+        $func = 'PHPTALNAMESPACE\\phptal_tales_'.str_replace('-', '_', $typePrefix);
         if (function_exists($func)) {
             return $func;
         }

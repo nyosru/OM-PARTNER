@@ -42,11 +42,11 @@ class Smarty_Template_Config extends Smarty_Template_Source
     /**
      * create Source Object container
      *
-     * @param Smarty_Resource $handler Resource Handler this source object communicates with
-     * @param Smarty $smarty Smarty instance this source object belongs to
-     * @param string $resource full template_resource
-     * @param string $type type of resource
-     * @param string $name resource name
+     * @param Smarty_Resource $handler  Resource Handler this source object communicates with
+     * @param Smarty          $smarty   Smarty instance this source object belongs to
+     * @param string          $resource full template_resource
+     * @param string          $type     type of resource
+     * @param string          $name     resource name
      */
     public function __construct(Smarty_Resource $handler, Smarty $smarty, $resource, $type, $name)
     {
@@ -65,9 +65,9 @@ class Smarty_Template_Config extends Smarty_Template_Source
      * initialize Source Object for given resource
      * Either [$_template] or [$smarty, $template_resource] must be specified
      *
-     * @param  Smarty_Internal_Template $_template template object
-     * @param  Smarty $smarty smarty object
-     * @param  string $template_resource resource identifier
+     * @param  Smarty_Internal_Template $_template         template object
+     * @param  Smarty                   $smarty            smarty object
+     * @param  string                   $template_resource resource identifier
      *
      * @return Smarty_Template_Config Source Object
      * @throws SmartyException

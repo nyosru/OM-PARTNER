@@ -20,7 +20,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     /**
      * build template filepath by traversing the template_dir array
      *
-     * @param Smarty_Template_Source $source source object
+     * @param Smarty_Template_Source    $source    source object
      * @param  Smarty_Internal_Template $_template template object
      *
      * @return string fully qualified filepath
@@ -67,7 +67,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                     $_index_dirs[] = $_directories[$index];
                 } elseif (is_numeric($index)) {
                     // try numeric index
-                    $index = (int)$index;
+                    $index = (int) $index;
                     if (isset($_directories[$index])) {
                         $_index_dirs[] = $_directories[$index];
                     } else {
@@ -111,7 +111,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty_Template_Source $source source object
+     * @param Smarty_Template_Source   $source    source object
      * @param Smarty_Internal_Template $_template template object
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
@@ -162,7 +162,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return file_get_contents($source->filepath);
         }
         throw new SmartyException('Unable to read ' . ($source->isConfig ? 'config' : 'template') .
-            " {$source->type} '{$source->name}'");
+                                  " {$source->type} '{$source->name}'");
     }
 
     /**

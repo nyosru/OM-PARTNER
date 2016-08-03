@@ -106,7 +106,10 @@ class Orders extends ActiveRecordExt
             [['cc_expires'], 'string', 'max' => 4],
             [['currency'], 'string', 'max' => 3],
             [['referer'], 'string', 'max' => 200],
-            [['orders_discont_comment'], 'string', 'max' => 256]
+            [['orders_discont_comment'], 'string', 'max' => 256],
+            ['express', 'filter', 'filter' => function ($value) {
+                return (int)(bool)$value;
+            }],
         ];
     }
 
@@ -182,7 +185,8 @@ class Orders extends ActiveRecordExt
             'seller_id' => 'Seller ID',
             'orders_discont' => 'Orders Discont',
             'orders_discont_comment' => 'Orders Discont Comment',
-            'site_side_email_flag' => 'site_side_email_flag'
+            'site_side_email_flag' => 'site_side_email_flag',
+            'express' => 'Экспресс',
         ];
     }
 

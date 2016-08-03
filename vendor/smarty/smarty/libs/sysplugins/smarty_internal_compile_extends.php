@@ -44,7 +44,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
     /**
      * Compiles code for the {extends} tag extends: resource
      *
-     * @param array $args array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
                 } else {
                     $file = "'{$file}'";
                 }
-                $i++;
+                $i ++;
                 if ($i == count($files) && isset($_attr['extends_resource'])) {
                     $this->compileEndChild($compiler);
                 }
@@ -99,21 +99,21 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
     private function compileEndChild(Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag($compiler->parser,
-            "<?php \$_smarty_tpl->ext->_inheritance->endChild(\$_smarty_tpl);\n?>\n");
+                                                                                  "<?php \$_smarty_tpl->ext->_inheritance->endChild(\$_smarty_tpl);\n?>\n");
     }
 
     /**
      * Add code for including subtemplate to end of template
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
-     * @param  string $file subtemplate name
+     * @param  string                               $file subtemplate name
      */
     private function compileInclude(Smarty_Internal_TemplateCompilerBase $compiler, $file)
     {
         $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag($compiler->parser,
-            $compiler->compileTag('include',
-                array($file,
-                    array('scope' => 'parent'))));
+                                                                                  $compiler->compileTag('include',
+                                                                                                        array($file,
+                                                                                                              array('scope' => 'parent'))));
     }
 
     /**

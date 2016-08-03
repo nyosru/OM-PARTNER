@@ -137,7 +137,7 @@ class PHPTAL_Dom_Attr
      */
     private function setPHPCode($code)
     {
-        $this->value_escaped = '<?php ' . $code . " ?>\n";
+        $this->value_escaped = '<?php '.$code." ?>\n";
     }
 
     /**
@@ -155,7 +155,7 @@ class PHPTAL_Dom_Attr
     {
         $this->replacedState = self::VALUE_REPLACED;
         $this->phpVariable = $phpVariable;
-        $this->setPHPCode('echo ' . $phpVariable);
+        $this->setPHPCode('echo '.$phpVariable);
     }
 
     /**
@@ -165,7 +165,7 @@ class PHPTAL_Dom_Attr
     {
         $this->replacedState = self::FULLY_REPLACED;
         $this->phpVariable = $phpVariable;
-        $this->setPHPCode('echo ' . $phpVariable);
+        $this->setPHPCode('echo '.$phpVariable);
     }
 
     /**

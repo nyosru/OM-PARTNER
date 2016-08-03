@@ -10,8 +10,7 @@ class PHPParser_NodeTraverser implements PHPParser_NodeTraverserInterface
     /**
      * Constructs a node traverser.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->visitors = array();
     }
 
@@ -20,8 +19,7 @@ class PHPParser_NodeTraverser implements PHPParser_NodeTraverserInterface
      *
      * @param PHPParser_NodeVisitor $visitor Visitor to add
      */
-    public function addVisitor(PHPParser_NodeVisitor $visitor)
-    {
+    public function addVisitor(PHPParser_NodeVisitor $visitor) {
         $this->visitors[] = $visitor;
     }
 
@@ -30,8 +28,7 @@ class PHPParser_NodeTraverser implements PHPParser_NodeTraverserInterface
      *
      * @param PHPParser_NodeVisitor $visitor
      */
-    public function removeVisitor(PHPParser_NodeVisitor $visitor)
-    {
+    public function removeVisitor(PHPParser_NodeVisitor $visitor) {
         foreach ($this->visitors as $index => $storedVisitor) {
             if ($storedVisitor === $visitor) {
                 unset($this->visitors[$index]);
@@ -47,8 +44,7 @@ class PHPParser_NodeTraverser implements PHPParser_NodeTraverserInterface
      *
      * @return PHPParser_Node[] Traversed array of nodes
      */
-    public function traverse(array $nodes)
-    {
+    public function traverse(array $nodes) {
         foreach ($this->visitors as $visitor) {
             if (null !== $return = $visitor->beforeTraverse($nodes)) {
                 $nodes = $return;
@@ -66,8 +62,7 @@ class PHPParser_NodeTraverser implements PHPParser_NodeTraverserInterface
         return $nodes;
     }
 
-    protected function traverseNode(PHPParser_Node $node)
-    {
+    protected function traverseNode(PHPParser_Node $node) {
         $node = clone $node;
 
         foreach ($node->getSubNodeNames() as $name) {
@@ -95,8 +90,7 @@ class PHPParser_NodeTraverser implements PHPParser_NodeTraverserInterface
         return $node;
     }
 
-    protected function traverseArray(array $nodes)
-    {
+    protected function traverseArray(array $nodes) {
         $doNodes = array();
 
         foreach ($nodes as $i => &$node) {

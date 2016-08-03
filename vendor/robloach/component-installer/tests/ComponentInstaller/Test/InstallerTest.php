@@ -24,15 +24,15 @@ class InstallerTest extends LibraryInstallerTest
 {
     protected $componentDir = 'components';
 
-    /**
-     * @var \Composer\Config
-     */
-    protected $config;
+	/**
+	 * @var \Composer\Config
+	 */
+	protected $config;
 
-    /**
-     * @var Filesystem
-     */
-    protected $fs;
+	/**
+	 * @var Filesystem
+	 */
+	protected $fs;
 
     /**
      * {@inheritdoc}
@@ -43,7 +43,7 @@ class InstallerTest extends LibraryInstallerTest
         parent::setUp();
 
         // Also be sure to set up the Component directory.
-        $this->componentDir = realpath(sys_get_temp_dir()) . DIRECTORY_SEPARATOR . 'composer-test-component';
+        $this->componentDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.'composer-test-component';
         $this->ensureDirectoryExistsAndClear($this->componentDir);
 
         // Merge the component-dir setting in so that it applies correctly.
@@ -116,10 +116,9 @@ class InstallerTest extends LibraryInstallerTest
      *
      * @dataProvider providerGetComponentPath
      *
-     * @see          \ComponentInstaller\Installer::getComponentPath()
+     * @see \ComponentInstaller\Installer::getComponentPath()
      */
-    public function testGetComponentPath($expected, $package)
-    {
+    public function testGetComponentPath($expected, $package) {
         // Construct the mock objects.
         $installer = new Installer($this->io, $this->composer, 'component');
         $loader = new ArrayLoader();

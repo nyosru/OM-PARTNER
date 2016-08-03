@@ -34,7 +34,7 @@ use yii\web\View;
 class Typeahead extends TypeaheadBasic
 {
     /**
-     * @var bool whether to register and use Handle Bars Template compiler plugin.
+     * @var bool whether to register and use Handle Bars Template compiler plugin. 
      * Defaults to `true`.
      */
     public $useHandleBars = true;
@@ -60,12 +60,12 @@ class Typeahead extends TypeaheadBasic
      * @var string the generated Json encoded Dataset script
      */
     protected $_dataset;
-
+    
     /**
      * @var bool whether default suggestions are enabled
      */
     protected $_defaultSuggest = false;
-
+    
     /**
      * @var array the bloodhound settings variables
      */
@@ -159,7 +159,7 @@ class Typeahead extends TypeaheadBasic
     {
         return ($expr instanceof JsExpression) ? $expr : new JsExpression($expr);
     }
-
+    
     /**
      * Parses the data source array and prepares the bloodhound configuration
      *

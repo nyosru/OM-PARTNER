@@ -101,7 +101,7 @@ class PHPTAL_Context
      *
      * @return void
      */
-    public function setDocType($doctype, $called_from_macro)
+    public function setDocType($doctype,$called_from_macro)
     {
         // FIXME: this is temporary workaround for problem of DOCTYPE disappearing in cloned PHPTAL object (because clone keeps _parentContext)
         if (!$this->_docType) {
@@ -116,7 +116,8 @@ class PHPTAL_Context
             } else {
                 throw new PHPTAL_ConfigurationException("Executed macro in file with DOCTYPE when using echoExecute(). This is not supported yet. Remove DOCTYPE or use PHPTAL->execute().");
             }
-        } else if (!$this->_docType) {
+        }
+        else if (!$this->_docType) {
             $this->_docType = $doctype;
         }
     }
@@ -143,7 +144,7 @@ class PHPTAL_Context
             $this->_parentContext->setXmlDeclaration($xmldec, $called_from_macro);
         } else if ($this->_echoDeclarations) {
             if (!$called_from_macro) {
-                echo $xmldec . "\n";
+                echo $xmldec."\n";
             } else {
                 throw new PHPTAL_ConfigurationException("Executed macro in file with XML declaration when using echoExecute(). This is not supported yet. Remove XML declaration or use PHPTAL->execute().");
             }
@@ -245,7 +246,7 @@ class PHPTAL_Context
      */
     public function pushSlots()
     {
-        $this->_slotsStack[] = $this->_slots;
+        $this->_slotsStack[] =  $this->_slots;
         $this->_slots = array();
     }
 
@@ -267,7 +268,7 @@ class PHPTAL_Context
     public function __set($varname, $value)
     {
         if (preg_match('/^_|\s/', $varname)) {
-            throw new PHPTAL_InvalidVariableNameException('Template variable error \'' . $varname . '\' must not begin with underscore or contain spaces');
+            throw new PHPTAL_InvalidVariableNameException('Template variable error \''.$varname.'\' must not begin with underscore or contain spaces');
         }
         $this->$varname = $value;
     }
@@ -326,9 +327,9 @@ class PHPTAL_Context
             throw new PHPTAL_VariableNotFoundException("Array {$basename}doesn't have key named '$current'$pathinfo");
         }
         if (is_object($base)) {
-            throw new PHPTAL_VariableNotFoundException(ucfirst(get_class($base)) . " object {$basename}doesn't have method/property named '$current'$pathinfo");
+            throw new PHPTAL_VariableNotFoundException(ucfirst(get_class($base))." object {$basename}doesn't have method/property named '$current'$pathinfo");
         }
-        throw new PHPTAL_VariableNotFoundException(trim("Attempt to read property '$current'$pathinfo from " . gettype($base) . " value {$basename}"));
+        throw new PHPTAL_VariableNotFoundException(trim("Attempt to read property '$current'$pathinfo from ".gettype($base)." value {$basename}"));
     }
 
     /**
@@ -340,27 +341,27 @@ class PHPTAL_Context
      *
      * This function will become non-static in the future
      *
-     * @param mixed $base first element of the path ($ctx)
-     * @param string $path rest of the path
-     * @param bool $nothrow is used by phptal_exists(). Prevents this function from
+     * @param mixed  $base    first element of the path ($ctx)
+     * @param string $path    rest of the path
+     * @param bool   $nothrow is used by phptal_exists(). Prevents this function from
      * throwing an exception when a part of the path cannot be resolved, null is
      * returned instead.
      *
      * @access private
      * @return mixed
      */
-    public static function path($base, $path, $nothrow = false)
+    public static function path($base, $path, $nothrow=false)
     {
         if ($base === null) {
             if ($nothrow) return null;
             PHPTAL_Context::pathError($base, $path, $path, $path);
         }
 
-        $chunks = explode('/', $path);
+        $chunks  = explode('/', $path);
         $current = null;
 
         for ($i = 0; $i < count($chunks); $i++) {
-            $prev = $current;
+            $prev    = $current;
             $current = $chunks[$i];
 
             // object handling
@@ -395,7 +396,8 @@ class PHPTAL_Context
                         $base = $base->$current;
                         continue;
                     }
-                } // ask __get and discard if it returns null
+                }
+                // ask __get and discard if it returns null
                 elseif (method_exists($base, '__get')) {
                     $tmp = $base->$current;
                     if (null !== $tmp) {
@@ -406,11 +408,12 @@ class PHPTAL_Context
 
                 // magic method call
                 if (method_exists($base, '__call')) {
-                    try {
+                    try
+                    {
                         $base = $base->__call($current, array());
                         continue;
-                    } catch (BadMethodCallException $e) {
                     }
+                    catch(BadMethodCallException $e) {}
                 }
 
                 if ($nothrow) {
@@ -471,7 +474,7 @@ class PHPTAL_Context
  * @see PHPTAL_Context::path()
  * @deprecated
  */
-function phptal_path($base, $path, $nothrow = false)
+function phptal_path($base, $path, $nothrow=false)
 {
     return PHPTAL_Context::path($base, $path, $nothrow);
 }
@@ -486,7 +489,7 @@ function phptal_path($base, $path, $nothrow = false)
 function phptal_isempty($var)
 {
     return $var === null || $var === false || $var === ''
-    || ((is_array($var) || $var instanceof Countable) && count($var) === 0);
+           || ((is_array($var) || $var instanceof Countable) && count($var)===0);
 }
 
 /**

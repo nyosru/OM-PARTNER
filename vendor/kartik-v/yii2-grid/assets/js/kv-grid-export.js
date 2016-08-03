@@ -147,12 +147,23 @@
                 self.popup.document.write(newmsg);
             }
         },
+        processExport: function(callback, arg) {
+            var self = this;
+            setTimeout(function() {
+                if (!isEmpty(arg)) {
+                    self[callback](arg);
+                } else {
+                    self[callback]();
+                }
+            }, 100);
+        },
         listenClick: function (callback) {
             var self = this, arg = arguments.length > 1 ? arguments[1] : '', lib = window[self.dialogLib];
-            self.$element.off("click").on("click", function (e) {
+            self.$element.off("click.gridexport").on("click.gridexport", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 if (!self.showConfirmAlert) {
+                    self.processExport(callback, arg);
                     return;
                 }
                 var msgs = self.messages, msg1 = isEmpty(self.alertMsg) ? '' : self.alertMsg,
@@ -175,13 +186,7 @@
                 }
                 lib.confirm(msg, function(result) {
                     if (result) {
-                        setTimeout(function() {
-                            if (!isEmpty(arg)) {
-                                self[callback](arg);
-                            } else {
-                                self[callback]();
-                            }
-                        }, 100);
+                        self.processExport(callback, arg);
                     }
                     e.preventDefault();
                 });
@@ -191,7 +196,7 @@
         listen: function () {
             var self = this;
             if (self.target === '_popup') {
-                self.$form.on('submit', function () {
+                self.$form.on('submit.gridexport', function () {
                     setTimeout(function () {
                         self.setPopupAlert(self.messages.downloadComplete, true);
                     }, 1000);
@@ -370,7 +375,5 @@
     };
 
     $.fn.gridexport.defaults = {dialogLib: 'krajeeDialog'};
-
     $.fn.gridexport.Constructor = GridExport;
-
 })(window.jQuery);

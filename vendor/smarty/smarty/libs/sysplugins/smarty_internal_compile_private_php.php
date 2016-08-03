@@ -28,9 +28,9 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
     /**
      * Compiles code for generating output from any expression
      *
-     * @param array $args array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
-     * @param array $parameter array with compilation parameter
+     * @param array                                 $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param array                                 $parameter array with compilation parameter
      *
      * @return string
      * @throws \SmartyException
@@ -45,8 +45,8 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             $save = $compiler->template->compiled->has_nocache_code;
             $output = addcslashes($_attr['code'], "'\\");
             $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
-                $output .
-                "';?>", $compiler, true)));
+                                                                                                                                                                    $output .
+                                                                                                                                                                    "';?>", $compiler, true)));
             $compiler->template->compiled->has_nocache_code = $save;
             return '';
         }
@@ -55,7 +55,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_QUOTE) {
                 $output = preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i', array($this,
-                    'quote'), $_attr['code']);
+                                                                                                                                                              'quote'), $_attr['code']);
                 $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Text($output));
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_PASSTHRU || $_attr['type'] == 'unmatched') {
@@ -63,8 +63,8 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 $save = $compiler->template->compiled->has_nocache_code;
                 $output = addcslashes($_attr['code'], "'\\");
                 $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
-                    $output .
-                    "';?>", $compiler, true)));
+                                                                                                                                                                        $output .
+                                                                                                                                                                        "';?>", $compiler, true)));
                 $compiler->template->compiled->has_nocache_code = $save;
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_ALLOW) {
@@ -92,7 +92,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 }
             }
             return preg_replace(array("#^{$ldel}\\s*php\\s*(.)*?{$rdel}#",
-                "#{$ldel}\\s*/\\s*php\\s*{$rdel}$#"), array('<?php ', '?>'), $_attr['code']);
+                                      "#{$ldel}\\s*/\\s*php\\s*{$rdel}$#"), array('<?php ', '?>'), $_attr['code']);
         }
     }
 
@@ -174,7 +174,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                     }
                     while ($close > $pos && $close < $start) {
                         if (preg_match('~' . preg_quote($closeTag, '~') .
-                            '~i', $lex->data, $match, PREG_OFFSET_CAPTURE, $from)) {
+                                       '~i', $lex->data, $match, PREG_OFFSET_CAPTURE, $from)) {
                             $close = $match[0][1];
                             $from = $close + strlen($match[0][0]);
                         } else {

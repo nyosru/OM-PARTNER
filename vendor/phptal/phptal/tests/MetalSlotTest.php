@@ -58,7 +58,7 @@ class MetalSlotTest extends PHPTAL_TestCase
         $tpl = $this->newPHPTAL('input/metal-slot.05.html');
         $tpl->var = "top";
         $this->assertEquals(normalize_html('top=top<div>inusemacro=inusemacro<div>inmacro=inmacro<div>infillslot=infillslot</div>/inmacro=inmacro</div>/inusemacro=inusemacro</div>/top=top'),
-            normalize_html($tpl->execute()), $tpl->getCodePath());
+                            normalize_html($tpl->execute()), $tpl->getCodePath());
     }
 
     function testPreservesTopmostContext()
@@ -104,7 +104,7 @@ class MetalSlotTest extends PHPTAL_TestCase
 
         $this->assertEquals(normalize_html('<div><div>test1 macro value:<div class="filling value for test1">
         <div>test2 macro value:<span class="filling value for test2">foo bar baz</span></div></div></div></div>'),
-            normalize_html($tpl->execute()), $tpl->getCodePath());
+                            normalize_html($tpl->execute()), $tpl->getCodePath());
     }
 
     function testRecursiveFill()
@@ -142,6 +142,7 @@ class MetalSlotTest extends PHPTAL_TestCase
         $res = normalize_html($tpl->execute());
         $this->assertEquals('<div><div><div><span>OK</span></div></div></div>', $res, $tpl->getCodePath());
     }
+
 
 
     function testBlock()
@@ -262,7 +263,7 @@ class MetalSlotTest extends PHPTAL_TestCase
          </tal:block>
         </div>
 HTML
-        );
+);
 
         $this->assertEquals(
             normalize_html('<div>page/value:<div>OK toplevel-filled page/value</div>page/valuebis:<div>OK subpage filled page/valuebis</div></div>'),
@@ -306,7 +307,7 @@ HTML
 			<input type="submit" value="Send" />
 		</fieldset>
         </form>'),
-            normalize_html($tpl->execute()));
+        normalize_html($tpl->execute()));
     }
 
     function testResetDefault()
@@ -339,7 +340,7 @@ HTML
         <p>
             The macro : <tt>the slot</tt>
           </p>
-        '), normalize_html($res));
+        '),normalize_html($res));
     }
 
     function testTrickyName()

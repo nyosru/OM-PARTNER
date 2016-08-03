@@ -34,6 +34,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
 
     /**
      * Create a new PHP Resource
+
      */
     public function __construct()
     {
@@ -59,7 +60,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
     /**
      * Render and output the template (without using the compiler)
      *
-     * @param  Smarty_Template_Source $source source object
+     * @param  Smarty_Template_Source   $source    source object
      * @param  Smarty_Internal_Template $_template template object
      *
      * @return void
@@ -95,7 +96,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
     /**
      * populate compiled object with compiled filepath
      *
-     * @param Smarty_Template_Compiled $compiled compiled object
+     * @param Smarty_Template_Compiled $compiled  compiled object
      * @param Smarty_Internal_Template $_template template object (is ignored)
      */
     public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)

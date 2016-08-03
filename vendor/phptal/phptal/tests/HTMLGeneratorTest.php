@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,8 +12,9 @@
  * @version  SVN: $Id:$
  * @link     http://phptal.org/
  */
-class HTMLGeneratorTest extends PHPTAL_TestCase
-{
+
+
+class HTMLGeneratorTest extends PHPTAL_TestCase {
 
     function testTalDoesntConsumeNewline()
     {

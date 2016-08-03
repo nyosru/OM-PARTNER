@@ -6,7 +6,6 @@
  */
 
 namespace cebe\markdown\latex\tests;
-
 use cebe\markdown\tests\BaseMarkdownTest;
 
 /**
@@ -16,12 +15,12 @@ use cebe\markdown\tests\BaseMarkdownTest;
  */
 abstract class BaseMarkdownLatexTest extends BaseMarkdownTest
 {
-    protected $outputFileExtension = '.tex';
+	protected $outputFileExtension = '.tex';
 
-    public function testInvalidUtf8()
-    {
+	public function testInvalidUtf8()
+	{
 //   		$m = $this->createMarkdown();
 //   		$this->assertEquals('\\lstinline|�|', $m->parseParagraph("`\x80`"));
-    }
+	}
 
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -12,6 +11,8 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
 class KeywordClassTest extends PHPTAL_TestCase
 {
     function testOnlyKeywords()
@@ -98,5 +99,4 @@ true
 HTML;
     }
 }
-
 ?>

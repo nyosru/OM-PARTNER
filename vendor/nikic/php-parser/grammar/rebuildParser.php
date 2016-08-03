@@ -1,10 +1,10 @@
 <?php
 
-$grammarFile = __DIR__ . '/zend_language_parser.phpy';
-$skeletonFile = __DIR__ . '/kmyacc.php.parser';
-$tmpGrammarFile = __DIR__ . '/tmp_parser.phpy';
-$tmpResultFile = __DIR__ . '/tmp_parser.php';
-$parserResultFile = __DIR__ . '/../lib/PHPParser/Parser.php';
+$grammarFile           = __DIR__ . '/zend_language_parser.phpy';
+$skeletonFile          = __DIR__ . '/kmyacc.php.parser';
+$tmpGrammarFile        = __DIR__ . '/tmp_parser.phpy';
+$tmpResultFile         = __DIR__ . '/tmp_parser.php';
+$parserResultFile      = __DIR__ . '/../lib/PHPParser/Parser.php';
 $debugParserResultFile = __DIR__ . '/../lib/PHPParser/Parser/Debug.php';
 
 // check for kmyacc.exe binary in this directory, otherwise fall back to global name
@@ -30,7 +30,7 @@ const LIB = '(?(DEFINE)
 )';
 
 const PARAMS = '\[(?<params>[^[\]]*+(?:\[(?&params)\][^[\]]*+)*+)\]';
-const ARGS = '\((?<args>[^()]*+(?:\((?&args)\)[^()]*+)*+)\)';
+const ARGS   = '\((?<args>[^()]*+(?:\((?&args)\)[^()]*+)*+)\)';
 
 ///////////////////
 /// Main script ///
@@ -69,16 +69,14 @@ if (!$optionKeepTmpGrammar) {
 /// Preprocessing functions ///
 ///////////////////////////////
 
-function resolveConstants($code)
-{
+function resolveConstants($code) {
     return preg_replace('~[A-Z][a-zA-Z_]++::~', 'PHPParser_Node_$0', $code);
 }
 
-function resolveNodes($code)
-{
+function resolveNodes($code) {
     return preg_replace_callback(
         '~(?<name>[A-Z][a-zA-Z_]++)\s*' . PARAMS . '~',
-        function ($matches) {
+        function($matches) {
             // recurse
             $matches['params'] = resolveNodes($matches['params']);
 
@@ -98,11 +96,10 @@ function resolveNodes($code)
     );
 }
 
-function resolveMacros($code)
-{
+function resolveMacros($code) {
     return preg_replace_callback(
         '~\b(?<!::|->)(?!array\()(?<name>[a-z][A-Za-z]++)' . ARGS . '~',
-        function ($matches) {
+        function($matches) {
             // recurse
             $matches['args'] = resolveMacros($matches['args']);
 
@@ -164,15 +161,13 @@ function resolveMacros($code)
     );
 }
 
-function assertArgs($num, $args, $name)
-{
+function assertArgs($num, $args, $name) {
     if ($num != count($args)) {
         die('Wrong argument count for ' . $name . '().');
     }
 }
 
-function resolveArrays($code)
-{
+function resolveArrays($code) {
     return preg_replace_callback(
         '~' . PARAMS . '~',
         function ($matches) {
@@ -203,8 +198,7 @@ function resolveArrays($code)
     );
 }
 
-function moveFileWithDirCheck($fromPath, $toPath)
-{
+function moveFileWithDirCheck($fromPath, $toPath) {
     $dir = dirname($toPath);
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
@@ -216,13 +210,11 @@ function moveFileWithDirCheck($fromPath, $toPath)
 /// Regex helper functions ///
 //////////////////////////////
 
-function regex($regex)
-{
+function regex($regex) {
     return '~' . LIB . '(?:' . str_replace('~', '\~', $regex) . ')~';
 }
 
-function magicSplit($regex, $string)
-{
+function magicSplit($regex, $string) {
     $pieces = preg_split(regex('(?:(?&string)|(?&comment)|(?&code))(*SKIP)(*FAIL)|' . $regex), $string);
 
     foreach ($pieces as &$piece) {

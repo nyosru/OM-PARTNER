@@ -22,25 +22,22 @@ ArrayHelper::multisort($constants, 'name');
     <p><a href="#" class="toggle">Hide inherited constants</a></p>
 
     <table class="summary-table table table-striped table-bordered table-hover">
-        <colgroup>
-            <col class="col-const"/>
-            <col class="col-value"/>
-            <col class="col-description"/>
-            <col class="col-defined"/>
-        </colgroup>
-        <tr>
-            <th>Constant</th>
-            <th>Value</th>
-            <th>Description</th>
-            <th>Defined By</th>
+    <colgroup>
+        <col class="col-const" />
+        <col class="col-value" />
+        <col class="col-description" />
+        <col class="col-defined" />
+    </colgroup>
+    <tr>
+        <th>Constant</th><th>Value</th><th>Description</th><th>Defined By</th>
+    </tr>
+    <?php foreach ($constants as $constant): ?>
+        <tr<?= $constant->definedBy != $type->name ? ' class="inherited"' : '' ?> id="<?= $constant->name ?>">
+          <td id="<?= $constant->name ?>-detail"><?= $constant->name ?></td>
+          <td><?= $constant->value ?></td>
+          <td><?= ApiMarkdown::process($constant->shortDescription . "\n" . $constant->description, $constant->definedBy, true) ?></td>
+          <td><?= $renderer->createTypeLink($constant->definedBy) ?></td>
         </tr>
-        <?php foreach ($constants as $constant): ?>
-            <tr<?= $constant->definedBy != $type->name ? ' class="inherited"' : '' ?> id="<?= $constant->name ?>">
-                <td id="<?= $constant->name ?>-detail"><?= $constant->name ?></td>
-                <td><?= $constant->value ?></td>
-                <td><?= ApiMarkdown::process($constant->shortDescription . "\n" . $constant->description, $constant->definedBy, true) ?></td>
-                <td><?= $renderer->createTypeLink($constant->definedBy) ?></td>
-            </tr>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
     </table>
 </div>

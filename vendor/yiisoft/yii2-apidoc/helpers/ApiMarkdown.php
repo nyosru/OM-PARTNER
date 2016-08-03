@@ -62,7 +62,7 @@ class ApiMarkdown extends GithubMarkdown
         if (strncmp($code, '<?php', 5) === 0) {
             $text = @highlight_string(trim($code), true);
         } else {
-            $text = highlight_string("<?php " . trim($code), true);
+            $text = highlight_string("<?php ".trim($code), true);
             $text = str_replace('&lt;?php', '', $text);
             if (($pos = strpos($text, '&nbsp;')) !== false) {
                 $text = substr($text, 0, $pos) . substr($text, $pos + 6);
@@ -95,7 +95,7 @@ class ApiMarkdown extends GithubMarkdown
         $result = parent::renderLink($block);
 
         // add special syntax for linking to the guide
-        $result = preg_replace_callback('/href="guide:([A-z0-9-.#]+)"/i', function ($match) {
+        $result = preg_replace_callback('/href="guide:([A-z0-9-.#]+)"/i', function($match) {
             return 'href="' . static::$renderer->generateGuideUrl($match[1]) . '"';
         }, $result, 1);
 

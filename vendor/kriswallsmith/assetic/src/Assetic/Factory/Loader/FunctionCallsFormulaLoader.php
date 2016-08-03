@@ -23,7 +23,7 @@ class FunctionCallsFormulaLoader extends BasePhpFormulaLoader
         return array(
             'assetic_javascripts(*)' => array('output' => 'js/*.js'),
             'assetic_stylesheets(*)' => array('output' => 'css/*.css'),
-            'assetic_image(*)' => array('output' => 'images/*'),
+            'assetic_image(*)'       => array('output' => 'images/*'),
         );
     }
 

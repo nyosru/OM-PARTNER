@@ -51,7 +51,7 @@ class PrettyPrinter extends PHPParser_PrettyPrinter_Zend
         if (method_exists($this, 'pSafe')) {
             return $this->pSafe($node->getAttribute('originalValue'));
         }
-
+        
         return $this->pNoIndent($node->getAttribute('originalValue'));
     }
 

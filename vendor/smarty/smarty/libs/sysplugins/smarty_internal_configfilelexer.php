@@ -104,7 +104,7 @@ class Smarty_Internal_Configfilelexer
      * @var array
      */
     public $state_name = array(1 => 'START', 2 => 'VALUE', 3 => 'NAKED_STRING_VALUE', 4 => 'COMMENT', 5 => 'SECTION',
-        6 => 'TRIPPLE');
+                               6 => 'TRIPPLE');
 
     /**
      * storage for assembled token patterns
@@ -134,7 +134,7 @@ class Smarty_Internal_Configfilelexer
     /**
      * constructor
      *
-     * @param   string $data template source
+     * @param   string                             $data template source
      * @param Smarty_Internal_Config_File_Compiler $compiler
      */
     function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)

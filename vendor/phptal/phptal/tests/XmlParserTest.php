@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,6 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
+
+
+
 class XmlParserTest extends PHPTAL_TestCase
 {
     public function testSimpleParse()
@@ -53,9 +55,11 @@ class XmlParserTest extends PHPTAL_TestCase
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
         try {
             $parser->parseFile($builder = new MyDocumentBuilder(), 'input/xml.02.xml')->getResult();
-            $this->assertTrue(false);
-        } catch (Exception $e) {
-            $this->assertTrue(true);
+            $this->assertTrue( false );
+        }
+        catch (Exception $e)
+        {
+            $this->assertTrue( true );
         }
     }
 
@@ -129,11 +133,13 @@ class XmlParserTest extends PHPTAL_TestCase
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
         $src = '<a> ]]> </a>';
-        try {
+        try
+        {
             $parser->parseString($builder = new MyDocumentBuilder(), $src)->getResult();
             $this->assertEquals('<a> ]]&gt; </a>', $builder->result);
-        } catch (PHPTAL_ParserException $e) { /* ok - rejecting is one way to do it */
         }
+        catch(PHPTAL_ParserException $e)
+        { /* ok - rejecting is one way to do it */ }
     }
 
     /**
@@ -151,19 +157,22 @@ class XmlParserTest extends PHPTAL_TestCase
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
         $src = '<a href="?foo=1&bar=baz&copy=true&reg=x"> & ; &#x100; &nbsp; &#10; &--;</a>';
-        try {
+        try
+        {
             $parser->parseString($builder = new MyDocumentBuilder(), $src)->getResult();
             $this->assertEquals('<a href="?foo=1&amp;bar=baz&amp;copy=true&amp;reg=x"> &amp; ; &#x100; &nbsp; &#10; &amp;--;</a>', $builder->result);
-        } catch (PHPTAL_ParserException $e) { /* ok - rejecting is one way to do it */
         }
+        catch(PHPTAL_ParserException $e)
+        { /* ok - rejecting is one way to do it */ }
     }
 
     public function testLineAccuracy()
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
-        try {
+        try
+        {
             $parser->parseString(new PHPTAL_Dom_PHPTALDocumentBuilder(),
-                "<x>1
+"<x>1
 
 3
  4
@@ -172,7 +181,9 @@ class XmlParserTest extends PHPTAL_TestCase
             </x>
         ");
             $this->fail("Accepted invalid XML");
-        } catch (PHPTAL_ParserException $e) {
+        }
+        catch(PHPTAL_ParserException $e)
+        {
             $this->assertEquals(6, $e->srcLine);
         }
     }
@@ -180,9 +191,10 @@ class XmlParserTest extends PHPTAL_TestCase
     public function testLineAccuracy2()
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
-        try {
+        try
+        {
             $parser->parseString(new PHPTAL_Dom_PHPTALDocumentBuilder(),
-                "<x foo1='
+"<x foo1='
 2'
 
 bar4='baz'
@@ -193,7 +205,9 @@ bar4='baz'
 
 ");
             $this->fail("Accepted invalid XML");
-        } catch (PHPTAL_ParserException $e) {
+        }
+        catch(PHPTAL_ParserException $e)
+        {
             $this->assertEquals(7, $e->srcLine);
         }
     }
@@ -201,7 +215,8 @@ bar4='baz'
     public function testLineAccuracy3()
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
-        try {
+        try
+        {
             $parser->parseString(new PHPTAL_Dom_PHPTALDocumentBuilder(),
                 "
 
@@ -215,7 +230,9 @@ xxxx/>
 
 ");
             $this->fail("Accepted invalid XML");
-        } catch (PHPTAL_ParserException $e) {
+        }
+        catch(PHPTAL_ParserException $e)
+        {
             $this->assertEquals(8, $e->srcLine);
         }
     }
@@ -223,10 +240,13 @@ xxxx/>
     public function testClosingRoot()
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
-        try {
+        try
+        {
             $parser->parseString(new PHPTAL_Dom_PHPTALDocumentBuilder(), "<imrootelement/></ishallnotbeclosed>");
             $this->fail("Accepted invalid XML");
-        } catch (PHPTAL_ParserException $e) {
+        }
+        catch(PHPTAL_ParserException $e)
+        {
             $this->assertContains('ishallnotbeclosed', $e->getMessage());
             $this->assertNotContains('imrootelement', $e->getMessage());
             $this->assertNotContains("documentElement", $e->getMessage());
@@ -236,10 +256,13 @@ xxxx/>
     public function testNotClosing()
     {
         $parser = new PHPTAL_Dom_SaxXmlParser('UTF-8');
-        try {
+        try
+        {
             $parser->parseString(new PHPTAL_Dom_PHPTALDocumentBuilder(), "<element_a><element_b><element_x/><element_c><element_d><element_e>");
             $this->fail("Accepted invalid XML");
-        } catch (PHPTAL_ParserException $e) {
+        }
+        catch(PHPTAL_ParserException $e)
+        {
             $this->assertNotContains("documentElement", $e->getMessage());
             $this->assertRegExp("/element_e.*element_d.*element_c.*element_b.*element_a/", $e->getMessage());
         }
@@ -307,7 +330,7 @@ class MyDocumentBuilder extends PHPTAL_Dom_DocumentBuilder
 
     public function onCDATASection($data)
     {
-        $this->onProcessingInstruction('<![CDATA[' . $data . ']]>');
+        $this->onProcessingInstruction('<![CDATA['.$data.']]>');
     }
 
     public function onProcessingInstruction($data)
@@ -319,7 +342,7 @@ class MyDocumentBuilder extends PHPTAL_Dom_DocumentBuilder
 
     public function onComment($data)
     {
-        $this->onProcessingInstruction('<!--' . $data . '-->');
+        $this->onProcessingInstruction('<!--'.$data.'-->');
     }
 
     public function onElementStart($name, array $attributes)
@@ -328,7 +351,7 @@ class MyDocumentBuilder extends PHPTAL_Dom_DocumentBuilder
         $this->elementStarts++;
         $this->result .= "<$name";
         $pairs = array();
-        foreach ($attributes as $key => $value) $pairs[] = "$key=\"$value\"";
+        foreach ($attributes as $key=>$value) $pairs[] =  "$key=\"$value\"";
         if (count($pairs) > 0) {
             $this->result .= ' ' . join(' ', $pairs);
         }
@@ -348,22 +371,10 @@ class MyDocumentBuilder extends PHPTAL_Dom_DocumentBuilder
         $this->result .= $data;
     }
 
-    public function onDocumentStart()
-    {
-    }
-
-    public function onDocumentEnd()
-    {
-    }
-
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    public function setEncoding($e)
-    {
-    }
+    public function onDocumentStart(){}
+    public function onDocumentEnd(){}
+    public function getResult(){return $this->result;}
+    public function setEncoding($e) {}
 }
 
 

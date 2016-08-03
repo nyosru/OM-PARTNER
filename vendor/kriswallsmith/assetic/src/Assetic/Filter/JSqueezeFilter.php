@@ -41,7 +41,7 @@ class JSqueezeFilter implements FilterInterface
 
     public function setSingleLine($bool)
     {
-        $this->singleLine = (bool)$bool;
+        $this->singleLine = (bool) $bool;
     }
 
     // call setSpecialVarRx(true) to enable global var/method/property
@@ -57,7 +57,7 @@ class JSqueezeFilter implements FilterInterface
 
     public function keepImportantComments($bool)
     {
-        $this->keepImportantComments = (bool)$bool;
+        $this->keepImportantComments = (bool) $bool;
     }
 
     public function filterLoad(AssetInterface $asset)

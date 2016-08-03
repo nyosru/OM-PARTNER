@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHPTAL templating engine
  *
@@ -13,8 +12,9 @@
  * @version  SVN: $Id$
  * @link     http://phptal.org/
  */
-class EscapeHTMLTest extends PHPTAL_TestCase
-{
+
+
+class EscapeHTMLTest extends PHPTAL_TestCase {
 
     private function executeString($str, $params = array())
     {
@@ -24,8 +24,7 @@ class EscapeHTMLTest extends PHPTAL_TestCase
         return $tpl->execute();
     }
 
-    function testDoesEscapeHTMLContent()
-    {
+    function testDoesEscapeHTMLContent(){
         $tpl = $this->newPHPTAL('input/escape.html');
         $exp = normalize_html_file('output/escape.html');
         $res = normalize_html($tpl->execute());
@@ -41,7 +40,7 @@ class EscapeHTMLTest extends PHPTAL_TestCase
     function testEntityDecodingBeforePHP()
     {
         /* PHP block in attributes gets raw input (that's not XML style, but PHP style) */
-        $res = $this->executeString('<div title="${php:strlen(\'&quot;&amp;\')}" class="<?php echo strlen(\'&quot;&amp;\')?>">' .
+        $res = $this->executeString('<div title="${php:strlen(\'&quot;&amp;\')}" class="<?php echo strlen(\'&quot;&amp;\')?>">'.
             '<tal:block tal:content="php:strlen(\'&quot;&amp;\')" />,${php:strlen(\'&quot;&amp;\')}</div>');
         $this->assertEquals('<div title="2" class="11">2,2</div>', $res);
     }
@@ -54,7 +53,7 @@ class EscapeHTMLTest extends PHPTAL_TestCase
 
     function testNoEntityEncodingAfterStructurePHP()
     {
-        $res = $this->executeString('<div title="${structure php:urldecode(\'%26%20%3E%27\')}" class="<?php echo urldecode(\'%26%20%3E%27\')?>">' .
+        $res = $this->executeString('<div title="${structure php:urldecode(\'%26%20%3E%27\')}" class="<?php echo urldecode(\'%26%20%3E%27\')?>">'.
             '<tal:block tal:content="structure php:urldecode(\'%26%20%3E%22\')" />,${structure php:urldecode(\'%26%20%3E%22\')},<?php echo urldecode(\'%26%20%3E%22\')?></div>');
         $this->assertEquals('<div title="& >\'" class="& >\'">& >",& >",& >"</div>', $res);
     }
@@ -123,10 +122,10 @@ class EscapeHTMLTest extends PHPTAL_TestCase
     function testEntityEncodingVariables()
     {
         $res = $this->executeString('<div tal:attributes="title variable; class variable">${variable}${php:variable}</div>',
-            array('variable' => '& = ampersand, " = quote, \' = apostrophe'));
-        $this->assertContains('&amp;', $res);
-        $this->assertNotContains('&amp;amp;', $res);
-        $this->assertNotContains('&amp;&amp;', $res);
+                                    array('variable'=>'& = ampersand, " = quote, \' = apostrophe'));
+        $this->assertContains('&amp;',$res);
+        $this->assertNotContains('&amp;amp;',$res);
+        $this->assertNotContains('&amp;&amp;',$res);
     }
 
     function testEntityEncodingAttributesDefault1()

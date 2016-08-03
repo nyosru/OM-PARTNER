@@ -198,8 +198,6 @@ echo '<div class="partners-main-right bside">';
                 'options'=>[
                     'placeholder'=>'C',
                 ],
-
-                'language'=>'ru',
                 'name' => 'date_start',
                 'value' => '',
                 'pluginOptions' => [
@@ -210,8 +208,6 @@ echo '<div class="partners-main-right bside">';
                 'options'=>[
                     'placeholder'=>'До',
                 ],
-
-                'language'=>'ru',
                 'name' => 'date_end',
                 'value' => '',
                 'pluginOptions' => [
@@ -254,7 +250,7 @@ echo '<div class="partners-main-right bside">';
                     '</div>' .
                     '<div class="size-inner" style="">';
                 foreach ($specval['dataset'] as $keyr => $valuer) {
-                    if ($valuer['products_options_values_id'] == $prodatrquery) {
+                    if (is_array($valuer) && $valuer['products_options_values_id'] == $prodatrquery) {
                         $checked = ' fa-check';
                     } else {
                         $checked = '';
@@ -289,10 +285,10 @@ echo '<div class="partners-main-right bside">';
     $headbside .= $topnav;
     $headbside .= '<div class="partheaderbside">';
 
-    $headbside .= '<a rel="nofollow" href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
+    $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
 
-    $headbside .= ' <a  rel="nofollow" href="#demo" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" data-toggle="collapse">Сортировка</a>';
-    $headbside .= ' <a  href="' . new_url(new_suburl(split_url($url),'ok', abs($ok-1))).'" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;">ОК</a>';
+    $headbside .= ' <a href="#demo" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" data-toggle="collapse">Сортировка</a>';
+    $headbside .= ' <a href="' . new_url(new_suburl(split_url($url),'ok', abs($ok-1))).'" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;">ОК</a>';
 
     $headbside .= '<div id="demo" style="width: 200px; position: absolute; margin-top: 25px; z-index: 98;" class="collapse">';
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
@@ -471,8 +467,6 @@ echo '<div class="partners-main-right bside">';
         }
 
     });
-        $(document).on('load', function(){
-            $('a[rel=light]').light();
-        });
+       
     </script>
 

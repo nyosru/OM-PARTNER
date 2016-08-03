@@ -44,7 +44,7 @@ class AppAsset extends AssetBundle
         return $this->ThemeResourcesload($asset, $side)['js'];
     }
 
-    public function LoadAssets($asset = 'default2', $side = 'site')
+    public function LoadAssets($asset = 'defaultom', $side = 'site')
     {
         $this->css = $this->LoadCssRes($asset, $side);
         $this->js = $this->LoadJsRes($asset, $side);

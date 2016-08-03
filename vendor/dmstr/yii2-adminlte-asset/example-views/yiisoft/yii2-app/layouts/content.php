@@ -57,7 +57,7 @@ use dmstr\widgets\Alert;
             <h3 class="control-sidebar-heading">Recent Activity</h3>
             <ul class='control-sidebar-menu'>
                 <li>
-                    <a href="javascript::">
+                    <a href='javascript::;'>
                         <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
                         <div class="menu-info">
@@ -130,7 +130,7 @@ use dmstr\widgets\Alert;
                     </a>
                 </li>
                 <li>
-                    <a href="javascript::">
+                    <a href='javascript::;'>
                         <h4 class="control-sidebar-subheading">
                             Laravel Integration
                             <span class="label label-waring pull-right">50%</span>
