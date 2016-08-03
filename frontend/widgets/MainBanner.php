@@ -12,72 +12,82 @@ class MainBanner extends \yii\bootstrap\Widget
     public $position = [
         'medium1' => [
             [
-                'image' => '/images/banners/O_2807201_1.png',
-                'referal'=> '/catalog?cat=0&count=60&start_price=0&end_price=1000000&prod_attr_query=0&searchword=электрическая%2Bпилка',
-                'alttext' => 'Электрическая пилка '
+                'image' => '/images/banners/OM_29072016_1.png',
+                'referal'=> '/catalog?cat=1867&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Блузы',
+                'out' => FALSE
             ],
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/O_2807201_2.png',
-                'referal'=> '/catalog?cat=0&count=60&start_price=0&end_price=1000000&prod_attr_query=0&searchword=tangle%2Bteezer',
-                'alttext' => 'Tangle Teezer'
+                'image' => '/images/banners/OM_29072016_2.png',
+                'referal'=> '/catalog?cat=1787&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Парфюмерия',
+                'out' => FALSE
             ],
         ],
         'small1' => [
             [
-                'image' => '/images/banners/O_2807201_3.png',
-                'referal'=> '/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Платья'
+                'image' => '/images/banners/OM_29072016_3.png',
+                'referal'=> '/catalog?cat=2054&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Книги для детей',
+                'out' => FALSE
             ],
         ],
         'small2' => [
             [
-                'image' => '/images/banners/O_2807201_4.png',
-                'referal'=> '/catalog?cat=1574&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Куклы и мягкие игрушки'
+                'image' => '/images/banners/OM_29072016_4.png',
+                'referal'=> 'https://play.google.com/store/apps/details?id=com.codegeek.omshopmobile&hl=ru',
+                'alttext' => 'Комбинезоны',
+                'out' => TRUE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/O_2807201_5.png',
-                'referal'=> '/catalog?cat=2884&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Офис и школа'
+                'image' => '/images/banners/OM_29072016_5.png',
+                'referal'=> '/catalog?cat=2875&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Одежда Мастер',
+                'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/O_2807201_6.png',
-                'referal'=> '/catalog?cat=1978&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Босоножки, сандалии'
+                'image' => '/images/banners/OM_29072016_6.png',
+                'referal'=> '/catalog?cat=1544&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Зоотовары',
+                'out' => FALSE
             ],
         ],
         'discont1' => [
             [
                 'image' => '/images/banners/B_19072016_1.png',
                 'referal'=> '/product?id=902601',
-                'alttext' => 'Лодка Intex 68347 Seahawk 200'
+                'alttext' => 'Лодка Intex 68347 Seahawk 200',
+                'out' => FALSE
             ],
         ],
         'discont2' => [
             [
                 'image' => '/images/banners/B_19072016_2.png',
                 'referal'=> '/product?id=902491',
-                'alttext' => 'Бассейн Intex 28200/56997 на опорах'
+                'alttext' => 'Бассейн Intex 28200/56997 на опорах',
+                'out' => FALSE
             ],
         ],
         'discont3' => [
             [
                 'image' => '/images/banners/B_19072016_3.png',
                 'referal'=> '/product?id=1461925',
-                'alttext' => 'Игровой центр-бассейн'
+                'alttext' => 'Игровой центр-бассейн',
+                'out' => FALSE
             ],
         ],
         'discont4' => [
             [
                 'image' => '/images/banners/B_19072016_4.png',
                 'referal'=> '/product?id=1398409',
-                'alttext' => 'Матрас-кровать CLASSIC DOWNY'
+                'alttext' => 'Матрас-кровать CLASSIC DOWNY',
+                'out' => FALSE
             ],
         ],
     ];
@@ -164,7 +174,15 @@ class MainBanner extends \yii\bootstrap\Widget
         $result = '';
         $item = [];
         foreach ($position as $key=>$value){
-            $item[] = '<a href="'.BASEURL.$value['referal'].'" >'.
+            $refer = '';
+            $out_param = '';
+            if($value['out']){
+                $out_param = ' target="_blank" ';
+                $refer = $value['referal'];
+            }else{
+                $refer = BASEURL.$value['referal'];
+            }
+            $item[] = '<a href="'.$refer.'" '.$out_param.'>'.
                 '<img src="'.$value['image'].'"  alt="'.$value['alttext'].'">'.
                 '</a>';
         }
