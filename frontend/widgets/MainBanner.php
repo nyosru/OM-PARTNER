@@ -12,48 +12,48 @@ class MainBanner extends \yii\bootstrap\Widget
     public $position = [
         'medium1' => [
             [
-                'image' => '/images/banners/OM_29072016_1.png',
-                'referal'=> '/catalog?cat=1867&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/OM_02082016_1.png',
+                'referal'=> '/catalog?cat=835&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Блузы',
                 'out' => FALSE
             ],
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_29072016_2.png',
-                'referal'=> '/catalog?cat=1787&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/OM_02082016_2.png',
+                'referal'=> '/catalog?cat=1984&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Парфюмерия',
                 'out' => FALSE
             ],
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_29072016_3.png',
-                'referal'=> '/catalog?cat=2054&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/OM_02082016_3.png',
+                'referal'=> 'http://new.odezhda-master.ru/catalog?cat=1980&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Книги для детей',
                 'out' => FALSE
             ],
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_29072016_4.png',
-                'referal'=> 'https://play.google.com/store/apps/details?id=com.codegeek.omshopmobile&hl=ru',
+                'image' => '/images/banners/OM_02082016_4.png',
+                'referal'=> '/catalog?cat=2493&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Комбинезоны',
-                'out' => TRUE
+                'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_29072016_5.png',
-                'referal'=> '/catalog?cat=2875&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/OM_02082016_5.png',
+                'referal'=> '/catalog?cat=1911&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Одежда Мастер',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_29072016_6.png',
-                'referal'=> '/catalog?cat=1544&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'image' => '/images/banners/OM_02082016_6.png',
+                'referal'=> '/catalog?cat=2112&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Зоотовары',
                 'out' => FALSE
             ],
