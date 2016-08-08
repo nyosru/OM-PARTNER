@@ -823,6 +823,6 @@ font-weight: 500; display: inline-block; background:#00a5a2;   width: 25%; color
         Перейти в каталог товаров
     </a>
 </div>
-
+<?=\frontend\widgets\Metrics::widget();?>
 </body>
 </html>
