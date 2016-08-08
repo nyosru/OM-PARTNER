@@ -1,25 +1,20 @@
 <?php
 namespace frontend\models;
-
 use common\models\Profile;
 use common\models\User;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 use Yii;
-
 /**
  * Password reset form
  */
 class ResetPasswordForm extends Model
 {
     public $password;
-
     /**
      * @var \common\models\User
      */
     private $_user;
-
-
     /**
      * Creates a form model given a token.
      *
@@ -38,7 +33,6 @@ class ResetPasswordForm extends Model
         }
         parent::__construct($config);
     }
-
     /**
      * @inheritdoc
      */
@@ -49,7 +43,6 @@ class ResetPasswordForm extends Model
             ['password', 'string', 'min' => 6],
         ];
     }
-
     /**
      * Resets password.
      *
@@ -58,11 +51,12 @@ class ResetPasswordForm extends Model
     public function resetPassword()
     {
         $user = $this->_user;
-        $profile = new Profile('reset');
+        $profile = new Profile();
+        $profile->scenario = 'reset';
         $profile->password = $this->password;
         $profile->id = $user->id;
         if ($profile->resetPassword()) {
-            $user->removePasswordResetToken();
+           // $user->removePasswordResetToken();
             return true;
         }else{
             return true;

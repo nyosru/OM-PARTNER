@@ -5,6 +5,9 @@ use common\models\User;
 use common\models\Partners;
 use common\models\Customers;
 use common\models\PartnersUsersInfo;
+use common\traits\Categories\RestrictedCatalog;
+use common\traits\Hide_manufacturers_for_partners;
+use common\traits\Products\NewProducts;
 use common\traits\Trim_Tags;
 use yii\base\Exception;
 use yii\db\ActiveRecord;
@@ -17,7 +20,7 @@ use Yii;
  */
 class SignupFormOM extends Model
 {
-    use Trim_Tags;
+    use Trim_Tags, NewProducts, Hide_manufacturers_for_partners, RestrictedCatalog;
     public $emails;
     public $password;
     public $passwordcheck;
@@ -264,21 +267,17 @@ class SignupFormOM extends Model
 
                     $newuserpartnerscastid->pasportwhere = $this->pasportwhere;
                     $newuserpartnerscastid->customers_id = $userCustomer->customers_id;
-
-                    echo '<pre>';
                     Yii::$app->mailer->htmlLayout = 'layouts-om/html';
                     if ($newuserpartnerscastid->save()) {
+                        Yii::$app->params['params']['products_mail'] =  $this->NewProducts(6,'mail_new-34', 7200);
                         Yii::$app->mailer->compose('sign-up-om', ['name'=>$this->name,'id'=>$userCustomer->customers_id,'username' => $user->username, 'password' => $this->password])
-                            ->setFrom('support@' . $_SERVER['HTTP_HOST'])
+                            ->setFrom('odezhdamaster@gmail.com')
                             ->setTo($user->email)
                             ->setSubject('Регистрация на сайте ' . $_SERVER['HTTP_HOST'])
                             ->send();
                         return $user;
                     } else {
-
                     }
-
-
                 } else {
                 }
             } else {

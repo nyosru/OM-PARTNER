@@ -16,11 +16,13 @@ trait ActionResetPassword
             throw new BadRequestHttpException($e->getMessage());
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+        if ($model->load(Yii::$app->request->post())){
+                if($model->resetPassword()) {
            // Yii::$app->getSession()->setFlash('success', 'Новый пароль сохранен.');
-
             return $this->redirect('/');
+
         }
+    }
 
         return $this->render('resetPassword', [
             'model' => $model,

@@ -256,21 +256,21 @@
 <body style="background:#fcfcfc ;font-family: Open Sans ,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; ">
 
 
-<div id="header">
+<a href="http://<?=$_SERVER['HTTP_HOST']?>"    id="header">
     <img src="/images/lp/OM_logo.png" style="display: flex; order: 0; flex: 0 1 auto; align-self: auto;"/>
-</div>
+</a>
 
 
 <div class="col-md-12 " style="height:31.25vw  ;background: rgb(255, 213, 23) none repeat scroll 0% 0%; padding: 3% 0%;">
     <div>
-        <div class="flex-container">
+        <a href="http://<?=$_SERVER['HTTP_HOST']?>" class="flex-container">
             <div style="text-align: center;" class="col-md-6">
                 <img src="/images/lp/new.png" style="width: 25vw;" alt="Одежда Мастер">
             </div>
             <h1 style="text-align: left; font-size:  2.5vw; font-weight: 300" class="col-md-6">
                 Товары оптом по выгодным ценам <br />для физических и юридических лиц!
             </h1>
-        </div>
+        </a>
 
     </div>
 
@@ -286,7 +286,7 @@
             Очень большой ассортимент
         </h3>
         <div class="item">
-            Свыше 350 000 наименований товара!<br />До 500 новинок ежедневно!
+            Свыше 350 000 наименований товара!<br />До 2000 новинок ежедневно!
         </div>
     </div>
     <div class="col-md-4 mid-item">
@@ -600,14 +600,14 @@
                     Оплата доставки осуществляется Вами при получении заказа.
                 </div>
 
-                </div>
+            </div>
         </div>
 
     </div>
 </div>
 <div class="" style="background: rgb(233, 81, 109) none repeat scroll 0% 0%;">
     <div class="col-md-12" style="text-align: center; background: rgb(233, 81, 109) none repeat scroll 0% 0%; color: aliceblue; font-size: 2.5vw; z-index: 8; padding: 2% 14%;">
-        С нами работают и зарабатывают более 400 клиентов по всей России и СНГ
+        С нами работают и зарабатывают более 34464 клиентов по всей России и СНГ
         <img src="/images/lp/strel.png" style="position: absolute; margin: auto; bottom: -45px; right: 0px; left: 0px; z-index: -1;">
     </div>
 </div>

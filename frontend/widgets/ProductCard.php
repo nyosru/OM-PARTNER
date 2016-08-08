@@ -217,7 +217,7 @@ class ProductCard extends \yii\bootstrap\Widget
             '<div style="" class="model">' . $man_time_list . $preview. $chosen.$product_menu . '</div>' .
             '<div  '.$product_itemprop_model.' class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  '.$product_itemprop_description.'class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
-            '<div  '.$product_itemprop_category.' class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
+            '<div  '.$product_itemprop_category.' class="model" style="display:none">'  .htmlentities(implode(', ', $catpath)) . '</div>' .
             '<div  '.$product_itemprop_offers.' '.$offersstyle.' class="price">' .
             '<div style="font-size: 18px; font-weight: 500; margin: -5px 5px;" '.$product_itemprop_price.' >' . round($product['products_price']) . '<noindex> руб.</noindex></div>' .
             '<b '.$product_itemprop_priceCurrency.' style="display:none"><noindex>RUB</noindex></b>' .

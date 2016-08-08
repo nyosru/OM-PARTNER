@@ -10,6 +10,7 @@ trait ActionRequestPasswordReset
     {
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            \Yii::$app->params['params']['products_mail'] =  $this->NewProducts(6,'mail_new-34', 7200);
             if ($model->sendEmail()) {
                 Yii::$app->getSession()->setFlash('success', 'На ваш электронный адрес было отправлено письмо. Следуйте инструкциям в нем.');
 
