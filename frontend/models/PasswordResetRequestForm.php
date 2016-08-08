@@ -22,7 +22,8 @@ class PasswordResetRequestForm extends Model
             ['email', 'email'],
             ['email', 'exist',
                 'targetClass' => '\common\models\User',
-                'filter' => ['status' => User::STATUS_ACTIVE],
+                'filter' => ['status' => User::STATUS_ACTIVE,
+                             'id_partners' =>  \Yii::$app->params['constantapp']['APP_ID']],
                 'message' => 'There is no user with such email.'
             ],
         ];
@@ -39,6 +40,7 @@ class PasswordResetRequestForm extends Model
         $user = User::findOne([
             'status' => User::STATUS_ACTIVE,
             'email' => $this->email,
+            'id_partners' =>  \Yii::$app->params['constantapp']['APP_ID']
         ]);
 
         if ($user) {
@@ -47,8 +49,9 @@ class PasswordResetRequestForm extends Model
             }
 
             if ($user->save()) {
-                return \Yii::$app->mailer->compose(['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'], ['user' => $user])
-                    ->setFrom([\Yii::$app->params['supportEmail'] => 'Саппорт'])
+                \Yii::$app->mailer->htmlLayout = 'layouts-om/html';
+                return \Yii::$app->mailer->compose(['html' => 'passwordResetToken-html'], ['user' => $user])
+                    ->setFrom('odezhdamaster@gmail.com')
                     ->setTo($this->email)
                     ->setSubject('Сброс пароля')
                     ->send();

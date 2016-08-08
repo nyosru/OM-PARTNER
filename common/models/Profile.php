@@ -1,9 +1,11 @@
 <?php
 namespace common\models;
 
+use common\models\User;
 use yii;
 use yii\base\Model;
 use common\traits\Trim_Tags;
+
 
 class Profile extends Model
 {
@@ -475,8 +477,8 @@ class Profile extends Model
 
     public function resetPassword()
     {
-        $user = \common\models\User::find()->where(['partners_users.id' => $this->id, 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->one();
-        $customer = Customers::find()->where(['customers_id' => $user['userinfo']->customers_id])->one();
+        $user = User::find()->where(['partners_users.id' => (int)$this->id, 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->one();
+        $customer = Customers::find()->where(['customers_id' => (int)$user['userinfo']->customers_id])->one();
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $customer->customers_password = $customer->encrypt_password($this->password);
