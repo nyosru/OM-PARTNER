@@ -85,6 +85,7 @@ use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
+use frontend\controllers\actions\om\ActionSp;
 use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
 use frontend\controllers\actions\om\ActionOrdersStatus;
@@ -186,6 +187,7 @@ class GlavnayaController extends Controller
         NewProducts,
         RelatedProducts,
         ActionInfo,
+        ActionSp,
         AggregateCatalogData;
 
 
