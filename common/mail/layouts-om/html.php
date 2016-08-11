@@ -19,18 +19,20 @@ use common\traits\Products\NewProducts;
     </head>
     
 <body style="font-family: Roboto,Helvetica Neue,sans-serif,sans-serif; font-weight: 300;      font-size: 18px;color: rgb(51, 51, 51);">
-<?php $this->beginBody() ?>
+<?php $this->beginBody();
+$contentutm = \frontend\widgets\UtmLinker::widget(['param'=>Yii::$app->params['params']['utm']]);
+?>
 <body style="width:100%;height:auto;padding:0;margin:0 auto;">
 <div style="max-width:840px;margin:0 auto;padding:0;">
     <p style="text-align:center;width:100%;padding:25px 0;margin:0;"><img src="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/images/logo/OM_logo.png" alt="Одежда-Мастер" style="margin:0 auto;"></p>
     <ul style="list-style:none;text-align:center;padding:0;margin:0 auto 20px auto;width:100%;padding: 0;">
-        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/discont" target="_blank" style="text-decoration:none;color:#EB516D;font-family:'Roboto', Arial;font-size:14px;">Распродажа</a></li>
-        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/dayproduct" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Новинки сегодня</a></li>
-        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/allbrands" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Бренды</a></li>
-        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=1632&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Женщинам</a></li>
-        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=1668&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Мужчинам</a></li>
-        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=1903&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Детям</a></li>
-        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=2048&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Красота</a></li>
+        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/discont?<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#EB516D;font-family:'Roboto', Arial;font-size:14px;">Распродажа</a></li>
+        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/dayproduct?<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Новинки сегодня</a></li>
+        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/allbrands?<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Бренды</a></li>
+        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=1632&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=&<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Женщинам</a></li>
+        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=1668&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=&<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Мужчинам</a></li>
+        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=1903&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=&<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Детям</a></li>
+        <li style="display:inline;padding-left:10px;padding-right:10px;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/catalog?cat=2048&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=&<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#000000;font-family:'Roboto', Arial;font-size:14px;">Красота</a></li>
     </ul>
     <p style="height:1px;padding:0;margin:0 15px 10px 15px;background-color:#C0E8E8;">&nbsp;</p>
     <p style="height:1px;padding:0;margin:0 30px 10px 30px;background-color:#F8D3DA;">&nbsp;</p>
@@ -46,21 +48,21 @@ use common\traits\Products\NewProducts;
             <p style="text-align:left;font-family:'Roboto', Arial;margin:0;padding:0;line-height:20px;font-size:14px;">
                 Доставим товар по любому указанному вами адресу! Просто заполните их в адресной книге в личном кабинете.
             </p>
-            <p style="text-align:center;margin:15px 0;padding:0;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="text-decoration:underline;color:#027bc2;font-family:'Roboto', Arial;font-size:14px;">Подробнее</a></p>
+            <p style="text-align:center;margin:15px 0;padding:0;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="text-decoration:underline;color:#027bc2;font-family:'Roboto', Arial;font-size:14px;">Подробнее</a></p>
         </li>
         <li style="padding:10px;margin:0 5px 10px 5px;width:45%;border:1px solid #e2e2e2;color:#222222;border-radius:8px;-webkit-border-radius:8px;-moz-border-radius:8px;display:inline-block;min-width:320px;height:140px;overflow:hidden;">
             <p style="width:100%;text-align:center;color:#e1126d;font-family:'Roboto', Arial;padding:0;margin:0 0 10px 0;font-size:21px;">Несгораемая корзина</p>
             <p style="text-align:left;font-family:'Roboto', Arial;margin:0;padding:0;line-height:20px;font-size:14px;">
                 Любые товары, добавленные в корзину, остаются там до тех пор, пока Вы не решите их приобрести или пока не удалите их из корзины.
             </p>
-            <p style="text-align:center;margin:15px 0;padding:0;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="text-decoration:underline;color:#027bc2;font-family:'Roboto', Arial;font-size:14px;">Подробнее</a></p>
+            <p style="text-align:center;margin:15px 0;padding:0;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="text-decoration:underline;color:#027bc2;font-family:'Roboto', Arial;font-size:14px;">Подробнее</a></p>
         </li>
         <li style="padding:10px;margin:0 5px 10px 5px;width:calc(94% - 5px);border:1px solid #e2e2e2;color:#222222;border-radius:8px;-webkit-border-radius:8px;-moz-border-radius:8px;display:inline-block;min-width:320px;height:140px;">
             <p style="width:100%;text-align:left;color:#00a5a1;font-family:'Roboto', Arial;padding:0;margin:0 0 10px 0;font-size:21px;">Маркеры товара</p>
             <p style="text-align:left;font-family:'Roboto', Arial;margin:0;padding:0;line-height:20px;font-size:14px;">
                 Чтобы вам легче было идентифицировать товар на сайте, например, отличить новинку среди тысячи товаров или выбрать товар, который на складе мы ввели для вашего удобства специальные маркеры товара.
             </p>
-            <p style="text-align:left;margin:35px 0 0 0;padding:0;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="text-decoration:underline;color:#027bc2;font-family:'Roboto', Arial;font-size:14px;">Подробнее</a></p>
+            <p style="text-align:left;margin:35px 0 0 0;padding:0;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="text-decoration:underline;color:#027bc2;font-family:'Roboto', Arial;font-size:14px;">Подробнее</a></p>
         </li>
     </ul>
     <table style="width:100%;border:0;margin:0;padding:0;padding:0 15px;" border="0">
@@ -70,26 +72,26 @@ use common\traits\Products\NewProducts;
                 <p style="font-family:'Roboto', Arial;font-size:14px;padding:0;margin:0;color:#000000;line-height:25px;">
                     Чтобы выбор товаров и их оформление были максимально быстрыми и удобными, ознакомьтесь с нашими рекомендациями.
                 </p>
-                <p style="text-align:center;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="font-family:'Roboto', Arial;text-decoration:underline;font-size:14px;color:#007bbf;">Подробнее</a></p>
+                <p style="text-align:center;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="font-family:'Roboto', Arial;text-decoration:underline;font-size:14px;color:#007bbf;">Подробнее</a></p>
             </td>
             <td style="width:25%;text-align:left;color:#000000;padding: 0 15px;">
                 <p style="font-family:'Roboto', Arial;font-size:18px;padding:0;margin:0 0 10px 0;color:#00a69f;">Дозаказ</p>
                 <p style="font-family:'Roboto', Arial;font-size:14px;padding:0;margin:0;color:#000000;line-height:25px;">
                     Оформили заказ, но в самый последний момент решили докупить пару блузок? Ок, Вы всегда сможете включить свой дозаказ в основной заказ.
                 </p>
-                <p style="text-align:center;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="font-family:'Roboto', Arial;text-decoration:underline;font-size:14px;color:#007bbf;">Подробнее</a></p>
+                <p style="text-align:center;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="font-family:'Roboto', Arial;text-decoration:underline;font-size:14px;color:#007bbf;">Подробнее</a></p>
             </td>
             <td style="width:25%;text-align:left;color:#000000;padding: 0 15px;">
                 <p style="font-family:'Roboto', Arial;font-size:18px;padding:0;margin:0 0 10px 0;color:#00a69f;">История заказов</p>
                 <p style="font-family:'Roboto', Arial;font-size:14px;padding:0;margin:0;color:#000000;line-height:25px;">
                     Вы легко можете просмотреть все сделанные вами заказы через ваш личный кабинет, отфильтровав их по статусу и по дате заказа.
                 </p>
-                <p style="text-align:center;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="font-family:'Roboto', Arial;text-decoration:underline;font-size:14px;color:#007bbf;">Подробнее</a></p>
+                <p style="text-align:center;"><a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="font-family:'Roboto', Arial;text-decoration:underline;font-size:14px;color:#007bbf;">Подробнее</a></p>
             </td>
         </tr>
     </table>
     <p style="text-align:center;margin:40px 0 20px 0;">
-        <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="font-weight:bold;text-decoration:underline;color:#007BC1;font-family:'Roboto', Arial;font-size:14px;">Полные условия сотрудничества</a>
+        <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="font-weight:bold;text-decoration:underline;color:#007BC1;font-family:'Roboto', Arial;font-size:14px;">Полные условия сотрудничества</a>
     </p>
     <?php
     if(isset( Yii::$app->params['params']['products_mail']) && is_array( Yii::$app->params['params']['products_mail'])) {
@@ -105,7 +107,7 @@ use common\traits\Products\NewProducts;
  ?>
                 <li style="display:inline-block;margin:5px 12px;width:100px;text-align:center;">
                     <div style="width:100px;height:100px;">
-                        <a href="http://<?= $_SERVER['HTTP_HOST'] . BASEURL; ?>/product?id=<?=$value['products_id']?>" target="_blank" style="text-decoration:none;">
+                        <a href="http://<?= $_SERVER['HTTP_HOST'] . BASEURL; ?>/product?id=<?=$value['products_id']?>&<?=$contentutm;?>" target="_blank" style="text-decoration:none;">
                             <img src="http://<?= $_SERVER['HTTP_HOST'] . BASEURL; ?>/imagepreview?src=<?=$value['products_id']?>"
                                  alt="<?=$value['productsDescription']['products_name'];?>" style="max-width:100px;max-height:100px;">
                         </a>
@@ -120,7 +122,7 @@ use common\traits\Products\NewProducts;
             ?>
         </ul>
         <p style="text-align:center;padding:0;margin:30px 0 0 0;"><a
-                href="http://<?= $_SERVER['HTTP_HOST'] . BASEURL; ?>/dayproduct" target="_blank"
+                href="http://<?= $_SERVER['HTTP_HOST'] . BASEURL; ?>/dayproduct?<?=$contentutm;?>" target="_blank"
                 style="font-family:'Roboto', Arial;text-decoration:underline;font-size:14px;font-weight:bold;color:#007bbf;">Все
                 новинки за сегодня</a></p>
         <?php
@@ -134,7 +136,7 @@ use common\traits\Products\NewProducts;
     </p>
     <ul style="list-style:none;width:100%;text-align:center;padding: 0;">
         <li style="padding:10px;width:250px;display:inline-block;border:1px solid #41BCBA;border-radius:6px;margin:0 4px 10px 0;font-weight:bold;">
-            <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/contactform" target="_blank" style="text-decoration:none;color:#41BCBA;font-family:'Roboto', Arial;font-size:14px;">
+            <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/contactform?<?=$contentutm;?>" target="_blank" style="text-decoration:none;color:#41BCBA;font-family:'Roboto', Arial;font-size:14px;">
                 помощь<br>онлайн
             </a>
         </li>
@@ -183,7 +185,7 @@ use common\traits\Products\NewProducts;
     <p style="text-align:center;width:100%;margin:55px 0;padding:0;">
         <span style="color:#ea5c76;font-family:'Roboto', Arial;font-size:10px;">Хорошего настроения и приятных покупок на Одежда-Мастер!</span>
         <span style="color:#9d9d9d;font-family:'Roboto', Arial;font-size:10px;">ОГРН 312774628501195</span>
-        <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/" target="_blank" style="color:#9d9d9d;text-decoration:underline;font-family:'Roboto', Arial;font-size:10px;">Отписаться от рассылки</a>
+        <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/?<?=$contentutm;?>" target="_blank" style="color:#9d9d9d;text-decoration:underline;font-family:'Roboto', Arial;font-size:10px;">Отписаться от рассылки</a>
     </p>
 </div>
 <?php $this->endBody() ?>

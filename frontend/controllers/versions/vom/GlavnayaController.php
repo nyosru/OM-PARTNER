@@ -39,6 +39,7 @@ use frontend\controllers\actions\ActionLoginOM;
 use frontend\controllers\actions\ActionLogout;
 use frontend\controllers\actions\ActionSelectedProduct;
 use frontend\controllers\actions\om\ActionChangeCardView;
+use frontend\controllers\actions\om\ActionDiscountProducts;
 use frontend\controllers\actions\om\ActionInfo;
 use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\ActionNews;
@@ -85,6 +86,7 @@ use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
+use frontend\controllers\actions\om\ActionSp;
 use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
 use frontend\controllers\actions\om\ActionOrdersStatus;
@@ -186,6 +188,8 @@ class GlavnayaController extends Controller
         NewProducts,
         RelatedProducts,
         ActionInfo,
+        ActionSp,
+        ActionDiscountProducts,
         AggregateCatalogData;
 
 

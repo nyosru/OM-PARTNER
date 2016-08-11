@@ -49,6 +49,12 @@ class PasswordResetRequestForm extends Model
             }
 
             if ($user->save()) {
+                \Yii::$app->params['params']['utm'] =  [
+                    'source'=>'email',
+                    'medium'=>'password-reset',
+                    'campaign'=>'new-om',
+                    'content'=>'password-reset'
+                ];
                 \Yii::$app->mailer->htmlLayout = 'layouts-om/html';
                 return \Yii::$app->mailer->compose(['html' => 'passwordResetToken-html'], ['user' => $user])
                     ->setFrom('odezhdamaster@gmail.com')
