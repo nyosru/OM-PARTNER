@@ -4,7 +4,7 @@
 //echo '<pre>';
 //die();
 
-$this->title='Мои товары';
+$this->title=$title;
 
 echo '<div>' . \yii\widgets\LinkPager::widget(['pagination' => $pagination]) . '</div><div style="overflow: hidden">';
 if($_COOKIE['cardview']==1) {
