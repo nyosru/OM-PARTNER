@@ -96,7 +96,6 @@ trait ActionSaveorder
 
         }
         $quant = [];
-
         foreach ($product_in_order as $prodkey => $prodvalue) {
             if ($prodvalue)
                 foreach ($prodvalue as $k => $v) {
@@ -815,6 +814,13 @@ trait ActionSaveorder
             }
 
             $transaction->commit('suc');
+            Yii::$app->mailer->htmlLayout = 'layouts-om/html';
+            Yii::$app->params['params']['utm'] =  [
+                'source'=>'email',
+                'medium'=>'save-orders',
+                'campaign'=>'new-om',
+                'content'=>'save-orders'
+            ];
             Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice' => (integer)$wrapp['products_price'],
                 'result' => [
                     'code' => 200,

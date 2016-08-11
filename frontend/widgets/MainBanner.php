@@ -210,11 +210,8 @@ class MainBanner extends \yii\bootstrap\Widget
         foreach ($template as $key=>$value){
             $result .=
                 '<div id="'.$value['id'].'"  '.$value['style'].'  data-position="'.$key.'">'.
-
                 $this->formatting_position($position[$value['position']]).
-
                 '</div>';
-
         }
         return $result;
     }
