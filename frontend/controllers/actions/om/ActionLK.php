@@ -255,7 +255,7 @@ trait ActionLK
                 $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
                 $man_time = $this->manufacturers_diapazon_id();
 
-                return $this->render('lkorderedproducts', ['orderedproducts' => $orderedproducts, 'pagination' => $pagination, 'catpath' => $catpath, 'man_time' => $man_time]);
+                return $this->render('lkorderedproducts', ['orderedproducts' => $orderedproducts, 'pagination' => $pagination, 'catpath' => $catpath, 'man_time' => $man_time,'title'=>'Мои товары']);
                 break;
 
             default:

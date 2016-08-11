@@ -44,9 +44,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_05082016_5.png',
-                'referal'=> '/catalog?cat=1720&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Одежда Мастер',
+                'image' => '/images/banners/OM_10082016.png',
+                'referal'=> '/discountproducts',
+                'alttext' => 'Акционные товары!',
                 'out' => FALSE
             ],
         ],
@@ -210,11 +210,8 @@ class MainBanner extends \yii\bootstrap\Widget
         foreach ($template as $key=>$value){
             $result .=
                 '<div id="'.$value['id'].'"  '.$value['style'].'  data-position="'.$key.'">'.
-
                 $this->formatting_position($position[$value['position']]).
-
                 '</div>';
-
         }
         return $result;
     }
