@@ -10,6 +10,7 @@ use yii\bootstrap\Carousel;
 class MainBanner extends \yii\bootstrap\Widget
 {
     public $position = [
+
         'medium1' => [
             [
                 'image' => '/images/banners/OM_05082016_1.png',
@@ -17,12 +18,24 @@ class MainBanner extends \yii\bootstrap\Widget
                 'alttext' => 'Блузы',
                 'out' => FALSE
             ],
+            [
+                'image' => '/images/banners/OM_12082016_1.png',
+                'referal'=> '/catalog?cat=2063',
+                'alttext' => 'Расчески и аксессуары для укладки волос',
+                'out' => FALSE
+            ],
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_05082016_2.png',
+                'image' => '/images/banners/OM_05082016_2.gif',
                 'referal'=> '/catalog?cat=1746&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Парфюмерия',
+                'out' => FALSE
+            ],
+            [
+                'image' => '/images/banners/OM_12082016_2.png',
+                'referal'=> '/catalog?cat=1772',
+                'alttext' => 'Пижамы',
                 'out' => FALSE
             ],
         ],
@@ -30,6 +43,12 @@ class MainBanner extends \yii\bootstrap\Widget
             [
                 'image' => '/images/banners/OM_05082016_3.png',
                 'referal'=> '/catalog?cat=2043&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
+                'alttext' => 'Книги для детей',
+                'out' => FALSE
+            ],
+            [
+                'image' => '/images/banners/OM_12082016_3.png',
+                'referal'=> '/catalog?cat=2875',
                 'alttext' => 'Книги для детей',
                 'out' => FALSE
             ],
@@ -41,6 +60,12 @@ class MainBanner extends \yii\bootstrap\Widget
                 'alttext' => 'Комбинезоны',
                 'out' => FALSE
             ],
+            [
+                'image' => '/images/banners/OM_12082016_4.png',
+                'referal'=> '/catalog?cat=999',
+                'alttext' => 'Серьги, клипсы',
+                'out' => FALSE
+            ],
         ],
         'large' => [
             [
@@ -49,12 +74,24 @@ class MainBanner extends \yii\bootstrap\Widget
                 'alttext' => 'Акционные товары!',
                 'out' => FALSE
             ],
+            [
+                'image' => '/images/banners/OM_12082016_5.png',
+                'referal'=> '/catalog?cat=1720',
+                'alttext' => 'Платья',
+                'out' => FALSE
+            ],
         ],
         'long' => [
             [
                 'image' => '/images/banners/OM_05082016_6.png',
                 'referal'=> '/catalog?cat=1911&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
                 'alttext' => 'Зоотовары',
+                'out' => FALSE
+            ],
+            [
+                'image' => '/images/banners/OM_12082016_6.png',
+                'referal'=> '/catalog?cat=2680',
+                'alttext' => 'Контейнеры, боксы, коробки',
                 'out' => FALSE
             ],
         ],
@@ -195,7 +232,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'data-ride' => 'carousel',
             ],
             'clientOptions'=>[
-                'interval'=>1000000000,
+                'interval'=>5000,
                 'pause'=> 'load',
 
             ]

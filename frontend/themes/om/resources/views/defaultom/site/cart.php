@@ -305,6 +305,13 @@ $(document).on('click','.wrap-select', function () {
 });
 
 $(document).on('change', '.shipping-confirm, #shipaddr', function () {
+    if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'flat12_flat12'){
+        $('.deliv-cart').append('<div class="deliv-hint" data-hint="'+$('.shipping-confirm option:selected')[0].getAttribute('value')+'">' +
+            '<b>При отправке ТК Энергия, рекомендуем Вам выбирать способ упаковки "коробка", т.к по правилам перевозки ТК сборного груза, упаковка должна быть жесткая, в противном случае за повреждение груза ответсвенность ТК Энергия не несет.</b>' +
+            '</div>');
+    }else{
+        $('.deliv-hint').remove();
+    }
     $('.shipping-confirm option').filter(function (index) {
         if ($(this).val() == '') {
             return $(this)
@@ -335,5 +342,6 @@ $(document).on('click', '.panel  > a',  function(){
         $(this).siblings().filter('.filter-cont').addClass('in');
     }
 });
+
 </script>
 
