@@ -4,8 +4,8 @@ use common\models\Partners;
 use common\models\PartnersSettings;
 set_time_limit ( 60 );
 date_default_timezone_set('Europe/Moscow');
-
-defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
+error_reporting(E_ERROR);
+defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -19,12 +19,18 @@ $config = yii\helpers\ArrayHelper::merge(
 );
 $versions = require(__DIR__ . '/../config/versions.php');
 $application = new yii\web\Application($config);
+if($application->params['construct'] == TRUE){
+    echo '<html><body>';
+    echo '<img style="margin: auto;position: absolute; top: 0; bottom: 0; right: 0;left: 0;" src="http://'.$_SERVER['HTTP_HOST'].'/images/logo/tz.png">';
+    echo '</body></html>';
+    die();
+}
 function off($application){
     $application->db->close();
 }
 register_shutdown_function('off', $application);
-$key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
 
+$key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
 if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
     $run = new Partners();
     $check = $run->GetId($_SERVER['HTTP_HOST']);

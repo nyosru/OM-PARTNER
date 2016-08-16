@@ -8,9 +8,9 @@ use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
 use yii\helpers\ArrayHelper;
 
-trait ActionSp
+trait ActionSpLanding
 {
-    public function actionSp()
+    public function actionSpLanding()
     {
 
         $this->layout = 'lp';
