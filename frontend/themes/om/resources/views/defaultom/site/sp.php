@@ -1,25 +1,15 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Интернет магазин Одежда Мастер. Товары оптом по выгодным ценам для физических и юридических лиц</title>
-    <meta name="author" content="OM GROUP"/>
-    <meta name="description" content="Интернет магазин Одежда Мастер. Товары оптом по выгодным ценам для физических и юридических лиц!"/>
-    <meta name="keywords" content="интернет магазин,аксессуары, платья,футболки, женские, костюмы,  брюки, одежда, обувь, мастер, товары, оптом,  выгодные цены"/>
-    <meta name="Resource-type" content="Document"/>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,100,100italic,300,300italic,500,400italic,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
+    <meta name="author" content="OM GROUP">
+    <meta name="description" content="Интернет магазин Одежда Мастер. Товары оптом по выгодным ценам для физических и юридических лиц!">
+    <meta name="keywords" content="интернет магазин,аксессуары, платья,футболки, женские, костюмы, брюки, одежда, обувь, мастер, товары, оптом, выгодные цены">
+    <meta name="Resource-type" content="Document">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,400italic,500italic,700,700italic,900italic,900" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script
-        src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <style>
         #header, #footer {
             background: #fcfcfc none repeat scroll 0% 0%;
@@ -30,22 +20,20 @@
             align-items: center;
             height: 90px;
         }
-        a, a:hover, a:focus, a:active{
-            color:#333;
+        a, a:hover, a:focus, a:active {
+            color: #333;
             cursor: pointer;
         }
-        a:hover, a:focus, a:active{
-            color:#007BC1;
+        a:hover, a:focus, a:active {
+            color: #007BC1;
             cursor: pointer;
         }
         #header {
             top: 0px;
         }
-
         #footer {
             bottom: 0px;
         }
-
         .flex-container {
             display: flex;
             flex-direction: row;
@@ -54,7 +42,6 @@
             align-content: center;
             align-items: center;
         }
-
         .flex-items-default {
             width: 300px;
             height: 250px;
@@ -62,28 +49,20 @@
             flex-shrink: 0;
             flex-basis: 0;
         }
-
         .flex-item-1 {
-
         }
-
         .flex-item-2 {
-
         }
-
         .item-head {
             font-weight: 600;
             font-size: 1.2vw;
         }
-
         .item, .item4 {
             font-size: 1.2vw;
             width: 80%;
             margin: auto;
             padding: 10px 0px;
-
         }
-
         .item4::before, .item2::before {
             height: 11px;
             border-left: 3px solid;
@@ -98,7 +77,6 @@
             display: inline-block;
             margin: 5px 5px;
         }
-
         .item2 {
             font-size: 1.2vw;
             width: 80%;
@@ -106,27 +84,25 @@
             padding: 10px 0px;
             text-align: justify;
         }
-
         .mid-item {
             height: 9vw;
             background: #FCFCFC none repeat scroll 0% 0%;
             text-align: center;
         }
-
         .mid2-item {
             text-align: center;
             padding: 10px;
-            color:#333;
+            color: #333;
             background: #FCFCFC none repeat scroll 0% 0%;
             margin-bottom: 3.5vw;
         }
-        .mid2-item:hover, .mid2-item:active, .mid2-item:focus{
+        .mid2-item:hover, .mid2-item:active, .mid2-item:focus {
             text-align: center;
             padding: 10px;
-            color:#007BC1;
+            color: #007BC1;
             background: #FCFCFC none repeat scroll 0% 0%;
             margin-bottom: 3.5vw;
-            cursor:pointer;
+            cursor: pointer;
         }
         .nav > li {
             position: relative;
@@ -147,13 +123,12 @@
             text-align: center;
             background: transparent none repeat scroll 0% 0%;
         }
-        .border{
-            border:1px solid red;
+        .border {
+            border: 1px solid red;
         }
         .nav > li > a:focus, .nav > li > a:hover {
             text-decoration: none;
             background: none;
-
         }
         .nav > li > a:focus, .nav > li > a {
             text-decoration: none;
@@ -171,7 +146,7 @@
             width: 100%;
             z-index: 1;
         }
-        .mid3-item{
+        .mid3-item {
             text-align: justify;
         }
         .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
@@ -186,12 +161,12 @@
             background: none;
         }
         .nav-tabs > li > a:hover {
-            border:none;
+            border: none;
         }
         .panel-default > .panel-heading {
             background-color: #FCFCFC;
             border-color: #DDD;
-            font-family: pfhighway,Helvetica,Arial,sans-serif;
+            font-family: pfhighway, Helvetica, Arial, sans-serif;
             font-size: 30px;
             line-height: 36px;
             font-weight: 200;
@@ -231,13 +206,12 @@
             margin-bottom: -6px;
             border-radius: 4px;
         }
-        .first{
-
+        .first {
         }
         .item-img {
             height: 150px;
         }
-        .header-slide{
+        .header-slide {
             background: #FCFCFC none repeat scroll 0% 0%;
             font-size: 2.5vw;
             text-align: center;
@@ -253,576 +227,307 @@
         }
     </style>
 </head>
-<body style="background:#fcfcfc ;font-family: Open Sans ,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; ">
-
-
-<a href="http://<?=$_SERVER['HTTP_HOST']?>"    id="header">
-    <img src="/images/lp/OM_logo.png" style="display: flex; order: 0; flex: 0 1 auto; align-self: auto;"/>
-</a>
-
-
-<div class="col-md-12 " style="height:31.25vw  ;background: rgb(255, 213, 23) none repeat scroll 0% 0%; padding: 3% 0%;">
-    <div>
-        <a href="http://<?=$_SERVER['HTTP_HOST']?>" class="flex-container">
-            <div style="text-align: center;" class="col-md-6">
-                <img src="/images/lp/new.png" style="width: 25vw;" alt="Одежда Мастер">
-            </div>
-            <h1 style="text-align: left; font-size:  2.5vw; font-weight: 300" class="col-md-6">
-                Товары оптом по выгодным ценам <br />для физических и юридических лиц!
-            </h1>
-        </a>
-
-    </div>
-
-
-</div>
-<div class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%;">
-    <h2 class="col-md-12 header-slide" style="font-weight: 300">
-        C нами выгодно и удобно работать
-    </h2>
-
-    <div class="col-md-4 mid-item">
-        <h3 class="item-head">
-            Очень большой ассортимент
-        </h3>
-        <div class="item">
-            Свыше 350 000 наименований товара!<br />До 2000 новинок ежедневно!
-        </div>
-    </div>
-    <div class="col-md-4 mid-item">
-        <h3 class="item-head">
-            5000 Рублей
-        </h3>
-        <div class="item">
-            Минимальная закупка товара от 5000р. Начать работу очень легко
-        </div>
-    </div>
-    <div class="col-md-4 mid-item">
-        <h3 class="item-head">
-            Пожалуй, самые низкие цены
-        </h3>
-        <div class="item">
-            Мы продаем товары с минимальной наценкой
-        </div>
-    </div>
-    <div class="col-md-4 mid-item">
-        <h3 class="item-head">
-            Удобное отслеживвание товара
-        </h3>
-        <div class="item">
-            Всю информацию по заказам можно отследить в личном кабинете
-        </div>
-    </div>
-    <div class="col-md-4 mid-item">
-        <h3 class="item-head">
-            Доставка по России и СНГ
-        </h3>
-        <div class="item">
-            Работаем с ведущими транспортными компаниями
-        </div>
-    </div>
-    <div class="col-md-4 mid-item">
-        <h3 class="item-head">
-            Делайте заказ, где бы вы ни были
-        </h3>
-        <div class="item">
-            Можете делать заказ как на сайте,<br />так и через мобильное приложение
-        </div>
+<body style="min-width: 1440px;no-repeat 50% 0%;margin:auto;font-family: Roboto ,Helvetica Neue,sans-serif, sans-serif;font-style: normal;font-weight: 300;">
+<div style="background: white; z-index: 2; height: 180px; font-size: 40px; font-weight: 400; text-align: center; padding: 70px 0px;">
+    Хотите ДЕШЕВО покупать ХОРОШИЕ вещи?
+    <div style="font-size: 24px; line-height: 45px;">
+        Вступайте в клуб совместных закупок на Одежда-Мастер!
     </div>
 </div>
-<div class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%;">
-    <h2 class="col-md-12 header-slide" style="font-weight: 300">
-        Цены на популярные категории товаров
-    </h2>
-    <h3 class="col-md-12 sub-header-slide" style="font-weight: 300">
-        Наши оптовые цены, пожалуй самые низкие. Убедитесь сами!
-    </h3>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1720">
-        <div class="item-img">
-            <img src="/images/lp/1item.png" alt="Платье">
-        </div>
-        <h3 class="item-head">
-            Платье
-        </h3>
-        <div class="item">
-            От 70р.
-        </div>
-    </a>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1728">
-        <div class="item-img">
-            <img src="/images/lp/2item.png" alt="Блузка">
-        </div>
-        <h3 class="item-head">
-            Блузка
-        </h3>
-        <div class="item">
-            От 56р.
-        </div>
-    </a>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1775">
-        <div class="item-img">
-            <img src="/images/lp/3item.png" alt="Футболка">
-        </div>
-        <h3 class="item-head">
-            Футболка
-        </h3>
-        <div class="item">
-            От 42р.
-        </div>
-    </a>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1810">
-        <div class="item-img">
-            <img src="/images/lp/4item.png" alt="Кофта">
-        </div>
-        <h3 class="item-head">
-            Кофта
-        </h3>
-        <div class="item">
-            От 42р.
-        </div>
-    </a>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1758">
-        <div class="item-img">
-            <img src="/images/lp/5item.png" alt="Джинсы">
-        </div>
-        <h3 class="item-head">
-            Джинсы
-        </h3>
-        <div class="item">
-            От 70р.
-        </div>
-    </a>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1755">
-        <div class="item-img">
-            <img src="/images/lp/6item.png" alt="Куртка">
-        </div>
-        <h3 class="item-head">
-            Куртка
-        </h3>
-        <div class="item">
-            От 140р.
-        </div>
-    </a>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1984">
-        <div class="item-img">
-            <img src="/images/lp/7item.png" alt="Кроссовки">
-        </div>
-        <h2 class="item-head">
-            Кроссовки
-        </h2>
-        <div class="item">
-            От 196р.
-        </div>
-    </a>
-    <a class="col-md-3 mid2-item" style="display: block" href="/catalog?cat=1762">
-        <div class="item-img">
-            <img src="/images/lp/8item.png" alt="Белье">
-        </div>
-        <h2 class="item-head">
-            Белье
-        </h2>
-        <div class="item">
-            От 14р.
-        </div>
-    </a>
-</div>
-<div class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%;">
-    <h2 class="col-md-12 header-slide" style="font-weight: 300">
-        Работаем с ведущими транспортными компаниями
-    </h2>
-    <h3 class="col-md-12 sub-header-slide" style="font-weight: 300">
-        Доставка товара до транспортных компаний осуществляется бесплатно
-    </h3>
-    <div class="col-md-12">
-
-
-        <ul class="nav nav-tabs" style="width: 60%; margin: auto auto  2.5vw; font-size: 1.2vw; font-weight: 500;">
-            <li class="active"><a data-toggle="tab" href="#panel1">Доставка партнерам из России</a></li>
-            <li><a data-toggle="tab" href="#panel2">Доставка партнерам из Москвы и МО</a></li>
-        </ul>
-
-        <div class="tab-content">
-            <div id="panel1" class="tab-pane fade in active">
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Первая Экспедиционная компания»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.pecom.ru/ru/" >http://www.pecom.ru/ru/</a>
+<div style="z-index: 2; height: 820px; font-size: 40px; font-weight: 400; text-align: center;">
+    <div style="font-size: 24px; line-height: 45px; height: 100%;">
+        <div style="width: 30%; height: 90%; display: inline-block; margin: auto; position: relative;">
+            <div style="width: 49%; height: 100%; float: left;">
+                <div style="height: 50%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/vest.png"></div>
+                        <div style="margin-top: 25px;">Куртки<br>от 98р.</div>
                     </div>
                 </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Желдорэкспедиция»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.jde.ru/" >http://www.jde.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Деловые линии»
-                    </div>
-                    <div class="item">
-                        <a href=" http://www.dellin.ru/" > http://www.dellin.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «ОПТИМА»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.77-11.ru/" >http://www.77-11.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «КИТ»
-                    </div>
-                    <div class="item">
-                        <a href=" http://tk-kit.ru/" > http://tk-kit.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «ЭНЕРГИЯ»
-                    </div>
-                    <div class="item">
-                        <a href=" http://nrg-tk.ru/" > http://nrg-tk.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Севертранс»
-                    </div>
-                    <div class="item">
-                        <a href=" http://severtrans-msk.ru/" > http://severtrans-msk.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Почта России»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.pochta.ru/" >http://www.pochta.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Служба доставки Экспресс-Курьер»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.edostavka.ru/" >http://www.edostavka.ru/</a>
+                <div style="height: 50%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/pants.png"></div>
+                        <div style="margin-top: 25px;">Брюки<br>от 98р.</div>
                     </div>
                 </div>
             </div>
-            <div id="panel2" class="tab-pane fade">
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «EMS Почта России»
-                    </div>
-                    <div class="item">
-                        <a href=" http://www.emspost.ru/ru/" > http://www.emspost.ru/ru/</a>
+            <div style="width: 49%; height: 100%; float: right;">
+                <div style="height: 33%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/dress.png"></div>
+                        <div style="margin-top: 25px;">Платья<br>от 98р.</div>
                     </div>
                 </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Деловые линии»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.dellin.ru/" >http://www.dellin.ru/</a>
+                <div style="height: 33%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/blouse.png"></div>
+                        <div style="margin-top: 25px;">Блузки<br>от 98р.</div>
                     </div>
                 </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
-                        «Служба доставки Экспресс-Курьер»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.edostavka.ru/" >http://www.edostavka.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-12 mid-item">
-                    <div class="item-head">
-                        Самовывоз
-                    </div>
-                    <div class="item">
-                        Так же возможен самовывоз Московская область, Люберецкий р-он, пос.Томилино, деревня Кирилловка
+                <div style="height: 33%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/shirt.png"></div>
+                        <div style="margin-top: 25px;">Футболки<br>от 98р.</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-4 mid-item">
-        <div class="item-head">
-        </div>
-        <div class="item2">
-            Отгрузка товара осуществляется ближайшей отправкой выбранной Вами компанией из вышеперечисленных на следующий РАБОЧИЙ день или через день.
-        </div>
-    </div>
-    <div class="col-md-4 mid-item">
-        <div class="item-head">
-        </div>
-        <div class="item2">
-            Отгружаются только заказы оплаченные по порядку от более раннего к более позднему.
-        </div>
-    </div>
-    <div class="col-md-4 mid-item">
-        <div class="item-head">
-        </div>
-        <div class="item2">
-            Заказы оплаченные выборочно отправляются только после оплаты предшествующих им неоплаченных заказов.
-        </div>
-    </div>
-    <div class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%; font-size: 1vw; text-align: center; margin: 5vh 0px;">
-
-        <a class="" type="button" data-toggle="collapse" data-target="#collapsenext" aria-expanded="false" aria-controls="collapsenext">
-            Развернуть полные условия по доставке
-        </a>
-        <div class="collapse" id="collapsenext">
-            <div style="text-align: left; margin: 10px 0px;">
-                <div class="item4">
-                    Сопроводительные документы для ТК оформляются нами при подготовке Вашего заказа к отправке.
-                </div>
-                <div class="item4">
-                    Грузы ТК: "Первая Экспедиционная компания", "КИТ", "Почта России", "Служба доставки Экспресс-Курьер", "Деловые линии","Энергия" отправляются из г. ИВАНОВО
-                </div>
-                <div class="item4">
-                    Грузы ТК: "Желдорэкспедиция", "ОПТИМА", "Севертранс", ЕМС почта России отправляются из г. МОСКВЫ
-                </div>
-                <div class="item4">
-                    Отправки ТК «Почта России» производятся 1 раз в неделю.  
-                </div>
-                <div class="item4">
-                    Также возможна доставка через ЕМС почту России http://www.emspost.ru/ru/. Отправка заказов через почту ЕМС осуществляется 1-2 раза в неделю (по мере накопления заказов).
-                </div>
-                <div class="item4">
-                    Оплата доставки осуществляется Вами при получении заказа.
-                </div>
-
+        <div style="width: 39%; display: inline-block; position: relative; height: 100%;">
+            <div style="position: absolute; z-index: 2; font-size: 40px; font-weight: 400; text-align: center; top: 0px; bottom: 0px; left: 0px; right: 0px;">
+                <img style="z-index: 72;" src="/images/lp/girl1.png">
             </div>
         </div>
-
-    </div>
-</div>
-<div class="" style="background: rgb(233, 81, 109) none repeat scroll 0% 0%;">
-    <div class="col-md-12" style="text-align: center; background: rgb(233, 81, 109) none repeat scroll 0% 0%; color: aliceblue; font-size: 2.5vw; z-index: 8; padding: 2% 14%;">
-        С нами работают и зарабатывают более 34464 клиентов по всей России и СНГ
-        <img src="/images/lp/strel.png" style="position: absolute; margin: auto; bottom: -45px; right: 0px; left: 0px; z-index: -1;">
-    </div>
-</div>
-<div class="col-md-12" style="margin-top: 0px; background: rgb(245, 245, 245) none repeat scroll 0% 0%; padding: 150px 0px;">
-    <h2 class="col-md-12 header-slide" style="font-weight: 300; background: rgb(245, 245, 245) none repeat scroll 0% 0%;">
-        Один шаг отделяет Вас от выгодных покупок!
-    </h2>
-    <h2 class="col-md-12 sub-header-slide" style="font-weight: 300; background: rgb(245, 245, 245) none repeat scroll 0% 0%;">
-        Просто зарегистрируйтесь на сайте и выбирайте среди свыше 350 000 товаров по самым выгодным ценам.
-    </h2>
-    <div style="text-align: center;" class="col-md-12">
-        <a class="number" style="padding:5px;font-size: 1.4vw;
-font-weight: 500; display: inline-block; width: 25%; color:#00a5a2; min-width: 320px; height: 50px;border: 1px solid #00a5a2; border-radius: 4px; margin: 17px;" href="/signup">
-            Зарегистрироваться
-        </a>
-    </div>
-</div>
-<div  class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%;">
-    <h2 class="col-md-12 header-slide" style="font-weight: 300">
-        Подробные условия работы и частые вопросы
-    </h2>
-    <div class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%; font-size: 1.5vw; text-align: center; width: 90%; margin: 0px 5vw;">
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            Условия оформления заказа </a>
-                    </h4>
+        <div style="width: 30%; height: 90%; display: inline-block;">
+            <div style="width: 49%; height: 100%; float: left;">
+                <div style="height: 33%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/brassiere.png"></div>
+                        <div style="margin-top: 25px;">Нижнее белье<br>от 98р.</div>
+                    </div>
                 </div>
-                <div id="collapse1" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                При оформлении заказа необходимо выбрать транспортную компанию, которой Вы бы хотели осуществить доставку товара. Обязательно указывается полное  ФИО и паспортные данные (если они требуются в выбраной ТК). Если получателем по Вашему заказу будет другой человек, то Его данные  необходимо также указать.
-                            </div>
-                            <div class="item4">
-                                Минимальная сумма заказа 5000 тысяч рублей. Но если после редактирования нами Вашего заказа его итоговая стоимость стал меньше 5000р., заказ в любом случае будет отправлен Вам сразу же после оплаты. К уже оформленному заказу Вы можете оформить Дозаказ на сумму от 1000 руб. (Дозаказ осуществляется так же, как обычный Заказ, с комментарием о том, что это Дозаказ). Поштучно можно заказывать любой товар, кроме того,  который продается упаковками.
-                            </div>
-                        </div>
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                Заказы оплаченные выборочно отправляются только после оплаты  предшествующих им неоплаченных заказов.
-                            </div>
-                            <div class="item4">
-                                Оформляйте заказ, внимательно ознакомившись с условиями определения размера, которые есть в разделе <a href="/article?view=sizes">«Размерная сетка»</a> на нашем сайте
-                            </div>
-                            <div class="item4">
-                                В случае Вашего отказа от уже  оформленного Заказа ( не в день его оформления до 17:00, а позже), в  дальнейшем Ваши заказы будут приниматься к оформлению только  при 100%-ой предоплате. На сумму переплаты сможете оформлять дозаказы
-                            </div>
-                        </div>
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                Убедительно просим осознанно, внимательно и тщательно  формировать свои заявки. После оформления заказа Вам на электронную почту придет перечень  вашего заказа- который нужно внимательно проверить. Заказы собираются индивидуально строго под каждого клиента, поэтому после оформления Вами заказа НЕЛЬЗЯ  ОТКАЗЫВАТЬСЯ И ВНОСИТЬ  ИЗМЕНЕНИЯ В СОБРАННЫЕ ЗАКАЗЫ. Отказ от заказа принимается только  в день его оформления.
-                            </div>
-                            <div class="item4">
-                                При оформлении в 1 день нескольких заказов или дозаказов – они будут объединены в один общий заказ с одним присвоенным номером  (он автоматически будет отправлен  вам на электронную почту).  Оплачивать заказ нужно будет по  сумме, выставленной после сборки  заказа.
-                            </div>
-                        </div>
+                <div style="height: 33%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/handbag.png"></div>
+                        <div style="margin-top: 25px;">Сумки<br>от 98р.</div>
+                    </div>
+                </div>
+                <div style="height: 33%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/shoe.png"></div>
+                        <div style="margin-top: 25px;">Кеды<br>от 98р.</div>
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            Обработка заказа, сборка заказа </a>
-                    </h4>
-                </div>
-                <div id="collapse2" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                Заказ обрабатывается в течении 2-3 дней, после чего Вам выставляется счет (он находится в «личном кабинете» в «истории заказов»). Дождитесь когда статус Вашего заказа поменяется на ЖДЕМ ОПЛАТЫ. Сразу после этого выставится окончательный счет. Только после этого можно оплачивать.
-                            </div>
-                        </div>
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                При оформлении в 1 день нескольких заказов или дозаказов – они будут объединены в один общий заказ с одним присвоенным номером  (он автоматически будет отправлен  вам на электронную почту).  Оплачивать заказ нужно будет по  сумме, выставленной после сборки  заказа.
-                            </div>
-                        </div>
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                Отгрузка товара осуществляется ближайшей отправкой на следующий рабочий день или через день после поступления оплаты.
-                            </div>
-                        </div>
-
+            <div style="width: 49%; height: 100%; float: right;">
+                <div style="height: 50%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/stilettos.png"></div>
+                        <div style="margin-top: 25px;">Туфли<br>от 98р.</div>
                     </div>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                            Порядок и способы оплаты</a>
-                    </h4>
-                </div>
-                <div id="collapse4" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                Банковской карты у нас нет! Вы можете оплатить Ваши заказы через Сбербанк Онлайн (образец по оплате есть у нас на сайте ),также можете оплатить в кассе банка.  Все реквизиты для оплаты в счете.
-                            </div>
-                            <div class="item4">
-                                При оплате выбирайте ПЕРЕВОД НА ОРГАНИЗАЦИЮ. Если выпадает регион ПЕРМЬ (это наш регион) продолжайте оплату.
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                Если Вы открыли собственный Юнистрим кошелек, персонифицировали и пополнили его счет, то Вы можете оплатить заказы с него также.
-                            </div>
-                            <div class="item4">
-                                При уведомлении об оплате обязательно указывать  номера оплачиваемых заказов, сумму оплаты и дату платежа текстом в письме. Уточните отправлять оплаченные заказы или не отправлять?
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 mid3-item">
-                            <div class="item4">
-                                Оплата на расчетный счет проходит в течении 2-3 рабочих банковских дней. Как только придет оплата - Вам придет извещение на почту и статус Вашего заказа изменится на оплачен.Оплата в выходные дни не зачисляется.
-                            </div>
-                            <div class="item4">
-                                Оплата в выходные дни не зачисляется.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                            График работы офиса и службы сборки заказов </a>
-                    </h4>
-                </div>
-                <div id="collapse5" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="col-md-12 mid3-item">
-                            <div class="item4">
-                                Cпециалисты контактного центра "Одежда-Мастер" работают по графику: c 8.00 до 20.00 7 дней в неделю и в праздники.
-                            </div>
-                        </div>
-
+                <div style="height: 50%; position: relative;">
+                    <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
+                        <div><img src="/images/lp/sunglasses.png"></div>
+                        <div style="margin-top: 25px;">Очки от солнца<br>от 98р.</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<div class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%; clear: both;">
-    <h2 class="col-md-12 header-slide" style="font-weight: 300">
-        Остались вопросы? Хотите пообщаться со специалистом?
-    </h2>
-    <h3 class="col-md-12 sub-header-slide" style="font-weight: 300">
-        С удовольствием ответим на интересующие вопросы по будням с 8 до 20 часов по московскому времени
-    </h3>
-    <div style="text-align: center;" class="col-md-12">
-        <a class="online" style="font-weight: 600;padding:5px; display: inline-block; color:rgb(0, 165, 161); width: 25%; min-width: 320px;height: 50px;border: 1px solid rgb(0, 165, 161); border-radius: 4px; margin: 17px;" href="/contactform">
-            Помощь<br/><span>онлайн</span>
-        </a>
-        <div class="number" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; color:rgb(234, 81, 109); min-width: 320px; height: 50px;border: 1px solid rgb(234, 81, 109); border-radius: 4px; margin: 17px;">
-            Для клиентов из Москвы и МО<br/><span style="font-weight: 300">+7 (910) 996-0134</span>
+<div style="z-index: 1; height: 195px; font-size: 40px; font-weight: 400; text-align: center; position: relative;">
+    <div style="background:url(/images/lp/Path6Copy.png) 50% 0% no-repeat; background-size: cover ;position: absolute; z-index: 2; font-size: 40px; font-weight: 400; text-align: center; top: 0px; bottom: 0px; left: 0px; right: 0px;">
+    </div>
+    <div style="background:url(/images/lp/Path6.png) 50% 0% no-repeat; background-size: cover;position: absolute; z-index: 2; font-size: 40px; font-weight: 400; text-align: center; top: 0px; bottom: 0px; left: 0px; right: 0px;">
+    </div>
+    <div style="background: #FFF;border-radius: 4px;position: absolute; z-index: 2; height: 115px; font-size: 40px; font-weight: 400; text-align: center; top: 130px; left: 0px; right: 0px; margin: 5px 210px; padding: 30px;">
+        <div style="border-radius: 4px; position: relative;">
+            <div style="position: absolute; top: 0px; bottom: 0px; left:0px; right: 0px; margin: auto;">
+                <input placeholder="Ваш E-mail" style="display: inline-block; width: 47%; float: left; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center;">
+                <div style="display: inline-block; width: 45%; font-size: 24px; line-height: 60px; float: right; color: rgb(255, 255, 255); border-radius: 4px; height: 60px; background: rgb(234, 81, 109) none repeat scroll 0% 0%;">
+                    Вступить
+                </div>
+            </div>
         </div>
-        <div class="number" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; color:rgb(234, 81, 109); min-width: 320px; height: 50px;border: 1px solid rgb(234, 81, 109); border-radius: 4px; margin: 17px;">
-            Телефон<br/><span style="font-weight: 300">+7 (495) 204-1583</span>
+    </div>
+</div>
+<div style="background: rgb(122, 72, 220) none repeat scroll 0% 0%; color: rgb(255, 255, 255); height: 720px; font-size: 36px; font-weight: 400; text-align: left; position: relative; padding-top: 20px;">
+    <div style="width: 49%; height: 100%; float: left; position: relative;">
+        <div style="height: 400px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto; padding: 30px;">
+            <div style="height: 130px; padding: 30px;">
+                Почему я совершаю совместные покупки на Одежде-Мастер?
+            </div>
+            <div style="height: 200px; padding: 30px;">
+                <img src="/images/lp/arrow_green_up.png">
+            </div>
         </div>
-        <a class="mail" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; min-width: 320px; color:rgb(234, 81, 109); height: 50px;border: 1px solid #007BC1; border-radius: 4px; margin: 17px;" href="mailto:odezhdamaster@gmail.com">
-            Администратор<br/><span style="font-weight: 300">+7 (915) 811-4051</span>
-        </a>
-        <a class="mail" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; min-width: 320px; color:#007BC1; height: 50px;border: 1px solid #007BC1; border-radius: 4px; margin: 17px;" href="mailto:odezhdamaster@gmail.com">
-            емейл<br/><span style="font-weight: 300">odezhdamaster@gmail.com</span>
-        </a>
-        <a class="mail" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; min-width: 320px; color:#007BC1; height: 50px;border: 1px solid #007BC1; border-radius: 4px; margin: 17px;" href="skype:odezhda-master1?chat">
-            Skype<br/><span style="font-weight: 300">odezhda-master1</span>
-        </a>
+    </div>
+    <div style="width: 49%; height: 100%; float: right; position: relative;">
+        <div style="height: 600px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto; padding: 30px;">
+            <div style="height: 200px; width: 100%; padding: 30px;">
+                Очень большой ассортимент
+                <p style="font-size: 24px">
+                    Свыше 350 000 наименований товара!
+                    <br>
+                    До 2000 новинок ежедневно!
+                </p>
+            </div>
+            <div style="height: 200px; width: 100%; padding: 30px;">
+                Всего 5000р.
+                <p style="font-size: 24px">
+                    Сумма заказа, при которой совместная покупка состоится. Не придется долго ждать пока наберется большая группа
+                </p>
+            </div>
+            <div style="height: 200px; width: 100%; padding: 30px;">
+                Удобное отслеживание товара
+                <p style="font-size: 24px">
+                    Всю информацию по заказу можно отследить в личном кабинете
+                </p>
+            </div>
+        </div>
     </div>
 </div>
-<div class="col-md-12" style="font-size: 18px; margin: auto; padding: 20px 6.7%;">
-    <div class="social-pretext" style="display: inline-block; text-align: left; margin-right: 4vw;">
-        А еще мы доступны в соцсетях для вопросов, общения, дружбы
+<div style="z-index: 1; height: 540px; font-size: 40px; font-weight: 400; text-align: center; position: relative;">
+    <div style="background: white none repeat scroll 0% 0%; z-index: 2; height: 180px; font-size: 40px; font-weight: 400; text-align: center; padding: 70px 0px;">
+        Как работают совместные покупки?
     </div>
-    <div class="social-link" style="display: inline-block; text-align: left;">
-        <a style="display: inline-block; margin: 5px;" href="https://new.vk.com/odezdamast_shop">
-            <img src="/images/lp/vk.png" alt="Группа Одежда Мастер в Вконтакте">
-        </a>
-        <a style="display: inline-block; margin: 5px;" href="https://ok.ru/odezhda.master">
-            <img src="/images/lp/ok.png"  alt="Группа Одежда Мастер в Одноклассниках">
-        </a>
-        <a style="display: inline-block; margin: 5px;" href="https://www.instagram.com/odezhda_master/">
-            <img src="/images/lp/inst.png"  alt="Группа Одежда Мастер в Инстаграме">
-        </a>
+    <div style="height: 360px; margin-top: -50px;">
+        <div style="position: relative; height: 360px; width: 100%;">
+            <div style="width: 15%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;" src="/images/lp/OM_logo.png">
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 24px;">Совместный заказ я<br>размещаю в оптовой<br>компании</div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 5%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;" src="/images/lp/right-arrow.png">
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 36px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 10%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;  font-size: 18px; line-height: 20px; color: rgb(136, 136, 136); padding: 100px 0px;">
+                                <img src="/images/lp/krestik.png" style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto; ">Магазин<br>(Посредник)
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 24px;">В процессе закупки<br>исключаются<br>посредники</div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 5%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;" src="/images/lp/right-arrow.png">
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 36px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 15%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;" src="/images/lp/shop.png">
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 24px;">Организатор<br>закупки</div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 5%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;" src="/images/lp/right-arrow.png">
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 36px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 10%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;  font-size: 18px; line-height: 20px; color: rgb(136, 136, 136); padding: 100px 0px;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;  " src="/images/lp/krestik.png">Розничная<br>наценка
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 24px;">И всевозможные<br>разничные наценки</div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 5%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;" src="/images/lp/right-arrow.png">
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 36px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 15%; display: inline-block; height: 100%;">
+                <div style="position: relative; height: 100%; width: 100%;">
+                    <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; margin: auto; height: 300px;">
+                        <div style="height: 80%; position: relative;">
+                            <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; height: 100%;">
+                                <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;" src="/images/lp/shop_girl.png">
+                            </div>
+                        </div>
+                        <div style="height: 30%; font-size: 18px; line-height: 24px;">Вы получаете<br>модный товар<br>по оптовой цене</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div style="font-size: 18px; margin: auto; padding: 20px 6.7%;" class="col-md-12">
-    <div style="display: inline-block; text-align: left; margin-right: 4vw;" class="pretext">
-        Хотите заказывать новинки где угодно одним из самых первых? Тогда скачайте наше приложение
+<div style="z-index: 1; height: 630px; font-size: 40px; font-weight: 400; text-align: center; position: relative;">
+    <div style="border-top:2px solid #CCC; background: white; z-index: 2; height: 180px; font-size: 40px; font-weight: 400; text-align: center; padding: 70px 0px;">
+        Какая цена нравится больше?
     </div>
-    <div class="playmarket-link" style="display: inline-block; text-align: right;">
-        <a class="play-market" style=" display: inline-block;" href="https://play.google.com/store/apps/details?id=com.codegeek.omshopmobile">
-            <img src="/images/lp/google.png" style="width: 75%;">
-        </a>
-        <!--<div class="app-store" style="width: 48%; display: inline-block;">-->
-        <!--<img src="/images/lp/app-store.png" style="width: 75%;">-->
-        <!--</div>-->
+    <div style="width: 100%;position: absolute;">
+        <div style="width: 30%; display: inline-block; height: 100%; position: relative; text-align: left; padding: 0px 70px;">
+            <div style="
+    width: 100%;
+">350p.<p style="font-size: 22px;">цена на Одежда-Мастер</p></div>
+            <div style="position: relative;width: 100%;">
+                <img src="/images/lp/arrow_green_down.png" style="">
+            </div>
+        </div>
+        <div style="width: 30%; display: inline-block; height: 100%; position: relative; top: 120px;">
+            <img src="/images/lp/bosonozka.png" style="position: relative; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;">
+        </div>
+        <div style="width: 30%; display: inline-block; height: 100%; position: relative; text-align: right; padding: 0px 70px;">
+            <div style="
+    width: 100%;
+">350p.<p style="font-size: 22px;">цена на Одежда-Мастер</p></div>
+            <div style="position: relative;width: 100%;">
+                <img src="/images/lp/arrow_blue.png" style="">
+            </div>
+        </div>
     </div>
+</div>
+<div style="background:rgb(250, 40, 90); z-index: 1; height: 290px; font-size: 40px; font-weight: 400; text-align: center; position: relative;">
+    <div style="border-radius: 4px; display: inline-block; left: 60px; position: absolute; text-align: left; font-size: 48px; top: 70px; color: rgb(255, 255, 255);">
+        Начни экономить<br> до 100% на покупках!
+    </div>
+    <div style="border-radius: 4px; position: relative;display: inline-block">
+        <div style="width: 440px; top: 75px; bottom: 0px; right: 0px; margin: auto; height: 100%; position: absolute; border: medium none; left: -100px;">
+            <input placeholder="Ваш E-mail" style="width: 100%; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center; margin-bottom: 15px;">
+            <br>
+            <div style="width: 100%; font-size: 24px; line-height: 60px; border-radius: 4px; height: 60px; background: rgb(68, 226, 194) none repeat scroll 0% 0%; color: rgb(0, 0, 0);">
+                Вступить
+            </div>
+        </div>
+    </div>
+</div>
+<div style="z-index: 1; height: 235px; font-size: 40px; font-weight: 400; text-align: center; position: relative; background: rgb(120, 211, 62) none repeat scroll 0% 0%; color: rgb(255, 255, 255);">
+    <div style="position: absolute; top: 70px; bottom: 0px; right: 0px; left: 0px; margin: auto; font-size: 32px; text-align: center;">Каталог товаров<br>Одежда-Мастер</div>
+    <img style="position: absolute; right: 0px; bottom: 0px;" src="/images/lp/girl2.png" />
+</div>
 
-</div>
-<div style="text-align: center;margin: 2.5vw 0px;" class="col-md-12">
-    <a class="number" style="padding:5px;font-size: 1.4vw;
-font-weight: 500; display: inline-block; background:#00a5a2;   width: 25%; color:#FCFCFC; min-width: 320px; height: 50px;border: 1px solid #00a5a2; border-radius: 4px; margin: 17px;" href="/catalog?cat=1632">
-        Перейти в каталог товаров
-    </a>
-</div>
-<?=\frontend\widgets\Metrics::widget();?>
-</body>
-</html>
+
+</body></html>
