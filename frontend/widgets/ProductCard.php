@@ -79,7 +79,7 @@ class ProductCard extends \yii\bootstrap\Widget
             $discount=100-round($product['products_price']*100/$product['products_old_price']);
         }
         $offersstyle='';
-        if($this->showdiscount==1){
+        if($this->showdiscount == 1 && $product['products_old_price'] > 0){
             $offersstyle='style="right:10px;bottom:105px; position:absolute"';
         }
         ksort($attr_desc,SORT_NATURAL);

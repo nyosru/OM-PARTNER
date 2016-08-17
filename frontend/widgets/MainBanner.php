@@ -13,9 +13,9 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_05082016_1.png',
-                'referal'=> '/catalog?cat=1729&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Блузы',
+                'image' => '/images/banners/OM_16082016_1.png',
+                'referal'=> '/catalog?cat=2548',
+                'alttext' => 'Рюкзаки',
                 'out' => FALSE
             ],
             [
@@ -27,9 +27,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_05082016_2.gif',
-                'referal'=> '/catalog?cat=1746&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Парфюмерия',
+                'image' => '/images/banners/OM_16082016_2.png',
+                'referal'=> '/catalog?cat=1693',
+                'alttext' => 'Платья XXL',
                 'out' => FALSE
             ],
             [
@@ -41,9 +41,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_05082016_3.png',
-                'referal'=> '/catalog?cat=2043&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Книги для детей',
+                'image' => '/images/banners/OM_16082016_3.png',
+                'referal'=> '/catalog?cat=1993',
+                'alttext' => 'Туфли',
                 'out' => FALSE
             ],
             [
@@ -55,9 +55,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_05082016_4.png',
-                'referal'=> '/catalog?cat=2066&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Комбинезоны',
+                'image' => '/images/banners/OM_16082016_4.png',
+                'referal'=> '/catalog?cat=2730',
+                'alttext' => 'Кальяны',
                 'out' => FALSE
             ],
             [
@@ -69,9 +69,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_10082016.png',
-                'referal'=> '/discountproducts',
-                'alttext' => 'Акционные товары!',
+                'image' => '/images/banners/OM_16082016_5.png',
+                'referal'=> '/catalog?cat=1827',
+                'alttext' => 'Мужские куртки',
                 'out' => FALSE
             ],
             [
@@ -83,9 +83,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_05082016_6.png',
-                'referal'=> '/catalog?cat=1911&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Зоотовары',
+                'image' => '/images/banners/OM_16082016_6.png',
+                'referal'=> '/discountproducts',
+                'alttext' => 'Акционные товары!',
                 'out' => FALSE
             ],
             [

@@ -3,6 +3,7 @@
 namespace frontend\modules\sp\controllers\v0;
 
 
+use frontend\modules\sp\controllers\actions\ActionIndex;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,7 +11,7 @@ use yii\web\Controller;
 class DefaultController extends Controller
 {
 
-
+    use ActionIndex;
     public function behaviors()
     {
         return [
