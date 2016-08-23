@@ -3670,17 +3670,18 @@ div.size-desc:last-child{
     padding: 6px 12px;
     font-size: 14px;
     font-weight: normal;
-    line-height: 14;
+    line-height: 7;
     text-align: center;
     white-space: nowrap;
     cursor: pointer;
     -moz-user-select: none;
     border-radius: 2px;
-    height: 220px;
+    height: 110px;
 
 }
 .brand-label:hover{
     box-shadow: 0px -2px 15px #9E9E9E;
+
 }
 @media screen and (min-width: 3651px) and ( max-width: 4100px){
     #card{
