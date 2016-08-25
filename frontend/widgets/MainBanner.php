@@ -17,41 +17,41 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_19082016_1.png',
-                'referal'=> '/catalog?cat=1792',
-                'alttext' => 'Спортивные костюмы',
+                'image' => '/images/banners/OM_24082016_1.png',
+                'referal'=> '/catalog?cat=1720',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_19082016_2.png',
-                'referal'=> '/catalog?cat=1803',
-                'alttext' => 'Толстовки, худи',
+                'image' => '/images/banners/OM_24082016_2.png',
+                'referal'=> '/catalog?cat=1829',
+                'alttext' => 'Демисезонные куртки',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_19082016_3.png',
-                'referal'=> '/catalog?cat=1762',
-                'alttext' => 'Белье',
+                'image' => '/images/banners/OM_24082016_3.png',
+                'referal'=> '/catalog?cat=1987',
+                'alttext' => 'Полусапожки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_19082016_4.png',
-                'referal'=> '/catalog?cat=1988',
-                'alttext' => 'Резиновые сапоги',
+                'image' => '/images/banners/OM_24082016_4.png',
+                'referal'=> '/catalog?cat=858',
+                'alttext' => 'Женские перчатки, варежки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_19082016_5.png',
-                'referal'=> '/catalog?cat=1748',
-                'alttext' => 'Демисезонные куртки',
+                'image' => '/images/banners/OM_24082016_5.png',
+                'referal'=> '/catalog?cat=1750',
+                'alttext' => 'Плащи, тренчкоты',
                 'out' => FALSE
             ],
             [
@@ -63,9 +63,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_19082016_6.png',
-                'referal'=> '/catalog?cat=1823',
-                'alttext' => 'Комплекты (шарф, шапка)',
+                'image' => '/images/banners/OM_24082016_6.png',
+                'referal'=> '/catalog?cat=2054',
+                'alttext' => 'Парфюмерия',
                 'out' => FALSE
             ]
         ],
@@ -214,7 +214,7 @@ class MainBanner extends \yii\bootstrap\Widget
                         'data-ride' => 'carousel',
                     ],
                     'clientOptions'=>[
-                        'interval'=>5000,
+                        'interval'=>3000,
                         'pause'=> 'load',
 
                     ]

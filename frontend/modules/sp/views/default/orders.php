@@ -35,6 +35,7 @@
         background: #FFF;
         height: 80%;
         position: fixed;
+        bottom: 0px;
     }
 
     #container1 {
@@ -122,7 +123,6 @@
     .client-line-info-orders {
         display: block;
         height: 100%;
-        width: 75%;
         margin: 0px 0px 0px 119px;
         position: relative;
     }
@@ -155,7 +155,7 @@
     }
 
     .client-info-fr-order {
-        width: 50%;
+        width: 60%;
         padding: 20px 0px;
         display: inline-block;
     }
@@ -163,6 +163,7 @@
         padding: 25px 0px;
         display: inline-block;
         float: right;
+        width: 40%;
     }
     .client-name {
         font-size: 16px;

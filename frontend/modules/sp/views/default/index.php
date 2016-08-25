@@ -27,19 +27,21 @@
         background: url(/images/lksp/search.png) no-repeat 50% 50%;
         position: absolute;
     }
-
     #container2 {
         clear: left;
         width: 100%;
         overflow: hidden;
         background: #FFF;
+        height: 80%;
+        position: fixed;
+        bottom: 0px;
     }
-
     #container1 {
         float: left;
         width: 100%;
-        position: relative;
         right: 70%;
+        height: 80%;
+        position: fixed;
     }
 
     #col1 {
@@ -48,6 +50,7 @@
         position: relative;
         left: 70%;
         border-right: 1px solid #CCC;
+        height: 100%;
     }
 
     #col2 {
@@ -56,7 +59,9 @@
         position: relative;
         left: 70%;
         overflow: hidden;
+        height: 100%;
     }
+
 
     .client-plate {
         height: 100%;
@@ -240,6 +245,7 @@
 <div id="container2">
     <div id="container1">
         <div id="col1">
+            <div id="scroll1" style="height: 100%">
             <div class="client-plate">
                 <div class="client-avatar">
                     <div class="avatar">
@@ -543,8 +549,10 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
         <div id="col2">
+            <div id="scroll2" style="height: 100%">
             <div class="client-board">
                 <div class="client-board-avatar" >
                     <div class="client-board-avatar-image">
@@ -646,5 +654,24 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </div>
+<script>
+    (function($){
+        $(window).on("load",function(){
+            $("#scroll1").mCustomScrollbar({
+                theme: "dark",
+                axis: "y",
+                contentTouchScroll: "TRUE",
+                advanced: {autoExpandHorizontalScroll: true}
+            } );
+            $("#scroll2").mCustomScrollbar({
+                theme: "dark",
+                axis: "y",
+                contentTouchScroll: "TRUE",
+                advanced: {autoExpandHorizontalScroll: true}
+            } );
+        });
+    })(jQuery);
+</script>
