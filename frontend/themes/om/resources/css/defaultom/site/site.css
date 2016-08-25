@@ -3662,7 +3662,27 @@ div.size-desc:last-child{
     float: left;
     display: none;
 }
+.brand-label{
+    border: 1px solid #CCC;
+    width: calc(100% / 6 - 10px);
+    margin: 5px 5px 0px;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 7;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    -moz-user-select: none;
+    border-radius: 2px;
+    height: 110px;
 
+}
+.brand-label:hover{
+    box-shadow: 0px -2px 15px #9E9E9E;
+
+}
 @media screen and (min-width: 3651px) and ( max-width: 4100px){
     #card{
         width: calc(100% / 11 - 10px);

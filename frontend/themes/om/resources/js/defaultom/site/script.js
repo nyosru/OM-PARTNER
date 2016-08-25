@@ -621,7 +621,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
         '<a id="prod-info" data-prod="' + $product.products_id + '" >'+
-        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
+        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
         '</div>'+
         '<div  itemprop="model" class="model" style="display:none">' + $product.products_model + '</div>' +
         '<div  itemprop="description" class="model" style="display:none">' +$descriptionprod.products_description + '</div>' +
@@ -643,7 +643,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
         '</div>'+
         '</div>'+
 
-        '<a itemprop="url" href="/glavnaya/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+        '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
         '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
         '</i>'+
         'В карточку'+
@@ -755,7 +755,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
 
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
-        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/glavnaya/imagepreview?src=' + $product.products_id + ');">'+
+        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
         '</div></div>'+
         ''+$timeprew+''+
@@ -768,7 +768,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
         '</i>'+
         '</div>'+
         '</div>'+
-        '<a itemprop="url" href="/glavnaya/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
+        '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
         '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
         '</i>'+
         'В карточку'+
@@ -1526,7 +1526,7 @@ $(document).on('click','#prod-info',function(){
                 '<div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">' +
                 data['product']['productsDescription']['products_name'] +
                 '</div>' +
-                '<a itemprop="url" href="/glavnaya/product?id=' + dp + '">' +
+                '<a itemprop="url" href="/site/product?id=' + dp + '">' +
                 '</a>' +
                 '</div>' +
                 '<div class="prod-pricing" style="margin-bottom: 25px;">' +
