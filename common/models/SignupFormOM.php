@@ -271,9 +271,9 @@ class SignupFormOM extends Model
                     if ($newuserpartnerscastid->save()) {
                         Yii::$app->params['params']['products_mail'] =  $this->NewProducts(6,'mail_new-34', 7200);
                         Yii::$app->params['params']['utm'] =  [
-                            'source'=>'email',
-                            'medium'=>'register',
-                            'campaign'=>'new-om',
+                            'source'=>'newom',
+                            'medium'=>'email',
+                            'campaign'=>'om',
                             'content'=>'register'
                         ];
                         Yii::$app->mailer->compose('sign-up-om', ['name'=>$this->name,'id'=>$userCustomer->customers_id,'username' => $user->username, 'password' => $this->password])
