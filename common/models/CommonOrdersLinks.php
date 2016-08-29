@@ -15,7 +15,7 @@ use Yii;
  * @property string $date_modified
  * @property integer $status
  *
- * @property PartnersCommonOrders $commonOrders
+ * @property CommonOrders $commonOrders
  * @property PartnersOrders $partnerOrders
  */
 class CommonOrdersLinks extends \yii\db\ActiveRecord
@@ -61,7 +61,7 @@ class CommonOrdersLinks extends \yii\db\ActiveRecord
      */
     public function getCommonOrders()
     {
-        return $this->hasOne(PartnersCommonOrders::className(), ['id' => 'common_orders_id']);
+        return $this->hasOne(CommonOrders::className(), ['id' => 'common_orders_id']);
     }
 
     /**

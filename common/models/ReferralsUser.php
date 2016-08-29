@@ -16,8 +16,8 @@ use Yii;
  * @property string $date_modified
  * @property integer $status
  *
- * @property PartnersReferrals $referral
- * @property PartnersUsers $user
+ * @property Referrals $referral
+ * @property User $user
  */
 class ReferralsUser extends \yii\db\ActiveRecord
 {
@@ -65,7 +65,7 @@ class ReferralsUser extends \yii\db\ActiveRecord
      */
     public function getReferral()
     {
-        return $this->hasOne(PartnersReferrals::className(), ['id' => 'referral_id']);
+        return $this->hasOne(Referrals::className(), ['id' => 'referral_id']);
     }
 
     /**
@@ -73,6 +73,6 @@ class ReferralsUser extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(PartnersUsers::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

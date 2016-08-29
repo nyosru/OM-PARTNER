@@ -17,8 +17,8 @@ use Yii;
  * @property string $date_modified
  * @property integer $status
  *
- * @property PartnersReferrals $referral
- * @property PartnersCommonOrdersLinks[] $partnersCommonOrdersLinks
+ * @property Referrals $referral
+ * @property CommonOrdersLinks[] $partnersCommonOrdersLinks
  */
 class CommonOrders extends \yii\db\ActiveRecord
 {
@@ -65,7 +65,7 @@ class CommonOrders extends \yii\db\ActiveRecord
      */
     public function getReferral()
     {
-        return $this->hasOne(PartnersReferrals::className(), ['id' => 'referral_id']);
+        return $this->hasOne(Referrals::className(), ['id' => 'referral_id']);
     }
 
     /**
@@ -73,6 +73,6 @@ class CommonOrders extends \yii\db\ActiveRecord
      */
     public function getPartnersCommonOrdersLinks()
     {
-        return $this->hasMany(PartnersCommonOrdersLinks::className(), ['common_orders_id' => 'id']);
+        return $this->hasMany(CommonOrdersLinks::className(), ['common_orders_id' => 'id']);
     }
 }
