@@ -2,8 +2,8 @@
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+    require(__DIR__ . '/params.php')
+  //  require(__DIR__ . '/params-local.php')
 );
 
 return [
@@ -11,7 +11,13 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'console\controllers',
-    'components' => [
+
+   'components' => [
+        'user' => [
+            'class'=>'common\models\User',
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true,
+        ],
         'log' => [
             'targets' => [
                 [

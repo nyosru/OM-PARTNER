@@ -17,41 +17,41 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_24082016_1.png',
-                'referal'=> '/catalog?cat=1720',
-                'alttext' => 'Платья',
+                'image' => '/images/banners/OM_29082016_1.png',
+                'referal'=> '/catalog?cat=1980',
+                'alttext' => 'Ботинки',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_24082016_2.png',
-                'referal'=> '/catalog?cat=1829',
-                'alttext' => 'Демисезонные куртки',
+                'image' => '/images/banners/OM_29082016_2.png',
+                'referal'=> '/catalog?cat=2047',
+                'alttext' => 'Женские сумки, рюкзакии',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_24082016_3.png',
-                'referal'=> '/catalog?cat=1987',
-                'alttext' => 'Полусапожки',
+                'image' => '/images/banners/OM_29082016_3.png',
+                'referal'=> '/catalog?cat=2092',
+                'alttext' => 'Для ногтей',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_24082016_4.png',
-                'referal'=> '/catalog?cat=858',
-                'alttext' => 'Женские перчатки, варежки',
+                'image' => '/images/banners/OM_29082016_4.png',
+                'referal'=> '/catalog?cat=1641',
+                'alttext' => 'Колготки, чулки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_24082016_5.png',
-                'referal'=> '/catalog?cat=1750',
-                'alttext' => 'Плащи, тренчкоты',
+                'image' => '/images/banners/OM_29082016_5.png',
+                'referal'=> '/catalog?cat=1720',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ],
             [
@@ -63,9 +63,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_24082016_6.png',
-                'referal'=> '/catalog?cat=2054',
-                'alttext' => 'Парфюмерия',
+                'image' => '/images/banners/OM_29082016_6.png',
+                'referal'=> '/catalog?cat=2873',
+                'alttext' => 'Книги',
                 'out' => FALSE
             ]
         ],
@@ -124,7 +124,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'class'=>'sort data-j index-sort banner-card',
                 'position'=> 'large',
                 'style'=>'',
-                'roll' => self::ROTATE_ROLL
+                'roll' => self::ROTATE_NONE
             ],
             '4' => [
                 'id'=>'index-card-5',

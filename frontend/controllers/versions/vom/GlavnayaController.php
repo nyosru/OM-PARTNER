@@ -41,6 +41,7 @@ use frontend\controllers\actions\ActionSelectedProduct;
 use frontend\controllers\actions\om\ActionChangeCardView;
 use frontend\controllers\actions\om\ActionDiscountProducts;
 use frontend\controllers\actions\om\ActionInfo;
+use frontend\controllers\actions\om\ActionInviteSP;
 use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
@@ -50,6 +51,7 @@ use frontend\controllers\actions\om\ActionDiscont;
 use frontend\controllers\actions\om\ActionFiguresDays;
 use frontend\controllers\actions\om\ActionLoadClaim;
 use frontend\controllers\actions\om\ActionPayView;
+use frontend\controllers\actions\om\ActionRegisterSP;
 use frontend\controllers\actions\om\ActionSaveCart;
 use frontend\controllers\actions\om\ActionSaveClaim;
 use frontend\controllers\actions\om\ActionSavepage;
@@ -173,6 +175,7 @@ class GlavnayaController extends Controller
         ActionProductsCloth,
         ActionSelectedProduct,
         ActionSaveCart,
+        ActionRegisterSP,
         ActionViewCart,
         ActionTakeOrder,
         ActionAllCategories,
@@ -189,6 +192,7 @@ class GlavnayaController extends Controller
         RelatedProducts,
         ActionInfo,
         ActionSpLanding,
+        ActionInviteSP,
         ActionDiscountProducts,
         AggregateCatalogData;
 
