@@ -41,6 +41,7 @@ use frontend\controllers\actions\ActionSelectedProduct;
 use frontend\controllers\actions\om\ActionChangeCardView;
 use frontend\controllers\actions\om\ActionDiscountProducts;
 use frontend\controllers\actions\om\ActionInfo;
+use frontend\controllers\actions\om\ActionInviteSP;
 use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
@@ -191,6 +192,7 @@ class GlavnayaController extends Controller
         RelatedProducts,
         ActionInfo,
         ActionSpLanding,
+        ActionInviteSP,
         ActionDiscountProducts,
         AggregateCatalogData;
 

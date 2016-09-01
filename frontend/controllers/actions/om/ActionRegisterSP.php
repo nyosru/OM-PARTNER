@@ -15,24 +15,29 @@ trait ActionRegisterSP
 {
     public function actionRegisterSp()
     {
-        $validator = new EmailValidator();
-        if(($mail = $this->trim_tags_text(Yii::$app->request->post('mail'))) == TRUE
-            && $validator->validate($mail)
-            && Yii::$app->user->isGuest){
+        if(Yii::$app->user->isGuest){
+            $validator = new EmailValidator();
             if(
-                ($user = User::find()->where(['email'=>$mail])) == TRUE 
-                && ($customer = Customers::find()->where(['customers_email_address'=>$mail])) == TRUE
+                ($mail = $this->trim_tags_text(Yii::$app->request->post('mail'))) == TRUE
+                && $validator->validate($mail)
             ){
-                return $this->render('registersp', ['type'=>'allow', 'message'=>'']);
-            }elseif(!$user || !$customer){
-                return $this->render('registersp', ['type'=>'nouser', 'message'=>'Необходмо зарегистрироваться']);
+                if(
+                    $mail && ($user = User::find()->where(['email'=>$mail])->asArray()->one()) == TRUE
+                    && ($customer = Customers::find()->where(['customers_email_address'=>$mail])->asArray()->one()) == TRUE
+                ){
+                    return $this->render('registersp', ['type'=>'allow', 'message'=>'']);
+                }elseif(!$user || !$customer){
+                    return $this->render('registersp', ['type'=>'nouser', 'message'=>'Необходмо зарегистрироваться']);
+                }else{
+                    return $this->render('registersp', ['type'=>'noemail', 'message'=>'Не указана почта']);
+                }
             }else{
                 return $this->redirect('/');
             }
-        }elseif(!Yii::$app->user->isGuest){
-            return $this->render('registersp', ['type'=>'userallow', 'message'=>'Подтвердите регистрацию']);
         }else{
-            return $this->redirect('/');
+            return $this->render('registersp', ['type'=>'userallow', 'message'=>'Подтвердите регистрацию']);
         }
+
+
     }
 }
