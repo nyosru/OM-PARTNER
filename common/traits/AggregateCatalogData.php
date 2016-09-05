@@ -28,6 +28,8 @@ trait AggregateCatalogData
             'searchword' => '',
         ],
         $options = [
+            'studio' => '',
+            'disallowcat' => '',
             'allowcat' => '',
             'ok' => '',
             'date' => '',
@@ -304,13 +306,16 @@ trait AggregateCatalogData
                 $prodarr = implode(',', $nodata);
                 $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
                 foreach ($datar as $valuesr) {
-                    $d1 = strtotime($valuesr['products_last_modified']);
-                    $d2 = strtotime($valuesr['products_date_added']);
+                    $d1 = strtotime($valuesr['products']['products_last_modified']);
+                    $d2 = strtotime($valuesr['products']['products_date_added']);
 
                     if ($d1 < $d2) {
-                        $last = $valuesr['products_date_added'];
+                        $last = $valuesr['products']['products_date_added'];
                     } else {
-                        $last = $valuesr['products_last_modified'];
+                        $last = $valuesr['products']['products_last_modified'];
+                    }
+                    if($valuesr['products']['products_ordered'] == 0){
+                        $valuesr['products']['products_ordered'] = mt_rand(5,10);
                     }
                     $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
                     Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']]);
@@ -328,7 +333,6 @@ trait AggregateCatalogData
             if(!$statsspec) {
                 $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
                 $spectotal = [];
-
                 foreach ($spec as $speckey => $specval) {
                     if (!$spectotal[$specval['specifications_id']]) {
                         $spectotal[$specval['specifications_id']]['name'] = $specval['specification_name'];
@@ -336,17 +340,12 @@ trait AggregateCatalogData
                     if (!$spectotal[$specval['specifications_id']]['dataset'][$specval['specification_values_id']]) {
                         $spectotal[$specval['specifications_id']]['dataset'][$specval['specification_values_id']] = $specval['specification_value'];
                     }
-
                 }
-
                 Yii::$app->cache->set($statickeyspec, ['data'=>$spectotal], 10800);
                 $spec = $spectotal;
-
             }else{
                 $spec = $statsspec['data'];
-
             }
-
             if (!is_array($stats['data']) && !$nostat ) {
                 $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt_attr)->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->asArray()->all();
                 $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1 and products.products_price != 0  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->distinct()->count();
@@ -357,7 +356,6 @@ trait AggregateCatalogData
                 $productattrib = $stats['data']['productattrib'];
                 $count_arrs = $stats['data']['count_arrs'];
                 $price_max = $stats['data']['price_max'];
-
             }
             Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'spec'=>$spec,  'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache], 6400);
         } else {
@@ -367,7 +365,6 @@ trait AggregateCatalogData
             $price_max = $dataque['price_max'];
             $data = $dataque['data'];
             $spec = $dataque['spec'];;
-
         }
         $count_arr = count($data);
         if ($start_arr + $count <= $count_arr) {
@@ -393,7 +390,6 @@ trait AggregateCatalogData
             $data = 'Не найдено!';
         }
         $countfilt = count($data);
-        $start = $start_arr;
         if ($json == 1) {
             if (isset($data[0])) {
                 if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
@@ -401,7 +397,6 @@ trait AggregateCatalogData
                         $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
                     }
                 }
-
             } else {
                 $data = 'Не найдено!';
             }
@@ -411,6 +406,7 @@ trait AggregateCatalogData
                         $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
                     }
                     $data[$key]['catpath'] = $this->Catpath($data[$key]['categories_id'], 'namenum');
+
 
                     unset(
                         $data[$key]['old_categories_id'],
@@ -432,7 +428,7 @@ trait AggregateCatalogData
                         $data[$key]['products']['products_image_xl_5'],
                         $data[$key]['products']['products_image_xl_6'],
                         //$data[$key]['products']['products_old_price'],
-                        $data[$key]['products']['products_ordered'],
+
                         $data[$key]['products']['price_coll'],
                         $data[$key]['products']['products_sort_order'],
                         $data[$key]['products']['products_tax_class_id'],
@@ -485,12 +481,11 @@ trait AggregateCatalogData
             }
 
             $countfilt = count($data);
-            $start = $start_arr;
             if ($count_arrs <= $count) {
                 $data = 'Не найдено!';
             }
 
-            return [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $man_time, $spec];
+            return [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $man_time, $spec];
         } else {
             $this->layout = 'catalog';
             if ($cat_start == 0) {
@@ -501,7 +496,7 @@ trait AggregateCatalogData
             //ksort($productattrib,'SORT_NATURAL' );
             Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
 
-            return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec];
+            return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec];
         }
     }
 }

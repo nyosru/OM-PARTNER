@@ -500,7 +500,6 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
         $catname = '';
         $catnum = '';
     }else{
-
         $catname = $category.name[$category.name.length - 1];
         $catnum = $category.num[$category.num.length - 1];
     }
@@ -551,9 +550,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
                 $descriptionprod['products_name']="Не указано";
             }
 
-
             $attr_html += '<div class="'+$classpos+'" style="'+$stylepos+' width: 50%; overflow: hidden; float: left;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div>'+value['products_options_values_name']+'</div>'+
-
                 '<input  '+ $disable_for_stepping +'  '+$inputpos+' id="input-count"'+
                 'style="    width: 40%;height: 22px;    text-align: center;    position: relative;top: 0px;    border-radius: 4px;   border: 1px solid #CCC;"'+
                 'data-prod="'+ $product['products_id']+'"'+
@@ -616,7 +613,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category){
     $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="width: 20px;border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
 
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><div>Заказано: '+$product['products_ordered']+'</div><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
 
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -782,6 +779,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category){
         '<div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
         '<div itemprop="name" class="name">' + $descriptionprod.products_name  +'</div>'+
         '<div  itemprop="model" class="model">' + $product.products_model + '</div>' +
+        '<div>Заказано: ' + $product.products_ordered + '</div>' +
         $attr_html+
         '</span></div>'+
         '</div></div>');
@@ -1517,6 +1515,9 @@ $(document).on('click','#prod-info',function(){
                 '</div>' +
                 '<div class="col2" style="float: left;width: 340px;position: relative; overflow: hidden;line-height: 1; color: black; font-weight: 400;">' +
                 '<div style=" font-weight: 300;">' +
+                '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
+                'Заказано: ' + data['product']['products']['products_ordered'] + ' шт.' +
+                '</div>' +
                 '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
                 'Минимальный оптовый заказ: ' + data['product']['products']['products_quantity_order_min'] + ' шт.' +
                 '</div>' +

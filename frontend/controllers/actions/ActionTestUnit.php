@@ -21,6 +21,8 @@ trait ActionTestUnit
     {
         
        if(Yii::$app->user->can('admin')){
+           
+           print_r($this->oksuppliers());
         //   $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
         //   $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
         //$x = Orders::find()->where(['orders_id'=>656506])->asArray()->limit('80')->orderBy('orders_id DESC')->all();

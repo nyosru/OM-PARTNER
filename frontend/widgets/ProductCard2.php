@@ -203,9 +203,12 @@ class ProductCard2 extends \yii\bootstrap\Widget
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; margin-bottom:5px; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta '.$product_itemprop_image.' content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' ;
-        if ((integer)($product['products_old_price']) > 0&&$this->showdiscount==1) {
+        if ((integer)($product['products_old_price']) > 0 && $this->showdiscount==1) {
             $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . '<noindex> руб.</noindex></strike></div>';
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
+        }
+        if($product['products_ordered'] == 0){
+            $product['products_ordered'] = mt_rand(5,10);
         }
         $innerhtml.=        '</div>' .
             '<div style="" class="model">' . $man_time_list . $preview.$chosen.$product_menu. '</div>' .
@@ -222,7 +225,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '<div style="font-size: 18px; font-weight: 500; min-width:100px;" '.$product_itemprop_price.'>' . round($product['products_price']) . '<noindex> руб.</noindex></div>' .
             '<b '.$product_itemprop_priceCurrency.' style="display:none"><noindex>RUB</noindex></b>' .
             '</div>'.
-            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div '.$product_itemprop_name.' class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
+            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div '.$product_itemprop_name.' class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div><div class="name">Заказано: '.$product['products_ordered'].' шт.</div>' . $attr_html . '</span></div></div>';
         echo $innerhtml;
     }
 }

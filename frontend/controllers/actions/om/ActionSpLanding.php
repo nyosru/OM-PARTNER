@@ -26,6 +26,7 @@ trait ActionSpLanding
                     'campaign'=>'om',
                     'content'=>'invite-sp'
                 ];
+                Yii::$app->mailer->htmlLayout = 'layouts-om/html';
                 Yii::$app->mailer->compose('invite-sp')
                     ->setFrom('odezhdamaster@gmail.com')
                     ->setTo($model->email)

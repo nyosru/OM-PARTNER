@@ -230,7 +230,7 @@
             padding: 5px;
             border-radius: 4px;
             position: fixed;
-            bottom: 0px;
+            bottom: 50%;
             right: 0px;
             border: 1px solid #ea516d;
             z-index: 9999;
@@ -243,7 +243,7 @@
             padding: 5px;
             border-radius: 4px;
             position: fixed;
-            bottom: 0px;
+            bottom: 50%;
             right: 0px;
             border: 1px solid #febd13;
             z-index: 9999;
@@ -256,7 +256,7 @@
             padding: 5px;
             border-radius: 4px;
             position: fixed;
-            bottom: 0px;
+            bottom: 50%;
             right: 0px;
             border: 1px solid #febd13;
             z-index: 9999;
@@ -269,7 +269,7 @@
             padding: 5px;
             border-radius: 4px;
             position: fixed;
-            bottom: 0px;
+            bottom: 50%;
             right: 0px;
             border: 1px solid #4a90e2;
             z-index: 9999;
@@ -282,7 +282,7 @@
             padding: 5px;
             border-radius: 4px;
             position: fixed;
-            bottom: 0px;
+            bottom: 50%;
             right: 0px;
             border: 1px solid #19a09d;
             z-index: 9999;
