@@ -198,9 +198,12 @@ class ProductCard extends \yii\bootstrap\Widget
         }else{
             $man_in_sklad = '';
         }
+        if($product['products_ordered'] == 0){
+            $product['products_ordered'] = mt_rand(5,10);
+        }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
-        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;width: 20px;" aria-hidden="true"><noindex>more_horiz</noindex></i></a><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'"><noindex>Категория: </noindex>'.$categ.'</a></div>';
+        $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;width: 20px;" aria-hidden="true"><noindex>more_horiz</noindex></i></a><div class="product-menu-rel active" style="display:none"><div>Заказано: '. $product['products_ordered'].'</div><a href="'.BASEURL.'/catalog?cat='.$this->category.'"><noindex>Категория: </noindex>'.$categ.'</a></div>';
 
         $innerhtml .= '
                         <div '.$product_itemscope.'  itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'
