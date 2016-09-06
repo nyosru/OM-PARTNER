@@ -71,8 +71,8 @@ trait ActionProductsDiscount
                 'date' => 'param',
                 'typeresponse' => $json,
                 'maxtime' => $date_end,
-                'offsettime' => '-1 month',
-                'cachelistkeyprefix' => 'rhthr6erg' . $ok,
+                'offsettime' => '-1 year',
+                'cachelistkeyprefix' => 'rhthr6awfaewferg' . $ok,
                 'cacheproductkey' => 'product',
                 'sfilt'=>$sfilt
             ]);
