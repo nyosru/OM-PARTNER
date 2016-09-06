@@ -30,7 +30,8 @@ trait AggregateCatalogData
         $options = [
             'studio' => '',
             'disallowcat' => '',
-            'allowcat' => '',
+            'allowcat' => [0],
+            'discont' =>'',
             'ok' => '',
             'date' => '',
             'typeresponse' => 'array',
@@ -51,7 +52,8 @@ trait AggregateCatalogData
         $sort = (integer)$params['sort'];
         $ok = (integer)$options['ok'];
         $sfilt = $options['sfilt'];
-
+        $studio = $options['studio'];
+        $discont = $options['discont'];
         if($sfilt){
             $sfilt_part_key = '-'.md5(implode('',$sfilt));
             $sfilt = implode(',',$sfilt);
@@ -70,7 +72,25 @@ trait AggregateCatalogData
         $searchword = $this->trim_tags_text(urldecode(($params['searchword'])));
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];
-        $allowcat = $options['allowcat'];
+
+        if($cat_start == 0){
+            $allowcat = $options['allowcat'];
+            $disallowcat = $options['disallowcat'];
+            $disallkey = '';
+            if(is_array($allowcat)){
+                $disallkey .= '-allow-'.implode(',', $allowcat);
+            }
+            if(is_array($disallowcat)){
+                $disallkey .= '-disallow-'.implode(',', $disallowcat);
+            }
+            if($disallkey != ''){
+                $disallkey = 'catcheck-'.md5($disallkey);
+            }
+        }else{
+            $allowcat[] = $cat_start;
+            $disallowcat = $options['disallowcat'];
+        }
+
         $json = (integer)($options['typeresponse']);
 
         if ($sort == 'undefined' || !isset($sort) || $sort == '') {
@@ -92,19 +112,13 @@ trait AggregateCatalogData
         $count = max(60, $count);
         $start_arr = (integer)($page * $count);
         $man_time = $this->manufacturers_diapazon_id();
-
-        $static_cat_key = Yii::$app->cache->buildKey('static-cat-' . $cat_start . '-' . $options['cachelistkeyprefix']);
+        $static_cat_key = Yii::$app->cache->buildKey('static-cat-' . $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
         if (($cat = Yii::$app->cache->get($static_cat_key)) == TRUE) {
 
         } else {
 
             $categoriesarr = $this->full_op_cat();
-            if ($allowcat) {
-
-            }
-            $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $checks);
-            unset($cat[327]);
-            unset($cat[1354]);
+            $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $allowcat , $disallowcat);
             $cat = implode(',', $cat);
             Yii::$app->cache->set($static_cat_key, $cat, 3600);
         }
@@ -148,7 +162,16 @@ trait AggregateCatalogData
         } else {
             $ok_query_filt = '';
         }
-
+        if ($studio == TRUE) {
+            $studio_query_filt = ' and products.where_added = 1';
+        } else {
+            $studio_query_filt = '';
+        }
+        if ($discont == TRUE) {
+            $discont_query_filt = ' and  products.products_old_price > 0';
+        } else {
+            $discont_query_filt = '';
+        }
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now', [':now' => $now])->limit($count)->offset($start_arr)->asArray()->one();
         $ds1 = strtotime($x['products_last_modified']);
         $ds2 = strtotime($x['add_date']);
@@ -156,8 +179,8 @@ trait AggregateCatalogData
         if ($ds1 < $ds2)
             $x['products_last_modified'] = $x['add_date'];
         $checkcache = $x['products_last_modified'];
-        $init_key = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key;
-        $init_key_static = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key;
+        $init_key = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$studio_query_filt.$discont_query_filt.$disallkey;
+        $init_key_static = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$studio_query_filt.$discont_query_filt.$disallkey;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
@@ -288,7 +311,7 @@ trait AggregateCatalogData
             } else {
                 $prod_search_query_filt = '';
             }
-            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->where('  categories_id IN (' . $cat . ') and products_status = 1 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt . $sfilt_query_filt, $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
+            $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->where('  categories_id IN (' . $cat . ') and products_status = 1 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt .  $studio_query_filt.$discont_query_filt. '  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt . $sfilt_query_filt, $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
             foreach ($prod as $values) {
                 $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
@@ -347,9 +370,9 @@ trait AggregateCatalogData
                 $spec = $statsspec['data'];
             }
             if (!is_array($stats['data']) && !$nostat ) {
-                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt_attr)->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->asArray()->all();
-                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1 and products.products_price != 0  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->distinct()->count();
-                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.products_quantity > 0    and products.products_price != 0     and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->asArray()->one();
+                $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $studio_query_filt.$discont_query_filt. $prod_day_query_filt.$sfilt_query_filt, $arfilt_attr)->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->asArray()->all();
+                $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_status=1 and products.products_price != 0  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $studio_query_filt.$discont_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->distinct()->count();
+                $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.products_quantity > 0    and products.products_price != 0     and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $studio_query_filt.$discont_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->asArray()->one();
                 $productattrib = ArrayHelper::index($productattrib, 'products_options_values_name');
                 Yii::$app->cache->set($statickey, ['data' => ['productattrib' => $productattrib, 'spec'=>$spectotal, 'count_arrs' => $count_arrs, 'price_max' => $price_max]], 3600);
             } else {

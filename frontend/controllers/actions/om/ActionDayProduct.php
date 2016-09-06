@@ -62,6 +62,10 @@ trait ActionDayProduct
                 'searchword' => $searchword
             ],
             $options = [
+                'allowcat'=> [0],
+                'disallowcat'=>[327,1354],
+                'studio' => true,
+                'discont' => false,
                 'ok' => $ok,
                 'date' => 'offset',
                 'typeresponse' => $json,

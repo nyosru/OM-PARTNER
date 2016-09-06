@@ -12,9 +12,9 @@ use common\models\PartnersConfig;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
-trait ActionProductsMonth
+trait ActionProductsDiscount
 {
-    public function actionProductsmonth()
+    public function actionProductsDiscount()
     {
         if (Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
@@ -63,16 +63,16 @@ trait ActionProductsMonth
 
             ],
             $options = [
-                'allowcat'=> [3014, 932, 2046,  3014, 2884, 2873, 2222, 2181, 2155, 2130, 2065, 2048, 2040, 1549],
-                'disallowcat'=>[327,1354, 1976, 1996, 2008, 2123, 2122, 2114, 2113, 1815, 1805],
+                'allowcat'=>[0],
+                'disallowcat'=> [327, 1354],
                 'studio' => false,
-                'discont' => false,
+                'discont' => true,
                 'ok' => $ok,
                 'date' => 'param',
                 'typeresponse' => $json,
                 'maxtime' => $date_end,
-                'offsettime' => '-1 week',
-                'cachelistkeyprefix' => 'drugfiesc11' . $ok,
+                'offsettime' => '-1 month',
+                'cachelistkeyprefix' => 'rhthr6erg' . $ok,
                 'cacheproductkey' => 'product',
                 'sfilt'=>$sfilt
             ]);
@@ -84,4 +84,5 @@ trait ActionProductsMonth
             return $this->render('cataloggibrid', $data);
         }
     }
+
 }
