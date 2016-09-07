@@ -168,7 +168,7 @@ trait AggregateCatalogData
             $studio_query_filt = '';
         }
         if ($discont == TRUE) {
-            $discont_query_filt = ' and  products.products_old_price > 0';
+            $discont_query_filt = ' and  products.products_old_price > 0  and  products.products_old_price > products.products_price ';
         } else {
             $discont_query_filt = '';
         }

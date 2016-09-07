@@ -668,6 +668,13 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '';
+    if($product['products_old_price'] > $product['products_price']){
+        $discount= 100 - Math.round($product['products_price']*100/$product['products_old_price']);
+    }
+    $offersstyle='';
+    if($showdiscount == 1 && $product['products_old_price'] > 0){
+        $offersstyle='style="right:10px;bottom:105px; position:absolute"';
+    }
     if($.inArray($product['manufacturers_id'], ["749","2700","1241","2058","3412","3473","3481",'3512']) != -1){
         $man_in_sklad = '<div style="position: absolute; top: -5px; right: 50px;"><img src="/images/logo/ok.png"></div>';
     }else{
@@ -761,11 +768,17 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i>';
     $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
 
+    $discounthtml = '';
+    if (($product['products_old_price']) > 0 && $showdiscount == 1 && $discount) {
+        $discounthtml += '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;"   itemprop="old-price" ><strike>' + parseInt($product['products_old_price']) + '<noindex> руб.</noindex></strike></div>';
+        $discounthtml += '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' + parseInt($discount) + ' %</div>';
+    }
+
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
-        '</div></div>'+
+        '</div>'+$discounthtml+'</div>'+
         ''+$timeprew+''+
         '<div  itemprop="model" class="model" style="display: none;">' + $product.products_model + '</div>' +
         '<div  itemprop="description" class="model" style="display:none">' +$descriptionprod.products_description + '</div>' +
