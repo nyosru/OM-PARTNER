@@ -37,15 +37,25 @@ trait ActionRegisterSP
                     $rs =  Yii::$app->security->generateRandomString();
                     $accept = Referrals::find()->where(['referral_url'=>$rs])->asArray()->exists();
                 }while($accept && $i <= 5);
-
-
                 $refferal->user_id = $userinfo['id'];
                 $refferal->customer_id = $customer_id;
                 $refferal->referral_url = $rs;
                 $refferal->status = 1;
                 if($refferal->validate() && $refferal->save()){
-
-
+                    Yii::$app->params['params']['products_mail'] =  $this->NewProducts(6,'mail_new-34', 7200);
+                    Yii::$app->params['params']['utm'] =  [
+                        'source'=>'newom',
+                        'medium'=>'email',
+                        'campaign'=>'om',
+                        'content'=>'invite-sp'
+                    ];
+                    Yii::$app->mailer->htmlLayout = 'layouts-om/html';
+                    Yii::$app->mailer->compose('register-sp' , ['refer'=>$refferal->referral_url, 'ident'=>$refferal->id])
+                        ->setFrom('odezhdamaster@gmail.com')
+                        ->setTo(Yii::$app->getUser()->identity->email)
+                        ->setSubject('Приглашение в сервис  '  . $_SERVER['HTTP_HOST'])
+                        ->send();
+                    \Yii::$app->getSession()->setFlash('success', 'Успешно отправлено');
                     return $this->render('sp/result-sp', ['type'=>'success',
                         'text'=>'все отлично'
                     ]);
