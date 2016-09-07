@@ -582,7 +582,7 @@
         <div style="width: 30%; display: inline-block; height: 100%; position: relative; text-align: right; padding: 0px 70px;">
             <div style="
     width: 100%;
-">350p.<p style="font-size: 22px;">цена на Одежда-Мастер</p></div>
+">950p.<p style="font-size: 22px;">цена розничного продавца</p></div>
             <div style="position: relative;width: 100%;">
                 <img src="/images/lp/arrow_blue.png" style="">
             </div>
@@ -610,8 +610,8 @@
             'name' => 'signup-button',
             'style'=>' outline: none;border: none; width: 100%; font-size: 24px; line-height: 50px; border-radius: 4px; height: 60px; background: rgb(68, 226, 194) none repeat scroll 0% 0%; color: rgb(0, 0, 0);']) ?>
         <?php \yii\bootstrap\ActiveForm::end(); ?>
-        </div>
     </div>
+</div>
 </div>
 <div style="z-index: 1; height: 235px; font-size: 40px; font-weight: 400; text-align: center; position: relative; background: rgb(120, 211, 62) none repeat scroll 0% 0%; color: rgb(255, 255, 255);">
     <div style="position: absolute; top: 70px; bottom: 0px; right: 0px; left: 0px; margin: auto; font-size: 32px; text-align: center;">Каталог товаров<br>Одежда-Мастер</div>

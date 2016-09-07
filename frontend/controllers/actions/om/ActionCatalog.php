@@ -59,6 +59,10 @@ trait ActionCatalog
 
             ],
             $options = [
+                'allowcat'=> [0],
+                'disallowcat'=>[327,1354],
+                'studio' => false,
+                'discont' => false,
                 'ok' => $ok,
                 'date' => 'param',
                 'typeresponse' => $json,

@@ -18,7 +18,7 @@ class SignupForm extends Model
     public $password;
     public $id_partners;
     public $role;
-    public $captcha;
+//    public $captcha;
 //    public $name;
 //    public $secondname;
 //    public $lastname;
@@ -41,9 +41,9 @@ class SignupForm extends Model
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required', 'message' => 'Это обязательное поле.'],
+            ['email', 'required', 'message' => 'Укажите корректный e-mail'],
             ['email', 'email'],
-            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
+            //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
             ['email', 'validateUserEmail'],
             ['password', 'required', 'message' => 'Это обязательное поле.'],
             ['password', 'string', 'min' => 8, 'message' => 'Минимум 8 знаков'],
@@ -79,6 +79,45 @@ class SignupForm extends Model
             }
         }
     }
+
+
+    public function signupOnlyEmail()
+    {
+        $this->password  =  Yii::$app->security->generateRandomString(10);
+        if ($this->validate()) {
+            $user = new User();
+            $user->username = $this->email;
+            $user->email = $this->email;
+            $user->setPassword($this->password);
+            $user->generateAuthKey();
+            $user->id_partners = Yii::$app->params['constantapp']['APP_ID'];
+            $user->role = 'register';
+            if ($user->save()) {
+                $auth = Yii::$app->authManager;
+                $auth->assign($auth->getRole('register'), $user->getId());
+                Yii::$app->mailer->htmlLayout = 'layouts-om/html';
+                Yii::$app->params['params']['utm'] =  [
+                    'source'=>'newom',
+                    'medium'=>'email',
+                    'campaign'=>'om',
+                    'content'=>'register-sp-clients'
+                ];
+                Yii::$app->mailer->compose('sign-up-om', [
+                    'name'=>$user->username,
+                    'id'=>$user->id,
+                    'username' => $user->username,
+                    'password' => $this->password
+                ])
+                    ->setFrom('odezhdamaster@gmail.com')
+                    ->setTo($user->email)
+                    ->setSubject('Регистрация на сайте ' . $_SERVER['HTTP_HOST'])
+                    ->send();
+                return $user;
+            }
+        }
+        return false;
+    }
+
 
     public function validateUserEmail()
     {
