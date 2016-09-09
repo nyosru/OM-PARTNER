@@ -75,4 +75,16 @@ class ReferralsUser extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+    public function getCountOrder()
+    {
+        return $this->hasOne(PartnersOrders::className(), ['user_id' => 'id'])->sum('id')->via('user');
+    }
+    public function getLastOrder()
+    {
+        return $this->hasOne(PartnersOrders::className(), ['user_id' => 'id'])->limit(1)->orderBy('id DESC')->via('user');
+    }
+    public function getUserinfo()
+    {
+        return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'id'])->via('user');
+    }
 }

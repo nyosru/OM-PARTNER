@@ -3,7 +3,6 @@
 namespace frontend\modules\sp\controllers\v0;
 
 
-
 use frontend\modules\sp\controllers\actions\admin\ActionAllClients;
 use frontend\modules\sp\controllers\actions\admin\ActionCommonOrders;
 use frontend\modules\sp\controllers\actions\admin\ActionIndex;
@@ -13,13 +12,13 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
-class DefaultController extends Controller
+class AdminController extends Controller
 {
 
     use ActionIndex,
+        ActionOrders,
         ActionOrdersEdit,
         ActionCommonOrders,
-        ActionOrders,
         ActionAllClients;
     public function behaviors()
     {

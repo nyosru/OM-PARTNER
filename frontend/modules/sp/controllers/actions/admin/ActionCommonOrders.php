@@ -1,5 +1,5 @@
 <?php
-namespace frontend\modules\sp\controllers\actions;
+namespace frontend\modules\sp\controllers\actions\admin;
 
 use Yii;
 
