@@ -42,7 +42,9 @@ class ReferralsUser extends \yii\db\ActiveRecord
             [['user_id'], 'unique']
         ];
     }
-
+    
+    
+    
     /**
      * @inheritdoc
      */
@@ -60,6 +62,24 @@ class ReferralsUser extends \yii\db\ActiveRecord
         ];
     }
 
+    public function sortParamWithRelation()
+    {
+        return [
+            [
+                'attribute'=>'status',
+                'name' => 'Статус',
+            ],
+            [
+                'attribute'=>'date_added',
+                'name' => 'Дата регистрации',
+            ],
+            [
+                'attribute'=>'LastOrder',
+                'name' => 'Последний заказ',
+            ]
+        ];
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -68,6 +88,7 @@ class ReferralsUser extends \yii\db\ActiveRecord
         return $this->hasOne(Referrals::className(), ['id' => 'referral_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -75,16 +96,18 @@ class ReferralsUser extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
-    public function getCountOrder()
-    {
-        return $this->hasOne(PartnersOrders::className(), ['user_id' => 'id'])->sum('id')->via('user');
-    }
+   
     public function getLastOrder()
     {
-        return $this->hasOne(PartnersOrders::className(), ['user_id' => 'id'])->limit(1)->orderBy('id DESC')->via('user');
+        return $this->hasOne(PartnersOrders::className(), ['user_id' => 'id'])->limit(1)->orderBy('partners_orders.id DESC')->via('user');
     }
+
     public function getUserinfo()
     {
         return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'id'])->via('user');
+    }
+    public function getOrder()
+    {
+        return $this->hasMany(PartnersOrders::className(), ['user_id' => 'id'])->via('user');
     }
 }

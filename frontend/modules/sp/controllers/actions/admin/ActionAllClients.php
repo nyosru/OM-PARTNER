@@ -11,13 +11,25 @@ trait ActionAllClients
 {
     public function actionAllClients()
     {
-        $model = ReferralsUser::find()->joinWith('partnersReferralsUsers')->joinWith('partnersCommonOrders')->groupBy('user_id')->where(['user_id'=>Yii::$app->user->getId()]);
+        $referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one();
+//
+//        '0' => [
+//        'id' => ' Егоров Дмитрий Владимирович',
+//        'key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.']
+//        'value' => '1', 
+//        'description' => '45000руб.', 
+//        'jo'=>'вип клиент', 
+//        'ko' =>'10 августа 2016' ],
+//           
+//        
+        $model = ReferralsUser::find()->joinWith('user')->joinWith('userinfo')->joinWith('lastOrder')->joinWith('order')->where(['referral_id'=>$referal['id']]);
 
         $dataprovider = new ActiveDataProvider([
-            'model' => $model
+            'query' => $model
         ]);
+        $data = $dataprovider->getModels();
+        $paginate = $dataprovider->getPagination();
 
-
-        return $this->render('allclients', ['data'=>$dataprovider]);
+        return $this->render('allclients', ['data'=>$data, 'paginate'=> $paginate]);
     }
 }

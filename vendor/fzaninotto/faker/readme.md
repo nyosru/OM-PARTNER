@@ -750,6 +750,14 @@ echo $faker->nationalIdNumber // Citizen ID number
 echo $faker->foreignerIdNumber // Foreigner ID number
 ```
 
+### `Faker\Provider\ar_SA\Payment`
+
+```php
+<?php
+
+echo $faker->bankAccountNumber // "SA0218IBYZVZJSEC8536V4XC"
+```
+
 ### `Faker\Provider\at_AT\Payment`
 
 ```php
@@ -833,6 +841,16 @@ echo $faker->cvr; // "32458723"
 
 // Generates a random P number
 echo $faker->p; // "5398237590"
+```
+
+### `Faker\Provider\de_DE\Payment`
+
+```php
+<?php
+
+echo $faker->bankAccountNumber; // "DE41849025553661169313"
+echo $faker->bank; // "Volksbank Stuttgart"
+
 ```
 
 ### `Faker\Provider\en_NZ\Phone`
@@ -928,6 +946,22 @@ echo $faker->siren; // 082 250 104
 echo $faker->siret; // 347 355 708 00224
 ```
 
+### `Faker\Provider\he_IL\Payment`
+
+```php
+<?php
+
+echo $faker->bankAccountNumber // "IL392237392219429527697"
+```
+
+### `Faker\Provider\hr_HR\Payment`
+
+```php
+<?php
+
+echo $faker->bankAccountNumber // "HR3789114847226078672"
+```
+
 ### `Faker\Provider\hu_HU\Payment`
 
 ```php
@@ -935,6 +969,18 @@ echo $faker->siret; // 347 355 708 00224
 
 // Generates a random bank account number
 echo $faker->bankAccountNumber; // "HU09904437680048220079300783"
+```
+
+### `Faker\Provider\id_ID\Person`
+
+```php
+<?php
+
+// Generates a random Nomor Induk Kependudukan (NIK)
+
+// first argument is gender, either Person::GENDER_MALE or Person::GENDER_FEMALE, if none specified random gender is used
+// second argument is birth date (DateTime object), if none specified, random birth date is used
+echo $faker->nik(); // "8522246001570940"
 ```
 
 ### `Faker\Provider\it_IT\Company`
@@ -1019,6 +1065,14 @@ echo $faker->metropolitanCity; // "서울특별시"
 
 // Generates a borough
 echo $faker->borough; // "강남구"
+```
+
+### `Faker\Provider\lt_LT\Payment`
+
+```php
+<?php
+
+echo $faker->bankAccountNumber // "LT300848876740317118"
 ```
 
 ### `Faker\Provider\lv_LV\Person`
@@ -1275,6 +1329,7 @@ echo $faker->bank; // '中国建设银行'
 * [nelmio/alice](https://packagist.org/packages/nelmio/alice): Fixtures/object generator with a yaml DSL that can use Faker as data generator.
 * [CakePHP 2.x Fake Seeder Plugin](https://github.com/ravage84/cakephp-fake-seeder) A CakePHP 2.x shell to seed your database with fake and/or fixed data.
 * [images-generator](https://github.com/bruceheller/images-generator): An image generator provider using GD for placeholder type pictures
+* [pattern-lab/plugin-php-faker](https://github.com/pattern-lab/plugin-php-faker): Pattern Lab is a Styleguide, Component Library, and Prototyping tool. This creates unique content each time Pattern Lab is generated.
 
 ## License
 

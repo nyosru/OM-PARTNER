@@ -34,7 +34,7 @@ class LoginFormOM extends Model
             //  ['captcha', 'required', 'message' => 'Поле не может быть пустым'],
             ['rememberMe', 'boolean'],
             //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'Введенные символы не соответствуют'],
-            //  ['password', 'validatePassword', 'message' => 'Не правильный пароль или логин'],
+          //  ['password', 'validatePassword', 'message' => 'Не правильный пароль или логин'],
         ];
     }
 
@@ -76,6 +76,7 @@ class LoginFormOM extends Model
         } elseif (!$user->validatePassword($this->password)) {
             $this->addError('password', 'Не соответствует пара логин- пароль');
         } else {
+
             if (!$user->validatePassword($this->password)) {
                 $this->addError('password', 'Не соответствует пара логин - пароль.');
             } else {
@@ -83,8 +84,8 @@ class LoginFormOM extends Model
             }
         }
     }
-
-
+    
+    
     public function loginreferral()
     {
         if ($this->validate() && $this->validatePasswordRef()) {
