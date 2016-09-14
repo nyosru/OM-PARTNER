@@ -11,6 +11,9 @@ $this->beginPage();
 <head>
     <meta name="viewport" content=" initial-scale=1.0">
     <meta charset="<?= Yii::$app->charset ?>"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/locale/ru.js"></script>
+
     <link
         href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,500,400italic,500italic,700,700italic,900italic,900"
         rel="stylesheet" type="text/css">
@@ -58,11 +61,11 @@ $this->beginPage();
                     style="text-align:center; position: absolute;top: 0px;bottom: 0px;right: 0px;left: 0px;margin: auto;display: inline-block;width: 97%;height: 80%;">
                     <div style="width: 33%;position: relative;display: inline-block;height: 100%;">
                         <div style="margin: 25px;position: absolute;bottom: 0px;top: 0px;right: 0px;left: 0px;font-size: 18px;font-weight: 400;text-align: left;line-height: 32px;">
-                            <a class="lksp-main-menu" href="/sp/default/orders">1</a>
-                            <a class="lksp-main-menu" href="/sp/default/index">2</a>
-                            <a class="lksp-main-menu" href="/sp/default/all-clients">3</a>
-                            <a class="lksp-main-menu" href="/sp/default/orders-edit">4</a>
-                            <a class="lksp-main-menu" href="/sp/default/common-orders">5</a>
+                            <a class="lksp-main-menu" href="/sp/admin/orders">1</a>
+                            <a class="lksp-main-menu" href="/sp/admin/index">2</a>
+                            <a class="lksp-main-menu" href="/sp/admin/all-clients">3</a>
+                            <a class="lksp-main-menu" href="/sp/admin/orders-edit">4</a>
+                            <a class="lksp-main-menu" href="/sp/admin/common-orders">5</a>
                         </div>
                     </div>
                     <div style="width: 33%;position: relative;display: inline-block;height: 100%;">

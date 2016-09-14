@@ -5,6 +5,7 @@ namespace frontend\modules\sp\controllers\v0;
 
 use frontend\modules\sp\controllers\actions\admin\ActionAllClients;
 use frontend\modules\sp\controllers\actions\admin\ActionCommonOrders;
+use frontend\modules\sp\controllers\actions\admin\ActionDetailOrder;
 use frontend\modules\sp\controllers\actions\admin\ActionIndex;
 use frontend\modules\sp\controllers\actions\admin\ActionOrders;
 use frontend\modules\sp\controllers\actions\admin\ActionOrdersEdit;
@@ -19,6 +20,7 @@ class AdminController extends Controller
         ActionOrders,
         ActionOrdersEdit,
         ActionCommonOrders,
+        ActionDetailOrder,
         ActionAllClients;
     public function behaviors()
     {

@@ -5,6 +5,8 @@ use common\models\Referrals;
 use common\models\ReferralsUser;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\Sort;
+use yii\validators\DateValidator;
 
 
 trait ActionAllClients
@@ -12,24 +14,56 @@ trait ActionAllClients
     public function actionAllClients()
     {
         $referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one();
-//
-//        '0' => [
-//        'id' => ' Егоров Дмитрий Владимирович',
-//        'key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.']
-//        'value' => '1', 
-//        'description' => '45000руб.', 
-//        'jo'=>'вип клиент', 
-//        'ko' =>'10 августа 2016' ],
-//           
-//        
-        $model = ReferralsUser::find()->joinWith('user')->joinWith('userinfo')->joinWith('lastOrder')->joinWith('order')->where(['referral_id'=>$referal['id']]);
+
+
+        $this->layout = 'main-no-fixed';
+
+        $model = ReferralsUser::find()->joinWith('user')->joinWith('userinfo')->joinWith('lastOrder')->joinWith('order')->where(['referral_id'=>$referal['id']])->groupBy('user_id');
+
+        if(($ds = Yii::$app->request->getQueryParam('ds')) == TRUE){
+            $valid = new DateValidator();
+            $valid->format = 'Y-m-d';
+            if($valid->validate($ds)) {
+                $model->andWhere('date_added >= "'.$ds.'"');
+            }
+        }
+
+        if(($de = Yii::$app->request->getQueryParam('de')) == TRUE){
+            $valid = new DateValidator();
+            $valid->format = 'Y-m-d';
+            if($valid->validate($de)) {
+                $model->andWhere('date_added < "'.$de.'"');
+            }
+        }
+
+        if(($sort = Yii::$app->request->getQueryParam('sort')) == TRUE && ($vect = Yii::$app->request->getQueryParam('vect')) == TRUE){
+
+            $sort = new Sort([
+                'attributes' => [
+                    'status'
+                ],
+            ]);
+
+            
+        }
+
+        if(
+            ($search = Yii::$app->request->getQueryParam('search')) == TRUE &&
+            (preg_match('[a-z а-я \-]/i',$search))
+        ){
+
+            $model->andWhere('name REGEXP "'.$search.'"');
+            $model->orWhere('secondname REGEXP "'.$search.'"');
+            $model->orWhere('lastname REGEXP "'.$search.'"');
+        }
 
         $dataprovider = new ActiveDataProvider([
-            'query' => $model
+            'query' => $model,
+            'pagination'=> [
+                'pageSize' => 5,
+            ],
         ]);
-        $data = $dataprovider->getModels();
-        $paginate = $dataprovider->getPagination();
 
-        return $this->render('allclients', ['data'=>$data, 'paginate'=> $paginate]);
+        return $this->render('allclients', ['data'=>$dataprovider]);
     }
 }

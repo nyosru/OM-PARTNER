@@ -1,6 +1,5 @@
 <?php
 
-
 ?>
 <style>
     .search-console {
@@ -33,7 +32,7 @@
         width: 100%;
         overflow: hidden;
         background: #FFF;
-        height: 80%;
+        height: calc(100% - 210px);
         position: fixed;
         bottom: 0px;
     }
@@ -42,7 +41,7 @@
         float: left;
         width: 100%;
         right: 70%;
-        height: 80%;
+        height: calc(100% - 210px);
         position: fixed;
     }
 
@@ -439,6 +438,27 @@
         border-color: #DDD;
         padding: 0px;
     }
+    .pag{
+        text-align: center;
+    }
+    .pag > .pagination>.active>a, .pag > .pagination>.active>span, .pag > .pagination>.active>a:hover, .pag > .pagination>.active>span:hover, .pag > .pagination>.active>a:focus, .pag > .pagination>.active>span:focus{
+        z-index: 3;
+        cursor: default;
+        background-color: #ffbf08;
+        border-color: #ffbf08;
+        color:black;
+    }
+    .pag > .pagination>li>a, .pagination>li>span {
+        position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: black;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #CCC;
+    }
 </style>
 <div style="height: 50px;background: rgb(238, 238, 238);">
     <a style="font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;" href="#">Все заказы</a>
@@ -457,22 +477,59 @@
     <a style="border-bottom: 2px solid #d8d8d8;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
        href="#">Удален</a>
 </div>
-<div style="border-bottom: 1px solid #CCC;height: 60px;background: #FFF">
+<form style="height: 60px;background: #FFF; border-bottom:1px solid #CCC">
     <div class="search-bar" style="height: 100%;width: 49%;display: inline-block;box-sizing: border-box;float: left;">
-        <input class="search-console" style="" placeholder="Поиск по заказам">
+        <input class="search-console" value="<?=Yii::$app->request->getQueryParam('search')?>" name="search" placeholder="Поиск по заказам">
+        <?php
+        echo \yii\helpers\Html :: hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken(), []);
+        ?>
     </div>
     <div
-        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;float: right;text-align: right;padding: 0px 25px;">
-        <div style="margin: 0px 20px;display:inline-block;margin:0px 20px;">Сортировать<a class="sort-clients" href="#">
-                новые </a></div>
-        <div style="margin: 0px 20px;display: inline-block">Дата с: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
-        </div>
-        <div style="display: inline-block">Дата по: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
+        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;text-align: right;padding: 0px 25px;">
+        <div style="float: left;width: 50%;position: relative;">Сортировать<a  href="#sorting" data-toggle="collapse" aria-expanded="true" class="sort-clients">
+                новые </a>
+            <div id="sorting" style="width: 200px; position: absolute; z-index: 98; right: 0px;     top: 40px;" class="collapse" aria-expanded="true">
+                <div id="sort-order">
+                    <div class="header-sort sort sort-checked" data="0">
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Статус</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">ФИО</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Последний заказ</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Зарегистрирован</div></a>
+                    </div>
+                </div></div></div>
+        <div style="margin: -5px 20px;display: inline-block;">
+            <?=\kartik\date\DatePicker::widget([
+                'language'=>'ru',
+                'layout'=>'<div>
+                            <div style="display: inline-block;float: left;line-height: 20px; padding: 0px 20px;">Дата с: </div>
+                            {input1}
+                            <div style=" display: inline-block; float: left; line-height: 20px;padding: 0px 20px;" >Дата по:</div>
+                            {input2}
+                            </div>',
+                'name' => 'ds',
+                'name2' => 'de',
+                'value'=> (new \DateTime(date(Yii::$app->request->getQueryParam('ds'))))->format('Y-m-d'),
+                'value2'=>(new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
+                'type' => \kartik\date\DatePicker::TYPE_RANGE,
+                'options'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'options2'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]);?>
         </div>
     </div>
-</div>
+    <?= \yii\helpers\Html::submitButton('Submit', [
+            'class'=> 'btn btn-primary',
+            'style'=> 'display:none']
+    ) ;?>
+
+</form>
 <div><div>
 <div id="container2">
     <div id="container1">
@@ -1487,6 +1544,9 @@
                             <span> Итого 1500 р.</span>
                             <span class="btn" style="padding: 10px; color:#FFF; background: #ff1744;margin: 0px 0px  0px 20px;">Сохранить заказ</span>
                         </div>
+                      
+
+
                     </div>
                 </div>
             </div>

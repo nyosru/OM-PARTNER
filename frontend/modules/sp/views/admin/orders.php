@@ -33,7 +33,7 @@
         width: 100%;
         overflow: hidden;
         background: #FFF;
-        height: 80%;
+        height: calc(100% - 210px);
         position: fixed;
         bottom: 0px;
     }
@@ -42,7 +42,7 @@
         float: left;
         width: 100%;
         right: 70%;
-        height: 80%;
+        height: calc(100% - 210px);
         position: fixed;
     }
 
@@ -69,8 +69,11 @@
         height: 100%;
         width: 100%;
         border-bottom: 1px solid #CCC;
+        cursor: pointer;
     }
-
+    .client-plate:hover {
+        background: #fff9c4 !important;
+    }
     .client-avatar {
         width: 30%;
         height: 100%;
@@ -136,7 +139,8 @@
     }
 
     [class="client-plate client-active"] {
-        background: #fff9c4;
+        background: #fff9c4 !important;
+        cursor: default;
     }
 
     .client-image {
@@ -342,7 +346,27 @@
     .product-card:last-child {
         border-bottom: none;
     }
-
+    .pag{
+        text-align: center;
+    }
+    .pag > .pagination>.active>a, .pag > .pagination>.active>span, .pag > .pagination>.active>a:hover, .pag > .pagination>.active>span:hover, .pag > .pagination>.active>a:focus, .pag > .pagination>.active>span:focus{
+        z-index: 3;
+        cursor: default;
+        background-color: #ffbf08;
+        border-color: #ffbf08;
+        color:black;
+    }
+    .pag > .pagination>li>a, .pagination>li>span {
+        position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: -1px;
+        line-height: 1.42857143;
+        color: black;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #CCC;
+    }
 </style>
 <div style="height: 50px;background: rgb(238, 238, 238);">
     <a style="font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;" href="#">Все заказы</a>
@@ -361,451 +385,378 @@
     <a style="border-bottom: 2px solid #d8d8d8;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
        href="#">Удален</a>
 </div>
-<div style="border-bottom: 1px solid #CCC;height: 60px;background: #FFF">
+<form style="height: 60px;background: #FFF">
     <div class="search-bar" style="height: 100%;width: 49%;display: inline-block;box-sizing: border-box;float: left;">
-        <input class="search-console" style="" placeholder="Поиск по заказам">
+        <input class="search-console" value="<?=Yii::$app->request->getQueryParam('search')?>" name="search" placeholder="Поиск по клиентам">
+        <?php
+        echo \yii\helpers\Html :: hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken(), []);
+        ?>
     </div>
     <div
-        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;float: right;text-align: right;padding: 0px 25px;">
-        <div style="margin: 0px 20px;display:inline-block;margin:0px 20px;">Сортировать<a class="sort-clients" href="#">
-                новые </a></div>
-        <div style="margin: 0px 20px;display: inline-block">Дата с: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
-        </div>
-        <div style="display: inline-block">Дата по: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
+        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;text-align: right;padding: 0px 25px;">
+        <div style="float: left;width: 50%;position: relative;">Сортировать<a  href="#sorting" data-toggle="collapse" aria-expanded="true" class="sort-clients">
+                новые </a>
+            <div id="sorting" style="width: 200px; position: absolute; z-index: 98; right: 0px;     top: 40px;" class="collapse" aria-expanded="true">
+                <div id="sort-order">
+                    <div class="header-sort sort sort-checked" data="0">
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Статус</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">ФИО</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Последний заказ</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Зарегистрирован</div></a>
+                    </div>
+                </div></div></div>
+        <div style="margin: -5px 20px;display: inline-block;">
+            <?=\kartik\date\DatePicker::widget([
+                'language'=>'ru',
+                'layout'=>'<div>
+                            <div style="display: inline-block;float: left;line-height: 20px; padding: 0px 20px;">Дата с: </div>
+                            {input1}
+                            <div style=" display: inline-block; float: left; line-height: 20px;padding: 0px 20px;" >Дата по:</div>
+                            {input2}
+                            </div>',
+                'name' => 'ds',
+                'name2' => 'de',
+                'value'=> (new \DateTime(date(Yii::$app->request->getQueryParam('ds'))))->format('Y-m-d'),
+                'value2'=>(new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
+                'type' => \kartik\date\DatePicker::TYPE_RANGE,
+                'options'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'options2'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]);?>
         </div>
     </div>
-</div>
+    <?= \yii\helpers\Html::submitButton('Submit', [
+            'class'=> 'btn btn-primary',
+            'style'=> 'display:none']
+    ) ;?>
+
+</form>
 <div id="container2">
     <div id="container1">
         <div id="col1">
             <div id="scroll1" style="height: 100%">
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-vip">
 
-                        </div>
-                    </div>
 
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-proceed"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                       <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate  client-active">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-old">
 
-                        </div>
-                    </div>
+                <?php
 
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-new"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
+                \yii\widgets\Pjax::begin(['id' => 'clients']);
 
-                        </div>
-                    </div>
+                echo \yii\grid\GridView::widget([
+                    'tableOptions' => [
+                        'class' => 'table table-striped',
+                        'style' => 'vertical-align:middle; border-bottom:1px solid #CCC;'
+                    ],
+                    'rowOptions'=>[
+                        'style'=>'border:none'
+                    ],
+                    'headerRowOptions'=>[
+                        'style'=>'display:none'
+                    ],
+                    'captionOptions'=>[
+                        'style'=>'border:none'
+                    ],
+                    'dataProvider' => $data,
+                    'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
+                    'columns' => [
+                        [
+                            'attribute' => 'Фио клента',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none; padding:0px'
+                            ],
+                            'content' => function($model) {
+                                $stat_class = [
+                                    'status-new',
+                                'status-proceed',
+                                'status-like',
+                                'status-payed',
+                                'status-ordered',
+                                'status-return',
+                                'status-cancel',
+                                ];
+                                if($model['name']){
+                                    $name = $model['lastname'].' '.$model['name'].' '.$model['secondname'];
+                                }else{
+                                    $name = 'Пользователь еще не заполнял свои данные';
+                                }
+                                $class = ['client-new','client-new','client-old','client-vip'];
 
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-like"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
+                                $params = new \php_rutils\struct\TimeParams();
+                                $params->date = $model['create_date']; //это значение по умолчанию
+                                $params->format = 'd F Y H:i:s';
+                                $params->monthInflected = true;
+                                $dateorder  = \php_rutils\RUtils::dt()->ruStrFTime($params);
 
-                        </div>
+                                return '<div class="client-plate" style="display:block;" data-detail="'.$model['ids'].'">
+                                            <div class="client-avatar">
+                                                <div class="avatar">
+                                                    <div class="client-image">
+                                                    </div>
+                                                    <div class="'.$class[$model['user_status']].'">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="client-line-info-orders">
+                                                <div class="client-info-fr-order">
+                                                    <div class="client-order">
+                                                        <div class="client-order-num">
+                                                            № '.$model['ids'].'
+                                                        </div>
+                                                        <div class="client-order-status '.$stat_class[$model['order_status']].'">
+                                                        </div>
+                                                    </div>
+                                                    <div class="client-name">
+                                                        '.$name.'
+                                                    </div>
+                                                    <div class="client-last-order-date">
+                                                        '.$dateorder.'
+                                                    </div>
+                                                </div>
+                                                <div class="client-info-fr-price">
+                                                    <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">
+                                                        13144 руб.
+                                                    </div>
+                                                    <div>
+                                                        Мой %: 1314 руб.
+                                                    </div>
+                                                </div>
+                </div>
+            </div>';
+                            }
+                        ],
+                    ],
+                ]);
+                ?>
+                <div class="pag">
+                    <?php
+                    echo \yii\widgets\LinkPager::widget([
+                        'options'=>[
+                            'class'=>'pagination'
+                        ],
+                        'pagination' => $paginate,
+                    ]);
+                    ?>
                     </div>
+                <script>
+                    if($('.order-line').attr('data-order')){
+                        $('[data-detail="'+$('.order-line').attr('data-order')+'"]').addClass('client-active');
+                    }
+                    
+                    (function($){
+                        $(window).on("load",function(){
+                            $("#scroll1").mCustomScrollbar({
+                                theme: "dark",
+                                axis: "y",
+                                contentTouchScroll: "TRUE",
+                                advanced: {autoExpandHorizontalScroll: true}
+                            } );
+                            $("#scroll2").mCustomScrollbar({
+                                theme: "dark",
+                                axis: "y",
+                                contentTouchScroll: "TRUE",
+                                advanced: {autoExpandHorizontalScroll: true}
+                            } );
+                        });
+                    })(jQuery);
+                    
+                    (function($){
+                        inProgress = false;
+                        $('.client-plate').on("click",function(){
+                            if(!inProgress){
+                                $('[class="client-plate client-active"]').removeClass('client-active');
+                                inProgress = true;
+                                $.ajax({
+                                    method:"post",
+                                    url: "/sp/admin/detail-order",
+                                    data: { "_csrf":yii.getCsrfToken(),
+                                        "id": $(this).attr('data-detail')
+                                    },
+                                    cache: false,
+                                    async: true,
+                                    dataType: 'json',
+                                    beforeSend: function () {
+                                        inProgress = false;
+                                    }
+                                }).done(function (data) {
+                                    $('[data-detail="'+data.id+'"]').addClass('client-active');
+                                    moment.locale('ru');
+                                    $('.datacontainer').html('<div style="margin:25px;"> ' +
+                                        '<div style="width: 70%;  display:inline-block;"> ' +
+                                        '<div style="margin-right: 25px;"> ' +
+                                        '<div class="order-line" data-order="'+data.id+'"> ' +
+                                        '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
+                                        '<span class="date-order">от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
+                                        '<span class="status-order status-new">новый</span> ' +
+                                        '</div> ' +
+                                        '<div class="edit-line"> ' +
+                                        '<div class="to-order">В общий заказ</div> ' +
+                                        '<div class="edit-order">Редактировать заказ</div> ' +
+                                        '<div class="mail-client">Написать клиенту</div> ' +
+                                        '</div> ' +
+                                        '<div> ' +
+                                        '<div style=""  class="product-card"> ' +
+                                        '<div  style="" class="product-main-board"> ' +
+                                        '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+                                        '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                                        '</div> ' +
+                                        '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
+                                        '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                                        '<div style="font-weight: 400;">Арт. 982742354</div> ' +
+                                        '<div>Платье</div> ' +
+                                        '<div>Размер: 23</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+                                        '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                                        '<div>250 p. x 2шт.</div> ' +
+                                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div > ' +
+                                        '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
+                                        'Добавить комментарий к товару ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div style=""  class="product-card"> ' +
+                                        '<div  style="" class="product-main-board"> ' +
+                                        '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+                                        '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                                        '</div> ' +
+                                        '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
+                                        '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                                        '<div style="font-weight: 400;">Арт. 982742354</div> ' +
+                                        '<div>Платье</div> ' +
+                                        '<div>Размер: 23</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+                                        '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                                        '<div>250 p. x 2шт.</div> ' +
+                                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div > ' +
+                                        '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
+                                        'Добавить комментарий к товару ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div style=""  class="product-card"> ' +
+                                        '<div  style="" class="product-main-board"> ' +
+                                        '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+                                        '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                                        '</div> ' +
+                                        '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
+                                        '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                                        '<div style="font-weight: 400;">Арт. 982742354</div> ' +
+                                        '<div>Платье</div> ' +
+                                        '<div>Размер: 23</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+                                        '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                                        '<div>250 p. x 2шт.</div> ' +
+                                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div > ' +
+                                        '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
+                                        'Добавить комментарий к товару ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> <div style="border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: 1500 р.</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="sp-client-info"> ' +
+                                        '<div class="client-avatar"> ' +
+                                        '<div class="avatar"> ' +
+                                        '<div class="client-image"> ' +
+                                        '</div> ' +
+                                        '<div class="client-vip"> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="sp-client-info-fr"> ' +
+                                        '<div class="client-name">' +
+                                        'Егоров Дмитрий Владимирович ' +
+                                        '</div> ' +
+                                        '<div class="client-register">' +
+                                        'Зарегистрирован: 10 августа 2016 ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '<div class="sp-client-info-dr"> ' +
+                                        '<div class="client-row">' +
+                                        'Заказов: 2 ' +
+                                        '</div> ' +
+                                        '<div class="client-row">' +
+                                        'Статус клиента: Новый ' +
+                                        '</div> ' +
+                                        '<div class="client-row">' +
+                                        'gedeon@bk.ru ' +
+                                        '</div> ' +
+                                        '<div class="client-row"> ' +
+                                        '+79300056787 ' +
+                                        '</div> ' +
+                                        '<div class="btn btn-default client-all-orders">' +
+                                        'Все заказы клиента ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ' +
+                                        '</div> ');
 
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-payed"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
+                                });
 
-                        </div>
-                    </div>
+                                inProgress = false;
+                            }else{
+                                alert('Выполняется запрос');
+                            }
+                        });
+                    })(jQuery);
+                    (function($){
+                    $(document).on('click', '.edit-order', function () {
+                        $('[edit-elem="true"]').show();
+                        $(this).attr('edit-mode', 'edit');
+                        $('.edit-order').html('Отключить редактирование');
+                    });
+                        $(document).on('click', '[edit-mode="edit"]', function () {
+                            $(this).html('Редактировать заказ');
+                            $(this).attr('edit-mode', 'read');
+                            $('[edit-elem="true"]').hide();
+                        });
+                    $(document).on('click', '.mail-client', function () {
+                            if($('.mail-user')){
+                                $('body').append('<div class="mail-user">' +
+                                    '<div>' +
+                                    '<div style="position: absolute; height: 400px; width: 400px; margin: auto; top: 0px; bottom: 0px; right: 0px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%;border-radius: 4px; z-index: 2147483647;">iugu</div>' +
+                                    '</div>' +
+                                    '</div>');
+                            }
+                        $('.mail-user').modal('show')
+                    });
+                    })(jQuery);
+                </script>
+                        <?php
+                        \yii\widgets\Pjax::end();
+                        ?>
 
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-return"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-cancel"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-ordered"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-like"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-like"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
         </div>
         </div>
         <div id="col2">
             <div id="scroll2" style="height: 100%">
-            <div style="margin:25px;">
-                <div style="width: 70%;  display:inline-block;">
-                    <div style="margin-right: 25px;">
-                    <div class="order-line">
-                        <span class="all-num-order">Заказ № 10036</span>
-                        <span class="date-order">от 10 августа 2016</span>
-                        <span class="status-order status-new">новый</span>
-                    </div>
-                    <div class="edit-line">
-                        <div class="to-order">В общий заказ</div>
-                        <div class="edit-order">Редактировать заказ</div>
-                        <div class="mail-client">Написать клиенту</div>
-                    </div>
-                    <div>
-                        <div style=""  class="product-card">
-                            <div  style="" class="product-main-board">
-                                <div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;">
-                                  <img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;">
-                                </div>
-                                <div style="display: inline-block;height: 150px;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div style="font-weight: 400;">Арт. 982742354</div>
-                                        <div>Платье</div>
-                                        <div>Размер: 23</div>
-                                    </div>
-                                </div>
-                                <div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div>250 p. x 2шт.</div>
-                                        <div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div  style="cursor:pointer;color: #5b8acf;" class="product-comment">
-                                    Добавить комментарий к товару
-                                </div>
-                            </div>
-                        </div>
-                        <div style=""  class="product-card">
-                            <div  style="" class="product-main-board">
-                                <div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;">
-                                    <img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;">
-                                </div>
-                                <div style="display: inline-block;height: 150px;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div style="font-weight: 400;">Арт. 982742354</div>
-                                        <div>Платье</div>
-                                        <div>Размер: 23</div>
-                                    </div>
-                                </div>
-                                <div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div>250 p. x 2шт.</div>
-                                        <div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div  style="cursor:pointer;color: #5b8acf;" class="product-comment">
-                                    Добавить комментарий к товару
-                                </div>
-                            </div>
-                        </div>
-                        <div style=""  class="product-card">
-                            <div  style="" class="product-main-board">
-                                <div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;">
-                                    <img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;">
-                                </div>
-                                <div style="display: inline-block;height: 150px;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div style="font-weight: 400;">Арт. 982742354</div>
-                                        <div>Платье</div>
-                                        <div>Размер: 23</div>
-                                    </div>
-                                </div>
-                                <div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div>250 p. x 2шт.</div>
-                                        <div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div  style="cursor:pointer;color: #5b8acf;" class="product-comment">
-                                    Добавить комментарий к товару
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                        <div style="
-    border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: 1500 р.</div>
-                </div>
-                </div>
-                <div class="sp-client-info">
-                    <div class="client-avatar">
-                        <div class="avatar">
-                            <div class="client-image">
-                            </div>
-                            <div class="client-vip">
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="sp-client-info-fr">
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-register">
-                            Зарегистрирован: 10 августа 2016
-                        </div>
-                    </div>
-                    <div class="sp-client-info-dr">
-                        <div class="client-row">
-                            Заказов: 2
-                        </div>
-                        <div class="client-row">
-                            Статус клиента: Новый
-                        </div>
-                        <div class="client-row">
-                            gedeon@bk.ru
-                        </div>
-                        <div class="client-row">
-                            +79300056787
-                        </div>
-                        <div class="btn btn-default client-all-orders">
-                            Все заказы клиента
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="datacontainer"></div>
             </div>
         </div>
     </div>
 </div>
-<script>
-    (function($){
-        $(window).on("load",function(){
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            } );
-            $("#scroll2").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            } );
-        });
-    })(jQuery);
-</script>

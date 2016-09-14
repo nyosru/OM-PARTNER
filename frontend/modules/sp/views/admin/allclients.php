@@ -29,8 +29,6 @@
     }
 
 
-
-
     .client-avatar {
         width: 30%;
         height: 100%;
@@ -45,6 +43,16 @@
 
 
 
+    .client-old {
+        position: absolute;
+        bottom: 17px;
+        right: 29px;
+        height: 16px;
+        width: 16px;
+        background: #CCC;
+        border-radius: 45px;
+    }
+
     .client-new {
         position: absolute;
         bottom: 17px;
@@ -54,7 +62,15 @@
         background: #009f9c;
         border-radius: 45px;
     }
-
+    .client-vip {
+        position: absolute;
+        bottom: 17px;
+        right: 29px;
+        height: 16px;
+        width: 16px;
+        background: #6200ea;
+        border-radius: 45px;
+    }
     [class="client-plate client-active"]{
         background: #fff9c4;
     }
@@ -115,57 +131,66 @@
     <a style="border-bottom: 2px solid #9c27b0;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
        href="#">Вип клиенты</a>
 </div>
-<div style="height: 60px;background: #FFF">
+<form style="height: 60px;background: #FFF">
     <div class="search-bar" style="height: 100%;width: 49%;display: inline-block;box-sizing: border-box;float: left;">
-        <input class="search-console" style="" placeholder="Поиск по клиентам">
+        <input class="search-console" value="<?=Yii::$app->request->getQueryParam('search')?>" name="search" placeholder="Поиск по клиентам">
+        <?php
+        echo \yii\helpers\Html :: hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken(), []);
+        ?>
     </div>
     <div
-        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;float: right;text-align: right;padding: 0px 25px;">
-        <div style="margin: 0px 20px;display:inline-block;margin:0px 20px;">Сортировать<a class="sort-clients" href="#">
-                новые </a></div>
-        <div style="margin: 0px 20px;display: inline-block">Дата с: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
-        </div>
-        <div style="display: inline-block">Дата по: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
+        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;text-align: right;padding: 0px 25px;">
+        <div style="float: left;width: 50%;position: relative;">Сортировать<a  href="#sorting" data-toggle="collapse" aria-expanded="true" class="sort-clients">
+                новые </a>
+            <div id="sorting" style="width: 200px; position: absolute; z-index: 98; right: 0px;     top: 40px;" class="collapse" aria-expanded="true">
+                <div id="sort-order">
+                    <div class="header-sort sort sort-checked" data="0">
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Статус</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">ФИО</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Последний заказ</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Зарегистрирован</div></a>
+                    </div>
+       </div></div></div>
+        <div style="margin: -5px 20px;display: inline-block;">
+            <?=\kartik\date\DatePicker::widget([
+                'language'=>'ru',
+                'layout'=>'<div>
+                            <div style="display: inline-block;float: left;line-height: 20px; padding: 0px 20px;">Дата с: </div>
+                            {input1}
+                            <div style=" display: inline-block; float: left; line-height: 20px;padding: 0px 20px;" >Дата по:</div>
+                            {input2}
+                            </div>',
+                'name' => 'ds',
+                'name2' => 'de',
+                'value'=> (new \DateTime(date(Yii::$app->request->getQueryParam('ds'))))->format('Y-m-d'),
+                'value2'=>(new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
+                'type' => \kartik\date\DatePicker::TYPE_RANGE,
+                'options'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'options2'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]);?>
         </div>
     </div>
-</div>
+    <?= \yii\helpers\Html::submitButton('Submit', [
+        'class'=> 'btn btn-primary',
+        'style'=> 'display:none']
+    ) ;?>
+
+</form>
 <div class="">
     <div class="client-orders-board-table" style="background: #FFF">
         <?php
-var_dump($data);
+
+
         \yii\widgets\Pjax::begin(['id' => 'clients']);
-        $myArray = [
-            '0' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '1', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '1' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'],'value' => '2', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '2' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '1', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '3' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '1', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '4' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '23', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '5' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '1234', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '6' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '123', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '7' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'],'value' => '234', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '8' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '13', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '9' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'],'value' => '234', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '10' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '235234', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '11' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '25', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '12' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '25', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '13' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '2', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '14' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'],'value' => '25', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '15' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'],'value' => '25', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '16' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'],'value' => '25', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-            '17' => ['id' => ' Егоров Дмитрий Владимирович','key' => ['num'=>'№ 10036','date'=>'10 августа 2016', 'price'=>'25000р.'], 'value' => '25', 'description' => '45000руб.', 'jo'=>'вип клиент', 'ko' =>'10 августа 2016' ],
-        ];
-        $dataProvider = new \yii\data\ArrayDataProvider([
-            'key' => 'Фио клента',
-            'allModels' => $myArray,
-            'sort' => [
-                'attributes' => ['id', 'key', 'value', 'description'],
-            ],
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
+
         echo \yii\grid\GridView::widget([
             'tableOptions' => [
                 'class' => 'table table-striped',
@@ -180,7 +205,7 @@ var_dump($data);
             'captionOptions'=>[
                 'style'=>'border:none'
             ],
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $data,
             'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
             'columns' => [
                 [
@@ -189,19 +214,25 @@ var_dump($data);
                         'style' => 'vertical-align:middle;border:none'
                     ],
                     'content' => function($model) {
+                        if($model->userinfo->name){
+                            $name = $model->userinfo->lastname.' '.$model->userinfo->name.' '.$model->userinfo->secondname;
+                        }else{
+                            $name = 'Пользователь еще не заполнял свои данные';
+                        }
+                        $class = ['client-new','client-new','client-old','client-vip'];
                         return '<div class="">
                                     <div class="client-avatar">
                                         <div class="avatar">
                                             <div class="client-image">
                                             </div>
-                                            <div class="client-new">
+                                            <div class="'.$class[$model->status].'">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="">
                                         <div class="client-info-fr">
                                             <div class="client-name" style="margin-bottom: 4%; margin-top: 4%">
-                                                '.$model['id'].'
+                                                '.$name.'
                                             </div>
                                         </div>
                                     </div>
@@ -214,9 +245,13 @@ var_dump($data);
                         'style' => 'vertical-align:middle;border:none'
                     ],
                     'content' => function($model) {
-                        return '<div style="color:#5b8acf;font-weight: 400;font-size: 18px;margin-bottom: 4%;margin-top: 4%;">'.$model['key']['num'].'</div>
-                        <div style="font-size: 16px;">'.$model['key']['date'].'</div>
-                        <div style="font-size: 16px;">'.$model['key']['price'].'</div>';
+                        if($model->order){
+                            return '<div style="color:#5b8acf;font-weight: 400;font-size: 18px;margin-bottom: 4%;margin-top: 4%;">'.$model->lastOrder['id'].'</div>
+                        <div style="font-size: 16px;">'.$model->lastOrder['create_date'].'</div>
+                        <div style="font-size: 16px;">'.$model->lastOrder['order'].'</div>';         }else{
+                            return 'Заказов от этого клиента не поступало';
+                        }
+
                     }
                 ],
                 [
@@ -225,7 +260,7 @@ var_dump($data);
                         'style' => 'vertical-align:middle;border:none'
                     ],
                     'content' => function($model) {
-                        return '<span class="orders-count" style="border-radius: 4px;padding: 2px 25px;background: #5b8acf;color:#FFF; font-weight: 400">'.$model['value'].'</span>';
+                        return '<span class="orders-count" style="border-radius: 4px;padding: 2px 25px;background: #5b8acf;color:#FFF; font-weight: 400">'.count($model->order).'</span>';
                     }
                 ],
                 [
@@ -234,16 +269,24 @@ var_dump($data);
                         'style' => 'vertical-align:middle;border:none'
                     ],
                     'value' => function($model) {
-                        return $model['description'];
+                        if($model->user['total_order']){
+                            return $model->user['total_order'];
+                        }else{
+                            return '0';
+                        }
+
                     }
                 ],
                 [
                     'attribute' => 'Статус клиента',
+                    'label'=> 'Статус клиента',
                     'contentOptions'=>[
                         'style' => 'vertical-align:middle;border:none'
                     ],
                     'content' => function($model) {
-                        return '<div style="width: 14px; height: 14px;  background: #CCC;border-radius: 45px; display: inline-block;padding: 6px;margin: -3px 10px;"></div>'.$model['jo'];
+                        $color = ['000000', '009f9c','CCCCCC','6200ea'];
+                        $text = ['Неизвестный', 'Новый', 'Старый клиент', 'VIP-клиент'];
+                        return '<div style="width: 14px; height: 14px;  background: #'.$color[$model->status].';border-radius: 45px; display: inline-block;padding: 6px;margin: -3px 10px;"></div>'.$text[$model->status];
                     }
                 ],
                 [
@@ -252,7 +295,7 @@ var_dump($data);
                         'style' => 'vertical-align:middle;border:none'
                     ],
                     'value' => function($model) {
-                        return $model['ko'];
+                        return $model->date_added;
                     }
                 ],
             ],
@@ -261,3 +304,7 @@ var_dump($data);
         ?>
     </div>
 </div>
+
+<?php
+
+?>

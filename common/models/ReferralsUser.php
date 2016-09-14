@@ -62,24 +62,6 @@ class ReferralsUser extends \yii\db\ActiveRecord
         ];
     }
 
-    public function sortParamWithRelation()
-    {
-        return [
-            [
-                'attribute'=>'status',
-                'name' => 'Статус',
-            ],
-            [
-                'attribute'=>'date_added',
-                'name' => 'Дата регистрации',
-            ],
-            [
-                'attribute'=>'LastOrder',
-                'name' => 'Последний заказ',
-            ]
-        ];
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
