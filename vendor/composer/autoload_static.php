@@ -76,6 +76,7 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
             'kartik\\grid\\' => 12,
             'kartik\\form\\' => 12,
             'kartik\\file\\' => 12,
+            'kartik\\field\\' => 13,
             'kartik\\export\\' => 14,
             'kartik\\dialog\\' => 14,
             'kartik\\depdrop\\' => 15,
@@ -103,7 +104,6 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         ),
         'Z' => 
         array (
-            'Zephir\\' => 7,
             'Zelenin\\yii\\SemanticUI\\' => 23,
         ),
         'T' => 
@@ -302,6 +302,10 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput',
         ),
+        'kartik\\field\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-field-range',
+        ),
         'kartik\\export\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-export',
@@ -361,10 +365,6 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         'cebe\\jssearch\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/js-search/lib',
-        ),
-        'Zephir\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phalcon/zephir/Library',
         ),
         'Zelenin\\yii\\SemanticUI\\' => 
         array (
@@ -570,6 +570,7 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         'Generic_Sniffs_Arrays_DisallowLongArraySyntaxSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/Arrays/DisallowLongArraySyntaxSniff.php',
         'Generic_Sniffs_Arrays_DisallowShortArraySyntaxSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/Arrays/DisallowShortArraySyntaxSniff.php',
         'Generic_Sniffs_Classes_DuplicateClassNameSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/Classes/DuplicateClassNameSniff.php',
+        'Generic_Sniffs_Classes_OpeningBraceSameLineSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/Classes/OpeningBraceSameLineSniff.php',
         'Generic_Sniffs_CodeAnalysis_EmptyStatementSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/CodeAnalysis/EmptyStatementSniff.php',
         'Generic_Sniffs_CodeAnalysis_ForLoopShouldBeWhileLoopSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/CodeAnalysis/ForLoopShouldBeWhileLoopSniff.php',
         'Generic_Sniffs_CodeAnalysis_ForLoopWithTestFunctionCallSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/CodeAnalysis/ForLoopWithTestFunctionCallSniff.php',
@@ -609,9 +610,11 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         'Generic_Sniffs_NamingConventions_CamelCapsFunctionNameSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/NamingConventions/CamelCapsFunctionNameSniff.php',
         'Generic_Sniffs_NamingConventions_ConstructorNameSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/NamingConventions/ConstructorNameSniff.php',
         'Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/NamingConventions/UpperCaseConstantNameSniff.php',
+        'Generic_Sniffs_PHP_BacktickOperatorSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/BacktickOperatorSniff.php',
         'Generic_Sniffs_PHP_CharacterBeforePHPOpeningTagSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/CharacterBeforePHPOpeningTagSniff.php',
         'Generic_Sniffs_PHP_ClosingPHPTagSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/ClosingPHPTagSniff.php',
         'Generic_Sniffs_PHP_DeprecatedFunctionsSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/DeprecatedFunctionsSniff.php',
+        'Generic_Sniffs_PHP_DisallowAlternativePHPTagsSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/DisallowAlternativePHPTagsSniff.php',
         'Generic_Sniffs_PHP_DisallowShortOpenTagSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/DisallowShortOpenTagSniff.php',
         'Generic_Sniffs_PHP_ForbiddenFunctionsSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php',
         'Generic_Sniffs_PHP_LowerCaseConstantSniff' => __DIR__ . '/..' . '/squizlabs/php_codesniffer/CodeSniffer/Standards/Generic/Sniffs/PHP/LowerCaseConstantSniff.php',
@@ -768,6 +771,7 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         'Smarty_CacheResource_Custom' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_cacheresource_custom.php',
         'Smarty_CacheResource_KeyValueStore' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_cacheresource_keyvaluestore.php',
         'Smarty_Data' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_data.php',
+        'Smarty_Internal_Block' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_block.php',
         'Smarty_Internal_CacheResource_File' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_cacheresource_file.php',
         'Smarty_Internal_CompileBase' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compilebase.php',
         'Smarty_Internal_Compile_Append' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_append.php',
@@ -799,6 +803,7 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         'Smarty_Internal_Compile_Include_Php' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_include_php.php',
         'Smarty_Internal_Compile_Insert' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_insert.php',
         'Smarty_Internal_Compile_Ldelim' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_ldelim.php',
+        'Smarty_Internal_Compile_Make_Nocache' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_make_nocache.php',
         'Smarty_Internal_Compile_Nocache' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_nocache.php',
         'Smarty_Internal_Compile_Nocacheclose' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_nocache.php',
         'Smarty_Internal_Compile_Private_Block_Plugin' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_block_plugin.php',
@@ -848,6 +853,7 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         'Smarty_Internal_Method_GetConfigVars' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_method_getconfigvars.php',
         'Smarty_Internal_Method_GetDebugTemplate' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_method_getdebugtemplate.php',
         'Smarty_Internal_Method_GetDefaultModifiers' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_method_getdefaultmodifiers.php',
+        'Smarty_Internal_Method_GetGlobal' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_method_getglobal.php',
         'Smarty_Internal_Method_GetRegisteredObject' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_method_getregisteredobject.php',
         'Smarty_Internal_Method_GetStreamVariable' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_method_getstreamvariable.php',
         'Smarty_Internal_Method_GetTags' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_method_gettags.php',
@@ -889,18 +895,16 @@ class ComposerStaticInit423664e26325927a85a38e4519dc8357
         'Smarty_Internal_Resource_Stream' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_stream.php',
         'Smarty_Internal_Resource_String' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_string.php',
         'Smarty_Internal_Runtime_CacheModify' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_cachemodify.php',
+        'Smarty_Internal_Runtime_Capture' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_capture.php',
         'Smarty_Internal_Runtime_CodeFrame' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_codeframe.php',
         'Smarty_Internal_Runtime_FilterHandler' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_filterhandler.php',
         'Smarty_Internal_Runtime_Foreach' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_foreach.php',
         'Smarty_Internal_Runtime_GetIncludePath' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_getincludepath.php',
-        'Smarty_Internal_Runtime_Hhvm' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_hhvm.php',
         'Smarty_Internal_Runtime_Inheritance' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_inheritance.php',
-        'Smarty_Internal_Runtime_SubTemplate' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_subtemplate.php',
+        'Smarty_Internal_Runtime_Make_Nocache' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_make_nocache.php',
         'Smarty_Internal_Runtime_TplFunction' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_tplfunction.php',
         'Smarty_Internal_Runtime_UpdateCache' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_updatecache.php',
         'Smarty_Internal_Runtime_UpdateScope' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_updatescope.php',
-        'Smarty_Internal_Runtime_ValidateCompiled' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_validatecompiled.php',
-        'Smarty_Internal_Runtime_Var' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_var.php',
         'Smarty_Internal_Runtime_WriteFile' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_writefile.php',
         'Smarty_Internal_SmartyTemplateCompiler' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_smartytemplatecompiler.php',
         'Smarty_Internal_Template' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_template.php',

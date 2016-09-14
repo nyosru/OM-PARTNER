@@ -226,71 +226,7 @@
             margin-top: -2.125vw;
             margin-bottom: 2.125vw;
         }
-        .alert-sys-error {
-            padding: 5px;
-            border-radius: 4px;
-            position: fixed;
-            bottom: 50%;
-            right: 0px;
-            border: 1px solid #ea516d;
-            z-index: 9999;
-            color: #FFF;
-            background: #ea516d;
-            font-weight: 400;
-            margin-bottom:0px;
-        }
-        .alert-sys-warning {
-            padding: 5px;
-            border-radius: 4px;
-            position: fixed;
-            bottom: 50%;
-            right: 0px;
-            border: 1px solid #febd13;
-            z-index: 9999;
-            color: #FFF;
-            background: #febd13;
-            font-weight: 400;
-            margin-bottom:0px;
-        }
-        .alert-sys-danger {
-            padding: 5px;
-            border-radius: 4px;
-            position: fixed;
-            bottom: 50%;
-            right: 0px;
-            border: 1px solid #febd13;
-            z-index: 9999;
-            color: #FFF;
-            background: #febd13;
-            font-weight: 400;
-            margin-bottom:0px;
-        }
-        .alert-sys-info {
-            padding: 5px;
-            border-radius: 4px;
-            position: fixed;
-            bottom: 50%;
-            right: 0px;
-            border: 1px solid #4a90e2;
-            z-index: 9999;
-            color: #FFF;
-            background: #4a90e2;
-            font-weight: 400;
-            margin-bottom:0px;
-        }
-        .alert-sys-success {
-            padding: 5px;
-            border-radius: 4px;
-            position: fixed;
-            bottom: 50%;
-            right: 0px;
-            border: 1px solid #19a09d;
-            z-index: 9999;
-            color: #FFF;
-            background: #19a09d;
-            font-weight: 400;
-            margin-bottom:0px;
-        }
+       
     </style>
 </head>
 <body style="min-width: 1440px;no-repeat 50% 0%;margin:auto;font-family: Roboto ,Helvetica Neue,sans-serif, sans-serif;font-style: normal;font-weight: 300;">

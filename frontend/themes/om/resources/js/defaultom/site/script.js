@@ -10,7 +10,7 @@ function getCookie(name) {
             url = url && url.split ? url.split('?')[1] : window.location.search,
             ret = url && url.match(rQuery);
         $.each(ret, function (index, value) {
-           ret[index] = this.split('=')[1].replace('&', '');
+            ret[index] = this.split('=')[1].replace('&', '');
         });
         return ret && name ? ret : null;
     }
@@ -510,10 +510,12 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     $attr = $attrib;
     if($product['products_old_price'] > $product['products_price']){
         $discount= 100 - Math.round($product['products_price']*100/$product['products_old_price']);
+    }else{
+        $discount = false;
     }
     $offersstyle='';
     if($showdiscount == 1 && $product['products_old_price'] > 0){
-        $offersstyle='style="right:10px;bottom:105px; position:absolute"';
+        $offersstyle='style="right:10px;top: 325px;position:absolute"';
     }
     $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
     if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481','3512']) != -1){
@@ -635,7 +637,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
         '<div  itemprop="description" class="model" style="display:none">' +$descriptionprod.products_description + '</div>' +
         '<div itemprop="name" class="name">' + $descriptionprod.products_name  +'</div>'+
         '</a>'+
-        '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">'+
+        '<div itemprop="offers" '+$offersstyle+' itemscope itemtype="http://schema.org/Offer" class="price">'+
         '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
         Math.round($product.products_price) + ' Руб.'+
         '</div>'+
@@ -670,6 +672,8 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     $attr_html = '';
     if($product['products_old_price'] > $product['products_price']){
         $discount= 100 - Math.round($product['products_price']*100/$product['products_old_price']);
+    }else{
+        $discount = false;
     }
     $offersstyle='';
     if($showdiscount == 1 && $product['products_old_price'] > 0){
@@ -794,7 +798,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
         '</i>'+
         'В карточку'+
         '</a>'+
-        '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price" style="margin-left:130px;" >'+
+        '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"  style="margin-left:130px;" >'+
         '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
         Math.round($product.products_price) + ' Руб.'+
         '</div>'+

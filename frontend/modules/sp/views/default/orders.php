@@ -381,7 +381,156 @@
     <div id="container1">
         <div id="col1">
             <div id="scroll1" style="height: 100%">
-            <div class="client-plate">
+
+
+
+                <?php
+
+                \yii\widgets\Pjax::begin(['id' => 'clients']);
+
+                echo \yii\grid\GridView::widget([
+                    'tableOptions' => [
+                        'class' => 'table table-striped',
+                        'style' => 'vertical-align:middle; border-bottom:1px solid #CCC;'
+                    ],
+                    'rowOptions'=>[
+                        'style'=>'border:none'
+                    ],
+                    'headerRowOptions'=>[
+                        'style'=>'border-top:1px solid #CCC; border-bottom:1px solid #CCC'
+                    ],
+                    'captionOptions'=>[
+                        'style'=>'border:none'
+                    ],
+                    'dataProvider' => $data,
+                    'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
+                    'columns' => [
+
+                        [
+                            'attribute' => 'status',
+                            'label' => 'Всего заказов',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none'
+                            ],
+                            'content' => function($model) {
+                                return '<span class="orders-count" style="border-radius: 4px;padding: 2px 25px;background: #5b8acf;color:#FFF; font-weight: 400">'.$model->order['id'].'</span>';
+                            }
+                        ],
+
+                        [
+                            'attribute' => 'Фио клента',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none'
+                            ],
+                            'content' => function($model) {
+                                if($model->userinfo->name){
+                                    $name = $model->userinfo->lastname.' '.$model->userinfo->name.' '.$model->userinfo->secondname;
+                                }else{
+                                    $name = 'Пользователь еще не заполнял свои данные';
+                                }
+                                $class = ['client-new','client-new','client-old','client-vip'];
+                                return '<div class="">
+                                    <div class="client-avatar">
+                                        <div class="avatar">
+                                            <div class="client-image">
+                                            </div>
+                                            <div class="'.$class[$model->status].'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="client-info-fr">
+                                            <div class="client-name" style="margin-bottom: 4%; margin-top: 4%">
+                                                '.$name.'
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+                            }
+                        ],
+                        [
+                            'attribute' => 'partners_orders.id',
+                            'label'=>'Последний заказ',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none'
+                            ],
+                            'content' => function($model) {
+                                if($model->order){
+                                    return '<div style="color:#5b8acf;font-weight: 400;font-size: 18px;margin-bottom: 4%;margin-top: 4%;">'.$model->lastOrder['id'].'</div>
+                        <div style="font-size: 16px;">'.$model->lastOrder['create_date'].'</div>
+                        <div style="font-size: 16px;">'.$model->lastOrder['order'].'</div>';         }else{
+                                    return 'Заказов от этого клиента не поступало';
+                                }
+                            }
+                        ],
+                        [
+                            'attribute' => 'status',
+                            'label' => 'Всего заказов',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none'
+                            ],
+                            'content' => function($model) {
+                                return '<span class="orders-count" style="border-radius: 4px;padding: 2px 25px;background: #5b8acf;color:#FFF; font-weight: 400">'.count($model->order).'</span>';
+                            }
+                        ],
+                        [
+                            'attribute' => 'Сумма заказов',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none'
+                            ],
+                            'value' => function($model) {
+                                if($model->user['total_order']){
+                                    return $model->user['total_order'];
+                                }else{
+                                    return '0';
+                                }
+
+                            }
+                        ],
+                        [
+                            'attribute' => 'Статус клиента',
+                            'label'=> 'Статус клиента',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none'
+                            ],
+                            'content' => function($model) {
+                                $color = ['000000', '009f9c','CCCCCC','6200ea'];
+                                $text = ['Неизвестный', 'Новый', 'Старый клиент', 'VIP-клиент'];
+                                return '<div style="width: 14px; height: 14px;  background: #'.$color[$model->status].';border-radius: 45px; display: inline-block;padding: 6px;margin: -3px 10px;"></div>'.$text[$model->status];
+                            }
+                        ],
+                        [
+                            'attribute' => 'Зарегистрирован',
+                            'contentOptions'=>[
+                                'style' => 'vertical-align:middle;border:none'
+                            ],
+                            'value' => function($model) {
+                                return $model->date_added;
+                            }
+                        ],
+                    ],
+                ]);
+                ?>
+                <div class="pag">
+                    <?php
+                    echo \yii\widgets\LinkPager::widget([
+                        'options'=>[
+                            'class'=>'pagination'
+                        ],
+                        'pagination' => $paginate,
+                    ]);
+                    ?>
+                    </div>
+                        <?php
+                        \yii\widgets\Pjax::end();
+                        ?>
+
+
+
+
+
+
+                        <div class="client-plate">
                 <div class="client-avatar">
                     <div class="avatar">
                         <div class="client-image">

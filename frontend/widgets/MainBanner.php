@@ -17,40 +17,40 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_29082016_1.png',
-                'referal'=> '/catalog?cat=1980',
+                'image' => '/images/banners/01-01.png',
+                'referal'=> '/catalog?cat=1845',
                 'alttext' => 'Ботинки',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_29082016_2.png',
-                'referal'=> '/catalog?cat=2047',
+                'image' => '/images/banners/03-01.png',
+                'referal'=> '/catalog?cat=1729',
                 'alttext' => 'Женские сумки, рюкзакии',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_29082016_3.png',
-                'referal'=> '/catalog?cat=2092',
+                'image' => '/images/banners/02-01.png',
+                'referal'=> '/catalog?cat=1987',
                 'alttext' => 'Для ногтей',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_29082016_4.png',
-                'referal'=> '/catalog?cat=1641',
+                'image' => '/images/banners/04-01.png',
+                'referal'=> '/catalog?cat=2047',
                 'alttext' => 'Колготки, чулки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_29082016_5.png',
-                'referal'=> '/catalog?cat=1720',
+                'image' => '/images/banners/05-01.png',
+                'referal'=> '/catalog?cat=1748',
                 'alttext' => 'Платья',
                 'out' => FALSE
             ],
@@ -63,8 +63,8 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_29082016_6.png',
-                'referal'=> '/catalog?cat=2873',
+                'image' => '/images/banners/06-01.png',
+                'referal'=> '/catalog?cat=2764',
                 'alttext' => 'Книги',
                 'out' => FALSE
             ]
