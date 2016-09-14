@@ -510,6 +510,8 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     $attr = $attrib;
     if($product['products_old_price'] > $product['products_price']){
         $discount= 100 - Math.round($product['products_price']*100/$product['products_old_price']);
+    }else{
+        $discount = false;
     }
     $offersstyle='';
     if($showdiscount == 1 && $product['products_old_price'] > 0){
@@ -670,6 +672,8 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     $attr_html = '';
     if($product['products_old_price'] > $product['products_price']){
         $discount= 100 - Math.round($product['products_price']*100/$product['products_old_price']);
+    }else{
+        $discount = false;
     }
     $offersstyle='';
     if($showdiscount == 1 && $product['products_old_price'] > 0){
