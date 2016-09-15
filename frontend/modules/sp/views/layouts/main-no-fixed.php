@@ -45,6 +45,11 @@ $this->beginPage();
 <?php $this->beginBody(); ?>
 <div class="wrap">
     <?php
+
+   
+
+
+
     if (
         ($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
         && Yii::$app->params['partnersset']['logotype']['active'] == 1

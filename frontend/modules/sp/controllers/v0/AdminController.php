@@ -7,6 +7,7 @@ use frontend\modules\sp\controllers\actions\admin\ActionAllClients;
 use frontend\modules\sp\controllers\actions\admin\ActionCommonOrders;
 use frontend\modules\sp\controllers\actions\admin\ActionDetailOrder;
 use frontend\modules\sp\controllers\actions\admin\ActionIndex;
+use frontend\modules\sp\controllers\actions\admin\ActionMailToUser;
 use frontend\modules\sp\controllers\actions\admin\ActionOrders;
 use frontend\modules\sp\controllers\actions\admin\ActionOrdersEdit;
 use Yii;
@@ -21,6 +22,7 @@ class AdminController extends Controller
         ActionOrdersEdit,
         ActionCommonOrders,
         ActionDetailOrder,
+        ActionMailToUser,
         ActionAllClients;
     public function behaviors()
     {

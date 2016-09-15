@@ -43,7 +43,11 @@ $this->beginPage();
     style="    position: fixed;background:#FFF;font-family: Roboto,Helvetica Neue,sans-serif;font-style: normal;font-weight: 300;min-width: 1440px;color:#333;margin-left: auto;margin-right: auto;height: 100%;">
 <?php $this->beginBody(); ?>
 <div class="wrap">
+
     <?php
+
+
+   
     if (
         ($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
         && Yii::$app->params['partnersset']['logotype']['active'] == 1
