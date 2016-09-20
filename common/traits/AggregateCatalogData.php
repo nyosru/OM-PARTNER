@@ -38,7 +38,7 @@ trait AggregateCatalogData
             'maxtime' => '',
             'offsettime' => '',
             'cachelistkeyprefix' => 'catalog',
-            'cacheproductkey' => 'product',
+            'cacheproductkey' => 'productnew',
             'sfilt'=>[]
         ])
     {
@@ -179,8 +179,8 @@ trait AggregateCatalogData
         if ($ds1 < $ds2)
             $x['products_last_modified'] = $x['add_date'];
         $checkcache = $x['products_last_modified'];
-        $init_key = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$studio_query_filt.$discont_query_filt.$disallkey;
-        $init_key_static = $options['cachelistkeyprefix'] . '2us-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$studio_query_filt.$discont_query_filt.$disallkey;
+        $init_key = $options['cachelistkeyprefix'] . '5ty-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$studio_query_filt.$discont_query_filt.$disallkey;
+        $init_key_static = $options['cachelistkeyprefix'] . '5ty-' . $cat . '-' . $x['prod'] . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$studio_query_filt.$discont_query_filt.$disallkey;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
@@ -313,7 +313,7 @@ trait AggregateCatalogData
             }
             $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->where('  categories_id IN (' . $cat . ') and products_status = 1 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt .  $studio_query_filt.$discont_query_filt. '  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $ok_query_filt . $prod_day_query_filt . $sfilt_query_filt, $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
             foreach ($prod as $values) {
-                $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
+                $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
                 $d1 = strtotime($values['products_last_modified']);
                 $d2 = strtotime($values['add_date']);
@@ -337,15 +337,25 @@ trait AggregateCatalogData
                     } else {
                         $last = $valuesr['products']['products_last_modified'];
                     }
-                    if($valuesr['products']['products_ordered'] == 0){
-                        $valuesr['products']['products_ordered'] = mt_rand(5,10);
+
+
+                    if (($orderedQuantity =  $valuesr['products']['products_ordered']) == 0) {
+                        preg_match('/\d/', md5("{$valuesr['products']['products_id']}"), $matches);
+                        if (empty($orderedQuantity = $matches[0])) {
+                            $valuesr['products']['ordered_real'] = $valuesr['products']['products_ordered'];
+                            $valuesr['products']['products_ordered'] = 5;
+                        } else {
+                            $valuesr['products']['ordered_real'] = $valuesr['products']['products_ordered'];
+                            $valuesr['products']['products_ordered'] = (int)$orderedQuantity;
+                        }
                     }
-                    $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
+
+                    $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
                     Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']]);
                 }
             }
             foreach ($prod as $keyin => $values) {
-                $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
+                $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
                 $data[] = $dataprod['data'];
             }
@@ -429,7 +439,6 @@ trait AggregateCatalogData
                         $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
                     }
                     $data[$key]['catpath'] = $this->Catpath($data[$key]['categories_id'], 'namenum');
-
 
                     unset(
                         $data[$key]['old_categories_id'],

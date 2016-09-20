@@ -42,16 +42,25 @@ trait ActionProduct
                 $x['products_last_modified'] = $x['add_date'];
             $checkcache = $x['products_last_modified'];
 
-            $keyprod = Yii::$app->cache->buildKey('product-' . $id);
+            $keyprod = Yii::$app->cache->buildKey('productn-' . $id);
             $data = Yii::$app->cache->get($keyprod);
             $d1 = trim($checkcache);
             $d2 = trim($data['last']);
             if (!$data || ($d1 !== $d2)) {
                 $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
                 $data = end($data);
-                if(!$data['products']['products_ordered']){
-                    $data['products']['products_ordered'] = mt_rand(5,10);
+                if (0 == ($orderedQuantity =  $data['products']['products_ordered'])) {
+                    preg_match('/\d/', md5("{$data['products']['products_id']}"), $matches);
+                    if (empty($orderedQuantity = $matches[0])) {
+                        $data['products']['ordered_real'] = $data['products']['products_ordered'];
+                        $data['products']['products_ordered'] = 5;
+                    } else {
+                        $data['products']['ordered_real'] = $data['products']['products_ordered'];
+                        $data['products']['products_ordered'] = (int)$orderedQuantity;
+                    }
                 }
+
+
                 unset(
                     $data['old_categories_id'],
                     $data['products']['country_id'],

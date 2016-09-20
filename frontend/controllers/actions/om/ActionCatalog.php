@@ -68,7 +68,7 @@ trait ActionCatalog
                 'typeresponse' => $json,
                 'maxtime' => $date_end,
                 'offsettime' => $date_start,
-                'cachelistkeyprefix' => 'catalog1' . $ok,
+                'cachelistkeyprefix' => 'catalog12' . $ok,
                 'cacheproductkey' => 'product',
                 'sfilt'=>$sfilt
             ]);
