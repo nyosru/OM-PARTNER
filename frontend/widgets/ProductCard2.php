@@ -212,7 +212,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . '<noindex> руб.</noindex></strike></div>';
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
         }
-       
+
         $innerhtml.=        '</div>' .
             '<div style="" class="model">' . $man_time_list . $preview.$chosen.$product_menu. '</div>' .
             '<div  '.$product_itemprop_model.'class="model" style="display:none">' . $product['products_model'] . '</div>' .
