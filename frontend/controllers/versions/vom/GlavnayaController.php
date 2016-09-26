@@ -13,7 +13,9 @@ use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
 use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
+use common\traits\Orders\OrdersToReferrer;
 use common\traits\OrdersStatusData;
+use common\traits\Orders\OrdersToOm;
 use common\traits\Products\FeaturedProducts;
 use common\traits\Products\NewProducts;
 use common\traits\Products\RelatedProducts;
@@ -198,6 +200,8 @@ class GlavnayaController extends Controller
         ActionInvite,
         ActionProductsDiscount,
         ActionDiscountProducts,
+        OrdersToReferrer,
+        OrdersToOm,
         AggregateCatalogData;
 
 
