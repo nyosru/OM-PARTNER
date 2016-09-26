@@ -622,7 +622,12 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     $product_menu = '<a class="product-menu" style="display: block;cursor:pointer;float: left;padding-right: 10px;"><i class="mdi" style="width: 20px;border-radius: 40px; border: 2px solid rgb(0, 165, 161); padding: 0px; margin: 0px; font-size: 16px;" aria-hidden="true">more_horiz</i></a>';
 
     $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'+$product['products_image']+'"><i class="fa fa-search-plus"  aria-hidden="true"></i></a>';
-    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><div>Заказано: '+$product['products_ordered']+'</div><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
+    if($product['products_ordered'] >= 1000){
+        $product['products_ordered'] = 'Хит продаж!';
+    }else{
+        $product['products_ordered'] = 'Заказано: '+ $product['products_ordered'];
+    }
+    $timeprew = '<div style="" class="model">'+$timewrap+$preview+$chosen+$product_menu+'<div class="product-menu-rel active" style="display:none" data-cat="'+$product['products_id']+'"><div>'+$product['products_ordered']+'</div><a href=/catalog?cat='+$catnum+'>Категория: '+$catname+'</a></div></div>';
     $discounthtml = '';
     if (($product['products_old_price']) > 0 && $showdiscount == 1 && $discount) {
         $discounthtml += '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' + $discount + ' %</div>';
@@ -777,7 +782,11 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
         $discounthtml += '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;"   itemprop="old-price" ><strike>' + parseInt($product['products_old_price']) + '<noindex> руб.</noindex></strike></div>';
         $discounthtml += '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' + parseInt($discount) + ' %</div>';
     }
-
+    if($product.products_ordered >= 1000){
+        $product.products_ordered = 'Хит продаж!';
+    }else{
+        $product.products_ordered = 'Заказано: '+ $product.products_ordered;
+    }
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
@@ -807,7 +816,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
         '<div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'+$product.products_id+'">'+
         '<div itemprop="name" class="name">' + $descriptionprod.products_name  +'</div>'+
         '<div  itemprop="model" class="model">' + $product.products_model + '</div>' +
-        '<div>Заказано: ' + $product.products_ordered + '</div>' +
+        '<div>' + $product.products_ordered + '</div>' +
         $attr_html+
         '</span></div>'+
         '</div></div>');
