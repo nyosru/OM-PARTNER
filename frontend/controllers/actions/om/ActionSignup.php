@@ -9,7 +9,7 @@ trait ActionSignup
 {
     public function actionSignup()
     {
-        if() {
+        if(Yii::$app->user->isGuest) {
             $model = new SignupFormOM();
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->validuser()) {
