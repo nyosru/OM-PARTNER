@@ -17,45 +17,45 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/01-01.png',
-                'referal'=> '/catalog?cat=1845',
-                'alttext' => 'Ботинки',
+                'image' => '/images/banners/OM_26092016_1.png',
+                'referal'=> '/catalog?cat=1744',
+                'alttext' => 'Леггинсы',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/03-01.png',
-                'referal'=> '/catalog?cat=1729',
+                'image' => '/images/banners/OM_26092016_4.png',
+                'referal'=> '/catalog?cat=2047',
                 'alttext' => 'Женские сумки, рюкзакии',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/02-01.png',
-                'referal'=> '/catalog?cat=1987',
-                'alttext' => 'Для ногтей',
+                'image' => '/images/banners/OM_26092016_3.png',
+                'referal'=> '/catalog?cat=2066',
+                'alttext' => 'Постельное белье',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/04-01.png',
-                'referal'=> '/catalog?cat=2047',
-                'alttext' => 'Колготки, чулки',
+                'image' => '/images/banners/OM_26092016_2.png',
+                'referal'=> '/catalog?cat=2831',
+                'alttext' => 'Магниты, брелки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/05-01.png',
-                'referal'=> '/catalog?cat=1748',
-                'alttext' => 'Платья',
+                'image' => '/images/banners/OM_26092016_5.png',
+                'referal'=> '/catalog?cat=1746',
+                'alttext' => 'Верхняя одежда',
                 'out' => FALSE
             ],
             [
-                'image' => '/images/banners/22082016_3.png',
+                'image' => '/images/banners/OM_26092016_6.png',
                 'referal'=> '/catalog?cat=0&count=60&prod_attr_query=0&searchword=нанопятки',
                 'alttext' => 'Нанопятки',
                 'out' => FALSE
@@ -63,9 +63,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'long' => [
             [
-                'image' => '/images/banners/06-01.png',
-                'referal'=> '/catalog?cat=2764',
-                'alttext' => 'Книги',
+                'image' => '/images/banners/OM_26092016_6.png',
+                'referal'=> 'http://new.odezhda-master.ru/info',
+                'alttext' => 'Информация',
                 'out' => FALSE
             ]
         ],
