@@ -160,5 +160,9 @@ class PartnersProducts extends ActiveRecordExt
     {
         return $this->hasMany(SpecificationDescription::className(), ['specifications_id' => 'specifications_id'])->via('productsSpecification');
     }
+    public function getProductImage()
+    {
+        return $this->hasOne(ProductImage::class, ['products_id' => 'product_id']);
+    }
 
 }

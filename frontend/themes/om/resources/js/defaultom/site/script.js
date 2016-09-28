@@ -508,8 +508,8 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
     $attr = $attrib;
-    if($product['products_old_price'] > $product['products_price']){
-        $discount= 100 - Math.round($product['products_price']*100/$product['products_old_price']);
+    if(parseInt($product['products_old_price']) > parseInt($product['products_price']) && $showdiscount == 1){
+        $discount = 100 - Math.round($product['products_price'] * 100 / $product['products_old_price']);
     }else{
         $discount = false;
     }
@@ -675,7 +675,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     $attr_desc = $attribdescr;
     $attr = $attrib;
     $attr_html = '';
-    if($product['products_old_price'] > $product['products_price']){
+    if(parseInt($product['products_old_price']) > parseInt($product['products_price']) && $showdiscount == 1){
         $discount= 100 - Math.round($product['products_price']*100/$product['products_old_price']);
     }else{
         $discount = false;
@@ -823,7 +823,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
 }
 $(document).on('click keydown', '.lock-on', function () {
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
-    new imageLoader(cImageSrc, 'startAnimation()');
+
 });
 
 
@@ -849,7 +849,6 @@ $(document).on('change','#control-load', function(){
 });
 function loaddata(){
     $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
-    new imageLoader(cImageSrc, 'startAnimation()');
     $count = $('.count-checked').text();
     $min_price = $('#min-price').val();
     $sort = $('.sort-checked').attr('data');
@@ -1259,7 +1258,7 @@ function onAjaxSuccessinfo(data) {
         }
     });
     $('.address').remove();
-    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с договором оферты.</div><button class=" btn btn-sm btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
+    $('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с <a target="_blank" href="/page?article=offerta">договором оферты</a>.</div><button class=" btn btn-sm btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
     $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",
@@ -1444,18 +1443,25 @@ $(document).on('click','#prod-info',function(){
             }else{
                 $size_html += '<div class="cart-lable" style="left:0; background: #E9516D;">Продано</div>';
             }
+
             $imgs = new Array('/site/imagepreview?src=' + data['product']['products']['products_id']);
             $imgs2 = new Array(data['product']['products']['products_image']);
+            $.each(data['images'], function(i,index){
+                $imgs.push('/site/imagepreview?src=' + data['product']['products']['products_id']+'&amp;sub='+i);
+                $imgs2.push(data['images'][i]);
+            });
+
+
             $miniimg = '';
             $bigimg = '';
 
             $.each($imgs, function (i, item) {
                 $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if (i == 0) {
-                    $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom"  href="http://odezhda-master.ru/images/' + data.product.products.products_image+'"><img  style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
+                    $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom"  href="http://odezhda-master.ru/images/' + data.product.products.products_image +'"><img  style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
                 }
                 else {
-                    $bigimg += '<div class="item"><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></div>';
+                    $bigimg += '<div class="item"><a class="cloud-zoom" data-cloud="'+i+'" href="http://odezhda-master.ru/images/' + $imgs2[i] +'"><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
                 }
 
             });
@@ -1533,19 +1539,26 @@ $(document).on('click','#prod-info',function(){
 
             });
             $breadcruumpsresult =  $breadcruumpsresult.join(' &#47; ');
+
+            if(data['product']['products']['products_ordered'] >= 1000){
+                $ordered = 'Хит продаж!';
+            }else{
+                $ordered = 'Заказано: '+data['product']['products']['products_ordered'];
+            }
+
             $prod_html += '<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;">' +
                 '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
                 '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:4px;">' +
                 '<div>'+$breadcruumpsresult+'</div>'+
                 '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px; margin-right: 10px;">' +
                 '<div style=" min-width: 380px;">' +
-                '<div id="carousel" class="carousel slide">' +
+                '<div id="slid" class="carousel slide">' +
                 '<div class="carousel-inner">' +
                 $bigimg +
                 '</div>' +
                 '</div>' +
                 '</div>' +
-                '<div class="mini-img">' +
+                '<div class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" id="min-img" style="height: 90px; width: 100%;" >' +
                 $miniimg +
                 '</div>' +
                 '</div>' +
@@ -1553,7 +1566,7 @@ $(document).on('click','#prod-info',function(){
                 '<div class="col2" style="float: left;width: 340px;position: relative; overflow: hidden;line-height: 1; color: black; font-weight: 400;">' +
                 '<div style=" font-weight: 300;">' +
                 '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
-                'Заказано: ' + data['product']['products']['products_ordered'] + ' шт.' +
+                'Заказано: ' + $ordered +
                 '</div>' +
                 '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
                 'Минимальный оптовый заказ: ' + data['product']['products']['products_quantity_order_min'] + ' шт.' +
@@ -1637,7 +1650,6 @@ $(document).on('click','#prod-info',function(){
                 $current = $('[class="inht"][itemid=' + data.product.products.products_id + ']').filter('.inht').attr('itemid');
                 $prev = $('[class="inht"][itemid=' + data.product.products.products_id + ']').prev('.inht').attr('itemid');
                 $next = $('[class="inht"][itemid=' + data.product.products.products_id + ']').next('.inht').attr('itemid');
-
                 if (typeof($next) != "undefined") {
                     $prevlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; right: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
                         '<i style="font-size: 30px; padding-left: 11px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4;" class="fa fa-chevron-right" data-prod="' + $next + '" id="prod-info"></i>' +
@@ -1652,8 +1664,6 @@ $(document).on('click','#prod-info',function(){
                         '</div>';
 
                 }
-
-
                 if (typeof($prev) != "undefined") {
                     $nextlink = '<div style="float: right; position: absolute; height: 35px; width: 38px; z-index: 2147483647; top: 0px; margin: 40% -50px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0% ! important; border-radius: 40px; box-shadow: 1px 1px 1px rgb(204, 204, 204); padding: 40px 40px 0px 0px;">' +
                         '<i style="font-size: 30px; position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; line-height: 1.4; padding-left: 6px;" class="fa fa-chevron-left" data-prod="' + $prev + '" id="prod-info"></i>' +
@@ -1664,17 +1674,39 @@ $(document).on('click','#prod-info',function(){
                         '</div>';
                 }
             }
-
-            setTimeout($('#modal-product').html(
-                '<span id="modal-close">' +
-                '<i class="fa fa-times" style="font-size:24px;"></i>' +
-                '</span>' + $prod_html + '' + $prevlink + '' + $nextlink),700)
+            var  modal_product = function ($prod_html, $prevlink, $nextlink ){
+                $('#modal-product').html(
+                    '<span id="modal-close">' +
+                    '<i class="fa fa-times" style="font-size:24px;"></i>' +
+                    '</span>' + $prod_html + '' + $prevlink + '' + $nextlink);
+            }
+            setTimeout(modal_product($prod_html, $prevlink, $nextlink ),1000)
         });
-        var cloud = function () {
-            $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
-                'position' : 'inside'
+
+        var kl = function () {
+            $('[id^=carousel-selector-]').on('click', function(){
+                var id_selector = $(this).attr("id");
+                var id = id_selector.substr(id_selector.length - 1);
+                id = parseInt(id);
+                $('#slid').carousel(id);
+                $('[id^=carousel-selector-]').removeClass('selected');
+                $(this).addClass('selected');
+                $('[data-cloud='+id+']').CloudZoom({
+                    'position' : 'inside'
+                });
             });
         };
+        var cloud = function () {
+            $('[class="cloud-zoom"]').CloudZoom({
+                'position' : 'inside'
+            });
+
+        };
+        $(document).on('load', function(){
+            $('a[rel=light]').light();
+            $('.target').shortscroll();
+        });
+        setTimeout(kl, 1000);
         setTimeout(cloud, 1000);
         var cont_top = window.pageYOffset ? window.pageYOffset : document.body.scrollTop;
         $('#overlay')

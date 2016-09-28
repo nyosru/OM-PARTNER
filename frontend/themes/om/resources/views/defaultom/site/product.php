@@ -71,8 +71,18 @@ if (count($product['productsAttributesDescr']) > 0) {
 }
 $items=array();
 $i=0;
-$im=array($product['products']['products_id']);
+$sub = [];
+$im= array($product['products']['products_id']);
+if($images){
+    foreach($images as $img_key => $img_val){
+        $sub[] = $product['products']['products_id'].'&amp;sub='.$img_key;
+    }
+}
+
+$im = array_merge($im, $sub);
+
 $imsrc=array($product['products']['products_image']);
+$imsrc=array_merge($imsrc, $images);
 if(!$product['products']['products_image']){
     $imsrc = array();
 }
@@ -132,6 +142,10 @@ if(!$product['products']['products_image']){
                 </div>
                 <div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;min-width:455px;">
                     <div style="font-family: 'Roboto', sans-serif; font-weight: 300;">
+                        <?php
+                        if(!$product['products']['products_ordered']){
+                            $product['products']['products_ordered'] = 1;
+                        }?>
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Заказано: <?=$product['products']['products_ordered']?> шт.</div>
                         <div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: <?=$product['products']['products_model']?></div>
