@@ -10,7 +10,7 @@ trait ActionImagepreview
     {
         $src = Yii::$app->request->getQueryParam('src');
         $action = Yii::$app->request->getQueryParam('action', 'none');
-        $sub = (integer)Yii::$app->request->getQueryParam('sub');
+        $sub = Yii::$app->request->getQueryParam('sub', FALSE);
         $headers = Yii::$app->response->headers;
         $headers->add('Content-Type', 'image/jpg');
         $headers->add('Accept-Encoding', 'gzip, deflate');
