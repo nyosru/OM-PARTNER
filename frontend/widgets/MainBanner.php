@@ -17,55 +17,49 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_26092016_1.png',
-                'referal'=> '/catalog?cat=1744',
-                'alttext' => 'Леггинсы',
+                'image' => '/images/banners/OM_29092016_1.png',
+                'referal'=> '/catalog?cat=2054',
+                'alttext' => 'Парфюм',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_26092016_4.png',
-                'referal'=> '/catalog?cat=2047',
-                'alttext' => 'Женские сумки, рюкзакии',
+                'image' => '/images/banners/OM_29092016_4.png',
+                'referal'=> '/catalog?cat=1987',
+                'alttext' => 'Полусапожки',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_26092016_3.png',
-                'referal'=> '/catalog?cat=2066',
-                'alttext' => 'Постельное белье',
+                'image' => '/images/banners/OM_29092016_3.png',
+                'referal'=> '/catalog?cat=2113',
+                'alttext' => 'Перчатки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_26092016_2.png',
-                'referal'=> '/catalog?cat=2831',
-                'alttext' => 'Магниты, брелки',
+                'image' => '/images/banners/OM_29092016_2.png',
+                'referal'=> '/catalog?cat=712',
+                'alttext' => 'Детские шапки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_26092016_5.png',
-                'referal'=> '/catalog?cat=1746',
-                'alttext' => 'Верхняя одежда',
+                'image' => '/images/banners/OM_29092016_5.png',
+                'referal'=> '/dayproduct',
+                'alttext' => 'Оссение новинки',
                 'out' => FALSE
             ],
-            [
-                'image' => '/images/banners/OM_26092016_6.png',
-                'referal'=> '/catalog?cat=0&count=60&prod_attr_query=0&searchword=нанопятки',
-                'alttext' => 'Нанопятки',
-                'out' => FALSE
-            ]
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_26092016_6.png',
-                'referal'=> 'http://new.odezhda-master.ru/info',
-                'alttext' => 'Информация',
+                'image' => '/images/banners/OM_29092016_6.png',
+                'referal'=> '/products-discount',
+                'alttext' => 'Все скидки тут',
                 'out' => FALSE
             ]
         ],

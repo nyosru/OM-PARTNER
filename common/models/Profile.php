@@ -389,7 +389,32 @@ class Profile extends Model
         }
         return $changeok;
     }
+    public function loadUserInfo()
+    {
+        $country = new Countries();
+        $zones = new Zones();
+        $user = User::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $userinfo = PartnersUsersInfo::find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+        $this->id = Yii::$app->user->getId();
+        // из user
+        $this->email = $user->username;
+        $this->partner = $user->id_partners;
 
+        // из userinfo
+        $this->name = $userinfo->name;
+        $this->secondname = $userinfo->secondname;
+        $this->lastname = $userinfo->lastname;
+        $this->address = $userinfo->adress;
+        $this->city = $userinfo->city;
+        $this->state = $userinfo->state;
+        $this->country = $userinfo->country;
+        $this->postcode = $userinfo->postcode;
+        $this->phone = $userinfo->telephone;
+        $this->pasportser = $userinfo->pasportser;
+        $this->pasportnum = $userinfo->pasportnum;
+        $this->pasportdate = $userinfo->pasportdate;
+        $this->pasportwhere = $userinfo->pasportwhere;
+    }
     public function loadUserProfile()
     {
         $country = new Countries();

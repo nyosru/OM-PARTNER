@@ -631,7 +631,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     $discounthtml = '';
     if (($product['products_old_price']) > 0 && $showdiscount == 1 && $discount) {
         $discounthtml += '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' + $discount + ' %</div>';
-        $discounthtml += '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;"  itemprop="old-price" ><strike>' + $product['products_old_price'] + '<noindex> руб.</noindex></strike></div>';
+        $discounthtml += '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;"  itemprop="old-price" ><strike>' + $product['products_old_price'] + ' руб.</strike></div>';
     }
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
@@ -779,7 +779,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
 
     $discounthtml = '';
     if (($product['products_old_price']) > 0 && $showdiscount == 1 && $discount) {
-        $discounthtml += '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;"   itemprop="old-price" ><strike>' + parseInt($product['products_old_price']) + '<noindex> руб.</noindex></strike></div>';
+        $discounthtml += '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;"   itemprop="old-price" ><strike>' + parseInt($product['products_old_price']) + ' руб.</strike></div>';
         $discounthtml += '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' + parseInt($discount) + ' %</div>';
     }
     if($product.products_ordered >= 1000){
@@ -1014,7 +1014,7 @@ function loaddata(){
         }
     });
 }
-$(document).on('ready', function () {
+$(window).on('load', function () {
 
     $(window).scroll(function () {
         $control = $('#control-load option:selected').val();
@@ -1079,7 +1079,7 @@ $(document).on('click', '.input_search_word', function () {
     $('.search').val($text.join(' ', $text));
     $('.result_search_word').hide();
 });
-$(document).on('ready', function () {
+$(window).on('load', function () {
 
     $amount_prod = 0;
     if (JSON.parse(localStorage.getItem('cart-om'))) {
