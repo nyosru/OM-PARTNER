@@ -201,7 +201,6 @@ class ProductCard extends \yii\bootstrap\Widget
             '<div style="" class="model">' . $man_time_list . $preview. $chosen.'</div>' .
             '<div  '.$product_itemprop_offers.' '.$offersstyle.' class="price">' .
             '<div style="font-size: 18px; font-weight: 500; margin: -5px 5px;" '.$product_itemprop_price.' >' . round($product['products_price']) . ' руб.</div>' .
-            '<b '.$product_itemprop_priceCurrency.' style="display:none">RUB</b>' .
             '</div>' .
             '<div style="cursor:pointer">' .
             '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: block; width: 50%; position: absolute; bottom: 35px; right: 30px; margin: 0px 0px -8px; padding: 5px 45px;" data-prod="' . $product['products_id'] . '">'.$options_name.'<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: -20px; padding: 5px 0px 0px 40px;"></i>'.
