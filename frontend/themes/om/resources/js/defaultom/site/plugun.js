@@ -9,10 +9,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 (function ($) {
 
-    $(document).ready(function () {
-        $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
-    });
-
     function format(str) {
         for (var i = 1; i < arguments.length; i++) {
             str = str.replace('%' + (i - 1), arguments[i]);
@@ -400,7 +396,9 @@
         adjustX: 0,
         adjustY: 0
     };
-
+    $(document).ready(function () {
+        $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+    });
 })(jQuery);
 
 

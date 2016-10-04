@@ -48,15 +48,15 @@ class InviteSPForm extends Model
 
                 $boxes = explode('@', $mail)[1];
                 $liter = mb_substr($mail, 0,2);
-                if(!file_exists(Yii::getAlias('@frontend/runtime/invites/'.$boxes.'/'. $liter . '/'))){
-                    mkdir(Yii::getAlias('@frontend/runtime/invites/'.$boxes.'/'.$liter), 0755, true);
+                if(!file_exists(Yii::getAlias('@frontend/runtime/invites/'.Yii::$app->params['constantapp']['APP_ID'].'/'.$boxes.'/'. $liter . '/'))){
+                    mkdir(Yii::getAlias('@frontend/runtime/invites/'.Yii::$app->params['constantapp']['APP_ID'].'/'.$boxes.'/'.$liter), 0755, true);
                 }
                 if(Yii::$app->getUser()->identity){
                     $usertoxml =  Yii::$app->getUser()->identity->getId();
                 }else{
                     $usertoxml = 'noauth';
                 }
-                if(($datawriter = simplexml_load_file(Yii::getAlias('@frontend/runtime/invites/'.$boxes.'/'. $liter . '/'.$mail))) == TRUE){
+                if(($datawriter = simplexml_load_file(Yii::getAlias('@frontend/runtime/invites/'.Yii::$app->params['constantapp']['APP_ID'].'/'.$boxes.'/'. $liter . '/'.$mail))) == TRUE){
                     if($datawriter->totalinvites >= 5){
                         return $this->addError('mail', 'Превышен лимит попыток');
                     }
@@ -68,7 +68,7 @@ class InviteSPForm extends Model
                     $newinvite->addChild('datetime',date('Y-m-d H:i:s'));
                     $newinvite->addChild('userid',$usertoxml);
                     $newinvite->addChild('geo','');
-                    $datawriter->saveXML(Yii::getAlias('@frontend/runtime/invites/'.$boxes.'/'. $liter . '/'.$mail));
+                    $datawriter->saveXML(Yii::getAlias('@frontend/runtime/invites/'.Yii::$app->params['constantapp']['APP_ID'].'/'.$boxes.'/'. $liter . '/'.$mail));
 
                 }else{
                     $datawriter = simplexml_load_string(
@@ -87,7 +87,7 @@ class InviteSPForm extends Model
                         '</invites>'.PHP_EOL.
                         '</root>'.PHP_EOL
                     );
-                    $datawriter->saveXML(Yii::getAlias('@frontend/runtime/invites/'.$boxes.'/'. $liter . '/'.$mail));
+                    $datawriter->saveXML(Yii::getAlias('@frontend/runtime/invites/'.Yii::$app->params['constantapp']['APP_ID'].'/'.$boxes.'/'. $liter . '/'.$mail));
                 }
                 $set = Yii::$app->session->set(md5(sha1(md5(Yii::$app->session->getId()))), md5(sha1(Yii::$app->session->getId())));
                 return true;

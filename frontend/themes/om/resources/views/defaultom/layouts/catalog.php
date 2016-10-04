@@ -25,19 +25,6 @@ $this->beginPage();
     <?php $this->head(); ?>
 </head>
 <body style="font-family: Open Sans,Helvetica Neue,sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
-<script type="text/javascript">
-    (function($){
-        $(document).on("ready",function(){
-            $('a[rel=light]').light();
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            } );
-        });
-    })(jQuery);
-</script>
 <?php $this->beginBody(); ?>
 <div class="wrap">
     <?php
@@ -71,7 +58,7 @@ $this->beginPage();
             </div>
             <div class="partners-main-left" id="scroll1"
                  style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                <?php if($this->beginCache('Right-6'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                <?php if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
                         <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
 
@@ -81,7 +68,6 @@ $this->beginPage();
                     <?php $this->endCache();
                 }?>
             </div>
-
             <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
 
             </div>
@@ -252,7 +238,7 @@ $this->beginPage();
                 <div class="" style="margin: 0px 25px;">
                     <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
                     <div style="margin: 0% 25%; float: left;">
-                        <?=\frontend\widgets\Metrics::widget();?>
+
                     </div>
                 </div>
             </footer>
@@ -269,6 +255,22 @@ $this->beginPage();
 
     ?>
 </div>
+<script type="text/javascript">
+    (function($){
+        $(document).on("ready",function(){
+            $("#scroll1").mCustomScrollbar({
+                theme: "dark",
+                axis: "y",
+                contentTouchScroll: "TRUE",
+                advanced: {autoExpandHorizontalScroll: true}
+            });
+        });
+    })(jQuery);
+    $(document).on('load', function(){
+        $('a[rel=light]').light();
+        $('.target').shortscroll();
+    });
+</script>
 
 
 </body>

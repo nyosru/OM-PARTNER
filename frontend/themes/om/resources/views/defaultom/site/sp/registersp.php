@@ -7,7 +7,63 @@
  */
 $this->title = 'Регистрация СП';
 ?>
-  
+    <style>
+        .col-person {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ea516d;
+            z-index: 9999;
+            color: #FFF;
+            background: #ea516d;
+            font-weight: 400;
+            width: 33%;
+            display: inline-block;
+        }
+        .col-address {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #00a5a1;
+            z-index: 9999;
+            color: #FFF;
+            background: #00a5a1;
+            font-weight: 400;
+            width: 33%;
+            display: inline-block;
+        }
+        .col-contacts {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #007BC1 ;
+            z-index: 9999;
+            color: #FFF;
+            background: #007BC1 ;
+            font-weight: 400;
+            width: 33%;
+            display: inline-block;
+            float: right;
+        }
+        .button-sp {
+            margin: 20px 5px;
+            font-weight: 400;
+            font-size: 18px;
+            background: #FFBF08 none repeat scroll 0% 0%;
+        }
+        .col-data-new-sp{
+            padding: 5px 15px;
+            background: #FFF;
+            border-radius: 2px;
+            color:#000;
+            height: 90px;
+            line-height: 25px;
+            text-align: left;
+        }
+        .col-item{
+            border-bottom: 1px solid #CCC;
+        }
+        .col-item:last-child{
+            border-bottom: none;
+        }
+    </style>
 <div style="text-align: center">
     <div class="col-person">
         Персональные данные

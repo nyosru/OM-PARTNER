@@ -11,13 +11,13 @@ trait ActionOrdersEdit
 {
     public function actionOrdersEdit()
     {
-        $model = new PartnersOrders();
         if (
             ($id = (integer)Yii::$app->request->post('id')) == TRUE
             && ($referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one()) == TRUE
             && ($order = PartnersOrders::find()->where(['id'=>$id, 'partners_id'=>Yii::$app->params['constantapp']['APP_ID'], 'status'=>[1]])->asArray()->one()) == TRUE
-            && ($referaluser = ReferralsUser::find()->where(['user_id'=>$order['user_id'], 'referrals_id'=>$referal['id']])->exists()) == TRUE
+            && ($referaluser = ReferralsUser::find()->where(['user_id'=>$order['user_id'], 'referral_id'=>$referal['id']])->exists()) == TRUE
         ) {
+            $model = new PartnersOrders();
             $action = Yii::$app->request->post('action');
             switch($action){
                 case 'new':{
@@ -39,6 +39,7 @@ trait ActionOrdersEdit
                             }
                         }
                     }
+                    return 'new';
                     break;
                 }
                 case 'delete':{
@@ -51,6 +52,7 @@ trait ActionOrdersEdit
                     }
                     $model->order = serialize($ordernew);
                     $model->save();
+                    return 'delete';
                     break;
                 }
                 default:{
@@ -72,17 +74,17 @@ trait ActionOrdersEdit
                     }
                     $model->order = serialize($order);
                     $model->save();
-                    return $this->render('orderupdate', ['modelform' => $model]);
+                    return $order['user_id'];
                     break;
                 }
             }
         }else{
             if(!$id){
-                return 'Укажите id';
+                return json_encode([Yii::$app->request->post()]);
             }else if(!$referal){
-                return 'Нет прав редактирования';
+                return json_encode([Yii::$app->request->post()]);
             }else if(!$referaluser){
-                return 'Нет прав редактирования';
+                return json_encode([Yii::$app->request->post()]);
             }
         }
     }

@@ -1450,7 +1450,7 @@ $(document).on('click','#prod-info',function(){
                 $imgs.push('/site/imagepreview?src=' + data['product']['products']['products_id']+'&amp;sub='+i);
                 $imgs2.push(data['images'][i]);
             });
-
+            
 
             $miniimg = '';
             $bigimg = '';

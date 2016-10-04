@@ -41,8 +41,8 @@ $this->title = 'Контакты';
     </tr>
     <tr>
         <td align="center"><i class="fa fa-skype" style="font-size: 50px; color: rgb(0, 165, 161); text-shadow: 1px 1px 1px rgb(204, 204, 204);"></i></td>
-        <td style="font-size: 16px"><b>Skype:</b><br><a href=""
-                                                        class="greenContact">odezhda-master 1</a>
+        <td style="font-size: 16px"><b>Skype:</b><br><a href="skype:odezhda-master1?chat"
+                                                        class="greenContact">odezhda-master1</a>
         </td>
     </tr>
     <tr>

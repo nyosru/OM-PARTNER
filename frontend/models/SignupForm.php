@@ -43,7 +43,7 @@ class SignupForm extends Model
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required', 'message' => 'Укажите корректный e-mail'],
             ['email', 'email'],
-            //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
+        //    ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha'],
             ['email', 'validateUserEmail'],
             ['password', 'required', 'message' => 'Это обязательное поле.'],
             ['password', 'string', 'min' => 8, 'message' => 'Минимум 8 знаков'],

@@ -22,11 +22,19 @@ trait ActionDetailOrder
         ($order = PartnersOrders::find()->where(['id'=>$id])->asArray()->one()) == TRUE &&
         ($referraluser = ReferralsUser::find()->where(['user_id'=>$order['user_id'], ReferralsUser::tableName().'.referral_id'=>$referal['id']])->joinWith('user')->joinWith('userinfo')->asArray()->one()) == TRUE
         ){
+            if($order['order'] != 'LinlToOM'){
+                $order['order'] = unserialize($order['order']);
+            }
+            if($order['delivery'] != 'LinlToOM'){
+                $order['delivery'] = unserialize($order['delivery']);
+            }
             $result = [
                 'refus'=>$referraluser,
                 'order'=>$order,
                 'id'=>$id,
             ];
+
+
             if(Yii::$app->request->isAjax){
                 $result = json_encode($result);
             }

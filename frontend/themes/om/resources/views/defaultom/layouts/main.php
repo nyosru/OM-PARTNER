@@ -34,19 +34,6 @@ $this->beginPage();
         ?>
     </head>
     <body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
-    <script type="text/javascript">
-        (function($){
-            $(document).on("ready",function(){
-                $('a[rel=light]').light();
-                $("#scroll1").mCustomScrollbar({
-                    theme: "dark",
-                    axis: "y",
-                    contentTouchScroll: "TRUE",
-                    advanced: {autoExpandHorizontalScroll: true}
-                } );
-            });
-        })(jQuery);
-    </script>
     <?php $this->beginBody(); ?>
     <div class="wrap" >
         <?php
@@ -76,9 +63,9 @@ $this->beginPage();
 
                     </div>
                 </div>
-                <div  class="partners-main-left"  id="scroll1"
+                <div  class="partners-main-left   mCustomScrollbar" data-mcs-theme="dark"
                       style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <?php if($this->beginCache('Right-7'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                    <?php if($this->beginCache('Rightu-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                         <div class="partners-main-left-cont">
                             <?= \frontend\widgets\RightTopMenuLinks::widget();
                             if(isset(Yii::$app->params['layoutset']['opencat'])){
@@ -195,6 +182,12 @@ $this->beginPage();
         Yii::$app->params['assetsite']->registerAssetFiles($this);
         ?>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.target').shortscroll();
+        });
+    </script>
+
     </body>
     </html>
 <?php $this->endPage() ?>
