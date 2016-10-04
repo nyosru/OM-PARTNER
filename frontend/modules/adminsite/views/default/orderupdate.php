@@ -169,7 +169,7 @@ ActiveForm::end(); ?>
                                 $.each(value.productsAttributesDescr, function (index) {
                                     if (index == 0) {
                                         $row += '<tr id="' + value.products.products_id + '">' +
-                                            '<td rowspan="' + value.productsAttributesDescr.length + '"><img width="25%" src="/site/imagepreview?src=' + value.products.products_image + '"></img></td>' +
+                                            '<td rowspan="' + value.productsAttributesDescr.length + '"><img width="25%" src="/site/imagepreview?src=' + value.products.products_id + '"></img></td>' +
                                             '<td rowspan="' + value.productsAttributesDescr.length + '">' + value.products.products_model +
                                             '<input type="hidden" name="new[' + value.products.products_id + '][image]" style="float: left; clear: both;" value="' + value.products.products_image + '"></input>' +
                                             '<input type="hidden" name="new[' + value.products.products_id + '][description]" style="float: left; clear: both;" value="' + value.productsDescription.products_description + '"></input>' +

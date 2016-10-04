@@ -290,16 +290,35 @@ include('all.php');
             },
             dataType: 'json'
         });
-
-
-
-
-
-    //    console.log($id,  $data);
-
     });
 
     var Lock = false;
+    var product_arr = new Object();
+    var mandata_arr = new Object();
+    function requestProduct($id) {
+        var mandata = [];
+        var requestdata = [];
+        if(typeof (product_arr['id']) == 'undefined'){
+            requestdata = $.ajax({
+                method: 'post',
+                url: "/site/product",
+                async: false,
+                data: {id: $id}
+            });
+            product_arr[$id] = new Object();
+            product_arr[$id] = requestdata.responseJSON.product;
+        }
+        if(typeof (mandata_arr['id']) == 'undefined'){
+            mandata = $.ajax({
+                method: 'post',
+                url: "/site/manlist",
+                async: false,
+                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+            });
+            mandata_arr[$id] = new Object();
+            mandata_arr[$id] = JSON.parse(mandata.responseText);
+        }
+    }
 
     $(document).on('click', '.search-models-button', function(){
         if(!isNaN(parseInt($('.search-models-value').val()))){
@@ -531,14 +550,19 @@ include('all.php');
             alert('Укажите корректый артикул');
         }
     });
+
+
     var maindata = '';
+
+
     function renderOrder(data) {
     $('[data-detail="'+data.id+'"]').addClass('client-active');
     moment.locale('ru');
 
         $products = '';
        $.each(data.order.order.products, function(){
-           console.log(this);
+          $data=requestProduct(this[0]);
+           console.log($data);
            $products +=     '<div style=""  class="product-card"> ' +
                '<div  style="" class="product-main-board"> ' +
                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +

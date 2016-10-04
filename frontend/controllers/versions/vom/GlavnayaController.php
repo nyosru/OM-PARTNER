@@ -219,7 +219,7 @@ class GlavnayaController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'saveorder', 'takeorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
+                'only' => ['logout', 'saveorder', 'takeorder', 'requestadress', 'productinfo', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
@@ -246,11 +246,7 @@ class GlavnayaController extends Controller
                         'allow' => true,
                         'roles' => ['?', '@'],
                     ],
-                    [
-                        'actions' => ['lk'],
-                        'allow' => true,
-                        'roles' => ['register', 'admin'],
-                    ],
+
                     [
                         'actions' => ['requestorders'],
                         'allow' => true,

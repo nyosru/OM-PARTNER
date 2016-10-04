@@ -24,6 +24,8 @@ trait ActionDetailOrder
         ){
             if($order['order'] != 'LinlToOM'){
                 $order['order'] = unserialize($order['order']);
+               foreach ($order['order']['order'] as $key=>$value){
+               }
             }
             if($order['delivery'] != 'LinlToOM'){
                 $order['delivery'] = unserialize($order['delivery']);
@@ -34,7 +36,7 @@ trait ActionDetailOrder
                 'id'=>$id,
             ];
 
-
+            $result = json_encode($result);
             if(Yii::$app->request->isAjax){
                 $result = json_encode($result);
             }

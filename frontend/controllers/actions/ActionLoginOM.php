@@ -11,9 +11,9 @@ trait ActionLoginOM
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        
         $model = new LoginFormOM();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && ($model->login() || $model->loginreferral())) {
             return $this->goHome();
         } else {
             return $this->render('login', [

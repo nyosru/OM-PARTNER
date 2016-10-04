@@ -131,7 +131,7 @@ trait OrdersToReferrer
         $neworderpartner = new PartnersOrders();
         $neworderpartner->partners_id = $user['id_partners'];
         $neworderpartner->user_id = $user['id'];
-        $neworderpartner->order = serialize($partnerorder);
+        $neworderpartner->order['products'] = serialize($partnerorder);
         $neworderpartner->status = 1;
         $neworderpartner->delivery = serialize($user['userinfo']);
         $neworderpartner->orders_id = NULL;

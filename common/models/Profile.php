@@ -415,6 +415,43 @@ class Profile extends Model
         $this->pasportdate = $userinfo->pasportdate;
         $this->pasportwhere = $userinfo->pasportwhere;
     }
+
+
+    public function saveUser()
+    {
+        if(($userinfo = PartnersUsersInfo::find()->where(['id' => Yii::$app->user->getId()])->one()) == FALSE){
+            $userinfo = new PartnersUsersInfo();
+        }
+
+        $country = new Countries();
+        $zones = new Zones();
+        $arrkey = '';
+        $userinfo->id = Yii::$app->user->getId();
+        $userinfo->name = $this->name;
+        $userinfo->secondname = $this->secondname;
+        if ($this->secondname == '') {
+            $userinfo->secondname = 'Не указано';
+            $userinfo->save();
+        }
+        $userinfo->lastname = $this->lastname;
+        $userinfo->telephone = $this->phone;
+        $userinfo->adress = $this->address;
+        $userinfo->city = $this->city;
+        $userinfo->state = $this->state;
+        $userinfo->country = $this->country;
+        $userinfo->postcode = $this->postcode;
+        $userinfo->pasportser = $this->pasportser;
+        $userinfo->pasportnum = $this->pasportnum;
+        $userinfo->pasportdate = $this->pasportdate;
+        $userinfo->pasportwhere = $this->pasportwhere;
+        if ($userinfo->save()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     public function loadUserProfile()
     {
         $country = new Countries();
