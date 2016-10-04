@@ -12,6 +12,7 @@ use common\models\OrdersToPartners;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersToRegion;
 use common\models\ProductsCache;
+use common\models\ReferralsUser;
 use common\models\SelerAnket;
 use common\models\SpsrZones;
 use Yii;
@@ -36,7 +37,7 @@ trait ActionSaveorder
 {
     public function actionSaveorder()
     {
-        if(($id = Yii::$app->user->GetId()) == TRUE){
+        if(ReferralsUser::find()->where(['user_id'=>Yii::$app->user->GetId()])->exists()){
             return $this->OrdersToReferrer();
         }else{
             return  $this->OrdersToOm();
