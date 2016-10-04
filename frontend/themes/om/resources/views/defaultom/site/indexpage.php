@@ -71,14 +71,14 @@ echo \frontend\widgets\MainBanner::widget();
         $it=0;
         $specitems[$it]['content']='';
         foreach ($dataproducts as $k1=>$val) {
-            if($num<10){
+            if($num<6){
                 $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'],  'man_time' => $man_time,'showdiscount'=>1]);
                 $num++;
             }
             else{
                 $num=0;
                 $it++;
-                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'man_time' => $man_time]);
+                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'man_time' => $man_time,'showdiscount'=>1]);
                 $num++;
             }
         }
@@ -97,14 +97,14 @@ echo \frontend\widgets\MainBanner::widget();
         $it=0;
         $specitems[$it]['content']='';
         foreach ($newproducts as $k1=>$val) {
-            if($num<10){
+            if($num<6){
                 $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
                 $num++;
             }
             else{
                 $num=0;
                 $it++;
-                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id']]);
+                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
                 $num++;
             }
         }

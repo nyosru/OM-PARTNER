@@ -1,582 +1,25 @@
 <?php
-
+include('all.php');
 
 ?>
-    <style>
-        #col1 {
-            float: left;
-            width: 30%;
-            position: relative;
-            left: 70%;
-            border-right: 1px solid #CCC;
-            height: 100%;
-        }
-        #col2 {
-            float: left;
-            width: 70%;
-            position: relative;
-            left: 70%;
-            overflow: hidden;
-            height: 100%;
-        }
-        #container1 {
-            float: left;
-            width: 100%;
-            right: 70%;
-            height: calc(100% - 210px);
-            position: fixed;
-        }
-        #container2 {
-            clear: left;
-            width: 100%;
-            overflow: hidden;
-            background: #FFF;
-            height: calc(100% - 210px);
-            position: fixed;
-            bottom: 0px;
-        }
-        #product-plane > .panel {
-            margin-bottom: -6px;
-            border-radius: 4px;
-            border: none;
-        }
 
-        #product-plane .panel-heading + .panel-collapse > .panel-body, .panel-group .panel-heading + .panel-collapse > .list-group {
-            border: none;
-        }
-        #product-plane > .panel > .panel-heading {
-            color: #333;
-            background-color: #F5F5F5;
-            border-color: #DDD;
-            padding: 0px;
-        }
-        .all-num-order {
-            font-size: 24px;
-            font-weight: 400;
-            color: #5b8acf;
-        }
-        .avatar {
-            height: 100px;
-            width: 100px;
-            position: relative;
-            float: left;
-        }
-        .client-active:before {
-            position: absolute;
-            content: "\25B8";
-            right: -15px;
-            font-size: 30px;
-            color: #CCC;
-            line-height: 100px;
-        }
-        .client-all-orders {
-            margin: 20px 0px;
-            width: 100%;
-            background: #009f9c;
-            color: #FFF;
-        }
-        .client-all-orders:hover, .client-all-orders:active {
-            background: #009f9c;
-            color: #FFF;
-        }
-        .client-avatar {
-            width: 30%;
-            height: 100%;
-        }
-        .client-board{
-            margin-left: 25px;
-            border-bottom: 1px solid #CCC;
-        }
-        .client-board-avatar{
-            width: 10%;
-            display: inline-block;
-            height: 190px;
-            position: relative;
-        }
-        .client-board-avatar-image {
-            width: 100%;
-            height: 50%;
-            position: absolute;
-            top: 0px;
-            bottom: 0px;
-            margin: auto;
-            left: 0px;
-            right: 0px;
-        }
-        .client-board-plain{
-            width: 90%;
-            display: block;
-            height: 190px;
-            float: right;
-            padding: 0px 30px;
-        }
-        .client-board-plain-info{
-            height: 70%;
-        }
-        .client-board-plain-info-col1{
-            display: inline-block;
-            width: 50%;
-            height: 100%;
-        }
-        .client-board-plain-info-col2{
-            width: 50%;
-            float: right;
-            height: 100%;
-        }
-        .client-board-plain-item{
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-        .client-board-plain-name{
-            font-size: 24px;
-            font-weight: 400;
-            color: #4a90e2;
-            padding: 10px 0px;
-        }
-        .client-image {
-            height: 70%;
-            width: 70%;
-            position: absolute;
-            top: 0px;
-            bottom: 0px;
-            left: 0px;
-            right: 0px;
-            margin: auto;
-            border-radius: 45px;
-            background: #FFF;
-            border: 1px solid #f6f6f6;
-            background: url(/images/lksp/group6.png) no-repeat 50% 50%;
-        }
-        .client-info {
-            display: block;
-            height: 100%;
-            width: 70%;
-            margin: 0px 0px 0px 119px;
-            position: relative;
-        }
-        .client-info-fr{
-            width: 100%;
-            padding: 20px 0px;
-        }
-        .client-info-fr-order {
-            width: 60%;
-            padding: 20px 0px;
-            display: inline-block;
-        }
-        .client-info-fr-price {
-            padding: 25px 0px;
-            display: inline-block;
-            float: right;
-            width: 40%;
-        }
-        .client-info-li-order {
-            width: 30%;
-            padding: 20px 0px;
-            display: inline-block;
-        }
-        .client-info-orders {
-            display: block;
-            height: 100%;
-            width: 55%;
-            margin: 0px 0px 0px 119px;
-            position: relative;
-        }
-        .client-line-info-orders {
-            display: block;
-            height: 100%;
-            margin: 0px 0px 0px 119px;
-            position: relative;
-        }
-        .client-name{
-            font-size: 16px;
-            font-weight: 400;
-            margin-bottom: 10px;
-        }
-        .client-name-in {
-            font-size: 16px;
-            font-weight: 400;
-            margin: 10px 0px;
-        }
-        .client-new {
-            position: absolute;
-            bottom: 17px;
-            right: 29px;
-            height: 16px;
-            width: 16px;
-            background: #009f9c;
-            border-radius: 45px;
-        }
-        .client-old {
-            position: absolute;
-            bottom: 17px;
-            right: 29px;
-            height: 16px;
-            width: 16px;
-            background: #CCC;
-            border-radius: 45px;
-        }
-        .client-order-num {
-            color: #4A90E2;
-            font-weight: 400;
-            display: inline-block;
-            font-size: 18px;
-        }
-        .client-order-status {
-            width: 30px;
-            height: 20px;
-            display: inline-block;
-            border-radius: 4px;
-            margin: 0px 10px;
-        }
-        .client-orders-board
-        {
-            margin-left:25px;
-            margin-right:25px
-        }
-        .client-orders-board-last
-        {
-            font-size:20px;
-            font-weight:400;
-            padding:30px 0
-        }
-        .client-orders-board-table > div > div > .table > thead > tr > th
-        {
-            border:none
-        }
-        .client-plate
-        {
-            height:100%;
-            width:100%;
-            border-bottom:1px solid #CCC
-        }
-        .client-plate-collapsed
-        {
-            height:100%;
-            width:100%;
-            margin-left:30px
-        }
-        .client-plate:hover
-        {
-            background:#fff9c4!important
-        }
-        .client-plate:nth-of-type(even)
-        {
-            background:#FFF
-        }
-        .client-plate:nth-of-type(odd)
-        {
-            background:#f5f5f5
-        }
+<style>
+    .product-to-order {
+        text-align: center;
+        position: absolute;
+        left: 28%;
+        bottom: 9px;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        color: #FFF;
+        background: #00a5a1;
+        border-radius: 4px;
+        cursor:pointer;
+    }
 
-        .client-row
-        {
-            font-size:14px;
-            font-weight:400;
-            margin-bottom:5px
-        }
-        .client-vip
-        {
-            position:absolute;
-            bottom:17px;
-            right:29px;
-            height:16px;
-            width:16px;
-            background:#6200ea;
-            border-radius:45px
-        }
-        .common-num-order
-        {
-            font-size:24px;
-            font-weight:400;
-            color:#009f9c
-        }
-        .create-common-order
-        {
-            background:#ff1744 none repeat scroll 0 0;
-            display:inline-block;
-            border-radius:4px;
-            margin:0 10px;
-            padding:5px 20px;
-            font-weight:400;
-            color:#FFF;
-            position:relative;
-            top:-7px
-        }
-        .date-order
-        {
-            margin:0 10px
-        }
-        .edit-line
-        {
-            margin:10px 0
-        }
-        .edit-order
-        {
-            display:inline-block;
-            width:33%;
-            text-align:center
-        }
-        .edit-order:before
-        {
-            content:"";
-            height:20px;
-            width:20px;
-            display:inline-block;
-            background:url(/images/lksp/edit.png) no-repeat 50% 50%;
-            padding:0;
-            margin:-5px 10px
-        }
-        .hrefline
-        {
-            display:block;
-            width:100%;
-            height:100%;
-            margin:0;
-            position:relative;
-            padding:0 20px
-        }
-        .hrefline:before
-        {
-            content:'';
-            display:inline-block;
-            width:20px;
-            height:20px;
-            border-right:2px solid #CCC;
-            border-bottom:2px solid #CCC;
-            transform:rotate(225deg);
-            transform-origin:70% 70%;
-            transition:transform .3s ease 0s,-webkit-transform .3s ease 0s,-o-transform .3s ease 0;
-            position:absolute;
-            top:0;
-            bottom:0;
-            margin:auto
-        }
-        .line-info-orders
-        {
-            display:block;
-            height:100%;
-            margin:0 0 0 30px;
-            position:relative
-        }
-        .mail-client
-        {
-            display:inline-block;
-            width:33%;
-            text-align:center
-        }
-        .mail-client:before
-        {
-            content:"";
-            height:20px;
-            width:30px;
-            display:inline-block;
-            background:url(/images/lksp/mail.png) no-repeat 50% 50%;
-            padding:0;
-            margin:-5px 10px
-        }
-        .order-retry
-        {
-            position:relative;
-            top:-3px;
-            padding:10px;
-            cursor:pointer
-        }
-        .order-retry:before
-        {
-            content:"\2190"
-        }
-        .orders-edit-search:before
-        {
-            content:"";
-            height:25px;
-            width:25px;
-            display:inline-block;
-            background:url(/images/lksp/plus4.png) no-repeat 0 0 /cover;
-            padding:0;
-            margin:-8px 10px
-        }
-        .orders-swap:after
-        {
-            content:"\2193"
-        }
-        .pag
-        {
-            text-align:center
-        }
-        .pag > .pagination > .active > a,.pag > .pagination > .active > span,.pag > .pagination > .active > a:hover,.pag > .pagination > .active > span:hover,.pag > .pagination > .active > a:focus,.pag > .pagination > .active > span:focus
-        {
-            z-index:3;
-            cursor:default;
-            background-color:#ffbf08;
-            border-color:#ffbf08;
-            color:#000
-        }
+</style>
 
-        .pag > .pagination > li > a,.pagination > li > span
-        {
-            position:relative;
-            float:left;
-            padding:6px 12px;
-            margin-left:-1px;
-            line-height:1.42857143;
-            color:#000;
-            text-decoration:none;
-            background-color:#fff;
-            border:1px solid #CCC
-        }
-        .product-card
-        {
-            margin:15px 0;
-            padding:15px 0;
-            border-bottom:1px solid #CCC
-        }
-        .product-card-common
-        {
-            margin:0;
-            padding:30px 0;
-            border-bottom:1px solid #CCC
-        }
 
-        .product-card-common:last-child
-        {
-            margin:0;
-            padding:30px 0;
-            border-bottom:none
-        }
-        .product-card-edit
-        {
-            margin:30px 0;
-            padding:30px 0;
-            border-bottom:1px solid #CCC
-        }
-        .product-card:last-child
-        {
-            border-bottom:none
-        }
-        .product-comment:before
-        {
-            content:"";
-            height:15px;
-            width:15px;
-            display:inline-block;
-            background:url(/images/lksp/plus.png) no-repeat 0 0 /cover;
-            padding:0;
-            margin:-3px 10px
-        }
-        .product-delete:before
-        {
-            content:"";
-            height:20px;
-            width:20px;
-            display:inline-block;
-            background:url(/images/lksp/delete.png) no-repeat 50% 50%;
-            padding:0;
-            margin:-5px 10px
-        }
-        .search-bar:before
-        {
-            height:59px;
-            width:59px;
-            content:'';
-            background:url(/images/lksp/search.png) no-repeat 50% 50%;
-            position:absolute
-        }
-        .search-console
-        {
-            height:100%;
-            width:80%;
-            padding:15px 59px;
-            border:none;
-            font-size:16px;
-            outline:none
-        }
-
-        .search-console:active,.search-console:focus
-        {
-            border:none
-        }
-        .sort-clients:after
-        {
-            content:"\2193"
-        }
-        .sp-client-info
-        {
-            display:block;
-            height:100%;
-            width:30%;
-            position:relative;
-            float:right;
-            border:1px solid #CCC;
-            border-radius:4px
-        }
-        .sp-client-info-dr
-        {
-            padding:10px 20px
-        }
-        .sp-client-info-fr
-        {
-            padding:20px
-        }
-        .status-cancel
-        {
-            background:#d8d8d8 none repeat scroll 0 0
-        }
-        .status-like
-        {
-            background:#ffea00 none repeat scroll 0 0
-        }
-        .status-new
-        {
-            background:#009f9c none repeat scroll 0 0
-        }
-        .status-order
-        {
-            padding:2px 5px;
-            border-radius:4px;
-            color:#FFF;
-            font-weight:400
-        }
-        .status-ordered
-        {
-            background:#9c27b0 none repeat scroll 0 0
-        }
-        .status-payed
-        {
-            background:#ff5722 none repeat scroll 0 0
-        }
-        .status-proceed
-        {
-            background:#5b8acf none repeat scroll 0 0
-        }
-        .status-return
-        {
-            background:#ff1744 none repeat scroll 0 0
-        }
-        .to-order
-        {
-            display:inline-block;
-            width:33%;
-            text-align:center;
-            padding:5px;
-            background:#ffea00;
-            border-radius:4px;
-            font-weight:400
-        }
-        .to-order:after
-        {
-            content:"\2193";
-            padding:0 10px
-        }
-        [class="client-plate client-active"]
-        {
-            background:#fff9c4 !important;
-        }
-        [class="hrefline collapsed"]:before
-        {
-            transform:rotate(45deg)
-        }
-
-    </style>
     <div style="height: 50px;background: rgb(238, 238, 238);">
         <a style="font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;" href="#">Все заказы</a>
         <a style="border-bottom: 2px solid #009f9c;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
@@ -750,366 +193,7 @@
                         ?>
                     </div>
                     <script>
-                        var maindata = '';
-                        function renderOrder(data) {
-                            $('[data-detail="'+data.id+'"]').addClass('client-active');
-                            moment.locale('ru');
-                            $('.datacontainer').html('<div style="margin:25px;"> ' +
-                                '<div style="width: 70%;  display:inline-block;"> ' +
-                                '<div style="margin-right: 25px;"> ' +
-                                '<div class="order-line" data-order="'+data.id+'"> ' +
-                                '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
-                                '<span class="date-order" >от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
-                                '<span class="status-order status-new">новый</span> ' +
-                                '</div> ' +
-                                '<div class="edit-line"> ' +
-                                '<div class="to-order">В общий заказ</div> ' +
-                                '<div class="edit-order"  edit-mode="read">Редактировать заказ</div> ' +
-                                '<div class="mail-client" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
-                                '</div> ' +
-                                '<div> ' +
-                                '<div style=""  class="product-card"> ' +
-                                '<div  style="" class="product-main-board"> ' +
-                                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-                                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-                                '<div>Платье</div> ' +
-                                '<div>Размер: 23</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div>250 p. x 2шт.</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div > ' +
-                                '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
-                                'Добавить комментарий к товару ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style=""  class="product-card"> ' +
-                                '<div  style="" class="product-main-board"> ' +
-                                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-                                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-                                '<div>Платье</div> ' +
-                                '<div>Размер: 23</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div>250 p. x 2шт.</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div > ' +
-                                '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
-                                'Добавить комментарий к товару ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style=""  class="product-card"> ' +
-                                '<div  style="" class="product-main-board"> ' +
-                                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-                                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-                                '<div>Платье</div> ' +
-                                '<div>Размер: 23</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div>250 p. x 2шт.</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div > ' +
-                                '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
-                                'Добавить комментарий к товару ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> <div style="border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: 1500 р.</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div class="sp-client-info"> ' +
-                                '<div class="client-avatar"> ' +
-                                '<div class="avatar"> ' +
-                                '<div class="client-image"> ' +
-                                '</div> ' +
-                                '<div class="client-vip"> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div class="sp-client-info-fr"> ' +
-                                '<div class="client-name">' +
-                                'Егоров Дмитрий Владимирович ' +
-                                '</div> ' +
-                                '<div class="client-register">' +
-                                'Зарегистрирован: 10 августа 2016 ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div class="sp-client-info-dr"> ' +
-                                '<div class="client-row">' +
-                                'Заказов: 2 ' +
-                                '</div> ' +
-                                '<div class="client-row">' +
-                                'Статус клиента: Новый ' +
-                                '</div> ' +
-                                '<div class="client-row">' +
-                                'gedeon@bk.ru ' +
-                                '</div> ' +
-                                '<div class="client-row"> ' +
-                                '+79300056787 ' +
-                                '</div> ' +
-                                '<div class="btn btn-default client-all-orders">' +
-                                'Все заказы клиента ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ');
-                        }
-                        function renderOrderEdit(data) {
-                            $('[data-detail="'+data.id+'"]').addClass('client-active');
-                            moment.locale('ru');
-                            $('.datacontainer').html('<div style="margin:25px;"> ' +
-                                '<div style="width: 100%;  display:inline-block;"> ' +
-                                '<div> ' +
-                                '<div class="order-line" data-order="'+data.id+'"> ' +
-                                '<span class="order-retry">Назад</span> ' +
-                                '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
-                                '<span class="date-order">от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
-                                '</div> ' +
-                                '<div> ' +
-                                '<div style="width: 100%;font-size: 18px;padding: 15px 0px;">' +
-                                'Комментарий к заказу ' +
-                                '</div> ' +
-                                '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;"></textarea> ' +
-                                '</div> ' +
-                                '<div style="" class="product-card-edit"> ' +
-                                '<div style="" class="product-main-board"> ' +
-                                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-                                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-                                '<div>Платье</div> ' +
-                                '<div>Размер: 23</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Цена ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Количество ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;"> ' +
-                                '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"> ' +
-                                '<div style=""><input id="input-count" style="width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;" data-prod="1691573" data-model="961000846" data-price="210" data-image="apix/products/bb100ce63b0f4fb0851bc4c01c843c9d.JPG" data-count="10000" data-attrname=""  data-attr="" data-name="Шапка" data-step="1"  data-min="1" placeholder="0" type="text"> ' +
-                                '<div id="add-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;"> ' +
-                                '+ ' +
-                                '</div> ' +
-                                '<div id="del-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;"> ' +
-                                '- ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Сумма ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="position: relative;"> ' +
-                                '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;"' +
-                                'class="product-comment">' +
-                                'Добавить комментарий к товару ' +
-                                '</div> ' +
-                                '<div style="cursor:pointer;color: #5b8acf;position: absolute;right: 0px;width: 70%;text-align: center;"' +
-                                'class="product-delete">' +
-                                'Удалить товар из заказа ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="" class="product-card-edit"> ' +
-                                '<div style="" class="product-main-board"> ' +
-                                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-                                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-                                '<div>Платье</div> ' +
-                                '<div>Размер: 23</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div  style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Цена ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Количество ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;"> ' +
-                                '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"> ' +
-                                '<div style=""><input id="input-count" style="width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;" data-prod="1691573" data-model="961000846" data-price="210"  data-image="apix/products/bb100ce63b0f4fb0851bc4c01c843c9d.JPG"   data-count="10000" data-attrname="" data-attr="" data-name="Шапка" data-step="1" data-min="1" placeholder="0" type="text"> ' +
-                                '<div id="add-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;"> ' +
-                                '+ ' +
-                                '</div> ' +
-                                '<div id="del-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;"> ' +
-                                '- ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Сумма ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="position: relative;"> ' +
-                                '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" class="product-comment">' +
-                                'Добавить комментарий к товару ' +
-                                '</div> ' +
-                                '<div style="cursor:pointer;color: #5b8acf;position: absolute;right: 0px;width: 70%;text-align: center;" class="product-delete">                             ' +
-                                'Удалить товар из заказа ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="" class="product-card-edit"> ' +
-                                '<div style="" class="product-main-board"> ' +
-                                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-                                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
-                                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                                '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-                                '<div>Платье</div> ' +
-                                '<div>Размер: 23</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Цена ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Количество ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;"> ' +
-                                '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"> ' +
-                                '<div style=""><input id="input-count" style="width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;" data-prod="1691573" data-model="961000846"  data-price="210"    data-image="apix/products/bb100ce63b0f4fb0851bc4c01c843c9d.JPG"  data-count="10000" data-attrname=""   data-attr="" data-name="Шапка" data-step="1"  data-min="1" placeholder="0" type="text"> ' +
-                                '<div id="add-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;"> ' +
-                                '+ ' +
-                                '</div> ' +
-                                '<div id="del-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;"> ' +
-                                '- ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;"> ' +
-                                '<div> ' +
-                                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                                'Сумма ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style="position: relative;"> ' +
-                                '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" class="product-comment">' +
-                                'Добавить комментарий к товару ' +
-                                '</div> ' +
-                                '<div style="cursor:pointer;color: #5b8acf;position: absolute;right: 0px;width: 70%;text-align: center;" class="product-delete">' +
-                                'Удалить товар из заказа ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '<div style=" font-weight: 400;  font-size: 16px;"> ' +
-                                '<span class="orders-edit-search">' +
-                                'Добавить позиции ' +
-                                '</span> ' +
-                                '<span> ' +
-                                '<input style="margin: 0px 10px;outline:none;border: 1px solid #CCC; border-radius: 4px;width: 260px;padding: 0px 10px;" placeholder="Введите название или артикул" type="text"/> ' +
-                                '</span> ' +
-                                '<span> ' +
-                                '<div style="background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
-                                '</span> ' +
-                                '</div> ' +
-                                '<div style="font-weight: 400;font-size: 15px;text-align: right;padding: 10px 25px;color: #CCC;"> ' +
-                                '<span style=" margin-right: 10px;"> Процент организатора</span> ' +
-                                '<span> ' +
-                                '<input placeholder="%">' +
-                                '</span> ' +
-                                '</div> ' +
-                                '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;"> ' +
-                                '<span> Итого 1500 р.</span> ' +
-                                '<span class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div> ' +
-                                '</div>');
-                        }
+
                         if($('.order-line').attr('data-order')){
                             $('[data-detail="'+$('.order-line').attr('data-order')+'"]').addClass('client-active');
                         }
@@ -1182,6 +266,467 @@
             </div>
         </div>
     </div>
+<script>
+
+    $(document).on('click', '.product-to-order', function(){
+        $id_product =  this.getAttribute('data-sale');
+        $id_order = $('.order-line').attr('data-order');
+        $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
+        $id = $(this).attr('data-sale');
+        $attr = new Object;
+        $attr[$id] = new Object;
+        $data = new Object;
+        $.each($cart_add_obj, function(index, i){
+            $attr[$id][$(this).attr('data-attr').toString()] = $(this).val();
+        });
+        $data["new"] = $attr;
+        $data["id"] = $id_order;
+        $.ajax({
+            type: "POST",
+            url: '/sp/admin/orders-edit',
+            data: $data,
+            success: function(data){
+                   console.log(data);
+            },
+            dataType: 'json'
+        });
+
+
+
+
+
+    //    console.log($id,  $data);
+
+    });
+
+    var Lock = false;
+
+    $(document).on('click', '.search-models-button', function(){
+        if(!isNaN(parseInt($('.search-models-value').val()))){
+            $("#modal-product").remove();
+            inProgressSearch = false;
+            var dp = parseInt($('.search-models-value').val());
+                if(!inProgressSearch){
+                    $('[class="client-plate client-active"]').removeClass('client-active');
+                    inProgressSearch = true;
+                    $.post('/site/product', {model: dp}, function (data) {
+                        $spec_html = '<div class="spec" style="margin-top:25px; ">';
+                        $.each(data['spec'].productsSpecification, function (i, item) {
+                            if (typeof(data['spec']['specificationDescription'][item.specifications_id]) != "undefined") {
+                                $spec_html += data['spec']['specificationDescription'][item.specifications_id]['specification_name'] + ': ';
+                            } else {
+                                $spec_html += '';
+                            }
+                            if (typeof(data['spec']['specificationValuesDescription'][item.specification_values_id]) != "undefined") {
+                                $spec_html += data['spec']['specificationValuesDescription'][item.specification_values_id]['specification_value'] + '<br/>';
+                            } else {
+                                $spec_html += 'Не указан<br/>';
+                            }
+
+
+                        });
+
+                        $spec_html += '</div>';
+                        $activelabel=0;
+                        if(Array.isArray(data.product.productsAttributes)){
+                            if(parseInt(data.product.products.products_quantity)>0){
+                                $activelabel++;
+                            }
+                        }
+                        else{
+                            $.each(data.product.productsAttributes,function(i,item){
+                                if(item.quantity>0){
+                                    $activelabel++;
+                                }
+                            })
+                        }
+                        $size_html ='';
+                        if($activelabel>0) {
+                            $size_html += '<div data-sale="' + data.product.products_id + '"  class="product-to-order" style="left:0">Добавить в заказ</div>';
+                        }else{
+                            $size_html += '<div class="product-to-order" style="left:0; background: #E9516D;">Продано</div>';
+                        }
+                        $imgs = new Array('/site/imagepreview?src=' + data['product']['products']['products_id']);
+                        $imgs2 = new Array(data['product']['products']['products_image']);
+                        $miniimg = '';
+                        $bigimg = '';
+
+                        $.each($imgs, function (i, item) {
+                            $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
+                            if (i == 0) {
+                                $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom"  href="http://odezhda-master.ru/images/' + data.product.products.products_image+'"><img  style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
+                            }
+                            else {
+                                $bigimg += '<div class="item"><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></div>';
+                            }
+
+                        });
+
+                        $size_html += '<div class="size-block" style="overflow: hidden;margin-bottom: 38px; width: 340px;">';
+                        $baseduri = window.location.hostname;
+
+                        if (typeof (data.product.productsAttributesDescr.keys) == "undefined") {
+
+                            if(data.product.products.products_quantity_order_units === '1'  || data.product.products.products_quantity_order_min === '1'){
+                                $disable_for_stepping = '';
+                            }else{
+                                $disable_for_stepping = 'disabled';
+                            }
+
+                            $.each(data.product.productsAttributesDescr, function (i, item) {
+                                if (data.product.productsAttributes[item['products_options_values_id']]['quantity'] > 0) {
+                                    $classpos = 'active-options';
+                                    $add_class = 'add-count';
+                                    $del_class = 'del-count';
+                                    $stylepos = '';
+                                    $inputpos = '';
+                                    $some_text = 0;
+                                } else {
+                                    $classpos = 'disable-options';
+                                    $inputpos = 'readonly';
+                                    $stylepos = 'display:none; ';
+                                    $add_class = 'add-count-dis';
+                                    $del_class = 'del-count-dis';
+                                    $some_text = '';
+                                }
+
+                                $size_html += '<div class="' + $classpos + '" style="' + $stylepos + 'width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 3px ;">' + item.products_options_values_name + '</div>';
+                                //   $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;"><div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"><div style="margin: auto; width: 100%;"><div style="margin-bottom: 5px;">' + item.products_options_values_name + '</div>';
+                                $size_html += '<input '+ $disable_for_stepping +' ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="' + data.product.productsAttributesDescr[i].products_options_values_name + '" data-attr="'+data.product.productsAttributesDescr[i].products_options_values_id+'" placeholder="' + $some_text + '" type="text">';
+                                $size_html += '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">+</div><div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-</div></div></div></div>';
+                            });
+
+                        } else {
+                            if(data.product.products.products_quantity_order_units === '1'  || data.product.products.products_quantity_order_min === '1'){
+                                $disable_for_stepping = '';
+                            }else{
+                                $disable_for_stepping = 'disabled';
+                            }
+                            if (data.product.products.products_quantity > 0) {
+                                $classpos = 'active-options';
+                                $add_class = 'add-count';
+                                $del_class = 'del-count';
+                                $inputpos = '';
+                                $some_text = 0;
+                            } else {
+                                $classpos = 'disable-options';
+                                $inputpos = 'readonly';
+                                $add_class = 'add-count-dis';
+                                $del_class = 'del-count-dis';
+                                $some_text = '';
+                            }
+                            $size_html += '<div class="' + $classpos + '" style="width: 50%; overflow: hidden; float: left; margin-bottom:10px;">' +
+                                '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;">' +
+                                '<div style="margin: auto; width: 100%;">' +
+                                '<input  '+ $disable_for_stepping +'  ' + $inputpos + ' id="input-count" style="width: 40%;height: 22px; text-align: center; position: relative;top:0px;border-radius: 4px;border:1px solid #CCC;" data-prod="' + data.product.products_id + '" data-name="' + data.product.productsDescription.products_name + '" data-model="' + data.product.products.products_model + '" data-price="' + Math.round(data.product.products.products_price) + '" data-image="' + data.product.products.products_image + '" data-count="' + data.product.products.products_quantity + '" data-step="' + data.product.products.products_quantity_order_units + '" data-min="' + data.product.products.products_quantity_order_min + '" data-attrname="" data-attr="" placeholder="' + $some_text + '" type="text" />' +
+                                '<div id="' + $add_class + '" style="margin: 0px;line-height: 1.6;">' +
+                                '+</div>' +
+                                '<div id="' + $del_class + '" style="margin: 0px;line-height: 1.6;">-' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                        $size_html += '</div>';
+                        $breadcruumpsresult = [];
+                        $.each(data.catpath['num'], function(i, index){
+
+                            $breadcruumpsresult.push('<a target="_blank" href="/catalog?cat='+data.catpath['num'][i]+'">'+data.catpath['name'][i]+'</a>');
+
+                        });
+                        $prod_html = '';
+                        $breadcruumpsresult =  $breadcruumpsresult.join(' &#47; ');
+                        $prod_html += '<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;">' +
+                            '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
+                            '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:4px;">' +
+                            '<div>'+$breadcruumpsresult+'</div>'+
+                            '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px; margin-right: 10px;">' +
+                            '<div style=" min-width: 380px;">' +
+                            '<div id="carousel" class="carousel slide">' +
+                            '<div class="carousel-inner">' +
+                            $bigimg +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="mini-img">' +
+                            $miniimg +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="col2" style="float: left;width: 340px;position: relative; overflow: hidden;line-height: 1; color: black; font-weight: 400;">' +
+                            '<div style=" font-weight: 300;">' +
+                            '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
+                            'Заказано: ' + data['product']['products']['products_ordered'] + ' шт.' +
+                            '</div>' +
+                            '<div class="min-opt" style="font-size: 12px; margin-bottom: 19px; text-align:left;">' +
+                            'Минимальный оптовый заказ: ' + data['product']['products']['products_quantity_order_min'] + ' шт.' +
+                            '</div>' +
+                            '<div itemprop="model" class="prod-code" style="width: 100%;float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">' +
+                            'Код товара: ' + data['product']['products']['products_model'] +
+                            '</div>' +
+                            '<div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">' +
+                            data['product']['productsDescription']['products_name'] +
+                            '</div>' +
+                            '<a itemprop="url" href="/site/product?id=' + dp + '">' +
+                            '</a>' +
+                            '</div>' +
+                            '<div class="prod-pricing" style="margin-bottom: 25px;">' +
+                            '<div style="overflow: hidden;">' +
+                            '<div class="prod-price-lable" style="font-size: 12px; margin-bottom: 7px;text-align:left;float: left;line-height: 3;">' +
+                            'Цена' +
+                            '</div>' +
+                            '<div class="prod-price" itemprop="price" style="float: right; margin-right: 30px; font-size: 28px; font-weight: 400;margin-bottom: 30px;">' +
+                            Math.round(data['product']['products']['products_price']) + ' руб' +
+                            '</div>' +
+                            '</div>' +
+                            '<div style="margin-bottom: 20px;">' +
+                            '<span>' +
+                            'Размеры' +
+                            '</span>' +
+                            '<i style="margin-left: 20px; color:#00a5a1;" class="fa fa-angle-down">' +
+                            '</i>' +
+                            '</div>' +
+                            '<div class="prod-sizes" style="margin: 0 0 38px 0; font-size: 12px; font-weight: 300;padding-bottom: 12px;">' +
+                            $size_html +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="prod-compos" style="font-size: 12px; width:100%;float: left;padding-left: 10px;">' +
+                            '<div itemprop="description" id="prd" style="display: block; max-height:340px; overflow:auto; font-size: 12px !important; font-weight: 400 !important; ">' +
+                            data.product.productsDescription.products_description + ' ' + $spec_html + '' +
+                            '</div>' +
+                            '<div>' +
+                            '<a target="_blank" href="/site/product?id=' + data.product.products_id + '" style="color:#007BC1;font-weight: 600;">' +
+                            'Перейти к полному описанию товара' +
+                            '</a>' +
+                            '<span style="float: right;padding-right: 10px;">' +
+                            'Добавлено: ' + data.product.products.products_date_added +
+                            '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                            $("body").append(
+                                '<div id="modal-product" style="min-height: 300px;">'+
+                                    '<span id="modal-close">' +
+                                '<i class="fa fa-times" style="font-size:24px;"></i>' +
+                                '</span>' + $prod_html+
+                                '</div>'+
+                            '<div id="overlay"></div>');
+                        $("#modal-product").show();
+                        $("#overlay").show();
+                        var cloud = function () {
+                            $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
+                                'position' : 'inside'
+                            });
+                        };
+                        setTimeout(cloud, 1000);
+                    });
+                    inProgressSearch = false;
+                }else{
+                    console.log('Выполняется запрос');
+                }
+
+        }else{
+            alert('Укажите корректый артикул');
+        }
+    });
+    var maindata = '';
+    function renderOrder(data) {
+    $('[data-detail="'+data.id+'"]').addClass('client-active');
+    moment.locale('ru');
+
+        $products = '';
+       $.each(data.order.order.products, function(){
+           console.log(this);
+           $products +=     '<div style=""  class="product-card"> ' +
+               '<div  style="" class="product-main-board"> ' +
+               '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+               '<img height="100%" src="/imagepreview?src='+this[0]+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+               '</div> ' +
+               '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
+               '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+               '<div style="font-weight: 400;">Арт. 982742354</div> ' +
+               '<div>Платье</div> ' +
+               '<div>Размер: 23</div> ' +
+               '</div> ' +
+               '</div> ' +
+               '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+               '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+               '<div>250 p. x 2шт.</div> ' +
+               '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
+               '</div> ' +
+               '</div> ' +
+               '</div> ' +
+               '<div > ' +
+               '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
+               'Добавить комментарий к товару ' +
+               '</div> ' +
+               '</div></div> ' +
+               '  ';
+       });
+
+    $('.datacontainer').html('<div style="margin:25px;"> ' +
+    '<div style="width: 70%;  display:inline-block;"> ' +
+        '<div style="margin-right: 25px;"> ' +
+            '<div class="order-line" data-order="'+data.id+'"> ' +
+                '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
+                '<span class="date-order" >от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
+                '<span class="status-order status-new">новый</span> ' +
+                '</div> ' +
+            '<div class="edit-line"> ' +
+                '<div class="to-order">В общий заказ</div> ' +
+                '<div class="edit-order"  edit-mode="read">Редактировать заказ</div> ' +
+                '<div class="mail-client" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
+                '</div> ' +
+            '<div>' +
+                 $products+
+            '</div><div style="border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: 1500 р.</div> ' +
+            '</div> ' +
+        '</div> ' +
+    '<div class="sp-client-info"> ' +
+        '<div class="client-avatar"> ' +
+            '<div class="avatar"> ' +
+                '<div class="client-image"> ' +
+                    '</div> ' +
+                '<div class="client-vip"> ' +
+                    '</div> ' +
+                '</div> ' +
+            '</div> ' +
+        '<div class="sp-client-info-fr"> ' +
+            '<div class="client-name">' +
+                'Егоров Дмитрий Владимирович ' +
+                '</div> ' +
+            '<div class="client-register">' +
+                'Зарегистрирован: 10 августа 2016 ' +
+                '</div> ' +
+            '</div> ' +
+        '<div class="sp-client-info-dr"> ' +
+            '<div class="client-row">' +
+                'Заказов: 2 ' +
+                '</div> ' +
+            '<div class="client-row">' +
+                'Статус клиента: Новый ' +
+                '</div> ' +
+            '<div class="client-row">' +
+                'gedeon@bk.ru ' +
+                '</div> ' +
+            '<div class="client-row"> ' +
+                '+79300056787 ' +
+                '</div> ' +
+            '<div class="btn btn-default client-all-orders">' +
+                'Все заказы клиента ' +
+                '</div> ' +
+            '</div> ' +
+        '</div> ' +
+    '</div> ');
+    }
+    function renderOrderEdit(data) {
+    $('[data-detail="'+data.id+'"]').addClass('client-active');
+    moment.locale('ru');
+    $('.datacontainer').html('<div style="margin:25px;"> ' +
+    '<div style="width: 100%;  display:inline-block;"> ' +
+        '<div> ' +
+            '<div class="order-line" data-order="'+data.id+'"> ' +
+                '<span class="order-retry">Назад</span> ' +
+                '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
+                '<span class="date-order">от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
+                '</div> ' +
+            '<div> ' +
+                '<div style="width: 100%;font-size: 18px;padding: 15px 0px;">' +
+                    'Комментарий к заказу ' +
+                    '</div> ' +
+                '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;"></textarea> ' +
+                '</div> ' +
+    '<div style="" class="product-card-edit"> ' +
+        '<div style="" class="product-main-board"> ' +
+            '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                '</div> ' +
+            '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
+                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                    '<div style="font-weight: 400;">Арт. 982742354</div> ' +
+                    '<div>Платье</div> ' +
+                    '<div>Размер: 23</div> ' +
+                    '</div> ' +
+                '</div> ' +
+            '<div style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;"> ' +
+                    '<div> ' +
+                        '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                            'Цена ' +
+                            '</div> ' +
+                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
+                            '</div> ' +
+                        '</div> ' +
+                    '</div> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;"> ' +
+                    '<div> ' +
+                        '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                            'Количество ' +
+                            '</div> ' +
+                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;"> ' +
+                            '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"> ' +
+                                '<div style=""><input id="input-count" style="width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;" data-prod="1691573" data-model="961000846"  data-price="210"    data-image="apix/products/bb100ce63b0f4fb0851bc4c01c843c9d.JPG"  data-count="10000" data-attrname=""   data-attr="" data-name="Шапка" data-step="1"  data-min="1" placeholder="0" type="text"> ' +
+                                    '<div id="add-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;"> ' +
+                                        '+ ' +
+                                        '</div> ' +
+                                    '<div id="del-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;"> ' +
+                                        '- ' +
+                                        '</div> ' +
+                                    '</div> ' +
+                                '</div> ' +
+                            '</div> ' +
+                        '</div> ' +
+                    '</div> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;"> ' +
+                    '<div> ' +
+                        '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                            'Сумма ' +
+                            '</div> ' +
+                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
+                            '</div> ' +
+                        '</div> ' +
+                    '</div> ' +
+                '</div> ' +
+            '</div> ' +
+        '<div style="position: relative;"> ' +
+            '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" class="product-comment">' +
+                'Добавить комментарий к товару ' +
+                '</div> ' +
+            '<div style="cursor:pointer;color: #5b8acf;position: absolute;right: 0px;width: 70%;text-align: center;" class="product-delete">' +
+                'Удалить товар из заказа ' +
+                '</div> ' +
+            '</div> ' +
+        '</div> ' +
+    '<div style=" font-weight: 400;  font-size: 16px;"> ' +
+        '<span class="orders-edit-search">' +
+                                'Добавить позиции ' +
+                                '</span> ' +
+        '<div class="search-models" > ' +
+                                '<input class="search-models-value" style="margin: 0px 10px;outline:none;border: 1px solid #CCC; border-radius: 4px;width: 300px;padding: 0px 10px;" placeholder="Введите название или артикул" type="text"/> ' +
+        '<div class="search-models-button"></div>'+
+        '</div> ' +
+        '<span> ' +
+                                '<div style="background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
+                                '</span> ' +
+        '</div> ' +
+    '<div style="font-weight: 400;font-size: 15px;text-align: right;padding: 10px 25px;color: #CCC;"> ' +
+        '<span style=" margin-right: 10px;"> Процент организатора</span> ' +
+        '<span> ' +
+                                '<input placeholder="%">' +
+                                '</span> ' +
+        '</div> ' +
+    '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;"> ' +
+        '<span> Итого 1500 р.</span> ' +
+        '<span class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
+        '</div> ' +
+    '</div> ' +
+    '</div> ' +
+    '</div>');
+    }
+</script>
+
 <?php
 $modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="dialog" tabindex="-1">';
     $modal .= '<div class="modal-dialog modal-lg">';

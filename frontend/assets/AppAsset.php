@@ -9,6 +9,7 @@ namespace frontend\assets;
 use common\traits\ThemeResources;
 use yii\web\AssetBundle;
 
+
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -23,13 +24,14 @@ class AppAsset extends AssetBundle
     public $js = [
 
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\web\JqueryAsset',
         'yii\jui\JuiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         '\\yii\\materialicons\\AssetBundle',
-
+        'vova07\imperavi\Asset'
 
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];

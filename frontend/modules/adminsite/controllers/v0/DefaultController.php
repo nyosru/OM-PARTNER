@@ -111,6 +111,7 @@ class DefaultController extends Controller
                                     ],
                         'allow' => true,
                     ],
+
                 ]
             ]
         ];

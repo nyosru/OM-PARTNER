@@ -11,17 +11,21 @@ trait ActionSignup
 {
     public function actionSignup()
     {
-        $model = new SignupForm();
+        if(Yii::$app->user->isGuest) {
+            $model = new SignupForm();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+            if ($model->load(Yii::$app->request->post())) {
+                if ($user = $model->signup()) {
+                    if (Yii::$app->getUser()->login($user)) {
+                        return $this->goHome();
+                    }
                 }
             }
+            return $this->render('signup', [
+                'model' => $model,
+            ]);
+        }else{
+            return $this->redirect('/');
         }
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
     }
 }

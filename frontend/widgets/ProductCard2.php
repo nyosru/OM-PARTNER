@@ -170,7 +170,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $attr_html .=  '</div></div></div>';
         }
         if($activelabel > 0) {
-            $cart_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable"><noindex>В корзину</noindex></div>';
+            $cart_html = '<div data-sale="' . $product['products_id'] . '" class="cart-lable">В корзину</div>';
         }else{
             $cart_html = '<div class="cart-lable" style="background: #E9516D">Продано</div>';
         }
@@ -179,9 +179,9 @@ class ProductCard2 extends \yii\bootstrap\Widget
         $product['products_image'] = str_replace(' ', '[[[[]]]]', $product['products_image']);
         $product['products_image'] = str_replace('(', '[[[[', $product['products_image']);
         if(count($attr)){
-            $options_name = '<noindex>Размеры</noindex>';
+            $options_name = 'Размеры';
         }else{
-            $options_name = '<noindex>Количество</noindex>';
+            $options_name = 'Количество';
         }
         if(array_key_exists($product['manufacturers_id'],$this->man_time)){
             $man_time_list = '<a data-ajax="time" style="cursor:pointer;" data-href="'.$product['manufacturers_id'].'"><i class="fa fa-clock-o"></i></a>';
@@ -200,7 +200,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $product['products_ordered'] = 'Заказано: '. $product['products_ordered'];
         }
-        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true"><noindex>more_horiz</noindex></i><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'"><noindex>Категория: </noindex>'.$categ.'</a></div>';
+        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'">Категория: '.$categ.'</a></div>';
 
         $innerhtml .= '
                         <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.'
@@ -209,7 +209,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '<meta '.$product_itemprop_image.' content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' ;
         if ((integer)($product['products_old_price']) > 0 && $this->showdiscount==1) {
-            $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . '<noindex> руб.</noindex></strike></div>';
+            $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
         }
 
@@ -223,10 +223,10 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '' .
             '</div>' .
             '</div>' .
-            '<a '.$product_itemprop_url.' href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> <noindex>В карточку</noindex></a>' .
+            '<a '.$product_itemprop_url.' href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
             '<div  '.$product_itemprop_offers.' class="price" style="margin-left:130px;">' .
-            '<div style="font-size: 18px; font-weight: 500; min-width:100px;" '.$product_itemprop_price.'>' . round($product['products_price']) . '<noindex> руб.</noindex></div>' .
-            '<b '.$product_itemprop_priceCurrency.' style="display:none"><noindex>RUB</noindex></b>' .
+            '<div style="font-size: 18px; font-weight: 500; min-width:100px;" '.$product_itemprop_price.'>' . round($product['products_price']) . ' руб.</div>' .
+            '<b '.$product_itemprop_priceCurrency.' style="display:none">RUB</b>' .
             '</div>'.
             '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div '.$product_itemprop_name.' class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div><div class="name">'.$product['products_ordered'].'</div>' . $attr_html . '</span></div></div>';
         echo $innerhtml;

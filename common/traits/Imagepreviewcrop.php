@@ -3,22 +3,32 @@ namespace common\traits;
 
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
+use common\models\ProductImage;
 use Yii;
 
 Trait Imagepreviewcrop
 {
-    public function Imagepreviewcrop($from, $src, $where, $action = 'none')
+    public function Imagepreviewcrop($from, $src, $where, $action = 'none', $sub = FALSE)
     {
         $id = (integer)$src;
         if ($id > 0) {
 
-
-            if (($dataprod = Yii::$app->cache->get('product-' . $id)) == TRUE) {
+            if (($dataprod = Yii::$app->cache->get('productn-' . $id)) == TRUE && $sub === FALSE) {
                 $src = $dataprod['data']['products']['products_image'];
-            } else {
+            } else if($sub !== FALSE) {
+                $prodimages = ProductImage::find()->select(['image_file'])
+                    ->where(['product_id' => $id])->offset($sub)
+                    ->createCommand()->queryOne(7);
+                if($prodimages){
+                    $src = $prodimages;
+                }else{
+                    return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
+                }
+            }else{
                 $dataprod = PartnersProducts::find()->where(['products_id' => trim($id)])->asArray()->one();
                 $src = $dataprod['products_image'];
             }
+
 
 
             if ($src == '' || $src == '/' || $src == '\\') {
