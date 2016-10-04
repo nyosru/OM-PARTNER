@@ -103,7 +103,7 @@ trait OrdersToReferrer
                         'comment'=> $ordersprod['comment']
                     ];
 
-                    $partnerorder[] = [$partnerorderone];
+                    $partnerorder['products'][] = array_values($partnerorderone);
                     $validproduct[] = [$partnerorderone, $ordersprodattr];
                     $validprice += ((float)$valuerequest['products_price'] * (int)$quant[$valuerequest['products_id']]);
                     $origprod[$valuerequest['products_id']] = $valuerequest;
@@ -131,7 +131,7 @@ trait OrdersToReferrer
         $neworderpartner = new PartnersOrders();
         $neworderpartner->partners_id = $user['id_partners'];
         $neworderpartner->user_id = $user['id'];
-        $neworderpartner->order['products'] = serialize($partnerorder);
+        $neworderpartner->order = serialize($partnerorder);
         $neworderpartner->status = 1;
         $neworderpartner->delivery = serialize($user['userinfo']);
         $neworderpartner->orders_id = NULL;
