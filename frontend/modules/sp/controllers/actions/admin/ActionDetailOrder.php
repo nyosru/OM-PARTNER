@@ -38,7 +38,7 @@ trait ActionDetailOrder
 
             $result = json_encode($result);
             if(Yii::$app->request->isAjax){
-                $result = json_encode($result);
+                Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
             }
             return $result;
         }else{

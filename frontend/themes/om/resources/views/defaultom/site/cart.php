@@ -20,7 +20,7 @@ $del_add .= '</select>';
 ?>
 
 <script>
-$(document).on('ready', function () {
+$(window).on('load', function () {
     $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);">...</div>');
     //var curPos = $(document).scrollTop();
     //var scrollTime = curPos / 3.73;

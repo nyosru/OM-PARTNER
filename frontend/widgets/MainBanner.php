@@ -17,49 +17,49 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_29092016_1.png',
-                'referal'=> '/catalog?cat=2054',
-                'alttext' => 'Парфюм',
+                'image' => '/images/banners/OM_04102016_1.png',
+                'referal'=> '/catalog?cat=1845',
+                'alttext' => 'Джемпер',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_29092016_4.png',
-                'referal'=> '/catalog?cat=1987',
-                'alttext' => 'Полусапожки',
+                'image' => '/images/banners/OM_04102016_2.png',
+                'referal'=> '/catalog?cat=1865',
+                'alttext' => 'Куртки',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_29092016_3.png',
-                'referal'=> '/catalog?cat=2113',
-                'alttext' => 'Перчатки',
+                'image' => '/images/banners/OM_04102016_3.png',
+                'referal'=> '/catalog?cat=1982',
+                'alttext' => 'Дутики',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_29092016_2.png',
-                'referal'=> '/catalog?cat=712',
-                'alttext' => 'Детские шапки',
+                'image' => '/images/banners/OM_04102016_4.png',
+                'referal'=> '/catalog?cat=1758',
+                'alttext' => 'Джинсы',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_29092016_5.png',
-                'referal'=> '/dayproduct',
+                'image' => '/images/banners/OM_04102016_5.png',
+                'referal'=> '/catalog?cat=1791',
                 'alttext' => 'Оссение новинки',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_29092016_6.png',
-                'referal'=> '/products-discount',
-                'alttext' => 'Все скидки тут',
+                'image' => '/images/banners/OM_04102016_6.png',
+                'referal'=> '/dayproduct',
+                'alttext' => 'Все новинки',
                 'out' => FALSE
             ]
         ],
