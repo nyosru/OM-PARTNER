@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+
 $this -> title = 'Корзина';
 
 $del_add='<select id="shipaddr" name="address">';
@@ -20,6 +20,8 @@ $del_add .= '</select>';
 ?>
 
 <script>
+
+
 $(window).on('load', function () {
     $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);">...</div>');
     //var curPos = $(document).scrollTop();
@@ -37,6 +39,8 @@ $(window).on('load', function () {
             localStorage.removeItem('cart-om-date');
         }
         $c = 0;
+
+
 
         $.each($i, function () {
             var mandata = [];
@@ -324,7 +328,7 @@ $(document).on('change click','.num-of-items',function () {
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice);
 });
-$(document).on('ready', function () {
+$(window).on('load', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
@@ -344,7 +348,7 @@ $(document).on('ready', function () {
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice+' руб');
 });
-$(document).on('click','.wrap-select', function () {
+$(window).on('load','.wrap-select', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
@@ -368,8 +372,14 @@ $(document).on('click','.wrap-select', function () {
 
 $(document).on('change', '.shipping-confirm, #shipaddr', function () {
     if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'flat12_flat12'){
+        $('.deliv-hint').remove();
         $('.deliv-cart').append('<div class="deliv-hint" data-hint="'+$('.shipping-confirm option:selected')[0].getAttribute('value')+'">' +
             '<b>При отправке ТК Энергия, рекомендуем Вам выбирать способ упаковки "коробка", т.к по правилам перевозки ТК сборного груза, упаковка должна быть жесткая, в противном случае за повреждение груза ответсвенность ТК Энергия не несет.</b>' +
+            '</div>');
+    }else if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'russianpostpf_russianpostpf'){
+        $('.deliv-hint').remove();
+        $('.deliv-cart').append('<div class="deliv-hint" data-hint="'+$('.shipping-confirm option:selected')[0].getAttribute('value')+'">' +
+            '<b>На данный момент со стороны Почты России происходит задержка в отправке заказа в 2 дня</b>' +
             '</div>');
     }else{
         $('.deliv-hint').remove();

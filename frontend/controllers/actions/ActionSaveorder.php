@@ -1,7 +1,6 @@
 <?php
 namespace frontend\controllers\actions;
 
-use common\models\ReferralsUser;
 use Yii;
 use common\models\PartnersOrders;
 use common\models\PartnersUsersInfo;

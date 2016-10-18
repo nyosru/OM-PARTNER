@@ -17,50 +17,50 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_04102016_1.png',
-                'referal'=> '/catalog?cat=1845',
-                'alttext' => 'Джемпер',
+                'image' => '/images/banners/OM_07102016_1.png',
+                'referal'=> '/catalog?cat=1775',
+                'alttext' => 'Стильные модели',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_04102016_2.png',
-                'referal'=> '/catalog?cat=1865',
-                'alttext' => 'Куртки',
+                'image' => '/images/banners/OM_07102016_4.png',
+                'referal'=> '/catalog?cat=1469',
+                'alttext' => 'Туники',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_04102016_3.png',
-                'referal'=> '/catalog?cat=1982',
-                'alttext' => 'Дутики',
+                'image' => '/images/banners/OM_07102016_3.png',
+                'referal'=> '/catalog?cat=1987',
+                'alttext' => 'Полусапожки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_04102016_4.png',
-                'referal'=> '/catalog?cat=1758',
-                'alttext' => 'Джинсы',
+                'image' => '/images/banners/OM_07102016_2.png',
+                'referal'=> '/catalog?cat=2120',
+                'alttext' => 'Аксессуары для волос',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_04102016_5.png',
-                'referal'=> '/catalog?cat=1791',
-                'alttext' => 'Оссение новинки',
+                'image' => '/images/banners/OM_07102016_5.png',
+                'referal'=> '/catalog?cat=1720',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_04102016_6.png',
-                'referal'=> '/dayproduct',
+                'image' => '/images/banners/OM_07102016_6.png',
+                'referal'=> 'https://play.google.com/store/apps/details?id=com.codegeek.omshopmobile&hl=ru',
                 'alttext' => 'Все новинки',
-                'out' => FALSE
+                'out' => TRUE
             ]
         ],
         'discont1' => [

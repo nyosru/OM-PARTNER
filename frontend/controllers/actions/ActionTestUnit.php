@@ -2,10 +2,12 @@
 namespace frontend\controllers\actions;
 
 use common\models\Customers;
+use common\models\LastPartnersIds;
 use common\models\Orders;
 use common\models\OrdersReports;
 use common\models\OrdersReportsOrders;
 use common\models\OrdersToPartners;
+use common\models\OrdersTotal;
 use common\models\PartnersCategories;
 use common\models\PartnersProducts;
 use common\models\PartnersToRegion;
@@ -19,16 +21,16 @@ trait ActionTestUnit
 {
     public function actionTestunit()
     {
-        
-       if(Yii::$app->user->can('admin')){
-           
-           print_r($this->oksuppliers());
-        //   $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
-        //   $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
-        //$x = Orders::find()->where(['orders_id'=>656506])->asArray()->limit('80')->orderBy('orders_id DESC')->all();
-          // Yii::$app->db->enableSlaves = FALSE;
-        //  Yii::$app->db->enableSlaves = FALSE;
-         //  Yii::$app->db->enableSlaves = FALSE;
+
+        if(Yii::$app->user->can('admin')){
+
+           // print_r($this->oksuppliers());
+            //   $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
+            //   $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
+            //$x = Orders::find()->where(['orders_id'=>656506])->asArray()->limit('80')->orderBy('orders_id DESC')->all();
+            // Yii::$app->db->enableSlaves = FALSE;
+            //  Yii::$app->db->enableSlaves = FALSE;
+            //  Yii::$app->db->enableSlaves = FALSE;
 //           $time_start = microtime(true);
 //           $con=mysqli_connect("10.0.0.66","newodezhda","zuAmok23sa1","odezhda");
 //
@@ -51,21 +53,47 @@ trait ActionTestUnit
 //           mysqli_close($con);
 //           $time_end = microtime(true);
 //           $time = $time_end - $time_start;
-           $prod = PartnersProducts::find()->where(['products_id'=>'1670987'])->asArray()->one();
+           // $orders = OrdersTotal::find()->where(['orders_id'=>731364])->asArray()->all();
+            $order = OrdersToPartners::find()->where(['partner_id'=>'15'])->asArray()->all();
 
-           $x = new Query();
-           $x =  $x->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
-           Yii::$app->db->enableSlaves = FALSE;
-           $y = new Query();
-          $y =  $y->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
-          echo '<pre>';
-           echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
-           print_r($x);
-           echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
-           print_r($y);
-         //  print_r($customer);
-           echo '</pre>';
-       }
+
+            $cat = 1781;
+
+          //  $key = Yii::$app->cache->buildKey('chpus-api-key-' . $cat);
+          //  if (($chpu = Yii::$app->cache->get($key)) == TRUE) {
+//
+          //  } else {
+                $catdataarr = $this->categories_for_partners();
+                $catdata = $catdataarr[0];
+                $categories = $catdataarr[1];
+                foreach ($categories as $value) {
+                    $catnamearr[$value['categories_id']] = $value['categories_name'];
+                }
+                foreach ($catdata as $value) {
+                    $catdatas[$value['categories_id']] = $value['parent_id'];
+                }
+                // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
+          //      Yii::$app->cache->set($key, $chpu, 3600);
+         //   }
+
+
+
+
+            $x = new Query();
+            $x =  $x->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
+            Yii::$app->db->enableSlaves = FALSE;
+            $y = new Query();
+            $y =  $y->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
+            echo '<pre>';
+            echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
+       //     print_r($x);
+            print_r($chpu);
+            echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
+         //   print_r($y);
+         //   print_r($order);
+            echo '</pre>';
+        }
         return '';
     }
 }

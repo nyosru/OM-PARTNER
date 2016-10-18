@@ -195,12 +195,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
         $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'.$product['products_id'].'" aria-hidden="true"></i>';
-        if($product['products_ordered'] >= 1000){
-            $product['products_ordered'] = 'Хит продаж!';
-        }else{
-            $product['products_ordered'] = 'Заказано: '. $product['products_ordered'];
-        }
-        $product_menu = '<i class="mdi product-menu" style="border-radius: 40px;cursor: pointer; border: 2px solid rgb(0, 165, 161); font-size: 16px; position: absolute;top:auto;bottom:30px;left: 75px;" aria-hidden="true">more_horiz</i><div class="product-menu-rel active" style="display:none"><a href="'.BASEURL.'/catalog?cat='.$this->category.'">Категория: '.$categ.'</a></div>';
+
 
         $innerhtml .= '
                         <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.'
@@ -212,9 +207,9 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
         }
-
+       
         $innerhtml.=        '</div>' .
-            '<div style="" class="model">' . $man_time_list . $preview.$chosen.$product_menu. '</div>' .
+            '<div style="" class="model">' . $man_time_list . $preview.$chosen. '</div>' .
             '<div  '.$product_itemprop_model.'class="model" style="display:none">' . $product['products_model'] . '</div>' .
             '<div  '.$product_itemprop_description.' class="model" style="display:none">' .htmlentities($description['products_description']) . '</div>' .
             '<div  '.$product_itemprop_category.' class="model" style="display:none">'  .htmlentities(implode(', ', $this->catpath['name'])) . '</div>' .
@@ -228,7 +223,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '<div style="font-size: 18px; font-weight: 500; min-width:100px;" '.$product_itemprop_price.'>' . round($product['products_price']) . ' руб.</div>' .
             '<b '.$product_itemprop_priceCurrency.' style="display:none">RUB</b>' .
             '</div>'.
-            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div '.$product_itemprop_name.' class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div><div class="name">'.$product['products_ordered'].'</div>' . $attr_html . '</span></div></div>';
+            '</div><div id="card2size"><span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'"><div '.$product_itemprop_name.' class="name" >'  .htmlentities($description['products_name']).'</div><div class="model">'.$product['products_model'].'</div>' . $attr_html . '</span></div></div>';
         echo $innerhtml;
     }
 }

@@ -476,7 +476,7 @@ a:active {
     float: left;
     min-height: 450px;
     border-radius: 2px;
-    box-shadow: 0 0 1px 0 #AFBCAA;
+    border: 1px solid #e3e3e3;
     margin: 5px;
     width: calc(100% / 4 - 10px);
     padding: 20px;
@@ -3178,8 +3178,7 @@ input[class*="checkbox-hidden-group"]{
     display: none;
 }
 #slid .item{
-    margin-left: 70px;
-    margin-right: 70px;
+   margin: 0px;
 }
 #slid .carousel-control{
     top:45%;
@@ -3480,7 +3479,7 @@ div.size-desc:last-child{
     margin:5px;
     width: calc(100% / 2 - 10px);
     border-radius: 2px;
-    box-shadow: 0 0 1px 0 #AFBCAA;
+    border: 1px solid #e3e3e3;
     height: 416px;
 }
 .inht:hover{

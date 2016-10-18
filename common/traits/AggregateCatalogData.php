@@ -351,7 +351,7 @@ trait AggregateCatalogData
                     }
 
                     $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
-                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']]);
+                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']], 10800);
                 }
             }
             foreach ($prod as $keyin => $values) {
@@ -361,10 +361,10 @@ trait AggregateCatalogData
             }
             $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
-            $statickeyspec = Yii::$app->cache->buildKey('specification34545sa-' . $cat);
+            $statickeyspec = Yii::$app->cache->buildKey('specification3554545sa-' . $cat);
             $statsspec = Yii::$app->cache->get($statickeyspec);
             if(!$statsspec) {
-                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
+                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,74,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
                 $spectotal = [];
                 foreach ($spec as $speckey => $specval) {
                     if (!$spectotal[$specval['specifications_id']]) {

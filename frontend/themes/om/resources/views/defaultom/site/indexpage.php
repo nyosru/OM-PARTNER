@@ -71,6 +71,21 @@ echo \frontend\widgets\MainBanner::widget();
         $it=0;
         $specitems[$it]['content']='';
         foreach ($dataproducts as $k1=>$val) {
+            $analitics = '
+       <script>
+       ga("ec:addImpression", {              
+            "id": "'.$val['products']['products_id'].'",   
+            "name": "'.$val['productsDescription']['products_name'].'", 
+            "category": "none",     
+            "list": "main-special",                
+            "brand": "'.$val['products']['manufacturers_id'].'",                
+            "variant": "none",                 
+            "position": "'.$k1.'"});
+        ga("ec:setAction", "view");
+        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+        </script>
+        ';
+            echo $analitics;
             if($num<6){
                 $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'],  'man_time' => $man_time,'showdiscount'=>1]);
                 $num++;
@@ -97,6 +112,21 @@ echo \frontend\widgets\MainBanner::widget();
         $it=0;
         $specitems[$it]['content']='';
         foreach ($newproducts as $k1=>$val) {
+            $analitics = '
+       <script>
+       ga("ec:addImpression", {              
+            "id": "'.$val['products']['products_id'].'",   
+            "name": "'.$val['productsDescription']['products_name'].'", 
+            "category": "none",     
+            "list": "main-new",                
+            "brand": "'.$val['products']['manufacturers_id'].'",                
+            "variant": "none",                 
+            "position": "'.$k1.'"});
+        ga("ec:setAction", "view");
+        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+        </script>
+        ';
+            echo $analitics;
             if($num<6){
                 $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
                 $num++;

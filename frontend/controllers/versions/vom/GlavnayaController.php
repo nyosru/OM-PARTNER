@@ -1,9 +1,8 @@
 <?php
 
 namespace frontend\controllers\versions\vom;
-
-
 use common\traits\AggregateCatalogData;
+use common\traits\Categories\RestrictedCatalog;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
 use common\traits\Fullopcat;
@@ -20,7 +19,6 @@ use common\traits\Products\FeaturedProducts;
 use common\traits\Products\NewProducts;
 use common\traits\Products\RelatedProducts;
 use common\traits\Reformat_cat_array;
-use common\traits\Categories\RestrictedCatalog;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;

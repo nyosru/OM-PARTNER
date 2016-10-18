@@ -38,22 +38,8 @@ class NewsBlockOM extends \yii\bootstrap\Widget
                 echo '<span style="color: rgb(0, 165, 161);">' . date('Y-m-d', strtotime($valuenews->date_modified)) . '</span><br/>';
                 $text = $this->trim_tags_text($valuenews->name, 90);
                 echo '<span style="display: block; ">';
-                Modal::begin([
-                    'header' => $valuenews->name,
-                    'headerOptions' => [
-                        'class' => 'newsmodhead',
-                    ],
-                    'toggleButton' => ['label' => $text,
-                        'tag' => 'div',
-                        'style' => 'cursor:pointer'
-                    ],
-                    'size' => yii\bootstrap\Modal::SIZE_LARGE,
-                    'options' => [
 
-                    ]
-                ]);
-                echo $valuenews->post;
-                Modal::end();
+                echo '<a style="display:block;cursor:pointer" href="/news?id='.$valuenews->id.'">'.$text.'</a>';
 
                 echo '</span> <br/>';
 

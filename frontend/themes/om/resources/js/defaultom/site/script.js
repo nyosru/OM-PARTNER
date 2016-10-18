@@ -369,6 +369,7 @@ $(document).on('click', '.selected-product', function () {
                     $(this).remove();
                 });
             $item.products[$i] = $id_product;
+            ga('send', 'event', 'selected', 'click', 'add to selected product');
         }
         $ilocal = JSON.stringify($item);
         localStorage.setItem('selected-product-om', $ilocal);
@@ -942,10 +943,30 @@ function loaddata(){
         if (data[0] != 'Не найдено!') {
             if(getCookie('cardview')==1) {
                 $.each(data[0], function (i, item) {
+                    ga("ec:addProduct", {
+                        "id": this.products['products_id'],
+                        "name": this.productsDescription['products_name'],
+                        "category": this.catpath.name.join('/'),
+                        "list":  window.location.pathname,
+                        "brand": this.products['manufacturers_id'],
+                        "variant": "none",
+                        "position": i});
+                    ga("ec:setAction", "ajaxview");
+                    ga("send", "event" , "ajaxview", window.location.pathname );
                     renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath, true)
                 });
             }else{
                 $.each(data[0], function (i, item) {
+                    ga("ec:addProduct", {
+                        "id": this.products['products_id'],
+                        "name": this.productsDescription['products_name'],
+                        "category": this.catpath.name.join('/'),
+                        "list":  window.location.pathname,
+                        "brand": this.products['manufacturers_id'],
+                        "variant": "none",
+                        "position": i});
+                    ga("ec:setAction", "ajaxview");
+                    ga("send", "event" , "ajaxview", window.location.pathname );
                     renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath, true)
                 });
             }
@@ -1450,7 +1471,7 @@ $(document).on('click','#prod-info',function(){
                 $imgs.push('/site/imagepreview?src=' + data['product']['products']['products_id']+'&amp;sub='+i);
                 $imgs2.push(data['images'][i]);
             });
-            
+
 
             $miniimg = '';
             $bigimg = '';
@@ -1458,7 +1479,7 @@ $(document).on('click','#prod-info',function(){
             $.each($imgs, function (i, item) {
                 $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                 if (i == 0) {
-                    $bigimg += '<div class="item active"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom"  href="http://odezhda-master.ru/images/' + data.product.products.products_image +'"><img  style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
+                    $bigimg += '<div class="item active" style="margin: 0px;"><div style="position: absolute; bottom: 0;"></div><a class="cloud-zoom"  href="http://odezhda-master.ru/images/' + data.product.products.products_image +'"><img  style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
                 }
                 else {
                     $bigimg += '<div class="item"><a class="cloud-zoom" data-cloud="'+i+'" href="http://odezhda-master.ru/images/' + $imgs2[i] +'"><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></a></div>';
@@ -1468,7 +1489,26 @@ $(document).on('click','#prod-info',function(){
 
             $size_html += '<div class="size-block" style="overflow: hidden;margin-bottom: 38px; width: 340px;">';
             $baseduri = window.location.hostname;
-
+            ga("ec:addProduct", {
+                "id": data['product']['products']['products_id'],
+                "name": data['product']['productsDescription']['products_name'],
+                "category": data.catpath.name.join('/'),
+                "list":  window.location.pathname,
+                "brand": data['product']['products']['manufacturers_id'],
+                "variant": "none",
+                "position": 0});
+            ga("ec:setAction", "popupview");
+            ga("send", "event" , "popupview", window.location.pathname );
+            ga("ec:addProduct", {
+                "id": data['product']['products']['products_id'],
+                "name": data['product']['productsDescription']['products_name'],
+                "category": data.catpath.name.join('/'),
+                "list":  window.location.pathname,
+                "brand": data['product']['products']['manufacturers_id'],
+                "variant": "none",
+                "position": 0});
+            ga("ec:setAction", "click");
+            ga("send", "event" , "click", window.location.pathname );
             if (typeof (data.product.productsAttributesDescr.keys) == "undefined") {
 
                 if(data.product.products.products_quantity_order_units === '1'  || data.product.products.products_quantity_order_min === '1'){
@@ -1550,7 +1590,7 @@ $(document).on('click','#prod-info',function(){
                 '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
                 '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:4px;">' +
                 '<div>'+$breadcruumpsresult+'</div>'+
-                '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 400px; margin-right: 10px;">' +
+                '<div class="prod-img" style="overflow: hidden; margin-bottom: 10px; max-width: 455px; margin-right: 10px;">' +
                 '<div style=" min-width: 380px;">' +
                 '<div id="slid" class="carousel slide">' +
                 '<div class="carousel-inner">' +
@@ -1738,6 +1778,25 @@ function changeCart($inputc){
             localStorage.removeItem('cart-om-date');
         }
         else{
+            $count_id = parseInt($item.cart[$ind][4]);
+            $count = parseInt($inputc.val());
+            if($count_id < $count){
+                ga('ec:addProduct', {
+                    'id': $item.cart[$ind][0],
+                    'name': $item.cart[$ind][7],
+                    'quantity': $count - $count_id
+                });
+                ga('ec:setAction', 'add');
+                ga('send', 'event', 'UX', 'click', 'add to cart');
+            }else if($count_id > $count){
+                ga('ec:addProduct', {
+                    'id': $item.cart[$ind][0],
+                    'name': $item.cart[$ind][7],
+                    'quantity': $count_id -$count
+                });
+                ga('ec:setAction', 'remove');
+                ga('send', 'event', 'UX', 'click', 'remove from cart');
+            }
             $item.cart[$ind][4]=$inputc.val();
             $newc=JSON.stringify($item);
             localStorage.setItem('cart-om',$newc);

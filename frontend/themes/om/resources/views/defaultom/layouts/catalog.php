@@ -23,6 +23,7 @@ $this->beginPage();
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); ?>
+    <?=\frontend\widgets\Metrics::widget();?>
 </head>
 <body style="font-family: Open Sans,Helvetica Neue,sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
 <?php $this->beginBody(); ?>
@@ -58,7 +59,7 @@ $this->beginPage();
             </div>
             <div class="partners-main-left" id="scroll1"
                  style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                <?php if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                <?php if($this->beginCache('Right-6'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
                         <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
 
@@ -68,6 +69,7 @@ $this->beginPage();
                     <?php $this->endCache();
                 }?>
             </div>
+
             <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
 
             </div>
@@ -255,24 +257,21 @@ $this->beginPage();
 
     ?>
 </div>
-<script type="text/javascript">
-    (function($){
-        $(document).on("ready",function(){
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
+<?php
+if(($ga = Yii::$app->session->get('ga'))){
+    foreach ($ga as $gakey=>$gavalue){
+        ?>
+        <script>
+            $(window).load(function () {
+                ga('send', 'event' , '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
             });
-        });
-    })(jQuery);
-    $(document).on('load', function(){
-        $('a[rel=light]').light();
-        $('.target').shortscroll();
-    });
-</script>
+        </script>
+        <?php
+    }
+    $ga = Yii::$app->session->set('ga', []);
+}
 
-
+?>
 </body>
 </html>
 <?php $this->endPage() ?>

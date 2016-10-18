@@ -182,6 +182,7 @@ class ProductCard extends \yii\bootstrap\Widget
         }else{
             $man_in_sklad = '';
         }
+       
 
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';

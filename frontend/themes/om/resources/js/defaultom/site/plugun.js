@@ -3272,7 +3272,24 @@
                     return d.overflowed[0] || d.overflowed[1];
                 }
             });
-
+            $("#scroll1").mCustomScrollbar({
+                theme: "dark",
+                axis: "y",
+                contentTouchScroll: "TRUE",
+                advanced: {autoExpandHorizontalScroll: true}
+            } );
+            $("#scroll2").mCustomScrollbar({
+                theme: "dark",
+                axis: "y",
+                contentTouchScroll: "TRUE",
+                advanced: {autoExpandHorizontalScroll: true}
+            } );
+            $("#scroll3").mCustomScrollbar({
+                theme: "dark",
+                axis: "y",
+                contentTouchScroll: "TRUE",
+                advanced: {autoExpandHorizontalScroll: true}
+            } );
         });
 
     }))}));

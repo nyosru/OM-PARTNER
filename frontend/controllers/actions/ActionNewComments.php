@@ -45,6 +45,12 @@ trait ActionNewComments
             $model->user_id = Yii::$app->user->getIdentity()->id;
             $model->post = $text;
             if ($model->save()) {
+                $ga =  Yii::$app->session->get('ga');
+                $ga[] = [
+                    'event' => 'comment',
+                    'location'=> $model->relate_id
+                ];
+                Yii::$app->session->set('ga', $ga);
                 if (Yii::$app->request->referrer) {
                     return $this->redirect(Yii::$app->request->referrer);
                 } else {

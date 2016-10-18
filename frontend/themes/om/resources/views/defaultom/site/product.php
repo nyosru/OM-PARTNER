@@ -126,15 +126,27 @@ if(!$product['products']['products_image']){
                             ]);
                             //
                             ?>
-                            <div class="social" style="height: 50px; bottom: 0px; width: 100%;position: relative">
+                            <div class="" style="
+                             height: 50px;
+                             bottom: 0px;
+                             width: 100%;
+                             position: relative;
+                             float: left;
+                             overflow: hidden;
+                             line-height: 1;
+                             text-align: center;
+                             margin-right: 5px;
+                             margin-top: 5px;
+                             border-radius: 2px;
+                             ">
                                 <div style="font-size: 14px;font-weight: 300; float: left; width: 100px; margin-top:10px;text-align: left;position: relative;left:67px;">Поделиться:</div>
                                 <div title="Поделиться в социальной сети" class="item-social" style="float: left;width: 150px; font-size: 18px; position: absolute;right:64px;">
-                                    <?='<div class="social social-vk"><a href="http://vk.com/share.php?url=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-vk"></i></a></div>'; ?>
-                                    <?='<div class="social social-odnokl"><a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl='.urlencode('http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id']).'"><i class="fa fa-odnoklassniki"></i></a></div>';?>
-                                    <?='<div class="social social-fb"><a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-facebook"></i></a></div>';?>
-                                    <?='<div class="social social-tw"><a href="http://twitter.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&title=' . $description['products_description'] . '"><i class="fa fa-twitter"></i></a></div>';?>
-                                    <?='<div class="social social-mail"><a href="http://connect.mail.ru/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&description=' . (integer)($product['products_price']) . '%20Руб.&title=' . $description['products_description'] . '"><i class="fa fa-at"></i></a></div>'?>
-                                    <?='<div class="social social-google"><a href="https://plus.google.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '"><i style="font-size:13px;" class="fa fa-google-plus"></i></a></div>'?>
+                                    <?='<div class="social social-vk"><a target="_blank" href="http://vk.com/share.php?url=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-vk"></i></a></div>'; ?>
+                                    <?='<div class="social social-odnokl"><a target="_blank" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl='.urlencode('http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id']).'"><i class="fa fa-odnoklassniki"></i></a></div>';?>
+                                    <?='<div class="social social-fb"><a target="_blank" href="http://www.facebook.com/sharer.php?s=100&p[url]=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-facebook"></i></a></div>';?>
+                                    <?='<div class="social social-tw"><a target="_blank" href="http://twitter.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&title=' . $description['products_description'] . '"><i class="fa fa-twitter"></i></a></div>';?>
+                                    <?='<div class="social social-mail"><a target="_blank" href="http://connect.mail.ru/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&description=' . (integer)($product['products_price']) . '%20Руб.&title=' . $description['products_description'] . '"><i class="fa fa-at"></i></a></div>'?>
+                                    <?='<div class="social social-google"><a target="_blank" href="https://plus.google.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '"><i style="font-size:13px;" class="fa fa-google-plus"></i></a></div>'?>
                                 </div>
                             </div>
                         </div>
@@ -216,6 +228,21 @@ if(!$product['products']['products_image']){
                 $it=0;
                 $relitems[$it]['content']='';
                 foreach ($relprod as $k1=>$val) {
+                    $analitics = '
+       <script>
+       ga("ec:addImpression", {              
+            "id": "'.$val['products']['products_id'].'",   
+            "name": "'.$val['productsDescription']['products_name'].'", 
+            "category": "none",     
+            "list": "product-relative",                
+            "brand": "'.$val['products']['manufacturers_id'].'",                
+            "variant": "none",                 
+            "position": "'.$k1.'"});
+        ga("ec:setAction", "view");
+        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+        </script>
+        ';
+                    echo $analitics;
                     if($num<10){
                         $relitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time, 'writeitemprop'=>FALSE]);
                         $num++;
@@ -236,7 +263,10 @@ if(!$product['products']['products_image']){
 
     </div>
     <script>
-        $(document).on('load', function(){
-            $('a[rel=light]').light();
+        $(window).load(function () {
+            $(".social").on('click', function () {
+                
+                ga("send", "event", $(this).attr("class").split(' ')[0], $(this).attr("class").split(' ')[1]);
+            })
         });
     </script>

@@ -44,7 +44,7 @@ class LoginForm extends Model
     {
         $user = $this->getUser();
         if (!$user) {
-            $this->addError('password', 'Нет такого  2 пользователя');
+            $this->addError('password', 'Нет такого пользователя');
         } elseif (!$user->validatePassword($this->password)) {
             $this->addError('password', 'Не соответствует пара логин- пароль');
         } else {
