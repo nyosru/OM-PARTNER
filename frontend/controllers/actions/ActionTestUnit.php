@@ -11,6 +11,8 @@ use common\models\OrdersTotal;
 use common\models\PartnersCategories;
 use common\models\PartnersProducts;
 use common\models\PartnersToRegion;
+use common\traits\Products\ProductsTableSizes;
+use common\traits\Products\TheFootWearSpecificationsToCategoryFactory;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Query;
@@ -54,41 +56,42 @@ trait ActionTestUnit
 //           $time_end = microtime(true);
 //           $time = $time_end - $time_start;
            // $orders = OrdersTotal::find()->where(['orders_id'=>731364])->asArray()->all();
-            $order = OrdersToPartners::find()->where(['partner_id'=>'15'])->asArray()->all();
+            $order = Orders::find()->where(['orders_id'=>739825])->asArray()->all();
 
-
-            $cat = 1781;
+            $xfactor = new ProductsTableSizes();
+         //   $cat = 1781;
 
           //  $key = Yii::$app->cache->buildKey('chpus-api-key-' . $cat);
           //  if (($chpu = Yii::$app->cache->get($key)) == TRUE) {
 //
           //  } else {
-                $catdataarr = $this->categories_for_partners();
-                $catdata = $catdataarr[0];
-                $categories = $catdataarr[1];
-                foreach ($categories as $value) {
-                    $catnamearr[$value['categories_id']] = $value['categories_name'];
-                }
-                foreach ($catdata as $value) {
-                    $catdatas[$value['categories_id']] = $value['parent_id'];
-                }
+//                $catdataarr = $this->categories_for_partners();
+//                $catdata = $catdataarr[0];
+//                $categories = $catdataarr[1];
+//                foreach ($categories as $value) {
+//                    $catnamearr[$value['categories_id']] = $value['categories_name'];
+//                }
+//                foreach ($catdata as $value) {
+//                    $catdatas[$value['categories_id']] = $value['parent_id'];
+//                }
                 // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
+             //   $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
           //      Yii::$app->cache->set($key, $chpu, 3600);
          //   }
 
 
+         //   Yii::$app->db->enableSlaves = FALSE;
+          //  $x = PartnersProducts::find()->where(['products_id'=>1807212])->asArray()->one();
 
+         //   $x = new Query();
+           // $x =  $x->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
 
-            $x = new Query();
-            $x =  $x->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
-            Yii::$app->db->enableSlaves = FALSE;
-            $y = new Query();
-            $y =  $y->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
+         //   $y = new Query();
+         //   $y =  $y->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
             echo '<pre>';
             echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
        //     print_r($x);
-            print_r($chpu);
+            print_r($order);
             echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
          //   print_r($y);
          //   print_r($order);

@@ -299,8 +299,9 @@ if ($data[0] != 'Не найдено!') {
         ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
         </script>
         ';
-
-            $products .= ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id'], 'showdiscount'=>1]);
+            $spec = $value['productsSpecification']['74']['specification_values_id'];
+            $spec_code = $value['specificationValuesDescription'][$spec]['specification_value'];
+            $products .= ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code]);
         }
     }else{
         foreach ($data[0] as $key=>$value) {
@@ -318,8 +319,10 @@ if ($data[0] != 'Не найдено!') {
         ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
         </script>
         ';
-
-            $products .= ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time,'category'=>$value['categories_id'], 'showdiscount'=>1]);
+            $spec = $value['productsSpecification']['74']['specification_values_id'];
+            $brand = $value['productsSpecification']['77']['specification_values_id'];
+            $spec_code = $value['specificationValuesDescription'][$spec]['specification_value'];
+            $products .= ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time,'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code, 'brand'=>$brand]);
         }
     }
     echo $analitics;

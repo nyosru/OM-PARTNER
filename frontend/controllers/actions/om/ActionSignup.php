@@ -22,7 +22,7 @@ trait ActionSignup
                                     'event' => 'register'
                                 ];
                                 Yii::$app->session->set('ga', $ga);
-                                return $this->goHome();
+                                return  $this->redirect('/register-success');
                             }
                         } else {
                             return $this->render('signup', ['model' => $model]);

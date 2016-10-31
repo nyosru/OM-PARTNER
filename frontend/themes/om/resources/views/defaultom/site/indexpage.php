@@ -85,8 +85,9 @@ echo \frontend\widgets\MainBanner::widget();
         ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
         </script>
         ';
-            echo $analitics;
+             echo $analitics;
             if($num<6){
+
                 $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'],  'man_time' => $man_time,'showdiscount'=>1]);
                 $num++;
             }

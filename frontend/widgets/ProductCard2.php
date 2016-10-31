@@ -20,7 +20,8 @@ class ProductCard2 extends \yii\bootstrap\Widget
     public $man_time = [];
     public $showdiscount=0;
     public $writeitemprop = 1;
-
+    public $season = '';
+    public $brand = '';
 
     public function init()
     {
@@ -195,17 +196,26 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
         $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'.$product['products_id'].'" aria-hidden="true"></i>';
-
+        if(isset($product['season_code'])){
+            $this->season = $product['season_code'];
+        }
+        if($this->season){
+            $season_html = SeasonPicture::widget([
+                'season'=>$this->season
+            ]);
+        }else{
+            $season_html = '';
+        }
 
         $innerhtml .= '
-                        <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.'
+                        <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.$season_html.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; margin-bottom:5px; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta '.$product_itemprop_image.' content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
             '</div>' ;
-        if ((integer)($product['products_old_price']) > 0 && $this->showdiscount==1) {
+        if ((integer)($product['products_old_price']) > 0 && $this->showdiscount==1  && isset($discount)) {
             $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
-            $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; border-radius: 194px; padding: 7px; line-height: 45px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px;">-' . ($discount) . ' %</div>';
+            $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; padding: 7px; line-height: 10px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px; border-radius: 4px;">-' . ($discount) . ' %</div>';
         }
        
         $innerhtml.=        '</div>' .

@@ -173,7 +173,7 @@ $this->beginPage();
                     <div class="" style="margin: 0px 25px;">
                         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
                         <div style="margin: 0% 25%; float: left;">
-                            
+
                         </div>
                     </div>
                 </footer>
