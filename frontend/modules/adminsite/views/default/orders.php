@@ -55,7 +55,7 @@ echo \yii\grid\GridView::widget([
                 $shipping = ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК'], 'flat7_flat7' => ['value' => 'Почта ЕМС России']];
                 $shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);
                 $inner = '<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseOrd' . $data->id . '" aria-expanded="false" aria-controls="collapseOrd' . $data->id . '">Просмотр</a><div class="collapse"  style="position: absolute; z-index: 999999; left: 19px; height: 0px;" id="collapseOrd' . $data->id . '"><div class="well">';
-                $order = unserialize($data->order)['products'];
+                $order = unserialize($data->order);
                 $ship = $order['ship'];
                 $discount = $order['discount'];
                 $discounttotalprice = $order['discounttotalprice'];

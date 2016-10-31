@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use app\api\core\productsdescription\ProductsDescription;
+
 use common\patch\ActiveRecordExt;
 use Yii;
 use common\models\PartnersProductsAttributes;

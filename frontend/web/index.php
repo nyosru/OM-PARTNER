@@ -1,11 +1,28 @@
 <?php
 
+if (function_exists('pinba_timer_start')) {
+  $timer = pinba_timer_start(array('Tочка'=>'Инициализация'));
+}
+
+//if (!isset($_COOKIE['valid'])) {
+//    header('Location: /valid.php');
+//} elseif ($_COOKIE['valid'] != 4568767876) {
+//    header('Location: /botswelcome.php');
+//}
 use common\models\Partners;
 use common\models\PartnersSettings;
-set_time_limit ( 60 );
+set_time_limit ( 120 );
 date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR);
-defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
+
+    defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+
+
+
+if (function_exists('pinba_script_name_set')) {
+    pinba_script_name_set($_SERVER['REQUEST_URI']);
+}
+
 defined('YII_ENV') or define('YII_ENV', 'dev');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -26,11 +43,16 @@ if($application->params['construct'] == TRUE){
     die();
 }
 function off($application){
-    $application->redis->close();
     $application->db->close();
 }
 register_shutdown_function('off', $application);
+if (function_exists('pinba_timer_stop')) {
+    pinba_timer_stop($timer);
 
+}
+if (function_exists('pinba_timer_start')) {
+    $timer =  pinba_timer_start(array('Tочка'=>'Первичная настройка'));
+}
 $key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
 if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
     $run = new Partners();
@@ -69,36 +91,37 @@ unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
-//$config['components']['log']['targets'][] = [
-//    'class' => 'yii\log\FileTarget',
-//    'logFile' => '@frontend/runtime/logs/request/requests.log',
-//    'maxFileSize' => 1024 * 2,
-//    'maxLogFiles' => 1000,
-//];
-//$config['components']['log']['targets'][] = [
-//    'class' => 'yii\log\FileTarget',
-//    'levels' => ['info'],
-//    'logFile' => '@frontend/runtime/logs/response/response.log',
-//    'maxFileSize' => 1024 * 2,
-//    'maxLogFiles' => 1000
-//];
-//$config['components']['log']['targets'][] = [
-//    'class' => 'yii\log\FileTarget',
-//    'levels' => ['error', 'warning'],
-//    'categories' => ['yii\swiftmailer\Logger::add'],
-//    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
-//    'maxFileSize' => 1024 * 2,
-//    'maxLogFiles' => 1000
-//];
-//$config['components']['log']['targets'][] = [
-//    'class' => 'yii\log\FileTarget',
-//    'levels' => ['error', 'warning'],
-//    'logFile' => '@frontend/runtime/logs/error/error.log',
-//    'maxFileSize' => 1024 * 2,
-//    'maxLogFiles' => 1000
-//];
 
 $application = new yii\web\Application($config);
+if (function_exists('pinba_timer_stop')) {
+    pinba_timer_stop($timer);
+
+}
+if (function_exists('pinba_timer_start')) {
+    $timer =  pinba_timer_start(array('Tочка'=>'Вторичная настройка'));
+}
+if (function_exists('pinba_tag_set')) {
+    $ipaddress = '';
+    if (getenv('HTTP_CLIENT_IP'))
+        $ipaddress = getenv('HTTP_CLIENT_IP');
+    else if(getenv('HTTP_X_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+    else if(getenv('HTTP_X_FORWARDED'))
+        $ipaddress = getenv('HTTP_X_FORWARDED');
+    else if(getenv('HTTP_FORWARDED_FOR'))
+        $ipaddress = getenv('HTTP_FORWARDED_FOR');
+    else if(getenv('HTTP_FORWARDED'))
+        $ipaddress = getenv('HTTP_FORWARDED');
+    else if(getenv('REMOTE_ADDR'))
+        $ipaddress = getenv('REMOTE_ADDR');
+    else
+        $ipaddress = 'UNKNOWN';
+    pinba_tag_set('IP', $ipaddress);
+    if(TRUE == ($user_id = $application->getUser()->getId()) ){
+        pinba_tag_set('USER', $user_id);
+    }
+}
+
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
@@ -137,6 +160,13 @@ $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/v
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
+if (function_exists('pinba_timer_stop')) {
+    pinba_timer_stop($timer);
+
+}
+if (function_exists('pinba_timer_start')) {
+    $timer = pinba_timer_start(array('Tочка'=>'Работа'));
+}
 $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event) {
     \Yii::$app->urlManager->addRules([
         '<action:catalog>/<cat_start:[a-z-\/]+>'=>'/catalog',
@@ -151,4 +181,7 @@ $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event) 
 $application->run();
 $application->db->close();
 
+if (function_exists('pinba_timer_stop')) {
+    pinba_timer_stop($timer);
 
+}

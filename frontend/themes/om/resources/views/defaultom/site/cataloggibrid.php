@@ -283,6 +283,24 @@ if ($data[0] != 'Не найдено!') {
         ';
 
             $products .= ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>'лето']);
+        foreach ($data[0] as $key=>$value) {
+           $analitics .= '
+       <script>
+       ga("ec:addProduct", {              
+            "id": "'.$value['products']['products_id'].'",   
+            "name": "'.htmlentities($value['productsDescription']['products_name']).'", 
+            "category": "'.implode('/',$catpath['name']).'",    
+            "list": "main-catalog",                
+            "brand": "'.$value['products']['manufacturers_id'].'",                
+            "variant": "none",                 
+            "position": "'.$key.'"});
+        ga("ec:setAction", "view");
+        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+        </script>
+        ';
+            $spec = $value['productsSpecification']['74']['specification_values_id'];
+            $spec_code = $value['specificationValuesDescription'][$spec]['specification_value'];
+            $products .= ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code]);
         }
     }else{
         foreach ($data[0] as $key=>$value) {
@@ -301,6 +319,25 @@ if ($data[0] != 'Не найдено!') {
         </script>
         ';
             $products .= ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time,'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>'Зима']);
+        foreach ($data[0] as $key=>$value) {
+            $analitics .= '
+       <script>
+       ga("ec:addProduct", {              
+            "id": "'.$value['products']['products_id'].'",   
+            "name": "'.htmlentities($value['productsDescription']['products_name']).'", 
+            "category": "'.implode('/',$catpath['name']).'",     
+            "list": "main-catalog",                
+            "brand": "'.$value['products']['manufacturers_id'].'",                
+            "variant": "none",                 
+            "position": "'.$key.'"});
+        ga("ec:setAction", "view");
+        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+        </script>
+        ';
+            $spec = $value['productsSpecification']['74']['specification_values_id'];
+            $brand = $value['productsSpecification']['77']['specification_values_id'];
+            $spec_code = $value['specificationValuesDescription'][$spec]['specification_value'];
+            $products .= ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time,'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code, 'brand'=>$brand]);
         }
     }
 
@@ -399,6 +436,7 @@ if ($data[0] != 'Не найдено!') {
 </div>
 
 
+<script>
 <script>
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);

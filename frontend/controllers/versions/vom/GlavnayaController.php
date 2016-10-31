@@ -4,6 +4,7 @@ namespace frontend\controllers\versions\vom;
 use common\traits\AggregateCatalogData;
 use common\traits\Categories\CategoryChpu;
 use common\traits\Categories\RestrictedCatalog;
+use common\traits\Categories\RestrictedCatalog;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
 use common\traits\Fullopcat;
@@ -196,6 +197,7 @@ class GlavnayaController extends Controller
         ActionDiscountProducts,
         OrdersToOm,
         OrdersToReferrer,
+        ActionRegisterSuccess,
         AggregateCatalogData;
 
 
@@ -208,17 +210,12 @@ class GlavnayaController extends Controller
         $this->id = 'site';
     }
 
-
-    public function actionError()
-    {
-        return '234234';
-    }
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'saveorder', 'takeorder', 'requestadress', 'productinfo', 'lk', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
+                'only' => ['logout', 'saveorder', 'takeorder', 'requestadress', 'productinfo', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
@@ -245,11 +242,7 @@ class GlavnayaController extends Controller
                         'allow' => true,
                         'roles' => ['?', '@'],
                     ],
-                    [
-                        'actions' => ['lk'],
-                        'allow' => true,
-                        'roles' => ['register', 'admin'],
-                    ],
+
                     [
                         'actions' => ['requestorders'],
                         'allow' => true,
@@ -309,7 +302,7 @@ class GlavnayaController extends Controller
     }
 
 
-
+   
     private function sklonenie($search)
     {
 

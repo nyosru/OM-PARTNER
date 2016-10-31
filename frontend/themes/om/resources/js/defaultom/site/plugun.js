@@ -895,7 +895,8 @@
     }else{
         factory(jQuery,window,document);
     }
-}(function($){
+}
+(function($){
     (function(init){
         var _rjs=typeof define==="function" && define.amd, /* RequireJS */
             _njs=typeof module !== "undefined" && module.exports, /* NodeJS */

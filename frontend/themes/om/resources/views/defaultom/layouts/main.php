@@ -16,10 +16,7 @@ use frontend\widgets\Menuom;
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
-//echo '<pre>';
-//print_r($this);
-//echo '</pre>';
-//die();
+
 ?>
     <!DOCTYPE html>
     <html lang="ru-RU">
@@ -289,6 +286,5 @@ $this->beginPage();
         })
     </script>
     </body>
-
     </html>
 <?php $this->endPage() ?>

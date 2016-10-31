@@ -35,19 +35,13 @@ class Alert extends \yii\bootstrap\Widget
      * - $value is the bootstrap alert type (i.e. danger, success, info, warning)
      */
     public $alertTypes = [
-        'error' => 'alert-sys-error',
-        'danger' => 'alert-sys-danger',
-        'success' => 'alert-sys-success',
-        'info' => 'alert-sys-info',
-        'warning' => 'alert-sys-warning'
+        'error' => 'alert-danger',
+        'danger' => 'alert-danger',
+        'success' => 'alert-success',
+        'info' => 'alert-info',
+        'warning' => 'alert-warning'
     ];
-    public $alertMess = [
-        'error' => 'Ошибка',
-        'danger' => 'Внимание',
-        'success' => 'Успешно',
-        'info' => 'Информация',
-        'warning' => 'Предупреждение'
-    ];
+
     /**
      * @var array the options for rendering the close button tag.
      */
@@ -72,11 +66,12 @@ class Alert extends \yii\bootstrap\Widget
                     $this->options['id'] = $this->getId() . '-' . $type . '-' . $i;
 
                     echo \yii\bootstrap\Alert::widget([
-                        'body' => $this->alertMess[$type].'<div style="padding: 5px 15px;background: #FFF;border-radius: 2px;margin: 5px 0px 0px; color:#000" >'.$message.'</div>',
+                        'body' => $message,
                         'closeButton' => $this->closeButton,
-                        'options' => $this->options
+                        'options' => $this->options,
                     ]);
                 }
+
                 $session->removeFlash($type);
             }
         }

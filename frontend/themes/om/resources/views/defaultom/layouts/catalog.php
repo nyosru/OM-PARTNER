@@ -9,11 +9,7 @@ use yii\helpers\Html;
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
-
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
@@ -79,7 +75,6 @@ $this->beginPage();
                     <?php $this->endCache();
                 }?>
             </div>
-
             <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);">
 
             </div>
@@ -187,10 +182,7 @@ $this->beginPage();
             </div>
 
 
-            <?php
-
-            echo $content;
-           ?>
+            <?= $content ?>
 
             <div style="width: calc(100% - 30px); margin: 0px 15px;float: left;">
                 <?php
@@ -265,7 +257,6 @@ $this->beginPage();
         <div id="overlay"></div>
     </div>
     <?php
-
     $this->endBody();
     Yii::$app->params['assetsite']->registerAssetFiles($this);
 

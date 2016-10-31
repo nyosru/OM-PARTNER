@@ -42,12 +42,47 @@ Trait Imagepreviewcrop
                 return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
             }
             $filename = $src;
+            $namefile = $id.'-'.(integer)$sub;
+            $subdir = '';
+
+            for ($i = 0; $i < 3; $i++) {
+                $subdir .= '/' . substr($namefile, $i * 2, 2);
+            }
+            $dir = 'newpreview';
+            $time_sec=time();
+            if ((!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg')
+                && ($time_sec - filemtime(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg')) > 86400 )
+                || $action == 'refresh') {
+                $keyprod = Yii::$app->cache->buildKey('productn-' . $id);
+                if (($dataprod = Yii::$app->cache->get($keyprod)) == TRUE && $sub === FALSE) {
+                    $src = $dataprod['data']['products']['products_image'];
+                } else if($sub !== FALSE) {
+                    $prodimages = ProductImage::find()->select(['image_file'])
+                        ->where(['product_id' => $id])->offset($sub)
+                        ->createCommand()->queryOne(7);
+                    if($prodimages){
+                        $src = $prodimages;
+                    }else{
+                        return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
+                    }
+                }else{
+                    $dataprod = PartnersProducts::find()->where(['products_id' => trim($id)])->asArray()->one();
+                    $src = $dataprod['products_image'];
+                }
+                if ($src == '' || $src == '/' || $src == '\\') {
+                    return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
+                }
+                $filename = $src;
                 if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
                     mkdir(Yii::getAlias($where) . $dir . $subdir, 0777, true);
                 }
+
+
                 if (($image = imagecreatefromstring(file_get_contents($from . $filename))) == FALSE) {
                     return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
                 }
+
+
                 $width = imagesx($image);
                 $height = imagesy($image);
                 $original_aspect = $width / $height;
