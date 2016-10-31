@@ -72,7 +72,7 @@ trait ActionDayProduct
                 'maxtime' => date('Y-m-d H:i:s'),
                 'offsettime' => '-1 day',
                 'cachelistkeyprefix' => 'day-day1-' . $ok,
-                'cacheproductkey' => 'product',
+                'cacheproductkey' => 'productn',
                 'sfilt'=>$sfilt
             ]);
 

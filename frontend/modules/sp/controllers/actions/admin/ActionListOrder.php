@@ -19,11 +19,9 @@ trait ActionListOrder
     {
 
         if(($referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one())==TRUE){
-
-            $result = CommonOrders::find()->where(['referral_id'=>$referal])->asArray()->all();
-            $result = json_encode($result);
+            $result = CommonOrders::find()->where(['referral_id'=>$referal])->orderBy('date_added DESC')->limit(5)->asArray()->all();
             if(Yii::$app->request->isAjax){
-                Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             }
             return $result;
         }else{

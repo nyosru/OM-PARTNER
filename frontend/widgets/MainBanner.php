@@ -17,49 +17,86 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_04102016_1.png',
+                'image' => '/images/banners/OM_24102016_1.png',
                 'referal'=> '/catalog?cat=1845',
-                'alttext' => 'Джемпер',
+                'alttext' => 'Джемперы',
                 'out' => FALSE
-            ]
+            ],
+            [
+                'image' => '/images/banners/OM_20102016_1.png',
+                'referal'=> '/catalog?cat=2047',
+                'alttext' => 'Стильные сумки',
+                'out' => FALSE
+            ],
+
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_04102016_2.png',
-                'referal'=> '/catalog?cat=1865',
-                'alttext' => 'Куртки',
+                'image' => '/images/banners/OM_24102016_2.png',
+                'referal'=> '/catalog?cat=1729',
+                'alttext' => 'Блузки',
+                'out' => FALSE
+            ],
+            [
+                'image' => '/images/banners/OM_20102016_2.png',
+                'referal'=> '/catalog?cat=1814',
+                'alttext' => 'Водолазки',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_04102016_3.png',
-                'referal'=> '/catalog?cat=1982',
-                'alttext' => 'Дутики',
+                'image' => '/images/banners/OM_24102016_3.png',
+                'referal'=> '/catalog?cat=1987',
+                'alttext' => 'Полусапожки',
+                'out' => FALSE
+            ],
+            [
+                'image' => '/images/banners/OM_20102016_3.png',
+                'referal'=> '/catalog?cat=2875',
+                'alttext' => 'Книги детям',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_04102016_4.png',
-                'referal'=> '/catalog?cat=1758',
-                'alttext' => 'Джинсы',
+                'image' => '/images/banners/OM_24102016_4.png',
+                'referal'=> '/catalog?cat=1430',
+                'alttext' => 'Елки',
                 'out' => FALSE
             ],
+            [
+                'image' => '/images/banners/OM_20102016_4.png',
+                'referal'=> '/catalog?cat=1994',
+                'alttext' => 'Угги',
+                'out' => FALSE
+            ]
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_04102016_5.png',
-                'referal'=> '/catalog?cat=1791',
-                'alttext' => 'Оссение новинки',
+                'image' => '/images/banners/OM_24102016_5.png',
+                'referal'=> '/catalog?cat=1751',
+                'alttext' => 'Зимние куртки',
                 'out' => FALSE
             ],
+            [
+                'image' => '/images/banners/OM_20102016_5.png',
+                'referal'=> '/catalog?cat=1830',
+                'alttext' => 'Мужская коллекция',
+                'out' => FALSE
+            ]
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_04102016_6.png',
-                'referal'=> '/dayproduct',
-                'alttext' => 'Все новинки',
+                'image' => '/images/banners/OM_24102016_6.png',
+                'referal'=> '/catalog?cat=1815',
+                'alttext' => 'Шапки',
+                'out' => FALSE
+            ],
+            [
+                'image' => '/images/banners/OM_20102016_6.png',
+                'referal'=> '/products-discount',
+                'alttext' => 'Скидки',
                 'out' => FALSE
             ]
         ],
@@ -104,28 +141,28 @@ class MainBanner extends \yii\bootstrap\Widget
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'medium1',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_ROLL
             ],
             '2' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'small1',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_ROLL
             ],
             '3' => [
                 'id'=>'index-card-3',
                 'class'=>'sort data-j index-sort banner-card',
                 'position'=> 'large',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_ROLL
             ],
             '4' => [
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'medium2',
                 'style'=>'style="float:right"',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_ROLL
             ],
 
             '5' => [
@@ -133,7 +170,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'small2',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_ROLL
             ],
 
             '6' => [
@@ -141,7 +178,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'long',
                 'style'=>'style="width: calc(100% - 10px);"',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_ROLL
             ]
         ],
         'discont' => [

@@ -60,6 +60,19 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 if($result['data']['saveproduct']) {
     echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
     foreach ($result['data']['saveproduct'] as $key => $value) {
+
+        echo '
+        <script>
+        ga("ec:addProduct", {               
+  "id": "'.$value[0]['products_id'] .'",                  
+  "name": "'.$result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  .'", 
+  "category": "'.$result['data']['origprod'][$value[0]['products_id']]['categories_id']  .'",        
+  "brand": "'.$result['data']['origprod'][$value[0]['products_id']]['manufacturers_id'].'",                
+  "variant": "none",               
+  "price": "'.round($value[0]['products_price'], 2).'",                 
+  "coupon": "none",         
+  "quantity": '.$value[0]['products_quantity'].'});
+</script>';
         echo '<div style="width: 100%; float: left; border: 1px solid rgb(204, 204, 204);border-bottom: none; padding: 10px 0px;">';
         echo '<div style="float: left; text-align: center; width: calc(100% / 2);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'] . '" /></div>';
         echo '<div style="float: left; font-size: 12px;width: calc(100% / 2);">';
@@ -72,6 +85,20 @@ if($result['data']['saveproduct']) {
         echo '</div>';
         $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
     }
+    echo ' 
+    <script>
+   $(window).load(function(){
+    ga("ec:setAction", "purchase", {
+  "id": "'.$result['data']['paramorder']['number'].'",     
+  "affiliation": "NewOM",
+  "revenue": "'.$result['data']['totalpricesaveproduct'].'",                 
+  "tax": "0",                        
+  "shipping": "0",                    
+  "coupon": "none"            
+});
+  ga("send", "event", "purchase");
+   });
+</script>';
 }
 ?>
     </div>

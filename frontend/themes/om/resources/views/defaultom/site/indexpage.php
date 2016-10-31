@@ -63,6 +63,37 @@ echo \frontend\widgets\MainBanner::widget();
 </div>
 <div id="main-spec">
     <div id="index-card-4">Специальные предложения</div>
+    <div id="slid3" style="width: 100%;">
+        <div class="carousel-inner featured">
+            <?php
+            if (is_array($dataproducts))
+                foreach ($dataproducts as $k=>$val){?>
+                    <div class="item">
+                        <?php
+                        $analitics = '
+                    <script>
+                        ga("ec:addImpression", {
+                            "id": "'.$val['products']['products_id'].'",
+                            "name": "'.$val['productsDescription']['products_name'].'",
+                            "category": "none",
+                            "list": "main-special",
+                            "brand": "'.$val['products']['manufacturers_id'].'",
+                            "variant": "none",
+                            "position": "'.$k1.'"});
+                        ga("ec:setAction", "view");
+                        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+                    </script>
+                    ';
+                    echo $analitics;
+                    ?>
+                        <?php
+                        echo  \frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
+                        ?>
+                    </div>
+                <?php }
+            ?>
+        </div>
+    </div>
     <?php
 
     if(is_array($dataproducts)) {
@@ -71,7 +102,23 @@ echo \frontend\widgets\MainBanner::widget();
         $it=0;
         $specitems[$it]['content']='';
         foreach ($dataproducts as $k1=>$val) {
+            $analitics = '
+       <script>
+       ga("ec:addImpression", {              
+            "id": "'.$val['products']['products_id'].'",   
+            "name": "'.$val['productsDescription']['products_name'].'", 
+            "category": "none",     
+            "list": "main-special",                
+            "brand": "'.$val['products']['manufacturers_id'].'",                
+            "variant": "none",                 
+            "position": "'.$k1.'"});
+        ga("ec:setAction", "view");
+        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+        </script>
+        ';
+             echo $analitics;
             if($num<6){
+
                 $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'],  'man_time' => $man_time,'showdiscount'=>1]);
                 $num++;
             }
@@ -90,30 +137,35 @@ echo \frontend\widgets\MainBanner::widget();
 </div>
 <div id="main-new" style="clear: both;">
     <div id="index-card-4">Новые поступления</div>
-    <?php
-    if(is_array($newproducts)) {
-        $specitems=array();
-        $num=0;
-        $it=0;
-        $specitems[$it]['content']='';
-        foreach ($newproducts as $k1=>$val) {
-            if($num<6){
-                $specitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
-                $num++;
-            }
-            else{
-                $num=0;
-                $it++;
-                $specitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
-                $num++;
-            }
-        }
-        echo Carousel::widget([
-            'items'=>$specitems,'id'=>'slid4','clientOptions'=>['interval'=>10000]
-        ]);
-    }
 
-    ?>
+    <div id="slid4" style="width: 100%;">
+        <div class="carousel-inner sliderNew">
+            <?php
+            if (is_array($newproducts))
+                foreach ($newproducts as $k1=>$val){ ?>
+                    <div class="item">
+                        <?php
+                        $analitics = '
+                         <script>
+                            ga( "ec:addImpression", {
+                                "id": "'.$val['products']['products_id'].'",
+                                "name": "'.$val['productsDescription']['products_name'].'",
+                                "category": "none",
+                                "list": "main-new",
+                                "brand": "'.$val['products']['manufacturers_id'].'",
+                                "variant": "none",
+                                "position": "'.$k1.'"});
+                            ga("ec:setAction", "view");
+                            ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+                         </script>
+                        ';
+                        echo $analitics;
+                        echo  \frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
+                        ?>
+                    </div>
+                <?php } ?>
+        </div>
+    </div>
 </div>
 <div id="main-new" style="clear: both;">
     <div class="main-news" style="float: left; width: 31%;">
@@ -208,6 +260,63 @@ echo \frontend\widgets\MainBanner::widget();
                     );
                     alert('Изменения сохранены');
                 });
+            </script>
+            <script>
+                $('.featured').owlCarousel({
+                    loop:true,
+                    margin:2,
+                    nav:true,
+                    items: 6,
+                    autoplay:true,
+                    navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+                    dots:false,
+                    responsive:{
+                        0:{
+                            items:4
+                        },
+                        1024:{
+                            items:3
+                        },
+                        1280:{
+                            items:4
+                        },
+                        1560:{
+                            items:5
+                        },
+                        1900:{
+                            items:6
+                        },
+                    }
+                })
+            </script>
+            <script>
+                $('.sliderNew').owlCarousel({
+                    loop:true,
+                    margin:2,
+                    nav:true,
+                    items: 6,
+                    autoplay:true,
+                    dots:false,
+                    navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+                    dots:false,
+                    responsive:{
+                        0:{
+                            items:4
+                        },
+                        1024:{
+                            items:3
+                        },
+                        1280:{
+                            items:4
+                        },
+                        1560:{
+                            items:5
+                        },
+                        1900:{
+                            items:6
+                        },
+                    }
+                })
             </script>
         <?php } ?>
     </div>

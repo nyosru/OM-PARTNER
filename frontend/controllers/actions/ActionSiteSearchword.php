@@ -9,6 +9,7 @@ trait ActionSiteSearchword
     public function actionSearchword()
     {
         $filt = mb_strtolower(Yii::$app->request->getQueryParam('filt', NULL), mb_detect_encoding(Yii::$app->request->getQueryParam('filt', NULL)));
+        if(!preg_match('/^[0-9\s]+/', $filt)){
         $key = Yii::$app->cache->buildKey('searchfullnamnes');
         $key2 = Yii::$app->cache->buildKey('searchfullnamnes-' . $filt);
         $testmain = Yii::$app->cache->get($key2);
@@ -33,6 +34,9 @@ trait ActionSiteSearchword
 
         return $testout;
 
+    }else{
+            return '';
+        }
     }
 }
 

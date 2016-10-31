@@ -38,7 +38,7 @@ trait ActionCart
                 foreach ($add as $key => $value) {
                     $addr[$value['address_book_id']] = $value['entry_city'] . ', ' . $value['entry_street_address'];
                 }
-                return $this->render('cart', ['addr' => $addr, 'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders]);
+                return $this->render('cart', ['addr' => $addr, 'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders, 'template'=>1]);
         }
     }
 }

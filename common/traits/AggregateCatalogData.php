@@ -10,12 +10,15 @@ namespace common\traits;
 
 use common\models\PartnersProductsOptionVal;
 use common\models\PartnersProductsToCategories;
+use common\traits\Categories\CategoryChpu;
 use Yii;
 use yii\helpers\ArrayHelper;
 
 trait AggregateCatalogData
 {
 
+
+    use CategoryChpu;
     public function AggregateCatalogData(
         $params = [
             'cat_start' => '',
@@ -42,13 +45,28 @@ trait AggregateCatalogData
             'sfilt'=>[]
         ])
     {
-
+        if (function_exists('pinba_tag_set')) {
+            pinba_tag_set('script', 'catalog');
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Инициализация'));
+        }
         $cat_start = (integer)$params['cat_start'];
+
+
+        if(isset(\Yii::$app->params['chpu']['cat_start'])){
+            $params['cat_start'] = $this->categoryChpu(\Yii::$app->params['chpu']['cat_start']);
+        }
+        $cat_start = $params['cat_start'];
+
+
+
+
         $start_price = (integer)$params['start_price'];
         $end_price = (integer)$params['end_price'];
         $prod_attr_query = (integer)$params['prod_attr_query'];
         $count = (integer)$params['count'];
-        $page = (integer)$params['page'];
+        $page = max(0,(integer)$params['page']-1);
         $sort = (integer)$params['sort'];
         $ok = (integer)$options['ok'];
         $sfilt = $options['sfilt'];
@@ -74,9 +92,10 @@ trait AggregateCatalogData
         $checks = Yii::$app->params['constantapp']['APP_CAT'];
 
         if($cat_start == 0){
+            $disallkey = '';
             $allowcat = $options['allowcat'];
             $disallowcat = $options['disallowcat'];
-            $disallkey = '';
+
             if(is_array($allowcat)){
                 $disallkey .= '-allow-'.implode(',', $allowcat);
             }
@@ -111,8 +130,21 @@ trait AggregateCatalogData
         $count = min(1000, $count);
         $count = max(60, $count);
         $start_arr = (integer)($page * $count);
+
+
+        if (function_exists('pinba_timer_stop')) {
+            pinba_timer_stop($timer);
+
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Фильтр каталог'));
+        }
+
+
+
         $man_time = $this->manufacturers_diapazon_id();
         $static_cat_key = Yii::$app->cache->buildKey('static-cat-' . $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
+
         if (($cat = Yii::$app->cache->get($static_cat_key)) == TRUE) {
 
         } else {
@@ -121,6 +153,13 @@ trait AggregateCatalogData
             $cat = $this->load_cat($categoriesarr['cat'], $cat_start, $categoriesarr['name'], $allowcat , $disallowcat);
             $cat = implode(',', $cat);
             Yii::$app->cache->set($static_cat_key, $cat, 3600);
+        }
+        if (function_exists('pinba_timer_stop')) {
+            pinba_timer_stop($timer);
+
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Фильтр дата'));
         }
         switch ($date) {
             case 'offset' :
@@ -156,26 +195,60 @@ trait AggregateCatalogData
                 $prod_day_query_filt = '';
 
         }
+        if (function_exists('pinba_timer_stop')) {
+            pinba_timer_stop($timer);
+
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Фильтр Ок'));
+        }
         if ($ok == TRUE) {
             $suppliers = implode(',', $this->oksuppliers());
             $ok_query_filt = ' and products.manufacturers_id IN(' . $suppliers . ')';
         } else {
             $ok_query_filt = '';
         }
+        if (function_exists('pinba_timer_stop')) {
+            pinba_timer_stop($timer);
+
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Фильтр студия'));
+        }
         if ($studio == TRUE) {
             $studio_query_filt = ' and products.where_added = 1';
         } else {
             $studio_query_filt = '';
+        }
+        if (function_exists('pinba_timer_stop')) {
+            pinba_timer_stop($timer);
+
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Фильтр скидка'));
         }
         if ($discont == TRUE) {
             $discont_query_filt = ' and  products.products_old_price > 0  and  products.products_old_price > products.products_price ';
         } else {
             $discont_query_filt = '';
         }
+
+        if (function_exists('pinba_timer_stop')) {
+            pinba_timer_stop($timer);
+
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Проверка позиции в каталоге'));
+        }
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now', [':now' => $now])->limit($count)->offset($start_arr)->asArray()->one();
         $ds1 = strtotime($x['products_last_modified']);
         $ds2 = strtotime($x['add_date']);
-
+        if (function_exists('pinba_tag_set')) {
+            pinba_tag_set('products_last_modified', $x['products_last_modified']);
+            pinba_tag_set('add_date', $x['add_date']);
+            pinba_tag_set('ds1', $ds1);
+            pinba_tag_set('ds2', $ds2);
+        }
         if ($ds1 < $ds2)
             $x['products_last_modified'] = $x['add_date'];
         $checkcache = $x['products_last_modified'];
@@ -185,7 +258,19 @@ trait AggregateCatalogData
         $dataque = Yii::$app->cache->get($key);
         $d1 = trim($checkcache);
         $d2 = trim($dataque['checkcache']);
+        if (function_exists('pinba_timer_stop')) {
+            pinba_timer_stop($timer);
+
+        }
+        if (function_exists('pinba_timer_start')) {
+            $timer =  pinba_timer_start(array('Tочка'=>'Работа', 'Каталог'=>'Обработка'));
+        }
         if (!$dataque['checkcache'] || $d1 !== $d2) {
+            if (function_exists('pinba_tag_set')) {
+                pinba_tag_set('d1', $d1);
+                pinba_tag_set('d2', $d2);
+                pinba_tag_set('chc', $dataque['checkcache']);
+            }
             switch ($sort) {
                 case 0:
                     $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
@@ -327,7 +412,17 @@ trait AggregateCatalogData
             }
             if (count($nodata) > 0) {
                 $prodarr = implode(',', $nodata);
-                $datar = PartnersProductsToCategories::find()->JoinWith('products')->where('products.products_id IN (' . $prodarr . ')')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
+
+                $datar = PartnersProductsToCategories::find()
+                    ->where('products.products_id IN (' . $prodarr . ')')
+                    ->joinWith('products')
+                    ->joinWith('productsDescription')
+                    ->joinWith('productsAttributes')
+                    ->joinWith('productsAttributesDescr')
+                    ->joinWith('productsSpecification')
+                    ->joinWith('specificationValuesDescription')
+                    ->joinWith('specificationDescription')
+                    ->groupBy(['products.`products_id` DESC'])->asArray()->all();
                 foreach ($datar as $valuesr) {
                     $d1 = strtotime($valuesr['products']['products_last_modified']);
                     $d2 = strtotime($valuesr['products']['products_date_added']);
@@ -349,9 +444,24 @@ trait AggregateCatalogData
                             $valuesr['products']['products_ordered'] = (int)$orderedQuantity;
                         }
                     }
-
+                    if($valuesr['productsSpecification']){
+                        $valuesr['productsSpecification'] = ArrayHelper::index($valuesr['productsSpecification'], 'specifications_id');
+                    }
+                    if(isset($valuesr['specificationDescription'])) {
+                        $valuesr['specificationDescription'] = ArrayHelper::index($valuesr['specificationDescription'], 'specifications_id');
+                    }
+                    if($valuesr['specificationValuesDescription']){
+                        $valuesr['specificationValuesDescription'] = ArrayHelper::index($valuesr['specificationValuesDescription'], 'specification_values_id');
+                    }
+                    if($valuesr['productsSpecification']['74']['specification_values_id']){
+                        $spec = $valuesr['productsSpecification']['74']['specification_values_id'];
+                        $spec_code = $valuesr['specificationValuesDescription'][$spec]['specification_value'];
+                    }else{
+                        $spec_code = '';
+                    }
+                    $valuesr['products']['season_code'] =  $spec_code;
                     $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
-                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']]);
+                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']], 10800);
                 }
             }
             foreach ($prod as $keyin => $values) {
@@ -361,10 +471,10 @@ trait AggregateCatalogData
             }
             $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
-            $statickeyspec = Yii::$app->cache->buildKey('specification34545sa-' . $cat);
+            $statickeyspec = Yii::$app->cache->buildKey('specification3554545sa-' . $cat);
             $statsspec = Yii::$app->cache->get($statickeyspec);
             if(!$statsspec) {
-                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
+                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,74,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
                 $spectotal = [];
                 foreach ($spec as $speckey => $specval) {
                     if (!$spectotal[$specval['specifications_id']]) {
@@ -516,7 +626,10 @@ trait AggregateCatalogData
             if ($count_arrs <= $count) {
                 $data = 'Не найдено!';
             }
+            if (function_exists('pinba_timer_stop')) {
+                pinba_timer_stop($timer);
 
+            }
             return [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword, $man_time, $spec];
         } else {
             $this->layout = 'catalog';
@@ -527,8 +640,13 @@ trait AggregateCatalogData
             }
             //ksort($productattrib,'SORT_NATURAL' );
             Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
+            if (function_exists('pinba_timer_stop')) {
+                pinba_timer_stop($timer);
 
+            }
             return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec];
+            $page = $page+1;
+            return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec, 'params'=>array_merge($options,$params)];
         }
     }
 }

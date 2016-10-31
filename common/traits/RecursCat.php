@@ -11,26 +11,25 @@ namespace common\traits;
 
 trait RecursCat
 {
-    public $chpu;
-    public $item;
+    public $chpures;
+    public $itemres;
 
     public function Requrscat($arr, $firstval, $catnamearr)
     {
-        //  static $this->chpu;
-        //  static $this->item;
-        $this->item = $firstval;
-        if (isset($arr[$this->item])) {
-            while ($arr[$this->item] != '0') {
-                if (isset($catnamearr[$this->item])) {
-                    $this->chpu[] = ['name' => $catnamearr[$this->item], 'id' => $this->item];
 
-                    $this->item = $arr[$this->item];
+        $itemres = $firstval;
+        if (isset($arr[$itemres])) {
+            while ($arr[$itemres] != '0') {
+                if (isset($catnamearr[$itemres])) {
+                    $chpures[] = ['name' => $catnamearr[$itemres], 'id' => $itemres];
+
+                    $itemres = $arr[$itemres];
                 }
             }
-            if (isset($catnamearr[$this->item])) {
-                $this->chpu[] = ['name' => $catnamearr[$this->item], 'id' => $this->item];
+            if (isset($catnamearr[$itemres])) {
+                $chpures[] = ['name' => $catnamearr[$itemres], 'id' => $itemres];
             }
         }
-        return array_reverse($this->chpu);
+        return array_reverse($chpures);
     }
 }
