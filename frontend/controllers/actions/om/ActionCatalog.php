@@ -12,8 +12,6 @@ trait ActionCatalog
 {
     public function actionCatalog()
     {
-
-
         if (Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
             $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
@@ -47,7 +45,6 @@ trait ActionCatalog
             }
             $json = Yii::$app->request->post('json');
         }
-
        
         $data = $this->AggregateCatalogData(
             $params = [
@@ -75,6 +72,7 @@ trait ActionCatalog
                 'cacheproductkey' => 'product',
                 'sfilt'=>$sfilt
             ]);
+        
         if ($json) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return $data;

@@ -12,8 +12,6 @@ trait ActionCatalog
 {
     public function actionCatalog()
     {
-        
-
         if (Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
             $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
