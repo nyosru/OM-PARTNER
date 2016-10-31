@@ -5,7 +5,7 @@ $this -> title = 'Избранные продукты';
 ?>
 
     <script>
-        $(document).on('ready', function () {
+        $(window).on('load', function () {
             $amount_prod = 0;
             $innerhtml = '';
             if (JSON.parse(localStorage.getItem('selected-product-om'))) {

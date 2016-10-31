@@ -40,6 +40,11 @@ $this->title = 'Контакты';
         </td>
     </tr>
     <tr>
+        <td align="center"><i class="fa" style="font-size: 50px;color: rgb(0, 165, 161);background: url(/images/logo/viber.png) no-repeat 50% 50% /cover;width: 50px;height: 100%;margin: 9px;"></i></td>
+        <td style="font-size: 16px"><b>Viber:</b><br><a href="viber://add?number=79203416149" class="greenContact">+7 (920) 341-6149</a>
+        </td>
+    </tr>
+    <tr>
         <td align="center"><i class="fa fa-skype" style="font-size: 50px; color: rgb(0, 165, 161); text-shadow: 1px 1px 1px rgb(204, 204, 204);"></i></td>
         <td style="font-size: 16px"><b>Skype:</b><br><a href="skype:live:sales_53060?chat"
                                                         class="greenContact">sales@om.ru</a>

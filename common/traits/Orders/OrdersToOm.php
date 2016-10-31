@@ -371,7 +371,7 @@ trait OrdersToOm
                                 $field = 'order_id';
 
 
-                                if (($response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $info['default_region']])->asArray()->one()) == FALSE) {
+                                if (($response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $region_id])->asArray()->one()) == FALSE) {
                                     $response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $region_id])->asArray()->one();
                                 }
                                 $last_insert_id = $response[$field] + 1;
@@ -389,9 +389,10 @@ trait OrdersToOm
                                 $OrdersToPartners->order_number = $last_insert_id;
 
                                 if ($OrdersToPartners->save()) {
-                                    if (($lastids = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $info['default_region']])->one()) == FALSE) {
+                                    if (($lastids = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $region_id])->one()) == FALSE) {
                                         $lastids = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year])->one();
                                     }
+//
                                     $lastids->order_id = $last_insert_id;
                                     if ($lastids->save()) {
                                         $orders->buh_orders_id = 0;

@@ -103,7 +103,7 @@ trait OrdersToReferrer
                         'comment'=> $ordersprod['comment']
                     ];
 
-                    $partnerorder[] = [$partnerorderone];
+                    $partnerorder['products'][] = array_values($partnerorderone);
                     $validproduct[] = [$partnerorderone, $ordersprodattr];
                     $validprice += ((float)$valuerequest['products_price'] * (int)$quant[$valuerequest['products_id']]);
                     $origprod[$valuerequest['products_id']] = $valuerequest;

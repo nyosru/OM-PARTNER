@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+
 $this -> title = 'Корзина';
 
 $del_add='<select id="shipaddr" name="address">';
@@ -20,7 +20,9 @@ $del_add .= '</select>';
 ?>
 
 <script>
-$(document).on('ready', function () {
+
+
+$(window).on('load', function () {
     $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);">...</div>');
     //var curPos = $(document).scrollTop();
     //var scrollTime = curPos / 3.73;
@@ -37,6 +39,8 @@ $(document).on('ready', function () {
             localStorage.removeItem('cart-om-date');
         }
         $c = 0;
+
+
 
         $.each($i, function () {
             var mandata = [];
@@ -128,80 +132,18 @@ $(document).on('ready', function () {
                 '</div>'+
                 '</div>';
         });
-        $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">';
+        $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">' +
+                        '<div class="wrap-cart" style=" border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:' +
+            '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
 
         <?php
-           if(!Yii::$app->user->isGuest && $template){?>
-        $innerhtml+= '<div class="wrap-cart" style=" border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:';
-        $innerhtml+=  '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
+           if(!Yii::$app->user->isGuest){?>
         $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
-        $innerhtml+=   '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>';
-        <?php }else if(!$template) {
-            ?>
-        $innerhtml+=    '<div class="address" style="padding: 0px 10px;">' + 
-                            '<div class="name-item lable-info-item">' +
-                                'Имя: ' +
-                                '<input disabled="" name="[userinfo]name" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="name" class="info-item" value="<?=htmlentities($model['name']);?>">' +
-                            '</div>' +
-                            '<div class="secondname-item lable-info-item">' +
-                                'Отчество: ' +
-                                '<input disabled="" name="[userinfo]secondname" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="secondname" class="info-item" value="<?=htmlentities($model['secondname']);?>">' +
-                            '</div>' +
-                            '<div class="lastname-item lable-info-item">' +
-                                'Фамилия: ' +
-                                '<input disabled="" name="[userinfo]lastname" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="lastname" class="info-item" value="<?=htmlentities($model['lastname']);?>">' +
-                            '</div>' +
-                            '<div class="country-item lable-info-item">' +
-                                'Страна: ' +
-                                '<input autocomplete="off" disabled="" name="[userinfo]country" title="Выберите из списка" data-placement="top" data-toggle="tooltip" data-name="country" class="info-item" value="<?=htmlentities($model['country']);?>">' +
-                                '<ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1">' +
-                                '</ul>' +
-                            '</div>' +
-                            '<div class="state-item lable-info-item">' +
-                                'Область: ' +
-                                '<input autocomplete="off" disabled="" name="[userinfo]state" title="Выберите из списка" data-placement="top" data-toggle="tooltip" data-name="state" class="info-item" value="<?=htmlentities($model['state']);?>">' +
-                                '<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' +
-                                '</ul>' +
-                            '</div>' +
-                            '<div class="city-item lable-info-item">' +
-                                'Город: ' +
-                                '<input disabled="" name="[userinfo]city" title="Допустимые символы а-я,a-z,0-9,-,пробел" data-placement="top" data-toggle="tooltip" data-name="city" class="info-item" value="<?=htmlentities($model['city']);?>">' +
-                                '</div>' +
-            '<div class="adress-item lable-info-item">' +
-            'Адрес: ' +
-            '<input disabled="" name="[userinfo]adress" title="Допустимые символы а-я,a-z,0-9,-,пробел,.,," data-placement="top" data-toggle="tooltip" data-name="adress" class="info-item" value="<?=htmlentities($model['country']);?>">' +
-            '</div>' +
-            '<div class="postcode-item lable-info-item">' +
-            'Почтовый индекс: ' +
-            '<input disabled="" name="[userinfo]postcode" title="Допустимые символы 0-9, пробел" data-placement="top" data-toggle="tooltip" data-name="postcode" class="info-item" value="124124"></div><div class="telephone-item lable-info-item">Телефон: <input disabled="" name="[userinfo]telephone" title="Допустимые символы 0-9,-,пробел,),(,+" data-placement="top" data-toggle="tooltip" data-name="telephone" class="info-item" value="<?=htmlentities($model['telephone']);?>"></div><div class="pasportser-item lable-info-item">Серия: <input disabled="" name="[userinfo]pasportser" title="Допустимые символы 0-9, пробел" data-placement="top" data-toggle="tooltip" data-name="pasportser" class="info-item" value="<?=htmlentities($model['pasportser']);?>"></div><div class="pasportnum-item lable-info-item">Номер: <input disabled="" name="[userinfo]pasportnum" title="Допустимые символы 0-9, пробел" data-placement="top" data-toggle="tooltip" data-name="pasportnum" class="info-item" value="<?=htmlentities($model['pasportnum']);?>"></div>' +
-            '<div class="pasportdate-item lable-info-item">' +
-            'Дата выдачи: ' +
-            '<input disabled="" name="[userinfo]pasportdate" title="Введите в формате ГГГГ-ММ-ДД(2015-12-31)" data-placement="top" data-toggle="tooltip" data-name="pasportdate" class="info-item" value="<?=htmlentities($model['pasportdate']);?>">' +
-            '</div>' +
-            '<div class="pasportwhere-item lable-info-item">' +
-            'Кем выдан: ' +
-            '<input disabled="" name="[userinfo]pasportwhere" title="Допустимые символы а-я,a-z,0-9,-,пробел,.,," data-placement="top" data-toggle="tooltip" class="info-item" data-name="pasportwhere" placeholder="Кем выдан" value="<?=htmlentities($model['pasportwhere']);?>">' +
-            '</div>' +
-            '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! ' +
-            '</strong>' +
-            '<br>' +
-            'Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с ' +
-            '<a target="_blank" href="/page?article=offerta">' +
-            'договором оферты' +
-            '</a>.' +
-            '</div>' +
-            '<button class=" btn btn-sm btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">' +
-            'Подтвердить заказ' +
-            '</button>' +
-            '</div>';
-
-
-    <?php
-
-        }else{?>
+        <?php }else { ?>
         $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
-    <?php }?>
-        $innerhtml+= '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
+        <?php }?>
+        $innerhtml+=               '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>' +
+                        '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                             '<div class="total-top" style="height: 25px;">Итого: </div>' +
                             '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
                              '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
@@ -229,13 +171,11 @@ $(document).on('ready', function () {
 
         if($i.length>0){
             <?php
-            if($template){?>
+            if(!Yii::$app->user->isGuest){?>
             $innerhtml+='<span class="cart-auth" style="display: block; overflow: hidden;">' +
 
                 '<a class="save-order" style="display: block;position: relative" href="<?=BASEURL;?>/cart?action=1">Оформить заказ</a>' +
                 '</span></form></div>';
-            <?php }elseif(!Yii::$app->user->isGuest) { ?>
-            $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
             <?php }else { ?>
             $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
             <?php }?>
@@ -324,7 +264,7 @@ $(document).on('change click','.num-of-items',function () {
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice);
 });
-$(document).on('ready', function () {
+$(window).on('load', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
@@ -344,7 +284,7 @@ $(document).on('ready', function () {
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice+' руб');
 });
-$(document).on('click','.wrap-select', function () {
+$(window).on('load','.wrap-select', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
@@ -368,8 +308,14 @@ $(document).on('click','.wrap-select', function () {
 
 $(document).on('change', '.shipping-confirm, #shipaddr', function () {
     if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'flat12_flat12'){
+        $('.deliv-hint').remove();
         $('.deliv-cart').append('<div class="deliv-hint" data-hint="'+$('.shipping-confirm option:selected')[0].getAttribute('value')+'">' +
             '<b>При отправке ТК Энергия, рекомендуем Вам выбирать способ упаковки "коробка", т.к по правилам перевозки ТК сборного груза, упаковка должна быть жесткая, в противном случае за повреждение груза ответсвенность ТК Энергия не несет.</b>' +
+            '</div>');
+    }else if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'russianpostpf_russianpostpf'){
+        $('.deliv-hint').remove();
+        $('.deliv-cart').append('<div class="deliv-hint" data-hint="'+$('.shipping-confirm option:selected')[0].getAttribute('value')+'">' +
+            '<b>На данный момент со стороны Почты России происходит задержка в отправке заказа в 2 дня</b>' +
             '</div>');
     }else{
         $('.deliv-hint').remove();

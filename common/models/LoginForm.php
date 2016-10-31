@@ -14,7 +14,7 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
     private $_user = false;
-    // public $captcha;
+    public $captcha;
 
     /**
      * @inheritdoc
@@ -23,10 +23,10 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'password', 'captcha'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
-            //      ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'не соответствует'],
+            ['captcha', 'captcha', 'captchaAction' => BASEURL . '/captcha', 'message' => 'не соответствует'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
 
@@ -44,7 +44,7 @@ class LoginForm extends Model
     {
         $user = $this->getUser();
         if (!$user) {
-            $this->addError('password', 'Нет такого  2 пользователя');
+            $this->addError('password', 'Нет такого пользователя');
         } elseif (!$user->validatePassword($this->password)) {
             $this->addError('password', 'Не соответствует пара логин- пароль');
         } else {

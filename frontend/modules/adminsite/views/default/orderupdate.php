@@ -8,12 +8,7 @@ $sheep = $order['ship'];
 $discount = $order['discount'];
 $discounttotalprice = $order['discounttotalprice'];
 $paymentmethod = $order['paymentmethod'];
-if(isset($order['products'])){
-    $order = $order['products'];
-}else{
-    unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
-}
-
+unset($order['ship'], $order['discount'], $order['discounttotalprice'], $order['paymentmethod']);
 $form = ActiveForm::begin(['id' => 'order_update', 'action' => '']);
 $l1 = '';
 $l1 .= '<table class="table table-bordered table-striped"><thead>';
@@ -37,7 +32,7 @@ foreach ($order as $key => $value) {
         '<td>' . $value[1] . '</td>' .
         '<td>' . $value[6] . '</td>' .
         '<td>' . round(round($value[3]) - round($value[3]) * $discounttotalprice / 100) . '</td>' .
-        '<td><img width="50%" src="' . BASEURL . '/imagepreview?src=' . $value[0] . '">' .
+        '<td><img width="50%" src="' . BASEURL . '/imagepreview?src=' . $value[5] . '">' .
         '<td>' .
         $form->field($modelform, 'order[' . $key . ']')->label(false)->input('text', ['value' => $value[4]]) .
         '</td>' .
@@ -66,17 +61,7 @@ if (Yii::$app->params['partnersset']['paysystem']['active']) {
 if (Yii::$app->params['partnersset']['transport']['active']) {
     $transport = Yii::$app->params['partnersset']['transport']['value'];
 } else {
-    $transport = [
-        '' =>'',
-        'flat2_flat2' =>
-            ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция', 'active' => '1', 'wantpasport' => '0'],
-        'flat1_flat1' =>
-            ['value' => 'Бесплатная доставка до ТК Деловые Линии', 'active' => '1', 'wantpasport' => '1'],
-        'flat3_flat3' =>
-            ['value' => 'Бесплатная доставка до ТК ПЭК', 'active' => '1', 'wantpasport' => '0'],
-        'flat7_flat7' =>
-            ['value' => 'Почта ЕМС России', 'active' => '1', 'wantpasport' => '0']
-    ];
+    $transport = ['flat2_flat2' => ['value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция', 'active' => '1', 'wantpasport' => '0'], 'flat1_flat1' => ['value' => 'Бесплатная доставка до ТК Деловые Линии', 'active' => '1', 'wantpasport' => '1'], 'flat3_flat3' => ['value' => 'Бесплатная доставка до ТК ПЭК', 'active' => '1', 'wantpasport' => '0'], 'flat7_flat7' => ['value' => 'Почта ЕМС России', 'active' => '1', 'wantpasport' => '0']];
 }
 foreach ($transport as $key => $val) {
     $transportset[$key] = $val['value'];

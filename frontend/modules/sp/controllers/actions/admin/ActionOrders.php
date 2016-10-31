@@ -50,7 +50,7 @@ trait ActionOrders
         $dataprovider = new ArrayDataProvider([
             'allModels' => $model->limit($pagesize)->offset($pages->getOffset())->createCommand()->queryAll()
         ]);
-
+        
         return $this->render('orders', ['data'=>$dataprovider, 'paginate'=>$pages]);
     }
 }

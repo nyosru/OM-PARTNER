@@ -77,7 +77,8 @@ class Metrics extends \yii\bootstrap\Widget
                 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
                 ga('create', '<?=$googleanalitycs?>', 'auto');
                 ga('send', 'pageview');
-                //                    ga('require', 'ec');
+                ga('require', 'ec');
+                ga('set', '&cu', 'RUB');
             </script>
         <?php }
 

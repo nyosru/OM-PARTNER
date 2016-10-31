@@ -49,10 +49,7 @@ trait ActionProduct
             $prodimages = ProductImage::find()->select(['image_file'])
                 ->where(['product_id' => $id])->limit(5)
                 ->createCommand()->queryall(7);
-            if ($spec) {
-                $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'], 'specifications_id');
-                $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'], 'specification_values_id');
-            }
+           
             if (strtotime($x['products_last_modified']) < strtotime($x['add_date']))
                 $x['products_last_modified'] = $x['add_date'];
             $checkcache = $x['products_last_modified'];

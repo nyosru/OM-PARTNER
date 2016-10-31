@@ -29,14 +29,23 @@ trait ActionDetailOrder
                 $order['delivery'] = unserialize($order['delivery']);
             }
             $result = [
-                'refus'=>$referraluser,
+                'refus'=>[
+                    'user'=> $referraluser['id'],
+                    'username'=> $referraluser['user']['username'],
+                    'email'=> $referraluser['user']['email'],
+                    'register'=> $referraluser['user']['created_at'],
+                    'name'=> $referraluser['userinfo']['name'],
+                    'secondname'=>  $referraluser['userinfo']['secondname'],
+                    'lastname'=> $referraluser['userinfo']['lastname'],
+                    'telephone'=> $referraluser['userinfo']['telephone'],
+                ],
                 'order'=>$order,
                 'id'=>$id,
             ];
 
 
             if(Yii::$app->request->isAjax){
-                $result = json_encode($result);
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             }
             return $result;
         }else{

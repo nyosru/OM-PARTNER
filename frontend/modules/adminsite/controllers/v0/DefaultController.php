@@ -66,52 +66,12 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'roles' => [
-
-                            'admin'
-
-                        ],
-                                    'actions' => [
-                                        'index',
-                                        'orderupdate',
-                                        'mainpageset',
-                                        'orderrevert',
-                                        'usercontrol',
-                                        'newspage',
-                                        'documents',
-                                        'requestpage',
-                                        'commentspage',
-                                        'commentscontrol',
-                                        'newsupdate',
-                                        'savesettings',
-                                        'requestusers',
-                                        'requestnews',
-                                        'requestupdate',
-                                        'requestorders',
-                                        'delegate',
-                                        'cancelorder',
-                                        'templateimage',
-                                        'partnerscategories'
-                                    ],
+                        'actions' => ['index', 'orderupdate', 'mainpageset', 'orderrevert', 'usercontrol', 'newspage', 'documents', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
+                            'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage', 'partnerscategories'],
                         'allow' => true,
+                        'roles' => ['admin'],
+
                     ],
-                    [
-                        'roles' => [
-
-                            'author'
-
-                        ],
-                                    'actions' => [
-                                        'index',
-                                        'requestusers',
-                                        'newspage',
-                                        'requestorders',
-                                        'commentspage',
-                                        'requestpage'
-                                    ],
-                        'allow' => true,
-                    ],
-
                 ]
             ]
         ];

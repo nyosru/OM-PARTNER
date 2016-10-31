@@ -23,6 +23,7 @@ $this->beginPage();
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head(); ?>
+    <?=\frontend\widgets\Metrics::widget();?>
 </head>
 <body style="font-family: Open Sans,Helvetica Neue,sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
 <?php $this->beginBody(); ?>
@@ -58,9 +59,15 @@ $this->beginPage();
             </div>
             <div class="partners-main-left" id="scroll1"
                  style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                <?php if($this->beginCache('Right-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+
+                <?php
+                if(!(int)Yii::$app->request->getQueryParam('cat')){
+                   $cat = 0;
+                }
+                $keyCache = Yii::$app->cache->buildKey('Right-12zs33'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
+                if($this->beginCache($keyCache, ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
-                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
+                       <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
 
                         <?= Menuom::widget(['property' => ['id' => 'main', 'target' => '0', 'opencat' => Yii::$app->params['layoutset']['opencat']]]); ?>
                     </div>
@@ -255,24 +262,107 @@ $this->beginPage();
 
     ?>
 </div>
-<script type="text/javascript">
-    (function($){
-        $(document).on("ready",function(){
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
+<?php
+if(($ga = Yii::$app->session->get('ga'))){
+    foreach ($ga as $gakey=>$gavalue){
+        ?>
+        <script>
+            $(window).load(function () {
+                ga('send', 'event' , '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
             });
-        });
-    })(jQuery);
-    $(document).on('load', function(){
-        $('a[rel=light]').light();
-        $('.target').shortscroll();
-    });
+        </script>
+        <?php
+    }
+    $ga = Yii::$app->session->set('ga', []);
+}
+
+?>
+<script>
+    $('.featured').owlCarousel({
+        loop:true,
+        margin:2,
+        nav:true,
+        items: 6,
+        autoplay:true,
+        navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+        dots:false,
+        responsive:{
+            0:{
+                items:4
+            },
+            1024:{
+                items:3
+            },
+            1280:{
+                items:4
+            },
+            1560:{
+                items:5
+            },
+            1900:{
+                items:6
+            },
+        }
+    })
 </script>
-
-
+<script>
+    $('.sliderNew').owlCarousel({
+        loop:true,
+        margin:2,
+        nav:true,
+        items: 6,
+        autoplay:true,
+        dots:false,
+        navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+        dots:false,
+        responsive:{
+            0:{
+                items:4
+            },
+            1024:{
+                items:3
+            },
+            1280:{
+                items:4
+            },
+            1560:{
+                items:5
+            },
+            1900:{
+                items:6
+            },
+        }
+    })
+</script>
+<script>
+    $('.sliderRelated').owlCarousel({
+        loop:true,
+        margin:2,
+        nav:true,
+        items: 6,
+        autoplay:true,
+        dots:false,
+        navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+        dots:false,
+        responsive:{
+            0:{
+                items:4
+            },
+            1024:{
+                items:3
+            },
+            1280:{
+                items:4
+            },
+            1560:{
+                items:5
+            },
+            1900:{
+                items:6
+            },
+        }
+    })
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>
