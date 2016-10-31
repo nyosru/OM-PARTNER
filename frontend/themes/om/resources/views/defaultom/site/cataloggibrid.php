@@ -404,7 +404,6 @@ if ($data[0] != 'Не найдено!') {
 
 
 <script>
-<script>
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);
         $('#max-ev-price').val(ui.values[1]);
