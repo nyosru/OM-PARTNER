@@ -20,5 +20,5 @@ if($_COOKIE['cardview']==1){
     }
 }
 echo '<div class="col-md-12">'.\yii\widgets\LinkPager::widget([
-    'pagination' => $pagination,
-]).'<div>';
+        'pagination' => $pagination,
+    ]).'<div>';

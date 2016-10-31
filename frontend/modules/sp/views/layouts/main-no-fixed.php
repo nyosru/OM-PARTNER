@@ -45,11 +45,6 @@ $this->beginPage();
 <?php $this->beginBody(); ?>
 <div class="wrap">
     <?php
-
-   
-
-
-
     if (
         ($namecustom = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
         && Yii::$app->params['partnersset']['logotype']['active'] == 1
@@ -107,8 +102,7 @@ $this->endBody();
 Yii::$app->params['assetsite']->registerAssetFiles($this);
 
 ?>
-
-
+<div id="overlay"></div>
 </div>
 </body>
 </html>

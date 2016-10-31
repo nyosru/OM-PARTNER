@@ -5,7 +5,7 @@ use common\models\PartnersSettings;
 set_time_limit ( 60 );
 date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR);
-defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -26,6 +26,7 @@ if($application->params['construct'] == TRUE){
     die();
 }
 function off($application){
+    $application->redis->close();
     $application->db->close();
 }
 register_shutdown_function('off', $application);
@@ -52,14 +53,16 @@ if (($versionnum = $partner['APP_VERSION']) == FALSE) {
 } else {
     $version = $versions[$versionnum];
 }
+
 $config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend']['namespace'];
 $application->defaultRoute = $version['frontend']['defroute'] . '/index';
 $config['components']['errorHandler']['errorAction'] = $version['frontend']['erraction'] . '/error';
-$catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
-$config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
+//$catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
+//$config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
 $config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['<action>'] = '' . $version['frontend']['defroute'] . '/<action>';
 $config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
+
 //define('BASEURL', '/' . $version['frontend']['defroute']);
 define('BASEURL', '');
 unset($version['frontend']);
@@ -94,6 +97,7 @@ foreach ($version as $key => $mvc) {
 //    'maxFileSize' => 1024 * 2,
 //    'maxLogFiles' => 1000
 //];
+
 $application = new yii\web\Application($config);
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
@@ -133,6 +137,17 @@ $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/v
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
 $application->params['assetsite'] = $assetsite;
 $application->params['adminasset'] = $adminasset;
+$application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event) {
+    \Yii::$app->urlManager->addRules([
+        '<action:catalog>/<cat_start:[a-z-\/]+>'=>'/catalog',
+    ]);
+    $req = \Yii::$app->urlManager->parseRequest(\Yii::$app->request);
+    if($req[1]['action'] == 'catalog' && $req[1]['cat_start']){
+        \Yii::$app->params['chpu'] = $req[1];
+        \Yii::$app->request->setPathInfo('catalog');
+        \Yii::$app->request->url = 'catalog';
+    }
+});
 $application->run();
 $application->db->close();
 

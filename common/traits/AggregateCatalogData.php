@@ -10,12 +10,15 @@ namespace common\traits;
 
 use common\models\PartnersProductsOptionVal;
 use common\models\PartnersProductsToCategories;
+use common\traits\Categories\CategoryChpu;
 use Yii;
 use yii\helpers\ArrayHelper;
 
 trait AggregateCatalogData
 {
 
+
+    use CategoryChpu;
     public function AggregateCatalogData(
         $params = [
             'cat_start' => '',
@@ -43,12 +46,20 @@ trait AggregateCatalogData
         ])
     {
 
-        $cat_start = (integer)$params['cat_start'];
+
+        if(isset(\Yii::$app->params['chpu']['cat_start'])){
+            $params['cat_start'] = $this->categoryChpu(\Yii::$app->params['chpu']['cat_start']);
+        }
+        $cat_start = $params['cat_start'];
+
+
+
+
         $start_price = (integer)$params['start_price'];
         $end_price = (integer)$params['end_price'];
         $prod_attr_query = (integer)$params['prod_attr_query'];
         $count = (integer)$params['count'];
-        $page = (integer)$params['page'];
+        $page = max(0,(integer)$params['page']-1);
         $sort = (integer)$params['sort'];
         $ok = (integer)$options['ok'];
         $sfilt = $options['sfilt'];
@@ -73,10 +84,16 @@ trait AggregateCatalogData
         $check = Yii::$app->params['constantapp']['APP_ID'];
         $checks = Yii::$app->params['constantapp']['APP_CAT'];
 
+
+        
+
+
+
         if($cat_start == 0){
+            $disallkey = '';
             $allowcat = $options['allowcat'];
             $disallowcat = $options['disallowcat'];
-            $disallkey = '';
+
             if(is_array($allowcat)){
                 $disallkey .= '-allow-'.implode(',', $allowcat);
             }
@@ -113,6 +130,7 @@ trait AggregateCatalogData
         $start_arr = (integer)($page * $count);
         $man_time = $this->manufacturers_diapazon_id();
         $static_cat_key = Yii::$app->cache->buildKey('static-cat-' . $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
+
         if (($cat = Yii::$app->cache->get($static_cat_key)) == TRUE) {
 
         } else {
@@ -172,6 +190,7 @@ trait AggregateCatalogData
         } else {
             $discont_query_filt = '';
         }
+
         $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now', [':now' => $now])->limit($count)->offset($start_arr)->asArray()->one();
         $ds1 = strtotime($x['products_last_modified']);
         $ds2 = strtotime($x['add_date']);
@@ -351,7 +370,7 @@ trait AggregateCatalogData
                     }
 
                     $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
-                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']]);
+                    Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']], 10800);
                 }
             }
             foreach ($prod as $keyin => $values) {
@@ -361,10 +380,10 @@ trait AggregateCatalogData
             }
             $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
             $stats = Yii::$app->cache->get($statickey);
-            $statickeyspec = Yii::$app->cache->buildKey('specification34545sa-' . $cat);
+            $statickeyspec = Yii::$app->cache->buildKey('specification3554545sa-' . $cat);
             $statsspec = Yii::$app->cache->get($statickeyspec);
             if(!$statsspec) {
-                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
+                $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1  and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,74,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
                 $spectotal = [];
                 foreach ($spec as $speckey => $specval) {
                     if (!$spectotal[$specval['specifications_id']]) {
@@ -527,8 +546,8 @@ trait AggregateCatalogData
             }
             //ksort($productattrib,'SORT_NATURAL' );
             Yii::$app->params['layoutset']['opencat'] = $catpath['num'];
-
-            return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec];
+            $page = $page+1;
+            return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec, 'params'=>array_merge($options,$params)];
         }
     }
 }

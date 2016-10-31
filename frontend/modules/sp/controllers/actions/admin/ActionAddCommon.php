@@ -21,8 +21,10 @@ trait ActionAddCommon
         if(($referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one())==TRUE){
             $result = new CommonOrders();
             if($result->load(Yii::$app->request->post())){
-                if($result->validate()){
-                    return true;
+                $result->referral_id = $referal['id'];
+                $result->status = 1;
+                if($result->save()){
+                    return 'Общий заказ создан! Номер заказа : '.$result->id;
                 }else{
                     return false;
                 }

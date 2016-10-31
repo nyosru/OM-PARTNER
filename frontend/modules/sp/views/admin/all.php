@@ -555,7 +555,7 @@
     .to-order
     {
         display:inline-block;
-        width:33%;
+        width:100%;
         text-align:center;
         padding:5px;
         background:#ffea00;
@@ -591,5 +591,16 @@
     {
         transform:rotate(45deg)
     }
-
+    .product-to-order {
+        text-align: center;
+        position: absolute;
+        left: 28%;
+        bottom: 9px;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        color: #FFF;
+        background: #00a5a1;
+        border-radius: 4px;
+        cursor:pointer;
+    }
 </style>

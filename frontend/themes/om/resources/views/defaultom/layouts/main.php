@@ -16,7 +16,10 @@ use frontend\widgets\Menuom;
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
-
+//echo '<pre>';
+//print_r($this);
+//echo '</pre>';
+//die();
 ?>
     <!DOCTYPE html>
     <html lang="ru-RU">
@@ -31,7 +34,9 @@ $this->beginPage();
         <?=Html::csrfMetaTags(); ?>
         <title><?=Html::encode($this->title); ?></title>
         <?php $this->head();
+
         ?>
+        <?=\frontend\widgets\Metrics::widget();?>
     </head>
     <body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
     <?php $this->beginBody(); ?>
@@ -63,9 +68,9 @@ $this->beginPage();
 
                     </div>
                 </div>
-                <div  class="partners-main-left   mCustomScrollbar" data-mcs-theme="dark"
+                <div  class="partners-main-left"  id="scroll1"
                       style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <?php if($this->beginCache('Rightu-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                    <?php if($this->beginCache('Right-13312'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                         <div class="partners-main-left-cont">
                             <?= \frontend\widgets\RightTopMenuLinks::widget();
                             if(isset(Yii::$app->params['layoutset']['opencat'])){
@@ -171,7 +176,7 @@ $this->beginPage();
                     <div class="" style="margin: 0px 25px;">
                         <p class="pull-left">&copy; Все права защищены, 2014-<?= date('Y') ?></p>
                         <div style="margin: 0% 25%; float: left;">
-                            <?=\frontend\widgets\Metrics::widget();?>
+                            
                         </div>
                     </div>
                 </footer>
@@ -182,12 +187,108 @@ $this->beginPage();
         Yii::$app->params['assetsite']->registerAssetFiles($this);
         ?>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.target').shortscroll();
-        });
+ <?php
+ if(($ga = Yii::$app->session->get('ga'))){
+     foreach ($ga as $gakey=>$gavalue){
+        ?>
+         <script>
+             $(window).load(function () {
+                 ga('send', 'event' , '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
+             });
+         </script>
+         <?php
+     }
+     $ga = Yii::$app->session->set('ga', []);
+ }
+ 
+ ?>
+    <script>
+        $('.featured').owlCarousel({
+            loop:true,
+            margin:2,
+            nav:true,
+            items: 6,
+            autoplay:true,
+            navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+            dots:false,
+            responsive:{
+                0:{
+                    items:4
+                },
+                1024:{
+                    items:3
+                },
+                1280:{
+                    items:4
+                },
+                1560:{
+                    items:5
+                },
+                1900:{
+                    items:6
+                },
+            }
+        })
     </script>
-
+    <script>
+        $('.sliderNew').owlCarousel({
+            loop:true,
+            margin:2,
+            nav:true,
+            items: 6,
+            autoplay:true,
+            dots:false,
+            navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+            dots:false,
+            responsive:{
+                0:{
+                    items:4
+                },
+                1024:{
+                    items:3
+                },
+                1280:{
+                    items:4
+                },
+                1560:{
+                    items:5
+                },
+                1900:{
+                    items:6
+                },
+            }
+        })
+    </script>
+    <script>
+        $('.sliderRelated').owlCarousel({
+            loop:true,
+            margin:2,
+            nav:true,
+            items: 6,
+            autoplay:true,
+            dots:false,
+            navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+            dots:false,
+            responsive:{
+                0:{
+                    items:4
+                },
+                1024:{
+                    items:3
+                },
+                1280:{
+                    items:4
+                },
+                1560:{
+                    items:5
+                },
+                1900:{
+                    items:6
+                },
+            }
+        })
+    </script>
     </body>
+
     </html>
 <?php $this->endPage() ?>

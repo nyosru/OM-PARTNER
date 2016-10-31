@@ -17,7 +17,11 @@ trait ActionSignup
 
                         if ($user = $model->signup()) {
                             if (Yii::$app->getUser()->login($user)) {
-
+                                $ga =  Yii::$app->session->get('ga');
+                                $ga[] = [
+                                    'event' => 'register'
+                                ];
+                                Yii::$app->session->set('ga', $ga);
                                 return $this->goHome();
                             }
                         } else {

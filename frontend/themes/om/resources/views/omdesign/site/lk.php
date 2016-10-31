@@ -17,19 +17,7 @@ use \common\models\UserProfile;
 use yii\bootstrap\Collapse;
 
 $this->title = 'Личный кабинет';
-if ($_COOKIE['info-modal'] != 1) {
-  echo  '<div id="openModal" class="modalDialog">
-	<div>
-		<a href="#close" title="Закрыть" class="close">X</a>
-		<h2>Модальное окно</h2>
-		<p>Прмер простого модального окна, которое может быть создано с использованием CSS3.</p>
-		<p>Его можно использовать в широком диапазоне, начиная от вывода сообщений и заканчивая формой регистрации.</p>
-	</div>
-</div>';
-    setcookie("info-modal", 1, time() + 27000000, '/');
-} else {
 
-}
 
 ?>
 <div class="circular"><i class="mdi mdi-perm-identity"></i></div>

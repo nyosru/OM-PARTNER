@@ -10,10 +10,20 @@ Trait Imagepreviewcrop
 {
     public function Imagepreviewcrop($from, $src, $where, $action = 'none', $sub = FALSE)
     {
+
         $id = (integer)$src;
         if ($id > 0) {
 
-            if (($dataprod = Yii::$app->cache->get('productn-' . $id)) == TRUE && $sub === FALSE) {
+            $namefile = $id.'-'.(integer)$sub;
+            $subdir = '';
+
+            for ($i = 0; $i < 3; $i++) {
+                $subdir .= '/' . substr($namefile, $i * 2, 2);
+            }
+            $dir = 'newpreview';
+            if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg') || $action == 'refresh') {
+            $keyprod = Yii::$app->cache->buildKey('productn-' . $id);
+            if (($dataprod = Yii::$app->cache->get($keyprod)) == TRUE && $sub === FALSE) {
                 $src = $dataprod['data']['products']['products_image'];
             } else if($sub !== FALSE) {
                 $prodimages = ProductImage::find()->select(['image_file'])
@@ -28,46 +38,16 @@ Trait Imagepreviewcrop
                 $dataprod = PartnersProducts::find()->where(['products_id' => trim($id)])->asArray()->one();
                 $src = $dataprod['products_image'];
             }
-
-
-
             if ($src == '' || $src == '/' || $src == '\\') {
                 return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
             }
             $filename = $src;
-
-            $split = explode('/', $src);
-            if (count($split) > 1) {
-                $file = array_splice($split, -1, 1);
-                $file = explode('.', $file[0]);
-                $ras = array_splice($file, -1, 1);
-                $ras[0] = strtolower($ras[0]);
-                $namefile = base64_encode(implode('', $file));
-                $dir = implode('/', $split);
-            } else {
-                $file = $split[0];
-                $file = explode('.', $file);
-                $ras = array_splice($file, -1, 1);
-                $namefile = base64_encode(implode('', $file));
-                $dir = 'rope';
-            }
-            $dirfile = md5($namefile);
-            $subdir = '';
-
-            for ($i = 0; $i < 5; $i++) {
-                $subdir .= '/' . substr($dirfile, $i * 2, 2);
-            }
-            if (!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg') || $action == 'refresh') {
                 if (!is_dir(Yii::getAlias($where) . $dir . $subdir)) {
                     mkdir(Yii::getAlias($where) . $dir . $subdir, 0777, true);
                 }
-
-
                 if (($image = imagecreatefromstring(file_get_contents($from . $filename))) == FALSE) {
                     return file_get_contents(Yii::getAlias('@webroot/images/logo/nofoto.jpg'));
                 }
-
-
                 $width = imagesx($image);
                 $height = imagesy($image);
                 $original_aspect = $width / $height;
@@ -99,9 +79,11 @@ Trait Imagepreviewcrop
                     $width, $height);
                 //  header('Content-Type: image/jpg');
                 imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 70);
-
                 return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             } else {
+                $headers = Yii::$app->response->headers;
+                $headers->add('ETag',  md5($namefile));
+
                 return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             }
             //        return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProd]);
@@ -110,7 +92,9 @@ Trait Imagepreviewcrop
             return $this->redirect('/');
         }
 
+   
     }
+
 }
 
 ?>

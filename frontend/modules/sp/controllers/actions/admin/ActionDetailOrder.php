@@ -24,21 +24,28 @@ trait ActionDetailOrder
         ){
             if($order['order'] != 'LinlToOM'){
                 $order['order'] = unserialize($order['order']);
-               foreach ($order['order']['order'] as $key=>$value){
-               }
             }
             if($order['delivery'] != 'LinlToOM'){
                 $order['delivery'] = unserialize($order['delivery']);
             }
             $result = [
-                'refus'=>$referraluser,
+                'refus'=>[
+                    'user'=> $referraluser['id'],
+                    'username'=> $referraluser['user']['username'],
+                    'email'=> $referraluser['user']['email'],
+                    'register'=> $referraluser['user']['created_at'],
+                    'name'=> $referraluser['userinfo']['name'],
+                    'secondname'=>  $referraluser['userinfo']['secondname'],
+                    'lastname'=> $referraluser['userinfo']['lastname'],
+                    'telephone'=> $referraluser['userinfo']['telephone'],
+                ],
                 'order'=>$order,
                 'id'=>$id,
             ];
 
-            $result = json_encode($result);
+
             if(Yii::$app->request->isAjax){
-                Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             }
             return $result;
         }else{

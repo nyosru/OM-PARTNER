@@ -1,15 +1,16 @@
 <?php
 namespace frontend\widgets;
 
+use common\traits\Categories\CategoryChpu;
 use common\traits\Categories_for_partner;
+use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
-use common\traits\View_cat2;
 use yii\helpers\Html;
 use Yii;
 
 class Menuom extends \yii\bootstrap\Widget
 {
-    use View_cat2, Reformat_cat_array, Categories_for_partner;
+    use  Reformat_cat_array,Categories_for_partner, CategoryChpu, RecursCat;
     public $property;
     private $categoriesarr;
     private $categories;
@@ -21,6 +22,7 @@ class Menuom extends \yii\bootstrap\Widget
     private $startcat;
     private $opencat;
     private $rend;
+    public $output2 = '';
 
     public function init()
     {
@@ -42,5 +44,59 @@ class Menuom extends \yii\bootstrap\Widget
         parent::run();
         return '<div id="' . $this->id . '">' . $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat) . '</div>';
     }
+
+    public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [])
+    {
+        if ($opencat == NULL) {
+            $opencat = [];
+        }
+        if (empty($arr[$parent_id])) {
+            return $this->output2;
+        } else {
+            if ($parent_id == 0 || in_array($arr[$parent_id]['parent_id'], $opencat)) {
+                $style = '';
+            } else {
+                $style = 'style="display: none;"';
+            }
+            $this->output2 .= '<ul  class="accordion" ' . $style . ' data-categories="' . $arr[$parent_id]['categories_id'] . '" data-parent="' . $arr[$parent_id]['parent_id'] . '">';
+            for ($i = 0; $i < count($arr[$parent_id]); $i++) {
+                $catdesc = $arr[$parent_id][$i]['categories_id'];
+                if (!$arr[$parent_id][$i] == '') {
+                    if (in_array($catdesc, $opencat)) {
+                        $openli = 'open';
+                    } else {
+                        $openli = '';
+                    }
+                    $xcat = count($opencat) - 1;
+                    if ($catdesc == $opencat[$xcat]) {
+                        $aclass = 'checked';
+                    } else {
+                        $aclass = '';
+                    }
+                    if ($parent_id == 0) {
+                        $exthtml = '';
+                    } elseif (!$arr[$arr[$parent_id][$i]['categories_id']]) {
+                        $exthtml = '&nbsp;';
+                    } elseif (in_array($catdesc, $opencat)) {
+                        $exthtml = '- ';
+                    } else {
+                        $exthtml = '+ ';
+                    }
+
+                    if(!$this->categoryChpu($catdesc)){
+                        $uri = '?cat=' . $catdesc . '&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=';
+                    }else{
+                       $uri = '/'.$this->categoryChpu($catdesc);
+                    }
+                    $this->output2 .= '<li class=" ' . $openli . '"><div class="link ' . $aclass . '"  data-cat="' . $catdesc . '"> ' . $exthtml . '<a class="lock-on ' . $aclass . '" href="' . BASEURL . '/catalog'.$uri.'">' . $catnamearr["$catdesc"] . '</a></div>';
+                    $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);
+                    $this->output2 .= '</li>';
+                }
+            }
+            $this->output2 .= '</ul>';
+        }
+        return $this->output2;
+    }
+
 
 }

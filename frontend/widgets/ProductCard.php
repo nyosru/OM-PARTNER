@@ -7,6 +7,7 @@ use common\traits\Categories_for_partner;
 use common\traits\CatPath;
 use common\traits\RecursCat;
 use Yii;
+use yii\redis\Session;
 
 class ProductCard extends \yii\bootstrap\Widget
 {
@@ -20,11 +21,14 @@ class ProductCard extends \yii\bootstrap\Widget
     public $man_time = [];
     public $showdiscount = 0;
     public $writeitemprop = 1;
-
+    public $season;
 
 
     public function init()
     {
+
+        
+
         if($this->writeitemprop === 1){
             $product_itemscope = ' itemscope itemtype="http://schema.org/ProductModel" ' ;
             $product_itemprop_image = 'itemprop="image"';
@@ -183,11 +187,18 @@ class ProductCard extends \yii\bootstrap\Widget
             $man_in_sklad = '';
         }
 
+        if($this->season){
+            $season_html = SeasonPicture::widget([
+                'season'=>$this->season
+            ]);
+        }else{
+            $season_html = '';
+        }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
 
 
-        $innerhtml .= ' <div '.$product_itemscope.'  itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.'
+        $innerhtml .= ' <div '.$product_itemscope.'  itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.$season_html.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta '.$product_itemprop_image.'  content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';

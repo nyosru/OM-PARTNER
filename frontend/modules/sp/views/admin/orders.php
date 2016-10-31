@@ -3,21 +3,10 @@ include('all.php');
 
 ?>
 
-<style>
-    .product-to-order {
-        text-align: center;
-        position: absolute;
-        left: 28%;
-        bottom: 9px;
-        text-transform: uppercase;
-        padding: 10px 20px;
-        color: #FFF;
-        background: #00a5a1;
-        border-radius: 4px;
-        cursor:pointer;
-    }
+    <style>
+      
 
-</style>
+    </style>
 
 
     <div style="height: 50px;background: rgb(238, 238, 238);">
@@ -95,7 +84,7 @@ include('all.php');
             <div id="col1">
                 <div id="scroll1" style="height: 100%">
                     <?php
-                    \yii\widgets\Pjax::begin(['id' => 'clients']);
+                 //   \yii\widgets\Pjax::begin(['id' => 'clients']);
 
                     echo \yii\grid\GridView::widget([
                         'tableOptions' => [
@@ -254,7 +243,7 @@ include('all.php');
                         })(jQuery);
                     </script>
                     <?php
-                    \yii\widgets\Pjax::end();
+                 //   \yii\widgets\Pjax::end();
                     ?>
 
                 </div>
@@ -266,65 +255,108 @@ include('all.php');
             </div>
         </div>
     </div>
-<script>
+    <script>
 
-    $(document).on('click', '.product-to-order', function(){
-        $id_product =  this.getAttribute('data-sale');
-        $id_order = $('.order-line').attr('data-order');
-        $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
-        $id = $(this).attr('data-sale');
-        $attr = new Object;
-        $attr[$id] = new Object;
-        $data = new Object;
-        $.each($cart_add_obj, function(index, i){
-            $attr[$id][$(this).attr('data-attr').toString()] = $(this).val();
-        });
-        $data["new"] = $attr;
-        $data["id"] = $id_order;
-        $.ajax({
-            type: "POST",
-            url: '/sp/admin/orders-edit',
-            data: $data,
-            success: function(data){
-                   console.log(data);
-            },
-            dataType: 'json'
-        });
-    });
-
-    var Lock = false;
-    var product_arr = new Object();
-    var mandata_arr = new Object();
-    function requestProduct($id) {
-        var mandata = [];
-        var requestdata = [];
-        if(typeof (product_arr['id']) == 'undefined'){
-            requestdata = $.ajax({
-                method: 'post',
-                url: "/site/product",
-                async: false,
-                data: {id: $id}
+        $(document).on('click', '.product-to-order', function(){
+            $id_product =  this.getAttribute('data-sale');
+            $id_order = $('.order-line').attr('data-order');
+            $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
+            $id = $(this).attr('data-sale');
+            $attr = new Object;
+            $attr[$id] = new Object;
+            $data = new Object;
+            $.each($cart_add_obj, function(index, i){
+                $attr[$id][$(this).attr('data-attr').toString()] = $(this).val();
             });
-            product_arr[$id] = new Object();
-            product_arr[$id] = requestdata.responseJSON.product;
-        }
-        if(typeof (mandata_arr['id']) == 'undefined'){
-            mandata = $.ajax({
-                method: 'post',
-                url: "/site/manlist",
-                async: false,
-                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+            $data["new"] = $attr;
+            $data["id"] = $id_order;
+            $.ajax({
+                type: "POST",
+                url: '/sp/admin/orders-edit',
+                data: $data,
+                success: function(data){
+                },
+                dataType: 'json'
             });
-            mandata_arr[$id] = new Object();
-            mandata_arr[$id] = JSON.parse(mandata.responseText);
-        }
-    }
+        });
 
-    $(document).on('click', '.search-models-button', function(){
-        if(!isNaN(parseInt($('.search-models-value').val()))){
-            $("#modal-product").remove();
-            inProgressSearch = false;
-            var dp = parseInt($('.search-models-value').val());
+        var Lock = false;
+        var product_arr = new Object();
+        var mandata_arr = new Object();
+        function requestProduct($id) {
+            $result = new Object();
+            $result.product = new Object();
+            $result.mandata = new Object();
+            var mandata = [];
+            var requestdata = [];
+            if(typeof(product_arr[$id]) == 'undefined'){
+                requestdata = $.ajax({
+                    method: 'post',
+                    url: "/site/product",
+                    async: false,
+                    data: {id: $id}
+                });
+                product_arr[$id] = new Object();
+                $result.product = product_arr[$id] = requestdata.responseJSON.product;
+            }else{
+                $result.product = product_arr[$id];
+            }
+            if(typeof (mandata_arr[$id]) == 'undefined'){
+                mandata = $.ajax({
+                    method: 'post',
+                    url: "/site/manlist",
+                    async: false,
+                    data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+                });
+                mandata_arr[$id] = new Object();
+                $result.mandata = mandata_arr[$id] = JSON.parse(mandata.responseText);
+            }else{
+                $result.mandata = mandata_arr[$id];
+            }
+
+            return $result;
+        }
+
+        var common_order = new Object();
+        function requestCommon($action) {
+            $result = new Object();
+            var requestdata = [];
+            if(typeof(common_order['list']) == 'undefined' || $action ===  'refresh'){
+                requestdata = $.ajax({
+                    method: 'post',
+                    url: "/sp/admin/list-order",
+                    async: false,
+                    data: ''
+                });
+                common_order['list'] = new Object();
+
+                $result = common_order['list'] =  requestdata.responseJSON;
+            }else{
+                $result = common_order['list'];
+            }
+            return $result;
+        }
+
+        $(document).on('click', '.common-order', function(){
+            $act = $(this).attr('data-act');
+            $data = requestCommon($act);
+            if(typeof($data) == 'undefined'){
+                $list_html = 'Нет общих заказов'
+            }else{
+                $list_html = '';
+                $.each($data, function(i, index){
+                    $list_html += '<div><div style="display: inline-block; padding: 0px 10px; border: 1px solid rgb(240, 240, 240); border-radius: 4px; height: 20px; margin: 0px 15px 10px 0px;">'+index.id+'</div>';
+                    $list_html += '<div style="display: inline-block; padding: 0px 20px;">'+index.header+'</div></div>'
+                });
+            }
+            $('.list').html($list_html);
+        });
+
+        $(document).on('click', '.search-models-button', function(){
+            if(!isNaN(parseInt($('.search-models-value').val()))){
+                $("#modal-product").remove();
+                inProgressSearch = false;
+                var dp = parseInt($('.search-models-value').val());
                 if(!inProgressSearch){
                     $('[class="client-plate client-active"]').removeClass('client-active');
                     inProgressSearch = true;
@@ -341,10 +373,7 @@ include('all.php');
                             } else {
                                 $spec_html += 'Не указан<br/>';
                             }
-
-
                         });
-
                         $spec_html += '</div>';
                         $activelabel=0;
                         if(Array.isArray(data.product.productsAttributes)){
@@ -369,7 +398,6 @@ include('all.php');
                         $imgs2 = new Array(data['product']['products']['products_image']);
                         $miniimg = '';
                         $bigimg = '';
-
                         $.each($imgs, function (i, item) {
                             $miniimg += '<div id="carousel-selector-' + i + '" style="float:left; margin-top: 5px; overflow: hidden" class="mini-img-item"><img style="height:80px; display: block; margin: auto; border:1px solid #cccccc; border-radius:4px;" src="' + item + '"/></div>';
                             if (i == 0) {
@@ -378,9 +406,7 @@ include('all.php');
                             else {
                                 $bigimg += '<div class="item"><img style="border:1px solid #cccccc; border-radius:4px;" src=' + item + '></div>';
                             }
-
                         });
-
                         $size_html += '<div class="size-block" style="overflow: hidden;margin-bottom: 38px; width: 340px;">';
                         $baseduri = window.location.hostname;
 
@@ -449,9 +475,7 @@ include('all.php');
                         $size_html += '</div>';
                         $breadcruumpsresult = [];
                         $.each(data.catpath['num'], function(i, index){
-
                             $breadcruumpsresult.push('<a target="_blank" href="/catalog?cat='+data.catpath['num'][i]+'">'+data.catpath['name'][i]+'</a>');
-
                         });
                         $prod_html = '';
                         $breadcruumpsresult =  $breadcruumpsresult.join(' &#47; ');
@@ -525,12 +549,12 @@ include('all.php');
                             '</div>' +
                             '</div>' +
                             '</div>';
-                            $("body").append(
-                                '<div id="modal-product" style="min-height: 300px;">'+
-                                    '<span id="modal-close">' +
-                                '<i class="fa fa-times" style="font-size:24px;"></i>' +
-                                '</span>' + $prod_html+
-                                '</div>'+
+                        $("body").append(
+                            '<div id="modal-product" style="min-height: 300px;">'+
+                            '<span id="modal-close">' +
+                            '<i class="fa fa-times" style="font-size:24px;"></i>' +
+                            '</span>' + $prod_html+
+                            '</div>'+
                             '<div id="overlay"></div>');
                         $("#modal-product").show();
                         $("#overlay").show();
@@ -546,236 +570,366 @@ include('all.php');
                     console.log('Выполняется запрос');
                 }
 
-        }else{
-            alert('Укажите корректый артикул');
-        }
-    });
+            }else{
+                alert('Укажите корректый артикул');
+            }
+        });
 
 
-    var maindata = '';
+        var maindata = '';
 
 
-    function renderOrder(data) {
-    $('[data-detail="'+data.id+'"]').addClass('client-active');
-    moment.locale('ru');
-
-        $products = '';
-       $.each(data.order.order.products, function(){
-          $data=requestProduct(this[0]);
-           console.log($data);
-           $products +=     '<div style=""  class="product-card"> ' +
-               '<div  style="" class="product-main-board"> ' +
-               '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-               '<img height="100%" src="/imagepreview?src='+this[0]+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
-               '</div> ' +
-               '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
-               '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-               '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-               '<div>Платье</div> ' +
-               '<div>Размер: 23</div> ' +
-               '</div> ' +
-               '</div> ' +
-               '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
-               '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-               '<div>250 p. x 2шт.</div> ' +
-               '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div> ' +
-               '</div> ' +
-               '</div> ' +
-               '</div> ' +
-               '<div > ' +
-               '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
-               'Добавить комментарий к товару ' +
-               '</div> ' +
-               '</div></div> ' +
-               '  ';
-       });
-
-    $('.datacontainer').html('<div style="margin:25px;"> ' +
-    '<div style="width: 70%;  display:inline-block;"> ' +
-        '<div style="margin-right: 25px;"> ' +
-            '<div class="order-line" data-order="'+data.id+'"> ' +
+        function renderOrder(data) {
+            $('[data-detail="'+data.id+'"]').addClass('client-active');
+            moment.locale('ru');
+            $products_html = '';
+            $order_price = 0;
+            $('html').append('<div class="preload"><div id="loaderImage"></div></div>');
+            $.each(data.order.order.products, function(){
+                $product = requestProduct(this[0]).product;
+                $product_price = Math.round($product.products.products_price)*this[4];
+                $order_price = $order_price + Math.round($product.products.products_price)*this[4];
+                $selected_attr = parseInt(this[2]);
+                $selected_attr_name = this[6];
+                $attributes_html ='';
+                if(Object.prototype.toString.call($product.productsAttributesDescr) === '[object Array]'){
+                   if(isNaN($selected_attr)){
+                       $attributes_html = 'у этой модели нет размеров';
+                   }else{
+                       $attributes_html = 'В данный момент у этой модели нет размеров. Уточните данную позицию у клиента';
+                   }
+                }else{
+                    $.each($product.productsAttributesDescr, function(){
+                        if(parseInt(this.products_options_values_id) === $selected_attr){
+                            $attributes_html = this.products_options_values_name;
+                        }
+                    });
+                    if(!$attributes_html){
+                        $attributes_html   = 'Выбранный клиентом размер \" '+$selected_attr_name+'\" отсутствует.'
+                    }
+                }
+                $products_html +=     '<div style=""  class="product-card"> ' +
+                    '<div  style="" class="product-main-board"> ' +
+                    '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+                    '<img height="100%" src="/imagepreview?src='+$product.products.products_id+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                    '</div> ' +
+                    '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
+                    '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                    '<div style="font-weight: 400;">Арт. '+$product.products.products_model+'</div> ' +
+                    '<div>'+$product.productsDescription.products_name+'</div> ' +
+                    '<div>Размер: '+$attributes_html+'</div> ' +
+                    '</div> ' +
+                    '</div> ' +
+                    '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+                    '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                    '<div>'+Math.round($product.products.products_price)+' p. x '+this[4]+'шт.</div> ' +
+                    '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">'+Math.round($product.products.products_price)*this[4]+' р.</div> ' +
+                    '</div> ' +
+                    '</div> ' +
+                    '</div> ' +
+                    '<div > ' +
+                    '<div  style="cursor:pointer;color: #5b8acf;" class="product-comment">' +
+                    'Добавить комментарий к товару ' +
+                    '</div> ' +
+                    '</div></div> ';
+            });
+            $('.datacontainer').html('<div style="margin:25px;"> ' +
+                '<div style="width: 70%;  display:inline-block;"> ' +
+                '<div style="margin-right: 25px;"> ' +
+                '<div class="order-line" data-order="'+data.id+'"> ' +
                 '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
                 '<span class="date-order" >от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
-                '<span class="status-order status-new">новый</span> ' +
+                '<span class="status-order status-new">data.order.status</span> ' +
                 '</div> ' +
-            '<div class="edit-line"> ' +
-                '<div class="to-order">В общий заказ</div> ' +
+                '<div class="edit-line"> ' +
+                '<div class="panel-group" style="display: inline-block; width: 33%;"> ' +
+                '<div class="panel panel-default" style="border-color: rgb(255, 255, 255); box-shadow: none; position: relative;"> '+
+                '<div class="panel-heading" style="padding: 0px; width: 100%;">'+
+                '<h4 class="panel-title">'+
+                '<a data-toggle="collapse" href="#collapse-list" class="to-order common-order" >В общий заказ</a> ' +
+                '</h4> ' +
+                '</div> ' +
+                '<div id="collapse-list" class="panel-collapse collapse" style="z-index: 999; border: 1px solid rgb(245, 245, 245); width: 100%; position: absolute;"> ' +
+                '<div class="panel-body" style="background: rgb(254, 254, 254) none repeat scroll 0% 0%;">' +
+                '<div class="list"></div></div> ' +
+                '<div class="panel-footer" style="line-height: 0px;">' +
+                '<div class="searchcommon-order"  style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
+                '<i class="mdi">&#xE8B6;</i>' +
+                '<input style="display: none;position: absolute; width: 50%; z-index: 1000; padding: 0px; height: 28px; font-size: 18px;" value="sg" placeholder="12314">'+
+                '</div>' +
+                '<div class="common-order" data-act="refresh" style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
+                '<i class="mdi">&#xE042;</i>' +
+                '</div>' +
+                '<div data-toggle="modal" data-target="#modal-common"  style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
+                '<i class="mdi">&#xE145;</i>' +
+                '</div>' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
                 '<div class="edit-order"  edit-mode="read">Редактировать заказ</div> ' +
                 '<div class="mail-client" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
                 '</div> ' +
-            '<div>' +
-                 $products+
-            '</div><div style="border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: 1500 р.</div> ' +
-            '</div> ' +
-        '</div> ' +
-    '<div class="sp-client-info"> ' +
-        '<div class="client-avatar"> ' +
-            '<div class="avatar"> ' +
+                '<div>' +
+                $products_html+
+                '</div><div style="border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: '+$order_price+' р.</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div class="sp-client-info"> ' +
+                '<div class="client-avatar"> ' +
+                '<div class="avatar"> ' +
                 '<div class="client-image"> ' +
-                    '</div> ' +
-                '<div class="client-vip"> ' +
-                    '</div> ' +
                 '</div> ' +
-            '</div> ' +
-        '<div class="sp-client-info-fr"> ' +
-            '<div class="client-name">' +
-                'Егоров Дмитрий Владимирович ' +
+                '<div class="client-new"> ' +
                 '</div> ' +
-            '<div class="client-register">' +
-                'Зарегистрирован: 10 августа 2016 ' +
                 '</div> ' +
-            '</div> ' +
-        '<div class="sp-client-info-dr"> ' +
-            '<div class="client-row">' +
-                'Заказов: 2 ' +
                 '</div> ' +
-            '<div class="client-row">' +
+                '<div class="sp-client-info-fr"> ' +
+                '<div class="client-name">' +
+                data.refus.lastname + ' ' + data.refus.name+ ' '+ data.refus.secondname+ ' '+
+                '</div> ' +
+                '<div class="client-register">' +
+                'Зарегистрирован: '+moment.unix(data.refus.register).format("D MMMM  YYYY, H:mm:ss ") +
+                '</div> ' +
+                '</div> ' +
+                '<div class="sp-client-info-dr"> ' +
+                '<div class="client-row">' +
                 'Статус клиента: Новый ' +
                 '</div> ' +
-            '<div class="client-row">' +
-                'gedeon@bk.ru ' +
+                '<div class="client-row">E-mail: ' +
+                data.refus.email +
                 '</div> ' +
-            '<div class="client-row"> ' +
-                '+79300056787 ' +
+                '<div class="client-row">Телефон ' +
+                data.refus.telephone +
                 '</div> ' +
-            '<div class="btn btn-default client-all-orders">' +
+                '<div class="btn btn-default client-all-orders">' +
                 'Все заказы клиента ' +
                 '</div> ' +
-            '</div> ' +
-        '</div> ' +
-    '</div> ');
-    }
-    function renderOrderEdit(data) {
-    $('[data-detail="'+data.id+'"]').addClass('client-active');
-    moment.locale('ru');
-    $('.datacontainer').html('<div style="margin:25px;"> ' +
-    '<div style="width: 100%;  display:inline-block;"> ' +
-        '<div> ' +
-            '<div class="order-line" data-order="'+data.id+'"> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ');
+            $('.preload').remove();
+        }
+
+        function renderOrderEdit(data) {
+            $('[data-detail="'+data.id+'"]').addClass('client-active');
+            moment.locale('ru');
+            $products_html = '';
+            $order_price = 0;
+            $.each(data.order.order.products, function(){
+                $product = requestProduct(this[0]).product;
+                $product_price = Math.round($product.products.products_price)*this[4];
+                $order_price = $order_price + Math.round($product.products.products_price)*this[4];
+                $selected_attr = parseInt(this[2]);
+                $selected_attr_name = this[6];
+                $attributes_html ='';
+                if(Object.prototype.toString.call($product.productsAttributesDescr) === '[object Array]'){
+                    if(isNaN($selected_attr)){
+                        $attributes_html = 'у этой модели нет размеров';
+                    }else{
+                        $attributes_html = 'В данный момент у этой модели нет размеров. Уточните данную позицию у клиента';
+                    }
+                }else{
+
+                    $.each($product.productsAttributesDescr, function(){
+                        if(parseInt(this.products_options_values_id) === $selected_attr){
+                            $attributes_html += '<option selected value="'+this.products_options_values_id+'">'+this.products_options_values_name+'</option>';
+                        }else{
+                            $attributes_html += '<option  value="'+this.products_options_values_id+'">'+this.products_options_values_name+'</option>';
+                        }
+                    });
+                    $attributes_html += '';
+                    if(!$attributes_html){
+                        $attributes_html   = 'Выбранный клиентом размер \" '+$selected_attr_name+'\" отсутствует.'
+                    }else{
+                        $attributes_html = '<select>'+$attributes_html+'</select>';
+                    }
+                }
+                $products_html +=
+                    '<div style="" class="product-card-edit"> ' +
+                '<div style="" class="product-main-board"> ' +
+                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+                '<img height="100%" src="/imagepreview?src='+$product.products.products_id+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                '</div> ' +
+                '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
+                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                '<div style="font-weight: 400;">Арт. '+$product.products.products_model+'</div> ' +
+                '<div>'+$product.productsDescription.products_name+'</div> ' +
+                '<div>Размер: '+$attributes_html+'</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;"> ' +
+                '<div> ' +
+                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                'Цена ' +
+                '</div> ' +
+                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">'+Math.round($product.products.products_price)+' р. ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;"> ' +
+                '<div> ' +
+                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                'Количество ' +
+                '</div> ' +
+                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;"> ' +
+                '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"> ' +
+                '<div style="">' +
+                    '<input id="input-count" style="width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;"' +
+                    ' data-prod="'+$product.products.products_id+'"' +
+                    ' data-count="'+$product.products.products_quantity+'" ' +
+                    ' data-attr="'+$product.products.products_id+'" ' +
+                    ' data-step="'+$product.products.products_quantity_order_units+'"  ' +
+                    ' data-min="'+$product.products.products_quantity_order_min+'" ' +
+                    ' placeholder="0"' +
+                    ' type="text" ' +
+                    ' value="'+this[4]+'"> ' +
+                '<div id="add-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;"> ' +
+                '+ ' +
+                '</div> ' +
+                '<div id="del-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;"> ' +
+                '- ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;"> ' +
+                '<div> ' +
+                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                'Сумма ' +
+                '</div> ' +
+                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">' +
+                Math.round($product.products.products_price)*this[4]+' р. ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="position: relative;"> ' +
+                '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" class="product-comment">' +
+                'Добавить комментарий к товару ' +
+                '</div> ' +
+                '<div style="cursor:pointer;color: #5b8acf;position: absolute;right: 0px;width: 70%;text-align: center;" class="product-delete">' +
+                'Удалить товар из заказа ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ';
+
+            });
+            $('[data-detail="'+data.id+'"]').addClass('client-active');
+            moment.locale('ru');
+            $('.datacontainer').html('<div style="margin:25px;"> ' +
+                '<div style="width: 100%;  display:inline-block;"> ' +
+                '<div> ' +
+                '<div class="order-line" data-order="'+data.id+'"> ' +
                 '<span class="order-retry">Назад</span> ' +
                 '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
                 '<span class="date-order">от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
                 '</div> ' +
-            '<div> ' +
+                '<div> ' +
                 '<div style="width: 100%;font-size: 18px;padding: 15px 0px;">' +
-                    'Комментарий к заказу ' +
-                    '</div> ' +
+                'Комментарий к заказу ' +
+                '</div> ' +
                 '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;"></textarea> ' +
                 '</div> ' +
-    '<div style="" class="product-card-edit"> ' +
-        '<div style="" class="product-main-board"> ' +
-            '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
-                '<img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                    $products_html+
+                '<div style=" font-weight: 400;  font-size: 16px;"> ' +
+                '<span class="orders-edit-search">' +
+                'Добавить позиции ' +
+                '</span> ' +
+                '<div class="search-models" > ' +
+                '<input class="search-models-value" style="margin: 0px 10px;outline:none;border: 1px solid #CCC; border-radius: 4px;width: 300px;padding: 0px 10px;" placeholder="Введите название или артикул" type="text"/> ' +
+                '<div class="search-models-button"></div>'+
                 '</div> ' +
-            '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
-                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
-                    '<div style="font-weight: 400;">Арт. 982742354</div> ' +
-                    '<div>Платье</div> ' +
-                    '<div>Размер: 23</div> ' +
-                    '</div> ' +
+                '<span> ' +
+                '<div style="background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
+                '</span> ' +
                 '</div> ' +
-            '<div style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
-                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;"> ' +
-                    '<div> ' +
-                        '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                            'Цена ' +
-                            '</div> ' +
-                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                            '</div> ' +
-                        '</div> ' +
-                    '</div> ' +
-                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;"> ' +
-                    '<div> ' +
-                        '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                            'Количество ' +
-                            '</div> ' +
-                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;"> ' +
-                            '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"> ' +
-                                '<div style=""><input id="input-count" style="width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;" data-prod="1691573" data-model="961000846"  data-price="210"    data-image="apix/products/bb100ce63b0f4fb0851bc4c01c843c9d.JPG"  data-count="10000" data-attrname=""   data-attr="" data-name="Шапка" data-step="1"  data-min="1" placeholder="0" type="text"> ' +
-                                    '<div id="add-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;"> ' +
-                                        '+ ' +
-                                        '</div> ' +
-                                    '<div id="del-count" style="margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;"> ' +
-                                        '- ' +
-                                        '</div> ' +
-                                    '</div> ' +
-                                '</div> ' +
-                            '</div> ' +
-                        '</div> ' +
-                    '</div> ' +
-                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;"> ' +
-                    '<div> ' +
-                        '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
-                            'Сумма ' +
-                            '</div> ' +
-                        '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р. ' +
-                            '</div> ' +
-                        '</div> ' +
-                    '</div> ' +
+                '<div style="font-weight: 400;font-size: 15px;text-align: right;padding: 10px 25px;color: #CCC;"> ' +
+                '<span style=" margin-right: 10px;"> Процент организатора</span> ' +
+                '<span> ' +
+                '<input placeholder="%">' +
+                '</span> ' +
                 '</div> ' +
-            '</div> ' +
-        '<div style="position: relative;"> ' +
-            '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" class="product-comment">' +
-                'Добавить комментарий к товару ' +
+                '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;"> ' +
+                '<span  id="gods-price"> Итого '+$order_price+' р.</span> ' +
+                '<span class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
                 '</div> ' +
-            '<div style="cursor:pointer;color: #5b8acf;position: absolute;right: 0px;width: 70%;text-align: center;" class="product-delete">' +
-                'Удалить товар из заказа ' +
                 '</div> ' +
-            '</div> ' +
-        '</div> ' +
-    '<div style=" font-weight: 400;  font-size: 16px;"> ' +
-        '<span class="orders-edit-search">' +
-                                'Добавить позиции ' +
-                                '</span> ' +
-        '<div class="search-models" > ' +
-                                '<input class="search-models-value" style="margin: 0px 10px;outline:none;border: 1px solid #CCC; border-radius: 4px;width: 300px;padding: 0px 10px;" placeholder="Введите название или артикул" type="text"/> ' +
-        '<div class="search-models-button"></div>'+
-        '</div> ' +
-        '<span> ' +
-                                '<div style="background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
-                                '</span> ' +
-        '</div> ' +
-    '<div style="font-weight: 400;font-size: 15px;text-align: right;padding: 10px 25px;color: #CCC;"> ' +
-        '<span style=" margin-right: 10px;"> Процент организатора</span> ' +
-        '<span> ' +
-                                '<input placeholder="%">' +
-                                '</span> ' +
-        '</div> ' +
-    '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;"> ' +
-        '<span> Итого 1500 р.</span> ' +
-        '<span class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
-        '</div> ' +
-    '</div> ' +
-    '</div> ' +
-    '</div>');
-    }
-</script>
+                '</div> ' +
+                '</div>');
+        }
+    </script>
+<?php
+?>
+<div style="display: none;" id="modal-common" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+Создать объединенный заказ 
+</div>
+<div class="modal-body">
+<div></div>
 
 <?php
-$modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="dialog" tabindex="-1">';
-    $modal .= '<div class="modal-dialog modal-lg">';
-        $modal .= '<div class="modal-content">';
-            $modal .= '<div class="modal-header">';
-                $modal .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-                $modal .= 'Отправить e-mail пользователю ' . $model->user->username;
-                $modal .= '</div>';
-            $modal .= '<div class="modal-body">';
-                $modal .= '<div></div><div style="margin-left: auto; margin-right: auto; padding: 14px; text-align: left;">';
-                    $modal .= '<form id="groupdiscountuser" action="/sp/admin/mail-to-user" method="post" role="form">';
-                        $form = \yii\bootstrap\ActiveForm::begin();
-                        $mailmodel = new \frontend\models\MailToUserForm();
-                        $modal .= $form->field($mailmodel, 'subject')->label('Тема письма')->input('text');
-                        $modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget('\vova07\imperavi\Widget', [
-                        'settings' => [
-                        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
-                        'lang' => 'ru',
-                        'minHeight' => 200,
-                        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
-                        $form = \yii\bootstrap\ActiveForm::end();
-                        $modal .= '</div><div class="form-group">';
-                    $modal .= \yii\helpers\Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'mailtouser']);
-                    $modal .= '</div>';
-                $modal .= '</form>';
+\yii\widgets\Pjax::begin([
+    'id' => 'pjax-common',
+    'enablePushState' => false]);
+$form = \yii\bootstrap\ActiveForm::begin([
+    'options' => ['data-pjax' => true],
+    'id'=>'groupdiscountuser',
+    'action'=>'/sp/admin/add-common',
+    'method'=> 'post',
+    'enableClientScript' => true
+]);
+$commonmodel = new \common\models\CommonOrders();
+echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
+echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
+echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
+$form = \yii\bootstrap\ActiveForm::end();
+\yii\widgets\Pjax::end();
+?>
 
-                $modal .= '</div></div></div></div></div></div>';
+
+    <script>
+        $("#pjax-common").on("pjax:end", function() {
+
+        })
+
+    </script>
+
+
+</div></div></div></div></div></div>
+<?php
+
+$modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="dialog" tabindex="-1">';
+$modal .= '<div class="modal-dialog modal-lg">';
+$modal .= '<div class="modal-content">';
+$modal .= '<div class="modal-header">';
+$modal .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+$modal .= 'Отправить e-mail пользователю ' . $model->user->username;
+$modal .= '</div>';
+$modal .= '<div class="modal-body">';
+$modal .= '<div></div><div style="margin-left: auto; margin-right: auto; padding: 14px; text-align: left;">';
+$modal .= '<form id="groupdiscountuser" action="/sp/admin/mail-to-user" method="post" role="form">';
+$form = \yii\bootstrap\ActiveForm::begin();
+$mailmodel = new \frontend\models\MailToUserForm();
+$modal .= $form->field($mailmodel, 'subject')->label('Тема письма')->input('text');
+$modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget('\vova07\imperavi\Widget', [
+    'settings' => [
+        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
+$form = \yii\bootstrap\ActiveForm::end();
+$modal .= '</div><div class="form-group">';
+$modal .= \yii\helpers\Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'mailtouser']);
+$modal .= '</div>';
+$modal .= '</form>';
+
+$modal .= '</div></div></div></div></div></div>';
 echo $modal;
