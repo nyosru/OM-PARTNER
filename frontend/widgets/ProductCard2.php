@@ -4,13 +4,14 @@ namespace frontend\widgets;
 use common\models\PartnersProductsToCategories;
 use common\traits\GetSuppliers;
 use common\traits\Categories_for_partner;
+use common\traits\Manufacturers\LuxSuppliers;
 use common\traits\RecursCat;
 use yii;
 use common\traits\CatPath;
 
 class ProductCard2 extends \yii\bootstrap\Widget
 {
-    use CatPath,Categories_for_partner,RecursCat, GetSuppliers;
+    use CatPath,Categories_for_partner,RecursCat, GetSuppliers, LuxSuppliers;
     public $category=0;
     public $description;
     public $product;
@@ -20,7 +21,6 @@ class ProductCard2 extends \yii\bootstrap\Widget
     public $man_time = [];
     public $showdiscount=0;
     public $writeitemprop = 1;
-    public $season;
     public $season = '';
     public $brand = '';
 
@@ -195,6 +195,13 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $man_in_sklad = '';
         }
+        if(in_array($product['manufacturers_id'], $this->LuxSuppliers())){
+            $man_lux = '<div style="position: absolute; top: -5px; right: 85px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." >
+            <a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)."><img style="position: relative;" src="/images/logo/ok.png"><img style="position: absolute; left: 2px; height: 24px; padding: 0px; top: 0px; margin: 14px auto; right: 24px; border-radius: 45px; border: 2px solid rgb(204, 204, 204);" src="/images/logo/lux.png"></a>
+            </a></div>';
+        }else{
+            $man_lux = '';
+        }
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" style="position:absolute; bottom:30px; left:25px;" aria-hidden="true"></i></a>';
         $chosen = '<i class="fa fa-star selected-product" style="position:absolute;cursor:pointer; bottom:30px; left:25px; font-size:20px;bottom:30px; left:50px;" data-product="'.$product['products_id'].'" aria-hidden="true"></i>';
         if(isset($product['season_code'])){
@@ -209,7 +216,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }
 
         $innerhtml .= '
-                        <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.$season_html.'
+                        <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.$man_lux.$season_html.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; margin-bottom:5px; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta '.$product_itemprop_image.' content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
@@ -218,7 +225,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
             $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; padding: 7px; line-height: 10px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px; border-radius: 4px;">-' . ($discount) . ' %</div>';
         }
-       
+
         $innerhtml.=        '</div>' .
             '<div style="" class="model">' . $man_time_list . $preview.$chosen. '</div>' .
             '<div  '.$product_itemprop_model.'class="model" style="display:none">' . $product['products_model'] . '</div>' .
