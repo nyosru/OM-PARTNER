@@ -1,8 +1,22 @@
 Yii Framework 2 apidoc extension Change Log
 ===========================================
 
-2.0.4 under development
------------------------
+2.0.5 March 17, 2016
+--------------------
+
+- Bug #25: Fixed encoding of HTML tags in method definition for params passed by reference (cebe)
+- Bug #37: Fixed error when extending Interfaces that are not in the current code base (cebe)
+- Bug #10470: Fixed TOC links for headlines which include links (cebe)
+- Enh #13: Allow templates to be specified by class name (tom--)
+- Enh #13: Added a JSON template to output the class structure as a JSON file (tom--)
+- Enh: Added callback `afterMarkdownProcess()` to HTML Guide renderer (cebe)
+- Enh: Added `getHeadings()` method to ApiMarkdown class (cebe)
+- Enh: Added css class to Info, Warning, Note and Tip blocks (cebe)
+- Chg #31: Hightlight.php library is now used for code highlighing, the builtin ApiMarkdown::hightligh() function is not used anymore (cebe)
+
+
+2.0.4 May 10, 2015
+------------------
 
 - Bug #3: Interface documentation did not show inheritance (cebe)
 - Enh: Added ability to set pageTitle from command line (unclead)

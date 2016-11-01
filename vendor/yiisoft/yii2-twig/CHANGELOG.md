@@ -1,8 +1,22 @@
 Yii Framework 2 twig extension Change Log
 =========================================
 
-2.0.4 under development
+2.0.6 October 5, 2016
+---------------------
+
+- Bug #61: Added missing view object existence check (Quexer69)
+
+
+2.0.5 September 4, 2016
 -----------------------
+
+- Enh #16: Extended simple functions and simple filters support (PatchRanger, quantum13)
+- Enh #30: Added `@app/views`, `@app/modules`, `@app/widgets` as `Twig_Loader_Filesystem` loader paths, same for theme `pathMap` paths (andrew-kamenchuk)
+- Enh #40: Added ability for `register_asset_bundle()` to return `AssetBundle` instance when second argument is `true` (gta4kv)
+
+
+2.0.4 May 10, 2015
+------------------
 
 - Enh #10: Added alternative syntax for registering asset bundles `{{ register_asset_bundle('yii/web/JqueryAsset') }}` (quantum13)
 - Enh #11: Added support for `Twig_SimpleFunction` and `Twig_SimpleFilter` when defining functions and filters (quantum13)
