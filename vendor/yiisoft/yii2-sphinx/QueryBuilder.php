@@ -20,6 +20,8 @@ use yii\db\Expression;
  * QueryBuilder can also be used to build SQL statements such as INSERT, REPLACE, UPDATE, DELETE,
  * from a [[Query]] object.
  *
+ * @property MatchBuilder $matchBuilder Match builder. This property is read-only.
+ *
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
@@ -63,6 +65,12 @@ class QueryBuilder extends Object
         'NOT' => 'buildNotCondition',
     ];
 
+    /**
+     * @var MatchBuilder match builder
+     * @since 2.0.6
+     */
+    private $_matchBuilder;
+
 
     /**
      * Constructor.
@@ -73,6 +81,18 @@ class QueryBuilder extends Object
     {
         $this->db = $connection;
         parent::__construct($config);
+    }
+
+    /**
+     * @return MatchBuilder match builder.
+     * @since 2.0.6
+     */
+    public function getMatchBuilder()
+    {
+        if ($this->_matchBuilder === null) {
+            $this->_matchBuilder = new MatchBuilder($this->db);
+        }
+        return $this->_matchBuilder;
     }
 
     /**
@@ -106,7 +126,7 @@ class QueryBuilder extends Object
             $this->buildSelect($query->select, $params, $query->distinct, $query->selectOption),
             $this->buildFrom($from, $params),
             $this->buildWhere($from, $query->where, $params, $query->match),
-            $this->buildGroupBy($query->groupBy),
+            $this->buildGroupBy($query->groupBy, $query->groupLimit),
             $this->buildWithin($query->within),
             $this->buildHaving($query->from, $query->having, $params),
             $this->buildOrderBy($query->orderBy),
@@ -129,13 +149,13 @@ class QueryBuilder extends Object
      * Creates an INSERT SQL statement.
      * For example,
      *
-     * ~~~
+     * ```php
      * $sql = $queryBuilder->insert('idx_user', [
      *     'name' => 'Sam',
      *     'age' => 30,
      *     'id' => 10,
      * ], $params);
-     * ~~~
+     * ```
      *
      * The method will properly escape the index and column names.
      *
@@ -154,13 +174,13 @@ class QueryBuilder extends Object
      * Creates an REPLACE SQL statement.
      * For example,
      *
-     * ~~~
+     * ```php
      * $sql = $queryBuilder->replace('idx_user', [
      *     'name' => 'Sam',
      *     'age' => 30,
      *     'id' => 10,
      * ], $params);
-     * ~~~
+     * ```
      *
      * The method will properly escape the index and column names.
      *
@@ -210,13 +230,13 @@ class QueryBuilder extends Object
      * Generates a batch INSERT SQL statement.
      * For example,
      *
-     * ~~~
+     * ```php
      * $sql = $queryBuilder->batchInsert('idx_user', ['id', 'name', 'age'], [
      *     [1, 'Tom', 30],
      *     [2, 'Jane', 20],
      *     [3, 'Linda', 25],
      * ], $params);
-     * ~~~
+     * ```
      *
      * Note that the values in each row must match the corresponding column names.
      *
@@ -236,13 +256,13 @@ class QueryBuilder extends Object
      * Generates a batch REPLACE SQL statement.
      * For example,
      *
-     * ~~~
+     * ```php
      * $sql = $queryBuilder->batchReplace('idx_user', ['id', 'name', 'age'], [
      *     [1, 'Tom', 30],
      *     [2, 'Jane', 20],
      *     [3, 'Linda', 25],
      * ], $params);
-     * ~~~
+     * ```
      *
      * Note that the values in each row must match the corresponding column names.
      *
@@ -302,10 +322,10 @@ class QueryBuilder extends Object
      * Creates an UPDATE SQL statement.
      * For example,
      *
-     * ~~~
+     * ```php
      * $params = [];
      * $sql = $queryBuilder->update('idx_user', ['status' => 1], 'age > 30', $params);
-     * ~~~
+     * ```
      *
      * The method will properly escape the index and column names.
      *
@@ -348,9 +368,9 @@ class QueryBuilder extends Object
      * Creates a DELETE SQL statement.
      * For example,
      *
-     * ~~~
+     * ```php
      * $sql = $queryBuilder->delete('idx_user', 'status = 0');
-     * ~~~
+     * ```
      *
      * The method will properly escape the index and column names.
      *
@@ -407,8 +427,9 @@ class QueryBuilder extends Object
         }
         $indexParamName = self::PARAM_PREFIX . count($params);
         $params[$indexParamName] = $index;
-        $matchParamName = self::PARAM_PREFIX . count($params);
-        $params[$matchParamName] = $match;
+
+        $matchSql = $this->buildMatch($match, $params);
+
         if (!empty($options)) {
             $optionParts = [];
             foreach ($options as $name => $value) {
@@ -425,7 +446,7 @@ class QueryBuilder extends Object
             $optionSql = '';
         }
 
-        return 'CALL SNIPPETS(' . $dataSql. ', ' . $indexParamName . ', ' . $matchParamName . $optionSql. ')';
+        return 'CALL SNIPPETS(' . $dataSql. ', ' . $indexParamName . ', ' . $matchSql . $optionSql. ')';
     }
 
     /**
@@ -531,6 +552,29 @@ class QueryBuilder extends Object
     }
 
     /**
+     * @param string|Expression|MatchExpression $match match condition
+     * @param array $params the binding parameters to be populated
+     * @return string generated MATCH expression
+     */
+    public function buildMatch($match, &$params)
+    {
+        if ($match instanceof Expression) {
+            $params = array_merge($params, $match->params);
+            return $match->expression;
+        }
+
+        if ($match instanceof MatchExpression) {
+            $phName = self::PARAM_PREFIX . count($params);
+            $params[$phName] = $this->getMatchBuilder()->build($match);
+            return $phName;
+        }
+
+        $phName = self::PARAM_PREFIX . count($params);
+        $params[$phName] = $this->db->escapeMatchValue($match);
+        return $phName;
+    }
+
+    /**
      * @param string[] $indexes list of index names, which affected by query
      * @param string|array $condition
      * @param array $params the binding parameters to be populated
@@ -540,15 +584,7 @@ class QueryBuilder extends Object
     public function buildWhere($indexes, $condition, &$params, $match = null)
     {
         if ($match !== null) {
-            if ($match instanceof Expression) {
-                $matchWhere = 'MATCH(' . $match->expression . ')';
-                $params = array_merge($params, $match->params);
-            } else {
-                $phName = self::PARAM_PREFIX . count($params);
-                $params[$phName] = $this->db->escapeMatchValue($match);
-                $matchWhere = 'MATCH(' . $phName . ')';
-            }
-
+            $matchWhere = 'MATCH(' . $this->buildMatch($match, $params) . ')';
             if ($condition === null) {
                 $condition = $matchWhere;
             } else {
@@ -566,12 +602,23 @@ class QueryBuilder extends Object
     }
 
     /**
-     * @param array $columns
+     * @param array $columns group columns
+     * @param integer $limit group limit
      * @return string the GROUP BY clause
      */
-    public function buildGroupBy($columns)
+    public function buildGroupBy($columns, $limit)
     {
-        return empty($columns) ? '' : 'GROUP BY ' . $this->buildColumns($columns);
+        if (empty($columns)) {
+            return '';
+        }
+
+        if (is_string($limit) && ctype_digit($limit) || is_integer($limit) && $limit >= 0) {
+            $limitSql = ' ' . $limit;
+        } else {
+            $limitSql = '';
+        }
+
+        return 'GROUP' . $limitSql . ' BY ' . $this->buildColumns($columns);
     }
 
     /**
@@ -696,6 +743,7 @@ class QueryBuilder extends Object
         } elseif (empty($condition)) {
             return '';
         }
+
         if (isset($condition[0])) {
             // operator format: operator, operand 1, operand 2, ...
             $operator = strtoupper($condition[0]);
@@ -706,10 +754,10 @@ class QueryBuilder extends Object
             }
             array_shift($condition);
             return $this->$method($indexes, $operator, $condition, $params);
-        } else {
-            // hash format: 'column1' => 'value1', 'column2' => 'value2', ...
-            return $this->buildHashCondition($indexes, $condition, $params);
         }
+
+        // hash format: 'column1' => 'value1', 'column2' => 'value2', ...
+        return $this->buildHashCondition($indexes, $condition, $params);
     }
 
     /**

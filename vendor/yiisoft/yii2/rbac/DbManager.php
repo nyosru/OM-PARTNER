@@ -46,19 +46,19 @@ class DbManager extends BaseManager
     /**
      * @var string the name of the table storing authorization items. Defaults to "auth_item".
      */
-    public $itemTable = '{{%partners_auth_item}}';
+    public $itemTable = '{{%auth_item}}';
     /**
      * @var string the name of the table storing authorization item hierarchy. Defaults to "auth_item_child".
      */
-    public $itemChildTable = '{{%partners_auth_item_child}}';
+    public $itemChildTable = '{{%auth_item_child}}';
     /**
      * @var string the name of the table storing authorization item assignments. Defaults to "auth_assignment".
      */
-    public $assignmentTable = '{{%partners_auth_assignment}}';
+    public $assignmentTable = '{{%auth_assignment}}';
     /**
      * @var string the name of the table storing rules. Defaults to "auth_rule".
      */
-    public $ruleTable = '{{%partners_auth_rule}}';
+    public $ruleTable = '{{%auth_rule}}';
     /**
      * @var Cache|array|string the cache used to improve RBAC performance. This can be one of the following:
      *
@@ -467,6 +467,29 @@ class DbManager extends BaseManager
         foreach ($query->all($this->db) as $row) {
             $roles[$row['name']] = $this->populateItem($row);
         }
+        return $roles;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getChildRoles($roleName)
+    {
+        $role = $this->getRole($roleName);
+
+        if (is_null($role)) {
+            throw new InvalidParamException("Role \"$roleName\" not found.");
+        }
+
+        /** @var $result Item[] */
+        $this->getChildrenRecursive($roleName, $this->getChildrenList(), $result);
+
+        $roles = [$roleName => $role];
+
+        $roles += array_filter($this->getRoles(), function (Role $roleItem) use ($result) {
+            return array_key_exists($roleItem->name, $result);
+        });
+
         return $roles;
     }
 

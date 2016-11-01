@@ -9,6 +9,7 @@ namespace yii\sphinx;
 
 use Yii;
 use yii\base\NotSupportedException;
+use yii\db\Exception;
 
 /**
  * Command represents a SQL statement to be executed against a Sphinx.
@@ -21,21 +22,21 @@ use yii\base\NotSupportedException;
  * use [[queryAll()]], [[queryOne()]], [[queryColumn()]], [[queryScalar()]], or [[query()]].
  * For example,
  *
- * ~~~
+ * ```php
  * $articles = $connection->createCommand("SELECT * FROM `idx_article` WHERE MATCH('programming')")->queryAll();
- * ~~~
+ * ```
  *
  * Command supports SQL statement preparation and parameter binding just as [[\yii\db\Command]] does.
  *
  * Command also supports building SQL statements by providing methods such as [[insert()]],
  * [[update()]], etc. For example,
  *
- * ~~~
+ * ```php
  * $connection->createCommand()->update('idx_article', [
  *     'genre_id' => 15,
  *     'author_id' => 157,
  * ])->execute();
- * ~~~
+ * ```
  *
  * To build SELECT SQL statements, please use [[Query]] and [[QueryBuilder]] instead.
  *
@@ -54,13 +55,13 @@ class Command extends \yii\db\Command
      * Creates a batch INSERT command.
      * For example,
      *
-     * ~~~
+     * ```php
      * $connection->createCommand()->batchInsert('idx_user', ['name', 'age'], [
      *     ['Tom', 30],
      *     ['Jane', 20],
      *     ['Linda', 25],
      * ])->execute();
-     * ~~~
+     * ```
      *
      * Note that the values in each row must match the corresponding column names.
      *
@@ -81,12 +82,12 @@ class Command extends \yii\db\Command
      * Creates an REPLACE command.
      * For example,
      *
-     * ~~~
+     * ```php
      * $connection->createCommand()->replace('idx_user', [
      *     'name' => 'Sam',
      *     'age' => 30,
      * ])->execute();
-     * ~~~
+     * ```
      *
      * The method will properly escape the column names, and bind the values to be replaced.
      *
@@ -108,13 +109,13 @@ class Command extends \yii\db\Command
      * Creates a batch REPLACE command.
      * For example,
      *
-     * ~~~
+     * ```php
      * $connection->createCommand()->batchReplace('idx_user', ['name', 'age'], [
      *     ['Tom', 30],
      *     ['Jane', 20],
      *     ['Linda', 25],
      * ])->execute();
-     * ~~~
+     * ```
      *
      * Note that the values in each row must match the corresponding column names.
      *
@@ -135,9 +136,9 @@ class Command extends \yii\db\Command
      * Creates an UPDATE command.
      * For example,
      *
-     * ~~~
+     * ```php
      * $connection->createCommand()->update('user', ['status' => 1], 'age > 30')->execute();
-     * ~~~
+     * ```
      *
      * The method will properly escape the column names and bind the values to be updated.
      *
@@ -200,6 +201,102 @@ class Command extends \yii\db\Command
         $sql = $this->db->getQueryBuilder()->callKeywords($index, $text, $fetchStatistic, $params);
 
         return $this->setSql($sql)->bindValues($params);
+    }
+
+    // Float handling :
+
+    /**
+     * @var array list of 'float' type params, which should be inserted into SQL directly instead of binding.
+     * @see Connection::enableFloatConversion
+     * @since 2.0.6
+     */
+    private $floatParams = [];
+
+    /**
+     * @inheritdoc
+     */
+    public function bindValue($name, $value, $dataType = null)
+    {
+        if ($this->db->enableFloatConversion && $dataType === null && is_float($value)) {
+            $this->floatParams[$name] = $value;
+            return $this;
+        }
+        return parent::bindValue($name, $value, $dataType);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function bindValues($values)
+    {
+        if ($this->db->enableFloatConversion) {
+            if (empty($values)) {
+                return $this;
+            }
+
+            foreach ($values as $name => $value) {
+                if (is_float($value)) {
+                    $this->floatParams[$name] = $value;
+                    unset($values[$name]);
+                }
+            }
+        }
+
+        return parent::bindValues($values);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function prepare($forRead = null)
+    {
+        if ($this->pdoStatement && empty($this->floatParams)) {
+            $this->bindPendingParams();
+            return;
+        }
+
+        $sql = $this->getSql();
+
+        if ($this->db->getTransaction()) {
+            // master is in a transaction. use the same connection.
+            $forRead = false;
+        }
+        if ($forRead || $forRead === null && $this->db->getSchema()->isReadQuery($sql)) {
+            $pdo = $this->db->getSlavePdo();
+        } else {
+            $pdo = $this->db->getMasterPdo();
+        }
+
+        if (!empty($this->floatParams)) {
+            $sql = $this->parseFloatParams($sql);
+        }
+
+        try {
+            $this->pdoStatement = $pdo->prepare($sql);
+            $this->bindPendingParams();
+        } catch (\Exception $e) {
+            $message = $e->getMessage() . "\nFailed to prepare SphinxQL: $sql";
+            $errorInfo = $e instanceof \PDOException ? $e->errorInfo : null;
+            throw new Exception($message, $errorInfo, (int) $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * Parses given SQL replacing bound [[floatParams]] with their values.
+     * @param string $sql source SQL.
+     * @return string adjusted SQL.
+     */
+    private function parseFloatParams($sql)
+    {
+        foreach ($this->floatParams as $name => $value) {
+            if (strncmp($name, ':', 1) !== 0) {
+                $name = ':' . $name;
+            }
+            // unable to use `str_replace()` because particular param name may be a substring of another param name
+            $sql = preg_replace('/' . preg_quote($name) . '\b/s', $value, $sql);
+        };
+
+        return $sql;
     }
 
     // Not Supported :

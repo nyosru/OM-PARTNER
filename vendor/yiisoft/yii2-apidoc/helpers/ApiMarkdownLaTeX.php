@@ -49,6 +49,33 @@ class ApiMarkdownLaTeX extends GithubMarkdown
     }
 
     /**
+     * @inheritdoc
+     * @since 2.0.5
+     */
+    protected function translateBlockType($type)
+    {
+        $key = ucfirst($type) . ':';
+        if (isset(ApiMarkdown::$blockTranslations[$key])) {
+            $translation = ApiMarkdown::$blockTranslations[$key];
+        } else {
+            $translation = $key;
+        }
+        return "$translation ";
+    }
+
+    /**
+     * Renders a blockquote
+     */
+    protected function renderQuote($block)
+    {
+        if (isset($block['blocktype'])) {
+            // TODO render nice icon for different block types: note, info, warning, tip
+            //$class = ' class="' . $block['blocktype'] . '"';
+        }
+        return '\begin{quote}' . $this->renderAbsy($block['content']) . "\\end{quote}\n";
+    }
+
+    /**
      * Converts markdown into HTML
      *
      * @param string $content

@@ -37,7 +37,7 @@ class ApiController extends BaseController
      * Renders API documentation files
      * @param array $sourceDirs
      * @param string $targetDir
-     * @return int
+     * @return integer
      */
     public function actionIndex(array $sourceDirs, $targetDir)
     {
@@ -151,6 +151,11 @@ class ApiController extends BaseController
      */
     protected function findRenderer($template)
     {
+        // find renderer by class name
+        if (class_exists($template)) {
+            return new $template();
+        }
+
         $rendererClass = 'yii\\apidoc\\templates\\' . $template . '\\ApiRenderer';
         if (!class_exists($rendererClass)) {
             $this->stderr('Renderer not found.' . PHP_EOL);
