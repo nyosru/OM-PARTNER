@@ -81,7 +81,7 @@ Trait Imagepreviewcrop
                     $new_width, $new_height,
                     $width, $height);
                 //  header('Content-Type: image/jpg');
-                imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 70);
+                imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 90);
                 return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             } else {
                 $headers = Yii::$app->response->headers;

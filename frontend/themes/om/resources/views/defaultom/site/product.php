@@ -118,7 +118,7 @@ if(!$product['products']['products_image']){
                             $i=0;
                             $items = [];
                             foreach($imsrc as $key => $img){
-                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
+                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto;  " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
                                 $i++;
                             }
                             echo Carousel::widget([
@@ -157,9 +157,16 @@ if(!$product['products']['products_image']){
                         <?php
                         if(!$product['products']['products_ordered']){
                             $product['products']['products_ordered'] = 1;
+
+                        }
+                        if((int)$product['products']['products_ordered'] >= 10000){
+                            $product['products']['products_ordered'] = "Хит продаж!";
+                        }else{
+                            $product['products']['products_ordered'] =  $product['products']['products_ordered']." шт";
                         }?>
+
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
-                        <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Заказано: <?=$product['products']['products_ordered']?> шт.</div>
+                        <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Заказано: <?=$product['products']['products_ordered']?></div>
                         <div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: <?=$product['products']['products_model']?></div>
                         <!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
                         <div style="clear: both;"></div>
@@ -255,6 +262,8 @@ if(!$product['products']['products_image']){
 
     </div>
     <script>
+        $("[rel=light]").light();
+
         $(window).load(function () {
             $('.sliderRelated').owlCarousel({
                 loop:true,
@@ -282,7 +291,8 @@ if(!$product['products']['products_image']){
                         items:6
                     },
                 }
-            })
+            });
+
             $(".social").on('click', function () {
                 
                 ga("send", "event", $(this).attr("class").split(' ')[0], $(this).attr("class").split(' ')[1]);
