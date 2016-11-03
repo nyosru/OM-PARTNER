@@ -1,11 +1,13 @@
 <?php
 namespace common\traits\Manufacturers;
 
+use common\models\ManufacturerOption;
+
 trait LuxSuppliers
 {
     public function LuxSuppliers()
     {
-        $suppliers = [749, 1241, 2058, 2461, 2700, 3412, 3473, 3481, 555, 3512, 3515, 3508, 3523, 1988];
+        $suppliers = ManufacturerOption::find()->select('manufacturer_id')->where(['option_name'=>'IS_LUX'])->joinWith('manufacturerOptionValues')->createCommand()->queryAll(7);
         return $suppliers;
     }
 }
