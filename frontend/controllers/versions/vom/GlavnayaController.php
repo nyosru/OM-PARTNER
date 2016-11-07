@@ -11,6 +11,7 @@ use common\traits\GetSuppliers;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
+use common\traits\Manufacturers\LuxSuppliers;
 use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
 use common\traits\Orders\OrdersToOm;
@@ -119,6 +120,7 @@ class GlavnayaController extends Controller
         OpenSearch,
         CatPath,
         GetSuppliers,
+        LuxSuppliers,
         OrdersStatusData,
         ManufacturersDiapazonData,
         ActionSiteIndex,

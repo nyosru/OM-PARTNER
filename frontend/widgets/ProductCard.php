@@ -81,7 +81,7 @@ class ProductCard extends \yii\bootstrap\Widget
                 }else{
                     $disable_for_stepping = 'readonly';
                 }
-                if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
+                if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0 && $attr[$attr_desc_value['products_options_values_id']]['options_values_price'] == 0){
                     $classpos = 'active-options';
                     $add_class = 'add-count';
                     $stylepos = '';
