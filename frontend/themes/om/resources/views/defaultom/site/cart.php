@@ -55,18 +55,26 @@ $(window).on('load', function () {
 
             mandata = $.ajax({
                 method:'post',
-                url: "/site/manlist",
+                url: "/site/pre-check-product-to-orders",
                 async: false,
-                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+                data: {
+                    product: requestdata.responseJSON.product.products_id,
+                    category :requestdata.responseJSON.categories_id,
+                    attr :this[2],
+                    count : this[4],
+                    address: false,
+                    region: false,
+                    
+                }
             });
             if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
-                $access = 'В данный момент товар отсутствует' ;
+                $access = mandata.responseJSON.message ;
                 $identypay = false;
-            }else if(JSON.parse(mandata.responseText).answer == false){
-                $access = 'К сожалению, товар в данный момент недоступен для оформления. Он останется в вашей корзине. Время оформления для данного товара вы можете посмотреть <a data-ajax=time data-href="'+requestdata.responseJSON.product.products.manufacturers_id+'">тут</a>';
+            }else if(mandata.responseJSON.result == false){
+                $access = mandata.responseJSON.message;
                 $identypay = false;
                 }else{
-                $access = 'Данный товар доступен для заказа';
+                $access = mandata.responseJSON.message;
                 $identypay = true;
             }
             if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
