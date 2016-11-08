@@ -84,8 +84,8 @@ echo \frontend\widgets\MainBanner::widget();
                         ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
                     </script>
                     ';
-                    echo $analitics;
-                    ?>
+                        echo $analitics;
+                        ?>
                         <?php
                         echo  \frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$val['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
                         ?>
@@ -221,7 +221,10 @@ echo \frontend\widgets\MainBanner::widget();
                     alert('Изменения сохранены');
                 });
             </script>
-            <script>
+        <?php } ?>
+        <script>
+            $(window).on('load',function () {
+
                 $('.featured').owlCarousel({
                     loop:true,
                     margin:2,
@@ -248,8 +251,6 @@ echo \frontend\widgets\MainBanner::widget();
                         },
                     }
                 })
-            </script>
-            <script>
                 $('.sliderNew').owlCarousel({
                     loop:true,
                     margin:2,
@@ -258,7 +259,6 @@ echo \frontend\widgets\MainBanner::widget();
                     autoplay:true,
                     dots:false,
                     navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
-                    dots:false,
                     responsive:{
                         0:{
                             items:4
@@ -276,8 +276,8 @@ echo \frontend\widgets\MainBanner::widget();
                             items:6
                         },
                     }
-                })
-            </script>
-        <?php } ?>
+                })  });
+        </script>
     </div>
+
 </div>

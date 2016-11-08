@@ -241,7 +241,7 @@ if(!$product['products']['products_image']){
                          <script>
                             ga( "ec:addImpression", {
                                 "id": "'.$val['products']['products_id'].'",
-                                "name": "'.$val['productsDescription']['products_name'].'",
+                                "name": "'.htmlentities($val['productsDescription']['products_name']).'",
                                 "category": "none",
                                 "list": "main-new",
                                 "brand": "'.$val['products']['manufacturers_id'].'",
@@ -262,16 +262,14 @@ if(!$product['products']['products_image']){
 
     </div>
     <script>
-        $("[rel=light]").light();
-
-        $(window).load(function () {
-            $('.sliderRelated').owlCarousel({
+        $(window).on('load',function () {
+            $("[rel=light]").light();
+            $('.sliderNew').owlCarousel({
                 loop:true,
                 margin:2,
                 nav:true,
                 items: 6,
                 autoplay:true,
-                dots:false,
                 navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
                 dots:false,
                 responsive:{
@@ -289,7 +287,7 @@ if(!$product['products']['products_image']){
                     },
                     1900:{
                         items:6
-                    },
+                    }
                 }
             });
 
