@@ -275,7 +275,7 @@ trait AggregateCatalogData
             }
             switch ($sort) {
                 case 0:
-                    $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
+                    $order = ['products.sort_order'=> SORT_DESC,  'products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
                     break;
                 case 1:
                     $order = ['products.products_price' => SORT_ASC, 'products.products_id' => SORT_DESC];
