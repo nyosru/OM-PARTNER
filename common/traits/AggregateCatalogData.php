@@ -203,7 +203,7 @@ trait AggregateCatalogData
             if ($lux == TRUE &&  $luxsuppliers = $this->LuxSuppliers()) {
                 $manufacturers_query_filt = ' and products.manufacturers_id IN(' . implode(',', $luxsuppliers) . ')';
             }
-            if ($ok == TRUE && $lux == TRUE ) {
+            if ($ok == TRUE && $lux == TRUE && array_intersect($luxsuppliers, $suppliers)) {
                 $manufacturers_query_filt = ' and products.manufacturers_id IN(' . implode(',',array_intersect($luxsuppliers, $suppliers)) . ')';
             }
         }else{
