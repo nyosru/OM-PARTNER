@@ -62,8 +62,6 @@ $(window).on('load', function () {
                     category :requestdata.responseJSON.categories_id,
                     attr :this[2],
                     count : this[4],
-                    address: false,
-                    region: false,
                     
                 }
             });
