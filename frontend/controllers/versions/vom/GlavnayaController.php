@@ -203,7 +203,6 @@ class GlavnayaController extends Controller
         OrdersToReferrer,
         ActionRegisterSuccess,
         ActionPreCheckProductToOrders,
-        PreCheckProductsToOrder,
         AggregateCatalogData;
 
 
