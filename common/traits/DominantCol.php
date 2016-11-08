@@ -9,9 +9,9 @@ trait DominantCol
     function dominant_color($img)
     {
 
-        $prev = new Imagepreviewfile();
+      //  $prev = new Imagepreviewfile();
 //   $img = Yii::$app->request->getQueryParam('src');
-        $img = $prev->viewpreviewfile('http://odezhda-master.ru/images/', $img, '@webroot/images/');
+     //   $img = $prev->viewpreviewfile('http://odezhda-master.ru/images/', $img, '@webroot/images/');
         if (trim($img) != '') {
             $result_array = array();
             $result_white = array();
