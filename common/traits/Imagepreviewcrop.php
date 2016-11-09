@@ -13,22 +13,24 @@ Trait Imagepreviewcrop
 
         $id = (integer)$src;
         if ($id > 0) {
-
-            $namefile = $id.'-'.(integer)$sub;
+            $namefile = $id;
             $subdir = '';
-
+            if($sub !== FALSE){
+                $namefile .= '-'.$sub;
+                $check = 1;
+            }
             for ($i = 0; $i < 3; $i++) {
                 $subdir .= '/' . substr($namefile, $i * 2, 2);
             }
             $dir = 'newpreview';
             $time_sec=time();
             if ((!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg')
-                    && ($time_sec - filemtime(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg')) > 86400 )
+                && ($time_sec - filemtime(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg')) > 86400 )
                 || $action == 'refresh') {
                 $keyprod = Yii::$app->cache->buildKey('productn-' . $id);
-                if (($dataprod = Yii::$app->cache->get($keyprod)) == TRUE && $sub === FALSE) {
+                if (($dataprod = Yii::$app->cache->get($keyprod)) == TRUE && $check != 1) {
                     $src = $dataprod['data']['products']['products_image'];
-                } else if($sub !== FALSE) {
+                } else if($check == 1) {
                     $prodimages = ProductImage::find()->select(['image_file'])
                         ->where(['product_id' => $id])->offset($sub)
                         ->createCommand()->queryOne(7);
@@ -81,7 +83,7 @@ Trait Imagepreviewcrop
                     $new_width, $new_height,
                     $width, $height);
                 //  header('Content-Type: image/jpg');
-                imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 70);
+                imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 90);
                 return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             } else {
                 $headers = Yii::$app->response->headers;

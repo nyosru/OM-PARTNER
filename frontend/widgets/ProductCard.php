@@ -7,11 +7,12 @@ use common\traits\Categories_for_partner;
 use common\traits\CatPath;
 use common\traits\Products\ProductsTableSizes;
 use common\traits\RecursCat;
+use common\traits\Manufacturers\LuxSuppliers;
 use Yii;
 
 class ProductCard extends \yii\bootstrap\Widget
 {
-    use CatPath,Categories_for_partner,RecursCat, GetSuppliers;
+    use CatPath,Categories_for_partner,RecursCat, GetSuppliers, LuxSuppliers;
     public $description;
     public $category = 0;
     public $product;
@@ -80,7 +81,7 @@ class ProductCard extends \yii\bootstrap\Widget
                 }else{
                     $disable_for_stepping = 'readonly';
                 }
-                if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0){
+                if($attr[$attr_desc_value['products_options_values_id']]['quantity'] > 0 && $attr[$attr_desc_value['products_options_values_id']]['options_values_price'] == 0){
                     $classpos = 'active-options';
                     $add_class = 'add-count';
                     $stylepos = '';
@@ -179,12 +180,19 @@ class ProductCard extends \yii\bootstrap\Widget
         }else{
             $man_time_list = '';
         }
+
         if(in_array($product['manufacturers_id'], $this->oksuppliers())){
             $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." ><img src="'.BASEURL.'/images/logo/ok.png"></a></div>';
         }else{
             $man_in_sklad = '';
         }
-       
+        if(in_array($product['manufacturers_id'], $this->LuxSuppliers())){
+            $man_lux = '<div style="position: absolute;top: 0px;right: 90px;height: 30px;width: 30px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." >
+            <a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)."><img style="position: relative;" src="/images/logo/ok.png"><img style="position: absolute; left: 2px; height: 24px; padding: 0px; top: 0px; margin: 14px auto; right: 24px; border-radius: 45px; border: 2px solid rgb(204, 204, 204);" src="/images/logo/lux.png"></a>
+            </a></div>';
+        }else{
+            $man_lux = '';
+        }
 
         $preview = '<a style="display: block;cursor:zoom-in;float: left;padding-right: 10px;"  rel="light" data-gallery="1" href="http://odezhda-master.ru/images/'.$product['products_image'].'"><i class="fa fa-search-plus" aria-hidden="true"></i></a>';
         $chosen = '<a style="display: block;cursor:pointer;float: left;padding-right: 10px;" class="selected-product" data-product="'.$product['products_id'].'" ><i class="fa fa-star" aria-hidden="true"></i></a>';
@@ -195,15 +203,15 @@ class ProductCard extends \yii\bootstrap\Widget
 
         if($this->season){
             $season_html = SeasonPicture::widget([
-                    'season'=>$this->season
-                ]);
+                'season'=>$this->season
+            ]);
         }else{
             $season_html = '';
         }
         $xfactor = new ProductsTableSizes();
 
         $x = $xfactor->go($description['products_name'],   $this->category , $this->brand);
-        $innerhtml .= ' <div '.$product_itemscope.'  itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.$season_html.'
+        $innerhtml .= ' <div '.$product_itemscope.'  itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.$man_lux.$season_html.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
             '<meta '.$product_itemprop_image.'  content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';
@@ -223,10 +231,10 @@ class ProductCard extends \yii\bootstrap\Widget
             '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .
-           $x.
+            $x.
             '<a '.$product_itemprop_url.'  href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
             '</div>';
         echo $innerhtml;
     }
-   
+
 }

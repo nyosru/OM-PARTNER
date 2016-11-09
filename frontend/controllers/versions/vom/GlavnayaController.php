@@ -11,6 +11,7 @@ use common\traits\GetSuppliers;
 use common\traits\Hide_manufacturers_for_partners;
 use common\traits\Imagepreviewcrop;
 use common\traits\Load_cat;
+use common\traits\Manufacturers\LuxSuppliers;
 use common\traits\ManufacturersDiapazonData;
 use common\traits\OpenSearch;
 use common\traits\Orders\OrdersToOm;
@@ -18,6 +19,7 @@ use common\traits\Orders\OrdersToReferrer;
 use common\traits\OrdersStatusData;
 use common\traits\Products\FeaturedProducts;
 use common\traits\Products\NewProducts;
+use common\traits\Products\PreCheckProductsToOrder;
 use common\traits\Products\RelatedProducts;
 use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
@@ -79,6 +81,7 @@ use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\om\ActionOrdersStatus;
 use frontend\controllers\actions\om\ActionPage;
 use frontend\controllers\actions\om\ActionPayView;
+use frontend\controllers\actions\om\ActionPreCheckProductToOrders;
 use frontend\controllers\actions\om\ActionProduct;
 use frontend\controllers\actions\om\ActionProductinfo;
 use frontend\controllers\actions\om\ActionProductsCloth;
@@ -119,6 +122,7 @@ class GlavnayaController extends Controller
         OpenSearch,
         CatPath,
         GetSuppliers,
+        LuxSuppliers,
         OrdersStatusData,
         ManufacturersDiapazonData,
         ActionSiteIndex,
@@ -198,6 +202,7 @@ class GlavnayaController extends Controller
         OrdersToOm,
         OrdersToReferrer,
         ActionRegisterSuccess,
+        ActionPreCheckProductToOrders,
         AggregateCatalogData;
 
 

@@ -22,6 +22,7 @@ class Menuom extends \yii\bootstrap\Widget
     private $startcat;
     private $opencat;
     private $rend;
+    public $chpu = FALSE;
     public $output2 = '';
 
     public function init()
@@ -83,8 +84,8 @@ class Menuom extends \yii\bootstrap\Widget
                         $exthtml = '+ ';
                     }
 
-                    if(!$this->categoryChpu($catdesc)){
-                        $uri = '?cat=' . $catdesc . '&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=';
+                    if(!$this->categoryChpu($catdesc) || $this->chpu == FALSE){
+                        $uri = '?cat=' . $catdesc ;
                     }else{
                        $uri = '/'.$this->categoryChpu($catdesc);
                     }

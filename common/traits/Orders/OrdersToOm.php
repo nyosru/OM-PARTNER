@@ -83,11 +83,9 @@ trait OrdersToOm
                     'data' => [
                         'paramorder' => [
                         ],
-
                     ]
                 ]
             ]);
-
         }
         $quant = [];
         foreach ($product_in_order as $prodkey => $prodvalue) {
@@ -102,7 +100,6 @@ trait OrdersToOm
         } else {
             return $this->redirect(Yii::$app->request->referrer);
         }
-        $man = $this->manufacturers_diapazon_id();
         $validprice = 0;
         if ($wrap == 'boxes') {
             $proddata[$wrapp['products_id']] = $wrapp;
@@ -110,22 +107,14 @@ trait OrdersToOm
         foreach ($proddata as $keyrequest => $valuerequest) {
             $thisweeekday = date('N') - 1;
             $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
-            if (array_key_exists($valuerequest['manufacturers_id'], $man) && $man[$valuerequest['manufacturers_id']][$thisweeekday]) {
-                $stop_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['stop_time'];
-                $start_time = (int)$man[$valuerequest['manufacturers_id']][$thisweeekday]['start_time'];
-                if (isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)) {
-                    $validprice += ((float)$valuerequest['products_price'] * (int)$quant[$valuerequest['products_id']]);
-                    $origprod[$valuerequest['products_id']] = $valuerequest;
-                } else {
-                    unset($proddata[$keyrequest]);
-                    $related[] = $valuerequest;
-                }
-            } else {
+            if($this->preCheckProductsToOrder($valuerequest)){
                 $validprice += ((float)$valuerequest['products_price'] * (int)$quant[$valuerequest['products_id']]);
                 $origprod[$valuerequest['products_id']] = $valuerequest;
+            }else{
+                unset($proddata[$keyrequest]);
+                $related[] = $valuerequest;
             }
         }
-
         if (($orders = Orders::findOne(['customers_id' => $userCustomer['customers_id']])) == FALSE) {
             $minprice = 5000;
         } else {
@@ -264,11 +253,7 @@ trait OrdersToOm
                 $orders->billing_postcode = $orders->customers_postcode;
 
             }
-
-
             $orders->billing_address_format_id = 1;
-
-
             $orders->customers_referer_url = 'ompartnernew';
             $orders->currency = 'RUR';
             $orders->currency_value = '1.000000';
@@ -311,7 +296,6 @@ trait OrdersToOm
             $orders->seller_id = $new_seller_id;
 
             if ($orders->save()) {
-
                 if (($check = OrdersToPartners::find()->where(['order_id' => $default_user_address['entry_zone_id']])->one()) == FALSE) {
                     if (($region_partners = PartnersToRegion::find()->joinWith('partnersCompanies')->where(['region_id' => $default_user_address['entry_zone_id']])->andWhere('active > 0')->asArray()->all()) == TRUE) {
                         $partners = [];
@@ -327,27 +311,23 @@ trait OrdersToOm
                             $partners[$last_partner_id]['support_black_list'] = ((int)$value_region['partnersCompanies']['support_black_list']) > 0 ? true : false;
                         }
                         $region_id = 0;
-// если найден один партнер
+                        // если найден один партнер
                         if (count($partners) === 1) {
-// если партнер обслуживает заказы поставщика customers.default_provider
+                            // если партнер обслуживает заказы поставщика customers.default_provider
                             if (in_array((int)$orders->default_provider, $partners[$last_partner_id]['parent_ids'])) {
                                 $region_id = $partners[$last_partner_id]['default_region'];
                             }
                         } else if (count($partners) > 1) {
-// Если партнеров несколько, то выбираем того партнера, который обслуживает заказы customers.default_provider
+                            // Если партнеров несколько, то выбираем того партнера, который обслуживает заказы customers.default_provider
                             foreach ($partners as $pid => $info) {
-// если партнер обслуживает заказы customers.default_provider
+                                // если партнер обслуживает заказы customers.default_provider
                                 if (in_array((int)$orders->default_provider, $info['parent_ids'])) {
                                     $region_id = $info['default_region'];
                                     $last_partner_id = (int)$pid;
                                 }
-
                             }
                         }
-
-
                         if ($region_id != 0) {
-
                             $year = date('Y', strtotime($nowdate));
 // проверяем: когда был сделан заказ и когда был создан партнер, если заказ был создан после создания партнера и на момент создания заказа клиент оплатил более min_raiting заказов, а так же не находится в ЧС, то пытаемся переключить заказ на регионала
                             if ($partners[$last_partner_id]['support_black_list'] || $userCustomer['customers_groups_id'] != 3) {
@@ -355,29 +335,20 @@ trait OrdersToOm
                             } else {
                                 $in_black_list = true;
                             }
-
                             $rating = Orders::find()->where(['customers_id' => $orders->customers_id, 'orders_status' => 5]);
                             $rating->andWhere('date_purchased < "' . $orders->date_purchased . '"');
                             $rating = $rating->asArray()->count();
-
-
 //                        // заказы со статусами: Оплачен, Оплачен-доставляется, Оплачен-доставлен
-
-
                             if ((int)$year >= $partners[$last_partner_id]['active_after'] && $rating >= $partners[$last_partner_id]['min_raiting'] && !$in_black_list) {
                                 $response['partner_id'] = $last_partner_id;
                                 $response['company_name'] = $partners[$last_partner_id]['name'];
                                 $cur_year = date('y', strtotime($nowdate));
                                 $field = 'order_id';
-
-
                                 if (($response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $region_id])->asArray()->one()) == FALSE) {
                                     $response = LastPartnersIds::find()->joinWith('partnerscompanies')->where(['partners_companies.partner_id' => (int)$last_partner_id, 'year' => $cur_year, 'region_id' => $region_id])->asArray()->one();
                                 }
                                 $last_insert_id = $response[$field] + 1;
-
 // $response = $region_number['id'] . (count($partner['parent_ids']) > 1 ? ((int)$region_number['num_of_region'] > 1 ? '/' . $region_number['num_of_region'] : '') : $pr_litr[$partner['parent_ids'][0]]);
-
                                 $spsr_region = SpsrZones::find()->where(['zone_id' => $response['region_id']])->asArray()->one();
 
                                 $response['name'] = $cur_year . '-' . $spsr_region['id'] . '-' . $last_insert_id;
@@ -404,9 +375,7 @@ trait OrdersToOm
                                     }
 
                                 } else {
-
                                     $numberorders = $orders->NumOrder();
-
                                 }
                             } else {
                                 $numberorders = $orders->NumOrder();
@@ -417,12 +386,10 @@ trait OrdersToOm
                     } else {
                         $numberorders = $orders->NumOrder();
                     }
-
                 } else {
                     $numberorders = $orders->NumOrder();
 
                 }
-
                 if (($banks = AdminCompaniesBankToOrders::find()->joinWith('bank')->joinWith('orders')->where(['orders.customers_id' => $orders->customers_id, 'default_provider' => $userCustomer['default_provider'], 'bank_active' => '1'])->andWhere('admin_companies_bank.rs <> ""')->orderBy('orders.orders_id DESC')->asArray()->one()) == TRUE) {
                     $bankID = [
                         'id' => (int)$banks['admin_companies_bank_id'],
@@ -434,7 +401,6 @@ trait OrdersToOm
                         'addInfo' => 'Найден по прошлым записям',
                     ];
                 } else {
-
                     $id_config = Configuration::find()->where(['configuration_key' => 'LAST_BANK_ID_TO_USER_' . $userCustomer['default_provider']])->one();
                     $id = (int)$id_config->configuration_value;
                     $ratio_config = Configuration::find()->where(['configuration_key' => 'LAST_BANK_RATIO_TO_USER_' . $userCustomer['default_provider']])->one();
@@ -475,18 +441,14 @@ trait OrdersToOm
                             $bankKey = false;
                         }
                     } else {
-
                         $id = (int)$customerBankQuery['admin_companies_bank_id'];
                         $ratio = 1;
                     }
-
                     $ratio_config->configuration_value = $ratio;
                     $ratio_config->update();
                     $id_config->configuration_value = $id;
                     $id_config->update();
                     $customerBankQuery = ArrayHelper::index($customerBankQuery, 'admin_companies_bank_id');
-
-
                     if ($customerBankQuery[$id]) {
                         $bankID = [
                             'id' => (int)$customerBankQuery[$id]['admin_companies_bank_id'],
@@ -500,7 +462,6 @@ trait OrdersToOm
                     } else {
                         return false;
                     }
-
                 }
                 $admin_companies_bank_to_orders = new AdminCompaniesBankToOrders();
                 $admin_companies_bank_to_orders->orders_id = (integer)$orders->orders_id;
@@ -512,9 +473,7 @@ trait OrdersToOm
                 $admin_companies_bank_to_orders->adress = $bankID['adress'];
                 $admin_companies_bank_to_orders->short_name = $bankID['short_name'];
                 $admin_companies_bank_to_orders->validate();
-
                 if ($admin_companies_bank_to_orders->save()) {
-
                 }
                 $price_total = 0;
                 $reindexprod = ArrayHelper::index($proddata, 'products_id');
@@ -523,7 +482,7 @@ trait OrdersToOm
                     if (array_key_exists($keyin_order, $origprod)) {
                         $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order]['productsAttributesDescr'], 'products_options_values_id');
                         $checkprod[] = $reindexprod[$keyin_order]['manufacturers_id'];
-                        if ($express_key && !in_array($reindexprod[$keyin_order]['manufacturers_id'], $express_man)) {
+                        if($express_key && !in_array($reindexprod[$keyin_order]['manufacturers_id'], $express_man)){
                             $express_key = FALSE;
                         }
                         foreach ($valuein_order as $keyinattr_order => $valueinattr_order) {
@@ -580,7 +539,7 @@ trait OrdersToOm
                                                 $orderedproductsquantyty->products_last_modified = $nowdate;
                                                 $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
                                                 $orderedproductsquantyty->save();
-//      ProductsCache::find()->where(['products_id'=>$keyin_order])->one()->delete();
+                                                //      ProductsCache::find()->where(['products_id'=>$keyin_order])->one()->delete();
 
                                             }
                                             $orderedproducts->quantity = max(0, (($orderedproducts->quantity) - ($ordersprod->products_quantity)));
@@ -636,7 +595,7 @@ trait OrdersToOm
                         }
                     }
                 }
-                if ($express_key) {
+                if($express_key){
                     $orders->express = (int)$express_key;
                     $orders->save();
                 }
@@ -683,8 +642,8 @@ trait OrdersToOm
                 $orderstotalship = new OrdersTotal();
                 $orderstotalship->orders_id = $orders->orders_id;
                 $orderstotalship->title = 'Всего: ';
-                $orderstotalship->text = '<b>' . $price_total . ' руб.</b>';
-                $orderstotalship->value = $price_total;
+                $orderstotalship->text = '<b>' . $validprice . ' руб.</b>';
+                $orderstotalship->value = $validprice;
                 $orderstotalship->class = 'ot_total';
                 $orderstotalship->sort_order = 800;
                 if ($orderstotalship->save()) {
@@ -708,8 +667,8 @@ trait OrdersToOm
                 $orderstotalprint = new OrdersTotal();
                 $orderstotalprint->orders_id = $orders->orders_id;
                 $orderstotalprint->title = 'Стоимость товара: ';
-                $orderstotalprint->text = $price_total . ' руб.';
-                $orderstotalprint->value = $price_total;
+                $orderstotalprint->text = $validprice . ' руб.';
+                $orderstotalprint->value = $validprice;
                 $orderstotalprint->class = 'ot_subtotal';
                 $orderstotalprint->sort_order = 1;
                 if ($orderstotalprint->save()) {
@@ -810,11 +769,11 @@ trait OrdersToOm
 
             $transaction->commit('suc');
             Yii::$app->mailer->htmlLayout = 'layouts-om/html';
-            Yii::$app->params['params']['utm'] = [
-                'source' => 'email',
-                'medium' => 'save-orders',
-                'campaign' => 'new-om',
-                'content' => 'save-orders'
+            Yii::$app->params['params']['utm'] =  [
+                'source'=>'email',
+                'medium'=>'save-orders',
+                'campaign'=>'new-om',
+                'content'=>'save-orders'
             ];
             Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice' => (integer)$wrapp['products_price'],
                 'result' => [
@@ -909,6 +868,5 @@ trait OrdersToOm
         }
 
         return $this->redirect(Yii::$app->request->referrer);
-
     }
 }

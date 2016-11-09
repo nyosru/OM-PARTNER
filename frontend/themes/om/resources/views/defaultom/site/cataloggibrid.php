@@ -6,13 +6,15 @@ use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
 
 
-$countdisp = [60, 180, 640];
+$countdisp = [60, 120, 180];
 
-if($count != $countdisp[0]){
+if($params['count'] != $countdisp[0]){
     $count =  $start_url['count'] = $params['count'];
 }else{
 
 }
+
+
 
 $min_price =   $start_url['start_price'] = $params['start_price'];
 $max_price =  $start_url['end_price'] = $params['end_price'];
@@ -22,19 +24,28 @@ $sort =  $start_url['sort'] =  $params['sort'];
 $date_start =  $start_url['date_start'] = $params['date_start'];
 $date_end =  $start_url['date_end'] = $params['date_end'];
 $ok =  $start_url['ok'] = $params['ok'];
+$lux =  $start_url['lux'] = $params['lux'];
 $searchword =  $start_url['searchword'] = $params['searchword'];
 $sfilt  = $start_url['sfilt'] =  $params['sfilt'];
 $sfqueryparam ='';
 $urlsrc = [];
+if(Yii::$app->params['chpu']['cat_start']){
+    $newurl = Yii::$app->params['chpu']['action'].'/'.Yii::$app->params['chpu']['cat_start'];
+}else{
+    $newurl =  '/'.Yii::$app->request->getPathInfo();
+    $cat =  $start_url['cat'] = $params['cat_start'];
+}
+
 
 foreach ($start_url as $key=>$val){
-    if($val != FALSE && ($key == 'count' &&  $val != $countdisp[0])){
+  if($val != FALSE){
         $urlsrc[$key] = $val;
     }
 }
 $url = new \yii\helpers\Url();
-$newurl = Yii::$app->params['chpu']['action'].'/'.Yii::$app->params['chpu']['cat_start'];
+
 $urlsrc[] = $newurl;
+
 if ($data[0] != 'Не найдено!') {
     echo '<div class="partners-main-right bside">';
     $headbside = '';
@@ -224,11 +235,21 @@ if ($data[0] != 'Не найдено!') {
     $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
 
     $headbside .= ' <a href="#demo" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" data-toggle="collapse">Сортировка</a>';
+
     $absok = abs($ok-1);
     $paste = $urlsrc;
     $paste['ok'] = $absok;
     $paste['page'] = 1;
     $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;">ОК</a>';
+
+
+    $abslux = abs($lux-1);
+    $paste = $urlsrc;
+    $paste['lux'] = $abslux;
+    $paste['page'] = 1;
+    $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;">LUX</a>';
+
+
 
     $headbside .= '<div id="demo" style="width: 200px; position: absolute; margin-top: 25px; z-index: 98;" class="collapse">';
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
@@ -266,8 +287,8 @@ if ($data[0] != 'Не найдено!') {
     $products = '';
     $analitics = '';
     if($_COOKIE['cardview']==1){
-     foreach ($data[0] as $key=>$value) {
-           $analitics .= '
+        foreach ($data[0] as $key=>$value) {
+            $analitics .= '
        <script>
        ga("ec:addProduct", {              
             "id": "'.$value['products']['products_id'].'",   
@@ -286,7 +307,7 @@ if ($data[0] != 'Не найдено!') {
             $products .= ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code]);
         }
     }else{
-       foreach ($data[0] as $key=>$value) {
+        foreach ($data[0] as $key=>$value) {
             $analitics .= '
        <script>
        ga("ec:addProduct", {              
