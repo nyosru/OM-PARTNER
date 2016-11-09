@@ -124,7 +124,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
                     localStorage.removeItem('cart-om');
                     localStorage.removeItem('cart-om-date');
                 }
-                $(document).remove('.preload');
+                $('.preload').remove();
             });
         </script>
     </div>
