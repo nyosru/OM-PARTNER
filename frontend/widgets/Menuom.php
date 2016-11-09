@@ -84,7 +84,7 @@ class Menuom extends \yii\bootstrap\Widget
                         $exthtml = '+ ';
                     }
 
-                    if(!$this->categoryChpu($catdesc) && $this->chpu == FALSE){
+                    if(!$this->categoryChpu($catdesc) || $this->chpu == FALSE){
                         $uri = '?cat=' . $catdesc ;
                     }else{
                        $uri = '/'.$this->categoryChpu($catdesc);
