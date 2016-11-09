@@ -864,9 +864,9 @@ function loaddata(){
     $('.size-checked').each(function () {
         $check.push($(this).attr('data-size'));
     });
-    $page = parseInt($('.pagination-catalog').find('.pagination').find('.active').find('a').attr('data-page'))+1;
+    $page = parseInt($('.pagination-catalog').find('.pagination').find('.active').find('a').attr('data-page'));
     if (typeof $page == 'undefined') {
-        $page = 1;
+        $page = 0;
     }
 
     $prodatrquery = $check.join(',');
@@ -927,7 +927,7 @@ function loaddata(){
             "start_price": $min_price,
             "end_price": $max_price,
             "prod_attr_query": $prodatrquery,
-            "page": $page,
+            "page": $page+1,
             "sort": $sort,
             "ok": $ok,
             "searchword": $searchword,
