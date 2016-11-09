@@ -8,7 +8,7 @@ use frontend\widgets\ProductCard2;
 
 $countdisp = [60, 120, 180];
 
-if($count != $countdisp[0]){
+if($params['count'] != $countdisp[0]){
     $count =  $start_url['count'] = $params['count'];
 }else{
 
@@ -38,7 +38,7 @@ if(Yii::$app->params['chpu']['cat_start']){
 
 
 foreach ($start_url as $key=>$val){
-    if($val != FALSE || ($key == 'count' &&  $val != $countdisp[0])){
+  if($val != FALSE){
         $urlsrc[$key] = $val;
     }
 }
