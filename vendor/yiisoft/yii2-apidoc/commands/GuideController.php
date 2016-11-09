@@ -8,11 +8,13 @@
 namespace yii\apidoc\commands;
 
 use yii\apidoc\components\BaseController;
+use yii\apidoc\helpers\ApiMarkdown;
 use yii\apidoc\models\Context;
 use yii\apidoc\renderers\GuideRenderer;
 use yii\helpers\Console;
 use yii\helpers\FileHelper;
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This command can render documentation stored as markdown files such as the yii guide
@@ -37,7 +39,7 @@ class GuideController extends BaseController
      * Renders API documentation files
      * @param array $sourceDirs
      * @param string $targetDir
-     * @return int
+     * @return integer
      */
     public function actionIndex(array $sourceDirs, $targetDir)
     {
@@ -76,6 +78,14 @@ class GuideController extends BaseController
             $renderer->apiContext = new Context();
         }
         $this->updateContext($renderer->apiContext);
+
+        // read blocktypes translations
+        ApiMarkdown::$blockTranslations = [];
+        foreach($sourceDirs as $dir) {
+            if (is_file("$dir/blocktypes.json")) {
+                ApiMarkdown::$blockTranslations = Json::decode(file_get_contents("$dir/blocktypes.json"), true);
+            }
+        }
 
         // search for files to process
         if (($files = $this->searchFiles($sourceDirs)) === false) {
@@ -116,6 +126,11 @@ class GuideController extends BaseController
      */
     protected function findRenderer($template)
     {
+        // find renderer by class name
+        if (class_exists($template)) {
+            return new $template();
+        }
+
         $rendererClass = 'yii\\apidoc\\templates\\' . $template . '\\GuideRenderer';
         if (!class_exists($rendererClass)) {
             $this->stderr('Renderer not found.' . PHP_EOL);

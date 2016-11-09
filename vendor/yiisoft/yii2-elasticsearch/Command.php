@@ -14,7 +14,7 @@ use yii\helpers\Json;
 /**
  * The Command class implements the API for accessing the elasticsearch REST API.
  *
- * Check the [elasticsearch guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index.html)
+ * Check the [elasticsearch guide](http://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
  * for details on these commands.
  *
  * @author Carsten Brandt <mail@cebe.cc>
@@ -28,7 +28,7 @@ class Command extends Component
     public $db;
     /**
      * @var string|array the indexes to execute the query on. Defaults to null meaning all indexes
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search.html#search-multi-index
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html#search-multi-index-type
      */
     public $index;
     /**
@@ -39,6 +39,9 @@ class Command extends Component
      * @var array list of arrays or json strings that become parts of a query
      */
     public $queryParts;
+    /**
+     * @var array options to be appended to the query URL, such as "search_type" for search or "timeout" for delete
+     */
     public $options = [];
 
 
@@ -56,11 +59,11 @@ class Command extends Component
         if (is_array($query)) {
             $query = Json::encode($query);
         }
-        $url = [
-            $this->index !== null ? $this->index : '_all',
-            $this->type !== null ? $this->type : '_all',
-            '_search'
-        ];
+        $url = [$this->index !== null ? $this->index : '_all'];
+        if ($this->type !== null) {
+            $url[] = $this->type;
+        }
+        $url[] = '_search';
 
         return $this->db->get($url, array_merge($this->options, $options), $query);
     }
@@ -82,11 +85,11 @@ class Command extends Component
             $query['filter'] = $this->queryParts['filter'];
         }
         $query = Json::encode($query);
-        $url = [
-            $this->index !== null ? $this->index : '_all',
-            $this->type !== null ? $this->type : '_all',
-            '_query'
-        ];
+        $url = [$this->index !== null ? $this->index : '_all'];
+        if ($this->type !== null) {
+            $url[] = $this->type;
+        }
+        $url[] = '_query';
 
         return $this->db->delete($url, array_merge($this->options, $options), $query);
     }
@@ -96,7 +99,7 @@ class Command extends Component
      * @param string|array $suggester the suggester body
      * @param array $options
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-suggesters.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html
      */
     public function suggest($suggester, $options = [])
     {
@@ -122,7 +125,7 @@ class Command extends Component
      * @param null $id the documents id. If not specified Id will be automatically chosen
      * @param array $options
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-index_.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html
      */
     public function insert($index, $type, $data, $id = null, $options = [])
     {
@@ -146,7 +149,7 @@ class Command extends Component
      * @param $id
      * @param array $options
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-get.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
      */
     public function get($index, $type, $id, $options = [])
     {
@@ -162,7 +165,7 @@ class Command extends Component
      * @param $ids
      * @param array $options
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-multi-get.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-multi-get.html
      */
     public function mget($index, $type, $ids, $options = [])
     {
@@ -177,7 +180,7 @@ class Command extends Component
      * @param $type
      * @param $id
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-get.html#_source
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html#_source
      */
     public function getSource($index, $type, $id)
     {
@@ -190,7 +193,7 @@ class Command extends Component
      * @param $type
      * @param $id
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-get.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
      */
     public function exists($index, $type, $id)
     {
@@ -204,7 +207,7 @@ class Command extends Component
      * @param $id
      * @param array $options
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-delete.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete.html
      */
     public function delete($index, $type, $id, $options = [])
     {
@@ -218,7 +221,7 @@ class Command extends Component
      * @param $id
      * @param array $options
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-update.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html
      */
     public function update($index, $type, $id, $data, $options = [])
     {
@@ -233,14 +236,14 @@ class Command extends Component
         return $this->db->post([$index, $type, $id, '_update'], $options, Json::encode($body));
     }
 
-    // TODO bulk http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-bulk.html
+    // TODO bulk http://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
 
     /**
      * creates an index
      * @param $index
      * @param array $configuration
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-create-index.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html
      */
     public function createIndex($index, $configuration = null)
     {
@@ -253,7 +256,7 @@ class Command extends Component
      * deletes an index
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-delete-index.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html
      */
     public function deleteIndex($index)
     {
@@ -263,7 +266,7 @@ class Command extends Component
     /**
      * deletes all indexes
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-delete-index.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html
      */
     public function deleteAllIndexes()
     {
@@ -274,7 +277,7 @@ class Command extends Component
      * checks whether an index exists
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-exists.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-exists.html
      */
     public function indexExists($index)
     {
@@ -285,24 +288,83 @@ class Command extends Component
      * @param $index
      * @param $type
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-types-exists.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-types-exists.html
      */
     public function typeExists($index, $type)
     {
         return $this->db->head([$index, $type]);
     }
 
-    // TODO http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-aliases.html
+    // TODO http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 
-    // TODO http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-update-settings.html
-    // TODO http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-get-settings.html
+    /**
+     * Change specific index level settings in real time.
+     * Note that update analyzers required to [[close()]] the index first and [[open()]] it after the changes are made,
+     * use [[updateAnalyzers()]] for it.
+     *
+     * @param string $index
+     * @param string|array $setting
+     * @param array $options URL options
+     * @return mixed
+     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-update-settings.html
+     * @since 2.0.4
+     */
+    public function updateSettings($index, $setting, $options = [])
+    {
+        $body = $setting !== null ? (is_string($setting) ? $setting : Json::encode($setting)) : null;
+        return $this->db->put([$index, '_settings'], $options, $body);
+    }
 
-    // TODO http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-warmers.html
+    /**
+     * Define new analyzers for the index.
+     * For example if content analyzer hasn’t been defined on "myindex" yet
+     * you can use the following commands to add it:
+     *
+     * ~~~
+     *  $setting = [
+     *      'analysis' => [
+     *          'analyzer' => [
+     *              'ngram_analyzer_with_filter' => [
+     *                  'tokenizer' => 'ngram_tokenizer',
+     *                  'filter' => 'lowercase, snowball'
+     *              ],
+     *          ],
+     *          'tokenizer' => [
+     *              'ngram_tokenizer' => [
+     *                  'type' => 'nGram',
+     *                  'min_gram' => 3,
+     *                  'max_gram' => 10,
+     *                  'token_chars' => ['letter', 'digit', 'whitespace', 'punctuation', 'symbol']
+     *              ],
+     *          ],
+     *      ]
+     * ];
+     * $elasticQuery->createCommand()->updateAnalyzers('myindex', $setting);
+     * ~~~
+     *
+     * @param string $index
+     * @param string|array $setting
+     * @param array $options URL options
+     * @return mixed
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html#update-settings-analysis
+     * @since 2.0.4
+     */
+    public function updateAnalyzers($index, $setting, $options = [])
+    {
+        $this->closeIndex($index);
+        $result = $this->updateSettings($index, $setting, $options);
+        $this->openIndex($index);
+        return $result;
+    }
+    
+    // TODO http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-settings.html
+
+    // TODO http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-warmers.html
 
     /**
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-open-close.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-open-close.html
      */
     public function openIndex($index)
     {
@@ -312,7 +374,7 @@ class Command extends Component
     /**
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-open-close.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-open-close.html
      */
     public function closeIndex($index)
     {
@@ -320,22 +382,44 @@ class Command extends Component
     }
 
     /**
+     * @param array $options
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html
+     * @return mixed
+     * @since 2.0.4
+     */
+    public function scroll($options = [])
+    {
+       return $this->db->get(['_search', 'scroll'], $options);
+    }
+
+    /**
+     * @param array $options
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html
+     * @return mixed
+     * @since 2.0.4
+     */
+    public function clearScroll($options = [])
+    {
+       return $this->db->delete(['_search', 'scroll'], $options);
+    }
+
+    /**
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-status.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-status.html
      */
     public function getIndexStatus($index = '_all')
     {
         return $this->db->get([$index, '_status']);
     }
 
-    // TODO http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-stats.html
-    // http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-segments.html
+    // TODO http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html
+    // http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-segments.html
 
     /**
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-clearcache.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-clearcache.html
      */
     public function clearIndexCache($index)
     {
@@ -345,7 +429,7 @@ class Command extends Component
     /**
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-flush.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-flush.html
      */
     public function flushIndex($index = '_all')
     {
@@ -355,23 +439,24 @@ class Command extends Component
     /**
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-refresh.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-refresh.html
      */
     public function refreshIndex($index)
     {
         return $this->db->post([$index, '_refresh']);
     }
 
-    // TODO http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-optimize.html
+    // TODO http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-optimize.html
 
-    // TODO http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-gateway-snapshot.html
+    // TODO http://www.elastic.co/guide/en/elasticsearch/reference/0.90/indices-gateway-snapshot.html
 
     /**
-     * @param $index
-     * @param $type
-     * @param $mapping
+     * @param string $index
+     * @param string $type
+     * @param string|array $mapping
+     * @param array $options
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-put-mapping.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html
      */
     public function setMapping($index, $type, $mapping, $options = [])
     {
@@ -384,18 +469,22 @@ class Command extends Component
      * @param string $index
      * @param string $type
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-get-mapping.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-mapping.html
      */
-    public function getMapping($index = '_all', $type = '_all')
+    public function getMapping($index = '_all', $type = null)
     {
-        return $this->db->get([$index, '_mapping', $type]);
+        $url = [$index, '_mapping'];
+        if ($type !== null) {
+            $url[] = $type;
+        }
+        return $this->db->get($url);
     }
 
     /**
      * @param $index
      * @param $type
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-put-mapping.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html
      */
     public function deleteMapping($index, $type)
     {
@@ -406,7 +495,7 @@ class Command extends Component
      * @param $index
      * @param string $type
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html
      */
 //    public function getFieldMapping($index, $type = '_all')
 //    {
@@ -418,7 +507,7 @@ class Command extends Component
      * @param $options
      * @param $index
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-analyze.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-analyze.html
      */
 //	public function analyze($options, $index = null)
 //	{
@@ -433,7 +522,7 @@ class Command extends Component
      * @param $mappings
      * @param integer $order
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-templates.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
      */
     public function createTemplate($name, $pattern, $settings, $mappings, $order = 0)
     {
@@ -451,7 +540,7 @@ class Command extends Component
     /**
      * @param $name
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-templates.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
      */
     public function deleteTemplate($name)
     {
@@ -462,7 +551,7 @@ class Command extends Component
     /**
      * @param $name
      * @return mixed
-     * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-templates.html
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
      */
     public function getTemplate($name)
     {

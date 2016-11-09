@@ -74,6 +74,9 @@ class QueryBuilder extends \yii\base\Object
         if ($query->offset > 0) {
             $parts['from'] = (int) $query->offset;
         }
+        if (isset($query->minScore)) {
+            $parts['min_score'] = (float) $query->minScore;
+        }
 
         if (empty($query->query)) {
             $parts['query'] = ["match_all" => (object) []];
@@ -116,7 +119,7 @@ class QueryBuilder extends \yii\base\Object
             $parts['sort'] = $sort;
         }
 
-        $options = [];
+        $options = $query->options;
         if ($query->timeout !== null) {
             $options['timeout'] = $query->timeout;
         }
@@ -149,7 +152,7 @@ class QueryBuilder extends \yii\base\Object
                 $column = '_uid';
             }
 
-            // allow elasticsearch extended syntax as described in http://www.elasticsearch.org/guide/reference/api/search/sort/
+            // allow elasticsearch extended syntax as described in http://www.elastic.co/guide/en/elasticsearch/guide/master/_sorting.html
             if (is_array($direction)) {
                 $orders[] = [$column => $direction];
             } else {

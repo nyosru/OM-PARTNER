@@ -31,6 +31,7 @@ class Extension
      */
     protected $smarty;
 
+
     /**
      * @param ViewRenderer $viewRenderer
      * @param Smarty $smarty
@@ -135,6 +136,11 @@ class Extension
         $class = $params['class'];
         $alias = ArrayHelper::getValue($params, 'as', StringHelper::basename($params['class']));
         $type = ArrayHelper::getValue($params, 'type', 'static');
+
+        // Skip already registered block and function
+        if (($type === 'block' || $type === 'function') && isset($this->smarty->registered_plugins[$type][$alias])) {
+            return;
+        }
 
         // Register the class during compile time
         $this->smarty->registerClass($alias, $class);
@@ -415,16 +421,16 @@ PHP;
     }
 
     /**
-    * Helper function to convert a textual constant identifier to a View class
-    * integer constant value.
-    *
-    * @param string $string Constant identifier name
-    * @param integer $default Default value
-    * @return mixed
-    */
+     * Helper function to convert a textual constant identifier to a View class
+     * integer constant value.
+     *
+     * @param string $string Constant identifier name
+     * @param integer $default Default value
+     * @return mixed
+     */
    protected function getViewConstVal($string, $default)
    {
       $val = @constant('yii\web\View::' . $string);
       return isset($val) ? $val : $default;
    }
-} 
+}

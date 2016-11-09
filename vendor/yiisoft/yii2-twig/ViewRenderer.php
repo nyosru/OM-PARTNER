@@ -89,6 +89,26 @@ class ViewRenderer extends BaseViewRenderer
      * @var \Twig_Environment twig environment object that renders twig templates
      */
     public $twig;
+    /**
+     * @var string twig namespace to use in templates
+     * @since 2.0.5
+     */
+    public $twigViewsNamespace = \Twig_Loader_Filesystem::MAIN_NAMESPACE;
+    /**
+     * @var string twig namespace to use in modules templates
+     * @since 2.0.5
+     */
+    public $twigModulesNamespace = 'modules';
+    /**
+     * @var string twig namespace to use in widgets templates
+     * @since 2.0.5
+     */
+    public $twigWidgetsNamespace = 'widgets';
+    /**
+     * @var array twig fallback paths
+     * @since 2.0.5
+     */
+    public $twigFallbackPaths = [];
 
 
     public function init()
@@ -146,6 +166,9 @@ class ViewRenderer extends BaseViewRenderer
     {
         $this->twig->addGlobal('this', $view);
         $loader = new \Twig_Loader_Filesystem(dirname($file));
+        if ($view instanceof View) {
+            $this->addFallbackPaths($loader, $view->theme);
+        }
         $this->addAliases($loader, Yii::$aliases);
         $this->twig->setLoader($loader);
 
@@ -166,6 +189,75 @@ class ViewRenderer extends BaseViewRenderer
             } elseif (is_string($path) && is_dir($path)) {
                 $loader->addPath($path, substr($alias, 1));
             }
+        }
+    }
+
+    /**
+     * Adds fallback paths to twig loader
+     *
+     * @param \Twig_Loader_Filesystem $loader
+     * @param \yii\base\Theme|null $theme
+     * @since 2.0.5
+     */
+    protected function addFallbackPaths($loader, $theme)
+    {
+        foreach ($this->twigFallbackPaths as $namespace => $path) {
+            $path = Yii::getAlias($path);
+            if (!is_dir($path)) {
+                continue;
+            }
+
+            if (is_string($namespace)) {
+                $loader->addPath($path, $namespace);
+            } else {
+                $loader->addPath($path);
+            }
+        }
+
+        if ($theme instanceOf \yii\base\Theme && is_array($theme->pathMap)) {
+            $pathMap = $theme->pathMap;
+
+            if (isset($pathMap['@app/views'])) {
+                foreach ((array)$pathMap['@app/views'] as $path) {
+                    $path = Yii::getAlias($path);
+                    if (is_dir($path)) {
+                        $loader->addPath($path, $this->twigViewsNamespace);
+                    }
+                }
+            }
+
+            if (isset($pathMap['@app/modules'])) {
+                foreach ((array)$pathMap['@app/modules'] as $path) {
+                    $path = Yii::getAlias($path);
+                    if (is_dir($path)) {
+                        $loader->addPath($path, $this->twigModulesNamespace);
+                    }
+                }
+            }
+
+            if (isset($pathMap['@app/widgets'])) {
+                foreach ((array)$pathMap['@app/widgets'] as $path) {
+                    $path = Yii::getAlias($path);
+                    if (is_dir($path)) {
+                        $loader->addPath($path, $this->twigWidgetsNamespace);
+                    }
+                }
+            }
+        }
+
+        $defaultViewsPath = Yii::getAlias('@app/views');
+        if (is_dir($defaultViewsPath)) {
+            $loader->addPath($defaultViewsPath, $this->twigViewsNamespace);
+        }
+
+        $defaultModulesPath = Yii::getAlias('@app/modules');
+        if (is_dir($defaultModulesPath)) {
+            $loader->addPath($defaultModulesPath, $this->twigModulesNamespace);
+        }
+
+        $defaultWidgetsPath = Yii::getAlias('@app/widgets');
+        if (is_dir($defaultWidgetsPath)) {
+            $loader->addPath($defaultWidgetsPath, $this->twigWidgetsNamespace);
         }
     }
 
@@ -230,26 +322,26 @@ class ViewRenderer extends BaseViewRenderer
      */
     private function _addCustom($classType, $elements)
     {
-        $classFunction = 'Twig_' . $classType . '_Function';
+        $classFunction = 'Twig_Simple' . $classType;
 
         foreach ($elements as $name => $func) {
             $twigElement = null;
 
             switch ($func) {
-                // Just a name of function
-                case is_string($func):
-                    $twigElement = new $classFunction($func);
+                // Callable (including just a name of function).
+                case is_callable($func):
+                    $twigElement = new $classFunction($name, $func);
                     break;
-                // Name of function + options array
-                case is_array($func) && is_string($func[0]) && isset($func[1]) && is_array($func[1]):
-                    $twigElement = new $classFunction($func[0], $func[1]);
+                // Callable (including just a name of function) + options array.
+                case is_array($func) && is_callable($func[0]):
+                    $twigElement = new $classFunction($name, $func[0], (!empty($func[1]) && is_array($func[1])) ? $func[1] : []);
                     break;
+                case $func instanceof \Twig_SimpleFunction || $func instanceof \Twig_SimpleFilter:
+                    $twigElement = $func;
             }
 
             if ($twigElement !== null) {
-                $this->twig->{'add'.$classType}($name, $twigElement);
-            } elseif ($func instanceof \Twig_SimpleFunction || $func instanceof \Twig_SimpleFilter) {
-                $this->twig->{'add'.$classType}($func);
+                $this->twig->{'add'.$classType}($twigElement);
             } else {
                 throw new \Exception("Incorrect options for \"$classType\" $name.");
             }

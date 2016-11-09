@@ -118,7 +118,7 @@ if(!$product['products']['products_image']){
                             $i=0;
                             $items = [];
                             foreach($imsrc as $key => $img){
-                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
+                                $items[$i]['content']='<a target="_blank" style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto;  " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
                                 $i++;
                             }
                             echo Carousel::widget([
@@ -157,9 +157,16 @@ if(!$product['products']['products_image']){
                         <?php
                         if(!$product['products']['products_ordered']){
                             $product['products']['products_ordered'] = 1;
+
+                        }
+                        if((int)$product['products']['products_ordered'] >= 10000){
+                            $product['products']['products_ordered'] = "Хит продаж!";
+                        }else{
+                            $product['products']['products_ordered'] =  $product['products']['products_ordered']." шт";
                         }?>
+
                         <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
-                        <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Заказано: <?=$product['products']['products_ordered']?> шт.</div>
+                        <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Заказано: <?=$product['products']['products_ordered']?></div>
                         <div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: <?=$product['products']['products_model']?></div>
                         <!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
                         <div style="clear: both;"></div>
@@ -234,7 +241,7 @@ if(!$product['products']['products_image']){
                          <script>
                             ga( "ec:addImpression", {
                                 "id": "'.$val['products']['products_id'].'",
-                                "name": "'.$val['productsDescription']['products_name'].'",
+                                "name": "'.htmlentities($val['productsDescription']['products_name']).'",
                                 "category": "none",
                                 "list": "main-new",
                                 "brand": "'.$val['products']['manufacturers_id'].'",
@@ -255,14 +262,14 @@ if(!$product['products']['products_image']){
 
     </div>
     <script>
-        $(window).load(function () {
-            $('.sliderRelated').owlCarousel({
+        $(window).on('load',function () {
+            $("[rel=light]").light();
+            $('.sliderNew').owlCarousel({
                 loop:true,
                 margin:2,
                 nav:true,
                 items: 6,
                 autoplay:true,
-                dots:false,
                 navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
                 dots:false,
                 responsive:{
@@ -280,9 +287,10 @@ if(!$product['products']['products_image']){
                     },
                     1900:{
                         items:6
-                    },
+                    }
                 }
-            })
+            });
+
             $(".social").on('click', function () {
                 
                 ga("send", "event", $(this).attr("class").split(' ')[0], $(this).attr("class").split(' ')[1]);

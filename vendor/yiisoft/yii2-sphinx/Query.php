@@ -23,8 +23,8 @@ use yii\db\Expression;
  *
  * For example,
  *
- * ~~~php
- * $query = new Query;
+ * ```php
+ * $query = new Query();
  * $query->select('id, group_id')
  *     ->from('idx_item')
  *     ->limit(10);
@@ -32,7 +32,7 @@ use yii\db\Expression;
  * $command = $query->createCommand();
  * // $command->sql returns the actual SQL
  * $rows = $command->queryAll();
- * ~~~
+ * ```
  *
  * Since Sphinx does not store the original indexed text, the snippets for the rows in query result
  * should be build separately via another query. You can simplify this workflow using [[snippetCallback]].
@@ -72,8 +72,8 @@ class Query extends \yii\db\Query
      * array of snippet source strings in the order, which match one of incoming rows.
      * For example:
      *
-     * ~~~php
-     * $query = new Query;
+     * ```php
+     * $query = new Query();
      * $query->from('idx_item')
      *     ->match('pencil')
      *     ->snippetCallback(function ($rows) {
@@ -84,7 +84,7 @@ class Query extends \yii\db\Query
      *         return $result;
      *     })
      *     ->all();
-     * ~~~
+     * ```
      */
     public $snippetCallback;
     /**
@@ -95,7 +95,7 @@ class Query extends \yii\db\Query
      * @var array facet search specifications.
      * For example:
      *
-     * ~~~php
+     * ```php
      * [
      *     'group_id',
      *     'brand_id' => [
@@ -109,7 +109,7 @@ class Query extends \yii\db\Query
      *         'select' => [new Expression('json_attr.name AS name_in_json')],
      *     ],
      * ]
-     * ~~~
+     * ```
      *
      * You need to use [[search()]] method in order to fetch facet results.
      *
@@ -123,6 +123,12 @@ class Query extends \yii\db\Query
      * You need to use [[search()]] method in order to fetch 'meta' results.
      */
     public $showMeta;
+    /**
+     * @var integer groups limit: to return (no more than) N top matches for each group.
+     * This option will take effect only if [[groupBy]] is set.
+     * @since 2.0.6
+     */
+    public $groupLimit;
 
     /**
      * @var Connection the Sphinx connection used to generate the SQL statements.
@@ -261,15 +267,16 @@ class Query extends \yii\db\Query
      * MATCH operator inside the WHERE clause.
      * Note: this value will be processed by [[Connection::escapeMatchValue()]],
      * if you need to compose complex match condition use [[Expression]]:
-     * ~~~
-     * $query = new Query;
+     *
+     * ```php
+     * $query = new Query();
      * $query->from('my_index')
      *     ->match(new Expression(':match', ['match' => '@(content) ' . Yii::$app->sphinx->escapeMatchValue($matchValue)]))
      *     ->all();
-     * ~~~
+     * ```
      *
-     * @param string $query fulltext query text.
-     * @return $this the query object itself
+     * @param string|Expression|MatchExpression $query fulltext query text.
+     * @return $this the query object itself.
      */
     public function match($query)
     {
@@ -375,6 +382,19 @@ class Query extends \yii\db\Query
             $this->within = array_merge($this->within, $columns);
         }
 
+        return $this;
+    }
+
+    /**
+     * Sets groups limit: to return (no more than) N top matches for each group.
+     * This option will take effect only if [[groupBy]] is set.
+     * @param integer $limit group limit.
+     * @return $this the query object itself.
+     * @since 2.0.6
+     */
+    public function groupLimit($limit)
+    {
+        $this->groupLimit = $limit;
         return $this;
     }
 
@@ -548,6 +568,7 @@ class Query extends \yii\db\Query
             'union' => $from->union,
             'params' => $from->params,
             // Sphinx specifics :
+            'groupLimit' => $from->groupLimit,
             'options' => $from->options,
             'within' => $from->within,
             'match' => $from->match,
