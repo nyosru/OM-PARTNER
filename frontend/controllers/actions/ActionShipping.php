@@ -15,7 +15,7 @@ trait ActionShipping
             return [
                 'flat2_flat2' => [
                     'value' => 'Бесплатная доставка до ТК ЖелДорЭкспедиция, из г.Москва',
-                    'active' => '1',
+                    'active' => '0',
                     'wantpasport' => '0'
                 ],
                 'flat1_flat1' => [

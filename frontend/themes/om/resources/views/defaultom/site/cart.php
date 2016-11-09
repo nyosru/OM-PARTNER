@@ -20,7 +20,9 @@ $del_add .= '</select>';
 ?>
 
 <script>
-$(document).on('ready', function () {
+
+
+$(window).on('load', function () {
     $('.bside').html('<div style="text-align: center; padding: calc(100% / 4);">...</div>');
     //var curPos = $(document).scrollTop();
     //var scrollTime = curPos / 3.73;
@@ -53,18 +55,24 @@ $(document).on('ready', function () {
 
             mandata = $.ajax({
                 method:'post',
-                url: "/site/manlist",
+                url: "/site/pre-check-product-to-orders",
                 async: false,
-                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+                data: {
+                    product: requestdata.responseJSON.product.products_id,
+                    category :requestdata.responseJSON.categories_id,
+                    attr :this[2],
+                    count : this[4],
+                    
+                }
             });
             if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
-                $access = 'В данный момент товар отсутствует' ;
+                $access = mandata.responseJSON.message ;
                 $identypay = false;
-            }else if(JSON.parse(mandata.responseText).answer == false){
-                $access = 'К сожалению, товар в данный момент недоступен для оформления. Он останется в вашей корзине. Время оформления для данного товара вы можете посмотреть <a data-ajax=time data-href="'+requestdata.responseJSON.product.products.manufacturers_id+'">тут</a>';
+            }else if(mandata.responseJSON.result == false){
+                $access = mandata.responseJSON.message;
                 $identypay = false;
                 }else{
-                $access = 'Данный товар доступен для заказа';
+                $access = mandata.responseJSON.message;
                 $identypay = true;
             }
             if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
@@ -262,7 +270,7 @@ $(document).on('change click','.num-of-items',function () {
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice);
 });
-$(document).on('ready', function () {
+$(window).on('load', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
@@ -282,7 +290,7 @@ $(document).on('ready', function () {
     $('#total-price').html(godsprice+wrapprice+' руб');
     $('#wrap-price').html(wrapprice+' руб');
 });
-$(document).on('click','.wrap-select', function () {
+$(window).on('load','.wrap-select', function () {
     var godsprice=0;
     var wrapprice=0;
     var check = $("[name='wrap']").filter(':checked').first();
@@ -306,8 +314,14 @@ $(document).on('click','.wrap-select', function () {
 
 $(document).on('change', '.shipping-confirm, #shipaddr', function () {
     if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'flat12_flat12'){
+        $('.deliv-hint').remove();
         $('.deliv-cart').append('<div class="deliv-hint" data-hint="'+$('.shipping-confirm option:selected')[0].getAttribute('value')+'">' +
             '<b>При отправке ТК Энергия, рекомендуем Вам выбирать способ упаковки "коробка", т.к по правилам перевозки ТК сборного груза, упаковка должна быть жесткая, в противном случае за повреждение груза ответсвенность ТК Энергия не несет.</b>' +
+            '</div>');
+    }else if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'russianpostpf_russianpostpf'){
+        $('.deliv-hint').remove();
+        $('.deliv-cart').append('<div class="deliv-hint" data-hint="'+$('.shipping-confirm option:selected')[0].getAttribute('value')+'">' +
+            '<b>На данный момент со стороны Почты России происходит задержка в отправке заказа в 2 дня</b>' +
             '</div>');
     }else{
         $('.deliv-hint').remove();

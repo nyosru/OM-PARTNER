@@ -7,7 +7,7 @@ use Yii;
 
 trait NewProducts
 {
-    public function NewProducts($limit = 60, $cachekey = 'index_new-35', $cachetime = 7200)
+    public function NewProducts($limit = 18, $cachekey = 'index_new-335', $cachetime = 7200)
     {
         $key = Yii::$app->cache->buildKey($cachekey);
         $newproducts = Yii::$app->cache->get($key);
@@ -21,7 +21,7 @@ trait NewProducts
         $cat = $this->RestrictedCatalog();
         $nocat = implode(',', $cat);
 
-            $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id NOT IN (' . $nocat . ') and products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN (' . $hide_man . ') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->distinct()->limit($limit)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
+            $newproducts = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id NOT IN (' . $nocat . ') and products_status=1  and products.products_quantity > 0    and products.manufacturers_id NOT IN (' . $hide_man . ') ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->distinct()->limit((integer)$limit)->JoinWith('productsAttributesDescr')->orderBy('`products_date_added` DESC')->asArray()->all();
             Yii::$app->cache->set($key, $newproducts, $cachetime);
         }
         return $newproducts;

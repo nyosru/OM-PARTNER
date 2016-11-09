@@ -10,11 +10,10 @@ trait   CatPath
     public function Catpath($id, $action)
     {
         $cat = (integer)$id;
+        $key = Yii::$app->cache->buildKey('catpath-sys-cache-' . $cat . '-' . $action);
 
-        $key = Yii::$app->cache->buildKey('chpu-' . $cat);
-        if (($chpu = Yii::$app->cache->get($key)) == TRUE) {
+        if (($resultchpu = Yii::$app->cache->get($key)) == FALSE) {
 
-        } else {
             $catdataarr = $this->categories_for_partners();
             $catdata = $catdataarr[0];
             $categories = $catdataarr[1];
@@ -26,31 +25,40 @@ trait   CatPath
             }
             // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
-            Yii::$app->cache->set($key, $chpu, 3600);
-        }
 
-        if ($action == TRUE && $action == 'name') {
-            $resultchpu = [];
-            foreach ($chpu as $key => $value) {
-                $resultchpu[] = $value['name'];
-            }
-            return $resultchpu;
-        } elseif ($action == 'num') {
-            $resultchpu = [];
-            foreach ($chpu as $key => $value) {
-                $resultchpu[] = $value['id'];
-            }
-            return $resultchpu;
-        } elseif ($action == 'namenum') {
-            $resultchpu = [];
-            foreach ($chpu as $key => $value) {
-                $resultchpu['num'][] = $value['id'];
-                $resultchpu['name'][] = $value['name'];
-            }
-            return $resultchpu;
-        } else {
-            return $chpu;
-        }
 
+
+            if ($action == TRUE && $action == 'name') {
+                $resultchpu = [];
+                foreach ($chpu as $key => $value) {
+                    $resultchpu[] = $value['name'];
+                }
+                Yii::$app->cache->set($key, $resultchpu, 3600);
+                return $resultchpu;
+            } elseif ($action == 'num') {
+                $resultchpu = [];
+                foreach ($chpu as $key => $value) {
+                    $resultchpu[] = $value['id'];
+                }
+                Yii::$app->cache->set($key, $resultchpu, 3600);
+                return $resultchpu;
+            } elseif ($action == 'namenum') {
+                $resultchpu = [];
+                foreach ($chpu as $key => $value) {
+                    $resultchpu['num'][] = $value['id'];
+                    $resultchpu['name'][] = $value['name'];
+                }
+                Yii::$app->cache->set($key, $resultchpu, 3600);
+                return $resultchpu;
+            } else {
+                Yii::$app->cache->set($key, $chpu, 3600);
+                return $chpu;
+            }
+        }else{
+            return $resultchpu;
+        }
     }
+
+
+
 }

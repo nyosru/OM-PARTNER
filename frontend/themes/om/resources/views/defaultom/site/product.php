@@ -71,8 +71,18 @@ if (count($product['productsAttributesDescr']) > 0) {
 }
 $items=array();
 $i=0;
-$im=array($product['products']['products_id']);
+$sub = [];
+$im= array($product['products']['products_id']);
+if($images){
+    foreach($images as $img_key => $img_val){
+        $sub[] = $product['products']['products_id'].'&amp;sub='.$img_key;
+    }
+}
+
+$im = array_merge($im, $sub);
+
 $imsrc=array($product['products']['products_image']);
+$imsrc=array_merge($imsrc, $images);
 if(!$product['products']['products_image']){
     $imsrc = array();
 }
@@ -108,7 +118,7 @@ if(!$product['products']['products_image']){
                             $i=0;
                             $items = [];
                             foreach($imsrc as $key => $img){
-                                $items[$i]['content']='<a style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto; width:150%; " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
+                                $items[$i]['content']='<a target="_blank" style="display: block;cursor:zoom-in;"  rel="light" data-gallery="product" href="http://odezhda-master.ru/images/'.$img.'"><img style="margin:auto;  " itemprop="image"  src="'.BASEURL.'/imagepreview?src='.$im[$key].'" alt="'.$product['productsDescription']['products_name'].'"/></a>';
                                 $i++;
                             }
                             echo Carousel::widget([
@@ -116,15 +126,27 @@ if(!$product['products']['products_image']){
                             ]);
                             //
                             ?>
-                            <div class="social" style="height: 50px; bottom: 0px; width: 100%;position: relative">
+                            <div class="" style="
+                             height: 50px;
+                             bottom: 0px;
+                             width: 100%;
+                             position: relative;
+                             float: left;
+                             overflow: hidden;
+                             line-height: 1;
+                             text-align: center;
+                             margin-right: 5px;
+                             margin-top: 5px;
+                             border-radius: 2px;
+                             ">
                                 <div style="font-size: 14px;font-weight: 300; float: left; width: 100px; margin-top:10px;text-align: left;position: relative;left:67px;">Поделиться:</div>
                                 <div title="Поделиться в социальной сети" class="item-social" style="float: left;width: 150px; font-size: 18px; position: absolute;right:64px;">
-                                    <?='<div class="social social-vk"><a href="http://vk.com/share.php?url=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-vk"></i></a></div>'; ?>
-                                    <?='<div class="social social-odnokl"><a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl='.urlencode('http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id']).'"><i class="fa fa-odnoklassniki"></i></a></div>';?>
-                                    <?='<div class="social social-fb"><a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-facebook"></i></a></div>';?>
-                                    <?='<div class="social social-tw"><a href="http://twitter.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&title=' . $description['products_description'] . '"><i class="fa fa-twitter"></i></a></div>';?>
-                                    <?='<div class="social social-mail"><a href="http://connect.mail.ru/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&description=' . (integer)($product['products_price']) . '%20Руб.&title=' . $description['products_description'] . '"><i class="fa fa-at"></i></a></div>'?>
-                                    <?='<div class="social social-google"><a href="https://plus.google.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '"><i style="font-size:13px;" class="fa fa-google-plus"></i></a></div>'?>
+                                    <?='<div class="social social-vk"><a target="_blank" href="http://vk.com/share.php?url=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-vk"></i></a></div>'; ?>
+                                    <?='<div class="social social-odnokl"><a target="_blank" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl='.urlencode('http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id']).'"><i class="fa fa-odnoklassniki"></i></a></div>';?>
+                                    <?='<div class="social social-fb"><a target="_blank" href="http://www.facebook.com/sharer.php?s=100&p[url]=http://'.$_SERVER['HTTP_HOST'].BASEURL.'/product?id='.$product['products_id'].'"><i class="fa fa-facebook"></i></a></div>';?>
+                                    <?='<div class="social social-tw"><a target="_blank" href="http://twitter.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&title=' . $description['products_description'] . '"><i class="fa fa-twitter"></i></a></div>';?>
+                                    <?='<div class="social social-mail"><a target="_blank" href="http://connect.mail.ru/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '&description=' . (integer)($product['products_price']) . '%20Руб.&title=' . $description['products_description'] . '"><i class="fa fa-at"></i></a></div>'?>
+                                    <?='<div class="social social-google"><a target="_blank" href="https://plus.google.com/share?url=http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/product?id=' . $product['products_id'] . '"><i style="font-size:13px;" class="fa fa-google-plus"></i></a></div>'?>
                                 </div>
                             </div>
                         </div>
@@ -132,10 +154,22 @@ if(!$product['products']['products_image']){
                 </div>
                 <div class="col2" style="float: left;width: 35%;position: relative;left: 55%; overflow: hidden;line-height: 1; color: black; font-weight: 400;min-width:455px;">
                     <div style="font-family: 'Roboto', sans-serif; font-weight: 300;">
+                        <?php
+                        if(!$product['products']['products_ordered']){
+                            $product['products']['products_ordered'] = 1;
+
+                        }
+                        if((int)$product['products']['products_ordered'] >= 10000){
+                            $product['products']['products_ordered'] = "Хит продаж!";
+                        }else{
+                            $product['products']['products_ordered'] =  $product['products']['products_ordered']." шт";
+                        }?>
+
+                        <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
+                        <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Заказано: <?=$product['products']['products_ordered']?></div>
                         <div itemprop="model" class="prod-code" style="float: left; margin-right: 12%; font-size: 12px;margin-bottom: 19px; ">Код товара: <?=$product['products']['products_model']?></div>
                         <!--                        <div class="stars" style="color: gold; float: left;">Звездочки</div>-->
                         <div style="clear: both;"></div>
-                        <div class="min-opt" style="font-size: 12px; margin-bottom: 19px;">Минимальный оптовый заказ: <?=$product['products']['products_quantity_order_min']?> шт.</div>
                         <div class="prodname" itemprop="name" style="font-size: 24px;margin-bottom: 15px; "><?=$product['productsDescription']['products_name']?></div>
                         <div itemprop="category" class="model" style="display:none"><?=end($catpath['name'])?><</div>
                         <a itemprop="url" href="/glavnaya/product?id=<?=$product['productsDescription']['products_id']?>"></a>
@@ -194,34 +228,72 @@ if(!$product['products']['products_image']){
         </div>
         <div class="rel-head" style="height: 40px; float: left;font-size:24px; font-weight: 400;">Похожие товары</div>
         <div class="relative" style="height: 460px; width: 100%; float: left; position: relative;margin-bottom: 60px;overflow: hidden;">
-            <?php
-            if(is_array($relprod)) {
-                $relitems=array();
-                $num=0;
-                $it=0;
-                $relitems[$it]['content']='';
-                foreach ($relprod as $k1=>$val) {
-                    if($num<10){
-                        $relitems[$it]['content'].=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time, 'writeitemprop'=>FALSE]);
-                        $num++;
-                    }
-                    else{
-                        $num=0;
-                        $it++;
-                        $relitems[$it]['content']=\frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time, 'writeitemprop'=>FALSE]);
-                        $num++;
-                    }
-                }
-                echo Carousel::widget([
-                    'items'=>$relitems,'id'=>'slid2','clientOptions'=>['interval'=>10000]
-                ]);
-            }
-            ?>
+
+
+            <div id="slid4" style="width: 100%;">
+                <div class="carousel-inner sliderNew">
+                    <?php
+                    if (is_array($relprod))
+                        foreach ($relprod as $k1=>$val){ ?>
+                            <div class="item">
+                                <?php
+                                $analitics = '
+                         <script>
+                            ga( "ec:addImpression", {
+                                "id": "'.$val['products']['products_id'].'",
+                                "name": "'.htmlentities($val['productsDescription']['products_name']).'",
+                                "category": "none",
+                                "list": "main-new",
+                                "brand": "'.$val['products']['manufacturers_id'].'",
+                                "variant": "none",
+                                "position": "'.$k1.'"});
+                            ga("ec:setAction", "view");
+                            ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
+                         </script>
+                        ';
+                                echo $analitics;
+                                echo  \frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
+                                ?>
+                            </div>
+                        <?php } ?>
+                </div>
+            </div>
         </div>
 
     </div>
     <script>
-        $(document).on('load', function(){
-            $('a[rel=light]').light();
+        $(window).on('load',function () {
+            $("[rel=light]").light();
+            $('.sliderNew').owlCarousel({
+                loop:true,
+                margin:2,
+                nav:true,
+                items: 6,
+                autoplay:true,
+                navText: ['<a class="left carousel-control" data-slide="prev">‹</a>','<a class="right carousel-control" data-slide="next">›</a>'],
+                dots:false,
+                responsive:{
+                    0:{
+                        items:4
+                    },
+                    1024:{
+                        items:3
+                    },
+                    1280:{
+                        items:4
+                    },
+                    1560:{
+                        items:5
+                    },
+                    1900:{
+                        items:6
+                    }
+                }
+            });
+
+            $(".social").on('click', function () {
+                
+                ga("send", "event", $(this).attr("class").split(' ')[0], $(this).attr("class").split(' ')[1]);
+            })
         });
     </script>

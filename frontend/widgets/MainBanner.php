@@ -9,91 +9,59 @@ use yii\bootstrap\Carousel;
 
 class MainBanner extends \yii\bootstrap\Widget
 {
+    const ROTATE_NONE = '';
+    const ROTATE_RAND = 'random';
+    const ROTATE_ROLL = 'roll';
+
     public $position = [
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_05082016_1.png',
-                'referal'=> '/catalog?cat=1729&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Блузы',
+                'image' => '/images/banners/OM_03112016_1.png',
+                'referal'=> '/catalog?cat=1873',
+                'alttext' => 'Уютные кардиганы',
                 'out' => FALSE
-            ],
-            [
-                'image' => '/images/banners/OM_12082016_1.png',
-                'referal'=> '/catalog?cat=2063',
-                'alttext' => 'Расчески и аксессуары для укладки волос',
-                'out' => FALSE
-            ],
+            ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_05082016_2.gif',
-                'referal'=> '/catalog?cat=1746&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Парфюмерия',
+                'image' => '/images/banners/OM_03112016_2.png',
+                'referal'=> '/catalog?cat=1976',
+                'alttext' => 'Модные зимние новинки',
                 'out' => FALSE
-            ],
-            [
-                'image' => '/images/banners/OM_12082016_2.png',
-                'referal'=> '/catalog?cat=1772',
-                'alttext' => 'Пижамы',
-                'out' => FALSE
-            ],
+            ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_05082016_3.png',
-                'referal'=> '/catalog?cat=2043&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Книги для детей',
+                'image' => '/images/banners/OM_03112016_3.png',
+                'referal'=> '/catalog?cat=1327',
+                'alttext' => 'Полусапожки',
                 'out' => FALSE
-            ],
-            [
-                'image' => '/images/banners/OM_12082016_3.png',
-                'referal'=> '/catalog?cat=2875',
-                'alttext' => 'Книги для детей',
-                'out' => FALSE
-            ],
+            ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_05082016_4.png',
-                'referal'=> '/catalog?cat=2066&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Комбинезоны',
+                'image' => '/images/banners/OM_03112016_4.png',
+                'referal'=> '/catalog?cat=835',
+                'alttext' => 'Новые поступления',
                 'out' => FALSE
-            ],
-            [
-                'image' => '/images/banners/OM_12082016_4.png',
-                'referal'=> '/catalog?cat=999',
-                'alttext' => 'Серьги, клипсы',
-                'out' => FALSE
-            ],
+            ]
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_10082016.png',
-                'referal'=> '/discountproducts',
-                'alttext' => 'Акционные товары!',
-                'out' => FALSE
-            ],
-            [
-                'image' => '/images/banners/OM_12082016_5.png',
+                'image' => '/images/banners/OM_03112016_5.png',
                 'referal'=> '/catalog?cat=1720',
                 'alttext' => 'Платья',
                 'out' => FALSE
-            ],
+            ]
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_05082016_6.png',
-                'referal'=> '/catalog?cat=1911&count=60&start_price=&end_price=1000000&prod_attr_query=&page=0&sort=0&searchword=',
-                'alttext' => 'Зоотовары',
+                'image' => '/images/banners/OM_03112016_6.png',
+                'referal'=> '/catalog?cat=2818&sfilt%5B%5D=3005',
+                'alttext' => 'LEGO',
                 'out' => FALSE
-            ],
-            [
-                'image' => '/images/banners/OM_12082016_6.png',
-                'referal'=> '/catalog?cat=2680',
-                'alttext' => 'Контейнеры, боксы, коробки',
-                'out' => FALSE
-            ],
+            ]
         ],
         'discont1' => [
             [
@@ -131,65 +99,71 @@ class MainBanner extends \yii\bootstrap\Widget
 
     public $template = [
         'main' => [
-            '1' => [
+            [
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'medium1',
-                'style'=>''
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
             ],
-            '2' => [
+            [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'small1',
-                'style'=>''
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
             ],
-            '3' => [
+            [
                 'id'=>'index-card-3',
                 'class'=>'sort data-j index-sort banner-card',
                 'position'=> 'large',
-                'style'=>''
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
             ],
-            '4' => [
+            [
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'medium2',
-                'style'=>'style="float:right"'
+                'style'=>'style="float:right"',
+                'roll' => self::ROTATE_NONE
             ],
 
-            '5' => [
+            [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'small2',
-                'style'=>''
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
             ],
 
-            '6' => [
+            [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'long',
-                'style'=>'style="width: calc(100% - 10px);"'
+                'style'=>'style="width: calc(100% - 10px);"',
+                'roll' => self::ROTATE_NONE
             ]
         ],
         'discont' => [
-            '1' => [
+            [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'discont1',
                 'style'=>''
             ],
-            '2' => [
+            [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'discont2',
                 'style'=>''
             ],
-            '3' => [
+            [
                 'id'=>'index-card-6',
                 'class'=>'sort data-j index-sort banner-card',
                 'position'=> 'discont3',
                 'style'=>''
             ],
-            '4' => [
+            [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'discont4',
@@ -207,7 +181,7 @@ class MainBanner extends \yii\bootstrap\Widget
         </div>
         <?php
     }
-    private function formatting_position($position = []){
+    private function formatting_position($position = [], $roll = ''){
         $result = '';
         $item = [];
         foreach ($position as $key=>$value){
@@ -220,34 +194,52 @@ class MainBanner extends \yii\bootstrap\Widget
                 $refer = BASEURL.$value['referal'];
             }
             $item[] = '<a href="'.$refer.'" '.$out_param.'>'.
-                '<img src="'.$value['image'].'"  alt="'.$value['alttext'].'">'.
+                '<img style="display: block;max-width: 100%;height: auto;" src="'.$value['image'].'"  alt="'.$value['alttext'].'">'.
                 '</a>';
         }
-        $result =  Carousel::widget([
-            'items' => $item,
-            'showIndicators' => FALSE,
-            'controls' => FALSE,
-            'options'=>[
-                'class'=>'slide',
-                'data-ride' => 'carousel',
-            ],
-            'clientOptions'=>[
-                'interval'=>5000,
-                'pause'=> 'load',
+        switch($roll){
+            case self::ROTATE_ROLL :{
+                $result =  Carousel::widget([
+                    'items' => $item,
+                    'showIndicators' => FALSE,
+                    'controls' => FALSE,
+                    'options'=>[
+                        'class'=>'slide',
+                        'data-ride' => 'carousel',
+                    ],
+                    'clientOptions'=>[
+                        'interval'=>3000,
+                        'pause'=> 'load',
 
-            ]
-        ]);
+                    ]
+                ]);
+                break;
+            }
+            case self::ROTATE_RAND:{
+                $rf = shuffle($item);
+                $result =  array_shift($item);
+                break;
+                break;
+            }
+            default:{
+                $result =   array_shift($item);
+                break;
+            }
+        }
         return $result;
     }
 
 
 
     private function formatting_template($template = [], $position = []){
+
+
+
         $result = '';
         foreach ($template as $key=>$value){
             $result .=
                 '<div id="'.$value['id'].'"  '.$value['style'].'  data-position="'.$key.'">'.
-                $this->formatting_position($position[$value['position']]).
+                $this->formatting_position($position[$value['position']], $value['roll']).
                 '</div>';
         }
         return $result;

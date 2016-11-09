@@ -453,14 +453,6 @@
                 </div>
                 <div class="col-md-4 mid-item">
                     <div class="item-head">
-                        «Желдорэкспедиция»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.jde.ru/" >http://www.jde.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
                         «Деловые линии»
                     </div>
                     <div class="item">
@@ -588,7 +580,7 @@
                     Грузы ТК: "Первая Экспедиционная компания", "КИТ", "Почта России", "Служба доставки Экспресс-Курьер", "Деловые линии", "ЭНЕРГИЯ", ЕМС почта России  отправляются из г. ИВАНОВО
                 </div>
                 <div class="item4">
-                    Грузы ТК: "Желдорэкспедиция", "ОПТИМА", "Севертранс",  из г. МОСКВЫ    </div>
+                    Грузы ТК: "ОПТИМА", "Севертранс",  из г. МОСКВЫ    </div>
                 <div class="item4">
                     Отправки ТК «Почта России» производятся 1 раз в неделю.  
                 </div>
@@ -783,8 +775,8 @@ font-weight: 500; display: inline-block; width: 25%; color:#00a5a2; min-width: 3
         <a class="mail" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; min-width: 320px; color:#007BC1; height: 50px;border: 1px solid #007BC1; border-radius: 4px; margin: 17px;" href="mailto:odezhdamaster@gmail.com">
             емейл<br/><span style="font-weight: 300">odezhdamaster@gmail.com</span>
         </a>
-        <a class="mail" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; min-width: 320px; color:#007BC1; height: 50px;border: 1px solid #007BC1; border-radius: 4px; margin: 17px;" href="skype:odezhda-master1?chat">
-            Skype<br/><span style="font-weight: 300">odezhda-master1</span>
+        <a class="mail" style="font-weight: 600;padding:5px; display: inline-block; width: 25%; min-width: 320px; color:#007BC1; height: 50px;border: 1px solid #007BC1; border-radius: 4px; margin: 17px;" href="skype:live:sales_53060?chat">
+            Skype<br/><span style="font-weight: 300">sales@om.ru</span>
         </a>
     </div>
 </div>

@@ -19,13 +19,13 @@ class AssetBundle extends \yii\web\AssetBundle
 {
     public $sourcePath = '@yii/apidoc/templates/bootstrap/assets/css';
     public $css = [
-//		'api.css',
         'style.css',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+        'yii\apidoc\templates\bootstrap\assets\HighlightBundle',
     ];
     public $jsOptions = [
         'position' => View::POS_HEAD,

@@ -7,7 +7,7 @@ use Yii;
 
 trait RelatedProducts
 {
-    public function RelatedProducts($categories = 0, $count = 180,$cachekey='related', $cachetime = 7200)
+    public function RelatedProducts($categories = 0, $count = 18 ,$cachekey='related-23-', $cachetime = 7200)
     {
 
         $key = Yii::$app->cache->buildKey($cachekey.'-'.$categories);

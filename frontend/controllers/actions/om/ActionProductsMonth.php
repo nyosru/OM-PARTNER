@@ -26,6 +26,7 @@ trait ActionProductsMonth
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
             $date_start = Yii::$app->request->getQueryParam('date_start');
             $ok = (integer)Yii::$app->request->getQueryParam('ok');
+            $lux = (integer)Yii::$app->request->getQueryParam('lux');
             $sfilt = Yii::$app->request->getQueryParam('sfilt');
             if (($date_end = Yii::$app->request->getQueryParam('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
@@ -44,38 +45,48 @@ trait ActionProductsMonth
             $date_start = Yii::$app->request->post('date_start');
             $sfilt = Yii::$app->request->post('sfilt');
             $ok = (integer)Yii::$app->request->post('ok');
+            $lux = (integer)Yii::$app->request->post('lux');
             if (($date_end = Yii::$app->request->post('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
             }
             $json = Yii::$app->request->post('json');
         }
-            $data = $this->AggregateCatalogData(
-                $params = [
-                    'cat_start' => $cat_start,
-                    'start_price' => $start_price,
-                    'end_price' => $end_price,
-                    'prod_attr_query' => $prod_attr_query,
-                    'count' => $count,
-                    'page' => $page,
-                    'sort' => $sort,
-                    'searchword' => $searchword
-                ],
-                $options = [
-                    'ok'=>$ok,
-                    'date'=>'offset',
-                    'typeresponse'=> $json,
-                    'maxtime' => date('Y-m-d H:i:s'),
-                    'offsettime' => '-1 month',
-                    'cachelistkeyprefix' => 'month-month1-'.$ok,
-                    'cacheproductkey'=> 'product',
-                    'sfilt'=>$sfilt
-                ]);
-
-            if ($json) {
-                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                return $data;
-            } else {
-                return $this->render('cataloggibrid', $data);
-            }
+        if($lux){
+            $start_price = max(1000, $start_price);
         }
+        $data = $this->AggregateCatalogData(
+            $params = [
+                'cat_start' => 0,
+                'start_price' => $start_price,
+                'end_price' => $end_price,
+                'prod_attr_query' => $prod_attr_query,
+                'count' => $count,
+                'page' => $page,
+                'sort' => $sort,
+                'searchword' => $searchword,
+
+            ],
+            $options = [
+                'allowcat'=> [3014, 932, 2046,  3014, 2884, 2873, 2222, 2181, 2155, 2130, 2065, 2048, 2040, 1549],
+                'disallowcat'=>[327,1354, 1976, 1996, 2008, 2123, 2122, 2114, 2113, 1815, 1805],
+                'studio' => false,
+                'discont' => false,
+                'ok' => $ok,
+                'lux' => $lux,
+                'date' => 'param',
+                'typeresponse' => $json,
+                'maxtime' => $date_end,
+                'offsettime' => '-1 week',
+                'cachelistkeyprefix' => 'drugfiesc11' . $ok.'-'.$lux,
+                'cacheproductkey' => 'product',
+                'sfilt'=>$sfilt
+            ]);
+
+        if ($json) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $data;
+        } else {
+            return $this->render('cataloggibrid', $data);
+        }
+    }
 }

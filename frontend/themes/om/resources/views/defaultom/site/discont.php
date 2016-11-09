@@ -19,3 +19,6 @@ if($_COOKIE['cardview']==1){
         echo \frontend\widgets\ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'category'=>$value['categories']['categories_id'],'catpath'=>$catpath, 'man_time'=>$man_time, 'showdiscount'=>1]);
     }
 }
+echo '<div class="col-md-12">'.\yii\widgets\LinkPager::widget([
+        'pagination' => $pagination,
+    ]).'<div>';

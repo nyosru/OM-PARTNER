@@ -2,6 +2,7 @@
 namespace frontend\controllers\actions\om;
 
 use common\models\PartnersCatDescription;
+use common\models\ProductImage;
 use common\models\ProductsSpecifications;
 use Yii;
 use common\models\PartnersProducts;
@@ -16,15 +17,24 @@ trait ActionProduct
         Yii::$app->params['paramset']['relproducts']['value'] = 10;
         $relProd = [];
 
-        // Если запрос пришел через GET
-        if (Yii::$app->request->isGet) {
-            $id = (integer)Yii::$app->request->getQueryParam('id');
+
+        if (Yii::$app->request->isGet && (($id = (integer)Yii::$app->request->getQueryParam('model')) == TRUE)) {
+            $param = 'products_model';
+        }elseif(Yii::$app->request->isGet && (($id = (integer)Yii::$app->request->getQueryParam('id')) == TRUE)) {
+            $param = 'products_id';
+        }elseif(Yii::$app->request->isPost && ($id = (integer)Yii::$app->request->post('id')) == TRUE){
+            $param = 'products_id';
+        }elseif(Yii::$app->request->isPost && ($id = (integer)Yii::$app->request->post('model')) == TRUE){
+            $param = 'products_model';
         }else{
-            $id = (integer)Yii::$app->request->post('id');
+            return $this->redirect('/');
         }
 
+        if ($id > 0 && ($x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, products_id,products_model')->where([$param => trim($id)])->createCommand()->queryOne()) == TRUE) {
 
-        if ($id > 0 && ($x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date ')->where(['products_id' => trim($id)])->createCommand()->queryOne()) == TRUE) {
+            if(($id = $x['products_id']) == FALSE){
+                return 'false';
+            }
 
             $spec = PartnersProductsToCategories::find()
                 ->where(['products_to_categories.products_id' => $id])
@@ -36,19 +46,19 @@ trait ActionProduct
                 $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'], 'specifications_id');
                 $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'], 'specification_values_id');
             }
-
-
+            $prodimages = ProductImage::find()->select(['image_file'])
+                ->where(['product_id' => $id])->limit(5)
+                ->createCommand()->queryall(7);
+           
             if (strtotime($x['products_last_modified']) < strtotime($x['add_date']))
                 $x['products_last_modified'] = $x['add_date'];
             $checkcache = $x['products_last_modified'];
-
-            $keyprod = Yii::$app->cache->buildKey('product-' . $id);
+            $keyprod = Yii::$app->cache->buildKey('productn-' . $id);
             $data = Yii::$app->cache->get($keyprod);
             $d1 = trim($checkcache);
             $d2 = trim($data['last']);
             if (!$data || ($d1 !== $d2)) {
-
-                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.`products_id` =:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
+                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.'.$param.'=:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
                 $data = end($data);
                 unset(
                     $data['old_categories_id'],
@@ -69,7 +79,6 @@ trait ActionProduct
                     $data['products']['products_image_xl_4'],
                     $data['products']['products_image_xl_5'],
                     $data['products']['products_image_xl_6'],
-                    $data['products']['products_ordered'],
                     $data['products']['price_coll'],
                     $data['products']['products_sort_order'],
                     $data['products']['products_tax_class_id'],
@@ -128,7 +137,6 @@ trait ActionProduct
             } else {
                 $catpath = $this->Catpath($data['categories_id'], 'namenum');
             }
-
             $list = array();
             $hide_man = $this->hide_manufacturers_for_partners();
             foreach ($hide_man as $value) {
@@ -145,12 +153,9 @@ trait ActionProduct
             }
             $hide_man = implode(',', $list);
             $now = date('Y-m-d H:i:s');
-
             $relProd = PartnersProductsToCategories::find()->where('products_to_categories.categories_id = :categories  and products_date_added < :now and products_last_modified < :now  and products.products_quantity > 0  and products.products_price != 0   and products_status=1 ', [':categories' => $data['categories_id'], ':now' => $now])->joinWith('products')->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ')')->limit(180)->createCommand()->cache(3600)->queryAll();
-
             if ($relProd) {
                 $relnum = array_rand($relProd, min(60, count($relProd)));
-
                 $relProd1 = array();
                 if (is_array($relnum)) {
                     foreach ($relnum as $item) {
@@ -164,27 +169,23 @@ trait ActionProduct
                     ->joinWith('products')->joinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where('products.manufacturers_id NOT IN (' . $hide_man . ') and products_status=1  and products.products_quantity > 0 AND products_to_categories.products_id IN (' . $relstring . ')')->asArray()->all();
                 $relProd = [];
                 foreach ($relProduct as $key => $value) {
-
                     $relProd[$key]['products_name'] = $value['productsDescription']['products_name'];
                     $relProd[$key]['products_price'] = $value['products']['products_price'];
                     $relProd[$key]['products_image'] = $value['products']['products_image'];
                     $relProd[$key]['products_id'] = $value['products_id'];
                 }
             }
-
             if (Yii::$app->request->isPost) {
                 $data['productsAttributesDescr'] = ArrayHelper::index($data['productsAttributesDescr'], 'products_options_values_name');
                 $data['productsAttributes'] = ArrayHelper::index($data['productsAttributes'], 'options_values_id');
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                return ['product' => $data, 'spec' => $spec,'catpath' => $catpath];
+                return ['product' => $data, 'spec' => $spec,'catpath' => $catpath, 'images'=>$prodimages];
             } elseif (Yii::$app->request->isGet) {
                 $man_time = $this->manufacturers_diapazon_id();
-                return $this->render('product', ['product' => $data, 'catpath' => $catpath, 'spec' => $spec, 'relprod' => $relProduct, 'man_time' => $man_time]);
-
+                return $this->render('product', ['product' => $data, 'catpath' => $catpath, 'spec' => $spec,  'images'=>$prodimages, 'relprod' => $relProduct, 'man_time' => $man_time]);
             } else {
                 return $this->redirect('/');
             }
-
         }
 
 

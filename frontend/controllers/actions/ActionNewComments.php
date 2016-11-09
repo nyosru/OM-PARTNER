@@ -18,37 +18,9 @@ trait ActionNewComments
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return $this->redirect(BASEURL . '/login');
         } else {
-            $search = array("'<script[^>]*?>.*?</script>'si",
-                "'<[\/\!]*?[^<>]*?>'si",
-                "'([\r\n])[\s]+'",
-                "'&(quot|#34);'i",
-                "'&(amp|#38);'i",
-                "'&(lt|#60);'i",
-                "'&(gt|#62);'i",
-                "'&(nbsp|#160);'i",
-                "'&(iexcl|#161);'i",
-                "'&(cent|#162);'i",
-                "'&(pound|#163);'i",
-                "'&(copy|#169);'i",
-                "'&#(\d+);'e");
-
-            $replace = array("",
-                "",
-                "\\1",
-                "\"",
-                "&",
-                "<",
-                ">",
-                " ",
-                chr(161),
-                chr(162),
-                chr(163),
-                chr(169),
-                "chr(\\1)");
-
-            $text = preg_replace($search, $replace, Yii::$app->request->post()['PartnersComments']['post']);
-            $relate = preg_replace($search, $replace, Yii::$app->request->post()['PartnersComments']['relate_id']);
-            $category = preg_replace($search, $replace, Yii::$app->request->post()['PartnersComments']['category']);
+            $text = $this->trim_tags_text(Yii::$app->request->post()['PartnersComments']['post']);
+            $relate = $this->trim_tags_text(Yii::$app->request->post()['PartnersComments']['relate_id']);
+            $category = $this->trim_tags_text( Yii::$app->request->post()['PartnersComments']['category']);
             $model = new PartnersComments();
 //            $modeluser = new PartnersUsersInfo();
 //            $modeluser = $modeluser::findOne(['id'=>$user]);
@@ -73,6 +45,12 @@ trait ActionNewComments
             $model->user_id = Yii::$app->user->getIdentity()->id;
             $model->post = $text;
             if ($model->save()) {
+                $ga =  Yii::$app->session->get('ga');
+                $ga[] = [
+                    'event' => 'comment',
+                    'location'=> $model->relate_id
+                ];
+                Yii::$app->session->set('ga', $ga);
                 if (Yii::$app->request->referrer) {
                     return $this->redirect(Yii::$app->request->referrer);
                 } else {

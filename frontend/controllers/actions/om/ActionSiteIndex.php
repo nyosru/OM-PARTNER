@@ -16,10 +16,9 @@ trait ActionSiteIndex
         } else {
             $title = Yii::$app->params['constantapp']['APP_NAME'];
         }
-        $man_time = $this->manufacturers_diapazon_id();
-        $newproducts = $this->NewProducts();
-        $dataproducts = $this->FeaturedProducts();
-        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts,'title'=>$title, 'man_time'=>$man_time]);
+        $newproducts = $this->NewProducts(18, 'ef123ef-', 300);
+        $dataproducts = $this->FeaturedProducts(60, 'wdawwdqsef-', 300);
+        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts,'title'=>$title]);
     }
 }
 

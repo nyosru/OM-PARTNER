@@ -7,7 +7,14 @@
  */
 
 $this -> title = 'Бренды';
-foreach ($brands as $brandkey=>$brandvalue){
-    echo '<a href="'.BASEURL.'/catalog?count=60&amp;sfilt[]='.$brandvalue['specification_values_id'].'" class="btn" style="border: 1px solid #00A5A1; width: calc(100% / 4 - 10px); margin: 5px;"><div >'.$brandvalue['specification_value']. '</div></a>';
-}
 
+foreach ($brands as $brandkey=>$brandvalue){
+    if(($result = glob('images/brands/'.$brandvalue['specification_values_id'].'.{jpg,png,gif}', GLOB_BRACE )) == TRUE && $result[0]){
+        $background = 'background: url(/'.$result[0].') no-repeat 50% 50% #FFF ;';
+        $brandvaluespec = '.';
+    }else{
+        $background = '';
+        $brandvaluespec = $brandvalue['specification_value'];
+    }
+    echo '<a title="'.htmlentities($brandvalue['specification_value']).'" class="brand-label" href="'.BASEURL.'/catalog?count=60&amp;sfilt[]='.$brandvalue['specification_values_id'].'" style="'.$background.'"><div>'.$brandvaluespec. '</div></a>';
+}

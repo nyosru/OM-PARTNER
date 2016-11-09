@@ -62,7 +62,7 @@ $this->title = 'Регистрация';
             <?php ActiveForm::end(); ?>
 
     <script>
-    $(document).on('ready', function(){
+    $(window).on('load', function(){
 
         $.ajax({
             type: "GET",

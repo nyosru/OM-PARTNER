@@ -476,7 +476,7 @@ a:active {
     float: left;
     min-height: 450px;
     border-radius: 2px;
-    box-shadow: 0 0 1px 0 #AFBCAA;
+    border: 1px solid #e3e3e3;
     margin: 5px;
     width: calc(100% / 4 - 10px);
     padding: 20px;
@@ -3178,8 +3178,7 @@ input[class*="checkbox-hidden-group"]{
     display: none;
 }
 #slid .item{
-    margin-left: 70px;
-    margin-right: 70px;
+   margin: 0px;
 }
 #slid .carousel-control{
     top:45%;
@@ -3480,7 +3479,7 @@ div.size-desc:last-child{
     margin:5px;
     width: calc(100% / 2 - 10px);
     border-radius: 2px;
-    box-shadow: 0 0 1px 0 #AFBCAA;
+    border: 1px solid #e3e3e3;
     height: 416px;
 }
 .inht:hover{
@@ -3501,7 +3500,7 @@ div.size-desc:last-child{
 #card2size{
     float: left;
     width: 45%;
-    padding-top: 15px;
+    padding-top: 0px;
 }
 
 #card2 .fa-clock-o{
@@ -3662,7 +3661,27 @@ div.size-desc:last-child{
     float: left;
     display: none;
 }
+.brand-label{
+    border: 1px solid #CCC;
+    width: calc(100% / 6 - 10px);
+    margin: 5px 5px 0px;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 7;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    -moz-user-select: none;
+    border-radius: 2px;
+    height: 110px;
 
+}
+.brand-label:hover{
+    box-shadow: 0px -2px 15px #9E9E9E;
+
+}
 @media screen and (min-width: 3651px) and ( max-width: 4100px){
     #card{
         width: calc(100% / 11 - 10px);

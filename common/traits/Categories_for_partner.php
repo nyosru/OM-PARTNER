@@ -11,7 +11,7 @@ Trait Categories_for_partner
     {
         $categoriess = new PartnersCategories();
         $categoriesd = new PartnersCatDescription();
-        $key = Yii::$app->cache->buildKey('categories');
+        $key = Yii::$app->cache->buildKey('categories-api-key');
         $data = Yii::$app->cache->get($key);
         if ($data['data'] == FALSE) {
             $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->createCommand()->queryAll();

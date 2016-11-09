@@ -15,32 +15,35 @@ use yii\base\NotSupportedException;
  * Note: although PDO supports numerous database drivers, this class supports only MySQL.
  *
  * In order to setup Sphinx "searchd" to support MySQL protocol following configuration should be added:
- * ~~~
+ *
+ * ```
  * searchd
  * {
  *     listen = localhost:9306:mysql41
  *     ...
  * }
- * ~~~
+ * ```
  *
  * The following example shows how to create a Connection instance and establish
  * the Sphinx connection:
- * ~~~
+ *
+ * ```php
  * $connection = new \yii\db\Connection([
  *     'dsn' => 'mysql:host=127.0.0.1;port=9306;',
  *     'username' => $username,
  *     'password' => $password,
  * ]);
  * $connection->open();
- * ~~~
+ * ```
  *
  * After the Sphinx connection is established, one can execute SQL statements like the following:
- * ~~~
+ *
+ * ```php
  * $command = $connection->createCommand("SELECT * FROM idx_article WHERE MATCH('programming')");
  * $articles = $command->queryAll();
  * $command = $connection->createCommand('UPDATE idx_article SET status=2 WHERE id=1');
  * $command->execute();
- * ~~~
+ * ```
  *
  * For more information about how to perform various DB queries, please refer to [[Command]].
  *
@@ -66,6 +69,13 @@ class Connection extends \yii\db\Connection
         'mysqli' => 'yii\sphinx\Schema',   // MySQL
         'mysql' => 'yii\sphinx\Schema',    // MySQL
     ];
+    /**
+     * @var boolean whether to enable conversion of the float query params into the direct literal SQL insertion.
+     * This allows processing of the float values, since PDO does not provide specific param type for float binding,
+     * while Sphinx is unable to process float values passed as quoted strings.
+     * @since 2.0.6
+     */
+    public $enableFloatConversion = true;
 
 
     /**

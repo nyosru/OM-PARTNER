@@ -16,8 +16,6 @@ trait ActionProductsCloth
 {
     public function actionProductscloth()
     {
-
-
         if (Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
             $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));
@@ -28,6 +26,7 @@ trait ActionProductsCloth
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
             $date_start = Yii::$app->request->getQueryParam('date_start');
             $ok = (integer)Yii::$app->request->getQueryParam('ok');
+            $lux = (integer)Yii::$app->request->getQueryParam('lux');
             $sfilt = Yii::$app->request->getQueryParam('sfilt');
             if (($date_end = Yii::$app->request->getQueryParam('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
@@ -46,30 +45,39 @@ trait ActionProductsCloth
             $date_start = Yii::$app->request->post('date_start');
             $sfilt = Yii::$app->request->post('sfilt');
             $ok = (integer)Yii::$app->request->post('ok');
+            $lux = (integer)Yii::$app->request->post('lux');
             if (($date_end = Yii::$app->request->post('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
             }
             $json = Yii::$app->request->post('json');
         }
+        if($lux){
+            $start_price = max(1000, $start_price);
+        }
         $data = $this->AggregateCatalogData(
             $params = [
-                'cat_start' => $cat_start,
+                'cat_start' => 0,
                 'start_price' => $start_price,
                 'end_price' => $end_price,
                 'prod_attr_query' => $prod_attr_query,
                 'count' => $count,
                 'page' => $page,
                 'sort' => $sort,
-                'searchword' => $searchword
+                'searchword' => $searchword,
+
             ],
             $options = [
-                'allowcat' => [1350, 1397, 1632, 1668, 1805, 1815, 1904, 1905, 712, 1344, 1422, 1443, 1538, 1908, 1909, 1910, 1996, 2008, 2114, 2122, 2123, 2113, 1976, 3239],
+                'allowcat'=>[0],
+                'disallowcat'=> [327 , 932, 1354, 3014, 1111,  1562, 1609, 1681, 2047, 2714, 3009, 3201,  3014, 2884, 2873, 2222, 2181, 2155, 2130, 2065, 2048, 2040, 1549],
+                'studio' => false,
+                'discont' => false,
                 'ok' => $ok,
-                'date' => 'offset',
+                'lux' => $lux,
+                'date' => 'param',
                 'typeresponse' => $json,
-                'maxtime' => date('Y-m-d H:i:s'),
-                'offsettime' => '-1 month',
-                'cachelistkeyprefix' => 'clothzmonth121' . $ok,
+                'maxtime' => $date_end,
+                'offsettime' => '-1 week',
+                'cachelistkeyprefix' => 'dru5gserf5gge11' . $ok.'-'.$lux,
                 'cacheproductkey' => 'product',
                 'sfilt'=>$sfilt
             ]);

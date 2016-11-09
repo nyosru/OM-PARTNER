@@ -59,7 +59,7 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
     ]);
 
     ?>
-    <?
+    <?php
 
     $menuItems = [];
     if (Yii::$app->user->can('admin')) {

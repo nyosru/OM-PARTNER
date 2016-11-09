@@ -54,7 +54,7 @@ class Manufacturers extends ActiveRecordExt
     {
         return [
             [['date_added', 'last_modified'], 'safe'],
-            [['customer_id', 'parent_id', 'admin_group_id', 'admin_id', 'daysPromotion', 'payment_delay', 'repayment_period'], 'integer'],
+            [['customer_id', 'parent_id', 'admin_group_id', 'admin_id', 'daysPromotion', 'payment_delay', 'repayment_period', 'individual_margin', 'express', 'admin_company_id' ], 'integer'],
             [['subCreater', 'view_in_html', 'red_products', 'person_act', 'mark_no_delete', 'print_checks', 'print_multyCheck', 'products_control', 'hide_products', 'transfering'], 'string'],
             [['manufacturers_image'], 'string', 'max' => 64]
         ];
@@ -66,27 +66,30 @@ class Manufacturers extends ActiveRecordExt
     public function attributeLabels()
     {
         return [
-            'manufacturers_id' => 'Manufacturers ID',
-            'manufacturers_image' => 'Manufacturers Image',
-            'date_added' => 'Date Added',
-            'last_modified' => 'Last Modified',
-            'customer_id' => 'Customer ID',
-            'parent_id' => 'Parent ID',
-            'subCreater' => 'Sub Creater',
-            'view_in_html' => 'View In Html',
-            'red_products' => 'Red Products',
-            'person_act' => 'Person Act',
-            'mark_no_delete' => 'Mark No Delete',
-            'admin_group_id' => 'Admin Group ID',
-            'print_checks' => 'Print Checks',
-            'admin_id' => 'Admin ID',
-            'print_multyCheck' => 'Print Multy Check',
-            'daysPromotion' => 'Days Promotion',
-            'products_control' => 'Products Control',
-            'hide_products' => 'Hide Products',
-            'transfering' => 'Transfering',
-            'payment_delay' => 'Payment Delay',
-            'repayment_period' => 'Repayment Period',
+            'manufacturers_id'    => 'Номер поставщика',
+            'manufacturers_image' => 'Картинка',
+            'date_added'          => 'Дата добавления',
+            'last_modified'       => 'Дата последнего изменения',
+            'customer_id'         => 'Номер покупателя',
+            'parent_id'           => 'Номер предка',
+            'subCreater'          => 'Субпроизводитель',
+            'view_in_html'        => 'Показывать в HTML отчете',
+            'red_products'        => 'Разрешить редактировать товары',
+            'person_act'          => 'Отдельный документооборот',
+            'mark_no_delete'      => 'Разрешить неудаляемые товары',
+            'admin_group_id'      => 'Номер группы администраторов',
+            'print_checks'        => 'Разрешить печатать чеки',
+            'admin_id'            => 'Номер администратора',
+            'print_multyCheck'    => 'Разрешить все чеки за один раз',
+            'daysPromotion'       => 'Поднимать товар каждые: *** дней (0 - запрет)',
+            'products_control'    => 'Разрешить контроль заказов',
+            'hide_products'       => 'Скрыть производителя и все его товары',
+            'transfering'         => 'Участие в переводах',
+            'payment_delay'       => 'Отсрочка платежа',
+            'repayment_period'    => 'Срок возврата',
+            'individual_margin'   => 'Индивидуальная наценка',
+            'express'             => 'Экспресс',
+            'admin_company_id'    => 'Номер закреплённого ИП',
         ];
     }
 

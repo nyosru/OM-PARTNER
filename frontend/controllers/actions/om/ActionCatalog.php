@@ -22,6 +22,7 @@ trait ActionCatalog
             $sort = (integer)(Yii::$app->request->getQueryParam('sort'));
             $date_start = Yii::$app->request->getQueryParam('date_start');
             $ok = (integer)Yii::$app->request->getQueryParam('ok');
+            $lux = (integer)Yii::$app->request->getQueryParam('lux');
             $sfilt = Yii::$app->request->getQueryParam('sfilt');
             if (($date_end = Yii::$app->request->getQueryParam('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
@@ -40,12 +41,15 @@ trait ActionCatalog
             $date_start = Yii::$app->request->post('date_start');
             $sfilt = Yii::$app->request->post('sfilt');
             $ok = (integer)Yii::$app->request->post('ok');
+            $lux = (integer)Yii::$app->request->post('lux');
             if (($date_end = Yii::$app->request->post('date_end')) == FALSE) {
                 $date_end = date('Y-m-d H:i:s');
             }
             $json = Yii::$app->request->post('json');
         }
-       
+        if($lux){
+            $start_price = max(1000, $start_price); 
+        }
         $data = $this->AggregateCatalogData(
             $params = [
                 'cat_start' => $cat_start,
@@ -59,16 +63,21 @@ trait ActionCatalog
 
             ],
             $options = [
+                'allowcat'=> [0],
+                'disallowcat'=>[327,1354],
+                'studio' => false,
+                'discont' => false,
                 'ok' => $ok,
+                'lux' => $lux,
                 'date' => 'param',
                 'typeresponse' => $json,
                 'maxtime' => $date_end,
                 'offsettime' => $date_start,
-                'cachelistkeyprefix' => 'catalog1' . $ok,
+                'cachelistkeyprefix' => 'catalog12' . $ok.'-'.$lux,
                 'cacheproductkey' => 'product',
                 'sfilt'=>$sfilt
             ]);
-        
+       
         if ($json) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return $data;

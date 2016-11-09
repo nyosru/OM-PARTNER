@@ -1,6 +1,34 @@
 Change Log: `yii2-export`
 =========================
 
+## version 1.2.5
+
+**Date:** 18-Apr-2016
+
+- (enh #115): Add Polish translations.
+- (enh #118): Validation for empty value.
+- (enh #117): Add German translations.
+- (enh #119): Add Hungarian translations.
+- (enh #121): Add Dutch translations.
+- (enh #123): Allow the exported filename to have spaces.
+- (enh #124): Add Italian translations.
+- (enh #133): Modify default `pdfLibrary` setting for mPDF.
+
+## version 1.2.4
+
+**Date:** 04-Feb-2016
+
+- (enh #78): Add Portugese Brazilian translations.
+- (enh #87): Cache dataProvider total count (for performance).
+- (enh #89): New property `onInitExcel` as an event for `initPHPExcel` method.
+- (enh #98): More correct models count for generateBody.
+- (enh #99): New setter methods `setPHPExcel`, `setPHPExcelWriter`, `setPHPExcelSheet`
+- PHP comment formatting and PHPDoc updates.
+- (enh #100): Add Czech language translations.
+- (enh #100): Add Czech language translations.
+- (enh #112): Added option to configure timeout.
+- (enh #114): Add composer branch alias to allow getting latest `dev-master` updates.
+
 ## version 1.2.3
 
 **Date:** 19-Jul-2015

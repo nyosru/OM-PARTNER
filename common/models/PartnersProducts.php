@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use app\api\core\productsdescription\ProductsDescription;
+
 use common\patch\ActiveRecordExt;
 use Yii;
 use common\models\PartnersProductsAttributes;
@@ -159,6 +159,10 @@ class PartnersProducts extends ActiveRecordExt
     public function getSpecificationDescription()
     {
         return $this->hasMany(SpecificationDescription::className(), ['specifications_id' => 'specifications_id'])->via('productsSpecification');
+    }
+    public function getProductImage()
+    {
+        return $this->hasOne(ProductImage::class, ['products_id' => 'product_id']);
     }
 
 }
