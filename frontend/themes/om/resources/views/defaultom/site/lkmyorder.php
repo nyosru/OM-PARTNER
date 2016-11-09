@@ -363,7 +363,7 @@ echo \yii\grid\GridView::widget([
                 $('.photobank-'+data.opid).html('');
 
                 $.each(data.photo,function(){
-                    $('.photobank-'+data.opid).append('<a class="pritenphoto"  rel="light" data-gallery="'+data.opid+'" href="/images/priten/'+data.opid+'/'+this.image_name_server+'"><div class="pritenphotoimg" style="background: url(/images/priten/'+data.opid+'/'+this.image_name_server+') no-repeat 50% 50% /contain"></div></a>');
+                    $('.photobank-'+data.opid).append('<a class="pritenphoto"  rel="light" data-gallery="'+data.opid+'" href="/images/priten/'+this.image_name_server+'"><div class="pritenphotoimg" style="background: url(/images/priten/'+this.image_name_server+') no-repeat 50% 50% /contain"></div></a>');
                 });
 
                 $('a[rel=light]').light();

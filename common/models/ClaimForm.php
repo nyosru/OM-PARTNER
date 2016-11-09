@@ -71,16 +71,16 @@ class ClaimForm extends Model
                                 $photo->customer_id = $customer['customers_id'];
                                 $photo->orders_products_id = $this->opid;
                                 $photo->date_add = $now;
-                                $photo->image_name_server = $actual_image_name;
+                                $photo->image_name_server = $this->opid . '/'. $actual_image_name;
                                 $photo->image_name = $name;
                                 if ($photo->save()) {
                                     $orderproducts = OrdersProducts::find()->where(['orders_products_id' => $this->opid])->one();
                                     $orderproducts->priten = "1";
                                     $orderproducts->validate();
                                     if ($orderproducts->save()) {
-                                        return ['name' => $actual_image_name, 'state' => 'succes'];
+                                        return ['name' => $this->opid . '/'. $actual_image_name, 'state' => 'succes'];
                                     }
-                                    return ['name' => $actual_image_name, 'state' => 'error'];;
+                                    return ['name' => $this->opid . '/'. $actual_image_name, 'state' => 'error'];
                                 } else $this->addError('myphoto', $photo->errors);
                             } else $this->addError('myphoto', $tmp);
                         } else $this->addError('myphoto', $this->myphoto);
