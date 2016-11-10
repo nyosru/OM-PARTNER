@@ -227,7 +227,6 @@ trait AggregateCatalogData
                     $default_order = ['products.sort_order'=> SORT_DESC, 'products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
                 }else{
                     $default_order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
-                    $sort = 5;
                 }
                 switch ($sort) {
                     case 0:
