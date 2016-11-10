@@ -69,7 +69,7 @@ $this->beginPage();
                     <div class="partners-main-left-cont">
                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
 
-                        <?= Menuom::widget(['property' => ['id' => 'main', 'target' => '0', 'opencat' => Yii::$app->params['layoutset']['opencat']]]); ?>
+                        <?= Menuom::widget([ 'chpu' =>Yii::$app->params['seourls'],'property' => ['id' => 'main', 'target' => '0', 'opencat' => Yii::$app->params['layoutset']['opencat']]]); ?>
                     </div>
                     <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
                     <?php $this->endCache();
