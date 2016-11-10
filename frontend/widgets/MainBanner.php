@@ -17,49 +17,49 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_03112016_1.png',
-                'referal'=> '/catalog?cat=1873',
-                'alttext' => 'Уютные кардиганы',
+                'image' => '/images/banners/OM_07112016_1.png',
+                'referal'=> '/catalog?cat=1810',
+                'alttext' => 'Уютные свитера',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_03112016_2.png',
-                'referal'=> '/catalog?cat=1976',
-                'alttext' => 'Модные зимние новинки',
+                'image' => '/images/banners/OM_07112016_2.png',
+                'referal'=> '/catalog?cat=1819',
+                'alttext' => 'Уютные снуды',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_03112016_3.png',
-                'referal'=> '/catalog?cat=1327',
-                'alttext' => 'Полусапожки',
+                'image' => '/images/banners/OM_07112016_3.png',
+                'referal'=> '/catalog?cat=2113',
+                'alttext' => 'Перчатки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_03112016_4.png',
-                'referal'=> '/catalog?cat=835',
-                'alttext' => 'Новые поступления',
+                'image' => '/images/banners/OM_07112016_4.png',
+                'referal'=> '/catalog?cat=1994',
+                'alttext' => 'Угги',
                 'out' => FALSE
             ]
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_03112016_5.png',
-                'referal'=> '/catalog?cat=1720',
-                'alttext' => 'Платья',
+                'image' => '/images/banners/OM_07112016_5.png',
+                'referal'=> '/catalog?cat=1751',
+                'alttext' => 'Пуховики',
                 'out' => FALSE
             ]
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_03112016_6.png',
-                'referal'=> '/catalog?cat=2818&sfilt%5B%5D=3005',
-                'alttext' => 'LEGO',
+                'image' => '/images/banners/OM_07112016_6.png',
+                'referal'=> '/discont',
+                'alttext' => 'Распродажа',
                 'out' => FALSE
             ]
         ],
