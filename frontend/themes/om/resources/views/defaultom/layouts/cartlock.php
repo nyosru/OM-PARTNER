@@ -78,7 +78,7 @@ $this->beginPage();
                             };
                             ?>
 
-                            <?= Menuom::widget(['property' => ['id' => 'main', 'target' => '0', 'opencat' => $layoutset]]); ?>
+                            <?= Menuom::widget([ 'chpu' =>Yii::$app->params['seourls'],'property' => ['id' => 'main', 'target' => '0', 'opencat' => $layoutset]]); ?>
                         </div>
                         <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
                         <?php $this->endCache();
