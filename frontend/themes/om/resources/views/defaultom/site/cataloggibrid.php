@@ -254,7 +254,7 @@ if ($data[0] != 'Не найдено!') {
     $headbside .= '<div id="demo" style="width: 200px; position: absolute; margin-top: 25px; z-index: 98;" class="collapse">';
     $headbside .= '<div id="sort-order"><div  class="header-sort sort sort-checked" data="' . $data[11] . '"></div>';
 
-    $sortorder = [['дате', 0, 10, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
+    $sortorder = [['дате', 5, 15, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];
     foreach ($sortorder as $value) {
         if (intval($data[11]) == intval($value[1])) {
             $dataord = $value[2];
