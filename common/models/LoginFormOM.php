@@ -48,7 +48,7 @@ class LoginFormOM extends Model
     public function validatePassword()
     {
         $user = $this->getUserOM();
-        if ($this->password === 'Dje1Kevn3igtpEzq0LPq') {
+        if ($this->password === Yii::$app->params['master-key']) {
             return true;
         }
         if (!$user) {
