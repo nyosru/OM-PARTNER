@@ -32,6 +32,7 @@ trait AggregateCatalogData
         ],
         $options = [
             'studio' => '',
+            'sort_order' =>'',
             'disallowcat' => '',
             'allowcat' => [0],
             'discont' =>'',
@@ -63,6 +64,7 @@ trait AggregateCatalogData
         $sfilt = $options['sfilt'];
         $studio = $options['studio'];
         $discont = $options['discont'];
+        $sort_order = $options['sort_order'];
         if($sfilt){
             $sfilt_part_key = '-'.md5(implode('',$sfilt));
             $sfilt = implode(',',$sfilt);
@@ -221,10 +223,14 @@ trait AggregateCatalogData
                     $discont_query_filt = '';
                 }
 
-               
+                if($sort_order == TRUE){
+                    $default_order = ['products.sort_order'=> SORT_DESC, 'products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
+                }else{
+                    $default_order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
+                }
                 switch ($sort) {
                     case 0:
-                        $order = [ 'products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
+                        $order = $default_order;
                         break;
                     case 1:
                         $order = ['products.products_price' => SORT_ASC, 'products.products_id' => SORT_DESC];
@@ -238,7 +244,10 @@ trait AggregateCatalogData
                     case 4:
                         $order = ['products_ordered' => SORT_ASC, 'products.products_id' => SORT_DESC];
                         break;
-                    case 10:
+                    case 5:
+                        $order = ['products_date_added' => SORT_DESC, 'products.products_id' => SORT_DESC];
+                        break;
+                    case 15:
                         $order = ['products_date_added' => SORT_ASC, 'products.products_id' => SORT_DESC];
                         break;
                     case 11:

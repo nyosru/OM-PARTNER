@@ -75,7 +75,8 @@ trait ActionCatalog
                 'offsettime' => $date_start,
                 'cachelistkeyprefix' => 'catalog12' . $ok.'-'.$lux,
                 'cacheproductkey' => 'product',
-                'sfilt'=>$sfilt
+                'sfilt'=>$sfilt,
+                'sort_order' => TRUE
             ]);
        
         if ($json) {
