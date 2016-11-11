@@ -22,7 +22,7 @@ trait ActionSelectedProduct
             $prod = PartnersProducts::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->where(['products.products_id' => $products])->distinct()->orderBy('products_date_added')->asArray()->all();
             $ifht = 0;
             foreach ($prod as $values) {
-                $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
+                $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
                 if (!$values['last']) {
                     $values['last'] = $values['add_date'];
@@ -41,12 +41,12 @@ trait ActionSelectedProduct
                 $prodarr = implode(',', $nodata);
                 $datar = PartnersProductsToCategories::find()->where('products.products_id IN (' . $prodarr . ')')->joinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->groupBy(['products.`products_id` DESC'])->asArray()->all();
                 foreach ($datar as $valuesr) {
-                    $keyprod = Yii::$app->cache->buildKey('product-' . $valuesr['products_id']);
+                    $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
                     Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $valuesr['products']['products_last_modified'], 'quantity' => $valuesr['products']['products_quantity']]);
                 }
             }
             foreach ($prod as $keyin => $values) {
-                $keyprod = Yii::$app->cache->buildKey('product-' . $values['prod']);
+                $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
                 $dataprod = Yii::$app->cache->get($keyprod);
                 $data[] = $dataprod['data'];
             }
@@ -76,7 +76,7 @@ trait ActionSelectedProduct
                         $data[$key]['products']['products_image_xl_5'],
                         $data[$key]['products']['products_image_xl_6'],
                         //$data[$key]['products']['products_old_price'],
-                        $data[$key]['products']['products_ordered'],
+                        //$data[$key]['products']['products_ordered'],
                         $data[$key]['products']['price_coll'],
                         $data[$key]['products']['products_sort_order'],
                         $data[$key]['products']['products_tax_class_id'],
@@ -90,7 +90,7 @@ trait ActionSelectedProduct
                     foreach ($data[$key]['productsAttributes'] as $keyattr => $valueattr) {
                         unset(
                             $data[$key]['productsAttributes'][$keyattr]['options_id'],
-                            $data[$key]['productsAttributes'][$keyattr]['options_values_price'],
+                            //$data[$key]['productsAttributes'][$keyattr]['options_values_price'],
                             $data[$key]['productsAttributes'][$keyattr]['price_prefix'],
                             $data[$key]['productsAttributes'][$keyattr]['product_attributes_one_time'],
                             $data[$key]['productsAttributes'][$keyattr]['products_attributes_id'],
