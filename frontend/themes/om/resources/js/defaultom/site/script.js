@@ -497,7 +497,7 @@ function new_suburl($url_obj, $val, $new_var) {
 }
 
 function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showdiscount){
-    if($category.lenght  ==  0 ) {
+    if($category.lenght  ==  0  || typeof($category['num']) =='undefined' ) {
         $catname = '';
         $catnum = '';
     }else{
@@ -669,8 +669,13 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
         '</div></div>');
 }
 function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $showdiscount){
-    $catname = $category['name'][$category['name'].length - 1];
-    $catnum = $category['num'][$category['num'].length - 1];
+    if($category.lenght  ==  0  || typeof($category['num']) =='undefined' ) {
+        $catname = '';
+        $catnum = '';
+    }else{
+        $catname = $category.name[$category.name.length - 1];
+        $catnum = $category.num[$category.num.length - 1];
+    }
     $product = $prod;
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
