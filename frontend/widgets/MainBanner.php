@@ -17,48 +17,48 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_07112016_1.png',
-                'referal'=> '/catalog?cat=1810',
+                'image' => '/images/banners/OM_10112016_1.png',
+                'referal'=> '/catalog?cat=2054',
                 'alttext' => 'Уютные свитера',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_07112016_2.png',
-                'referal'=> '/catalog?cat=1819',
+                'image' => '/images/banners/OM_10112016_2.png',
+                'referal'=> '/catalog?cat=1725',
                 'alttext' => 'Уютные снуды',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_07112016_3.png',
-                'referal'=> '/catalog?cat=2113',
+                'image' => '/images/banners/OM_10112016_3.png',
+                'referal'=> '/catalog?cat=1993',
                 'alttext' => 'Перчатки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_07112016_4.png',
-                'referal'=> '/catalog?cat=1994',
+                'image' => '/images/banners/OM_10112016_4.png',
+                'referal'=> '/catalog?cat=2113',
                 'alttext' => 'Угги',
                 'out' => FALSE
             ]
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_07112016_5.png',
-                'referal'=> '/catalog?cat=1751',
+                'image' => '/images/banners/OM_10112016_5.png',
+                'referal'=> '/catalog?cat=2499',
                 'alttext' => 'Пуховики',
                 'out' => FALSE
             ]
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_07112016_6.png',
-                'referal'=> '/discont',
+                'image' => '/images/banners/OM_10112016_6.gif',
+                'referal'=> '/catalog?cat=1104',
                 'alttext' => 'Распродажа',
                 'out' => FALSE
             ]
