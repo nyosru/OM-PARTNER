@@ -1,8 +1,7 @@
 
-frontend/web/assets
-frontend/web/images
-frontend/web/index.php
+frontend/web
 frontend/config
+backend/web
 backend/config
 common/config
 .idea
