@@ -17,49 +17,49 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_10112016_1.png',
-                'referal'=> '/catalog?cat=2054',
-                'alttext' => 'Уютные свитера',
+                'image' => '/images/banners/OM_14112016_1.png',
+                'referal'=> '/catalog?searchword=&cat=1791&count=&start_price=0&end_price=3554&date_start=&date_end=&sfilt%5B%5D=2409&sfilt%5B%5D=15462&sfilt%5B%5D=16124',
+                'alttext' => 'Для зимних пробежек',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_10112016_2.png',
-                'referal'=> '/catalog?cat=1725',
-                'alttext' => 'Уютные снуды',
+                'image' => '/images/banners/OM_14112016_2.png',
+                'referal'=> '/catalog?cat=1544',
+                'alttext' => 'Зоотовары',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_10112016_3.png',
-                'referal'=> '/catalog?cat=1993',
-                'alttext' => 'Перчатки',
+                'image' => '/images/banners/OM_14112016_3.png',
+                'referal'=> '/catalog?cat=2092',
+                'alttext' => 'Лак для ногтей',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_10112016_4.png',
-                'referal'=> '/catalog?cat=2113',
-                'alttext' => 'Угги',
+                'image' => '/images/banners/OM_14112016_4.png',
+                'referal'=> '/catalog?searchword=&cat=1976&count=&start_price=0&end_price=6933&date_start=&date_end=&sfilt%5B%5D=2409&sfilt%5B%5D=16124&sfilt%5B%5D=15462',
+                'alttext' => 'Зимние сапожки',
                 'out' => FALSE
-            ]
+            ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_10112016_5.png',
-                'referal'=> '/catalog?cat=2499',
-                'alttext' => 'Пуховики',
+                'image' => '/images/banners/OM_14112016_5.png',
+                'referal'=> '/catalog?cat=1751',
+                'alttext' => 'Ультрамодные пуховики',
                 'out' => FALSE
-            ]
+            ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_10112016_6.gif',
-                'referal'=> '/catalog?cat=1104',
-                'alttext' => 'Распродажа',
+                'image' => '/images/banners/OM_14112016_6.png',
+                'referal'=> '/catalog?cat=2393',
+                'alttext' => 'Коньки',
                 'out' => FALSE
             ]
         ],
@@ -99,28 +99,28 @@ class MainBanner extends \yii\bootstrap\Widget
 
     public $template = [
         'main' => [
-            [
+            '1' => [
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'medium1',
                 'style'=>'',
                 'roll' => self::ROTATE_NONE
             ],
-            [
+            '2' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'small1',
                 'style'=>'',
                 'roll' => self::ROTATE_NONE
             ],
-            [
+            '3' => [
                 'id'=>'index-card-3',
                 'class'=>'sort data-j index-sort banner-card',
                 'position'=> 'large',
                 'style'=>'',
                 'roll' => self::ROTATE_NONE
             ],
-            [
+            '4' => [
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'medium2',
@@ -128,7 +128,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'roll' => self::ROTATE_NONE
             ],
 
-            [
+            '5' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'small2',
@@ -136,7 +136,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 'roll' => self::ROTATE_NONE
             ],
 
-            [
+            '6' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'long',
@@ -145,25 +145,25 @@ class MainBanner extends \yii\bootstrap\Widget
             ]
         ],
         'discont' => [
-            [
+            '1' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'discont1',
                 'style'=>''
             ],
-            [
+            '2' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'discont2',
                 'style'=>''
             ],
-            [
+            '3' => [
                 'id'=>'index-card-6',
                 'class'=>'sort data-j index-sort banner-card',
                 'position'=> 'discont3',
                 'style'=>''
             ],
-            [
+            '4' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'position'=> 'discont4',
@@ -232,9 +232,6 @@ class MainBanner extends \yii\bootstrap\Widget
 
 
     private function formatting_template($template = [], $position = []){
-
-
-
         $result = '';
         foreach ($template as $key=>$value){
             $result .=
