@@ -194,7 +194,7 @@ $(window).on('load', function () {
                             $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
                         }
                     });
-                    $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" class="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
+                    $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" class="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div><div class="pre-order" style="padding: 20px;font-size: 20px;color: red;">Для оформления заказа необходимо выбрать способ доставки!</div>');
                     $('.cart-auth').remove();
                     $.post(
                         "/site/paymentmethod",
