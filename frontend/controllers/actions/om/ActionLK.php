@@ -3,6 +3,7 @@ namespace frontend\controllers\actions\om;
 
 use common\models\Customers;
 use common\models\OrdersProducts;
+use common\models\OrdersProductsPriten;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
 use common\models\Profile;
@@ -205,10 +206,25 @@ trait ActionLK
                         'params' => array_merge($_GET, ['view' => 'myorder']),
                         'defaultPageSize' => 20,
                     ]
-
                 ]);
                 return $this->render('lkmyorder', ['cust' => $cust, 'orders' => $orders, 'sort_order' => $sort_order]);
                 break;
+            case 'claims':
+                $ordersProducts = OrdersProducts::find()
+                    ->where(['priten'=>1,'customers_id' => $cust['customers']['customers_id']])
+                    ->joinWith('products')
+                    ->joinWith('order');
+
+                $dataProvider = new yii\data\ActiveDataProvider([
+                    'query' => $ordersProducts,
+                    'sort' => $sort,
+                    'pagination' => [
+                        'defaultPageSize' => 20,
+                    ]
+                ]);
+                return $this->render('lkclaims',['dataProvider'=>$dataProvider,'model'=>$ordersProducts]);
+                break;
+
             case 'savecomments':
 
                 break;

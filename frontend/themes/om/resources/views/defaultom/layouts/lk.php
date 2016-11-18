@@ -106,6 +106,15 @@ $this->beginPage();
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
+                                        <a href="<?= BASEURL ?>/lk?view=claims">
+                                            Мои претензии
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul id="accordion" class="accordion">
+                                <li class="">
+                                    <div id="profile-orders" class="link profile-orders">
                                         <a href="<?= BASEURL ?>/lk?view=userinfo">
                                             Мои данные
                                         </a>
@@ -126,7 +135,8 @@ $this->beginPage();
                                     <div id="profile-call" class="link">Продолжить покупки</div>
                                 </li>
                             </ul>
-                        </div>       </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>

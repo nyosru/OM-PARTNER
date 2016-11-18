@@ -7,8 +7,7 @@
 	right:0;
 	bottom:0;
 	text-align:center;
-	z-index: 100;
-
+	z-index: 1900;
 }
 
 .light_container .light_inner {
