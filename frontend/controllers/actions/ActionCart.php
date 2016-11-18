@@ -22,6 +22,12 @@ trait ActionCart
                 break;
             }
             default:
+                if(($id = ReferralsUser::find()->where(['user_id'=>Yii::$app->user->getId()])) == TRUE){
+                    $template = 'sp';
+                }else{
+                    $template = 'om';
+                }
+
                 $wrapart = Configuration::find()->where(['configuration_key' => 'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
                 $wrap = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->one();
                 $wrap = (integer)$wrap->products_price;
@@ -38,7 +44,7 @@ trait ActionCart
                 foreach ($add as $key => $value) {
                     $addr[$value['address_book_id']] = $value['entry_city'] . ', ' . $value['entry_street_address'];
                 }
-                return $this->render('cart', ['addr' => $addr, 'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders, 'template'=>1]);
+                return $this->render('cart', ['addr' => $addr, 'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders,'template'=>$template]);
         }
     }
 }

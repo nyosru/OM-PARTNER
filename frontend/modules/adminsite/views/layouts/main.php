@@ -63,7 +63,11 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
 
     $menuItems = [];
     if (Yii::$app->user->can('admin')) {
-        $menuItems[] = ['label' => 'Админ', 'url' => ['/adminsite']];
+        $menuItems[] = ['label' => 'Админ', 'url' => ['/adminsite/']];
+
+    }
+    if (Yii::$app->user->can('autor')) {
+        $menuItems[] = ['label' => 'Модератор', 'url' => ['/adminsite/']];
 
     }
     if (Yii::$app->user->isGuest) {
@@ -93,7 +97,7 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                     </div>
                     <ul id="accordion" class="accordion">
                         <li class="">
-                            <div class="link users"><a href="/adminsite">Настройки</a></div>
+                            <div class="link users"><a href="/adminsite/">Настройки</a></div>
                         </li>
                     </ul>
                     <!--                    <ul id="accordion" class="accordion">-->

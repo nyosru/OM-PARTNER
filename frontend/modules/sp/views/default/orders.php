@@ -1,960 +1,995 @@
-<?php
+<?= \frontend\widgets\HeaderFilterBarNew::widget([
+    'dataProvider' => $data,
+    'sortOrderByData'  =>
+    [
+        'sort' => [
+            'status'      => ['Статус'],
+            'create_date' => ['Последний заказ'],
+        ],
+    ],
+    'sortStatusData'  => [
+        'status' => [
+            ''   => ['Все заказы'],
+            '1'  => ['Новые', 'options' => ['style' => 'border-bottom: 2px solid #009f9c;']],
+            '2'  => ['В обработке', 'options' => ['style' => 'border-bottom: 2px solid #5b8acf;']],
+            '3'  => ['Одобренные', 'options' => ['style' => 'border-bottom: 2px solid #ffea00;']],
+            '4'  => ['Оплаченные', 'options' => ['style' => 'border-bottom: 2px solid #ff5722;']],
+            '5'  => ['Выполненные', 'options' => ['style' => 'border-bottom: 2px solid #9c27b0;']],
+            '6'  => ['Возврат', 'options' => ['style' => 'border-bottom: 2px solid #ff1744;']],
+            '0'  => ['Удален', 'options' => ['style' => 'border-bottom: 2px solid #d8d8d8;']],
+        ],
+    ],
+]); ?>
 
-
-?>
-<style>
-    .search-console {
-        height: 100%;
-        width: 80%;
-        padding: 15px 59px;
-        border: none;
-        font-size: 16px;
-        outline: none;
-    }
-
-    .search-console:active, .search-console:focus {
-        border: none;
-    }
-
-    .sort-clients:after {
-        content: "\2193";
-    }
-
-    .search-bar:before {
-        height: 59px;
-        width: 59px;
-        content: '';
-        background: url(/images/lksp/search.png) no-repeat 50% 50%;
-        position: absolute;
-    }
-
-    #container2 {
-        clear: left;
-        width: 100%;
-        overflow: hidden;
-        background: #FFF;
-        height: 80%;
-        position: fixed;
-        bottom: 0px;
-    }
-
-    #container1 {
-        float: left;
-        width: 100%;
-        right: 70%;
-        height: 80%;
-        position: fixed;
-    }
-
-    #col1 {
-        float: left;
-        width: 30%;
-        position: relative;
-        left: 70%;
-        border-right: 1px solid #CCC;
-        height: 100%;
-    }
-
-    #col2 {
-        float: left;
-        width: 70%;
-        position: relative;
-        left: 70%;
-        overflow: hidden;
-        height: 100%;
-    }
-
-
-    .client-plate {
-        height: 100%;
-        width: 100%;
-        border-bottom: 1px solid #CCC;
-    }
-
-    .client-avatar {
-        width: 30%;
-        height: 100%;
-    }
-
-    .avatar {
-        height: 100px;
-        width: 100px;
-        position: relative;
-        float: left;
-    }
-
-    .client-old {
-        position: absolute;
-        bottom: 17px;
-        right: 29px;
-        height: 16px;
-        width: 16px;
-        background: #CCC;
-        border-radius: 45px;
-    }
-
-    .client-new {
-        position: absolute;
-        bottom: 17px;
-        right: 29px;
-        height: 16px;
-        width: 16px;
-        background: #009f9c;
-        border-radius: 45px;
-    }
-
-    .client-vip {
-        position: absolute;
-        bottom: 17px;
-        right: 29px;
-        height: 16px;
-        width: 16px;
-        background: #6200ea;
-        border-radius: 45px;
-    }
-
-    .client-info-orders {
-        display: block;
-        height: 100%;
-        width: 55%;
-        margin: 0px 0px 0px 119px;
-        position: relative;
-    }
-    .client-line-info-orders {
-        display: block;
-        height: 100%;
-        margin: 0px 0px 0px 119px;
-        position: relative;
-    }
-    .client-active:before {
-        position: absolute;
-        content: "\25B8";
-        right: -15px;
-        font-size: 30px;
-        color: #CCC;
-        line-height: 100px;
-    }
-
-    [class="client-plate client-active"] {
-        background: #fff9c4;
-    }
-
-    .client-image {
-        height: 70%;
-        width: 70%;
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
-        margin: auto;
-        border-radius: 45px;
-        background: #FFF;
-        border: 1px solid #f6f6f6;
-        background: url(/images/lksp/group6.png) no-repeat 50% 50%;
-    }
-
-    .client-info-fr-order {
-        width: 60%;
-        padding: 20px 0px;
-        display: inline-block;
-    }
-    .client-info-fr-price {
-        padding: 25px 0px;
-        display: inline-block;
-        float: right;
-        width: 40%;
-    }
-    .client-name {
-        font-size: 16px;
-        font-weight: 400;
-        margin-bottom: 10px;
-    }
-
-    .client-plate:nth-of-type(odd) {
-        background: #f5f5f5;
-    }
-
-    .client-plate:nth-of-type(aven) {
-        background: #FFF;
-    }
-
-    .client-order-num {
-        color: #4A90E2;
-        font-weight: 400;
-        display: inline-block;
-        font-size: 18px;
-    }
-
-    .client-order-status {
-        width: 30px;
-        height: 20px;
-        display: inline-block;
-        border-radius: 4px;
-        margin: 0px 10px;
-    }
-
-    .status-new {
-        background: #009f9c none repeat scroll 0% 0%;
-    }
-
-    .status-proceed {
-        background: #5b8acf none repeat scroll 0% 0%;
-    }
-
-    .status-like {
-        background: #ffea00 none repeat scroll 0% 0%;
-    }
-
-    .status-payed {
-        background: #ff5722 none repeat scroll 0% 0%;
-    }
-
-    .status-ordered {
-        background: #9c27b0 none repeat scroll 0% 0%;
-    }
-
-    .status-return {
-        background: #ff1744 none repeat scroll 0% 0%;
-    }
-
-    .status-cancel {
-        background: #d8d8d8 none repeat scroll 0% 0%;
-    }
-
-    .sp-client-info {
-        display: block;
-        height: 100%;
-        width: 30%;
-        position: relative;
-        float: right;
-        border: 1px solid #CCC;
-        border-radius: 4px;
-    }
-
-    .sp-client-info-fr {
-        padding: 20px;
-    }
-
-    .sp-client-info-dr {
-        padding: 10px 20px;
-    }
-
-    .client-row {
-        font-size: 14px;
-        font-weight: 400;
-        margin-bottom: 5px;
-    }
-
-    .client-all-orders {
-        margin: 20px 0px;
-        width: 100%;
-        background: #009f9c;
-        color: #FFF;
-    }
-
-    .client-all-orders:hover, .client-all-orders:active {
-        background: #009f9c;
-        color: #FFF;
-    }
-
-    .all-num-order {
-        font-size: 24px;
-        font-weight: 400;
-        color: #5b8acf;
-    }
-
-    .date-order {
-        margin: 0px 10px;
-    }
-
-    .status-order {
-        padding: 2px 5px;
-        border-radius: 4px;
-        color: #FFF;
-        font-weight: 400;
-    }
-
-    .to-order {
-        display: inline-block;
-        width: 33%;
-        text-align: center;
-        padding: 5px;
-        background: #ffea00;
-        border-radius: 4px;
-        font-weight: 400;
-    }
-
-    .to-order:after {
-        content: "\2193";
-        padding: 0px 10px;
-    }
-
-    .edit-line {
-        margin: 10px 0px;
-    }
-
-    .edit-order:before {
-        content: "";
-        height: 20px;
-        width: 20px;
-        display: inline-block;
-        background: url(/images/lksp/edit.png) no-repeat 50% 50%;
-        padding: 0px;
-        margin: -5px 10px;
-    }
-
-    .edit-order {
-        display: inline-block;
-        width: 33%;
-        text-align: center;
-    }
-
-    .mail-client {
-        display: inline-block;
-        width: 33%;
-        text-align: center;
-    }
-
-    .mail-client:before {
-        content: "";
-        height: 20px;
-        width: 30px;
-        display: inline-block;
-        background: url(/images/lksp/mail.png) no-repeat 50% 50%;
-        padding: 0px;
-        margin: -5px 10px;
-    }
-    .product-comment:before {
-        content: "";
-        height: 15px;
-        width: 15px;
-        display: inline-block;
-        background: url(/images/lksp/plus.png) no-repeat 0% 0% /cover;
-        padding: 0px;
-        margin: -3px 10px;
-    }
-    .product-card {
-        margin: 15px 0px;
-        padding: 15px 0px;
-        border-bottom: 1px solid #CCC;
-    }
-    .product-card:last-child {
-        border-bottom: none;
-    }
-
-</style>
-<div style="height: 50px;background: rgb(238, 238, 238);">
-    <a style="font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;" href="#">Все заказы</a>
-    <a style="border-bottom: 2px solid #009f9c;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
-       href="#">Новые</a>
-    <a style="border-bottom: 2px solid #5b8acf;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
-       href="#">В обработке</a>
-    <a style="border-bottom: 2px solid #ffea00;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
-       href="#">Одобренные</a>
-    <a style="border-bottom: 2px solid #ff5722;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
-       href="#">Оплаченные</a>
-    <a style="border-bottom: 2px solid #9c27b0;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
-       href="#">Выполненные</a>
-    <a style="border-bottom: 2px solid #ff1744;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
-       href="#">Возврат</a>
-    <a style="border-bottom: 2px solid #d8d8d8;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
-       href="#">Удален</a>
-</div>
-<div style="border-bottom: 1px solid #CCC;height: 60px;background: #FFF">
-    <div class="search-bar" style="height: 100%;width: 49%;display: inline-block;box-sizing: border-box;float: left;">
-        <input class="search-console" style="" placeholder="Поиск по заказам">
-    </div>
-    <div
-        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;float: right;text-align: right;padding: 0px 25px;">
-        <div style="margin: 0px 20px;display:inline-block;margin:0px 20px;">Сортировать<a class="sort-clients" href="#">
-                новые </a></div>
-        <div style="margin: 0px 20px;display: inline-block">Дата с: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
-        </div>
-        <div style="display: inline-block">Дата по: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
-        </div>
-    </div>
-</div>
-<div id="container2">
-    <div id="container1">
-        <div id="col1">
-            <div id="scroll1" style="height: 100%">
-
-
-
-                <?php
-
-                \yii\widgets\Pjax::begin(['id' => 'clients']);
-
-                echo \yii\grid\GridView::widget([
-                    'tableOptions' => [
-                        'class' => 'table table-striped',
-                        'style' => 'vertical-align:middle; border-bottom:1px solid #CCC;'
-                    ],
-                    'rowOptions'=>[
-                        'style'=>'border:none'
-                    ],
-                    'headerRowOptions'=>[
-                        'style'=>'border-top:1px solid #CCC; border-bottom:1px solid #CCC'
-                    ],
-                    'captionOptions'=>[
-                        'style'=>'border:none'
-                    ],
-                    'dataProvider' => $data,
-                    'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
-                    'columns' => [
-
-                        [
-                            'attribute' => 'status',
-                            'label' => 'Всего заказов',
-                            'contentOptions'=>[
-                                'style' => 'vertical-align:middle;border:none'
-                            ],
-                            'content' => function($model) {
-                                return '<span class="orders-count" style="border-radius: 4px;padding: 2px 25px;background: #5b8acf;color:#FFF; font-weight: 400">'.$model->order['id'].'</span>';
-                            }
-                        ],
-
-                        [
-                            'attribute' => 'Фио клента',
-                            'contentOptions'=>[
-                                'style' => 'vertical-align:middle;border:none'
-                            ],
-                            'content' => function($model) {
-                                if($model->userinfo->name){
-                                    $name = $model->userinfo->lastname.' '.$model->userinfo->name.' '.$model->userinfo->secondname;
-                                }else{
-                                    $name = 'Пользователь еще не заполнял свои данные';
-                                }
-                                $class = ['client-new','client-new','client-old','client-vip'];
-                                return '<div class="">
-                                    <div class="client-avatar">
-                                        <div class="avatar">
-                                            <div class="client-image">
-                                            </div>
-                                            <div class="'.$class[$model->status].'">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <div class="client-info-fr">
-                                            <div class="client-name" style="margin-bottom: 4%; margin-top: 4%">
-                                                '.$name.'
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>';
-                            }
-                        ],
-                        [
-                            'attribute' => 'partners_orders.id',
-                            'label'=>'Последний заказ',
-                            'contentOptions'=>[
-                                'style' => 'vertical-align:middle;border:none'
-                            ],
-                            'content' => function($model) {
-                                if($model->order){
-                                    return '<div style="color:#5b8acf;font-weight: 400;font-size: 18px;margin-bottom: 4%;margin-top: 4%;">'.$model->lastOrder['id'].'</div>
-                        <div style="font-size: 16px;">'.$model->lastOrder['create_date'].'</div>
-                        <div style="font-size: 16px;">'.$model->lastOrder['order'].'</div>';         }else{
-                                    return 'Заказов от этого клиента не поступало';
-                                }
-                            }
-                        ],
-                        [
-                            'attribute' => 'status',
-                            'label' => 'Всего заказов',
-                            'contentOptions'=>[
-                                'style' => 'vertical-align:middle;border:none'
-                            ],
-                            'content' => function($model) {
-                                return '<span class="orders-count" style="border-radius: 4px;padding: 2px 25px;background: #5b8acf;color:#FFF; font-weight: 400">'.count($model->order).'</span>';
-                            }
-                        ],
-                        [
-                            'attribute' => 'Сумма заказов',
-                            'contentOptions'=>[
-                                'style' => 'vertical-align:middle;border:none'
-                            ],
-                            'value' => function($model) {
-                                if($model->user['total_order']){
-                                    return $model->user['total_order'];
-                                }else{
-                                    return '0';
-                                }
-
-                            }
-                        ],
-                        [
-                            'attribute' => 'Статус клиента',
-                            'label'=> 'Статус клиента',
-                            'contentOptions'=>[
-                                'style' => 'vertical-align:middle;border:none'
-                            ],
-                            'content' => function($model) {
-                                $color = ['000000', '009f9c','CCCCCC','6200ea'];
-                                $text = ['Неизвестный', 'Новый', 'Старый клиент', 'VIP-клиент'];
-                                return '<div style="width: 14px; height: 14px;  background: #'.$color[$model->status].';border-radius: 45px; display: inline-block;padding: 6px;margin: -3px 10px;"></div>'.$text[$model->status];
-                            }
-                        ],
-                        [
-                            'attribute' => 'Зарегистрирован',
-                            'contentOptions'=>[
-                                'style' => 'vertical-align:middle;border:none'
-                            ],
-                            'value' => function($model) {
-                                return $model->date_added;
-                            }
-                        ],
-                    ],
-                ]);
-                ?>
-                <div class="pag">
+    <div id="container2">
+        <div id="container1">
+            <div id="col1">
+                <div id="scroll1" style="height: 100%">
                     <?php
-                    echo \yii\widgets\LinkPager::widget([
-                        'options'=>[
-                            'class'=>'pagination'
+                    $i_model = 0;
+                    \yii\widgets\Pjax::begin(['id' => 'clients']);
+                    echo \yii\grid\GridView::widget([
+                        'tableOptions' => [
+                            'class' => 'table table-striped',
+                            'style' => 'vertical-align:middle; border-bottom:1px solid #CCC;'
                         ],
-                        'pagination' => $paginate,
+                        'rowOptions'=>[
+                            'style'=>'border:none'
+                        ],
+                        'headerRowOptions'=>[
+                            'style'=>'display:none'
+                        ],
+                        'captionOptions'=>[
+                            'style'=>'border:none'
+                        ],
+                        'dataProvider' => $data,
+                        'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
+                        'columns' => [
+                            [
+                                'attribute' => 'Фио клента',
+                                'contentOptions'=>[
+                                    'style' => 'vertical-align:middle;border:none; padding:0px'
+                                ],
+                                'content' => function($model) use (&$i_model) {
+                                    $stat_class = [
+                                        'status-new',
+                                        'status-proceed',
+                                        'status-like',
+                                        'status-payed',
+                                        'status-ordered',
+                                        'status-return',
+                                        'status-cancel',
+                                    ];
+                                    $img_block_client_status = [
+                                        '<div></div>',
+                                        '<div class="client-new"></div>',
+                                        '<div class="client-old"></div>',
+                                        '<div class="client-vip"></div>'
+                                    ];
+                                    $order_un = unserialize($model['order']);
+                                    $order_price = 0;
+                                    foreach ($order_un['products'] as $product) {
+                                        if(count($product) > 5) {
+                                            $order_price = $order_price + round($product[3] * $product[4]);
+                                        }
+                                    }
+                                    if($model['name']){
+                                        $name = $model['lastname'].' '.$model['name'].' '.$model['secondname'];
+                                    }else{
+                                        $name = 'Пользователь еще не заполнял свои данные';
+                                    }
+
+
+                                    $params = new \php_rutils\struct\TimeParams();
+                                    $params->date = $model['create_date']; //это значение по умолчанию
+                                    $params->format = 'd F Y H:i:s';
+                                    $params->monthInflected = true;
+                                    $dateorder  = \php_rutils\RUtils::dt()->ruStrFTime($params);
+
+                                    $i_model += 1;
+                                    ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
+                                    return '<div class="client-plate" style="display:block; '.$back_fff.'" data-detail="'.$model['ids'].'">
+                                            <div class="client-avatar">
+                                                <div class="avatar">
+                                                    <div class="client-image"> </div>
+                                                    '.$img_block_client_status[$model['status']].'
+                                               </div>
+                                            </div>
+                                            <div class="client-line-info-orders">
+                                                <div class="client-info-fr-order">
+                                                    <div class="client-order">
+                                                        <div class="client-order-num">
+                                                            № '.$model['ids'].'
+                                                        </div>
+                                                        <div class="client-order-status '.$stat_class[$model['order_status']].'">
+                                                        </div>
+                                                    </div>
+                                                    <div class="client-name">
+                                                        '.$name.'
+                                                    </div>
+                                                    <div class="client-last-order-date">
+                                                        '.$dateorder.'
+                                                    </div>
+                                                </div>
+                                                <div class="client-info-fr-price">
+                                                    <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">
+                                                        '.$order_price.' руб.
+                                                    </div>
+                                                </div>
+                </div>
+            </div>';
+                                }
+                            ],
+                        ],
                     ]);
                     ?>
-                    </div>
+                    <div class="pag">
                         <?php
-                        \yii\widgets\Pjax::end();
+                        echo \yii\widgets\LinkPager::widget([
+                            'options'=>[
+                                'class'=>'pagination'
+                            ],
+                            'pagination' => $paginate,
+                        ]);
                         ?>
-
-
-
-
-
-
-                        <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-vip">
-
-                        </div>
                     </div>
+                    <script>
 
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-proceed"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                       <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
+                        if($('.order-line').attr('data-order')){
+                            $('[data-detail="'+$('.order-line').attr('data-order')+'"]').addClass('client-active');
+                        }
+
+                        (function($){
+                            $(window).on("load",function(){
+                                $("#scroll1").mCustomScrollbar({
+                                    theme: "dark",
+                                    axis: "y",
+                                    contentTouchScroll: "TRUE",
+                                    advanced: {autoExpandHorizontalScroll: true}
+                                } );
+                                $("#scroll2").mCustomScrollbar({
+                                    theme: "dark",
+                                    axis: "y",
+                                    contentTouchScroll: "TRUE",
+                                    advanced: {autoExpandHorizontalScroll: true}
+                                } );
+                            });
+                        })(jQuery);
+
+                        (function($){
+                            inProgress = false;
+                            $('.client-plate').on("click",function(){
+                                if(!inProgress){
+                                    $('[class="client-plate client-active"]').removeClass('client-active');
+                                    inProgress = true;
+                                    $.ajax({
+                                        method:"post",
+                                        url: "/sp/detail-order",
+                                        data: { "_csrf":yii.getCsrfToken(),
+                                            "id": $(this).attr('data-detail')
+                                        },
+                                        cache: false,
+                                        async: true,
+                                        dataType: 'json',
+                                        beforeSend: function () {
+                                            inProgress = false;
+                                        }
+                                    }).done(function (data) {
+
+                                        maindata = data;
+                                        renderOrder(maindata);
+                                    });
+                                    inProgress = false;
+                                }else{
+                                    alert('Выполняется запрос');
+                                }
+                            });
+
+                        })(jQuery);
+                        (function($){
+                            $(document).on('click', '.edit-order', function () {
+                                renderOrderEdit(maindata);
+                            });
+                            $(document).on('click', '.order-retry', function () {
+                                renderOrder(maindata);
+                            });
+                        })(jQuery);
+                        (function($){
+                            $(document).on('click', '.delete_product_in_order',function() {
+                                var order_id = $(this).attr('order_id');
+                                var product_id = $(this).attr('product_id');
+                                var attr = $(this).attr('attr');
+                                var product_card_block = $(this).closest('.product-card-edit');
+
+                                if (!confirm("Вы уверены, что хотите удалить этот товар из заказа?")) {
+                                    return;
+                                }
+
+                                $.ajax({
+                                    method:"post",
+                                    url: '<?=Yii::$app->urlManager->createUrl(['/sp/delete-product-in-order'])?>',
+                                    data: {
+                                        "_csrf":yii.getCsrfToken(),
+                                        "order_id": order_id,
+                                        "product_id": product_id,
+                                        "attr": attr
+                                    },
+                                    cache: false,
+                                    async: true,
+                                    dataType: 'json'
+                                }).done(function (data) {
+                                    if(data === true) {
+                                        $.each(maindata.order.order['products'], function(index_order, product){
+                                            if(typeof product !== 'undefined') {
+                                                if (product[0] == product_id && product[2] == attr && maindata.order.id == order_id) {
+
+                                                    maindata.order.order['products'].splice(index_order, 1);
+                                                    return true;
+                                                }
+                                            }
+                                        });
+                                        product_card_block.hide('fast');
+                                        updateAllOrdersView(maindata);
+                                    }
+                                });
+                            });
+                            })(jQuery);
+
+                        function renderCommonList(common_list) {
+                            var list_html = '';
+                            console.log(common_list);
+                            if(typeof(common_list) == 'undefined' || common_list.length <= 0){
+                                list_html = 'Ничего не найдено';
+                            }else{
+                                list_html = '';
+                                $.each(common_list, function(i, index){
+                                    list_html += '<div class="list-child" common-order-id="'+index.id+'"><div style="display: inline-block; padding: 0px 10px; border: 1px solid rgb(240, 240, 240); border-radius: 4px; height: 20px; margin: 0px 15px 10px 0px;">'+index.id+'</div>';
+                                    list_html += '<div style="display: inline-block; padding: 0px 20px;">'+index.header+'</div></div>'
+                                });
+                            }
+                            $('.list').html(list_html);
+                        }
+                        var common_orders_list = new Object();
+                        function requestCommon(action, request) {
+                            var result = new Object();
+                            if(typeof (common_orders_list['list']) == 'undefined' || action ===  'refresh'){
+                                var request_data = $.ajax({
+                                    method: 'post',
+                                    url: "<?=Yii::$app->urlManager->createUrl(['/sp/list-common-orders'])?>",
+                                    async: false,
+                                    data: {
+                                        "search": request
+                                    },
+                                    dataType: 'json'
+                                });
+
+                                result = common_orders_list['list'] = request_data.responseJSON;
+                            }else{
+                                result = common_orders_list['list'];
+                            }
+                            return result;
+                        }
+
+                        $(document).on('click', '.common-order', function(){
+                            var act = $(this).attr('data-act');
+                            var request = $(".input-searcncommon-order").val();
+                            common_orders_list = requestCommon(act, request);
+                            renderCommonList(common_orders_list);
+                        });
+
+                        var input_searcncommon_order = false;
+                        $(document).on('click', '.searcncommon-order', function(){
+                            $(".input-searcncommon-order").val('');
+                            if(input_searcncommon_order == true) {
+                                $(".input-searcncommon-order").css('display', 'none');
+                                input_searcncommon_order = false
+                            } else {
+                                $(".input-searcncommon-order").css('display', 'block');
+                                input_searcncommon_order = true;
+                            }
+                        });
+
+                        $(document, ".input-searcncommon-order").keyup(function(event){
+                            if(event.keyCode == 13){
+                                var act = $(".common-order").attr('data-act');
+                                var request = $(".input-searcncommon-order").val();
+                                common_orders_list = requestCommon(act, request);
+                                renderCommonList(common_orders_list);
+                            }
+                        });
+
+
+                        $(document).on('click', '.list-child', function(){
+                            var old_text = 'В общий заказ';
+                            var button_to_common_order = $("a.to-order.common-order");
+                            var id_common_order = $(this).attr("common-order-id");
+                            var id_order = $('.order-line').attr('data-order');
+                            var comment = '';
+
+                            $.ajax({
+                                method: 'post',
+                                url: "<?=Yii::$app->urlManager->createUrl(['/sp/attach-order-to-common'])?>",
+                                data: {
+                                    "id_common_order": id_common_order,
+                                    "id_order": id_order,
+                                    "comment": comment
+                                },
+                                beforeSend: function() {
+                                    button_to_common_order.click();
+                                },
+                                success: function(data) {
+                                    if(data == true) {
+                                        button_to_common_order.text('Закрепили за объединенным заказом №'+id_order);
+                                        setTimeout(function() {
+                                            button_to_common_order.text(old_text)
+                                        }, 4000);
+                                    } else if (typeof(data) == "number"){
+                                        button_to_common_order.text('Уже закрепилен за объединенным заказом №'+data);
+                                        setTimeout(function() {
+                                            button_to_common_order.text(old_text)
+                                        }, 4000);
+                                    } else {
+                                        button_to_common_order.text('Ошибка!');
+                                        setTimeout(function() {
+                                            button_to_common_order.text(old_text)
+                                        }, 4000);
+                                    }
+                                }
+                            });
+                        });
+
+
+
+                    </script>
+                    <?php
+                    \yii\widgets\Pjax::end();
+                    ?>
+
                 </div>
             </div>
-            <div class="client-plate  client-active">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-old">
-
-                        </div>
-                    </div>
-
+            <div id="col2">
+                <div id="scroll2" style="height: 100%">
+                    <div class="datacontainer"></div>
                 </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-new"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-like"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-payed"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-return"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-cancel"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-ordered"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-like"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="client-plate">
-                <div class="client-avatar">
-                    <div class="avatar">
-                        <div class="client-image">
-                        </div>
-                        <div class="client-new">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="client-line-info-orders">
-                    <div class="client-info-fr-order">
-                        <div class="client-order">
-                            <div class="client-order-num"> № 10036</div>
-                            <div class="client-order-status status-like"></div>
-                        </div>
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-last-order-date">
-                            10 августа 2016 12:10
-                        </div>
-                    </div>
-                    <div class="client-info-fr-price">
-                        <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">13144 руб.</div>
-                        <div>Мой %: 1314 руб.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div id="col2">
-            <div id="scroll2" style="height: 100%">
-            <div style="margin:25px;">
-                <div style="width: 70%;  display:inline-block;">
-                    <div style="margin-right: 25px;">
-                    <div class="order-line">
-                        <span class="all-num-order">Заказ № 10036</span>
-                        <span class="date-order">от 10 августа 2016</span>
-                        <span class="status-order status-new">новый</span>
-                    </div>
-                    <div class="edit-line">
-                        <div class="to-order">В общий заказ</div>
-                        <div class="edit-order">Редактировать заказ</div>
-                        <div class="mail-client">Написать клиенту</div>
-                    </div>
-                    <div>
-                        <div style=""  class="product-card">
-                            <div  style="" class="product-main-board">
-                                <div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;">
-                                  <img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;">
-                                </div>
-                                <div style="display: inline-block;height: 150px;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div style="font-weight: 400;">Арт. 982742354</div>
-                                        <div>Платье</div>
-                                        <div>Размер: 23</div>
-                                    </div>
-                                </div>
-                                <div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div>250 p. x 2шт.</div>
-                                        <div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div  style="cursor:pointer;color: #5b8acf;" class="product-comment">
-                                    Добавить комментарий к товару
-                                </div>
-                            </div>
-                        </div>
-                        <div style=""  class="product-card">
-                            <div  style="" class="product-main-board">
-                                <div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;">
-                                    <img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;">
-                                </div>
-                                <div style="display: inline-block;height: 150px;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div style="font-weight: 400;">Арт. 982742354</div>
-                                        <div>Платье</div>
-                                        <div>Размер: 23</div>
-                                    </div>
-                                </div>
-                                <div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div>250 p. x 2шт.</div>
-                                        <div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div  style="cursor:pointer;color: #5b8acf;" class="product-comment">
-                                    Добавить комментарий к товару
-                                </div>
-                            </div>
-                        </div>
-                        <div style=""  class="product-card">
-                            <div  style="" class="product-main-board">
-                                <div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;">
-                                    <img height="100%" src="/imagepreview?src=1345499" style="position: absolute; left: 0px; right: 0px;margin: auto;">
-                                </div>
-                                <div style="display: inline-block;height: 150px;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div style="font-weight: 400;">Арт. 982742354</div>
-                                        <div>Платье</div>
-                                        <div>Размер: 23</div>
-                                    </div>
-                                </div>
-                                <div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;">
-                                    <div style="position: absolute;margin: 25px;line-height: 30px;">
-                                        <div>250 p. x 2шт.</div>
-                                        <div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">500 р.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div >
-                                <div  style="cursor:pointer;color: #5b8acf;" class="product-comment">
-                                    Добавить комментарий к товару
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                        <div style="
-    border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: 1500 р.</div>
-                </div>
-                </div>
-                <div class="sp-client-info">
-                    <div class="client-avatar">
-                        <div class="avatar">
-                            <div class="client-image">
-                            </div>
-                            <div class="client-vip">
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="sp-client-info-fr">
-                        <div class="client-name">
-                            Егоров Дмитрий Владимирович
-                        </div>
-                        <div class="client-register">
-                            Зарегистрирован: 10 августа 2016
-                        </div>
-                    </div>
-                    <div class="sp-client-info-dr">
-                        <div class="client-row">
-                            Заказов: 2
-                        </div>
-                        <div class="client-row">
-                            Статус клиента: Новый
-                        </div>
-                        <div class="client-row">
-                            gedeon@bk.ru
-                        </div>
-                        <div class="client-row">
-                            +79300056787
-                        </div>
-                        <div class="btn btn-default client-all-orders">
-                            Все заказы клиента
-                        </div>
-                    </div>
-                </div>
-            </div>
             </div>
         </div>
     </div>
-</div>
 <script>
-    (function($){
-        $(window).on("load",function(){
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            } );
-            $("#scroll2").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            } );
+
+    var order_status_label = [
+        'удален',
+        'новый',
+        'в обработке',
+        'оплаченый',
+        'выполненный',
+        'возврат'
+    ];
+    var client_status_label = [
+        'Неизвестный',
+        'Новый',
+        'Старый клиент',
+        'VIP-клиент'
+    ];
+    var img_block_client_status = [
+        '',
+        '<div class="client-new"></div>',
+        '<div class="client-old"></div>',
+        '<div class="client-vip"></div>'
+    ];
+    var new_product = new Object();
+    var product_arr = new Object();
+    var maindata_arr = new Object();
+    var maindata = new Object();
+
+    $(document).on('click', '.product-to-order', function(){
+        $id_product =  this.getAttribute('data-sale');
+        $id_order = $('.order-line').attr('data-order');
+        $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
+        $id = $(this).attr('data-sale');
+        $attr = new Object;
+        $attr[$id] = new Object;
+        $data = new Object;
+        $.each($cart_add_obj, function(index, i){
+            $attr[$id][$(this).attr('data-attr').toString()] = $(this).val();
         });
-    })(jQuery);
+        $data["new"] = $attr;
+        $data["id"] = $id_order;
+        $.ajax({
+            type: "POST",
+            url: '/sp/orders-edit',
+            data: $data,
+            success: function(data){
+                   console.log(data);
+            },
+            dataType: 'json'
+        });
+
+    });
+
+    function updateAllOrdersView(maindata) {
+        var final_order_price = 0;
+        $.each(maindata.order.order['products'], function(index_order, product){
+            final_order_price += Math.round(product[3] * product[4]);
+        });
+
+        $('.final_order_price').text("Итого "+ final_order_price +" р.");
+    }
+
+    $(document).on('click', '.count-event-new', function(){
+        var input_count = $(this).closest("#input-count-block").children("#input-count");
+
+        setTimeout(function() {
+            var new_value = input_count.val();
+            var price = input_count.attr('data-price');
+            console.log(price);
+            console.log(new_value);
+            $('.final-product-price').text(Math.round(price * new_value) + " р.");
+        }, 100);
+
+    });
+
+    $(document).on('click', '.count-event', function(){
+        var input_count = $(this).closest("#input-count-block").children("#input-count");
+
+        setTimeout(function() {
+            var new_value = input_count.val();
+            var product_id = input_count.attr('data-prod');
+            var price = input_count.attr('data-price');
+            var attr = input_count.attr('data-attr');
+            var index_product_card = input_count.attr('data-index-product');
+            updateCountProducts(product_id, attr, new_value);
+            updateAllOrdersView(maindata);
+            $('.final-product-price'+index_product_card).text(Math.round(price * new_value) + " р.");
+        }, 50);
+
+    });
+
+    function updateCountProducts(product_id, attr, new_value) {
+        $.each(maindata.order.order['products'], function(index_product, product){
+            if(typeof product !== 'undefined') {
+                if (product[0] == product_id && product[2] == attr) {
+                    maindata.order.order['products'][index_product][4] = new_value;
+                    return true;
+                }
+            }
+        });
+    }
+
+    var Lock = false;
+    function requestProduct($id) {
+        $result = new Object();
+        $result.product = new Object();
+        $result.mandata = new Object();
+        var maindata = [];
+        var requestdata = [];
+        if(typeof(product_arr[$id]) == 'undefined'){
+            requestdata = $.ajax({
+                method: 'post',
+                url: "/site/product",
+                async: false,
+                data: {id: $id}
+            });
+            product_arr[$id] = new Object();
+            $result.product = product_arr[$id] = requestdata.responseJSON.product;
+        }else{
+            $result.product = product_arr[$id];
+        }
+        if(typeof (maindata_arr[$id]) == 'undefined'){
+            maindata = $.ajax({
+                method: 'post',
+                url: "/site/manlist",
+                async: false,
+                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+            });
+            maindata_arr[$id] = new Object();
+            $result.maindata = maindata_arr[$id] = JSON.parse(maindata.responseText);
+        }else{
+            $result.maindata = maindata_arr[$id];
+        }
+
+        return $result;
+    }
+
+    $(document).on("change", '#pick_attr_value', function(){
+        $("input[new-product-input-count]").attr({
+            "data-attr":$('option:selected', this).attr('data-attr'),
+            "data-attrname":$('option:selected', this).attr('data-attrname')
+        });
+    });
+
+    $(document).on('click', '[confirm_product]', function(){
+        var input_count = $("[new-product-input-count]");
+        var val = parseInt(input_count.val());
+        var data_id = parseInt(input_count.attr('data-prod'));
+        var data_model = parseInt(input_count.attr('data-model'));
+        var data_attr = parseInt(input_count.attr('data-attr'));
+        if (isNaN(val)){
+            alert('Не выбранно количество!');
+            return false;
+        }
+        if (isNaN(data_attr)) {
+            alert('Не выбран размер!');
+            return false;
+        }
+        $.ajax({
+            method: 'post',
+            url: "<?=Yii::$app->urlManager->createUrl(['/sp/add-product-to-order'])?>",
+            async: false,
+            dataType: 'json',
+            data: {
+                order_id: maindata.id,
+                product_id: data_id,
+                attr: data_attr,
+                val: val
+            },
+            error: function (data) {
+                console.log(data);
+            },
+            success: function (data) {
+                $("#overlay").remove();
+                $("#modal-product").remove();
+                $is_a_match = false;
+                $.each(maindata.order.order['products'], function(index_product, product){
+                    if(typeof product !== 'undefined') {
+                        if (product[0] == data[0] && product[2] == data[2]) {
+                            maindata.order.order['products'][index_product] = data;
+                            $is_a_match = true;
+                            return true;
+                        }
+                    }
+                });
+                if ($is_a_match == false) {
+                    maindata.order.order['products'].push(data);
+                }
+                renderOrderEdit(maindata);
+            }
+        });
+    });
+
+    $(document).on('click', '.search-models-button', function(){
+        var abort = false;
+        if(!isNaN(parseInt($('.search-models-value').val()))) {
+            $("#modal-product").remove();
+            inProgressSearch = false;
+            var attr_id = parseInt($('.search-models-value').val());
+            if (!inProgressSearch) {
+                inProgressSearch = true;
+                $.ajax({
+                    method: 'post',
+                    url: "<?=Yii::$app->urlManager->createUrl(['/sp/find-product'])?>",
+                    async: false,
+                    dataType: 'json',
+                    data: {
+                        model: attr_id
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (typeof (data) != "object") {
+                            alert('Ничего не найдено по вашему запросу');
+                            abort = true;
+                        }
+                        if ($.isArray(data) && data.length <= 0) {
+                            alert('Ничего не найдено по вашему запросу');
+                            abort = true;
+                        }
+                        new_product = data;
+                    }
+                });
+
+                if(abort == true) {
+                    return false;
+                }
+
+                var product_html = '';
+                product_html += "<div style=\"\" class=\"product-card-common\">";
+                product_html += " <div style=\"\" class=\"product-main-board\">";
+                product_html += "      <div";
+                product_html += "          style=\"display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;\">";
+                product_html += "          <img height=\"100%\" src=\"\/imagepreview?src="+new_product.products_id+"\"";
+                product_html += "               style=\"position: absolute; left: 0px; right: 0px;margin: auto;\">";
+                product_html += "      <\/div>";
+                product_html += "      <div";
+                product_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
+                product_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
+                product_html += "              <div style=\"font-weight: 400;\">Арт. "+new_product.products.products_model+"<\/div>";
+                product_html += "              <div>"+new_product.productsDescription.products_name+"<\/div>";
+                product_html += "              <div>Размер: ";
+                product_html += "                   <div class=\"select-style\">";
+                product_html += "                     <select id=\"pick_attr_value\">";
+                new_product.productsAttributesDescr.sort(function (a, b) {
+                    if (a.products_options_values_name > b.products_options_values_name) return 1;
+                    if (a.products_options_values_name < b.products_options_values_name) return -1;
+                });
+                $.each(new_product.productsAttributesDescr, function (index, attribute) {
+                    product_html += "<option data-attr=\""+attribute.products_options_values_id+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
+                });
+
+                product_html += "                     <\/select>";
+                product_html += "               <\/div>";
+                product_html += "                   <\/div>";
+                product_html += "          <\/div>";
+                product_html += "      <\/div>";
+                product_html += "      <div";
+                product_html += "          style=\"display: inline-block;height: 150px;float: right;width: 60%;position: relative;\">";
+                product_html += "          <div";
+                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;\">";
+                product_html += "              <div>";
+                product_html += "                  <div";
+                product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                product_html += "                      Цена";
+                product_html += "                  <\/div>";
+                product_html += "                  <div";
+                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                product_html += "                      "+Math.round(new_product.products.products_price)+" р.";
+                product_html += "                  <\/div>";
+                product_html += "              <\/div>";
+                product_html += "          <\/div>";
+                product_html += "          <div";
+                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;\">";
+                product_html += "              <div>";
+                product_html += "                  <div";
+                product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                product_html += "                      Количество";
+                product_html += "                  <\/div>";
+                product_html += "                  <div";
+                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                product_html += "                      <div class=\"size-desc\"";
+                product_html += "                           style=\"color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;\">";
+                product_html += "                          <div id=\"input-count-block\" style=\"\"><input new-product-input-count id=\"input-count\"";
+                product_html += "                                               style=\"width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;\"";
+                product_html += "                                               data-prod=\""+new_product.products_id+"\"";
+                product_html += "                                               data-model=\""+new_product.products.products_model+"\"";
+                product_html += "                                               data-price=\""+Math.round(new_product.products.products_price)+"\"";
+                product_html += "                                               data-image=\""+new_product.products.products_image+"\"";
+                product_html += "                                               data-count=\""+new_product.products.products_quantity+"\"";
+                product_html += "                                               data-attrname=\""+new_product.productsAttributesDescr[0].products_options_values_name+"\"";
+                product_html += "                                               data-attr=\""+new_product.productsAttributesDescr[0].products_options_values_id+"\"";
+                product_html += "                                               data-name=\""+new_product.productsDescription.products_name+"\"";
+                product_html += "                                               data-step=\""+new_product.products.products_quantity_order_units+"\"";
+                product_html += "                                               data-min=\""+new_product.products.products_quantity_order_min+"\"";
+                product_html += "                                               placeholder=\"0\"";
+                product_html += "                                               type=\"text\">";
+                product_html += "                              <div class=\"count-event-new\" id=\"add-count\"";
+                product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;\">";
+                product_html += "                                  +";
+                product_html += "                              <\/div>";
+                product_html += "                              <div class=\"count-event-new\" id=\"del-count\"";
+                product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;\">";
+                product_html += "                                  -";
+                product_html += "                              <\/div>";
+                product_html += "                          <\/div>";
+                product_html += "                      <\/div>";
+                product_html += "                  <\/div>";
+                product_html += "              <\/div>";
+                product_html += "          <\/div>";
+                product_html += "          <div";
+                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;\">";
+                product_html += "              <div>";
+                product_html += "                  <div";
+                product_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                product_html += "                      Сумма";
+                product_html += "                  <\/div>";
+                product_html += "                  <div class=\"final-product-price\"";
+                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                product_html += "                      0 р.";
+                product_html += "                  <\/div>";
+                product_html += "              <\/div>";
+                product_html += "          <\/div>";
+                product_html += "      <\/div>";
+                product_html += "  <\/div>";
+                product_html += "<\/div>";
+
+                $("body").append(
+                    '<div id="modal-product" style="background: #ffffff; min-height: 300px; ">' +
+                    '<span id="modal-close">' +
+                    '<i class="fa fa-times" style="font-size:24px;"></i>' +
+                    '</span>' +
+                    product_html +
+                    '<div class="modal-footer">'+
+                        '<div style="position: relative; top: 10px;">'+
+                            '<div confirm_product class="btn-custom-red" style="">Добавить в заказ</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div id="overlay"></div>');
+                $("#modal-product").show();
+                $("#overlay").show();
+                var cloud = function () {
+                    $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
+                        'position': 'inside'
+                    });
+                };
+                setTimeout(cloud, 1000);
+            } else {
+                console.log('Выполняется запрос.')
+            }
+            inProgressSearch = false;
+        } else {
+            alert('Введите корректный артикул.')
+        }
+    });
+
+    function renderOrder(data) {
+        var final_price = 0;
+        var user_name = '';
+        if(data.refus.userinfo.name || data.refus.userinfo.lastname || data.refus.userinfo.secondname) {
+            user_name = data.refus.userinfo.name + ' ' + data.refus.userinfo.lastname + ' ' + data.refus.userinfo.secondname;
+        } else {
+            user_name = 'Данных нет';
+        }
+
+    $('[data-detail="'+data.id+'"]').addClass('client-active');
+    moment.locale('ru');
+
+        $products = '';
+       $.each(data.order.order.products, function(){
+           final_price += Math.round(this[3]) * this[4];
+           $products +=     '<div style=""  class="product-card"> ' +
+               '<div  style="" class="product-main-board"> ' +
+               '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+               '<img height="100%" src="/imagepreview?src='+this[0]+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+               '</div> ' +
+               '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
+               '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+               '<div style="font-weight: 400;">Арт. '+this[1]+'</div> ' +
+               '<div>'+this[7]+'</div> ' +
+               '<div>Размер: '+this[6]+'</div> ' +
+               '</div> ' +
+               '</div> ' +
+               '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+               '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+               '<div>'+Math.round(this[3])+' p. x '+this[4]+'шт.</div> ' +
+               '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">'+Math.round(this[3]) * this[4]+' р.</div> ' +
+               '</div> ' +
+               '</div> ' +
+               '</div> ' +
+               '<div > ' +
+               '<div  style="cursor:pointer;color: #5b8acf;"  product-id="'+this[0]+'" class="product-comment">' +
+               'Добавить комментарий к товару ' +
+               '</div> ' +
+               '</div></div> ' +
+               '  ';
+       });
+
+    $('.datacontainer').html('<div style="margin:25px;"> ' +
+    '<div style="width: 70%;  display:inline-block;"> ' +
+        '<div style="margin-right: 25px;"> ' +
+            '<div class="order-line" data-order="'+data.id+'"> ' +
+                '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
+                '<span class="date-order" >от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
+                '<span class="status-order status-new">' + order_status_label[data.order.status] + '</span> ' +
+                '</div> ' +
+        '<div class="edit-line"> ' +
+        '<div class="panel-group" style="display: inline-block; width: 33%;"> ' +
+        '<div class="panel panel-default" style="border-color: rgb(255, 255, 255); box-shadow: none; position: relative;"> '+
+        '<div class="panel-heading" style="padding: 0px; width: 100%;">'+
+        '<h4 class="panel-title">'+
+        '<a data-toggle="collapse" href="#collapse-list" class="to-order common-order" style="width: 100%;">В общий заказ</a> ' +
+        '</h4> ' +
+        '</div> ' +
+        '<div id="collapse-list" class="panel-collapse collapse" style="z-index: 999; border: 1px solid rgb(245, 245, 245); width: 100%; position: absolute;"> ' +
+        '<div class="panel-body" style="background: rgb(254, 254, 254) none repeat scroll 0% 0%;">' +
+        '<div class="list"></div></div> ' +
+        '<div class="panel-footer" style="line-height: 0px;">' +
+        '<input class="input-searcncommon-order" value="" placeholder="Поиск">'+
+        '<div class="searcncommon-order"  style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
+        '<i class="mdi">&#xE8B6;</i>' +
+        '</div>' +
+        '<div class="common-order" data-act="refresh" style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
+        '<i class="mdi">&#xE042;</i>' +
+        '</div>' +
+        '<div data-toggle="modal" data-target="#modal-common"  style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
+        '<i class="mdi">&#xE145;</i>' +
+        '</div>' +
+        '</div> ' +
+        '</div> ' +
+        '</div> ' +
+        '</div> ' +
+        '<div class="edit-order"  edit-mode="read">Редактировать заказ</div> ' +
+        '<div class="mail-client" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
+        '</div> ' +
+        '<div>' +
+                 $products+
+            '</div><div style="border-top: 1px solid #CCC; font-weight: 400;  font-size: 32px; text-align: right;padding: 10px 25px;">Итого: ' + final_price + ' р.</div> ' +
+            '</div> ' +
+        '</div> ' +
+    '<div class="sp-client-info"> ' +
+        '<div class="client-avatar"> ' +
+            '<div class="avatar"> ' +
+                '<div class="client-image"></div> ' +
+                img_block_client_status[data.refus.status] +
+            '</div> ' +
+        '</div> ' +
+        '<div class="sp-client-info-fr"> ' +
+            '<div class="client-name">' +
+                user_name +
+                '</div> ' +
+            '<div class="client-register">' +
+                'Зарегистрирован: <br>' + moment(data.refus.date_added).format("D MMMM YYYY") +
+                '</div> ' +
+            '</div> ' +
+        '<div class="sp-client-info-dr"> ' +
+            '<div class="client-row">' +
+                'Заказов: ' + data.orders_count +
+                '</div> ' +
+            '<div class="client-row">' +
+                'Статус клиента: '+ client_status_label[data.refus.status] +
+                '</div> ' +
+            '<div class="client-row">' +
+                data.refus.user.email +
+                '</div> ' +
+            '<div class="client-row"> ' +
+                data.refus.userinfo.telephone +
+                '</div> ' +
+            '<div class="btn btn-default client-all-orders">' +
+                '<a href="<?=Yii::$app->urlManager->createUrl(['/sp/index', 'user_id' => ''])?>' + data.order.user_id + '">Все заказы клиента </a>' +
+                '</div> ' +
+            '</div> ' +
+        '</div> ' +
+    '</div> ');
+    }
+    function renderOrderEdit(data) {
+    $('[data-detail="'+data.id+'"]').addClass('client-active');
+    moment.locale('ru');
+        var final_price = 0;
+        var products_html = '';
+        var i_product_card_edit = 0;
+        $.each(data.order.order.products, function(index_product, data_product){
+            requestProduct(this[0]);
+            var product = product_arr[this[0]];
+            final_price += Math.round(this[3]) * this[4];
+            products_html += '<div style="" class="product-card-edit queue-product-card-'+i_product_card_edit+'"> ' +
+                '<div style="" class="product-main-board"> ' +
+                '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+                '<img height="100%" src="/imagepreview?src='+this[0]+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
+                '</div> ' +
+                '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
+                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
+                '<div style="font-weight: 400;">Арт. '+this[1]+'</div> ' +
+                '<div>'+this[7]+'</div> ' +
+                '<div>Размер: '+this[6]+'</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;"> ' +
+                '<div> ' +
+                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                'Цена ' +
+                '</div> ' +
+                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">'+Math.round(this[3])+' р. ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;"> ' +
+                '<div> ' +
+                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                'Количество ' +
+                '</div> ' +
+                '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;"> ' +
+                '<div class="size-desc" style="color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;"> ' +
+                '<div id="input-count-block" style="">' +
+                "<input id=\"input-count\""+
+                "                  style=\"width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;\""+
+                "                  data-prod=\""+product.products_id+"\""+
+                "                  data-index-product=\""+index_product+"\""+
+                "                  data-model=\""+product.products.products_model+"\""+
+                "                  data-price=\""+Math.round(product.products.products_price)+"\""+
+                "                  data-image=\""+product.products.products_image+"\""+
+                "                  data-count=\""+product.products.products_quantity+"\""+
+                "                  data-attrname=\""+product.productsAttributesDescr[this[6]].products_options_values_name+"\""+
+                "                  data-attr=\""+product.productsAttributesDescr[this[6]].products_options_values_id+"\""+
+                "                  data-name=\""+product.productsDescription.products_name+"\""+
+                "                  data-step=\""+product.products.products_quantity_order_units+"\""+
+                "                  data-min=\""+product.products.products_quantity_order_min+"\""+
+                "                  placeholder=\"0\""+
+                "                  value=\""+this[4]+"\""+
+                "                  type=\"text\">"+
+                " <div class=\"count-event\" id=\"add-count\"" +
+                "  style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;\">"+
+                " +"+
+                "<\/div>"+
+                "<div class=\"count-event\" id=\"del-count\""+
+                "  style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;\">"+
+                " -"+
+                "<\/div>"+
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;"> ' +
+                '<div> ' +
+                '<div style="font-weight: 400;font-size: 16px;padding: 10px 0px;color: #CCC;">' +
+                'Сумма ' +
+                '</div> ' +
+                '<div class="final-product-price'+index_product+'" style="font-weight: 400;font-size: 24px;padding: 10px 0px;">'+Math.round(this[3] * this[4])+' р. ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div style="position: relative;"> ' +
+                '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" product-id="'+product.products_id+'" class="product-comment">' +
+                'Добавить комментарий к товару ' +
+                '</div> ' +
+                '<div class="product-delete product">' +
+                '<span class="url delete_product_in_order" queue_card_id="'+i_product_card_edit+'" order_id="'+data.id+' "product_id="'+this[0]+'" attr="'+this[2]+'"> Удалить товар из заказа </span> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div>' ;
+            i_product_card_edit++
+        });
+    $('.datacontainer').html('<div style="margin:25px;"> ' +
+    '<div style="width: 100%;  display:inline-block;"> ' +
+        '<div> ' +
+            '<div class="order-line" data-order="'+data.id+'"> ' +
+                '<span class="order-retry">Назад</span> ' +
+                '<span class="all-num-order">Заказ № '+data.id+'</span> ' +
+                '<span class="date-order">от '+moment(data.order.create_date).format("D MMMM  YYYY, H:mm:ss ")+'</span> ' +
+                '</div> ' +
+            '<div> ' +
+                '<div style="width: 100%;font-size: 18px;padding: 15px 0px;">' +
+                    'Комментарий к заказу ' +
+                    '</div> ' +
+                '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;"></textarea> ' +
+            '</div> ' +
+        products_html +
+        '<div style=" font-weight: 400;  font-size: 16px;"> ' +
+        '<span class="orders-edit-search" style="display: inline-block;">' +
+        'Добавить позиции ' +
+        '</span> ' +
+        '<div class="search-models" style="display: inline-block;"> ' +
+        '<input class="search-models-value" style="display: inline-block; margin: 0px 10px;outline:none;border: 1px solid #CCC; border-radius: 4px;width: 300px;padding: 0px 10px;" placeholder="Введите название или артикул" type="text"/> ' +
+        '<div class="search-models-button"  style="display: inline-block;"></div>'+
+        '</div> ' +
+        '<span> ' +
+        '<div class="btn search-models-button" style="display: inline-block;background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
+        '</span> ' +
+        '</div> ' +
+    '<div style="font-weight: 400;font-size: 15px;text-align: right;padding: 10px 25px;color: #CCC;"> ' +
+//        '<span style=" margin-right: 10px;"> Процент организатора</span> ' +
+//        '<span> ' +
+//                                '<input placeholder="%">' +
+//                                '</span> ' +
+        '</div> ' +
+    '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;"> ' +
+        '<span class="final_order_price"> Итого '+ final_price +' р.</span> ' +
+        '<span class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
+        '</div> ' +
+    '</div> ' +
+    '</div> ' +
+    '</div>');
+    }
 </script>
+
+<?php
+$modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="dialog" tabindex="-1">';
+    $modal .= '<div class="modal-dialog modal-lg">';
+        $modal .= '<div class="modal-content">';
+            $modal .= '<div class="modal-header">';
+                $modal .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+                $modal .= 'Отправить e-mail пользователю ' . $model->user->username;
+                $modal .= '</div>';
+            $modal .= '<div class="modal-body">';
+                $modal .= '<div></div><div style="margin-left: auto; margin-right: auto; padding: 14px; text-align: left;">';
+                    $modal .= '<form id="groupdiscountuser" action="/sp/mail-to-user" method="post" role="form">';
+                        $form = \yii\bootstrap\ActiveForm::begin();
+                        $mailmodel = new \frontend\models\MailToUserForm();
+                        $modal .= $form->field($mailmodel, 'subject')->label('Тема письма')->input('text');
+                        $modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget('\vova07\imperavi\Widget', [
+                        'settings' => [
+                        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+                        'lang' => 'ru',
+                        'minHeight' => 200,
+                        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
+                        $form = \yii\bootstrap\ActiveForm::end();
+                        $modal .= '</div><div class="form-group">';
+                    $modal .= \yii\helpers\Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'mailtouser']);
+                    $modal .= '</div>';
+                $modal .= '</form>';
+
+                $modal .= '</div></div></div></div></div></div>';
+echo $modal;

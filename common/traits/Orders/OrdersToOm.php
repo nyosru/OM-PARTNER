@@ -83,9 +83,11 @@ trait OrdersToOm
                     'data' => [
                         'paramorder' => [
                         ],
+
                     ]
                 ]
             ]);
+
         }
         $quant = [];
         foreach ($product_in_order as $prodkey => $prodvalue) {

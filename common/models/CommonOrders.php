@@ -75,4 +75,14 @@ class CommonOrders extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CommonOrdersLinks::className(), ['common_orders_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPartnerOrders()
+    {
+        return $this->hasMany(PartnersOrders::className(), ['id' => 'partner_orders_id'])
+            ->via('partnersCommonOrdersLinks');
+    }
+
 }
