@@ -6,6 +6,7 @@ use common\models\Customers;
 use common\models\Orders;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
+use common\models\ReferralsUser;
 use Yii;
 trait ActionCart
 {
