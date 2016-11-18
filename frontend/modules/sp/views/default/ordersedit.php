@@ -3,60 +3,6 @@
 
 ?>
 <style>
-    .search-console {
-        height: 100%;
-        width: 80%;
-        padding: 15px 59px;
-        border: none;
-        font-size: 16px;
-        outline: none;
-    }
-
-    .search-console:active, .search-console:focus {
-        border: none;
-    }
-
-    .sort-clients:after {
-        content: "\2193";
-    }
-
-    .order-retry {
-        position: relative;
-        top: -3px;
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .order-retry:before {
-        content: "\2190";
-    }
-
-    .search-bar:before {
-        height: 59px;
-        width: 59px;
-        content: '';
-        background: url(/images/lksp/search.png) no-repeat 50% 50%;
-        position: absolute;
-    }
-
-    #container2 {
-        clear: left;
-        width: 100%;
-        overflow: hidden;
-        background: #FFF;
-        height: 80%;
-        position: fixed;
-        bottom: 0px;
-    }
-
-    #container1 {
-        float: left;
-        width: 100%;
-        right: 70%;
-        height: 80%;
-        position: fixed;
-    }
-
     #col1 {
         float: left;
         width: 30%;
@@ -65,7 +11,6 @@
         border-right: 1px solid #CCC;
         height: 100%;
     }
-
     #col2 {
         float: left;
         width: 70%;
@@ -276,7 +221,6 @@
         display: inline-block;
         font-size: 18px;
     }
-
     .client-order-status {
         width: 30px;
         height: 20px;
