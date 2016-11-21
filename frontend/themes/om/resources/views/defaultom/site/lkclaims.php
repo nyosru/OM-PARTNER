@@ -88,9 +88,13 @@ echo \yii\grid\GridView::widget([
         var formData = new FormData();
 
         files = $('[type=file][data-opid="'+$opid+'"]')[0].files;
+        if(files.length==0){
+            alert("Выберите хотя бы одно изображение");
+        }
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
             if (!file.type.match('image.*')) {
+                alert("Разрешенные форматы - jpg, png, gif, jpeg");
                 continue;
             }
             formData.append('file['+i+']', file, file.name);
@@ -102,7 +106,6 @@ echo \yii\grid\GridView::widget([
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/site/saveclaim', true);
         xhr.send(formData);
-
         xhr.upload.onprogress = function(event) {
             $width = $('.progress').width();
             $progress =   $width*(event.loaded/event.total);
@@ -119,9 +122,14 @@ echo \yii\grid\GridView::widget([
         };
         xhr.onload = function () {
             if (xhr.status === 200) {
-                reloaddata($opid);
+                var data = JSON.parse(xhr.responseText);
+                if(data.myphoto!=undefined){
+                    alert(data.myphoto);
+                } else {
+                    reloaddata($opid);
+                }
             } else {
-                console.log(xhr);
+                alert("Ошибка ответа сервера");
             }
         };
     });
@@ -137,9 +145,12 @@ echo \yii\grid\GridView::widget([
                 'action': 'savecomment'},
             async: false,
             success:function (data) {
-                reloaddata($opid);
+                if(data.pritenwrite!=undefined){
+                    alert(data.pritenwrite);
+                } else {
+                    reloaddata($opid);
+                }
             }
-
         });
     });
 
