@@ -417,21 +417,15 @@
 
     $(document).on('click', '.count-event-new', function(){
         var input_count = $(this).closest("#input-count-block").children("#input-count");
-
-        setTimeout(function() {
             var new_value = input_count.val();
             var price = input_count.attr('data-price');
             console.log(price);
             console.log(new_value);
             $('.final-product-price').text(Math.round(price * new_value) + " р.");
-        }, 100);
-
     });
 
     $(document).on('click', '.count-event', function(){
         var input_count = $(this).closest("#input-count-block").children("#input-count");
-
-        setTimeout(function() {
             var new_value = input_count.val();
             var product_id = input_count.attr('data-prod');
             var price = input_count.attr('data-price');
@@ -440,7 +434,6 @@
             updateCountProducts(product_id, attr, new_value);
             updateAllOrdersView(maindata);
             $('.final-product-price'+index_product_card).text(Math.round(price * new_value) + " р.");
-        }, 50);
 
     });
 
@@ -502,13 +495,15 @@
         var val = parseInt(input_count.val());
         var data_id = parseInt(input_count.attr('data-prod'));
         var data_model = parseInt(input_count.attr('data-model'));
-        var data_attr = parseInt(input_count.attr('data-attr'));
+        if (parseInt(input_count.attr('data-attr'))){
+            var data_attr = parseInt(input_count.attr('data-attr'));
+        }else{
+            var data_attr = '';
+        }
+
+
         if (isNaN(val)){
             alert('Не выбранно количество!');
-            return false;
-        }
-        if (isNaN(data_attr)) {
-            alert('Не выбран размер!');
             return false;
         }
         $.ajax({
@@ -581,6 +576,11 @@
 
                 if(abort == true) {
                     return false;
+                }
+                if(new_product.productsAttributesDescr.length == 0){
+                    new_product.productsAttributesDescr[0]= new Object;
+                    new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
+                    new_product.productsAttributesDescr[0].products_options_values_id = '';
                 }
 
                 var product_html = '';
@@ -825,7 +825,7 @@
                 data.refus.userinfo.telephone +
                 '</div> ' +
             '<div class="btn btn-default client-all-orders">' +
-                '<a href="<?=Yii::$app->urlManager->createUrl(['/sp/index', 'user_id' => ''])?>' + data.order.user_id + '">Все заказы клиента </a>' +
+                '<a href="<?=Yii::$app->urlManager->createUrl(['/sp/orders', 'user_id' => ''])?>' + data.order.user_id + '">Все заказы клиента </a>' +
                 '</div> ' +
             '</div> ' +
         '</div> ' +
