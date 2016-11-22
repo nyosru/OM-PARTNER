@@ -828,7 +828,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
         '</div></div>');
 }
 $(document).on('click keydown', '.lock-on', function () {
-    $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
+    $('html').prepend('<div class="preload"><div class="loading"></div></div>');
 
 });
 
@@ -854,7 +854,7 @@ $(document).on('change','#control-load', function(){
     ControlLoad = $('#control-load option:selected').val();
 });
 function loaddata(){
-    $('html').prepend('<div class="preload"><div id="loaderImage"></div></div>');
+    $('html').prepend('<div class="preload"><div class="loading"></div></div>');
     $count = $('.count-checked').text();
     $min_price = $('#min-price').val();
     $sort = $('.sort-checked').attr('data');
