@@ -66,9 +66,7 @@ trait OrdersToReferrer
                 if ($express_key && !in_array($reindexprod[$keyin_order]['manufacturers_id'], $express_man)) {
                     $express_key = FALSE;
                 }
-
                 foreach ($valuein_order as $keyinattr_order => $valueinattr_order) {
-
                     $ordersprod['first_quant'] = intval($valueinattr_order);
                     $ordersprod['products_quantity'] = intval($valueinattr_order);
                     $ordersprod['products_id'] = intval($keyin_order);
@@ -95,12 +93,19 @@ trait OrdersToReferrer
                     $ordersprodattr['oid'] = '1';
                     $ordersprodattr['sub_vid'] = 0;
 
+
                     $partnerorderone = [
                         'products_id' => $keyin_order,
                         'products_model' => $reindexprod[$keyin_order]['products_model'],
                         'attribute' =>  $reindexattrdescr[$keyinattr_order]['products_options_values_id'],
+                        'price' =>  $reindexprod[$keyin_order]['products_price'],
                         'count'=>$valueinattr_order,
-                        'comment'=> $ordersprod['comment']
+                        'image' =>  $reindexprod[$keyin_order]['products_image'],
+                        'attrname' =>  $reindexattrdescr[$keyinattr_order]['products_options_values_name'],
+                        'name' =>  $reindexprod[$keyin_order]['productsDescription']['products_name'],
+                        'comment'=> [
+                            'comment'=>$ordersprod['comment']
+                        ]
                     ];
 
                     $partnerorder['products'][] = array_values($partnerorderone);

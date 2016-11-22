@@ -37,7 +37,8 @@ trait ActionSaveorder
 {
     public function actionSaveorder()
     {
-        if(($id = ReferralsUser::find()->where(['user_id'=>Yii::$app->user->getId()])) == TRUE){
+       
+        if(ReferralsUser::find()->where(['user_id'=>Yii::$app->user->getId()])->exists()){
             return $this->OrdersToReferrer();
         }else{
             return  $this->OrdersToOm();

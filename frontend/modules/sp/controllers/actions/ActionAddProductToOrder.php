@@ -13,6 +13,7 @@ trait ActionAddProductToOrder
 {
     public function actionAddProductToOrder()
     {
+        $referal = \Yii::$app->user->getIdentity()->getReferral()['id'];
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -29,7 +30,6 @@ trait ActionAddProductToOrder
 
         $order = PartnersOrders::find()->where(['id' => $order_id])->one();
 
-        $referal = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 
         $user = ReferralsUser::find()
             ->joinWith('user')
