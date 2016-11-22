@@ -71,7 +71,7 @@ if ($data[0] != 'Не найдено!') {
         foreach ($catpath['num'] as $key => $catid) {
             $paste = $urlsrc;
             $paste['page'] = 1;
-            echo '<a href="' . $url::toRoute($paste) . '">';
+            echo '<a href="' . $url::toRoute($paste) . '" class="lock-on">';
             echo $catpath['name'][$key];
             echo ' / </a>';
         }
@@ -99,7 +99,7 @@ if ($data[0] != 'Не найдено!') {
     if(Yii::$app->user->isGuest){
         $headbside .='<div style="float: right; line-height: 2;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left; line-height: 0.9;">&#xE7FF;</i><a data-toggle="modal" style="float: left; cursor:pointer;" data-target="#authform">Вход</a>';
         $headbside .= '</div>';
-        $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+        $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/signup" ><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
     }else{
         $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
         $headbside .= '<div style="float: right;"><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
@@ -219,7 +219,7 @@ if ($data[0] != 'Не найдено!') {
         }
     }
     $headbside .=                       '<hr style="border-color: #CCC"><div style="position: relative; height: 38px;" class="panel-footer" role="tab" id="headingOne">'.
-        '<button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: #00a5a1; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><a href="?cat='.$cat.'&amp;count='.$count.'&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" class="btn  reset-filter">Сбросить</a>'.
+        '<button class="btn" type="submit" style="height: 28px; float: left; line-height: 1; background: #00a5a1; color: rgb(0, 0, 0); font-weight: 300;">Применить</button><a href="?cat='.$cat.'&amp;count='.$count.'&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" style="height: 28px; float: right; line-height: 1; color: rgb(0, 0, 0); background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); font-weight: 300;" class="btn  reset-filter lock-on">Сбросить</a>'.
         '</div>'. '</div>'.
         '</div>'.
         '</div>'.
@@ -232,7 +232,7 @@ if ($data[0] != 'Не найдено!') {
     $headbside .= $topnav;
     $headbside .= '<div class="partheaderbside">';
 
-    $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;">Вид</a>';
+    $headbside .= '<a href="'.BASEURL.'/changecardview" style="float: right; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); padding: 0px 25px; border-radius: 4px; font-weight: 500;" class="lock-on">Вид</a>';
 
     $headbside .= ' <a href="#demo" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" data-toggle="collapse">Сортировка</a>';
 
@@ -240,14 +240,14 @@ if ($data[0] != 'Не найдено!') {
     $paste = $urlsrc;
     $paste['ok'] = $absok;
     $paste['page'] = 1;
-    $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;">ОК</a>';
+    $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" class="lock-on">ОК</a>';
 
 
     $abslux = abs($lux-1);
     $paste = $urlsrc;
     $paste['lux'] = $abslux;
     $paste['page'] = 1;
-    $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;">LUX</a>';
+    $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" class="lock-on">LUX</a>';
 
 
 
@@ -273,12 +273,12 @@ if ($data[0] != 'Не найдено!') {
             $paste['sort'] = $dataord;
             $paste['page'] = 1;
 
-            $headbside .= '<a class="' . $class . '" href="' .  $url::toRoute($paste). '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i style="float: right; padding: 3px 10px;" class="fa fa-' . $arrow . '"> </i></div></a>';
+            $headbside .= '<a class="' . $class . ' lock-on" href="' .  $url::toRoute($paste). '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i style="float: right; padding: 3px 10px;" class="fa fa-' . $arrow . '"> </i></div></a>';
         } else {
             $paste = $urlsrc;
             $paste['sort'] = $dataord;
             $paste['page'] = 1;
-            $headbside .= '<a class="' . $class . '" data="' . $dataord . '" href="' .   $url::toRoute($paste). '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
+            $headbside .= '<a class="' . $class . ' lock-on" data="' . $dataord . '" href="' .   $url::toRoute($paste). '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
         }
     }
     $headbside .= '</div></div></div></div>';
@@ -362,14 +362,14 @@ if ($data[0] != 'Не найдено!') {
         echo '<li class="first">';
         $paste = $urlsrc;
         $paste['page'] = 1;
-        echo '<a href="' .  $url::toRoute($paste)  . '" data-page="1">';
+        echo '<a href="' .  $url::toRoute($paste)  . '" data-page="1" class="lock-on">';
         echo 'Первая';
         echo '</a>';
         echo '</li>';
         echo '<li class="prev">';
         $paste = $urlsrc;
         $paste['page'] = max(1,$page-1);
-        echo '<a href="' .  $url::toRoute($paste) . '" data-page="'.($page-1).'">';
+        echo '<a href="' .  $url::toRoute($paste) . '" data-page="'.($page-1).'" class="lock-on">';
         echo '<i class="mdi mdi-arrow-back">';
         echo '</i>';
         echo '</a>';
@@ -392,13 +392,13 @@ if ($data[0] != 'Не найдено!') {
             }else{
                 $paste = $urlsrc;
                 $paste['page'] = max(1,$startpage);
-                echo '<li><a href="' .  $url::toRoute($paste) . '">'.($startpage).'</a></li>';
+                echo '<li><a href="' .  $url::toRoute($paste) . '" class="lock-on">'.($startpage).'</a></li>';
             }
         }
         echo '<li class="next">';
         $paste = $urlsrc;
         $paste['page'] = min($pagecount,$page+1);
-        echo '<a href="' .   $url::toRoute($paste)  . '">';
+        echo '<a href="' .   $url::toRoute($paste)  . ' " class="lock-on">';
         echo '<i class="mdi mdi-arrow-forward">';
         echo '</i>';
         echo '</a>';
@@ -406,7 +406,7 @@ if ($data[0] != 'Не найдено!') {
         echo '<li class="last">';
         $paste = $urlsrc;
         $paste['page'] = $pagecount;
-        echo '<a href="' . $url::toRoute($paste)  . '">';
+        echo '<a href="' . $url::toRoute($paste)  . '" class="lock-on">';
         echo 'Последняя';
         echo '</a>';
         echo '</li>';

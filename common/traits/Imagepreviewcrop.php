@@ -11,6 +11,8 @@ Trait Imagepreviewcrop
     public function Imagepreviewcrop($from, $src, $where, $action = 'none', $sub = FALSE)
     {
 
+
+        ini_set('pinba.enabled', false);
         $id = (integer)$src;
         if ($id > 0) {
             $namefile = $id;
@@ -22,6 +24,10 @@ Trait Imagepreviewcrop
             for ($i = 0; $i < 3; $i++) {
                 $subdir .= '/' . substr($namefile, $i * 2, 2);
             }
+            $headers = Yii::$app->response->headers;
+            $headers->add('ETag',   md5($namefile));
+            $headers->add('Pragma', 'public');
+            $headers->add('Cache-control',  'max-age=1209600, public, must-revalidate');
             $dir = 'newpreview';
             $time_sec=time();
             if ((!file_exists(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg')
@@ -86,9 +92,6 @@ Trait Imagepreviewcrop
                 imagejpeg($thumb, Yii::getAlias($where) . $dir . $subdir . $namefile . '.' . 'jpg', 90);
                 return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             } else {
-                $headers = Yii::$app->response->headers;
-                $headers->add('ETag',  md5($namefile));
-
                 return file_get_contents(Yii::getAlias($where) . $dir . $subdir . $namefile . '.jpg');
             }
             //        return $this->render('product', ['product' => $data, 'catpath'=>$catpath, 'spec'=>$spec, 'relprod'=>$relProd]);
