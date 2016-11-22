@@ -840,7 +840,20 @@
         $.each(data.order.order.products, function(index_product, data_product){
             requestProduct(this[0]);
             var product = product_arr[this[0]];
+            var datacount = 0;
             final_price += Math.round(this[3]) * this[4];
+            if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
+                product.productsAttributesDescr[this[6]] = new Object;
+            }
+            if(typeof (product.productsDescription.products_name) == 'undefined'){
+                product.productsAttributesDescr[this[6]].products_name = new Object;
+                product.productsDescription['products_name'] = 'Имя не указанно';
+            }
+            if(product.productsAttributes[this[2]]){
+                datacount = product.productsAttributes[this[2]].quantity;
+            }else{
+                datacount = product.products.products_quantity;
+            }
             products_html += '<div style="" class="product-card-edit queue-product-card-'+i_product_card_edit+'"> ' +
                 '<div style="" class="product-main-board"> ' +
                 '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
@@ -878,7 +891,7 @@
                 "                  data-model=\""+product.products.products_model+"\""+
                 "                  data-price=\""+Math.round(product.products.products_price)+"\""+
                 "                  data-image=\""+product.products.products_image+"\""+
-                "                  data-count=\""+product.products.products_quantity+"\""+
+                "                  data-count=\""+datacount+"\""+
                 "                  data-attrname=\""+product.productsAttributesDescr[this[6]].products_options_values_name+"\""+
                 "                  data-attr=\""+product.productsAttributesDescr[this[6]].products_options_values_id+"\""+
                 "                  data-name=\""+product.productsDescription.products_name+"\""+
