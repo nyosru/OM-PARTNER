@@ -684,21 +684,5 @@
         );
 
     }
-
-    (function ($) {
-        $(window).on("load", function () {
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            });
-            $("#scroll2").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            });
-        });
-    })(jQuery);
+    
 </script>
