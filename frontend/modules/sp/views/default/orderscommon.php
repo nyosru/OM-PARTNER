@@ -558,6 +558,18 @@
             $.each(partner_orders.order['products'], function(index_order, order){
                 requestProduct(order[0]);
                 var product = product_arr[order[0]];
+                if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
+                    product.productsAttributesDescr[this[6]] = new Object;
+                }
+                if(typeof (product.productsDescription.products_name) == 'undefined'){
+                    product.productsAttributesDescr[this[6]].products_name = new Object;
+                    product.productsDescription['products_name'] = 'Имя не указанно';
+                }
+                if(product.productsAttributes[this[2]]){
+                    datacount = product.productsAttributes[this[2]].quantity;
+                }else{
+                    datacount = product.products.products_quantity;
+                }
                 str_html += "<div style=\"\" class=\"product-card-common order-"+index_order+" product-"+index_order+"\">";
                 str_html += " <div style=\"\" class=\"product-main-board\">";
                 str_html += "      <div";
@@ -607,7 +619,7 @@
                 str_html += "                                               data-model=\""+product.products.products_model+"\"";
                 str_html += "                                               data-price=\""+Math.round(product.products.products_price)+"\"";
                 str_html += "                                               data-image=\""+product.products.products_image+"\"";
-                str_html += "                                               data-count=\""+product.products.products_quantity+"\"";
+                str_html += "                                               data-count=\""+datacount+"\"";
                 str_html += "                                               data-attrname=\""+product.productsAttributesDescr[order[6]].products_options_values_name+"\"";
                 str_html += "                                               data-attr=\""+product.productsAttributesDescr[order[6]].products_options_values_id+"\"";
                 str_html += "                                               data-name=\""+product.productsDescription.products_name+"\"";
@@ -684,5 +696,5 @@
         );
 
     }
-    
+
 </script>
