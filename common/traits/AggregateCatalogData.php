@@ -115,7 +115,7 @@ trait AggregateCatalogData
         }
 
 
-        $count = min(1000, $count);
+        $count = min(200, $count);
         $count = max(60, $count);
 
         $start_arr = (integer)($page * $count);
@@ -168,7 +168,11 @@ trait AggregateCatalogData
             $minutes = 3;
         }
         if(!$dataque['checkcache'] || $minutes >= 3){
-          //  print_r('с проверкой последнего апдейта');
+            if (function_exists('pinba_tag_set')) {
+                pinba_tag_set('cache-check', 'old');
+            }
+
+            //  print_r('с проверкой последнего апдейта');
             $static_cat_key = Yii::$app->cache->buildKey('static-cat-' . $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
             if (($cat = Yii::$app->cache->get($static_cat_key)) == TRUE) {
             } else {
@@ -177,7 +181,7 @@ trait AggregateCatalogData
                 $cat = implode(',', $cat);
                 Yii::$app->cache->set($static_cat_key, $cat, 3600);
             }
-            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now', [':now' => $now])->limit($count)->offset($start_arr)->asArray()->one();
+            $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products_date_added < :now and products_last_modified < :now', [':now' => $now])->asArray()->one();
             $ds1 = strtotime($x['products_last_modified']);
             $ds2 = strtotime($x['add_date']);
             if ($ds1 < $ds2) {
@@ -187,7 +191,9 @@ trait AggregateCatalogData
             $d1 = trim($checkcache);
             $d2 = trim($dataque['checkcache']);
             if (!$dataque['checkcache'] || $d1 !== $d2) {
-
+                if (function_exists('pinba_tag_set')) {
+                    pinba_tag_set('cache-reload', $d1.'/'.$d2.'/'.$checkcache);
+                }
                 // date param
 
 
@@ -421,7 +427,7 @@ trait AggregateCatalogData
                         }
                         $valuesr['products']['season_code'] =  $spec_code;
                         $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
-                        Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']], 10800);
+                        Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price']], 86400);
                     }
                 }
                 foreach ($prod as $keyin => $values) {
@@ -444,12 +450,22 @@ trait AggregateCatalogData
                             $spectotal[$specval['specifications_id']]['dataset'][$specval['specification_values_id']] = $specval['specification_value'];
                         }
                     }
-                    Yii::$app->cache->set($statickeyspec, ['data'=>$spectotal], 10800);
+                    Yii::$app->cache->set($statickeyspec, ['data'=>$spectotal], 86400);
                     $spec = $spectotal;
                 }else{
                     $spec = $statsspec['data'];
                 }
+
+                if (function_exists('pinba_tag_set')) {
+                    pinba_tag_set('static-query', $nostat);
+                }
+
                 if (!is_array($stats['data']) && !$nostat ) {
+
+                    if (function_exists('pinba_tag_set')) {
+                        pinba_tag_set('static-reload', 'true');
+                    }
+
                     $productattrib = PartnersProductsToCategories::find()->select(['products_options_values.products_options_values_id', 'products_options_values.products_options_values_name'])->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0 and products.products_price != 0   and products_status=1  ' . $start_price_query_filt . $end_price_query_filt . ' and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $manufacturers_query_filt . $studio_query_filt.$discont_query_filt. $prod_day_query_filt.$sfilt_query_filt, $arfilt_attr)->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->asArray()->all();
                     $count_arrs = PartnersProductsToCategories::find()->JoinWith('products')->where('categories_id IN (' . $cat . ')  and products_status=1 and products.products_price != 0  and products.products_quantity > 0 ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $manufacturers_query_filt . $studio_query_filt.$discont_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt)->groupBy(['products.`products_id` DESC'])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->distinct()->count();
                     $price_max = PartnersProductsToCategories::find()->select('MAX(`products_price`) as maxprice')->distinct()->JoinWith('products')->where('categories_id IN (' . $cat . ')  ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt . '  and products.products_quantity > 0  and products.products_price != 0     and products_status=1 and products.manufacturers_id NOT IN (' . $hide_man . ')  and products_date_added < :now and products_last_modified < :now' . $manufacturers_query_filt . $studio_query_filt.$discont_query_filt . $prod_day_query_filt.$sfilt_query_filt, $arfilt_pricemax)->JoinWith('productsAttributes')->JoinWith('productsDescription')->joinWith('productsSpecification')->asArray()->one();
@@ -460,7 +476,7 @@ trait AggregateCatalogData
                     $count_arrs = $stats['data']['count_arrs'];
                     $price_max = $stats['data']['price_max'];
                 }
-                Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'spec'=>$spec,  'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache], 6400);
+                Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'spec'=>$spec,  'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache], 86400);
             } else {
               //  print_r('с проверкой последнего апдейта из кэша');
                 $cache = 'Kэш';

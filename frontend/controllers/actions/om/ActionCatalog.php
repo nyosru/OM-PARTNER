@@ -73,10 +73,9 @@ trait ActionCatalog
                 'typeresponse' => $json,
                 'maxtime' => $date_end,
                 'offsettime' => $date_start,
-                'cachelistkeyprefix' => 'catalog12' . $ok.'-'.$lux,
+                'cachelistkeyprefix' => 'catalog712' . $ok.'-'.$lux,
                 'cacheproductkey' => 'product',
-                'sfilt'=>$sfilt,
-                'sort_order' => TRUE
+                'sfilt'=>$sfilt
             ]);
        
         if ($json) {

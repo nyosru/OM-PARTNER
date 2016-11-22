@@ -16,8 +16,8 @@ trait ActionSiteIndex
         } else {
             $title = Yii::$app->params['constantapp']['APP_NAME'];
         }
-        $newproducts = $this->NewProducts(18, 'ef123ef-', 300);
-        $dataproducts = $this->FeaturedProducts(60, 'wdawwdqsef-', 300);
+        $newproducts = $this->NewProducts(60, 'ef1923ef-', 600);
+        $dataproducts = $this->FeaturedProducts(60, 'wdaww7dqsef-', 450);
         return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts,'title'=>$title]);
     }
 }
