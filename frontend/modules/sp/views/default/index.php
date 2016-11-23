@@ -124,7 +124,7 @@ $text = [
                             <?= '<div>' .$userrinfo_name .
                             '
                              <!-- Button trigger modal -->
-                                 <span class="glyphicon glyphicon-pencil pencil-edit-custom pencil-edit-userinfo" href="#" data-toggle="modal" data-target="#om_modal"></span>
+                                 <span class="glyphicon glyphicon-pencil pencil-edit-custom pencil-edit-userinfo" href="/sp/#" data-toggle="modal" data-target="#om_modal"></span>
                              ' . '</div>'
                             ?>
                         </div>
@@ -258,7 +258,7 @@ $text = [
                                 <div class="col-md-2 order-pseudo-column"><?= $order->create_date ?></div>
                                 <div class="col-md-1 order-pseudo-column"><?= $order_price ?>p</div>
                                 <div class="col-md-6 order-pseudo-column"><?= $order->status ?></div>
-                                <div class="col-md-1 order-pseudo-column" style="text-align: right;"><a class="glyphicon glyphicon-pencil" href="#"></a></div>
+                                <div class="col-md-1 order-pseudo-column" style="text-align: right;"><a class="glyphicon glyphicon-pencil" target="_blank" href="/sp/#id=<?= $order->id ?>"></a></div>
                             </div>
                             <div id="product-line-<?=$i_product?>" class="panel-collapse collapse" style="height: 100%">
                                 <div class="panel-body">

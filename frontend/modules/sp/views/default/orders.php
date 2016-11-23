@@ -88,7 +88,7 @@
 
                                     $i_model += 1;
                                     ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
-                                    return '<div class="client-plate" style="display:block; '.$back_fff.'" data-detail="'.$model['ids'].'">
+                                    return '<a class="client-plate" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
                                             <div class="client-avatar">
                                                 <div class="avatar">
                                                     <div class="client-image"> </div>
@@ -117,7 +117,7 @@
                                                     </div>
                                                 </div>
                 </div>
-            </div>';
+            </a>';
                                 }
                             ],
                         ],
@@ -134,40 +134,24 @@
                         ?>
                     </div>
                     <script>
-
+                        inProgress = false;
                         if($('.order-line').attr('data-order')){
                             $('[data-detail="'+$('.order-line').attr('data-order')+'"]').addClass('client-active');
                         }
-                        
                         (function($){
-                            inProgress = false;
+                            var hash    = location.hash.substr(1),
+                                id = hash.substr(hash.indexOf('id='))
+                                    .split('&')[0]
+                                    .split('=')[1];
+                            if (id) {
+                                loaddetail(id);
+                            }
+                        })(jQuery);
+                        (function($){
                             $('.client-plate').on("click",function(){
-                                if(!inProgress){
-                                    $('[class="client-plate client-active"]').removeClass('client-active');
-                                    inProgress = true;
-                                    $.ajax({
-                                        method:"post",
-                                        url: "/sp/detail-order",
-                                        data: { "_csrf":yii.getCsrfToken(),
-                                            "id": $(this).attr('data-detail')
-                                        },
-                                        cache: false,
-                                        async: true,
-                                        dataType: 'json',
-                                        beforeSend: function () {
-                                            inProgress = false;
-                                        }
-                                    }).done(function (data) {
-
-                                        maindata = data;
-                                        renderOrder(maindata);
-                                    });
-                                    inProgress = false;
-                                }else{
-                                    alert('Выполняется запрос');
-                                }
+                                $id = $(this).attr('data-detail')
+                                loaddetail($id);
                             });
-
                         })(jQuery);
                         (function($){
                             $(document).on('click', '.edit-order', function () {
@@ -177,6 +161,38 @@
                                 renderOrder(maindata);
                             });
                         })(jQuery);
+
+
+                        function loaddetail($id){
+                            if(!inProgress){
+                                inProgress = true;
+                                $('[class="client-plate client-active"]').removeClass('client-active');
+                                inProgress = true;
+                                $.ajax({
+                                    method:"post",
+                                    url: "/sp/detail-order",
+                                    data: { "_csrf":yii.getCsrfToken(),
+                                        "id": $id
+                                    },
+                                    cache: false,
+                                    async: true,
+                                    dataType: 'json',
+                                    beforeSend: function () {
+                                        inProgress = false;
+                                    }
+                                }).done(function (data) {
+
+                                    maindata = data;
+                                    renderOrder(maindata);
+                                });
+                                inProgress = false;
+                            }else{
+                                alert('Выполняется запрос');
+                            }
+                        };
+
+
+
                         (function($){
                             $(document).on('click', '.delete_product_in_order',function() {
                                 var order_id = $(this).attr('order_id');
@@ -807,9 +823,9 @@
             '<div class="client-row"> ' +
                 data.refus.userinfo.telephone +
                 '</div> ' +
-            '<div class="btn btn-default client-all-orders">' +
-                '<a href="<?=Yii::$app->urlManager->createUrl(['/sp/orders', 'user_id' => ''])?>' + data.order.user_id + '">Все заказы клиента </a>' +
-                '</div> ' +
+            '<a class="btn btn-default client-all-orders lock-on" href="<?=Yii::$app->urlManager->createUrl(['/sp/orders', 'user_id' => ''])?>' + data.order.user_id + '">' +
+                'Все заказы клиента' +
+                '</a> ' +
             '</div> ' +
         '</div> ' +
     '</div> ');
