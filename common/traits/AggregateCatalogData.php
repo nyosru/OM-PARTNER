@@ -52,6 +52,9 @@ trait AggregateCatalogData
         if(isset(\Yii::$app->params['chpu']['cat_start'])){
             $params['cat_start'] = $this->categoryChpu(\Yii::$app->params['chpu']['cat_start']);
         }
+        $integer = function($value) {
+            return (integer)$value;
+        };
         $cat_start = $params['cat_start'];
         $start_price = (integer)$params['start_price'];
         $end_price = (integer)$params['end_price'];
@@ -61,14 +64,11 @@ trait AggregateCatalogData
         $sort = (integer)$params['sort'];
         $ok = (integer)$options['ok'];
         $lux = (integer)$options['lux'];
-        $sfilt = $options['sfilt'];
+        $sfilt = array_map($integer, $options['sfilt']);
         $studio = $options['studio'];
         $discont = $options['discont'];
         $sort_order = $options['sort_order'];
-        $integer = function($value) {
-            return (integer)$value;
-        };
-        if(array_map($integer, $sfilt)){
+        if($sfilt){
             $sfilt_part_key = '-'.md5(implode('',$sfilt));
             $sfilt = implode(',',$sfilt);
             $sfilt_query_filt = ' and products_specifications.specification_values_id IN ('.$sfilt.')';
