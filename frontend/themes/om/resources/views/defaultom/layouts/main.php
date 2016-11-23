@@ -151,7 +151,7 @@ $this->beginPage();
                                 echo '<div style="float: right;"><a  rel="nofollow"  href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
                             }else{
                                 echo '<div style="float: right;"><a  rel="nofollow" href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
-                                echo '<div style="float: right;"><a rel="nofollow"  href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                                echo '<div style="float: right;"><a rel="nofollow"  href="'.BASEURL.'/lk/"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
                             }
                             ?>
                         </div>

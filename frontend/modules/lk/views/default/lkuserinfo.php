@@ -82,7 +82,7 @@ for($i=0; $i<$cs; $i++){
                         $defid=$key;
                     }
                 }
-                $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
+                $form = ActiveForm::begin(['method'=>'post']);
                 echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Пользователь</div>';
                 echo $form->field($cust, 'id')->hiddenInput(['value' => $cust->id])->label(false);
                 echo $form->field($cust,'delivery['.$defid.'][lastname]' ,['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Фамилия');
@@ -123,7 +123,7 @@ for($i=0; $i<$cs; $i++){
                         $payid=$key;
                     }
                 }
-                $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
+                $form = ActiveForm::begin(['method'=>'post']);
                 echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Пользователь</div>';
                 echo $form->field($cust,'delivery['.$payid.'][lastname]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Фамилия');
                 echo $form->field($cust,'delivery['.$payid.'][name]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Имя');
@@ -170,7 +170,7 @@ for($i=0; $i<$cs; $i++){
                     }
                 }
                 if($i!=-1){
-                    $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
+                    $form = ActiveForm::begin(['method'=>'post']);
                     echo '<div style="overflow: hidden"><div class="regmain" style="font-weight: 400; margin: 15px;">Получатель</div>';
                     echo $form->field($cust,'delivery['.$i.'][lastname]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']] )->label('Фамилия');
                     echo $form->field($cust, 'delivery['.$i.'][name]', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Имя');

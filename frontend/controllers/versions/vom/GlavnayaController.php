@@ -74,7 +74,6 @@ use frontend\controllers\actions\om\ActionDiscont;
 use frontend\controllers\actions\om\ActionDiscountProducts;
 use frontend\controllers\actions\om\ActionFiguresDays;
 use frontend\controllers\actions\om\ActionInfo;
-use frontend\controllers\actions\om\ActionLK;
 use frontend\controllers\actions\om\ActionLoadClaim;
 use frontend\controllers\actions\om\ActionManList;
 use frontend\controllers\actions\om\ActionNewProductDay;
@@ -136,7 +135,6 @@ class GlavnayaController extends Controller
         ActionLoginOM,
         ActionLogout,
         ActionCatalog,
-        ActionLK,
         ActionContactForm,
         ActionDelivery,
         ActionOfferta,
