@@ -5,6 +5,7 @@ use common\models\CommonOrders;
 use common\models\Referrals;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\validators\DateValidator;
 
 
@@ -50,12 +51,17 @@ trait ActionCommonOrders
             $model->andWhere('header REGEXP "' . $search . '"');
             $model->orWhere('description REGEXP "' . $search . '"');
         }
-
-        $data_provider = new ActiveDataProvider([
-            'query' => $model,
+        $pagesize = 5;
+        $pages = new Pagination([
+            'totalCount' => $model->count(),
         ]);
 
-        $data_provider->setPagination(false);
+        $pages->setPageSize($pagesize);
+        $data_provider = new ActiveDataProvider([
+            'query' => $model->limit($pagesize)->offset($pages->getOffset())
+        ]);
+
+        $data_provider->setPagination($pages);
 
         $data_provider->setSort([
             'defaultOrder' => [
@@ -71,6 +77,6 @@ trait ActionCommonOrders
             ],
         ]);
 
-        return $this->render('orderscommon', ['data' => $data_provider]);
+        return $this->render('orderscommon', ['data' => $data_provider, 'paginate' => $pages]);
     }
 }

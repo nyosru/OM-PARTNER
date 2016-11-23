@@ -229,7 +229,7 @@ $text = [
                             'attributes' => ['id', 'key', 'value', 'description'],
                         ],
                         'pagination' => [
-                            'pageSize' => 10,
+                            'pageSize' => 5,
                         ],
                     ]);
                     ?>
@@ -323,12 +323,14 @@ $text = [
                         endforeach;
                         ?>
                         </div>
+                        <div class="pag">
                         <?= LinkPager::widget([
                             'pagination'     => $dataProvider->getPagination(),
                             'firstPageLabel' => 'Первая',
                             'lastPageLabel'  => 'Последняя',
                             'maxButtonCount' => 5,
                         ]); ?>
+                            </div>
                     </div>
                 </div>
             </div>

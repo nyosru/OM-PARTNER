@@ -49,7 +49,7 @@ trait ActionIndex
             }
         }
 
-        $pagesize = 7;
+        $pagesize = 5;
 
         $search = trim(Yii::$app->request->getQueryParam('search'));
 

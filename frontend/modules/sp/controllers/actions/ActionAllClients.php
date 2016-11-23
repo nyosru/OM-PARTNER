@@ -61,7 +61,7 @@ trait ActionAllClients
         $data_provider = new ActiveDataProvider([
             'query'      => $query,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 5,
             ],
         ]);
 
