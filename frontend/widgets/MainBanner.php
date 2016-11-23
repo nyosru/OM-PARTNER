@@ -26,49 +26,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_14112016_1.png',
-                'referal'=> '/catalog?searchword=&cat=1791&count=&start_price=0&end_price=3554&date_start=&date_end=&sfilt%5B%5D=2409&sfilt%5B%5D=15462&sfilt%5B%5D=16124',
-                'alttext' => 'Для зимних пробежек',
+                'image' =>  'OM_22112016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '1729',
+                'alttext' => 'Блузки',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_14112016_2.png',
-                'referal'=> '/catalog?cat=1544',
-                'alttext' => 'Зоотовары',
+                'image' =>  'OM_22112016_2.png',
+                'referal'=> '/catalog?cat=1813',
+                'term'=> '1813',
+                'alttext' => 'Кардиганы',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_14112016_3.png',
-                'referal'=> '/catalog?cat=2092',
-                'alttext' => 'Лак для ногтей',
+                'image' =>  'OM_22112016_3.png',
+                'referal'=> '/catalog?cat=2008&sfilt%5B%5D=2409&sfilt%5B%5D=15462&sfilt%5B%5D=16124',
+                'term'=> '2008-winter',
+                'alttext' => 'Ботиночки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_14112016_4.png',
-                'referal'=> '/catalog?searchword=&cat=1976&count=&start_price=0&end_price=6933&date_start=&date_end=&sfilt%5B%5D=2409&sfilt%5B%5D=16124&sfilt%5B%5D=15462',
-                'alttext' => 'Зимние сапожки',
+                'image' => 'OM_22112016_4.png',
+                'referal'=> '/catalog?cat=2047',
+                'term'=> '2047',
+                'alttext' => 'Женские сумки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_14112016_5.png',
-                'referal'=> '/catalog?cat=1751',
-                'alttext' => 'Ультрамодные пуховики',
+                'image' => 'OM_22112016_5.png',
+                'referal'=> '/catalog?cat=1720',
+                'term'=> '1720',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_14112016_6.png',
-                'referal'=> '/catalog?cat=2393',
-                'alttext' => 'Коньки',
+                'image' => 'OM_22112016_6.png',
+                'referal'=> '/catalog?cat=1824',
+                'alttext' => 'Шапки',
                 'out' => FALSE
             ]
         ],
@@ -206,14 +211,18 @@ class MainBanner extends \yii\bootstrap\Widget
             }
             $utm_link = '';
             if($this->utm_enable === TRUE){
-                $this->utm['term'] = mb_substr($refer,0,10);
+                $this->utm['term'] = $value['term'];
                 $this->utm['content'] = $value['image'];
                 $utm_link = UtmLinker::widget([
-                   'param'=> $this->utm
+                    'param' => $this->utm
                 ]);
+                $divider = '?';
+                if(mb_substr_count($refer, '?')){
+                    $divider = '&amp;';
+                }
             }
-            
-            $item[] = '<a href="'.$refer. '?'.$utm_link.'" '.$out_param.'>'.
+
+            $item[] = '<a href="'.$refer. $divider.$utm_link.'" '.$out_param.'>'.
                 '<img style="display: block;max-width: 100%;height: auto;" src="'.self::IMAGE_PATH.$value['image'].'"  alt="'.$value['alttext'].'">'.
                 '</a>';
         }
