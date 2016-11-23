@@ -197,7 +197,7 @@ $this->beginPage();
      }
      $ga = Yii::$app->session->set('ga', []);
  }
- 
+ echo  \frontend\widgets\SlizaWidget::widget();
  ?>
     
     </body>
