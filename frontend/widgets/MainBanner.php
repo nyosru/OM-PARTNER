@@ -209,7 +209,7 @@ class MainBanner extends \yii\bootstrap\Widget
                 $this->utm['term'] = mb_substr($refer,0,10);
                 $this->utm['content'] = $value['image'];
                 $utm_link = UtmLinker::widget([
-                    $this->utm
+                   'param'=> $this->utm
                 ]);
             }
             
