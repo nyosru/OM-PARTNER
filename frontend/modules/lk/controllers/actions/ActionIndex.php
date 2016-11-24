@@ -1,6 +1,7 @@
 <?php
 namespace frontend\modules\lk\controllers\actions;
 
+use common\models\Referrals;
 use common\models\User;
 use common\models\Orders;
 use yii;
@@ -35,6 +36,11 @@ trait ActionIndex
                 'defaultPageSize' => 1,
             ]
         ]);
+
+        $referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->joinWith('products')->asArray()->one();
+
+
+
         $countpay = Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC')->andWhere(['orders.orders_status' => '2'])->count();
         $countcheck = Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC')->andWhere(['orders.orders_status' => '1'])->count();
         $countdelivery = Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC')->andWhere(['orders.orders_status' => '4'])->count();
@@ -49,6 +55,6 @@ trait ActionIndex
 
         $totalcancel = \common\models\Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC')->andWhere(['orders.orders_status' => '6'])->count();
 
-        return $this->render('lk', ['cust' => $cust, 'orders' => $orders, 'dataset' => ['countpay' => $countpay, 'countcheck' => $countcheck, 'countsborka' => $countsborka, 'countdelivery' => $countdelivery, 'totalorder' => $totalorder, 'totalproducts' => $totalproducts, 'totalprice' => $totalprice, 'totalcancel' => $totalcancel]]);
+        return $this->render('lk', ['cust' => $cust, 'orders' => $orders, 'dataset' => ['countpay' => $countpay, 'countcheck' => $countcheck, 'countsborka' => $countsborka, 'countdelivery' => $countdelivery, 'totalorder' => $totalorder, 'totalproducts' => $totalproducts, 'totalprice' => $totalprice, 'totalcancel' => $totalcancel], 'referal'=>$referal]);
     }
 }
