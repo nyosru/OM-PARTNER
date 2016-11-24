@@ -17,7 +17,7 @@ trait PreCheckProductsToOrder
         //Проверяем передан нам продукт или ид продукта(ид от недоверенных ресурсов)
         if(!is_array($product)){
             // Получаем продукт со всей ботвой
-            $product = PartnersProducts::find()->where(['products.`products_id`' => (integer)$product])->JoinWith('productsDescription')->JoinWith('categories')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->one();
+            $product = PartnersProducts::find()->where(['products.`products_id`' => (integer)$product])->JoinWith('productsDescription')->JoinWith('categories')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and  death_reason = ""  and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->one();
         }
 
         //Проверяем активность продукта, его наличие, и установленную цену == продукт существует и можно выполнять последующие проверки

@@ -12,60 +12,74 @@ class MainBanner extends \yii\bootstrap\Widget
     const ROTATE_NONE = '';
     const ROTATE_RAND = 'random';
     const ROTATE_ROLL = 'roll';
+    const IMAGE_PATH = '/images/banners/';
+    public $utm_enable = TRUE;
+    public $utm = [
+        'campagin' => '',
+        'source'=> 'sait_main',
+        'medium'=> 'banner_main',
+        'term'=> '',
+        'content'=> ''
+    ];
 
     public $position = [
 
         'medium1' => [
             [
-                'image' => '/images/banners/OM_14112016_1.png',
-                'referal'=> '/catalog?searchword=&cat=1791&count=&start_price=0&end_price=3554&date_start=&date_end=&sfilt%5B%5D=2409&sfilt%5B%5D=15462&sfilt%5B%5D=16124',
-                'alttext' => 'Для зимних пробежек',
+                'image' =>  'OM_22112016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '1729',
+                'alttext' => 'Блузки',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' => '/images/banners/OM_14112016_2.png',
-                'referal'=> '/catalog?cat=1544',
-                'alttext' => 'Зоотовары',
+                'image' =>  'OM_22112016_2.png',
+                'referal'=> '/catalog?cat=1813',
+                'term'=> '1813',
+                'alttext' => 'Кардиганы',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' => '/images/banners/OM_14112016_3.png',
-                'referal'=> '/catalog?cat=2092',
-                'alttext' => 'Лак для ногтей',
+                'image' =>  'OM_22112016_3.png',
+                'referal'=> '/catalog?cat=2008&sfilt%5B%5D=2409&sfilt%5B%5D=15462&sfilt%5B%5D=16124',
+                'term'=> '2008-winter',
+                'alttext' => 'Ботиночки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => '/images/banners/OM_14112016_4.png',
-                'referal'=> '/catalog?searchword=&cat=1976&count=&start_price=0&end_price=6933&date_start=&date_end=&sfilt%5B%5D=2409&sfilt%5B%5D=16124&sfilt%5B%5D=15462',
-                'alttext' => 'Зимние сапожки',
+                'image' => 'OM_22112016_4.png',
+                'referal'=> '/catalog?cat=2047',
+                'term'=> '2047',
+                'alttext' => 'Женские сумки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => '/images/banners/OM_14112016_5.png',
-                'referal'=> '/catalog?cat=1751',
-                'alttext' => 'Ультрамодные пуховики',
+                'image' => 'OM_22112016_5.png',
+                'referal'=> '/catalog?cat=1720',
+                'term'=> '1720',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => '/images/banners/OM_14112016_6.png',
-                'referal'=> '/catalog?cat=2393',
-                'alttext' => 'Коньки',
+                'image' => 'OM_22112016_6.png',
+                'referal'=> '/catalog?cat=1824',
+                'alttext' => 'Шапки',
                 'out' => FALSE
             ]
         ],
         'discont1' => [
             [
-                'image' => '/images/banners/B_19072016_1.png',
+                'image' => 'B_19072016_1.png',
                 'referal'=> '/product?id=902601',
                 'alttext' => 'Лодка Intex 68347 Seahawk 200',
                 'out' => FALSE
@@ -73,7 +87,7 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'discont2' => [
             [
-                'image' => '/images/banners/B_19072016_2.png',
+                'image' => 'B_19072016_2.png',
                 'referal'=> '/product?id=902491',
                 'alttext' => 'Бассейн Intex 28200/56997 на опорах',
                 'out' => FALSE
@@ -81,7 +95,7 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'discont3' => [
             [
-                'image' => '/images/banners/B_19072016_3.png',
+                'image' => 'B_19072016_3.png',
                 'referal'=> '/product?id=1461925',
                 'alttext' => 'Игровой центр-бассейн',
                 'out' => FALSE
@@ -89,7 +103,7 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'discont4' => [
             [
-                'image' => '/images/banners/B_19072016_4.png',
+                'image' => 'B_19072016_4.png',
                 'referal'=> '/product?id=1398409',
                 'alttext' => 'Матрас-кровать CLASSIC DOWNY',
                 'out' => FALSE
@@ -187,14 +201,29 @@ class MainBanner extends \yii\bootstrap\Widget
         foreach ($position as $key=>$value){
             $refer = '';
             $out_param = '';
+
+
             if($value['out']){
                 $out_param = ' target="_blank" ';
                 $refer = $value['referal'];
             }else{
                 $refer = BASEURL.$value['referal'];
             }
-            $item[] = '<a href="'.$refer.'" '.$out_param.'>'.
-                '<img style="display: block;max-width: 100%;height: auto;" src="'.$value['image'].'"  alt="'.$value['alttext'].'">'.
+            $utm_link = '';
+            if($this->utm_enable === TRUE){
+                $this->utm['term'] = $value['term'];
+                $this->utm['content'] = $value['image'];
+                $utm_link = UtmLinker::widget([
+                    'param' => $this->utm
+                ]);
+                $divider = '?';
+                if(mb_substr_count($refer, '?')){
+                    $divider = '&amp;';
+                }
+            }
+
+            $item[] = '<a href="'.$refer. $divider.$utm_link.'" '.$out_param.'>'.
+                '<img style="display: block;max-width: 100%;height: auto;" src="'.self::IMAGE_PATH.$value['image'].'"  alt="'.$value['alttext'].'">'.
                 '</a>';
         }
         switch($roll){
