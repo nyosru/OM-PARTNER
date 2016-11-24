@@ -37,7 +37,7 @@ trait ActionIndex
             ]
         ]);
 
-        $referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->joinWith('products')->asArray()->one();
+        $referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one();
 
 
 
