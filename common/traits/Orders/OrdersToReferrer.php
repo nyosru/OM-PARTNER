@@ -33,7 +33,7 @@ trait OrdersToReferrer
     {
 
         if(($userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->getUser()->id])->asArray()->one()) == FALSE){
-           Yii::$app->session->setFlash('error', 'Заполните личные данные в лк');
+           Yii::$app->session->setFlash('error', 'Заполните профиль');
            $this->redirect(Yii::$app->request->referrer);
         }
         date_default_timezone_set('Europe/Moscow');
