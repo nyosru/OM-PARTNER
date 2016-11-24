@@ -54,7 +54,8 @@ trait ActionIndex
         $totalproducts = $totalproducts[0]['totalprod'] + $totalproducts[0]['total'];
 
         $totalcancel = \common\models\Orders::find()->where(['customers_id' => $cust['customers']['customers_id']])->joinWith('products')->joinWith('productsAttr')->joinWith('productsSP')->groupBy('orders.`orders_id` DESC')->andWhere(['orders.orders_status' => '6'])->count();
+        \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
 
-        return $this->render('lk', ['cust' => $cust, 'orders' => $orders, 'dataset' => ['countpay' => $countpay, 'countcheck' => $countcheck, 'countsborka' => $countsborka, 'countdelivery' => $countdelivery, 'totalorder' => $totalorder, 'totalproducts' => $totalproducts, 'totalprice' => $totalprice, 'totalcancel' => $totalcancel], 'referal'=>$referal]);
+        return $this->render('lk', ['cust' => $cust, 'orders' => $orders, 'dataset' => ['countpay' => $countpay, 'countcheck' => $countcheck, 'countsborka' => $countsborka, 'countdelivery' => $countdelivery, 'totalorder' => $totalorder, 'totalproducts' => $totalproducts, 'totalprice' => $totalprice, 'totalcancel' => $totalcancel], 'referal'=>$referal, 'menu'=>$this->actionMenu()]);
     }
 }

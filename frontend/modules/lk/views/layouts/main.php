@@ -75,65 +75,7 @@ $this->beginPage();
             <div class="partners-main-left-cont" style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
                 <div class="partners-main-left">
                     <div class="partners-main-left">
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-orders" class="link profile-orders">
-                                    <a href="<?= BASEURL ?>/viewcart">
-                                        Мои корзины
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-orders" class="link profile-orders">
-                                    <a href="<?= Url::to(['myorder'])?>">
-                                        Мои заказы
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-orders" class="link profile-orders">
-                                    <a href="<?= Url::to(['orderedproducts']) ?>">
-                                        Мои товары
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-orders" class="link profile-orders">
-                                    <a href="<?= Url::to(['claims']) ?>">
-                                        Мои претензии
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-orders" class="link profile-orders">
-                                    <a href="<?= Url::to(['userinfo']) ?>">
-                                        Мои данные
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-orders" class="link profile-orders">
-                                    <a href="<?= BASEURL ?>/contactform">
-                                        Связь с администрацией
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="accordion" class="accordion">
-                            <li class="">
-                                <div id="profile-call" class="link">Продолжить покупки</div>
-                            </li>
-                        </ul>
+                        <?=\Yii::$app->params['modules']['lk']['menu'];?>
                     </div>       </div>
 
             </div>
@@ -249,9 +191,6 @@ $this->beginPage();
     });
 
 </script>
-<?php
-echo '<div style="position: fixed; bottom: 0; width:30%;z-index:99999; font-size: 15px; margin: auto; background: #FFF; border:1px solid #CCC;">Внимание! С 16.00 до 16.15 будут проводится технические работы!</div>';
-?>
 </body>
 </html>
 <?php $this->endPage() ?>

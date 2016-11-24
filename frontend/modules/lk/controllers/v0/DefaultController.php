@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\lk\controllers\v0;
+use frontend\modules\lk\controllers\actions\ActionMenu;
 use yii\web\Controller;
 
 use Yii;
@@ -24,6 +25,7 @@ class DefaultController extends Controller
         ActionUserinfo,
         ActionClaims,
         ActionOrderedproducts,
+        ActionMenu,
         ActionMyorder;
 
     public function behaviors()

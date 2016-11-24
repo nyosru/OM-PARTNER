@@ -87,7 +87,9 @@ trait ActionMyorder
                 ]
 
             ]);
-            return $this->render('lkspmyorder', ['cust' => $cust, 'orders' => $orders, 'sort_order' => $sort_order]);
+        \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
+
+        return $this->render('lkspmyorder', ['cust' => $cust, 'orders' => $orders, 'sort_order' => $sort_order, 'menu'=>$this->actionMenu()]);
     }
 }
 

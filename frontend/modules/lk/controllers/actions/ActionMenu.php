@@ -17,6 +17,66 @@ trait ActionMenu
 {
     public function actionMenu()
     {
-        
+        return '
+        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">
+                                    <a href="'.BASEURL.'/viewcart">
+                                        Мои корзины
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">
+                                    <a href="'.yii\helpers\Url::to(['myorder']).'">
+                                        Мои заказы
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">
+                                    <a href="'.yii\helpers\Url::to(['orderedproducts']).'">
+                                        Мои товары
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">
+                                    <a href="'.yii\helpers\Url::to(['claims']).'">
+                                        Мои претензии
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">
+                                    <a href="'.yii\helpers\Url::to(['userinfo']).'">
+                                        Мои данные
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">
+                                    <a href="'. BASEURL .'/contactform">
+                                        Связь с администрацией
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-call" class="link">Продолжить покупки</div>
+                            </li>
+                        </ul>
+        ';
     }
 }

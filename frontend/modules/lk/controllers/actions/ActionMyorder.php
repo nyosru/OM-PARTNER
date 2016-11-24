@@ -92,6 +92,8 @@ trait ActionMyorder
                 'defaultPageSize' => 20,
             ]
         ]);
+        \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
+
         return $this->render('lkmyorder', ['cust' => $cust, 'orders' => $orders, 'sort_order' => $sort_order]);
     }
 }

@@ -13,12 +13,12 @@ trait ActionIndex
 {
     public function actionIndex()
     {
+
         if (Yii::$app->user->isGuest || ($cust = User::find()->where(['partners_users.id' => Yii::$app->user->getId(), 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->one()) == FALSE) {
             return $this->redirect(Yii::$app->request->referrer);
         }
-       
-            $this->layout = 'lksp';
-            $model = \common\models\PartnersOrders::find()->where(['user_id' => $cust['id']]);
+        \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
+        $model = \common\models\PartnersOrders::find()->where(['user_id' => $cust['id']]);
             $sort = new yii\data\Sort([
                 'attributes' => [
                     'id' => [

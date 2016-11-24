@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\lk\controllers\vsp0;
+use frontend\modules\lk\controllers\actions\sp\ActionMenu;
 use yii\web\Controller;
 
 use Yii;
@@ -18,6 +19,7 @@ class DefaultController extends Controller
     use ManufacturersDiapazonData,
         Hide_manufacturers_for_partners,
         ActionIndex,
+        ActionMenu,
         ActionMyorder;
 
     public function behaviors()

@@ -44,6 +44,7 @@ trait ActionClaims
                 'defaultPageSize' => 20,
             ]
         ]);
+        \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
 
         return $this->render('lkclaims',['dataProvider'=>$dataProvider,'model'=>$ordersProducts]);
     }
