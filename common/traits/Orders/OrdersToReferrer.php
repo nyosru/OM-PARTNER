@@ -18,6 +18,7 @@ use common\models\PartnersProducts;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsToCategories;
 use common\models\PartnersToRegion;
+use common\models\PartnersUsersInfo;
 use common\models\SelerAnket;
 use common\models\SpsrZones;
 use common\models\User;
@@ -31,6 +32,10 @@ trait OrdersToReferrer
     public function OrdersToReferrer()
     {
 
+        if(($userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->getUser()->id])->asArray()->one()) == FALSE){
+           Yii::$app->session->setFlash('error', 'Заполните профиль');
+           $this->redirect(Yii::$app->request->referrer);
+        }
         date_default_timezone_set('Europe/Moscow');
         if (Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id' => Yii::$app->user->getId(), 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->asArray()->one()) == FALSE) {
             return $this->redirect(Yii::$app->request->referrer);
@@ -66,9 +71,7 @@ trait OrdersToReferrer
                 if ($express_key && !in_array($reindexprod[$keyin_order]['manufacturers_id'], $express_man)) {
                     $express_key = FALSE;
                 }
-
                 foreach ($valuein_order as $keyinattr_order => $valueinattr_order) {
-
                     $ordersprod['first_quant'] = intval($valueinattr_order);
                     $ordersprod['products_quantity'] = intval($valueinattr_order);
                     $ordersprod['products_id'] = intval($keyin_order);
@@ -95,12 +98,19 @@ trait OrdersToReferrer
                     $ordersprodattr['oid'] = '1';
                     $ordersprodattr['sub_vid'] = 0;
 
+
                     $partnerorderone = [
                         'products_id' => $keyin_order,
                         'products_model' => $reindexprod[$keyin_order]['products_model'],
                         'attribute' =>  $reindexattrdescr[$keyinattr_order]['products_options_values_id'],
+                        'price' =>  $reindexprod[$keyin_order]['products_price'],
                         'count'=>$valueinattr_order,
-                        'comment'=> $ordersprod['comment']
+                        'image' =>  $reindexprod[$keyin_order]['products_image'],
+                        'attrname' =>  $reindexattrdescr[$keyinattr_order]['products_options_values_name'],
+                        'name' =>  $reindexprod[$keyin_order]['productsDescription']['products_name'],
+                        'comment'=> [
+                            'comment'=>$ordersprod['comment']
+                        ]
                     ];
 
                     $partnerorder['products'][] = array_values($partnerorderone);

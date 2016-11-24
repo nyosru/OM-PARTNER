@@ -13,7 +13,7 @@ trait ActionLoginOM
         }
 
         $model = new LoginFormOM();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && ($model->login() || $model->loginreferral())) {
             return $this->goHome();
         } else {
             return $this->render('login', [

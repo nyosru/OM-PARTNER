@@ -25,14 +25,21 @@ trait ActionSaveClaim
                             $claim->myphoto = (array)$value;
                             $state[] = $claim->formimagesave();
                         }
-                        return $state;
-                    } else $claim->addError('pritenwrite', 'Ошибка загрузки');
+                        if(!$claim->hasErrors()){
+                            return $state;
+                        }
+                    } else $claim->addError('myphoto', 'Ошибка загрузки');
                     return $claim->errors;
                     break;
                 case 'savecomment':
                     $claim->pritenwrite = $this->trim_tags_text(Yii::$app->request->post('comment'), 500);
                     if ($claim->validate()) {
-                        return $claim->formcommentsave();
+                        $result  = $claim->formcommentsave();
+                        if(empty($result)){
+                            return $claim->errors;
+                        } else {
+                            return $result;
+                        }
                     } else {
                         return $claim->errors;
                     }

@@ -20,7 +20,7 @@ trait ActionRegisterSP
     public function actionRegisterSp()
     {
         if(!Yii::$app->user->isGuest){
-            $userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->getUser()->identity->getId()])->asArray()->one();
+            $userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->getUser()->identity->getId()])->one()->toArray();
             if(Yii::$app->request->post('accept')
                 && ($userinfo)== TRUE
                 && ($customer_id = $userinfo['customers_id']) == TRUE

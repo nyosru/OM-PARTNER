@@ -28,6 +28,10 @@ use common\traits\Trim_Tags;
 use common\traits\View_cat;
 use frontend\controllers\actions\ActionAddSearch;
 use frontend\controllers\actions\ActionCart;
+use frontend\controllers\actions\ActionTestUnit;
+use frontend\controllers\actions\om\ActionAllBrands;
+use frontend\controllers\actions\om\ActionAllCategories;
+use frontend\controllers\actions\om\ActionCatalog;
 use frontend\controllers\actions\ActionCatPath;
 use frontend\controllers\actions\ActionChstatusorder;
 use frontend\controllers\actions\ActionContactForm;
@@ -37,13 +41,39 @@ use frontend\controllers\actions\ActionFaq;
 use frontend\controllers\actions\ActionImagepreview;
 use frontend\controllers\actions\ActionLoginOM;
 use frontend\controllers\actions\ActionLogout;
-use frontend\controllers\actions\ActionNewComments;
+use frontend\controllers\actions\ActionSelectedProduct;
+use frontend\controllers\actions\om\ActionChangeCardView;
+use frontend\controllers\actions\om\ActionDiscountProducts;
+use frontend\controllers\actions\om\ActionInfo;
+use frontend\controllers\actions\om\ActionInvite;
+use frontend\controllers\actions\om\ActionInviteSP;
+use frontend\controllers\actions\om\ActionNewProductDay;
 use frontend\controllers\actions\ActionNews;
 use frontend\controllers\actions\ActionOfferta;
+use frontend\controllers\actions\om\ActionArticle;
+use frontend\controllers\actions\om\ActionDayProduct;
+use frontend\controllers\actions\om\ActionDiscont;
+use frontend\controllers\actions\om\ActionFiguresDays;
+use frontend\controllers\actions\om\ActionLoadClaim;
+use frontend\controllers\actions\om\ActionPayView;
+use frontend\controllers\actions\om\ActionPreCheckProductToOrders;
+use frontend\controllers\actions\om\ActionProductsDiscount;
+use frontend\controllers\actions\om\ActionRegisterSP;
+use frontend\controllers\actions\om\ActionRegisterSuccess;
+use frontend\controllers\actions\om\ActionSaveCart;
+use frontend\controllers\actions\om\ActionSaveClaim;
+use frontend\controllers\actions\om\ActionSavepage;
 use frontend\controllers\actions\ActionPaying;
 use frontend\controllers\actions\ActionPaymentMethod;
 use frontend\controllers\actions\ActionPayOrders;
 use frontend\controllers\actions\ActionPrintOrders;
+use frontend\controllers\actions\om\ActionPage;
+use frontend\controllers\actions\ActionTakeOrder;
+use frontend\controllers\actions\ActionTimeOrderProducts;
+use frontend\controllers\actions\om\ActionCartResult;
+use frontend\controllers\actions\om\ActionManList;
+use frontend\controllers\actions\om\ActionProduct;
+use frontend\controllers\actions\om\ActionProductinfo;
 use frontend\controllers\actions\ActionProductinfobymodel;
 use frontend\controllers\actions\ActionRequestadress;
 use frontend\controllers\actions\ActionRequestemail;
@@ -52,53 +82,26 @@ use frontend\controllers\actions\ActionRequestorders;
 use frontend\controllers\actions\ActionRequestPasswordReset;
 use frontend\controllers\actions\ActionResetPassword;
 use frontend\controllers\actions\ActionSavehtml;
-use frontend\controllers\actions\ActionSelectedProduct;
+use frontend\controllers\actions\om\ActionSaveorder;
 use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\ActionShippingfields;
-use frontend\controllers\actions\ActionSiteRequest;
-use frontend\controllers\actions\ActionSiteSaveUserProfile;
-use frontend\controllers\actions\ActionSiteSearchword;
-use frontend\controllers\actions\ActionTakeOrder;
-use frontend\controllers\actions\ActionTestUnit;
-use frontend\controllers\actions\ActionTimeOrderProducts;
-use frontend\controllers\actions\ActionZonesrequest;
-use frontend\controllers\actions\CacheUserState;
-use frontend\controllers\actions\om\ActionAllBrands;
-use frontend\controllers\actions\om\ActionAllCategories;
-use frontend\controllers\actions\om\ActionArticle;
-use frontend\controllers\actions\om\ActionCartResult;
-use frontend\controllers\actions\om\ActionCatalog;
-use frontend\controllers\actions\om\ActionChangeCardView;
-use frontend\controllers\actions\om\ActionDayProduct;
-use frontend\controllers\actions\om\ActionDiscont;
-use frontend\controllers\actions\om\ActionDiscountProducts;
-use frontend\controllers\actions\om\ActionFiguresDays;
-use frontend\controllers\actions\om\ActionInfo;
-use frontend\controllers\actions\om\ActionLK;
-use frontend\controllers\actions\om\ActionLoadClaim;
-use frontend\controllers\actions\om\ActionManList;
-use frontend\controllers\actions\om\ActionNewProductDay;
-use frontend\controllers\actions\om\ActionOrdersStatus;
-use frontend\controllers\actions\om\ActionPage;
-use frontend\controllers\actions\om\ActionPayView;
-use frontend\controllers\actions\om\ActionPreCheckProductToOrders;
-use frontend\controllers\actions\om\ActionProduct;
-use frontend\controllers\actions\om\ActionProductinfo;
-use frontend\controllers\actions\om\ActionProductsCloth;
-use frontend\controllers\actions\om\ActionProductsDiscount;
-use frontend\controllers\actions\om\ActionProductsMonth;
-use frontend\controllers\actions\om\ActionRegisterSuccess;
-use frontend\controllers\actions\om\ActionSaveCart;
-use frontend\controllers\actions\om\ActionSaveClaim;
-use frontend\controllers\actions\om\ActionSaveorder;
-use frontend\controllers\actions\om\ActionSavepage;
 use frontend\controllers\actions\om\ActionShowCart;
 use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
+use frontend\controllers\actions\om\ActionProductsMonth;
+use frontend\controllers\actions\om\ActionProductsCloth;
+use frontend\controllers\actions\ActionSiteRequest;
+use frontend\controllers\actions\ActionSiteSaveUserProfile;
+use frontend\controllers\actions\ActionSiteSearchword;
+use frontend\controllers\actions\ActionZonesrequest;
+use frontend\controllers\actions\CacheUserState;
 use frontend\controllers\actions\om\ActionSpLanding;
-use frontend\controllers\actions\om\ActionSuppliers;
 use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
+use frontend\controllers\actions\om\ActionOrdersStatus;
+use frontend\controllers\actions\om\ActionSuppliers;
+use Yii;
+use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -136,7 +139,6 @@ class GlavnayaController extends Controller
         ActionLoginOM,
         ActionLogout,
         ActionCatalog,
-        ActionLK,
         ActionContactForm,
         ActionDelivery,
         ActionOfferta,
@@ -181,6 +183,7 @@ class GlavnayaController extends Controller
         ActionProductsCloth,
         ActionSelectedProduct,
         ActionSaveCart,
+        ActionRegisterSP,
         ActionViewCart,
         ActionTakeOrder,
         ActionAllCategories,
@@ -197,6 +200,8 @@ class GlavnayaController extends Controller
         RelatedProducts,
         ActionInfo,
         ActionSpLanding,
+        ActionInviteSP,
+        ActionInvite,
         ActionProductsDiscount,
         ActionDiscountProducts,
         OrdersToOm,
