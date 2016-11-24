@@ -29,7 +29,7 @@ class AppAsset extends AssetBundle
         'yii\jui\JuiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         '\\yii\\materialicons\\AssetBundle',
-
+        'vova07\imperavi\Asset'
 
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];

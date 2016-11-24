@@ -213,5 +213,20 @@ class User extends ActiveRecordExt implements IdentityInterface
         return $this->hasMany(AddressBook::className(), ['customers_id' => 'customers_id'])->via('userinfo');
     }
 
-
+    public function getReferralUserByCustomer()
+    {
+        return $this->hasOne(ReferralsUser::className(), ['customers_id' => 'customers_id'])->createCommand()->queryOne();
+    }
+    public function getReferralByCustomer()
+    {
+        return $this->hasOne(Referrals::className(), ['customers_id' => 'customers_id'])->createCommand()->queryOne();
+    }
+    public function getReferralUser()
+    {
+        return $this->hasOne(ReferralsUser::className(), ['user_id' => 'id'])->createCommand()->queryOne();
+    }
+    public function getReferral()
+    {
+        return $this->hasOne(Referrals::className(), ['user_id' => 'id'])->createCommand()->queryOne();
+    }
 }

@@ -1,384 +1,4 @@
-<?php
 
-
-?>
-<style>
-    .search-console {
-        height: 100%;
-        width: 80%;
-        padding: 15px 59px;
-        border: none;
-        font-size: 16px;
-        outline: none;
-    }
-
-    .search-console:active, .search-console:focus {
-        border: none;
-    }
-
-    .sort-clients:after {
-        content: "\2193";
-    }
-
-    .order-retry {
-        position: relative;
-        top: -3px;
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .order-retry:before {
-        content: "\2190";
-    }
-
-    .search-bar:before {
-        height: 59px;
-        width: 59px;
-        content: '';
-        background: url(/images/lksp/search.png) no-repeat 50% 50%;
-        position: absolute;
-    }
-
-    #container2 {
-        clear: left;
-        width: 100%;
-        overflow: hidden;
-        background: #FFF;
-        height: 80%;
-        position: fixed;
-        bottom: 0px;
-    }
-
-    #container1 {
-        float: left;
-        width: 100%;
-        right: 70%;
-        height: 80%;
-        position: fixed;
-    }
-
-    #col1 {
-        float: left;
-        width: 30%;
-        position: relative;
-        left: 70%;
-        border-right: 1px solid #CCC;
-        height: 100%;
-    }
-
-    #col2 {
-        float: left;
-        width: 70%;
-        position: relative;
-        left: 70%;
-        overflow: hidden;
-        height: 100%;
-    }
-
-    .client-plate {
-        height: 100%;
-        width: 100%;
-        border-bottom: 1px solid #CCC;
-    }
-
-    .client-avatar {
-        width: 30%;
-        height: 100%;
-    }
-
-    .avatar {
-        height: 100px;
-        width: 100px;
-        position: relative;
-        float: left;
-    }
-
-    .client-old {
-        position: absolute;
-        bottom: 17px;
-        right: 29px;
-        height: 16px;
-        width: 16px;
-        background: #CCC;
-        border-radius: 45px;
-    }
-
-    .client-new {
-        position: absolute;
-        bottom: 17px;
-        right: 29px;
-        height: 16px;
-        width: 16px;
-        background: #009f9c;
-        border-radius: 45px;
-    }
-
-    .client-vip {
-        position: absolute;
-        bottom: 17px;
-        right: 29px;
-        height: 16px;
-        width: 16px;
-        background: #6200ea;
-        border-radius: 45px;
-    }
-
-    .client-info-orders {
-        display: block;
-        height: 100%;
-        width: 55%;
-        margin: 0px 0px 0px 119px;
-        position: relative;
-    }
-
-    .client-line-info-orders {
-        display: block;
-        height: 100%;
-        margin: 0px 0px 0px 119px;
-        position: relative;
-    }
-
-    .client-active:before {
-        position: absolute;
-        content: "\25B8";
-        right: -15px;
-        font-size: 30px;
-        color: #CCC;
-        line-height: 100px;
-    }
-
-    [class="client-plate client-active"] {
-        background: #fff9c4;
-    }
-
-    .client-image {
-        height: 70%;
-        width: 70%;
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
-        margin: auto;
-        border-radius: 45px;
-        background: #FFF;
-        border: 1px solid #f6f6f6;
-        background: url(/images/lksp/group6.png) no-repeat 50% 50%;
-    }
-
-    .client-info-fr-order {
-        width: 60%;
-        padding: 20px 0px;
-        display: inline-block;
-    }
-
-    .client-info-fr-price {
-        padding: 25px 0px;
-        display: inline-block;
-        float: right;
-        width: 40%;
-    }
-
-    .client-name {
-        font-size: 16px;
-        font-weight: 400;
-        margin-bottom: 10px;
-    }
-
-    .client-plate:nth-of-type(odd) {
-        background: #f5f5f5;
-    }
-
-    .client-plate:nth-of-type(aven) {
-        background: #FFF;
-    }
-
-    .client-order-num {
-        color: #4A90E2;
-        font-weight: 400;
-        display: inline-block;
-        font-size: 18px;
-    }
-
-    .client-order-status {
-        width: 30px;
-        height: 20px;
-        display: inline-block;
-        border-radius: 4px;
-        margin: 0px 10px;
-    }
-
-    .status-new {
-        background: #009f9c none repeat scroll 0% 0%;
-    }
-
-    .status-proceed {
-        background: #5b8acf none repeat scroll 0% 0%;
-    }
-
-    .status-like {
-        background: #ffea00 none repeat scroll 0% 0%;
-    }
-
-    .status-payed {
-        background: #ff5722 none repeat scroll 0% 0%;
-    }
-
-    .status-ordered {
-        background: #9c27b0 none repeat scroll 0% 0%;
-    }
-
-    .status-return {
-        background: #ff1744 none repeat scroll 0% 0%;
-    }
-
-    .status-cancel {
-        background: #d8d8d8 none repeat scroll 0% 0%;
-    }
-
-    .sp-client-info {
-        display: block;
-        height: 100%;
-        width: 30%;
-        position: relative;
-        float: right;
-        border: 1px solid #CCC;
-        border-radius: 4px;
-    }
-
-    .sp-client-info-fr {
-        padding: 20px;
-    }
-
-    .sp-client-info-dr {
-        padding: 10px 20px;
-    }
-
-    .client-row {
-        font-size: 14px;
-        font-weight: 400;
-        margin-bottom: 5px;
-    }
-
-    .client-all-orders {
-        margin: 20px 0px;
-        width: 100%;
-        background: #009f9c;
-        color: #FFF;
-    }
-
-    .client-all-orders:hover, .client-all-orders:active {
-        background: #009f9c;
-        color: #FFF;
-    }
-
-    .all-num-order {
-        font-size: 24px;
-        font-weight: 400;
-        color: #5b8acf;
-    }
-
-    .date-order {
-        margin: 0px 10px;
-    }
-
-    .status-order {
-        padding: 2px 5px;
-        border-radius: 4px;
-        color: #FFF;
-        font-weight: 400;
-    }
-
-    .to-order {
-        display: inline-block;
-        width: 33%;
-        text-align: center;
-        padding: 5px;
-        background: #ffea00;
-        border-radius: 4px;
-        font-weight: 400;
-    }
-
-    .to-order:after {
-        content: "\2193";
-        padding: 0px 10px;
-    }
-
-    .edit-line {
-        margin: 10px 0px;
-    }
-
-    .edit-order:before {
-        content: "";
-        height: 20px;
-        width: 20px;
-        display: inline-block;
-        background: url(/images/lksp/edit.png) no-repeat 50% 50%;
-        padding: 0px;
-        margin: -5px 10px;
-    }
-
-    .product-delete:before {
-        content: "";
-        height: 20px;
-        width: 20px;
-        display: inline-block;
-        background: url(/images/lksp/delete.png) no-repeat 50% 50%;
-        padding: 0px;
-        margin: -5px 10px;
-    }
-
-    .edit-order {
-        display: inline-block;
-        width: 33%;
-        text-align: center;
-    }
-
-    .mail-client {
-        display: inline-block;
-        width: 33%;
-        text-align: center;
-    }
-
-    .mail-client:before {
-        content: "";
-        height: 20px;
-        width: 30px;
-        display: inline-block;
-        background: url(/images/lksp/mail.png) no-repeat 50% 50%;
-        padding: 0px;
-        margin: -5px 10px;
-    }
-
-    .product-comment:before {
-        content: "";
-        height: 15px;
-        width: 15px;
-        display: inline-block;
-        background: url(/images/lksp/plus.png) no-repeat 0% 0% /cover;
-        padding: 0px;
-        margin: -3px 10px;
-    }
-
-    .orders-edit-search:before {
-        content: "";
-        height: 25px;
-        width: 25px;
-        display: inline-block;
-        background: url(/images/lksp/plus4.png) no-repeat 0% 0% /cover;
-        padding: 0px;
-        margin: -8px 10px;
-    }
-
-    .product-card-edit {
-        margin: 30px 0px;
-        padding: 30px 0px;
-        border-bottom: 1px solid #CCC;
-    }
-   
-   
-
-</style>
 <div style="height: 50px;background: rgb(238, 238, 238);">
     <a style="font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;" href="#">Все заказы</a>
     <a style="border-bottom: 2px solid #009f9c;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
@@ -396,22 +16,59 @@
     <a style="border-bottom: 2px solid #d8d8d8;font-size: 18px;font-weight: 400;line-height: 50px; margin: 0px 20px;"
        href="#">Удален</a>
 </div>
-<div style="border-bottom: 1px solid #CCC;height: 60px;background: #FFF">
+<form style="height: 60px;background: #FFF">
     <div class="search-bar" style="height: 100%;width: 49%;display: inline-block;box-sizing: border-box;float: left;">
-        <input class="search-console" style="" placeholder="Поиск по заказам">
+        <input class="search-console" value="<?=Yii::$app->request->getQueryParam('search')?>" name="search" placeholder="Поиск по клиентам">
+        <?php
+        echo \yii\helpers\Html :: hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken(), []);
+        ?>
     </div>
     <div
-        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;float: right;text-align: right;padding: 0px 25px;">
-        <div style="margin: 0px 20px;display:inline-block;margin:0px 20px;">Сортировать<a class="sort-clients" href="#">
-                новые </a></div>
-        <div style="margin: 0px 20px;display: inline-block">Дата с: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
-        </div>
-        <div style="display: inline-block">Дата по: <input
-                style="height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;"">
+        style="line-height: 60px;height: 100%;display: inline-block;box-sizing: border-box;width: 49%;text-align: right;padding: 0px 25px;">
+        <div style="float: left;width: 50%;position: relative;">Сортировать<a  href="#sorting" data-toggle="collapse" aria-expanded="true" class="sort-clients">
+                новые </a>
+            <div id="sorting" style="width: 200px; position: absolute; z-index: 98; right: 0px;     top: 40px;" class="collapse" aria-expanded="true">
+                <div id="sort-order">
+                    <div class="header-sort sort sort-checked" data="0">
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Статус</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">ФИО</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Последний заказ</div></a>
+                        <a class="sort " data="3" style="line-height: 20px" href="?cat=932"><div class="header-sort-item-model header-sort-item lock-on">Зарегистрирован</div></a>
+                    </div>
+                </div></div></div>
+        <div style="margin: -5px 20px;display: inline-block;">
+            <?=\kartik\date\DatePicker::widget([
+                'language'=>'ru',
+                'layout'=>'<div>
+                            <div style="display: inline-block;float: left;line-height: 20px; padding: 0px 20px;">Дата с: </div>
+                            {input1}
+                            <div style=" display: inline-block; float: left; line-height: 20px;padding: 0px 20px;" >Дата по:</div>
+                            {input2}
+                            </div>',
+                'name' => 'ds',
+                'name2' => 'de',
+                'value'=> (new \DateTime(date(Yii::$app->request->getQueryParam('ds'))))->format('Y-m-d'),
+                'value2'=>(new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
+                'type' => \kartik\date\DatePicker::TYPE_RANGE,
+                'options'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'options2'=>[
+                    'style'=>"height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;"
+                ],
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ]);?>
         </div>
     </div>
-</div>
+    <?= \yii\helpers\Html::submitButton('Submit', [
+            'class'=> 'btn btn-primary',
+            'style'=> 'display:none']
+    ) ;?>
+
+</form>
 <div id="container2">
     <div id="container1">
         <div id="col1">
@@ -984,21 +641,3 @@
     </div>
     </div>
 </div>
-<script>
-    (function($){
-        $(window).on("load",function(){
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            } );
-            $("#scroll2").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            } );
-        });
-    })(jQuery);
-</script>
