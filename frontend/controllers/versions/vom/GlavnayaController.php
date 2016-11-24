@@ -71,7 +71,6 @@ use frontend\controllers\actions\om\ActionPage;
 use frontend\controllers\actions\ActionTakeOrder;
 use frontend\controllers\actions\ActionTimeOrderProducts;
 use frontend\controllers\actions\om\ActionCartResult;
-use frontend\controllers\actions\om\ActionLK;
 use frontend\controllers\actions\om\ActionManList;
 use frontend\controllers\actions\om\ActionProduct;
 use frontend\controllers\actions\om\ActionProductinfo;
@@ -140,7 +139,6 @@ class GlavnayaController extends Controller
         ActionLoginOM,
         ActionLogout,
         ActionCatalog,
-        ActionLK,
         ActionContactForm,
         ActionDelivery,
         ActionOfferta,
