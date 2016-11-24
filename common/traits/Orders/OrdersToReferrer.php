@@ -18,6 +18,7 @@ use common\models\PartnersProducts;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsToCategories;
 use common\models\PartnersToRegion;
+use common\models\PartnersUsersInfo;
 use common\models\SelerAnket;
 use common\models\SpsrZones;
 use common\models\User;
@@ -31,6 +32,10 @@ trait OrdersToReferrer
     public function OrdersToReferrer()
     {
 
+        if(($userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->getUser()->id])->asArray()->one()) == FALSE){
+           Yii::$app->session->setFlash('error', 'Заполните личные данные в лк');
+           $this->redirect(Yii::$app->request->referrer);
+        }
         date_default_timezone_set('Europe/Moscow');
         if (Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id' => Yii::$app->user->getId(), 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->asArray()->one()) == FALSE) {
             return $this->redirect(Yii::$app->request->referrer);
