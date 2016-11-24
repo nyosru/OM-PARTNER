@@ -98,6 +98,11 @@ if ($_COOKIE['info-modal'] !== '1') {?>
     <br/><span
         style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">id: <?= $cust['userinfo']['customers_id']; ?></span>
 </div>
+<div class="" style="float: left; font-size: 24px; font-weight: 500; padding: 20px;">
+    Вы принимаете участие в реферальной программе
+    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваш реферальный ид<?= $referal['id']; ?></span>
+    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваша реферальная ссылка<?= $referal['referral_url']; ?></span>
+</div>
 <div class="orders-metro" style="float: left; width: 100%;">
     <a href="<?=BASEURL?>/lk?view=myorder&filter=5">
         <div class="lk-order-status">
