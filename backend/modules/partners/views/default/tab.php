@@ -5,6 +5,9 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Button;
 use yii\bootstrap\Dropdown;
 use common\models\User;
+use yii\grid\GridView;
+use common\models\PartnersDomain;
+use yii\widgets\Pjax;
 
 $this->title = 'Партнеры';
 $this->registerCssFile('/css/partners.css');
@@ -23,8 +26,6 @@ $this->registerCssFile('/css/partners.css');
                 Modal::begin(['header' => '<h4>Добавить партнера</h4>', 'toggleButton' => ['label' => 'Добавить', 'tag' => 'button', 'class' => 'btn btn-sm btn-info', 'id' => 'partners-add-comp']]);
                 $form = ActiveForm::begin(['action' => '/partners/default/save']);
                 echo $form->field($model, 'name');
-                echo $form->field($model, 'domain');
-                echo $form->field($model, 'template');
                 echo Html::submitButton(Yii::t('app', 'Отправить'), ['class' => 'btn btn-primary', 'id' => 'act']);
                 ActiveForm::end();
                 Modal::end();
@@ -36,9 +37,6 @@ $this->registerCssFile('/css/partners.css');
         <div id="partners-main-right">
             <div class="col-sm-6"><p>Текстовый идентификатор партнера: <?= $partners_info->name; ?></p></div>
             <div class="col-sm-6"><p>Числовой идентификатор партнера: <?= $partners_info->id; ?></p></div>
-            <div class="col-sm-6"><p>Адрес сайта на котором работает магазин: <a target="_blank"
-                                                                                 href="http://<?= $partners_info->domain; ?>"><?= $partners_info->domain; ?></a>
-                </p></div>
             <div class="col-sm-6"><p>Учетная запись ОМ связанная с партером: <?= $partners_info->customers_id; ?></p>
             </div>
         </div>
@@ -56,7 +54,6 @@ $this->registerCssFile('/css/partners.css');
 
                     echo Html::BeginTag('h4', ['class' => '']) . $value['name'] . Html::EndTag('h4');
 
-                    echo Html::BeginTag('div', ['class' => 'partners-comp-domain']) . $value['domain'] . Html::EndTag('div');
                     echo Html::EndTag('div');
                     echo Html::BeginTag('span', ['class' => 'icon']) . $value['id'] . Html::EndTag('span');
 
@@ -117,6 +114,65 @@ $this->registerCssFile('/css/partners.css');
 
             <div class="box box-warning box-solid collapsed-box">
                 <div class="box-header with-border">
+                    <h3 class="box-title">Управление доменами</h3>
+
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div style="display: none;" class="box-body">
+                    <table class="table">
+                        <tr>
+                            <th>Домен</th>
+                            <th>Шаблон</th>
+                            <th>Версия</th>
+                            <th>
+                                <?php
+                                Modal::begin([
+                                    'header' => '<h2>Создать домен</h2>',
+                                    'toggleButton' => [
+                                        'tag' => 'button',
+                                        'class' => 'btn btn-block btn-success',
+                                        'label' => 'Создать',
+                                    ]
+                                ]);
+                                $partnerDomain = new PartnersDomain();
+                                $form = ActiveForm::begin([
+                                    'action' => ['save-domain','id'=>$partners_info->id],
+                                ]);
+                                echo Html::hiddenInput('PartnersDomain[partner_id]',$partners_info->id);
+
+                                echo $form->field($partnerDomain, 'domain')->textInput();
+
+                                echo $form->field($partnerDomain, 'template')->textInput();
+
+                                echo $form->field($partnerDomain, 'version')->textInput();
+
+                                echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
+
+                                ActiveForm::end();
+
+                                Modal::end();
+                                ?>
+                            </th>
+                        </tr>
+
+                        <?php
+                        if(!empty($partners_info->partnersDomain)) {
+                            foreach ($partners_info->partnersDomain as $domain){
+                                echo $this->render('_list-domains',['model'=>$domain]);
+                            }
+                        }
+                        ?>
+
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <div class="box box-warning box-solid collapsed-box">
+                <div class="box-header with-border">
                     <h3 class="box-title">Изменение данных партнера</h3>
 
                     <div class="box-tools pull-right">
@@ -130,10 +186,6 @@ $this->registerCssFile('/css/partners.css');
                     <?= $form->field($model, 'id')->hiddenInput(['value' => $partners_info->id])->label(false); ?>
                     <div class="col-sm-6">
                         <?= $form->field($model, 'name')->textInput(['value' => $partners_info->name])->label('Строковый идентификатор') ?>
-                    </div><div class="col-sm-6">
-                        <?= $form->field($model, 'domain')->textInput(['value' => $partners_info->domain])->label('Домен') ?>
-                    </div><div class="col-sm-6">
-                        <?= $form->field($model, 'template')->textInput(['value' => $partners_info->template])->label('Шаблон') ?>
                     </div><div class="col-sm-6">
                         <?= $form->field($model, 'customers_id')->textInput(['value' => $partners_info->customers_id])->label('Пользователь ОМ') ?>
                     </div>
