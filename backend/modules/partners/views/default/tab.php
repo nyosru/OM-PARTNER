@@ -13,14 +13,13 @@ $this->registerCssFile('/css/partners.css');
 <div class="container" id="partners-head">
     <div class="container" id="partners-left-head-back">
         <div id='partners-left-head'>
-            <div><?
-                echo Html::input('text', 'username', $user->name, ['class' => 'form-control', 'placeholder' => 'Имя партнера', 'id' => '']);
-                ?></div>
-            <div id="partners-left-head-two-row"><?
-                ?><span><?
-                    echo Button::widget(['label' => '<', 'id' => 'cback', 'options' => ['class' => 'btn-sm btn-info', 'href' => '/partners/?step=1'], 'tagName' => 'a']);
-                    echo Button::widget(['label' => '>', 'id' => 'cforvard', 'options' => ['class' => 'btn-sm btn-info', 'href' => '/partners/?step=1'], 'tagName' => 'a']);
-                    ?></span><?
+            <div><?=Html::input('text', 'username', $user->name, ['class' => 'form-control', 'placeholder' => 'Имя партнера', 'id' => '']); ?></div>
+            <div id="partners-left-head-two-row">
+                <span>
+                    <?=Button::widget(['label' => '<', 'id' => 'cback', 'options' => ['class' => 'btn-sm btn-info', 'href' => '/partners/?step=1'], 'tagName' => 'a']);?>
+                    <?=Button::widget(['label' => '>', 'id' => 'cforvard', 'options' => ['class' => 'btn-sm btn-info', 'href' => '/partners/?step=1'], 'tagName' => 'a']);?>
+                </span>
+                <?php
                 Modal::begin(['header' => '<h4>Добавить партнера</h4>', 'toggleButton' => ['label' => 'Добавить', 'tag' => 'button', 'class' => 'btn btn-sm btn-info', 'id' => 'partners-add-comp']]);
                 $form = ActiveForm::begin(['action' => '/partners/default/save']);
                 echo $form->field($model, 'name');
@@ -29,7 +28,8 @@ $this->registerCssFile('/css/partners.css');
                 echo Html::submitButton(Yii::t('app', 'Отправить'), ['class' => 'btn btn-primary', 'id' => 'act']);
                 ActiveForm::end();
                 Modal::end();
-                ?></div>
+                ?>
+            </div>
         </div>
     </div>
     <div class="container-fluid" id="partners-right-head-back">
@@ -47,11 +47,8 @@ $this->registerCssFile('/css/partners.css');
 <div class="container" id="partners-main">
     <div class="container" id="partners-main-left-back">
         <div id="partners-main-left">
-
             <div id="partners-main-left-cont">
-
-
-                <?
+                <?php
                 foreach ($data as $key => $value) {
                     echo Html::beginTag('div', ['class' => 'small-box bg-green']);
 
@@ -65,7 +62,7 @@ $this->registerCssFile('/css/partners.css');
 
 
                     echo html::beginTag('a', ['href' => "?id=" . $value['id'], 'class' => 'small-box-footer href']);
-                    ?>Больше информации <i class="fa fa-arrow-circle-right"></i><?
+                    echo 'Больше информации <i class="fa fa-arrow-circle-right"></i>';
                     echo Html::EndTag('a');
                     echo Html::EndTag('div');
 
@@ -78,7 +75,7 @@ $this->registerCssFile('/css/partners.css');
     </div>
     <div class="container-fluid" id="partners-main-right-back">
         <div id="partners-main-right">
-            <?
+            <?php
             for ($i = 0; $i < count($catdata); $i++) {
                 $row = $catdata[$i];
                 if (empty($arr_cat[$row['parent_id']])) {
@@ -159,7 +156,7 @@ $this->registerCssFile('/css/partners.css');
                 <!-- /.box-header -->
                 <div style="display: none;" class="box-body">
 
-                  <?
+                  <?php
 
                   $users = User::find()->where(['role' => 'admin', 'id_partners' => $partners_info->id])->asArray()->all();
 
@@ -186,9 +183,7 @@ $this->registerCssFile('/css/partners.css');
                 <!-- /.box-header -->
                 <div style="display: none;" class="box-body">
 
-                    <?
-                    view_cat($arr_cat, 0, $catnamearr); ?>
-
+                    <?php view_cat($arr_cat, 0, $catnamearr); ?>
                 </div>
                 <!-- /.box-body -->
             </div>

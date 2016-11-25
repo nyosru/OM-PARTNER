@@ -25,7 +25,7 @@ use yii\bootstrap\Nav;
                 'encodeLabels' => false,
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    '<li class="header"></li>',
+                    '<li class="header">МЕНЮ</li>',
                     ['label' => '<i class="fa fa-dashboard"></i><span>Главная</span>', 'url' => ['/']],
                     ['label' => '<i class="fa fa-user"></i><span>Партнеры</span>', 'url' => ['/partners/default']],
                     ['label' => '<i class="fa fa-money"></i><span>Заказы</span>', 'url' => ['/orders/default']],
