@@ -30,7 +30,7 @@ class PartnersDomain extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['partner_id'], 'integer'],
+            [['partner_id','status'], 'integer'],
             [['partner_id'], 'required'],
             [['domain'], 'string', 'max' => 145],
             [['version', 'template'], 'string', 'max' => 45],
@@ -45,6 +45,7 @@ class PartnersDomain extends ActiveRecordExt
             'domain' => 'Домен',
             'template' => 'Шаблон',
             'version' => 'Версия',
+            'status' => 'Активность',
         ];
 
     }

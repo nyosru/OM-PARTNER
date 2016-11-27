@@ -128,6 +128,7 @@ $this->registerCssFile('/css/partners.css');
                             <th>Домен</th>
                             <th>Шаблон</th>
                             <th>Версия</th>
+                            <th>Активность</th>
                             <th>
                                 <?php
                                 Modal::begin([

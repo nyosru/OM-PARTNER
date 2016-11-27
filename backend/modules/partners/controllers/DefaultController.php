@@ -53,23 +53,13 @@ class DefaultController extends Controller
         return $var;
     }
 
-	public function actionIndex()
+	public function actionIndex($count=10,$step=0,$id=0)
     {
-        $count = Yii::$app->request->get('count');
-        $id = Yii::$app->request->get('id');
-        $step = Yii::$app->request->get('step');
-
-        if(empty($count)) {
-            $count = 10;
-        }
-        if(empty($step)) {
-            $step = 0;
-        } else{
+        if($step) {
             $step +=$count;
         }
-
         $modelClass =  new Partners();
-        if(empty($id)) {
+        if(!$id) {
             $partners_info = Partners::find()->one();
         } else {
             $partners_info = Partners::findOne($id);

@@ -10,6 +10,13 @@ use yii\bootstrap\Html;
     <td><?=$model->version?></td>
     <td>
         <?php
+        echo $model->status ?
+            '<span class="glyphicon glyphicon-ok"></span>' :
+            '<span class="glyphicon glyphicon-remove"></span>';
+        ?>
+    </td>
+    <td>
+        <?php
         Modal::begin([
             'header' => '<h2>'.$model->domain.'</h2>',
             'toggleButton' => [
@@ -28,6 +35,8 @@ use yii\bootstrap\Html;
         echo $form->field($model, 'template')->textInput();
 
         echo $form->field($model, 'version')->textInput();
+
+        echo $form->field($model, 'status')->checkbox(['id'=>'checkbox_form_'.$model->id]);
 
         echo Html::submitButton('Сохранить', ['class' => 'btn btn-primary']);
 
