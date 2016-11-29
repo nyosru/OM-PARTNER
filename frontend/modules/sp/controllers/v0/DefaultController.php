@@ -3,6 +3,7 @@
 namespace frontend\modules\sp\controllers\v0;
 
 
+use frontend\modules\sp\controllers\actions\ActionAddCommon;
 use frontend\modules\sp\controllers\actions\ActionAddProductToOrder;
 use frontend\modules\sp\controllers\actions\ActionAllClients;
 use frontend\modules\sp\controllers\actions\ActionAttachOrderToCommon;
@@ -41,6 +42,7 @@ class DefaultController extends Controller
         ActionSwapAttachOrderToCommon,
         ActionDetailCommonOrders,
         ActionAddProductToOrder,
+        ActionAddCommon,
         ActionFindProduct;
     public function behaviors()
     {

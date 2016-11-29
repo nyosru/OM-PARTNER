@@ -1058,3 +1058,45 @@ $modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="d
 
                 $modal .= '</div></div></div></div></div></div>';
 echo $modal;
+
+
+?>
+<div style="display: none;" id="modal-common" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Создать объединенный заказ
+            </div>
+            <div class="modal-body">
+                <div></div>
+
+                <?php
+                \yii\widgets\Pjax::begin([
+                    'id' => 'pjax-common',
+                    'enablePushState' => false]);
+                $form = \yii\bootstrap\ActiveForm::begin([
+                    'options' => ['data-pjax' => true],
+                    'id'=>'groupdiscountuser',
+                    'action'=>'/sp/add-common',
+                    'method'=> 'post',
+                    'enableClientScript' => true
+                ]);
+                $commonmodel = new \common\models\CommonOrders();
+                echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
+                echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
+                echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
+                $form = \yii\bootstrap\ActiveForm::end();
+                \yii\widgets\Pjax::end();
+                ?>
+
+
+                <script>
+                    $("#pjax-common").on("pjax:end", function() {
+
+                    })
+
+                </script>
+
+
+            </div></div></div></div></div></div>
