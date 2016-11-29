@@ -13,7 +13,7 @@ class MainBanner extends \yii\bootstrap\Widget
     const ROTATE_RAND = 'random';
     const ROTATE_ROLL = 'roll';
     const IMAGE_PATH = '/images/banners/';
-    public $utm_enable = TRUE;
+    public $utm_enable = FALSE;
     public $utm = [
         'campagin' => '',
         'source'=> 'sait_main',
@@ -26,43 +26,43 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_22112016_1.png',
-                'referal'=> '/catalog?cat=1729',
+                'image' =>  'OM_28112016_1.png',
+                'referal'=> '/catalog?cat=2066',
                 'term'=> '1729',
-                'alttext' => 'Блузки',
+                'alttext' => 'Постельное белье',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_22112016_2.png',
-                'referal'=> '/catalog?cat=1813',
+                'image' =>  'OM_28112016_2.png',
+                'referal'=> '/catalog?cat=1803',
                 'term'=> '1813',
-                'alttext' => 'Кардиганы',
+                'alttext' => 'Стильные толстовки',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_22112016_3.png',
-                'referal'=> '/catalog?cat=2008&sfilt%5B%5D=2409&sfilt%5B%5D=15462&sfilt%5B%5D=16124',
+                'image' =>  'OM_28112016_3.png',
+                'referal'=> '/catalog?cat=2453',
                 'term'=> '2008-winter',
-                'alttext' => 'Ботиночки',
+                'alttext' => 'Символ года',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_22112016_4.png',
-                'referal'=> '/catalog?cat=2047',
+                'image' => 'OM_28112016_4.png',
+                'referal'=> '/products-discount',
                 'term'=> '2047',
-                'alttext' => 'Женские сумки',
+                'alttext' => 'Все скидки тут',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_22112016_5.png',
+                'image' => 'OM_28112016_5.png',
                 'referal'=> '/catalog?cat=1720',
                 'term'=> '1720',
                 'alttext' => 'Платья',
@@ -71,9 +71,9 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'long' => [
             [
-                'image' => 'OM_22112016_6.png',
-                'referal'=> '/catalog?cat=1824',
-                'alttext' => 'Шапки',
+                'image' => 'OM_28112016_6.png',
+                'referal'=> '/catalog?cat=1541',
+                'alttext' => 'Посуда для сервировки',
                 'out' => FALSE
             ]
         ],
