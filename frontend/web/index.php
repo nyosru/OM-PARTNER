@@ -1,4 +1,6 @@
 <?php
+use common\models\Partners;
+use common\models\PartnersSettings;
 
 if (function_exists('pinba_timer_start')) {
   $timer = pinba_timer_start(array('Tочка'=>'Инициализация'));
@@ -9,8 +11,7 @@ if (function_exists('pinba_timer_start')) {
 //} elseif ($_COOKIE['valid'] != 4568767876) {
 //    header('Location: /botswelcome.php');
 //}
-use common\models\Partners;
-use common\models\PartnersSettings;
+
 set_time_limit ( 120 );
 date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR);
@@ -179,10 +180,10 @@ $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event) 
         \Yii::$app->request->url = 'catalog';
     }
 });
-$application->run();
-$application->db->close();
-
-if (function_exists('pinba_timer_stop')) {
+    
+        $application->run();
+        $application->db->close();
+    
+    if (function_exists('pinba_timer_stop')) {
     pinba_timer_stop($timer);
-
-}
+    }

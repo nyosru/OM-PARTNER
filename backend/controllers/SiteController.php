@@ -72,7 +72,7 @@ class SiteController extends Controller
     {
 //
             if (!Yii::$app->user->isGuest) {
-                return $this->goHome();
+                return $this->redirect(['index']);
             }
 
             $model = new LoginForm();

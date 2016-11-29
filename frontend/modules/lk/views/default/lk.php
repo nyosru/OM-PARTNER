@@ -101,8 +101,8 @@ if ($_COOKIE['info-modal'] !== '1') {?>
 <?php if(isset($referal['id'])){?>
 <div class="" style="float: left; font-size: 24px; font-weight: 500; padding: 20px;">
     Вы принимаете участие в реферальной программе
-    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваш реферальный ид<?= $referal['id']; ?></span>
-    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваша реферальная ссылка http://<?=$_SERVER['HTTP_HOST']?><?=BASEURL?>/invite?sp=<?=$referal['referral_url']; ?></span>
+    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваш реферальный ид</span><span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;"> <?= $referal['id']; ?></span>
+    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваша реферальная ссылка </span><span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">  http://<?=$_SERVER['HTTP_HOST']?><?=BASEURL?>/invite?sp=<?=$referal['referral_url']; ?></span>
 </div>
 <?php }?>
 <div class="orders-metro" style="float: left; width: 100%;">
