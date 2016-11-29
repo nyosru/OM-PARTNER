@@ -1,6 +1,10 @@
 <?php
 use common\models\Partners;
 use common\models\PartnersSettings;
+use common\models\PartnersDomain;
+
+
+
 
 if (function_exists('pinba_timer_start')) {
   $timer = pinba_timer_start(array('Tочка'=>'Инициализация'));
@@ -54,23 +58,35 @@ if (function_exists('pinba_timer_stop')) {
 if (function_exists('pinba_timer_start')) {
     $timer =  pinba_timer_start(array('Tочка'=>'Первичная настройка'));
 }
-$key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
-if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
-    $run = new Partners();
-    $check = $run->GetId($_SERVER['HTTP_HOST']);
-    if ($check == '') {
-        die();
-    } else {
-        $partner['APP_ID'] = $run->GetId($_SERVER['HTTP_HOST']);
-        $partner['APP_CAT'] = $run->GetAllowCat($check);
-        $partner['APP_NAME'] = $run->GetNamePartner($check);
-        $partner['APP_THEMES'] = $run->GetTemplate($check);
-        // echo 'Не Кэш';
-        Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES']]);
-    }
-}else{
+
+if($_GET['admin'] == '1'){
+
+
 }
-$partner['APP_VERSION'] = 'om';
+
+
+
+$key = Yii::$app->cache->buildKey('constantapp-domain-' . $_SERVER['HTTP_HOST']);
+if (($partner = Yii::$app->cache->get($key)) == FALSE) {
+    if(($domain = PartnersDomain::find()->where('domain = :domain', [':domain'=>$_SERVER['HTTP_HOST']])->asArray()->one())== TRUE
+        &&
+        ($partners_data = Partners::find()->where('id = :id', [':id'=>$domain['partner_id']])->asArray()->one()) == TRUE
+    ){
+
+        $partner['APP_ID'] = $domain['partner_id'];
+        $partner['APP_CAT'] = $domain['allow_cat'];
+        $partner['APP_NAME'] = $partners_data['name'];
+        $partner['APP_THEMES'] = $domain['template'];
+        $partner['APP_VERSION'] = $domain['version'];
+        // echo 'Не Кэш';
+        Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES'], 'APP_VERSION' => $partner['APP_VERSION']]);
+    }else{
+
+        die();
+    }
+}
+
+
 if (($versionnum = $partner['APP_VERSION']) == FALSE) {
     $version = $versions['0'];
 } else {
@@ -128,7 +144,7 @@ $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
-$application->params['constantapp']['APP_VERSION'] = $version;
+$application->params['constantapp']['APP_VERSION'] = $partner['APP_VERSION'];
 class LoadTraitIndex
 {
     use \common\traits\ThemeResources;
@@ -156,7 +172,7 @@ if(!$template_data){
     $theme = $template_data['theme'];
     $partnerset = $template_data['partnerset'];
 }
-$theme = 'defaultom';
+$theme = $application->params['constantapp']['APP_THEMES'];
 $application->params['partnersset'] = $partnerset;
 $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme);
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
