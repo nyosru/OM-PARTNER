@@ -8,7 +8,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use common\models\Partners;
-use backend\modules\partners\models\PartnersCategories;
+use common\models\PartnersCategories;
 use backend\modules\partners\models\PartnersCatDescription;
 use common\models\User;
 
@@ -22,7 +22,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','save','savecateg', 'getpartnerscategories', 'update', 'usersforaddrequest', 'usersaddadmin', 'usersadmin', 'usersdeladmin','save-domain'],
+                        'actions' => ['index','save','savecateg', 'getpartnerscategories', 'update', 'usersforaddrequest', 'usersaddadmin', 'usersadmin', 'usersdeladmin','save-domain','domain-categories'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -31,6 +31,42 @@ class DefaultController extends Controller
 		 ];
      }
 
+    /*
+     * Древо категорий домена
+     */
+    public function actionDomainCategories($domain_id)
+    {
+        $post = Yii::$app->request->post('allow_cat');
+        $domain = PartnersDomain::find()->where(['id'=>$domain_id])->one();
+        if(isset($post)){
+            $domain->allow_cat = $post;
+            if($domain->save())
+                return true;
+            return false;
+        }
+
+        $categories = PartnersCategories::find()
+            ->select(['categories_id', 'parent_id'])
+            ->where('categories_status != 0')
+            ->limit(1000000)
+            ->with([
+                'partnersCatDescription' => function ($query) {
+                    $query->select(['categories_id','categories_name']);
+                },
+            ])
+            ->offset(0)
+            ->indexBy('categories_id')
+            ->asArray()
+            ->All();
+
+        $tree_categories = PartnersCategories::treeCategories($categories);
+
+        return $this->renderAjax('domain-categories',[
+            'tree_categories' => $tree_categories,
+            'domain' => $domain,
+            'allow_cat' => array_map('intval', explode(",", $domain->allow_cat)),
+        ]);
+    }
 
 	public function Getdata()
     {

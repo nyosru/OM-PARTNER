@@ -2,6 +2,7 @@
 use yii\bootstrap\Modal;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
+use yii\helpers\Url;
 
 ?>
 <tr>
@@ -14,6 +15,12 @@ use yii\bootstrap\Html;
             '<span class="glyphicon glyphicon-ok"></span>' :
             '<span class="glyphicon glyphicon-remove"></span>';
         ?>
+    </td>
+    <td>
+        <a href="<?=Url::to(['domain-categories','domain_id'=>$model->id])?>"
+           data-toggle="modal"
+           data-target="#modal-categories"
+           class="btn btn-default">Категории</a>
     </td>
     <td>
         <?php

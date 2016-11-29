@@ -11,6 +11,17 @@ use yii\widgets\Pjax;
 
 $this->title = 'Партнеры';
 $this->registerCssFile('/css/partners.css');
+$this->registerCssFile('/js/jstree/default/style.min.css');
+$this->registerJsFile('/js/jstree/jstree.min.js');
+
+$this->registerJs(<<<JS
+    $('#modal-categories').on('hidden.bs.modal', function (e) {
+        $(this).removeData('bs.modal');
+        $(this).find('.modal-content').empty();
+    });
+JS
+    , $this::POS_READY);
+
 ?>
 
 <div class="container" id="partners-head">
@@ -223,26 +234,15 @@ $this->registerCssFile('/css/partners.css');
                 </div>
                 <!-- /.box-body -->
             </div>
-
-            <div class="box box-warning box-solid collapsed-box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Управление категориями</h3>
-
-                    <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
-                    </div>
-                    <!-- /.box-tools -->
-                </div>
-                <!-- /.box-header -->
-                <div style="display: none;" class="box-body">
-
-                    <?php view_cat($arr_cat, 0, $catnamearr); ?>
-                </div>
-                <!-- /.box-body -->
-            </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="modal-categories" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 
 
