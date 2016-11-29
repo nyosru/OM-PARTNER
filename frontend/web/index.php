@@ -1,5 +1,7 @@
 <?php
-
+use common\models\Partners;
+use common\models\PartnersSettings;
+try{
 if (function_exists('pinba_timer_start')) {
   $timer = pinba_timer_start(array('Tочка'=>'Инициализация'));
 }
@@ -9,20 +11,14 @@ if (function_exists('pinba_timer_start')) {
 //} elseif ($_COOKIE['valid'] != 4568767876) {
 //    header('Location: /botswelcome.php');
 //}
-use common\models\Partners;
-use common\models\PartnersSettings;
+
 set_time_limit ( 120 );
 date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR);
-
-    defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
-
-
-
+defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
 if (function_exists('pinba_script_name_set')) {
     pinba_script_name_set($_SERVER['REQUEST_URI']);
 }
-
 defined('YII_ENV') or define('YII_ENV', 'dev');
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
@@ -75,7 +71,6 @@ if (($versionnum = $partner['APP_VERSION']) == FALSE) {
 } else {
     $version = $versions[$versionnum];
 }
-
 $config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend']['namespace'];
 $application->defaultRoute = $version['frontend']['defroute'] . '/index';
 $config['components']['errorHandler']['errorAction'] = $version['frontend']['erraction'] . '/error';
@@ -91,7 +86,6 @@ unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
 }
-
 $application = new yii\web\Application($config);
 if (function_exists('pinba_timer_stop')) {
     pinba_timer_stop($timer);
@@ -121,7 +115,6 @@ if (function_exists('pinba_tag_set')) {
         pinba_tag_set('USER', $user_id);
     }
 }
-
 $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
@@ -183,5 +176,9 @@ $application->db->close();
 
 if (function_exists('pinba_timer_stop')) {
     pinba_timer_stop($timer);
-
+}
+}catch (Exception $e){
+    echo '<html><body>';
+    echo '<img style="margin: auto;position: absolute; top: 0; bottom: 0; right: 0;left: 0;" src="/images/logo/tz.png">';
+    echo '</body></html>';
 }

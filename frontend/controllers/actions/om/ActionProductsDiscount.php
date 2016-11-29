@@ -76,12 +76,14 @@ trait ActionProductsDiscount
                 'date' => 'param',
                 'typeresponse' => $json,
                 'maxtime' => $date_end,
-                'offsettime' => '-1 year',
-                'cachelistkeyprefix' => 'rhthr6awfaewferg' . $ok.'-'.$lux,
-                'cacheproductkey' => 'product',
+                'offsettime' => '-3 month',
+                'cachelistkeyprefix' => 'rhwferg-' . $ok.'-'.$lux,
+                'cacheproductkey' => 'productn',
                 'sfilt'=>$sfilt
             ]);
-
+        if (function_exists('pinba_tag_set')) {
+            pinba_tag_set('catalog', 'discount');
+        }
         if ($json) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return $data;
