@@ -711,27 +711,80 @@
         }
     });
 
+
     function renderOrder(data) {
-        var final_price = 0;
+
+
+
         var user_name = '';
-        if(data.refus.userinfo.name || data.refus.userinfo.lastname || data.refus.userinfo.secondname) {
-            user_name = data.refus.userinfo.name + ' ' + data.refus.userinfo.lastname + ' ' + data.refus.userinfo.secondname;
-        } else {
+        var telephone = '';
+        var user_email = data.refus.user.email;
+        var date_added = data.refus.date_added;
+
+
+        if(typeof (data.refus.userinfo) == "undefined" || typeof (data.refus.userinfo) == "null"){
+            if(data.refus.userinfo.name || data.refus.userinfo.lastname || data.refus.userinfo.secondname) {
+                user_name = data.refus.userinfo.name + ' ' + data.refus.userinfo.lastname + ' ' + data.refus.userinfo.secondname;
+                telephone =  data.refus.userinfo.telephone;
+            } else {
+                telephone = 'Не указанно';
+                user_name = 'Данных нет';
+            }
+        }else {
+            telephone = 'Не указанно';
             user_name = 'Данных нет';
         }
-
+        var final_price = 0;
     $('[data-detail="'+data.id+'"]').addClass('client-active');
     moment.locale('ru');
 
         $products = '';
        $.each(data.order.order.products, function(){
+           var mandata = [];
+           var requestdata = [];
+
+           requestdata = $.ajax({
+               method:'post',
+               url: "/site/product",
+               async: false,
+               data: {id: this[0]}
+           });
+
+           mandata = $.ajax({
+               method:'post',
+               url: "/site/pre-check-product-to-orders",
+               async: false,
+               data: {
+                   product: requestdata.responseJSON.product.products_id,
+                   category :requestdata.responseJSON.categories_id,
+                   attr :this[2],
+                   count : this[4],
+
+               }
+           });
+           if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
+               $access = mandata.responseJSON.message ;
+               $identypay = false;
+           }else if(mandata.responseJSON.result == false){
+               $access = mandata.responseJSON.message;
+               $identypay = false;
+           }else{
+               $access = mandata.responseJSON.message;
+               $identypay = true;
+           }
+           if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
+               $disable_for_stepping = '';
+           }else{
+               $disable_for_stepping = 'readonly';
+           }
            final_price += Math.round(this[3]) * this[4];
            $products +=     '<div style=""  class="product-card"> ' +
-               '<div  style="" class="product-main-board"> ' +
-               '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
+               '<div class = "access '+$identypay+'" >'+$access+'</div><hr style="height: 10px;margin: 0px;" />'+
+               '<div class = "access '+$identypay+'" style="" class="product-main-board"> ' +
+               '<div style="display: inline-block;min-width: 230px;height: 150px;width: 19%;position: relative;"> ' +
                '<img height="100%" src="/imagepreview?src='+this[0]+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
                '</div> ' +
-               '<div style="display: inline-block;height: 150px;width: 40%; position: relative;"> ' +
+               '<div style="display: inline-block;height: 150px;width: 25%; position: relative;"> ' +
                '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
                '<div style="font-weight: 400;">Арт. '+this[1]+'</div> ' +
                '<div>'+this[7]+'</div> ' +
@@ -807,7 +860,7 @@
                 user_name +
                 '</div> ' +
             '<div class="client-register">' +
-                'Зарегистрирован: <br>' + moment(data.refus.date_added).format("D MMMM YYYY") +
+                'Зарегистрирован: <br>' + moment(date_added).format("D MMMM YYYY") +
                 '</div> ' +
             '</div> ' +
         '<div class="sp-client-info-dr"> ' +
@@ -818,10 +871,10 @@
                 'Статус клиента: '+ client_status_label[data.refus.status] +
                 '</div> ' +
             '<div class="client-row">' +
-                data.refus.user.email +
+                user_email +
                 '</div> ' +
             '<div class="client-row"> ' +
-                data.refus.userinfo.telephone +
+                telephone +
                 '</div> ' +
             '<a class="btn btn-default client-all-orders lock-on" href="<?=Yii::$app->urlManager->createUrl(['/sp/orders', 'user_id' => ''])?>' + data.order.user_id + '">' +
                 'Все заказы клиента' +

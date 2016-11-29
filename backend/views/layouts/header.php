@@ -21,8 +21,7 @@ use yii\bootstrap\NavBar;
 
             <ul class="nav navbar-nav">
 
-<? if(Yii::$app->user->identity->username){
-?>
+<?php if(Yii::$app->user->identity->username){?>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
@@ -46,7 +45,7 @@ use yii\bootstrap\NavBar;
                         </li>
                     </ul>
                 </li>
-<?}else{?>
+<?php }else{ ?>
                 <li>
                         <?= Html::a(
                             'Вход',
@@ -54,7 +53,7 @@ use yii\bootstrap\NavBar;
                             ['data-method' => 'post']
                         ) ?>
                 </li>
-                <?}?>
+                <?php } ?>
                 <!-- User Account: style can be found in dropdown.less -->
                 <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>

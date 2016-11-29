@@ -444,7 +444,6 @@
         var str_html="";
         var common_id = data.id;
         $.each(data.partnerOrders, function(index_partner_orders, partner_orders){
-
             var final_order_price = 0;
             var total_count_products = Object.keys(partner_orders.order['products']).length;
             $.each(partner_orders.order['products'], function(index_order, product){
@@ -558,6 +557,46 @@
             $.each(partner_orders.order['products'], function(index_order, order){
                 requestProduct(order[0]);
                 var product = product_arr[order[0]];
+                var mandata = [];
+                var requestdata = [];
+
+                requestdata = $.ajax({
+                    method:'post',
+                    url: "/site/product",
+                    async: false,
+                    data: {id: order[0]}
+                });
+
+                mandata = $.ajax({
+                    method:'post',
+                    url: "/site/pre-check-product-to-orders",
+                    async: false,
+                    data: {
+                        product: requestdata.responseJSON.product.products_id,
+                        category :requestdata.responseJSON.categories_id,
+                        attr :order[2],
+                        count : order[4],
+
+                    }
+                });
+                if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
+                    $access = mandata.responseJSON.message ;
+                    $identypay = false;
+                }else if(mandata.responseJSON.result == false){
+                    $access = mandata.responseJSON.message;
+                    $identypay = false;
+                }else{
+                    $access = mandata.responseJSON.message;
+                    $identypay = true;
+                }
+                if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
+                    $disable_for_stepping = '';
+                }else{
+                    $disable_for_stepping = 'readonly';
+                }
+
+
+
                 if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
                     product.productsAttributesDescr[this[6]] = new Object;
                 }
@@ -570,7 +609,10 @@
                 }else{
                     datacount = product.products.products_quantity;
                 }
+
                 str_html += "<div style=\"\" class=\"product-card-common order-"+index_order+" product-"+index_order+"\">";
+                str_html += "<div class = \"access "+$identypay+"\">"+$access+"</div><hr style=\"height: 10px;margin: 0px;\" />";
+
                 str_html += " <div style=\"\" class=\"product-main-board\">";
                 str_html += "      <div";
                 str_html += "          style=\"display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;\">";

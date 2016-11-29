@@ -8,7 +8,7 @@ class module extends \yii\base\Module
 
     public function init()
     {
-        if((\Yii::$app->user->getIdentity()->getReferral()['id']) == TRUE){
+        if(\Yii::$app->user->isGuest == FALSE && (\Yii::$app->user->getIdentity()->getReferral()['id']) == TRUE){
             parent::init();
             $this->setLayoutPath('@frontend/modules/sp/views/layouts');
             $this->setViewPath('@frontend/modules/sp/views');

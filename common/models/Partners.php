@@ -89,6 +89,10 @@ class Partners extends ActiveRecordExt
         return $var['template'];
     }
 
+    public function getPartnersDomain()
+    {
+        return $this->hasMany(PartnersDomain::className(), ['partner_id' => 'id']);
+    }
 
 }
 

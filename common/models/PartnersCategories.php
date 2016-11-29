@@ -70,4 +70,25 @@ class PartnersCategories extends ActiveRecordExt
         ];
     }
 
+    static function treeCategories(&$elements, $parentId = 0)
+    {
+        $branch = [];
+
+        foreach ($elements as $element) {
+            if ($element['parent_id'] == $parentId) {
+                $children = self::treeCategories($elements, $element['categories_id']);
+                if ($children) {
+                    $element['children'] = $children;
+                }
+                $branch[$element['categories_id']] = $element;
+                unset($elements[$element['categories_id']]);
+            }
+        }
+        return $branch;
+    }
+
+    public function getPartnersCatDescription()
+    {
+        return $this->hasOne(PartnersCatDescription::className(), ['categories_id' => 'categories_id']);
+    }
 }

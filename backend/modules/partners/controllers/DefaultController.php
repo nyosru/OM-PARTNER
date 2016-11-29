@@ -2,12 +2,13 @@
 
 namespace backend\modules\partners\controllers;
 
+use common\models\PartnersDomain;
 use common\models\PartnersUsersInfo;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use common\models\Partners;
-use backend\modules\partners\models\PartnersCategories;
+use common\models\PartnersCategories;
 use backend\modules\partners\models\PartnersCatDescription;
 use common\models\User;
 
@@ -21,7 +22,7 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','save','savecateg', 'getpartnerscategories', 'update', 'usersforaddrequest', 'usersaddadmin', 'usersadmin', 'usersdeladmin'],
+                        'actions' => ['index','save','savecateg', 'getpartnerscategories', 'update', 'usersforaddrequest', 'usersaddadmin', 'usersadmin', 'usersdeladmin','save-domain','domain-categories'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -30,6 +31,42 @@ class DefaultController extends Controller
 		 ];
      }
 
+    /*
+     * Древо категорий домена
+     */
+    public function actionDomainCategories($domain_id)
+    {
+        $post = Yii::$app->request->post('allow_cat');
+        $domain = PartnersDomain::find()->where(['id'=>$domain_id])->one();
+        if(isset($post)){
+            $domain->allow_cat = $post;
+            if($domain->save())
+                return true;
+            return false;
+        }
+
+        $categories = PartnersCategories::find()
+            ->select(['categories_id', 'parent_id'])
+            ->where('categories_status != 0')
+            ->limit(1000000)
+            ->with([
+                'partnersCatDescription' => function ($query) {
+                    $query->select(['categories_id','categories_name']);
+                },
+            ])
+            ->offset(0)
+            ->indexBy('categories_id')
+            ->asArray()
+            ->All();
+
+        $tree_categories = PartnersCategories::treeCategories($categories);
+
+        return $this->renderAjax('domain-categories',[
+            'tree_categories' => $tree_categories,
+            'domain' => $domain,
+            'allow_cat' => array_map('intval', explode(",", $domain->allow_cat)),
+        ]);
+    }
 
 	public function Getdata()
     {
@@ -52,23 +89,37 @@ class DefaultController extends Controller
         return $var;
     }
 
-	public function actionIndex()
+	public function actionIndex($count=10,$step=0,$id=0)
     {
-        if(isset($_GET['count']) && $_GET['count'] !=='' ){$count = intval($_GET['count']);}else{$count = 10;}
-        if(isset($_GET['id']) && $_GET['id'] !=='' ){$id = intval($_GET['id']);}else{$id = 1;}
-        if(isset($_GET['step']) && $_GET['step'] !=='' ){
-            $step = intval($_GET['step'])+$count;}else{$step = 0;}
-		$modelClass =  new Partners();
+        if($step) {
+            $step +=$count;
+        }
+        $modelClass =  new Partners();
+        if(!$id) {
+            $partners_info = Partners::find()->one();
+        } else {
+            $partners_info = Partners::findOne($id);
+        }
+
 		$var = $this->Getdata();
 		$dbRes = $this->actionGetDBdata($count,$step);
 		//$this->layout = 'base';
-       $partners_info = Partners::findOne($id);
-       $categoriess = new PartnersCategories();
-       $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
+
+        $categoriess = new PartnersCategories();
+        $categories = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->limit(1000000)->offset(0)->asArray()->All();
         $categoriesd = new PartnersCatDescription();
         $cat = $categoriesd->find()->select(['categories_id','categories_name'])->limit(1000000)->offset(0)->asArray()->All();
 
-	return $this->render('tab',['props'=> $var, 'data'=>$dbRes, 'model' =>$modelClass, 'count' => $count, 'step'=>$step, 'categories' => $cat, 'catdata' => $categories, 'partners_info' => $partners_info]);
+	    return $this->render('tab',[
+            'props'=> $var,
+            'data'=>$dbRes,
+            'model' =>$modelClass,
+            'count' => $count,
+            'step'=>$step,
+            'categories' => $cat,
+            'catdata' => $categories,
+            'partners_info' => $partners_info
+        ]);
     }
 
     public function actionSave()
@@ -82,12 +133,38 @@ class DefaultController extends Controller
         $modelClass->update_date = date("Y-m-d H:i:s");
         if($modelClass->save())
         {
-            //return true;
-            Yii::$app->response->redirect(['/partners/default/', 'id' => $id['id']]);
+            Yii::$app->response->redirect(['/partners/default/', 'id' => $modelClass->id]);
         }else{
             return $modelClass->errors;
         }
 
+    }
+
+    /*
+     * Сохранение домена
+     */
+    public function actionSaveDomain($id, $id_domain = NULL)
+    {
+        if(!empty($id_domain)) {
+            $model = PartnersDomain::findOne($id_domain);
+        } else {
+            $model = new PartnersDomain();
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->isNewRecord){
+                $model->create_date = date("Y-m-d H:i:s");
+            }
+
+            $model->update_date = date("Y-m-d H:i:s");
+
+            if($model->save()){
+                Yii::$app->session->setFlash('success','Сохранено');
+                return $this->redirect(['/partners/default/', 'id' => $id]);
+            }
+        }
+        Yii::$app->session->setFlash('error','Ошибка при сохранении');
+        return $this->redirect(['/partners/default/', 'id' => $id]);
     }
 
     public function actionUpdate()
