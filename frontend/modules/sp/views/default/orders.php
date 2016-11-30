@@ -88,7 +88,7 @@
 
                                     $i_model += 1;
                                     ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
-                                    return '<a class="client-plate" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
+                                    return '<a class="client-plate lock-on" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
                                             <div class="client-avatar">
                                                 <div class="avatar">
                                                     <div class="client-image"> </div>
@@ -448,10 +448,10 @@
     }
 
     var Lock = false;
-    function requestProduct($id) {
+    function requestProduct($id, $attr, $count) {
         $result = new Object();
         $result.product = new Object();
-        $result.mandata = new Object();
+        $result.maindata = new Object();
         var maindata = [];
         var requestdata = [];
         if(typeof(product_arr[$id]) == 'undefined'){
@@ -468,10 +468,15 @@
         }
         if(typeof (maindata_arr[$id]) == 'undefined'){
             maindata = $.ajax({
-                method: 'post',
-                url: "/site/manlist",
+                method:'post',
+                url: "/site/pre-check-product-to-orders",
                 async: false,
-                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+                data: {
+                    product: requestdata.responseJSON.product.products_id,
+                    category :requestdata.responseJSON.categories_id,
+                    attr :$attr,
+                    count : $count
+                }
             });
             maindata_arr[$id] = new Object();
             $result.maindata = maindata_arr[$id] = JSON.parse(maindata.responseText);
@@ -713,9 +718,6 @@
 
 
     function renderOrder(data) {
-
-
-
         var user_name = '';
         var telephone = '';
         var user_email = data.refus.user.email;
@@ -739,40 +741,21 @@
     moment.locale('ru');
 
         $products = '';
+
        $.each(data.order.order.products, function(){
-           var mandata = [];
-           var requestdata = [];
-
-           requestdata = $.ajax({
-               method:'post',
-               url: "/site/product",
-               async: false,
-               data: {id: this[0]}
-           });
-
-           mandata = $.ajax({
-               method:'post',
-               url: "/site/pre-check-product-to-orders",
-               async: false,
-               data: {
-                   product: requestdata.responseJSON.product.products_id,
-                   category :requestdata.responseJSON.categories_id,
-                   attr :this[2],
-                   count : this[4],
-
-               }
-           });
-           if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
-               $access = mandata.responseJSON.message ;
+           var product_data = requestProduct(this[0],this[2],this[4]);
+           console.log(product_data);
+           if((typeof(product_data.product.productsAttributes[this[2]]) !=='undefined' && product_data.product.productsAttributes[this[2]].quantity == 0) || product_data.product.products.products_quantity == 0){
+               $access = product_data.maindata.message ;
                $identypay = false;
-           }else if(mandata.responseJSON.result == false){
-               $access = mandata.responseJSON.message;
+           }else if(product_data.maindata.result == false){
+               $access = product_data.maindata.message;
                $identypay = false;
            }else{
-               $access = mandata.responseJSON.message;
+               $access = product_data.maindata.message;
                $identypay = true;
            }
-           if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
+           if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
                $disable_for_stepping = '';
            }else{
                $disable_for_stepping = 'readonly';
@@ -882,6 +865,7 @@
             '</div> ' +
         '</div> ' +
     '</div> ');
+        $('.preload').remove();
     }
     function renderOrderEdit(data) {
     $('[data-detail="'+data.id+'"]').addClass('client-active');
@@ -1027,6 +1011,7 @@
     '</div> ' +
     '</div> ' +
     '</div>');
+        $('.preload').remove();
     }
 </script>
 
