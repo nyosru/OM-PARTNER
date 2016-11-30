@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\lk\controllers\vsp0;
+use frontend\modules\lk\controllers\actions\ActionViewCart;
 use frontend\modules\lk\controllers\actions\sp\ActionMenu;
 use yii\web\Controller;
 
@@ -20,6 +21,7 @@ class DefaultController extends Controller
         Hide_manufacturers_for_partners,
         ActionIndex,
         ActionMenu,
+        ActionViewCart,
         ActionMyorder;
 
     public function behaviors()

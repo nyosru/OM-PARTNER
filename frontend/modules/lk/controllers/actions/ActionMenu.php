@@ -21,7 +21,7 @@ trait ActionMenu
         <ul id="accordion" class="accordion">
                             <li class="">
                                 <div id="profile-orders" class="link profile-orders">
-                                    <a href="'.BASEURL.'/viewcart">
+                                    <a href="'.yii\helpers\Url::to(['viewcart']).'">
                                         Мои корзины
                                     </a>
                                 </div>

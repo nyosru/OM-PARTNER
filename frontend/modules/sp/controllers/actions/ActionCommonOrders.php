@@ -23,7 +23,7 @@ trait ActionCommonOrders
 
         $model = CommonOrders::find()
             ->where(['referral_id' => $referral['id']])
-            ->joinWith('partnerOrders')
+            ->joinWith('partnerOrders')->groupBy(CommonOrders::tableName().'.id');
         ;
 
         $ds = Yii::$app->request->getQueryParam('ds');
@@ -31,7 +31,7 @@ trait ActionCommonOrders
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($ds)) {
-                $model->andWhere('date_added >= "' . $ds . '"');
+                $model->andWhere(CommonOrders::tableName().'.date_added >= "' . $ds . '"');
             }
         }
 
@@ -41,15 +41,16 @@ trait ActionCommonOrders
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($de)) {
-                $model->andWhere('date_added < "' . $de . '"');
+                $model->andWhere(CommonOrders::tableName().'.date_added < "' . $de . '"');
             }
         }
 
         $search = Yii::$app->request->getQueryParam('search');
 
         if ($search == true) {
-            $model->andWhere('header REGEXP "' . $search . '"');
-            $model->orWhere('description REGEXP "' . $search . '"');
+            $model->andWhere(CommonOrders::tableName().'.header REGEXP "' . $search . '"');
+            $model->orWhere(CommonOrders::tableName().'.description REGEXP "' . $search . '"');
+            $model->orWhere(CommonOrders::tableName().'.id REGEXP "' . $search . '"');
         }
         $pagesize = 5;
         $pages = new Pagination([
@@ -58,7 +59,7 @@ trait ActionCommonOrders
 
         $pages->setPageSize($pagesize);
         $data_provider = new ActiveDataProvider([
-            'query' => $model->limit($pagesize)->offset($pages->getOffset())
+            'query' => $model
         ]);
 
         $data_provider->setPagination($pages);
