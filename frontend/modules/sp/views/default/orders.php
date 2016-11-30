@@ -375,7 +375,7 @@
         '<div class="client-old"></div>',
         '<div class="client-vip"></div>'
     ];
-    var new_product = new Object();
+
     var product_arr = new Object();
     var maindata_arr = new Object();
     var maindata = new Object();
@@ -555,7 +555,7 @@
                 inProgressSearch = true;
                 $.ajax({
                     method: 'post',
-                    url: "<?=Yii::$app->urlManager->createUrl(['/sp/find-product'])?>",
+                    url: "<?=Yii::$app->urlManager->createUrl(['/site/product'])?>",
                     async: true,
                     dataType: 'json',
                     data: {
@@ -565,7 +565,7 @@
                         console.log(data);
                     },
                     success: function (data) {
-                        console.log(data);
+                        $('.preload').remove();
                         if (typeof (data) != "object") {
                             alert('Ничего не найдено по вашему запросу');
                             abort = true;
@@ -574,139 +574,132 @@
                             alert('Ничего не найдено по вашему запросу');
                             abort = true;
                         }
-                        new_product = data;
+                        var  new_product = data.product;
+                        if(new_product.productsAttributesDescr.length == 0){
+                            new_product.productsAttributesDescr[0]= new Object;
+                            new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
+                            new_product.productsAttributesDescr[0].products_options_values_id = '';
+                        }
+                        var product_html = '';
+                        product_html += "<div style=\"\" class=\"product-card-common\">";
+                        product_html += " <div style=\"\" class=\"product-main-board\">";
+                        product_html += "      <div";
+                        product_html += "          style=\"display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;\">";
+                        product_html += "          <img height=\"100%\" src=\"\/imagepreview?src="+new_product.products_id+"\"";
+                        product_html += "               style=\"position: absolute; left: 0px; right: 0px;margin: auto;\">";
+                        product_html += "      <\/div>";
+                        product_html += "      <div";
+                        product_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
+                        product_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
+                        product_html += "              <div style=\"font-weight: 400;\">Арт. "+new_product.products.products_model+"<\/div>";
+                        product_html += "              <div>"+new_product.productsDescription.products_name+"<\/div>";
+                        product_html += "              <div>Размер: ";
+                        product_html += "                   <div class=\"select-style\">";
+                        product_html += "                     <select id=\"pick_attr_value\">";
+                        $.each(new_product.productsAttributesDescr, function (index, attribute) {
+                            product_html += "<option data-attr=\""+attribute.products_options_values_id+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
+                        });
+
+                        product_html += "                     <\/select>";
+                        product_html += "               <\/div>";
+                        product_html += "                   <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "      <\/div>";
+                        product_html += "      <div";
+                        product_html += "          style=\"display: inline-block;height: 150px;float: right;width: 60%;position: relative;\">";
+                        product_html += "          <div";
+                        product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;\">";
+                        product_html += "              <div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                        product_html += "                      Цена";
+                        product_html += "                  <\/div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                        product_html += "                      "+Math.round(new_product.products.products_price)+" р.";
+                        product_html += "                  <\/div>";
+                        product_html += "              <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "          <div";
+                        product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;\">";
+                        product_html += "              <div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                        product_html += "                      Количество";
+                        product_html += "                  <\/div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                        product_html += "                      <div class=\"size-desc\"";
+                        product_html += "                           style=\"color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;\">";
+                        product_html += "                          <div id=\"input-count-block\" style=\"\"><input new-product-input-count id=\"input-count\"";
+                        product_html += "                                               style=\"width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;\"";
+                        product_html += "                                               data-prod=\""+new_product.products_id+"\"";
+                        product_html += "                                               data-model=\""+new_product.products.products_model+"\"";
+                        product_html += "                                               data-price=\""+Math.round(new_product.products.products_price)+"\"";
+                        product_html += "                                               data-image=\""+new_product.products.products_image+"\"";
+                        product_html += "                                               data-count=\""+new_product.products.products_quantity+"\"";
+                        product_html += "                                                data-name=\""+new_product.productsDescription.products_name+"\"";
+                        product_html += "                                               data-step=\""+new_product.products.products_quantity_order_units+"\"";
+                        product_html += "                                               data-min=\""+new_product.products.products_quantity_order_min+"\"";
+                        product_html += "                                               placeholder=\"0\"";
+                        product_html += "                                               type=\"text\">";
+                        product_html += "                              <div class=\"count-event-new\" id=\"add-count\"";
+                        product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;\">";
+                        product_html += "                                  +";
+                        product_html += "                              <\/div>";
+                        product_html += "                              <div class=\"count-event-new\" id=\"del-count\"";
+                        product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;\">";
+                        product_html += "                                  -";
+                        product_html += "                              <\/div>";
+                        product_html += "                          <\/div>";
+                        product_html += "                      <\/div>";
+                        product_html += "                  <\/div>";
+                        product_html += "              <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "          <div";
+                        product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;\">";
+                        product_html += "              <div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                        product_html += "                      Сумма";
+                        product_html += "                  <\/div>";
+                        product_html += "                  <div class=\"final-product-price\"";
+                        product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                        product_html += "                      0 р.";
+                        product_html += "                  <\/div>";
+                        product_html += "              <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "      <\/div>";
+                        product_html += "  <\/div>";
+                        product_html += "<\/div>";
+
+                        $("body").append(
+                            '<div id="modal-product" style="background: #ffffff; min-height: 300px; ">' +
+                            '<span id="modal-close">' +
+                            '<i class="fa fa-times" style="font-size:24px;"></i>' +
+                            '</span>' +
+                            product_html +
+                            '<div class="modal-footer">'+
+                            '<div style="position: relative; top: 10px;">'+
+                            '<div confirm_product class="btn-custom-red" style="">Добавить в заказ</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div id="overlay"></div>');
+                        $("#modal-product").show();
+                        $("#overlay").show();
+                        var cloud = function () {
+                            $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
+                                'position': 'inside'
+                            });
+                        };
+                        setTimeout(cloud, 1000);
                     }
                 });
 
                 if(abort == true) {
                     return false;
                 }
-                if(new_product.productsAttributesDescr.length == 0){
-                    new_product.productsAttributesDescr[0]= new Object;
-                    new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
-                    new_product.productsAttributesDescr[0].products_options_values_id = '';
-                }
-
-                var product_html = '';
-                product_html += "<div style=\"\" class=\"product-card-common\">";
-                product_html += " <div style=\"\" class=\"product-main-board\">";
-                product_html += "      <div";
-                product_html += "          style=\"display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;\">";
-                product_html += "          <img height=\"100%\" src=\"\/imagepreview?src="+new_product.products_id+"\"";
-                product_html += "               style=\"position: absolute; left: 0px; right: 0px;margin: auto;\">";
-                product_html += "      <\/div>";
-                product_html += "      <div";
-                product_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
-                product_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
-                product_html += "              <div style=\"font-weight: 400;\">Арт. "+new_product.products.products_model+"<\/div>";
-                product_html += "              <div>"+new_product.productsDescription.products_name+"<\/div>";
-                product_html += "              <div>Размер: ";
-                product_html += "                   <div class=\"select-style\">";
-                product_html += "                     <select id=\"pick_attr_value\">";
-                new_product.productsAttributesDescr.sort(function (a, b) {
-                    if (a.products_options_values_name > b.products_options_values_name) return 1;
-                    if (a.products_options_values_name < b.products_options_values_name) return -1;
-                });
-                $.each(new_product.productsAttributesDescr, function (index, attribute) {
-                    product_html += "<option data-attr=\""+attribute.products_options_values_id+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
-                });
-
-                product_html += "                     <\/select>";
-                product_html += "               <\/div>";
-                product_html += "                   <\/div>";
-                product_html += "          <\/div>";
-                product_html += "      <\/div>";
-                product_html += "      <div";
-                product_html += "          style=\"display: inline-block;height: 150px;float: right;width: 60%;position: relative;\">";
-                product_html += "          <div";
-                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;\">";
-                product_html += "              <div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
-                product_html += "                      Цена";
-                product_html += "                  <\/div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
-                product_html += "                      "+Math.round(new_product.products.products_price)+" р.";
-                product_html += "                  <\/div>";
-                product_html += "              <\/div>";
-                product_html += "          <\/div>";
-                product_html += "          <div";
-                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;\">";
-                product_html += "              <div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
-                product_html += "                      Количество";
-                product_html += "                  <\/div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
-                product_html += "                      <div class=\"size-desc\"";
-                product_html += "                           style=\"color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;\">";
-                product_html += "                          <div id=\"input-count-block\" style=\"\"><input new-product-input-count id=\"input-count\"";
-                product_html += "                                               style=\"width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;\"";
-                product_html += "                                               data-prod=\""+new_product.products_id+"\"";
-                product_html += "                                               data-model=\""+new_product.products.products_model+"\"";
-                product_html += "                                               data-price=\""+Math.round(new_product.products.products_price)+"\"";
-                product_html += "                                               data-image=\""+new_product.products.products_image+"\"";
-                product_html += "                                               data-count=\""+new_product.products.products_quantity+"\"";
-                product_html += "                                               data-attrname=\""+new_product.productsAttributesDescr[0].products_options_values_name+"\"";
-                product_html += "                                               data-attr=\""+new_product.productsAttributesDescr[0].products_options_values_id+"\"";
-                product_html += "                                               data-name=\""+new_product.productsDescription.products_name+"\"";
-                product_html += "                                               data-step=\""+new_product.products.products_quantity_order_units+"\"";
-                product_html += "                                               data-min=\""+new_product.products.products_quantity_order_min+"\"";
-                product_html += "                                               placeholder=\"0\"";
-                product_html += "                                               type=\"text\">";
-                product_html += "                              <div class=\"count-event-new\" id=\"add-count\"";
-                product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;\">";
-                product_html += "                                  +";
-                product_html += "                              <\/div>";
-                product_html += "                              <div class=\"count-event-new\" id=\"del-count\"";
-                product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;\">";
-                product_html += "                                  -";
-                product_html += "                              <\/div>";
-                product_html += "                          <\/div>";
-                product_html += "                      <\/div>";
-                product_html += "                  <\/div>";
-                product_html += "              <\/div>";
-                product_html += "          <\/div>";
-                product_html += "          <div";
-                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;\">";
-                product_html += "              <div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
-                product_html += "                      Сумма";
-                product_html += "                  <\/div>";
-                product_html += "                  <div class=\"final-product-price\"";
-                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
-                product_html += "                      0 р.";
-                product_html += "                  <\/div>";
-                product_html += "              <\/div>";
-                product_html += "          <\/div>";
-                product_html += "      <\/div>";
-                product_html += "  <\/div>";
-                product_html += "<\/div>";
-
-                $("body").append(
-                    '<div id="modal-product" style="background: #ffffff; min-height: 300px; ">' +
-                    '<span id="modal-close">' +
-                    '<i class="fa fa-times" style="font-size:24px;"></i>' +
-                    '</span>' +
-                    product_html +
-                    '<div class="modal-footer">'+
-                        '<div style="position: relative; top: 10px;">'+
-                            '<div confirm_product class="btn-custom-red" style="">Добавить в заказ</div>' +
-                        '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div id="overlay"></div>');
-                $("#modal-product").show();
-                $("#overlay").show();
-                var cloud = function () {
-                    $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
-                        'position': 'inside'
-                    });
-                };
-                setTimeout(cloud, 1000);
             } else {
                 console.log('Выполняется запрос.')
             }
@@ -714,7 +707,6 @@
         } else {
             alert('Введите корректный артикул.')
         }
-        $('.preload').remove();
     });
 
 
