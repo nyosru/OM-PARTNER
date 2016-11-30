@@ -7,3 +7,4 @@ backend/web
 backend/config
 common/config
 .idea
+/frontend/web/robots.txt
