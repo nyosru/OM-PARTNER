@@ -78,8 +78,6 @@
                                     }else{
                                         $name = 'Пользователь еще не заполнял свои данные';
                                     }
-
-
                                     $params = new \php_rutils\struct\TimeParams();
                                     $params->date = $model['create_date']; //это значение по умолчанию
                                     $params->format = 'd F Y H:i:s';
@@ -88,7 +86,13 @@
 
                                     $i_model += 1;
                                     ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
-                                    return '<a class="client-plate" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
+                                    $common_orders_id = $model['common_orders_id'];
+                                      if($common_orders_id){
+                                          $common =    '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">В объединенном заказе №: '.$common_orders_id.' </div>';
+                                      } else{
+                                          $common =     '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">Не закреплен</div>';
+                                      }
+                                    return '<a class="client-plate lock-on" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
                                             <div class="client-avatar">
                                                 <div class="avatar">
                                                     <div class="client-image"> </div>
@@ -116,7 +120,9 @@
                                                         '.$order_price.' руб.
                                                     </div>
                                                 </div>
+                                                '.$common.'
                 </div>
+                
             </a>';
                                 }
                             ],
@@ -375,7 +381,7 @@
         '<div class="client-old"></div>',
         '<div class="client-vip"></div>'
     ];
-    var new_product = new Object();
+
     var product_arr = new Object();
     var maindata_arr = new Object();
     var maindata = new Object();
@@ -448,10 +454,10 @@
     }
 
     var Lock = false;
-    function requestProduct($id) {
+    function requestProduct($id, $attr, $count) {
         $result = new Object();
         $result.product = new Object();
-        $result.mandata = new Object();
+        $result.maindata = new Object();
         var maindata = [];
         var requestdata = [];
         if(typeof(product_arr[$id]) == 'undefined'){
@@ -468,10 +474,15 @@
         }
         if(typeof (maindata_arr[$id]) == 'undefined'){
             maindata = $.ajax({
-                method: 'post',
-                url: "/site/manlist",
+                method:'post',
+                url: "/site/pre-check-product-to-orders",
                 async: false,
-                data: {data: requestdata.responseJSON.product.products.manufacturers_id}
+                data: {
+                    product: requestdata.responseJSON.product.products_id,
+                    category :requestdata.responseJSON.categories_id,
+                    attr :$attr,
+                    count : $count
+                }
             });
             maindata_arr[$id] = new Object();
             $result.maindata = maindata_arr[$id] = JSON.parse(maindata.responseText);
@@ -550,8 +561,8 @@
                 inProgressSearch = true;
                 $.ajax({
                     method: 'post',
-                    url: "<?=Yii::$app->urlManager->createUrl(['/sp/find-product'])?>",
-                    async: false,
+                    url: "<?=Yii::$app->urlManager->createUrl(['/site/product'])?>",
+                    async: true,
                     dataType: 'json',
                     data: {
                         model: attr_id
@@ -560,7 +571,7 @@
                         console.log(data);
                     },
                     success: function (data) {
-                        console.log(data);
+                        $('.preload').remove();
                         if (typeof (data) != "object") {
                             alert('Ничего не найдено по вашему запросу');
                             abort = true;
@@ -569,139 +580,132 @@
                             alert('Ничего не найдено по вашему запросу');
                             abort = true;
                         }
-                        new_product = data;
+                        var  new_product = data.product;
+                        if(new_product.productsAttributesDescr.length == 0){
+                            new_product.productsAttributesDescr[0]= new Object;
+                            new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
+                            new_product.productsAttributesDescr[0].products_options_values_id = '';
+                        }
+                        var product_html = '';
+                        product_html += "<div style=\"\" class=\"product-card-common\">";
+                        product_html += " <div style=\"\" class=\"product-main-board\">";
+                        product_html += "      <div";
+                        product_html += "          style=\"display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;\">";
+                        product_html += "          <img height=\"100%\" src=\"\/imagepreview?src="+new_product.products_id+"\"";
+                        product_html += "               style=\"position: absolute; left: 0px; right: 0px;margin: auto;\">";
+                        product_html += "      <\/div>";
+                        product_html += "      <div";
+                        product_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
+                        product_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
+                        product_html += "              <div style=\"font-weight: 400;\">Арт. "+new_product.products.products_model+"<\/div>";
+                        product_html += "              <div>"+new_product.productsDescription.products_name+"<\/div>";
+                        product_html += "              <div>Размер: ";
+                        product_html += "                   <div class=\"select-style\">";
+                        product_html += "                     <select id=\"pick_attr_value\">";
+                        $.each(new_product.productsAttributesDescr, function (index, attribute) {
+                            product_html += "<option data-attr=\""+attribute.products_options_values_id+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
+                        });
+
+                        product_html += "                     <\/select>";
+                        product_html += "               <\/div>";
+                        product_html += "                   <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "      <\/div>";
+                        product_html += "      <div";
+                        product_html += "          style=\"display: inline-block;height: 150px;float: right;width: 60%;position: relative;\">";
+                        product_html += "          <div";
+                        product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;\">";
+                        product_html += "              <div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                        product_html += "                      Цена";
+                        product_html += "                  <\/div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                        product_html += "                      "+Math.round(new_product.products.products_price)+" р.";
+                        product_html += "                  <\/div>";
+                        product_html += "              <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "          <div";
+                        product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;\">";
+                        product_html += "              <div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                        product_html += "                      Количество";
+                        product_html += "                  <\/div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                        product_html += "                      <div class=\"size-desc\"";
+                        product_html += "                           style=\"color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;\">";
+                        product_html += "                          <div id=\"input-count-block\" style=\"\"><input new-product-input-count id=\"input-count\"";
+                        product_html += "                                               style=\"width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;\"";
+                        product_html += "                                               data-prod=\""+new_product.products_id+"\"";
+                        product_html += "                                               data-model=\""+new_product.products.products_model+"\"";
+                        product_html += "                                               data-price=\""+Math.round(new_product.products.products_price)+"\"";
+                        product_html += "                                               data-image=\""+new_product.products.products_image+"\"";
+                        product_html += "                                               data-count=\""+new_product.products.products_quantity+"\"";
+                        product_html += "                                                data-name=\""+new_product.productsDescription.products_name+"\"";
+                        product_html += "                                               data-step=\""+new_product.products.products_quantity_order_units+"\"";
+                        product_html += "                                               data-min=\""+new_product.products.products_quantity_order_min+"\"";
+                        product_html += "                                               placeholder=\"0\"";
+                        product_html += "                                               type=\"text\">";
+                        product_html += "                              <div class=\"count-event-new\" id=\"add-count\"";
+                        product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;\">";
+                        product_html += "                                  +";
+                        product_html += "                              <\/div>";
+                        product_html += "                              <div class=\"count-event-new\" id=\"del-count\"";
+                        product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;\">";
+                        product_html += "                                  -";
+                        product_html += "                              <\/div>";
+                        product_html += "                          <\/div>";
+                        product_html += "                      <\/div>";
+                        product_html += "                  <\/div>";
+                        product_html += "              <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "          <div";
+                        product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;\">";
+                        product_html += "              <div>";
+                        product_html += "                  <div";
+                        product_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
+                        product_html += "                      Сумма";
+                        product_html += "                  <\/div>";
+                        product_html += "                  <div class=\"final-product-price\"";
+                        product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
+                        product_html += "                      0 р.";
+                        product_html += "                  <\/div>";
+                        product_html += "              <\/div>";
+                        product_html += "          <\/div>";
+                        product_html += "      <\/div>";
+                        product_html += "  <\/div>";
+                        product_html += "<\/div>";
+
+                        $("body").append(
+                            '<div id="modal-product" style="background: #ffffff; min-height: 300px; ">' +
+                            '<span id="modal-close">' +
+                            '<i class="fa fa-times" style="font-size:24px;"></i>' +
+                            '</span>' +
+                            product_html +
+                            '<div class="modal-footer">'+
+                            '<div style="position: relative; top: 10px;">'+
+                            '<div confirm_product class="btn-custom-red" style="">Добавить в заказ</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div id="overlay"></div>');
+                        $("#modal-product").show();
+                        $("#overlay").show();
+                        var cloud = function () {
+                            $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
+                                'position': 'inside'
+                            });
+                        };
+                        setTimeout(cloud, 1000);
                     }
                 });
 
                 if(abort == true) {
                     return false;
                 }
-                if(new_product.productsAttributesDescr.length == 0){
-                    new_product.productsAttributesDescr[0]= new Object;
-                    new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
-                    new_product.productsAttributesDescr[0].products_options_values_id = '';
-                }
-
-                var product_html = '';
-                product_html += "<div style=\"\" class=\"product-card-common\">";
-                product_html += " <div style=\"\" class=\"product-main-board\">";
-                product_html += "      <div";
-                product_html += "          style=\"display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;\">";
-                product_html += "          <img height=\"100%\" src=\"\/imagepreview?src="+new_product.products_id+"\"";
-                product_html += "               style=\"position: absolute; left: 0px; right: 0px;margin: auto;\">";
-                product_html += "      <\/div>";
-                product_html += "      <div";
-                product_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
-                product_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
-                product_html += "              <div style=\"font-weight: 400;\">Арт. "+new_product.products.products_model+"<\/div>";
-                product_html += "              <div>"+new_product.productsDescription.products_name+"<\/div>";
-                product_html += "              <div>Размер: ";
-                product_html += "                   <div class=\"select-style\">";
-                product_html += "                     <select id=\"pick_attr_value\">";
-                new_product.productsAttributesDescr.sort(function (a, b) {
-                    if (a.products_options_values_name > b.products_options_values_name) return 1;
-                    if (a.products_options_values_name < b.products_options_values_name) return -1;
-                });
-                $.each(new_product.productsAttributesDescr, function (index, attribute) {
-                    product_html += "<option data-attr=\""+attribute.products_options_values_id+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
-                });
-
-                product_html += "                     <\/select>";
-                product_html += "               <\/div>";
-                product_html += "                   <\/div>";
-                product_html += "          <\/div>";
-                product_html += "      <\/div>";
-                product_html += "      <div";
-                product_html += "          style=\"display: inline-block;height: 150px;float: right;width: 60%;position: relative;\">";
-                product_html += "          <div";
-                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;\">";
-                product_html += "              <div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
-                product_html += "                      Цена";
-                product_html += "                  <\/div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
-                product_html += "                      "+Math.round(new_product.products.products_price)+" р.";
-                product_html += "                  <\/div>";
-                product_html += "              <\/div>";
-                product_html += "          <\/div>";
-                product_html += "          <div";
-                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 33%;bottom: 0px;margin: auto;height: 80%;\">";
-                product_html += "              <div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 300;font-size: 16px;padding: 10px 0px;color: #555;\">";
-                product_html += "                      Количество";
-                product_html += "                  <\/div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
-                product_html += "                      <div class=\"size-desc\"";
-                product_html += "                           style=\"color: black; padding: 0px; font-size: small; position: relative; max-width: 90%;\">";
-                product_html += "                          <div id=\"input-count-block\" style=\"\"><input new-product-input-count id=\"input-count\"";
-                product_html += "                                               style=\"width: 60%;height: 30px;text-align: center;position: relative;top: 0px;border: none;outline: none;font-size: 24px;\"";
-                product_html += "                                               data-prod=\""+new_product.products_id+"\"";
-                product_html += "                                               data-model=\""+new_product.products.products_model+"\"";
-                product_html += "                                               data-price=\""+Math.round(new_product.products.products_price)+"\"";
-                product_html += "                                               data-image=\""+new_product.products.products_image+"\"";
-                product_html += "                                               data-count=\""+new_product.products.products_quantity+"\"";
-                product_html += "                                               data-attrname=\""+new_product.productsAttributesDescr[0].products_options_values_name+"\"";
-                product_html += "                                               data-attr=\""+new_product.productsAttributesDescr[0].products_options_values_id+"\"";
-                product_html += "                                               data-name=\""+new_product.productsDescription.products_name+"\"";
-                product_html += "                                               data-step=\""+new_product.products.products_quantity_order_units+"\"";
-                product_html += "                                               data-min=\""+new_product.products.products_quantity_order_min+"\"";
-                product_html += "                                               placeholder=\"0\"";
-                product_html += "                                               type=\"text\">";
-                product_html += "                              <div class=\"count-event-new\" id=\"add-count\"";
-                product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;float: right;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;\">";
-                product_html += "                                  +";
-                product_html += "                              <\/div>";
-                product_html += "                              <div class=\"count-event-new\" id=\"del-count\"";
-                product_html += "                                   style=\"margin: 0px;line-height: 30px;font-size: 15px;font-weight: 500;padding: 0;background: 0 center rgb(255, 255, 255);text-align: center;color: #000;border-radius: 3px;width: 30px;height: 30px;border: 1px solid #CCC;float: left;\">";
-                product_html += "                                  -";
-                product_html += "                              <\/div>";
-                product_html += "                          <\/div>";
-                product_html += "                      <\/div>";
-                product_html += "                  <\/div>";
-                product_html += "              <\/div>";
-                product_html += "          <\/div>";
-                product_html += "          <div";
-                product_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;    right: 0;bottom: 0px;margin: auto;height: 80%;\">";
-                product_html += "              <div>";
-                product_html += "                  <div";
-                product_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
-                product_html += "                      Сумма";
-                product_html += "                  <\/div>";
-                product_html += "                  <div class=\"final-product-price\"";
-                product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
-                product_html += "                      0 р.";
-                product_html += "                  <\/div>";
-                product_html += "              <\/div>";
-                product_html += "          <\/div>";
-                product_html += "      <\/div>";
-                product_html += "  <\/div>";
-                product_html += "<\/div>";
-
-                $("body").append(
-                    '<div id="modal-product" style="background: #ffffff; min-height: 300px; ">' +
-                    '<span id="modal-close">' +
-                    '<i class="fa fa-times" style="font-size:24px;"></i>' +
-                    '</span>' +
-                    product_html +
-                    '<div class="modal-footer">'+
-                        '<div style="position: relative; top: 10px;">'+
-                            '<div confirm_product class="btn-custom-red" style="">Добавить в заказ</div>' +
-                        '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div id="overlay"></div>');
-                $("#modal-product").show();
-                $("#overlay").show();
-                var cloud = function () {
-                    $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
-                        'position': 'inside'
-                    });
-                };
-                setTimeout(cloud, 1000);
             } else {
                 console.log('Выполняется запрос.')
             }
@@ -713,9 +717,6 @@
 
 
     function renderOrder(data) {
-
-
-
         var user_name = '';
         var telephone = '';
         var user_email = data.refus.user.email;
@@ -739,40 +740,20 @@
     moment.locale('ru');
 
         $products = '';
+
        $.each(data.order.order.products, function(){
-           var mandata = [];
-           var requestdata = [];
-
-           requestdata = $.ajax({
-               method:'post',
-               url: "/site/product",
-               async: false,
-               data: {id: this[0]}
-           });
-
-           mandata = $.ajax({
-               method:'post',
-               url: "/site/pre-check-product-to-orders",
-               async: false,
-               data: {
-                   product: requestdata.responseJSON.product.products_id,
-                   category :requestdata.responseJSON.categories_id,
-                   attr :this[2],
-                   count : this[4],
-
-               }
-           });
-           if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
-               $access = mandata.responseJSON.message ;
+           var product_data = requestProduct(this[0],this[2],this[4]);
+           if((typeof(product_data.product.productsAttributes[this[2]]) !=='undefined' && product_data.product.productsAttributes[this[2]].quantity == 0) || product_data.product.products.products_quantity == 0){
+               $access = product_data.maindata.message ;
                $identypay = false;
-           }else if(mandata.responseJSON.result == false){
-               $access = mandata.responseJSON.message;
+           }else if(product_data.maindata.result == false){
+               $access = product_data.maindata.message;
                $identypay = false;
            }else{
-               $access = mandata.responseJSON.message;
+               $access = product_data.maindata.message;
                $identypay = true;
            }
-           if(requestdata.responseJSON.product.products.products_quantity_order_min === '1'  || requestdata.responseJSON.product.products.products_quantity_order_units === '1'){
+           if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
                $disable_for_stepping = '';
            }else{
                $disable_for_stepping = 'readonly';
@@ -805,8 +786,14 @@
                '</div></div> ' +
                '  ';
        });
-
-    $('.datacontainer').html('<div style="margin:25px;"> ' +
+        var common_html = '';
+        console.log(data);
+        if(data.order.commonOrder){
+            common_html = '<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+data.order.commonOrder.common_orders_id+'</div>';
+        }else{
+            common_html = '<a data-toggle="collapse" href="#collapse-list" class="to-order common-order" style="width: 100%;">В общий заказ</a>';
+        }
+        $('.datacontainer').html('<div style="margin:25px;"> ' +
     '<div style="width: 70%;  display:inline-block;"> ' +
         '<div style="margin-right: 25px;"> ' +
             '<div class="order-line" data-order="'+data.id+'"> ' +
@@ -819,7 +806,7 @@
         '<div class="panel panel-default" style="border-color: rgb(255, 255, 255); box-shadow: none; position: relative;"> '+
         '<div class="panel-heading" style="padding: 0px; width: 100%;">'+
         '<h4 class="panel-title">'+
-        '<a data-toggle="collapse" href="#collapse-list" class="to-order common-order" style="width: 100%;">В общий заказ</a> ' +
+            common_html+
         '</h4> ' +
         '</div> ' +
         '<div id="collapse-list" class="panel-collapse collapse" style="z-index: 999; border: 1px solid rgb(245, 245, 245); width: 100%; position: absolute;"> ' +
@@ -882,6 +869,7 @@
             '</div> ' +
         '</div> ' +
     '</div> ');
+        $('.preload').remove();
     }
     function renderOrderEdit(data) {
     $('[data-detail="'+data.id+'"]').addClass('client-active');
@@ -890,8 +878,24 @@
         var products_html = '';
         var i_product_card_edit = 0;
         $.each(data.order.order.products, function(index_product, data_product){
-            requestProduct(this[0]);
-            var product = product_arr[this[0]];
+            var product_data = requestProduct(this[0],this[2],this[4]);
+            if((typeof(product_data.product.productsAttributes[this[2]]) !=='undefined' && product_data.product.productsAttributes[this[2]].quantity == 0) || product_data.product.products.products_quantity == 0){
+                $access = product_data.maindata.message ;
+                $identypay = false;
+            }else if(product_data.maindata.result == false){
+                $access = product_data.maindata.message;
+                $identypay = false;
+            }else{
+                $access = product_data.maindata.message;
+                $identypay = true;
+            }
+            if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
+                $disable_for_stepping = '';
+            }else{
+                $disable_for_stepping = 'readonly';
+            }
+            var product = product_data.product;
+            console.log(product);
             var datacount = 0;
             final_price += Math.round(this[3]) * this[4];
             if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
@@ -906,7 +910,9 @@
             }else{
                 datacount = product.products.products_quantity;
             }
-            products_html += '<div style="" class="product-card-edit queue-product-card-'+i_product_card_edit+'"> ' +
+            products_html += '' +
+                '<div style="" class="product-card-edit queue-product-card-'+i_product_card_edit+'"> ' +
+                '<div class = "access '+$identypay+'" >'+$access+'</div><hr style="height: 10px;margin: 0px;" />'+
                 '<div style="" class="product-main-board"> ' +
                 '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
                 '<img height="100%" src="/imagepreview?src='+this[0]+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
@@ -1011,7 +1017,7 @@
         '<div class="search-models-button"  style="display: inline-block;"></div>'+
         '</div> ' +
         '<span> ' +
-        '<div class="btn search-models-button" style="display: inline-block;background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
+        '<div class="btn search-models-button lock-on" style="display: inline-block;background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
         '</span> ' +
         '</div> ' +
     '<div style="font-weight: 400;font-size: 15px;text-align: right;padding: 10px 25px;color: #CCC;"> ' +
@@ -1027,6 +1033,7 @@
     '</div> ' +
     '</div> ' +
     '</div>');
+        $('.preload').remove();
     }
 </script>
 
@@ -1058,3 +1065,45 @@ $modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="d
 
                 $modal .= '</div></div></div></div></div></div>';
 echo $modal;
+
+
+?>
+<div style="display: none;" id="modal-common" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Создать объединенный заказ
+            </div>
+            <div class="modal-body">
+                <div></div>
+                <?php
+                \yii\widgets\Pjax::begin([
+                    'id' => 'pjax-common',
+                    'enablePushState' => true]);
+                $form = \yii\bootstrap\ActiveForm::begin([
+                    'options' => ['data-pjax' => 1],
+                    'id'=>'groupdiscountuser',
+                    'action'=>'/sp/add-common',
+                    'method'=> 'post',
+                    'enableClientScript' => true
+                ]);
+                $commonmodel = new \common\models\CommonOrders();
+                echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
+                echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
+                echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
+                $form = \yii\bootstrap\ActiveForm::end();
+                \yii\widgets\Pjax::end();
+                ?>
+
+
+                <script>
+                    $("#pjax-common").on("pjax:end", function() {
+
+                    })
+
+                </script>
+
+
+            </div></div></div></div>
+

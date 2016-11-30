@@ -1,6 +1,7 @@
 <?php
 namespace frontend\modules\sp\controllers\actions;
 
+use common\models\PartnersOrders;
 use common\models\PartnersUserInfoForm;
 use common\models\Referrals;
 use common\models\ReferralsUser;
@@ -27,7 +28,13 @@ trait ActionIndex
             'partners_referrals_users.*',
             'partners_users_info.*',
             'partners_orders.*',
-        ])->joinWith('user')->joinWith('userinfo')->joinWith('order')->where(['referral_id' => $referal['id']])
+            'partners_common_orders_links.*',
+        ])
+            ->joinWith('user')
+            ->joinWith('userinfo')
+            ->joinWith('order')
+            ->joinWith('commonOrder')
+            ->where(['referral_id' => $referal['id']])
             ->andWhere('partners_orders.id > 0')
         ;
 
@@ -37,7 +44,7 @@ trait ActionIndex
             $valid->format = 'Y-m-d';
 
             if ($valid->validate($ds)) {
-                $model->andWhere('date_added >= "' . $ds . '"');
+                $model->andWhere(PartnersOrders::tableName().'.create_date >= "' . $ds . '"');
             }
         }
 
@@ -45,7 +52,7 @@ trait ActionIndex
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($de)) {
-                $model->andWhere('date_added <= "' . $de . '"');
+                $model->andWhere(PartnersOrders::tableName().'.create_date <= "' . $de . '"');
             }
         }
 
@@ -53,10 +60,8 @@ trait ActionIndex
 
         $search = trim(Yii::$app->request->getQueryParam('search'));
 
-        if ($search == true && preg_match('([A-Za-zА-Яа-я])', $search)) {
-            $model->andWhere('name REGEXP "' . $search . '"');
-            $model->orWhere('secondname REGEXP "' . $search . '"');
-            $model->orWhere('lastname REGEXP "' . $search . '"');
+        if ($search == true && preg_match('([0-9])', $search)) {
+            $model->andWhere(PartnersOrders::tableName().'.id REGEXP "' . $search . '"');
         }
 
         $status = trim(Yii::$app->request->getQueryParam('status'));
