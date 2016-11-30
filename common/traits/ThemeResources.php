@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\AssetBundle;
 
+
 trait ThemeResources
 {
     private $paththemes = '';

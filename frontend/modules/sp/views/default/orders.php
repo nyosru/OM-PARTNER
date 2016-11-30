@@ -78,8 +78,6 @@
                                     }else{
                                         $name = 'Пользователь еще не заполнял свои данные';
                                     }
-
-
                                     $params = new \php_rutils\struct\TimeParams();
                                     $params->date = $model['create_date']; //это значение по умолчанию
                                     $params->format = 'd F Y H:i:s';
@@ -88,6 +86,12 @@
 
                                     $i_model += 1;
                                     ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
+                                    $common_orders_id = $model['common_orders_id'];
+                                      if($common_orders_id){
+                                          $common =    '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">В объединенном заказе №: '.$common_orders_id.' </div>';
+                                      } else{
+                                          $common =     '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">Не закреплен</div>';
+                                      }
                                     return '<a class="client-plate lock-on" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
                                             <div class="client-avatar">
                                                 <div class="avatar">
@@ -116,7 +120,9 @@
                                                         '.$order_price.' руб.
                                                     </div>
                                                 </div>
+                                                '.$common.'
                 </div>
+                
             </a>';
                                 }
                             ],
@@ -780,8 +786,14 @@
                '</div></div> ' +
                '  ';
        });
-
-    $('.datacontainer').html('<div style="margin:25px;"> ' +
+        var common_html = '';
+        console.log(data);
+        if(data.order.commonOrder){
+            common_html = '<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+data.order.commonOrder.common_orders_id+'</div>';
+        }else{
+            common_html = '<a data-toggle="collapse" href="#collapse-list" class="to-order common-order" style="width: 100%;">В общий заказ</a>';
+        }
+        $('.datacontainer').html('<div style="margin:25px;"> ' +
     '<div style="width: 70%;  display:inline-block;"> ' +
         '<div style="margin-right: 25px;"> ' +
             '<div class="order-line" data-order="'+data.id+'"> ' +
@@ -794,7 +806,7 @@
         '<div class="panel panel-default" style="border-color: rgb(255, 255, 255); box-shadow: none; position: relative;"> '+
         '<div class="panel-heading" style="padding: 0px; width: 100%;">'+
         '<h4 class="panel-title">'+
-        '<a data-toggle="collapse" href="#collapse-list" class="to-order common-order" style="width: 100%;">В общий заказ</a> ' +
+            common_html+
         '</h4> ' +
         '</div> ' +
         '<div id="collapse-list" class="panel-collapse collapse" style="z-index: 999; border: 1px solid rgb(245, 245, 245); width: 100%; position: absolute;"> ' +

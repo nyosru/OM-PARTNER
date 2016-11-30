@@ -92,4 +92,8 @@ class ReferralsUser extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PartnersOrders::className(), ['user_id' => 'id'])->orderBy('partners_orders.id DESC')->via('user');
     }
+    public function getCommonOrder()
+    {
+        return $this->hasMany(CommonOrdersLinks::className(), ['partner_orders_id' => 'id'])->via('order');
+    }
 }
