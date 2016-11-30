@@ -556,7 +556,7 @@
                 $.ajax({
                     method: 'post',
                     url: "<?=Yii::$app->urlManager->createUrl(['/sp/find-product'])?>",
-                    async: false,
+                    async: true,
                     dataType: 'json',
                     data: {
                         model: attr_id
@@ -714,6 +714,7 @@
         } else {
             alert('Введите корректный артикул.')
         }
+        $('.preload').remove();
     });
 
 
@@ -744,7 +745,6 @@
 
        $.each(data.order.order.products, function(){
            var product_data = requestProduct(this[0],this[2],this[4]);
-           console.log(product_data);
            if((typeof(product_data.product.productsAttributes[this[2]]) !=='undefined' && product_data.product.productsAttributes[this[2]].quantity == 0) || product_data.product.products.products_quantity == 0){
                $access = product_data.maindata.message ;
                $identypay = false;
@@ -874,8 +874,24 @@
         var products_html = '';
         var i_product_card_edit = 0;
         $.each(data.order.order.products, function(index_product, data_product){
-            requestProduct(this[0]);
-            var product = product_arr[this[0]];
+            var product_data = requestProduct(this[0],this[2],this[4]);
+            if((typeof(product_data.product.productsAttributes[this[2]]) !=='undefined' && product_data.product.productsAttributes[this[2]].quantity == 0) || product_data.product.products.products_quantity == 0){
+                $access = product_data.maindata.message ;
+                $identypay = false;
+            }else if(product_data.maindata.result == false){
+                $access = product_data.maindata.message;
+                $identypay = false;
+            }else{
+                $access = product_data.maindata.message;
+                $identypay = true;
+            }
+            if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
+                $disable_for_stepping = '';
+            }else{
+                $disable_for_stepping = 'readonly';
+            }
+            var product = product_data.product;
+            console.log(product);
             var datacount = 0;
             final_price += Math.round(this[3]) * this[4];
             if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
@@ -890,7 +906,9 @@
             }else{
                 datacount = product.products.products_quantity;
             }
-            products_html += '<div style="" class="product-card-edit queue-product-card-'+i_product_card_edit+'"> ' +
+            products_html += '' +
+                '<div style="" class="product-card-edit queue-product-card-'+i_product_card_edit+'"> ' +
+                '<div class = "access '+$identypay+'" >'+$access+'</div><hr style="height: 10px;margin: 0px;" />'+
                 '<div style="" class="product-main-board"> ' +
                 '<div style="display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;"> ' +
                 '<img height="100%" src="/imagepreview?src='+this[0]+'" style="position: absolute; left: 0px; right: 0px;margin: auto;"> ' +
@@ -995,7 +1013,7 @@
         '<div class="search-models-button"  style="display: inline-block;"></div>'+
         '</div> ' +
         '<span> ' +
-        '<div class="btn search-models-button" style="display: inline-block;background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
+        '<div class="btn search-models-button lock-on" style="display: inline-block;background: #009f9c;    padding: 1px;    width: 200px;    border: 1px solid #CCC;margin-top: -2px;color: #FFF;font-weight: 400;" class="btn">Выбрать из каталога</div> ' +
         '</span> ' +
         '</div> ' +
     '<div style="font-weight: 400;font-size: 15px;text-align: right;padding: 10px 25px;color: #CCC;"> ' +
@@ -1055,13 +1073,12 @@ echo $modal;
             </div>
             <div class="modal-body">
                 <div></div>
-
                 <?php
                 \yii\widgets\Pjax::begin([
                     'id' => 'pjax-common',
-                    'enablePushState' => false]);
+                    'enablePushState' => true]);
                 $form = \yii\bootstrap\ActiveForm::begin([
-                    'options' => ['data-pjax' => true],
+                    'options' => ['data-pjax' => 1],
                     'id'=>'groupdiscountuser',
                     'action'=>'/sp/add-common',
                     'method'=> 'post',
@@ -1084,4 +1101,5 @@ echo $modal;
                 </script>
 
 
-            </div></div></div></div></div></div>
+            </div></div></div></div>
+

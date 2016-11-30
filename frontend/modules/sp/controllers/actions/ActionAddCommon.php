@@ -24,7 +24,20 @@ trait ActionAddCommon
                 $result->referral_id = $referal['id'];
                 $result->status = 1;
                 if($result->save()){
-                    return 'Общий заказ создан! Номер заказа : '.$result->id;
+                    echo 'Общий заказ создан! Номер заказа : '.$result->id;
+                    $form = \yii\bootstrap\ActiveForm::begin([
+                        'options' => ['data-pjax' => true],
+                        'id'=>'groupdiscountuser',
+                        'action'=>'/sp/add-common',
+                        'method'=> 'post',
+                        'enableClientScript' => true
+                    ]);
+                    $commonmodel = new \common\models\CommonOrders();
+                    echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
+                    echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
+                    echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
+                    $form = \yii\bootstrap\ActiveForm::end();
+
                 }else{
                     return false;
                 }
