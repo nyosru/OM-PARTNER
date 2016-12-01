@@ -14,6 +14,21 @@ trait ActionCart
     public function actionCart()
     {
         $act = (integer)Yii::$app->request->getQueryParam('action');
+        $render_coupon_page = Yii::$app->request->get('coupon');
+        if(!empty($render_coupon_page)){
+            $message = [];
+            $coupon = Yii::$app->request->post('coupon');
+            if(isset($coupon)){
+                if(!empty($coupon)){
+                    $message["success"] = "Промо-код принят";
+                } else {
+                    $message["error"] = "Введите промо-код";
+                }
+            } else {
+                $coupon = '';
+            }
+            return $this->renderAjax('_cart-coupon',['message'=>$message,'coupon'=>$coupon]);
+        }
         switch ($act) {
             case 1: {
                 if (!Yii::$app->user->isGuest) {

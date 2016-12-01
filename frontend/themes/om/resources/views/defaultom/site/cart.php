@@ -142,6 +142,7 @@ $del_add .= '</select>';
             $innerhtml+=  '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
             $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
             $innerhtml+=   '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>';
+            $innerhtml+=   '<div class="deliv-code" style="border-bottom: 1px solid #ccc; padding:10px;"></div>';
             <?php
             }else if($template == 'sp')
             {
@@ -284,6 +285,17 @@ $del_add .= '</select>';
 //        $(".bside").append('<span class="cart-auth"  style="display: block; overflow: hidden;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span>');
 //    <?php//}?>
 //    }
+
+        getCoupon();
+        function getCoupon() {
+            $.ajax({
+                type: "POST",
+                url: "/glavnaya/cart?coupon=1",
+                data: {}
+            }).done(function (html) {
+                $('.deliv-code').html(html);
+            });
+        }
     });
     $(document).ready(function () {
 
