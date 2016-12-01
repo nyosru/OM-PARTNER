@@ -147,14 +147,14 @@ if(!$template_data){
     Yii::$app->assetManager->appendTimestamp = true;
     if (isset($partnerset['template']['value'])) {
         $path = new ThemeResourcesClass();
-        $theme = $path->ThemeResourcesload($partnerset['template']['value'], 'site')['view'];
+        $theme = $path->ThemeResourcesload($partner['APP_THEMES'], 'site')['view'];
     } else {
         $theme = $application->params['constantapp']['APP_THEMES'];
     }
     $asset = new AppAsset();
-    $assetsite = $asset->LoadAssets($partnerset['template']['value'], 'site');
+    $assetsite = $asset->LoadAssets($partner['APP_THEMES'], 'site');
     $asset = new AppAsset();
-    $adminasset = $asset->LoadAssets($partnerset['template']['value'], 'back');
+    $adminasset = $asset->LoadAssets($partner['APP_THEMES'], 'back');
     Yii::$app->cache->set($temlate_key, ['data' => $assetsite, 'dataadmin' => $adminasset, 'theme' => $theme, 'partnerset' => $partnerset]);
 }else {
     $assetsite = $template_data['data'];

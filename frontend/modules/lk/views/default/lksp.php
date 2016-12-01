@@ -22,7 +22,7 @@ $this->title = 'Личный кабинет';
 </div>
 <div class="col-md-12">
     <?php
-    $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+    $form = ActiveForm::begin(['action' => BASEURL . '/lk/', 'method' => 'post']);
     ?>
     <div style="overflow: hidden">
         <div class="regmain" style="font-weight: 400; margin: 15px;">
@@ -75,3 +75,125 @@ $this->title = 'Личный кабинет';
 </div>
 
 
+<script>
+    $(document).on('ready', function(){
+        $cstate = [];
+        $idcountry='';
+        $('#state-drop').remove();
+        $.ajax({
+            type: "GET",
+            url: "/site/countryrequest",
+            data: '',
+            async:false,
+            dataType: "json",
+            success: function (out) {
+                $inner = '';
+                $.each(
+                    out.response.items, function () {
+                        $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+                    });
+                $check = $('[data-name="country"]').attr('value');
+                $.each(out.response.items, function () {
+                    if (this.title == $check) {
+                        $idcountry = this.id;
+                    }
+                });
+                $('[data-name=country]').after('<ul class="dropdown-menu" data-name="' + $(this).attr('id') + '" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+                $('[data-name=country]').attr('autocomplete', 'off');
+                idnum = '';
+                $('.cstate').each(function (i, item) {
+                    $check = $(this).find('[data-name=country]').val();
+                    $(this).find('[data-name=state]').each(function(index,item){
+                        idnum = this.getAttribute('id');
+                        $.each(out.response.items, function () {
+                            if (this.title == $check) {
+                                $idcountry = this.id;
+
+                            }
+                        });
+                        $.ajax({
+                            type: "GET",
+                            url: "/site/zonesrequest",
+                            async: false,
+                            data: 'id=' + $idcountry,
+                            dataType: "json",
+                            success: function (out2) {
+                                $inner = '';
+                                $.each(out2.response.items, function () {
+                                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                                });
+                                //
+                                $('[id='+idnum+']').after('<ul class="dropdown-menu state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                                $('[id='+idnum+']').attr('autocomplete', 'off');
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    });
+    $(document).on('click focus', '[data-name=country]', function () {
+        $(this).parent().filter('.state-drop').remove();
+        $(this).siblings().filter('#country-drop').show();
+    });
+    $(document).on('click', '#country', function () {
+        $inid=$(this).parent().siblings().filter('[data-name=country]').attr('id');
+        $('[data-name=state][id='+$inid+']').val('');
+        $(this).parent().siblings().filter('[data-name=country]').val($(this).text());
+        $('[id='+$inid+']').attr('data-country', this.getAttribute('country'));
+        $(this).parent().filter('#country-drop').hide();
+        $(this).parent().filter('.state-drop').remove();
+        $(this).parent().siblings().filter('.state-drop').remove();
+        $(this).siblings().filter('.state-drop').remove();
+        $('.state-drop').remove();
+        $.ajax({
+            type: "GET",
+            url: "/site/zonesrequest",
+            data: 'id=' + this.getAttribute('data-country'),
+            dataType: "json",
+            success: function (out2) {
+                $inner = '';
+                $.each(out2.response.items, function () {
+                    $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                });
+                $('.state-drop').remove();
+                $(this).parent().filter('.state-drop').remove();
+                $(this).parent().siblings().filter('.state-drop').remove();
+                $('[id='+$inid+']').after('<ul class="dropdown-menu state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                $('[id='+$inid+']').attr('autocomplete', 'off');
+            }
+        });
+    });
+    $(document).on('click focus', '[data-name=state]', function () {
+        $(this).siblings().filter('.state-drop').show();
+    });
+    $(document).on('click', '#state', function () {
+        $inid=$(this).parent().siblings().filter('[data-name=state]').attr('id');
+        $('[id='+$inid+']').attr('data-state', this.getAttribute('state'));
+        $(this).parent().siblings().filter('[data-name=state]').val($(this).text());
+        $(this).parent().filter('.state-drop').hide();
+        $('.state-drop').hide();
+    });
+    $(document).on('keyup', '[data-name=country]', function () {
+        $filtCountryArr = $(this).siblings('ul').children();
+        $search = this.value;
+        $.each($filtCountryArr, function () {
+            if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+    $(document).on('keyup', '[data-name=state]', function () {
+        $filtCountryArr = $(this).siblings('ul').children();
+        $search = this.value;
+        $.each($filtCountryArr, function () {
+            if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+</script>
