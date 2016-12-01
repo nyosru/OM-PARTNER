@@ -206,13 +206,9 @@
             });
 
             final_common_price += final_order_price;
-
             $('.final_order_price'+partner_orders.id).text(final_order_price+ " р.");
             $('.total_count_products'+partner_orders.id).text(total_count_products);
         });
-
-
-        $('.final_common_price').text("Итого "+ final_common_price +" р.");
     }
 
 
@@ -303,28 +299,50 @@
     });
 
 
-
+    function updateCommonTotalOrder(){
+        var total = 0;
+        setTimeout(function() {
+            $x =    $('[class^="final-product-price"]');
+            $.each($x, function(){
+                total = total + parseInt($(this).text());
+            });
+            $('[class="final_common_price"]').text('Итого: '+total+' р');
+        }, 100);
+    };
     $(document).on('click', '.count-event', function(){
         var input_count = $(this).closest("#input-count-block").children("#input-count");
+        calculateCommonorder(input_count);
+    });
+    $(document).on('keyup', '#input-count', function(){
+        var input_count = $(this);
+        calculateCommonorder(input_count);
+    });
+    function calculateCommonorder(input_count){
 
         setTimeout(function() {
             var new_value = input_count.val();
-            var product_id = input_count.attr('data-prod');
-            var attr = input_count.attr('data-attr');
-            var price = input_count.attr('data-price');
-            var order_id = input_count.attr('data-order-id');
-            var index_product_card = input_count.attr('data-index-product');
-            updateCountProducts(product_id, attr. new_value, order_id);
-            updateAllOrdersView(orders_list);
-            $('.final-product-price'+index_product_card).text(Math.round(price * new_value) + " р.");
-        }, 50);
-
-    });
-
+        var product_id = input_count.attr('data-prod');
+        var attr = input_count.attr('data-attr');
+        if(attr == 'undefined'){
+            attr = '';
+        }
+        var price = input_count.attr('data-price');
+        var order_id = input_count.attr('data-order-id');
+        var index_product_card = input_count.attr('data-index-product');
+        updateCountProducts(product_id, attr, new_value, order_id);
+        updateAllOrdersView(orders_list);
+        updateCommonTotalOrder();
+        $('.final-product-price'+index_product_card+'-'+order_id).text(Math.round(price * new_value) + " р.");
+    }, 50);
+    }
     function updateCountProducts(product_id, attr, new_value, order_id) {
         $.each(orders_list.partnerOrders, function(index_partner_orders, partner_orders){
             $.each(partner_orders.order['products'], function(index_order, product){
                 if(typeof product !== 'undefined') {
+                    if(typeof (product[2]) == 'undefined' || !product[2] ){
+                        product[2] = '';
+                    }
+                    console.log( product[2], attr)
                     if (product[0] == product_id && product[2] == attr && partner_orders.id == order_id) {
                         orders_list.partnerOrders[index_partner_orders].order['products'][index_order][4] = new_value;
                         return true;
@@ -578,9 +596,7 @@
 
 
             $.each(partner_orders.order['products'], function(index_order, order){
-
                 var product_data = requestProduct(order[0], order[2] , order[4]);
-                console.log(product_data);
                 if((typeof(product_data.product.productsAttributes[this[2]]) !=='undefined' && product_data.product.productsAttributes[this[2]].quantity == 0) || product_data.product.products.products_quantity == 0){
                     $access = product_data.maindata.message ;
                     $identypay = false;
@@ -692,7 +708,7 @@
                 str_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
                 str_html += "                      Сумма";
                 str_html += "                  <\/div>";
-                str_html += "                  <div class=\"final-product-price"+index_order+"\"";
+                str_html += "                  <div class=\"final-product-price"+index_order+"-"+partner_orders.id+"\"";
                 str_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
                 str_html += "                      "+Math.round(order[3] * order[4])+" р.";
                 str_html += "                  <\/div>";

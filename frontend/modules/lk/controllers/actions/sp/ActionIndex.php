@@ -32,13 +32,16 @@ trait ActionIndex
                     if (Yii::$app->request->post()) {
                         $customer = new Profile();
                         $customer->load(Yii::$app->request->post());
+                        $customer->scenario = 'referalsuser';
                         if (Yii::$app->request->post()['save_user']) {
                             $customer->saveUser();
                         }
                     } else {
                         $customer = new Profile();
+                        $customer->scenario = 'referalsuser';
                     }
                     $customer->loadUserProfile();
+                    $customer->scenario = 'referalsuser';
                     return $this->render('lksp', ['cust' => $cust, 'profile' => $customer]);
             }
 }

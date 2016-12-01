@@ -242,7 +242,6 @@
 
                         function renderCommonList(common_list) {
                             var list_html = '';
-                            console.log(common_list);
                             if(typeof(common_list) == 'undefined' || common_list.length <= 0){
                                 list_html = 'Ничего не найдено';
                             }else{
@@ -404,7 +403,7 @@
             url: '/sp/orders-edit',
             data: $data,
             success: function(data){
-                   console.log(data);
+
             },
             dataType: 'json'
         });
@@ -424,21 +423,34 @@
         var input_count = $(this).closest("#input-count-block").children("#input-count");
             var new_value = input_count.val();
             var price = input_count.attr('data-price');
-            console.log(price);
-            console.log(new_value);
             $('.final-product-price').text(Math.round(price * new_value) + " р.");
     });
 
+    function updateTotalOrder(){
+        var total = 0;
+        setTimeout(function() {
+       $x =    $('[class^="final-product-price"]');
+       $.each($x, function(){
+           total = total + parseInt($(this).text());
+       });
+            $('[class="final_order_price"]').text('Итого: '+total+' р');
+        }, 100);
+    };
+
     $(document).on('click', '.count-event', function(){
         var input_count = $(this).closest("#input-count-block").children("#input-count");
+
+        setTimeout(function() {
             var new_value = input_count.val();
             var product_id = input_count.attr('data-prod');
-            var price = input_count.attr('data-price');
             var attr = input_count.attr('data-attr');
+            var price = input_count.attr('data-price');
+            var order_id = input_count.attr('data-order-id');
             var index_product_card = input_count.attr('data-index-product');
-            updateCountProducts(product_id, attr, new_value);
-            updateAllOrdersView(maindata);
+            updateCountProducts(product_id, attr. new_value, order_id);
+            updateTotalOrder();
             $('.final-product-price'+index_product_card).text(Math.round(price * new_value) + " р.");
+        }, 50);
 
     });
 
@@ -528,7 +540,7 @@
                 val: val
             },
             error: function (data) {
-                console.log(data);
+
             },
             success: function (data) {
                 $("#overlay").remove();
@@ -568,7 +580,7 @@
                         model: attr_id
                     },
                     error: function (data) {
-                        console.log(data);
+
                     },
                     success: function (data) {
                         $('.preload').remove();
@@ -787,7 +799,6 @@
                '  ';
        });
         var common_html = '';
-        console.log(data);
         if(data.order.commonOrder){
             common_html = '<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+data.order.commonOrder.common_orders_id+'</div>';
         }else{
@@ -895,7 +906,6 @@
                 $disable_for_stepping = 'readonly';
             }
             var product = product_data.product;
-            console.log(product);
             var datacount = 0;
             final_price += Math.round(this[3]) * this[4];
             if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
@@ -1035,6 +1045,8 @@
     '</div>');
         $('.preload').remove();
     }
+
+
 </script>
 
 <?php
