@@ -6,6 +6,7 @@ use common\traits\Categories\CategoryChpu;
 use common\traits\Categories\RestrictedCatalog;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
+use common\traits\Coupon;
 use common\traits\Fullopcat;
 use common\traits\GetSuppliers;
 use common\traits\Hide_manufacturers_for_partners;
@@ -124,6 +125,7 @@ class GlavnayaController extends Controller
         Hide_manufacturers_for_partners,
         OpenSearch,
         CatPath,
+        Coupon,
         GetSuppliers,
         LuxSuppliers,
         OrdersStatusData,

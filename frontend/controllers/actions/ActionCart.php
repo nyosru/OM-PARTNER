@@ -2,6 +2,7 @@
 namespace frontend\controllers\actions;
 use common\models\AddressBook;
 use common\models\Configuration;
+use common\models\Coupons;
 use common\models\Customers;
 use common\models\Orders;
 use common\models\PartnersOrders;
@@ -17,17 +18,23 @@ trait ActionCart
         $render_coupon_page = Yii::$app->request->get('coupon');
         if(!empty($render_coupon_page)){
             $message = [];
+            $couponFind = [];
             $coupon = Yii::$app->request->post('coupon');
             if(isset($coupon)){
                 if(!empty($coupon)){
-                    $message["success"] = "Промо-код принят";
+                    $couponFind = $this->findCoupon($coupon,Yii::$app->request->post('totalPrice'));
+                    $message = $couponFind['message'];
                 } else {
                     $message["error"] = "Введите промо-код";
                 }
             } else {
                 $coupon = '';
             }
-            return $this->renderAjax('_cart-coupon',['message'=>$message,'coupon'=>$coupon]);
+            return $this->renderAjax('_cart-coupon',[
+                'message'=>$message,
+                'coupon'=>$coupon,
+                'model'=>$couponFind['model'],
+            ]);
         }
         switch ($act) {
             case 1: {

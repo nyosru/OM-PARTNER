@@ -255,4 +255,16 @@ class Orders extends ActiveRecordExt
         return $literaltyear . $literalchar . '-' . $literalnum;
     }
 
+    public function useCoupon($coupon_id)
+    {
+        $model = new CouponRedeemTrack();
+        $model->setAttributes([
+            'coupon_id' => $coupon_id,
+            'customer_id' => $this->customers_id,
+            'redeem_ip' => Yii::$app->request->userIP,
+            'order_id' => $this->orders_id,
+        ]);
+        return $model->save();
+    }
+
 }

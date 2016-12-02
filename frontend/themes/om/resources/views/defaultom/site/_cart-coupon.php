@@ -2,6 +2,13 @@
 <div class="row">
     <div class="col-xs-8">
         <input type="text" id="promo-code" class="form-control" name="promo-code" value="<?=$coupon?>">
+        <?php
+        if(!empty($model)){
+            echo '<input type="hidden" value="'.$model->coupon_id.'" name="promo-code-id">';
+            echo '<input type="hidden" value="'.$model->coupon_amount.'" id="promo-code-amount">';
+            echo '<input type="hidden" value="'.$model->coupon_type.'" id="promo-code-type">'; //Тип купона: P - процент, F - рубли
+        }
+        ?>
     </div>
     <div class="col-xs-4">
         <div id="coupon-send" class="btn btn-primary btn-block">Применить</div>
@@ -16,13 +23,15 @@ elseif(!empty($message["success"]))
 <?php
 $this->registerJs(<<<JS
     $('#coupon-send').on('click', function (e) {
-        var coupon = $('#promo-code').val();
+        var coupon = $('#promo-code').val(),
+            totalPrice = parseInt($('#gods-price').text());
         $.ajax({
             type: "POST",
             url: "/glavnaya/cart?coupon=1",
-            data: {coupon:coupon}
+            data: {coupon:coupon,totalPrice:totalPrice}
         }).done(function (html) {
             $('.deliv-code').html(html);
+            countPrice();
         });
     });
 JS

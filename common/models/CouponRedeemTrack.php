@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "coupon_redeem_track".
@@ -22,6 +24,24 @@ class CouponRedeemTrack extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'coupon_redeem_track';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'redeem_date',
+                ],
+                'value' => function() {
+                    return date("Y-m-d H:i:s");
+                },
+            ],
+        ];
     }
 
     /**
