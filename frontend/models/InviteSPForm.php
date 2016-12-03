@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use frontend\widgets\Timer;
+use phpDocumentor\Reflection\DocBlock\Tag\ParamTag;
 use Yii;
 use yii\base\Model;
 use yii\validators\EmailValidator;
@@ -11,7 +12,7 @@ use yii\validators\EmailValidator;
 class InviteSPForm extends Model
 {
     public $email;
-
+    const TIMER_OUT_ONE_MIN = 60;
 
     public function rules()
     {
@@ -35,16 +36,23 @@ class InviteSPForm extends Model
         $validate = new EmailValidator();
 
         if(($mail = mb_strtolower($this->email)) == TRUE && $validate->validate($mail)) {
+
             $sess = Yii::$app->session;
-            $sess->setTimeout(60);
-            Yii::$app->session->set('sess', '');
-            $allow = Yii::$app->session->get(md5(sha1(md5(Yii::$app->session->getId()))));
-            if (!$allow) {
-                $set = Yii::$app->session->set(md5(sha1(md5(Yii::$app->session->getId()))), sha1(md5(sha1(Yii::$app->session->getId()))));
+            /** @var \DateTime $timer_out_time */
+            $timer_out_time = Yii::$app->session->get('timerOut');
+            $new_time = new \DateTime();
+            $str_to_time_diff = $new_time->getTimestamp() - $timer_out_time->getTimestamp();
+
+            if($timer_out_time && $str_to_time_diff <= self::TIMER_OUT_ONE_MIN) {
+                $dteDiff = $new_time->diff($timer_out_time);
+                $diff_res = $dteDiff->format("%S");
+                $allow_send = false;
+            } else {
+                $sess->set('timerOut', new \DateTime());
+                $allow_send = true;
             }
-            if (($allow = Yii::$app->session->get(md5(sha1(md5(Yii::$app->session->getId()))))) == TRUE
-                && $allow == sha1(md5(sha1(Yii::$app->session->getId())))
-            ) {
+
+            if ($allow_send) {
 
                 $boxes = explode('@', $mail)[1];
                 $liter = mb_substr($mail, 0,2);
@@ -93,7 +101,7 @@ class InviteSPForm extends Model
                 return true;
             } else {
                 return $this->addError('mail', 'Попробуйте позже<div>'.Timer::widget([
-                        'time'=>60
+                        'time'=>isset($diff_res) ? self::TIMER_OUT_ONE_MIN - $diff_res : self::TIMER_OUT_ONE_MIN
                     ]).'</div>');
             }
         }else{
