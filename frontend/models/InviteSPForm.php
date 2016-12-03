@@ -41,7 +41,12 @@ class InviteSPForm extends Model
             /** @var \DateTime $timer_out_time */
             $timer_out_time = Yii::$app->session->get('timerOut');
             $new_time = new \DateTime();
-            $str_to_time_diff = $new_time->getTimestamp() - $timer_out_time->getTimestamp();
+
+            if($timer_out_time) {
+                $str_to_time_diff = $new_time->getTimestamp() - $timer_out_time->getTimestamp();
+            } else {
+                $str_to_time_diff = self::TIMER_OUT_ONE_MIN + 1;
+            }
 
             if($timer_out_time && $str_to_time_diff <= self::TIMER_OUT_ONE_MIN) {
                 $dteDiff = $new_time->diff($timer_out_time);
