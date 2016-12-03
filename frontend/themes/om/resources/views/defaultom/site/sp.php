@@ -532,7 +532,7 @@
                                 <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;  " src="/images/lp/krestik.png">Розничная<br>наценка
                             </div>
                         </div>
-                        <div style="height: 30%; font-size: 18px; line-height: 24px;">И всевозможные<br>разничные наценки</div>
+                        <div style="height: 30%; font-size: 18px; line-height: 24px;">И всевозможные<br>розничные наценки</div>
                     </div>
                 </div>
             </div>
