@@ -33,6 +33,8 @@ trait ActionSpLanding
                     ->setSubject('Приглашение в сервис  '  . $_SERVER['HTTP_HOST'])
                     ->send();
                 \Yii::$app->getSession()->setFlash('success', 'Успешно отправлено');
+
+                return $this->redirect(['sp-landing', ['model'=> $model]]);
             }
         }
         if($model->errors){
