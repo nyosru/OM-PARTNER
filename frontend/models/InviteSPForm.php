@@ -48,6 +48,7 @@ class InviteSPForm extends Model
                 $diff_res = $dteDiff->format("%S");
                 $allow_send = false;
             } else {
+                $sess->setTimeout(self::TIMER_OUT_ONE_MIN);
                 $sess->set('timerOut', new \DateTime());
                 $allow_send = true;
             }
