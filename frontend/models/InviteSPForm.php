@@ -12,7 +12,6 @@ use yii\validators\EmailValidator;
 class InviteSPForm extends Model
 {
     public $email;
-    const TIMER_OUT_ONE_MIN = 60;
 
     public function rules()
     {
