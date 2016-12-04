@@ -387,7 +387,8 @@
     </div>
     <div style="background:url(/images/lp/Path6.png) 50% 0% no-repeat; background-size: cover;position: absolute; z-index: 2; font-size: 40px; font-weight: 400; text-align: center; top: 0px; bottom: 0px; left: 0px; right: 0px;">
     </div>
-    <div style="background: #FFF;border-radius: 4px;position: absolute; z-index: 2; height: 115px; font-size: 40px; font-weight: 400; text-align: center; top: 130px; left: 0px; right: 0px; margin: 5px 210px; padding: 30px;">
+    <!--Якорь после оправки формы-->
+    <div id="inviteForm" style="background: #FFF;border-radius: 4px;position: absolute; z-index: 2; height: 115px; font-size: 40px; font-weight: 400; text-align: center; top: 130px; left: 0px; right: 0px; margin: 5px 210px; padding: 30px;">
         <div style="border-radius: 4px; position: relative;">
             <div style="position: absolute; top: 0px; bottom: 0px; left:0px; right: 0px; margin: auto;">
                 <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'form-invite']); ?>
