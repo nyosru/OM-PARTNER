@@ -391,6 +391,7 @@
     <div id="inviteForm" style="background: #FFF;border-radius: 4px;position: absolute; z-index: 2; height: 115px; font-size: 40px; font-weight: 400; text-align: center; top: 130px; left: 0px; right: 0px; margin: 5px 210px; padding: 30px;">
         <div style="border-radius: 4px; position: relative;">
             <div style="position: absolute; top: 0px; bottom: 0px; left:0px; right: 0px; margin: auto;">
+
                 <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'form-invite']); ?>
                 <?= $form->field($model, 'email', [
                     'options'=>[
@@ -398,6 +399,7 @@
                     'template' => '{input}',
                     'inputOptions'=>[
                         'placeholder'=>'Ваш E-mail',
+                        'value' => Yii::$app->request->queryParams['model']['email'] ? Yii::$app->request->queryParams['model']['email'] : '',
                         'class'=>'',
                         'style'=>'display: inline-block; width: 47%; float: left; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center;'
                     ]
@@ -602,6 +604,7 @@
             'template' => '{input}',
             'inputOptions'=>[
                 'placeholder'=>'Ваш E-mail',
+                'value' => Yii::$app->request->queryParams['model']['email'] ? Yii::$app->request->queryParams['model']['email'] : '',
                 'class'=>'',
                 'style'=>'width: 100%; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center; margin-bottom: 15px;'
             ]
