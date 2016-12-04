@@ -35,7 +35,7 @@ trait ActionSpLanding
                 ;
                 \Yii::$app->getSession()->setFlash('success', 'Успешно отправлено');
 
-                return $this->redirect(['sp-landing', ['model' => $model], '#' => 'inviteForm']);
+                return $this->redirect(['sp-landing', '#' => 'inviteForm']);
             }
         }
         if ($model->errors) {
@@ -43,7 +43,7 @@ trait ActionSpLanding
                 \Yii::$app->getSession()->setFlash('error', $err);
             }
 
-            return $this->redirect(['sp-landing', ['model' => $model], '#' => 'inviteForm']);
+            return $this->redirect(['sp-landing', 'model' => $model, '#' => 'inviteForm']);
         }
 
         return $this->render('sp', ['model' => $model]);
