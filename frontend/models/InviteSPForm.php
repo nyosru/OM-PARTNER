@@ -33,8 +33,8 @@ class InviteSPForm extends Model
 
     public function InviteSp()
     {
+        $TIMER_OUT_ONE_MIN = 60;
         $validate = new EmailValidator();
-
         if (($mail = mb_strtolower($this->email)) == true && $validate->validate($mail)) {
 
             $sess = Yii::$app->session;
@@ -43,17 +43,17 @@ class InviteSPForm extends Model
             $new_time = new \DateTime();
 
             if ($timer_out_time) {
-                $str_to_time_diff = $new_time->getTimestamp() - $timer_out_time->getTimestamp();
+                $time_diff = $new_time->getTimestamp() - $timer_out_time->getTimestamp();
             } else {
-                $str_to_time_diff = self::TIMER_OUT_ONE_MIN + 1;
+                $time_diff = $TIMER_OUT_ONE_MIN + 1;
             }
 
-            if ($timer_out_time && $str_to_time_diff <= self::TIMER_OUT_ONE_MIN) {
+            if ($timer_out_time && $time_diff <= $TIMER_OUT_ONE_MIN) {
                 $dteDiff = $new_time->diff($timer_out_time);
                 $diff_res = $dteDiff->format("%S");
                 $allow_send = false;
             } else {
-                $sess->setTimeout(self::TIMER_OUT_ONE_MIN);
+                $sess->setTimeout($TIMER_OUT_ONE_MIN);
                 $sess->set('timerOut', new \DateTime());
                 $allow_send = true;
             }
