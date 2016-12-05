@@ -29,7 +29,6 @@ $this->registerJsFile('@web/js/dropdown-nav.js');
             ?>
         </div>
         <div class="col-md-8">
-            <div class="row ">
                 <div class="filter_nav">
                     <div class="filter-order_by">
                         <nav class="dropdown-nav">
@@ -102,7 +101,6 @@ $this->registerJsFile('@web/js/dropdown-nav.js');
                     ]); ?>
                 </div>
             </div>
-        </div>
 
 
         <?= \yii\helpers\Html::submitButton('Submit', [
