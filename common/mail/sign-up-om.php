@@ -19,6 +19,6 @@ $contentutm = \frontend\widgets\UtmLinker::widget(['param'=>Yii::$app->params['p
         </li>
     </ul>
     <p style="text-align:center;margin:10px 0 30px 0;">
-        <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/lk?<?=$contentutm;?>" target="_blank" style="font-weight:bold;text-decoration:underline;color:#007BC1;font-family:'Roboto', Arial;font-size:14px;">Перейти в личный кабинет</a>
+        <a href="http://<?=$_SERVER['HTTP_HOST'].BASEURL;?>/lk/?<?=$contentutm;?>" target="_blank" style="font-weight:bold;text-decoration:underline;color:#007BC1;font-family:'Roboto', Arial;font-size:14px;">Перейти в личный кабинет</a>
     </p>
     
