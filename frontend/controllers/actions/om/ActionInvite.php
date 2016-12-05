@@ -54,7 +54,6 @@ trait ActionInvite
             $newref->save();
             \Yii::$app->getSession()->setFlash('success', 'Успешно отправлено');
         }
-        $this->console_log(Yii::$app->request->post());
         if ($model->errors && Yii::$app->request->post()) {
             foreach ($model->errors as $err) {
                 \Yii::$app->getSession()->setFlash('error', $err);
