@@ -1,7 +1,7 @@
 <?php
 use common\models\Partners;
 use common\models\PartnersSettings;
-try{
+
 if (function_exists('pinba_timer_start')) {
   $timer = pinba_timer_start(array('Tочка'=>'Инициализация'));
 }
@@ -176,9 +176,4 @@ $application->db->close();
 
 if (function_exists('pinba_timer_stop')) {
     pinba_timer_stop($timer);
-}
-}catch (Exception $e){
-    echo '<html><body>';
-    echo '<img style="margin: auto;position: absolute; top: 0; bottom: 0; right: 0;left: 0;" src="/images/logo/tz.png">';
-    echo '</body></html>';
 }

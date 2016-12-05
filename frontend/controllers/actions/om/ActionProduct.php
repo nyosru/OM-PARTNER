@@ -49,7 +49,7 @@ trait ActionProduct
             $prodimages = ProductImage::find()->select(['image_file'])
                 ->where(['product_id' => $id])->limit(5)
                 ->createCommand()->queryall(7);
-           
+
             if (strtotime($x['products_last_modified']) < strtotime($x['add_date']))
                 $x['products_last_modified'] = $x['add_date'];
             $checkcache = $x['products_last_modified'];
@@ -58,7 +58,7 @@ trait ActionProduct
             $d1 = trim($checkcache);
             $d2 = trim($data['last']);
             if (!$data || ($d1 !== $d2)) {
-                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.'.$param.'=:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->asArray()->all();
+                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.'.$param.'=:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->joinWith('subImage')->asArray()->all();
                 $data = end($data);
                 unset(
                     $data['old_categories_id'],

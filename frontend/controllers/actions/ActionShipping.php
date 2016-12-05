@@ -57,7 +57,7 @@ trait ActionShipping
                     'active' => '1',
                     'wantpasport' => '0'
                 ],
-                'courier_express' => [
+                'courierExpress_courierExpress' => [
                     'value' => 'Служба доставки Экспресс-Курьер http://www.edostavka.ru, из г.Иваново',
                     'active' => '1',
                     'wantpasport' => '0']

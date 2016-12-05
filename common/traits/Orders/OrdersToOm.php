@@ -610,7 +610,7 @@ trait OrdersToOm
                     'flat10_flat10' => 'Бесплатная доставка до ТК ОПТИМА',
                     'flat9_flat9' => 'Бесплатная доставка до ТК Севертранс',
                     'flat12_flat12' => 'Бесплатная доставка до ТК ЭНЕРГИЯ',
-                    'courier_express' => 'Бесплатная доставка до ТК Служба доставки Экспресс-Курьер',
+                    'courierExpress_courierExpress' => 'Бесплатная доставка до ТК Служба доставки Экспресс-Курьер',
                     'russianpostpf_russianpostpf' => 'Почта России - http://pochta.ru/'
                 ];
                 if (!$dostavka[$ship]) {
