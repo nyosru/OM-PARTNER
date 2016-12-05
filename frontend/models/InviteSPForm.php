@@ -109,7 +109,7 @@ class InviteSPForm extends Model
                 return true;
             } else {
                 return $this->addError('mail', 'Попробуйте позже<div>' . Timer::widget([
-                        'time' => isset($diff_res) ? self::TIMER_OUT_ONE_MIN - $diff_res : self::TIMER_OUT_ONE_MIN,
+                        'time' => isset($diff_res) ? $TIMER_OUT_ONE_MIN - $diff_res : $TIMER_OUT_ONE_MIN,
                     ]) . '</div>');
             }
         } else {
