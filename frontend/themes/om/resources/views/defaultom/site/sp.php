@@ -618,7 +618,9 @@
     </div>
 </div>
 <div style="z-index: 1; height: 235px; font-size: 40px; font-weight: 400; text-align: center; position: relative; background: rgb(120, 211, 62) none repeat scroll 0% 0%; color: rgb(255, 255, 255);">
-    <div style="position: absolute; top: 70px; bottom: 0px; right: 0px; left: 0px; margin: auto; font-size: 32px; text-align: center;">Каталог товаров<br>Одежда-Мастер</div>
+    <a  href="/catalog?cat=1632" style="z-index: 1;height: 235px;font-size: 40px;font-weight: 400;text-align: center;position: relative;background: rgb(120, 211, 62) none repeat scroll 0% 0%;color: rgb(255, 255, 255);margin: auto;line-height: 6;">
+        Перейти в каталог товаров
+    </a>
     <img style="position: absolute; right: 0px; bottom: 0px;" src="/images/lp/girl2.png" />
 </div>
 
