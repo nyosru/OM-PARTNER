@@ -23,7 +23,7 @@ class ProductCard2 extends \yii\bootstrap\Widget
     public $writeitemprop = 1;
     public $season = '';
     public $brand = '';
-
+    public $subpreview = '';
     public function init()
     {
         if($this->writeitemprop === 1){
@@ -214,12 +214,16 @@ class ProductCard2 extends \yii\bootstrap\Widget
         }else{
             $season_html = '';
         }
-
+        if($this->subpreview){
+            $subImage = '<div class="fa fa-picture-o fa-lg" style="color: #19a09d;position: absolute;top: 5px;border-radius: 4px;padding: 4px;right: 10px;line-height: 1;"></div>';
+        }else{
+            $subImage = '';
+        }
         $innerhtml .= '
                         <div  class="container-fluid float" id="card2" style="float:left;">'.$man_in_sklad.$man_lux.$season_html.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; margin-bottom:5px; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
-            '<meta '.$product_itemprop_image.' content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .
+            '<meta '.$product_itemprop_image.' content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .$subImage.
             '</div>' ;
         if ((integer)($product['products_old_price']) > 0 && $this->showdiscount==1  && isset($discount)) {
             $innerhtml .= '<div style="font-size: 18px; margin: 5px; color:#9e9e9e; font-weight: 300; margin-left: 130px;" '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';

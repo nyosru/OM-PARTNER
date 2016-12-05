@@ -419,6 +419,7 @@ trait AggregateCatalogData
                         ->joinWith('productsSpecification')
                         ->joinWith('specificationValuesDescription')
                         ->joinWith('specificationDescription')
+                        ->joinWith('subImage')
                         ->groupBy(['products.`products_id` DESC'])->asArray()->all();
                     foreach ($datar as $valuesr) {
                         $d1 = strtotime($valuesr['products']['products_last_modified']);

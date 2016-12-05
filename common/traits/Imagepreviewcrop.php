@@ -12,7 +12,7 @@ Trait Imagepreviewcrop
     {
 
 
-        ini_set('pinba.enabled', false);
+       // ini_set('pinba.enabled', false);
         $id = (integer)$src;
         if ($id > 0) {
             $namefile = $id;
