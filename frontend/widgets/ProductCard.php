@@ -210,7 +210,7 @@ class ProductCard extends \yii\bootstrap\Widget
         }
         $xfactor = new ProductsTableSizes();
         if($this->subpreview){
-            $subImage = '<div class="fa fa-picture-o fa-lg" style="color: #19a09d;position: absolute;top: 5px;border-radius: 4px;padding: 4px;right: 10px;line-height: 1;"></div>';
+            $subImage = '<div class="fa fa-picture-o fa-lg" style="color: #19a09d;position: absolute;top: 5px;right: 10px;line-height: 1;background: whitesmoke;padding: 5px;border-radius: 40px;"></div>';
         }else{
             $subImage = '';
         }
