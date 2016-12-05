@@ -19,16 +19,17 @@ $this->registerJsFile('@web/js/dropdown-nav.js');
         <?php endforeach; ?>
     </div>
     <form style="height: 60px;background: #FFF">
-        <div class="search-bar col-md-4">
-            <input class="search-console" value="<?= Yii::$app->request->getQueryParam('search') ?>"
-                   name="search"
-                   placeholder="Поиск по клиентам">
-            <?php
-            echo \yii\helpers\Html:: hiddenInput(Yii::$app->getRequest()->csrfParam,
-                Yii::$app->getRequest()->getCsrfToken(), []);
-            ?>
-        </div>
-        <div class="col-md-8">
+        <div class="row">
+            <div class="search-bar col-md-3">
+                <input class="search-console" value="<?= Yii::$app->request->getQueryParam('search') ?>"
+                       name="search"
+                       placeholder="Поиск по клиентам">
+                <?php
+                echo \yii\helpers\Html:: hiddenInput(Yii::$app->getRequest()->csrfParam,
+                    Yii::$app->getRequest()->getCsrfToken(), []);
+                ?>
+            </div>
+            <div class="col-md-7">
                 <div class="filter_nav">
                     <div class="filter-order_by">
                         <nav class="dropdown-nav">
@@ -101,7 +102,11 @@ $this->registerJsFile('@web/js/dropdown-nav.js');
                     ]); ?>
                 </div>
             </div>
-
+            <div class="col-md-2">
+                <div class="" style="display: inline-block;padding: 14px;">
+                    <a href="<?= strstr(\yii\helpers\Url::current(), '?', true) ?>" class="reset_filters">Сбросить фильтр</a>
+                </div>
+        </div>
 
         <?= \yii\helpers\Html::submitButton('Submit', [
             'class' => 'btn btn-primary',
