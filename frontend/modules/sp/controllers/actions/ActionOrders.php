@@ -22,7 +22,7 @@ trait ActionOrders
 
         $this->layout = 'main-no-fixed';
 
-        $referal = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
+        $referal = Referrals::find()->where(['user_id' => Yii::$app->user->identity->getId()])->asArray()->one();
 
         $query = ReferralsUser::find()
             ->joinWith('user')

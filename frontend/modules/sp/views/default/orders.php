@@ -27,11 +27,15 @@
                 <div id="scroll1" style="height: 100%">
                     <?php
                     $i_model = 0;
-                    \yii\widgets\Pjax::begin(['id' => 'clients']);
+                    \yii\widgets\Pjax::begin([
+                        'id'=>'grid'
+                    ]);
                     echo \yii\grid\GridView::widget([
+                        'id'=>'grid-orders',
                         'tableOptions' => [
                             'class' => 'table table-striped',
-                            'style' => 'vertical-align:middle; border-bottom:1px solid #CCC;'
+                            'style' => 'vertical-align:middle; border-bottom:1px solid #CCC;',
+                            'data-pjax'=>'88'
                         ],
                         'rowOptions'=>[
                             'style'=>'border:none'
@@ -135,6 +139,9 @@
                             'options'=>[
                                 'class'=>'pagination'
                             ],
+                            'linkOptions'=>[
+                                'data-pjax' => true
+                            ],
                             'pagination' => $paginate,
                         ]);
                         ?>
@@ -167,8 +174,25 @@
                                 renderOrder(maindata);
                             });
                         })(jQuery);
-
-
+                        (function($){
+                            $(document).on('click', '.product-comment', function (){
+                            var comment_id = $(this).attr('data-product');
+                            var comment_attr =  $(this).attr('data-attr');
+                            var comment_order =  $(this).attr('data-order');
+                            var comment_text = $('[comment-'+comment_order+'-'+comment_id+'-'+comment_attr+']').text();
+                            $.post(
+                                '/sp/add-position-order-comments',
+                                {
+                                    id: comment_id,
+                                    attr: comment_attr,
+                                    order: comment_order,
+                                    comment: comment_text
+                                },
+                                function (data) {
+                                   $('.comment-content-body').html('<div>'+data+'</div>');
+                                });
+                        });
+                        })(jQuery);
                         function loaddetail($id){
                             if(!inProgress){
                                 inProgress = true;
@@ -273,12 +297,15 @@
                             }
                             return result;
                         }
-
-                        $(document).on('click', '.common-order', function(){
+                        function refresh_list(){
                             var act = $(this).attr('data-act');
                             var request = $(".input-searcncommon-order").val();
                             common_orders_list = requestCommon(act, request);
-                            renderCommonList(common_orders_list);
+                           renderCommonList(common_orders_list);
+
+                        };
+                        $(document).on('click', '.common-order', function(){
+                            refresh_list();
                         });
 
                         var input_searcncommon_order = false;
@@ -341,9 +368,9 @@
                                 }
                             });
                         });
-
-
-
+                        (function($){
+                      //      yii.pjax.recast();
+                        })(jQuery);
                     </script>
                     <?php
                     \yii\widgets\Pjax::end();
@@ -514,16 +541,10 @@
 
     $(document).on('click', '[confirm_product]', function(){
         var input_count = $("[new-product-input-count]");
+        var data_attr =$('#pick_attr_value option:selected').attr('data-attr');
         var val = parseInt(input_count.val());
         var data_id = parseInt(input_count.attr('data-prod'));
         var data_model = parseInt(input_count.attr('data-model'));
-        if (parseInt(input_count.attr('data-attr'))){
-            var data_attr = parseInt(input_count.attr('data-attr'));
-        }else{
-            var data_attr = '';
-        }
-
-
         if (isNaN(val)){
             alert('Не выбранно количество!');
             return false;
@@ -734,10 +755,9 @@
         var user_email = data.refus.user.email;
         var date_added = data.refus.date_added;
 
-
-        if(typeof (data.refus.userinfo) == "undefined" || typeof (data.refus.userinfo) == "null"){
-            if(data.refus.userinfo.name || data.refus.userinfo.lastname || data.refus.userinfo.secondname) {
-                user_name = data.refus.userinfo.name + ' ' + data.refus.userinfo.lastname + ' ' + data.refus.userinfo.secondname;
+        if(typeof (data.refus.userinfo) != "undefined" || !data.refus.userinfo){
+            if(data.refus.userinfo.name || data.refus.userinfo.lastname) {
+                user_name = data.refus.userinfo.name + ' ' + data.refus.userinfo.lastname;
                 telephone =  data.refus.userinfo.telephone;
             } else {
                 telephone = 'Не указанно';
@@ -792,7 +812,7 @@
                '</div> ' +
                '</div> ' +
                '<div > ' +
-               '<div  style="cursor:pointer;color: #5b8acf;"  product-id="'+this[0]+'" class="product-comment">' +
+               '<div data-toggle="modal" data-target="#modal-comment" style="cursor:pointer;    z-index: 1;color: #5b8acf;position: absolute;left: 0px;" data-order="'+data.id+'" data-attr="'+this[2]+'" data-product="'+this[0]+'" class="product-comment">' +
                'Добавить комментарий к товару ' +
                '</div> ' +
                '</div></div> ' +
@@ -838,8 +858,8 @@
         '</div> ' +
         '</div> ' +
         '</div> ' +
-        '<div class="edit-order"  edit-mode="read">Редактировать заказ</div> ' +
-        '<div class="mail-client" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
+        '<div class="edit-order" style="cursor:pointer" edit-mode="read">Редактировать заказ</div> ' +
+        '<div class="mail-client" style="cursor:pointer" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
         '</div> ' +
         '<div>' +
                  $products+
@@ -993,7 +1013,7 @@
                 '</div> ' +
                 '</div> ' +
                 '<div style="position: relative;"> ' +
-                '<div style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" product-id="'+product.products_id+'" class="product-comment">' +
+                '<div  data-toggle="modal" data-target="#modal-comment" style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" data-order="'+data.id+'" data-attr="'+this[2]+'" data-product="'+this[0]+'" class="product-comment">' +
                 'Добавить комментарий к товару ' +
                 '</div> ' +
                 '<div class="product-delete product">' +
@@ -1015,7 +1035,9 @@
                 '<div style="width: 100%;font-size: 18px;padding: 15px 0px;">' +
                     'Комментарий к заказу ' +
                     '</div> ' +
-                '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;"></textarea> ' +
+                '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;">' +
+        data.order.order.comment +
+        '</textarea> ' +
             '</div> ' +
         products_html +
         '<div style=" font-weight: 400;  font-size: 16px;"> ' +
@@ -1045,8 +1067,6 @@
     '</div>');
         $('.preload').remove();
     }
-
-
 </script>
 
 <?php
@@ -1080,6 +1100,31 @@ echo $modal;
 
 
 ?>
+<div style="display: none;" id="modal-comment" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Редактировать комментарий
+            </div>
+            <div class="modal-body">
+                <div>
+                </div>
+                <?php
+                \yii\widgets\Pjax::begin([
+                    'id'=>'comment',
+                    'enablePushState' =>false
+                ]);
+                ?>
+                <div class="comment-content-body"></div>
+                <?php
+                \yii\widgets\Pjax::end();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div style="display: none;" id="modal-common" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -1088,13 +1133,13 @@ echo $modal;
                 Создать объединенный заказ
             </div>
             <div class="modal-body">
-                <div></div>
                 <?php
                 \yii\widgets\Pjax::begin([
-                    'id' => 'pjax-common',
-                    'enablePushState' => true]);
+                    'id'=>'common',
+                    'enablePushState' =>false
+                ]);
                 $form = \yii\bootstrap\ActiveForm::begin([
-                    'options' => ['data-pjax' => 1],
+                    'options' => ['data-pjax' =>1],
                     'id'=>'groupdiscountuser',
                     'action'=>'/sp/add-common',
                     'method'=> 'post',
@@ -1107,15 +1152,14 @@ echo $modal;
                 $form = \yii\bootstrap\ActiveForm::end();
                 \yii\widgets\Pjax::end();
                 ?>
-
-
                 <script>
-                    $("#pjax-common").on("pjax:end", function() {
-
-                    })
-
+                $('#common').on('pjax:end', function(){
+                  $('#modal-common').modal('hide');
+                    refresh_list();
+                });
                 </script>
-
-
-            </div></div></div></div>
+            </div>
+        </div>
+    </div>
+</div>
 
