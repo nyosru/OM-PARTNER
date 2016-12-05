@@ -4,7 +4,10 @@ namespace frontend\modules\sp\controllers\v0;
 
 
 use frontend\controllers\actions\om\ActionOrdersStatus;
+use frontend\modules\sp\controllers\actions\ActionAddClientOrderComments;
 use frontend\modules\sp\controllers\actions\ActionAddCommon;
+use frontend\modules\sp\controllers\actions\ActionAddCommonOrderComments;
+use frontend\modules\sp\controllers\actions\ActionAddPositionOrderComments;
 use frontend\modules\sp\controllers\actions\ActionAddProductToOrder;
 use frontend\modules\sp\controllers\actions\ActionAllClients;
 use frontend\modules\sp\controllers\actions\ActionAttachOrderToCommon;
@@ -51,6 +54,9 @@ class DefaultController extends Controller
         ActionClientStatus,
         ActionChangeClientStatus,
         ActionChangeOrderStatus,
+        ActionAddCommonOrderComments,
+        ActionAddPositionOrderComments,
+        ActionAddClientOrderComments,
         ActionFindProduct;
     public function behaviors()
     {

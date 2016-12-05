@@ -58,7 +58,7 @@ trait AggregateCatalogData
         $cat_start = $params['cat_start'];
         $start_price = (integer)$params['start_price'];
         $end_price = (integer)$params['end_price'];
-        $prod_attr_query = (integer)$params['prod_attr_query'];
+        $prod_attr_query = array_map($integer, $params['prod_attr_query']);
         $count = (integer)$params['count'];
         $page = max(0,(integer)$params['page']-1);
         $sort = (integer)$params['sort'];
@@ -157,8 +157,8 @@ trait AggregateCatalogData
 
         }
 
-        $init_key = $options['cachelistkeyprefix'] . '5ty-' . $cat_start . '-'  . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
-        $init_key_static = $options['cachelistkeyprefix'] . '5ty-' . $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
+        $init_key = $options['cachelistkeyprefix'] . '5ty-' . $cat_start . '-'  . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . md5(implode($prod_attr_query)) . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
+        $init_key_static = $options['cachelistkeyprefix'] . '5ty-' . $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . md5(implode($prod_attr_query)) . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         if($dataque['checkcache']){
@@ -276,36 +276,31 @@ trait AggregateCatalogData
                     $list[] = $value['manufacturers_id'];
                 }
                 $hide_man = implode(',', $list);
-                if ($prod_attr_query != '') {
-                    $finderkey = Yii::$app->cache->buildKey('productattrfinder-' . $prod_attr_query);
-                    if (($findue = Yii::$app->cache->get($finderkey)) == TRUE) {
-
-                    } else {
-                        $prod_attr_querys = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query])->createCommand()->queryOne()['products_options_values_name'];
-                        if (strlen($prod_attr_querys) == 2) {
-                            $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_querys . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-                            $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->createCommand()->queryAll();
-                            if (!$finder) {
-                                $findue[] = $prod_attr_query;
+                if ($prod_attr_query && is_array($prod_attr_query)) {
+                    $finderkey_multy = Yii::$app->cache->buildKey('product-attr-' . md5(implode($prod_attr_query)));
+                    if(($findue = Yii::$app->cache->get($finderkey_multy)) == FALSE) {
+                        foreach ($prod_attr_query as $prod_attr_query_key=>$prod_attr_query_value){
+                            $prod_attr_querys = PartnersProductsOptionVal::find()->where(['products_options_values_id' => (int)$prod_attr_query_value])->createCommand()->queryOne()['products_options_values_name'];
+                            if (strlen($prod_attr_querys) == 2) {
+                                $prodfilt = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_querys . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
+                                $finder = PartnersProductsOptionVal::find()->where('LOWER(products_options_values_name) RLIKE :prod_attr_query ', [':prod_attr_query' => $prodfilt])->createCommand()->queryAll();
+                                if (!$finder) {
+                                    $findue[] = $prod_attr_query_value;
+                                }
+                                foreach ($finder as $finderkey => $findervalue) {
+                                    $findue[] = $findervalue['products_options_values_id'];
+                                }
+                                foreach ($finder as $finderkey => $findervalue) {
+                                }
+                            } else {
+                                $findue[] = $prod_attr_query_value;
                             }
-                            foreach ($finder as $finderkey => $findervalue) {
-                                $findue[] = $findervalue['products_options_values_id'];
-                            }
-                            foreach ($finder as $finderkey => $findervalue) {
-                                Yii::$app->cache->set($findervalue['products_options_values_id'], $findue, 3600);
-                            }
-                        } else {
-                            $findue[] = (int)$prod_attr_query;
-                            Yii::$app->cache->set((int)$prod_attr_query, $findue, 3600);
                         }
-
+                        Yii::$app->cache->set($finderkey_multy, $findue,86400);
                     }
                     $prod_attr_query_filt = ' and options_values_id IN (' . implode(',', $findue) . ')  and quantity > 0  IN (' . implode(',', $findue) . ') ';
                     // $arfilt[':prod_attr_query'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $prod_attr_query . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
-
                     // $arfilt_pricemax[':prod_attr_query'] = $prod_attr_query;
-
-
                 } else {
                     $prod_search_query_filt = '';
                 }
@@ -480,7 +475,7 @@ trait AggregateCatalogData
                 }
                 Yii::$app->cache->set($key, ['productattrib' => $productattrib, 'data' => $data, 'spec'=>$spec,  'count_arrs' => $count_arrs, 'price_max' => $price_max, 'checkcache' => $checkcache], 86400);
             } else {
-              //  print_r('с проверкой последнего апдейта из кэша');
+                //  print_r('с проверкой последнего апдейта из кэша');
                 $cache = 'Kэш';
                 $productattrib = $dataque['productattrib'];
                 $count_arrs = $dataque['count_arrs'];
@@ -489,7 +484,7 @@ trait AggregateCatalogData
                 $spec = $dataque['spec'];
             }
         }else{
-          //  print_r('сквозной');
+            //  print_r('сквозной');
             $cache = 'Kэш';
             $productattrib = $dataque['productattrib'];
             $count_arrs = $dataque['count_arrs'];

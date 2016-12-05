@@ -24,9 +24,15 @@ trait ActionAddCommon
                 $result->referral_id = $referal['id'];
                 $result->status = 1;
                 if($result->save()){
-                    echo 'Общий заказ создан! Номер заказа : '.$result->id;
+                    echo '<script>
+                        alert(\'Общий заказ создан! Номер заказа : '.$result->id.'\');
+                    </script>';
+                 //   Yii::$app->session->setFlash('alert-info', 'Общий заказ создан! Номер заказа : '.$result->id);
                     $form = \yii\bootstrap\ActiveForm::begin([
-                        'options' => ['data-pjax' => true],
+                        'options' => [
+                            'data-pjax' => true,
+                            'data-close'=>true
+                        ],
                         'id'=>'groupdiscountuser',
                         'action'=>'/sp/add-common',
                         'method'=> 'post',
