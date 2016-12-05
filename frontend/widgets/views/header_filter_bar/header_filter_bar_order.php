@@ -5,8 +5,7 @@
 /* @var array $sortStatusData */
 /* @var array $sortOrderByData */
 
-$this->registerCssFile('@web/css/dropdown-nav.css');
-$this->registerJsFile('@web/js/dropdown-nav.js');
+$this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/site/css/dropdown-nav-sp.css');
 ?>
 
 <div class="header-container">
