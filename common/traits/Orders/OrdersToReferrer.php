@@ -25,6 +25,7 @@ use common\models\User;
 use common\models\Zones;
 use yii\helpers\ArrayHelper;
 use Yii;
+use yii\helpers\HtmlPurifier;
 
 
 trait OrdersToReferrer
@@ -32,12 +33,20 @@ trait OrdersToReferrer
     public function OrdersToReferrer()
     {
 
-        if(($userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->getUser()->id])->asArray()->one()) == FALSE){
+        if(($userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->asArray()->one()) == FALSE){
            Yii::$app->session->setFlash('error', 'Заполните профиль');
            $this->redirect(Yii::$app->request->referrer);
         }
         date_default_timezone_set('Europe/Moscow');
-        if (Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id' => Yii::$app->user->getId(), 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->asArray()->one()) == FALSE) {
+        if (
+            Yii::$app->user->isGuest ||
+            ($user = User::find()
+                ->where([
+                    'partners_users.id' => Yii::$app->user->getId(),
+                    'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']
+                ])
+                ->joinWith('userinfo')->asArray()->one())
+            == FALSE) {
             return $this->redirect(Yii::$app->request->referrer);
         }
         $product_in_order = Yii::$app->request->post('product');
@@ -84,9 +93,9 @@ trait OrdersToReferrer
                     $ordersprod['products_status'] = 0;
                     $ordersprod['checks'] = 0;
                     if ($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]) {
-                        $ordersprod['comment'] = $this->trim_tags_text($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
+                        $ordersprod['comment'] = HtmlPurifier::process($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
                     } elseif ($comments[$keyin_order]['all']) {
-                        $ordersprod['comment'] = $this->trim_tags_text($comments[$keyin_order]['all']);
+                        $ordersprod['comment'] = HtmlPurifier::process($comments[$keyin_order]['all']);
                     } else {
                         $ordersprod['comment'] = NULL;
                     }
@@ -121,6 +130,7 @@ trait OrdersToReferrer
 
             }
         }
+        $partnerorder['comment'] = HtmlPurifier::process(Yii::$app->request->post('ordercomments'));
         $minprice = 0;
         if ($validprice <= $minprice) {
             return $this->render('cartresult', [

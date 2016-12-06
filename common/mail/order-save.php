@@ -72,7 +72,7 @@ unset($order['discounttotalprice']);
                     <a style="margin-left:8px;color:#282828;" href="http://<?= $site ?><?= BASEURL ?>/contacts">
                         Контакты
                     </a>
-                    <a style="margin-left:8px;color:#282828;" href="http://<?= $site ?><?= BASEURL ?>/lk">
+                    <a style="margin-left:8px;color:#282828;" href="http://<?= $site ?><?= BASEURL ?>/lk/">
                         Личный кабинет
                     </a>
                     <a style="margin-left:8px;color:#282828;" href="http://<?= $site ?><?= BASEURL ?>/requestorders">

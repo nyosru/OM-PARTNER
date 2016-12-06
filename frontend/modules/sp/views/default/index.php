@@ -6,11 +6,11 @@ use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 
 $text = [
-        '',
-        '<div class="client-new"></div>',
-        '<div class="client-old"></div>',
-        '<div class="client-vip"></div>',
-    ];
+    '',
+    '<div class="client-new"></div>',
+    '<div class="client-old"></div>',
+    '<div class="client-vip"></div>',
+];
 ?>
 <?= \frontend\widgets\HeaderFilterBarNew::widget([
     'dataProvider' => $data_provider,
@@ -40,64 +40,64 @@ $text = [
                 <?php
                 $i_model = 0;
                 foreach ($data_provider->getModels() as $user_id => $user) : ?>
-                <a href="<?= \yii\helpers\Url::current(['user_id' => $user_id]) ?>"  style="color: inherit;">
-                    <?php
-                    $i_model += 1;
-                    ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
-                    ?>
-                    <div style="<?=$back_fff?>" class="client-plate <?=(Yii::$app->request->getQueryParam('user_id')==$user_id)?'client-active':''?>">
-                        <div class="client-avatar">
-                            <div class="avatar">
+                    <a href="<?= \yii\helpers\Url::current(['user_id' => $user_id]) ?>"  style="color: inherit;">
+                        <?php
+                        $i_model += 1;
+                        ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
+                        ?>
+                        <div style="<?=$back_fff?>" class="client-plate <?=(Yii::$app->request->getQueryParam('user_id')==$user_id)?'client-active':''?>">
+                            <div class="client-avatar">
+                                <div class="avatar">
 
                                     <div class="client-image"></div>
 
-                                <?= $text[$user->status] ?>
-                            </div>
-                        </div>
-                        <div class="client-info">
-                            <div class="client-info-fr">
-                                <div class="client-name">
-                                    <?php
-                                    if ($user->userinfo->name) {
-                                        $name = $user->userinfo->lastname.' '.$user->userinfo->name.' '.$user->userinfo->secondname;
-                                    } else {
-                                        $name = 'Пользователь еще не заполнял свои данные';
-                                    }
-                                    echo $name;
-                                    ?>
+                                    <?= $text[$user->status] ?>
                                 </div>
-                                <?php if ($user->lastOrder) :
-                                    $final_order_price = 0;
-                                    $order_arr = unserialize($user->lastOrder->order);
-                                    foreach ($order_arr['products'] as $product) {
-                                        $final_order_price += round($product[3]) * round($product[4]);
-                                    }
-                                    $params = new \php_rutils\struct\TimeParams();
-                                    $params->date = $user->lastOrder->create_date; //это значение по умолчанию
-                                    $params->format = 'd F Y H:i:s';
-                                    $params->monthInflected = true;
-                                    $create_date = \php_rutils\RUtils::dt()->ruStrFTime($params);
-                                    ?>
-                                    <div class="client-last-order">
-                                        <?= '<span>Последний заказ: #'.$user->lastOrder->id.'</span>' ?>
+                            </div>
+                            <div class="client-info">
+                                <div class="client-info-fr">
+                                    <div class="client-name">
+                                        <?php
+                                        if ($user->userinfo->name) {
+                                            $name = $user->userinfo->lastname.' '.$user->userinfo->name.' '.$user->userinfo->secondname;
+                                        } else {
+                                            $name = 'Пользователь еще не заполнял свои данные';
+                                        }
+                                        echo $name;
+                                        ?>
                                     </div>
-                                    <div class="client-last-order-date">
-                                        <?= '<span>Дата: '.$create_date.'</span>' ?>
-                                        <br>
-                                        <?= '<span>Цена: '.$final_order_price.'р.</span>' ?>
-                                    </div>
+                                    <?php if ($user->lastOrder) :
+                                        $final_order_price = 0;
+                                        $order_arr = unserialize($user->lastOrder->order);
+                                        foreach ($order_arr['products'] as $product) {
+                                            $final_order_price += round($product[3]) * round($product[4]);
+                                        }
+                                        $params = new \php_rutils\struct\TimeParams();
+                                        $params->date = $user->lastOrder->create_date; //это значение по умолчанию
+                                        $params->format = 'd F Y H:i:s';
+                                        $params->monthInflected = true;
+                                        $create_date = \php_rutils\RUtils::dt()->ruStrFTime($params);
+                                        ?>
+                                        <div class="client-last-order">
+                                            <?= '<span>Последний заказ: #'.$user->lastOrder->id.'</span>' ?>
+                                        </div>
+                                        <div class="client-last-order-date">
+                                            <?= '<span>Дата: '.$create_date.'</span>' ?>
+                                            <br>
+                                            <?= '<span>Цена: '.$final_order_price.'р.</span>' ?>
+                                        </div>
 
-                                <?php else : ?>
+                                    <?php else : ?>
 
-                                    <div class="client-last-order-date">
-                                        <?= '<span">Заказов от клиента не поступало</span>' ?>
-                                    </div>
+                                        <div class="client-last-order-date">
+                                            <?= '<span">Заказов от клиента не поступало</span>' ?>
+                                        </div>
 
-                                <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -119,7 +119,7 @@ $text = [
                                 $userrinfo_name = $query_user->userinfo->lastname.' '.$query_user->userinfo->name.' '.$query_user->userinfo->secondname;
                             else :
                                 $userrinfo_name = 'Данных нет';
-                             endif; ?>
+                            endif; ?>
 
                             <?= '<div>' .$userrinfo_name .
                             '
@@ -216,7 +216,7 @@ $text = [
                             $params->monthInflected = true;
                             $last_order = \php_rutils\RUtils::dt()->ruStrFTime($params);
                             ?>
-                        <div>Последний заказ <?= $interval->format('%d'); ?> дней назад (<?= $last_order ?>)</div>
+                            <div>Последний заказ <?= $interval->format('%d'); ?> дней назад (<?= $last_order ?>)</div>
                         <?php else : ?>
                             <div>Заказов не было</div>
                         <?php endif; ?>
@@ -235,102 +235,102 @@ $text = [
                     ?>
                     <div class="client-orders-board-table">
                         <div class="row">
-                        <?php
-                        $i_product = 0;
-                        $order_un = null;
-                        ?>
-                        <?php foreach ($dataProvider->getModels() as $order) : ?>
                             <?php
-                            $order_un = unserialize($order['order']);
-                            $order_price = 0;
-                            foreach ($order_un['products'] as $product) {
-                                if(count($product) > 5) {
-                                    $order_price = $order_price + round($product[3] * $product[4]);
-                                }
-                            }
+                            $i_product = 0;
+                            $order_un = null;
                             ?>
+                            <?php foreach ($dataProvider->getModels() as $order) : ?>
+                                <?php
+                                $order_un = unserialize($order['order']);
+                                $order_price = 0;
+                                foreach ($order_un['products'] as $product) {
+                                    if(count($product) > 5) {
+                                        $order_price = $order_price + round($product[3] * $product[4]);
+                                    }
+                                }
+                                ?>
 
-                            <div class="col-md-12">
-                                <div class="col-md-1 order-pseudo-column" style="text-align: center;">
-                                    <a class="hrefline collapsed" data-toggle="collapse" data-parent="#product-plane" href="#product-line-<?=$i_product?>"></a>
+                                <div class="col-md-12">
+                                    <div class="col-md-1 order-pseudo-column" style="text-align: center;">
+                                        <a class="hrefline collapsed" data-toggle="collapse" data-parent="#product-plane" href="#product-line-<?=$i_product?>"></a>
+                                    </div>
+                                    <div class="col-md-1 order-pseudo-column"><?= $order->id ?></div>
+                                    <div class="col-md-2 order-pseudo-column"><?= $order->create_date ?></div>
+                                    <div class="col-md-1 order-pseudo-column"><?= $order_price ?>p</div>
+                                    <div class="col-md-6 order-pseudo-column"><?= $order->status ?></div>
+                                    <div class="col-md-1 order-pseudo-column" style="text-align: right;"><a class="glyphicon glyphicon-pencil" target="_blank" href="/sp/#id=<?= $order->id ?>"></a></div>
                                 </div>
-                                <div class="col-md-1 order-pseudo-column"><?= $order->id ?></div>
-                                <div class="col-md-2 order-pseudo-column"><?= $order->create_date ?></div>
-                                <div class="col-md-1 order-pseudo-column"><?= $order_price ?>p</div>
-                                <div class="col-md-6 order-pseudo-column"><?= $order->status ?></div>
-                                <div class="col-md-1 order-pseudo-column" style="text-align: right;"><a class="glyphicon glyphicon-pencil" target="_blank" href="/sp/#id=<?= $order->id ?>"></a></div>
-                            </div>
-                            <div id="product-line-<?=$i_product?>" class="panel-collapse collapse" style="height: 100%">
-                                <div class="panel-body">
-                                    <?php foreach ($order_un['products'] as $products) : ?>
-                                        <div style="" class="product-card-common">
-                                        <div style="" class="product-main-board">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="col-md-2 card-order-column">
-                                                        <div class="photo-card-order-column">
-                                                            <?php if(!empty($products[0])) : ?>
-                                                            <img src="/imagepreview?src=<?=$products[0]?>" class="photo-card-order-img">
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3 card-order-column">
-                                                        <div class="header-card-order-column">
-                                                            Арт. <?= $products[1]?>
-                                                        </div>
-                                                        <div class="content-card-order-column">
-                                                            <?= $products[7]?> <br><br>
-                                                            Размер: <?= $products[6] ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-7 card-order-column">
-                                                        <div class="col-md-4">
-                                                            <div class="header-card-order-column">
-                                                                Цена:
+                                <div id="product-line-<?=$i_product?>" class="panel-collapse collapse" style="height: 100%">
+                                    <div class="panel-body">
+                                        <?php foreach ($order_un['products'] as $products) : ?>
+                                            <div style="" class="product-card-common">
+                                                <div style="" class="product-main-board">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-2 card-order-column">
+                                                                <div class="photo-card-order-column">
+                                                                    <?php if(!empty($products[0])) : ?>
+                                                                        <img src="/imagepreview?src=<?=$products[0]?>" class="photo-card-order-img">
+                                                                    <?php endif; ?>
+                                                                </div>
                                                             </div>
-                                                            <div class="content-card-order-column">
-                                                                <?= round($products[3]) ?>р
+                                                            <div class="col-md-3 card-order-column">
+                                                                <div class="header-card-order-column">
+                                                                    Арт. <?= $products[1]?>
+                                                                </div>
+                                                                <div class="content-card-order-column">
+                                                                    <?= $products[7]?> <br><br>
+                                                                    Размер: <?= $products[6] ?>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="header-card-order-column">
-                                                                Количество:
-                                                            </div>
-                                                            <div class="content-card-order-column">
-                                                                <?= $products[4] ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4"><div class="header-card-order-column">
-                                                                Сумма:
-                                                            </div>
-                                                            <div class="content-card-order-column">
-                                                                <?= round($products[3] * $products[4])?>р
+                                                            <div class="col-md-7 card-order-column">
+                                                                <div class="col-md-4">
+                                                                    <div class="header-card-order-column">
+                                                                        Цена:
+                                                                    </div>
+                                                                    <div class="content-card-order-column">
+                                                                        <?= round($products[3]) ?>р
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="header-card-order-column">
+                                                                        Количество:
+                                                                    </div>
+                                                                    <div class="content-card-order-column">
+                                                                        <?= $products[4] ?>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4"><div class="header-card-order-column">
+                                                                        Сумма:
+                                                                    </div>
+                                                                    <div class="content-card-order-column">
+                                                                        <?= round($products[3] * $products[4])?>р
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <?php endforeach;?>
                                     </div>
-                                    <?php endforeach;?>
                                 </div>
-                            </div>
 
-                        <?php
+                                <?php
 
-                        $order_un = null;
-                        $i_product++;
-                        endforeach;
-                        ?>
+                                $order_un = null;
+                                $i_product++;
+                            endforeach;
+                            ?>
                         </div>
                         <div class="pag">
-                        <?= LinkPager::widget([
-                            'pagination'     => $dataProvider->getPagination(),
-                            'firstPageLabel' => 'Первая',
-                            'lastPageLabel'  => 'Последняя',
-                            'maxButtonCount' => 5,
-                        ]); ?>
-                            </div>
+                            <?= LinkPager::widget([
+                                'pagination'     => $dataProvider->getPagination(),
+                                'firstPageLabel' => 'Первая',
+                                'lastPageLabel'  => 'Последняя',
+                                'maxButtonCount' => 5,
+                            ]); ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -379,23 +379,3 @@ $text = [
         </div>
     </div>
 </div>
-
-
-<script>
-    (function ($) {
-        $(window).on("load", function () {
-            $("#scroll1").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            });
-            $("#scroll2").mCustomScrollbar({
-                theme: "dark",
-                axis: "y",
-                contentTouchScroll: "TRUE",
-                advanced: {autoExpandHorizontalScroll: true}
-            });
-        });
-    })(jQuery);
-</script>

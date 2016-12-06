@@ -15,13 +15,7 @@ trait ActionListCommonOrders
         $referral = Referrals::find()
             ->where(['user_id' => Yii::$app->user->getId()])
             ->asArray()
-            ->one()
-        ;
-
-        if (!$referral) {
-            return false;
-        }
-
+            ->one();
         $result = CommonOrders::find();
 
         $is_int_search = preg_match('/^\+?\d+$/', $search);
@@ -33,7 +27,7 @@ trait ActionListCommonOrders
             ;
         }
 
-        $result = $result->andWhere(['referral_id' => $referral])->orderBy('date_added DESC')->asArray()->all();
+        $result = $result->andWhere(['referral_id' => $referral])->orderBy('date_added DESC')->limit(5)->asArray()->all();
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

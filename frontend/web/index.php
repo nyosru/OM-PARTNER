@@ -1,80 +1,83 @@
 <?php
+
 use common\models\Partners;
 use common\models\PartnersSettings;
+use common\models\PartnersDomain;
+use common\traits\ThemeResourcesClass;
+use frontend\assets\AppAsset;
 
-if (function_exists('pinba_timer_start')) {
-  $timer = pinba_timer_start(array('Tочка'=>'Инициализация'));
-}
-
-//if (!isset($_COOKIE['valid'])) {
-//    header('Location: /valid.php');
-//} elseif ($_COOKIE['valid'] != 4568767876) {
-//    header('Location: /botswelcome.php');
-//}
 
 set_time_limit ( 120 );
 date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR);
 
-    defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
 
-
-
-if (function_exists('pinba_script_name_set')) {
-    pinba_script_name_set($_SERVER['REQUEST_URI']);
-}
-
+defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
 defined('YII_ENV') or define('YII_ENV', 'dev');
+
 require(__DIR__ . '/../../vendor/autoload.php');
 require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
 require(__DIR__ . '/../../common/config/bootstrap.php');
 require(__DIR__ . '/../config/bootstrap.php');
+
 $config = yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../../common/config/main.php'),
     require(__DIR__ . '/../../common/config/main-local.php'),
     require(__DIR__ . '/../config/main.php'),
     require(__DIR__ . '/../config/main-local.php')
 );
+
 $versions = require(__DIR__ . '/../config/versions.php');
 $application = new yii\web\Application($config);
+
+
+function off($application){
+    $application->db->close();
+}
+register_shutdown_function('off', $application);
+
 if($application->params['construct'] == TRUE){
     echo '<html><body>';
     echo '<img style="margin: auto;position: absolute; top: 0; bottom: 0; right: 0;left: 0;" src="http://'.$_SERVER['HTTP_HOST'].'/images/logo/tz.png">';
     echo '</body></html>';
     die();
 }
-function off($application){
-    $application->db->close();
-}
-register_shutdown_function('off', $application);
-if (function_exists('pinba_timer_stop')) {
-    pinba_timer_stop($timer);
+
+$key = Yii::$app->cache->buildKey('domain-constants-' . md5($_SERVER['HTTP_HOST']));
+if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
+    if((
+        $partners_data = PartnersDomain::find()
+        ->select([
+         Partners::tableName().'.*',
+         PartnersDomain::tableName().'.*'
+        ])
+        ->where(PartnersDomain::tableName().'.domain = :domain',[':domain'=>$_SERVER['HTTP_HOST']])
+        ->joinWith('partner')
+        ->asArray()->one()
+        ) == TRUE
+    ){
+        $partner['APP_ID'] = $partners_data['partner_id'];
+        $partner['APP_CAT'] = $partners_data['allow_cat'];
+        $partner['APP_NAME'] = $partners_data['name'];
+        $partner['APP_THEMES'] = $partners_data['template'];
+        $partner['APP_VERSION'] = $partners_data['version'];
+        Yii::$app->cache->set($key, [
+            'APP_ID' => $partner['APP_ID'],
+            'APP_CAT' => $partner['APP_CAT'],
+            'APP_NAME' => $partner['APP_NAME'],
+            'APP_THEMES' => $partner['APP_THEMES'],
+            'APP_VERSION'=> $partner['APP_VERSION']
+        ]);
+    }else{
+        exit('В данный момент домен не активен');
+    }
 
 }
-if (function_exists('pinba_timer_start')) {
-    $timer =  pinba_timer_start(array('Tочка'=>'Первичная настройка'));
-}
-$key = Yii::$app->cache->buildKey('constantapp-' . $_SERVER['HTTP_HOST']);
-if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
-    $run = new Partners();
-    $check = $run->GetId($_SERVER['HTTP_HOST']);
-    if ($check == '') {
-        die();
-    } else {
-        $partner['APP_ID'] = $run->GetId($_SERVER['HTTP_HOST']);
-        $partner['APP_CAT'] = $run->GetAllowCat($check);
-        $partner['APP_NAME'] = $run->GetNamePartner($check);
-        $partner['APP_THEMES'] = $run->GetTemplate($check);
-        // echo 'Не Кэш';
-        Yii::$app->cache->set($key, ['APP_ID' => $partner['APP_ID'], 'APP_CAT' => $partner['APP_CAT'], 'APP_NAME' => $partner['APP_NAME'], 'APP_THEMES' => $partner['APP_THEMES']]);
-    }
-}else{
-}
-$partner['APP_VERSION'] = 'om';
-if (($versionnum = $partner['APP_VERSION']) == FALSE) {
+
+if (!isset($versions[$partner['APP_VERSION']])) {
     $version = $versions['0'];
 } else {
-    $version = $versions[$versionnum];
+    $version = $versions[$partner['APP_VERSION']];
 }
 
 $config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend']['namespace'];
@@ -129,26 +132,29 @@ $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
 $application->params['constantapp']['APP_VERSION'] = $version;
-class LoadTraitIndex
-{
-    use \common\traits\ThemeResources;
-}
-$temlate_key = Yii::$app->cache->buildKey('templatepartners-' . $partner['APP_ID']);
+
+
+$temlate_key = Yii::$app->cache->buildKey('templatepartners-domain-' . md5(
+        $_SERVER['HTTP_HOST'].'-'.
+        $partner['APP_VERSION'].'-'.
+        $partner['APP_ID'].'-'.
+        $partner['APP_THEMES']
+    ));
 $template_data = Yii::$app->cache->get($temlate_key);
 if(!$template_data){
     $partnersettings = new PartnersSettings();
     $partnerset = $partnersettings->LoadSet();
     Yii::$app->assetManager->appendTimestamp = true;
     if (isset($partnerset['template']['value'])) {
-        $path = new LoadTraitIndex();
-        $theme = $path->ThemeResourcesload($partnerset['template']['value'], 'site')['view'];
+        $path = new ThemeResourcesClass();
+        $theme = $path->ThemeResourcesload($partner['APP_THEMES'], 'site')['view'];
     } else {
         $theme = $application->params['constantapp']['APP_THEMES'];
     }
-    $asset = new \frontend\assets\AppAsset();
-    $assetsite = $asset->LoadAssets($partnerset['template']['value'], 'site');
-    $asset = new \frontend\assets\AppAsset();
-    $adminasset = $asset->LoadAssets($partnerset['template']['value'], 'back');
+    $asset = new AppAsset();
+    $assetsite = $asset->LoadAssets($partner['APP_THEMES'], 'site');
+    $asset = new AppAsset();
+    $adminasset = $asset->LoadAssets($partner['APP_THEMES'], 'back');
     Yii::$app->cache->set($temlate_key, ['data' => $assetsite, 'dataadmin' => $adminasset, 'theme' => $theme, 'partnerset' => $partnerset]);
 }else {
     $assetsite = $template_data['data'];
@@ -156,7 +162,6 @@ if(!$template_data){
     $theme = $template_data['theme'];
     $partnerset = $template_data['partnerset'];
 }
-$theme = 'defaultom';
 $application->params['partnersset'] = $partnerset;
 $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme);
 $application->setLayoutPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme . '/layouts');
@@ -180,10 +185,10 @@ $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event) 
         \Yii::$app->request->url = 'catalog';
     }
 });
-    
-        $application->run();
-        $application->db->close();
-    
-    if (function_exists('pinba_timer_stop')) {
+$application->run();
+
+
+if (function_exists('pinba_timer_stop')) {
     pinba_timer_stop($timer);
-    }
+
+}

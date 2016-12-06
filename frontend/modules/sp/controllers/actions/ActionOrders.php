@@ -16,33 +16,23 @@ trait ActionOrders
     public function actionOrders()
     {
 
+
+
+        $user_id = (integer)Yii::$app->request->getQueryParam('user_id');
+
         $this->layout = 'main-no-fixed';
 
-        $referal = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
+        $referal = Referrals::find()->where(['user_id' => Yii::$app->user->identity->getId()])->asArray()->one();
 
         $query = ReferralsUser::find()
             ->joinWith('user')
             ->joinWith('userinfo')
             ->where(['referral_id' => $referal['id']])
             ->joinWith('lastOrder')
-            ->joinWith('order')
             ->indexBy('user_id')
-            ->groupBy('user_id')
-        ;
+            ->groupBy('user_id');
 
-        $user_id = Yii::$app->request->getQueryParam('user_id');
 
-        $query_user = ReferralsUser::find()
-            ->joinWith('user')
-            ->joinWith('userinfo')
-            ->where(['referral_id' => $referal['id']])
-        ;
-
-        if ($user_id == true) {
-            $query_user = $query_user->andWhere(['user_id' => $user_id]);
-        }
-
-        $query_user = $query_user->limit(1)->groupBy('user_id')->one();
 
         $ds = Yii::$app->request->getQueryParam('ds');
 
@@ -104,7 +94,15 @@ trait ActionOrders
             ],
         ]);
 
-        $model_form_partners_user_info = new PartnersUserInfoForm($query_user->userinfo);
+        if ($user_id == true) {
+            $query_user = ReferralsUser::find()
+                ->joinWith('user')
+                ->joinWith('userinfo')
+                ->where(['referral_id' => $referal['id']]);
+            $query_user = $query_user->andWhere(['user_id' => $user_id]);
+            $query_user = $query_user->limit(1)->groupBy('user_id')->one();
+            $model_form_partners_user_info = new PartnersUserInfoForm($query_user->userinfo);
+        }
 
         return $this->render('index',
             [
@@ -112,5 +110,5 @@ trait ActionOrders
                 'query_user'                    => $query_user,
                 'model_form_partners_user_info' => $model_form_partners_user_info,
             ]);
-        }
+    }
 }

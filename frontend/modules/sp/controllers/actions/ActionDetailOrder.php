@@ -20,7 +20,7 @@ trait ActionDetailOrder
 
         $id = (int)Yii::$app->request->post('id');
 
-        $order = PartnersOrders::find()->where(['id' => $id])->asArray()->one();
+        $order = PartnersOrders::find()->where([PartnersOrders::tableName().'.id' => $id])->joinWith('commonOrder')->asArray()->one();
 
         $referraluser = ReferralsUser::find()
             ->where(['user_id' => $order['user_id'], ReferralsUser::tableName() . '.referral_id' => $referal['id']])

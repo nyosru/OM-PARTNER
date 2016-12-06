@@ -5,7 +5,7 @@ use common\models\ProductsSpecifications;
 use yii;
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
-
+// DEPRECATED
 trait ActionFindProduct {
     public function actionFindProduct() {
         if (Yii::$app->request->isAjax) {
