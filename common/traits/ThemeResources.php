@@ -17,6 +17,7 @@ trait ThemeResources
         $this->paththemes = '@app/themes/' . Yii::$app->params['constantapp']['APP_VERSION']['themesversion'];
         $this->resourcespath = '@app/themes/' . Yii::$app->params['constantapp']['APP_VERSION']['themesversion'] . '/resources/';
         Yii::$app->assetManager->appendTimestamp = true;
+        Yii::$app->assetManager->forceCopy = TRUE;
        // Yii::$app->assetManager->linkAssets = true;
         $path = Yii::getAlias($this->paththemes) . '/' . $identify . '/template.xml';
         $resourcespath = Yii::getAlias($this->resourcespath);
