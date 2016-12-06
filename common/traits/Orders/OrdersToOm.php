@@ -30,7 +30,6 @@ trait OrdersToOm
 {
     public function OrdersToOm()
     {
-
         date_default_timezone_set('Europe/Moscow');
         $wrapart = Configuration::find()->where(['configuration_key' => 'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
         $wrapp = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
@@ -298,6 +297,11 @@ trait OrdersToOm
             $orders->seller_id = $new_seller_id;
 
             if ($orders->save()) {
+                $coupon_id = Yii::$app->request->post('promo-code-id');
+                $coupon_sum = Yii::$app->request->post('promo-code-sum');
+                if(!empty($coupon_id)){
+                    $orders->useCoupon($coupon_id,$coupon_sum);
+                }
                 if (($check = OrdersToPartners::find()->where(['order_id' => $default_user_address['entry_zone_id']])->one()) == FALSE) {
                     if (($region_partners = PartnersToRegion::find()->joinWith('partnersCompanies')->where(['region_id' => $default_user_address['entry_zone_id']])->andWhere('active > 0')->asArray()->all()) == TRUE) {
                         $partners = [];
