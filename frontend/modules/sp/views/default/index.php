@@ -355,8 +355,8 @@ $text = [
                     <?php echo $form->field($model_form_partners_user_info, 'id')->hiddenInput(['readonly' => true, 'value' => $query_user->user_id])->label(false)?>
                     <?php echo $form->field($model_form_partners_user_info, 'city')->textInput(['maxlength' => 75])?>
                     <?php echo $form->field($model_form_partners_user_info, 'adress')->textInput(['maxlength' => 100]) ?>
-                    <?php echo $form->field($model_form_partners_user_info, 'state')->textInput(['maxlength' => 45])?>
-                    <?php echo $form->field($model_form_partners_user_info, 'country')->textInput(['maxlength' => 45]) ?>
+                    <?php echo $form->field($model_form_partners_user_info, 'country',['inputOptions'=>['data'=>['name'=>'country']]])->textInput(['maxlength' => 45,'class'=>'form-control']) ?>
+                    <?php echo $form->field($model_form_partners_user_info, 'state', ['inputOptions'=>['data'=>['name'=>'state']]])->textInput(['maxlength' => 45,'class'=>'form-control'])?>
                     <?php echo $form->field($model_form_partners_user_info, 'telephone')->textInput(['maxlength' => 45])?>
                     <?php echo $form->field($model_form_partners_user_info, 'postcode')->textInput(['maxlength' => 45])?>
                     <?php echo $form->field($model_form_partners_user_info, 'pasportser')->textInput(['maxlength' => 45])?>
@@ -383,4 +383,108 @@ $text = [
         </div>
     </div>
 </div>
+    <script>
+        $(window).on('load', function(){
+
+            $.ajax({
+                type: "GET",
+                url: "/site/countryrequest",
+                data: '',
+                dataType: "json",
+                success: function (out) {
+                    $inner = '';
+                    $.each(
+                        out.response.items, function () {
+                            $inner += '<li data-country="' + this.id + '" id="country">' + this.title + '</li>';
+                        });
+                    $('[data-name=country]').after('<ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1">' + $inner + '</ul>');
+                    $('[data-name=country]').attr('autocomplete', 'off');
+                }
+            });
+            var str = '';
+            if ($('[data-name="country"]').val() != '' && $('[data-name="country"]').val() != undefined) {
+                str = $('[data-name="country"]').val();
+            } else {
+                str = $('[data-name="country"]').text();
+            }
+            $country = $("[data-country]");
+            $check = '';
+            $.each($country, function () {
+                if (str == $(this).html()) {
+                    $check = this.getAttribute('data-country');
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "/site/zonesrequest",
+                data: 'id=' + $check,
+                dataType: "json",
+                success: function (out2) {
+                    $inner = '';
+                    $.each(out2.response.items, function () {
+                        $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                    });
+                    $('#state-drop').remove();
+                    $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                    $('[data-name=state]').attr('autocomplete', 'off');
+                }
+            });
+            $(document).on('click focus', '[data-name=country]', function () {
+                $('#country-drop').show();
+            });
+            $(document).on('click', '#country', function () {
+                $('[data-name=state]').val('');
+                $('[data-name=country]').val($(this).text());
+                $('[data-name=country]').attr('data-country', this.getAttribute('country'));
+                $('#country-drop').hide();
+                $.ajax({
+                    type: "GET",
+                    url: "/site/zonesrequest",
+                    data: 'id=' + this.getAttribute('data-country'),
+                    dataType: "json",
+                    success: function (out2) {
+                        $inner = '';
+                        $.each(out2.response.items, function () {
+                            $inner += '<li data-state="' + this.id + '" id="state">' + this.title + '</li>';
+                        });
+                        $('#state-drop').remove();
+                        $('[data-name=state]').after('<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' + $inner + '</ul>');
+                        $('[data-name=state]').attr('autocomplete', 'off');
+                    }
+                });
+            });
+            $(document).on('click focus', '[data-name=state]', function () {
+                $('#state-drop').show();
+            });
+            $(document).on('click', '#state', function () {
+                $('[data-name=state]').attr('data-state', this.getAttribute('state'));
+                $('[data-name=state]').val($(this).text());
+                $('#state-drop').hide();
+            });
+            $(document).on('keyup', '[data-name=country]', function () {
+                $filtCountryArr = $(this).siblings('ul').children();
+                $search = this.value;
+                $.each($filtCountryArr, function () {
+                    if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+            $(document).on('keyup', '[data-name=state]', function () {
+                $filtCountryArr = $(this).siblings('ul').children();
+                $search = this.value;
+                $.each($filtCountryArr, function () {
+                    if (this.textContent.toLowerCase().indexOf($search.toLowerCase()) + 1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+
+        });
+    </script>
 <?php }?>
