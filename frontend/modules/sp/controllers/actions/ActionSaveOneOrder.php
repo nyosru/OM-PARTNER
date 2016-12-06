@@ -7,7 +7,7 @@ use common\models\ReferralsUser;
 use Yii;
 
 
-trait ActionDeleteProductInOrder
+trait ActionSaveOneOrder
 {
     public function actionSaveOneOrder()
     {
