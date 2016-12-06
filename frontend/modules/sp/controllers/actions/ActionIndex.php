@@ -73,14 +73,11 @@ trait ActionIndex
             $model->andWhere(['partners_orders.status' => $status]);
         }
 
-        $pages = new Pagination([
-            'totalCount' => $model->count(),
-        ]);
-
-        $pages->setPageSize($pagesize);
-
         $data_provider = new ArrayDataProvider([
-            'allModels' => $model->limit($pagesize)->offset($pages->getOffset())->createCommand()->queryAll(),
+            'allModels' => $model->createCommand()->queryAll(),
+            'pagination' => [
+                'pageSize' => 5,
+            ],
         ]);
 
         $data_provider->setSort([
@@ -97,7 +94,7 @@ trait ActionIndex
             ],
         ]);
 
-        return $this->render('orders', ['data' => $data_provider, 'paginate' => $pages]);
+        return $this->render('orders', ['data' => $data_provider]);
 
     }
 

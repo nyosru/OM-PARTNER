@@ -133,19 +133,7 @@
                         ],
                     ]);
                     ?>
-                    <div class="pag">
-                        <?php
-                        echo \yii\widgets\LinkPager::widget([
-                            'options'=>[
-                                'class'=>'pagination'
-                            ],
-                            'linkOptions'=>[
-                                'data-pjax' => true
-                            ],
-                            'pagination' => $paginate,
-                        ]);
-                        ?>
-                    </div>
+
                     <script>
                         inProgress = false;
                         if($('.order-line').attr('data-order')){
