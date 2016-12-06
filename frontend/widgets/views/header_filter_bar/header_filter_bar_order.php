@@ -95,7 +95,7 @@ $this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].
                             'style' => "height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;",
                         ],
                         'pluginOptions' => [
-                            'autoclose' => true,
+//                            'autoclose' => true,
                             'format'    => 'yyyy-mm-dd',
                         ],
                     ]); ?>
@@ -105,6 +105,7 @@ $this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].
                 <div class="" style="display: inline-block;padding: 14px;">
                     <a href="<?= strstr(\yii\helpers\Url::current(), '?', true) ?>" class="reset_filters">Сбросить фильтр</a>
                 </div>
+            </div>
         </div>
 
         <?= \yii\helpers\Html::submitButton('Submit', [
