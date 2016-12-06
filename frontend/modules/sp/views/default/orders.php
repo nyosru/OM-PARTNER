@@ -744,7 +744,13 @@
             }
             inProgressSearch = false;
         } else {
-            alert('Введите корректный артикул.')
+            alert('Введите корректный артикул.');
+            var preloadRemove = function () {
+                $('.preload').remove();
+            };
+            setTimeout(preloadRemove, 200);
+
+
         }
     });
 
