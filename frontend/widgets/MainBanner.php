@@ -26,54 +26,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_30112016_1.png',
-                'referal'=> '/catalog?cat=1728',
-                'term'=> '1729',
-                'alttext' => 'Блузки',
+                'image' =>  'OM_02122016_1.png',
+                'referal'=> '/catalog?cat=1549',
+                'term'=> '',
+                'alttext' => 'Украшения, бижутерия',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_30112016_2.png',
-                'referal'=> '/catalog?cat=1693',
-                'term'=> '1813',
-                'alttext' => 'Кардиганы',
+                'image' =>  'OM_02122016_2.png',
+                'referal'=> '/catalog?cat=2453',
+                'term'=> '',
+                'alttext' => 'Символ года',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_30112016_3.png',
-                'referal'=> '/catalog?cat=2393',
-                'term'=> '2008-winter',
-                'alttext' => 'Ботиночки',
+                'image' =>  'OM_02122016_3.png',
+                'referal'=> '/catalog?cat=1815',
+                'term'=> '',
+                'alttext' => 'Женские головные уборы',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_30112016_4.png',
-                'referal'=> '/catalog?cat=765',
-                'term'=> '2047',
-                'alttext' => 'Женские сумки',
+                'image' => 'OM_02122016_4.png',
+                'referal'=> '/catalog?cat=2730',
+                'term'=> '',
+                'alttext' => 'Аксесуары для курения',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_30112016_5.png',
-                'referal'=> '/catalog?cat=1751',
-                'term'=> '1720',
+                'image' => 'OM_02122016_5.png',
+                'referal'=> '/catalog?cat=1720',
+                'term'=> '',
                 'alttext' => 'Платья',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_30112016_6.png',
-                'referal'=> '/catalog?cat=2047',
-                'alttext' => 'Шапки',
+                'image' => 'OM_02122016_6.png',
+                'referal'=> '/catalog?cat=1316',
+                'alttext' => 'Пледы',
                 'out' => FALSE
             ]
         ],
