@@ -325,6 +325,9 @@ $del_add .= '</select>';
         countPrice();
     });
 
+    $('.input-count').on('change',function(){
+        countPrice();
+    });
     /*
     Сумма заказа
      */
@@ -348,19 +351,28 @@ $del_add .= '</select>';
             }
         });
 
+        var totalPrice;
+
         // Учитываем купон
         var couponType = $('#promo-code-type').val(),
-            couponValue = $('#promo-code-amount').val();
+            couponValue = parseInt($('#promo-code-amount').val());
         if(couponType=='F'){ // если тип купона денежный
-            console.log(couponValue);
-        }
-        if(couponType=='P'){ // если тип купона процентный
-
+            couponprice = couponValue+' руб';
+            totalPrice = godsprice+wrapprice-couponValue;
+            $('#promo-code-sum').val(couponValue);
+        } else if(couponType=='P') { // если тип купона процентный
+            couponprice = couponValue+'%';
+            var couponSum = couponValue*godsprice/100;
+            totalPrice = godsprice-couponSum+wrapprice;
+            $('#promo-code-sum').val(couponSum);
+        } else {
+            couponprice = '0 руб';
+            totalPrice = godsprice+wrapprice;
         }
 
         $('#gods-price').html(godsprice+' руб');
-        $('#coupon-price').html(couponprice+' руб');
-        $('#total-price').html(godsprice+wrapprice+' руб');
+        $('#coupon-price').html(couponprice);
+        $('#total-price').html(totalPrice+' руб');
         $('#wrap-price').html(wrapprice+' руб');
     }
 

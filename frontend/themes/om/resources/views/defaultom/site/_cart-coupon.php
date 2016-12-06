@@ -5,6 +5,7 @@
         <?php
         if(!empty($model)){
             echo '<input type="hidden" value="'.$model->coupon_id.'" name="promo-code-id">';
+            echo '<input type="hidden" value="" name="promo-code-sum" id="promo-code-sum">';
             echo '<input type="hidden" value="'.$model->coupon_amount.'" id="promo-code-amount">';
             echo '<input type="hidden" value="'.$model->coupon_type.'" id="promo-code-type">'; //Тип купона: P - процент, F - рубли
         }
@@ -24,7 +25,16 @@ elseif(!empty($message["success"]))
 $this->registerJs(<<<JS
     $('#coupon-send').on('click', function (e) {
         var coupon = $('#promo-code').val(),
-            totalPrice = parseInt($('#gods-price').text());
+            totalPrice = parseInt($('#gods-price').text()),
+            cart = [],
+            products = $('.input-count');
+
+        //$.each(products, function () {
+        //    cart.push({
+        //        id: $(this).data('prod'),
+        //        count: $(this).val()
+        //    });
+        //});
         $.ajax({
             type: "POST",
             url: "/glavnaya/cart?coupon=1",

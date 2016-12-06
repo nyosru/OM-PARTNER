@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $customer_id
  * @property string $redeem_date
  * @property string $redeem_ip
+ * @property float $redeem_sum
  * @property integer $order_id
  */
 class CouponRedeemTrack extends \yii\db\ActiveRecord
@@ -52,7 +53,7 @@ class CouponRedeemTrack extends \yii\db\ActiveRecord
         return [
             [['coupon_id', 'customer_id', 'order_id'], 'integer'],
             [['redeem_date'], 'safe'],
-            [['redeem_ip'], 'required'],
+            [['redeem_ip','redeem_sum'], 'required'],
             [['redeem_ip'], 'string', 'max' => 255],
         ];
     }

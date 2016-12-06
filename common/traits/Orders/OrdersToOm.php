@@ -298,8 +298,9 @@ trait OrdersToOm
 
             if ($orders->save()) {
                 $coupon_id = Yii::$app->request->post('promo-code-id');
+                $coupon_sum = Yii::$app->request->post('promo-code-sum');
                 if(!empty($coupon_id)){
-                    $orders->useCoupon($coupon_id);
+                    $orders->useCoupon($coupon_id,$coupon_sum);
                 }
                 if (($check = OrdersToPartners::find()->where(['order_id' => $default_user_address['entry_zone_id']])->one()) == FALSE) {
                     if (($region_partners = PartnersToRegion::find()->joinWith('partnersCompanies')->where(['region_id' => $default_user_address['entry_zone_id']])->andWhere('active > 0')->asArray()->all()) == TRUE) {
