@@ -362,7 +362,6 @@ $text = [
                     <?php echo $form->field($model_form_partners_user_info, 'pasportser')->textInput(['maxlength' => 45])?>
                     <?php echo $form->field($model_form_partners_user_info, 'pasportnum')->textInput(['maxlength' => 45])?>
                     <?php echo $form->field($model_form_partners_user_info, 'pasportwhere')->textInput(['maxlength' => 45])?>
-                    <?php echo $form->field($model_form_partners_user_info, 'pasportwhere')->textInput(['maxlength' => 45])?>
                     <?php echo $form->field($model_form_partners_user_info, 'pasportdate')->widget(\kartik\date\DatePicker::classname(), [
                         'language'      => 'ru',
                         'name'          => 'pasportdate',
