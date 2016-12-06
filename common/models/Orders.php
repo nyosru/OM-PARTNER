@@ -190,6 +190,11 @@ class Orders extends ActiveRecordExt
         ];
     }
 
+    public function getCoupons()
+    {
+        return $this->hasMany(CouponRedeemTrack::className(), ['order_id' => 'orders_id']);
+    }
+
     public function getProducts()
     {
         return $this->hasMany(OrdersProducts::className(), ['orders_id' => 'orders_id']);
