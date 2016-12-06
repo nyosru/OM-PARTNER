@@ -352,7 +352,7 @@
                                             button_to_common_order.text(old_text)
                                         }, 4000);
                                     } else if (typeof(data) == "number"){
-                                        button_to_common_order.text('Уже закрепилен за объединенным заказом №'+data);
+                                        button_to_common_order.text('Уже закреплен за объединенным заказом №'+data);
                                         setTimeout(function() {
                                             button_to_common_order.text(old_text)
                                         }, 4000);
