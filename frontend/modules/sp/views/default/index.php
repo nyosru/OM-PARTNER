@@ -102,6 +102,7 @@ $text = [
             </div>
         </div>
         <div id="col2">
+            <?php if($query_user){?>
             <div id="scroll2" style="height: 100%">
                 <div class="client-board">
                     <div class="client-board-avatar">
@@ -335,9 +336,10 @@ $text = [
                 </div>
             </div>
         </div>
+    <?php }?>
     </div>
 </div>
-
+<?php if($model_form_partners_user_info){?>
 <!-- Modal -->
 <div class="modal fade" id="om_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div id="om_partners_modal_block">
@@ -348,6 +350,7 @@ $text = [
                     <h4 class="modal-title" id="myModalLabel">Редактирование данных пользователя</h4>
                 </div>
                 <div class="modal-body">
+
                     <?php $form = ActiveForm::begin(['action' => Yii::$app->urlManager->createUrl(['/sp/edit-user-info', 'id' => $query_user->user_id])]); ?>
                     <?php echo $form->field($model_form_partners_user_info, 'id')->hiddenInput(['readonly' => true, 'value' => $query_user->user_id])->label(false)?>
                     <?php echo $form->field($model_form_partners_user_info, 'city')->textInput(['maxlength' => 75])?>
@@ -369,13 +372,16 @@ $text = [
                             'format'    => 'yyyy-mm-dd',
                         ],
                     ]) ?>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                     <?= Html::submitButton('Сохранить изменения', ['class' => 'btn btn-primary']); ?>
                 </div>
                 <?php $form = ActiveForm::end(); ?>
+
             </div>
         </div>
     </div>
 </div>
+<?php }?>
