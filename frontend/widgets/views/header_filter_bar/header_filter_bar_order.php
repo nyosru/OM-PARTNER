@@ -97,21 +97,30 @@ $this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].
                         'pluginOptions' => [
 //                            'autoclose' => true,
                             'format'    => 'yyyy-mm-dd',
+
                         ],
+                        'pluginEvents' => [
+                            "hide" => "function(e) {  console.log(e); }",
+                        ],
+
                     ]); ?>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="" style="display: inline-block;padding: 14px;">
-                    <a href="<?= strstr(\yii\helpers\Url::current(), '?', true) ?>" class="reset_filters">Сбросить фильтр</a>
+                <div class="filters_btns">
+                    <?= \yii\helpers\Html::submitButton('Применить', [
+                        'class' => 'filters',
+                        'style' => '',
+                    ]); ?>
+                    <div class="filters" style="margin-left: 10px;">
+                        <a href="<?= strstr(\yii\helpers\Url::current(), '?', true) ?>" style="float: right" class="">Сбросить</a>
+                    </div>
+
                 </div>
             </div>
         </div>
 
-        <?= \yii\helpers\Html::submitButton('Submit', [
-            'class' => 'btn btn-primary',
-            'style' => 'display:none',
-        ]); ?>
+
     </form>
 
 </div>
