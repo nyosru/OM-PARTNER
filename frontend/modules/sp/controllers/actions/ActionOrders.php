@@ -53,13 +53,11 @@ trait ActionOrders
                 $query->andWhere('date_added <= "' . $de . '"');
             }
         }
-
-        $search = trim(Yii::$app->request->getQueryParam('search'));
+       
+        $search = mb_strtolower(trim(Yii::$app->request->getQueryParam('search')));
 
         if ($search == true && preg_match('([A-Za-zА-Яа-я])', $search)) {
-            $query->andWhere('name REGEXP "' . $search . '"');
-            $query->orWhere('secondname REGEXP "' . $search . '"');
-            $query->orWhere('lastname REGEXP "' . $search . '"');
+            $query->andWhere('LOWER(name) REGEXP "' . $search . '" OR LOWER(secondname) REGEXP "' . $search . '" OR LOWER(lastname) REGEXP "' . $search . '"');
         }
 
         $status = trim(Yii::$app->request->getQueryParam('status'));
