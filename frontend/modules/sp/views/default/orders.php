@@ -1023,6 +1023,10 @@
                 '</div>' ;
             i_product_card_edit++
         });
+        var comment_text = '';
+        if(typeof (data.order.order.comment) !== 'undefined'){
+            comment_text = data.order.order.comment;
+        }
     $('.datacontainer').html('<div style="margin:25px;"> ' +
     '<div style="width: 100%;  display:inline-block;"> ' +
         '<div> ' +
@@ -1036,7 +1040,7 @@
                     'Комментарий к заказу ' +
                     '</div> ' +
                 '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;">' +
-        data.order.order.comment +
+        comment_text +
         '</textarea> ' +
             '</div> ' +
         products_html +
