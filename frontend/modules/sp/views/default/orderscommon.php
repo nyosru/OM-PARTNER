@@ -467,8 +467,8 @@
             error: function (data) {
                 console.log(data);
             },
-            success: function (products) {
-                orders_list.partnerOrders = products;
+            success: function (partnerOrders) {
+                orders_list.partnerOrders = partnerOrders;
             }
         });
     });
