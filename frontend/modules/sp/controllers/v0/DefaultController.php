@@ -3,6 +3,7 @@
 namespace frontend\modules\sp\controllers\v0;
 
 
+use common\traits\Orders\CommonOrdersToOm;
 use frontend\controllers\actions\om\ActionOrdersStatus;
 use frontend\modules\sp\controllers\actions\ActionAddClientOrderComments;
 use frontend\modules\sp\controllers\actions\ActionAddCommon;
@@ -26,6 +27,7 @@ use frontend\modules\sp\controllers\actions\ActionOrders;
 use frontend\modules\sp\controllers\actions\ActionDeleteProductInOrder;
 use frontend\modules\sp\controllers\actions\ActionOrdersEdit;
 use frontend\modules\sp\controllers\actions\ActionFindProduct;
+use frontend\modules\sp\controllers\actions\ActionSaveCommonOrders;
 use frontend\modules\sp\controllers\actions\ActionSaveOneOrder;
 use frontend\modules\sp\controllers\actions\ActionSwapAttachOrderToCommon;
 use Yii;
@@ -58,6 +60,8 @@ class DefaultController extends Controller
         ActionAddCommonOrderComments,
         ActionAddPositionOrderComments,
         ActionAddClientOrderComments,
+        ActionSaveCommonOrders,
+        CommonOrdersToOm,
         ActionSaveOneOrder,
         ActionFindProduct;
     public function behaviors()

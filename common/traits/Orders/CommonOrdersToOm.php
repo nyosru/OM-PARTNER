@@ -19,6 +19,7 @@ use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsToCategories;
 use common\models\PartnersToRegion;
 use common\models\Referrals;
+use common\models\ReferralsUser;
 use common\models\SelerAnket;
 use common\models\SpsrZones;
 use common\models\User;
@@ -33,12 +34,29 @@ trait CommonOrdersToOm
     {
         date_default_timezone_set('Europe/Moscow');
         
-       // $referral_order = Referrals::find()->where('user_id = :id', [':id'=>Yii::$app->user->getId()])->->asArray()->one();
+        $referral_order = Referrals::find()->asArray()->one();
+
+
+        $model = ReferralsUser::find()->select([
+            'partners_orders.id as ids',
+            'partners_orders.status as order_status',
+            'partners_users.status as user_status',
+            'partners_referrals_users.*',
+            'partners_users_info.*',
+            'partners_orders.*',
+            'partners_common_orders_links.*',
+        ])
+            ->joinWith('user')
+            ->joinWith('userinfo')
+            ->joinWith('order')
+            ->joinWith('commonOrder')
+            ->where('user_id = :id', [':id'=>Yii::$app->user->getId()])
+            ->asArray()->one();
+        ;
+
+        $commonorder = (integer)Yii::$app->request->post('orderid');
         
-       // $commonorder = (integer)Yii::$app->request->post('orderid');
-        
-        
-        
+
         $wrapart = Configuration::find()->where(['configuration_key' => 'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
         $wrapp = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
      
