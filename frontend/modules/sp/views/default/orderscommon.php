@@ -457,7 +457,6 @@
 
     // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
     $(document).on('click', '#save_orders', function(){
-        console.log(Object.values(orders_list.partnerOrders));
         $.ajax({
             method: 'post',
             url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-common-orders'])?>",
@@ -469,7 +468,7 @@
                 console.log(data);
             },
             success: function (products) {
-                console.log(products);
+                orders_list.partnerOrders = products;
             }
         });
     });
