@@ -1,8 +1,10 @@
 <?php
 namespace common\traits\Orders;
 
+use common\models\AddressBook;
 use common\models\AdminCompaniesBank;
 use common\models\AdminCompaniesBankToOrders;
+use common\models\CommonOrders;
 use common\models\Configuration;
 use common\models\Countries;
 use common\models\Featured;
@@ -34,28 +36,43 @@ trait CommonOrdersToOm
     {
         date_default_timezone_set('Europe/Moscow');
         
-        $referral_order = Referrals::find()->asArray()->one();
+        $referral_id = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one();
+
+        $commonorder = (integer)Yii::$app->request->getQueryParam('orderid');
+
+        $address = (integer)Yii::$app->request->getQueryParam('address');
 
 
-        $model = ReferralsUser::find()->select([
-            'partners_orders.id as ids',
-            'partners_orders.status as order_status',
-            'partners_users.status as user_status',
-            'partners_referrals_users.*',
-            'partners_users_info.*',
-            'partners_orders.*',
-            'partners_common_orders_links.*',
-        ])
+        $model = CommonOrders::find()
+            ->where(CommonOrders::tableName().'.referral_id = :refid', [':refid'=>$referral_id['id']])
+            ->andWhere(CommonOrders::tableName().'.status = :status', [':status'=> '1'])
+            ->andWhere(CommonOrders::tableName().'.id = :orderid', [':orderid'=>$commonorder])
+            ->andWhere(AddressBook::tableName().'.address_book_id = :address or address_book_id = pay_adress_id or address_book_id = delivery_adress_id', [':address'=>$address])
+            ->joinWith('referral')
             ->joinWith('user')
-            ->joinWith('userinfo')
-            ->joinWith('order')
-            ->joinWith('commonOrder')
-            ->where('user_id = :id', [':id'=>Yii::$app->user->getId()])
+            ->joinWith('customer')
+            ->joinWith('addressBook')
+            ->joinWith('link')
+            ->joinWith('partnerOrdersFromLink')
             ->asArray()->one();
         ;
+        if(!$model){
+            return $this->render('cartresultmultyorders', [
+                'result' => [
+                    'code' => 100,
+                    'text' => 'Не правильные параметры заказа',
+                    'data' => [
+                        'paramorder' => [
+                        ],
 
-        $commonorder = (integer)Yii::$app->request->post('orderid');
-        
+                    ]
+                ]
+            ]);
+        }
+        echo '<pre>';
+        print_r($model);
+        echo '</pre>';
+        die();
 
         $wrapart = Configuration::find()->where(['configuration_key' => 'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
         $wrapp = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
