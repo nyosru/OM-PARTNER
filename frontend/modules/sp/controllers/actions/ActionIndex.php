@@ -60,11 +60,9 @@ trait ActionIndex
 
         $search = mb_strtolower(trim(Yii::$app->request->getQueryParam('search')));
 
-        if ($search == true && preg_match('[0-9 ]', $search)) {
+        if ($search == true && preg_match('/^[0-9\s]+/', $search)) {
             $model->andWhere(PartnersOrders::tableName().'.id REGEXP "' . $search . '"');
-        }
-
-        if ($search == true && preg_match('/^[0-9a-zа-я\s]+$/iu', $search)) {
+        }else if ($search == true && preg_match('/^[0-9a-zа-я\s]+$/iu', $search)) {
             $model->andWhere('LOWER(name) REGEXP "' . $search . '" OR LOWER(secondname) REGEXP "' . $search . '" OR LOWER(lastname) REGEXP "' . $search . '"');
         }
         $status = trim(Yii::$app->request->getQueryParam('status'));

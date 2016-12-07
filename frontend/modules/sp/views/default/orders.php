@@ -291,12 +291,15 @@
                             }
                             return result;
                         }
-
-                        $(document).on('click', '.common-order', function(){
+                        function refresh_list(){
                             var act = $(this).attr('data-act');
                             var request = $(".input-searcncommon-order").val();
                             common_orders_list = requestCommon(act, request);
-                            renderCommonList(common_orders_list);
+                           renderCommonList(common_orders_list);
+
+                        };
+                        $(document).on('click', '.common-order', function(){
+                            refresh_list();
                         });
 
                         var input_searcncommon_order = false;
@@ -730,7 +733,13 @@
             }
             inProgressSearch = false;
         } else {
-            alert('Введите корректный артикул.')
+            alert('Введите корректный артикул.');
+            var preloadRemove = function () {
+                $('.preload').remove();
+            };
+            setTimeout(preloadRemove, 200);
+
+
         }
     });
 
@@ -1029,6 +1038,10 @@
                 '</div>' ;
             i_product_card_edit++
         });
+        var comment_text = '';
+        if(typeof (data.order.order.comment) !== 'undefined'){
+            comment_text = data.order.order.comment;
+        }
     $('.datacontainer').html('<div style="margin:25px;"> ' +
     '<div style="width: 100%;  display:inline-block;"> ' +
         '<div> ' +
@@ -1042,7 +1055,7 @@
                     'Комментарий к заказу ' +
                     '</div> ' +
                 '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;">' +
-        data.order.order.comment +
+        comment_text +
         '</textarea> ' +
             '</div> ' +
         products_html +
@@ -1149,7 +1162,7 @@ echo $modal;
                     'id'=>'groupdiscountuser',
                     'action'=>'/sp/add-common',
                     'method'=> 'post',
-                    'enableClientScript' => false
+                    'enableClientScript' => true
                 ]);
                 $commonmodel = new \common\models\CommonOrders();
                 echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
@@ -1159,8 +1172,10 @@ echo $modal;
                 \yii\widgets\Pjax::end();
                 ?>
                 <script>
-
-
+                $('#common').on('pjax:end', function(){
+                  $('#modal-common').modal('hide');
+                    refresh_list();
+                });
                 </script>
             </div>
         </div>
