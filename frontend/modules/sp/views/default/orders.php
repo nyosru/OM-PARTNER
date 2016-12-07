@@ -897,7 +897,7 @@
                 console.log(data);
             },
             success: function (products) {
-                maindata.order.order['products'].push(products)
+                maindata.order.order['products'] = products;
             }
         });
     });
