@@ -133,21 +133,15 @@
                         ],
                     ]);
                     ?>
-                    <div class="pag">
-                        <?php
-                        echo \yii\widgets\LinkPager::widget([
-                            'options'=>[
-                                'class'=>'pagination'
-                            ],
-                            'linkOptions'=>[
-                                'data-pjax' => true
-                            ],
-                            'pagination' => $paginate,
-                        ]);
-                        ?>
-                    </div>
+
                     <script>
+
+                        var product_arr = new Object();
+                        var maindata_arr = new Object();
+                        var maindata = new Object();
+                        var updated_main_data = new Object();
                         inProgress = false;
+
                         if($('.order-line').attr('data-order')){
                             $('[data-detail="'+$('.order-line').attr('data-order')+'"]').addClass('client-active');
                         }
@@ -219,7 +213,7 @@
                             }else{
                                 alert('Выполняется запрос');
                             }
-                        };
+                        }
 
 
 
@@ -355,7 +349,7 @@
                                             button_to_common_order.text(old_text)
                                         }, 4000);
                                     } else if (typeof(data) == "number"){
-                                        button_to_common_order.text('Уже закрепилен за объединенным заказом №'+data);
+                                        button_to_common_order.text('Уже закреплен за объединенным заказом №'+data);
                                         setTimeout(function() {
                                             button_to_common_order.text(old_text)
                                         }, 4000);
@@ -408,10 +402,6 @@
         '<div class="client-vip"></div>'
     ];
 
-    var product_arr = new Object();
-    var maindata_arr = new Object();
-    var maindata = new Object();
-
     $(document).on('click', '.product-to-order', function(){
         $id_product =  this.getAttribute('data-sale');
         $id_order = $('.order-line').attr('data-order');
@@ -462,7 +452,7 @@
        });
             $('[class="final_order_price"]').text('Итого: '+total+' р');
         }, 100);
-    };
+    }
 
     $(document).on('click', '.count-event', function(){
         var input_count = $(this).closest("#input-count-block").children("#input-count");
@@ -472,20 +462,19 @@
             var product_id = input_count.attr('data-prod');
             var attr = input_count.attr('data-attr');
             var price = input_count.attr('data-price');
-            var order_id = input_count.attr('data-order-id');
             var index_product_card = input_count.attr('data-index-product');
-            updateCountProducts(product_id, attr. new_value, order_id);
+            updateUpdatedDataCountProducts(product_id, attr, new_value);
             updateTotalOrder();
             $('.final-product-price'+index_product_card).text(Math.round(price * new_value) + " р.");
         }, 50);
 
     });
 
-    function updateCountProducts(product_id, attr, new_value) {
-        $.each(maindata.order.order['products'], function(index_product, product){
+    function updateUpdatedDataCountProducts(product_id, attr, new_value) {
+        $.each(updated_main_data.order.order['products'], function(index_product, product){
             if(typeof product !== 'undefined') {
                 if (product[0] == product_id && product[2] == attr) {
-                    maindata.order.order['products'][index_product][4] = new_value;
+                    updated_main_data.order.order['products'][index_product][4] = new_value;
                     return true;
                 }
             }
@@ -908,7 +897,27 @@
     '</div> ');
         $('.preload').remove();
     }
+
+    // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
+    $(document).on('click', '#save_order', function(){
+        $.ajax({
+            method: 'post',
+            url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",
+            data: {
+                order_id: updated_main_data.id,
+                products: Object.values(updated_main_data.order.order.products)
+            },
+            error: function (data) {
+                console.log(data);
+            },
+            success: function (products) {
+                maindata.order.order['products'].push(products)
+            }
+        });
+    });
+
     function renderOrderEdit(data) {
+    updated_main_data = JSON.parse(JSON.stringify(maindata));
     $('[data-detail="'+data.id+'"]').addClass('client-active');
     moment.locale('ru');
         var final_price = 0;
@@ -1070,7 +1079,7 @@
         '</div> ' +
     '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;"> ' +
         '<span class="final_order_price"> Итого '+ final_price +' р.</span> ' +
-        '<span class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
+        '<span id="save_order" class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
         '</div> ' +
     '</div> ' +
     '</div> ' +
