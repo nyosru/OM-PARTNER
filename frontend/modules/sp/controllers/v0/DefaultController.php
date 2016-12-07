@@ -26,6 +26,7 @@ use frontend\modules\sp\controllers\actions\ActionOrders;
 use frontend\modules\sp\controllers\actions\ActionDeleteProductInOrder;
 use frontend\modules\sp\controllers\actions\ActionOrdersEdit;
 use frontend\modules\sp\controllers\actions\ActionFindProduct;
+use frontend\modules\sp\controllers\actions\ActionSaveCommonOrders;
 use frontend\modules\sp\controllers\actions\ActionSaveOneOrder;
 use frontend\modules\sp\controllers\actions\ActionSwapAttachOrderToCommon;
 use Yii;
@@ -59,6 +60,7 @@ class DefaultController extends Controller
         ActionAddPositionOrderComments,
         ActionAddClientOrderComments,
         ActionSaveOneOrder,
+        ActionSaveCommonOrders,
         ActionFindProduct;
     public function behaviors()
     {
