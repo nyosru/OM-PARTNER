@@ -232,7 +232,6 @@
                                     if(typeof product !== 'undefined') {
                                         if (product[0] == product_id && product[2] == attr && updated_main_data.id == order_id) {
                                             updated_main_data.order.order['products'].splice(index_order, 1);
-                                            console.log(updated_main_data.order.order['products']);
 
                                             return true;
                                         }
@@ -887,7 +886,6 @@
     // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
     $(document).on('click', '#save_order', function(){
 
-        console.log(Object.values(updated_main_data.order.order.products));
         $.ajax({
             method: 'post',
             url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",
@@ -899,7 +897,6 @@
                 console.log(data);
             },
             success: function (products) {
-                console.log(products);
                 maindata.order.order['products'].push(products)
             }
         });
