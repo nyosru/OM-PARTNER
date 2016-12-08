@@ -17,7 +17,8 @@ trait ThemeResources
         $this->paththemes = '@app/themes/' . Yii::$app->params['constantapp']['APP_VERSION']['themesversion'];
         $this->resourcespath = '@app/themes/' . Yii::$app->params['constantapp']['APP_VERSION']['themesversion'] . '/resources/';
         Yii::$app->assetManager->appendTimestamp = true;
-       // Yii::$app->assetManager->linkAssets = true;
+        // Yii::$app->assetManager->forceCopy = TRUE;
+        // Yii::$app->assetManager->linkAssets = true;
         $path = Yii::getAlias($this->paththemes) . '/' . $identify . '/template.xml';
         $resourcespath = Yii::getAlias($this->resourcespath);
         if (file_exists($path)) {
@@ -34,6 +35,11 @@ trait ThemeResources
                     $css = Array();
                     if ($resdir) {
                         while (false !== ($file = readdir($resdir))) {
+                            if(filemtime($file)  !== filemtime($resourcespath . '/css/' . $csspath . '/' . $side . '/' . $file)){
+                                Yii::$app->assetManager->forceCopy = TRUE;
+                                Yii::$app->assetManager->publish($resourcespath . '/css/' . $csspath . '/' . $side.'/'. $file);
+                                Yii::$app->assetManager->forceCopy = FALSE;
+                            }
                             $cssar = explode('.', $file);
                             if (end($cssar) == 'css') {
                                 $css[] = $csspathpub[1] . '/' . $file . '?v=' . filemtime($resourcespath . '/css/' . $csspath . '/' . $side . '/' . $file);
@@ -50,6 +56,11 @@ trait ThemeResources
                     $js = Array();
                     if ($resdir) {
                         while (false !== ($file = readdir($resdir))) {
+                            if(filemtime($file)  !== filemtime($resourcespath . '/css/' . $jspath . '/' . $side . '/' . $file)){
+                                Yii::$app->assetManager->forceCopy = TRUE;
+                                Yii::$app->assetManager->publish($resourcespath . '/css/' . $jspath . '/' . $side.'/'. $file);
+                                Yii::$app->assetManager->forceCopy = FALSE;
+                            }
                             $jsarr = explode('.', $file);
                             if (end($jsarr) == 'js') {
                                 $js[] = $jspathpub[1] . '/' . $file . '?v=' . filemtime($resourcespath . '/js/' . $jspath . '/' . $side . '/' . $file);

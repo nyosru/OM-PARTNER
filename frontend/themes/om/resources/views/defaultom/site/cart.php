@@ -200,7 +200,7 @@ $del_add .= '</select>';
             <?php
             }else{
             ?>
-            $innerhtml +=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
+            $innerhtml +=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk/" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
             <?php
             }
             ?>

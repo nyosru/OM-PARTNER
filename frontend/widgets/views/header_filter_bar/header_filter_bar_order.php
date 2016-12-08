@@ -5,8 +5,7 @@
 /* @var array $sortStatusData */
 /* @var array $sortOrderByData */
 
-$this->registerCssFile('@web/css/dropdown-nav.css');
-$this->registerJsFile('@web/js/dropdown-nav.js');
+$this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/site/css/dropdown-nav-sp.css');
 ?>
 
 <div class="header-container">
@@ -19,17 +18,17 @@ $this->registerJsFile('@web/js/dropdown-nav.js');
         <?php endforeach; ?>
     </div>
     <form style="height: 60px;background: #FFF">
-        <div class="search-bar col-md-4">
-            <input class="search-console" value="<?= Yii::$app->request->getQueryParam('search') ?>"
-                   name="search"
-                   placeholder="Поиск по клиентам">
-            <?php
-            echo \yii\helpers\Html:: hiddenInput(Yii::$app->getRequest()->csrfParam,
-                Yii::$app->getRequest()->getCsrfToken(), []);
-            ?>
-        </div>
-        <div class="col-md-8">
-            <div class="row ">
+        <div class="row">
+            <div class="search-bar col-md-3">
+                <input class="search-console" value="<?= Yii::$app->request->getQueryParam('search') ?>"
+                       name="search"
+                       placeholder="Поиск по клиентам">
+                <?php
+                echo \yii\helpers\Html:: hiddenInput(Yii::$app->getRequest()->csrfParam,
+                    Yii::$app->getRequest()->getCsrfToken(), []);
+                ?>
+            </div>
+            <div class="col-md-7">
                 <div class="filter_nav">
                     <div class="filter-order_by">
                         <nav class="dropdown-nav">
@@ -87,7 +86,7 @@ $this->registerJsFile('@web/js/dropdown-nav.js');
                         'name'          => 'ds',
                         'name2'         => 'de',
                         'value'         => (Yii::$app->request->get('ds')) ?: null,
-                        'value2'        => (Yii::$app->request->get('de')) ?: null,//(new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
+                        'value2'        => (Yii::$app->request->get('de')) ?: (new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
                         'type'          => \kartik\date\DatePicker::TYPE_RANGE,
                         'options'       => [
                             'style' => "height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;",
@@ -96,19 +95,32 @@ $this->registerJsFile('@web/js/dropdown-nav.js');
                             'style' => "height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;",
                         ],
                         'pluginOptions' => [
-                            'autoclose' => true,
+//                            'autoclose' => true,
                             'format'    => 'yyyy-mm-dd',
+
                         ],
+                        'pluginEvents' => [
+                            "hide" => "function(e) {  console.log(e); }",
+                        ],
+
                     ]); ?>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="filters_btns">
+                    <?= \yii\helpers\Html::submitButton('Применить', [
+                        'class' => 'filters',
+                        'style' => '',
+                    ]); ?>
+                    <div class="filters" style="margin-left: 10px;">
+                        <a href="<?= strstr(\yii\helpers\Url::current(), '?', true) ?>" style="float: right" class="">Сбросить</a>
+                    </div>
+
                 </div>
             </div>
         </div>
 
 
-        <?= \yii\helpers\Html::submitButton('Submit', [
-            'class' => 'btn btn-primary',
-            'style' => 'display:none',
-        ]); ?>
     </form>
 
 </div>

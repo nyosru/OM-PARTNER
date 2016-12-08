@@ -15,7 +15,7 @@ class PartnersUserInfoForm extends ActiveRecordExt
     {
         return [
             'id'           => 'ID',
-            'adress'       => 'Адресс',
+            'adress'       => 'Адрес',
             'city'         => 'Город',
             'state'        => 'Регион',
             'country'      => 'Страна',
