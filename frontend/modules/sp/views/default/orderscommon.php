@@ -468,7 +468,15 @@
                 console.log(data);
             },
             success: function (partnerOrders) {
-                orders_list.partnerOrders = partnerOrders;
+
+                if(partnerOrders === false) {
+
+                    $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
+                } else {
+
+                    $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
+                    orders_list.partnerOrders = partnerOrders;
+                }
             }
         });
     });

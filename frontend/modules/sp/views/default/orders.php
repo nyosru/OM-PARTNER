@@ -897,7 +897,15 @@
                 console.log(data);
             },
             success: function (products) {
-                maindata.order.order['products'] = products;
+                if(products === false) {
+
+                    $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
+                } else {
+
+                    $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
+                    maindata.order.order['products'] = products;
+                    renderOrder(maindata);
+                }
             }
         });
     });
