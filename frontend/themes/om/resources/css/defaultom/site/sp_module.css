@@ -405,6 +405,16 @@
     margin:0 0 0 30px;
     position:relative
 }
+
+.common_order_detail {
+    text-align: center;
+    padding: 10px;
+    background: beige;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+}
+
 .mail-client
 {
     display:inline-block;

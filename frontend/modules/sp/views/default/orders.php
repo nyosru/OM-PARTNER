@@ -92,9 +92,9 @@
                                     ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
                                     $common_orders_id = $model['common_orders_id'];
                                       if($common_orders_id){
-                                          $common =    '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">В объединенном заказе №: '.$common_orders_id.' </div>';
+                                          $common = '<div class="common_order_detail">В объединенном заказе №: '.$common_orders_id.' </div>';
                                       } else{
-                                          $common =     '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">Не закреплен</div>';
+                                          $common = '<div class="common_order_detail">Не закреплен</div>';
                                       }
                                     return '<a class="client-plate lock-on" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
                                             <div class="client-avatar">
