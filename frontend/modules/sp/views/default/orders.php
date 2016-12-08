@@ -475,6 +475,7 @@
         var requestdata = [];
         if(typeof(product_arr[$id]) == 'undefined'){
             requestdata = $.ajax({
+                _csrf:yii.getCsrfToken(),
                 method: 'post',
                 url: "/site/product",
                 async: false,
