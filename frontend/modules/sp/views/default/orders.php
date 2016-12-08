@@ -424,6 +424,7 @@ echo $modal;
             var id_common_order = $(this).attr("common-order-id");
             var id_order = $('.order-line').attr('data-order');
             var comment = '';
+            var common_order_detail = $("[data-detail='" + 5583 + "']").find('.common_order_detail');
 
             $.ajax({
                 method: 'post',
@@ -439,7 +440,7 @@ echo $modal;
                 success: function(data) {
                     if(data == true) {
                         button_to_common_order.text('В заказе №'+id_common_order);
-
+                        common_order_detail.text('В объединенном заказе №:'+id_common_order);
                         setTimeout(function() {
                             button_to_common_order.text(old_text)
                         }, 4000);
