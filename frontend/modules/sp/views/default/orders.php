@@ -424,7 +424,7 @@ echo $modal;
             var id_common_order = $(this).attr("common-order-id");
             var id_order = $('.order-line').attr('data-order');
             var comment = '';
-            var common_order_detail = $("[data-detail='" + 5583 + "']").find('.common_order_detail');
+            var common_order_detail = $("[data-detail='" + id_order + "']").find('.common_order_detail');
 
             $.ajax({
                 method: 'post',
