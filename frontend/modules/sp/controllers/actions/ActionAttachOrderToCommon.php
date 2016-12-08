@@ -54,16 +54,27 @@ trait ActionAttachOrderToCommon
             return false;
         }
 
-        $common_order_link = new CommonOrdersLinks();
-        $common_order_link->common_orders_id = $common_order->id;
-        $common_order_link->partner_orders_id = $order->id;
+        $exist_common_order_link = CommonOrdersLinks::find()
+            ->where(['partner_orders_id' => $id_order])
+            ->one();
+        ;
 
-        if ($comment) {
-            $common_order_link->comments = $comment;
-        }
+        if ($exist_common_order_link) {
+            $exist_common_order_link = new CommonOrdersLinks();
+            $exist_common_order_link->common_orders_id = $common_order->id;
 
-        if ($common_order_link->save()) {
-            return true;
+            if ($exist_common_order_link->save()) {
+                return true;
+            }
+        } else {
+            $common_order_link = new CommonOrdersLinks();
+            $common_order_link->common_orders_id = $common_order->id;
+            $common_order_link->partner_orders_id = $order->id;
+            $common_order_link->comments = (string)$comment ?: '';
+
+            if ($common_order_link->save()) {
+                return true;
+            }
         }
 
         return false;
