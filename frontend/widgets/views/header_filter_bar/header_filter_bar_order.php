@@ -86,7 +86,7 @@ $this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].
                         'name'          => 'ds',
                         'name2'         => 'de',
                         'value'         => (Yii::$app->request->get('ds')) ?: null,
-                        'value2'        => (Yii::$app->request->get('de')) ?: null,//(new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
+                        'value2'        => (Yii::$app->request->get('de')) ?: (new \DateTime(date(Yii::$app->request->getQueryParam('de'))))->format('Y-m-d'),
                         'type'          => \kartik\date\DatePicker::TYPE_RANGE,
                         'options'       => [
                             'style' => "height: 20px;width: 100px;border-radius: 4px;border: 1px solid #CCC;display: inline-block;float: left;",

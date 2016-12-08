@@ -133,8 +133,8 @@
                                 }
                             }).done(function (data) {
                                 $('[data-detail="'+data.id+'"]').addClass('client-active');
-                                renderOrders(data);
                                 orders_list = data;
+                                renderOrders(orders_list);
                             });
                             in_progress = false;
                         }else{
@@ -342,7 +342,6 @@
                     if(typeof (product[2]) == 'undefined' || !product[2] ){
                         product[2] = '';
                     }
-                    console.log( product[2], attr)
                     if (product[0] == product_id && product[2] == attr && partner_orders.id == order_id) {
                         orders_list.partnerOrders[index_partner_orders].order['products'][index_order][4] = new_value;
                         return true;
@@ -398,36 +397,19 @@
         if (!confirm("Вы уверены, что хотите удалить этот товар из заказа?")) {
             return;
         }
+        $.each(orders_list.partnerOrders, function(index_partner_orders, partner_orders){
+            $.each(partner_orders.order['products'], function(index_order, product){
+                if(typeof product !== 'undefined') {
+                    if (product[0] == product_id && product[2] == attr && partner_orders.id == order_id) {
 
-        $.ajax({
-            method:"post",
-            url: '<?=Yii::$app->urlManager->createUrl(['/sp/delete-product-in-order'])?>',
-            data: {
-                "_csrf":yii.getCsrfToken(),
-                "order_id": order_id,
-                "product_id": product_id,
-                "attr": attr
-            },
-            cache: false,
-            async: true,
-            dataType: 'json'
-        }).done(function (data) {
-            if(data == true) {
-                $.each(orders_list.partnerOrders, function(index_partner_orders, partner_orders){
-                    $.each(partner_orders.order['products'], function(index_order, product){
-                        if(typeof product !== 'undefined') {
-                            if (product[0] == product_id && product[2] == attr && partner_orders.id == order_id) {
-
-                                orders_list.partnerOrders[index_partner_orders].order['products'].splice(index_order, 1);
-                                return true;
-                            }
-                        }
-                    });
-                });
-                click_object.closest(".product-card-common").hide("fast");
-                updateAllOrdersView(orders_list);
-            }
+                        orders_list.partnerOrders[index_partner_orders].order['products'].splice(index_order, 1);
+                        return true;
+                    }
+                }
+            });
         });
+        click_object.closest(".product-card-common").hide("fast");
+        updateAllOrdersView(orders_list);
     });
 
     var new_product = new Object();
@@ -442,6 +424,7 @@
         var requestdata = [];
         if(typeof(product_arr[$id]) == 'undefined'){
             requestdata = $.ajax({
+                _csrf:yii.getCsrfToken(),
                 method: 'post',
                 url: "/site/product",
                 async: false,
@@ -472,6 +455,32 @@
 
         return $result;
     }
+
+    // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
+    $(document).on('click', '#save_orders', function(){
+        $.ajax({
+            method: 'post',
+            url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-common-orders'])?>",
+            data: {
+                common_order_id: orders_list.id,
+                orders_list: Object.values(orders_list.partnerOrders)
+            },
+            error: function (data) {
+                console.log(data);
+            },
+            success: function (partnerOrders) {
+
+                if(partnerOrders === false) {
+
+                    $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
+                } else {
+
+                    $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
+                    orders_list.partnerOrders = partnerOrders;
+                }
+            }
+        });
+    });
 
     function renderOrders(data) {
 
@@ -749,7 +758,7 @@
         '<div></div>' +
         '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;">' +
         '<span class="final_common_price"> Итого '+final_common_price+' р.</span>' +
-        '<span class="btn" style="padding: 10px; color:#FFF; background: #ff1744;margin: 0px 0px  0px 20px;">Сохранить заказ</span>' +
+        '<span id="save_orders" class="btn" style="padding: 10px; color:#FFF; background: #ff1744;margin: 0px 0px  0px 20px;">Сохранить заказ</span>' +
         '</div>' +
         '</div>' +
         '<div style="min-height: 100px"></div>'

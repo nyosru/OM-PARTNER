@@ -64,6 +64,7 @@ class DefaultController extends Controller
         ActionSendCommonOrders,
         CommonOrdersToOm,
         ActionSaveOneOrder,
+        ActionSaveCommonOrders,
         ActionFindProduct;
     public function behaviors()
     {
