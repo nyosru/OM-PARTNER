@@ -225,7 +225,7 @@ for($i=0; $i<$cs; $i++){
                     $add_str=$value['postcode'].', '.$value['country'].', '.$value['state'].', '.$value['city'].', '.$value['address'];
                     echo '<div id="modal_add'.$key.'" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button><h3 class="modal-title">Изменение адреса доставки</h3></div>';
                     echo '<div class="modal-body">';
-                    $form = ActiveForm::begin(['action'=>BASEURL.'/lk?view=userinfo','method'=>'post']);
+                    $form = ActiveForm::begin(['action'=>BASEURL.'/lk/userinfo','method'=>'post']);
                     echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Получатель:</div>';
                     echo $form->field($cust,'delivery['.$key.'][lastname]' )->label('Фамилия');
                     echo $form->field($cust, 'delivery['.$key.'][name]')->label('Имя');
@@ -277,7 +277,7 @@ for($i=0; $i<$cs; $i++){
                             echo '<div><i style="color:#cccccc; cursor: pointer;" title="'.$tit.'" class="fa fa-times"></i></div>';
                         }
                         else {
-                            $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+                            $form = ActiveForm::begin(['action' => BASEURL . '/lk/userinfo', 'method' => 'post']);
                             echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
                             echo Html::submitButton('<i class="fa fa-times"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_del', 'title' => 'Удалить адрес', 'style' => 'color: #ea516d']);
                             ActiveForm::end();
@@ -286,7 +286,7 @@ for($i=0; $i<$cs; $i++){
                         echo '<div class="add_change" style="width:15px;float:right;"><a style="color: #007BC1" title="Изменить адрес" href="#modal_add'.$key.'" data-toggle="modal"><i class="fa fa-pencil"></i></a></div>';
                     if($cust->delivery[$key]['address_book_id']!=$cust->pay_adress_id) {
                         echo '<div class="add_pay" style="width:160px;float:right;color:green;">';
-                        $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+                        $form = ActiveForm::begin(['action' => BASEURL . '/lk/userinfo', 'method' => 'post']);
                         echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
                         echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'add_pay', 'title' => 'Сделать этот адрес адресом плательщика', 'style' => 'color: green;']);
                         ActiveForm::end();
@@ -296,7 +296,7 @@ for($i=0; $i<$cs; $i++){
                     }
                     if($cust->delivery[$key]['address_book_id']!=$cust->delivery_adress_id) {
                         echo '<div class="add_default" style="width:160px;float:right;color:green;">';
-                        $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+                        $form = ActiveForm::begin(['action' => BASEURL . '/lk/userinfo', 'method' => 'post']);
                         echo $form->field($cust, 'delivery[' . $key . '][address_book_id]', ['options' => ['style' => 'display:none;']])->hiddenInput(['value' => $cust->delivery[$key]['address_book_id']])->label(false);
                         echo Html::submitButton('<i class="checkbox-overlay fa fa-check" style="background-color:transparent;color:#cccccc;border-color: #cccccc;"></i>', ['class' => 'btn btn-link', 'name' => 'save_lk', 'value' => 'addr_default', 'title' => 'Сделать этот адрес адресом доставки', 'style' => 'color: green;']);
                         ActiveForm::end();
@@ -317,7 +317,7 @@ for($i=0; $i<$cs; $i++){
                 else {
                     $cust->delivery['add']['birthday']=date('Y-m-d');
                     $cust->delivery['add']['passportdate']=date('Y-m-d');
-                    $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+                    $form = ActiveForm::begin(['action' => BASEURL . '/lk/userinfo', 'method' => 'post']);
                     echo '<div style="margin:20px 0; padding:10px;"><div style="width:100%; color:black;font-weight: 600; text-align: center;">Получатель:</div>';
                     echo $form->field($cust, 'delivery[add][lastname]')->label('Фамилия');
                     echo $form->field($cust, 'delivery[add][name]')->label('Имя');
