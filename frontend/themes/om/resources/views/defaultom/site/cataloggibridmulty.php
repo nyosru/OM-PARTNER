@@ -102,7 +102,7 @@ if ($data[0] != 'Не найдено!') {
         $headbside .= '<div style="float: right;"><a data-pjax="1" href="'.BASEURL.'/signup" ><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
     }else{
         $headbside .= '<div style="float: right;"><a data-pjax="1" href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
-        $headbside .= '<div style="float: right;"><a data-pjax="1" href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+        $headbside .= '<div style="float: right;"><a data-pjax="1" href="'.BASEURL.'/lk/"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
     }
     $headbside .=   '</div>
                          <a data-pjax="1" class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">

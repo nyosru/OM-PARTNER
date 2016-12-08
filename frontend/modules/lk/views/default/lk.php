@@ -106,7 +106,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
 </div>
 <?php }?>
 <div class="orders-metro" style="float: left; width: 100%;">
-    <a href="<?=BASEURL?>/lk?view=myorder&filter=5">
+    <a href="<?=BASEURL?>/lk/myorder&filter=5">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Proverka.png"/>
@@ -115,7 +115,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
             <div class="title">Ожидает проверки</div>
         </div>
     </a>
-    <a href="<?=BASEURL?>/lk?view=myorder&filter=4">
+    <a href="<?=BASEURL?>/lk/myorder&filter=4">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Oplata.png"/>
@@ -124,7 +124,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
             <div class="title">Ожидает оплаты</div>
         </div>
     </a>
-    <a href="<?=BASEURL?>/lk?view=myorder&filter=7">
+    <a href="<?=BASEURL?>/lk/myorder&filter=7">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Sborka.png"/>
@@ -133,7 +133,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
             <div class="title">Ожидает сборки</div>
         </div>
     </a>
-    <a href="<?=BASEURL?>/lk?view=myorder&filter=6">
+    <a href="<?=BASEURL?>/lk/myorder&filter=6">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Dostavka.png"/>

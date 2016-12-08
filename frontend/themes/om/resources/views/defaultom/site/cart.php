@@ -142,6 +142,7 @@ $del_add .= '</select>';
             $innerhtml+=  '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
             $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
             $innerhtml+=   '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>';
+            $innerhtml+=   '<div class="deliv-code" style="border-bottom: 1px solid #ccc; padding:10px;"></div>';
             <?php
             }else if($template == 'sp')
             {
@@ -199,13 +200,14 @@ $del_add .= '</select>';
             <?php
             }else{
             ?>
-            $innerhtml +=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
+            $innerhtml +=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/lk/" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
             <?php
             }
             ?>
             $innerhtml+= '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
                 '<div class="total-top" style="height: 25px;">Итого: </div>' +
                 '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
+                '<div class="total-cost"><div style="width: 70%; float: left">Скидка</div><div id="coupon-price" style="width: 30%; float: right">0 руб</div></div>' +
                 '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
                 //   '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
                 '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;"></span> руб.</div></div>' +
@@ -284,6 +286,17 @@ $del_add .= '</select>';
 //        $(".bside").append('<span class="cart-auth"  style="display: block; overflow: hidden;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span>');
 //    <?php//}?>
 //    }
+
+        getCoupon();
+        function getCoupon() {
+            $.ajax({
+                type: "POST",
+                url: "/glavnaya/cart?coupon=1",
+                data: {}
+            }).done(function (html) {
+                $('.deliv-code').html(html);
+            });
+        }
     });
     $(document).ready(function () {
 
@@ -303,8 +316,25 @@ $del_add .= '</select>';
     //});
     var wrap=<?=$wrapprice?>;
     $(document).on('change click','.num-of-items',function () {
+        countPrice();
+    });
+    $(window).on('load', function () {
+        countPrice();
+    });
+    $(window).on('load','.wrap-select', function () {
+        countPrice();
+    });
+
+    $('.input-count').on('change',function(){
+        countPrice();
+    });
+    /*
+    Сумма заказа
+     */
+    function countPrice(){
         var godsprice=0;
         var wrapprice=0;
+        var couponprice=0;
 
         var check = $("[name='wrap']").filter(':checked').first();
         if(check.val()=="boxes") wrapprice=wrap;
@@ -320,51 +350,31 @@ $del_add .= '</select>';
                 godsprice += c;
             }
         });
-        $('#gods-price').html(godsprice+' руб');
-        $('#total-price').html(godsprice+wrapprice+' руб');
-        $('#wrap-price').html(wrapprice);
-    });
-    $(window).on('load', function () {
-        var godsprice=0;
-        var wrapprice=0;
-        var check = $("[name='wrap']").filter(':checked').first();
-        if(check.val()=="boxes") wrapprice=28;
 
-        $indexes = $(".cart-row");
-        $.each($indexes, function () {
-            if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
-                $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
-            }
-            if($(this).attr('data-calc') == "true") {
-                var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
-                godsprice += c;
-            }
-        });
-        $('#gods-price').html(godsprice+' руб');
-        $('#total-price').html(godsprice+wrapprice+' руб');
-        $('#wrap-price').html(wrapprice+' руб');
-    });
-    $(window).on('load','.wrap-select', function () {
-        var godsprice=0;
-        var wrapprice=0;
-        var check = $("[name='wrap']").filter(':checked').first();
-        if(check.val()=="boxes") wrapprice=wrap;
+        var totalPrice;
 
-        $indexes = $(".cart-row");
-        $.each($indexes, function () {
-            if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
-//            alert('Количество товара '+$(this).find('#gods-name').text()+', '+$(this).find('.artik').text()+' '+$(this).find('.cart-attr').text()+ ' меньше минимума. Минимальная партия - '+$(this).find('#add-count').attr('data-min')+' шт.')
-                $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
-            }
-            if($(this).attr('data-calc') == "true") {
-                var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
-                godsprice += c;
-            }
-        });
+        // Учитываем купон
+        var couponType = $('#promo-code-type').val(),
+            couponValue = parseInt($('#promo-code-amount').val());
+        if(couponType=='F'){ // если тип купона денежный
+            couponprice = couponValue+' руб';
+            totalPrice = godsprice+wrapprice-couponValue;
+            $('#promo-code-sum').val(couponValue);
+        } else if(couponType=='P') { // если тип купона процентный
+            couponprice = couponValue+'%';
+            var couponSum = couponValue*godsprice/100;
+            totalPrice = godsprice-couponSum+wrapprice;
+            $('#promo-code-sum').val(couponSum);
+        } else {
+            couponprice = '0 руб';
+            totalPrice = godsprice+wrapprice;
+        }
+
         $('#gods-price').html(godsprice+' руб');
-        $('#total-price').html(godsprice+wrapprice+' руб');
+        $('#coupon-price').html(couponprice);
+        $('#total-price').html(totalPrice+' руб');
         $('#wrap-price').html(wrapprice+' руб');
-    });
+    }
 
     $(document).on('change', '.shipping-confirm, #shipaddr', function () {
         if($('.shipping-confirm option:selected')[0].getAttribute('value') == 'flat12_flat12'){

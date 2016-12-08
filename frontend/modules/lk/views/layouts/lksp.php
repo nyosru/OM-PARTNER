@@ -89,7 +89,7 @@ $this->beginPage();
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
-                                        <a href="<?= BASEURL ?>/lk?view=myorder">
+                                        <a href="<?= BASEURL ?>/lk/myorder">
                                             Мои заказы
                                         </a>
                                     </div>
@@ -98,7 +98,7 @@ $this->beginPage();
                             <ul id="accordion" class="accordion">
                                 <li class="">
                                     <div id="profile-orders" class="link profile-orders">
-                                        <a href="<?= BASEURL ?>/lk?view=userinfo">
+                                        <a href="<?= BASEURL ?>/lk/userinfo">
                                             Мои данные
                                         </a>
                                     </div>
@@ -188,7 +188,7 @@ $this->beginPage();
                                 echo '<div style="float: right;"><a href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
                             }else{
                                 echo '<div style="float: right;"><a href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
-                                echo '<div style="float: right;"><a href="'.BASEURL.'/lk"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                                echo '<div style="float: right;"><a href="'.BASEURL.'/lk/"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
                             }
                             ?>
                         </div>

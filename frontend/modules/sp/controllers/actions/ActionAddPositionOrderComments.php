@@ -25,7 +25,7 @@ trait ActionAddPositionOrderComments
             $formmodel->order = (integer)Yii::$app->request->post('order');
             $formmodel->loadComment();
         }
-        if (Yii::$app->request->isPost){
+        if (Yii::$app->request->isPjax){
             $formmodel->load(Yii::$app->request->post());
         }
         if($comment = (Yii::$app->request->post('comments')) == TRUE){
@@ -42,8 +42,8 @@ trait ActionAddPositionOrderComments
         ]);
         echo '<div>';
 
-        if( $formmodel->validate() && $formmodel->saveComment()){
-            echo '<div>Комментарий к продукту сохранены</div>';
+        if(Yii::$app->request->isPjax && $formmodel->validate() && $formmodel->saveComment()){
+            echo '<div>Комментарий к продукту сохранен</div>';
         }
         echo $form->field($formmodel, 'attr',['options'=>['style'=>'display:none']])->label(false)->hiddenInput();
         echo $form->field($formmodel, 'id',['options'=>['style'=>'display:inline-block; margin:10px']])->label('Продукт '. $formmodel->id)->hiddenInput();

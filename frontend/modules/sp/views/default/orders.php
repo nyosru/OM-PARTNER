@@ -133,21 +133,15 @@
                         ],
                     ]);
                     ?>
-                    <div class="pag">
-                        <?php
-                        echo \yii\widgets\LinkPager::widget([
-                            'options'=>[
-                                'class'=>'pagination'
-                            ],
-                            'linkOptions'=>[
-                                'data-pjax' => true
-                            ],
-                            'pagination' => $paginate,
-                        ]);
-                        ?>
-                    </div>
+
                     <script>
+
+                        var product_arr = new Object();
+                        var maindata_arr = new Object();
+                        var maindata = new Object();
+                        var updated_main_data = new Object();
                         inProgress = false;
+
                         if($('.order-line').attr('data-order')){
                             $('[data-detail="'+$('.order-line').attr('data-order')+'"]').addClass('client-active');
                         }
@@ -219,12 +213,12 @@
                             }else{
                                 alert('Выполняется запрос');
                             }
-                        };
+                        }
 
 
 
                         (function($){
-                            $(document).on('click', '.delete_product_in_order',function() {
+                            $(document).on('click', '.product-delete',function() {
                                 var order_id = $(this).attr('order_id');
                                 var product_id = $(this).attr('product_id');
                                 var attr = $(this).attr('attr');
@@ -234,33 +228,18 @@
                                     return;
                                 }
 
-                                $.ajax({
-                                    method:"post",
-                                    url: '<?=Yii::$app->urlManager->createUrl(['/sp/delete-product-in-order'])?>',
-                                    data: {
-                                        "_csrf":yii.getCsrfToken(),
-                                        "order_id": order_id,
-                                        "product_id": product_id,
-                                        "attr": attr
-                                    },
-                                    cache: false,
-                                    async: true,
-                                    dataType: 'json'
-                                }).done(function (data) {
-                                    if(data === true) {
-                                        $.each(maindata.order.order['products'], function(index_order, product){
-                                            if(typeof product !== 'undefined') {
-                                                if (product[0] == product_id && product[2] == attr && maindata.order.id == order_id) {
+                                $.each(updated_main_data.order.order['products'], function(index_order, product){
+                                    if(typeof product !== 'undefined') {
+                                        if (product[0] == product_id && product[2] == attr && updated_main_data.id == order_id) {
+                                            updated_main_data.order.order['products'].splice(index_order, 1);
 
-                                                    maindata.order.order['products'].splice(index_order, 1);
-                                                    return true;
-                                                }
-                                            }
-                                        });
-                                        product_card_block.hide('fast');
-                                        updateAllOrdersView(maindata);
+                                            return true;
+                                        }
                                     }
                                 });
+                                product_card_block.hide('fast');
+                                updateAllOrdersView(updated_main_data);
+
                             });
                             })(jQuery);
 
@@ -355,7 +334,7 @@
                                             button_to_common_order.text(old_text)
                                         }, 4000);
                                     } else if (typeof(data) == "number"){
-                                        button_to_common_order.text('Уже закрепилен за объединенным заказом №'+data);
+                                        button_to_common_order.text('Уже закреплен за объединенным заказом №'+data);
                                         setTimeout(function() {
                                             button_to_common_order.text(old_text)
                                         }, 4000);
@@ -408,10 +387,6 @@
         '<div class="client-vip"></div>'
     ];
 
-    var product_arr = new Object();
-    var maindata_arr = new Object();
-    var maindata = new Object();
-
     $(document).on('click', '.product-to-order', function(){
         $id_product =  this.getAttribute('data-sale');
         $id_order = $('.order-line').attr('data-order');
@@ -462,7 +437,7 @@
        });
             $('[class="final_order_price"]').text('Итого: '+total+' р');
         }, 100);
-    };
+    }
 
     $(document).on('click', '.count-event', function(){
         var input_count = $(this).closest("#input-count-block").children("#input-count");
@@ -472,20 +447,19 @@
             var product_id = input_count.attr('data-prod');
             var attr = input_count.attr('data-attr');
             var price = input_count.attr('data-price');
-            var order_id = input_count.attr('data-order-id');
             var index_product_card = input_count.attr('data-index-product');
-            updateCountProducts(product_id, attr. new_value, order_id);
+            updateUpdatedDataCountProducts(product_id, attr, new_value);
             updateTotalOrder();
             $('.final-product-price'+index_product_card).text(Math.round(price * new_value) + " р.");
         }, 50);
 
     });
 
-    function updateCountProducts(product_id, attr, new_value) {
-        $.each(maindata.order.order['products'], function(index_product, product){
+    function updateUpdatedDataCountProducts(product_id, attr, new_value) {
+        $.each(updated_main_data.order.order['products'], function(index_product, product){
             if(typeof product !== 'undefined') {
                 if (product[0] == product_id && product[2] == attr) {
-                    maindata.order.order['products'][index_product][4] = new_value;
+                    updated_main_data.order.order['products'][index_product][4] = new_value;
                     return true;
                 }
             }
@@ -501,6 +475,7 @@
         var requestdata = [];
         if(typeof(product_arr[$id]) == 'undefined'){
             requestdata = $.ajax({
+                _csrf:yii.getCsrfToken(),
                 method: 'post',
                 url: "/site/product",
                 async: false,
@@ -744,7 +719,13 @@
             }
             inProgressSearch = false;
         } else {
-            alert('Введите корректный артикул.')
+            alert('Введите корректный артикул.');
+            var preloadRemove = function () {
+                $('.preload').remove();
+            };
+            setTimeout(preloadRemove, 200);
+
+
         }
     });
 
@@ -902,7 +883,36 @@
     '</div> ');
         $('.preload').remove();
     }
+
+    // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
+    $(document).on('click', '#save_order', function(){
+
+        $.ajax({
+            method: 'post',
+            url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",
+            data: {
+                order_id: updated_main_data.id,
+                products: Object.values(updated_main_data.order.order.products)
+            },
+            error: function (data) {
+                console.log(data);
+            },
+            success: function (products) {
+                if(products === false) {
+
+                    $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
+                } else {
+
+                    $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
+                    maindata.order.order['products'] = products;
+                    renderOrder(maindata);
+                }
+            }
+        });
+    });
+
     function renderOrderEdit(data) {
+    updated_main_data = JSON.parse(JSON.stringify(maindata));
     $('[data-detail="'+data.id+'"]').addClass('client-active');
     moment.locale('ru');
         var final_price = 0;
@@ -1016,13 +1026,17 @@
                 '<div  data-toggle="modal" data-target="#modal-comment" style="cursor:pointer;color: #5b8acf;position: absolute;left: 0px;" data-order="'+data.id+'" data-attr="'+this[2]+'" data-product="'+this[0]+'" class="product-comment">' +
                 'Добавить комментарий к товару ' +
                 '</div> ' +
-                '<div class="product-delete product">' +
-                '<span class="url delete_product_in_order" queue_card_id="'+i_product_card_edit+'" order_id="'+data.id+' "product_id="'+this[0]+'" attr="'+this[2]+'"> Удалить товар из заказа </span> ' +
+                '<div class="product-delete product" queue_card_id="'+i_product_card_edit+'" order_id="'+data.id+' "product_id="'+this[0]+'" attr="'+this[2]+'">' +
+                '<span class="url"> Удалить товар из заказа </span> ' +
                 '</div> ' +
                 '</div> ' +
                 '</div>' ;
             i_product_card_edit++
         });
+        var comment_text = '';
+        if(typeof (data.order.order.comment) !== 'undefined'){
+            comment_text = data.order.order.comment;
+        }
     $('.datacontainer').html('<div style="margin:25px;"> ' +
     '<div style="width: 100%;  display:inline-block;"> ' +
         '<div> ' +
@@ -1036,7 +1050,7 @@
                     'Комментарий к заказу ' +
                     '</div> ' +
                 '<textarea style="resize:none;margin: 0px;width: 100%;height: 200px;border-radius: 4px;border: 1px solid #CCC;">' +
-        data.order.order.comment +
+        comment_text +
         '</textarea> ' +
             '</div> ' +
         products_html +
@@ -1060,7 +1074,7 @@
         '</div> ' +
     '<div style=" font-weight: 400; font-size: 32px; text-align: right;padding: 10px 25px;"> ' +
         '<span class="final_order_price"> Итого '+ final_price +' р.</span> ' +
-        '<span class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
+        '<span id="save_order" class="btn" style="padding: 10px; background: #ffea00;margin: 0px 0px  0px 20px;">Сохранить заказ</span> ' +
         '</div> ' +
     '</div> ' +
     '</div> ' +
