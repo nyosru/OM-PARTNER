@@ -54,15 +54,6 @@ trait ActionAttachOrderToCommon
             return false;
         }
 
-        $exist_common_order_link = CommonOrdersLinks::find()
-            ->where(['partner_orders_id' => $id_order])
-            ->one();
-        ;
-
-        if ($exist_common_order_link) {
-            return $id_order;
-        }
-
         $common_order_link = new CommonOrdersLinks();
         $common_order_link->common_orders_id = $common_order->id;
         $common_order_link->partner_orders_id = $order->id;
