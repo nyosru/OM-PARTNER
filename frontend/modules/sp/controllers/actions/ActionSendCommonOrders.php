@@ -9,9 +9,9 @@ use yii\data\Pagination;
 use yii\validators\DateValidator;
 
 
-trait ActionSaveCommonOrders
+trait ActionSendCommonOrders
 {
-    public function actionSaveCommonOrders()
+    public function actionSendCommonOrders()
     {
        return $this->CommonOrdersToOm();
     }
