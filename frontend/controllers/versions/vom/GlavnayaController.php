@@ -101,6 +101,8 @@ use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
 use frontend\controllers\actions\om\ActionOrdersStatus;
 use frontend\controllers\actions\om\ActionSuppliers;
+use frontend\controllers\actions\om\ActionSuppliersLux;
+use frontend\controllers\actions\om\ActionSuppliersOk;
 use Yii;
 use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
@@ -209,6 +211,8 @@ class GlavnayaController extends Controller
         OrdersToOm,
         OrdersToReferrer,
         ActionRegisterSuccess,
+        ActionSuppliersLux,
+        ActionSuppliersOk,
         ActionPreCheckProductToOrders,
         AggregateCatalogData;
 
