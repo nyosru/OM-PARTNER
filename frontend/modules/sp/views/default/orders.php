@@ -695,7 +695,7 @@ echo $modal;
                             product_html += "      <\/div>";
                             product_html += "      <div";
                             product_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
-                            product_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
+                            product_html += "          <div style=\"position: absolute;margin: 10px 0px;line-height: 30px; width: 80%;\">";
                             product_html += "              <div style=\"font-weight: 400;\">Арт. "+new_product.products.products_model+"<\/div>";
                             product_html += "              <div>"+new_product.productsDescription.products_name+"<\/div>";
                             product_html += "              <div>Размер: ";
@@ -785,7 +785,7 @@ echo $modal;
                                 '</span>' +
                                 product_html +
                                 '<div class="modal-footer">'+
-                                '<div style="position: relative; top: 10px;">'+
+                                '<div style="display: inline-block; top: 10px; ">'+
                                 '<div confirm_product class="btn-custom-red" style="">Добавить в заказ</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -876,7 +876,7 @@ echo $modal;
                     '<div>Размер: '+this[6]+'</div> ' +
                     '</div> ' +
                     '</div> ' +
-                    '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+                    '<div style="display: inline-block;  height: 150px;float: right;width: 30%; position: relative;"> ' +
                     '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
                     '<div>'+Math.round(this[3])+' p. x '+this[4]+'шт.</div> ' +
                     '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">'+Math.round(this[3]) * this[4]+' р.</div> ' +
