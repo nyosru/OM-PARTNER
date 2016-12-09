@@ -3,7 +3,13 @@
 namespace frontend\modules\sp\controllers\v0;
 
 
+use common\traits\Manufacturers\OkSuppliers;
+use common\traits\ManufacturersDiapazonData;
 use common\traits\Orders\CommonOrdersToOm;
+use common\traits\Products\PreCheckProductsToOrder;
+use common\traits\Shipping\ShippingMethod;
+use common\traits\Wrap\WrapMethod;
+use frontend\controllers\actions\ActionShipping;
 use frontend\controllers\actions\om\ActionOrdersStatus;
 use frontend\modules\sp\controllers\actions\ActionAddClientOrderComments;
 use frontend\modules\sp\controllers\actions\ActionAddCommon;
@@ -65,6 +71,11 @@ class DefaultController extends Controller
         CommonOrdersToOm,
         ActionSaveOneOrder,
         ActionSaveCommonOrders,
+        PreCheckProductsToOrder,
+        ManufacturersDiapazonData,
+        OkSuppliers,
+        ShippingMethod,
+        WrapMethod,
         ActionFindProduct;
     public function behaviors()
     {
