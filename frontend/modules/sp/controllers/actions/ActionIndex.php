@@ -56,8 +56,6 @@ trait ActionIndex
             }
         }
 
-        $pagesize = 5;
-
         $search = mb_strtolower(trim(Yii::$app->request->getQueryParam('search')));
 
         if ($search == true && preg_match('/^[0-9\s]+/', $search)) {
@@ -65,9 +63,9 @@ trait ActionIndex
         }else if ($search == true && preg_match('/^[0-9a-zа-я\s]+$/iu', $search)) {
             $model->andWhere('LOWER(name) REGEXP "' . $search . '" OR LOWER(secondname) REGEXP "' . $search . '" OR LOWER(lastname) REGEXP "' . $search . '"');
         }
-        $status = trim(Yii::$app->request->getQueryParam('status'));
 
-        if (!empty($status) && $status >= 0) {
+        $status = Yii::$app->request->getQueryParam('status');
+        if (!is_null($status) && $status != '' && (integer)trim($status) >= 0) {
             $model->andWhere(['partners_orders.status' => $status]);
         }
 

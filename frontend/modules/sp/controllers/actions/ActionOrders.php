@@ -60,9 +60,8 @@ trait ActionOrders
             $query->andWhere('LOWER(name) REGEXP "' . $search . '" OR LOWER(secondname) REGEXP "' . $search . '" OR LOWER(lastname) REGEXP "' . $search . '"');
         }
 
-        $status = trim(Yii::$app->request->getQueryParam('status'));
-
-        if (!empty($status)) {
+        $status = Yii::$app->request->getQueryParam('status');
+        if (!is_null($status) && $status != '' && (integer)trim($status) >= 0) {
             $query->andWhere(['partners_referrals_users.status' => $status]);
         }
 
