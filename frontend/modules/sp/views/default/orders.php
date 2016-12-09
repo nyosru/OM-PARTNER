@@ -598,19 +598,15 @@ echo $modal;
             return $result;
         }
 
-        $(document).on("change", '#pick_attr_value', function(){
-            $("input[new-product-input-count]").attr({
-                "data-attr":$('option:selected', this).attr('data-attr'),
-                "data-attrname":$('option:selected', this).attr('data-attrname')
-            });
-        });
 
         $(document).on('click', '[confirm_product]', function(){
             var input_count = $("[new-product-input-count]");
             var data_attr =$('#pick_attr_value option:selected').attr('data-attr');
             var val = parseInt(input_count.val());
-            var data_id = parseInt(input_count.attr('data-prod'));
+            var data_id = input_count.attr('data-prod');
             var data_model = parseInt(input_count.attr('data-model'));
+            console.log(data_attr);
+
             if (isNaN(val)){
                 alert('Не выбранно количество!');
                 return false;
@@ -628,10 +624,19 @@ echo $modal;
                 },
                 error: function (data) {
 
+                    console.log(data);
+                    return false;
                 },
                 success: function (data) {
+
                     $("#overlay").remove();
                     $("#modal-product").remove();
+
+                    if(data === false) {
+                        $("body").append(getAlertTpl('error', 'Произошла ошибка. Такой продукт уже есть в заказе.'));
+                        return;
+                    }
+
                     $is_a_match = false;
                     $.each(maindata.order.order['products'], function(index_product, product){
                         if(typeof product !== 'undefined') {
