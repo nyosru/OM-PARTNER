@@ -605,7 +605,6 @@ echo $modal;
             var val = parseInt(input_count.val());
             var data_id = input_count.attr('data-prod');
             var data_model = parseInt(input_count.attr('data-model'));
-            console.log(data_attr);
 
             if (isNaN(val)){
                 alert('Не выбранно количество!');
@@ -623,9 +622,6 @@ echo $modal;
                     val: val
                 },
                 error: function (data) {
-
-                    console.log(data);
-                    return false;
                 },
                 success: function (data) {
 
