@@ -521,7 +521,34 @@ function new_suburl($url_obj, $val, $new_var) {
     return $url_obj;
 }
 
-function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showdiscount){
+// отображение иконок сезона на продуктах
+function renderSeason(season){
+    var result = "";
+    if(season != "" && season != undefined){
+        var code = {
+            'лето': '/summer.png',
+            'зима': '/winter.png',
+            'весна': '/spring.png',
+            'осень': '/autumn.png',
+            'всесезон': '/allseasons.png'
+        };
+        var seasonProduct = '',
+            zIndex = 13,
+            left = 15;
+        for (var name in code) {
+            if(season.toLowerCase().indexOf(name)+1){
+                seasonProduct +='<div style="position: absolute;z-index: '+zIndex+';left: '+left+'px;">' +
+                '<a style="display: block" href="#" data-toggle="tooltip" data-placement="top" title="'+name+'"><img style="" src="/images/icons/seasons'+code[name]+'"></a></div>';
+                zIndex--;
+                left +=15;
+            }
+        }
+        result = '<div style="position: absolute;top: 0;left: 40px;">'+seasonProduct+'</div>';
+    }
+    return result;
+}
+
+function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showdiscount,suppliers,subImage){
     if($category.lenght  ==  0  || typeof($category['num']) =='undefined' ) {
         $catname = '';
         $catnum = '';
@@ -534,6 +561,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     $descriptionprod = $descr;
     $attr_desc = $attribdescr;
     $attr = $attrib;
+
     if(parseInt($product['products_old_price']) > parseInt($product['products_price']) && $showdiscount == 1){
         $discount = 100 - Math.round($product['products_price'] * 100 / $product['products_old_price']);
     }else{
@@ -544,11 +572,24 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
         $offersstyle='style="right:10px;top: 325px;position:absolute"';
     }
     $attr_html = '<div data-sale="'+$product['products_id']+'" class="cart-lable">В корзину</div>';
-    if($.inArray($product['manufacturers_id'], ['749','2700','1241','2058','3412','3473','3481','3512']) != -1){
-        $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><img src="/images/logo/ok.png"></div>';
+
+    if(subImage.length != 0){
+        $subImage = '<div class="fa fa-picture-o fa-lg" style="color: #19a09d;position: absolute;top: 5px;right: 10px;line-height: 1;background: whitesmoke;padding: 5px;border-radius: 40px;"></div>';
+    } else {
+        $subImage = "";
+    }
+
+    if($.inArray($product['manufacturers_id'], suppliers.ok) != -1){
+        $man_in_sklad = '<div style="position: absolute; top: 0px; right: 50px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." ><img src="/images/logo/ok.png"></a></div>';
     }else{
         $man_in_sklad = '';
     }
+    if($.inArray($product['manufacturers_id'], suppliers.lux) != -1){
+        $man_lux = '<div style="position: absolute;top: 0px;right: 90px;height: 30px;width: 30px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." > <a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)."><img style="position: relative;" src="/images/logo/ok.png"><img style="position: absolute; left: 2px; height: 24px; padding: 0px; top: 0px; margin: 14px auto; right: 24px; border-radius: 45px; border: 2px solid rgb(204, 204, 204);" src="/images/logo/lux.png"></a> </a></div>';
+    }else{
+        $man_lux = '';
+    }
+
     if ($attr_desc.length > 0) {
         var  innerindex = 0;
         $.each($attr_desc, function (index,value) {
@@ -659,9 +700,9 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
         $discounthtml += '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; padding: 7px; line-height: 10px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px; border-radius: 4px;">-' + $discount + ' %</div>';
         $discounthtml += '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;"  itemprop="old-price" ><strike>' + $product['products_old_price'] + ' руб.</strike></div>';
     }
-    $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+
+    $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+$man_lux+renderSeason($product["season_code"])+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
-        '<a id="prod-info" data-prod="' + $product.products_id + '" >'+
+        '<a id="prod-info" data-prod="' + $product.products_id + '" >'+$subImage+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
         '</div>'+ $discounthtml+
         '<div  itemprop="model" class="model" style="display:none">' + $product.products_model + '</div>' +
@@ -971,6 +1012,9 @@ function loaddata(){
             inProgress = true;
         }
     }).done(function (data) {
+        var suppliers = new Object();
+        suppliers.lux = $.parseJSON($('#suppliers-lux').val());
+        suppliers.ok = $.parseJSON($('#suppliers-ok').val());
         $('.preload').remove();
         $loader = $('.loader-inner').html();
         $('.pagination-catalog').remove();
@@ -1002,7 +1046,7 @@ function loaddata(){
                         "position": i});
                     ga("ec:setAction", "ajaxview");
                     ga("send", "event" , "ajaxview", window.location.pathname );
-                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath, true)
+                    renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath, true,suppliers,this.subImage)
                 });
             }
             $pager = '';

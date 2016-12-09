@@ -42,6 +42,10 @@ trait ActionAttachOrderToCommon
             ->one()
         ;
 
+        if($order->status != 1) {
+            return false;
+        }
+
         $referral_user = ReferralsUser::find()
             ->where([
                 'user_id' => $order['user_id'],
@@ -60,19 +64,21 @@ trait ActionAttachOrderToCommon
         ;
 
         if ($exist_common_order_link) {
-            return $id_order;
-        }
+            $exist_common_order_link = new CommonOrdersLinks();
+            $exist_common_order_link->common_orders_id = $common_order->id;
 
-        $common_order_link = new CommonOrdersLinks();
-        $common_order_link->common_orders_id = $common_order->id;
-        $common_order_link->partner_orders_id = $order->id;
+            if ($exist_common_order_link->save()) {
+                return true;
+            }
+        } else {
+            $common_order_link = new CommonOrdersLinks();
+            $common_order_link->common_orders_id = $common_order->id;
+            $common_order_link->partner_orders_id = $order->id;
+            $common_order_link->comments = (string)$comment ?: '';
 
-        if ($comment) {
-            $common_order_link->comments = $comment;
-        }
-
-        if ($common_order_link->save()) {
-            return true;
+            if ($common_order_link->save()) {
+                return true;
+            }
         }
 
         return false;

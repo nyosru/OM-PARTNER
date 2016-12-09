@@ -301,6 +301,8 @@ trait OrdersToOm
                 $coupon_sum = Yii::$app->request->post('promo-code-sum');
                 if(!empty($coupon_id)){
                     $orders->useCoupon($coupon_id,$coupon_sum);
+                } else {
+                    $coupon_sum = 0;
                 }
                 if (($check = OrdersToPartners::find()->where(['order_id' => $default_user_address['entry_zone_id']])->one()) == FALSE) {
                     if (($region_partners = PartnersToRegion::find()->joinWith('partnersCompanies')->where(['region_id' => $default_user_address['entry_zone_id']])->andWhere('active > 0')->asArray()->all()) == TRUE) {
@@ -565,7 +567,8 @@ trait OrdersToOm
                                                     ],
                                                     'origprod' => $origprod,
                                                     'timeproduct' => $related,
-                                                    'totalpricesaveproduct' => $validprice
+                                                    'totalpricesaveproduct' => $validprice,
+                                                    'coupon_sum' => $coupon_sum
                                                 ]
                                             ]
                                         ]);
@@ -593,7 +596,8 @@ trait OrdersToOm
                                             ],
                                             'origprod' => $origprod,
                                             'timeproduct' => $related,
-                                            'totalpricesaveproduct' => $validprice
+                                            'totalpricesaveproduct' => $validprice,
+                                            'coupon_sum' => $coupon_sum
                                         ]
                                     ]
                                 ]);
@@ -639,7 +643,8 @@ trait OrdersToOm
                                 ],
                                 'origprod' => $origprod,
                                 'timeproduct' => $related,
-                                'totalpricesaveproduct' => $validprice
+                                'totalpricesaveproduct' => $validprice,
+                                'coupon_sum' => $coupon_sum
                             ]
                         ]
                     ]);
@@ -664,7 +669,8 @@ trait OrdersToOm
                                 ],
                                 'origprod' => $origprod,
                                 'timeproduct' => $related,
-                                'totalpricesaveproduct' => $validprice
+                                'totalpricesaveproduct' => $validprice,
+                                'coupon_sum' => $coupon_sum
                             ]
                         ]
                     ]);
@@ -689,7 +695,8 @@ trait OrdersToOm
                                 ],
                                 'origprod' => $origprod,
                                 'timeproduct' => $related,
-                                'totalpricesaveproduct' => $validprice
+                                'totalpricesaveproduct' => $validprice,
+                                'coupon_sum' => $coupon_sum
                             ]
                         ]
                     ]);
@@ -716,7 +723,8 @@ trait OrdersToOm
                                 ],
                                 'origprod' => $origprod,
                                 'timeproduct' => $related,
-                                'totalpricesaveproduct' => $validprice
+                                'totalpricesaveproduct' => $validprice,
+                                'coupon_sum' => $coupon_sum
                             ]
                         ]
                     ]);
@@ -750,7 +758,8 @@ trait OrdersToOm
                                 ],
                                 'origprod' => $origprod,
                                 'timeproduct' => $related,
-                                'totalpricesaveproduct' => $validprice
+                                'totalpricesaveproduct' => $validprice,
+                                'coupon_sum' => $coupon_sum
                             ]
                         ]
                     ]);
@@ -798,7 +807,8 @@ trait OrdersToOm
                         'saveproduct' => $validproduct,
                         'origprod' => $origprod,
                         'timeproduct' => $related,
-                        'totalpricesaveproduct' => $validprice
+                        'totalpricesaveproduct' => $validprice,
+                        'coupon_sum' => $coupon_sum
                     ]
                 ]
             ])
@@ -823,7 +833,8 @@ trait OrdersToOm
                         'saveproduct' => $validproduct,
                         'origprod' => $origprod,
                         'timeproduct' => $related,
-                        'totalpricesaveproduct' => $validprice
+                        'totalpricesaveproduct' => $validprice,
+                        'coupon_sum' => $coupon_sum
                     ]
                 ]
             ])
@@ -848,7 +859,8 @@ trait OrdersToOm
                         'saveproduct' => $validproduct,
                         'origprod' => $origprod,
                         'timeproduct' => $related,
-                        'totalpricesaveproduct' => $validprice
+                        'totalpricesaveproduct' => $validprice,
+                        'coupon_sum' => $coupon_sum
                     ]
                 ]
             ]);

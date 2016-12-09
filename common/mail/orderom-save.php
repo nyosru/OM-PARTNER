@@ -26,9 +26,18 @@ $contentutm = \frontend\widgets\UtmLinker::widget(['param'=>Yii::$app->params['p
             <td style="width:250px;text-align:left;font-family:'Roboto', Arial;font-weight:bold;font-size:16px;color:#000000;">Вариант доставки:</td>
             <td style="color:#3f3f3f;font-family:'Roboto', Arial;font-size:16px;line-height:25px;"><?=$result['data']['paramorder']['delivery']?></td>
         </tr>
+        <?php if(!empty($result['data']['coupon_sum'])){ ?>
+            <tr>
+                <td style="width:250px;text-align:left;font-family:'Roboto', Arial;font-weight:bold;font-size:16px;color:#000000;">Скидка:</td>
+                <td style="color:#3f3f3f;font-family:'Roboto', Arial;font-size:16px;line-height:25px;font-weight:bold;color:#000000;"><?=$coupon = $result['data']['coupon_sum']?> Руб.</td>
+            </tr>
+        <?php }  else {
+            $coupon = 0;
+        }
+        ?>
         <tr>
             <td style="width:250px;text-align:left;font-family:'Roboto', Arial;font-weight:bold;font-size:16px;color:#000000;">Всего к оплате:</td>
-            <td style="color:#3f3f3f;font-family:'Roboto', Arial;font-size:16px;line-height:25px;font-weight:bold;color:#000000;"><?=(round((float)$result['data']['totalpricesaveproduct'], 0));?> Руб.</td>
+            <td style="color:#3f3f3f;font-family:'Roboto', Arial;font-size:16px;line-height:25px;font-weight:bold;color:#000000;"><?=(round((float)$result['data']['totalpricesaveproduct']-$coupon, 0));?> Руб.</td>
         </tr>
     </table>
     <ul style="list-style:none;width:100%;text-align:center;padding: 0px;">
