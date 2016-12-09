@@ -42,6 +42,10 @@ trait ActionAttachOrderToCommon
             ->one()
         ;
 
+        if($order->status != 1) {
+            return false;
+        }
+
         $referral_user = ReferralsUser::find()
             ->where([
                 'user_id' => $order['user_id'],
