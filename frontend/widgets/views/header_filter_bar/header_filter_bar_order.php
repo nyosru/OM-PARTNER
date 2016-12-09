@@ -18,7 +18,7 @@ $this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].
         <?php endforeach; ?>
     </div>
     <form style="height: 60px;background: #FFF">
-        <div class="row">
+        <div class="">
             <div class="search-bar col-md-3">
                 <input class="search-console" value="<?= Yii::$app->request->getQueryParam('search') ?>"
                        name="search"

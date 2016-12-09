@@ -92,9 +92,9 @@
                                     ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
                                     $common_orders_id = $model['common_orders_id'];
                                       if($common_orders_id){
-                                          $common =    '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">В объединенном заказе №: '.$common_orders_id.' </div>';
+                                          $common = '<div class="common_order_detail">В объединенном заказе №: '.$common_orders_id.' </div>';
                                       } else{
-                                          $common =     '<div style="text-align: center;padding: 10px;background: beige;font-size: 16px;font-weight: 500;line-height: 1;">Не закреплен</div>';
+                                          $common = '<div class="common_order_detail">Не закреплен</div>';
                                       }
                                     return '<a class="client-plate lock-on" style="display:block; '.$back_fff.'" href="#id='.$model['ids'].'" data-detail="'.$model['ids'].'">
                                             <div class="client-avatar">
@@ -424,6 +424,7 @@ echo $modal;
             var id_common_order = $(this).attr("common-order-id");
             var id_order = $('.order-line').attr('data-order');
             var comment = '';
+            var common_order_detail = $("[data-detail='" + id_order + "']").find('.common_order_detail');
 
             $.ajax({
                 method: 'post',
@@ -439,7 +440,7 @@ echo $modal;
                 success: function(data) {
                     if(data == true) {
                         button_to_common_order.text('В заказе №'+id_common_order);
-
+                        common_order_detail.text('В объединенном заказе №:'+id_common_order);
                         setTimeout(function() {
                             button_to_common_order.text(old_text)
                         }, 4000);
@@ -597,19 +598,14 @@ echo $modal;
             return $result;
         }
 
-        $(document).on("change", '#pick_attr_value', function(){
-            $("input[new-product-input-count]").attr({
-                "data-attr":$('option:selected', this).attr('data-attr'),
-                "data-attrname":$('option:selected', this).attr('data-attrname')
-            });
-        });
 
         $(document).on('click', '[confirm_product]', function(){
             var input_count = $("[new-product-input-count]");
             var data_attr =$('#pick_attr_value option:selected').attr('data-attr');
             var val = parseInt(input_count.val());
-            var data_id = parseInt(input_count.attr('data-prod'));
+            var data_id = input_count.attr('data-prod');
             var data_model = parseInt(input_count.attr('data-model'));
+
             if (isNaN(val)){
                 alert('Не выбранно количество!');
                 return false;
@@ -626,11 +622,17 @@ echo $modal;
                     val: val
                 },
                 error: function (data) {
-
                 },
                 success: function (data) {
+
                     $("#overlay").remove();
                     $("#modal-product").remove();
+
+                    if(data === false) {
+                        $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
+                        return;
+                    }
+
                     $is_a_match = false;
                     $.each(maindata.order.order['products'], function(index_product, product){
                         if(typeof product !== 'undefined') {
@@ -694,7 +696,7 @@ echo $modal;
                             product_html += "      <\/div>";
                             product_html += "      <div";
                             product_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
-                            product_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
+                            product_html += "          <div style=\"position: absolute;margin: 10px 0px;line-height: 30px; width: 80%;\">";
                             product_html += "              <div style=\"font-weight: 400;\">Арт. "+new_product.products.products_model+"<\/div>";
                             product_html += "              <div>"+new_product.productsDescription.products_name+"<\/div>";
                             product_html += "              <div>Размер: ";
@@ -784,7 +786,7 @@ echo $modal;
                                 '</span>' +
                                 product_html +
                                 '<div class="modal-footer">'+
-                                '<div style="position: relative; top: 10px;">'+
+                                '<div style="display: inline-block; top: 10px; ">'+
                                 '<div confirm_product class="btn-custom-red" style="">Добавить в заказ</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -875,7 +877,7 @@ echo $modal;
                     '<div>Размер: '+this[6]+'</div> ' +
                     '</div> ' +
                     '</div> ' +
-                    '<div style="display: inline-block;  height: 150px;float: right;width: 40%; position: relative;"> ' +
+                    '<div style="display: inline-block;  height: 150px;float: right;width: 30%; position: relative;"> ' +
                     '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
                     '<div>'+Math.round(this[3])+' p. x '+this[4]+'шт.</div> ' +
                     '<div style="font-weight: 400;font-size: 24px;padding: 10px 0px;">'+Math.round(this[3]) * this[4]+' р.</div> ' +

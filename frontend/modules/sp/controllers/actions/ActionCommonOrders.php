@@ -26,6 +26,11 @@ trait ActionCommonOrders
             ->joinWith('partnerOrders')->groupBy(CommonOrders::tableName().'.id');
         ;
 
+        $status = Yii::$app->request->getQueryParam('status');
+        if (!is_null($status) && $status != '' && (integer)trim($status) >= 0) {
+            $model->andWhere([CommonOrders::tableName().'.status' => $status]);
+        }
+
         $ds = Yii::$app->request->getQueryParam('ds');
         if ($ds == true) {
             $valid = new DateValidator();
