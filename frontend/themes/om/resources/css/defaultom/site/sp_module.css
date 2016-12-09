@@ -1202,12 +1202,12 @@
 
 ul.dropdown {
     display: none;
-    position: relative;
+    position: absolute;
     top: 100%;
+    min-width: 100%;
     margin-top: .5em;
     background: #f8f8f8;
     box-shadow: 0 2px 2px #ccc;
-    min-width: 12em;
     padding: 0;
     border-radius: 0 0 .2em .2em;
 }
