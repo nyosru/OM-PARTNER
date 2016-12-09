@@ -123,6 +123,8 @@ if ($data[0] != 'Не найдено!') {
         '<div style="display: block; height: 45px;" >'.
         '<input name="cat"   value="'.$cat.'" type="hidden"/>'.
         '<input name="count" value="'.$count.'" type="hidden" />'.
+        '<input id="suppliers-lux" value="" type="hidden" />'.
+        '<input id="suppliers-ok" value="" type="hidden" />'.
         '<input name="start_price" id="min-ev-price" class="" placeholder="от" style="float: left; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" />'.
         '<input name="end_price" style="float: right; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" id="max-ev-price" class="" placeholder="до" />'.
         '</div>'.
@@ -304,7 +306,7 @@ if ($data[0] != 'Не найдено!') {
         ';
             $spec = $value['productsSpecification']['74']['specification_values_id'];
             $spec_code = $value['specificationValuesDescription'][$spec]['specification_value'];
-            $products .= ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code]);
+            $products .= ProductCard2::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code, 'subpreview'=>$value['subImage']]);
         }
     }else{
         foreach ($data[0] as $key=>$value) {
@@ -325,7 +327,7 @@ if ($data[0] != 'Не найдено!') {
             $spec = $value['productsSpecification']['74']['specification_values_id'];
             $brand = $value['productsSpecification']['77']['specification_values_id'];
             $spec_code = $value['specificationValuesDescription'][$spec]['specification_value'];
-            $products .= ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time,'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code, 'brand'=>$brand]);
+            $products .= ProductCard::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time,'category'=>$value['categories_id'], 'showdiscount'=>1, 'season'=>$spec_code, 'brand'=>$brand,  'subpreview'=>$value['subImage']]);
         }
     }
 
@@ -431,6 +433,20 @@ if ($data[0] != 'Не найдено!') {
 
     });
     $(window).on('load', function( event, ui){
+
+        $.ajax({
+            url: "/suppliers-lux",
+            success: function (data) {
+                $('#suppliers-lux').val(JSON.stringify(data));
+            }
+        });
+        $.ajax({
+            url: "/suppliers-ok",
+            success: function (data) {
+                $('#suppliers-ok').val(JSON.stringify(data));
+            }
+        });
+
         $('#min-ev-price').val('<?=$data[7]?>');
         $('#max-ev-price').val('<?=(integer)$data[2]['maxprice']?>');
         if($('.filter').length >0){

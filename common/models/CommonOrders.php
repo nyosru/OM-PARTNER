@@ -73,7 +73,7 @@ class CommonOrders extends \yii\db\ActiveRecord
     }
     public function getUserInfo()
     {
-        return $this->hasOne(User::className(), ['id' => 'id'])->via('referral')->via('user');
+        return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'id'])->via('referral')->via('user');
     }
     public function getCustomer()
     {
@@ -81,7 +81,7 @@ class CommonOrders extends \yii\db\ActiveRecord
     }
     public function getAddressBook()
     {
-        return $this->hasOne(AddressBook::className(), ['customers_id' => 'customers_id'])->via('customer');
+        return $this->hasMany(AddressBook::className(), ['customers_id' => 'customers_id'])->via('customer');
     }
     public function getLink()
     {

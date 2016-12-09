@@ -24,7 +24,7 @@ class ProductCard extends \yii\bootstrap\Widget
     public $writeitemprop = 1;
     public $season = '';
     public $brand = '';
-
+    public $subpreview = '';
 
     public function init()
     {
@@ -209,12 +209,16 @@ class ProductCard extends \yii\bootstrap\Widget
             $season_html = '';
         }
         $xfactor = new ProductsTableSizes();
-
+        if($this->subpreview){
+            $subImage = '<div class="fa fa-picture-o fa-lg" style="color: #19a09d;position: absolute;top: 5px;right: 10px;line-height: 1;background: whitesmoke;padding: 5px;border-radius: 40px;"></div>';
+        }else{
+            $subImage = '';
+        }
         $x = $xfactor->go($description['products_name'],   $this->category , $this->brand);
         $innerhtml .= ' <div '.$product_itemscope.'  itemid="' . $product['products_id'] . '"  class="container-fluid float" id="card" style="float:left;">'.$man_in_sklad.$man_lux.$season_html.'
                             <div id="prod-info" data-prod="' . $product['products_id'] . '" >
                                 <div data-prod="' . $product['products_id'] . '" id="prod-data-img"  style="clear: both; min-height: 300px; min-width: 200px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $product['products_id'] . ');">' .
-            '<meta '.$product_itemprop_image.'  content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .'</div>';
+            '<meta '.$product_itemprop_image.'  content="http://' . $_SERVER['HTTP_HOST'] . BASEURL . '/imagepreview?src=' . $product['products_id'] . '">' .$subImage.'</div>';
         if ((integer)($product['products_old_price']) > 0&&$this->showdiscount==1&&isset($discount)) {
             $innerhtml .= '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; padding: 7px; line-height: 10px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px; border-radius: 4px;">-' . $discount . ' %</div>';
             $innerhtml .= '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;"  '.$product_itemprop_old_price.' ><strike>' . (integer)($product['products_old_price']) . ' руб.</strike></div>';

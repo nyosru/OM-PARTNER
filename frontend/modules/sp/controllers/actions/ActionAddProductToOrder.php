@@ -30,11 +30,10 @@ trait ActionAddProductToOrder
 
         $order = PartnersOrders::find()->where(['id' => $order_id])->one();
 
-
         $user = ReferralsUser::find()
             ->joinWith('user')
             ->joinWith('userinfo')
-            ->where(['referral_id' => $referal['id']])
+            ->where(['referral_id' => $referal])
             ->andWhere(['user_id' => $order->user_id])
             ->limit(1)
             ->one()

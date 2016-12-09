@@ -230,13 +230,18 @@ echo \yii\grid\GridView::widget([
                     }
                 }
 
+                // если при заказе использовался купон
+                if(!empty($data->coupons)){
+                    $coupon = $data->coupons[0]->redeem_sum;
+                    $finalomprice -=$coupon;
+                }
 
                 $inner .= '</tbody><tfooter>';
                 $inner .= '<tr>';
                 $inner .= '<th style="border: none" class="col-md-1">Итого</th>';
                 $inner .= '<th style="border: none" class="col-md-2">Позиций: ' . $totalomcount . ' шт </th>';
                 $inner .= '<th style="border: none" class="col-md-2">Товаров: ' . $totalomquant . ' шт</th>';
-                $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: '.$finalomprice. ' Руб. </th>';
+                $inner .= '<th colspan="2" style="border: none" class="col-md-2">Стоимость заказа: '.$finalomprice . ' Руб. </th>';
                 $inner .= '</tr>';
                 $inner .= '<tr>';
                 $inner .= '<th style="border: none" class="col-md-1">Доставка: </th>';

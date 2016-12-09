@@ -24,6 +24,7 @@ use common\traits\Products\PreCheckProductsToOrder;
 use common\traits\Products\RelatedProducts;
 use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
+use common\traits\Shipping\ShippingMethod;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
@@ -101,6 +102,8 @@ use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
 use frontend\controllers\actions\om\ActionOrdersStatus;
 use frontend\controllers\actions\om\ActionSuppliers;
+use frontend\controllers\actions\om\ActionSuppliersLux;
+use frontend\controllers\actions\om\ActionSuppliersOk;
 use Yii;
 use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
@@ -118,6 +121,7 @@ class GlavnayaController extends Controller
         Fullopcat,
         RecursCat,
         Reformat_cat_array,
+        ShippingMethod,
         View_cat, Load_cat,
         Imagepreviewcrop,
         Categories_for_partner,
@@ -209,6 +213,8 @@ class GlavnayaController extends Controller
         OrdersToOm,
         OrdersToReferrer,
         ActionRegisterSuccess,
+        ActionSuppliersLux,
+        ActionSuppliersOk,
         ActionPreCheckProductToOrders,
         AggregateCatalogData;
 

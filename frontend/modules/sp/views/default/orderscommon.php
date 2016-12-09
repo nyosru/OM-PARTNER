@@ -166,7 +166,32 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="send_orders" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="om_partners_modal_block">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Отправка заказа в ОМ</h4>
+                </div>
+                <div class="modal-body" id="send_orders_body">
+                    <?php
+                    \yii\widgets\Pjax::begin([
+                        'id'=>'send',
+                        'enablePushState' =>false
+                    ]);
+                    ?>
+                    <?php
+                    \yii\widgets\Pjax::end();
+                    ?>
+                </div>
 
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 
@@ -748,9 +773,9 @@
         $('.datacontainer').html(
         '<div>' +
         '<div style="margin-bottom: 25px;" class="order-line">' +
-        '<span class="common-num-order">Общий заказ № '+data.id+'</span>' +
+        '<span data-order="'+data.id+'"  class="common-num-order">Общий заказ № '+data.id+'</span>' +
         '<span class="date-order">от '+moment(data.date_added).format("D MMMM  YYYY")+'</span>' +
-        '<span class="create-common-order">Одобрить заказ</span>' +
+        '<a class="create-common-order"  data-toggle="modal" style="cursor: pointer">Одобрить заказ</a>' +
         '</div>' +
             '<div class="panel-group" id="product-plane">' +
         str_html +
@@ -763,6 +788,21 @@
         '</div>' +
         '<div style="min-height: 100px"></div>'
         );
+        $(document).on('click', '.create-common-order', function () {
+            $.ajax({
+                    url: '/sp/send-common-orders',
+                    method: 'post',
+                    async: false,
+                    data:{
+                        form : $('[data-order]').attr('data-order')
+                    },
+                    success: function (data) {
+                        $('#send').html(data);
+                        $('#send_orders').modal('show');
+                    }
+                }
+            )
+        })
         $('.preload').remove();
     }
 
