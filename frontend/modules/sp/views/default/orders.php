@@ -527,6 +527,7 @@ echo $modal;
                 final_order_price += Math.round(product[3] * product[4]);
             });
 
+            $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('div').text(final_order_price +" р.");
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
         }
 
@@ -665,6 +666,7 @@ echo $modal;
                         maindata.order.order['products'].push(data);
                     }
                     renderOrderEdit(maindata);
+                    updateAllOrdersView(maindata);
                 }
             });
         });
@@ -1015,6 +1017,7 @@ echo $modal;
                         $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
                         maindata.order.order['products'] = products;
                         renderOrder(maindata);
+                        updateAllOrdersView(maindata);
                     }
                 }
             });
