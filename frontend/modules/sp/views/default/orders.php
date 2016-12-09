@@ -629,7 +629,7 @@ echo $modal;
                     $("#modal-product").remove();
 
                     if(data === false) {
-                        $("body").append(getAlertTpl('error', 'Произошла ошибка. Такой продукт уже есть в заказе.'));
+                        $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
                         return;
                     }
 
