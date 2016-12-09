@@ -26,6 +26,7 @@ use frontend\modules\adminsite\controllers\actions\ActionRequestusers;
 use frontend\modules\adminsite\controllers\actions\ActionSavesettings;
 use frontend\modules\adminsite\controllers\actions\ActionTemplateimage;
 use frontend\modules\adminsite\controllers\actions\ActionUserControl;
+use frontend\modules\adminsite\controllers\actions\ActionCoupons;
 use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
@@ -37,6 +38,7 @@ class DefaultController extends Controller
     use Imagepreviewcrop,
         ThemeResources,
         ActionIndex,
+        ActionCoupons,
         ActionSavesettings,
         ActionRequestnews,
         ActionCancelorder,
@@ -73,6 +75,7 @@ class DefaultController extends Controller
                         ],
                                     'actions' => [
                                         'index',
+                                        'coupons',
                                         'orderupdate',
                                         'mainpageset',
                                         'orderrevert',

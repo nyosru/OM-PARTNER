@@ -28,11 +28,14 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         if($result['data']['totalpricesaveproduct']) {
             echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Итого: </span>'.((float)$result['data']['totalpricesaveproduct']-(float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
         }
+        if($result['data']['coupon_sum']) {
+            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Скидка: </span>'.(float)$result['data']['coupon_sum'].' Руб.</div>';
+        }
         if($result['data']['totalpricesaveproduct']) {
             echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Упаковка: </span>'.((float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
         }
         if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Всего к оплате: </span>'.((float)$result['data']['totalpricesaveproduct']).' Руб.</div>';
+            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Всего к оплате: </span>'.((float)$result['data']['totalpricesaveproduct'] - (float)$result['data']['coupon_sum']).' Руб.</div>';
         }
         if($result['data']['totalpricesaveproduct']) {
             echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">ФИО: </span>'.$result['data']['paramorder']['name'].'</div>';

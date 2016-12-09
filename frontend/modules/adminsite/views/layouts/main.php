@@ -130,12 +130,29 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                             <div class="link news"><a href="/adminsite/default/requestpage">Заявки</a></div>
                         </li>
                     </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link news"><a href="/adminsite/default/coupons">Купоны</a></div>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
         </div>
         <div class="container-fluid" id="partners-main-right-back-admin">
             <div id="partners-main-right" class="bside">
+                <?php if(!empty(Yii::$app->getSession()->getFlash('error'))) {?>
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?=Yii::$app->getSession()->getFlash('error')?>
+                    </div>
+                <?php } ?>
+                <?php if(!empty(Yii::$app->getSession()->getFlash('success'))) {?>
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?=Yii::$app->getSession()->getFlash('success')?>
+                    </div>
+                <?php }?>
                 <?= $content ?>
             </div>
         </div>
