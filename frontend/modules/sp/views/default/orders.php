@@ -978,7 +978,6 @@ echo $modal;
 
         // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
         $(document).on('click', '#save_order', function(){
-
             $.ajax({
                 method: 'post',
                 url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",

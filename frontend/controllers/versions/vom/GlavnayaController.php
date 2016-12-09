@@ -23,6 +23,7 @@ use common\traits\Products\PreCheckProductsToOrder;
 use common\traits\Products\RelatedProducts;
 use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
+use common\traits\Shipping\ShippingMethod;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
@@ -117,6 +118,7 @@ class GlavnayaController extends Controller
         Fullopcat,
         RecursCat,
         Reformat_cat_array,
+        ShippingMethod,
         View_cat, Load_cat,
         Imagepreviewcrop,
         Categories_for_partner,

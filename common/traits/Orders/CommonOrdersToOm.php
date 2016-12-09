@@ -5,8 +5,10 @@ use common\models\AddressBook;
 use common\models\AdminCompaniesBank;
 use common\models\AdminCompaniesBankToOrders;
 use common\models\CommonOrders;
+use common\models\CommonOrdersLinks;
 use common\models\Configuration;
 use common\models\Countries;
+use common\models\Customers;
 use common\models\Featured;
 use common\models\LastPartnersIds;
 use common\models\Orders;
@@ -28,34 +30,35 @@ use common\models\User;
 use common\models\Zones;
 use yii\helpers\ArrayHelper;
 use Yii;
+use yii\helpers\BaseHtmlPurifier;
 
 
 trait CommonOrdersToOm
 {
-    public function CommonOrdersToOm()
+    public function CommonOrdersToOm($commonorder, $address, $ship, $wrap, $comments_to_order)
     {
         date_default_timezone_set('Europe/Moscow');
-        
+
+
+     //   $type_order = Yii::$app->request->post('order-type');
+
+     //   $plusorder = Yii::$app->request->post('plusorder');
+
         $referral_id = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one();
-
-        $commonorder = (integer)Yii::$app->request->getQueryParam('orderid');
-
-        $address = (integer)Yii::$app->request->getQueryParam('address');
-
 
         $model = CommonOrders::find()
             ->where(CommonOrders::tableName().'.referral_id = :refid', [':refid'=>$referral_id['id']])
             ->andWhere(CommonOrders::tableName().'.status = :status', [':status'=> '1'])
             ->andWhere(CommonOrders::tableName().'.id = :orderid', [':orderid'=>$commonorder])
-            ->andWhere(AddressBook::tableName().'.address_book_id = :address or address_book_id = pay_adress_id or address_book_id = delivery_adress_id', [':address'=>$address])
             ->joinWith('referral')
-            ->joinWith('user')
             ->joinWith('customer')
-            ->joinWith('addressBook')
+            ->joinWith('user')
+            ->joinWith('userInfo')
             ->joinWith('link')
             ->joinWith('partnerOrdersFromLink')
             ->asArray()->one();
         ;
+        $address_data = ArrayHelper::index(AddressBook::find()->where('customers_id = :customers ', [':customers'=>$model['customer']['customers_id']])->asArray()->all(),'address_book_id');
         if(!$model){
             return $this->render('cartresultmultyorders', [
                 'result' => [
@@ -69,47 +72,102 @@ trait CommonOrdersToOm
                 ]
             ]);
         }
-        echo '<pre>';
-        print_r($model);
-        echo '</pre>';
-        die();
+        if(!$address_data ||  !isset($address_data[$address])){
+            return $this->render('cartresultmultyorders', [
+                'result' => [
+                    'code' => 100,
+                    'text' => 'Не актуальный адресс',
+                    'data' => [
+                        'paramorder' => [
+                        ],
+
+                    ]
+                ]
+            ]);
+        }
+        $model['addressBook'] = $address_data;
+        $products_order = [0=>[]];
+        foreach ($model['partnerOrdersFromLink'] as $key_order => $value_order){
+            $products_order[$value_order['id']] = unserialize($value_order['order']);
+            $products_order[$value_order['id']]['delivery'] = unserialize($value_order['delivery']);
+            $products_order[$value_order['id']]['comment'] = $value_order['comment'];
+            foreach ($products_order[$value_order['id']]['products'] as $key_product=>$value_product){
+                $products_order[$value_order['id']]['productinorder'][(int)$value_product[0]][(int)$value_product[2]] = $value_product[4];
+                $products_order[$value_order['id']]['comments'][(int)$value_product[0]][(int)$value_product[2]] = $value_product[8]['comment'];
+                $products_order['query_products'][] = $value_product[0];
+                $products_order['products_quantity'][$value_product[0]] += $value_product[4];
+
+            }
+            $products_query[$key_order] = unserialize($value_order['delivery']);
+
+        }
+
+        if ($products_order['query_products']) {
+            $proddata = PartnersProducts::find()->where(['products.`products_id`' => $products_order['query_products']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->all();
+        } else {
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+
+
 
         $wrapart = Configuration::find()->where(['configuration_key' => 'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
         $wrapp = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->asArray()->one();
      
-        if (Yii::$app->user->isGuest || ($user = User::find()->where(['partners_users.id' => Yii::$app->user->getId(), 'partners_users.id_partners' => Yii::$app->params['constantapp']['APP_ID']])->joinWith('userinfo')->joinWith('customers')->joinWith('addressBook')->asArray()->one()) == FALSE || !isset($user['userinfo']['customers_id'])) {
-            return $this->redirect(Yii::$app->request->referrer);
-        }
-     
-        if (!Yii::$app->request->post('address')) {
-            $adress_num = $user['customers']['delivery_address_id'];
-            $userOM = $user['addressBook'][$adress_num];
-            $user['addressBook'] = ArrayHelper::index($user['addressBook'], 'address_book_id');
-        } else {
-            $adress_num = (int)Yii::$app->request->post('address');
-            $user['addressBook'] = ArrayHelper::index($user['addressBook'], 'address_book_id');
-            $userOM = $user['addressBook'][$adress_num];
-        }
+
+        $userOM = $model['addressBook'][$address];
         
-        $default_user_address = $user['addressBook'][$user['customers']['customers_default_address_id']];
-        $pay_user_address = $user['addressBook'][$user['customers']['pay_adress_id']];
+        $default_user_address = $model['addressBook'][$model['customer']['customers_default_address_id']];
+        $pay_user_address = $model['addressBook'][$model['customer']['pay_adress_id']];
        
-        $userpartnerdata = $user;
-        $userCustomer = $user['customers'];
+        $userpartnerdata = $model['userInfo'];
+        $userCustomer = $model['customer'];
 
         
-        $type_order = Yii::$app->request->post('order-type');
-        
-        $plusorder = Yii::$app->request->post('plusorder');
-        
-        $comments = Yii::$app->request->post('comments');
-        
-        $ship = Yii::$app->request->post('ship');
-        
-        $shipping = $this->actionShipping()[$ship];
-        
+
+        $validprice = 0;
+        foreach ($proddata as $keyrequest => $valuerequest) {
+            $thisweeekday = date('N') - 1;
+            $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
+            if($this->preCheckProductsToOrder($valuerequest)){
+                $validprice += ((float)$valuerequest['products_price'] * (int)$products_order['products_quantity'][$valuerequest['products_id']]);
+                $origprod[$valuerequest['products_id']] = $valuerequest;
+            }else{
+                unset($proddata[$keyrequest]);
+                $related[] = $valuerequest;
+            }
+        }
+
+
+        if (($orders = Orders::findOne(['customers_id' => $userCustomer['customers_id']])) == FALSE) {
+            $minprice = 5000;
+        } else {
+            $minprice = 1000;
+        }
+
+        if ($validprice < $minprice) {
+            return $this->render('cartresultmultyorders', [
+                'result' => [
+                    'code' => 0,
+                    'text' => 'Минимальная сумма заказа ' . $minprice . ' рублей',
+                    'data' => [
+                        'paramorder' => [
+                        ],
+                        'origprod' => $origprod,
+                        'timeproduct' => $related,
+                        'totalpricesaveproduct' => $validprice
+                    ]
+                ]
+            ]);
+        }
+
+
+
+
+        $shipping = $this->shippingMethod()[$ship];
+
         Yii::$app->response->format = \yii\web\Response::FORMAT_HTML;
-        
+
+
         if (!$shipping) {
             return $this->render('cartresultmultyorders', [
                 'result' => [
@@ -140,77 +198,27 @@ trait CommonOrdersToOm
 
 //////////////////////
 
-       
-        $product_in_order = Yii::$app->request->post('product');
-        
-       
 
-//////////////////////        
-        
-        $wrap = Yii::$app->request->post('wrap');
-        if ($wrap == 'boxes') {
-            $product_in_order[$wrapp['products_id']] = [0 => 1];
-        }
-        $quant = [];
-        
-        foreach ($product_in_order as $prodkey => $prodvalue) {
-            if ($prodvalue)
-                foreach ($prodvalue as $k => $v) {
-                    $quant[$prodkey] += $v;
-                }
-            $queryproduct[] = $prodkey;
-        }
-        
-        if ($queryproduct) {
-            $proddata = PartnersProducts::find()->where(['products.`products_id`' => $queryproduct])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->all();
-        } else {
-            return $this->redirect(Yii::$app->request->referrer);
-        }
-        
-        $validprice = 0;
-        
-        if ($wrap == 'boxes') {
-            $proddata[$wrapp['products_id']] = $wrapp;
-        }
-        
-        foreach ($proddata as $keyrequest => $valuerequest) {
-            $thisweeekday = date('N') - 1;
-            $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
-            if($this->preCheckProductsToOrder($valuerequest)){
-                $validprice += ((float)$valuerequest['products_price'] * (int)$quant[$valuerequest['products_id']]);
-                $origprod[$valuerequest['products_id']] = $valuerequest;
-            }else{
-                unset($proddata[$keyrequest]);
-                $related[] = $valuerequest;
-            }
-        }
-        
-        if (($orders = Orders::findOne(['customers_id' => $userCustomer['customers_id']])) == FALSE) {
-            $minprice = 5000;
-        } else {
-            $minprice = 1000;
-        }
-        
-        if ($validprice < $minprice) {
-            return $this->render('cartresultmultyorders', [
-                'result' => [
-                    'code' => 0,
-                    'text' => 'Минимальная сумма заказа ' . $minprice . ' рублей',
-                    'data' => [
-                        'paramorder' => [
-                        ],
-                        'origprod' => $origprod,
-                        'timeproduct' => $related,
-                        'totalpricesaveproduct' => $validprice
-                    ]
-                ]
-            ]);
-        }
-        
-        
-        
+
+
+//////////////////////
+
         $transaction = Yii::$app->db->beginTransaction();
         try {
+        $main_order = '';
+
+        foreach ($products_order as $order_in_common_key => $order_in_common_value) {
+            if ($wrap == 'boxes' && !$main_order) {
+                $product_in_order[$wrapp['products_id']] = [0 => 1];
+            }
+
+            $product_in_order = $order_in_common_value['productinorder'];
+            $comments = $order_in_common_value['comments'];
+            $ordercomments = $order_in_common_value['comment'];
+
+            if ($wrap == 'boxes') {
+                $proddata[$wrapp['products_id']] = $wrapp;
+            }
             $express_man = $this->oksuppliers();
             $nowdate = date('Y-m-d H:i:s');
             $defaultentrycountry = Countries::find()->where(['countries_id' => $default_user_address['entry_country_id']])->asArray()->one();
@@ -337,7 +345,11 @@ trait CommonOrdersToOm
             $orders->nomer_akt = '0';
             $orders->orders_date_finished = 0;
             $orders->payment_info = '';
-            $orders->orders_status = 1;
+            if(!$main_order){
+                $orders->orders_status = 1;
+            }else{
+                $orders->orders_status = 22;
+            }
             $orders->site_side_email_flag = 1;
             $orders->print_torg = 'b';
             $orders->default_provider = $userCustomer['default_provider'];
@@ -372,8 +384,8 @@ trait CommonOrdersToOm
             if ($orders->save()) {
                 $coupon_id = Yii::$app->request->post('promo-code-id');
                 $coupon_sum = Yii::$app->request->post('promo-code-sum');
-                if(!empty($coupon_id)){
-                    $orders->useCoupon($coupon_id,$coupon_sum);
+                if (!empty($coupon_id)) {
+                    $orders->useCoupon($coupon_id, $coupon_sum);
                 } else {
                     $coupon_sum = 0;
                 }
@@ -563,14 +575,23 @@ trait CommonOrdersToOm
                     if (array_key_exists($keyin_order, $origprod)) {
                         $reindexattrdescr = ArrayHelper::index($reindexprod[$keyin_order]['productsAttributesDescr'], 'products_options_values_id');
                         $checkprod[] = $reindexprod[$keyin_order]['manufacturers_id'];
-                        if($express_key && !in_array($reindexprod[$keyin_order]['manufacturers_id'], $express_man)){
+                        if ($express_key && !in_array($reindexprod[$keyin_order]['manufacturers_id'], $express_man)) {
                             $express_key = FALSE;
                         }
                         foreach ($valuein_order as $keyinattr_order => $valueinattr_order) {
                             $ordersprod = new OrdersProducts();
                             $ordersprod->first_quant = intval($valueinattr_order);
                             $ordersprod->products_quantity = intval($valueinattr_order);
-                            $ordersprod->orders_id = $orders->orders_id;
+                            if(!$main_order){
+                                $ordersprod->orders_id = $orders->orders_id;
+                            }else{
+                                $ordersprod->orders_id = $main_order;
+                            }
+                            if(!$main_order){
+                                $ordersprod->old_orders_id = NULL;
+                            }else{
+                                $ordersprod->old_orders_id = $orders->orders_id;
+                            }
                             $ordersprod->products_id = intval($keyin_order);
                             $ordersprod->products_model = $reindexprod[$keyin_order]['products_model'];
                             $ordersprod->products_name = $reindexprod[$keyin_order]['productsDescription']['products_name'];
@@ -581,9 +602,9 @@ trait CommonOrdersToOm
                             $ordersprod->products_status = 0;
                             $ordersprod->checks = 0;
                             if ($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]) {
-                                $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
-                            } elseif ($comments[$keyin_order]['all']) {
-                                $ordersprod->comment = $this->trim_tags_text($comments[$keyin_order]['all']);
+                                $ordersprod->comment =  BaseHtmlPurifier::process($comments[$keyin_order][$reindexattrdescr[$keyinattr_order]['products_options_values_id']]);
+                            } elseif ($comments[$keyin_order][0]) {
+                                $ordersprod->comment = BaseHtmlPurifier::process($comments[$keyin_order][0]);
                             } else {
                                 $ordersprod->comment = NULL;
                             }
@@ -593,7 +614,6 @@ trait CommonOrdersToOm
                             $ordersprod->automatically_sent_to_manufacturer = 0;
                             $ordersprod->status_add = NULL;
                             $ordersprod->sub_orders_id = NULL;
-                            $ordersprod->old_orders_id = NULL;
                             $ordersprod->products_tax = '0.0000';
                             if ($ordersprod->save()) {
                                 if ($keyinattr_order) {
@@ -678,7 +698,7 @@ trait CommonOrdersToOm
                         }
                     }
                 }
-                if($express_key){
+                if ($express_key) {
                     $orders->express = (int)$express_key;
                     $orders->save();
                 }
@@ -774,50 +794,53 @@ trait CommonOrdersToOm
                         ]
                     ]);
                 }
+                if(!$main_order) {
+                    $neworderpartner = new PartnersOrders();
+                    $neworderpartner->partners_id = $partner_id;
+                    $neworderpartner->user_id = $model['userInfo']['id'];
+                    $neworderpartner->order = 'LinkToOm';
+                    $neworderpartner->status = 1;
+                    $neworderpartner->delivery = 'LinkToOm';
+                    $neworderpartner->orders_id = $orders->orders_id;
+                    $neworderpartner->update_date = $nowdate;
+                    $neworderpartner->create_date = $nowdate;
+                    if ($neworderpartner->save()) {
 
-                $neworderpartner = new PartnersOrders();
-                $neworderpartner->partners_id = $partner_id;
-                $neworderpartner->user_id = $user['id'];
-                $neworderpartner->order = 'LinkToOm';
-                $neworderpartner->status = 1;
-                $neworderpartner->delivery = 'LinkToOm';
-                $neworderpartner->orders_id = $orders->orders_id;
-                $neworderpartner->update_date = $nowdate;
-                $neworderpartner->create_date = $nowdate;
-                if ($neworderpartner->save()) {
-
-                } else {
-                    return $this->render('cartresultmultyorders', [
-                        'result' => [
-                            'code' => 0,
-                            'text' => 'Ошибка оформления заказа код 104',
-                            'data' => [
-                                'paramorder' => [
-                                ],
-                                'origprod' => $origprod,
-                                'timeproduct' => $related,
-                                'totalpricesaveproduct' => $validprice,
-                                'coupon_sum' => $coupon_sum
+                    } else {
+                        return $this->render('cartresultmultyorders', [
+                            'result' => [
+                                'code' => 0,
+                                'text' => 'Ошибка оформления заказа код 104',
+                                'data' => [
+                                    'paramorder' => [
+                                    ],
+                                    'origprod' => $origprod,
+                                    'timeproduct' => $related,
+                                    'totalpricesaveproduct' => $validprice,
+                                    'coupon_sum' => $coupon_sum
+                                ]
                             ]
-                        ]
-                    ]);
+                        ]);
+                    }
                 }
-
                 $ordershistory = new OrdersStatusHistory();
                 $ordershistory->orders_id = $orders->orders_id;
                 $ordershistory->orders_status_id = '1';
                 $ordershistory->date_added = $nowdate;
                 $ordershistory->customer_notified = '0';
-                if (($ordercomments = $this->trim_tags_text(Yii::$app->request->post('ordercomments'), 300)) == TRUE) {
+
+                if (($ordercomments = BaseHtmlPurifier::process($comments_to_order)) == TRUE && !$main_order) {
                     $ordershistory->comments = $ordercomments;
-                } else {
+                } else if(($ordercomments = BaseHtmlPurifier::process($ordercomments)) == TRUE && $main_order){
+                    $ordershistory->comments = $ordercomments;
+                }else{
                     $ordershistory->comments = NULL;
                 }
 
                 if ($wrap == 'boxes') {
                     $ordershistory->comments .= ' Авто-комментарий - Упаковка: крафт коробки. ';
                 }
-                $ordershistory->comments .= ' Заказ с нового фронта';
+                $ordershistory->comments .= ' Заказ из рефералки ';
                 $ordershistory->validate();
                 if ($ordershistory->save()) {
 
@@ -837,8 +860,11 @@ trait CommonOrdersToOm
                         ]
                     ]);
                 }
-
+                if(!$main_order){
+                    $main_order = $orders->orders_id;
+                }
             } else {
+
                 $orders->validate();
                 return $this->render('cartresultmultyorders', [
                     'result' => [
@@ -854,6 +880,7 @@ trait CommonOrdersToOm
                     ]
                 ]);
             }
+        }
 
             $transaction->commit('suc');
             Yii::$app->mailer->htmlLayout = 'layouts-om/html';
@@ -940,6 +967,9 @@ trait CommonOrdersToOm
             return header('location: ' . BASEURL . '/cartresultmultyorders');
 
         } catch (\Exception $e) {
+            echo '<pre>';
+            print_r($e);
+            echo '</pre>';
             Yii::$app->mailer->compose()
                 ->setFrom('odezhdamaster@gmail.com')
                 ->setTo('desure85@gmail.com')
