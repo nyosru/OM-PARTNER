@@ -1,3 +1,14 @@
+<?php
+    $order_status_label = [
+        'Удален',
+        'Новый',
+        'В обработке',
+        'Оплаченый',
+        'Выполненный',
+        'Возврат'
+    ];
+?>
+
 <?= \frontend\widgets\HeaderFilterBarNew::widget([
     'dataProvider' => $data,
     'sortOrderByData'  =>
@@ -56,13 +67,13 @@
                                 ],
                                 'content' => function($model) use (&$i_model) {
                                     $stat_class = [
+                                        'status-cancel',
                                         'status-new',
                                         'status-proceed',
                                         'status-like',
                                         'status-payed',
                                         'status-ordered',
                                         'status-return',
-                                        'status-cancel',
                                     ];
                                     $img_block_client_status = [
                                         '<div></div>',
@@ -70,6 +81,15 @@
                                         '<div class="client-old"></div>',
                                         '<div class="client-vip"></div>'
                                     ];
+                                    $order_status_label = [
+                                        'Удален',
+                                        'Новый',
+                                        'В обработке',
+                                        'Оплаченый',
+                                        'Выполненный',
+                                        'Возврат'
+                                    ];
+
                                     $order_un = unserialize($model['order']);
                                     $order_price = 0;
                                     foreach ($order_un['products'] as $product) {
@@ -106,9 +126,7 @@
                                             <div class="client-line-info-orders">
                                                 <div class="client-info-fr-order">
                                                     <div class="client-order">
-                                                        <div class="client-order-num">
-                                                            № '.$model['ids'].'
-                                                        </div>
+                                                        <div class="client-order-num">'.$order_status_label[$model['order_status']].'</div>
                                                         <div class="client-order-status '.$stat_class[$model['order_status']].'">
                                                         </div>
                                                     </div>
