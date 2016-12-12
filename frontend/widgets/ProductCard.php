@@ -188,7 +188,7 @@ class ProductCard extends \yii\bootstrap\Widget
         }
         if(in_array($product['manufacturers_id'], $this->LuxSuppliers())){
             $man_lux = '<div style="position: absolute;top: 0px;right: 90px;height: 30px;width: 30px;"><a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)." >
-            <a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)."><img style="position: relative;" src="/images/logo/ok.png"><img style="position: absolute; left: 2px; height: 24px; padding: 0px; top: 0px; margin: 14px auto; right: 24px; border-radius: 45px; border: 2px solid rgb(204, 204, 204);" src="/images/logo/lux.png"></a>
+            <a style="display: block" href="/page?article=product-card" target="_blank" data-toggle="tooltip" data-placement="top" title="Нажмите на значок, чтобы узнать его значение (откроется в новой вкладке)."><img style="position: relative;width: 28px;height: 40px;" src="/images/logo/ok.png"><img style="width: 24px;position: absolute; left: 2px; height: 24px; padding: 0px; top: 0px; margin: 14px auto; right: 24px; border-radius: 45px; border: 2px solid rgb(204, 204, 204);" src="/images/logo/lux.png"></a>
             </a></div>';
         }else{
             $man_lux = '';

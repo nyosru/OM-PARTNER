@@ -383,6 +383,9 @@ trait AggregateCatalogData
                         }
                         $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                         $prod_search_query_filt = ' and (LOWER(products_description.products_name) RLIKE :searchword )';
+                    }else{
+                        $data = 'Не найдено!';
+                        return ['data' => [$data]];
                     }
                     $nosfilt = true;
                 } else {

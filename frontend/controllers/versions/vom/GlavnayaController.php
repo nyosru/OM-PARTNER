@@ -95,6 +95,11 @@ use frontend\controllers\actions\om\ActionProductsCloth;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
+use frontend\controllers\actions\ActionSuppliersLux;
+use frontend\controllers\actions\ActionSuppliersOk;
+use frontend\controllers\actions\ActionTakeOrder;
+use frontend\controllers\actions\ActionTestUnit;
+use frontend\controllers\actions\ActionTimeOrderProducts;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
 use frontend\controllers\actions\om\ActionSpLanding;
@@ -205,6 +210,8 @@ class GlavnayaController extends Controller
         NewProducts,
         RelatedProducts,
         ActionInfo,
+        ActionSuppliersLux,
+        ActionSuppliersOk,
         ActionSpLanding,
         ActionInviteSP,
         ActionInvite,
