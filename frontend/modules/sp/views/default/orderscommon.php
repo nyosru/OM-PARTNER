@@ -507,6 +507,7 @@
 
                     $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
                     orders_list.partnerOrders = partnerOrders;
+                    renderOrders(orders_list);
                     updateCommonTotalOrder();
                     updateAllOrdersView(orders_list);
                 }
