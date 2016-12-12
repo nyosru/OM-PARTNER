@@ -97,9 +97,6 @@ use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
 use frontend\controllers\actions\ActionSuppliersLux;
 use frontend\controllers\actions\ActionSuppliersOk;
-use frontend\controllers\actions\ActionTakeOrder;
-use frontend\controllers\actions\ActionTestUnit;
-use frontend\controllers\actions\ActionTimeOrderProducts;
 use frontend\controllers\actions\ActionZonesrequest;
 use frontend\controllers\actions\CacheUserState;
 use frontend\controllers\actions\om\ActionSpLanding;
@@ -107,8 +104,6 @@ use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
 use frontend\controllers\actions\om\ActionOrdersStatus;
 use frontend\controllers\actions\om\ActionSuppliers;
-use frontend\controllers\actions\om\ActionSuppliersLux;
-use frontend\controllers\actions\om\ActionSuppliersOk;
 use Yii;
 use frontend\controllers\actions\ActionNewComments;
 use yii\filters\AccessControl;
@@ -210,7 +205,6 @@ class GlavnayaController extends Controller
         NewProducts,
         RelatedProducts,
         ActionInfo,
-        ActionSuppliersLux,
         ActionSuppliersOk,
         ActionSpLanding,
         ActionInviteSP,
@@ -221,7 +215,6 @@ class GlavnayaController extends Controller
         OrdersToReferrer,
         ActionRegisterSuccess,
         ActionSuppliersLux,
-        ActionSuppliersOk,
         ActionPreCheckProductToOrders,
         AggregateCatalogData;
 
