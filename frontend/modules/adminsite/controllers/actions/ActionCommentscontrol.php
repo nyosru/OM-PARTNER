@@ -19,15 +19,15 @@ trait ActionCommentscontrol
                 }
                 $model->date_modified = date('Y-m-d H:i:s');
                 if ($model->save()) {
-                    return $this->redirect('/adminsite/default/commentspage');
+                    return $this->redirect(Yii::$app->request->referrer);
                 } else {
-                    return $this->redirect('/adminsite/default/commentspage');
+                    return $this->redirect(Yii::$app->request->referrer);
                 }
             } else {
-                return $this->redirect('/adminsite/default/commentspage');
+                return $this->redirect(Yii::$app->request->referrer);
             }
         } else {
-            return $this->redirect('/adminsite/default/commentspage');
+            return $this->redirect(Yii::$app->request->referrer);
         }
     }
 }

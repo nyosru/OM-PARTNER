@@ -13,7 +13,7 @@ class MainBanner extends \yii\bootstrap\Widget
     const ROTATE_RAND = 'random';
     const ROTATE_ROLL = 'roll';
     const IMAGE_PATH = '/images/banners/';
-    public $utm_enable = TRUE;
+    public $utm_enable = FALSE;
     public $utm = [
         'campagin' => '',
         'source'=> 'sait_main',
@@ -26,54 +26,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_22112016_1.png',
-                'referal'=> '/catalog?cat=1729',
-                'term'=> '1729',
-                'alttext' => 'Блузки',
+                'image' =>  'OM_09122016_1.png',
+                'referal'=> '/catalog?cat=1867',
+                'term'=> '',
+                'alttext' => 'Большие размеры',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_22112016_2.png',
-                'referal'=> '/catalog?cat=1813',
-                'term'=> '1813',
-                'alttext' => 'Кардиганы',
+                'image' =>  'OM_09122016_2.png',
+                'referal'=> '/catalog?cat=1765',
+                'term'=> '',
+                'alttext' => 'Комплекты белья',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_22112016_3.png',
-                'referal'=> '/catalog?cat=2008&sfilt%5B%5D=2409&sfilt%5B%5D=15462&sfilt%5B%5D=16124',
-                'term'=> '2008-winter',
-                'alttext' => 'Ботиночки',
+                'image' =>  'OM_09122016_3.png',
+                'referal'=> '/catalog?cat=1993',
+                'term'=> '',
+                'alttext' => 'Туфли',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_22112016_4.png',
-                'referal'=> '/catalog?cat=2047',
-                'term'=> '2047',
-                'alttext' => 'Женские сумки',
+                'image' => 'OM_09122016_4.png',
+                'referal'=> '/catalog?cat=1813',
+                'term'=> '',
+                'alttext' => 'Кардиганы',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_22112016_5.png',
-                'referal'=> '/catalog?cat=1720',
-                'term'=> '1720',
-                'alttext' => 'Платья',
+                'image' => 'OM_09122016_5.png',
+                'referal'=> '/catalog?cat=1751',
+                'term'=> '',
+                'alttext' => 'Зимние куртки, пуховики',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_22112016_6.png',
-                'referal'=> '/catalog?cat=1824',
-                'alttext' => 'Шапки',
+                'image' => 'OM_09122016_6.png',
+                'referal'=> '/catalog?cat=1104',
+                'alttext' => 'Новый год',
                 'out' => FALSE
             ]
         ],
