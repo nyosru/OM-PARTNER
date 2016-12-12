@@ -1,5 +1,5 @@
 <?php
-namespace frontend\controllers\actions\om;
+namespace frontend\controllers\actions;
 
 use Yii;
 use yii\web\Response;
