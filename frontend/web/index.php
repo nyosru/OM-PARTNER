@@ -174,10 +174,15 @@ if (function_exists('pinba_timer_stop')) {
 if (function_exists('pinba_timer_start')) {
     $timer = pinba_timer_start(array('Tочка'=>'Работа'));
 }
+
+
+\Yii::$app->urlManager->addRules([
+    '<action:catalog>/<cat_start:[a-z-\/]+>'=>'/catalog',
+]);
+\Yii::$app->urlManager->addRules([
+    '<action:catalog>/<cat_start:[a-z-\/]+>/<page:[0-9]*>'=>'/catalog',
+]);
 $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event) {
-    \Yii::$app->urlManager->addRules([
-        '<action:catalog>/<cat_start:[a-z-\/]+>'=>'/catalog',
-    ]);
     $req = \Yii::$app->urlManager->parseRequest(\Yii::$app->request);
     if($req[1]['action'] == 'catalog' && $req[1]['cat_start']){
         \Yii::$app->params['chpu'] = $req[1];

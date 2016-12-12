@@ -52,6 +52,9 @@ trait AggregateCatalogData
         if(isset(\Yii::$app->params['chpu']['cat_start'])){
             $params['cat_start'] = $this->categoryChpu(\Yii::$app->params['chpu']['cat_start']);
         }
+        if(isset(\Yii::$app->params['chpu']['page'])){
+            $params['page'] = Yii::$app->params['chpu']['page'];
+        }
         $integer = function($value) {
             return (integer)$value;
         };
