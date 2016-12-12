@@ -190,7 +190,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
                         'flat10_flat10' => ['value'=>'Бесплатная доставка до ТК ОПТИМА'],
                         'flat9_flat9' => ['value'=>'Бесплатная доставка до ТК Севертранс'],
                         'flat12_flat12' => ['value'=>'Бесплатная доставка до ТК ЭНЕРГИЯ'],
-                        'courier_express' => ['value'=>'Бесплатная доставка до ТК Служба доставки Экспресс-Курьер'],
+                        'courierExpress_courierExpress' => ['value'=>'Бесплатная доставка до ТК Служба доставки Экспресс-Курьер'],
                         'russianpostpf_russianpostpf'=> ['value'=>'Почта России - http://pochta.ru/']
                     ];
                     $shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);
