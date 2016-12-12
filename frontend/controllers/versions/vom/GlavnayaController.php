@@ -200,7 +200,6 @@ class GlavnayaController extends Controller
         ActionInfo,
         ActionSuppliersLux,
         ActionSuppliersOk,
-        ActionSuppliers,
         ActionSpLanding,
         ActionProductsDiscount,
         ActionDiscountProducts,
