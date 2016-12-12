@@ -69,9 +69,7 @@ if ($data[0] != 'Не найдено!') {
     echo '<div id="products-pager"></div>';
     if ($catpath['num'] != 0) {
         foreach ($catpath['num'] as $key => $catid) {
-            $paste = $urlsrc;
-            $paste['page'] = 1;
-            echo '<a href="' . $url::toRoute($paste) . '" class="lock-on">';
+            echo '<a href="' . $url::toRoute($urlsrc[0]) . '" class="lock-on">';
             echo $catpath['name'][$key];
             echo ' / </a>';
         }
@@ -360,22 +358,21 @@ if ($data[0] != 'Не найдено!') {
         }else{
             $fpclass = '';
         }
+
         echo '<ul class="pagination">';
-        echo '<li class="first">';
-        $paste = $urlsrc;
-        $paste['page'] = 1;
-        echo '<a href="' .  $url::toRoute($paste)  . '" data-page="1" class="lock-on">';
-        echo 'Первая';
-        echo '</a>';
-        echo '</li>';
-        echo '<li class="prev">';
-        $paste = $urlsrc;
-        $paste['page'] = max(1,$page-1);
-        echo '<a href="' .  $url::toRoute($paste) . '" data-page="'.($page-1).'" class="lock-on">';
-        echo '<i class="mdi mdi-arrow-back">';
-        echo '</i>';
-        echo '</a>';
-        echo '</li>';
+
+        if($page==1){
+            echo '<li class="first disabled"><span>Первая</span></li>';
+            echo '<li class="prev disabled"><span><i class="mdi mdi-arrow-back"></i></span></li>';
+        } else {
+            echo '<li class="first"><a href="' . $url::toRoute($urlsrc[0]) . '" data-page="1" class="lock-on">Первая</a></li>';
+            if ($page == 2) {
+                echo '<li class="prev"><a href="' . $url::toRoute([$urlsrc[0]]) . '" data-page="' . ($page - 1) . '" class="lock-on"><i class="mdi mdi-arrow-back"></i></a></li>';
+            } else {
+                echo '<li class="prev"><a href="' . $url::toRoute([$urlsrc[0], 'page' => max(1, $page - 1)]) . '" data-page="' . ($page - 1) . '" class="lock-on"><i class="mdi mdi-arrow-back"></i></a></li>';
+            }
+        }
+
         $count = min(1000, $count);
         $count = max(60, $count);
         $checkdelimiter = $data[1]%$count;
@@ -388,30 +385,23 @@ if ($data[0] != 'Не найдено!') {
         $startpage = max(1, $page-2);
         for($startpage; $startpage<=$endpage ; $startpage++){
             if($page == $startpage){
-                $paste = $urlsrc;
-                $paste['page'] = max(1,$startpage);
-                echo '<li class="active"><a  href="' . $url::toRoute($paste) . '" data-page="'.($startpage).'">'.($startpage).'</a></li>';
+                echo '<li class="active"><a  href="' . $url::toRoute([$urlsrc[0]]) . '" data-page="'.($startpage).'">'.($startpage).'</a></li>';
             }else{
-                $paste = $urlsrc;
-                $paste['page'] = max(1,$startpage);
-                echo '<li><a href="' .  $url::toRoute($paste) . '" class="lock-on">'.($startpage).'</a></li>';
+                if($startpage==1){
+                    echo '<li><a href="' .  $url::toRoute([$urlsrc[0]]) . '" class="lock-on">'.($startpage).'</a></li>';
+                } else {
+                    echo '<li><a href="' .  $url::toRoute([$urlsrc[0],'page'=> max(1,$startpage)]) . '" class="lock-on">'.($startpage).'</a></li>';
+                }
             }
         }
-        echo '<li class="next">';
-        $paste = $urlsrc;
-        $paste['page'] = min($pagecount,$page+1);
-        echo '<a href="' .   $url::toRoute($paste)  . ' " class="lock-on">';
-        echo '<i class="mdi mdi-arrow-forward">';
-        echo '</i>';
-        echo '</a>';
-        echo '</li>';
-        echo '<li class="last">';
-        $paste = $urlsrc;
-        $paste['page'] = $pagecount;
-        echo '<a href="' . $url::toRoute($paste)  . '" class="lock-on">';
-        echo 'Последняя';
-        echo '</a>';
-        echo '</li>';
+
+        if($page == $pagecount){
+            echo '<li class="next disabled"><span><i class="mdi mdi-arrow-forward"></i></span></li>';
+            echo '<li class="last disabled"><span>Последняя</span></li>';
+        } else {
+            echo '<li class="next"><a href="' .   $url::toRoute([$urlsrc[0],'page'=>min($pagecount,$page+1)])  . '" class="lock-on"><i class="mdi mdi-arrow-forward"></i></a></li>';
+            echo '<li class="last"><a href="' . $url::toRoute([$urlsrc[0],'page'=>$pagecount])  . '" class="lock-on">Последняя</a></li>';
+        }
         ?>
         </ul>
 
