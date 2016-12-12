@@ -531,7 +531,7 @@
             var user_name = '';
             var telephone = '';
 
-            if(typeof (partner_orders.referral_user.userinfo) == "undefined" || typeof (partner_orders.referral_user.userinfo) == "null"){
+            if(typeof (partner_orders.referral_user.userinfo) != "undefined" || typeof (partner_orders.referral_user.userinfo) != "null"){
                 if(partner_orders.referral_user.userinfo.name || partner_orders.referral_user.userinfo.lastname || partner_orders.referral_user.userinfo.secondname) {
                     user_name = partner_orders.referral_user.userinfo.name + ' ' + partner_orders.referral_user.userinfo.lastname + ' ' + partner_orders.referral_user.userinfo.secondname;
                     telephone =  partner_orders.referral_user.userinfo.telephone;
