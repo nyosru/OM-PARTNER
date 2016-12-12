@@ -38,7 +38,7 @@ $this->registerJs(<<<JS
         $.ajax({
             type: "POST",
             url: "/glavnaya/cart?coupon=1",
-            data: {coupon:coupon,totalPrice:totalPrice}
+            data: {coupon:coupon,totalPrice:totalPrice, _csrf: yii.getCsrfToken()}
         }).done(function (html) {
             $('.deliv-code').html(html);
             countPrice();
