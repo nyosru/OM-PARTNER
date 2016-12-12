@@ -64,7 +64,7 @@ $this->beginPage();
                 if(!(int)Yii::$app->request->getQueryParam('cat')){
                    $cat = 0;
                 }
-                $keyCache = Yii::$app->cache->buildKey('Right-13w2'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
+                $keyCache = Yii::$app->cache->buildKey('Right-13h2'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
                 if($this->beginCache($keyCache, ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
