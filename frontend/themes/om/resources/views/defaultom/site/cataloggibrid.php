@@ -19,7 +19,12 @@ if($params['count'] != $countdisp[0]){
 $min_price =   $start_url['start_price'] = $params['start_price'];
 $max_price =  $start_url['end_price'] = $params['end_price'];
 $prodatrquery =  $start_url['prod_attr_query'] = $params['prod_attr_query'];
-$page =  $start_url['page'] = max(1,$params['page']);
+if(Yii::$app->params['seourls'] == TRUE){
+    $page = $params['page']  = max(1,Yii::$app->params['chpu']['page']);
+}else{
+    $page =  $start_url['page'] = max(1,$params['page']);
+}
+
 $sort =  $start_url['sort'] =  $params['sort'];
 $date_start =  $start_url['date_start'] = $params['date_start'];
 $date_end =  $start_url['date_end'] = $params['date_end'];
@@ -29,13 +34,13 @@ $searchword =  $start_url['searchword'] = $params['searchword'];
 $sfilt  = $start_url['sfilt'] =  $params['sfilt'];
 $sfqueryparam ='';
 $urlsrc = [];
-if(Yii::$app->params['chpu']['cat_start']){
+if(Yii::$app->params['seourls'] == TRUE){
     $newurl = Yii::$app->params['chpu']['action'].'/'.Yii::$app->params['chpu']['cat_start'];
+    $cat  = $params['cat_start'];
 }else{
     $newurl =  '/'.Yii::$app->request->getPathInfo();
     $cat =  $start_url['cat'] = $params['cat_start'];
 }
-
 
 foreach ($start_url as $key=>$val){
   if($val != FALSE){
@@ -60,7 +65,7 @@ if ($data[0] != 'Не найдено!') {
             $classcount = 'countdisplay';
         }
         $paste = $urlsrc;
-        $paste['page'] = 1;
+      //  $paste['page'] = 1;
         $paste['count'] = $countdisp;
         $innercount .= '<div class="count lock-on"> <a class="' . $classcount . '" onclick=""  data-count="' . $countdisp . '"  href="' . $url::toRoute($paste). '">' . $countdisp . '</a></div>';
     }
@@ -69,9 +74,7 @@ if ($data[0] != 'Не найдено!') {
     echo '<div id="products-pager"></div>';
     if ($catpath['num'] != 0) {
         foreach ($catpath['num'] as $key => $catid) {
-            $paste = $urlsrc;
-            $paste['page'] = 1;
-            echo '<a href="' . $url::toRoute($paste) . '" class="lock-on">';
+            echo '<a href="' . $url::toRoute($urlsrc[0]) . '" class="lock-on">';
             echo $catpath['name'][$key];
             echo ' / </a>';
         }
@@ -241,14 +244,14 @@ if ($data[0] != 'Не найдено!') {
     $absok = abs($ok-1);
     $paste = $urlsrc;
     $paste['ok'] = $absok;
-    $paste['page'] = 1;
+  //  $paste['page'] = 1;
     $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" class="lock-on">ОК</a>';
 
 
     $abslux = abs($lux-1);
     $paste = $urlsrc;
     $paste['lux'] = $abslux;
-    $paste['page'] = 1;
+  //  $paste['page'] = 1;
     $headbside .= ' <a href="' .  $url::toRoute($paste). '" style="float: left; color: rgb(0, 165, 161); margin-right: 30px; font-size: 16px; border: 1px solid rgb(204, 204, 204); border-radius: 4px; font-weight: 500; padding: 0px 25px; text-align: center; width: 200px;" class="lock-on">LUX</a>';
 
 
@@ -273,13 +276,13 @@ if ($data[0] != 'Не найдено!') {
         if ($value[1] == $data[11] || $value[2] == $data[11]) {
             $paste = $urlsrc;
             $paste['sort'] = $dataord;
-            $paste['page'] = 1;
+        //    $paste['page'] = 1;
 
             $headbside .= '<a class="' . $class . ' lock-on" href="' .  $url::toRoute($paste). '" data="' . $dataord . '" href="#"><div class="header-sort-item-'.$value[3].' header-sort-item active lock-on">'. $value[0] . ' <i style="float: right; padding: 3px 10px;" class="fa fa-' . $arrow . '"> </i></div></a>';
         } else {
             $paste = $urlsrc;
             $paste['sort'] = $dataord;
-            $paste['page'] = 1;
+         //   $paste['page'] = 1;
             $headbside .= '<a class="' . $class . ' lock-on" data="' . $dataord . '" href="' .   $url::toRoute($paste). '"><div class="header-sort-item-'.$value[3].' header-sort-item lock-on">' . $value[0] . '</div></a>';
         }
     }
@@ -360,22 +363,33 @@ if ($data[0] != 'Не найдено!') {
         }else{
             $fpclass = '';
         }
+
         echo '<ul class="pagination">';
-        echo '<li class="first">';
-        $paste = $urlsrc;
-        $paste['page'] = 1;
-        echo '<a href="' .  $url::toRoute($paste)  . '" data-page="1" class="lock-on">';
-        echo 'Первая';
-        echo '</a>';
-        echo '</li>';
-        echo '<li class="prev">';
-        $paste = $urlsrc;
-        $paste['page'] = max(1,$page-1);
-        echo '<a href="' .  $url::toRoute($paste) . '" data-page="'.($page-1).'" class="lock-on">';
-        echo '<i class="mdi mdi-arrow-back">';
-        echo '</i>';
-        echo '</a>';
-        echo '</li>';
+
+        if($page==1){
+            echo '<li class="first disabled"><span>Первая</span></li>';
+            echo '<li class="prev disabled"><span><i class="mdi mdi-arrow-back"></i></span></li>';
+        } else {
+            $paste = $urlsrc;
+            unset($paste['page']);
+            echo '<li class="first"><a href="' . $url::toRoute($paste) . '" data-page="1" class="lock-on">Первая</a></li>';
+            if ($page == 2) {
+                $paste = $urlsrc;
+                    echo '<li class="prev"><a href="' . $url::toRoute($paste) . '" data-page="' . ($page - 1) . '" class="lock-on"><i class="mdi mdi-arrow-back"></i></a></li>';
+            } else {
+                if(Yii::$app->params['seourls'] == TRUE){
+                    echo '<li class="prev"><a href="' . $url::toRoute([$urlsrc[0].'/' . max(1, $page - 1)]) . '" data-page="' . ($page - 1) . '" class="lock-on"><i class="mdi mdi-arrow-back"></i></a></li>';
+                }else{
+                    $paste = $urlsrc;
+                    $paste['page'] =  max(1, $page - 1);
+                    echo '<li class="prev"><a href="' . $url::toRoute($paste) . '" data-page="' . ($page - 1) . '" class="lock-on"><i class="mdi mdi-arrow-back"></i></a></li>';
+                }
+
+            }
+        }
+
+
+
         $count = min(1000, $count);
         $count = max(60, $count);
         $checkdelimiter = $data[1]%$count;
@@ -388,30 +402,48 @@ if ($data[0] != 'Не найдено!') {
         $startpage = max(1, $page-2);
         for($startpage; $startpage<=$endpage ; $startpage++){
             if($page == $startpage){
-                $paste = $urlsrc;
-                $paste['page'] = max(1,$startpage);
-                echo '<li class="active"><a  href="' . $url::toRoute($paste) . '" data-page="'.($startpage).'">'.($startpage).'</a></li>';
+                if(Yii::$app->params['seourls'] == TRUE){
+                    echo '<li class="active"><a  href="" data-page="'.($startpage).'">'.($startpage).'</a></li>';
+                }else{
+                    $paste = $urlsrc;
+                    echo '<li class="active"><a  href="" data-page="'.($startpage).'">'.($startpage).'</a></li>';
+                }
+
             }else{
-                $paste = $urlsrc;
-                $paste['page'] = max(1,$startpage);
-                echo '<li><a href="' .  $url::toRoute($paste) . '" class="lock-on">'.($startpage).'</a></li>';
+                if($startpage==1){
+                    if(Yii::$app->params['seourls'] == TRUE){
+                        echo '<li><a href="' .  $url::toRoute([$urlsrc[0]]) . '" class="lock-on">'.($startpage).'</a></li>';
+                    }else{
+                        $paste = $urlsrc;
+                        echo '<li><a href="' .  $url::toRoute($paste) . '" class="lock-on">'.($startpage).'</a></li>';
+                    }
+                } else {
+                    if(Yii::$app->params['seourls'] == TRUE){
+                        echo '<li><a href="' .  $url::toRoute([$urlsrc[0].'/'.$startpage]) . '" class="lock-on">'.($startpage).'</a></li>';
+                    }else{
+                        $paste = $urlsrc;
+                        $paste['page'] = max(1,$startpage);
+                        echo '<li><a href="' .  $url::toRoute($paste) . '" class="lock-on">'.($startpage).'</a></li>';
+                    }
+
+                }
             }
         }
-        echo '<li class="next">';
-        $paste = $urlsrc;
-        $paste['page'] = min($pagecount,$page+1);
-        echo '<a href="' .   $url::toRoute($paste)  . ' " class="lock-on">';
-        echo '<i class="mdi mdi-arrow-forward">';
-        echo '</i>';
-        echo '</a>';
-        echo '</li>';
-        echo '<li class="last">';
-        $paste = $urlsrc;
-        $paste['page'] = $pagecount;
-        echo '<a href="' . $url::toRoute($paste)  . '" class="lock-on">';
-        echo 'Последняя';
-        echo '</a>';
-        echo '</li>';
+        if($page == $pagecount){
+            echo '<li class="next disabled"><span><i class="mdi mdi-arrow-forward"></i></span></li>';
+            echo '<li class="last disabled"><span>Последняя</span></li>';
+        } else {
+            if(Yii::$app->params['seourls'] == TRUE){
+                echo '<li class="next"><a href="' .   $url::toRoute([$urlsrc[0].'/'.min($pagecount,$page+1)])  . '" class="lock-on"><i class="mdi mdi-arrow-forward"></i></a></li>';
+                echo '<li class="last"><a href="' . $url::toRoute([$urlsrc[0].'/'.$pagecount])  . '" class="lock-on">Последняя</a></li>';
+            }else{
+                $paste = $urlsrc;
+                $paste['page'] = min($pagecount,$page+1);
+                echo '<li class="next"><a href="' .   $url::toRoute($paste)  . '" class="lock-on"><i class="mdi mdi-arrow-forward"></i></a></li>';
+                $paste['page'] = $pagecount;
+                echo '<li class="last"><a href="' . $url::toRoute($paste)  . '" class="lock-on">Последняя</a></li>';
+            }
+               }
         ?>
         </ul>
 
