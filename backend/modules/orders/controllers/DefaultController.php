@@ -40,7 +40,6 @@ class DefaultController extends Controller
 
     public function actionOrderslist()
     {
-
         $orderlist = PartnersOrders::find()->asArray()->all();
     foreach($orderlist as $key => $value){
         $orderlist[$key]['order'] = unserialize($value['order']);

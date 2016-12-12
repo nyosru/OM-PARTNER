@@ -22,7 +22,7 @@ $this->title = 'Личный кабинет';
 </div>
 <div class="col-md-12">
     <?php
-    $form = ActiveForm::begin(['action' => BASEURL . '/lk?view=userinfo', 'method' => 'post']);
+    $form = ActiveForm::begin(['action' => BASEURL . '/lk/userinfo', 'method' => 'post']);
     ?>
     <div style="overflow: hidden">
         <div class="regmain" style="font-weight: 400; margin: 15px;">

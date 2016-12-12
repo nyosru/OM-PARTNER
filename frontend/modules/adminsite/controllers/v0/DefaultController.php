@@ -26,6 +26,7 @@ use frontend\modules\adminsite\controllers\actions\ActionRequestusers;
 use frontend\modules\adminsite\controllers\actions\ActionSavesettings;
 use frontend\modules\adminsite\controllers\actions\ActionTemplateimage;
 use frontend\modules\adminsite\controllers\actions\ActionUserControl;
+use frontend\modules\adminsite\controllers\actions\ActionCoupons;
 use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
@@ -37,6 +38,7 @@ class DefaultController extends Controller
     use Imagepreviewcrop,
         ThemeResources,
         ActionIndex,
+        ActionCoupons,
         ActionSavesettings,
         ActionRequestnews,
         ActionCancelorder,
@@ -66,12 +68,53 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orderupdate', 'mainpageset', 'orderrevert', 'usercontrol', 'newspage', 'documents', 'requestpage', 'commentspage', 'commentscontrol', 'newsupdate', 'savesettings',
-                            'requestusers', 'requestnews', 'requestupdate', 'requestorders', 'delegate', 'cancelorder', 'templateimage', 'partnerscategories'],
-                        'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => [
 
+                            'admin'
+
+                        ],
+                                    'actions' => [
+                                        'index',
+                                        'coupons',
+                                        'orderupdate',
+                                        'mainpageset',
+                                        'orderrevert',
+                                        'usercontrol',
+                                        'newspage',
+                                        'documents',
+                                        'requestpage',
+                                        'commentspage',
+                                        'commentscontrol',
+                                        'newsupdate',
+                                        'savesettings',
+                                        'requestusers',
+                                        'requestnews',
+                                        'requestupdate',
+                                        'requestorders',
+                                        'delegate',
+                                        'cancelorder',
+                                        'templateimage',
+                                        'partnerscategories'
+                                    ],
+                        'allow' => true,
                     ],
+                    [
+                        'roles' => [
+
+                            'author'
+
+                        ],
+                                    'actions' => [
+                                        'index',
+                                        'requestusers',
+                                        'newspage',
+                                        'requestorders',
+                                        'commentspage',
+                                        'requestpage'
+                                    ],
+                        'allow' => true,
+                    ],
+
                 ]
             ]
         ];

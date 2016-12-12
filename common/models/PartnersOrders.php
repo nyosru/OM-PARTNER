@@ -80,4 +80,12 @@ class PartnersOrders extends ActiveRecordExt
     {
         return $this->hasMany(OrdersProductsAttributes::className(), ['orders_products_id' => 'orders_products_id'])->via('oMOrdersProducts');
     }
+    public function getCommonOrder()
+    {
+        return $this->hasOne(CommonOrdersLinks::className(), ['partner_orders_id' => 'id']);
+    }
+    public function getReferralUser()
+    {
+        return $this->hasOne(ReferralsUser::className(), ['user_id' => 'user_id']);
+    }
 }

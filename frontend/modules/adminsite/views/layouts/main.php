@@ -66,6 +66,10 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
         $menuItems[] = ['label' => 'Админ', 'url' => ['/adminsite/']];
 
     }
+    if (Yii::$app->user->can('autor')) {
+        $menuItems[] = ['label' => 'Модератор', 'url' => ['/adminsite/']];
+
+    }
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Войти', 'url' => [BASEURL . '/login']];
         $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => [BASEURL . '/signup']];
@@ -93,7 +97,7 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                     </div>
                     <ul id="accordion" class="accordion">
                         <li class="">
-                            <div class="link users"><a href="/adminsite">Настройки</a></div>
+                            <div class="link users"><a href="/adminsite/">Настройки</a></div>
                         </li>
                     </ul>
                     <!--                    <ul id="accordion" class="accordion">-->
@@ -126,12 +130,29 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                             <div class="link news"><a href="/adminsite/default/requestpage">Заявки</a></div>
                         </li>
                     </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link news"><a href="/adminsite/default/coupons">Купоны</a></div>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
         </div>
         <div class="container-fluid" id="partners-main-right-back-admin">
             <div id="partners-main-right" class="bside">
+                <?php if(!empty(Yii::$app->getSession()->getFlash('error'))) {?>
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?=Yii::$app->getSession()->getFlash('error')?>
+                    </div>
+                <?php } ?>
+                <?php if(!empty(Yii::$app->getSession()->getFlash('success'))) {?>
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?=Yii::$app->getSession()->getFlash('success')?>
+                    </div>
+                <?php }?>
                 <?= $content ?>
             </div>
         </div>

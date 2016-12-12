@@ -57,9 +57,9 @@ unset($order['discounttotalprice']);
             <a style="margin-left:8px;color:#282828;"
                href="http://<?= $sait ?><?= BASEURL ?>/contacts">Контакты</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $sait ?><?= BASEURL ?>/lk">Личный кабинет</a>
+               href="http://<?= $sait ?><?= BASEURL ?>/lk/">Личный кабинет</a>
             <a style="margin-left:8px;color:#282828;"
-               href="http://<?= $sait ?><?= BASEURL ?>/lk?view=myorder">Ваши заказы</a>
+               href="http://<?= $sait ?><?= BASEURL ?>/lk/myorder">Ваши заказы</a>
 
         </td>
     </tr>

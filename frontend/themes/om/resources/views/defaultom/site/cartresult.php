@@ -11,7 +11,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         <div style="padding: 10px;float: left;  margin: 10px 0px;">
             Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>подтвержден автоматически.<br>
             В ближайшее время Вы получите уведомление на электронную почту.<br>
-            Отслеживать состояние заказа можно в Вашем <font color="#007BC1"><a href="<?=BASEURL?>/lk">личном кабинете</a></font><br>
+            Отслеживать состояние заказа можно в Вашем <font color="#007BC1"><a href="<?=BASEURL?>/lk/">личном кабинете</a></font><br>
         </div>
         <div style="border-bottom: 1px solid rgb(204, 204, 204); border-top: 1px solid rgb(204, 204, 204); float: left; font-size: 24px; font-weight: 400; margin: 0px 10px; padding: 10px 0px; width: calc(100% - 20px);">
             Номер заказа <font color="#007BC1"><?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?></font>
@@ -28,11 +28,14 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         if($result['data']['totalpricesaveproduct']) {
             echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Итого: </span>'.((float)$result['data']['totalpricesaveproduct']-(float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
         }
+        if($result['data']['coupon_sum']) {
+            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Скидка: </span>'.(float)$result['data']['coupon_sum'].' Руб.</div>';
+        }
         if($result['data']['totalpricesaveproduct']) {
             echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Упаковка: </span>'.((float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
         }
         if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Всего к оплате: </span>'.((float)$result['data']['totalpricesaveproduct']).' Руб.</div>';
+            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Всего к оплате: </span>'.((float)$result['data']['totalpricesaveproduct'] - (float)$result['data']['coupon_sum']).' Руб.</div>';
         }
         if($result['data']['totalpricesaveproduct']) {
             echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">ФИО: </span>'.$result['data']['paramorder']['name'].'</div>';
@@ -45,7 +48,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         }
         if($result['code']==200) {
             echo '<div style="width: 100%;padding: 10px; margin: 10px 0px; float: left;">'.
-                'Заказанные товары будут Вам отправлены сразу же после проверки и поступления средств от Вас на расчетный счет Одежда-Мастер. <span>Счет будет Вам выслан</span> на указанный адрес электронной почты, а также Вы сможете скачать его в <a href="'.BASEURL.'/lk">личном кабинете</a>'.
+                'Заказанные товары будут Вам отправлены сразу же после проверки и поступления средств от Вас на расчетный счет Одежда-Мастер. <span>Счет будет Вам выслан</span> на указанный адрес электронной почты, а также Вы сможете скачать его в <a href="'.BASEURL.'/lk/">личном кабинете</a>'.
                 '</br>'.
                 '<div class="code'.$result['code'].'" style="padding: 10px 0px;">'.
                 'Благодарим вас за покупку!'.

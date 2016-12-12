@@ -8,19 +8,31 @@ trait ActionInviteSP
 {
     public function actionInviteSp()
     {
+
+        $TIMER_OUT_ONE_MIN = 60;
         $validate = new EmailValidator();
-        
         if(($mail = mb_strtolower(Yii::$app->request->post('mail'))) == TRUE && $validate->validate($mail)) {
+
             $sess = Yii::$app->session;
-            $sess->setTimeout(60);
-            Yii::$app->session->set('sess', '');
-            $allow = Yii::$app->session->get(md5(sha1(md5(Yii::$app->session->getId()))));
-            if (!$allow) {
-                $set = Yii::$app->session->set(md5(sha1(md5(Yii::$app->session->getId()))), sha1(md5(sha1(Yii::$app->session->getId()))));
+            /** @var \DateTime $timer_out_time */
+            $timer_out_time = Yii::$app->session->get('timerOut');
+            $new_time = new \DateTime();
+
+            if ($timer_out_time) {
+                $time_diff = $new_time->getTimestamp() - $timer_out_time->getTimestamp();
+            } else {
+                $time_diff = $TIMER_OUT_ONE_MIN + 1;
             }
-            if (($allow = Yii::$app->session->get(md5(sha1(md5(Yii::$app->session->getId()))))) == TRUE
-                && $allow == sha1(md5(sha1(Yii::$app->session->getId())))
-            ) {
+
+            if ($timer_out_time && $time_diff <= $TIMER_OUT_ONE_MIN) {
+                $allow_send = false;
+            } else {
+                $sess->setTimeout($TIMER_OUT_ONE_MIN);
+                $sess->set('timerOut', new \DateTime());
+                $allow_send = true;
+            }
+
+            if ($allow_send) {
 
                 $boxes = explode('@', $mail)[1];
                 $liter = mb_substr($mail, 0,2);
@@ -74,7 +86,7 @@ trait ActionInviteSP
             return $this->render('sp/resultinvite', ['type'=>'no-email']);
         }
 
-        
+
 
 
     }

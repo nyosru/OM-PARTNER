@@ -138,9 +138,15 @@ $(document).on('click', '.del-product', function () {
     changeOveralPrice();
     changeCartCount();
 });
+function coupon(godsprice,wrapprice){
+
+    return couponprice;
+}
 function changeOveralPrice(){
     var godsprice = 0;
     var wrapprice = 0;
+    var totalPrice = 0;
+    var couponprice = 0;
     var check = $("[name='wrap']").filter(':checked').first();
     if (check.val() == "boxes") wrapprice = 15;
 
@@ -149,9 +155,28 @@ function changeOveralPrice(){
         var c = ((parseInt($(this).find('#input-count').val())) * (parseInt($(this).find('.cart-prod-price').html())));
         godsprice += c;
     });
+
+    // Учитываем купон
+    var couponType = $('#promo-code-type').val(),
+        couponValue = parseInt($('#promo-code-amount').val());
+    if(couponType=='F'){ // если тип купона денежный
+        couponprice = couponValue+' руб';
+        totalPrice = godsprice+wrapprice-couponValue;
+        $('#promo-code-sum').val(couponValue);
+    } else if(couponType=='P') { // если тип купона процентный
+        couponprice = couponValue+'%';
+        var couponSum = couponValue*godsprice/100;
+        totalPrice = godsprice-couponSum+wrapprice;
+        $('#promo-code-sum').val(couponSum);
+    } else {
+        couponprice = '0 руб';
+        totalPrice = godsprice+wrapprice;
+    }
+
     $('#gods-price').html(godsprice + ' руб');
-    $('#total-price').html(godsprice + wrapprice + ' руб');
+    $('#total-price').html(totalPrice + ' руб');
     $('#wrap-price').html(wrapprice + ' руб');
+    $('#coupon-price').html(couponprice);
 }
 $(document).on('click', '.cart-lable', function () {
     $id_product =  this.getAttribute('data-sale');

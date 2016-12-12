@@ -2,6 +2,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Интернет магазин Одежда Мастер. Товары оптом по выгодным ценам для физических и юридических лиц</title>
     <meta name="author" content="OM GROUP">
+    <?=\yii\helpers\Html::csrfMetaTags(); ?>
     <meta name="description" content="Интернет магазин Одежда Мастер. Товары оптом по выгодным ценам для физических и юридических лиц!">
     <meta name="keywords" content="интернет магазин,аксессуары, платья,футболки, женские, костюмы, брюки, одежда, обувь, мастер, товары, оптом, выгодные цены">
     <meta name="Resource-type" content="Document">
@@ -225,9 +226,75 @@
             margin-top: -2.125vw;
             margin-bottom: 2.125vw;
         }
+        .alert-sys-error {
+            padding: 5px;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 50%;
+            right: 0px;
+            border: 1px solid #ea516d;
+            z-index: 9999;
+            color: #FFF;
+            background: #ea516d;
+            font-weight: 400;
+            margin-bottom:0px;
+        }
+        .alert-sys-warning {
+            padding: 5px;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 50%;
+            right: 0px;
+            border: 1px solid #febd13;
+            z-index: 9999;
+            color: #FFF;
+            background: #febd13;
+            font-weight: 400;
+            margin-bottom:0px;
+        }
+        .alert-sys-danger {
+            padding: 5px;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 50%;
+            right: 0px;
+            border: 1px solid #febd13;
+            z-index: 9999;
+            color: #FFF;
+            background: #febd13;
+            font-weight: 400;
+            margin-bottom:0px;
+        }
+        .alert-sys-info {
+            padding: 5px;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 50%;
+            right: 0px;
+            border: 1px solid #4a90e2;
+            z-index: 9999;
+            color: #FFF;
+            background: #4a90e2;
+            font-weight: 400;
+            margin-bottom:0px;
+        }
+        .alert-sys-success {
+            padding: 5px;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 50%;
+            right: 0px;
+            border: 1px solid #19a09d;
+            z-index: 9999;
+            color: #FFF;
+            background: #19a09d;
+            font-weight: 400;
+            margin-bottom:0px;
+        }
     </style>
 </head>
 <body style="min-width: 1440px;no-repeat 50% 0%;margin:auto;font-family: Roboto ,Helvetica Neue,sans-serif, sans-serif;font-style: normal;font-weight: 300;">
+<?= \frontend\widgets\Alert::widget() ?>
 <div style="background: white; z-index: 2; height: 180px; font-size: 40px; font-weight: 400; text-align: center; padding: 70px 0px;">
     Хотите ДЕШЕВО покупать ХОРОШИЕ вещи?
     <div style="font-size: 24px; line-height: 45px;">
@@ -320,13 +387,28 @@
     </div>
     <div style="background:url(/images/lp/Path6.png) 50% 0% no-repeat; background-size: cover;position: absolute; z-index: 2; font-size: 40px; font-weight: 400; text-align: center; top: 0px; bottom: 0px; left: 0px; right: 0px;">
     </div>
-    <div style="background: #FFF;border-radius: 4px;position: absolute; z-index: 2; height: 115px; font-size: 40px; font-weight: 400; text-align: center; top: 130px; left: 0px; right: 0px; margin: 5px 210px; padding: 30px;">
+    <!--Якорь после оправки формы-->
+    <div id="inviteForm" style="background: #FFF;border-radius: 4px;position: absolute; z-index: 2; height: 115px; font-size: 40px; font-weight: 400; text-align: center; top: 130px; left: 0px; right: 0px; margin: 5px 210px; padding: 30px;">
         <div style="border-radius: 4px; position: relative;">
             <div style="position: absolute; top: 0px; bottom: 0px; left:0px; right: 0px; margin: auto;">
-                <input placeholder="Ваш E-mail" style="display: inline-block; width: 47%; float: left; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center;">
-                <div style="display: inline-block; width: 45%; font-size: 24px; line-height: 60px; float: right; color: rgb(255, 255, 255); border-radius: 4px; height: 60px; background: rgb(234, 81, 109) none repeat scroll 0% 0%;">
-                    Вступить
-                </div>
+
+                <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'form-invite']); ?>
+                <?= $form->field($model, 'email', [
+                    'options'=>[
+                    ],
+                    'template' => '{input}',
+                    'inputOptions'=>[
+                        'placeholder'=>'Ваш E-mail',
+                        'value' => Yii::$app->request->queryParams['model']['email'] ? Yii::$app->request->queryParams['model']['email'] : '',
+                        'class'=>'',
+                        'style'=>'display: inline-block; width: 47%; float: left; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center;'
+                    ]
+                ])->label(false); ?>
+                <?= \yii\helpers\Html::submitButton('Зарегистрироваться', [
+                    'class' => 'btn btn-primary',
+                    'name' => 'signup-button',
+                    'style'=>'outline: none;border: none;display: inline-block; width: 45%; font-size: 24px; line-height: 50px; float: right; color: rgb(255, 255, 255); border-radius: 4px; height: 60px; background: rgb(234, 81, 109) none repeat scroll 0% 0%;']) ?>
+                <?php \yii\bootstrap\ActiveForm::end(); ?>
             </div>
         </div>
     </div>
@@ -453,7 +535,7 @@
                                 <img style="position: absolute; top: 0px; bottom: 0px; right: 0px; left: 0px; margin: auto;  " src="/images/lp/krestik.png">Розничная<br>наценка
                             </div>
                         </div>
-                        <div style="height: 30%; font-size: 18px; line-height: 24px;">И всевозможные<br>разничные наценки</div>
+                        <div style="height: 30%; font-size: 18px; line-height: 24px;">И всевозможные<br>розничные наценки</div>
                     </div>
                 </div>
             </div>
@@ -503,7 +585,7 @@
         <div style="width: 30%; display: inline-block; height: 100%; position: relative; text-align: right; padding: 0px 70px;">
             <div style="
     width: 100%;
-">350p.<p style="font-size: 22px;">цена на Одежда-Мастер</p></div>
+">950p.<p style="font-size: 22px;">цена розничного продавца</p></div>
             <div style="position: relative;width: 100%;">
                 <img src="/images/lp/arrow_blue.png" style="">
             </div>
@@ -514,18 +596,31 @@
     <div style="border-radius: 4px; display: inline-block; left: 60px; position: absolute; text-align: left; font-size: 48px; top: 70px; color: rgb(255, 255, 255);">
         Начни экономить<br> до 100% на покупках!
     </div>
-    <div style="border-radius: 4px; position: relative;display: inline-block">
-        <div style="width: 440px; top: 75px; bottom: 0px; right: 0px; margin: auto; height: 100%; position: absolute; border: medium none; left: -100px;">
-            <input placeholder="Ваш E-mail" style="width: 100%; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center; margin-bottom: 15px;">
-            <br>
-            <div style="width: 100%; font-size: 24px; line-height: 60px; border-radius: 4px; height: 60px; background: rgb(68, 226, 194) none repeat scroll 0% 0%; color: rgb(0, 0, 0);">
-                Вступить
-            </div>
+    <div style="border-radius: 4px;position: absolute;display: inline-block;top: 0px;bottom: 0px;height: 50%;margin: auto;">
+        <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'form-invite-down']); ?>
+        <?= $form->field($model, 'email', [
+            'options'=>[
+            ],
+            'template' => '{input}',
+            'inputOptions'=>[
+                'placeholder'=>'Ваш E-mail',
+                'value' => Yii::$app->request->queryParams['model']['email'] ? Yii::$app->request->queryParams['model']['email'] : '',
+                'class'=>'',
+                'style'=>'width: 100%; font-size: 24px; line-height: 60px; border: 2px solid rgb(204, 204, 204); border-radius: 4px; height: 60px; text-align: center; margin-bottom: 15px;'
+            ]
+        ])->label(false); ?>
+        <?= \yii\helpers\Html::submitButton('Зарегистрироваться', [
+            'class' => 'btn btn-primary',
+            'name' => 'signup-button',
+            'style'=>' outline: none;border: none; width: 100%; font-size: 24px; line-height: 50px; border-radius: 4px; height: 60px; background: rgb(68, 226, 194) none repeat scroll 0% 0%; color: rgb(0, 0, 0);']) ?>
+        <?php \yii\bootstrap\ActiveForm::end(); ?>
         </div>
     </div>
 </div>
 <div style="z-index: 1; height: 235px; font-size: 40px; font-weight: 400; text-align: center; position: relative; background: rgb(120, 211, 62) none repeat scroll 0% 0%; color: rgb(255, 255, 255);">
-    <div style="position: absolute; top: 70px; bottom: 0px; right: 0px; left: 0px; margin: auto; font-size: 32px; text-align: center;">Каталог товаров<br>Одежда-Мастер</div>
+    <a  href="/catalog?cat=1632" style="z-index: 1;height: 235px;font-size: 40px;font-weight: 400;text-align: center;position: relative;background: rgb(120, 211, 62) none repeat scroll 0% 0%;color: rgb(255, 255, 255);margin: auto;line-height: 6;">
+        Перейти в каталог товаров
+    </a>
     <img style="position: absolute; right: 0px; bottom: 0px;" src="/images/lp/girl2.png" />
 </div>
 

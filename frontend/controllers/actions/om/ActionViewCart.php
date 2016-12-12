@@ -7,7 +7,7 @@ trait ActionViewCart
 {
     public function actionViewcart()
     {
-        $this->layout = 'lk';
+        $this->layout = 'main';
         if (!\Yii::$app->user->isGuest) {
             $cart = PartnersCart::find()->where(['user_id' => \Yii::$app->user->getId()])->all();
             return $this->render('viewcart', ['cart' => $cart]);

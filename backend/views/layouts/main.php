@@ -48,8 +48,9 @@ use dmstr\helpers\AdminLteHelper;
     </div>
 
     <?php $this->endBody();
-    $this->registerJsFile('/js/'.$this->context->module->id.'/script.js');?>
-    $this->registerJsFile('/js/'.$this->context->module->id.'/moment.js');?>
+    $this->registerJsFile('/js/'.$this->context->module->id.'/script.js');
+    $this->registerJsFile('/js/'.$this->context->module->id.'/moment.js');
+    ?>
     </body>
     </html>
     <?php $this->endPage() ?>

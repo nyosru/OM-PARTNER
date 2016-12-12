@@ -3758,6 +3758,71 @@ div.size-desc:last-child{
         transform: rotateZ(0deg);
     }
 }
+.alert-sys-error {
+    padding: 5px;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 50%;
+    right: 0px;
+    border: 1px solid #ea516d;
+    z-index: 9999;
+    color: #FFF;
+    background: #ea516d;
+    font-weight: 400;
+    margin-bottom:0px;
+}
+.alert-sys-warning {
+    padding: 5px;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 50%;
+    right: 0px;
+    border: 1px solid #febd13;
+    z-index: 9999;
+    color: #FFF;
+    background: #febd13;
+    font-weight: 400;
+    margin-bottom:0px;
+}
+.alert-sys-danger {
+    padding: 5px;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 50%;
+    right: 0px;
+    border: 1px solid #febd13;
+    z-index: 9999;
+    color: #FFF;
+    background: #febd13;
+    font-weight: 400;
+    margin-bottom:0px;
+}
+.alert-sys-info {
+    padding: 5px;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 50%;
+    right: 0px;
+    border: 1px solid #4a90e2;
+    z-index: 9999;
+    color: #FFF;
+    background: #4a90e2;
+    font-weight: 400;
+    margin-bottom:0px;
+}
+.alert-sys-success {
+    padding: 5px;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 50%;
+    right: 0px;
+    border: 1px solid #19a09d;
+    z-index: 9999;
+    color: #FFF;
+    background: #19a09d;
+    font-weight: 400;
+    margin-bottom:0px;
+}
 
 @media screen and (min-width: 3651px) and ( max-width: 4100px){
     #card{

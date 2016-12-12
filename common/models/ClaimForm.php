@@ -31,8 +31,9 @@ class ClaimForm extends Model
         return [
             ['myphoto', 'file'],
             ['opid', 'integer'],
-            [['opid', 'pritenwrite'], 'required'],
-            ['pritenwrite', 'string']
+            [['opid'], 'required'],
+            ['pritenwrite', 'string'],
+            ['pritenwrite', 'required', 'message' => 'Поле Сообщение не может быть пустым'],
         ];
     }
 

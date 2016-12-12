@@ -190,6 +190,11 @@ class Orders extends ActiveRecordExt
         ];
     }
 
+    public function getCoupons()
+    {
+        return $this->hasMany(CouponRedeemTrack::className(), ['order_id' => 'orders_id']);
+    }
+
     public function getProducts()
     {
         return $this->hasMany(OrdersProducts::className(), ['orders_id' => 'orders_id']);
@@ -253,6 +258,19 @@ class Orders extends ActiveRecordExt
         $literalchar = $literalchar[$this->default_provider];
         $literalnum = $this->buh_orders_id;
         return $literaltyear . $literalchar . '-' . $literalnum;
+    }
+
+    public function useCoupon($coupon_id,$coupon_sum)
+    {
+        $model = new CouponRedeemTrack();
+        $model->setAttributes([
+            'coupon_id' => $coupon_id,
+            'customer_id' => $this->customers_id,
+            'redeem_ip' => Yii::$app->request->userIP,
+            'order_id' => $this->orders_id,
+            'redeem_sum' => $coupon_sum
+        ]);
+        return $model->save();
     }
 
 }
