@@ -45,7 +45,7 @@ $del_add .= '</select>';
                     method:'post',
                     url: "/site/product",
                     async: false,
-                    data: {id: this[0]}
+                    data: {id: this[0],_csrf: yii.getCsrfToken()}
                 });
 
                 mandata = $.ajax({
@@ -57,7 +57,7 @@ $del_add .= '</select>';
                         category :requestdata.responseJSON.categories_id,
                         attr :this[2],
                         count : this[4],
-
+                        _csrf: yii.getCsrfToken()
                     }
                 });
                 if((typeof(requestdata.responseJSON.product.productsAttributes[this[2]]) !=='undefined' && requestdata.responseJSON.product.productsAttributes[this[2]].quantity == 0) || requestdata.responseJSON.product.products.products_quantity == 0){
@@ -292,7 +292,7 @@ $del_add .= '</select>';
             $.ajax({
                 type: "POST",
                 url: "/glavnaya/cart?coupon=1",
-                data: {}
+                data: {_csrf: yii.getCsrfToken()}
             }).done(function (html) {
                 $('.deliv-code').html(html);
             });
@@ -398,7 +398,8 @@ $del_add .= '</select>';
         $.post(
             "/site/requestadress",
             {ship: $('.shipping-confirm option:selected')[0].getAttribute('data-pasp'),
-                id:$('#shipaddr option:selected')[0].getAttribute('value')},
+                id:$('#shipaddr option:selected')[0].getAttribute('value'),
+                _csrf: yii.getCsrfToken()},
             onAjaxSuccessinfo
         );
     });
