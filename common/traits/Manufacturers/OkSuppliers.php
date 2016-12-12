@@ -1,11 +1,17 @@
 <?php
 namespace common\traits\Manufacturers;
 
+use common\models\Manufacturers;
+
 trait OkSuppliers
 {
     public function OkSuppliers()
     {
-        $suppliers = [749, 1241, 2058, 2461, 2700, 3412, 3473, 3481, 555, 3512, 3515, 3508, 3523, 1988];
+        $key = 'oksuppliers';
+        if(($suppliers = \Yii::$app->cache->get($key)) == FALSE){
+            $suppliers = Manufacturers::find()->select('manufacturers_id')->where(['express'=>1])->createCommand()->queryAll(7);
+            \Yii::$app->cache->set($key, $suppliers, 600);
+        }
         return $suppliers;
     }
 }

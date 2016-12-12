@@ -97,6 +97,8 @@ use frontend\controllers\actions\om\ActionSignup;
 use frontend\controllers\actions\om\ActionSiteIndex;
 use frontend\controllers\actions\om\ActionSpLanding;
 use frontend\controllers\actions\om\ActionSuppliers;
+use frontend\controllers\actions\om\ActionSuppliersLux;
+use frontend\controllers\actions\om\ActionSuppliersOk;
 use frontend\controllers\actions\om\ActionTcncopy;
 use frontend\controllers\actions\om\ActionViewCart;
 use yii\filters\AccessControl;
@@ -196,6 +198,9 @@ class GlavnayaController extends Controller
         NewProducts,
         RelatedProducts,
         ActionInfo,
+        ActionSuppliersLux,
+        ActionSuppliersOk,
+        ActionSuppliers,
         ActionSpLanding,
         ActionProductsDiscount,
         ActionDiscountProducts,

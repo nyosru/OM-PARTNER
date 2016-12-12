@@ -123,6 +123,8 @@ if ($data[0] != 'Не найдено!') {
         '<div style="display: block; height: 45px;" >'.
         '<input name="cat"   value="'.$cat.'" type="hidden"/>'.
         '<input name="count" value="'.$count.'" type="hidden" />'.
+        '<input id="suppliers-lux" value="" type="hidden" />'.
+        '<input id="suppliers-ok" value="" type="hidden" />'.
         '<input name="start_price" id="min-ev-price" class="" placeholder="от" style="float: left; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" />'.
         '<input name="end_price" style="float: right; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" id="max-ev-price" class="" placeholder="до" />'.
         '</div>'.
@@ -431,6 +433,20 @@ if ($data[0] != 'Не найдено!') {
 
     });
     $(window).on('load', function( event, ui){
+
+        $.ajax({
+            url: "/suppliers-lux",
+            success: function (data) {
+                $('#suppliers-lux').val(JSON.stringify(data));
+            }
+        });
+        $.ajax({
+            url: "/suppliers-ok",
+            success: function (data) {
+                $('#suppliers-ok').val(JSON.stringify(data));
+            }
+        });
+
         $('#min-ev-price').val('<?=$data[7]?>');
         $('#max-ev-price').val('<?=(integer)$data[2]['maxprice']?>');
         if($('.filter').length >0){
