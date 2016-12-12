@@ -531,7 +531,7 @@
             final_common_price += final_order_price;
             var user_name = '';
             var telephone = '';
-
+console.log(partner_orders.create_date);
             if(typeof (partner_orders.referral_user.userinfo) != "undefined" || typeof (partner_orders.referral_user.userinfo) != "null"){
                 if(partner_orders.referral_user.userinfo.name || partner_orders.referral_user.userinfo.lastname || partner_orders.referral_user.userinfo.secondname) {
                     user_name = partner_orders.referral_user.userinfo.name + ' ' + partner_orders.referral_user.userinfo.lastname + ' ' + partner_orders.referral_user.userinfo.secondname;
@@ -573,7 +573,7 @@
             str_html += "                             "+user_name+"";
             str_html += "                         <\/div>";
             str_html += "                         <div class=\"client-last-order-date\">";
-            str_html += "                             "+moment(partner_orders.referral_user.date_added).format("D MMMM  YYYY H:mm")+"";
+            str_html += "                             "+moment(partner_orders.create_date).format("D MMMM  YYYY H:mm")+"";
             str_html += "                         <\/div>";
             str_html += "                     <\/div>";
             str_html += "                     <div";
