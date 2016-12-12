@@ -336,7 +336,7 @@
             $.each($x, function(){
                 total = total + parseInt($(this).text());
             });
-            $('[class="final_common_price"]').text('Итого: '+total+' р');
+            $('[class="final_common_price"]').text('Итого '+total+' р.');
         }, 100);
     };
     $(document).on('click', '.count-event', function(){
