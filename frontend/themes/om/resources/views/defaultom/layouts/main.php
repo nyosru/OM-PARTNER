@@ -67,7 +67,7 @@ $this->beginPage();
                 </div>
                 <div  class="partners-main-left"  id="scroll1"
                       style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <?php if($this->beginCache('Right-13312'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                    <?php if($this->beginCache('Right-132'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                         <div class="partners-main-left-cont">
                             <?= \frontend\widgets\RightTopMenuLinks::widget();
                             if(isset(Yii::$app->params['layoutset']['opencat'])){
