@@ -221,6 +221,7 @@
 
     function updateAllOrdersView(updated_orders_list) {
         var final_common_price = 0;
+
         $.each(updated_orders_list.partnerOrders, function(index_partner_orders, partner_orders){
 
             var final_order_price = 0;
@@ -233,7 +234,11 @@
             final_common_price += final_order_price;
             $('.final_order_price'+partner_orders.id).text(final_order_price+ " р.");
             $('.total_count_products'+partner_orders.id).text(total_count_products);
+            $('')
         });
+
+        $('[data-detail="'+updated_orders_list.id+'"]').find('.client-info-fr-price').find('div').text(final_common_price +" руб.");
+
     }
 
 
@@ -502,6 +507,8 @@
 
                     $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
                     orders_list.partnerOrders = partnerOrders;
+                    updateCommonTotalOrder();
+                    updateAllOrdersView(orders_list);
                 }
             }
         });
