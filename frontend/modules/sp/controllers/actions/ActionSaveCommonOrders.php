@@ -49,7 +49,6 @@ trait ActionSaveCommonOrders
         $connection = \Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
-            $un_orders = [];
             $updateOrder = new UpdateOrder();
             foreach ($common_orders->partnerOrders as &$back_order) {
                 foreach ($client_orders_list as $client_order) {
@@ -64,7 +63,6 @@ trait ActionSaveCommonOrders
                         $back_order->refresh();
 
                         $back_order->order = unserialize($back_order->order);
-                        $un_orders[] = $back_order;
                     }
 
                 }
@@ -76,6 +74,6 @@ trait ActionSaveCommonOrders
             return false;
         }
 
-        return $un_orders;
+        return $client_orders_list;
     }
 }
