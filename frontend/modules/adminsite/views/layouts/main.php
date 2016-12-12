@@ -63,7 +63,7 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
 
     $menuItems = [];
     if (Yii::$app->user->can('admin')) {
-        $menuItems[] = ['label' => 'Админ', 'url' => ['/adminsite']];
+        $menuItems[] = ['label' => 'Админ', 'url' => ['/adminsite/']];
 
     }
     if (Yii::$app->user->isGuest) {

@@ -13,7 +13,7 @@ class MainBanner extends \yii\bootstrap\Widget
     const ROTATE_RAND = 'random';
     const ROTATE_ROLL = 'roll';
     const IMAGE_PATH = '/images/banners/';
-    public $utm_enable = TRUE;
+    public $utm_enable = FALSE;
     public $utm = [
         'campagin' => '',
         'source'=> 'sait_main',
@@ -26,54 +26,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_02122016_1.png',
-                'referal'=> '/catalog?cat=1549',
-                'term'=> '',
-                'alttext' => 'Украшения, бижутерия',
+                'image' =>  'OM_06122016_1.png',
+                'referal'=> '/catalog?cat=1792',
+                'term'=> '1729',
+                'alttext' => '',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_02122016_2.png',
-                'referal'=> '/catalog?cat=2453',
-                'term'=> '',
-                'alttext' => 'Символ года',
+                'image' =>  'OM_06122016_2.png',
+                'referal'=> '/catalog?cat=2054',
+                'term'=> '1813',
+                'alttext' => '',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_02122016_3.png',
-                'referal'=> '/catalog?cat=1815',
-                'term'=> '',
-                'alttext' => 'Женские головные уборы',
+                'image' =>  'OM_06122016_3.png',
+                'referal'=> '/catalog?cat=1163',
+                'term'=> '2008-winter',
+                'alttext' => '',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_02122016_4.png',
-                'referal'=> '/catalog?cat=2730',
-                'term'=> '',
-                'alttext' => 'Аксесуары для курения',
+                'image' => 'OM_06122016_4.png',
+                'referal'=> '/catalog?cat=1993',
+                'term'=> '2047',
+                'alttext' => '',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_02122016_5.png',
+                'image' => 'OM_06122016_5.png',
                 'referal'=> '/catalog?cat=1720',
-                'term'=> '',
+                'term'=> '1720',
                 'alttext' => 'Платья',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_02122016_6.png',
-                'referal'=> '/catalog?cat=1316',
-                'alttext' => 'Пледы',
+                'image' => 'OM_22112016_6.png',
+                'referal'=> '/catalog?cat=1824',
+                'alttext' => '',
                 'out' => FALSE
             ]
         ],

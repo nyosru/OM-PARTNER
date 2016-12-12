@@ -20,7 +20,8 @@ trait ActionCommentspage
                 'partners_comments.relate_id',
             ])->where([
                 'partners_id' => Yii::$app->params['constantapp']['APP_ID']
-            ])->joinWith('user'),
+            ])->joinWith('user')
+                ->orderBy('partners_comments.id DESC'),
             'pagination' => [
                 'defaultPageSize' => 20,
             ],
