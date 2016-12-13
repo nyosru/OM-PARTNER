@@ -13,6 +13,7 @@ use common\models\PartnersProductsToCategories;
 use common\traits\Categories\CategoryChpu;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\BaseHtmlPurifier;
 
 trait AggregateCatalogData
 {
@@ -83,7 +84,7 @@ trait AggregateCatalogData
         $date = $options['date'];
         $maxtime = $options['maxtime'];
         $offsettime = $options['offsettime'];
-        $searchword = $this->trim_tags_text(urldecode(($params['searchword'])));
+        $searchword = BaseHtmlPurifier::process(urldecode(($params['searchword'])));
         if($cat_start == 0){
             $disallkey = '';
             $allowcat = $options['allowcat'];
