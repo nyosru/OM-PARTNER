@@ -230,72 +230,7 @@ class GlavnayaController extends Controller
 
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'saveorder', 'takeorder', 'requestadress', 'productinfo', 'requestorders', 'requestemail', 'saveuserprofile', 'savehtml', 'chstatusorder'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['saveuserprofile'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['saveorder'],
-                        'allow' => true,
-                        'roles' => ['register', 'admin'],
-                    ],
-                    [
-                        'actions' => ['requestadress'],
-                        'allow' => true,
-                        'roles' => ['register', 'admin'],
-                    ],
-                    [
-                        'actions' => ['productinfo'],
-                        'allow' => true,
-                        'roles' => ['?', '@'],
-                    ],
 
-                    [
-                        'actions' => ['requestorders'],
-                        'allow' => true,
-                        'roles' => ['register', 'admin'],
-                    ],
-                    [
-                        'actions' => ['requestemail'],
-                        'allow' => true,
-                        'roles' => ['register', 'admin'],
-                    ],
-                    [
-                        'actions' => ['takeorder'],
-                        'allow' => true,
-                        'roles' => ['register', 'admin'],
-                    ],
-                    [
-                        'actions' => ['savehtml'],
-                        'allow' => true,
-                        'roles' => ['admin'],
-                    ],
-                    [
-                        'actions' => ['chstatusorder'],
-                        'allow' => true,
-                        'roles' => ['@', '?'],
-                    ],
-
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
     }
 
     /**

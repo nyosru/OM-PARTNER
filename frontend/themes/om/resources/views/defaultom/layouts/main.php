@@ -198,6 +198,7 @@ $this->beginPage();
      }
      $ga = Yii::$app->session->set('ga', []);
  }
+ echo  \frontend\widgets\ReTargetVKWidget::widget();
  echo  \frontend\widgets\SlizaWidget::widget();
  ?>
     
