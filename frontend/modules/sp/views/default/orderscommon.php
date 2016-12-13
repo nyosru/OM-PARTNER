@@ -193,6 +193,13 @@
     </div>
 </div>
 
+<?= $this->render('modals/add_new_commonorder.php', ['pjax_id' => 'common', 'modal_id' => 'modal-common'])?>
+<script>
+    $('#common').on('pjax:end', function(){
+        refresh_list();
+    });
+</script>
+
 <script>
 
     var order_status_label = [
@@ -241,6 +248,14 @@
 
     }
 
+
+    function refresh_list(){
+        var act = $(this).attr('data-act');
+        var request = $(".input-searcncommon-order").val();
+        common_orders_list = requestCommon(act, request);
+        renderCommonList(common_orders_list);
+
+    }
 
     function renderCommonList(common_list) {
         var list_html = '';

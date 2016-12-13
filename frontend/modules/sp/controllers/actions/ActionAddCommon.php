@@ -1,6 +1,7 @@
 <?php
 namespace frontend\modules\sp\controllers\actions;
 
+use common\forms\PartnersOrders\CommonOrderForm;
 use common\models\CommonOrders;
 use common\models\PartnersOrders;
 use common\models\Referrals;
@@ -18,39 +19,19 @@ trait ActionAddCommon
     public function actionAddCommon()
     {
 
-        if(($referal = Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one())==TRUE){
-            $result = new CommonOrders();
-            if($result->load(Yii::$app->request->post())){
-                $result->referral_id = $referal['id'];
-                $result->status = 1;
-                if($result->save()){
-                    echo '<script>
-                        alert(\'Общий заказ создан! Номер заказа : '.$result->id.'\');
-                    </script>';
-                 //   Yii::$app->session->setFlash('alert-info', 'Общий заказ создан! Номер заказа : '.$result->id);
-                    $form = \yii\bootstrap\ActiveForm::begin([
-                        'options' => [
-                            'data-pjax' => true,
-                            'data-close'=>true
-                        ],
-                        'id'=>'groupdiscountuser',
-                        'action'=>'/sp/add-common',
-                        'method'=> 'post',
-                        'enableClientScript' => true
-                    ]);
-                    $commonmodel = new \common\models\CommonOrders();
-                    echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
-                    echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
-                    echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
-                    $form = \yii\bootstrap\ActiveForm::end();
-
-                }else{
-                    return false;
-                }
-            }
-        }else{
+        if (!Yii::$app->request->post()) {
             return false;
         }
 
+        $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
+
+        if ($referral != true) {
+            return false;
+        }
+
+        $newCommonOrderForm = new CommonOrderForm();
+        $newCommonOrderForm->load(Yii::$app->request->post());
+
+        return $newCommonOrderForm->createCommonOrder();
     }
 }

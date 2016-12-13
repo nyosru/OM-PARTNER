@@ -220,48 +220,15 @@ echo $modal;
     </div>
 </div>
 
-<div style="display: none;" id="modal-common" class="fade modal" role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Создать объединенный заказ
-            </div>
-            <div class="modal-body">
-                <?php
-                \yii\widgets\Pjax::begin([
-                    'id'=>'common',
-                    'enablePushState' =>false
-                ]);
-                $form = \yii\bootstrap\ActiveForm::begin([
-                    'options' => ['data-pjax' =>1],
-                    'id'=>'groupdiscountuser',
-                    'action'=>'/sp/add-common',
-                    'method'=> 'post',
-                    'enableClientScript' => true
-                ]);
-                $commonmodel = new \common\models\CommonOrders();
-                echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
-                echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
-                echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
-                $form = \yii\bootstrap\ActiveForm::end();
-                \yii\widgets\Pjax::end();
-                ?>
-                <script>
-                $('#common').on('pjax:end', function(){
-                  $('#modal-common').modal('hide');
-                    refresh_list();
-                });
-                </script>
-            </div>
-        </div>
-    </div>
-</div>
-
+<?= $this->render('modals/add_new_commonorder.php', ['pjax_id' => 'common', 'modal_id' => 'modal-common'])?>
+<script>
+    $('#common').on('pjax:end', function(){
+        refresh_list();
+    });
+</script>
 
 
 <script>
-
     $(document).ready(function () {
         var product_arr = new Object();
         var maindata_arr = new Object();
