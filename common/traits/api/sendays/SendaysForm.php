@@ -10,6 +10,8 @@ use yii\web\HttpException;
 use yii\validators\RequiredValidator;
 use yii\validators\RangeValidator;
 use yii\validators\DateValidator;
+use kartik\date\DatePicker;
+use kartik\datetime\DateTimePicker;
 
 /**
  * Class SendaysForm works with forms API
@@ -190,8 +192,7 @@ class SendaysForm
 					if (isset($item['max_length']) && (int)$item['max_length'] > 0)
 						$options['maxlength'] = $item['max_length'];
 
-//					$type = $item['name'] === '_member_email' ? 'email' : 'text';
-					$type = 'text';
+					$type = $item['name'] === '_member_email' ? 'email' : 'text';
 					$field = BaseHtml::input($type, $item['name'], $item['default'], $options);
 					break;
 
@@ -207,23 +208,51 @@ class SendaysForm
 							$selection[] = $variant['value'];
 					}
 
-					$field = BaseHtml::listBox($item['name'], $selection, $items, $options);
+					$field = BaseHtml::dropDownList($item['name'], $selection, $items, $options);
 					break;
 
 				case 'dt':
-					$field = BaseHtml::input('text', $item['name'], null, $options);
-					$format = 'ДД.ММ.ГГГГ';
+					$format = 'mm-dd-yyyy';
 
 					if ($item['max_length'] === 'Ys')
-						$format .= ' ЧЧ:ММ:ССС';
+						$format .= ' hh:ii:ss';
 
 					elseif ($item['max_length'] === 'Ym')
-						$format .= ' ЧЧ:ММ';
+						$format .= ' hh:ii';
 
 					elseif ($item['max_length'] === 'Yh')
-						$format .= ' ЧЧ';
+						$format .= ' hh';
 
-					$field .= BaseHtml::tag('small', 'Дата в формате: ' . $format);
+					if ($item['max_length'] === 'YD')
+						$field = DatePicker::widget([
+							'name' => $item['name'],
+							'type' => DatePicker::TYPE_INPUT,
+							'pluginOptions' => [
+								'format' => $format
+							]
+						]);
+					else
+						$field = DateTimePicker::widget([
+							'name' => $item['name'],
+							'type' => DateTimePicker::TYPE_INPUT,
+							'pluginOptions' => [
+								'format' => $format
+							]
+						]);
+
+//					$field = BaseHtml::input('text', $item['name'], null, $options);
+//					$format = 'ДД.ММ.ГГГГ';
+//
+//					if ($item['max_length'] === 'Ys')
+//						$format .= ' ЧЧ:ММ:ССС';
+//
+//					elseif ($item['max_length'] === 'Ym')
+//						$format .= ' ЧЧ:ММ';
+//
+//					elseif ($item['max_length'] === 'Yh')
+//						$format .= ' ЧЧ';
+//
+//					$field .= BaseHtml::tag('small', 'Дата в формате: ' . $format);
 
 					break;
 
@@ -310,16 +339,16 @@ class SendaysForm
 					break;
 
 				case 'dt':
-					$format = 'php:d.m.Y';
+					$format = 'mm-dd-yyyy';
 
 					if ($item['max_length'] === 'Ys')
-						$format .= ' H:i:s';
+						$format .= ' hh:ii:ss';
 
 					elseif ($item['max_length'] === 'Ym')
-						$format .= ' H:i';
+						$format .= ' hh:ii';
 
 					elseif ($item['max_length'] === 'Yh')
-						$format .= ' H';
+						$format .= ' hh';
 
 					$date_validator = new DateValidator([
 						'format' => $format
