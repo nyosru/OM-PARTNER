@@ -128,7 +128,7 @@
 
 	setTimeout(function () {
 		$sc.addClass('is-opened');
-	}, 500);
+	}, 2000);
 
 	$sc.find('form').on('submit', function (e) {
 		e.preventDefault();
