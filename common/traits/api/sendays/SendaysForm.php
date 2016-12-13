@@ -36,16 +36,11 @@ class SendaysForm
 	private $formData = null;
 	private $formId;
 	private $serviceId;
-	private $session;
 
 	public function __construct($service_id, $form_id)
 	{
 		$this->serviceId = $service_id;
 		$this->formId = $form_id;
-
-		$this->session = Yii::$app->session;
-		if (!$this->session->isActive)
-			$this->session->open();
 
 		$this->formData = $this->getForm();
 	}
@@ -55,19 +50,19 @@ class SendaysForm
 	 *
 	 * @param string $action
 	 * @param string $method
+	 * @param bool $just_fields
 	 *
-	 * @return string - html page
+	 * @return string - html page | html fields
 	 * @throws HttpException
 	 */
-	public function create(string $action, string $method = 'post'): string
+	public function create(string $action, string $method = 'post', $just_fields = false)
 	{
 		if ($this->formData['obj']['state'] != '1')
 			throw new HttpException('500', 'Форма отключена. Пожалуйста, зайдите в другой раз.');
 
 		$form = $this->generateForm($this->formData['obj']['fields'], $action, $method);
-		$this->session->remove('validate_errors');
 
-		return str_replace('[% form.html %]', $form, $this->formData['obj']['landing_page']);
+		return $just_fields ? $form : str_replace('[% form.html %]', $form, $this->formData['obj']['landing_page']);
 	}
 
 	/**
@@ -86,8 +81,6 @@ class SendaysForm
 		foreach ($this->formData['obj']['fields'] as $field)
 			if ($field['type'] === 'dt')
 				$data[$field['name']] = date('Y-m-d H:i:s', strtotime($data[$field['name']]));
-
-		$this->session->set('validate_errors', $validate['errors']);
 
 		if ($validate['response'] === 1) {
 			unset($data['_csrf']);
@@ -123,9 +116,8 @@ class SendaysForm
 				}
 			else
 				throw new HttpException(500);
-		}
-
-		return [];
+		} else
+			return $validate;
 	}
 
 	/**
@@ -184,7 +176,6 @@ class SendaysForm
 	private function generateFields(array $fieldsRaw): string
 	{
 		$form = '';
-		$errors = $this->session->get('validate_errors');
 
 		foreach ($fieldsRaw as $item) {
 			$label = BaseHtml::label($item['label'], $item['name']);
@@ -199,7 +190,9 @@ class SendaysForm
 					if (isset($item['max_length']) && (int)$item['max_length'] > 0)
 						$options['maxlength'] = $item['max_length'];
 
-					$field = BaseHtml::input('text', $item['name'], $item['default'], $options);
+//					$type = $item['name'] === '_member_email' ? 'email' : 'text';
+					$type = 'text';
+					$field = BaseHtml::input($type, $item['name'], $item['default'], $options);
 					break;
 
 				case 'select':
@@ -237,10 +230,6 @@ class SendaysForm
 				default:
 					$field = null;
 			}
-
-			if (isset($errors[$item['name']]))
-				foreach ($errors[ $item['name'] ] as $error)
-					$field .= BaseHtml::tag('small', $error, ['style' => 'color:#F00']);
 
 			$required_tag = BaseHtml::tag('span', '*', ['style' => 'color:#F00']);
 			if ($options['required'])
@@ -282,6 +271,29 @@ class SendaysForm
 				case 'text':
 					if ($item['max_length'] && strlen($data[$item['name']]) > $item['max_length'])
 						$errors[$item['name']][] = 'Максимальное количество сиволов - ' . $item['max_length'];
+
+					if ($item['name'] === '_member_email') {
+						$client = new Client(['baseUrl' => 'https://sendsay.ru/form/' . $this->serviceId . '/' . $this->formId . '/']);
+						$response = $client->createRequest()
+							->setFormat(Client::FORMAT_JSON)
+							->addHeaders([
+								'accept' => 'application/json',
+								'Content-Type' => 'application/json'
+							])
+							->setMethod('GET')
+							->setContent(json_encode([
+								'_action' => 'email_validate',
+								'_member_email' => $data[$item['name']]
+							]))
+							->send();
+
+						if ($response->isOk) {
+							if (isset($response->data['errors']))
+								$errors[$item['name']][] = 'Проверьте правильность введенного поля';
+						}
+						else
+							throw new HttpException(500);
+					}
 					break;
 
 				case 'select':

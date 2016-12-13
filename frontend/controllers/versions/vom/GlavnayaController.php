@@ -58,6 +58,7 @@ use frontend\controllers\actions\ActionShippingfields;
 use frontend\controllers\actions\ActionSiteRequest;
 use frontend\controllers\actions\ActionSiteSaveUserProfile;
 use frontend\controllers\actions\ActionSiteSearchword;
+use frontend\controllers\actions\ActionSubscription;
 use frontend\controllers\actions\ActionTakeOrder;
 use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\ActionTimeOrderProducts;
@@ -203,7 +204,8 @@ class GlavnayaController extends Controller
         OrdersToReferrer,
         ActionRegisterSuccess,
         ActionPreCheckProductToOrders,
-        AggregateCatalogData;
+        AggregateCatalogData,
+	      ActionSubscription;
 
 
     /**
