@@ -1897,7 +1897,12 @@ function getProductCart(){
         $shara=1;
     }
     $baseduri = '/savecart';
-    $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
+    $.post($baseduri,{
+        'data':$data,
+            'public':$shara,
+            'comments':$comments,
+            '_csrf':yii.getCsrfToken()
+    },
         function(data){
             if(data==1){
                 alert('Корзина записана');
@@ -1939,7 +1944,7 @@ $(document).on('click','.share-set',function () {
         $data=0;
     }
     $baseduri = '/savecart';
-    $.post($baseduri,{'id':$id,'param':'share','data':$data},
+    $.post($baseduri,{'id':$id,'param':'share','data':$data,  '_csrf':yii.getCsrfToken()},
         function(data){
             if(data==1){
 
