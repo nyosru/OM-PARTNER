@@ -91,6 +91,7 @@ $config['components']['urlManager']['rules']['/'] = $version['frontend']['defrou
 
 //define('BASEURL', '/' . $version['frontend']['defroute']);
 define('BASEURL', '');
+$match = $version['frontend']['defroute'];
 unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
@@ -176,20 +177,30 @@ if (function_exists('pinba_timer_start')) {
 }
 
 
-\Yii::$app->urlManager->addRules([
-    '<action:catalog>/<cat_start:[a-z-\/]+>'=>'/catalog',
-]);
-\Yii::$app->urlManager->addRules([
-    '<action:catalog>/<cat_start:[a-z-\/]+>/<page:[0-9]*>'=>'/catalog',
-]);
-$application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event) {
-    $req = \Yii::$app->urlManager->parseRequest(\Yii::$app->request);
-    if($req[1]['action'] == 'catalog' && $req[1]['cat_start']){
-        \Yii::$app->params['chpu'] = $req[1];
-        \Yii::$app->request->setPathInfo('catalog');
-        \Yii::$app->request->url = 'catalog';
-    }
-});
+if(Yii::$app->params['seourls'] == TRUE) {
+    $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event, $match) {
+        \Yii::$app->urlManager->addRules([
+            '<action:products-discount>/<page:[0-9]*>' => '<action:products-discount>',
+            '<action:products-discount>/<cat_start:[a-z-\/]+>/<page:[0-9]*>' => '/products-discount',
+            '<action:products-discount>/<cat_start:[a-z-\/]*>' => '/products-discount',
+
+            '<action:catalog>/<page:[0-9]*>' => '<action:catalog>',
+            '<action:catalog>/<cat_start:[a-z-/]+>/<page:[0-9]*>' => '/catalog',
+            '<action:catalog>/<cat_start:[a-z-/]*>' => '/catalog'
+        ]);
+        $req = \Yii::$app->urlManager->parseRequest(\Yii::$app->request);
+        if (($req[1]['action'] == 'catalog' || $req[1]['action'] == 'products-discount')) {
+            \Yii::$app->params['chpu'] = $req[1];
+            \Yii::$app->request->setPathInfo($req[1]['action']);
+            \Yii::$app->request->url = $req[1]['action'];
+        } else if(preg_match('/\/(catalog|products-discount)$/iu',$req[0], $success)){
+            $req[1]['action'] = $success[1];
+            \Yii::$app->params['chpu'] = $req[1];
+            \Yii::$app->request->setPathInfo($success[1]);
+            \Yii::$app->request->url = $success[1];
+        }
+    });
+}
 $application->run();
 
 
