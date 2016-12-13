@@ -35,8 +35,14 @@ $sfilt  = $start_url['sfilt'] =  $params['sfilt'];
 $sfqueryparam ='';
 $urlsrc = [];
 if(Yii::$app->params['seourls'] == TRUE){
-    $newurl = Yii::$app->params['chpu']['action'].'/'.Yii::$app->params['chpu']['cat_start'];
-    $cat  = $params['cat_start'];
+    if($params['cat_start'] != 0){
+        $newurl = Yii::$app->params['chpu']['action'].'/'.Yii::$app->params['chpu']['cat_start'];
+        $cat  = $params['cat_start'];
+    }else{
+        $newurl = Yii::$app->params['chpu']['action'];
+        $cat  = $params['cat_start'];
+    }
+
 }else{
     $newurl =  '/'.Yii::$app->request->getPathInfo();
     $cat =  $start_url['cat'] = $params['cat_start'];
