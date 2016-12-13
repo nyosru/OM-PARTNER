@@ -24,7 +24,7 @@ class CommonOrderForm extends Model
     public function createCommonOrder()
     {
         if (!$this->validate()) {
-            return $this->errors;
+            return false;
         }
 
         $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
