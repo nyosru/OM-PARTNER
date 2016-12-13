@@ -70,20 +70,7 @@ echo \frontend\widgets\MainBanner::widget();
                 foreach ($dataproducts as $k=>$val){?>
                     <div class="item">
                         <?php
-                        $analitics = '
-                    <script>
-                        ga("ec:addImpression", {
-                            "id": "'.$val['products']['products_id'].'",
-                            "name": "'.$val['productsDescription']['products_name'].'",
-                            "category": "none",
-                            "list": "main-special",
-                            "brand": "'.$val['products']['manufacturers_id'].'",
-                            "variant": "none",
-                            "position": "'.$k1.'"});
-                        ga("ec:setAction", "view");
-                        ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
-                    </script>
-                    ';
+                        $analitics = '';
                         echo $analitics;
                         ?>
                         <?php
@@ -105,20 +92,7 @@ echo \frontend\widgets\MainBanner::widget();
                 foreach ($newproducts as $k1=>$val){ ?>
                     <div class="item">
                         <?php
-                        $analitics = '
-                         <script>
-                            ga( "ec:addImpression", {
-                                "id": "'.$val['products']['products_id'].'",
-                                "name": "'.$val['productsDescription']['products_name'].'",
-                                "category": "none",
-                                "list": "main-new",
-                                "brand": "'.$val['products']['manufacturers_id'].'",
-                                "variant": "none",
-                                "position": "'.$k1.'"});
-                            ga("ec:setAction", "view");
-                            ga("send", "event" , "view", "'.$_SERVER["REQUEST_URI"].'" );
-                         </script>
-                        ';
+                        $analitics = '';
                         echo $analitics;
                         echo  \frontend\widgets\ProductCard::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'], 'catpath' => $catpath, 'man_time' => $man_time,'category'=>$val['categories_id'],'showdiscount'=>1]);
                         ?>
