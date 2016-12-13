@@ -23,12 +23,6 @@ trait ActionAddCommon
             return false;
         }
 
-        $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
-
-        if ($referral != true) {
-            return false;
-        }
-
         $newCommonOrderForm = new CommonOrderForm();
         $newCommonOrderForm->load(Yii::$app->request->post());
 
