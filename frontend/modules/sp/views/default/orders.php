@@ -1,3 +1,14 @@
+<?php
+    $order_status_label = [
+        'Удален',
+        'Новый',
+        'В обработке',
+        'Оплаченый',
+        'Выполненный',
+        'Возврат'
+    ];
+?>
+
 <?= \frontend\widgets\HeaderFilterBarNew::widget([
     'dataProvider' => $data,
     'sortOrderByData'  =>
@@ -56,13 +67,13 @@
                                 ],
                                 'content' => function($model) use (&$i_model) {
                                     $stat_class = [
+                                        'status-cancel',
                                         'status-new',
                                         'status-proceed',
                                         'status-like',
                                         'status-payed',
                                         'status-ordered',
                                         'status-return',
-                                        'status-cancel',
                                     ];
                                     $img_block_client_status = [
                                         '<div></div>',
@@ -70,6 +81,15 @@
                                         '<div class="client-old"></div>',
                                         '<div class="client-vip"></div>'
                                     ];
+                                    $order_status_label = [
+                                        'Удален',
+                                        'Новый',
+                                        'В обработке',
+                                        'Оплаченый',
+                                        'Выполненный',
+                                        'Возврат'
+                                    ];
+
                                     $order_un = unserialize($model['order']);
                                     $order_price = 0;
                                     foreach ($order_un['products'] as $product) {
@@ -106,9 +126,7 @@
                                             <div class="client-line-info-orders">
                                                 <div class="client-info-fr-order">
                                                     <div class="client-order">
-                                                        <div class="client-order-num">
-                                                            № '.$model['ids'].'
-                                                        </div>
+                                                        <div class="client-order-num">'.$order_status_label[$model['order_status']].'</div>
                                                         <div class="client-order-status '.$stat_class[$model['order_status']].'">
                                                         </div>
                                                     </div>
@@ -202,48 +220,15 @@ echo $modal;
     </div>
 </div>
 
-<div style="display: none;" id="modal-common" class="fade modal" role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Создать объединенный заказ
-            </div>
-            <div class="modal-body">
-                <?php
-                \yii\widgets\Pjax::begin([
-                    'id'=>'common',
-                    'enablePushState' =>false
-                ]);
-                $form = \yii\bootstrap\ActiveForm::begin([
-                    'options' => ['data-pjax' =>1],
-                    'id'=>'groupdiscountuser',
-                    'action'=>'/sp/add-common',
-                    'method'=> 'post',
-                    'enableClientScript' => true
-                ]);
-                $commonmodel = new \common\models\CommonOrders();
-                echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
-                echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
-                echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
-                $form = \yii\bootstrap\ActiveForm::end();
-                \yii\widgets\Pjax::end();
-                ?>
-                <script>
-                $('#common').on('pjax:end', function(){
-                  $('#modal-common').modal('hide');
-                    refresh_list();
-                });
-                </script>
-            </div>
-        </div>
-    </div>
-</div>
-
+<?= $this->render('modals/add_new_commonorder.php', ['pjax_id' => 'common', 'modal_id' => 'modal-common'])?>
+<script>
+    $('#common').on('pjax:end', function(){
+        refresh_list();
+    });
+</script>
 
 
 <script>
-
     $(document).ready(function () {
         var product_arr = new Object();
         var maindata_arr = new Object();
@@ -359,8 +344,10 @@ echo $modal;
             }else{
                 list_html = '';
                 $.each(common_list, function(i, index){
-                    list_html += '<div class="list-child" common-order-id="'+index.id+'"><div style="display: inline-block; padding: 0px 10px; border: 1px solid rgb(240, 240, 240); border-radius: 4px; height: 20px; margin: 0px 15px 10px 0px;">'+index.id+'</div>';
-                    list_html += '<div style="display: inline-block; padding: 0px 20px;">'+index.header+'</div></div>'
+                    list_html += '<div class="list-child" common-order-id="'+index.id+'">';
+                    list_html += '<div class="number">'+index.id+'</div>';
+                    list_html += '<div class="title">'+index.header+'</div>';
+                    list_html += '</div>';
                 });
             }
             $('.list').html(list_html);
@@ -509,6 +496,7 @@ echo $modal;
                 final_order_price += Math.round(product[3] * product[4]);
             });
 
+            $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('div').text(final_order_price +" р.");
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
         }
 
@@ -647,6 +635,7 @@ echo $modal;
                         maindata.order.order['products'].push(data);
                     }
                     renderOrderEdit(maindata);
+                    updateAllOrdersView(maindata);
                 }
             });
         });
@@ -997,6 +986,7 @@ echo $modal;
                         $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
                         maindata.order.order['products'] = products;
                         renderOrder(maindata);
+                        updateAllOrdersView(maindata);
                     }
                 }
             });

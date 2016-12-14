@@ -5,7 +5,6 @@
 /* @var array $sortStatusData */
 /* @var array $sortOrderByData */
 
-$this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].'/site/css/dropdown-nav-sp.css');
 ?>
 
 <div class="header-container">
@@ -22,7 +21,7 @@ $this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].
             <div class="search-bar col-md-3">
                 <input class="search-console" value="<?= Yii::$app->request->getQueryParam('search') ?>"
                        name="search"
-                       placeholder="Поиск по клиентам">
+                       placeholder="Поиск">
                 <?php
                 echo \yii\helpers\Html:: hiddenInput(Yii::$app->getRequest()->csrfParam,
                     Yii::$app->getRequest()->getCsrfToken(), []);
@@ -108,6 +107,7 @@ $this->registerJsFile('/themes/'.Yii::$app->params['constantapp']['APP_THEMES'].
             </div>
             <div class="col-md-2">
                 <div class="filters_btns">
+                    <?= \yii\helpers\Html::hiddenInput('status', Yii::$app->request->getQueryParam('status')); ?>
                     <?= \yii\helpers\Html::submitButton('Применить', [
                         'class' => 'filters',
                         'style' => '',
