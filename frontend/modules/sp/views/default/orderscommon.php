@@ -158,6 +158,7 @@
 </div>
 
 <script>
+    $(document).ready(function () {
 
     var order_status_label = [
         'удален',
@@ -771,6 +772,7 @@
     }
     });
 </script>
+
 <div style="display: none;" id="modal-comment" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
