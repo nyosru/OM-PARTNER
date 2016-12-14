@@ -26,55 +26,55 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_09122016_1.png',
-                'referal'=> '/catalog?cat=1867',
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> '/catalog?cat=1729',
                 'term'=> '',
-                'alttext' => 'Большие размеры',
+                'alttext' => 'Нарядный образ на работу',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_09122016_2.png',
-                'referal'=> '/catalog?cat=1765',
+                'image' =>  'OM_14122016_2.png',
+                'referal'=> '/product?id=1774488',
                 'term'=> '',
-                'alttext' => 'Комплекты белья',
+                'alttext' => 'Уютные кофточки',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_09122016_3.png',
-                'referal'=> '/catalog?cat=1993',
+                'image' =>  'OM_14122016_3.png',
+                'referal'=> '/catalog?cat=992',
                 'term'=> '',
-                'alttext' => 'Туфли',
+                'alttext' => 'Теплые колготки для зимнего образа',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_09122016_4.png',
-                'referal'=> '/catalog?cat=1813',
+                'image' => 'OM_14122016_4.png',
+                'referal'=> '/catalog?cat=1434',
                 'term'=> '',
-                'alttext' => 'Кардиганы',
+                'alttext' => 'Наряд для маленькой принцессы',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_09122016_5.png',
-                'referal'=> '/catalog?cat=1751',
+                'image' => 'OM_14122016_5.png',
+                'referal'=> '/catalog?cat=1725',
                 'term'=> '',
-                'alttext' => 'Зимние куртки, пуховики',
+                'alttext' => 'В новый год на корпоратив',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_09122016_6.png',
-                'referal'=> '/catalog?cat=1104',
-                'alttext' => 'Новый год',
-                'out' => FALSE
+                'image' => 'OM_14122016_6.png',
+                'referal'=> 'https://www.instagram.com/odezhda_master/',
+                'alttext' => 'Топ 5 лучших товаров каждый день',
+                'out' => TRUE
             ]
         ],
         'discont1' => [

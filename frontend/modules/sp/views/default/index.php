@@ -66,9 +66,11 @@ $text = [
                                         echo $name;
                                         ?>
                                     </div>
-                                    <?php if ($user->lastOrder) :
+
+                                    <?php if ($user->order && count($user->order) > 0) :
+                                        $order = $user->order[0];
                                         $final_order_price = 0;
-                                        $order_arr = unserialize($user->lastOrder->order);
+                                        $order_arr = unserialize($order->order);
                                         foreach ($order_arr['products'] as $product) {
                                             $final_order_price += round($product[3]) * round($product[4]);
                                         }
@@ -79,7 +81,7 @@ $text = [
                                         $create_date = \php_rutils\RUtils::dt()->ruStrFTime($params);
                                         ?>
                                         <div class="client-last-order">
-                                            <?= '<span>Последний заказ: #'.$user->lastOrder->id.'</span>' ?>
+                                            <?= '<span>Последний заказ: #'.$order->id.'</span>' ?>
                                         </div>
                                         <div class="client-last-order-date">
                                             <?= '<span>Дата: '.$create_date.'</span>' ?>
