@@ -42,13 +42,16 @@ $this -> title = 'Избранные продукты';
                         $bside = $('.bside').html();
                         $('.bside').html('');
                         $.each(data, function(i,item){
-
+                            var subImg = [];
+                            if(typeof (this.subImage) != 'undefined'){
+                                subImg = this.subImage;
+                            }
                             if(getCookie('cardview')==1) {
                                 renderProduct2(item.products, item.productsDescription,item.productsAttributes, item['productsAttributesDescr'], '',item.catpath);
-                                $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; cursor: pointer; color: red; font-size: 25px; position: relative;"><i  class="fa fa-times"></i></div>');
+                                $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; cursor: pointer; color: red; font-size: 25px; position: relative;z-index:25"><i  class="fa fa-times"></i></div>');
                             }else{
-                                renderProduct(item.products, item.productsDescription, item.productsAttributes, item['productsAttributesDescr'], '',item.catpath,true,suppliers,this.subImage);
-                                $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; position: absolute; cursor: pointer; color: red; font-size: 25px;"><i  class="fa fa-times"></i></div>');
+                                renderProduct(item.products, item.productsDescription, item.productsAttributes, item['productsAttributesDescr'], '',item.catpath,true,suppliers,subImg);
+                                $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; position: absolute; cursor: pointer; color: red; font-size: 25px;z-index:25"><i  class="fa fa-times"></i></div>');
 
                             }
 
