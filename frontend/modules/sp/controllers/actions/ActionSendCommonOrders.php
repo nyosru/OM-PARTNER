@@ -52,7 +52,7 @@ trait ActionSendCommonOrders
                 $formmodel->comment);
 
             $formmodel->renderForm();
-            return json_decode($x);
+            return $x;
        }else{
             $formmodel->renderForm();
             return '14';
