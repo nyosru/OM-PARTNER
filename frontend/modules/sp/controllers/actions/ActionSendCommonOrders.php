@@ -39,20 +39,23 @@ trait ActionSendCommonOrders
         if(Yii::$app->request->post('form')){
             $formmodel->idorder = (integer)Yii::$app->request->post('form');
            $formmodel->renderForm();
-           return '';
+           return '22';
        }elseif(Yii::$app->request->isPjax && !$formmodel->validate()){
             $formmodel->renderForm();
-           return '';
+           return '22';
        }elseif(Yii::$app->request->isPjax && $formmodel->validate()){
-           return $this->CommonOrdersToOm(
+            $x = $this->CommonOrdersToOm(
                 $formmodel->idorder,
                 $formmodel->address,
                 $formmodel->shipping_method,
                 $formmodel->wrap,
                 $formmodel->comment);
+
+            $formmodel->renderForm();
+            return json_decode($x);
        }else{
             $formmodel->renderForm();
-            return '';
+            return '14';
        }
 
     }
