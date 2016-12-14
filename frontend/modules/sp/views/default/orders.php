@@ -344,8 +344,10 @@ echo $modal;
             }else{
                 list_html = '';
                 $.each(common_list, function(i, index){
-                    list_html += '<div class="list-child" common-order-id="'+index.id+'"><div style="display: inline-block; padding: 0px 10px; border: 1px solid rgb(240, 240, 240); border-radius: 4px; height: 20px; margin: 0px 15px 10px 0px;">'+index.id+'</div>';
-                    list_html += '<div style="display: inline-block; padding: 0px 20px;">'+index.header+'</div></div>'
+                    list_html += '<div class="list-child" common-order-id="'+index.id+'">';
+                    list_html += '<div class="number">'+index.id+'</div>';
+                    list_html += '<div class="title">'+index.header+'</div>';
+                    list_html += '</div>';
                 });
             }
             $('.list').html(list_html);

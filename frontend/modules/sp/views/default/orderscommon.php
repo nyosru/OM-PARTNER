@@ -113,42 +113,6 @@
                     ],
                 ]);
   ?>
-                <script>
-                    $('.client-plate').on("click",function(){
-                        if(!in_progress){
-                            $('[class="client-plate client-active"]').removeClass('client-active');
-                            in_progress = true;
-                            $.ajax({
-                                method:"post",
-                                url: "<?=Yii::$app->urlManager->createUrl(['/sp/detail-common-orders'])?>",
-                                data: {
-                                    "_csrf":yii.getCsrfToken(),
-                                    "id": $(this).attr('data-detail')
-                                },
-                                cache: false,
-                                async: true,
-                                dataType: 'json',
-                                beforeSend: function () {
-                                    in_progress = false;
-                                }
-                            }).done(function (data) {
-                                $('[data-detail="'+data.id+'"]').addClass('client-active');
-                                orders_list = data;
-                                renderOrders(orders_list);
-                            });
-                            in_progress = false;
-                        }else{
-                            alert('Выполняется запрос');
-                        }
-                    });
-                $(document).on('click', '.common-order', function(){
-                    var act = $(this).attr('data-act');
-                    var request = $(".input-searcncommon-order").val();
-                    common_orders_list = requestCommon(act, request);
-                    renderCommonList(common_orders_list);
-
-                });
-                </script>
                 <?php
                 \yii\widgets\Pjax::end();
                 ?>
@@ -201,6 +165,8 @@
 </script>
 
 <script>
+    $(document).ready(function () {
+
 
     var order_status_label = [
         'удален',
@@ -226,6 +192,41 @@
     var in_progress = false;
     var common_orders_list = new Object();
 
+    $('.client-plate').on("click",function(){
+        if(!in_progress){
+            $('[class="client-plate client-active"]').removeClass('client-active');
+            in_progress = true;
+            $.ajax({
+                method:"post",
+                url: "<?=Yii::$app->urlManager->createUrl(['/sp/detail-common-orders'])?>",
+                data: {
+                    "_csrf":yii.getCsrfToken(),
+                    "id": $(this).attr('data-detail')
+                },
+                cache: false,
+                async: true,
+                dataType: 'json',
+                beforeSend: function () {
+                    in_progress = false;
+                }
+            }).done(function (data) {
+                $('[data-detail="'+data.id+'"]').addClass('client-active');
+                orders_list = data;
+                renderOrders(orders_list);
+            });
+            in_progress = false;
+        }else{
+            alert('Выполняется запрос');
+        }
+    });
+
+    $(document).on('click', '.common-order', function(){
+        var act = $(this).attr('data-act');
+        var request = $(".input-searcncommon-order").val();
+        common_orders_list = requestCommon(act, request);
+        renderCommonList(common_orders_list);
+
+    });
     function updateAllOrdersView(updated_orders_list) {
         var final_common_price = 0;
 
@@ -264,8 +265,10 @@
         }else{
             list_html = '';
             $.each(common_list, function(i, index){
-                list_html += '<div class="list-child" common-order-id="'+index.id+'"><div style="display: inline-block; padding: 0px 10px; border: 1px solid rgb(240, 240, 240); border-radius: 4px; height: 20px; margin: 0px 15px 10px 0px;">'+index.id+'</div>';
-                list_html += '<div style="display: inline-block; padding: 0px 20px;">'+index.header+'</div></div>'
+                list_html += '<div class="list-child" common-order-id="'+index.id+'">';
+                list_html += '<div class="number">'+index.id+'</div>';
+                list_html += '<div class="title">'+index.header+'</div>';
+                list_html += '</div>';
             });
         }
         $('.list').html(list_html);
@@ -546,7 +549,6 @@
             final_common_price += final_order_price;
             var user_name = '';
             var telephone = '';
-console.log(partner_orders.create_date);
             if(typeof (partner_orders.referral_user.userinfo) != "undefined" || typeof (partner_orders.referral_user.userinfo) != "null"){
                 if(partner_orders.referral_user.userinfo.name || partner_orders.referral_user.userinfo.lastname || partner_orders.referral_user.userinfo.secondname) {
                     user_name = partner_orders.referral_user.userinfo.name + ' ' + partner_orders.referral_user.userinfo.lastname + ' ' + partner_orders.referral_user.userinfo.secondname;
@@ -828,5 +830,5 @@ console.log(partner_orders.create_date);
         })
         $('.preload').remove();
     }
-
+    });
 </script>
