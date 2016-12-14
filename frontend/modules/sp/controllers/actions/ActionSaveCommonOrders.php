@@ -49,17 +49,22 @@ trait ActionSaveCommonOrders
         $connection = \Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
-
             $updateOrder = new UpdateOrder();
             foreach ($common_orders->partnerOrders as &$back_order) {
                 foreach ($client_orders_list as $client_order) {
 
-                    if (!isset($client_order['order']['products'])) {
+                    if (!isset($client_order['order']['products']) || count($client_order['order']['products']) == 0) {
                         continue;
                     }
 
-                    $back_order = $updateOrder->updateOrderWithClientProducts($back_order, $client_order['order']['products']);
-                    $back_order->save();
+                    if($client_order['id'] == $back_order->id) {
+                        $back_order = $updateOrder->updateOrderWithClientProducts($back_order, $client_order['order']['products']);
+                        $back_order->save();
+                        $back_order->refresh();
+
+                        $back_order->order = unserialize($back_order->order);
+                    }
+
                 }
             }
 
@@ -69,6 +74,6 @@ trait ActionSaveCommonOrders
             return false;
         }
 
-        return $common_orders['partnerOrders'];
+        return $client_orders_list;
     }
 }
