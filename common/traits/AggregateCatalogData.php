@@ -201,7 +201,7 @@ trait AggregateCatalogData
                 $hide_man = implode(',', $list);
 
                 $x = PartnersProductsToCategories::find()
-                    ->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')
+                    ->select('MAX(products.`products_last_modified`) as products_last_modified')
                     ->where('categories_id IN (' . $cat . ')')
                     ->JoinWith('products')
                     ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
