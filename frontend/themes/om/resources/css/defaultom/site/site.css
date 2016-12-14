@@ -3682,6 +3682,31 @@ div.size-desc:last-child{
     box-shadow: 0px -2px 15px #9E9E9E;
 
 }
+.pag
+{
+    text-align:center
+}
+.pag > .pagination > .active > a,.pag > .pagination > .active > span,.pag > .pagination > .active > a:hover,.pag > .pagination > .active > span:hover,.pag > .pagination > .active > a:focus,.pag > .pagination > .active > span:focus
+{
+    z-index:3;
+    cursor:default;
+    background-color:#ffbf08;
+    border-color:#ffbf08;
+    color:#000
+}
+
+.pag > .pagination > li > a,.pagination > li > span
+{
+    position:relative;
+    float:left;
+    padding:6px 12px;
+    margin-left:-1px;
+    line-height:1.42857143;
+    color:#000;
+    text-decoration:none;
+    background-color:#fff;
+    border:1px solid #CCC
+}
 .loading {
     position: absolute;
     left: 50%;

@@ -106,7 +106,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
 </div>
 <?php }?>
 <div class="orders-metro" style="float: left; width: 100%;">
-    <a href="<?=BASEURL?>/lk/myorder&filter=5">
+    <a href="<?=BASEURL?>/lk/myorder?filter=5">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Proverka.png"/>
@@ -115,7 +115,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
             <div class="title">Ожидает проверки</div>
         </div>
     </a>
-    <a href="<?=BASEURL?>/lk/myorder&filter=4">
+    <a href="<?=BASEURL?>/lk/myorder?filter=4">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Oplata.png"/>
@@ -124,7 +124,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
             <div class="title">Ожидает оплаты</div>
         </div>
     </a>
-    <a href="<?=BASEURL?>/lk/myorder&filter=7">
+    <a href="<?=BASEURL?>/lk/myorder?filter=7">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Sborka.png"/>
@@ -133,7 +133,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
             <div class="title">Ожидает сборки</div>
         </div>
     </a>
-    <a href="<?=BASEURL?>/lk/myorder&filter=6">
+    <a href="<?=BASEURL?>/lk/myorder?filter=6">
         <div class="lk-order-status">
             <div class="item">
                 <img src="/images/logo/Dostavka.png"/>
@@ -190,7 +190,7 @@ if ($_COOKIE['info-modal'] !== '1') {?>
                         'flat10_flat10' => ['value'=>'Бесплатная доставка до ТК ОПТИМА'],
                         'flat9_flat9' => ['value'=>'Бесплатная доставка до ТК Севертранс'],
                         'flat12_flat12' => ['value'=>'Бесплатная доставка до ТК ЭНЕРГИЯ'],
-                        'courier_express' => ['value'=>'Бесплатная доставка до ТК Служба доставки Экспресс-Курьер'],
+                        'courierExpress_courierExpress' => ['value'=>'Бесплатная доставка до ТК Служба доставки Экспресс-Курьер'],
                         'russianpostpf_russianpostpf'=> ['value'=>'Почта России - http://pochta.ru/']
                     ];
                     $shipping = array_merge($shipping, Yii::$app->params['partnersset']['transport']['value']);

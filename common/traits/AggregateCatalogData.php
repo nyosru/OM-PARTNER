@@ -13,6 +13,7 @@ use common\models\PartnersProductsToCategories;
 use common\traits\Categories\CategoryChpu;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\BaseHtmlPurifier;
 
 trait AggregateCatalogData
 {
@@ -52,6 +53,9 @@ trait AggregateCatalogData
         if(isset(\Yii::$app->params['chpu']['cat_start'])){
             $params['cat_start'] = $this->categoryChpu(\Yii::$app->params['chpu']['cat_start']);
         }
+        if(isset(\Yii::$app->params['chpu']['page'])){
+            $params['page'] = Yii::$app->params['chpu']['page'];
+        }
         $integer = function($value) {
             return (integer)$value;
         };
@@ -80,7 +84,7 @@ trait AggregateCatalogData
         $date = $options['date'];
         $maxtime = $options['maxtime'];
         $offsettime = $options['offsettime'];
-        $searchword = $this->trim_tags_text(urldecode(($params['searchword'])));
+        $searchword = BaseHtmlPurifier::process(urldecode(($params['searchword'])));
         if($cat_start == 0){
             $disallkey = '';
             $allowcat = $options['allowcat'];
@@ -150,11 +154,11 @@ trait AggregateCatalogData
                 $prod_day_query_filt = ' and products_date_added > :day';
                 break;
             default:
-                $now = date('Y-m-d H:i:s');
-                $arfilt[':now'] = $now;
-                $arfilt_pricemax[':now'] = $now;
-                $arfilt_attr[':now'] = $now;
-                $prod_day_query_filt = '';
+//                $now = date('Y-m-d H:i:s');
+//                $arfilt[':now'] = $now;
+//                $arfilt_pricemax[':now'] = $now;
+//                $arfilt_attr[':now'] = $now;
+//                $prod_day_query_filt = '';
 
         }
 
@@ -162,15 +166,16 @@ trait AggregateCatalogData
         $init_key_static = $options['cachelistkeyprefix'] . '5ty-' . $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
-        if($dataque['checkcache']){
-            $datetime1 = new \DateTime($dataque['checkcache']);
-            $datetime2 = new \DateTime("now");
-            $interval = $datetime1->diff($datetime2);
-            $minutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
-        }else{
-            $minutes = 3;
-        }
-        if(!$dataque['checkcache'] || $minutes >= 3){
+        // Отключаем пока таймаут проверки
+//        if($dataque['checkcache']){
+//            $datetime1 = new \DateTime($dataque['checkcache']);
+//            $datetime2 = new \DateTime("now");
+//            $interval = $datetime1->diff($datetime2);
+//            $minutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+//        }else{
+//            $minutes = 3;
+//        }
+        if(TRUE){//(!$dataque['checkcache']){ //|| $minutes >= 3){
             if (function_exists('pinba_tag_set')) {
                 pinba_tag_set('cache-check', 'old');
             }
@@ -198,12 +203,12 @@ trait AggregateCatalogData
                     ->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')
                     ->where('categories_id IN (' . $cat . ')')
                     ->JoinWith('products')
-                    ->andWhere('products_date_added < :now and products_last_modified < :now ', [':now' => $now])
-                    ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
-                    ->andWhere('products_status = 1')
-                    ->andWhere('death_reason = ""')
-                    ->andWhere('products.products_quantity > 0 ')
-                    ->andWhere('products.products_price != 0')
+                //    ->andWhere('products_date_added < :now and products_last_modified < :now ', [':now' => $now])
+                 //   ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
+                 //   ->andWhere('products_status = 1')
+                //    ->andWhere('death_reason = ""')
+                //    ->andWhere('products.products_quantity > 0 ')
+                //    ->andWhere('products.products_price != 0')
                     ->createCommand()
                     ->queryOne();
 
@@ -383,6 +388,9 @@ trait AggregateCatalogData
                         }
                         $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '([\ \_\(\)\,\-\.\'\\\;\:\+\/\"?]|^)+(' . $searchword . ')[\ \_\(\)\,\-\.\'\\\;\:\+\/\"]*';
                         $prod_search_query_filt = ' and (LOWER(products_description.products_name) RLIKE :searchword )';
+                    }else{
+                        $data = 'Не найдено!';
+                        return ['data' => [$data]];
                     }
                     $nosfilt = true;
                 } else {

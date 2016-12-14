@@ -38,7 +38,7 @@ trait CommonOrdersToOm
     public function CommonOrdersToOm($commonorder, $address, $ship, $wrap, $comments_to_order)
     {
         date_default_timezone_set('Europe/Moscow');
-
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
      //   $type_order = Yii::$app->request->post('order-type');
 
@@ -60,7 +60,7 @@ trait CommonOrdersToOm
         ;
         $address_data = ArrayHelper::index(AddressBook::find()->where('customers_id = :customers ', [':customers'=>$model['customer']['customers_id']])->asArray()->all(),'address_book_id');
         if(!$model){
-            return $this->render('cartresultmultyorders', [
+            return [
                 'result' => [
                     'code' => 100,
                     'text' => 'Не правильные параметры заказа',
@@ -70,10 +70,10 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ]);
+            ];
         }
         if(!$address_data ||  !isset($address_data[$address])){
-            return $this->render('cartresultmultyorders', [
+            return [
                 'result' => [
                     'code' => 100,
                     'text' => 'Не актуальный адресс',
@@ -83,7 +83,7 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ]);
+            ];
         }
         $model['addressBook'] = $address_data;
         $products_order = [0=>[]];
@@ -145,7 +145,7 @@ trait CommonOrdersToOm
         }
 
         if ($validprice < $minprice) {
-            return $this->render('cartresultmultyorders', [
+            return [
                 'result' => [
                     'code' => 0,
                     'text' => 'Минимальная сумма заказа ' . $minprice . ' рублей',
@@ -157,7 +157,7 @@ trait CommonOrdersToOm
                         'totalpricesaveproduct' => $validprice
                     ]
                 ]
-            ]);
+            ];
         }
 
 
@@ -169,7 +169,7 @@ trait CommonOrdersToOm
 
 
         if (!$shipping) {
-            return $this->render('cartresultmultyorders', [
+            return [
                 'result' => [
                     'code' => 0,
                     'text' => 'Укажите транспортную компанию',
@@ -179,10 +179,10 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ]);
+            ];
 
         } elseif ($shipping['wantpasport'] && (!$userOM['pasport_seria'] || !$userOM['pasport_nomer'] || !$userOM['pasport_kogda_vidan'] || !$userOM['pasport_kem_vidan'])) {
-            return $this->render('cartresultmultyorders', [
+            return  [
                 'result' => [
                     'code' => 0,
                     'text' => 'Выбранной транспортной компании требуются ваши паспортные данные. Укажите их пожалуйста в личном кабинете для выбраного адреса',
@@ -192,7 +192,7 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ]);
+            ];
 
         }
 
@@ -651,7 +651,7 @@ trait CommonOrdersToOm
 
                                     } else {
 
-                                        return $this->render('cartresultmultyorders', ['wrapprice' => (integer)$wrapp['products_price'],
+                                        return ['wrapprice' => (integer)$wrapp['products_price'],
                                             'result' => [
                                                 'code' => 0,
                                                 'text' => 'Ошибка оформления позиции код 345 ' . $reindexprod[$keyin_order]['products_model'],
@@ -664,7 +664,7 @@ trait CommonOrdersToOm
                                                     'coupon_sum' => $coupon_sum
                                                 ]
                                             ]
-                                        ]);
+                                        ];
                                     }
                                 } else {
                                     if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
@@ -680,7 +680,7 @@ trait CommonOrdersToOm
                                 $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
 
                             } else {
-                                return $this->render('cartresultmultyorders', [
+                                return [
                                     'result' => [
                                         'code' => 0,
                                         'text' => 'Ошибка оформления продукта код 425' . $reindexprod[$keyin_order]['products_model'],
@@ -693,7 +693,7 @@ trait CommonOrdersToOm
                                             'coupon_sum' => $coupon_sum
                                         ]
                                     ]
-                                ]);
+                                ];
                             }
                         }
                     }
@@ -727,7 +727,7 @@ trait CommonOrdersToOm
                 if ($orderstotalprice->save()) {
 
                 } else {
-                    return $this->render('cartresultmultyorders', [
+                    return  [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 101',
@@ -740,7 +740,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ]);
+                    ];
                 }
 
                 $orderstotalship = new OrdersTotal();
@@ -753,7 +753,7 @@ trait CommonOrdersToOm
                 if ($orderstotalship->save()) {
 
                 } else {
-                    return $this->render('cartresultmultyorders', [
+                    return [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 102',
@@ -766,7 +766,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ]);
+                    ];
                 }
 
                 $orderstotalprint = new OrdersTotal();
@@ -779,7 +779,7 @@ trait CommonOrdersToOm
                 if ($orderstotalprint->save()) {
 
                 } else {
-                    return $this->render('cartresultmultyorders', [
+                    return [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 103',
@@ -792,7 +792,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ]);
+                    ];
                 }
                 if(!$main_order) {
                     $neworderpartner = new PartnersOrders();
@@ -807,7 +807,7 @@ trait CommonOrdersToOm
                     if ($neworderpartner->save()) {
 
                     } else {
-                        return $this->render('cartresultmultyorders', [
+                        return  [
                             'result' => [
                                 'code' => 0,
                                 'text' => 'Ошибка оформления заказа код 104',
@@ -820,7 +820,7 @@ trait CommonOrdersToOm
                                     'coupon_sum' => $coupon_sum
                                 ]
                             ]
-                        ]);
+                        ];
                     }
                 }
                 $ordershistory = new OrdersStatusHistory();
@@ -845,7 +845,7 @@ trait CommonOrdersToOm
                 if ($ordershistory->save()) {
 
                 } else {
-                    return $this->render('cartresultmultyorders', [
+                    return  [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 105',
@@ -858,7 +858,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ]);
+                    ];
                 }
                 if(!$main_order){
                     $main_order = $orders->orders_id;
@@ -866,7 +866,7 @@ trait CommonOrdersToOm
             } else {
 
                 $orders->validate();
-                return $this->render('cartresultmultyorders', [
+                return [
                     'result' => [
                         'code' => 0,
                         'text' => 'Ошибка оформления заказа код 106 ' . json_encode($orders->errors),
@@ -878,7 +878,7 @@ trait CommonOrdersToOm
                             'totalpricesaveproduct' => $validprice
                         ]
                     ]
-                ]);
+                ];
             }
         }
 
@@ -942,7 +942,7 @@ trait CommonOrdersToOm
                 ->setTo('desure85@gmail.com')
                 ->setSubject('Новый заказ"')
                 ->send();
-            Yii::$app->session->set('order-succes', ['wrapprice' => (integer)$wrapp['products_price'],
+            return ['wrapprice' => (integer)$wrapp['products_price'],
                 'result' => [
                     'code' => 200,
                     'text' => 'Спасибо, Ваш заказ оформлен',
@@ -963,9 +963,7 @@ trait CommonOrdersToOm
                         'coupon_sum' => $coupon_sum
                     ]
                 ]
-            ]);
-            return header('location: ' . BASEURL . '/cartresultmultyorders');
-
+            ];
         } catch (\Exception $e) {
             echo '<pre>';
             print_r($e);

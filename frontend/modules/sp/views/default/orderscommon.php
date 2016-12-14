@@ -157,16 +157,7 @@
     </div>
 </div>
 
-<?= $this->render('modals/add_new_commonorder.php', ['pjax_id' => 'common', 'modal_id' => 'modal-common'])?>
 <script>
-    $('#common').on('pjax:end', function(){
-        refresh_list();
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-
 
     var order_status_label = [
         'удален',
@@ -192,44 +183,8 @@
     var in_progress = false;
     var common_orders_list = new Object();
 
-    $('.client-plate').on("click",function(){
-        if(!in_progress){
-            $('[class="client-plate client-active"]').removeClass('client-active');
-            in_progress = true;
-            $.ajax({
-                method:"post",
-                url: "<?=Yii::$app->urlManager->createUrl(['/sp/detail-common-orders'])?>",
-                data: {
-                    "_csrf":yii.getCsrfToken(),
-                    "id": $(this).attr('data-detail')
-                },
-                cache: false,
-                async: true,
-                dataType: 'json',
-                beforeSend: function () {
-                    in_progress = false;
-                }
-            }).done(function (data) {
-                $('[data-detail="'+data.id+'"]').addClass('client-active');
-                orders_list = data;
-                renderOrders(orders_list);
-            });
-            in_progress = false;
-        }else{
-            alert('Выполняется запрос');
-        }
-    });
-
-    $(document).on('click', '.common-order', function(){
-        var act = $(this).attr('data-act');
-        var request = $(".input-searcncommon-order").val();
-        common_orders_list = requestCommon(act, request);
-        renderCommonList(common_orders_list);
-
-    });
     function updateAllOrdersView(updated_orders_list) {
         var final_common_price = 0;
-
         $.each(updated_orders_list.partnerOrders, function(index_partner_orders, partner_orders){
 
             var final_order_price = 0;
@@ -242,21 +197,9 @@
             final_common_price += final_order_price;
             $('.final_order_price'+partner_orders.id).text(final_order_price+ " р.");
             $('.total_count_products'+partner_orders.id).text(total_count_products);
-            $('')
         });
-
-        $('[data-detail="'+updated_orders_list.id+'"]').find('.client-info-fr-price').find('div').text(final_common_price +" руб.");
-
     }
 
-
-    function refresh_list(){
-        var act = $(this).attr('data-act');
-        var request = $(".input-searcncommon-order").val();
-        common_orders_list = requestCommon(act, request);
-        renderCommonList(common_orders_list);
-
-    }
 
     function renderCommonList(common_list) {
         var list_html = '';
@@ -265,10 +208,8 @@
         }else{
             list_html = '';
             $.each(common_list, function(i, index){
-                list_html += '<div class="list-child" common-order-id="'+index.id+'">';
-                list_html += '<div class="number">'+index.id+'</div>';
-                list_html += '<div class="title">'+index.header+'</div>';
-                list_html += '</div>';
+                list_html += '<div class="list-child" common-order-id="'+index.id+'"><div style="display: inline-block; padding: 0px 10px; border: 1px solid rgb(240, 240, 240); border-radius: 4px; height: 20px; margin: 0px 15px 10px 0px;">'+index.id+'</div>';
+                list_html += '<div style="display: inline-block; padding: 0px 20px;">'+index.header+'</div></div>'
             });
         }
         $('.list').html(list_html);
@@ -354,7 +295,7 @@
             $.each($x, function(){
                 total = total + parseInt($(this).text());
             });
-            $('[class="final_common_price"]').text('Итого '+total+' р.');
+            $('[class="final_common_price"]').text('Итого: '+total+' р');
         }, 100);
     };
     $(document).on('click', '.count-event', function(){
@@ -525,9 +466,6 @@
 
                     $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
                     orders_list.partnerOrders = partnerOrders;
-                    renderOrders(orders_list);
-                    updateCommonTotalOrder();
-                    updateAllOrdersView(orders_list);
                 }
             }
         });
@@ -549,7 +487,8 @@
             final_common_price += final_order_price;
             var user_name = '';
             var telephone = '';
-            if(typeof (partner_orders.referral_user.userinfo) != "undefined" || typeof (partner_orders.referral_user.userinfo) != "null"){
+
+            if(typeof (partner_orders.referral_user.userinfo) == "undefined" || typeof (partner_orders.referral_user.userinfo) == "null"){
                 if(partner_orders.referral_user.userinfo.name || partner_orders.referral_user.userinfo.lastname || partner_orders.referral_user.userinfo.secondname) {
                     user_name = partner_orders.referral_user.userinfo.name + ' ' + partner_orders.referral_user.userinfo.lastname + ' ' + partner_orders.referral_user.userinfo.secondname;
                     telephone =  partner_orders.referral_user.userinfo.telephone;
@@ -590,7 +529,7 @@
             str_html += "                             "+user_name+"";
             str_html += "                         <\/div>";
             str_html += "                         <div class=\"client-last-order-date\">";
-            str_html += "                             "+moment(partner_orders.create_date).format("D MMMM  YYYY H:mm")+"";
+            str_html += "                             "+moment(partner_orders.referral_user.date_added).format("D MMMM  YYYY H:mm")+"";
             str_html += "                         <\/div>";
             str_html += "                     <\/div>";
             str_html += "                     <div";
@@ -832,3 +771,27 @@
     }
     });
 </script>
+<div style="display: none;" id="modal-comment" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Редактировать комментарий
+            </div>
+            <div class="modal-body">
+                <div>
+                </div>
+                <?php
+                \yii\widgets\Pjax::begin([
+                    'id'=>'comment',
+                    'enablePushState' =>false
+                ]);
+                ?>
+                <div class="comment-content-body"></div>
+                <?php
+                \yii\widgets\Pjax::end();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

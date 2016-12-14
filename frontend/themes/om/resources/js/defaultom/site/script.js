@@ -1022,30 +1022,10 @@ function loaddata(){
         if (data[0] != 'Не найдено!') {
             if(getCookie('cardview')==1) {
                 $.each(data[0], function (i, item) {
-                    ga("ec:addProduct", {
-                        "id": this.products['products_id'],
-                        "name": this.productsDescription['products_name'],
-                        "category": this.catpath.name.join('/'),
-                        "list":  window.location.pathname,
-                        "brand": this.products['manufacturers_id'],
-                        "variant": "none",
-                        "position": i});
-                    ga("ec:setAction", "ajaxview");
-                    ga("send", "event" , "ajaxview", window.location.pathname );
                     renderProduct2(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath, true)
                 });
             }else{
                 $.each(data[0], function (i, item) {
-                    ga("ec:addProduct", {
-                        "id": this.products['products_id'],
-                        "name": this.productsDescription['products_name'],
-                        "category": this.catpath.name.join('/'),
-                        "list":  window.location.pathname,
-                        "brand": this.products['manufacturers_id'],
-                        "variant": "none",
-                        "position": i});
-                    ga("ec:setAction", "ajaxview");
-                    ga("send", "event" , "ajaxview", window.location.pathname );
                     renderProduct(this.products, this.productsDescription, this['productsAttributes'], this['productsAttributesDescr'], data[14],this.catpath, true,suppliers,this.subImage)
                 });
             }
@@ -1897,7 +1877,12 @@ function getProductCart(){
         $shara=1;
     }
     $baseduri = '/savecart';
-    $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
+    $.post($baseduri,{
+        'data':$data,
+            'public':$shara,
+            'comments':$comments,
+            '_csrf':yii.getCsrfToken()
+    },
         function(data){
             if(data==1){
                 alert('Корзина записана');
@@ -1939,7 +1924,7 @@ $(document).on('click','.share-set',function () {
         $data=0;
     }
     $baseduri = '/savecart';
-    $.post($baseduri,{'id':$id,'param':'share','data':$data},
+    $.post($baseduri,{'id':$id,'param':'share','data':$data,  '_csrf':yii.getCsrfToken()},
         function(data){
             if(data==1){
 

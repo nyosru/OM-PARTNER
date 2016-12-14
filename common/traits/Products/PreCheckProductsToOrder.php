@@ -16,8 +16,22 @@ trait PreCheckProductsToOrder
 
         //Проверяем передан нам продукт или ид продукта(ид от недоверенных ресурсов)
         if(!is_array($product)){
+            $hide_man = $this->hide_manufacturers_for_partners();
+            foreach ($hide_man as $value) {
+                $list[] = $value['manufacturers_id'];
+            }
+            $hide_man = implode(',', $list);
             // Получаем продукт со всей ботвой
-            $product = PartnersProducts::find()->where(['products.`products_id`' => (integer)$product])->JoinWith('productsDescription')->JoinWith('categories')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and  death_reason = ""  and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->one();
+            $product = PartnersProducts::find()
+                ->where(['products.`products_id`' => (integer)$product])
+                ->JoinWith('productsDescription')
+                ->JoinWith('categories')
+                ->JoinWith('productsAttributes')
+                ->JoinWith('productsAttributesDescr')
+                ->andWhere('products_status = 1 and  death_reason = ""  and products.products_quantity > 0 and  products.products_price != 0 ')
+                ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
+                ->asArray()
+                ->one();
         }
 
         //Проверяем активность продукта, его наличие, и установленную цену == продукт существует и можно выполнять последующие проверки

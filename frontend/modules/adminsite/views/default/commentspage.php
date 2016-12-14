@@ -33,6 +33,32 @@ echo \yii\grid\GridView::widget([
             }
         ],
         [
+            'attribute' => 'rel',
+            'label' => 'relation',
+            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+            'contentOptions' => function ($model, $key, $index, $column) {
+                return ['class' => 'tbl_column_name'];
+            },
+            'content' => function ($data) {
+
+                   return '<a href="/product?id='.$data->relate_id.'">'.$data->relate_id.'</a>';
+
+            }
+        ],
+        [
+            'attribute' => 'rel',
+            'label' => 'user_id',
+            'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],
+            'contentOptions' => function ($model, $key, $index, $column) {
+                return ['class' => 'tbl_column_name'];
+            },
+            'content' => function ($data) {
+
+                return $data->user_id ;
+
+            }
+        ],
+        [
             'attribute' => 'username',
             'label' => 'Пользователь',
             'headerOptions' => ['style' => 'background: #FFBF08 none repeat scroll 0% 0%;'],

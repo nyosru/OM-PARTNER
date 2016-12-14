@@ -64,7 +64,7 @@ $this->beginPage();
                 if(!(int)Yii::$app->request->getQueryParam('cat')){
                    $cat = 0;
                 }
-                $keyCache = Yii::$app->cache->buildKey('Right-12zs33'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
+                $keyCache = Yii::$app->cache->buildKey('Right-13lkjlkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
                 if($this->beginCache($keyCache, ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
@@ -108,31 +108,18 @@ $this->beginPage();
             <div class="partners-main-right">
                 <div
                     style="width: 100%; display: block; height: 72px; padding: 16px 10px 10px; border-bottom: 1px solid rgb(204, 204, 204);">
-                    <form action="">
-                        <input name="cat" value="0"
-                               style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;"
-                               type="hidden">
-                        <input name="count" value="<?= (integer)Yii::$app->request->getQueryParam('count') ?>"
-                               style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;"
-                               type="hidden">
-                        <input name="start_price"
-                               value="<?= (integer)Yii::$app->request->getQueryParam('start_price') ?>"
-                               style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;"
-                               type="hidden">
-                        <input name="end_price"
-                               value="<?= (integer)Yii::$app->request->getQueryParam('end_price') ?>"
-                               style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;"
-                               type="hidden">
-                        <input name="prod_attr_query"
-                               value="<?= (integer)Yii::$app->request->getQueryParam('prod_attr_query') ?>"
-                               style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;"
-                               type="hidden">
+                    <?php
+                    if(Yii::$app->params['seourls'] == TRUE){
+                        $action = '/'.Yii::$app->params['chpu']['action'].'/';
+                    }
+                    ?>
+                    <form action="<?=$action?>">
                         <input autocomplete="off" name="searchword"
-                               value="<?= htmlentities(Yii::$app->request->getQueryParam('searchword')) ?>"
+                               value="<?= \yii\helpers\BaseHtmlPurifier::process(Yii::$app->request->getQueryParam('searchword')) ?>"
                                class="search no-shadow-form-control" placeholder="Введите артикул или название"
                                style="height: 40px; float: left; width: 65%; color: rgb(119, 119, 119); background: transparent none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; margin-top: 0px;"
                                type="text">
-                        <button class="btn btn-default data-j" type="submit"
+                        <button class="btn btn-default data-j lock-on" type="submit"
                                 style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
                             Найти
                         </button>
@@ -275,6 +262,7 @@ if(($ga = Yii::$app->session->get('ga'))){
     }
     $ga = Yii::$app->session->set('ga', []);
 }
+echo  \frontend\widgets\ReTargetVKWidget::widget();
  echo  \frontend\widgets\SlizaWidget::widget();
 ?>
 
