@@ -18,6 +18,9 @@ class ProductCardFabia extends \yii\bootstrap\Widget
     public $catpath;
     public $man_time;
     public $category;
+    public $showdiscount;
+    public $template;
+    public $css;
 
     public $name;
     public $main_image;
@@ -28,15 +31,21 @@ class ProductCardFabia extends \yii\bootstrap\Widget
         $this->name = Html::encode($this->description['products_name']);
         $this->main_image = BASEURL . '/imagepreview?src=' . $this->product['products_id'];
         $this->product_link = Url::to(['product','id'=>$this->product['products_id']]);
+        if(empty($this->css['imageHeight'])){
+            switch ($this->template) {
+                case 'grid':
+                    $this->css['imageHeight'] = '386px';
+                    break;
+                case 'list':
+                    $this->css['imageHeight'] = '300px';
+                    break;
+            }
+        }
     }
 
     public function run()
     {
-        $data = ArrayHelper::toArray($this);
-        if((int)$_COOKIE['cardview'] == 1){
-            return $this->render('product-card-fabia/list', $data);
-        } else {
-            return $this->render('product-card-fabia/grid', $data);
-        }
+
+        return $this->render('product-card-fabia/'.$this->template, ArrayHelper::toArray($this));
     }
 }

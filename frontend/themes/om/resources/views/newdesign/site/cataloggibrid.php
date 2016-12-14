@@ -109,11 +109,11 @@ if ($data[0] != 'Не найдено!') {
                         <div class="sorter">
                             <div class="view-mode">
                                 <?php if((int)$_COOKIE['cardview'] == 1){ ?>
-                                    <a href="<?=Url::to('changecardview')?>" title="Grid" class="button button-grid"></a>
+                                    <a href="<?=Url::to('/changecardview')?>" title="Grid" class="button button-grid"></a>
                                     <span title="List" class="button button-active button-list"></span>
                                 <?php } else { ?>
                                     <span title="Grid" class="button button-active button-grid"></span>
-                                    <a href="<?=Url::to('changecardview')?>" title="List" class="button-list"></a>
+                                    <a href="<?=Url::to('/changecardview')?>" title="List" class="button-list"></a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -160,7 +160,13 @@ if ($data[0] != 'Не найдено!') {
                         <ul class="products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>">
                             <?php
                             foreach ($data[0] as $value) {
-                                echo \frontend\widgets\ProductCardFabia::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id']]);
+                                if((int)$_COOKIE['cardview'] == 1){
+                                    echo '<li class="item even">';
+                                } else {
+                                    echo '<li class="item col-lg-4 col-md-3 col-sm-4 col-xs-6">';
+                                }
+                                echo \frontend\widgets\ProductCardFabia::widget(['template'=>(int)$_COOKIE['cardview'] == 1?'list':'grid','product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id']]);
+                                echo '</li>';
                             }
 
                             ?>

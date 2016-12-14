@@ -185,11 +185,10 @@ $this->title = $title;
                 <?php
                 if(is_array($dataproducts)) {
                     foreach ($dataproducts as $k1=>$val) {
-                        ?>
-
-                                <?=\frontend\widgets\ProductCardFabia1::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1])?>
-                       
-                    <?php }
+                        echo '<div class="item">';
+                        echo \frontend\widgets\ProductCardFabia::widget(['template'=>'grid','product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
+                        echo '</div>';
+                    }
                 }
                 ?>
 
@@ -234,11 +233,10 @@ $this->title = $title;
                 <?php
                 if(is_array($newproducts)) {
                     foreach ($newproducts as $k1=>$val) {
-                        ?>
-
-                <?=\frontend\widgets\ProductCardFabia1::widget(['product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1])?>
-
-                   <?php }
+                        echo '<div class="item">';
+                        echo \frontend\widgets\ProductCardFabia::widget(['template'=>'grid','css'=>['imageHeight'=>'205px'],'product' => $val['products'], 'description' => $val['productsDescription'], 'attrib' => $val['productsAttributes'], 'attr_descr' => $val['productsAttributesDescr'],'category'=>$value['categories_id'], 'catpath' => $catpath, 'man_time' => $man_time,'showdiscount'=>1]);
+                        echo '</div>';
+                    }
                 }
                 ?>
             </div>
