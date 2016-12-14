@@ -21,7 +21,7 @@
             <div class="search-bar col-md-3">
                 <input class="search-console" value="<?= Yii::$app->request->getQueryParam('search') ?>"
                        name="search"
-                       placeholder="Поиск по клиентам">
+                       placeholder="Поиск">
                 <?php
                 echo \yii\helpers\Html:: hiddenInput(Yii::$app->getRequest()->csrfParam,
                     Yii::$app->getRequest()->getCsrfToken(), []);
