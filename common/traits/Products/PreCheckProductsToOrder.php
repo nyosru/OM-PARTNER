@@ -9,7 +9,15 @@ use Yii;
 
 trait PreCheckProductsToOrder
 {
-    public function preCheckProductsToOrder($product, $category = FALSE, $region = FALSE, $address_id = FALSE, $count = FALSE, $attr = FALSE)
+    public function preCheckProductsToOrder(
+        $product,
+        $category = FALSE,
+        $region = FALSE,
+        $address_id = FALSE,
+        $count = FALSE,
+        $attr = FALSE,
+        $skip_time = FALSE
+    )
     {
         // По умолчанию даем заказать продукт
         $check = TRUE;
@@ -91,22 +99,23 @@ trait PreCheckProductsToOrder
 
 
             // Проверяем время доступности для заказа(часики)
-
-            $man = $this->manufacturers_diapazon_id();
-            $thisweeekday = date('N') - 1;
-            $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
-            if (array_key_exists($product['manufacturers_id'], $man) && $man[$product['manufacturers_id']][$thisweeekday]) {
-                $stop_time = (int)$man[$product['manufacturers_id']][$thisweeekday]['stop_time'];
-                $start_time = (int)$man[$product['manufacturers_id']][$thisweeekday]['start_time'];
-                if (isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)) {
-                    $check = TRUE;
-                } else {
-                    $check = FALSE;
-                    return ['result' => $check, 'type' => 'restrictedtime', 'message' => 'Продукт не доступен для заказа в это время'];
-                }
-            } else {
-                $check = TRUE;
-            }
+           if($skip_time == FALSE) {
+               $man = $this->manufacturers_diapazon_id();
+               $thisweeekday = date('N') - 1;
+               $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
+               if (array_key_exists($product['manufacturers_id'], $man) && $man[$product['manufacturers_id']][$thisweeekday]) {
+                   $stop_time = (int)$man[$product['manufacturers_id']][$thisweeekday]['stop_time'];
+                   $start_time = (int)$man[$product['manufacturers_id']][$thisweeekday]['start_time'];
+                   if (isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)) {
+                       $check = TRUE;
+                   } else {
+                       $check = FALSE;
+                       return ['result' => $check, 'type' => 'restrictedtime', 'message' => 'Продукт не доступен для заказа в это время'];
+                   }
+               } else {
+                   $check = TRUE;
+               }
+           }
             return ['result' => $check, 'type' => 'success', 'message' => 'Продукт доступен'];
         }else{
             $check = FALSE;

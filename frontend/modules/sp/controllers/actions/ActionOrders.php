@@ -29,6 +29,7 @@ trait ActionOrders
             ->joinWith('userinfo')
             ->where(['referral_id' => $referal['id']])
             ->joinWith('lastOrder')
+            ->joinWith('order')
             ->indexBy('user_id')
             ->groupBy('user_id');
 
@@ -53,7 +54,7 @@ trait ActionOrders
                 $query->andWhere('date_added <= "' . $de . '"');
             }
         }
-       
+
         $search = mb_strtolower(trim(Yii::$app->request->getQueryParam('search')));
 
         if ($search == true && preg_match('([A-Za-zА-Яа-я])', $search)) {
