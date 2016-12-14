@@ -202,12 +202,12 @@ trait AggregateCatalogData
                     ->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')
                     ->where('categories_id IN (' . $cat . ')')
                     ->JoinWith('products')
-                    ->andWhere('products_date_added < :now and products_last_modified < :now ', [':now' => $now])
-                    ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
-                    ->andWhere('products_status = 1')
-                    ->andWhere('death_reason = ""')
-                    ->andWhere('products.products_quantity > 0 ')
-                    ->andWhere('products.products_price != 0')
+                //    ->andWhere('products_date_added < :now and products_last_modified < :now ', [':now' => $now])
+                 //   ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
+                 //   ->andWhere('products_status = 1')
+                //    ->andWhere('death_reason = ""')
+                //    ->andWhere('products.products_quantity > 0 ')
+                //    ->andWhere('products.products_price != 0')
                     ->createCommand()
                     ->queryOne();
 
