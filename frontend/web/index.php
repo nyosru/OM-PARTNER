@@ -61,12 +61,14 @@ if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
         $partner['APP_NAME'] = $partners_data['name'];
         $partner['APP_THEMES'] = $partners_data['template'];
         $partner['APP_VERSION'] = $partners_data['version'];
+        $partner['APP_DOMAIN_ID'] = $partners_data['id'];
         Yii::$app->cache->set($key, [
             'APP_ID' => $partner['APP_ID'],
             'APP_CAT' => $partner['APP_CAT'],
             'APP_NAME' => $partner['APP_NAME'],
             'APP_THEMES' => $partner['APP_THEMES'],
-            'APP_VERSION'=> $partner['APP_VERSION']
+            'APP_VERSION'=> $partner['APP_VERSION'],
+            'APP_DOMAIN_ID'=> $partner['APP_DOMAIN_ID'],
         ]);
     }else{
         exit('В данный момент домен не активен');
@@ -132,6 +134,7 @@ $application->params['constantapp']['APP_CAT'] = $partner['APP_CAT'];
 $application->params['constantapp']['APP_NAME'] = $partner['APP_NAME'];
 $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
+$application->params['constantapp']['APP_DOMAIN_ID'] = $partner['APP_DOMAIN_ID'];
 $application->params['constantapp']['APP_VERSION'] = $version;
 
 

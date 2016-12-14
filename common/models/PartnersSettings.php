@@ -47,7 +47,7 @@ class PartnersSettings extends Model
     private function loadmodelpartners()
     {
         $id = Yii::$app->params['constantapp']['APP_ID'];
-        $set = ArrayHelper::index($this->partnersmodel()->find()->select(['id', 'type', 'value', 'active'])->where(['partners_id' => $id])->asArray()->all(), 'type');
+        $set = ArrayHelper::index($this->partnersmodel()->find()->select(['id', 'type', 'value', 'active'])->where(['partners_id' => $id,'domain' => Yii::$app->params['constantapp']['APP_DOMAIN_ID']])->asArray()->all(), 'type');
         foreach ($set as $key => $value) {
             if (unserialize($value['value'])) {
                 $inarr = $value;
@@ -109,6 +109,7 @@ class PartnersSettings extends Model
                 $value = serialize($value);
             }
             $row->value = $value;
+            $row->domain =  Yii::$app->params['constantapp']['APP_DOMAIN_ID'];
             $row->partners_id = Yii::$app->params['constantapp']['APP_ID'];
             $row->active = $active;
             if ($row->save()) {
