@@ -465,17 +465,26 @@ if ($data[0] != 'Не найдено!') {
 
 
 <script>
-    var popoverJs = $('.popover-js');
-    popoverJs.popover();
-    popoverJs.on('click',function(){
-        $(this).popover('hide');
-    });
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);
         $('#max-ev-price').val(ui.values[1]);
 
     });
     $(window).on('load', function( event, ui){
+
+        var popoverJs = $('.popover-js');
+        if(getCookie('popover-filter') == undefined){
+            popoverJs.popover('show');
+        }
+        popoverJs.on('click',function(){
+            $(this).popover('hide');
+        });
+        $('.popover-content>button').on('click',function(){
+            popoverJs.popover('hide');
+        });
+        popoverJs.on('hidden.bs.popover', function () {
+            setCookie('popover-filter',1,{expires: 3600*24*30,path:'/'})
+        });
 
         $.ajax({
             url: "/suppliers-lux",
