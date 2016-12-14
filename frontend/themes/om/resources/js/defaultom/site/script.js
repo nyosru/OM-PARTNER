@@ -193,7 +193,6 @@ $(document).on('click', '.cart-lable', function () {
             if (JSON.parse(localStorage.getItem('cart-om'))) {
                 $timenow  =  new Date;
                 if(localStorage.getItem('cart-om-date')){
-                    $timecart =  new Date;
                     $timecart = localStorage.getItem('cart-om-date');
                     // if($timenow.getTime() - $timecart > 604800000){
                     //     localStorage.removeItem('cart-om');
@@ -234,9 +233,13 @@ $(document).on('click', '.cart-lable', function () {
                         });
 
                 }
+
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
                         $now_count = $item_add.getAttribute('data-count');
+                        if(parseInt($now_count) < (parseInt($item_add.value)+parseInt(this[4]))){
+                            alert('Максимальное количество товара уже в корзине');
+                        }
                         this[4] = Math.min($now_count,(parseInt(this[4]) + parseInt($item_add.value)));
                         x = 1;
                     }

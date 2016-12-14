@@ -134,7 +134,7 @@ if ($data[0] != 'Не найдено!') {
 
                            <div class="panel-heading" role="tab" id="headingOne">
 
-                            <h4 class="panel-title">
+                            <h4 class="panel-title popover-js" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="bottom" data-content="Попробуйте задать фильтры">
                                         Показать фильтр
 
                             </h4>
@@ -465,6 +465,11 @@ if ($data[0] != 'Не найдено!') {
 
 
 <script>
+    var popoverJs = $('.popover-js');
+    popoverJs.popover();
+    popoverJs.on('click',function(){
+        $(this).popover('hide');
+    });
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);
         $('#max-ev-price').val(ui.values[1]);
