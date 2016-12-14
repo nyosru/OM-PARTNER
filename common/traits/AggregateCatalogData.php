@@ -166,15 +166,16 @@ trait AggregateCatalogData
         $init_key_static = $options['cachelistkeyprefix'] . '5ty-' . $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
-        if($dataque['checkcache']){
-            $datetime1 = new \DateTime($dataque['checkcache']);
-            $datetime2 = new \DateTime("now");
-            $interval = $datetime1->diff($datetime2);
-            $minutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
-        }else{
-            $minutes = 3;
-        }
-        if(!$dataque['checkcache'] || $minutes >= 3){
+        // Отключаем пока таймаут проверки
+//        if($dataque['checkcache']){
+//            $datetime1 = new \DateTime($dataque['checkcache']);
+//            $datetime2 = new \DateTime("now");
+//            $interval = $datetime1->diff($datetime2);
+//            $minutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+//        }else{
+//            $minutes = 3;
+//        }
+        if(TRUE){//(!$dataque['checkcache']){ //|| $minutes >= 3){
             if (function_exists('pinba_tag_set')) {
                 pinba_tag_set('cache-check', 'old');
             }
