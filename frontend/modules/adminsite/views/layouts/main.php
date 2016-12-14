@@ -42,7 +42,6 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="container" style="position: relative; display: block; padding: 10px 0px 0px;"></div>
 <div class="wrap">
 
     <?php
