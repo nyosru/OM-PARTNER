@@ -29,6 +29,10 @@ class CommonOrderForm extends Model
 
         $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 
+        if(!$referral) {
+           return false;
+        }
+
         $newCommonOrder = new CommonOrders();
         $newCommonOrder->referral_id = $referral['id'];
         $newCommonOrder->status = 1;
