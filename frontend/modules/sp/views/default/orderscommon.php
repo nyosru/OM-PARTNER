@@ -753,6 +753,8 @@
                 str_html += "  <div style=\"position: relative;\">";
                 str_html += "      <div";
                 str_html += "          style=\"cursor:pointer;color: #5b8acf;position: absolute;left: 0px;\"";
+                str_html += "          data-toggle=\"modal\" data-target=\"#modal-comment\"";
+                str_html += "          data-order=\""+partner_orders.id+"\" data-attr=\""+order[2]+"\" data-product=\""+order[0]+"\"";
                 str_html += "          class=\"product-comment\">";
                 str_html += "          Добавить комментарий к товару";
                 str_html += "      <\/div>";
@@ -805,5 +807,47 @@
         })
         $('.preload').remove();
     }
-
+    (function($){
+        $(document).on('click', '.product-comment', function (){
+            var comment_id = $(this).attr('data-product');
+            var comment_attr =  $(this).attr('data-attr');
+            var comment_order =  $(this).attr('data-order');
+            var comment_text = $('[comment-'+comment_order+'-'+comment_id+'-'+comment_attr+']').text();
+            $.post(
+                '/sp/add-position-order-comments',
+                {
+                    id: comment_id,
+                    attr: comment_attr,
+                    order: comment_order,
+                    comment: comment_text
+                },
+                function (data) {
+                    $('.comment-content-body').html('<div>'+data+'</div>');
+                });
+        });
+    })(jQuery);
 </script>
+<div style="display: none;" id="modal-comment" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Редактировать комментарий
+            </div>
+            <div class="modal-body">
+                <div>
+                </div>
+                <?php
+                \yii\widgets\Pjax::begin([
+                    'id'=>'comment',
+                    'enablePushState' =>false
+                ]);
+                ?>
+                <div class="comment-content-body"></div>
+                <?php
+                \yii\widgets\Pjax::end();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

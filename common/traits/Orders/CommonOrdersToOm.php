@@ -38,7 +38,7 @@ trait CommonOrdersToOm
     public function CommonOrdersToOm($commonorder, $address, $ship, $wrap, $comments_to_order)
     {
         date_default_timezone_set('Europe/Moscow');
-
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
      //   $type_order = Yii::$app->request->post('order-type');
 
