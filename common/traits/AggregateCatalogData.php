@@ -200,37 +200,17 @@ trait AggregateCatalogData
                 }
                 $hide_man = implode(',', $list);
 
-//                $x = PartnersProductsToCategories::find()
-//                    ->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')
-//                    ->where('categories_id IN (' . $cat . ')')
-//                    ->JoinWith('products')
-//                    ->andWhere('products_date_added < :now and products_last_modified < :now ', [':now' => $now])
-//                    ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
-//                    ->andWhere('products_status = 1')
-//                    ->andWhere('death_reason = ""')
-//                    ->andWhere('products.products_quantity > 0 ')
-//                    ->andWhere('products.products_price != 0')
-//                    ->createCommand()
-//                    ->queryOne();
-            $x = PartnersProducts::find()
-                ->select('MAX(`products_last_modified`) as products_last_modified')
-//                ->where('categories_id IN (' . $cat . ')')
-//                ->JoinWith('products')
-//            //    ->andWhere('products_date_added < :now and products_last_modified < :now ', [':now' => $now])
-//           //     ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
-                ->andWhere('products_status = 1')
-                ->andWhere('death_reason = ""')
-                ->andWhere('products.products_quantity > 0 ')
-                ->andWhere('products.products_price != 0')
-                ->createCommand()
-                ->queryOne();
-
-          //  $x = PartnersProductsToCategories::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')->where('categories_id IN (' . $cat . ')')->JoinWith('products')->andWhere('products_date_added < :now and products_last_modified < :now ', [':now' => $now])->createCommand()->queryOne();
-          //  $ds1 = strtotime($x['products_last_modified']);
-//            $ds2 = strtotime($x['add_date']);
-//            if ($ds1 < $ds2) {
-//                $x['products_last_modified'] = $x['add_date'];
-//            }
+                $x = PartnersProductsToCategories::find()
+                    ->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date')
+                    ->where('categories_id IN (' . $cat . ')')
+                    ->JoinWith('products')
+                    ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
+                    ->andWhere('products_status = 1')
+                    ->andWhere('death_reason = ""')
+                    ->andWhere('products.products_quantity > 0 ')
+                    ->andWhere('products.products_price != 0')
+                    ->createCommand()
+                    ->queryOne();
             $checkcache = $x['products_last_modified'];
             $d1 = trim($checkcache);
             $d2 = trim($dataque['checkcache']);
