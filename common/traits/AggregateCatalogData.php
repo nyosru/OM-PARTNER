@@ -154,11 +154,11 @@ trait AggregateCatalogData
                 $prod_day_query_filt = ' and products_date_added > :day';
                 break;
             default:
-                $now = date('Y-m-d H:i:s');
-                $arfilt[':now'] = $now;
-                $arfilt_pricemax[':now'] = $now;
-                $arfilt_attr[':now'] = $now;
-                $prod_day_query_filt = '';
+//                $now = date('Y-m-d H:i:s');
+//                $arfilt[':now'] = $now;
+//                $arfilt_pricemax[':now'] = $now;
+//                $arfilt_attr[':now'] = $now;
+//                $prod_day_query_filt = '';
 
         }
 
