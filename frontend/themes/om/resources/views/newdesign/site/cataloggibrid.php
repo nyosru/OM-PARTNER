@@ -4,6 +4,7 @@ use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
+use yii\helpers\Url;
 if (!function_exists('new_url')) {
     function new_url($arr_sub)
     {
@@ -106,7 +107,15 @@ if ($data[0] != 'Не найдено!') {
 
                     <div class="toolbar">
                         <div class="sorter">
-                            <div class="view-mode"> <span title="Grid" class="button button-active button-grid">&nbsp;</span><a href="list.html" title="List" class="button-list">&nbsp;</a> </div>
+                            <div class="view-mode">
+                                <?php if((int)$_COOKIE['cardview'] == 1){ ?>
+                                    <a href="<?=Url::to('changecardview')?>" title="Grid" class="button button-grid"></a>
+                                    <span title="List" class="button button-active button-list"></span>
+                                <?php } else { ?>
+                                    <span title="Grid" class="button button-active button-grid"></span>
+                                    <a href="<?=Url::to('changecardview')?>" title="List" class="button-list"></a>
+                                <?php } ?>
+                            </div>
                         </div>
                         <div id="sort-by">
                             <label class="left">Sort By: </label>
@@ -148,7 +157,7 @@ if ($data[0] != 'Не найдено!') {
                         </div>
                     </div>
                     <div class="category-products">
-                        <ul class="products-grid">
+                        <ul class="products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>">
                             <?php
                             foreach ($data[0] as $value) {
                                 echo \frontend\widgets\ProductCardFabia::widget(['product'=>$value['products'],'description'=>$value['productsDescription'],'attrib'=>$value['productsAttributes'],'attr_descr'=>$value['productsAttributesDescr'],'catpath'=>$catpath, 'man_time'=>$man_time, 'category'=>$value['categories_id']]);
