@@ -165,4 +165,16 @@
 				$sc.find('form [type=submit]').removeAttr('disabled');
 			});
 	});
+	$(window).on('load', function () {
+        var subscriptionJs = $('.subscription-popup');
+        if(getCookie('sendy-form') == undefined){
+            subscriptionJs.show();
+        }
+        $('.subscription-popup>.close-btn').on('click',function(){
+            subscriptionJs.hide();
+        });
+        $(document).on('click', '.subscription-popup>.close-btn', function () {
+            setCookie('sendy-form',1,{expires: 3600*24*30,path:'/'})
+        });
+    });
 </script>

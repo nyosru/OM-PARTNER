@@ -180,9 +180,9 @@ $this->beginPage();
             </div>
         </div>
         <?php
-
-        echo \frontend\widgets\SubscriptionWidget::widget();
-
+        if(Yii::$app->user->isGuest) {
+            echo \frontend\widgets\SubscriptionWidget::widget();
+        }
         $this->endBody();
         Yii::$app->params['assetsite']->registerAssetFiles($this);
         ?>
