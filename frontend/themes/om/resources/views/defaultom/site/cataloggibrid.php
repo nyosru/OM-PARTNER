@@ -134,8 +134,8 @@ if ($data[0] != 'Не найдено!') {
 
                            <div class="panel-heading" role="tab" id="headingOne">
 
-                            <h4 class="panel-title">
-                                        Показать фильтр
+                            <h4 class="panel-title popover-js" data-container="body" data-trigger="manual" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<button type=\'button\' class=\'close\'>&times;</button><br><div style=\'width:200px;\'>Попробуйте задать фильтры</div>">
+    Показать фильтр		                                      
 
                             </h4>
                         </div>
@@ -471,6 +471,20 @@ if ($data[0] != 'Не найдено!') {
 
     });
     $(window).on('load', function( event, ui){
+
+        var popoverJs = $('.popover-js');
+        if(getCookie('popover-filter') == undefined){
+            popoverJs.popover('show');
+        }
+        popoverJs.on('click',function(){
+            $(this).popover('hide');
+        });
+        $('.popover-content>button').on('click',function(){
+            popoverJs.popover('hide');
+        });
+        popoverJs.on('hidden.bs.popover', function () {
+            setCookie('popover-filter',1,{expires: 3600*24*30,path:'/'})
+        });
 
         $.ajax({
             url: "/suppliers-lux",

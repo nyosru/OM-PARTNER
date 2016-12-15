@@ -8,6 +8,8 @@ use common\models\Referrals;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
+use yii\helpers\BaseHtmlPurifier;
+use yii\helpers\Json;
 use yii\validators\DateValidator;
 
 
@@ -50,9 +52,8 @@ trait ActionSendCommonOrders
                 $formmodel->shipping_method,
                 $formmodel->wrap,
                 $formmodel->comment);
-
-            $formmodel->renderForm();
-            return json_decode($x);
+            $x  = $this->render('cartresult',Json::decode($x));
+            echo BaseHtmlPurifier::process($x);
        }else{
             $formmodel->renderForm();
             return '14';

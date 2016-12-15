@@ -462,4 +462,13 @@ return array (
       '@fgh151/tarantool' => $vendorDir . '/fgh151/yii2-tarantool/src',
     ),
   ),
+  'yiisoft/yii2-httpclient' => 
+  array (
+    'name' => 'yiisoft/yii2-httpclient',
+    'version' => '2.0.2.0',
+    'alias' => 
+    array (
+      '@yii/httpclient' => $vendorDir . '/yiisoft/yii2-httpclient',
+    ),
+  ),
 );
