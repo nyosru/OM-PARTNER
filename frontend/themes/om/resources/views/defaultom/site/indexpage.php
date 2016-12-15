@@ -202,9 +202,6 @@ echo \frontend\widgets\MainBanner::widget();
                 if(getCookie('sendy-form') == undefined){
                     subscriptionJs.show();
                 }
-                subscriptionJs.on('click',function(){
-                    $(this).hide();
-                });
                 $('.subscription-popup>.close-btn').on('click',function(){
                     subscriptionJs.hide();
                 });
