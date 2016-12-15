@@ -16,7 +16,7 @@ use yii\bootstrap\Html;
         <div class="actions">
             <button class="button btn-cart ajx-cart" title="В корзину" type="button"><span>В корзину</span></button>
             <span class="add-to-links">
-                <a title="В избранное" class="button link-wishlist" href="wishlist.html"><span>В избранное</span></a>
+                <a title="В избранное" class="button link-wishlist selected-product" data-product="<?=$product['products_id']?>" href="#"><span>В избранное</span></a>
             </span>
         </div>
     </div>

@@ -291,73 +291,15 @@ $(document).on('click', '.selected-product', function () {
         }
         x = 0;
         if ($id_product > 0) {
-            if($noanimate == false) {
-                $noanimate = true;
-                $($(this))
-                    .clone()
-                    .css({
-                        'position': 'absolute',
-                        'z-index': '91100',
-                        top: $(this).offset()['top'],
-                        left: $(this).offset()['left']
-                    })
-                    .appendTo("body")
-                    .animate({
-                        opacity: 0.05,
-                        left: $(".selected-count").offset()['left'],
-                        top: $(".selected-count").offset()['top'],
-                        width: 20,
-                    }, 1000, function () {
-                        $(this).remove();
-                        $noanimate = false;
-                    });
-
-            }
             $.each($item.products, function () {
                 if ($id_product == this) {
                     x = 1;
                 }
             });
         } else {
-            $noanimate = true;
-            $($(this).parent().parent())
-                .clone()
-                .css({
-                    'position': 'absolute',
-                    'z-index': '91100',
-                    top: $(this).offset()['top'],
-                    left: $(this).offset()['left']
-                })
-                .appendTo("body")
-                .animate({
-                    opacity: 0.05,
-                    left: $(".selected-count").offset()['left'],
-                    top: $(".selected-count").offset()['top'],
-                    width: 20,
-                }, 1000, function () {
-                    $(this).remove();
-                    $noanimate = false;
-                });
             $item.products[$i] = $id_product;
         }
         if (x == 0) {
-            $($(this))
-                .clone()
-                .css({
-                    'position': 'absolute',
-                    'z-index': '91100',
-                    top: $(this).offset()['top'],
-                    left: $(this).offset()['left']
-                })
-                .appendTo("body")
-                .animate({
-                    opacity: 0.05,
-                    left: $(".selected-count").offset()['left'],
-                    top: $(".selected-count").offset()['top'],
-                    width: 20,
-                }, 1000, function () {
-                    $(this).remove();
-                });
             $item.products[$i] = $id_product;
         }
         $ilocal = JSON.stringify($item);
