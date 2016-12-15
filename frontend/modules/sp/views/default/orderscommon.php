@@ -517,17 +517,14 @@
                 },
                 success: function (partnerOrders) {
 
-                    if(partnerOrders === false) {
-
-                        $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
-                    } else {
-
-                        $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
+                    if(partnerOrders != false) {
                         orders_list.partnerOrders = partnerOrders;
                         renderOrders(orders_list);
                         updateCommonTotalOrder();
                         updateAllOrdersView(orders_list);
                     }
+
+                    checkAlerts();
                 }
             });
         });
