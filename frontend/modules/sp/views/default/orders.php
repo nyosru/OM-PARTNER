@@ -955,11 +955,12 @@
                 },
                 success: function (products) {
                     if(products != false) {
-                        checkAlerts();
                         maindata.order.order['products'] = products;
                         renderOrder(maindata);
                         updateAllOrdersView(maindata);
                     }
+
+                    checkAlerts();
                 }
             });
         });
