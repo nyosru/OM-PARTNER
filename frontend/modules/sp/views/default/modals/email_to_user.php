@@ -1,10 +1,6 @@
-<?php
-    $m_pjax_id = 'send-to-user-pjax';
-    $m_modal_id = 'modal-mail';
-    $m_form_id = 'send-to-user-form';
-?>
 
-<div style="display: none;" id="<?= $m_modal_id ?>" class="fade modal" role="dialog" tabindex="-1">
+
+<div style="display: none;" id="modal-mail" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,14 +10,14 @@
             <div class="modal-body">
                 <?php
                 \yii\widgets\Pjax::begin([
-                    'id'              => $m_pjax_id,
+                    'id'              => 'send-to-user-pjax',
                     'enablePushState' => false,
                 ]);
 
 
                 $form = \yii\bootstrap\ActiveForm::begin([
                     'options'            => ['data-pjax' => 1],
-                    'id'                 => $m_form_id,
+                    'id'                 => 'send-to-user-form',
                     'action'             => '/sp/mail-to-user',
                     'method'             => 'post',
                     'enableClientScript' => true,
@@ -46,7 +42,7 @@
                         \Yii::$app->getRequest()->getCsrfToken(), []); ?>
                     <?= \yii\helpers\Html::hiddenInput('recipient_id'); ?>
                     <?= \yii\helpers\Html::submitButton('Отправить',
-                        ['class' => 'btn btn-primary', 'name' => $m_pjax_id]); ?>
+                        ['class' => 'btn btn-primary', 'name' => 'send-to-user-pjax']); ?>
                 </div>
 
                 <?php
@@ -63,17 +59,17 @@
 $script = <<< JS
         
     // $("document").ready(function() {
-        $("#$m_pjax_id").on('pjax:end', function(){
-            $("#$m_modal_id").modal('hide');
+        $("#send-to-user-pjax").on('pjax:end', function(){
+            $("#modal-mail").modal('hide');
             checkAlerts();
         });
         
         function setRecipientNameModalMail(recipient_name) {
-          $('#$m_modal_id .header .recipient_name').text(recipient_name);
+          $('#modal-mail .header .recipient_name').text(recipient_name);
         }
         
         function setRecipientIdModalMail(recipient_id) {
-          $('#$m_modal_id input[name=recipient_id]').val(recipient_id);
+          $('#modal-mail input[name=recipient_id]').val(recipient_id);
         }
     // });
 JS;
