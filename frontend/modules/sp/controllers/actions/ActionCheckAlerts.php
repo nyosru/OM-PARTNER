@@ -8,10 +8,6 @@ trait ActionCheckAlerts
      */
     public function actionCheckAlerts()
     {
-        if(\Yii::$app->request->isPjax) {
             return $this->render('alerts/alert.php');
-        }
-
-        return false;
     }
 }
