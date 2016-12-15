@@ -12,7 +12,7 @@ trait ActionSubscription
 	{
 		$request = Yii::$app->request;
 		if (array_key_exists('application/json', $request->getAcceptableContentTypes()) && $request->isPost && $request->isAjax) {
-			$sf = new SendaysForm('odezhda_master' , 1);
+			$sf = new SendaysForm('odezhda_master' , 2);
 			$save = $sf->save($request->post());
 			echo json_encode($save);
 		}
