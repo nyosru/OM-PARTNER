@@ -954,12 +954,8 @@
                     console.log(data);
                 },
                 success: function (products) {
-                    if(products === false) {
-
-                        $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
-                    } else {
-
-                        $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
+                    if(products != false) {
+                        checkAlerts();
                         maindata.order.order['products'] = products;
                         renderOrder(maindata);
                         updateAllOrdersView(maindata);
