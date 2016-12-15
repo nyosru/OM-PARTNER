@@ -69,11 +69,11 @@ $script = <<< JS
         });
         
         function setRecipientNameModalMail(recipient_name) {
-          $('#$m_modal_id .header .recipient_name').text(recipient_name)
+          $('#$m_modal_id .header .recipient_name').text(recipient_name);
         }
         
         function setRecipientIdModalMail(recipient_id) {
-          $('#$m_modal_id input [name=recipient_id]').text(recipient_id)
+          $('#$m_modal_id input[name=recipient_id]').val(recipient_id);
         }
     // });
 JS;
