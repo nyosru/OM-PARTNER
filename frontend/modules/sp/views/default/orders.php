@@ -164,37 +164,6 @@
         </div>
     </div>
 
-<?php
-$modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="dialog" tabindex="-1">';
-    $modal .= '<div class="modal-dialog modal-lg">';
-        $modal .= '<div class="modal-content">';
-            $modal .= '<div class="modal-header">';
-                $modal .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-                $modal .= 'Отправить e-mail пользователю ' . $model->user->username;
-                $modal .= '</div>';
-            $modal .= '<div class="modal-body">';
-                $modal .= '<div></div><div style="margin-left: auto; margin-right: auto; padding: 14px; text-align: left;">';
-                    $modal .= '<form id="groupdiscountuser" action="/sp/mail-to-user" method="post" role="form">';
-                        $form = \yii\bootstrap\ActiveForm::begin();
-                        $mailmodel = new \frontend\models\MailToUserForm();
-                        $modal .= $form->field($mailmodel, 'subject')->label('Тема письма')->input('text');
-                        $modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget('\vova07\imperavi\Widget', [
-                        'settings' => [
-                        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
-                        'lang' => 'ru',
-                        'minHeight' => 200,
-                        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
-                        $form = \yii\bootstrap\ActiveForm::end();
-                        $modal .= '</div><div class="form-group">';
-                    $modal .= \yii\helpers\Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'mailtouser']);
-                    $modal .= '</div>';
-                $modal .= '</form>';
-
-                $modal .= '</div></div></div></div></div></div>';
-echo $modal;
-
-
-?>
 <div style="display: none;" id="modal-comment" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -219,6 +188,8 @@ echo $modal;
         </div>
     </div>
 </div>
+
+<?= $this->render('modals/email_to_user.php')?>
 
 <?= $this->render('modals/add_new_commonorder.php', ['pjax_id' => 'common', 'modal_id' => 'modal-common'])?>
 <script>
@@ -309,9 +280,14 @@ echo $modal;
             }
         }
 
-
+        $(document).on('click', '.mail-client',function() {
+            //функции в зависимостях вида email_to_user.php
+            setRecipientNameModalMail($(this).attr('recipient_name'));
+            setRecipientIdModalMail($(this).attr('recipient_id'));
+        });
 
         (function($){
+
             $(document).on('click', '.product-delete',function() {
                 var order_id = $(this).attr('order_id');
                 var product_id = $(this).attr('product_id');
@@ -921,7 +897,7 @@ echo $modal;
                 '</div> ' +
                 '</div> ' +
                 '<div class="edit-order" style="cursor:pointer" edit-mode="read">Редактировать заказ</div> ' +
-                '<div class="mail-client" style="cursor:pointer" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
+                '<div class="mail-client" recipient_id="'+data.refus.user_id+'" recipient_name="'+user_name+'" style="cursor:pointer" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
                 '</div> ' +
                 '<div>' +
                 $products+
