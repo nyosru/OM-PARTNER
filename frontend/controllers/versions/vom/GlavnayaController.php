@@ -30,6 +30,7 @@ use common\traits\Trim_Tags;
 use common\traits\View_cat;
 use frontend\controllers\actions\ActionAddSearch;
 use frontend\controllers\actions\ActionCart;
+use frontend\controllers\actions\ActionSubscription;
 use frontend\controllers\actions\ActionTestUnit;
 use frontend\controllers\actions\om\ActionAllBrands;
 use frontend\controllers\actions\om\ActionAllCategories;
@@ -216,6 +217,7 @@ class GlavnayaController extends Controller
         ActionRegisterSuccess,
         ActionSuppliersLux,
         ActionPreCheckProductToOrders,
+        ActionSubscription,
         AggregateCatalogData;
 
 

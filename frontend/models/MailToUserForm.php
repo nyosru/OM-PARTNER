@@ -25,6 +25,10 @@ class MailToUserForm extends Model
             [['name', 'email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
+
+            ['email', 'required', 'message' => 'Нет почтового адреса'],
+            ['subject', 'required', 'message' => 'Необходимо заполнить'],
+            ['body', 'required', 'message' => 'Необходимо заполнить'],
         ];
     }
 

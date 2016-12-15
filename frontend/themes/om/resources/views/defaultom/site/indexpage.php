@@ -198,7 +198,6 @@ echo \frontend\widgets\MainBanner::widget();
         <?php } ?>
         <script>
             $(window).on('load',function () {
-
                 $('.featured').owlCarousel({
                     loop:true,
                     margin:2,
