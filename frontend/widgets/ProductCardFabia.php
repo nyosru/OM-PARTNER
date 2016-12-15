@@ -45,7 +45,6 @@ class ProductCardFabia extends \yii\bootstrap\Widget
 
     public function run()
     {
-
         return $this->render('product-card-fabia/'.$this->template, ArrayHelper::toArray($this));
     }
 }

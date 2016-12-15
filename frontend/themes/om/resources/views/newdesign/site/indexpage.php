@@ -296,45 +296,7 @@ $this->title = $title;
 <!-- end brand logo -->
 
 <!-- Latest Blog -->
-<section class="latest-blog wow bounceInUp animated">
-    <div class="container">
-        <div class="new_title center">
-            <h2>Последние новости</h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
-                <div class="blog_inner">
-                    <div class="blog-img"> <img src="/images/new/blog-img1.jpg" alt="Blog image">
-                        <div class="mask"> <a class="info" href="blog_detail.html">Read More</a> </div>
-                    </div>
-                    <h3><a href="blog_detail.html">Pellentesque habitant morbi</a> </h3>
-                    <div class="post-date"><i class="icon-calendar"></i> Apr 10, 2014</div>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce sit  ... </p>
-                    <a class="readmore" href="blog_detail.html">Read More</a> </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
-                <div class="blog_inner">
-                    <div class="blog-img"> <img src="/images/new/blog-img1.jpg" alt="Blog image">
-                        <div class="mask"> <a class="info" href="blog_detail.html">Read More</a> </div>
-                    </div>
-                    <h3><a href="blog_detail.html">Pellentesque habitant morbi</a> </h3>
-                    <div class="post-date"><i class="icon-calendar"></i> Apr 10, 2014</div>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce sit  ... </p>
-                    <a class="readmore" href="blog_detail.html">Read More</a> </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-12 col-sm-4">
-                <div class="blog_inner">
-                    <div class="blog-img"> <img src="/images/new/blog-img1.jpg" alt="Blog image">
-                        <div class="mask"> <a class="info" href="blog_detail.html">Read More</a> </div>
-                    </div>
-                    <h3><a href="blog_detail.html">Pellentesque habitant morbi</a> </h3>
-                    <div class="post-date"><i class="icon-calendar"></i> Apr 10, 2014</div>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce sit  ... </p>
-                    <a class="readmore" href="blog_detail.html">Read More</a> </div>
-            </div>
-        </div>
-    </div>
-</section>
+<?=\frontend\widgets\NewsBlockFabia::widget()?>
 <!-- End Latest Blog -->
 
 <!-- Social -->
