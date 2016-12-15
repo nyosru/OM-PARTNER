@@ -17,7 +17,11 @@
                         'old_price' => $product['products_old_price'],
                     ])?>
                     <div class="actions">
-                        <a class="link-wishlist selected-product" title="В избранное" data-product="<?=$product['products_id']?>" href="#"></a>
+                        <?php if($favorites){ ?>
+                            <a class="glyphicon glyphicon-remove del-products" title="Удалить" data-product="<?=$product['products_id']?>" href="#"></a>
+                        <?php } else { ?>
+                            <a class="link-wishlist selected-product" title="В избранное" data-product="<?=$product['products_id']?>" href="#"></a>
+                        <?php } ?>
                         <div class="add_cart">
                             <button class="button btn-cart" type="button"><span>В корзину</span></button>
                         </div>

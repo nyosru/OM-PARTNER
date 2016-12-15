@@ -21,6 +21,7 @@ class ProductCardFabia extends \yii\bootstrap\Widget
     public $showdiscount;
     public $template;
     public $css;
+    public $favorites = 0; // для формирования списка избранных продуктов
 
     public $name;
     public $main_image;

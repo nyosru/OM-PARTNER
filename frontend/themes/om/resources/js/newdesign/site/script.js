@@ -261,7 +261,8 @@ $(document).on('click', '.cart-lable', function () {
 
         } });
 });
-$(document).on('click', '.selected-product', function () {
+$(document).on('click', '.selected-product', function (e) {
+    e.preventDefault();
     $id_product =   parseInt(this.getAttribute('data-product'));
     $checkzero = 0;
     $noanimate = false;
@@ -1748,11 +1749,11 @@ $(document).on('click','.open-set',function(){
     $content=JSON.parse($text);
     drawLeftCart($content);
     $('[class=cart-set-content][data-row='+$row+']').html($innerhtml);
-})
+});
 
 $(document).on('click','.del-products',function(){
-    $id =  $(this).parent().filter('[itemid]').attr('itemid');
-    $('[itemid='+$id+']').remove();
+    $id =  $(this).attr('data-product');
+    $('.item[data-product="'+$id+'"]').remove();
     $new_cart = new Object();
     $item = JSON.parse(localStorage.getItem('selected-product-om'));
     $.each($item.products, function(i,item){
@@ -1763,5 +1764,4 @@ $(document).on('click','.del-products',function(){
 
     $ilocal = JSON.stringify($item);
     localStorage.setItem('selected-product-om', $ilocal);
-
 });
