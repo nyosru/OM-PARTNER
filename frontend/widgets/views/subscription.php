@@ -4,7 +4,7 @@
 		border-radius: 5px;
 		bottom: 0;
 		box-shadow: 0 0;
-		display: block;
+		display: none;
 		opacity: 0;
 		padding: 42px;
 		position: fixed;

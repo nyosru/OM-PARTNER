@@ -198,7 +198,19 @@ echo \frontend\widgets\MainBanner::widget();
         <?php } ?>
         <script>
             $(window).on('load',function () {
-
+                var subscriptionJs = $('.subscription-popup');
+                if(getCookie('sendy-form') == undefined){
+                    subscriptionJs.show();
+                }
+                subscriptionJs.on('click',function(){
+                    $(this).hide();
+                });
+                $('.subscription-popup>.close-btn').on('click',function(){
+                    subscriptionJs.hide();
+                });
+                $(document).on('click', '.subscription-popup>.close-btn', function () {
+                    setCookie('sendy-form',1,{expires: 3600*24*30,path:'/'})
+                });
                 $('.featured').owlCarousel({
                     loop:true,
                     margin:2,
