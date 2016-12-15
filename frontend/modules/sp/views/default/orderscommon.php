@@ -156,16 +156,16 @@
         </div>
     </div>
 </div>
-<?= $this->render('modals/add_new_commonorder.php', ['pjax_id' => 'common', 'modal_id' => 'modal-common'])?>
-<script>
-    $('#common').on('pjax:end', function(){
-        refresh_list();
-    });
-</script>
+
+<?= $this->render('modals/add_new_commonorder.php')?>
 
 <script>
     $(document).ready(function () {
 
+        //add_new_commonorder.php после запроса обновить список
+        $('#pjax_common').on('pjax:end', function(){
+            refresh_list();
+        });
 
         var order_status_label = [
             'удален',

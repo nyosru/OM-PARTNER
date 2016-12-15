@@ -191,16 +191,16 @@
 
 <?= $this->render('modals/email_to_user.php')?>
 
-<?= $this->render('modals/add_new_commonorder.php', ['pjax_id' => 'common', 'modal_id' => 'modal-common'])?>
-<script>
-    $('#common').on('pjax:end', function(){
-        refresh_list();
-    });
-</script>
-
+<?= $this->render('modals/add_new_commonorder.php')?>
 
 <script>
     $(document).ready(function () {
+
+        //add_new_commonorder.php после запроса обновить список
+        $('#pjax_common').on('pjax:end', function(){
+            refresh_list();
+        });
+
         var product_arr = new Object();
         var maindata_arr = new Object();
         var maindata = new Object();
@@ -354,7 +354,7 @@
             common_orders_list = requestCommon(act, request);
             renderCommonList(common_orders_list);
 
-        };
+        }
         $(document).on('click', '.common-order', function(){
             refresh_list();
         });

@@ -17,6 +17,14 @@ trait ActionAddCommon
         $newCommonOrderForm = new CommonOrderForm();
         $newCommonOrderForm->load(Yii::$app->request->post());
 
-        return $newCommonOrderForm->createCommonOrder();
+        if ($newCommonOrderForm->createCommonOrder()) {
+
+            \Yii::$app->getSession()->setFlash('success', 'Новый объединенный заказ создан');
+        } else {
+
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка, объединенный заказ не был создан');
+        }
+
+        return $this->render('modals/add_new_commonorder.php');
     }
 }
