@@ -39,10 +39,16 @@ trait ActionSaveOneOrder
         ;
 
         if (empty($user)) {
+            
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
+
             return false;
         }
 
         if (!is_array($client_order_products)) {
+
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
+
             return false;
         }
 
@@ -54,13 +60,17 @@ trait ActionSaveOneOrder
             $order = $updateOrder->updateOrderWithClientProducts($order, $client_order_products);
             $order->save();
 
+            \Yii::$app->getSession()->setFlash('success', 'Заказ сохранен');
             $transaction->commit();
         } catch (\Exception $e) {
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
             $transaction->rollBack();
+
             return false;
         }
 
         $un_order = unserialize($order->order);
+
         return $un_order['products'];
     }
 }

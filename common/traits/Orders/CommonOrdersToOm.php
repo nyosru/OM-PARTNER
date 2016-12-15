@@ -31,6 +31,7 @@ use common\models\Zones;
 use yii\helpers\ArrayHelper;
 use Yii;
 use yii\helpers\BaseHtmlPurifier;
+use yii\helpers\Json;
 
 
 trait CommonOrdersToOm
@@ -38,7 +39,6 @@ trait CommonOrdersToOm
     public function CommonOrdersToOm($commonorder, $address, $ship, $wrap, $comments_to_order)
     {
         date_default_timezone_set('Europe/Moscow');
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
      //   $type_order = Yii::$app->request->post('order-type');
 
@@ -60,7 +60,7 @@ trait CommonOrdersToOm
         ;
         $address_data = ArrayHelper::index(AddressBook::find()->where('customers_id = :customers ', [':customers'=>$model['customer']['customers_id']])->asArray()->all(),'address_book_id');
         if(!$model){
-            return [
+            return Json::encode([
                 'result' => [
                     'code' => 100,
                     'text' => 'Не правильные параметры заказа',
@@ -70,10 +70,10 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ];
+            ]);
         }
         if(!$address_data ||  !isset($address_data[$address])){
-            return [
+            return Json::encode([
                 'result' => [
                     'code' => 100,
                     'text' => 'Не актуальный адресс',
@@ -83,7 +83,7 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ];
+            ]);
         }
         $model['addressBook'] = $address_data;
         $products_order['orders'] = [0=>[]];
@@ -105,7 +105,7 @@ trait CommonOrdersToOm
         if ($products_order['query_products']) {
             $proddata = PartnersProducts::find()->where(['products.`products_id`' => $products_order['query_products']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->all();
         } else {
-            return $this->redirect(Yii::$app->request->referrer);
+            return FALSE;
         }
 
 
@@ -145,7 +145,7 @@ trait CommonOrdersToOm
         }
 
         if ($validprice < $minprice) {
-            return [
+            return Json::encode([
                 'result' => [
                     'code' => 0,
                     'text' => 'Минимальная сумма заказа ' . $minprice . ' рублей',
@@ -157,7 +157,7 @@ trait CommonOrdersToOm
                         'totalpricesaveproduct' => $validprice
                     ]
                 ]
-            ];
+            ]);
         }
 
 
@@ -169,7 +169,7 @@ trait CommonOrdersToOm
 
 
         if (!$shipping) {
-            return [
+            return Json::encode([
                 'result' => [
                     'code' => 0,
                     'text' => 'Укажите транспортную компанию',
@@ -179,10 +179,10 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ];
+            ]);
 
         } elseif ($shipping['wantpasport'] && (!$userOM['pasport_seria'] || !$userOM['pasport_nomer'] || !$userOM['pasport_kogda_vidan'] || !$userOM['pasport_kem_vidan'])) {
-            return  [
+            return Json::encode( [
                 'result' => [
                     'code' => 0,
                     'text' => 'Выбранной транспортной компании требуются ваши паспортные данные. Укажите их пожалуйста в личном кабинете для выбраного адреса',
@@ -192,7 +192,7 @@ trait CommonOrdersToOm
 
                     ]
                 ]
-            ];
+            ]);
 
         }
 
@@ -650,7 +650,7 @@ trait CommonOrdersToOm
 
                                     } else {
 
-                                        return ['wrapprice' => (integer)$wrapp['products_price'],
+                                        return Json::encode( ['wrapprice' => (integer)$wrapp['products_price'],
                                             'result' => [
                                                 'code' => 0,
                                                 'text' => 'Ошибка оформления позиции код 345 ' . $reindexprod[$keyin_order]['products_model'],
@@ -663,7 +663,7 @@ trait CommonOrdersToOm
                                                     'coupon_sum' => $coupon_sum
                                                 ]
                                             ]
-                                        ];
+                                        ]);
                                     }
                                 } else {
 //                                    if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
@@ -679,7 +679,7 @@ trait CommonOrdersToOm
                                 $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
 
                             } else {
-                                return [
+                                return Json::encode([
                                     'result' => [
                                         'code' => 0,
                                         'text' => 'Ошибка оформления продукта код 425' . $reindexprod[$keyin_order]['products_model'],
@@ -692,7 +692,7 @@ trait CommonOrdersToOm
                                             'coupon_sum' => $coupon_sum
                                         ]
                                     ]
-                                ];
+                                ]);
                             }
                         }
                     }
@@ -726,7 +726,7 @@ trait CommonOrdersToOm
                 if ($orderstotalprice->save()) {
 
                 } else {
-                    return  [
+                    return Json::encode( [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 101',
@@ -739,7 +739,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ];
+                    ]);
                 }
 
                 $orderstotalship = new OrdersTotal();
@@ -752,7 +752,7 @@ trait CommonOrdersToOm
                 if ($orderstotalship->save()) {
 
                 } else {
-                    return [
+                    return Json::encode( [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 102',
@@ -765,7 +765,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ];
+                    ]);
                 }
 
                 $orderstotalprint = new OrdersTotal();
@@ -778,7 +778,7 @@ trait CommonOrdersToOm
                 if ($orderstotalprint->save()) {
 
                 } else {
-                    return [
+                    return Json::encode( [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 103',
@@ -791,7 +791,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ];
+                    ]);
                 }
                 if(!$main_order) {
                     $neworderpartner = new PartnersOrders();
@@ -806,7 +806,7 @@ trait CommonOrdersToOm
                     if ($neworderpartner->save()) {
 
                     } else {
-                        return  [
+                        return Json::encode(  [
                             'result' => [
                                 'code' => 0,
                                 'text' => 'Ошибка оформления заказа код 104',
@@ -819,7 +819,7 @@ trait CommonOrdersToOm
                                     'coupon_sum' => $coupon_sum
                                 ]
                             ]
-                        ];
+                        ]);
                     }
                 }
                 $ordershistory = new OrdersStatusHistory();
@@ -844,7 +844,7 @@ trait CommonOrdersToOm
                 if ($ordershistory->save()) {
 
                 } else {
-                    return  [
+                    return Json::encode( [
                         'result' => [
                             'code' => 0,
                             'text' => 'Ошибка оформления заказа код 105',
@@ -857,7 +857,7 @@ trait CommonOrdersToOm
                                 'coupon_sum' => $coupon_sum
                             ]
                         ]
-                    ];
+                    ]);
                 }
                 if(!$main_order){
                     $main_order = $orders->orders_id;
@@ -865,7 +865,7 @@ trait CommonOrdersToOm
             } else {
 
                 $orders->validate();
-                return [
+                return Json::encode( [
                     'result' => [
                         'code' => 0,
                         'text' => 'Ошибка оформления заказа код 106 ' . json_encode($orders->errors),
@@ -877,7 +877,7 @@ trait CommonOrdersToOm
                             'totalpricesaveproduct' => $validprice
                         ]
                     ]
-                ];
+                ]);
             }
         }
 
@@ -941,7 +941,7 @@ trait CommonOrdersToOm
                 ->setTo('desure85@gmail.com')
                 ->setSubject('Новый заказ"')
                 ->send();
-            return ['wrapprice' => (integer)$wrapp['products_price'],
+            return Json::encode( ['wrapprice' => (integer)$wrapp['products_price'],
                 'result' => [
                     'code' => 200,
                     'text' => 'Спасибо, Ваш заказ оформлен',
@@ -962,11 +962,8 @@ trait CommonOrdersToOm
                         'coupon_sum' => $coupon_sum
                     ]
                 ]
-            ];
+            ]);
         } catch (\Exception $e) {
-            echo '<pre>';
-            print_r($e);
-            echo '</pre>';
             Yii::$app->mailer->compose()
                 ->setFrom('odezhdamaster@gmail.com')
                 ->setTo('desure85@gmail.com')
@@ -985,6 +982,6 @@ trait CommonOrdersToOm
             $transaction->rollBack();
         }
 
-        return $this->redirect(Yii::$app->request->referrer);
+        return FALSE;
     }
 }

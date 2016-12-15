@@ -43,6 +43,9 @@ trait ActionSaveCommonOrders
         ;
 
         if (empty($user)) {
+
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
+
             return false;
         }
 
@@ -68,8 +71,11 @@ trait ActionSaveCommonOrders
                 }
             }
 
+            \Yii::$app->getSession()->setFlash('success', 'Заказ сохранен');
             $transaction->commit();
         } catch (\Exception $e) {
+
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
             $transaction->rollBack();
             return false;
         }

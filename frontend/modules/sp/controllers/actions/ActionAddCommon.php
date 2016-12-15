@@ -2,16 +2,7 @@
 namespace frontend\modules\sp\controllers\actions;
 
 use common\forms\PartnersOrders\CommonOrderForm;
-use common\models\CommonOrders;
-use common\models\PartnersOrders;
-use common\models\Referrals;
-use common\models\ReferralsUser;
 use Yii;
-use yii\base\Exception;
-use yii\data\ActiveDataProvider;
-use yii\data\Sort;
-use yii\validators\DateValidator;
-use yii\web\HttpException;
 
 
 trait ActionAddCommon
@@ -26,6 +17,14 @@ trait ActionAddCommon
         $newCommonOrderForm = new CommonOrderForm();
         $newCommonOrderForm->load(Yii::$app->request->post());
 
-        return $newCommonOrderForm->createCommonOrder();
+        if ($newCommonOrderForm->createCommonOrder()) {
+
+            \Yii::$app->getSession()->setFlash('success', 'Новый объединенный заказ создан');
+        } else {
+
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка, объединенный заказ не был создан');
+        }
+
+        return $this->render('modals/add_new_commonorder.php');
     }
 }
