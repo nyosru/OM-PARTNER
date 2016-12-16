@@ -138,7 +138,7 @@ trait CommonOrdersToOm
         foreach ($proddata as $keyrequest => $valuerequest) {
             $thisweeekday = date('N') - 1;
             $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
-            if($this->preCheckProductsToOrder($valuerequest, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)){
+            if($this->preCheckProductsToOrder($valuerequest, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE)){
                 $validprice += ((float)$valuerequest['products_price'] * (int)$products_order['products_quantity'][$valuerequest['products_id']]);
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }else{
@@ -654,14 +654,14 @@ trait CommonOrdersToOm
                                             if (empty($orderedproducts->products_attributes_weight_prefix)) {
                                                 $orderedproducts->products_attributes_weight_prefix = '-';
                                             }
-//                                            if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
-//                                                $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
-//                                                $orderedproductsquantyty->products_last_modified = $nowdate;
-//                                                $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
-//                                                $orderedproductsquantyty->save();
-//                                                //      ProductsCache::find()->where(['products_id'=>$keyin_order])->one()->delete();
-//
-//                                            }
+                                            if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
+                                                $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
+                                                $orderedproductsquantyty->products_last_modified = $nowdate;
+                                                $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
+                                                $orderedproductsquantyty->save();
+                                                //      ProductsCache::find()->where(['products_id'=>$keyin_order])->one()->delete();
+
+                                            }
                                             $orderedproducts->quantity = max(0, (($orderedproducts->quantity) - ($ordersprod->products_quantity)));
                                             $orderedproducts->save();
                                         }
@@ -686,12 +686,12 @@ trait CommonOrdersToOm
                                         ]);
                                     }
                                 } else {
-//                                    if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
-//                                        $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
-//                                        $orderedproductsquantyty->products_last_modified = $nowdate;
-//                                        $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
-//                                        $orderedproductsquantyty->save();
-//                                    }
+                                   if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
+                                        $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
+                                        $orderedproductsquantyty->products_last_modified = $nowdate;
+                                        $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
+                                        $orderedproductsquantyty->save();
+                                    }
 
 
                                 }

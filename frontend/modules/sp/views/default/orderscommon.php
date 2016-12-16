@@ -493,7 +493,8 @@
                         product: requestdata.responseJSON.product.products_id,
                         category :requestdata.responseJSON.categories_id,
                         attr :$attr,
-                        count : $count
+                        count : $count,
+                        skiptime: true
                     }
                 });
                 maindata_arr[$id] = new Object();
