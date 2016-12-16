@@ -71,13 +71,13 @@
                                 }
 
                                 $stat_class = [
+                                    'status-cancel',
                                     'status-new',
                                     'status-proceed',
                                     'status-like',
                                     'status-payed',
                                     'status-ordered',
                                     'status-return',
-                                    'status-cancel',
                                 ];
 
                                 $params = new \php_rutils\struct\TimeParams();
@@ -493,7 +493,8 @@
                         product: requestdata.responseJSON.product.products_id,
                         category :requestdata.responseJSON.categories_id,
                         attr :$attr,
-                        count : $count
+                        count : $count,
+                        skiptime: true
                     }
                 });
                 maindata_arr[$id] = new Object();

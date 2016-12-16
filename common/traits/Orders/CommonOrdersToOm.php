@@ -62,8 +62,8 @@ trait CommonOrdersToOm
         if(!$model){
             return Json::encode([
                 'result' => [
-                    'code' => 100,
-                    'text' => 'Не правильные параметры заказа',
+                    'code' => 0,
+                    'text' => 'Заказ уже оформлен',
                     'data' => [
                         'paramorder' => [
                         ],
@@ -75,7 +75,7 @@ trait CommonOrdersToOm
         if(!$address_data ||  !isset($address_data[$address])){
             return Json::encode([
                 'result' => [
-                    'code' => 100,
+                    'code' => 0,
                     'text' => 'Не актуальный адресс',
                     'data' => [
                         'paramorder' => [
@@ -105,7 +105,17 @@ trait CommonOrdersToOm
         if ($products_order['query_products']) {
             $proddata = PartnersProducts::find()->where(['products.`products_id`' => $products_order['query_products']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->all();
         } else {
-            return Json::encode(FALSE);
+            return Json::encode( [
+                'result' => [
+                    'code' => 0,
+                    'text' => 'Ошибка 345',
+                    'data' => [
+                        'paramorder' => [
+                        ],
+
+                    ]
+                ]
+            ]);
         }
 
 
@@ -128,7 +138,7 @@ trait CommonOrdersToOm
         foreach ($proddata as $keyrequest => $valuerequest) {
             $thisweeekday = date('N') - 1;
             $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
-            if($this->preCheckProductsToOrder($valuerequest, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)){
+            if($this->preCheckProductsToOrder($valuerequest, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE)){
                 $validprice += ((float)$valuerequest['products_price'] * (int)$products_order['products_quantity'][$valuerequest['products_id']]);
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }else{
@@ -552,7 +562,17 @@ trait CommonOrdersToOm
                             'addInfo' => 'Найден по поиску в очереди из ' . $customerBankQueryRowsCount,
                         ];
                     } else {
-                        return false;
+                        return Json::encode( [
+                            'result' => [
+                                'code' => 0,
+                                'text' => 'Ошибка 345645',
+                                'data' => [
+                                    'paramorder' => [
+                                    ],
+
+                                ]
+                            ]
+                        ]);
                     }
                 }
                 $admin_companies_bank_to_orders = new AdminCompaniesBankToOrders();
@@ -634,14 +654,14 @@ trait CommonOrdersToOm
                                             if (empty($orderedproducts->products_attributes_weight_prefix)) {
                                                 $orderedproducts->products_attributes_weight_prefix = '-';
                                             }
-//                                            if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
-//                                                $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
-//                                                $orderedproductsquantyty->products_last_modified = $nowdate;
-//                                                $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
-//                                                $orderedproductsquantyty->save();
-//                                                //      ProductsCache::find()->where(['products_id'=>$keyin_order])->one()->delete();
-//
-//                                            }
+                                            if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
+                                                $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
+                                                $orderedproductsquantyty->products_last_modified = $nowdate;
+                                                $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
+                                                $orderedproductsquantyty->save();
+                                                //      ProductsCache::find()->where(['products_id'=>$keyin_order])->one()->delete();
+
+                                            }
                                             $orderedproducts->quantity = max(0, (($orderedproducts->quantity) - ($ordersprod->products_quantity)));
                                             $orderedproducts->save();
                                         }
@@ -666,18 +686,18 @@ trait CommonOrdersToOm
                                         ]);
                                     }
                                 } else {
-//                                    if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
-//                                        $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
-//                                        $orderedproductsquantyty->products_last_modified = $nowdate;
-//                                        $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
-//                                        $orderedproductsquantyty->save();
-//                                    }
+                                   if (($orderedproductsquantyty = PartnersProducts::find()->where('products.products_id = :products_id ', [':products_id' => $keyin_order])->one()) == TRUE) {
+                                        $orderedproductsquantyty->products_quantity = max(0, (($orderedproductsquantyty->products_quantity) - ($ordersprod->products_quantity)));
+                                        $orderedproductsquantyty->products_last_modified = $nowdate;
+                                        $orderedproductsquantyty->products_ordered = $orderedproductsquantyty->products_ordered + $orderedproductsquantyty->products_quantity;
+                                        $orderedproductsquantyty->save();
+                                    }
 
 
                                 }
                                 $trackorder = $order_in_common_key.'/'.$orders->orders_id;
                                 $validproduct[$trackorder][] = [$ordersprod->toArray(), $ordersprodattr];
-                                $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
+                                $price_total +=  round($ordersprod->products_price * $ordersprod->first_quant,0);
 
                             } else {
                                 return Json::encode([
@@ -746,8 +766,13 @@ trait CommonOrdersToOm
                 $orderstotalship = new OrdersTotal();
                 $orderstotalship->orders_id = $orders->orders_id;
                 $orderstotalship->title = 'Всего: ';
-                $orderstotalship->text = '<b>' . $price_total . ' руб.</b>';
-                $orderstotalship->value = $price_total;
+                if(!$main_order) {
+                    $orderstotalship->text = '<b>' . $validprice . ' руб.</b>';
+                    $orderstotalship->value = $validprice;
+                }else{
+                    $orderstotalship->text = '<b>' . $price_total . ' руб.</b>';
+                    $orderstotalship->value = $price_total;
+                }
                 $orderstotalship->class = 'ot_total';
                 $orderstotalship->sort_order = 800;
                 if ($orderstotalship->save()) {
@@ -755,7 +780,7 @@ trait CommonOrdersToOm
                 } else {
                     return Json::encode( [
                         'result' => [
-                            'code' => 0,
+                            'code' => 200,
                             'text' => 'Ошибка оформления заказа код 102',
                             'data' => [
                                 'paramorder' => [
@@ -823,7 +848,7 @@ trait CommonOrdersToOm
                         ]);
                     }
                 }else{
-                   if(( $orderpartner = PartnersOrders::find()->where('id = :id',[':id'=>$order_in_common_key]))->one() == TRUE){
+                   if(( $orderpartner = PartnersOrders::find()->where('id = :id',[':id'=>$order_in_common_key])->one()) == TRUE){
                        $orderpartner->status = 2;
                        $orderpartner->orders_id = $orders->orders_id;
                        $orderpartner->save();
@@ -870,7 +895,6 @@ trait CommonOrdersToOm
                     $main_order = $orders->orders_id;
                 }
             } else {
-
                 $orders->validate();
                 return Json::encode( [
                     'result' => [
@@ -887,6 +911,12 @@ trait CommonOrdersToOm
                 ]);
             }
         }
+
+            $model = CommonOrders::find()
+                ->where(CommonOrders::tableName().'.id = :orderid', [':orderid'=>$commonorder])
+                ->one();
+            $model->status = 2;
+            $model->save();
 
             $transaction->commit('suc');
             Yii::$app->mailer->htmlLayout = 'layouts-om/html';
@@ -987,8 +1017,21 @@ trait CommonOrdersToOm
                 )
                 ->send();
             $transaction->rollBack();
-        }
 
-        return Json::encode(FALSE);
+            return Json::encode( [
+                'result' => [
+                    'code' => 0,
+                    'text' => 'Ошибка оформления заказа код 55 ' . Json::encode($orders->errors),
+                    'data' => [
+                        'paramorder' => [
+                        ],
+                        'origprod' => $origprod,
+                        'timeproduct' => $related,
+                        'totalpricesaveproduct' => $validprice
+                    ]
+                ]
+            ]);
+
+        }
     }
 }
