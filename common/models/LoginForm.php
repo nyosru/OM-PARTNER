@@ -49,7 +49,7 @@ class LoginForm extends Model
             $this->addError('password', 'Не соответствует пара логин- пароль');
         } else {
             $run = new Partners();
-            $check = $run->GetId($_SERVER['HTTP_HOST']);
+            $check = Yii::$app->params['constantapp']['APP_ID'];
             if ((intval($user->id_partners) != intval($check) && intval($user->id_partners) != 0) || !$user->validatePassword($this->password)) {
                 $this->addError('password', 'Не соответствует пара логин - пароль.');
             } elseif (($user->id_partners) == NULL) {
@@ -90,7 +90,7 @@ class LoginForm extends Model
                 $_SERVER['HTTP_HOST'] == 'http://globaladmin.inikonov.odezhda-master.ru') {
                 $check = 'NULL';
             } else {
-                $check = $run->GetId($_SERVER['HTTP_HOST']);
+                $check = Yii::$app->params['constantapp']['APP_ID'];
             }
             $this->_user = $userq->find()->where(['username' => $this->username, 'id_partners' => $check])->one();
 
