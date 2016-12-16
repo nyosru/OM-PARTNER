@@ -4,8 +4,7 @@ $this->title = 'Избранные продукты';
 <script>
     $(window).on('load', function () {
         var selectedProductOm = JSON.parse(localStorage.getItem('selected-product-om'));
-
-        if(selectedProductOm) {
+        if(selectedProductOm && selectedProductOm.products.length > 0) {
             var products = selectedProductOm.products;
             if (typeof (products) == 'undefined') {
                 localStorage.removeItem('selected-product-om');
@@ -21,6 +20,8 @@ $this->title = 'Избранные продукты';
                     $('.my-wishlist').html(data);
                 }
             });
+        } else {
+            $('.my-wishlist').html('<p>Нет продуктов</p>');
         }
     });
 </script>
