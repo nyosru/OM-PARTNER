@@ -33,12 +33,12 @@ trait ActionAttachOrderToCommon
 
         $common_order = CommonOrders::find()
             ->where(['referral_id' => $referral])
-            ->andWhere(['id' => $id_common_order])
+            ->andWhere(['id' => $id_common_order,  'status'=>1])
             ->one()
         ;
 
         $order = PartnersOrders::find()
-            ->where(['id' => $id_order])
+            ->where(['id' => $id_order,  'status'=>1])
             ->one()
         ;
 
@@ -59,7 +59,7 @@ trait ActionAttachOrderToCommon
         }
 
         $exist_common_order_link = CommonOrdersLinks::find()
-            ->where(['partner_orders_id' => $id_order])
+            ->where(['partner_orders_id' => $id_order, 'status'=>1])
             ->one();
         ;
 
