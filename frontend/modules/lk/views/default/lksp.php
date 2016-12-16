@@ -29,7 +29,7 @@ $this->title = 'Личный кабинет';
             Пользователь
         </div>
         <?php
-        echo $form->field($profile, 'id')->hiddenInput(['value' => $profile->id])->label(false);
+     //   echo $form->field($profile, 'id')->hiddenInput(['value' => $profile->id])->label(false);
         echo $form->field($profile, 'lastname', ['options' => ['class' => 'col-md-4'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Фамилия');
         echo $form->field($profile, 'name', ['options' => ['class' => 'col-md-4'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Имя');
         echo $form->field($profile, 'secondname', ['options' => ['class' => 'col-md-4'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Отчество');
@@ -44,8 +44,8 @@ $this->title = 'Личный кабинет';
         echo '<div class="cstate">' . $form->field($profile, 'country', ['options' => ['class' => 'col-md-4'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Страна')->textInput(['data-name' => 'country', 'id' => 'userinfo']).'</div>';
         echo  '<div class="cstate">' . $form->field($profile, 'state', ['options' => ['class' => 'col-md-6'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Регион')->textInput(['data-name' => 'state', 'id' => 'userinfo']) . '</div>';
         echo $form->field($profile, 'city', ['options' => ['class' => 'col-md-4'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Город');
-        echo $form->field($profile, 'address', ['options' => ['class' => 'col-md-6'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Адрес');
-        echo $form->field($profile, 'phone', ['options' => ['class' => 'col-md-2'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Телефон');
+        echo $form->field($profile, 'adress', ['options' => ['class' => 'col-md-6'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Адрес');
+        echo $form->field($profile, 'telephone', ['options' => ['class' => 'col-md-2'], 'inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;'], 'labelOptions' => ['style' => 'font-weight:300; font-size:12px;']])->label('Телефон');
         ?>
     </div>
     <div style="overflow: hidden">
