@@ -71,13 +71,13 @@
                                 }
 
                                 $stat_class = [
+                                    'status-cancel',
                                     'status-new',
                                     'status-proceed',
                                     'status-like',
                                     'status-payed',
                                     'status-ordered',
                                     'status-return',
-                                    'status-cancel',
                                 ];
 
                                 $params = new \php_rutils\struct\TimeParams();

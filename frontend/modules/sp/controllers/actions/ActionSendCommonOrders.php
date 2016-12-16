@@ -53,6 +53,7 @@ trait ActionSendCommonOrders
                 $formmodel->shipping_method,
                 $formmodel->wrap,
                 $formmodel->comment);
+            //echo $x;
             $x  = $this->render('cartresult',Json::decode($x));
             echo BaseHtmlPurifier::process($x);
        }else{

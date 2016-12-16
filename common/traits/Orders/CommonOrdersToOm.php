@@ -62,8 +62,8 @@ trait CommonOrdersToOm
         if(!$model){
             return Json::encode([
                 'result' => [
-                    'code' => 100,
-                    'text' => 'Не правильные параметры заказа',
+                    'code' => 0,
+                    'text' => 'Заказ уже оформлен',
                     'data' => [
                         'paramorder' => [
                         ],
@@ -75,7 +75,7 @@ trait CommonOrdersToOm
         if(!$address_data ||  !isset($address_data[$address])){
             return Json::encode([
                 'result' => [
-                    'code' => 100,
+                    'code' => 0,
                     'text' => 'Не актуальный адресс',
                     'data' => [
                         'paramorder' => [
@@ -105,7 +105,17 @@ trait CommonOrdersToOm
         if ($products_order['query_products']) {
             $proddata = PartnersProducts::find()->where(['products.`products_id`' => $products_order['query_products']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->all();
         } else {
-            return Json::encode(FALSE);
+            return Json::encode( [
+                'result' => [
+                    'code' => 0,
+                    'text' => 'Ошибка 345',
+                    'data' => [
+                        'paramorder' => [
+                        ],
+
+                    ]
+                ]
+            ]);
         }
 
 
@@ -552,7 +562,17 @@ trait CommonOrdersToOm
                             'addInfo' => 'Найден по поиску в очереди из ' . $customerBankQueryRowsCount,
                         ];
                     } else {
-                        return false;
+                        return Json::encode( [
+                            'result' => [
+                                'code' => 0,
+                                'text' => 'Ошибка 345645',
+                                'data' => [
+                                    'paramorder' => [
+                                    ],
+
+                                ]
+                            ]
+                        ]);
                     }
                 }
                 $admin_companies_bank_to_orders = new AdminCompaniesBankToOrders();
@@ -755,7 +775,7 @@ trait CommonOrdersToOm
                 } else {
                     return Json::encode( [
                         'result' => [
-                            'code' => 0,
+                            'code' => 200,
                             'text' => 'Ошибка оформления заказа код 102',
                             'data' => [
                                 'paramorder' => [
@@ -823,7 +843,7 @@ trait CommonOrdersToOm
                         ]);
                     }
                 }else{
-                   if(( $orderpartner = PartnersOrders::find()->where('id = :id',[':id'=>$order_in_common_key]))->one() == TRUE){
+                   if(( $orderpartner = PartnersOrders::find()->where('id = :id',[':id'=>$order_in_common_key])->one()) == TRUE){
                        $orderpartner->status = 2;
                        $orderpartner->orders_id = $orders->orders_id;
                        $orderpartner->save();
@@ -870,7 +890,6 @@ trait CommonOrdersToOm
                     $main_order = $orders->orders_id;
                 }
             } else {
-
                 $orders->validate();
                 return Json::encode( [
                     'result' => [
@@ -887,6 +906,12 @@ trait CommonOrdersToOm
                 ]);
             }
         }
+
+            $model = CommonOrders::find()
+                ->where(CommonOrders::tableName().'.id = :orderid', [':orderid'=>$commonorder])
+                ->one();
+            $model->status = 2;
+            $model->save();
 
             $transaction->commit('suc');
             Yii::$app->mailer->htmlLayout = 'layouts-om/html';
@@ -987,8 +1012,21 @@ trait CommonOrdersToOm
                 )
                 ->send();
             $transaction->rollBack();
-        }
 
-        return Json::encode(FALSE);
+            return Json::encode( [
+                'result' => [
+                    'code' => 0,
+                    'text' => 'Ошибка оформления заказа код 55 ' . Json::encode($orders->errors),
+                    'data' => [
+                        'paramorder' => [
+                        ],
+                        'origprod' => $origprod,
+                        'timeproduct' => $related,
+                        'totalpricesaveproduct' => $validprice
+                    ]
+                ]
+            ]);
+
+        }
     }
 }
