@@ -28,7 +28,7 @@ trait ActionAddProductToOrder
         $attr = (integer)Yii::$app->request->post('attr');
         $count_val = (integer)Yii::$app->request->post('val');
 
-        $order = PartnersOrders::find()->where(['id' => $order_id])->one();
+        $order = PartnersOrders::find()->where(['id' => $order_id, 'status'=>1])->one();
 
         $user = ReferralsUser::find()
             ->joinWith('user')

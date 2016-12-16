@@ -28,7 +28,7 @@ trait ActionSaveCommonOrders
         $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 
         $common_orders = CommonOrders::find()
-            ->where(['referral_id' => $referral['id']])
+            ->where(['referral_id' => $referral['id'], CommonOrders::tableName() . '.status'=>1])
             ->andWhere([CommonOrders::tableName() . '.id' => $common_order_id])
             ->joinWith('partnerOrders')
             ->one()

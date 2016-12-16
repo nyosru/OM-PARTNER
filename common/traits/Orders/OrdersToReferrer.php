@@ -35,7 +35,7 @@ trait OrdersToReferrer
 
         if(($userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->asArray()->one()) == FALSE){
            Yii::$app->session->setFlash('error', 'Заполните профиль');
-           $this->redirect(Yii::$app->request->referrer);
+          return $this->redirect('/cart');
         }
         date_default_timezone_set('Europe/Moscow');
         if (
