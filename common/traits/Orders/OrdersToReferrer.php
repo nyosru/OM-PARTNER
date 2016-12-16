@@ -35,7 +35,7 @@ trait OrdersToReferrer
 
         if(($userinfo = PartnersUsersInfo::find()->where(['id'=>Yii::$app->user->getId()])->asArray()->one()) == FALSE){
            Yii::$app->session->setFlash('error', 'Заполните профиль');
-           $this->redirect(Yii::$app->request->referrer);
+          return $this->redirect('/cart');
         }
         date_default_timezone_set('Europe/Moscow');
         if (
@@ -123,8 +123,8 @@ trait OrdersToReferrer
                     ];
 
                     $partnerorder['products'][] = array_values($partnerorderone);
-                    $validproduct[] = [$partnerorderone, $ordersprodattr];
-                    $validprice += ((float)$valuerequest['products_price'] * (int)$quant[$valuerequest['products_id']]);
+                    $validproduct[] = [$ordersprod, $ordersprodattr];
+                 //   $validprice += ((float)$reindexprod[$keyin_order]['products_price'] * (int)$valueinattr_order);
                     $origprod[$valuerequest['products_id']] = $valuerequest;
                 }
 
@@ -147,6 +147,7 @@ trait OrdersToReferrer
                 ]
             ]);
         }
+
         $nowdate = date('Y-m-d H:i:s');
         $neworderpartner = new PartnersOrders();
         $neworderpartner->partners_id = $user['id_partners'];
@@ -158,7 +159,7 @@ trait OrdersToReferrer
         $neworderpartner->update_date = $nowdate;
         $neworderpartner->create_date = $nowdate;
         $neworderpartner->type = 2;
-        if ($neworderpartner->save()) {
+        if($neworderpartner->save()) {
             $numberorders = $neworderpartner->id;
         } else {
             return $this->render('cartresult', [

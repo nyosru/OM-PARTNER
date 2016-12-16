@@ -15,7 +15,7 @@ trait ActionDeleteProductInOrder
         $product_id = (integer)Yii::$app->request->post('product_id');
         $attr = (integer)Yii::$app->request->post('attr');
 
-        $order = PartnersOrders::find()->where(['id' => $order_id])->one();
+        $order = PartnersOrders::find()->where(['id' => $order_id ,'status'=>1])->one();
 
         $referal = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 

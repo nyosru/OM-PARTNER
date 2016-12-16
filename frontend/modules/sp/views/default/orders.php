@@ -1,3 +1,14 @@
+<?php
+    $order_status_label = [
+        'Удален',
+        'Новый',
+        'В обработке',
+        'Оплаченый',
+        'Выполненный',
+        'Возврат'
+    ];
+?>
+
 <?= \frontend\widgets\HeaderFilterBarNew::widget([
     'dataProvider' => $data,
     'sortOrderByData'  =>
@@ -56,13 +67,13 @@
                                 ],
                                 'content' => function($model) use (&$i_model) {
                                     $stat_class = [
+                                        'status-cancel',
                                         'status-new',
                                         'status-proceed',
                                         'status-like',
                                         'status-payed',
                                         'status-ordered',
                                         'status-return',
-                                        'status-cancel',
                                     ];
                                     $img_block_client_status = [
                                         '<div></div>',
@@ -70,6 +81,15 @@
                                         '<div class="client-old"></div>',
                                         '<div class="client-vip"></div>'
                                     ];
+                                    $order_status_label = [
+                                        'Удален',
+                                        'Новый',
+                                        'В обработке',
+                                        'Оплаченый',
+                                        'Выполненный',
+                                        'Возврат'
+                                    ];
+
                                     $order_un = unserialize($model['order']);
                                     $order_price = 0;
                                     foreach ($order_un['products'] as $product) {
@@ -106,9 +126,7 @@
                                             <div class="client-line-info-orders">
                                                 <div class="client-info-fr-order">
                                                     <div class="client-order">
-                                                        <div class="client-order-num">
-                                                            № '.$model['ids'].'
-                                                        </div>
+                                                        <div class="client-order-num">'.$order_status_label[$model['order_status']].'</div>
                                                         <div class="client-order-status '.$stat_class[$model['order_status']].'">
                                                         </div>
                                                     </div>
@@ -146,37 +164,6 @@
         </div>
     </div>
 
-<?php
-$modal = '<div style="display: none;" id="modal-mail" class="fade modal" role="dialog" tabindex="-1">';
-    $modal .= '<div class="modal-dialog modal-lg">';
-        $modal .= '<div class="modal-content">';
-            $modal .= '<div class="modal-header">';
-                $modal .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-                $modal .= 'Отправить e-mail пользователю ' . $model->user->username;
-                $modal .= '</div>';
-            $modal .= '<div class="modal-body">';
-                $modal .= '<div></div><div style="margin-left: auto; margin-right: auto; padding: 14px; text-align: left;">';
-                    $modal .= '<form id="groupdiscountuser" action="/sp/mail-to-user" method="post" role="form">';
-                        $form = \yii\bootstrap\ActiveForm::begin();
-                        $mailmodel = new \frontend\models\MailToUserForm();
-                        $modal .= $form->field($mailmodel, 'subject')->label('Тема письма')->input('text');
-                        $modal .= $form->field($mailmodel, 'body')->label('Текст письма')->input('text')->widget('\vova07\imperavi\Widget', [
-                        'settings' => [
-                        'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
-                        'lang' => 'ru',
-                        'minHeight' => 200,
-                        'plugins' => ['fontsize', 'fontcolor', 'table']]]);
-                        $form = \yii\bootstrap\ActiveForm::end();
-                        $modal .= '</div><div class="form-group">';
-                    $modal .= \yii\helpers\Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'mailtouser']);
-                    $modal .= '</div>';
-                $modal .= '</form>';
-
-                $modal .= '</div></div></div></div></div></div>';
-echo $modal;
-
-
-?>
 <div style="display: none;" id="modal-comment" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -202,49 +189,18 @@ echo $modal;
     </div>
 </div>
 
-<div style="display: none;" id="modal-common" class="fade modal" role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Создать объединенный заказ
-            </div>
-            <div class="modal-body">
-                <?php
-                \yii\widgets\Pjax::begin([
-                    'id'=>'common',
-                    'enablePushState' =>false
-                ]);
-                $form = \yii\bootstrap\ActiveForm::begin([
-                    'options' => ['data-pjax' =>1],
-                    'id'=>'groupdiscountuser',
-                    'action'=>'/sp/add-common',
-                    'method'=> 'post',
-                    'enableClientScript' => true
-                ]);
-                $commonmodel = new \common\models\CommonOrders();
-                echo $form->field($commonmodel, 'header')->label('Наименование заказа')->input('text');
-                echo $form->field($commonmodel, 'description')->label('Краткое описание')->input('text');
-                echo \yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-primary', 'name' => 'common']);
-                $form = \yii\bootstrap\ActiveForm::end();
-                \yii\widgets\Pjax::end();
-                ?>
-                <script>
-                $('#common').on('pjax:end', function(){
-                  $('#modal-common').modal('hide');
-                    refresh_list();
-                });
-                </script>
-            </div>
-        </div>
-    </div>
-</div>
+<?= $this->render('modals/email_to_user.php')?>
 
-
+<?= $this->render('modals/add_new_commonorder.php')?>
 
 <script>
-
     $(document).ready(function () {
+
+        //add_new_commonorder.php после запроса обновить список
+        $('#pjax_common').on('pjax:end', function(){
+            refresh_list();
+        });
+
         var product_arr = new Object();
         var maindata_arr = new Object();
         var maindata = new Object();
@@ -264,8 +220,8 @@ echo $modal;
             }
         })(jQuery);
         (function($){
-            $('.client-plate').on("click",function(){
-                $id = $(this).attr('data-detail')
+            $(document).on("click", '.client-plate',function(){
+                $id = $(this).attr('data-detail');
                 loaddetail($id);
             });
         })(jQuery);
@@ -324,9 +280,14 @@ echo $modal;
             }
         }
 
-
+        $(document).on('click', '.mail-client',function() {
+            //функции в зависимостях вида email_to_user.php
+            setRecipientNameModalMail($(this).attr('recipient_name'));
+            setRecipientIdModalMail($(this).attr('recipient_id'));
+        });
 
         (function($){
+
             $(document).on('click', '.product-delete',function() {
                 var order_id = $(this).attr('order_id');
                 var product_id = $(this).attr('product_id');
@@ -359,8 +320,10 @@ echo $modal;
             }else{
                 list_html = '';
                 $.each(common_list, function(i, index){
-                    list_html += '<div class="list-child" common-order-id="'+index.id+'"><div style="display: inline-block; padding: 0px 10px; border: 1px solid rgb(240, 240, 240); border-radius: 4px; height: 20px; margin: 0px 15px 10px 0px;">'+index.id+'</div>';
-                    list_html += '<div style="display: inline-block; padding: 0px 20px;">'+index.header+'</div></div>'
+                    list_html += '<div class="list-child" common-order-id="'+index.id+'">';
+                    list_html += '<div class="number">'+index.id+'</div>';
+                    list_html += '<div class="title">'+index.header+'</div>';
+                    list_html += '</div>';
                 });
             }
             $('.list').html(list_html);
@@ -391,7 +354,7 @@ echo $modal;
             common_orders_list = requestCommon(act, request);
             renderCommonList(common_orders_list);
 
-        };
+        }
         $(document).on('click', '.common-order', function(){
             refresh_list();
         });
@@ -509,6 +472,7 @@ echo $modal;
                 final_order_price += Math.round(product[3] * product[4]);
             });
 
+            $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('div').text(final_order_price +" р.");
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
         }
 
@@ -586,7 +550,8 @@ echo $modal;
                         product: requestdata.responseJSON.product.products_id,
                         category :requestdata.responseJSON.categories_id,
                         attr :$attr,
-                        count : $count
+                        count : $count,
+                        skiptime: true
                     }
                 });
                 maindata_arr[$id] = new Object();
@@ -647,6 +612,7 @@ echo $modal;
                         maindata.order.order['products'].push(data);
                     }
                     renderOrderEdit(maindata);
+                    updateAllOrdersView(maindata);
                 }
             });
         });
@@ -932,7 +898,7 @@ echo $modal;
                 '</div> ' +
                 '</div> ' +
                 '<div class="edit-order" style="cursor:pointer" edit-mode="read">Редактировать заказ</div> ' +
-                '<div class="mail-client" style="cursor:pointer" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
+                '<div class="mail-client" recipient_id="'+data.refus.user_id+'" recipient_name="'+user_name+'" style="cursor:pointer" data-toggle="modal" data-target="#modal-mail" >Написать клиенту</div> ' +
                 '</div> ' +
                 '<div>' +
                 $products+
@@ -989,15 +955,13 @@ echo $modal;
                     console.log(data);
                 },
                 success: function (products) {
-                    if(products === false) {
-
-                        $("body").append(getAlertTpl('error', 'Произошла ошибка.'));
-                    } else {
-
-                        $("body").append(getAlertTpl('success', 'Заказ удачно сохранен.'));
+                    if(products != false) {
                         maindata.order.order['products'] = products;
                         renderOrder(maindata);
+                        updateAllOrdersView(maindata);
                     }
+
+                    checkAlerts();
                 }
             });
         });

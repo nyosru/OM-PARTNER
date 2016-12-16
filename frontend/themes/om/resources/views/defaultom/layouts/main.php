@@ -27,7 +27,6 @@ $this->beginPage();
         <link rel="search" type="application/opensearchdescription+xml" title="Поиск по товарам"
               href="<?=BASEURL ;?>/addsearch">
 
-
         <?=Html::csrfMetaTags(); ?>
         <title><?=Html::encode($this->title); ?></title>
         <?php $this->head();
@@ -181,6 +180,9 @@ $this->beginPage();
             </div>
         </div>
         <?php
+        if(Yii::$app->user->isGuest) {
+        //    echo \frontend\widgets\SubscriptionWidget::widget();
+        }
         $this->endBody();
         Yii::$app->params['assetsite']->registerAssetFiles($this);
         ?>

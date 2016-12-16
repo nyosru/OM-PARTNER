@@ -28,7 +28,7 @@ trait ActionSaveCommonOrders
         $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 
         $common_orders = CommonOrders::find()
-            ->where(['referral_id' => $referral['id']])
+            ->where(['referral_id' => $referral['id'], CommonOrders::tableName() . '.status'=>1])
             ->andWhere([CommonOrders::tableName() . '.id' => $common_order_id])
             ->joinWith('partnerOrders')
             ->one()
@@ -43,32 +43,43 @@ trait ActionSaveCommonOrders
         ;
 
         if (empty($user)) {
+
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
+
             return false;
         }
 
         $connection = \Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
-
             $updateOrder = new UpdateOrder();
             foreach ($common_orders->partnerOrders as &$back_order) {
                 foreach ($client_orders_list as $client_order) {
 
-                    if (!isset($client_order['order']['products'])) {
+                    if (!isset($client_order['order']['products']) || count($client_order['order']['products']) == 0) {
                         continue;
                     }
 
-                    $back_order = $updateOrder->updateOrderWithClientProducts($back_order, $client_order['order']['products']);
-                    $back_order->save();
+                    if($client_order['id'] == $back_order->id) {
+                        $back_order = $updateOrder->updateOrderWithClientProducts($back_order, $client_order['order']['products']);
+                        $back_order->save();
+                        $back_order->refresh();
+
+                        $back_order->order = unserialize($back_order->order);
+                    }
+
                 }
             }
 
+            \Yii::$app->getSession()->setFlash('success', 'Заказ сохранен');
             $transaction->commit();
         } catch (\Exception $e) {
+
+            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
             $transaction->rollBack();
             return false;
         }
 
-        return $common_orders['partnerOrders'];
+        return $client_orders_list;
     }
 }

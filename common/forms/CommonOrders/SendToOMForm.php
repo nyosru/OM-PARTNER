@@ -58,7 +58,7 @@ class SendToOMForm extends Model
         echo $form->field($this, 'comment', ['options'=> ['style'=>'width:100%', 'class'=>'col-md-8']])
             ->label('Комментарий к заказу')->textarea(['rows' => '6',
                 'style'=>'resize: vertical;display:width:100%;min-height: 100px;']);
-        echo \yii\helpers\Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'common', 'style'=>"margin: 15px"]);
+        echo \yii\helpers\Html::submitButton('Сохранить', ['class' => 'btn btn-primary lock-on', 'name' => 'common', 'style'=>"margin: 15px"]);
         $form = \yii\bootstrap\ActiveForm::end();
     }
 

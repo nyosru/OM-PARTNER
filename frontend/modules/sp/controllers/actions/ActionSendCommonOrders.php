@@ -8,6 +8,8 @@ use common\models\Referrals;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
+use yii\helpers\BaseHtmlPurifier;
+use yii\helpers\Json;
 use yii\validators\DateValidator;
 
 
@@ -15,6 +17,7 @@ trait ActionSendCommonOrders
 {
     public function actionSendCommonOrders()
     {
+        $this->layout = 'empty';
         $formmodel = new SendToOMForm();
         $shipping_fields = [];
         $shipping = $this->shippingMethod();
@@ -39,20 +42,23 @@ trait ActionSendCommonOrders
         if(Yii::$app->request->post('form')){
             $formmodel->idorder = (integer)Yii::$app->request->post('form');
            $formmodel->renderForm();
-           return '';
+           return '22';
        }elseif(Yii::$app->request->isPjax && !$formmodel->validate()){
             $formmodel->renderForm();
-           return '';
+           return '22';
        }elseif(Yii::$app->request->isPjax && $formmodel->validate()){
-           return $this->CommonOrdersToOm(
+            $x = $this->CommonOrdersToOm(
                 $formmodel->idorder,
                 $formmodel->address,
                 $formmodel->shipping_method,
                 $formmodel->wrap,
                 $formmodel->comment);
+            //echo $x;
+            $x  = $this->render('cartresult',Json::decode($x));
+            echo BaseHtmlPurifier::process($x);
        }else{
             $formmodel->renderForm();
-            return '';
+            return '14';
        }
 
     }

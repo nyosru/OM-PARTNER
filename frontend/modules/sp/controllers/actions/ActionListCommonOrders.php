@@ -27,7 +27,7 @@ trait ActionListCommonOrders
             ;
         }
 
-        $result = $result->andWhere(['referral_id' => $referral])->orderBy('date_added DESC')->limit(5)->asArray()->all();
+        $result = $result->andWhere(['referral_id' => $referral, 'status'=>1])->orderBy('date_added DESC')->limit(5)->asArray()->all();
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

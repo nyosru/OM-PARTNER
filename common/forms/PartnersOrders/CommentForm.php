@@ -76,6 +76,7 @@ class CommentForm extends Model
             ($order_data = PartnersOrders::find()
                 ->where(PartnersOrders::tableName().'.id = :id',
                     [':id'=>$this->order])
+                ->andWhere([PartnersOrders::tableName().'.status'=> '1'])
                 ->andWhere('referral_id = :ref',
                     [':ref'=>$referral['id']])
                 ->joinWith('referralUser')

@@ -21,10 +21,12 @@ class MailToUserForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
+            [['name'], 'required'],
             ['email', 'email'],
+            [['subject'], 'required', 'message' => 'Необходимо заполнить'],
+            [['body'], 'required', 'message' => 'Необходимо заполнить'],
+            [['email'], 'required', 'message' => 'Необходимо заполнить'],
+
         ];
     }
 
