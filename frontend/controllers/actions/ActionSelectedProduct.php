@@ -15,7 +15,7 @@ trait ActionSelectedProduct
 {
     public function actionSelectedproduct()
     {
-        if (($products = Yii::$app->request->post('products')) == TRUE && is_array($products)) {
+        if (($products = Yii::$app->request->post('products')) == TRUE && is_array($products) && Yii::$app->request->isAjax) {
             foreach ($products as $products_key => $products_value) {
                 $products[$products_key] = (int)$products_value;
             }
@@ -127,8 +127,7 @@ trait ActionSelectedProduct
             } else {
                 $data = 'Не найдено!';
             }
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return $data;
+            return $this->renderPartial('_ajax-selectedproduct',['model'=>$data]);
         } else {
             return $this->render('selectedproduct');
         }
