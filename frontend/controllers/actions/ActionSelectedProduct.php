@@ -127,6 +127,10 @@ trait ActionSelectedProduct
             } else {
                 $data = 'Не найдено!';
             }
+            if(Yii::$app->request->post('html') != true) {
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return $data;
+            }
             return $this->renderPartial('_ajax-selectedproduct',['model'=>$data]);
         } else {
             return $this->render('selectedproduct');
