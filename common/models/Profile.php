@@ -101,6 +101,7 @@ class Profile extends Model
         $scenarios['chpass'] = ['password'];
         $scenarios['reset'] = ['password', 'id'];
         $scenarios['referalsuser'] = ['name','lastname','phone','password','secondname', 'country', 'state', 'postcode'];
+        $scenarios['saveuser'] = ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'address','telephone'];
         return $scenarios;
     }
 
