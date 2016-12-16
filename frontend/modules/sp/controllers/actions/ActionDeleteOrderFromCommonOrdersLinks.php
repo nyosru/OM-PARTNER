@@ -28,13 +28,13 @@ trait ActionDeleteOrderFromCommonOrdersLinks
         $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 
         $common_order = CommonOrders::find()
-            ->where(['referral_id' => $referral])
+            ->where(['referral_id' => $referral, 'status'=>1])
             ->andWhere(['id' => $common_id])
             ->one()
         ;
 
         $order = PartnersOrders::find()
-            ->where(['id' => $order_id])
+            ->where(['id' => $order_id, 'status'=>1])
             ->one()
         ;
 

@@ -697,7 +697,7 @@ trait CommonOrdersToOm
                                 }
                                 $trackorder = $order_in_common_key.'/'.$orders->orders_id;
                                 $validproduct[$trackorder][] = [$ordersprod->toArray(), $ordersprodattr];
-                                $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
+                                $price_total +=  round($ordersprod->products_price * $ordersprod->first_quant,0);
 
                             } else {
                                 return Json::encode([
@@ -766,8 +766,13 @@ trait CommonOrdersToOm
                 $orderstotalship = new OrdersTotal();
                 $orderstotalship->orders_id = $orders->orders_id;
                 $orderstotalship->title = 'Всего: ';
-                $orderstotalship->text = '<b>' . $price_total . ' руб.</b>';
-                $orderstotalship->value = $price_total;
+                if(!$main_order) {
+                    $orderstotalship->text = '<b>' . $validprice . ' руб.</b>';
+                    $orderstotalship->value = $validprice;
+                }else{
+                    $orderstotalship->text = '<b>' . $price_total . ' руб.</b>';
+                    $orderstotalship->value = $price_total;
+                }
                 $orderstotalship->class = 'ot_total';
                 $orderstotalship->sort_order = 800;
                 if ($orderstotalship->save()) {
