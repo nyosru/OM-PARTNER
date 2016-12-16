@@ -162,11 +162,13 @@
 <script>
     $(document).ready(function () {
 
+        $('#send').on('pjax:end', function(){
+           $('.preload').remove();
+        });
         //add_new_commonorder.php после запроса обновить список
         $('#pjax_common').on('pjax:end', function(){
             refresh_list();
         });
-
         var order_status_label = [
             'удален',
             'новый',

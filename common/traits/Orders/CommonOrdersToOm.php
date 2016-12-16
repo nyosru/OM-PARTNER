@@ -105,7 +105,7 @@ trait CommonOrdersToOm
         if ($products_order['query_products']) {
             $proddata = PartnersProducts::find()->where(['products.`products_id`' => $products_order['query_products']])->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->andWhere('products_status = 1 and products.products_quantity > 0 and  products.products_price != 0 ')->asArray()->all();
         } else {
-            return FALSE;
+            return Json::encode(FALSE);
         }
 
 
@@ -675,7 +675,8 @@ trait CommonOrdersToOm
 
 
                                 }
-                                $validproduct[] = [$ordersprod->toArray(), $ordersprodattr];
+                                $trackorder = $order_in_common_key.'/'.$orders->orders_id;
+                                $validproduct[$trackorder][] = [$ordersprod->toArray(), $ordersprodattr];
                                 $price_total += (float)($price_total) + $ordersprod->products_price * $ordersprod->products_quantity;
 
                             } else {
@@ -745,8 +746,8 @@ trait CommonOrdersToOm
                 $orderstotalship = new OrdersTotal();
                 $orderstotalship->orders_id = $orders->orders_id;
                 $orderstotalship->title = 'Всего: ';
-                $orderstotalship->text = '<b>' . $validprice . ' руб.</b>';
-                $orderstotalship->value = $validprice;
+                $orderstotalship->text = '<b>' . $price_total . ' руб.</b>';
+                $orderstotalship->value = $price_total;
                 $orderstotalship->class = 'ot_total';
                 $orderstotalship->sort_order = 800;
                 if ($orderstotalship->save()) {
@@ -798,7 +799,7 @@ trait CommonOrdersToOm
                     $neworderpartner->partners_id = $partner_id;
                     $neworderpartner->user_id = $model['userInfo']['id'];
                     $neworderpartner->order = 'LinkToOm';
-                    $neworderpartner->status = 1;
+                    $neworderpartner->status = 2;
                     $neworderpartner->delivery = 'LinkToOm';
                     $neworderpartner->orders_id = $orders->orders_id;
                     $neworderpartner->update_date = $nowdate;
@@ -821,6 +822,12 @@ trait CommonOrdersToOm
                             ]
                         ]);
                     }
+                }else{
+                   if(( $orderpartner = PartnersOrders::find()->where('id = :id',[':id'=>$order_in_common_key]))->one() == TRUE){
+                       $orderpartner->status = 2;
+                       $orderpartner->orders_id = $orders->orders_id;
+                       $orderpartner->save();
+                   };
                 }
                 $ordershistory = new OrdersStatusHistory();
                 $ordershistory->orders_id = $orders->orders_id;
@@ -982,6 +989,6 @@ trait CommonOrdersToOm
             $transaction->rollBack();
         }
 
-        return FALSE;
+        return Json::encode(FALSE);
     }
 }
