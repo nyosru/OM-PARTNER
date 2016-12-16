@@ -7,7 +7,6 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
     ?>
 
     <div>
-        <div class="code<?=$result['code']?>"><?=$result['text']?></div>
         <div style="padding: 10px;float: left;  margin: 10px 0px;">
             Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>подтвержден автоматически.<br>
             В ближайшее время Вы получите уведомление на электронную почту.<br>
@@ -64,20 +63,31 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
             ?>
 
             <?php
-            echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
-            foreach ($result['data']['saveproduct'] as $key => $value) {
+            foreach ($result['data']['saveproduct'] as $order_key => $order_value) {
+                echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе: '.$order_key.'</div>';
+                foreach ($order_value as $key => $value) {
 
-                echo '<div style="width: 100%; float: left; border: 1px solid rgb(204, 204, 204);border-bottom: none; padding: 10px 0px;">';
-                echo '<div style="float: left; text-align: center; width: calc(100% / 2);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'] . '" /></div>';
-                echo '<div style="float: left; font-size: 12px;width: calc(100% / 2);">';
-                echo '<div style="float: left; width: 100%;">Код товара:' . $value[0]['products_model'] . '</div>';
-                echo '<div style="float: left; width: 100%;">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  . '</div>';
-                echo '<div style="float: left; width: 100%;">Размер: ' . $value[1]['products_options_values'] . '</div>';
-                echo '<div style="float: left; width: 100%;">Количество:' . $value[0]['products_quantity'] . ' шт.</div>';
-                echo '<div style="float: left; width: 100%;">Цена: ' . round($value[0]['products_price'], 2)  . 'Руб.</div>';
-                echo '</div>';
-                echo '</div>';
-                $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
+                    ?>
+                    <div style="height:  170px; width: 100%;  border: 1px solid rgb(204, 204, 204);border-bottom: none;    padding: 10px 15px;">
+                    <span style=" text-align: center; width: 50%">
+                        <img width="100"
+                             src="<?= BASEURL ?>/imagepreview?src=<?= $result['data']['origprod'][$value[0]['products_id']]['products_id'] ?>"/>
+                    </span>
+                        <span style="float: right; font-size: 12px; width: 50%;">
+                            Код товара:<?= $value[0]['products_model'] ?>
+                            <br/>
+                            <?= $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name'] ?>
+                            <br/>
+                           Размер:<?= $value[1]['products_options_values'] ?>
+                            <br/>
+                        Количество:<?= $value[0]['products_quantity'] ?> шт.
+                       <br/>
+                            Цена: <?= round($value[0]['products_price'], 0) ?> Руб.
+                    </span>
+                    </div>
+                    <?php
+                    $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']] = true;
+                }
             }
         }
         ?>
