@@ -17,6 +17,7 @@ trait ActionSendCommonOrders
 {
     public function actionSendCommonOrders()
     {
+        $this->layout = 'empty';
         $formmodel = new SendToOMForm();
         $shipping_fields = [];
         $shipping = $this->shippingMethod();
