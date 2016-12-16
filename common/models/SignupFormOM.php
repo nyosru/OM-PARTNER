@@ -134,10 +134,9 @@ class SignupFormOM extends Model
     {
         $userCustomer = new Customers();
         $partners = new Partners();
-        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
         $check_email = $userCustomer->find()->where(['customers_email_address' => $this->emails])->asArray()->one();
         $userCustomer = new User();
-        $check_part_email = $userCustomer->find()->where(['email' => $this->emails, 'id_partners' => $id_partners])->asArray()->one();
+        $check_part_email = $userCustomer->find()->where(['email' => $this->emails, 'id_partners' => Yii::$app->params['constantapp']['APP_ID']])->asArray()->one();
         if (!$check_email && !$check_part_email) {
             return true;
         } else {
@@ -181,12 +180,12 @@ class SignupFormOM extends Model
         $entrycountry = $country->find()->select('countries_id as id')->where(['countries_name' => $this->country])->asArray()->one();
         $entryzones = $zones->find()->select('zone_id as id')->where(['zone_name' => $this->state])->asArray()->one();
 
-        $id_partners = $partners->GetId($_SERVER['HTTP_HOST']);
+
         $user->username = $this->trim_tags_text($this->emails);
         $user->email = $this->trim_tags_text($this->emails);
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->id_partners = $id_partners;
+        $user->id_partners = Yii::$app->params['constantapp']['APP_ID'];
         $user->role = 'register';
         if ($user->save()) {
             $auth = Yii::$app->authManager;

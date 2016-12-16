@@ -181,7 +181,7 @@ class LoginFormOM extends Model
             if ($_SERVER['HTTP_HOST'] == 'http://globaladmin.egorov.odezhda-master.ru' || $_SERVER['HTTP_HOST'] == 'http://globaladmin.partnerom.odezhda-master.ru') {
                 $check = 'NULL';
             } else {
-                $check = $run->GetId($_SERVER['HTTP_HOST']);
+                $check = Yii::$app->params['constantapp']['APP_ID'];
             }
             $this->_user = $userq->find()->where(['username' => $this->username, 'id_partners' => $check])->one();
 
