@@ -89,7 +89,7 @@
                                 $i_model += 1;
                                 ( $i_model % 2 ) ? '' : $back_fff = 'background: #FFF;';
                                 return
-                            '<div class="client-plate  lock-on" data-detail="'.$model->id.'" style="'.$back_fff.'">
+                            '<div class="client-plate lock-on" data-detail="'.$model->id.'" style="'.$back_fff.'">
                                 <div class="line-info-orders">
                                     <div class="client-info-fr-order">
                                         <div class="client-order">
@@ -193,7 +193,8 @@
         var in_progress = false;
         var common_orders_list = new Object();
 
-        $('.client-plate').on("click",function(){
+        $(document).on("click", '.client-plate' ,function(){
+            console.log($(this));
             if(!in_progress){
                 $('[class="client-plate client-active"]').removeClass('client-active');
                 in_progress = true;
@@ -211,6 +212,7 @@
                         in_progress = false;
                     }
                 }).done(function (data) {
+                    console.log(data);
                     $('[data-detail="'+data.id+'"]').addClass('client-active');
                     orders_list = data;
                     renderOrders(orders_list);

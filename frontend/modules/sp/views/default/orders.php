@@ -220,8 +220,8 @@
             }
         })(jQuery);
         (function($){
-            $('.client-plate').on("click",function(){
-                $id = $(this).attr('data-detail')
+            $(document).on("click", '.client-plate',function(){
+                $id = $(this).attr('data-detail');
                 loaddetail($id);
             });
         })(jQuery);
