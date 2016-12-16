@@ -261,7 +261,8 @@ $(document).on('click', '.cart-lable', function () {
 
         } });
 });
-$(document).on('click', '.selected-product', function () {
+$(document).on('click', '.selected-product', function (e) {
+    e.preventDefault();
     $id_product =   parseInt(this.getAttribute('data-product'));
     $checkzero = 0;
     $noanimate = false;
@@ -291,73 +292,15 @@ $(document).on('click', '.selected-product', function () {
         }
         x = 0;
         if ($id_product > 0) {
-            if($noanimate == false) {
-                $noanimate = true;
-                $($(this))
-                    .clone()
-                    .css({
-                        'position': 'absolute',
-                        'z-index': '91100',
-                        top: $(this).offset()['top'],
-                        left: $(this).offset()['left']
-                    })
-                    .appendTo("body")
-                    .animate({
-                        opacity: 0.05,
-                        left: $(".selected-count").offset()['left'],
-                        top: $(".selected-count").offset()['top'],
-                        width: 20,
-                    }, 1000, function () {
-                        $(this).remove();
-                        $noanimate = false;
-                    });
-
-            }
             $.each($item.products, function () {
                 if ($id_product == this) {
                     x = 1;
                 }
             });
         } else {
-            $noanimate = true;
-            $($(this).parent().parent())
-                .clone()
-                .css({
-                    'position': 'absolute',
-                    'z-index': '91100',
-                    top: $(this).offset()['top'],
-                    left: $(this).offset()['left']
-                })
-                .appendTo("body")
-                .animate({
-                    opacity: 0.05,
-                    left: $(".selected-count").offset()['left'],
-                    top: $(".selected-count").offset()['top'],
-                    width: 20,
-                }, 1000, function () {
-                    $(this).remove();
-                    $noanimate = false;
-                });
             $item.products[$i] = $id_product;
         }
         if (x == 0) {
-            $($(this))
-                .clone()
-                .css({
-                    'position': 'absolute',
-                    'z-index': '91100',
-                    top: $(this).offset()['top'],
-                    left: $(this).offset()['left']
-                })
-                .appendTo("body")
-                .animate({
-                    opacity: 0.05,
-                    left: $(".selected-count").offset()['left'],
-                    top: $(".selected-count").offset()['top'],
-                    width: 20,
-                }, 1000, function () {
-                    $(this).remove();
-                });
             $item.products[$i] = $id_product;
         }
         $ilocal = JSON.stringify($item);
@@ -1806,11 +1749,11 @@ $(document).on('click','.open-set',function(){
     $content=JSON.parse($text);
     drawLeftCart($content);
     $('[class=cart-set-content][data-row='+$row+']').html($innerhtml);
-})
+});
 
 $(document).on('click','.del-products',function(){
-    $id =  $(this).parent().filter('[itemid]').attr('itemid');
-    $('[itemid='+$id+']').remove();
+    $id =  $(this).attr('data-product');
+    $('.item[data-product="'+$id+'"]').remove();
     $new_cart = new Object();
     $item = JSON.parse(localStorage.getItem('selected-product-om'));
     $.each($item.products, function(i,item){
@@ -1821,5 +1764,4 @@ $(document).on('click','.del-products',function(){
 
     $ilocal = JSON.stringify($item);
     localStorage.setItem('selected-product-om', $ilocal);
-
 });
