@@ -128,50 +128,12 @@ $this->title = $title;
 <!-- end header banner -->
 
 <!-- Slider -->
-<div id="magik-slideshow" class="magik-slideshow">
-    <div class="container">
-        <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container' >
-            <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
-                <ul>
-                    <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='/images/new/slide-img1.jpg'><img src='/images/new/slide-img1.jpg'  data-bgposition='left top'  data-bgfit='cover' data-bgrepeat='no-repeat' alt="" />
-                        <div class="info">
-                            <div class='tp-caption ExtraLargeTitle sft  tp-resizeme ' data-x='0'  data-y='165'  data-endspeed='500'  data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:2;max-width:auto;max-height:auto;white-space:nowrap;'><span>New Season</span></div>
-                            <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-x='0'  data-y='220'  data-endspeed='500'  data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:3;max-width:auto;max-height:auto;white-space:nowrap;'><span>Summer Sale</span></div>
-                            <div class='tp-caption sfb  tp-resizeme ' data-x='0'  data-y='410'  data-endspeed='500'  data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><a href='#' class="buy-btn">Shop Now</a></div>
-                            <div class='tp-caption Title sft  tp-resizeme ' data-x='0'  data-y='320'  data-endspeed='500'  data-speed='500' data-start='1500' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><h4 class="banner-text">In augue urna, nunc, tincidunt, augue, augue facilisis facilisis</h4></div>
-                        </div>
-                    </li>
-                    <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='images/new/slide-img2.jpg'><img src='images/new/slide-img2.jpg'  data-bgposition='left top'  data-bgfit='cover' data-bgrepeat='no-repeat'  alt=""/>
-                        <div class="info">
-                            <div class='tp-caption ExtraLargeTitle sft slide2  tp-resizeme ' data-x='45'  data-y='165'  data-endspeed='500'  data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:2;max-width:auto;max-height:auto;white-space:nowrap;padding-right:0px'>laptop Sale</div>
-                            <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-x='45'  data-y='220'  data-endspeed='500'  data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:3;max-width:auto;max-height:auto;white-space:nowrap;'>Go Lightly</div>
-                            <div class='tp-caption sfb  tp-resizeme ' data-x='45'  data-y='400'  data-endspeed='500'  data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><a href='#' class="buy-btn">Buy Now</a></div>
-                            <div class='tp-caption Title sft  tp-resizeme ' data-x='45'  data-y='320'  data-endspeed='500'  data-speed='500' data-start='1500' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4;max-width:auto;max-height:auto;white-space:nowrap;'><h4 class="banner-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<?=\frontend\widgets\MainBanner::widget(['template'=>'top-slider']);?>
 <!-- end Slider -->
 
+
 <!-- banner -->
-<div class="top-banner-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 wow bounceup animated">
-                <div class="col"><a href="#"><img src="/images/new/block1.jpg" alt="offer banner3"></a></div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 wow bounceup animated">
-                <div class="col"><a href="#"><img src="/images/new/block1.jpg" alt="offer banner3"></a></div>
-            </div>
-            <div class="ccol-lg-4 col-md-4 col-sm-4 col-xs-12 wow bounceup animated">
-                <div class="col"><a href="#"><img src="/images/new/block1.jpg" alt="offer banner3"></a></div>
-            </div>
-        </div>
-    </div>
-</div>
+<?=\frontend\widgets\MainBanner::widget(['template'=>'top-banner']);?>
 <!-- end banner -->
 
 <!-- Featured Slider -->
@@ -198,27 +160,7 @@ $this->title = $title;
 </section>
 
 <!--Offer Start-->
-<div class="offer-slider wow animated parallax parallax-2">
-    <div class="container">
-        <ul class="bxslider">
-            <li>
-                <h2>NEW ARRIVALS</h2>
-                <h1>Sale up to 30% off</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat. </p>
-                <a class="shop-now" href="#">Shop now</a> </li>
-            <li>
-                <h2>Hello hotness!</h2>
-                <h1>Summer collection</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat. </p>
-                <a class="shop-now" href="#">View More</a> </li>
-            <li>
-                <h2>New launch</h2>
-                <h1>Designer dresses on sale</h1>
-                <p>Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Integer sed arcu massa. </p>
-                <a class="shop-now" href="#">Learn More</a> </li>
-        </ul>
-    </div>
-</div>
+<?=\frontend\widgets\MainBanner::widget(['template'=>'offer-slider']);?>
 <!--Offer silder End-->
 
 
@@ -300,43 +242,8 @@ $this->title = $title;
 <!-- End Latest Blog -->
 
 <!-- Social -->
-<section class="latest-blog wow bounceInUp animated">
-    <div class="container">
-        <div class="new_title center">
-            <h2>Мы в социальных сетях</h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-3">
-                <div class="blog_inner">
-                    <div class="blog-img"> <img src="/images/new/blog-img1.jpg" alt="Blog image">
-                        <div class="mask"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-3">
-                <div class="blog_inner">
-                    <div class="blog-img"> <img src="/images/new/blog-img1.jpg" alt="Blog image">
-                        <div class="mask"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-3">
-                <div class="blog_inner">
-                    <div class="blog-img"> <img src="/images/new/blog-img1.jpg" alt="Blog image">
-                        <div class="mask"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-xs-12 col-sm-3">
-                <div class="blog_inner">
-                    <div class="blog-img"> <img src="/images/new/blog-img1.jpg" alt="Blog image">
-                        <div class="mask"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<?=\frontend\widgets\MainBanner::widget(['template'=>'social']);?>
+
 <!--End Social -->
 
 <!-- About -->

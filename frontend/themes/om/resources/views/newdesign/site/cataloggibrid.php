@@ -67,35 +67,7 @@ if ($data[0] != 'Не найдено!') {
     </div>
 </div>
 <section class="main-container col2-left-layout bounceInUp animated">
-    <div class="category-description std">
-        <div class="container">
-            <div class="slider-items-products">
-                <div id="category-desc-slider" class="product-flexslider hidden-buttons">
-                    <div class="slider-items slider-width-col1 owl-carousel owl-theme" style="opacity: 1; display: block;">
-
-                        <!-- Item -->
-                        <div class="owl-wrapper-outer"><div class="owl-wrapper" style="width: 4680px; left: 0px; display: block; transition: all 500ms ease; transform: translate3d(0px, 0px, 0px);"><div class="owl-item" style="width: 1170px;"><div class="item"> <a href="#"><img alt="" src="images/category-img1.jpg"></a>
-                                        <div class="cat-img-title cat-bg cat-box">
-                                            <div class="small-tag"><span>Sale</span>  10% OFF</div>
-                                            <h2 class="cat-heading">Women Collection</h2>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                                        </div>
-                                    </div></div><div class="owl-item" style="width: 1170px;"><div class="item"> <a href="#"><img alt="" src="images/category-img2.jpg"></a>
-
-
-
-                                        <!-- End Item -->
-
-                                    </div></div></div></div>
-                        <!-- End Item -->
-
-                        <!-- Item -->
-
-                        <div class="owl-controls clickable"><div class="owl-buttons"><div class="owl-prev"><a class="flex-prev"></a></div><div class="owl-next"><a class="flex-next"></a></div></div></div></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?=\frontend\widgets\MainBanner::widget(['template'=>'category-slider']);?>
 
     <div class="container">
         <div class="row">
