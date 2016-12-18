@@ -2,6 +2,11 @@
 $this -> title = 'Обработка заказа';
 
 if($result['code'] == 200 && $result['data']['paramorder']['number']){
+
+	$result_for_js = [];
+	foreach ($result['data']['saveproduct'] as $item)
+		$result_for_js[ $item[0]['products_id'] ][ $item[1]['vid'] ] = $item[0]['products_quantity'];
+
 	?>
 
 	<style>
@@ -161,28 +166,6 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 					endforeach;?>
 				</tbody></table>
 
-<!--			--><?php //if (!empty($result['data']['invalid_products'])) : ?>
-<!--				<h3>К сожалению, эти товары в заказ не попали:</h3>-->
-<!--				<table class="products"><tbody>-->
-<!--						--><?php //foreach ($result['data']['invalid_products'] as $invalid_product) : ?>
-<!--							<tr class="fail-product">-->
-<!--								<td colspan="2">Продукт удален или отсутствует</td>-->
-<!--							</tr>-->
-<!---->
-<!--							<tr>-->
-<!--								<td><img width="100" src="--><?php //echo BASEURL .'/imagepreview?src='.$invalid_product['products_id']; ?><!--" /></td>-->
-<!--								<td>-->
-<!--									<p>Код товара: --><?php //echo $invalid_product['products_model']; ?><!--</p>-->
-<!--									<p>--><?php //echo $invalid_product['productsDescription']['products_name']; ?><!--</p>-->
-<!--									<p>Количество: --><?php //echo $invalid_product['products_quantity']; ?><!-- шт.</p>-->
-<!--									<p>Цена: --><?php //echo round($invalid_product['products_price'], 2); ?><!--Руб.</p>-->
-<!--								</td>-->
-<!--							</tr>-->
-<!--						--><?php //endforeach; ?>
-<!--					</tbody></table>-->
-<!--			--><?php //endif; ?>
-
-
 			<?php echo ' 
     <script>
     
@@ -202,6 +185,38 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 		?>
 		<script>
 			$(function(){
+				var resultProducts = <?php echo json_encode($result_for_js); ?>;
+				var cart = JSON.parse(localStorage.getItem('cart-om')).cart;
+
+				for (var i = 0; i < cart.length; i++)
+					if (typeof resultProducts[ parseInt(cart[i][0]) ] !== 'undefined' && typeof resultProducts[ parseInt(cart[i][0]) ][ parseInt(cart[i][2]) ] !== 'undefined') {
+						cart.splice(i, 1);
+						i--;
+					}
+
+				if (cart.length > 0) {
+					var html = '<h3>К сожалению, эти товары в заказ не попали:</h3>';
+					html += '<table class="products"><tbody>';
+
+					for (var cartIndex in cart) {
+						html += '<tr class="fail-product"><td colspan="2">Продукт удален или отсутствует</td></tr>';
+						html += '<tr>';
+						html += '<td><img width="100" src="/imagepreview?src=' + cart[cartIndex][0] + '" /></td>';
+						html += '<td>';
+						html += '<p>Код товара: ' + cart[cartIndex][1] + '</p>';
+						html += '<p>' + cart[cartIndex][7] + '</p>';
+						html += '<p>Размер: ' + cart[cartIndex][6] + '</p>';
+						html += '<p>Количество: ' + cart[cartIndex][4] + ' шт.</p>';
+						html += '<p>Цена: ' + cart[cartIndex][3] + 'Руб.</p>';
+						html += '</td>';
+						html += '</tr>';
+					}
+
+					html += '</tbody></table>';
+
+					$('table.products').after(html);
+				}
+
 				$productattr = <?= json_encode($delproductattr)?>;
 				$cart = JSON.parse(localStorage.getItem('cart-om')).cart;
 				$itemcart = new Object()
