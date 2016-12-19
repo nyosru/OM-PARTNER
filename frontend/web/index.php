@@ -83,13 +83,11 @@ if (!isset($versions[$partner['APP_VERSION']])) {
 $config['controllerNamespace'] = 'frontend\controllers\versions' . $version['frontend']['namespace'];
 $application->defaultRoute = $version['frontend']['defroute'] . '/index';
 $config['components']['errorHandler']['errorAction'] = $version['frontend']['erraction'] . '/error';
-//$catroute = $version['frontend']['defroute'] . '/catalog/<path:.*>';
-//$config['components']['urlManager']['rules'][$catroute] = $version['frontend']['defroute'] . '/catalog';
-$config['components']['urlManager']['rules']['/site/<action>'] = '/' . $version['frontend']['defroute'] . '/<action>';
-$config['components']['urlManager']['rules']['<action>'] = '' . $version['frontend']['defroute'] . '/<action>';
-$config['components']['urlManager']['rules']['/'] = $version['frontend']['defroute'];
-
-//define('BASEURL', '/' . $version['frontend']['defroute']);
+\Yii::$app->urlManager->addRules([
+    '/site/<action>' => '/' . $version['frontend']['defroute'] . '/<action>',
+    '<action>' => '' . $version['frontend']['defroute'] . '/<action>',
+    '/' =>$version['frontend']['defroute']
+]);
 define('BASEURL', '');
 $match = $version['frontend']['defroute'];
 unset($version['frontend']);
@@ -183,7 +181,6 @@ if(Yii::$app->params['seourls'] == TRUE) {
             '<action:products-discount>/<page:[0-9]*>' => '<action:products-discount>',
             '<action:products-discount>/<cat_start:[a-z-\/]+>/<page:[0-9]*>' => '/products-discount',
             '<action:products-discount>/<cat_start:[a-z-\/]*>' => '/products-discount',
-
             '<action:catalog>/<page:[0-9]*>' => '<action:catalog>',
             '<action:catalog>/<cat_start:[a-z-/]+>/<page:[0-9]*>' => '/catalog',
             '<action:catalog>/<cat_start:[a-z-/]*>' => '/catalog'
