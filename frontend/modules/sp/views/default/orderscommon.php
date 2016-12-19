@@ -80,6 +80,16 @@
                                     'status-return',
                                 ];
 
+                                $order_status_label = [
+                                    'Удален',
+                                    'Новый',
+                                    'В обработке',
+                                    'Одобренный',
+                                    'Оплаченый',
+                                    'Выполненный',
+                                    'Возврат'
+                                ];
+
                                 $params = new \php_rutils\struct\TimeParams();
                                 $params->date = $model->date_added; //это значение по умолчанию
                                 $params->format = 'd F Y H:i:s';
@@ -93,7 +103,7 @@
                                 <div class="line-info-orders">
                                     <div class="client-info-fr-order">
                                         <div class="client-order">
-                                            <div class="client-order-num">Общий заказ № '.$model->id.'</div>
+                                            <div class="client-order-num">'.$order_status_label[$model->status].'</div>
                                             <div class="client-order-status '.$stat_class[$model->status].'"></div>
                                         </div>
                                         <div class="client-name">
@@ -173,6 +183,7 @@
             'удален',
             'новый',
             'в обработке',
+            'Одобренный',
             'оплаченый',
             'выполненный',
             'возврат'
