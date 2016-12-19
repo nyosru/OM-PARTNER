@@ -1,96 +1,172 @@
 <?php
 $this -> title = 'Обработка заказа';
 
-
-
 if($result['code'] == 200 && $result['data']['paramorder']['number']){
-    ?>
 
-    <div style="float:left; width:80%">
-        <div class="code<?=$result['code']?>"><?=$result['text']?></div>
-        <div style="padding: 10px;float: left;  margin: 10px 0px;">
-            Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>подтвержден автоматически.<br>
-            В ближайшее время Вы получите уведомление на электронную почту.<br>
-            Отслеживать состояние заказа можно в Вашем <font color="#007BC1"><a href="<?=BASEURL?>/lk/">личном кабинете</a></font><br>
-        </div>
-        <div style="border-bottom: 1px solid rgb(204, 204, 204); border-top: 1px solid rgb(204, 204, 204); float: left; font-size: 24px; font-weight: 400; margin: 0px 10px; padding: 10px 0px; width: calc(100% - 20px);">
-            Номер заказа <font color="#007BC1"><?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?></font>
-        </div>
-        <?php
-        $pack['packages']=['name'=>'Полиэтиленовые пакеты', 'price'=>'0'];
-        $pack['boxes']=['name'=>'Крафт-коробки', 'price'=>$wrapprice];
-        if($result['data']['paramorder']['delivery']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Вариант упаковки: </span>'.$pack[$result['data']['paramorder']['wrap']]['name'].'</div>';
-        }
-        if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Вариант доставки: </span>'.$result['data']['paramorder']['delivery'].'</div>';
-        }
-        if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Итого: </span>'.((float)$result['data']['totalpricesaveproduct']-(float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
-        }
-        if($result['data']['coupon_sum']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Скидка: </span>'.(float)$result['data']['coupon_sum'].' Руб.</div>';
-        }
-        if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Упаковка: </span>'.((float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
-        }
-        if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Всего к оплате: </span>'.((float)$result['data']['totalpricesaveproduct'] - (float)$result['data']['coupon_sum']).' Руб.</div>';
-        }
-        if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">ФИО: </span>'.$result['data']['paramorder']['name'].'</div>';
-        }
-        if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Телефон: </span>'.$result['data']['paramorder']['telephone'].'</div>';
-        }
-        if($result['data']['totalpricesaveproduct']) {
-            echo '<div style="width: 100%; padding: 5px 10px; float: left;"><span style="width: 20%; display: block; float: left; font-weight: 400;">Емейл: </span>'.$result['data']['paramorder']['email'].'</div>';
-        }
-        if($result['code']==200) {
-            echo '<div style="width: 100%;padding: 10px; margin: 10px 0px; float: left;">'.
-                'Заказанные товары будут Вам отправлены сразу же после проверки и поступления средств от Вас на расчетный счет Одежда-Мастер. <span>Счет будет Вам выслан</span> на указанный адрес электронной почты, а также Вы сможете скачать его в <a href="'.BASEURL.'/lk/">личном кабинете</a>'.
-                '</br>'.
-                '<div class="code'.$result['code'].'" style="padding: 10px 0px;">'.
-                'Благодарим вас за покупку!'.
-                '</div>'.
-                '</div>';
-        }
-        ?>
-    </div>
-    <div style="float:left; width:20%">
-        <?php
+	$result_for_js = [];
+	foreach ($result['data']['saveproduct'] as $item)
+		$result_for_js[ $item[0]['products_id'] ][ $item[1]['vid'] ] = $item[0]['products_quantity'];
 
-        if($result['data']['saveproduct']) {
-            ?>
+	?>
 
-            <?php
-            echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе</div>';
-            foreach ($result['data']['saveproduct'] as $key => $value) {
-                echo '
-        <script>
-        ga("ec:addProduct", {               
-  "id": "'.$value[0]['products_id'] .'",                  
-  "name": "'.htmlentities($result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name'])  .'", 
-  "category": "'.htmlentities($result['data']['origprod'][$value[0]['products_id']]['categories_id'])  .'",        
-  "brand": "'.htmlentities($result['data']['origprod'][$value[0]['products_id']]['manufacturers_id']).'",                
-  "variant": "none",               
-  "price": "'.round($value[0]['products_price'], 2).'",                 
-  "coupon": "none",         
-  "quantity": '.$value[0]['products_quantity'].'});
-</script>';
-                echo '<div style="width: 100%; float: left; border: 1px solid rgb(204, 204, 204);border-bottom: none; padding: 10px 0px;">';
-                echo '<div style="float: left; text-align: center; width: calc(100% / 2);">' .'<img width="100" src="'.BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'] . '" /></div>';
-                echo '<div style="float: left; font-size: 12px;width: calc(100% / 2);">';
-                echo '<div style="float: left; width: 100%;">Код товара:' . $value[0]['products_model'] . '</div>';
-                echo '<div style="float: left; width: 100%;">' . $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']  . '</div>';
-                echo '<div style="float: left; width: 100%;">Размер: ' . $value[1]['products_options_values'] . '</div>';
-                echo '<div style="float: left; width: 100%;">Количество:' . $value[0]['products_quantity'] . ' шт.</div>';
-                echo '<div style="float: left; width: 100%;">Цена: ' . round($value[0]['products_price'], 2)  . 'Руб.</div>';
-                echo '</div>';
-                echo '</div>';
-                $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
-            }
-            echo ' 
+	<style>
+		.order-info {
+			margin: 10px 0;
+			padding: 10px;
+		}
+
+		.order-number {
+			border-bottom: 1px solid rgb(204, 204, 204);
+			border-top: 1px solid rgb(204, 204, 204);
+			font-size: 24px;
+			font-weight: 400;
+			margin: 0 10px;
+			padding: 10px 0;
+		}
+
+		.accent {
+			color: #007BC1;
+		}
+
+		h3 {
+			font-size: 24px;
+			font-weight: 400;
+			padding: 10px 0;
+		}
+
+		.desc-attr {
+			padding: 5px 10px;
+		}
+
+		.desc-attr .key {
+			display: block;
+			float: left;
+			font-weight: 400;
+			width: 20%;
+		}
+
+		table.products {
+			border: 1px solid #ccc;
+			width: 100%;
+		}
+
+		table.products tr {
+			border-bottom: 1px solid #ccc;
+		}
+
+		table.products tr.success-product td,
+		table.products tr.fail-product td {
+			padding: 10px 0;
+		}
+
+		table.products tr.success-product {
+			background-color: #DBF5E0;
+		}
+
+		table.products tr.fail-product {
+			background-color: #FDE8E8;
+		}
+
+		table.products tr:last-child {
+			border-bottom: 0;
+		}
+
+		table.products td:first-child {
+			text-align: center;
+			width: 25%;
+		}
+
+		table.products td p {
+			margin: 0;
+		}
+	</style>
+
+	<div class="code<?=$result['code']?>"><?=$result['text']?></div>
+	<div>
+		Ваш заказ <span class="accent">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </span>подтвержден автоматически.<br>
+		В ближайшее время Вы получите уведомление на электронную почту.<br>
+		Отслеживать состояние заказа можно в Вашем <span class="accent"><a href="<?=BASEURL?>/lk/">личном кабинете</a></span><br>
+	</div>
+	<div class="order-number">
+		Номер заказа <span class="accent"><?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?></span>
+	</div>
+	<?php
+	$pack['packages']=['name'=>'Полиэтиленовые пакеты', 'price'=>'0'];
+	$pack['boxes']=['name'=>'Крафт-коробки', 'price'=>$wrapprice];
+	if($result['data']['paramorder']['delivery']) {
+		echo '<div class="desc-attr"><span class="key">Вариант упаковки: </span>'.$pack[$result['data']['paramorder']['wrap']]['name'].'</div>';
+	}
+	if($result['data']['totalpricesaveproduct']) {
+		echo '<div class="desc-attr"><span class="key">Вариант доставки: </span>'.$result['data']['paramorder']['delivery'].'</div>';
+	}
+	if($result['data']['totalpricesaveproduct']) {
+		echo '<div class="desc-attr"><span class="key">Итого: </span>'.((float)$result['data']['totalpricesaveproduct']-(float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
+	}
+	if($result['data']['totalpricesaveproduct']) {
+		echo '<div class="desc-attr"><span class="key">Упаковка: </span>'.((float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
+	}
+	if($result['data']['totalpricesaveproduct']) {
+		echo '<div class="desc-attr"><span class="key">Всего к оплате: </span>'.((float)$result['data']['totalpricesaveproduct']).' Руб.</div>';
+	}
+	if($result['data']['totalpricesaveproduct']) {
+		echo '<div class="desc-attr"><span class="key">ФИО: </span>'.$result['data']['paramorder']['name'].'</div>';
+	}
+	if($result['data']['totalpricesaveproduct']) {
+		echo '<div class="desc-attr"><span class="key">Телефон: </span>'.$result['data']['paramorder']['telephone'].'</div>';
+	}
+	if($result['data']['totalpricesaveproduct']) {
+		echo '<div class="desc-attr"><span class="key">Емейл: </span>'.$result['data']['paramorder']['email'].'</div>';
+	}
+	if($result['code']==200) {
+		echo '<div style="padding: 10px; margin: 10px 0;">'.
+			'Заказанные товары будут Вам отправлены сразу же после проверки и поступления средств от Вас на расчетный счет Одежда-Мастер. <span>Счет будет Вам выслан</span> на указанный адрес электронной почты, а также Вы сможете скачать его в <a href="'.BASEURL.'/lk">личном кабинете</a>'.
+			'</br>'.
+			'<div class="code'.$result['code'].'" style="padding: 10px;">'.
+			'Благодарим вас за покупку!'.
+			'</div>'.
+			'</div>';
+	}
+	?>
+	<div style="width: 50%;">
+		<?php
+
+		if($result['data']['saveproduct']) {
+			?>
+			<h3>Товары в Вашем заказе:</h3>
+			<table class="products"><tbody>
+					<?php foreach ($result['data']['saveproduct'] as $key => $value) : ?>
+						<tr class="success-product">
+							<td colspan="2">Продукт доступен</td>
+						</tr>
+						<tr>
+							<td><img width="100" src="<?php echo BASEURL .'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id']; ?>" /></td>
+							<td>
+								<p>Код товара: <?php echo $value[0]['products_model']; ?></p>
+								<p><?php echo $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']; ?></p>
+								<p>Размер: <?php echo $value[1]['products_options_values']; ?></p>
+								<p>Количество: <?php echo $value[0]['products_quantity']; ?> шт.</p>
+								<p>Цена: <?php echo round($value[0]['products_price'], 2); ?>Руб.</p>
+
+								<script>
+									ga("ec:addProduct", {
+										"id": "<?=$value[0]['products_id'];?>",
+										"name": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']);?>",
+										"category": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['categories_id']);?>",
+										"brand": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['manufacturers_id']);?>",
+										"variant": "none",
+										"price": "<?=round($value[0]['products_price'], 2);?>",
+										"coupon": "none",
+										"quantity": <?=$value[0]['products_quantity'];?>});
+								</script>
+							</td>
+						</tr>
+
+						<?php
+						$delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
+					endforeach;?>
+				</tbody></table>
+
+			<?php echo ' 
     <script>
     
    $(window).load(function(){
@@ -105,44 +181,75 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
   ga("send", "event", "purchase");
    });
 </script>';
-        }
-        ?>
-        <script>
-            $(function(){
-                $productattr = <?= json_encode($delproductattr)?>;
-                $cart = JSON.parse(localStorage.getItem('cart-om')).cart;
-                $itemcart = new Object()
-                $itemcart.cart = [];
-                $.each($cart, function(i, item){
-                    if(item['6'] != '' && $productattr[item['0']]){
-                    }else if($productattr[item['0']] && (item['6'] == '' || item['6'] == 'undefined')){
-                    }else{
-                        $itemcart.cart.push($cart[i]);
-                    }
-                });
-                if($itemcart.cart.length > 0 ){
-                    $ilocal = JSON.stringify($itemcart);
-                    localStorage.setItem('cart-om', $ilocal);
-                }else{
-                    localStorage.removeItem('cart-om');
-                    localStorage.removeItem('cart-om-date');
-                }
-                $('.preload').remove();
-            });
-        </script>
-    </div>
+		}
+		?>
+		<script>
+			$(function(){
+				var resultProducts = <?php echo json_encode($result_for_js); ?>;
+				var cart = JSON.parse(localStorage.getItem('cart-om')).cart;
 
+				for (var i = 0; i < cart.length; i++)
+					if (typeof resultProducts[ parseInt(cart[i][0]) ] !== 'undefined' && typeof resultProducts[ parseInt(cart[i][0]) ][ parseInt(cart[i][2]) ] !== 'undefined') {
+						cart.splice(i, 1);
+						i--;
+					}
 
-    <?php
+				if (cart.length > 0) {
+					var html = '<h3>К сожалению, эти товары в заказ не попали:</h3>';
+					html += '<table class="products"><tbody>';
+
+					for (var cartIndex in cart) {
+						html += '<tr class="fail-product"><td colspan="2">Продукт удален или отсутствует</td></tr>';
+						html += '<tr>';
+						html += '<td><img width="100" src="/imagepreview?src=' + cart[cartIndex][0] + '" /></td>';
+						html += '<td>';
+						html += '<p>Код товара: ' + cart[cartIndex][1] + '</p>';
+						html += '<p>' + cart[cartIndex][7] + '</p>';
+						html += '<p>Размер: ' + cart[cartIndex][6] + '</p>';
+						html += '<p>Количество: ' + cart[cartIndex][4] + ' шт.</p>';
+						html += '<p>Цена: ' + cart[cartIndex][3] + 'Руб.</p>';
+						html += '</td>';
+						html += '</tr>';
+					}
+
+					html += '</tbody></table>';
+
+					$('table.products').after(html);
+				}
+
+				$productattr = <?= json_encode($delproductattr)?>;
+				$cart = JSON.parse(localStorage.getItem('cart-om')).cart;
+				$itemcart = new Object()
+				$itemcart.cart = [];
+				$.each($cart, function(i, item){
+					if(item['6'] != '' && $productattr[item['0']]){
+					}else if($productattr[item['0']] && (item['6'] == '' || item['6'] == 'undefined')){
+					}else{
+						$itemcart.cart.push($cart[i]);
+					}
+				});
+				if($itemcart.cart.length > 0 ){
+					$ilocal = JSON.stringify($itemcart);
+					localStorage.setItem('cart-om', $ilocal);
+				}else{
+					localStorage.removeItem('cart-om');
+					localStorage.removeItem('cart-om-date');
+				}
+				$('.preload').remove();
+			});
+		</script>
+	</div>
+
+	<?php
 }elseif($result['code'] == 0 ){
-    ?>
-    <div style="float:left; width:100%">
-        <?php
-        echo '<pre>';
-        print_r($result['text']);
-        echo '</pre>';
-        ?>
-    </div>
-    <?php
+	?>
+	<div style="float:left; width:100%">
+		<?php
+		echo '<pre>';
+		print_r($result['text']);
+		echo '</pre>';
+		?>
+	</div>
+	<?php
 }
 ?>
