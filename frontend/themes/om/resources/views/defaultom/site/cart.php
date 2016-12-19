@@ -306,6 +306,8 @@ $del_add .= '</select>';
     });
 
     $('body').on('click', '#check-confirm', function() {
+	    $('#check-confirm + .btn-tk-error').remove();
+
     	if ($(this).hasClass('disabled')) {
 		    $(this).after('<div class="btn-tk-error" style="color: #f00;">Пожалуйста выберите транспортную компанию.</div>');
     		return false;
