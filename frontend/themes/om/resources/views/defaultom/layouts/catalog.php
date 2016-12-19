@@ -245,7 +245,7 @@ $this->beginPage();
     </div>
     <?php
     if(Yii::$app->user->isGuest) {
-     //   echo \frontend\widgets\SubscriptionWidget::widget();
+        echo \frontend\widgets\SubscriptionWidget::widget();
     }
     $this->endBody();
     Yii::$app->params['assetsite']->registerAssetFiles($this);
