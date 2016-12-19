@@ -102,11 +102,12 @@ trait PreCheckProductsToOrder
            if($skip_time == FALSE) {
                $man = $this->manufacturers_diapazon_id();
                $thisweeekday = date('N') - 1;
-               $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
+               $timstamp_now = time() - strtotime('today');
                if (array_key_exists($product['manufacturers_id'], $man) && $man[$product['manufacturers_id']][$thisweeekday]) {
                    $stop_time = (int)$man[$product['manufacturers_id']][$thisweeekday]['stop_time'];
                    $start_time = (int)$man[$product['manufacturers_id']][$thisweeekday]['start_time'];
-                   if (isset($start_time) && isset($stop_time) && ($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)) {
+
+                   if (($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)) {
                        $check = TRUE;
                    } else {
                        $check = FALSE;
