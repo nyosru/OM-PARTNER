@@ -247,7 +247,7 @@
         function loaddetail($id){
             if(!inProgress){
                 inProgress = true;
-                $('[class="client-plate client-active"]').removeClass('client-active');
+                $('.client-plate.client-active').removeClass('client-active');
                 inProgress = true;
                 $.ajax({
                     method:"post",

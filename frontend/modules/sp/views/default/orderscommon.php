@@ -208,7 +208,7 @@
         $(document).on("click", '.client-plate' ,function(){
             console.log($(this));
             if(!in_progress){
-                $('[class="client-plate client-active"]').removeClass('client-active');
+                $('.client-plate.client-active').removeClass('client-active');
                 in_progress = true;
                 $.ajax({
                     method:"post",
