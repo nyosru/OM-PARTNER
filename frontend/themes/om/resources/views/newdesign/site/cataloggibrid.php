@@ -66,7 +66,7 @@ if ($data[0] != 'Не найдено!') {
         </div>
     </div>
 </div>
-<section class="main-container col2-left-layout bounceInUp animated">
+<section class="main-container col2-left-layout bounceInUp">
     <?=\frontend\widgets\MainBanner::widget(['template'=>'category-slider']);?>
 
     <div class="container">

@@ -137,7 +137,7 @@ $this->title = $title;
 <!-- end banner -->
 
 <!-- Featured Slider -->
-<section class="featured-pro container wow bounceInUp animated">
+<section class="featured-pro container">
     <div class="slider-items-products">
         <div class="new_title center">
             <h2>СПЕЦИАЛЬНЫЕ ПРЕДЛОЖЕНИЯ</h2>
@@ -165,7 +165,7 @@ $this->title = $title;
 
 
 <!-- Featured Slider -->
-<section class="featured-pro container wow bounceInUp animated">
+<section class="featured-pro container">
     <div class="slider-items-products">
         <div class="new_title center">
             <h2>Новинки</h2>
@@ -189,7 +189,7 @@ $this->title = $title;
 <!-- End Featured Slider -->
 
 <!-- brand logo -->
-<div class="brand-logo wow bounceInUp animated">
+<div class="brand-logo">
     <div class="container">
         <div class="new_title center">
             <h2>Брэнды</h2>
@@ -247,7 +247,7 @@ $this->title = $title;
 <!--End Social -->
 
 <!-- About -->
-<section class="latest-blog wow bounceInUp animated">
+<section class="latest-blog">
     <div class="container">
         <div class="new_title center">
             <h2>Коротко о нас</h2>

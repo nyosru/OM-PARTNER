@@ -1,4 +1,4 @@
-<section class="latest-blog wow bounceInUp animated">
+<section class="latest-blog">
     <div class="container">
         <div class="new_title center">
             <h2>Мы в социальных сетях</h2>

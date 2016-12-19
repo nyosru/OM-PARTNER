@@ -1,4 +1,4 @@
-<div class="offer-slider wow animated parallax parallax-2">
+<div class="offer-slider parallax parallax-2">
     <div class="container">
         <ul class="bxslider">
             <?php foreach ($banners as $banner) { ?>
