@@ -134,7 +134,7 @@ if ($data[0] != 'Не найдено!') {
 
                            <div class="panel-heading" role="tab" id="headingOne">
 
-                            <h4 class="panel-title popover-js" data-container="body" data-trigger="manual" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<button type=\'button\' class=\'close\'>&times;</button><br><div style=\'width:200px;\'>Попробуйте задать фильтры</div>">
+                          <h4 class="panel-title popover-js" data-container="body" data-trigger="manual" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<button type=\'button\' class=\'close\'>&times;</button><br><div style=\'width:200px;\'>Попробуйте задать фильтры</div>">
     Показать фильтр		                                      
 
                             </h4>

@@ -40,7 +40,7 @@ class PartnersUsersInfo extends ActiveRecordExt
     public function rules()
     {
         return [
-            [['id', 'name', 'secondname', 'lastname', 'adress', 'city', 'state', 'country', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportwhere', 'pasportdate'], 'required'],
+            [['id', 'name', 'secondname', 'lastname', 'adress', 'city', 'state', 'country', 'postcode', 'telephone', 'pasportser', 'pasportnum', 'pasportwhere', 'pasportdate'], 'required', 'message'=>'должно быть заполненно'],
             [['id', 'customers_id', 'status'], 'integer'],
             [['pasportdate'], 'safe'],
             [['name', 'secondname', 'lastname', 'state', 'country', 'postcode', 'telephone', 'pasportnum', 'pasportser', 'pasportwhere'], 'string', 'max' => 45],
@@ -63,6 +63,7 @@ class PartnersUsersInfo extends ActiveRecordExt
             'flat3_flat3' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone'],
             'flat7_flat7' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress', 'postcode', 'telephone'],
             'commentsuserinfo' => ['id', 'name', 'lastname'],
+            'saveuser' => ['id', 'name', 'secondname', 'lastname', 'country', 'state', 'city', 'adress','telephone'],
 
         ];
     }

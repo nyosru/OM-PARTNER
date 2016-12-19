@@ -162,11 +162,13 @@
 <script>
     $(document).ready(function () {
 
+        $('#send').on('pjax:end', function(){
+           $('.preload').remove();
+        });
         //add_new_commonorder.php после запроса обновить список
         $('#pjax_common').on('pjax:end', function(){
             refresh_list();
         });
-
         var order_status_label = [
             'удален',
             'новый',
@@ -493,7 +495,8 @@
                         product: requestdata.responseJSON.product.products_id,
                         category :requestdata.responseJSON.categories_id,
                         attr :$attr,
-                        count : $count
+                        count : $count,
+                        skiptime: true
                     }
                 });
                 maindata_arr[$id] = new Object();
