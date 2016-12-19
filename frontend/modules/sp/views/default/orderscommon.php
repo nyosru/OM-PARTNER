@@ -684,11 +684,12 @@
                         $disable_for_stepping = 'readonly';
                     }
 
-
-
-                    if(typeof (product_data.product.productsAttributesDescr[this[6]]) == 'undefined'){
-                        product_data.product.productsAttributesDescr[this[6]] = new Object;
+                    if(typeof (product_data.product.productsAttributesDescr[this[6]]) == "undefined" || product_data.product.productsAttributesDescr[this[6]].length == 0){
+                        product_data.product.productsAttributesDescr[this[6]]= new Object;
+                        product_data.product.productsAttributesDescr[this[6]].products_options_values_name = 'Без размера';
+                        product_data.product.productsAttributesDescr[this[6]].products_options_values_id = '';
                     }
+
                     if(typeof (product_data.product.productsDescription.products_name) == 'undefined'){
                         product_data.product.productsAttributesDescr[this[6]].products_name = new Object;
                         product_data.product.productsDescription['products_name'] = 'Имя не указанно';
@@ -713,7 +714,7 @@
                     str_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
                     str_html += "              <div style=\"font-weight: 400;\">Арт. "+order[1]+"<\/div>";
                     str_html += "              <div>"+order[7]+"<\/div>";
-                    str_html += "              <div>Размер: "+order[6]+"<\/div>";
+                    str_html += "              <div>Размер: "+product_data.product.productsAttributesDescr[this[6]].products_options_values_name+"<\/div>";
                     str_html += "          <\/div>";
                     str_html += "      <\/div>";
                     str_html += "      <div";
