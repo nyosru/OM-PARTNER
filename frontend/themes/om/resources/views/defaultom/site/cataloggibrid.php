@@ -415,6 +415,7 @@ if ($data[0] != 'Не найдено!') {
                         echo '<li><a href="' .  $url::toRoute($paste) . '" class="lock-on">'.($startpage).'</a></li>';
                     }else{
                         $paste = $urlsrc;
+                        unset($paste['page']);
                         echo '<li><a href="' .  $url::toRoute($paste) . '" class="lock-on">'.($startpage).'</a></li>';
                     }
                 } else {
