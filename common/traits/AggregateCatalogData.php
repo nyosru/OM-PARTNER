@@ -124,7 +124,7 @@ trait AggregateCatalogData
 
 
         $count = min(200, $count);
-        $count = max(60, $count);
+        $count = max(20, $count);
 
         $start_arr = (integer)($page * $count);
 
@@ -470,7 +470,7 @@ trait AggregateCatalogData
                 }
                 $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
                 $stats = Yii::$app->cache->get($statickey);
-                $statickeyspec = Yii::$app->cache->buildKey('specification3554545sa-' . $cat);
+                $statickeyspec = Yii::$app->cache->buildKey('specification3554545sa-' . $cat_start);
                 $statsspec = Yii::$app->cache->get($statickeyspec);
                 if(!$statsspec) {
                     $spec = PartnersProductsToCategories::find()->select(['specification_values_description.specification_value', 'specification_values_description.specification_values_id', 'specification_description.specification_name', 'specification_description.specifications_id'])->where('categories_id IN (' . $cat . ')    and products.products_quantity > 0  and products.products_price != 0   and products_status=1 and  death_reason = "" and products.manufacturers_id NOT IN (' . $hide_man . ')  and specification_description.specifications_id IN (77,74,4119) ' )->joinWith('products')->joinWith('productsSpecification')->joinWith('specificationValuesDescription')->joinWith('specificationDescription')->groupBy('products_specifications.products_id')->distinct()->asArray()->all();
