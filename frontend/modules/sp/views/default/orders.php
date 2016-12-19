@@ -1,13 +1,3 @@
-<?php
-    $order_status_label = [
-        'Удален',
-        'Новый',
-        'В обработке',
-        'Оплаченый',
-        'Выполненный',
-        'Возврат'
-    ];
-?>
 
 <?= \frontend\widgets\HeaderFilterBarNew::widget([
     'dataProvider' => $data,
