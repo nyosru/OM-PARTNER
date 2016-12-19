@@ -441,8 +441,10 @@ $del_add .= '</select>';
     function changeDisableSubmit() {
 	    if ($('.shipping-confirm').val() === undefined)
 		    $('#check-confirm').addClass('disabled');
-	    else
+	    else {
 		    $('#check-confirm').removeClass('disabled');
+		    $('#check-confirm + .btn-tk-error').remove();
+	    }
     }
 </script>
 
