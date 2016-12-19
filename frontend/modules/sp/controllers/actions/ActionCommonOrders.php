@@ -50,12 +50,12 @@ trait ActionCommonOrders
             }
         }
 
-        $search = Yii::$app->request->getQueryParam('search');
+        $search = mb_strtolower (Yii::$app->request->getQueryParam('search'));
 
         if ($search == true) {
-            $model->andWhere(CommonOrders::tableName().'.header REGEXP "' . $search . '"');
-            $model->orWhere(CommonOrders::tableName().'.description REGEXP "' . $search . '"');
-            $model->orWhere(CommonOrders::tableName().'.id REGEXP "' . $search . '"');
+            $model->andWhere('LOWER('.CommonOrders::tableName().'.header) REGEXP "' . $search . '"');
+            $model->orWhere('LOWER('.CommonOrders::tableName().'.description) REGEXP "' . $search . '"');
+            $model->orWhere('LOWER('.CommonOrders::tableName().'.id) REGEXP "' . $search . '"');
         }
         $pagesize = 5;
         $pages = new Pagination([
