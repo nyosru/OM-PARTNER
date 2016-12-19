@@ -241,6 +241,10 @@ $del_add .= '</select>';
                 <?php }else { ?>
                 $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
                 <?php }?>
+
+	            $innerhtml += '<button class="btn btn-lg btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-top: 5px;" id="check-confirm" type="submit">' +
+		            'Подтвердить заказ' +
+		            '</button>';
                 $.post(
                     "/site/shipping",
                     function (shipdata) {
@@ -297,11 +301,21 @@ $del_add .= '</select>';
                 $('.deliv-code').html(html);
             });
         }
-    });
-    $(document).ready(function () {
 
+	    changeDisableSubmit();
     });
 
+    $('body').on('click', '#check-confirm', function() {
+    	if ($(this).hasClass('disabled')) {
+		    $(this).after('<div class="btn-tk-error" style="color: #f00;">Пожалуйста выберите транспортную компанию.</div>');
+    		return false;
+	    }
+    	else {
+    		$('.btn-tk-error').remove();
+    		check();
+    		return true;
+	    }
+    });
 
     //$(document).on('load change click','.num-of-items', );
     //$(document).on('ready', function () {
@@ -402,6 +416,8 @@ $del_add .= '</select>';
                 _csrf: yii.getCsrfToken()},
             onAjaxSuccessinfo
         );
+
+        changeDisableSubmit();
     });
     $(document).on('click', '.panel  > a',  function(){
         if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
@@ -421,5 +437,12 @@ $del_add .= '</select>';
             $(this).siblings().filter('.filter-cont').addClass('in');
         }
     });
+
+    function changeDisableSubmit() {
+	    if ($('.shipping-confirm').val() === undefined)
+		    $('#check-confirm').addClass('disabled');
+	    else
+		    $('#check-confirm').removeClass('disabled');
+    }
 </script>
 
