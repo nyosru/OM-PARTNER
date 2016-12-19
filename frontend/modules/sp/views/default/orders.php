@@ -57,6 +57,7 @@
                         'captionOptions'=>[
                             'style'=>'border:none'
                         ],
+                        'emptyText' => 'Данных нет',
                         'dataProvider' => $data,
                         'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
                         'columns' => [
