@@ -77,7 +77,7 @@
                                         'status-return',
                                     ];
                                     $img_block_client_status = [
-                                        '<div></div>',
+                                        '',
                                         '<div class="client-new"></div>',
                                         '<div class="client-old"></div>',
                                         '<div class="client-vip"></div>'
@@ -122,7 +122,7 @@
                                             <div class="client-avatar">
                                                 <div class="avatar">
                                                     <div class="client-image"> </div>
-                                                    '.$img_block_client_status[$model['status']].'
+                                                    '.$img_block_client_status[$model['user_status']].'
                                                </div>
                                             </div>
                                             <div class="client-line-info-orders">
