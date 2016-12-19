@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <div class="header">Отправить e-mail пользователю <span class="recipient_name"></span></div>
+                <div class="header"><h4>Отправить e-mail пользователю <span class="recipient_name"></span></h4></div>
             </div>
             <div class="modal-body">
                 <?php
