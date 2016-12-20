@@ -5,8 +5,9 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 
 	$result_for_js = [];
 	foreach ($result['data']['saveproduct'] as $item)
-		$result_for_js[ $item[0]['products_id'] ][ $item[1]['vid'] ] = $item[0]['products_quantity'];
-
+		$result_for_js[ $item[0]['products_id'] ][ (int)$item[1]['vid'] ] = $item[0]['products_quantity'];
+	// если у товара нет атрибута (размера), то у него нет id атрибута, поэтому (int) превращает пустое значение
+	// в 0. Оно проверяется в js (1).
 	?>
 
 	<style>
@@ -188,11 +189,16 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 				var resultProducts = <?php echo json_encode($result_for_js); ?>;
 				var cart = JSON.parse(localStorage.getItem('cart-om')).cart;
 
-				for (var i = 0; i < cart.length; i++)
+				for (var i = 0; i < cart.length; i++) {
+					/* 1 */
+					if (cart[i][2] === '')
+						cart[i][2] = 0;
+
 					if (typeof resultProducts[ parseInt(cart[i][0]) ] !== 'undefined' && typeof resultProducts[ parseInt(cart[i][0]) ][ parseInt(cart[i][2]) ] !== 'undefined') {
 						cart.splice(i, 1);
 						i--;
 					}
+				}
 
 				if (cart.length > 0) {
 					var html = '<h3>К сожалению, эти товары в заказ не попали:</h3>';
