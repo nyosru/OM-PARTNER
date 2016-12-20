@@ -11,6 +11,10 @@ use yii\bootstrap\Collapse;
 $this -> title = 'Мои заказы';
 
 ?>
+<div class="container">
+<div class="row" style="margin: 15px 0;">
+<?=$this->render('_navlk',['user'=>$cust])?>
+<div class="col-sm-9">
 <form>
     <input type="hidden" value="myorder" name="view">
     <div style="float: left; width: 100%;">
@@ -30,50 +34,61 @@ $this -> title = 'Мои заказы';
                     break;
             }
 
-            $sorter .=  '<a class="sort" name="order"  type="submit" href="" ><button style="background: rgb(245, 245, 245) none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); float: left; color: rgb(0, 165, 161); font-size: 16px; border-radius: 4px; font-weight: 500; margin: 0px;" name="filter" type="submit" value="'.$i.'" class="'.$addclass.'">'.$sort_order[$i].'</button></a>';
+            $sorter .=  '<button class="button  '.$addclass.'" name="filter" type="submit" value="'.$i.'">'.$sort_order[$i].'</button>';
         }
         ?>
-        <div id="" style="width: 50%;">
+        <div class="btn-group" role="group">
             <?= $sorter?>
         </div>
-        <div id="find-date" style="float: right; width: 30%; text-align: right;">
-
-            <?php
-            echo \kartik\date\DatePicker::widget( [
-                'language'=>'ru',
-                'name' => 'di',
-                'type' => \kartik\date\DatePicker::TYPE_INPUT,
-                'options' => ['placeholder' => 'от', 'class'=>'no-shadow-form-control', 'style'=>'float: left;width: 45%;'],
-                'value'=>Yii::$app->request->getQueryParam('di'),
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'dd.mm.yyyy'
-                ]
-            ]);?>
-            <?php
-            echo \kartik\date\DatePicker::widget( [
-                'language'=>'ru',
-                'name' => 'do',
-                'type' => \kartik\date\DatePicker::TYPE_INPUT,
-                'value'=>Yii::$app->request->getQueryParam('do'),
-                'options' => ['placeholder' => 'до', 'class'=>'no-shadow-form-control', 'style'=>'float: left;width: 45%;'],
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'format' => 'dd.mm.yyyy'
-                ]
-            ]);?>
-            <button style="background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); width: 10%; height: 33px; line-height: 1.2; margin-right: 0px;" class="btn" type="submit">»</button>
-
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-xs-8" style="padding-right: 5px;">
+                        <input style="width: 100%;" name="id" value="<?= Yii::$app->request->getQueryParam('id');?>" class="form-control" type="text" placeholder="Числовой идентификатор">
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 5px;">
+                        <button style="margin: 6px 0;" class="button" type="submit"><span style="line-height: 22px;" class="glyphicon glyphicon-menu-right"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-xs-4" style="padding-right: 5px;">
+                        <?php
+                        echo \kartik\date\DatePicker::widget( [
+                            'language'=>'ru',
+                            'name' => 'di',
+                            'type' => \kartik\date\DatePicker::TYPE_INPUT,
+                            'options' => ['placeholder' => 'от', 'class'=>'form-control', 'style'=>['width'=>'100%']],
+                            'value'=>Yii::$app->request->getQueryParam('di'),
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd.mm.yyyy'
+                            ]
+                        ]);?>
+                    </div>
+                    <div class="col-xs-4" style="padding: 0 5px;">
+                        <?= \kartik\date\DatePicker::widget( [
+                            'language'=>'ru',
+                            'name' => 'do',
+                            'type' => \kartik\date\DatePicker::TYPE_INPUT,
+                            'value'=>Yii::$app->request->getQueryParam('do'),
+                            'options' => ['placeholder' => 'до', 'class'=>'form-control', 'style'=>['width'=>'100%']],
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => 'dd.mm.yyyy'
+                            ]
+                        ]);?>
+                    </div>
+                    <div class="col-xs-4" style="padding-left: 5px;">
+                        <button style="margin: 6px 0;" class="button" type="submit"><span style="line-height: 22px;" class="glyphicon glyphicon-menu-right"></span></button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="find-order"  style="float: right; width: 20%; text-align: right;">
-
-            <input name="id" value="<?= Yii::$app->request->getQueryParam('id');?>" class="no-shadow-form-control" type="text" placeholder="числовой идентификатор"></input>
-            <button style="width: 10%; height: 32px; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: rgb(255, 255, 255); margin-right: 0px; float: left; position: relative; left: 90%; bottom: 33px; line-height: 1.2;" class="btn" type="submit">»</button>
-
-        </div>
-
     </div>
-</form><?php
+</form>
+<?php
 
 echo \yii\grid\GridView::widget([
     'dataProvider' => $orders,
@@ -354,6 +369,9 @@ echo \yii\grid\GridView::widget([
 
 
 ?>
+</div>
+</div>
+</div>
 <script>
     function reloaddata($opid){
         $.ajax({

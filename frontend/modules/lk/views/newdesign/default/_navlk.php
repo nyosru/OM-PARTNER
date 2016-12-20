@@ -8,6 +8,12 @@ $items = [
         'label' => 'Мои заказы',
         'url' => '/lk/myorder',
     ], [
+        'label' => 'Мои товары',
+        'url' => '/lk/orderedproducts',
+    ], [
+        'label' => 'Мои претензии',
+        'url' => '/lk/claims',
+    ], [
         'label' => 'Мои данные',
         'url' => '/lk/userinfo',
     ], [
