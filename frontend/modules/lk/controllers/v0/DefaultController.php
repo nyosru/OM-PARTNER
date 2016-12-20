@@ -29,24 +29,6 @@ class DefaultController extends Controller
         ActionMenu,
         ActionViewCart,
         ActionMyorder;
-
-    public function behaviors()
-    {
-        return [];
-    }
-
-    public function actions()
-    {
-        if(Yii::$app->params['constantapp']["APP_THEMES"]!='newdesign'){
-            $this->layout = 'main';
-        }
-
-        return 'Личный кабинет';
-    }
-    public function getViewPath()
-    {
-        return $this->module->getViewPath() . DIRECTORY_SEPARATOR. Yii::$app->params['constantapp']["APP_THEMES"]. DIRECTORY_SEPARATOR . $this->id;
-    }
 }
 
 

@@ -7,9 +7,7 @@ use common\patch\ModuleExt;
 
 class module extends ModuleExt
 {
-    public $controllerNamespace = 'frontend\modules\lk\controllers\v0';
-
-    public function init()
+     public function init()
     {
         $this->controllersDir = basename(__DIR__);
         parent::init();
