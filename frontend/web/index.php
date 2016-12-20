@@ -135,7 +135,7 @@ $application->params['constantapp']['APP_ID'] = $partner['APP_ID'];
 $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
 $application->params['constantapp']['APP_VERSION'] = $version;
 
-
+Yii::setAlias('partial', Yii::getAlias('@app/themes/'.$version['themesversion'].'/resources/partial'));
 $temlate_key = Yii::$app->cache->buildKey('templatepartners-domain-' . md5(
         $_SERVER['HTTP_HOST'].'-'.
         $partner['APP_VERSION'].'-'.
