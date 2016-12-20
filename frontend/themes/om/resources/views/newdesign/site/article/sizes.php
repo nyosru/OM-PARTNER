@@ -1,9 +1,10 @@
 <?php
 use yii\filters\AccessControl;
 use yii\web\User;
+use yii\bootstrap\Collapse;
 /* @var $this yii\web\View */
 ?>
-
+<div class="container">
 <center><h1 style="margin-left: 20px;">Уважаемые покупатели<br>Убедительная просьба при заказе определенных категорий изделий:</h1></center><ul><li>1. Учитывать эластичность тканей (трикотаж синтетический, хлопковый,
         вязанный). На сантиметровой ленте изделие будет выглядеть меньше.</li><li>2. При выборе верхней одежды осенне-зимнего ассортимента следует
         учитывать толщину изделия, так как утеплители бывают различные по
@@ -31,9 +32,8 @@ use yii\web\User;
     возраста. Для более точного определения размера пользуйтесь этими двумя
     параметрами.</p><p style="margin-left: 20px;">И помните, что дети быстро растут, поэтому в случае сомнений, делайте выбор в сторону большего размера.</p><p style="margin-left: 20px;">размера.</p><p style="margin-left: 20px;">        <img src="http://odezhda-master.ru/images/pixel_trans.gif" alt=""></p>
 
-<?php
-echo \yii\bootstrap\Tabs::widget([
-    'options'=>['style'=>'float: left; width: 100%;'],
+<?=Collapse::widget([
+    'options'=>['class'=>'','style'=>['margin-top'=>'30px']],
     'items' => [
         [
             'label' => 'Детская одежда',
@@ -53,7 +53,7 @@ echo \yii\bootstrap\Tabs::widget([
     <tr><td valign="top" width="100%"><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td class="main">
-          <p></p><table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+          <p></p><table class="table">
     <thead>
     <tr> <th colspan="5">Малыши до 1-ого года.</th> </tr>
 
@@ -70,7 +70,7 @@ echo \yii\bootstrap\Tabs::widget([
     </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
     <thead><tr> <th colspan="11">Малыши и дети до 10 лет.</th> </tr></thead>
 
     <tbody>
@@ -95,7 +95,7 @@ echo \yii\bootstrap\Tabs::widget([
     </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
     <thead><tr> <th colspan="4">Подростки</th> </tr></thead>
 
     <tbody>
@@ -163,7 +163,7 @@ echo \yii\bootstrap\Tabs::widget([
     <tr><td valign="top" width="100%"><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td class="main">
-          <p></p><table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+          <p></p><table class="table">
 <tbody>
 <tr>
 <td style="background-color: #9acd32;" colspan="13" valign="middle" align="center">
@@ -905,7 +905,7 @@ echo \yii\bootstrap\Tabs::widget([
 </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td style="background-color: #9acd32;" colspan="11" valign="middle" align="center">
@@ -1539,7 +1539,7 @@ echo \yii\bootstrap\Tabs::widget([
 </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td style="background-color: #9acd32;" colspan="6" valign="middle" align="center">
@@ -2018,7 +2018,7 @@ echo \yii\bootstrap\Tabs::widget([
     <tr><td valign="top" width="100%"><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td class="main">
-          <p></p><table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+          <p></p><table class="table">
 <tbody>
 <tr>
 <td style="background-color: #9acd32;" colspan="10" valign="middle" align="center">
@@ -2508,7 +2508,7 @@ echo \yii\bootstrap\Tabs::widget([
 </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td colspan="5">
@@ -2705,7 +2705,7 @@ echo \yii\bootstrap\Tabs::widget([
 </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td colspan="8">
@@ -3105,7 +3105,7 @@ echo \yii\bootstrap\Tabs::widget([
 </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td colspan="6">
@@ -3505,7 +3505,7 @@ echo \yii\bootstrap\Tabs::widget([
       <tbody><tr>
         <td class="main">
           <p></p><p><span style="font-size: medium;">Обмерьте Ваш палец у основания при помощи сантиметровой ленты в миллиметрах и сравните его с данными из таблицы.</span></p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td style="background-color: #9acd32;" valign="middle" align="center">
@@ -4423,7 +4423,7 @@ echo \yii\bootstrap\Tabs::widget([
       <tbody><tr>
         <td class="main">
           <p></p><p>Размер перчаток определяется измерением обхвата вашей ладони выше «косточек», не захватывая большой палец.</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td rowspan="2">
@@ -4678,7 +4678,7 @@ echo \yii\bootstrap\Tabs::widget([
     <tr><td valign="top" width="100%"><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td class="main">
-          <p></p><table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+          <p></p><table class="table">
 <tbody>
 <tr>
 <td>
@@ -4799,7 +4799,7 @@ echo \yii\bootstrap\Tabs::widget([
       <tbody><tr>
         <td class="main">
           <p></p><p>Обхват вашей головы в сантиметрах выше бровей – соответствует вашему европейскому размеру</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td rowspan="2">
@@ -5079,7 +5079,7 @@ echo \yii\bootstrap\Tabs::widget([
     <tr><td valign="top"  width="100%"><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td class="main">
-          <p></p><table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+          <p></p><table class="table">
 <tbody>
 <tr>
 <td>
@@ -5523,7 +5523,7 @@ echo \yii\bootstrap\Tabs::widget([
     <tr><td valign="top" width="100%"><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td class="main">
-          <p></p><table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+          <p></p><table class="table">
 <tbody>
 <tr>
 <td style="background-color: #9acd32;" colspan="13">
@@ -5935,7 +5935,7 @@ echo \yii\bootstrap\Tabs::widget([
 </tbody>
 </table>
 <p>&nbsp;</p>
-<table style="width: 100%;" border="1" cellpadding="0" cellspacing="0">
+<table class="table">
 <tbody>
 <tr>
 <td style="background-color: #9acd32;" colspan="8">
@@ -6446,5 +6446,5 @@ echo \yii\bootstrap\Tabs::widget([
 
         ],
     ]]); ?>
-
+</div>
 
