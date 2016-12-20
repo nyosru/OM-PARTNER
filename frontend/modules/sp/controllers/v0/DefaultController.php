@@ -99,6 +99,6 @@ class DefaultController extends Controller
     public function actions()
     {
         $this->layout = 'main';
-        return 'Админка';
+        return 'Реферальная система';
     }
 }
