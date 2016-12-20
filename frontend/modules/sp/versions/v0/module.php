@@ -6,8 +6,10 @@ use common\patch\ModuleExt;
 
 class module extends ModuleExt
 {
+
     public function init()
     {
+        $this->controllersDir = basename(__DIR__);
         if(\Yii::$app->user->isGuest == FALSE && (\Yii::$app->user->getIdentity()->getReferral()['id']) == TRUE){
             parent::init();
         }else{
