@@ -24,7 +24,7 @@ trait ActionIndex
         $model = ReferralsUser::find()->select([
             'partners_orders.id as ids',
             'partners_orders.status as order_status',
-            'partners_users.status as user_status',
+            'partners_referrals_users.status as user_status',
             'partners_referrals_users.*',
             'partners_users_info.*',
             'partners_orders.*',

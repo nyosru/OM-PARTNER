@@ -22,6 +22,109 @@ class MainBanner extends \yii\bootstrap\Widget
         'content'=> ''
     ];
 
+    public $banners = [
+        'top-banner' => [
+            [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_2.png',
+                'referal'=> '/product?id=1774488',
+                'term'=> '',
+                'alttext' => 'Уютные кофточки',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ],
+        ],
+        'top-slider' => [
+            [
+                'image' => 'OM_14122016_5.png',
+                'referal'=> '/catalog?cat=1725',
+                'term'=> '',
+                'alttext' => 'В новый год на корпоратив',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_2.png',
+                'referal'=> '/product?id=1774488',
+                'term'=> '',
+                'alttext' => 'Уютные кофточки',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ],
+        ],
+        'offer-slider' => [
+            [
+                'h1' => 'Заголовок',
+                'h2' => 'Подзаголовок',
+                'p' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                'button' => 'Кнопка',
+                'referal'=> '/catalog?cat=1725',
+                'out' => FALSE
+            ], [
+                'h1' => 'Hello hotness!',
+                'h2' => 'Summer collection',
+                'p' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus.
+                    Fusce condimentum eleifend enim a feugiat.',
+                'button' => 'View More',
+                'referal'=> '/catalog?cat=1725',
+                'out' => FALSE
+            ],
+        ],
+        'social' => [
+            [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://vk.com/',
+                'alttext' => 'ВК',
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://fb.com/',
+                'alttext' => 'FB',
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://tw.com/',
+                'alttext' => 'TW',
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://ok.com/',
+                'alttext' => 'OK',
+            ],
+        ],
+        'category-slider' => [
+            [
+                'image' => 'OM_14122016_6.png',
+                'referal'=> '/catalog?cat=1725',
+                'term'=> '',
+                'alttext' => 'В новый год на корпоратив',
+                'out' => FALSE
+            ], [
+                'image' => 'OM_14122016_6.png',
+                'referal'=> '/product?id=1774488',
+                'term'=> '',
+                'alttext' => 'Уютные кофточки',
+                'out' => FALSE
+            ], [
+                'image' => 'OM_14122016_6.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ],
+        ],
+    ];
+
     public $position = [
 
         'medium1' => [
@@ -187,87 +290,24 @@ class MainBanner extends \yii\bootstrap\Widget
     ];
     public function init()
     {
-        ?>
-        <div id="main-index">
-            <?php
-            //  echo $this->formatting_template($this->template['discont'], $this->position);
-            echo $this->formatting_template($this->template['main'], $this->position) ;?>
-        </div>
-        <?php
+
     }
-    private function formatting_position($position = [], $roll = ''){
-        $result = '';
-        $item = [];
-        foreach ($position as $key=>$value){
-            $refer = '';
-            $out_param = '';
-
-
-            if($value['out']){
-                $out_param = ' target="_blank" ';
-                $refer = $value['referal'];
-            }else{
-                $refer = BASEURL.$value['referal'];
-            }
-            $utm_link = '';
-            if($this->utm_enable === TRUE){
-                $this->utm['term'] = $value['term'];
-                $this->utm['content'] = $value['image'];
-                $utm_link = UtmLinker::widget([
-                    'param' => $this->utm
-                ]);
-                $divider = '?';
-                if(mb_substr_count($refer, '?')){
-                    $divider = '&amp;';
-                }
-            }
-
-            $item[] = '<a href="'.$refer. $divider.$utm_link.'" '.$out_param.'>'.
-                '<img style="display: block;max-width: 100%;height: auto;" src="'.self::IMAGE_PATH.$value['image'].'"  alt="'.$value['alttext'].'">'.
-                '</a>';
+    public function run()
+    {
+        if(gettype($this->template) == 'string'){
+            return $this->render('main-banner/'.$this->template,[
+                'banners' => $this->banners[$this->template],
+            ]);
         }
-        switch($roll){
-            case self::ROTATE_ROLL :{
-                $result =  Carousel::widget([
-                    'items' => $item,
-                    'showIndicators' => FALSE,
-                    'controls' => FALSE,
-                    'options'=>[
-                        'class'=>'slide',
-                        'data-ride' => 'carousel',
-                    ],
-                    'clientOptions'=>[
-                        'interval'=>3000,
-                        'pause'=> 'load',
-
-                    ]
-                ]);
-                break;
-            }
-            case self::ROTATE_RAND:{
-                $rf = shuffle($item);
-                $result =  array_shift($item);
-                break;
-                break;
-            }
-            default:{
-                $result =   array_shift($item);
-                break;
-            }
-        }
-        return $result;
-    }
-
-
-
-    private function formatting_template($template = [], $position = []){
-        $result = '';
-        foreach ($template as $key=>$value){
-            $result .=
-                '<div id="'.$value['id'].'"  '.$value['style'].'  data-position="'.$key.'">'.
-                $this->formatting_position($position[$value['position']], $value['roll']).
-                '</div>';
-        }
-        return $result;
+        return $this->render('main-banner/default',[
+            'template'=>$this->template['main'],
+            'position'=> $this->position,
+            'ROTATE_NONE' => self::ROTATE_NONE,
+            'ROTATE_RAND' => self::ROTATE_RAND,
+            'ROTATE_ROLL' => self::ROTATE_ROLL,
+            'IMAGE_PATH' => self::IMAGE_PATH,
+            'utm_enable' => $this->utm_enable,
+            'utm' => $this->utm,
+        ]);
     }
 }

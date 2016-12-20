@@ -1,13 +1,3 @@
-<?php
-    $order_status_label = [
-        'Удален',
-        'Новый',
-        'В обработке',
-        'Оплаченый',
-        'Выполненный',
-        'Возврат'
-    ];
-?>
 
 <?= \frontend\widgets\HeaderFilterBarNew::widget([
     'dataProvider' => $data,
@@ -57,6 +47,7 @@
                         'captionOptions'=>[
                             'style'=>'border:none'
                         ],
+                        'emptyText' => 'Данных нет',
                         'dataProvider' => $data,
                         'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
                         'columns' => [
@@ -76,7 +67,7 @@
                                         'status-return',
                                     ];
                                     $img_block_client_status = [
-                                        '<div></div>',
+                                        '',
                                         '<div class="client-new"></div>',
                                         '<div class="client-old"></div>',
                                         '<div class="client-vip"></div>'
@@ -85,6 +76,7 @@
                                         'Удален',
                                         'Новый',
                                         'В обработке',
+                                        'Одобренный',
                                         'Оплаченый',
                                         'Выполненный',
                                         'Возврат'
@@ -120,7 +112,7 @@
                                             <div class="client-avatar">
                                                 <div class="avatar">
                                                     <div class="client-image"> </div>
-                                                    '.$img_block_client_status[$model['status']].'
+                                                    '.$img_block_client_status[$model['user_status']].'
                                                </div>
                                             </div>
                                             <div class="client-line-info-orders">
@@ -169,7 +161,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Редактировать комментарий
+                <h4>Редактировать комментарий</h4>
             </div>
             <div class="modal-body">
                 <div>
@@ -255,7 +247,7 @@
         function loaddetail($id){
             if(!inProgress){
                 inProgress = true;
-                $('[class="client-plate client-active"]').removeClass('client-active');
+                $('.client-plate.client-active').removeClass('client-active');
                 inProgress = true;
                 $.ajax({
                     method:"post",

@@ -48,6 +48,7 @@
                     'captionOptions'=>[
                         'style'=>'border:none'
                     ],
+                    'emptyText' => 'Данных нет',
                     'dataProvider' => $data,
                     'layout' => "{items}\n<div class=\"pag\">{pager}</div>",
                     'columns' => [
@@ -80,6 +81,16 @@
                                     'status-return',
                                 ];
 
+                                $order_status_label = [
+                                    'Удален',
+                                    'Новый',
+                                    'В обработке',
+                                    'Одобренный',
+                                    'Оплаченый',
+                                    'Выполненный',
+                                    'Возврат'
+                                ];
+
                                 $params = new \php_rutils\struct\TimeParams();
                                 $params->date = $model->date_added; //это значение по умолчанию
                                 $params->format = 'd F Y H:i:s';
@@ -93,7 +104,7 @@
                                 <div class="line-info-orders">
                                     <div class="client-info-fr-order">
                                         <div class="client-order">
-                                            <div class="client-order-num">Общий заказ № '.$model->id.'</div>
+                                            <div class="client-order-num">'.$order_status_label[$model->status].'</div>
                                             <div class="client-order-status '.$stat_class[$model->status].'"></div>
                                         </div>
                                         <div class="client-name">
@@ -173,6 +184,7 @@
             'удален',
             'новый',
             'в обработке',
+            'Одобренный',
             'оплаченый',
             'выполненный',
             'возврат'
@@ -196,7 +208,7 @@
         $(document).on("click", '.client-plate' ,function(){
             console.log($(this));
             if(!in_progress){
-                $('[class="client-plate client-active"]').removeClass('client-active');
+                $('.client-plate.client-active').removeClass('client-active');
                 in_progress = true;
                 $.ajax({
                     method:"post",
@@ -673,11 +685,12 @@
                         $disable_for_stepping = 'readonly';
                     }
 
-
-
-                    if(typeof (product_data.product.productsAttributesDescr[this[6]]) == 'undefined'){
-                        product_data.product.productsAttributesDescr[this[6]] = new Object;
+                    if(typeof (product_data.product.productsAttributesDescr[this[6]]) == "undefined" || product_data.product.productsAttributesDescr[this[6]].length == 0){
+                        product_data.product.productsAttributesDescr[this[6]]= new Object;
+                        product_data.product.productsAttributesDescr[this[6]].products_options_values_name = 'Без размера';
+                        product_data.product.productsAttributesDescr[this[6]].products_options_values_id = '';
                     }
+
                     if(typeof (product_data.product.productsDescription.products_name) == 'undefined'){
                         product_data.product.productsAttributesDescr[this[6]].products_name = new Object;
                         product_data.product.productsDescription['products_name'] = 'Имя не указанно';
@@ -702,7 +715,7 @@
                     str_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
                     str_html += "              <div style=\"font-weight: 400;\">Арт. "+order[1]+"<\/div>";
                     str_html += "              <div>"+order[7]+"<\/div>";
-                    str_html += "              <div>Размер: "+order[6]+"<\/div>";
+                    str_html += "              <div>Размер: "+product_data.product.productsAttributesDescr[this[6]].products_options_values_name+"<\/div>";
                     str_html += "          <\/div>";
                     str_html += "      <\/div>";
                     str_html += "      <div";
@@ -839,7 +852,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Редактировать комментарий
+                <h4>Редактировать комментарий</h4>
             </div>
             <div class="modal-body">
                 <div>

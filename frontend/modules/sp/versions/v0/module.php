@@ -2,16 +2,16 @@
 
 namespace frontend\modules\sp\versions\v0;
 
-class module extends \yii\base\Module
+use common\patch\ModuleExt;
+
+class module extends ModuleExt
 {
-    public $controllerNamespace = 'frontend\modules\sp\controllers\v0';
 
     public function init()
     {
+        $this->controllersDir = basename(__DIR__);
         if(\Yii::$app->user->isGuest == FALSE && (\Yii::$app->user->getIdentity()->getReferral()['id']) == TRUE){
             parent::init();
-            $this->setLayoutPath('@frontend/modules/sp/views/layouts');
-            $this->setViewPath('@frontend/modules/sp/views');
         }else{
             return \Yii::$app->runAction('index');
         }

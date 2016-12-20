@@ -29,17 +29,6 @@ class DefaultController extends Controller
         ActionMenu,
         ActionViewCart,
         ActionMyorder;
-
-    public function behaviors()
-    {
-        return [];
-    }
-
-    public function actions()
-    {
-        $this->layout = 'main';
-        return 'Личный кабинет';
-    }
 }
 
 
