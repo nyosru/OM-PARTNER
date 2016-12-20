@@ -96,6 +96,7 @@ unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
     $config['components']['urlManager']['rules']['<module:'.$key.'>/<action>'] = $key.'/default/<action>';
+
 }
 
 $application = new yii\web\Application($config);
@@ -176,7 +177,7 @@ if (function_exists('pinba_timer_start')) {
     $timer = pinba_timer_start(array('Tочка'=>'Работа'));
 }
 
-
+print_r(Yii::$app->params['constantapp']['APP_VERSION']);
 if(Yii::$app->params['seourls'] == TRUE) {
     $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event, $match) {
         \Yii::$app->urlManager->addRules([

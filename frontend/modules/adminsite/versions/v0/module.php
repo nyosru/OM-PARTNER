@@ -2,14 +2,9 @@
 
 namespace frontend\modules\adminsite\versions\v0;
 
-class module extends \yii\base\Module
-{
-    public $controllerNamespace = 'frontend\modules\adminsite\controllers\v0';
+use common\patch\ModuleExt;
 
-    public function init()
-    {
-        parent::init();
-        $this->setLayoutPath('@frontend/modules/adminsite/views/layouts');
-        $this->setViewPath('@frontend/modules/adminsite/views');
-    }
+class module extends ModuleExt
+{
+
 }
