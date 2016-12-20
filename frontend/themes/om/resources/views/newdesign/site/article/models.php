@@ -659,73 +659,27 @@ $kids = [
         'lenght_arms'=> 45
     ],
 ];
+?>
+<div class="container">
+    <?= \yii\bootstrap\Tabs::widget([
+        'options'=>['class'=>'product-tabs','style'=>['margin-top'=>'30px']],
+        'items' => [
+            [
+                'label' => 'Женщины',
+                'content' => $this->render('_models-tab',['models'=>$woman,'param'=>$param]),
+                'active' => true
+            ],
+            [
+                'label' => 'Мужчины',
+                'content' => $this->render('_models-tab',['models'=>$man,'param'=>$param]),
 
-$renderwoman = '';
-foreach($woman as $key=>$value){
-    $renderwoman .=
-        '<div style="width: calc(100% / 3 - 20px); float: left; margin: 10px;">'.
-        '<div style="float: left; width: 50%; height: 400px;">'.
-        '<div style="background: transparent url('.$value['img'].') no-repeat scroll 0% 0% / contain ; min-height: auto; height: 340px;"></div>'.
-        '</div>'.
-        '<div>';
-    unset($value['img']);
-    foreach($value as $keyparam=>$valueparam) {
-        $renderwoman .=     '<div style="padding: 0px 10px; font-size: 13px; font-weight: 400;">' . $param[$keyparam] . '</div>' . '<div style="padding: 0px 10px; font-size: 13px; font-weight: 300;">' . $valueparam . '</div>';
-    }
-    $renderwoman .='</div>'.
-        '</div>';
-}
-$renderman = '';
-foreach($man as $key=>$value){
-    $renderman .=
-        '<div style="width: calc(100% / 3 - 20px); float: left; margin: 10px;">'.
-        '<div style="float: left; width: 50%; height: 400px;">'.
-        '<div style="background: transparent url('.$value['img'].') no-repeat scroll 0% 0% / contain ; min-height: auto; height: 340px;"></div>'.
-        '</div>'.
-        '<div>';
-    unset($value['img']);
-    foreach($value as $keyparam=>$valueparam) {
-        $renderman .=     '<div style="padding: 0px 10px; font-size: 13px; font-weight: 400;">' . $param[$keyparam] . '</div>' . '<div style="padding: 0px 10px; font-size: 13px; font-weight: 300;">' . $valueparam . '</div>';
-    }
-    $renderman .='</div>'.
-        '</div>';
-}
+            ],
+            [
+                'label' => 'Дети',
+                'content' => $this->render('_models-tab',['models'=>$kids,'param'=>$param]),
 
-
-$renderkids = '';
-foreach($kids as $key=>$value){
-    $renderkids .=
-        '<div style="width: calc(100% / 3 - 20px); float: left; margin: 10px;">'.
-        '<div style="float: left; width: 50%; height: 400px;">'.
-        '<div style="background: transparent url('.$value['img'].') no-repeat scroll 0% 0% / contain ; min-height: auto; height: 340px;"></div>'.
-        '</div>'.
-        '<div>';
-    unset($value['img']);
-    foreach($value as $keyparam=>$valueparam) {
-        $renderkids .=     '<div style="padding: 0px 10px; font-size: 13px; font-weight: 400;">' . $param[$keyparam] . '</div>' . '<div style="padding: 0px 10px; font-size: 13px; font-weight: 300;">' . $valueparam . '</div>';
-    }
-    $renderkids .='</div>'.
-        '</div>';
-}
-echo \yii\bootstrap\Tabs::widget([
-    'options'=>['style'=>'float: left; width: 100%;'],
-    'items' => [
-        [
-            'label' => 'Женщины',
-            'content' => $renderwoman,
-            'active' => true
+            ],
         ],
-        [
-            'label' => 'Мужчины',
-            'content' => $renderman,
-
-        ],
-        [
-            'label' => 'Дети',
-            'content' => $renderkids,
-
-        ]
-
-    ]]); ?>
-
-
+    ]);
+    ?>
+</div>
