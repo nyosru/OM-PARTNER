@@ -1,5 +1,5 @@
 <?php if($news) { ?>
-    <section class="latest-blog wow bounceInUp animated">
+    <section class="latest-blog">
         <div class="container">
             <div class="new_title center">
                 <h2>Последние новости</h2>

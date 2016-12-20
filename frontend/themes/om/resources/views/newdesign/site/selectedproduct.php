@@ -15,7 +15,7 @@ $this->title = 'Избранные продукты';
                 method: 'post',
                 url: "/site/selectedproduct",
                 async: false,
-                data: {products:products},
+                data: {products:products,html:true},
                 success: function (data) {
                     $('.my-wishlist').html(data);
                 }
