@@ -136,7 +136,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 			<table class="products"><tbody>
 					<?php foreach ($result['data']['saveproduct'] as $key => $value) : ?>
 						<tr class="success-product">
-							<td colspan="2">Продукт доступен</td>
+							<td colspan="2">Товар доступен</td>
 						</tr>
 						<tr>
 							<td><img width="100" src="<?php echo BASEURL .'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id']; ?>" /></td>
@@ -199,7 +199,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 					html += '<table class="products"><tbody>';
 
 					for (var cartIndex in cart) {
-						html += '<tr class="fail-product"><td colspan="2">Продукт удален или отсутствует</td></tr>';
+						html += '<tr class="fail-product"><td colspan="2">Товар удален или отсутствует</td></tr>';
 						html += '<tr>';
 						html += '<td><img width="100" src="/imagepreview?src=' + cart[cartIndex][0] + '" /></td>';
 						html += '<td>';
