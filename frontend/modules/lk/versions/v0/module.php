@@ -11,6 +11,7 @@ class module extends ModuleExt
 
     public function init()
     {
+        $this->controllersDir = basename(__DIR__);
         parent::init();
         if(\Yii::$app->getUser()->isGuest){
             \Yii::$app->session->setFlash('info', 'Необходимо зарегистрироваться');
