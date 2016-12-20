@@ -15,10 +15,9 @@ Class ModuleExt extends Module
             $this->controllersDir = basename(__DIR__);
         }
         $this->controllerNamespace = 'frontend\modules\\' . $this->id . '\controllers\\' . $this->controllersDir;
-        $this->setLayoutPath('@frontend/themes/resources/modules/' .
-           // Yii::$app->params['constantapp']['APP_VERSION']['themesversion'] .
-            '/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/' . $this->id);
-        $this->setViewPath('@frontend/themes/resources/modules/' .
+        $this->setLayoutPath('@frontend/themes/'. Yii::$app->params['constantapp']['APP_VERSION']['themesversion'].'/resources/modules' .
+            '/' . Yii::$app->params['constantapp']['APP_THEMES'] . '/' . $this->id.'/layouts');
+        $this->setViewPath('@frontend/themes/'. Yii::$app->params['constantapp']['APP_VERSION']['themesversion'].'/resources/modules' .
           //  Yii::$app->params['constantapp']['APP_VERSION']['themesversion'] .
             '/' . Yii::$app->params['constantapp']['APP_THEMES'] .
              '/' . $this->id);
