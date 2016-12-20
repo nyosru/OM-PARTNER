@@ -47,13 +47,13 @@ $key = Yii::$app->cache->buildKey('domain-constants-' . md5($_SERVER['HTTP_HOST'
 if (($partner = Yii::$app->cache->get($key)) == FALSE  ) {
     if((
         $partners_data = PartnersDomain::find()
-        ->select([
-         Partners::tableName().'.*',
-         PartnersDomain::tableName().'.*'
-        ])
-        ->where(PartnersDomain::tableName().'.domain = :domain',[':domain'=>$_SERVER['HTTP_HOST']])
-        ->joinWith('partner')
-        ->asArray()->one()
+            ->select([
+                Partners::tableName().'.*',
+                PartnersDomain::tableName().'.*'
+            ])
+            ->where(PartnersDomain::tableName().'.domain = :domain',[':domain'=>$_SERVER['HTTP_HOST']])
+            ->joinWith('partner')
+            ->asArray()->one()
         ) == TRUE
     ){
         $partner['APP_ID'] = $partners_data['partner_id'];

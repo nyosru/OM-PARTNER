@@ -245,7 +245,7 @@ $this->beginPage();
     </div>
     <?php
     if(Yii::$app->user->isGuest) {
-     //   echo \frontend\widgets\SubscriptionWidget::widget();
+        echo \frontend\widgets\SubscriptionWidget::widget();
     }
     $this->endBody();
     Yii::$app->params['assetsite']->registerAssetFiles($this);
@@ -265,7 +265,8 @@ if(($ga = Yii::$app->session->get('ga'))){
     }
     $ga = Yii::$app->session->set('ga', []);
 }
-echo  \frontend\widgets\ReTargetVKWidget::widget();
+ echo \frontend\widgets\MailCounter::widget();
+ echo  \frontend\widgets\ReTargetVKWidget::widget();
  echo  \frontend\widgets\SlizaWidget::widget();
 ?>
 

@@ -65,7 +65,7 @@ $this->beginPage();
                     <div style="width: 33%;position: relative;display: inline-block;height: 100%;">
                         <div style="margin: 25px;position: absolute;bottom: 0px;top: 0px;right: 0px;left: 0px;font-size: 18px;font-weight: 400;text-align: left;line-height: 32px;">
                             <a class="lksp-main-menu" href="/sp/index">Заказы</a>
-                            <a class="lksp-main-menu" href="/sp/all-clients">Клиенты</a>
+                            <a class="lksp-main-menu" href="/sp/orders">Клиенты</a>
                             <a class="lksp-main-menu" href="/sp/common-orders">Сборка</a>   </div>
                         </div>
                     </div>
