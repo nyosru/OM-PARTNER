@@ -46,7 +46,7 @@ class HeaderFilterBarNew extends \yii\bootstrap\Widget
 
     public function run()
     {
-        return $this->render('header_filter_bar/' . $this->tpl, [
+        return $this->render('@partial/header_filter_bar/' . $this->tpl, [
             'sortOrderByData' => $this->sortOrderByData,
             'sortStatusData' => $this->sortStatusData,
             'dataProvider' => $this->dataProvider,
