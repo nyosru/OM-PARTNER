@@ -92,7 +92,7 @@ trait PreCheckProductsToOrder
                     if (in_array($region, $restricted_categories_to_region[$categories])) {
                         // Если нашли возвращаем ошибку валидации
                         $check = FALSE;
-                        return ['result' => $check, 'type' => 'restrictedregion', 'message' => 'Продукт не доступен в вашем регионе'];
+                        return ['result' => $check, 'type' => 'restrictedregion', 'message' => 'Товар не доступен в вашем регионе'];
                     }
                 }
             }
@@ -111,16 +111,16 @@ trait PreCheckProductsToOrder
                        $check = TRUE;
                    } else {
                        $check = FALSE;
-                       return ['result' => $check, 'type' => 'restrictedtime', 'message' => 'Продукт не доступен для заказа в это время'];
+                       return ['result' => $check, 'type' => 'restrictedtime', 'message' => 'Товар не доступен для заказа в это время'];
                    }
                } else {
                    $check = TRUE;
                }
            }
-            return ['result' => $check, 'type' => 'success', 'message' => 'Продукт доступен'];
+            return ['result' => $check, 'type' => 'success', 'message' => 'Товар доступен'];
         }else{
             $check = FALSE;
-            return ['result' => $check, 'type' => 'notexist', 'message' => 'Продукт удален или отсутствует'];
+            return ['result' => $check, 'type' => 'notexist', 'message' => 'Товар удален или отсутствует'];
         }
 
     }
