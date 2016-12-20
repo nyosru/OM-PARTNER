@@ -20,6 +20,7 @@ use frontend\modules\sp\controllers\actions\ActionAllClients;
 use frontend\modules\sp\controllers\actions\ActionAttachOrderToCommon;
 use frontend\modules\sp\controllers\actions\ActionChangeClientStatus;
 use frontend\modules\sp\controllers\actions\ActionChangeOrderStatus;
+use frontend\modules\sp\controllers\actions\ActionCheckAlerts;
 use frontend\modules\sp\controllers\actions\ActionClientStatus;
 use frontend\modules\sp\controllers\actions\ActionCommonOrders;
 use frontend\modules\sp\controllers\actions\ActionDeleteOrderFromCommonOrdersLinks;
@@ -45,6 +46,7 @@ class DefaultController extends Controller
 {
 
     use ActionIndex,
+        ActionCheckAlerts,
         ActionOrders,
         ActionOrdersEdit,
         ActionDeleteProductInOrder,

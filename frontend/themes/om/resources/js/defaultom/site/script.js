@@ -924,7 +924,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
         '</span></div>'+
         '</div></div>');
 }
-$(document).on('click keydown', '.lock-on', function () {
+$(document).on('click', '.lock-on', function () {
     $('html').prepend('<div class="preload"><div class="loading"></div></div>');
 
 });
