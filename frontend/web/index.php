@@ -177,7 +177,7 @@ if (function_exists('pinba_timer_start')) {
     $timer = pinba_timer_start(array('Tочка'=>'Работа'));
 }
 
-print_r(Yii::$app->params['constantapp']['APP_VERSION']);
+
 if(Yii::$app->params['seourls'] == TRUE) {
     $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event, $match) {
         \Yii::$app->urlManager->addRules([
