@@ -831,8 +831,14 @@
                     '<div style="display: inline-block;height: 150px;width: 25%; position: relative;"> ' +
                     '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
                     '<div style="font-weight: 400;">Арт. '+this[1]+'</div> ' +
-                    '<div>'+this[7]+'</div> ' +
-                    '<div>Размер: '+this[6]+'</div> ' +
+                    '<div>'+this[7]+'</div> ';
+                    $size = '';
+                    if(this[6] == false || this[6] == 'undefined' || this[6] == null){
+                        $size = 'Без размера';
+                    }else{
+                        $size = this[6];
+                    }
+                    $products +='<div>Размер: '+ $size+'</div> ' +
                     '</div> ' +
                     '</div> ' +
                     '<div style="display: inline-block;  height: 150px;float: right;width: 30%; position: relative;"> ' +
@@ -1007,8 +1013,14 @@
                     '<div style="display: inline-block;height: 150px;width: 20%; position: relative;"> ' +
                     '<div style="position: absolute;margin: 25px;line-height: 30px;"> ' +
                     '<div style="font-weight: 400;">Арт. '+this[1]+'</div> ' +
-                    '<div>'+this[7]+'</div> ' +
-                    '<div>Размер: '+this[6]+'</div> ' +
+                    '<div>'+this[7]+'</div> ';
+                    $size = '';
+                    if(this[6] == false || this[6] == 'undefined' || this[6] == null){
+                        $size = 'Без размера';
+                    }else{
+                        $size = this[6];
+                    }
+                    products_html +='<div>Размер: '+ $size+'</div> ' +
                     '</div> ' +
                     '</div> ' +
                     '<div style="display: inline-block;height: 150px;float: right;width: 60%;position: relative;"> ' +
