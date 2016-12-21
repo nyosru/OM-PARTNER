@@ -5,6 +5,7 @@ use common\models\PartnersProductsToCategories;
 use common\traits\GetSuppliers;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
+use common\traits\Products\GenerateFileChpu;
 use common\traits\Products\ProductsTableSizes;
 use common\traits\RecursCat;
 use common\traits\Manufacturers\LuxSuppliers;
@@ -12,7 +13,7 @@ use Yii;
 
 class ProductCard extends \yii\bootstrap\Widget
 {
-    use CatPath,Categories_for_partner,RecursCat, GetSuppliers, LuxSuppliers;
+    use CatPath,Categories_for_partner,RecursCat, GetSuppliers, LuxSuppliers, GenerateFileChpu;
     public $description;
     public $category = 0;
     public $product;
@@ -235,8 +236,26 @@ class ProductCard extends \yii\bootstrap\Widget
             '<span data-vis="size-item-card" data-vis-id-card="'.$product['products_id'].'">' . $attr_html . '</span>' .
             '</div>' .
             '</div>' .
-            $x.
-            '<a '.$product_itemprop_url.'  href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
+            $x;
+        $href = '';
+        if(
+            Yii::$app->params['seourls'] == TRUE &&
+            (
+                (
+                (isset($product['product_seo']) && $seourl = $product['product_seo'] ) ||
+                    ($seourl = $this->generateFileChpu(
+                        $description['products_name'],
+                        $product['products_id'],
+                        '',
+                        '')
+                    ) == TRUE
+                )
+            )){
+            $href = BASEURL .'/product/'.$seourl;
+        }else{
+            $href =  BASEURL . '/product?id=' . $product['products_id'];
+        }
+        $innerhtml.=   '<a '.$product_itemprop_url.'  href="'.$href.'" style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
             '</div>';
         echo $innerhtml;
     }

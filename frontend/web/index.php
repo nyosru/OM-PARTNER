@@ -187,14 +187,20 @@ if(Yii::$app->params['seourls'] == TRUE) {
 
             '<action:catalog>/<page:[0-9]*>' => '<action:catalog>',
             '<action:catalog>/<cat_start:[a-z-/]+>/<page:[0-9]*>' => '/catalog',
-            '<action:catalog>/<cat_start:[a-z-/]*>' => '/catalog'
+            '<action:catalog>/<cat_start:[a-z-/]*>' => '/catalog',
+
+            '<action:product>/<productid:[a-z-0-9-]*>' => '/product'
         ]);
         $req = \Yii::$app->urlManager->parseRequest(\Yii::$app->request);
-        if (($req[1]['action'] == 'catalog' || $req[1]['action'] == 'products-discount')) {
+        if (($req[1]['action'] == 'catalog'
+            ||
+            $req[1]['action'] == 'products-discount'
+            ||
+            $req[1]['action'] == 'product')) {
             \Yii::$app->params['chpu'] = $req[1];
             \Yii::$app->request->setPathInfo($req[1]['action']);
             \Yii::$app->request->url = $req[1]['action'];
-        } else if(preg_match('/\/(catalog|products-discount)$/iu',$req[0], $success)){
+        } else if(preg_match('/\/(catalog|products-discount|product)$/iu',$req[0], $success)){
             $req[1]['action'] = $success[1];
             \Yii::$app->params['chpu'] = $req[1];
             \Yii::$app->request->setPathInfo($success[1]);
