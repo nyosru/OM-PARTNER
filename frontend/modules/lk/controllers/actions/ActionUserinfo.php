@@ -114,6 +114,10 @@ trait ActionUserinfo
         $customer->loadUserProfile();
         \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
 
-        return $this->render('lkuserinfo', ['cust' => $customer, 'savelk' => $savelk]);
+        return $this->render('lkuserinfo', [
+            'cust' => $customer,
+            'savelk' => $savelk,
+            'user' => $cust,
+        ]);
     }
 }
