@@ -731,6 +731,20 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
         $discounthtml += '<div style="position: absolute; top: 5px; background: rgb(0, 165, 161) none repeat scroll 0% 0%; padding: 7px; line-height: 10px; left: 5px; color: aliceblue; font-weight: 600; font-size: 15px; border-radius: 4px;">-' + $discount + ' %</div>';
         $discounthtml += '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;"  itemprop="old-price" ><strike>' + $product['products_old_price'] + ' руб.</strike></div>';
     }
+    $href = '';
+    if(seo_urls && $product['product_seo']){
+        $href = '<a itemprop="url" href="/site/product/'+$product['product_seo'] + '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+            '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
+            '</i>'+
+            'В карточку'+
+            '</a>';
+    }else{
+        $href = '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+        '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
+        '</i>'+
+        'В карточку'+
+        '</a>';
+    }
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+$man_lux+renderSeason($product["season_code"])+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
         '<a id="prod-info" data-prod="' + $product.products_id + '" >'+$subImage+
@@ -755,13 +769,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
         '</span>'+
         '</div>'+
         '</div>'+
-
-        '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
-        '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
-        '</i>'+
-        'В карточку'+
-        '</a>'+
-
+        $href+
         ''+$timeprew+''+
         '</div></div>');
 }
@@ -890,6 +898,20 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     }else{
         $product.products_ordered = 'Заказано: '+ $product.products_ordered;
     }
+    $href = '';
+    if(seo_urls && $product['product_seo']){
+        $href =  '<a itemprop="url" href="/site/product/' + $product['product_seo']+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
+        '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
+        '</i>'+
+        'В карточку'+
+        '</a>';
+    }else{
+        $href =  '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
+        '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
+        '</i>'+
+        'В карточку'+
+        '</a>';
+    }
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
         '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
@@ -905,11 +927,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
         '</i>'+
         '</div>'+
         '</div>'+
-        '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
-        '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
-        '</i>'+
-        'В карточку'+
-        '</a>'+
+        $href+
         '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price"  style="margin-left:130px;" >'+
         '<div itemprop="price" style="font-size: 18px; font-weight: 500;">'+
         Math.round($product.products_price) + ' Руб.'+
@@ -1677,7 +1695,16 @@ $(document).on('click','#prod-info',function(){
             }else{
                 $ordered = 'Заказано: '+data['product']['products']['products_ordered'];
             }
-
+            $href = '';
+            if(seo_urls && data['product']['products']['product_seo']){
+                $href =   '<a href="/site/product/' + data['product']['products']['product_seo'] + '" style="color:#007BC1;font-weight: 600;">' +
+                'Перейти к полному описанию товара' +
+                '</a>';
+            }else{
+                $href =   '<a href="/site/product?id=' + data.product.products_id + '" style="color:#007BC1;font-weight: 600;">' +
+                'Перейти к полному описанию товара' +
+                '</a>';
+            }
             $prod_html += '<div class="prod-attr" style="width: 100%; position: relative;float: left; overflow: hidden;">' +
                 '<div class="prod-show" style="position: relative; float: left;width: 100%;">' +
                 '<div class="col1" style="float: left; width: 50%;position: relative;overflow: hidden; min-width: 430px;margin-left:4px;">' +
@@ -1739,9 +1766,7 @@ $(document).on('click','#prod-info',function(){
                 data.product.productsDescription.products_description + ' ' + $spec_html + '' +
                 '</div>' +
                 '<div>' +
-                '<a href="/site/product?id=' + data.product.products_id + '" style="color:#007BC1;font-weight: 600;">' +
-                'Перейти к полному описанию товара' +
-                '</a>' +
+                $href +
                 '<span style="float: right;padding-right: 10px;">' +
                 'Добавлено: ' + data.product.products.products_date_added +
                 '</span>' +
