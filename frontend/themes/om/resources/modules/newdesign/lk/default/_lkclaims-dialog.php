@@ -8,7 +8,7 @@ Modal::begin([
     'header' => '<h2>Претензии</h2>',
     'toggleButton' => [
         'tag' => 'button',
-        'class' => 'btn btn-lg btn-block btn-info show-dialog',
+        'class' => 'button btn-block btn-info show-dialog',
         'data-opid' => $data->orders_products_id,
         'label' => 'ОТКРЫТЬ',
     ]

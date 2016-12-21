@@ -46,6 +46,10 @@ trait ActionClaims
         ]);
         \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
 
-        return $this->render('lkclaims',['dataProvider'=>$dataProvider,'model'=>$ordersProducts]);
+        return $this->render('lkclaims',[
+            'dataProvider' => $dataProvider,
+            'model' => $ordersProducts,
+            'cust' => $cust,
+        ]);
     }
 }
