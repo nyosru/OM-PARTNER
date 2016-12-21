@@ -242,8 +242,8 @@ class ProductCard extends \yii\bootstrap\Widget
             Yii::$app->params['seourls'] == TRUE &&
             (
                 (
-                    $product['product_seo'] ||
-                    ($product['product_seo'] = $this->generateFileChpu(
+                (isset($product['product_seo']) && $seourl = $product['product_seo'] ) ||
+                    ($seourl = $this->generateFileChpu(
                         $description['products_name'],
                         $product['products_id'],
                         '',
@@ -251,7 +251,7 @@ class ProductCard extends \yii\bootstrap\Widget
                     ) == TRUE
                 )
             )){
-            $href = BASEURL .'/product/'.$product['product_seo'];
+            $href = BASEURL .'/product/'.$seourl;
         }else{
             $href =  BASEURL . '/product?id=' . $product['products_id'];
         }
