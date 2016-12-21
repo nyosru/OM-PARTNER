@@ -8,6 +8,8 @@ use Yii;
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
+use yii\web\HttpException;
 
 trait ActionProduct
 {
@@ -17,7 +19,6 @@ trait ActionProduct
         Yii::$app->params['paramset']['relproducts']['value'] = 10;
         $relProd = [];
 
-
         if (Yii::$app->request->isGet && (($id = (integer)Yii::$app->request->getQueryParam('model')) == TRUE)) {
             $param = 'products_model';
         }elseif(Yii::$app->request->isGet && (($id = (integer)Yii::$app->request->getQueryParam('id')) == TRUE)) {
@@ -26,8 +27,16 @@ trait ActionProduct
             $param = 'products_id';
         }elseif(Yii::$app->request->isPost && ($id = (integer)Yii::$app->request->post('model')) == TRUE){
             $param = 'products_model';
+        }else if(isset(\Yii::$app->params['chpu']['productid'])){
+          $check = str_replace('-','/',Yii::$app->params['chpu']['productid']);
+             if(file_exists(Yii::getAlias('@app/runtime/productcache/'.$check))){
+                 $id = end(explode('/', $check));
+                 $param = 'products_id';
+             }else{
+                 throw new HttpException(404 ,'Not found');
+             }
         }else{
-            return $this->redirect('/');
+            throw new HttpException(404 ,'Not found');
         }
 
         if ($id > 0 && ($x = PartnersProducts::find()->select('MAX(products.`products_last_modified`) as products_last_modified, MAX(products_date_added) as add_date, products_id,products_model')->where([$param => trim($id)])->createCommand()->queryOne()) == TRUE) {
