@@ -733,13 +733,13 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     }
     $href = '';
     if(typeof(seo_urls) != 'undefined' && seo_urls  && $product['product_seo']){
-        $href = '<a itemprop="url" href="/site/product/'+$product['product_seo'] + '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+        $href = '<a itemprop="url" href="/product/'+$product['product_seo'] + '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
             '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
             '</i>'+
             'В карточку'+
             '</a>';
     }else{
-        $href = '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
+        $href = '<a itemprop="url" href="/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
         '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
         '</i>'+
         'В карточку'+
@@ -748,7 +748,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
     $('.bside').append('<div class="container-fluid float" itemscope itemtype="http://schema.org/ProductModel" id="card" itemid="' + $product.products_id+ '">'+$man_in_sklad+$man_lux+renderSeason($product["season_code"])+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
         '<a id="prod-info" data-prod="' + $product.products_id + '" >'+$subImage+
-        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
+        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/imagepreview?src=' + $product.products_id + ');">'+
         '</div>'+ $discounthtml+
         '<div  itemprop="model" class="model" style="display:none">' + $product.products_model + '</div>' +
         '<div  itemprop="description" class="model" style="display:none">' +$descriptionprod.products_description + '</div>' +
@@ -900,13 +900,13 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     }
     $href = '';
     if(typeof(seo_urls) != 'undefined' && seo_urls && $product['product_seo']){
-        $href =  '<a itemprop="url" href="/site/product/' + $product['product_seo']+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
+        $href =  '<a itemprop="url" href="/product/' + $product['product_seo']+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
         '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
         '</i>'+
         'В карточку'+
         '</a>';
     }else{
-        $href =  '<a itemprop="url" href="/site/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
+        $href =  '<a itemprop="url" href="/product?id=' + $product.products_id+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
         '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
         '</i>'+
         'В карточку'+
@@ -914,7 +914,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
     }
     $('.bside').append('<div class="inht" itemid="' + $product.products_id+ '" itemscope itemtype="http://schema.org/ProductModel"><div class="container-fluid float"  id="card2" >'+$man_in_sklad+
         '<div id="prod-info" data-prod="' + $product.products_id + '" >'+
-        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/site/imagepreview?src=' + $product.products_id + ');">'+
+        '<div data-prod="'+$product.products_id+'" id="prod-data-img" style="clear: both; min-height: 300px; min-width: 200px; background: no-repeat scroll 50% 50% / contain url(/imagepreview?src=' + $product.products_id + ');">'+
         '<meta itemprop="image" content="/imagepreview?src=' + $product['products_id'] + '">' +
         '</div>'+$discounthtml+'</div>'+
         ''+$timeprew+''+
@@ -1178,7 +1178,7 @@ $(document).on('keyup', '.search', function () {
     $text = $text[$count - 1];
     if ($text.length > 0) {
         $.ajax({
-            url: '/site/searchword',
+            url: '/searchword',
             data: {'filt': $text},
             async: true,
             success: function (data) {
@@ -1312,9 +1312,9 @@ $(window).on('load', function () {
 });
 
 $(document).on('click', '#profile-info', function () {
-    $(location).attr('href','/site/lk');
+    $(location).attr('href','/lk/');
     $.post(
-        "/site/requestadress",
+        "/requestadress",
         {ship: 'flat1_flat1'},
         onAjaxProfileSuccessinfo
     );
@@ -1328,7 +1328,7 @@ $(document).on('click', '#profile-info', function () {
         }
         $('#profile-telephone-info').html(data[9].telephone.Телефон);
         $.post(
-            "/site/requestemail",
+            "/requestemail",
             onAjaxemailSuccessinfo
         );
 
@@ -1393,7 +1393,7 @@ function onAjaxSuccessinfo(data) {
 	  $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",
-        url: "/site/countryrequest",
+        url: "/countryrequest",
         data: '',
         dataType: "json",
         success: function (out) {
@@ -1421,7 +1421,7 @@ function onAjaxSuccessinfo(data) {
     });
     $.ajax({
         type: "GET",
-        url: "/site/zonesrequest",
+        url: "/zonesrequest",
         data: 'id=' + $check,
         dataType: "json",
         success: function (out2) {
@@ -1444,7 +1444,7 @@ function onAjaxSuccessinfo(data) {
         $('#country-drop').hide();
         $.ajax({
             type: "GET",
-            url: "/site/zonesrequest",
+            url: "/zonesrequest",
             data: 'id=' + this.getAttribute('data-country'),
             dataType: "json",
             success: function (out2) {
@@ -1514,7 +1514,7 @@ $(document).on('click','.product-menu',function() {
         jQuery('.product-menu-rel').attr('style','display:none');
     }});
 $(document).on('click', '[data-ajax=time]', function(){
-    $.post('/site/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
+    $.post('/timeorderproducts?id='+$(this).attr('data-href'), function( data ) {
         if($("#time").length) {
             $('#time').html(data);
             $('#overlay')
@@ -1538,7 +1538,7 @@ $(document).on('click','#prod-info',function(){
         $size_html = '';
         $spec_html = '';
 
-        $.post('/site/product', {id: dp}, function (data) {
+        $.post('/product', {id: dp}, function (data) {
             $spec_html = '<div class="spec" style="margin-top:25px; ">';
             $.each(data['spec'].productsSpecification, function (i, item) {
                 if (typeof(data['spec']['specificationDescription'][item.specifications_id]) != "undefined") {
@@ -1575,10 +1575,10 @@ $(document).on('click','#prod-info',function(){
                 $size_html += '<div class="cart-lable" style="left:0; background: #E9516D;">Продано</div>';
             }
 
-            $imgs = new Array('/site/imagepreview?src=' + data['product']['products']['products_id']);
+            $imgs = new Array('/imagepreview?src=' + data['product']['products']['products_id']);
             $imgs2 = new Array(data['product']['products']['products_image']);
             $.each(data['images'], function(i,index){
-                $imgs.push('/site/imagepreview?src=' + data['product']['products']['products_id']+'&amp;sub='+i);
+                $imgs.push('/imagepreview?src=' + data['product']['products']['products_id']+'&amp;sub='+i);
                 $imgs2.push(data['images'][i]);
             });
 
@@ -1697,11 +1697,11 @@ $(document).on('click','#prod-info',function(){
             }
             $href = '';
             if(typeof(seo_urls) != 'undefined' && seo_urls && data['product']['products']['product_seo']){
-                $href =   '<a href="/site/product/' + data['product']['products']['product_seo'] + '" style="color:#007BC1;font-weight: 600;">' +
+                $href =   '<a href="/product/' + data['product']['products']['product_seo'] + '" style="color:#007BC1;font-weight: 600;">' +
                 'Перейти к полному описанию товара' +
                 '</a>';
             }else{
-                $href =   '<a href="/site/product?id=' + data.product.products_id + '" style="color:#007BC1;font-weight: 600;">' +
+                $href =   '<a href="/product?id=' + data.product.products_id + '" style="color:#007BC1;font-weight: 600;">' +
                 'Перейти к полному описанию товара' +
                 '</a>';
             }
@@ -1736,7 +1736,7 @@ $(document).on('click','#prod-info',function(){
                 '<div class="prodname" itemprope="name" style="font-size: 24px;margin-bottom: 15px; text-align: left; ">' +
                 data['product']['productsDescription']['products_name'] +
                 '</div>' +
-                '<a itemprop="url" href="/site/product?id=' + dp + '">' +
+                '<a itemprop="url" href="/product?id=' + dp + '">' +
                 '</a>' +
                 '</div>' +
                 '<div class="prod-pricing" style="margin-bottom: 25px;">' +
@@ -2037,14 +2037,14 @@ function drawLeftCart($item){
 
         requestdata = $.ajax({
             method:'post',
-            url: "/site/product",
+            url: "/product",
             async: false,
             data: {id: this[0]}
         });
 
         mandata = $.ajax({
             method:'post',
-            url: "/site/manlist",
+            url: "/manlist",
             async: false,
             data: {data: requestdata.responseJSON.product.products.manufacturers_id}
         });
