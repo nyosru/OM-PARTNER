@@ -732,7 +732,7 @@ function renderProduct($prod,$descr,$attrib,$attribdescr,$time,$category, $showd
         $discounthtml += '<div style="font-size: 18px; color:#9e9e9e; font-weight: 300; margin: 5px;"  itemprop="old-price" ><strike>' + $product['products_old_price'] + ' руб.</strike></div>';
     }
     $href = '';
-    if(seo_urls && $product['product_seo']){
+    if(typeof(seo_urls) != 'undefined' && seo_urls  && $product['product_seo']){
         $href = '<a itemprop="url" href="/site/product/'+$product['product_seo'] + '"  style="float: right; position: absolute; bottom: 9px; right: 12px; font-size: 12px; font-weight: 500;">'+
             '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
             '</i>'+
@@ -899,7 +899,7 @@ function renderProduct2($prod,$descr,$attrib,$attribdescr,$time,$category, $show
         $product.products_ordered = 'Заказано: '+ $product.products_ordered;
     }
     $href = '';
-    if(seo_urls && $product['product_seo']){
+    if(typeof(seo_urls) != 'undefined' && seo_urls && $product['product_seo']){
         $href =  '<a itemprop="url" href="/site/product/' + $product['product_seo']+ '"  style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;">'+
         '<i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;">'+
         '</i>'+
@@ -1696,7 +1696,7 @@ $(document).on('click','#prod-info',function(){
                 $ordered = 'Заказано: '+data['product']['products']['products_ordered'];
             }
             $href = '';
-            if(seo_urls && data['product']['products']['product_seo']){
+            if(typeof(seo_urls) != 'undefined' && seo_urls && data['product']['products']['product_seo']){
                 $href =   '<a href="/site/product/' + data['product']['products']['product_seo'] + '" style="color:#007BC1;font-weight: 600;">' +
                 'Перейти к полному описанию товара' +
                 '</a>';

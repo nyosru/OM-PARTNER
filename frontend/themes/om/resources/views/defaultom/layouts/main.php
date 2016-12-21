@@ -36,6 +36,9 @@ $this->beginPage();
         <?=\frontend\widgets\Metrics::widget();?>
     </head>
     <body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
+    <script>
+        var seo_urls = <?=Yii::$app->params['seourls']?>
+    </script>
     <?php $this->beginBody(); ?>
     <div class="wrap" >
         <?php
