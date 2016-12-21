@@ -129,54 +129,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> '/catalog?cat=1729',
+                'image' =>  'OM_19122016_1.png',
+                'referal'=> '/catalog?cat=1725',
                 'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
+                'alttext' => 'Короткие платья',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_14122016_2.png',
-                'referal'=> '/product?id=1774488',
+                'image' =>  'OM_19122016_2.png',
+                'referal'=> '/catalog?cat=1819',
                 'term'=> '',
-                'alttext' => 'Уютные кофточки',
+                'alttext' => 'Шарфы женскиеи',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_14122016_3.png',
-                'referal'=> '/catalog?cat=992',
+                'image' =>  'OM_19122016_3.png',
+                'referal'=> '/catalog?searchword=&cat=1990&count=&start_price=0&end_price=8474&date_start=&date_end=&sfilt%5B%5D=2409',
                 'term'=> '',
-                'alttext' => 'Теплые колготки для зимнего образа',
+                'alttext' => 'Сапоги',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_14122016_4.png',
-                'referal'=> '/catalog?cat=1434',
+                'image' => 'OM_19122016_4.png',
+                'referal'=> '/catalog?cat=835',
                 'term'=> '',
-                'alttext' => 'Наряд для маленькой принцессы',
+                'alttext' => 'Сумки женские',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_14122016_5.png',
-                'referal'=> '/catalog?cat=1725',
+                'image' => 'OM_19122016_5.png',
+                'referal'=> '/catalog?cat=1751&sfilt%5B%5D=2409',
                 'term'=> '',
-                'alttext' => 'В новый год на корпоратив',
+                'alttext' => 'Зимние куртки и пуховики',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_14122016_6.png',
-                'referal'=> 'https://www.instagram.com/odezhda_master/',
-                'alttext' => 'Топ 5 лучших товаров каждый день',
+                'image' => 'OM_19122016_6.png',
+                'referal'=> 'https://play.google.com/store/apps/details?id=com.codegeek.omshopmobile',
+                'alttext' => 'Приложение Одежда Мастер',
                 'out' => TRUE
             ]
         ],
