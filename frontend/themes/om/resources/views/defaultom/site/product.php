@@ -94,12 +94,27 @@ if(!$product['products']['products_image']){
                 <div class="col1" style="float: left; width: 50%;position: relative;left: 52%;overflow: hidden; min-width: 550px;">
                     <div style="padding-bottom: 10px; margin-bottom: 5px;">
                         <?php
-                        $breadcruumpsresult = array();
-                        foreach ($catpath['num'] as $breadcrumpskey => $breadcrumpsvalue){
-                            $breadcruumpsresult[] = '<a href="/catalog?cat='.$breadcrumpsvalue.'">'.$catpath['name'][$breadcrumpskey].'</a>';
+                        $chpu = new \common\traits\Categories\CategoryChpuClass();
+                        if ($catpath['num'] != 0) {
+                            foreach ($catpath['num'] as $key => $catid) {
+                                $paste = [];
+                                if(Yii::$app->params['seourls'] == TRUE){
+                                    if(!$chpu->categoryChpu($catid)){
+                                        $paste = '/catalog'.'?cat='.$catid;
+                                    }else{
+                                        $paste =  '/catalog'.'/'.$chpu->categoryChpu($catid);
+                                    }
+                                    echo '<a href="' . $paste . '" class="lock-on">';
+                                    echo $catpath['name'][$key];
+                                    echo ' / </a>';
+                                }else{
+                                    $paste = '/catalog'.'?cat='.$catid;
+                                    echo '<a href="' . $paste . '" class="lock-on">';
+                                    echo $catpath['name'][$key];
+                                    echo ' / </a>';
+                                }
+                            }
                         }
-                        $breadcruumpsresult = implode(' / ', $breadcruumpsresult);
-                        echo $breadcruumpsresult;
                         ?>
                     </div>
                     <div class="prod-img" style="overflow: hidden; margin-bottom: 10px;">

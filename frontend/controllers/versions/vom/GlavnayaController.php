@@ -19,6 +19,7 @@ use common\traits\Orders\OrdersToOm;
 use common\traits\Orders\OrdersToReferrer;
 use common\traits\OrdersStatusData;
 use common\traits\Products\FeaturedProducts;
+use common\traits\Products\GenerateFileChpu;
 use common\traits\Products\NewProducts;
 use common\traits\Products\PreCheckProductsToOrder;
 use common\traits\Products\RelatedProducts;
@@ -218,6 +219,7 @@ class GlavnayaController extends Controller
         ActionSuppliersLux,
         ActionPreCheckProductToOrders,
         ActionSubscription,
+        GenerateFileChpu,
         AggregateCatalogData;
 
 
