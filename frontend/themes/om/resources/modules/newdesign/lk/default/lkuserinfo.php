@@ -22,13 +22,31 @@ foreach($cust['delivery'] as $key=>$value){
     }
 }
 if($i!=-1) {
-    $renderForm = $this->render('_lkuserinfo-form',['title'=>'Грузополучатель','key'=>$i,'cust'=>$cust]);
+    $renderForm = $this->render('_lkuserinfo-form',['title'=>'Грузополучатель','value'=>'deliv','key'=>$i,'cust'=>$cust]);
 } else {
     $renderForm = '<p>Адрес доставки не выбран. Перейдите на вкладку "Адресная книга" и выберите его</p>';
 }
 ?>
-
-<div class="container">
+<style>
+    .page-userinfo .krajee-datepicker{
+        margin: 0;
+    }
+    .page-userinfo input.form-control {
+        width: 100%;
+    }
+    .page-userinfo .dropdown-menu {
+        width: 100%;
+        padding: 5px 0;
+    }
+    .page-userinfo .dropdown-menu>li{
+        padding: 0 15px;
+        cursor: pointer;
+    }
+    .page-userinfo .dropdown-menu>li:hover{
+        background-color: #f5f5f5;
+    }
+</style>
+<div class="container page-userinfo">
     <div class="row" style="margin: 15px 0;">
         <?=$this->render('_navlk',['user'=>$user])?>
         <div class="col-sm-9">
@@ -37,10 +55,12 @@ if($i!=-1) {
         </div>
         <p>Эта информация никогда не будет доступна третьим лицам</p>
 
+        <?php if($savelk==true){ ?>
+            <div class="alert alert-info">
+                <p>Изменения были сохранены</p>
+            </div>
+        <?php } ?>
         <?php
-        if($savelk==true){
-            echo '<div style="color: blue;padding: 0px 20px;margin-bottom: 20px;">Изменения были сохранены</div>';
-        }
         $sorter = '';
         $cs = count($tab_order);
         for($i=0; $i<$cs; $i++){
@@ -74,11 +94,11 @@ if($i!=-1) {
             'items' => [
                 [
                     'label' => 'Мои данные',
-                    'content' => $this->render('_lkuserinfo-form',['title'=>'Пользователь','key'=>$defid,'cust'=>$cust]),
+                    'content' => $this->render('_lkuserinfo-form',['title'=>'Пользователь','value'=>'user','key'=>$defid,'cust'=>$cust]),
                     'active' => true
                 ], [
                     'label' => 'Данные плательщика',
-                    'content' => $this->render('_lkuserinfo-form',['title'=>'Плательщик','key'=>$payid,'cust'=>$cust]),
+                    'content' => $this->render('_lkuserinfo-form',['title'=>'Плательщик','value'=>'customer','key'=>$payid,'cust'=>$cust]),
                 ], [
                     'label' => 'Данные грузополучателя',
                     'content' => $renderForm,
