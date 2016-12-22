@@ -45,7 +45,7 @@ $this->title = 'Регистрация';
 <?= $form->field($model, 'fax', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Факс'); ?>
 <?= $form->field($model, 'emails', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->label('Электронная почта'); ?>
 <?php $model->spam = 1;?>
-<?= $form->field($model, 'spam', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->checkbox()->label('Уведомлять о доступных промо-кодах, подарках и спецпредложениях'); ?>
+<?= $form->field($model, 'spam', ['options'=>['class' => 'col-md-12'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->checkbox(['style'=>'width: 20px;'])->label('Уведомлять о доступных промо-кодах, подарках и спецпредложениях'); ?>
 
 <div class="regmain" style="font-weight: 400; margin: 15px;">Мой пароль</div>
 <?= $form->field($model, 'password', ['options'=>['class' => 'col-md-4'], 'inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;'], 'labelOptions'=>['style'=>'font-weight:300; font-size:12px;']])->passwordInput()->passwordInput()->label('Пароль') ?>
