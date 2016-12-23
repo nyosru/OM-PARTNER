@@ -352,22 +352,24 @@ trait AggregateCatalogData
                     $end_price_query_filt = '';
                 }
                 if ($searchword != '') {
-                    if (preg_match('/^[0-9\s]+/', $searchword)) {
+                    if (preg_match('/^([\s]*([0-9]+[\s]*)+[\s]*)$/iu', $searchword)) {
                         $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '%' . trim(str_replace(' ', '', $searchword)) . '%';
                         $prod_search_query_filt = '  and products.products_model LIKE :searchword ';
                         $nostat = true;
                         $nosfilt = true;
-                    } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
-                        $patternkey = 'patternsearch2-' . urlencode(trim($searchword));
+                    } elseif (preg_match('/^([\s]*([0-9a-zа-я\-\+\_]+[\s]*)+[\s]*)$/iu', $searchword)) {
+                        $patternkey = 'patternsearch8-' . urlencode(trim($searchword));
                         $patterndata = Yii::$app->cache->get($patternkey);
                         if (!$patterndata) {
-                            $valsearchin = explode('+', $searchword);
+                            $valsearchin = explode(' ', $searchword);
+                            $valsearchin = array_diff($valsearchin, array(''));
                             if (is_array($valsearchin)) {
                                 foreach ($valsearchin as $search) {
                                     if ($search != '') {
                                         $valsearch[] = $this->sklonenie(trim($search));
                                     }
                                 }
+                                $valsearch = array_diff($valsearch, array(''));
                                 $searchword = implode('|', $valsearch);
 
                             } else {
@@ -376,9 +378,11 @@ trait AggregateCatalogData
                             Yii::$app->cache->set($patternkey, ['data' => $searchword], 86400);
                         } else {
                             if (is_array($patterndata['data'])) {
-                                $searchword = implode('|', $searchword['data']);
+                                $searchword = array_diff($patterndata['data'], array(''));
+                                $searchword = implode('|', $searchword);
                             } else {
                                 $searchword = explode(' ', $patterndata['data']);
+                                $searchword = array_diff($searchword, array(''));
                                 $searchword = implode('|', $searchword);
                             }
                         }
