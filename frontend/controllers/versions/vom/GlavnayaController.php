@@ -212,7 +212,7 @@ class GlavnayaController extends Controller
         ActionInviteSP,
         ActionInvite,
         ActionProductsDiscount,
-        ActionDiscountProducts,
+      //  ActionDiscountProducts,
         OrdersToOm,
         OrdersToReferrer,
         ActionRegisterSuccess,
