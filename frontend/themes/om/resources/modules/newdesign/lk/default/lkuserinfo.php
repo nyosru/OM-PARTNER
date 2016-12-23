@@ -38,6 +38,9 @@ if($i!=-1) {
         width: 100%;
         padding: 5px 0;
     }
+    .page-userinfo .form-group{
+        position: relative;
+    }
     .page-userinfo .dropdown-menu>li{
         padding: 0 15px;
         cursor: pointer;
