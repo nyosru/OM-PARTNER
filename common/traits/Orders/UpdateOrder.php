@@ -10,12 +10,8 @@ class UpdateOrder
      * @param array $client_order_products
      * @return PartnersOrders
      */
-    public function updateOrderWithClientProducts(PartnersOrders $order, $client_order_products)
+    public function updateOrderWithClientProducts(PartnersOrders $order, $client_order_products = [])
     {
-
-        if (!is_array($client_order_products)) {
-            return $order;
-        }
 
         $un_order = unserialize($order->order);
 
