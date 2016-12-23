@@ -1069,12 +1069,6 @@
 }
 
 
-.input-searcncommon-order:focus {
-    width: 300px;
-    border: 2px solid #ffea00;
-    background-color: #ffffff;
-    outline: none;
-}
 
 .list-child:hover {
     cursor: pointer;
