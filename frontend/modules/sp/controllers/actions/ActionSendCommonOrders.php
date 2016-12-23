@@ -42,10 +42,10 @@ trait ActionSendCommonOrders
         if(Yii::$app->request->post('form')){
             $formmodel->idorder = (integer)Yii::$app->request->post('form');
            $formmodel->renderForm();
-           return '22';
+           return;
        }elseif(Yii::$app->request->isPjax && !$formmodel->validate()){
             $formmodel->renderForm();
-           return '22';
+           return;
        }elseif(Yii::$app->request->isPjax && $formmodel->validate()){
             $x = $this->CommonOrdersToOm(
                 $formmodel->idorder,
@@ -58,7 +58,7 @@ trait ActionSendCommonOrders
             echo BaseHtmlPurifier::process($x);
        }else{
             $formmodel->renderForm();
-            return '14';
+            return;
        }
 
     }

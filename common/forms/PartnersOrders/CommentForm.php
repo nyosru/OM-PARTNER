@@ -96,7 +96,7 @@ class CommentForm extends Model
                 return $this->addError('comment', 'Заказ не сохранен');
             }
         }else{
-            return $this->addError('comment', 'Заказ не найден 23');
+            return $this->addError('comment', 'Заказ не найден');
         }
     }
 
@@ -125,7 +125,7 @@ class CommentForm extends Model
                 return $this->addError('comment', 'Заказ не сохранен');
             }
         }else{
-            return $this->addError('comment', 'Заказ не найден 23');
+            return $this->addError('comment', 'Заказ не найден');
         }
     }
 
