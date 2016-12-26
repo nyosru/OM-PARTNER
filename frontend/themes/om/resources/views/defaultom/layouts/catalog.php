@@ -268,6 +268,7 @@ if(($ga = Yii::$app->session->get('ga'))){
     }
     $ga = Yii::$app->session->set('ga', []);
 }
+echo \frontend\widgets\StatWidget::widget();
  echo \frontend\widgets\MailCounter::widget();
  echo  \frontend\widgets\ReTargetVKWidget::widget();
  echo  \frontend\widgets\SlizaWidget::widget();

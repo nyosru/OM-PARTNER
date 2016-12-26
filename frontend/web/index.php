@@ -5,8 +5,10 @@ use common\models\PartnersSettings;
 use common\models\PartnersDomain;
 use common\traits\ThemeResourcesClass;
 use frontend\assets\AppAsset;
-
-
+ob_start("ob_gzhandler", 32);
+if (function_exists('pinba_script_name_set')) {
+    pinba_script_name_set($_SERVER['REQUEST_URI']);
+}
 set_time_limit ( 120 );
 date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR);
@@ -31,10 +33,26 @@ $versions = require(__DIR__ . '/../config/versions.php');
 $application = new yii\web\Application($config);
 
 
-function off($application){
-    $application->db->close();
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['error', 'warning'],
+    'categories' => ['yii\swiftmailer\Logger::add'],
+    'logFile' => '@frontend/runtime/logs/mail-err/mail-err.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
+$config['components']['log']['targets'][] = [
+    'class' => 'yii\log\FileTarget',
+    'levels' => ['error', 'warning'],
+    'logFile' => '@frontend/runtime/logs/error/error.log',
+    'maxFileSize' => 1024 * 2,
+    'maxLogFiles' => 1000
+];
+
+function off(){
+    Yii::$app->db->close();
 }
-register_shutdown_function('off', $application);
+register_shutdown_function('off');
 
 if($application->params['construct'] == TRUE){
     echo '<html><body>';
@@ -215,3 +233,5 @@ if (function_exists('pinba_timer_stop')) {
     pinba_timer_stop($timer);
 
 }
+Yii::$app->db->close();
+ob_end_flush();

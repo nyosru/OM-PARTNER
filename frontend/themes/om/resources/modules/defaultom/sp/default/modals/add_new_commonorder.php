@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Создать объединенный заказ
+                <div class="header"><h4>Создать объединенный заказ<span class="recipient_name"></span></h4></div>
             </div>
             <div class="modal-body">
                 <?php

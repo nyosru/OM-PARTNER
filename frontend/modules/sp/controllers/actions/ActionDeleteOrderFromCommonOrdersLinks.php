@@ -47,6 +47,7 @@ trait ActionDeleteOrderFromCommonOrdersLinks
         ;
 
         if (!$common_order || !$order || !$referral_user) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не является новым или же отсутствует');
             return false;
         }
 
@@ -57,8 +58,10 @@ trait ActionDeleteOrderFromCommonOrdersLinks
         ;
 
         if ($exist_common_order_link && $exist_common_order_link->delete()) {
+            \Yii::$app->getSession()->setFlash('success', 'Удача, заказ удален и общего заказа');
             return true;
         } else {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не может быть удален');
             return false;
         }
 
