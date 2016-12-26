@@ -2,30 +2,20 @@
 
 namespace frontend\widgets;
 
+use common\models\PartnersProducts;
+
 class CatLandGenerator extends \yii\bootstrap\Widget
 {
     /**
      * @var string
      */
     public $header_tpl = '';
-    /**
-     * @var array
-     * [
-     *      'special_header' => 'Some text'
-     * ]
-     */
     public $header_config = [];
 
     /**
      * @var string
      */
     public $content_tpl = '';
-    /**
-     * @var array
-     * [
-     *      'products' => [(int)article, (int)article, (int)article]
-     * ]
-     */
     public $content_config = [];
 
     /**
@@ -64,7 +54,9 @@ class CatLandGenerator extends \yii\bootstrap\Widget
      */
     public function renderHeader()
     {
-        return $this->render('@partial/cat-landing/header/' . $this->header_tpl);
+        return $this->render('@partial/cat-landing/header/' . $this->header_tpl, [
+            'header_config' => ($this->header_config['header_title']) ? $this->header_config['header_title'] : 'Тут должен быть заголовок',
+        ]);
     }
 
     /**
@@ -72,7 +64,13 @@ class CatLandGenerator extends \yii\bootstrap\Widget
      */
     public function renderContent()
     {
-        return $this->render('@partial/cat-landing/content/' . $this->content_tpl);
+        $id_data = explode(',', $this->content_config['content_list_products']);
+        $content_list_products = PartnersProducts::find()->where(['products_id' => $id_data])->asArray()->all();
+
+        return $this->render('@partial/cat-landing/content/' . $this->content_tpl, [
+            'content_list_products' => $content_list_products,
+            'special_offer'         => ($this->content_config['special_offer']) ? $this->content_config['special_offer'] : 'Тут должен быть заголовок',
+        ]);
     }
 
     /**
