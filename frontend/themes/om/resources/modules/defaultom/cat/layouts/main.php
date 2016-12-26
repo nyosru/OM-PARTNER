@@ -1,4 +1,12 @@
-<!doctype html>
+<?php
+
+/* @var $this \yii\web\View */
+/* @var $content string */
+\frontend\assets\AppAsset::register($this);
+rmrevin\yii\fontawesome\AssetBundle::register($this);
+$this->beginPage();
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +16,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>Document</title>
+    <?php $this->head(); ?>
 </head>
 
 <style>
@@ -73,16 +82,57 @@
         width: 100%;
     }
 
-    .preview_zoom {
-        /*zoom: 50%;*/
-    }
     .center {margin: 0 auto; text-align: center}
     .preview_window_box .preview_window { box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, .5);}
     /*widow*/
     .header_bar {margin-bottom: 20px;z-index: 1; text-align: center;  height: 55px;border-bottom: 1px solid rgb(204, 204, 204);}
     .header_bar_img { margin: 0 auto; background-color: #F5F5F5;  text-align: center; z-index: 2; width: 190px}
-    .special_header { text-align: center; margin-bottom: 20px}
-    .about_text { font-size: 16px; text-align: justify;}
+    .special_header {display: flex; text-align: center; margin-bottom: 20px}
+    .about_text { font-size: 16px;}
+
+    #owl_lend_products {
+        display: flex;
+    }
+    #owl_lend_products .item{
+        display: flex;
+        background: #F5F5F5;
+        margin: 10px;
+        color: #FFF;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        text-align: center;
+        border: 1px solid #e3e3e3;
+        min-height: 450px;
+        border-radius: 2px;
+        min-width: 245px;
+        max-width: 300px;
+        padding: 20px;
+    }
+    #owl_lend_products .item .product-photo{
+        display: flex;
+        min-height: 350px;
+    }
+    #owl_lend_products .item .product-photo .img-block{
+        margin: auto 0;
+    }
+    #owl_lend_products .item .price-product-cat {
+        margin-top: 25px;
+        display: block;
+    }
+    #owl_lend_products .item .price-product-cat .strike{
+        font-size: 18px;
+        color: #9e9e9e;
+        font-weight: 300;
+        text-decoration: line-through;
+    }
+    #owl_lend_products .item .price-product-cat .new-price{
+        font-size: 18px;
+        font-weight: 500;
+        /*margin: -5px 5px;*/
+        color: black;
+    }
+
+    #owl_lend_products .item:hover {box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);  }
 
     @media all and ( min-width: 600px ) {
 
@@ -108,6 +158,9 @@
         .col-1-8 {
             width: 12.5%;
         }
+        .col-9-10 {
+            width: 90%;
+        }
         .preview_zoom {
             zoom: 50%;
         }
@@ -115,8 +168,16 @@
     }
 </style>
 <body>
+<?php $this->beginBody(); ?>
+<?= \frontend\widgets\Alert::widget(); ?>
 <div class="wrapper">
     <?= $content; ?>
 </div>
+
+<?php
+$this->endBody();
+Yii::$app->params['assetsite']->registerAssetFiles($this);
+?>
 </body>
 </html>
+<?php $this->endPage() ?>

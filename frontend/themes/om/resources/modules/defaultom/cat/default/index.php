@@ -13,43 +13,54 @@
             <div class="header center">
                 <h3 class="">Настройки лендинга</h3>
             </div>
-            <div style="max-width: 300px; margin: 0 auto;">
-<!--                --><?//= $this->render('forms/config');?>
+            <div style="max-width: 600px; margin: 0 auto;">
                 <?php
 
                 use yii\helpers\Html;
                 use yii\widgets\ActiveForm;
 
-                $form = ActiveForm::begin();
-                $model = new \common\forms\Cat\CatLandConfigForm();
+                $form = ActiveForm::begin(['method'=> 'post', 'id' => 'save_land_config', 'action' => 'preview-land']);
 
                 echo $form->field($model, 'header_tpl')
                     ->label('Шапка')
                     ->dropdownList([
                         'default' => 'Стандартный',
-                        ''        => 'ТЕСТ!',
                     ], ['prompt' => 'Выберите вид'])
+                ;
+
+                echo $form->field($model, 'header_title')
+                    ->label('Заголовок')
                 ;
 
                 echo $form->field($model, 'content_tpl')
                     ->label('Контейнер')
                     ->dropdownList([
                         'default' => 'Стандартный',
-                        ''        => 'ТЕСТ!',
                     ], ['prompt' => 'Выберите вид'])
+                ;
+                echo $form->field($model, 'content_list_products')
+                    ->label('Отоборанные товары для контейнера (через запятую "," введите id товаров)')
+                ;
+
+                echo $form->field($model, 'special_offer')->label('Специальное предложение')->input('text')
+                    ->widget('\vova07\imperavi\Widget', [
+                        'settings' => [
+                            'verifiedTags' => ['div', 'a', 'img', 'b', 'strong', 'sub', 'sup', 'i', 'em', 'u', 'small', 'strike', 'del', 'cite', 'ul', 'ol', 'li'],
+                            'lang'         => 'ru',
+                            'minHeight'    => 200,
+                            'plugins'      => ['fontsize', 'fontcolor', 'table']]])
                 ;
 
                 echo $form->field($model, 'footer_tpl')
                     ->label('Подвал')
                     ->dropdownList([
                         'default' => 'Стандартный',
-                        ''        => 'ТЕСТ!',
                     ], ['prompt' => 'Выберите вид'])
                 ;
                 ?>
 
                 <div class="form-group">
-                    <?= Html::button('Предварительный просмотр', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::button('Предварительный просмотр', ['class' => 'btn btn-primary', 'name' => 'cat-lend-config']) ?>
                 </div>
                 <div class="form-group">
                     <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
@@ -64,7 +75,18 @@
                     <h3 class="">Окно предпросмотра рекламной страницы</h3>
                 </div>
                 <div class="wrapper preview_zoom preview_window">
-                    <?= \frontend\widgets\CatLandGenerator::widget() ?>
+                    <?php
+                    \yii\widgets\Pjax::begin([
+                        'id'              => 'cat-lend-config',
+                        'enablePushState' => false,
+                    ]);
+                    ?>
+
+                    <?= \frontend\widgets\CatLandGenerator::widget($land_config) ?>
+
+                    <?php
+                    \yii\widgets\Pjax::end();
+                    ?>
                 </div>
             </div>
         </div>
