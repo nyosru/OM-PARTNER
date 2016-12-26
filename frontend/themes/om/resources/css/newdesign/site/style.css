@@ -15166,4 +15166,11 @@ a#fancybox-close {
 	}
 
 }
+.pritenphotoimg{
+    display: block;
+    width: 50%;
+    float: left;
+    height: 130px;
+    margin: 5px 0;
+}
 
