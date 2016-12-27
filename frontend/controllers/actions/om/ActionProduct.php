@@ -29,13 +29,13 @@ trait ActionProduct
         }elseif(Yii::$app->request->isPost && ($id = (integer)Yii::$app->request->post('model')) == TRUE){
             $param = 'products_model';
         }else if(isset(\Yii::$app->params['chpu']['productid'])){
-          $check = str_replace('-','/',Yii::$app->params['chpu']['productid']);
-             if(file_exists(Yii::getAlias('@app/runtime/productcache/'.$check))){
-                 $id = end(explode('/', $check));
-                 $param = 'products_id';
-             }else{
-                 throw new HttpException(404 ,'Not found');
-             }
+            $check = str_replace('-','/',Yii::$app->params['chpu']['productid']);
+            if(file_exists(Yii::getAlias('@app/runtime/productcache/'.$check))){
+                $id = end(explode('/', $check));
+                $param = 'products_id';
+            }else{
+                throw new HttpException(404 ,'Not found');
+            }
         }else{
             throw new HttpException(404 ,'Not found');
         }
