@@ -6784,6 +6784,7 @@ ul#magicat li .open-close, .block-layered-nav dt .toggleBtn {
 	border-bottom: 0 solid #ccc;
 	margin: 0;
 	padding: 0 5px;
+    padding-bottom: 15px;
 }
 
 .sidebar address {
@@ -8155,6 +8156,15 @@ ol#compare-items li.last {
 	margin: auto;
 }
 
+.pagination > li.disabled > span{
+    box-shadow: none;
+    border: 1px solid #eaeaea;
+    padding: 5px 10px;
+    border-radius: 0px;
+    color: #333;
+    background: #f8f8f8;
+}
+
 .pager .pages li {
 	display: inline-block;
 }
@@ -8247,7 +8257,11 @@ ol#compare-items li.last {
 	font-family: FontAwesome;
 	font-size: 16px;
 }
-
+.bottom_arrow:before {
+    content: '\f107';
+    font-family: FontAwesome;
+    font-size: 16px;
+}
 #sort-by .button-desc {
 	background-color: #f8f8f8;
 	box-shadow: none;
@@ -8287,16 +8301,16 @@ ol#compare-items li.last {
 	cursor: pointer;
 	margin: 0 auto;
 	outline: medium none;
-	padding: 5px 15px;
+	padding: 5px 10px;
 	position: relative;
-	width: 100px;
+	width: 130px;
 	float: left;
 	color: #333;
 	border: 1px solid #eaeaea;
 }
 
 #sort-by li li {
-	width: 100px;
+	width: 130px;
 	margin-top: 0px;
 	border-top: none;
 	border-right: none;
@@ -15172,5 +15186,8 @@ a#fancybox-close {
     float: left;
     height: 130px;
     margin: 5px 0;
+}
+.krajee-datepicker.form-control{
+    margin: 0;
 }
 
