@@ -41,7 +41,7 @@ trait ActionOrders
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($ds)) {
-                $query->andWhere('date_added >= "' . $ds.' 23-59-59"');
+                $query->andWhere('date_added >= "' . $ds.' 00-00-01"');
             }
         }
 
