@@ -372,11 +372,8 @@
                 success: function(data) {
                     checkAlerts();
                     if(data == true) {
-                        button_to_common_order.text('В заказе №'+id_common_order);
+                        $('.edit-line .panel-title').html('<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+ id_common_order);
                         common_order_detail.text('В объединенном заказе №:'+id_common_order);
-                        setTimeout(function() {
-                            button_to_common_order.text(old_text)
-                        }, 4000);
                     } else {
                         button_to_common_order.text('Ошибка!');
                         setTimeout(function() {
@@ -485,20 +482,20 @@
             setTimeout(function() {
                 var new_value = input_count.val();
                 var product_id = input_count.attr('data-prod');
-                var attr = input_count.attr('data-attr');
+                var data_attr = input_count.attr('data-attr');
                 var price = input_count.attr('data-price');
                 var index_product_card = input_count.attr('data-index-product');
-                updateUpdatedDataCountProducts(product_id, attr, new_value);
+                updateUpdatedDataCountProducts(product_id, data_attr, new_value);
                 updateTotalOrder();
                 $('.final-product-price'+index_product_card).text(Math.round(price) * Math.round(new_value) + " р.");
             }, 50);
 
         });
 
-        function updateUpdatedDataCountProducts(product_id, attr, new_value) {
+        function updateUpdatedDataCountProducts(product_id, data_attr, new_value) {
             $.each(updated_main_data.order.order['products'], function(index_product, product){
                 if(typeof product !== 'undefined') {
-                    if (product[0] == product_id) {
+                    if (product[0] == product_id && product[2] == data_attr) {
                         updated_main_data.order.order['products'][index_product][4] = new_value;
                         return true;
                     }
