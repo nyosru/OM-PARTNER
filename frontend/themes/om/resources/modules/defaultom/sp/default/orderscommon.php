@@ -104,7 +104,7 @@
                                 <div class="line-info-orders">
                                     <div class="client-info-fr-order">
                                         <div class="client-order">
-                                            <div class="client-order-num">'.$order_status_label[$model->status].'</div>
+                                            <div class="client-order-num">№ '.$model->id.'</div>
                                             <div class="client-order-status '.$stat_class[$model->status].'"></div>
                                         </div>
                                         <div class="client-name">
@@ -160,13 +160,14 @@
                     \yii\widgets\Pjax::end();
                     ?>
                 </div>
-
                 <div class="modal-footer">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<?= $this->render('modals/comment_to_product.php')?>
 
 <?= $this->render('modals/add_new_commonorder.php')?>
 
@@ -201,12 +202,23 @@
             '<div class="client-old"></div>',
             '<div class="client-vip"></div>'
         ];
+
+        var stat_class = [
+             'status-cancel',
+             'status-new',
+             'status-proceed',
+             'status-like',
+             'status-payed',
+             'status-ordered',
+             'status-return',
+        ];
+
         var orders_list = new Object();
         var in_progress = false;
         var common_orders_list = new Object();
+        var input_searcncommon_order = false;
 
         $(document).on("click", '.client-plate' ,function(){
-            console.log($(this));
             if(!in_progress){
                 $('.client-plate.client-active').removeClass('client-active');
                 in_progress = true;
@@ -224,7 +236,6 @@
                         in_progress = false;
                     }
                 }).done(function (data) {
-                    console.log(data);
                     $('[data-detail="'+data.id+'"]').addClass('client-active');
                     orders_list = data;
                     renderOrders(orders_list);
@@ -236,38 +247,51 @@
         });
 
         $(document).on('click', '.common-order', function(){
-            var act = $(this).attr('data-act');
-            var request = $(".input-searcncommon-order").val();
+            var act = $(this).closest('.panel-default').find('.common-order-refresh').attr('data-act');
+            var request = $(this).closest('.panel-default').find(".input-searcncommon-order").val();
             common_orders_list = requestCommon(act, request);
             renderCommonList(common_orders_list);
 
         });
-        function updateAllOrdersView(updated_orders_list) {
+
+
+        $(document).on('click', '.common-order-refresh', function(){
+            var act = $(this).attr('data-act');
+            var request =  $(this).closest('.panel-default').find(".input-searcncommon-order").val();
+            common_orders_list = requestCommon(act, request);
+            renderCommonList(common_orders_list);
+        });
+
+        function updateAllOrdersView(updated_orders_list, client_plate_update = false) {
             var final_common_price = 0;
 
             $.each(updated_orders_list.partnerOrders, function(index_partner_orders, partner_orders){
 
                 var final_order_price = 0;
-                var total_count_products = Object.keys(partner_orders.order['products']).length;
+                var total_count_products = 0;
+                if (partner_orders.order['products'] != null && partner_orders.order['products'].length > 0) {
+                    total_count_products = Object.keys(partner_orders.order['products']).length;
+                }
                 $.each(partner_orders.order['products'], function(index_order, product){
 
-                    final_order_price += Math.round(product[3] * product[4]);
+                    final_order_price += Math.round(product[3]) * Math.round(product[4]);
                 });
 
                 final_common_price += final_order_price;
                 $('.final_order_price'+partner_orders.id).text(final_order_price+ " р.");
                 $('.total_count_products'+partner_orders.id).text(total_count_products);
-                $('')
             });
 
-            $('[data-detail="'+updated_orders_list.id+'"]').find('.client-info-fr-price').find('div').text(final_common_price +" руб.");
+            if(client_plate_update) {
+                $('[data-detail="'+updated_orders_list.id+'"]').find('.client-info-fr-price').find('div').text(final_common_price +" руб.");
+            }
 
         }
 
 
         function refresh_list(){
-            var act = $(this).attr('data-act');
-            var request = $(".input-searcncommon-order").val();
+            var act = $(this).closest('.panel-default').children('common-order-refresh').attr('data-act');
+            var request = $(this).closest('.panel-default').children(".input-searcncommon-order").val();
             common_orders_list = requestCommon(act, request);
             renderCommonList(common_orders_list);
 
@@ -311,7 +335,7 @@
 
 
 
-        var input_searcncommon_order = false;
+
         $(document).on('click', '.searcncommon-order', function(){
             $(".input-searcncommon-order").val('');
             if(input_searcncommon_order == true) {
@@ -324,9 +348,11 @@
         });
 
         $(document, ".input-searcncommon-order").keyup(function(event){
+
             if(event.keyCode == 13){
-                var act = $(".common-order").attr('data-act');
-                var request = $(".input-searcncommon-order").val();
+                var panel_footer = $(event.target).closest('.panel-footer');
+                var act = panel_footer.children(".common-order-refresh").attr('data-act');
+                var request = $(event.target).val();
                 common_orders_list = requestCommon(act, request);
                 renderCommonList(common_orders_list);
             }
@@ -357,6 +383,7 @@
                             button_to_common_order.text(old_text)
                         }, 2500);
                     }
+                    checkAlerts();
                 }
             });
         });
@@ -365,7 +392,7 @@
         function updateCommonTotalOrder(){
             var total = 0;
             setTimeout(function() {
-                $x =    $('[class^="final-product-price"]');
+                $x =    $('[class*="final-product-price"]');
                 $.each($x, function(){
                     total = total + parseInt($(this).text());
                 });
@@ -393,9 +420,9 @@
                 var order_id = input_count.attr('data-order-id');
                 var index_product_card = input_count.attr('data-index-product');
                 updateCountProducts(product_id, attr, new_value, order_id);
-                updateAllOrdersView(orders_list);
+                updateAllOrdersView(orders_list, false);
                 updateCommonTotalOrder();
-                $('.final-product-price'+index_product_card+'-'+order_id).text(Math.round(price * new_value) + " р.");
+                $('.final-product-price'+index_product_card+'-'+order_id).text(Math.round(price) * Math.round(new_value) + " р.");
             }, 50);
         }
         function updateCountProducts(product_id, attr, new_value, order_id) {
@@ -445,8 +472,10 @@
                             }
                         }
                     });
-                    updateAllOrdersView(orders_list);
+                    updateAllOrdersView(orders_list, false);
+
                 }
+                checkAlerts();
             });
         });
 
@@ -472,7 +501,7 @@
                 });
             });
             click_object.closest(".product-card-common").hide("fast");
-            updateAllOrdersView(orders_list);
+            updateAllOrdersView(orders_list, false);
         });
 
         var new_product = new Object();
@@ -538,13 +567,45 @@
                         orders_list.partnerOrders = partnerOrders;
                         renderOrders(orders_list);
                         updateCommonTotalOrder();
-                        updateAllOrdersView(orders_list);
+                        updateAllOrdersView(orders_list, true);
                     }
-
                     checkAlerts();
                 }
             });
         });
+
+        $(document).on('click', '.product-comment', function (){
+            var comment_id = $(this).attr('data-product');
+            var comment_attr =  $(this).attr('data-attr');
+            var comment_order =  $(this).attr('data-order');
+            var comment_text = $('[comment-'+comment_order+'-'+comment_id+'-'+comment_attr+']').text();
+            $.post(
+                '/sp/add-position-order-comments',
+                {
+                    id: comment_id,
+                    attr: comment_attr,
+                    order: comment_order,
+                    comment: comment_text
+                },
+                function (data) {
+                    $('.comment-content-body').html('<div>'+data+'</div>');
+                });
+        });
+
+
+        // Скрытие списка с объединенными заказами
+        $(document).on('click', '.common-order[href*="#collapse-list-attach-order"]', function () {
+            var id_collapse = $(this).attr('href');
+            $('.collapse-list-attach-order:not('+id_collapse+')').collapse('hide');
+        });
+
+        $(document).on('click', function (e) {
+            var collapse_blocks = $("[id*='collapse-list-attach-order']");
+            if (collapse_blocks.has(e.target).length === 0){
+                collapse_blocks.collapse('hide');
+            }
+        });
+        /******************************************/
 
         function renderOrders(data) {
 
@@ -554,10 +615,12 @@
             var common_id = data.id;
             $.each(data.partnerOrders, function(index_partner_orders, partner_orders){
                 var final_order_price = 0;
-
-                var total_count_products = Object.keys(partner_orders.order['products']).length;
+                var total_count_products = 0;
+                if (partner_orders.order['products'] != null && partner_orders.order['products'].length > 0) {
+                    total_count_products = Object.keys(partner_orders.order['products']).length;
+                }
                 $.each(partner_orders.order['products'], function(index_order, product){
-                    final_order_price += Math.round(product[3] * product[4]);
+                    final_order_price += Math.round(product[3]) * Math.round(product[4]);
                 });
                 final_common_price += final_order_price;
                 var user_name = '';
@@ -597,7 +660,7 @@
                 str_html += "                     <div class=\"client-info-li-order\">";
                 str_html += "                         <div class=\"client-order\">";
                 str_html += "                             <div class=\"client-order-num\"> № "+partner_orders.id+"<\/div>";
-                str_html += "                             <div class=\"client-order-status status-new\"><\/div>";
+                str_html += "                             <div class=\"client-order-status "+ stat_class[partner_orders.status] +"\"><\/div>";
                 str_html += "                         <\/div>";
                 str_html += "                         <div class=\"client-name-in\">";
                 str_html += "                             "+user_name+"";
@@ -638,10 +701,10 @@
                 str_html += "                             <div class=\"product-delete order\">";
                 str_html += "                                 <a href='#'>Удалить из общего заказа</a>";
                 str_html += "                             <\/div>";
-                str_html += "                             <div style='cursor: pointer' class=\"orders-swap common-order orders-swap-id"+partner_orders.id+"\"  data-toggle=\"collapse\" href=\"#collapse-list-attach-order-"+index_partner_orders+"\" aria-expanded=\"true\">";
+                str_html += "                             <div style='cursor: pointer' class=\"orders-swap common-order orders-swap-id"+partner_orders.id+"\"  data-toggle=\"collapse\" data-parent=\"#product-plane\" href=\"#collapse-list-attach-order-"+index_partner_orders+"\" aria-expanded=\"true\">";
                 str_html += "                                 Переместить в общий заказ №";
                 str_html += "                             <\/div>";
-                str_html +=         '<div id="collapse-list-attach-order-'+index_partner_orders+'" class="panel-collapse collapse" style="z-index: 999; border: 1px solid rgb(245, 245, 245); width: 270px; position: absolute;margin-left: 45px;"> ' +
+                str_html +=         '<div id="collapse-list-attach-order-'+index_partner_orders+'" class="collapse-list-attach-order panel-collapse collapse" style="z-index: 999; border: 1px solid rgb(245, 245, 245); width: 270px; position: absolute;margin-left: 45px;"> ' +
                     '<div class="panel-body" style="background: rgb(254, 254, 254) none repeat scroll 0% 0%;">' +
                     '<div class="list"></div></div> ' +
                     '<div class="panel-footer" style="line-height: 0px;">' +
@@ -649,7 +712,7 @@
                     '<div class="searcncommon-order"  style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
                     '<i class="mdi">&#xE8B6;</i>' +
                     '</div>' +
-                    '<div class="common-order" data-act="refresh" style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
+                    '<div class="common-order-refresh" data-act="refresh" style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
                     '<i class="mdi">&#xE042;</i>' +
                     '</div>' +
                     '<div data-toggle="modal" data-target="#modal-common"  style="display: inline; font-size: 24px; padding: 5px; cursor: pointer;">' +
@@ -704,22 +767,24 @@
                     str_html += "<div style=\"\" class=\"product-card-common order-"+index_order+" product-"+index_order+"\">";
                     str_html += "<div class = \"access "+$identypay+"\">"+$access+"</div><hr style=\"height: 10px;margin: 0px;\" />";
 
-                    str_html += " <div style=\"\" class=\"product-main-board\">";
+                    str_html += " <div style=\"display: flex;\" class=\"product-main-board\">";
                     str_html += "      <div";
-                    str_html += "          style=\"display: inline-block;min-width: 100px;height: 150px;width: 19%;position: relative;\">";
-                    str_html += "          <img height=\"100%\" src=\"\/imagepreview?src="+order[0]+"\"";
-                    str_html += "               style=\"position: absolute; left: 0px; right: 0px;margin: auto;\">";
+                    str_html += "          style=\"display: inline-block;min-width: 100px;min-height: 150px;width: 19%;position: relative; margin-top: 25px;\">";
+                    str_html += '       <div style="margin: 0 auto;display: inline-block;min-height: 150px;position: relative;"> ';
+                    str_html += "          <img  src=\"\/imagepreview?src="+order[0]+"\"";
+                    str_html += "               style=\"width: 100%;position: relative;\">";
+                    str_html += "      <\/div>";
                     str_html += "      <\/div>";
                     str_html += "      <div";
-                    str_html += "          style=\"display: inline-block;height: 150px;width: 20%; position: relative;\">";
-                    str_html += "          <div style=\"position: absolute;margin: 25px;line-height: 30px;\">";
+                    str_html += "          style=\"display: inline-block;width: 20%;\">";
+                    str_html += "          <div style=\"position: relative;margin: 25px;line-height: 30px;\">";
                     str_html += "              <div style=\"font-weight: 400;\">Арт. "+order[1]+"<\/div>";
                     str_html += "              <div>"+order[7]+"<\/div>";
                     str_html += "              <div>Размер: "+product_data.product.productsAttributesDescr[this[6]].products_options_values_name+"<\/div>";
                     str_html += "          <\/div>";
                     str_html += "      <\/div>";
                     str_html += "      <div";
-                    str_html += "          style=\"display: inline-block;height: 150px;float: right;width: 60%;position: relative;\">";
+                    str_html += "          style=\"display: inline-block;min-height: 150px;float: right;width: 60%;position: relative;\">";
                     str_html += "          <div";
                     str_html += "              style=\"line-height: 30px;display: inline-block;width: 30%;position: absolute;top: 0px;left: 0px;bottom: 0px;margin: auto;height: 80%;\">";
                     str_html += "              <div>";
@@ -783,15 +848,16 @@
                     str_html += "                  <\/div>";
                     str_html += "                  <div class=\"final-product-price"+index_order+"-"+partner_orders.id+"\"";
                     str_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
-                    str_html += "                      "+Math.round(order[3] * order[4])+" р.";
+                    str_html += "                      "+(Math.round(order[3]) * Math.round(order[4])) +" р.";
                     str_html += "                  <\/div>";
                     str_html += "              <\/div>";
                     str_html += "          <\/div>";
                     str_html += "      <\/div>";
                     str_html += "  <\/div>";
                     str_html += "  <div style=\"position: relative;\">";
-                    str_html += "      <div";
+                    str_html += "      <div data-toggle=\"modal\" data-target=\"#modal-comment\"";
                     str_html += "          style=\"cursor:pointer;color: #5b8acf;position: absolute;left: 0px;\"";
+                    str_html += "           data-order='"+partner_orders.id+"' data-attr='"+product_data.product.productsAttributesDescr[order[6]].products_options_values_id+"' data-product="+product_data.product.products_id+" " ;
                     str_html += "          class=\"product-comment\">";
                     str_html += "          Добавить комментарий к товару";
                     str_html += "      <\/div>";
@@ -810,7 +876,7 @@
             });
 
             $('.datacontainer').html(
-                '<div>' +
+                '<div id="accordion-common-list">' +
                 '<div style="margin-bottom: 25px;" class="order-line">' +
                 '<span data-order="'+data.id+'"  class="common-num-order">Общий заказ № '+data.id+'</span>' +
                 '<span class="date-order">от '+moment(data.date_added).format("D MMMM  YYYY")+'</span>' +
@@ -827,6 +893,8 @@
                 '</div>' +
                 '<div style="min-height: 100px"></div>'
             );
+
+
             $(document).on('click', '.create-common-order', function () {
                 $.ajax({
                         url: '/sp/send-common-orders',

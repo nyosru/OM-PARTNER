@@ -26,6 +26,9 @@ $this->beginPage();
     <?=\frontend\widgets\Metrics::widget();?>
 </head>
 <body style="font-family: Open Sans,Helvetica Neue,sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
+<script>
+    var seo_urls = <?=Yii::$app->params['seourls']?>
+</script>
 <?php $this->beginBody(); ?>
 <div class="wrap">
     <?php
@@ -64,7 +67,7 @@ $this->beginPage();
                 if(!(int)Yii::$app->request->getQueryParam('cat')){
                    $cat = 0;
                 }
-                $keyCache = Yii::$app->cache->buildKey('Right-13lkjlkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
+                $keyCache = Yii::$app->cache->buildKey('Right-13lkj234lkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['customcat'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
                 if($this->beginCache($keyCache, ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
@@ -265,6 +268,7 @@ if(($ga = Yii::$app->session->get('ga'))){
     }
     $ga = Yii::$app->session->set('ga', []);
 }
+echo \frontend\widgets\StatWidget::widget();
  echo \frontend\widgets\MailCounter::widget();
  echo  \frontend\widgets\ReTargetVKWidget::widget();
  echo  \frontend\widgets\SlizaWidget::widget();

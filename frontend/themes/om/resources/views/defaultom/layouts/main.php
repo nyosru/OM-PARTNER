@@ -36,6 +36,9 @@ $this->beginPage();
         <?=\frontend\widgets\Metrics::widget();?>
     </head>
     <body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
+    <script>
+        var seo_urls = <?=Yii::$app->params['seourls']?>
+    </script>
     <?php $this->beginBody(); ?>
     <div class="wrap" >
         <?php
@@ -67,7 +70,7 @@ $this->beginPage();
                 </div>
                 <div  class="partners-main-left"  id="scroll1"
                       style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <?php if($this->beginCache('Right-13lkjlkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
+                    <?php if($this->beginCache('Right-13l234kjlkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['customcat'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
                         <div class="partners-main-left-cont">
                             <?= \frontend\widgets\RightTopMenuLinks::widget();
                             if(isset(Yii::$app->params['layoutset']['opencat'])){
@@ -200,6 +203,7 @@ $this->beginPage();
      }
      $ga = Yii::$app->session->set('ga', []);
  }
+ echo \frontend\widgets\StatWidget::widget();
  echo \frontend\widgets\MailCounter::widget();
  echo  \frontend\widgets\ReTargetVKWidget::widget();
  echo  \frontend\widgets\SlizaWidget::widget();

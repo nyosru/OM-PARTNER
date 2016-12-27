@@ -4,6 +4,7 @@ namespace frontend\controllers\actions\om;
 use common\models\PartnersCatDescription;
 use common\models\ProductImage;
 use common\models\ProductsSpecifications;
+use php_rutils\RUtils;
 use Yii;
 use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
@@ -66,75 +67,134 @@ trait ActionProduct
             $data = Yii::$app->cache->get($keyprod);
             $d1 = trim($checkcache);
             $d2 = trim($data['last']);
-            if (!$data || ($d1 !== $d2)) {
-                $data = PartnersProductsToCategories::find()->JoinWith('products')->where('products.'.$param.'=:id', [':id' => $id])->JoinWith('productsDescription')->JoinWith('productsAttributes')->groupBy(['products.`products_id` DESC'])->JoinWith('productsAttributesDescr')->joinWith('subImage')->asArray()->all();
+            if ( !$data || ($d1 !== $d2)) {
+                $data =  PartnersProductsToCategories::find()
+                    ->where('products.'.$param.'=:id', [':id' => $id])
+                    ->joinWith('products')
+                    ->joinWith('productsDescription')
+                    ->joinWith('productsAttributes')
+                    ->joinWith('productsAttributesDescr')
+                    ->joinWith('productsSpecification')
+                    ->joinWith('specificationValuesDescription')
+                    ->joinWith('specificationDescription')
+                    ->joinWith('subImage')
+                    ->asArray()->all();
                 $data = end($data);
-                unset(
-                    $data['old_categories_id'],
-                    $data['products']['country_id'],
-                    $data['products']['date_checked'],
-                    $data['products']['imagenew'],
-                    $data['products']['products_image_lrg'],
-                    $data['products']['products_image_med'],
-                    $data['products']['products_image_sm_1'],
-                    $data['products']['products_image_sm_2'],
-                    $data['products']['products_image_sm_3'],
-                    $data['products']['products_image_sm_4'],
-                    $data['products']['products_image_sm_5'],
-                    $data['products']['products_image_sm_6'],
-                    $data['products']['products_image_xl_1'],
-                    $data['products']['products_image_xl_2'],
-                    $data['products']['products_image_xl_3'],
-                    $data['products']['products_image_xl_4'],
-                    $data['products']['products_image_xl_5'],
-                    $data['products']['products_image_xl_6'],
-                    $data['products']['price_coll'],
-                    $data['products']['products_sort_order'],
-                    $data['products']['products_tax_class_id'],
-                    $data['products']['products_to_xml'],
-                    $data['products']['products_weight'],
-                    $data['products']['raschet_pribil'],
-                    $data['products']['removable'],
-                    $data['products']['products_date_available'],
-                    $data['products']['products_date_view'],
-                    $data['productsDescription']['language_id'],
-                    $data['productsDescription']['products_head_desc_tag'],
-                    $data['productsDescription']['products_head_keywords_tag'],
-                    $data['productsDescription']['products_head_title_tag'],
-                    $data['productsDescription']['products_tab_1'],
-                    $data['productsDescription']['products_tab_2'],
-                    $data['productsDescription']['products_tab_3'],
-                    $data['productsDescription']['products_tab_4'],
-                    $data['productsDescription']['products_tab_5'],
-                    $data['productsDescription']['products_tab_6'],
-                    $data['productsDescription']['products_url'],
-                    $data['productsDescription']['products_viewed']
-                );
-                foreach ($data['productsAttributes'] as $keyattr => $valueattr) {
-                    unset(
-                        $data['productsAttributes'][$keyattr]['options_id'],
-                        $data['productsAttributes'][$keyattr]['options_values_price'],
-                        $data['productsAttributes'][$keyattr]['price_prefix'],
-                        $data['productsAttributes'][$keyattr]['product_attributes_one_time'],
-                        $data['productsAttributes'][$keyattr]['products_attributes_id'],
-                        $data['productsAttributes'][$keyattr]['products_attributes_units'],
-                        $data['productsAttributes'][$keyattr]['products_attributes_units_price'],
-                        $data['productsAttributes'][$keyattr]['products_attributes_weight'],
-                        $data['productsAttributes'][$keyattr]['products_attributes_weight_prefix'],
-                        $data['productsAttributes'][$keyattr]['products_options_sort_order'],
-                        $data['productsAttributes'][$keyattr]['sub_options_values_id']
-                    );
+                if ($data['products']['products_last_modified'] != FALSE) {
+                    $last = $data['products']['products_last_modified'];
+                } else {
+                    $last = $data['products']['products_date_added'];
                 }
-                foreach ($data['productsAttributesDescr'] as $keyattrdesc => $valueattrdesc) {
-                    unset(
-                        $data['productsAttributesDescr'][$keyattrdesc]['language_id'],
-                        $data['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
-                    );
+                if($data['productsSpecification']){
+                    $data['productsSpecification'] = ArrayHelper::index($data['productsSpecification'], 'specifications_id');
                 }
-                Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $checkcache]);
+                if(isset($data['specificationDescription'])) {
+                    $data['specificationDescription'] = ArrayHelper::index($data['specificationDescription'], 'specifications_id');
+                }
+                if($data['specificationValuesDescription']){
+                    $data['specificationValuesDescription'] = ArrayHelper::index($data['specificationValuesDescription'], 'specification_values_id');
+                }
+                if($data['productsSpecification']['74']['specification_values_id']){
+                    $spec = $data['productsSpecification']['74']['specification_values_id'];
+                    $spec_code = $data['specificationValuesDescription'][$spec]['specification_value'];
+                }else{
+                    $spec_code = '';
+                }
+                if(Yii::$app->params['seourls']== TRUE) {
+                    $colorcache = '';
+                    if ($data['specificationValuesDescription'][$data['productsSpecification']['4119']['specification_values_id']]['specification_value']) {
+                        $colorcache = RUtils::translit()->slugify($data['specificationValuesDescription'][$data['productsSpecification']['4119']['specification_values_id']]['specification_value']);
+                    }
+                    $brandcache = '';
+                    if ($data['specificationValuesDescription'][$data['productsSpecification']['77']['specification_values_id']]['specification_value']) {
+                        $brandcache = RUtils::translit()->slugify($data['specificationValuesDescription'][$data['productsSpecification']['77']['specification_values_id']]['specification_value']);
+                    }
+                    //     $data['products']['product_seo'] = $this->generateFileChpu($data['productsDescription']['products_name'], $data['products']['products_id'], $colorcache, $brandcache);
+                }if (($orderedQuantity =  $data['products']['products_ordered']) == 0) {
+                    preg_match('/\d/', md5("{$data['products']['products_id']}"), $matches);
+                    if (empty($orderedQuantity = $matches[0])) {
+                        $data['products']['ordered_real'] = $data['products']['products_ordered'];
+                        $data['products']['products_ordered'] = 5;
+                    } else {
+                        $data['products']['ordered_real'] = $data['products']['products_ordered'];
+                        $data['products']['products_ordered'] = (int)$orderedQuantity;
+                    }
+                }
+
+                $data['products']['season_code'] =  $spec_code;
+                $keyprod = Yii::$app->cache->buildKey('productn-' . $data['products_id']);
+                Yii::$app->cache->set($keyprod, ['data' => $data, 'last' => $last, 'quantity' => $data['products']['products_quantity'], 'price' => $data['products']['products_price'], 'model' => $data['products']['products_model']], 86400);
+
             } else {
                 $data = $data['data'];
             }
+
+            unset(
+                $data['old_categories_id'],
+                $data['products']['country_id'],
+                $data['products']['date_checked'],
+                $data['products']['imagenew'],
+                $data['products']['products_image_lrg'],
+                $data['products']['products_image_med'],
+                $data['products']['products_image_sm_1'],
+                $data['products']['products_image_sm_2'],
+                $data['products']['products_image_sm_3'],
+                $data['products']['products_image_sm_4'],
+                $data['products']['products_image_sm_5'],
+                $data['products']['products_image_sm_6'],
+                $data['products']['products_image_xl_1'],
+                $data['products']['products_image_xl_2'],
+                $data['products']['products_image_xl_3'],
+                $data['products']['products_image_xl_4'],
+                $data['products']['products_image_xl_5'],
+                $data['products']['products_image_xl_6'],
+                $data['products']['price_coll'],
+                $data['products']['products_sort_order'],
+                $data['products']['products_tax_class_id'],
+                $data['products']['products_to_xml'],
+                $data['products']['products_weight'],
+                $data['products']['raschet_pribil'],
+                $data['products']['removable'],
+                $data['products']['products_date_available'],
+                $data['products']['products_date_view'],
+                $data['productsDescription']['language_id'],
+                $data['productsDescription']['products_head_desc_tag'],
+                $data['productsDescription']['products_head_keywords_tag'],
+                $data['productsDescription']['products_head_title_tag'],
+                $data['productsDescription']['products_tab_1'],
+                $data['productsDescription']['products_tab_2'],
+                $data['productsDescription']['products_tab_3'],
+                $data['productsDescription']['products_tab_4'],
+                $data['productsDescription']['products_tab_5'],
+                $data['productsDescription']['products_tab_6'],
+                $data['productsDescription']['products_url'],
+                $data['productsDescription']['products_viewed']
+            );
+            foreach ($data['productsAttributes'] as $keyattr => $valueattr) {
+                unset(
+                    $data['productsAttributes'][$keyattr]['options_id'],
+                 //   $data['productsAttributes'][$keyattr]['options_values_price'],
+                //    $data['productsAttributes'][$keyattr]['price_prefix'],
+                    $data['productsAttributes'][$keyattr]['product_attributes_one_time'],
+                    $data['productsAttributes'][$keyattr]['products_attributes_id'],
+                    $data['productsAttributes'][$keyattr]['products_attributes_units'],
+                    $data['productsAttributes'][$keyattr]['products_attributes_units_price'],
+                    $data['productsAttributes'][$keyattr]['products_attributes_weight'],
+                    $data['productsAttributes'][$keyattr]['products_attributes_weight_prefix'],
+                    $data['productsAttributes'][$keyattr]['products_options_sort_order'],
+                    $data['productsAttributes'][$keyattr]['sub_options_values_id']
+                );
+            }
+            foreach ($data['productsAttributesDescr'] as $keyattrdesc => $valueattrdesc) {
+                unset(
+                    $data['productsAttributesDescr'][$keyattrdesc]['language_id'],
+                    $data['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
+                );
+            }
+
+
+
+
             if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
 
                 $data['products']['products_price'] = intval($data['products']['products_price']) + (intval($data['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
@@ -145,6 +205,9 @@ trait ActionProduct
                 $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
             } else {
                 $catpath = $this->Catpath($data['categories_id'], 'namenum');
+            }
+            if(!$catpath){
+                $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
             }
             $list = array();
             $hide_man = $this->hide_manufacturers_for_partners();

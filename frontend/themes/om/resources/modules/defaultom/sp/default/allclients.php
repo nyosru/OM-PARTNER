@@ -87,6 +87,26 @@
                             'style' => 'max-width: 250px;',
                         ],
                         'content'        => function ($model) {
+                            $stat_class = [
+                                'status-cancel',
+                                'status-new',
+                                'status-proceed',
+                                'status-like',
+                                'status-payed',
+                                'status-ordered',
+                                'status-return',
+                            ];
+
+                            $order_status_label = [
+                                'Удален',
+                                'Новый',
+                                'В обработке',
+                                'Одобренный',
+                                'Оплаченый',
+                                'Выполненный',
+                                'Возврат'
+                            ];
+
                             if ($model->lastOrder) {
                                 $final_order_price = 0;
                                 $order_arr = unserialize($model->lastOrder->order);
@@ -99,10 +119,14 @@
                                 $params->monthInflected = true;
                                 $create_date = \php_rutils\RUtils::dt()->ruStrFTime($params);
 
-                                return '<div class="column-content-header">Номер заказа: #'.$model->lastOrder->id.'</div>
-                                <div class="column-content">'.$create_date.'</div>
-                                     <br> 
-                                <div class="column-content">'.(int)$final_order_price.'р.</div>';
+                                return
+                                    '<div class="column-content-header">                       
+                                        <div class="client-order-num">'.$order_status_label[$model->lastOrder->status].'</div>
+                                        <div class="client-order-status '.$stat_class[$model->lastOrder->status].'"></div>
+                                    </div>
+                                    <div class="column-content">'.$create_date.'</div>
+                                         <br> 
+                                    <div class="column-content">'.(int)$final_order_price.'р.</div>';
                             } else {
                                 return '<div class="column-content-header">Заказов от клиента не поступало</div>';
                             }

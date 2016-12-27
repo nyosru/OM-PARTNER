@@ -129,55 +129,55 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> '/catalog?cat=1729',
+                'image' =>  'OM_22122106_1.png',
+                'referal'=> '/catalog?cat=2486',
                 'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
+                'alttext' => 'Стильная домашняя одежда',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_14122016_2.png',
-                'referal'=> '/product?id=1774488',
+                'image' =>  'OM_22122106_2.png',
+                'referal'=> '/catalog?cat=1714',
                 'term'=> '',
-                'alttext' => 'Уютные кофточки',
+                'alttext' => 'Кофточки XXL',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_14122016_3.png',
-                'referal'=> '/catalog?cat=992',
+                'image' =>  'OM_22122106_3.png',
+                'referal'=> '/catalog?cat=2054',
                 'term'=> '',
-                'alttext' => 'Теплые колготки для зимнего образа',
+                'alttext' => 'Зимние ароматы',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_14122016_4.png',
-                'referal'=> '/catalog?cat=1434',
+                'image' => 'OM_22122106_4.png',
+                'referal'=> '/catalog?cat=1421',
                 'term'=> '',
-                'alttext' => 'Наряд для маленькой принцессы',
+                'alttext' => 'Мягкие друзья',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_14122016_5.png',
+                'image' => 'OM_22122106_5.png',
                 'referal'=> '/catalog?cat=1725',
                 'term'=> '',
-                'alttext' => 'В новый год на корпоратив',
+                'alttext' => 'Новый год',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_14122016_6.png',
-                'referal'=> 'https://www.instagram.com/odezhda_master/',
-                'alttext' => 'Топ 5 лучших товаров каждый день',
-                'out' => TRUE
+                'image' => 'OM_22122106_6.png',
+                'referal'=> '/products-discount',
+                'alttext' => 'Цены ниже оптовых',
+                'out' => FALSE
             ]
         ],
         'discont1' => [

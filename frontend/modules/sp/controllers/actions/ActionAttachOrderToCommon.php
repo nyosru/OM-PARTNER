@@ -33,16 +33,22 @@ trait ActionAttachOrderToCommon
 
         $common_order = CommonOrders::find()
             ->where(['referral_id' => $referral])
-            ->andWhere(['id' => $id_common_order,  'status'=>1])
+            ->andWhere(['id' => $id_common_order])
             ->one()
         ;
 
         $order = PartnersOrders::find()
-            ->where(['id' => $id_order,  'status'=>1])
+            ->where(['id' => $id_order])
             ->one()
         ;
 
         if($order->status != 1) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не в статусе "Новый"');
+            return false;
+        }
+
+        if($common_order->status != 1) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Общий заказ не в статусе "Новый"');
             return false;
         }
 
@@ -55,20 +61,21 @@ trait ActionAttachOrderToCommon
         ;
 
         if (!$common_order || !$order || !$referral_user) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Не был найден один из заказов');
             return false;
         }
 
         $exist_common_order_link = CommonOrdersLinks::find()
-            ->where(['partner_orders_id' => $id_order, 'status'=>1])
+            ->where(['partner_orders_id' => $id_order])
             ->one();
         ;
 
         if ($exist_common_order_link) {
-            $exist_common_order_link = new CommonOrdersLinks();
             $exist_common_order_link->common_orders_id = $common_order->id;
 
             if ($exist_common_order_link->save()) {
-                return true;
+                \Yii::$app->getSession()->setFlash('success', 'Удача, заказ перемещен');
+                return $exist_common_order_link->save();
             }
         } else {
             $common_order_link = new CommonOrdersLinks();
@@ -77,10 +84,11 @@ trait ActionAttachOrderToCommon
             $common_order_link->comments = (string)$comment ?: '';
 
             if ($common_order_link->save()) {
+                \Yii::$app->getSession()->setFlash('success', 'Удача, заказ прикреплен');
                 return true;
             }
         }
-
+        \Yii::$app->getSession()->setFlash('error', 'Произошла непредвиденная ошибка');
         return false;
     }
 }

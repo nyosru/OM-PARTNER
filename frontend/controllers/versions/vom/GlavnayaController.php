@@ -3,6 +3,7 @@
 namespace frontend\controllers\versions\vom;
 use common\traits\AggregateCatalogData;
 use common\traits\Categories\CategoryChpu;
+use common\traits\Categories\CustomCatalog;
 use common\traits\Categories\RestrictedCatalog;
 use common\traits\Categories_for_partner;
 use common\traits\CatPath;
@@ -119,6 +120,7 @@ use yii\web\Controller;
 class GlavnayaController extends Controller
 {
     use Trim_Tags,
+        CustomCatalog,
         CacheUserState,
         Fullopcat,
         RecursCat,
@@ -212,7 +214,7 @@ class GlavnayaController extends Controller
         ActionInviteSP,
         ActionInvite,
         ActionProductsDiscount,
-        ActionDiscountProducts,
+      //  ActionDiscountProducts,
         OrdersToOm,
         OrdersToReferrer,
         ActionRegisterSuccess,

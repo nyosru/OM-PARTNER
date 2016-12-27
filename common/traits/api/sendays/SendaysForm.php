@@ -162,7 +162,7 @@ class SendaysForm
 			->setMethod('GET')
 			->send();
 
-		if ($response->isOk)
+		if ($response->isOk && is_array($response->data))
 			return $response->data;
 		else
 			throw new HttpException(500);
