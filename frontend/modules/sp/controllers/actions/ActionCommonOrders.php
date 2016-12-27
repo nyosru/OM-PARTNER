@@ -36,7 +36,7 @@ trait ActionCommonOrders
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($ds)) {
-                $model->andWhere(CommonOrders::tableName().'.date_added >= "' . $ds . '"');
+                $model->andWhere(CommonOrders::tableName().'.date_added >= "'.$ds.' 23-59-59"');
             }
         }
 
@@ -46,7 +46,7 @@ trait ActionCommonOrders
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($de)) {
-                $model->andWhere(CommonOrders::tableName().'.date_added < "' . $de . '"');
+                $model->andWhere(CommonOrders::tableName().'.date_added <= "'.$de.' 23-59-59"');
             }
         }
 

@@ -10,7 +10,7 @@ trait   CatPath
     public function Catpath($id, $action)
     {
         $cat = (integer)$id;
-        $key = Yii::$app->cache->buildKey('catpath-sys-cache-' . $cat . '-' . $action);
+        $key = Yii::$app->cache->buildKey('catpath-sys-cachehhjjk-'.Yii::$app->params['customcat'].'-'. $cat . '-' . $action.'-'.Yii::$app->params['customcat']);
 
         if (($resultchpu = Yii::$app->cache->get($key)) == FALSE) {
 
@@ -22,6 +22,9 @@ trait   CatPath
             }
             foreach ($catdata as $value) {
                 $catdatas[$value['categories_id']] = $value['parent_id'];
+                if(!$catnamearr[$value['categories_id']]){
+                    $catnamearr[$value['categories_id']] = 'NoName'.$value['categories_id'];
+                }
             }
             // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);

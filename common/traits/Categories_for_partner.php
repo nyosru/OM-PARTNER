@@ -11,11 +11,17 @@ Trait Categories_for_partner
     {
         $categoriess = new PartnersCategories();
         $categoriesd = new PartnersCatDescription();
-        $key = Yii::$app->cache->buildKey('categories-api-key');
+        $key = Yii::$app->cache->buildKey('categories-api-key-56-'.Yii::$app->params['customcat']);
         $data = Yii::$app->cache->get($key);
         if ($data['data'] == FALSE) {
-            $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->createCommand()->queryAll();
-            $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();
+
+            if(Yii::$app->params['customcat']){
+                $f = $this->customCatalog()['cat'];
+            }else{
+                $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->createCommand()->queryAll();
+
+            }
+             $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();
             $data = array($f, $s);
             Yii::$app->cache->set($key, ['data' => $data], 3600);
         } else {

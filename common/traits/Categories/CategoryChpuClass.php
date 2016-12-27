@@ -8,7 +8,7 @@ use common\traits\RecursCat;
 
 class  CategoryChpuClass
 {
-    use CategoryChpu, Categories_for_partner, RecursCat;
+    use CategoryChpu, Categories_for_partner, RecursCat, CustomCatalog;
 }
 
 ?>

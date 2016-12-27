@@ -87,7 +87,7 @@ class Timer extends \yii\bootstrap\Widget
             }
         </style>
         <div class="loading"><span style="top: 0px; position: absolute; bottom: 0px; height: 45%; margin: auto; left: 0px; right: 0px; width: 100%; font-weight: 400; font-size: 18px; text-align: center; color:#000;" id="RealButton" href="#">
-               60
+               <?=$this->time?>
             </span></div>
 
         <?php

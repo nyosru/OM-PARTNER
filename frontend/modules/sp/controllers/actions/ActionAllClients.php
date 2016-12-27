@@ -30,7 +30,7 @@ trait ActionAllClients
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($ds)) {
-                $query->andWhere('date_added >= "'.$ds.'"');
+                $query->andWhere('date_added >= "'.$ds.' 23-59-59"');
             }
         }
 
@@ -40,7 +40,7 @@ trait ActionAllClients
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($de)) {
-                $query->andWhere('date_added <= "'.$de.'"');
+                $query->andWhere('date_added <= "'.$de.' 23-59-59"');
             }
         }
 

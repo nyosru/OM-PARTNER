@@ -239,8 +239,27 @@ class ProductCard2 extends \yii\bootstrap\Widget
             '<div data-vis="size-item-desc" data-vis-id="'.$product['products_id'].'" style="text-align: right; font-size: 12px; font-weight: 400; display: none; width: 50%; position: absolute; bottom: 35px; right: 30px; margin: 0px 0px -8px; padding: 5px 45px;" data-prod="' . $product['products_id'] . '">'.$options_name.'<i class="mdi mdi-keyboard-arrow-down" style="font-weight: 600; color: rgb(0, 165, 161); font-size: 18px; position: absolute; right: -20px; padding: 5px 0px 0px 40px;"></i>'.
             '' .
             '</div>' .
-            '</div>' .
-            '<a '.$product_itemprop_url.' href="' . BASEURL . '/product?id=' . $product['products_id'] . '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
+            '</div>';
+        $href = '';
+        if(
+            Yii::$app->params['seourls'] == TRUE &&
+            (
+            (
+                (isset($product['product_seo']) && $seourl = $product['product_seo'] ) ||
+                ($seourl = $this->generateFileChpu(
+                    $description['products_name'],
+                    $product['products_id'],
+                    '',
+                    '')
+                ) == TRUE
+            )
+            )){
+            $href = BASEURL .'/product/'.$seourl;
+        }else{
+            $href =  BASEURL . '/product?id=' . $product['products_id'];
+        }
+        $innerhtml.=     '<a '.$product_itemprop_url.' href="' . $href. '" style="float: right; position: absolute; bottom: 9px; left: 25px; font-size: 12px; font-weight: 500;" ><i class="mdi mdi-visibility" style="font-weight: 500; color: rgb(0, 165, 161); font-size: 15px; position: relative; top: 4px;"></i> В карточку</a>' .
+
             '<div  '.$product_itemprop_offers.' class="price" style="margin-left:130px;">' .
             '<div style="font-size: 18px; font-weight: 500; min-width:100px;" '.$product_itemprop_price.'>' . round($product['products_price']) . ' руб.</div>' .
             '<b '.$product_itemprop_priceCurrency.' style="display:none">RUB</b>' .

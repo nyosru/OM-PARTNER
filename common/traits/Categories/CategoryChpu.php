@@ -11,7 +11,7 @@ trait  CategoryChpu
 
         if (preg_match('/^[0-9\s]+/', $value)){
             $cat = (integer)$value;
-            $key_chpu_category = \Yii::$app->cache->buildKey('chpu-categories-normal');
+            $key_chpu_category = \Yii::$app->cache->buildKey('chpu-categories-normal-89-'.\Yii::$app->params['customcat']);
             if(($chpu_cache = \Yii::$app->cache->get($key_chpu_category)) == FALSE || !isset($chpu_cache['id'][$cat])){
                 $catdataarr = $this->categories_for_partners();
                 $catdata = $catdataarr[0];
@@ -21,6 +21,9 @@ trait  CategoryChpu
                 }
                 foreach ($catdata as $value) {
                     $catdatas[$value['categories_id']] = $value['parent_id'];
+                    if(!$catnamearr[$value['categories_id']]){
+                        $catnamearr[$value['categories_id']] = 'NoName'.$value['categories_id'];
+                    }
                 }
                 $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
                 $resultchpu = [];
@@ -41,7 +44,7 @@ trait  CategoryChpu
                 return $chpu_cache['id'][$cat] ;
             }
         }else{
-            $key_chpu_category = \Yii::$app->cache->buildKey('chpu-categories-normal');
+            $key_chpu_category = \Yii::$app->cache->buildKey('chpu-categories-normal-89-'.\Yii::$app->params['customcat']);
             $chpu_cache = \Yii::$app->cache->get($key_chpu_category);
             $chpu_string_key = md5($value);
            if(isset($chpu_cache['string'][$chpu_string_key])){

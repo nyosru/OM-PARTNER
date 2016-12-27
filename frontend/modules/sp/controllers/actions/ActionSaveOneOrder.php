@@ -22,10 +22,16 @@ trait ActionSaveOneOrder
         }
 
         $order_id = Yii::$app->request->post('order_id');
-        $client_order_products = Yii::$app->request->post('products');
+        $client_order_products = (array)Yii::$app->request->post('products');
 
         /** @var PartnersOrders $order */
         $order = PartnersOrders::find()->where(['id' => $order_id])->one();
+
+        if ($order->status != 1) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не в статусе "Новый"');
+
+            return false;
+        }
 
         $referal = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 
@@ -39,15 +45,15 @@ trait ActionSaveOneOrder
         ;
 
         if (empty($user)) {
-            
-            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
+
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Пользователь отсутствует');
 
             return false;
         }
 
         if (!is_array($client_order_products)) {
 
-            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Данные не корректны');
 
             return false;
         }
@@ -55,15 +61,14 @@ trait ActionSaveOneOrder
         $connection = \Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
-
             $updateOrder = new UpdateOrder();
             $order = $updateOrder->updateOrderWithClientProducts($order, $client_order_products);
             $order->save();
 
-            \Yii::$app->getSession()->setFlash('success', 'Заказ сохранен');
+            \Yii::$app->getSession()->setFlash('success', 'Удача! Заказ сохранен');
             $transaction->commit();
         } catch (\Exception $e) {
-            \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка!');
             $transaction->rollBack();
 
             return false;

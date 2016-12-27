@@ -3,7 +3,7 @@ use yii\bootstrap\Nav;
 $items = [
     [
         'label' => 'Мои корзины',
-        'url' => '/viewcart',
+        'url' => '/lk/viewcart',
     ], [
         'label' => 'Мои заказы',
         'url' => '/lk/myorder',

@@ -44,7 +44,7 @@ trait ActionIndex
             $valid->format = 'Y-m-d';
 
             if ($valid->validate($ds)) {
-                $model->andWhere(PartnersOrders::tableName().'.create_date >= "' . $ds . '"');
+                $model->andWhere(PartnersOrders::tableName().'.create_date >= "' . $ds.' 23-59-59"');
             }
         }
 
@@ -52,7 +52,7 @@ trait ActionIndex
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($de)) {
-                $model->andWhere(PartnersOrders::tableName().'.create_date <= "' . $de . '"');
+                $model->andWhere(PartnersOrders::tableName().'.create_date <= "' . $de.' 23-59-59"');
             }
         }
 

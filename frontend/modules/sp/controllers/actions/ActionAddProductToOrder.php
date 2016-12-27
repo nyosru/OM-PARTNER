@@ -28,7 +28,13 @@ trait ActionAddProductToOrder
         $attr = (integer)Yii::$app->request->post('attr');
         $count_val = (integer)Yii::$app->request->post('val');
 
-        $order = PartnersOrders::find()->where(['id' => $order_id, 'status'=>1])->one();
+        $order = PartnersOrders::find()->where(['id' => $order_id])->one();
+
+        if ($order->status != 1) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не в статусе "Новый"');
+
+            return false;
+        }
 
         $user = ReferralsUser::find()
             ->joinWith('user')
@@ -93,7 +99,7 @@ trait ActionAddProductToOrder
             $data_product['products']['products_image'],
             $data_attr_name,
             $data_product['productsDescription']['products_name'],
-            null,
+            ['comment' => ''],
         ];
         if ($is_a_match === false) {
             array_push($un_order['products'], $new_product_data);
