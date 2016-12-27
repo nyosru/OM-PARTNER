@@ -5,52 +5,67 @@ use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
 use yii\helpers\Url;
-if (!function_exists('new_url')) {
-    function new_url($arr_sub)
-    {
-        $new_url = Array();
-        foreach ($arr_sub as $value) {
-            $new_url[] = $value[0] . '=' . $value[1];
-        }
-        return implode('&', $new_url);
-    }
-}
-if (!function_exists('split_url')) {
-    function split_url($url)
-    {
-        $url_arr = explode('&', $url);
-        $arr_sub = Array();
-        foreach ($url_arr as $value) {
-            $spl = explode('=', $value);
-            $arr_sub[$spl[0]] = $spl;
-        }
-        return $arr_sub;
-    }
-}
-if (!function_exists('new_suburl')) {
-    function new_suburl($url_obj, $val, $new_var)
-    {
-        $value = $url_obj[$val];
-        $value[1] = $new_var;
+use yii\data\Pagination;
+use yii\widgets\LinkPager;
+use kartik\date\DatePicker;
+// return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec, 'params'=>array_merge($options,$params)];
+// $data[1] - всего товаров
+// $data[11] - сортировка
 
-        $url_obj[$val] = $value;
-        return $url_obj;
-    }
+
+$countdisp = [60, 120, 180];
+
+if($params['count'] != $countdisp[0]){
+    $count =  $start_url['count'] = $params['count'];
+}else{
+
 }
 
 
-$start_url = Yii::$app->request->getQueryString();
-$url_data = split_url(str_replace('&amp;', '&', str_replace('%26', '&', $start_url)));
-$cat = $url_data['cat'][1];
-$count = $url_data['count'][1];
-$min_price = $url_data['start_price'][1];
-$max_price = $url_data['end_price'][1];
-$prodatrquery = $url_data['prod_attr_query'][1];
-$page = $url_data['page'][1];
-$sort = $url_data['sort'][1];
-$ok = $url_data['ok'][1];
-$searchword = $url_data['searchword'][1];
-$url =  '?cat=' . $cat . '&count=' . $count . '&start_price=' . $min_price . '&end_price=' . $max_price . '&prod_attr_query=' . $prodatrquery . '&page=' . $page . '&sort=' . $sort . '&searchword=' . $searchword.'&ok='.$ok;
+
+$min_price =   $start_url['start_price'] = $params['start_price'];
+$max_price =  $start_url['end_price'] = $params['end_price'];
+$prodatrquery =  $start_url['prod_attr_query'] = $params['prod_attr_query'];
+if(Yii::$app->params['seourls'] == TRUE){
+    $page = $params['page']  = max(1,Yii::$app->params['chpu']['page']);
+}else{
+    $page =  $start_url['page'] = max(1,$params['page']);
+}
+
+$sort =  $start_url['sort'] =  $params['sort'];
+$date_start =  $start_url['date_start'] = $params['date_start'];
+$date_end =  $start_url['date_end'] = $params['date_end'];
+$ok =  $start_url['ok'] = $params['ok'];
+$lux =  $start_url['lux'] = $params['lux'];
+$searchword =  $start_url['searchword'] = $params['searchword'];
+$sfilt  = $start_url['sfilt'] =  $params['sfilt'];
+$sfqueryparam ='';
+$urlsrc = [];
+if(Yii::$app->params['seourls'] == TRUE){
+    if($params['cat_start'] != 0){
+        $newurl = Yii::$app->params['chpu']['action'].'/'.Yii::$app->params['chpu']['cat_start'];
+        $cat  = $params['cat_start'];
+    }else{
+        $newurl = Yii::$app->params['chpu']['action'];
+        $cat  = $params['cat_start'];
+    }
+
+}else{
+    $newurl =  '/'.Yii::$app->request->getPathInfo();
+    $cat =  $start_url['cat'] = $params['cat_start'];
+}
+
+foreach ($start_url as $key=>$val){
+    if($val != FALSE){
+        $urlsrc[$key] = $val;
+    }
+}
+$urlsrc[] = $newurl;
+
+$pagination = new Pagination([
+    'defaultPageSize' => 60,
+    'totalCount' => $data[1],
+]);
 if ($data[0] != 'Не найдено!') {
 ?>
 <div class="breadcrumbs">
@@ -90,17 +105,43 @@ if ($data[0] != 'Не найдено!') {
                             </div>
                         </div>
                         <div id="sort-by">
-                            <label class="left">Sort By: </label>
+                            <label class="left">Сортировка по: </label>
+                            <?php $sortorder = [['дате', 5, 15, 'date'], ['цене', 1, 11, 'price'], ['названию', 2, 12, 'name'], ['модели', 3, 13, 'model'], ['популярности', 4, 14, 'popular']];?>
                             <ul>
-                                <li><a href="#">Position<span class="right-arrow"></span></a>
-                                    <ul>
-                                        <li><a href="#">Name</a></li>
-                                        <li><a href="#">Price</a></li>
-                                        <li><a href="#">Position</a></li>
-                                    </ul>
+                                <li>
+                                    <?php
+                                    $paste = $urlsrc;
+                                    if(!$data[11]){
+                                        echo '<a href="#">умолчанию<span class="right-arrow"></span></a>';
+                                    } else {
+                                        foreach($sortorder as $i=>$sortitem){
+                                            if($data[11]==$sortitem[1] || $data[11]==$sortitem[2]){
+                                                echo '<a href="#">'.$sortitem[0].'<span class="right-arrow"></span></a>';
+                                                $sortorder_active = $sortorder[$i];
+                                                unset($sortorder[$i]);
+                                            }
+                                        }
+                                    }
+                                    echo '<ul>';
+                                    foreach($sortorder as $sortitem){
+                                        echo '<li><a href="'.Url::current(['sort'=>$sortitem[1]]).'">'.$sortitem[0].'</a></li>';
+                                    }
+                                    echo '</ul>';
+                                    ?>
                                 </li>
                             </ul>
-                            <a class="button-asc left" href="#" title="Set Descending Direction"><span class="top_arrow"></span></a> </div>
+                            <?php
+                            if($data[11]){
+                                if($data[11] != $sortorder_active[1]){
+                                    $sort_arrow = 'bottom';
+                                    $sort_set_active = $sortorder_active[1];
+                                } else {
+                                    $sort_arrow = 'top';
+                                    $sort_set_active = $sortorder_active[2];
+                                }
+                                echo '<a class="button-asc left" href="'.Url::current(['sort'=>$sort_set_active]).'" title="Изменить порядок сортировки"><span class="'.$sort_arrow.'_arrow"></span></a>';
+                            }?>
+                        </div>
                         <div class="pager">
                             <div id="limiter">
                                 <label>View: </label>
@@ -114,22 +155,18 @@ if ($data[0] != 'Не найдено!') {
                                     </li>
                                 </ul>
                             </div>
+
                             <div class="pages">
                                 <label>Page:</label>
-                                <ul class="pagination">
-                                    <li><a href="#">«</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">»</a></li>
-                                </ul>
+                                <?=LinkPager::widget([
+                                    'pagination' => $pagination,
+                                    'maxButtonCount' => 5,
+                                ]); ?>
                             </div>
                         </div>
                     </div>
                     <div class="category-products">
-                        <ul class="products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>">
+                        <ul class="products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>" style="padding: 0;">
                             <?php
                             foreach ($data[0] as $value) {
                                 if((int)$_COOKIE['cardview'] == 1){
@@ -359,35 +396,81 @@ if ($data[0] != 'Не найдено!') {
 
 
                     <div class="block block-layered-nav">
-                        <div class="block-title">Shop By</div>
+                        <div class="block-title">Фильтр</div>
                         <div class="block-content">
-                            <p class="block-subtitle">Shopping Options</p>
+
                             <dl id="narrow-by-list">
-                                <dt class="odd">Price</dt>
+                                <dt class="odd">Цена</dt>
                                 <dd class="odd">
-                                    <ol>
-                                        <li> <a href="#"><span class="price">$0.00</span> - <span class="price">$99.99</span></a> (6) </li>
-                                        <li> <a href="#"><span class="price">$100.00</span> and above</a> (6) </li>
-                                    </ol>
+                                    <div style="display: block; height: 45px;" >
+                                        <input name="cat"   value="<?=$cat?>" type="hidden"/>
+                                        <input name="count" value="<?=$count?>" type="hidden" />
+                                        <input id="suppliers-lux" value="" type="hidden" />
+                                        <input id="suppliers-ok" value="" type="hidden" />
+                                        <input name="start_price" id="min-ev-price" class="" placeholder="от" style="float: left; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" />
+                                        <input name="end_price" style="float: right; width: 40%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; padding: 5px;" id="max-ev-price" class="" placeholder="до" />
+                                    </div>
+                                    <?= Slider::widget([
+                                        'id'=>'price-slider',
+                                        'options'=>['style'=>'width: 95%; margin: auto;border: 1px solid #CCC;'],
+                                        'clientOptions' => [
+                                            'values'=>[$data[7],$data[8]],
+                                            'min' => 0,
+                                            'max' => $data[2]['maxprice'],
+                                            'step' => 1,
+                                            'range' => true,
+                                        ],
+                                    ]);?>
                                 </dd>
-                                <dt class="even">Manufacturer</dt>
+                                <dt class="even">Дата</dt>
                                 <dd class="even">
-                                    <ol>
-                                        <li> <a href="#">TheBrand</a> (9) </li>
-                                        <li> <a href="#">Company</a> (4) </li>
-                                        <li> <a href="#">LogoFashion</a> (1) </li>
-                                    </ol>
+                                    <?=DatePicker::widget([
+                                        'language'=>'ru',
+                                        'options'=>[
+                                            'placeholder'=>'C',
+                                        ],
+                                        'name' => 'date_start',
+                                        'value' => '',
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                            'format' => 'dd-mm-yyyy'
+                                        ]
+                                    ]).DatePicker::widget([
+                                        'language'=>'ru',
+                                        'options'=>[
+                                            'placeholder'=>'До',
+                                        ],
+                                        'name' => 'date_end',
+                                        'value' => '',
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                            'format' => 'dd-mm-yyyy'
+                                        ]
+                                    ]);?>
+
                                 </dd>
-                                <dt class="odd">Color</dt>
+                                <dt class="odd">Размеры</dt>
                                 <dd class="odd">
-                                    <ol>
-                                        <li> <a href="#">Green</a> (1) </li>
-                                        <li> <a href="#">White</a> (5) </li>
-                                        <li> <a href="#">Black</a> (5) </li>
-                                        <li> <a href="#">Gray</a> (4) </li>
-                                        <li> <a href="#">Dark Gray</a> (3) </li>
-                                        <li> <a href="#">Blue</a> (1) </li>
-                                    </ol>
+                                    <?php
+                                    $data[3] = \yii\helpers\ArrayHelper::index($data[3], 'products_options_values_name');
+                                    ksort($data[3],SORT_NATURAL);
+                                    foreach($data[3] as $key=>$value){
+                                        if($value['products_options_values_id'] == $prodatrquery){
+                                            $checked = 'fa-check';
+                                        }else{
+                                            $checked = '';
+                                        }
+                                        if($value['products_options_values_id']) {
+                                            echo '<div class="filter-item-size">';
+                                            echo '<div class="checkbox-overlay fa '.$checked.'" for="checkbox-hidden-group">'.
+                                                '<input id="checkbox-hidden-group"  class="checkbox-hidden-group" type="checkbox" class="prod_attr_query" value="'.$value['products_options_values_id'].
+                                                '" name = "prod_attr_query"'.
+                                                ' '. $checked.' /></div><span class="checkbox-hidden-group-label" style="display: inline; min-width: 100px; color: black; margin-left: 10px; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7; max-width: calc(100% - 50px); overflow: hidden; float: left;">'.$value['products_options_values_name'].'</span>';
+                                            echo '</div>';
+                                        }
+                                    }
+
+                                    ?>
                                 </dd>
                                 <dt class="last even">Size</dt>
                                 <dd class="last even">
@@ -430,73 +513,6 @@ if ($data[0] != 'Не найдено!') {
                             </ul>
                         </div>
                     </div>
-                    <div class="block block-compare">
-                        <div class="block-title ">Compare Products (2)</div>
-                        <div class="block-content">
-                            <ol id="compare-items">
-                                <li class="item odd">
-                                    <input type="hidden" value="2173" class="compare-item-id">
-                                    <a class="btn-remove1" title="Remove This Item" href="#"></a> <a href="#" class="product-name"> Sofa with Box-Edge Polyester Wrapped Cushions</a> </li>
-                                <li class="item last even">
-                                    <input type="hidden" value="2174" class="compare-item-id">
-                                    <a class="btn-remove1" title="Remove This Item" href="#"></a> <a href="#" class="product-name"> Sofa with Box-Edge Down-Blend Wrapped Cushions</a> </li>
-                            </ol>
-                            <div class="ajax-checkout">
-                                <button type="submit" title="Submit" class="button button-compare"><span>Compare</span></button>
-                                <button type="submit" title="Submit" class="button button-clear"><span>Clear</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block block-list block-viewed">
-                        <div class="block-title"> Recently Viewed </div>
-                        <div class="block-content">
-                            <ol id="recently-viewed-items">
-                                <li class="item odd">
-                                    <p class="product-name"><a href="#"> Armchair with Box-Edge Upholstered Arm</a></p>
-                                </li>
-                                <li class="item even">
-                                    <p class="product-name"><a href="#"> Pearce Upholstered Slee pere</a></p>
-                                </li>
-                                <li class="item last odd">
-                                    <p class="product-name"><a href="#"> Sofa with Box-Edge Down-Blend Wrapped Cushions</a></p>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <div class="block block-poll">
-                        <div class="block-title">Community Poll </div>
-                        <form id="pollForm" action="#" method="post" onsubmit="return validatePollAnswerIsSelected();">
-                            <div class="block-content">
-                                <p class="block-subtitle">What is your favorite Magento feature?</p>
-                                <ul id="poll-answers">
-                                    <li class="odd">
-                                        <input type="radio" name="vote" class="radio poll_vote" id="vote_5" value="5">
-                      <span class="label">
-                      <label for="vote_5">Layered Navigation</label>
-                      </span> </li>
-                                    <li class="even">
-                                        <input type="radio" name="vote" class="radio poll_vote" id="vote_6" value="6">
-                      <span class="label">
-                      <label for="vote_6">Price Rules</label>
-                      </span> </li>
-                                    <li class="odd">
-                                        <input type="radio" name="vote" class="radio poll_vote" id="vote_7" value="7">
-                      <span class="label">
-                      <label for="vote_7">Category Management</label>
-                      </span> </li>
-                                    <li class="last even">
-                                        <input type="radio" name="vote" class="radio poll_vote" id="vote_8" value="8">
-                      <span class="label">
-                      <label for="vote_8">Compare Products</label>
-                      </span> </li>
-                                </ul>
-                                <div class="actions">
-                                    <button type="submit" title="Vote" class="button button-vote"><span>Vote</span></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
                 </aside>
             </div>
         </div>

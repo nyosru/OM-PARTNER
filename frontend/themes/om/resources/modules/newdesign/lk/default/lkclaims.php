@@ -6,13 +6,6 @@ $this->title = 'Мои претензии';
     .data-table th>a{
         color: #FFFFff;
     }
-    .pritenphotoimg{
-        display: block;
-        width: 50%;
-        float: left;
-        height: 130px;
-        margin: 5px 0;
-    }
 </style>
 <div class="container">
     <div class="row" style="margin: 15px 0;">
@@ -60,7 +53,7 @@ $this->title = 'Мои претензии';
                     [
                         'label' => 'Претензии',
                         'content' => function ($data) {
-                            return $this->render('_lkclaims-dialog',['data'=>$data]);
+                            return $this->render('_lkclaims-dialog',['orders_products_id'=>$data->orders_products_id]);
                         }
                     ],
                 ]
