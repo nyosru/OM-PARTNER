@@ -100,21 +100,17 @@ trait PreCheckProductsToOrder {
 					$stop_time = (int)$man[ $product['manufacturers_id'] ][ $thisweeekday ]['stop_time'];
 					$start_time = (int)$man[ $product['manufacturers_id'] ][ $thisweeekday ]['start_time'];
 
-					if ($start_time === $stop_time)
+					if (($start_time <= $timstamp_now && $timstamp_now <= $stop_time) && $start_time !== $stop_time) {
 						$check = true;
+					}
 					else {
-						if (($start_time <= $timstamp_now) && ($timstamp_now <= $stop_time)) {
-							$check = true;
-						}
-						else {
-							$check = false;
+						$check = false;
 
-							return [
-								'result' => $check,
-								'type' => 'restrictedtime',
-								'message' => 'Товар не доступен для заказа в это время'
-							];
-						}
+						return [
+							'result' => $check,
+							'type' => 'restrictedtime',
+							'message' => 'Товар не доступен для заказа в это время'
+						];
 					}
 				}
 				else {

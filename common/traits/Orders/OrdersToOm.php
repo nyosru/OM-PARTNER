@@ -106,9 +106,12 @@ trait OrdersToOm
             $proddata[$wrapp['products_id']] = $wrapp;
         }
         foreach ($proddata as $keyrequest => $valuerequest) {
-            $thisweeekday = date('N') - 1;
-            $timstamp_now = (integer)mktime(date('H'), date('i'), date('s'), 1, 1, 1970);
-            if($this->preCheckProductsToOrder($valuerequest)){
+        	$pre_check_products_to_order = $this->preCheckProductsToOrder($valuerequest);
+
+	        if(is_bool($pre_check_products_to_order))
+	        	$pre_check_products_to_order['result'] = $pre_check_products_to_order;
+
+            if($pre_check_products_to_order['result'] === true){
                 $validprice += ((float)$valuerequest['products_price'] * (int)$quant[$valuerequest['products_id']]);
                 $origprod[$valuerequest['products_id']] = $valuerequest;
             }else{

@@ -32,12 +32,12 @@ trait ActionSwapAttachOrderToCommon
 
         $common_order = CommonOrders::find()
             ->where(['referral_id' => $referral])
-            ->andWhere(['id' => $id_common_order])
+            ->andWhere(['id' => $id_common_order, 'status'=>1])
             ->one()
         ;
 
         $order = PartnersOrders::find()
-            ->where(['id' => $id_order])
+            ->where(['id' => $id_order, 'status'=>1])
             ->one()
         ;
 
@@ -50,6 +50,7 @@ trait ActionSwapAttachOrderToCommon
         ;
 
         if (!$common_order || !$order || !$referral_user) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не в статусе "Новый" или отсутствует');
             return false;
         }
 
@@ -59,12 +60,14 @@ trait ActionSwapAttachOrderToCommon
         ;
 
         if (!$exist_common_order_link) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не прикреплен, чтобы его перемещать');
             return false;
         }
 
         $exist_common_order_link->common_orders_id = $common_order->id;
 
         if ($exist_common_order_link->save()) {
+            \Yii::$app->getSession()->setFlash('success', 'Удача! Заказ перемещен');
             return true;
         }
 

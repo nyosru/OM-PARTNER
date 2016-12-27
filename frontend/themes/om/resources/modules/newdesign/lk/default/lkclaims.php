@@ -1,52 +1,66 @@
 <?php
-echo \yii\grid\GridView::widget([
-    'dataProvider' => $dataProvider,
-    'layout' => "{pager}\n{items}",
-    'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
-        [
-            'attribute' => 'orders_id',
-            'label' => 'Номер заказа',
-            'headerOptions' => ['style' => ''],
-            'content' => function ($data) {
-                return $data->order->NumOrder().' ('.$data->orders_id.')';
-            }
-        ],
-        [
-            'attribute' => 'products_id',
-            'label' => 'Изображение',
-            'headerOptions' => ['style' => ''],
-            'content' => function ($data) {
-                return '<a target="_blank" href="'.BASEURL.'/product?id='. $data->products_id.'" style="display:block;clear: both; min-height: 200px; min-width: 150px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $data->products_id . ');"></a>';
-            }
-        ],
-        [
-            'attribute' => 'products_name',
-            'label' => 'Наименование',
-        ],
-        [
-            'label' => 'Размер',
-            'content' => function ($data) {
-                $attr = \yii\helpers\ArrayHelper::index($data->order->productsAttr, 'orders_products_id');
-                return $attr[$data->orders_products_id]['products_options_values'];
-            }
-        ],
-        [
-            'label' => 'Количество сообщений',
-            'content' => function ($data) {
-                return count($data->ordersProductsPriten);
-            }
-        ],
-        [
-            'label' => 'Претензии',
-            'content' => function ($data) {
-                return $this->render('_lkclaims-dialog',['data'=>$data]);
-            }
-        ],
-    ]
-]);
-
+use yii\grid\GridView;
+$this->title = 'Мои претензии';
 ?>
+<style>
+    .data-table th>a{
+        color: #FFFFff;
+    }
+</style>
+<div class="container">
+    <div class="row" style="margin: 15px 0;">
+        <?=$this->render('_navlk',['user'=>$cust])?>
+        <div class="col-sm-9">
+            <?=GridView::widget([
+                'dataProvider' => $dataProvider,
+                'layout' => "{pager}\n{items}",
+                'tableOptions' => ['class' => 'data-table'],
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'orders_id',
+                        'label' => 'Номер заказа',
+                        'headerOptions' => [],
+                        'content' => function ($data) {
+                            return $data->order->NumOrder().' ('.$data->orders_id.')';
+                        }
+                    ],
+                    [
+                        'attribute' => 'products_id',
+                        'label' => 'Изображение',
+                        'headerOptions' => ['style' => ''],
+                        'content' => function ($data) {
+                            return '<a target="_blank" href="'.BASEURL.'/product?id='. $data->products_id.'" style="display:block;clear: both; min-height: 200px; min-width: 150px; background-size:cover; background: no-repeat scroll 50% 50% / contain url(' . BASEURL . '/imagepreview?src=' . $data->products_id . ');"></a>';
+                        }
+                    ],
+                    [
+                        'attribute' => 'products_name',
+                        'label' => 'Наименование',
+                    ],
+                    [
+                        'label' => 'Размер',
+                        'content' => function ($data) {
+                            $attr = \yii\helpers\ArrayHelper::index($data->order->productsAttr, 'orders_products_id');
+                            return $attr[$data->orders_products_id]['products_options_values'];
+                        }
+                    ],
+                    [
+                        'label' => 'Количество сообщений',
+                        'content' => function ($data) {
+                            return count($data->ordersProductsPriten);
+                        }
+                    ],
+                    [
+                        'label' => 'Претензии',
+                        'content' => function ($data) {
+                            return $this->render('_lkclaims-dialog',['orders_products_id'=>$data->orders_products_id]);
+                        }
+                    ],
+                ]
+            ]); ?>
+        </div>
+    </div>
+</div>
 
 <script>
     function reloaddata($opid){
@@ -65,7 +79,7 @@ echo \yii\grid\GridView::widget([
                     $('.photobank-'+data.opid).append('<a class="pritenphoto"  rel="light" data-gallery="'+data.opid+'" href="/images/priten/'+this.image_name_server+'"><div class="pritenphotoimg" style="background: url(/images/priten/'+this.image_name_server+') no-repeat 50% 50% /contain"></div></a>');
                 });
 
-                $('a[rel=light]').light();
+                //$('a[rel=light]').light();
 
                 $('.message-bank-'+data.opid).html('');
                 $.each(data.comments,function(){

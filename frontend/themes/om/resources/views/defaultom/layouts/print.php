@@ -17,6 +17,9 @@ $this->beginPage();
     ?>
 </head>
 <body>
+<script>
+    var seo_urls = <?=Yii::$app->params['seourls']?>
+</script>
 <?php $this->beginBody(); ?>
 <?= $content ?>
 <?php

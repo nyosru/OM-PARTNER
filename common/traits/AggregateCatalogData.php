@@ -159,15 +159,15 @@ trait AggregateCatalogData
                 break;
             default:
                 $now = date('Y-m-d H:i:s');
-               $arfilt[':now'] = $now;
-               $arfilt_pricemax[':now'] = $now;
+                $arfilt[':now'] = $now;
+                $arfilt_pricemax[':now'] = $now;
                 $arfilt_attr[':now'] = $now;
                 $prod_day_query_filt = '';
 
         }
 
-        $init_key = $options['cachelistkeyprefix'] . '6ty-' . $cat_start . '-'  . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
-        $init_key_static = $options['cachelistkeyprefix'] . '6ty-' . $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
+        $init_key = $options['cachelistkeyprefix'] . '3ty-' . Yii::$app->params['customcat'] .'-'. $cat_start . '-'  . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
+        $init_key_static = $options['cachelistkeyprefix'] . '3ty-' .Yii::$app->params['customcat'] .'-'. $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         // Отключаем пока таймаут проверки
@@ -185,7 +185,7 @@ trait AggregateCatalogData
             }
 
             //  print_r('с проверкой последнего апдейта');
-            $static_cat_key = Yii::$app->cache->buildKey('static-cat-' . $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
+            $static_cat_key = Yii::$app->cache->buildKey('static-cat-4-' .Yii::$app->params['customcat'].'-'. $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
             if (($cat = Yii::$app->cache->get($static_cat_key)) == TRUE) {
                 if (function_exists('pinba_tag_set')) {
                     pinba_tag_set('static-cat', 'in cache');
@@ -197,23 +197,23 @@ trait AggregateCatalogData
                 Yii::$app->cache->set($static_cat_key, $cat, 3600);
             }
 
-                $hide_man = $this->hide_manufacturers_for_partners();
-                foreach ($hide_man as $value) {
-                    $list[] = $value['manufacturers_id'];
-                }
-                $hide_man = implode(',', $list);
+            $hide_man = $this->hide_manufacturers_for_partners();
+            foreach ($hide_man as $value) {
+                $list[] = $value['manufacturers_id'];
+            }
+            $hide_man = implode(',', $list);
 
-                $x = PartnersProductsToCategories::find()
-                    ->select('MAX(products.`products_last_modified`) as products_last_modified')
-                    ->where('categories_id IN (' . $cat . ')')
-                    ->JoinWith('products')
-                    ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
-                    ->andWhere('products_status = 1')
-                    ->andWhere('death_reason = ""')
-                    ->andWhere('products.products_quantity > 0 ')
-                    ->andWhere('products.products_price != 0')
-                    ->createCommand()
-                    ->queryOne();
+            $x = PartnersProductsToCategories::find()
+                ->select('MAX(products.`products_last_modified`) as products_last_modified')
+                ->where('categories_id IN (' . $cat . ')')
+                ->JoinWith('products')
+                ->andWhere('products.manufacturers_id NOT IN (' . $hide_man . ') ')
+                ->andWhere('products_status = 1')
+                ->andWhere('death_reason = ""')
+                ->andWhere('products.products_quantity > 0 ')
+                ->andWhere('products.products_price != 0')
+                ->createCommand()
+                ->queryOne();
             $checkcache = $x['products_last_modified'];
             $d1 = trim($checkcache);
             $d2 = trim($dataque['checkcache']);
@@ -352,22 +352,24 @@ trait AggregateCatalogData
                     $end_price_query_filt = '';
                 }
                 if ($searchword != '') {
-                    if (preg_match('/^[0-9\s]+/', $searchword)) {
+                    if (preg_match('/^([\s]*([0-9]+[\s]*)+[\s]*)$/iu', $searchword)) {
                         $arfilt[':searchword'] = $arfilt_pricemax[':searchword'] = '%' . trim(str_replace(' ', '', $searchword)) . '%';
                         $prod_search_query_filt = '  and products.products_model LIKE :searchword ';
                         $nostat = true;
                         $nosfilt = true;
-                    } elseif (preg_match('/^[0-9a-zа-я ]+$/iu', $searchword)) {
-                        $patternkey = 'patternsearch2-' . urlencode(trim($searchword));
+                    } elseif (preg_match('/^([\s]*([0-9a-zа-я\-\+\_]+[\s]*)+[\s]*)$/iu', $searchword)) {
+                        $patternkey = 'patternsearch8-' . urlencode(trim($searchword));
                         $patterndata = Yii::$app->cache->get($patternkey);
                         if (!$patterndata) {
-                            $valsearchin = explode('+', $searchword);
+                            $valsearchin = explode(' ', $searchword);
+                            $valsearchin = array_diff($valsearchin, array(''));
                             if (is_array($valsearchin)) {
                                 foreach ($valsearchin as $search) {
                                     if ($search != '') {
                                         $valsearch[] = $this->sklonenie(trim($search));
                                     }
                                 }
+                                $valsearch = array_diff($valsearch, array(''));
                                 $searchword = implode('|', $valsearch);
 
                             } else {
@@ -376,9 +378,11 @@ trait AggregateCatalogData
                             Yii::$app->cache->set($patternkey, ['data' => $searchword], 86400);
                         } else {
                             if (is_array($patterndata['data'])) {
-                                $searchword = implode('|', $searchword['data']);
+                                $searchword = array_diff($patterndata['data'], array(''));
+                                $searchword = implode('|', $searchword);
                             } else {
                                 $searchword = explode(' ', $patterndata['data']);
+                                $searchword = array_diff($searchword, array(''));
                                 $searchword = implode('|', $searchword);
                             }
                         }
@@ -397,11 +401,11 @@ trait AggregateCatalogData
                 foreach ($prod as $values) {
                     $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
                     $dataprod = Yii::$app->cache->get($keyprod);
-                   if($values['last'] != FALSE){
-                       $lastset = $values['last'];
-                   }else{
-                       $lastset = $values['add_date'];
-                   }
+                    if($values['last'] != FALSE){
+                        $lastset = $values['last'];
+                    }else{
+                        $lastset = $values['add_date'];
+                    }
                     if ( $dataprod['data'] && $lastset == $dataprod['last'] && $values['quantity'] == $dataprod['quantity'] && $values['price'] == $dataprod['price']  && $values['model'] == $dataprod['model']) {
                     } else {
                         $for_int++;
