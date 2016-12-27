@@ -2,6 +2,7 @@
 namespace frontend\widgets;
 
 use common\traits\Categories\CategoryChpu;
+use common\traits\Categories\CustomCatalog;
 use common\traits\Categories_for_partner;
 use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
@@ -10,7 +11,7 @@ use Yii;
 
 class Menuom extends \yii\bootstrap\Widget
 {
-    use  Reformat_cat_array,Categories_for_partner, CategoryChpu, RecursCat;
+    use  Reformat_cat_array,Categories_for_partner, CategoryChpu, RecursCat, CustomCatalog;
     public $property;
     private $categoriesarr;
     private $categories;
@@ -88,6 +89,9 @@ class Menuom extends \yii\bootstrap\Widget
                         $uri = '?cat=' . $catdesc ;
                     }else{
                        $uri = '/'.$this->categoryChpu($catdesc);
+                    }
+                    if(!$catnamearr["$catdesc"]){
+                        $catnamearr["$catdesc"] = 'NoNaMe'.$catdesc;
                     }
                     $this->output2 .= '<li class=" ' . $openli . '"><div class="link ' . $aclass . '"  data-cat="' . $catdesc . '"> ' . $exthtml . '<a class="lock-on ' . $aclass . '" href="' . BASEURL . '/catalog'.$uri.'">' . $catnamearr["$catdesc"] . '</a></div>';
                     $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);

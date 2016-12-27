@@ -166,8 +166,8 @@ trait AggregateCatalogData
 
         }
 
-        $init_key = $options['cachelistkeyprefix'] . '6ty-' . $cat_start . '-'  . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
-        $init_key_static = $options['cachelistkeyprefix'] . '6ty-' . $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
+        $init_key = $options['cachelistkeyprefix'] . '3ty-' . Yii::$app->params['customcat'] .'-'. $cat_start . '-'  . '-' . $start_price . '-' . $end_price . '-' . $count . '-' . $page . '-' . $sort . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
+        $init_key_static = $options['cachelistkeyprefix'] . '3ty-' .Yii::$app->params['customcat'] .'-'. $cat_start . '-' . '-' . $start_price . '-' . $end_price . '-' . $prod_attr_query . '-' . $searchword. $sfilt_part_key.'-'.$discont.'-'.$disallkey;
         $key = Yii::$app->cache->buildKey($init_key);
         $dataque = Yii::$app->cache->get($key);
         // Отключаем пока таймаут проверки
@@ -185,7 +185,7 @@ trait AggregateCatalogData
             }
 
             //  print_r('с проверкой последнего апдейта');
-            $static_cat_key = Yii::$app->cache->buildKey('static-cat-' . $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
+            $static_cat_key = Yii::$app->cache->buildKey('static-cat-4-' .Yii::$app->params['customcat'].'-'. $cat_start . '-' . $options['cachelistkeyprefix'].$disallkey);
             if (($cat = Yii::$app->cache->get($static_cat_key)) == TRUE) {
                 if (function_exists('pinba_tag_set')) {
                     pinba_tag_set('static-cat', 'in cache');

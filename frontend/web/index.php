@@ -200,12 +200,12 @@ if(Yii::$app->params['seourls'] == TRUE) {
     $application->on(\yii\base\Application::EVENT_BEFORE_REQUEST, function ($event, $match) {
         \Yii::$app->urlManager->addRules([
             '<action:products-discount>/<page:[0-9]*>' => '<action:products-discount>',
-            '<action:products-discount>/<cat_start:[a-z-\/]+>/<page:[0-9]*>' => '/products-discount',
-            '<action:products-discount>/<cat_start:[a-z-\/]*>' => '/products-discount',
+            '<action:products-discount>/<cat_start:[a-z-0-9-\/]+>/<page:[0-9]*>' => '/products-discount',
+            '<action:products-discount>/<cat_start:[a-z-0-9-\/]*>' => '/products-discount',
 
             '<action:catalog>/<page:[0-9]*>' => '<action:catalog>',
-            '<action:catalog>/<cat_start:[a-z-/]+>/<page:[0-9]*>' => '/catalog',
-            '<action:catalog>/<cat_start:[a-z-/]*>' => '/catalog',
+            '<action:catalog>/<cat_start:[a-z-0-9-/]+>/<page:[0-9]*>' => '/catalog',
+            '<action:catalog>/<cat_start:[a-z-0-9-/]*>' => '/catalog',
 
             '<action:product>/<productid:[a-z-0-9-]*>' => '/product'
         ]);
