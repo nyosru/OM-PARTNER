@@ -18,7 +18,7 @@ trait Fullopcat
             if(Yii::$app->params['customcat']){
                 $f = $this->customCatalog()['cat'];
             }else{
-                $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0')->createCommand()->queryAll();
+                $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0 and categories_id NOT IN (327,1354) and parent_id NOT IN(327,1354)')->createCommand()->queryAll();
 
             }
             $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();

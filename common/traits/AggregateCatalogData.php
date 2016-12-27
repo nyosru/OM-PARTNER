@@ -196,7 +196,9 @@ trait AggregateCatalogData
                 $cat = implode(',', $cat);
                 Yii::$app->cache->set($static_cat_key, $cat, 3600);
             }
-
+            if(!$cat){
+                $cat = '0';
+            }
             $hide_man = $this->hide_manufacturers_for_partners();
             foreach ($hide_man as $value) {
                 $list[] = $value['manufacturers_id'];
@@ -358,7 +360,7 @@ trait AggregateCatalogData
                         $nostat = true;
                         $nosfilt = true;
                     } elseif (preg_match('/^([\s]*([0-9a-zа-я\-\+\_]+[\s]*)+[\s]*)$/iu', $searchword)) {
-                        $patternkey = 'patternsearch8-' . urlencode(trim($searchword));
+                        $patternkey = 'patternsearch89-' . urlencode(trim($searchword));
                         $patterndata = Yii::$app->cache->get($patternkey);
                         if (!$patterndata) {
                             $valsearchin = explode(' ', $searchword);
