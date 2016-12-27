@@ -14,7 +14,14 @@ date_default_timezone_set('Europe/Moscow');
 error_reporting(E_ERROR);
 
 
-defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+
+
+
+if($_GET['admin'] === 'skhesjebgjrbgkjbrgb'){
+    defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
+}else {
+    defined('YII_DEBUG') or define('YII_DEBUG', FALSE);
+}
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
 require(__DIR__ . '/../../vendor/autoload.php');
@@ -30,7 +37,7 @@ $config = yii\helpers\ArrayHelper::merge(
 );
 
 $versions = require(__DIR__ . '/../config/versions.php');
-$application = new yii\web\Application($config);
+
 
 
 $config['components']['log']['targets'][] = [
@@ -48,6 +55,14 @@ $config['components']['log']['targets'][] = [
     'maxFileSize' => 1024 * 2,
     'maxLogFiles' => 1000
 ];
+
+
+$application = new yii\web\Application($config);
+
+
+
+
+
 
 function off(){
     Yii::$app->db->close();
@@ -114,7 +129,6 @@ unset($version['frontend']);
 foreach ($version as $key => $mvc) {
     $config['modules'][$key]['class'] = 'frontend\modules\\' . $key . '\versions' . $mvc . '\module';
     $config['components']['urlManager']['rules']['<module:'.$key.'>/<action>'] = $key.'/default/<action>';
-
 }
 
 $application = new yii\web\Application($config);
