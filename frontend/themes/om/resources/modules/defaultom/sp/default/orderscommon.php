@@ -282,6 +282,8 @@
                 $('.total_count_products'+partner_orders.id).text(total_count_products);
             });
 
+            $('.total_count_products').text('Итого '+final_common_price+' р.');
+
             if(client_plate_update) {
                 $('[data-detail="'+updated_orders_list.id+'"]').find('.client-info-fr-price').find('div').text(final_common_price +" руб.");
             }
@@ -472,8 +474,8 @@
                             }
                         }
                     });
-                    updateAllOrdersView(orders_list, false);
-
+                    updateAllOrdersView(orders_list, true);
+                    updateCommonTotalOrder();
                 }
                 checkAlerts();
             });
