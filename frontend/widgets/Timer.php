@@ -21,7 +21,7 @@ class Timer extends \yii\bootstrap\Widget
                 if (RealTimer < 0) RealTimer = 0;
                 obj.innerHTML =  RealTimer ;
                 if (RealTimer == 0) {
-                    location.replace("#");
+//                    location.replace("#");
                     $('.loading').remove();
                     return true;
                 }
