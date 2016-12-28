@@ -625,7 +625,8 @@
 }
 .status-like
 {
-    background:#ffea00 none repeat scroll 0 0
+    background:#ffea00 none repeat scroll 0 0;
+    color: black !important;
 }
 .status-new
 {
