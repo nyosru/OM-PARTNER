@@ -159,6 +159,7 @@
     display: inline-block;
 }
 .client-info-fr-price {
+    text-align: center;
     padding: 25px 0px;
     display: inline-block;
     float: right;
