@@ -15,7 +15,7 @@ $contentutm = \frontend\widgets\UtmLinker::widget(['param'=>Yii::$app->params['p
         Ваш заказ <span style="color:#027BC2;font-weight:bold;font-family:'Roboto', Arial;font-size:18px;"><?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?></span> принят и ждет дальнейшей обработки
     </p>
     <p style="line-height:25px;padding:0px 15px;margin:0px 0px 20px 0px;color:#000000;text-align:left;font-family:'Roboto', Arial;font-size:16px;">
-        Состояние заказа можно отслеживать в <a href="http://<?=$_SERVER['HTTP_HOST'];?>/?<?=$contentutm;?>" target="_blank" style="color:#027BC2;font-weight:bold;text-decoration:underline;font-family:'Roboto', Arial;font-size:14px;">личном кабинете</a>.
+        Состояние заказа можно отслеживать в <a href="http://<?=$_SERVER['HTTP_HOST'];?>/lk/?<?=$contentutm;?>" target="_blank" style="color:#027BC2;font-weight:bold;text-decoration:underline;font-family:'Roboto', Arial;font-size:14px;">личном кабинете</a>.
     </p>
     <table style="border:0;width:100%;padding:0px 15px;margin:0px 0px 40px 0px;" border="0">
         <tr>

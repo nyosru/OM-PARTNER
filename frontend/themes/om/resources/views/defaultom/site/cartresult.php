@@ -195,7 +195,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 				if($itemcart.cart.length > 0 ){
 					$ilocal = JSON.stringify($itemcart);
 					localStorage.setItem('cart-om', $ilocal);
-					alert('В вашей корзине остались товары которые сейчас недоступны к заказу.');
+					alert('В вашей корзине остались товары которые сейчас недоступны для оформления.');
 				}else{
 					localStorage.removeItem('cart-om');
 					localStorage.removeItem('cart-om-date');
