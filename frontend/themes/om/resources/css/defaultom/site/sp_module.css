@@ -160,7 +160,7 @@
 }
 .client-info-fr-price {
     text-align: center;
-    padding: 25px 0px;
+    padding: 25px 10px 25px 0;
     display: inline-block;
     float: right;
     width: 40%;
@@ -627,7 +627,7 @@
 .status-like
 {
     background:#ffea00 none repeat scroll 0 0;
-    color: black !important;
+    color: black;
 }
 .status-new
 {
