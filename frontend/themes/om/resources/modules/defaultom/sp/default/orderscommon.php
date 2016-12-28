@@ -115,6 +115,7 @@
                                             </div>
                                     </div>
                                     <div class="client-info-fr-price">
+                                        <div>Начальная цена заказа</div>
                                         <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">'.$total_price.' руб.</div>
                                     </div>
                                 </div>
@@ -274,15 +275,20 @@
                 }
                 $.each(partner_orders.order['products'], function(index_order, product){
 
-                    final_order_price += Math.round(product[3]) * Math.round(product[4]);
+                    var product_data = requestProduct(product[0], product[2] , product[4]);
+                    if(product_data.maindata.result == true){
+                        final_order_price += Math.round(product[3]) * Math.round(product[4]);
+                    }
+
                 });
 
                 final_common_price += final_order_price;
+
                 $('.final_order_price'+partner_orders.id).text(final_order_price+ " р.");
                 $('.total_count_products'+partner_orders.id).text(total_count_products);
             });
 
-            $('.total_count_products').text('Итого '+final_common_price+' р.');
+            $('.final_common_price').text('Итого '+final_common_price+' р.');
 
             if(client_plate_update) {
                 $('[data-detail="'+updated_orders_list.id+'"]').find('.client-info-fr-price').find('div').text(final_common_price +" руб.");
@@ -390,17 +396,6 @@
             });
         });
 
-
-        function updateCommonTotalOrder(){
-            var total = 0;
-            setTimeout(function() {
-                $x =    $('[class*="final-product-price"]');
-                $.each($x, function(){
-                    total = total + parseInt($(this).text());
-                });
-                $('[class="final_common_price"]').text('Итого '+total+' р.');
-            }, 100);
-        };
         $(document).on('click', '.count-event', function(){
             var input_count = $(this).closest("#input-count-block").children("#input-count");
             calculateCommonorder(input_count);
@@ -423,7 +418,6 @@
                 var index_product_card = input_count.attr('data-index-product');
                 updateCountProducts(product_id, attr, new_value, order_id);
                 updateAllOrdersView(orders_list, false);
-                updateCommonTotalOrder();
                 $('.final-product-price'+index_product_card+'-'+order_id).text(Math.round(price) * Math.round(new_value) + " р.");
             }, 50);
         }
@@ -475,7 +469,6 @@
                         }
                     });
                     updateAllOrdersView(orders_list, true);
-                    updateCommonTotalOrder();
                 }
                 checkAlerts();
             });
@@ -564,11 +557,10 @@
                     console.log(data);
                 },
                 success: function (partnerOrders) {
-
+                    console.log(partnerOrders);
                     if(partnerOrders != false) {
                         orders_list.partnerOrders = partnerOrders;
                         renderOrders(orders_list);
-                        updateCommonTotalOrder();
                         updateAllOrdersView(orders_list, true);
                     }
                     checkAlerts();
@@ -622,7 +614,13 @@
                     total_count_products = Object.keys(partner_orders.order['products']).length;
                 }
                 $.each(partner_orders.order['products'], function(index_order, product){
-                    final_order_price += Math.round(product[3]) * Math.round(product[4]);
+
+                    var product_data = requestProduct(product[0], product[2] , product[4]);
+
+                    if(product_data.maindata.result == true){
+                        final_order_price += Math.round(product[3]) * Math.round(product[4]);
+                    }
+
                 });
                 final_common_price += final_order_price;
                 var user_name = '';
