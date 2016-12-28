@@ -131,7 +131,7 @@
                                                 </div>
                                                 <div class="client-info-fr-price">
                                                     <div>Начальная цена заказа</div>
-                                                    <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">
+                                                    <div class="client-price" style="font-size: 18px;color: #4A90E2;font-weight: 400;">
                                                         '.$order_price.' руб.
                                                     </div>
                                                 </div>
@@ -457,7 +457,7 @@
             });
 
             if(client_plate_update) {
-                $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('div').text(final_order_price +" руб.");
+                $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('.client-price').text(final_order_price +" руб.");
             }
 
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
