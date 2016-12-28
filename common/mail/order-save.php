@@ -169,7 +169,7 @@ unset($order['discounttotalprice']);
                                         <td colspan="2" style="padding-top:25px;padding-bottom:15px;">
                                             <p style="font-size:22px;font-family:officinaserifcBook,sans-serif;">
                                                 Статус и состояние заказа вы можете посмотреть в 
-                                                <a href="http://<?= $site ?><?= BASEURL ?>/requestorders">
+                                                <a href="http://<?= $site ?><?= BASEURL ?>/lk/">
                                                     личном кабинете:
                                                 </a>
                                             </p>
