@@ -74,7 +74,7 @@ trait ActionAllClients
                     'desc' => ['partners_users_info.secondname' => SORT_DESC],
                 ],
                 'create_date'  => [
-                    'desc' => ['partners_orders.create_date' => SORT_DESC],
+                    'desc' => ['partners_orders.id' => SORT_DESC],
                 ],
                 'date_added'   => [
                     'desc' => ['partners_referrals_users.date_added' => SORT_DESC],

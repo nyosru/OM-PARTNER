@@ -82,7 +82,7 @@ trait ActionIndex
             ],
             'attributes' => [
                 'create_date'  => [
-                    'desc' => ['partners_orders.create_date' => SORT_DESC],
+                    'desc' => ['partners_orders.id' => SORT_DESC],
                 ],
                 'status'       => [
                     'desc' => ['partners_orders.status' => SORT_DESC],

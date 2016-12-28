@@ -75,7 +75,7 @@ trait ActionCommonOrders
             ],
             'attributes' => [
                 'date_added'   => [
-                    'desc' => [CommonOrders::tableName() . '.date_added' => SORT_DESC],
+                    'desc' => [CommonOrders::tableName() . '.id' => SORT_DESC],
                 ],
                 'status'       => [
                     'desc' => [CommonOrders::tableName() . '.status' => SORT_DESC],
