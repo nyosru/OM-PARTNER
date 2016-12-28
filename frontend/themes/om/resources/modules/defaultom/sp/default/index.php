@@ -4,7 +4,24 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
-
+$stat_class = [
+    'status-cancel',
+    'status-new',
+    'status-proceed',
+    'status-like',
+    'status-payed',
+    'status-ordered',
+    'status-return',
+];
+$order_status_label = [
+    'Удален',
+    'Новый',
+    'В обработке',
+    'Одобренный',
+    'Оплаченый',
+    'Выполненный',
+    'Возврат'
+];
 $text = [
     '',
     '<div class="client-new"></div>',
@@ -37,9 +54,21 @@ $text = [
         <div id="col1">
             <div id="scroll1" style="height: 100%">
 
-                <?php
-                $i_model = 0;
-                foreach ($data_provider->getModels() as $user_id => $user) : ?>
+                <?php if(count($data_provider->getModels()) <= 0):  ?>
+                    <table class="table table-striped" style="vertical-align:middle; border-bottom:1px solid #CCC;">
+                        <tbody>
+                        <tr>
+                            <td colspan="1">
+                                <div class="empty">Данных нет</div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+
+                    <?php
+                    $i_model = 0;
+                    foreach ($data_provider->getModels() as $user_id => $user) : ?>
                     <a href="<?= \yii\helpers\Url::current(['user_id' => $user_id]) ?>"  style="color: inherit;">
                         <?php
                         $i_model += 1;
@@ -100,7 +129,9 @@ $text = [
                             </div>
                         </div>
                     </a>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
             </div>
         </div>
         <div id="col2">
@@ -243,7 +274,7 @@ $text = [
                                     <div class="col-md-1 order-pseudo-column"><?= $order->id ?></div>
                                     <div class="col-md-2 order-pseudo-column"><?= $order->create_date ?></div>
                                     <div class="col-md-1 order-pseudo-column"><?= $order_price ?>p</div>
-                                    <div class="col-md-6 order-pseudo-column"><?= $order->status ?></div>
+                                    <div class="col-md-6 order-pseudo-column"><?= '<div class="client-order-status '.$stat_class[$order->status].'"></div>' ?></div>
                                     <div class="col-md-1 order-pseudo-column" style="text-align: right;"><a class="glyphicon glyphicon-pencil" target="_blank" href="/sp/#id=<?= $order->id ?>"></a></div>
                                 </div>
                                 <div id="product-line-<?=$i_product?>" class="panel-collapse collapse" style="height: 100%">
