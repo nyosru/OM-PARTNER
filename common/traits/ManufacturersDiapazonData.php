@@ -50,7 +50,7 @@ Trait ManufacturersDiapazonData
                     Yii::$app->cache->set($keys, $HTML, 7200);
                     return $data;
                 } else {
-                    $data = '<div><span style="color: red"><strong>Данный товар будет доступен для заказа с 09.01.16 с 16-00 . Приносим свои извинения за временные неудобства!</strong></span><div>';
+                    $data = '<div><span style="color: red"><strong>Данный товар не доступен для заказа . Приносим свои извинения за временные неудобства!</strong></span><div>';
                     Yii::$app->cache->set($keys, $data, 7200);
                     return $data;
                 }
