@@ -129,54 +129,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_22122106_1.png',
-                'referal'=> '/catalog?cat=2486',
+                'image' =>  'OM_26122016_1.png',
+                'referal'=> '/catalog?cat=1729',
                 'term'=> '',
-                'alttext' => 'Стильная домашняя одежда',
+                'alttext' => 'Блузы',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_22122106_2.png',
-                'referal'=> '/catalog?cat=1714',
+                'image' =>  'OM_26122016_2.png',
+                'referal'=> '/catalog?cat=1759',
                 'term'=> '',
-                'alttext' => 'Кофточки XXL',
+                'alttext' => 'Джинсы',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_22122106_3.png',
-                'referal'=> '/catalog?cat=2054',
+                'image' =>  'OM_26122016_3.png',
+                'referal'=> '/catalog?cat=1824',
                 'term'=> '',
-                'alttext' => 'Зимние ароматы',
+                'alttext' => 'Вязаные шапки',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_22122106_4.png',
-                'referal'=> '/catalog?cat=1421',
+                'image' => 'OM_26122016_4.png',
+                'referal'=> '/catalog?cat=1792',
                 'term'=> '',
-                'alttext' => 'Мягкие друзья',
+                'alttext' => 'Спортивные костюмы',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_22122106_5.png',
-                'referal'=> '/catalog?cat=1725',
+                'image' => 'OM_26122016_5.png',
+                'referal'=> '/catalog?cat=1751',
                 'term'=> '',
-                'alttext' => 'Новый год',
+                'alttext' => 'Зимние куртки и пуховики',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_22122106_6.png',
-                'referal'=> '/products-discount',
-                'alttext' => 'Цены ниже оптовых',
+                'image' => 'OM_26122016_6.png',
+                'referal'=> '/dayproduct',
+                'alttext' => 'Новинки дня',
                 'out' => FALSE
             ]
         ],
