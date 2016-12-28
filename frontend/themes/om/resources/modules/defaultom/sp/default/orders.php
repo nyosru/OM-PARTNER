@@ -553,7 +553,7 @@
             var data_model = parseInt(input_count.attr('data-model'));
 
             if (isNaN(val)){
-                alert('Не выбранно количество!');
+                alert('Не выбрано количество!');
                 return false;
             }
             $.ajax({
@@ -624,6 +624,7 @@
 
                         },
                         success: function (data) {
+                            console.log(data);
                             $('.preload').remove();
                             if (typeof (data) != "object") {
                                 alert('Ничего не найдено по вашему запросу');
@@ -632,6 +633,10 @@
                             if ($.isArray(data) && data.length <= 0) {
                                 alert('Ничего не найдено по вашему запросу');
                                 abort = true;
+                            }
+                            if(typeof (data.product.productsDescription) == "undefined") {
+                                alert('Ничего не найдено по вашему запросу');
+                                return false;
                             }
                             var  new_product = data.product;
                             if(new_product.productsAttributesDescr.length == 0){
