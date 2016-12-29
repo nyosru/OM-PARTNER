@@ -1,6 +1,7 @@
 <?php
 use yii\bootstrap\Modal;
 use yii\bootstrap\Html;
+use yii\bootstrap\ActiveForm;
 ?>
 <!-- Header -->
 <header>
@@ -26,46 +27,32 @@ use yii\bootstrap\Html;
                     <!-- End Header Logo -->
                 </div>
                 <div class="col-lg-6 col-sm-5 col-xs-8 toplinks">
-
                     <!-- Default Welcome Message -->
 <!--                    <div class="welcome-msg hidden-xs">Default welcome msg! </div>-->
                     <!-- End Default Welcome Message -->
                     <div class="links">
 <!--                        <div class="wishlist"><a title="My Wishlist" href="/selectedproduct"><span class="hidden-xs">Избранное</span></a></div>-->
                         <?php
-                        if(Yii::$app->user->isGuest){
-                            $model = new \common\models\LoginFormOM();
-                            Modal::begin([
-                                'id'=> 'authform',
-                                'header' => 'Вход на Одежда-Мастер',
-                                'toggleButton' => ['label' => 'Вход','tag'=>'a'],
-                            ]);
-                            $form = \yii\bootstrap\ActiveForm::begin([
-                                'action' => BASEURL.'/login',
-                                'id' => 'login-form'
-                            ]);
-                            echo $form->field($model, 'username', ['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->label('Электронная почта');
-                            echo $form->field($model, 'password',['inputOptions'=>['class'=>'no-shadow-form-control', 'style'=>'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">'.Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']).'</span>') ;
-                            echo' <div style="color:#999;margin:1em 0">';
-                            echo    Html::a('Зарегистрироваться', [BASEURL . '/signup'],  ['class'=>'btn' , 'style'=>'height: 36px; color: rgb(0, 0, 0); position: absolute; right: 30px; text-decoration: underline;' ]) ;
-                            echo    Html::submitButton('Вход', ['class' => 'btn', 'name' => 'partners-settings-button', 'style'=>'height: 36px; color: rgb(255, 255, 255); position: absolute; left: 30px; background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
-                            echo'</div>';
-                            echo $form->field($model, 'rememberMe', ['options'=>['style'=>'margin-top:80px']])->checkbox()->label('Запомнить меня');
-
-                            \yii\bootstrap\ActiveForm::end();
-
-                            Modal::end();
-
-                            echo '<a  rel="nofollow"  href="'.BASEURL.'/signup"><span style="float: left; margin: 4px;">Регистрация</span></a>';
-                        }else{
-                            echo '<div style="float: right;"><a  rel="nofollow" href="'.BASEURL.'/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
-                            echo '<div style="float: right;"><a rel="nofollow"  href="'.BASEURL.'/lk/"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
-                        }
-                        ?>
+                        if(Yii::$app->user->isGuest){ ?>
+                            <div>
+                                <a  rel="nofollow"  href="/signup"><span class="hidden-xs">Регистрация</span></a>
+                            </div>
+                            <div>
+                                <a  rel="nofollow" data-toggle="modal" data-target="#authform" href="#"><span class="hidden-xs">Вход</span></a>
+                            </div>
+                        <?php } else{ ?>
+                            <div>
+                                <a rel="nofollow"  href="/lk/"><span class="hidden-xs">Профиль</span></a>
+                            </div>
+                            <div>
+                                <a  rel="nofollow" href="/logout" data-method="post"><span class="hidden-xs">Выход</span>
+                            </div>
+                        <?php } ?>
 
                         <!-- links -->
                     </div>
                 </div>
+                <?=$this->render('_header-modal')?>
                 <div class="col-lg-4 col-sm-5 col-xs-12 right_menu">
                     <div class="menu_top">
                         <div class="top-cart-contain pull-right">

@@ -561,19 +561,23 @@ ul.currencies_list li a:hover {
 	margin-top: 16px;
 }
 
-.toplinks .links {
+.toplinks .links>div {
 	text-align: right;
 	display: inline-block;
 }
-.toplinks div.links>a {
-	display: inline-block;
-	padding: 0px;
-	color: #333;
-	font-size: 13px;
-	padding: 0px 0px 0px 15px;
-	text-transform: none;
-	font-family: 'Roboto', sans-serif;
-	text-decoration: none;
+.toplinks .links>div {
+    display: inline-block;
+    text-align: right;
+}
+.toplinks div.links>div>a {
+    display: inline-block;
+    padding: 0px;
+    color: #333;
+    font-size: 13px;
+    padding: 0px 0px 0px 15px;
+    text-transform: none;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
 }
 
 .toplinks div.links div a:hover {
@@ -15192,4 +15196,6 @@ a#fancybox-close {
     max-height: 250px;
     overflow: auto;
 }
-
+.field-loginformom-rememberme .checkbox{
+    margin: 0;
+}
