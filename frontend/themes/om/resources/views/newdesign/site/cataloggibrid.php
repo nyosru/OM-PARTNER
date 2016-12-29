@@ -63,10 +63,6 @@ foreach ($start_url as $key=>$val){
 }
 
 $urlsrc[] = $newurl;
-$pagination = new Pagination([
-    'defaultPageSize' => 60,
-    'totalCount' => $data[1],
-]);
 if ($data[0] != 'Не найдено!') {
 ?>
 <div class="breadcrumbs">
@@ -89,8 +85,34 @@ if ($data[0] != 'Не найдено!') {
         <div class="row">
             <div class=" col-sm-9 col-sm-push-3">
                 <article class="col-main">
+                    <?php
+                    $chpu = new \common\traits\Categories\CategoryChpuClass();
+                    if ($catpath['num'] != 0) {
+                        foreach ($catpath['num'] as $key => $catid) {
+                            $paste = [];
+                            if(Yii::$app->params['seourls'] == TRUE){
+                                if(!$chpu->categoryChpu($catid)){
+                                    $paste[0] = $urlsrc[0];
+                                    $paste['cat'] = $catid;
+                                }else{
+                                    $paste[0] =   Yii::$app->params['chpu']['action'].'/'.$chpu->categoryChpu($catid);
+                                }
+                            }else{
+                                $paste[0] = $urlsrc[0];
+                                $paste['cat'] = $catid;
+                            }
+                        }
+                    }
+                    ?>
                     <div class="page-title">
-                        <h2>Tops &amp; Tees</h2>
+                        <h2>
+                            <?php
+                            if($catpath['num'] != 0) {
+                                echo end($catpath['name']);
+                            }else{
+                                echo 'Каталог';
+                            }?>
+                        </h2>
                     </div>
 
                     <div class="toolbar">
@@ -125,7 +147,7 @@ if ($data[0] != 'Не найдено!') {
                                     }
                                     echo '<ul>';
                                     foreach($sortorder as $sortitem){
-                                        echo '<li><a href="'.Url::current(['sort'=>$sortitem[1]]).'">'.$sortitem[0].'</a></li>';
+                                        echo '<li><a href="'.Url::to([$paste[0],'sort'=>$sortitem[1]]).'">'.$sortitem[0].'</a></li>';
                                     }
                                     echo '</ul>';
                                     ?>
@@ -140,12 +162,12 @@ if ($data[0] != 'Не найдено!') {
                                     $sort_arrow = 'top';
                                     $sort_set_active = $sortorder_active[2];
                                 }
-                                echo '<a class="button-asc left" href="'.Url::current(['sort'=>$sort_set_active]).'" title="Изменить порядок сортировки"><span class="'.$sort_arrow.'_arrow"></span></a>';
+                                echo '<a class="button-asc left" href="'.Url::to([$paste[0],'sort'=>$sort_set_active]).'" title="Изменить порядок сортировки"><span class="'.$sort_arrow.'_arrow"></span></a>';
                             }?>
                         </div>
                         <div class="pager">
                             <div id="limiter">
-                                <label>View: </label>
+                                <label>Показать: </label>
                                 <ul>
                                     <li><a href="#">15<span class="right-arrow"></span></a>
                                         <ul>
@@ -158,10 +180,14 @@ if ($data[0] != 'Не найдено!') {
                             </div>
 
                             <div class="pages">
-                                <label>Page:</label>
+                                <label>Страница:</label>
                                 <?=LinkPager::widget([
-                                    'pagination' => $pagination,
-                                    'maxButtonCount' => 5,
+                                    'pagination' => new Pagination([
+                                        'defaultPageSize' => 60,
+                                        'totalCount' => $data[1],
+                                        'route' => $paste[0],
+                                    ]),
+                                    'maxButtonCount' => 3,
                                 ]); ?>
                             </div>
                         </div>
