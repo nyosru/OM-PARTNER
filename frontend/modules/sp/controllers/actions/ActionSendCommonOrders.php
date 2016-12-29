@@ -65,7 +65,6 @@ $script = <<< JS
             orders_status_blocks.addClass("status-proceed");
 JS;
             $x = Json::decode($x);
-            echo '<pre>' . print_r($x, true) . '</pre>';
             if($x['result']['code'] == 200 && $x['result']['data']['paramorder']['number']) {
                 echo '<script>';
                 echo $script;
