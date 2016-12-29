@@ -4,6 +4,7 @@ use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\data\Pagination;
 use yii\widgets\LinkPager;
@@ -60,8 +61,8 @@ foreach ($start_url as $key=>$val){
         $urlsrc[$key] = $val;
     }
 }
-$urlsrc[] = $newurl;
 
+$urlsrc[] = $newurl;
 $pagination = new Pagination([
     'defaultPageSize' => 60,
     'totalCount' => $data[1],
@@ -398,7 +399,7 @@ if ($data[0] != 'Не найдено!') {
                     <div class="block block-layered-nav">
                         <div class="block-title">Фильтр</div>
                         <div class="block-content">
-
+                            <form class="partners-main-right filter" action="">
                             <dl id="narrow-by-list">
                                 <dt class="odd">Цена</dt>
                                 <dd class="odd">
@@ -451,37 +452,60 @@ if ($data[0] != 'Не найдено!') {
                                 </dd>
                                 <dt class="odd">Размеры</dt>
                                 <dd class="odd">
-                                    <?php
-                                    $data[3] = \yii\helpers\ArrayHelper::index($data[3], 'products_options_values_name');
-                                    ksort($data[3],SORT_NATURAL);
-                                    foreach($data[3] as $key=>$value){
-                                        if($value['products_options_values_id'] == $prodatrquery){
-                                            $checked = 'fa-check';
-                                        }else{
-                                            $checked = '';
-                                        }
-                                        if($value['products_options_values_id']) {
-                                            echo '<div class="filter-item-size">';
-                                            echo '<div class="checkbox-overlay fa '.$checked.'" for="checkbox-hidden-group">'.
-                                                '<input id="checkbox-hidden-group"  class="checkbox-hidden-group" type="checkbox" class="prod_attr_query" value="'.$value['products_options_values_id'].
-                                                '" name = "prod_attr_query"'.
-                                                ' '. $checked.' /></div><span class="checkbox-hidden-group-label" style="display: inline; min-width: 100px; color: black; margin-left: 10px; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7; max-width: calc(100% - 50px); overflow: hidden; float: left;">'.$value['products_options_values_name'].'</span>';
-                                            echo '</div>';
-                                        }
-                                    }
-
-                                    ?>
+                                    <div class="catalog-list-filter">
+                                        <?php
+                                        $data[3] = \yii\helpers\ArrayHelper::index($data[3], 'products_options_values_name');
+                                        ksort($data[3],SORT_NATURAL);
+                                        foreach($data[3] as $key=>$value){
+                                            if($value['products_options_values_id']) { ?>
+                                                <div class="checkbox-filter">
+                                                    <label>
+                                                        <?=Html::radio('prod_attr_query', $value['products_options_values_id'] == $prodatrquery ,[
+                                                            'value' => $value['products_options_values_id'],
+                                                        ]);?>
+                                                        <?=$value['products_options_values_name']?>
+                                                    </label>
+                                                </div>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </div>
                                 </dd>
-                                <dt class="last even">Size</dt>
-                                <dd class="last even">
-                                    <ol>
-                                        <li> <a href="#">S</a> (6) </li>
-                                        <li> <a href="#">M</a> (6) </li>
-                                        <li> <a href="#">L</a> (4) </li>
-                                        <li> <a href="#">XL</a> (4) </li>
-                                    </ol>
+                                <?php
+                                if($spec) {
+                                    foreach ($spec as $speckey => $specval) {
+                                        if ($speckey == '77' || $speckey == '4119' || $speckey == '74' ) { ?>
+                                            <dt class="odd"><?=$specval['name']?></dt>
+                                            <dd class="odd">
+                                                <div class="catalog-list-filter">
+                                                    <?php foreach ($specval['dataset'] as $keyr => $valuer) { ?>
+                                                        <?php if($valuer) { ?>
+                                                            <div class="checkbox-filter">
+                                                                <label>
+                                                                    <?=Html::checkbox('sfilt[]', is_array($valuer) && $valuer['products_options_values_id'] == $prodatrquery ,[
+                                                                        'value' => $keyr,
+                                                                    ]);?>
+                                                                    <?=$valuer?>
+                                                                </label>
+                                                            </div>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                </div>
+                                            </dd>
+                                        <?php } ?>
+                                    <?php } ?>
+                                <?php } ?>
+                                <dd class="odd">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <button class="button" type="submit">Применить</button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <a href="?cat=<?=$cat?>&amp;count=<?=$count?>&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" class="button reset-filter lock-on">Сбросить</a>
+                                        </div>
+                                    </div>
                                 </dd>
                             </dl>
+                            </form>
                         </div>
                     </div>
                     <div class="block block-cart">

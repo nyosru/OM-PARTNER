@@ -565,13 +565,7 @@ ul.currencies_list li a:hover {
 	text-align: right;
 	display: inline-block;
 }
-
-.toplinks .links div {
-	display: inline-block;
-	text-align: right;
-}
-
-.toplinks div.links div a {
+.toplinks div.links>a {
 	display: inline-block;
 	padding: 0px;
 	color: #333;
@@ -7194,7 +7188,7 @@ button.button.continue:before {
 	border-radius: 3px;
 }
 
-.sidebar a, .sidebar .block-layered-nav .price .sub {
+.sidebar .block-layered-nav .price .sub {
 	color: #222;
 	font-size: 14px;
 }
@@ -8451,14 +8445,17 @@ ol#compare-items li.last {
 }
 
 .toolbar a.button-grid {
+    display: inline;
 	background: #f8f8f8 url(/images/new/icon_grid_over.png) no-repeat 8px center;
 	border: 1px #eaeaea solid;
 	color: #333;
 	padding: 7px 15px;
 	border-radius: 3px;
+    margin-right: 5px;
 }
 
 .toolbar span.button-active.button-grid {
+    display: inline;
 	background: url(/images/new/icon_grid_act.png) no-repeat 8px center;
 	background-color: #08c;
 	color: #fff;
@@ -8469,6 +8466,7 @@ ol#compare-items li.last {
 }
 
 .toolbar span.button-active.button-list {
+    display: inline;
 	background: url(/images/new/icon_list_act.png) no-repeat 6px center;
 	background-color: #08c;
 	color: #fff;
@@ -10951,7 +10949,7 @@ address {
 	right: 8px;
 }
 
-button.button {
+.button {
 	display: inline-block;
 	border: 0;
 	background: #fff;
@@ -10967,11 +10965,11 @@ button.button {
 	border: 2px solid #eee;
 }
 
-.sidebar button.button {
+.sidebar .button {
 	color: #fff;
 }
 
-button.button:hover {
+.button:hover {
 	background: #08c;
 	color: #fff;
 	border: 2px solid #08c;
@@ -10981,7 +10979,7 @@ button.button:hover {
 	-webkit-transition: all 0.3s linear;
 }
 
-button.button span span {
+.button span span {
 	border: 0;
 	padding: 0;
 	background: none;
@@ -15189,5 +15187,9 @@ a#fancybox-close {
 }
 .krajee-datepicker.form-control{
     margin: 0;
+}
+.catalog-list-filter{
+    max-height: 250px;
+    overflow: auto;
 }
 
