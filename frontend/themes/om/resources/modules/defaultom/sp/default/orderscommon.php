@@ -182,6 +182,21 @@
         $('#pjax_common').on('pjax:end', function(){
             refresh_list();
         });
+        function scrollToTopCustomScrollBar(pointer) {
+            $(pointer).mCustomScrollbar("scrollTo", $(pointer).position().top, {
+                // scroll as soon as clicked
+                timeout:0,
+
+                // scroll duration
+                scrollInertia:200
+            });
+            // disable original jumping
+            return false;
+        }
+        $("#orders").on("pjax:end", function() {
+            scrollToTopCustomScrollBar('#scroll1');
+        });
+
         var order_status_label = [
             'удален',
             'новый',
@@ -603,6 +618,7 @@
 
         function renderOrders(data) {
 
+            scrollToTopCustomScrollBar('#scroll2');
             moment.locale('ru');
             var final_common_price = 0;
             var str_html="";

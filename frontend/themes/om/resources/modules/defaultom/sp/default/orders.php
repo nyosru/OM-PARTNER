@@ -170,7 +170,20 @@
         $('#pjax_common').on('pjax:end', function(){
             refresh_list();
         });
+        function scrollToTopCustomScrollBar(pointer) {
+            $(pointer).mCustomScrollbar("scrollTo", $(pointer).position().top, {
+                // scroll as soon as clicked
+                timeout:0,
 
+                // scroll duration
+                scrollInertia:200
+            });
+            // disable original jumping
+            return false;
+        }
+        $("#grid").on("pjax:end", function() {
+            scrollToTopCustomScrollBar('#scroll1');
+        });
         var product_arr = new Object();
         var maindata_arr = new Object();
         var maindata = new Object();
@@ -783,6 +796,7 @@
 
 
         function renderOrder(data) {
+            scrollToTopCustomScrollBar('#scroll2');
             var user_name = '';
             var telephone = '';
             var user_email = data.refus.user.email;
