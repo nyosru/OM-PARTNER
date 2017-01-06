@@ -13,7 +13,7 @@ $this->title = 'Избранные продукты';
 
             $.ajax({
                 method: 'post',
-                url: "/site/selectedproduct",
+                url: location.href,
                 async: false,
                 data: {products:products,html:true},
                 success: function (data) {
