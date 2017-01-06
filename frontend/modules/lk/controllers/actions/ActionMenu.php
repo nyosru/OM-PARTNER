@@ -7,6 +7,7 @@ use common\models\OrdersProductsPriten;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
 use common\models\Profile;
+use common\models\Referrals;
 use common\models\User;
 use common\models\Orders;
 use frontend\widgets\ProductCard;
@@ -17,6 +18,21 @@ trait ActionMenu
 {
     public function actionMenu()
     {
+        $lksp = '';
+        if(Referrals::find()->where(['user_id'=>Yii::$app->user->getId()])->exists()){
+            $lksp = '
+             <ul id="accordion" class="accordion">
+                            <li class="">
+                                <div id="profile-orders" class="link profile-orders">
+                                    <a href="/sp/">
+                                        Кабинет реферала
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+        ';
+        }
+
         return '
         <ul id="accordion" class="accordion">
                             <li class="">
@@ -63,6 +79,7 @@ trait ActionMenu
                                 </div>
                             </li>
                         </ul>
+                        '.$lksp.'
                         <ul id="accordion" class="accordion">
                             <li class="">
                                 <div id="profile-orders" class="link profile-orders">

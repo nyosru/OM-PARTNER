@@ -28,11 +28,22 @@ trait ActionSaveCommonOrders
         $referral = Referrals::find()->where(['user_id' => Yii::$app->user->getId()])->asArray()->one();
 
         $common_orders = CommonOrders::find()
-            ->where(['referral_id' => $referral['id'], CommonOrders::tableName() . '.status'=>1])
+            ->where(['referral_id' => $referral['id']])
             ->andWhere([CommonOrders::tableName() . '.id' => $common_order_id])
             ->joinWith('partnerOrders')
             ->one()
         ;
+
+        if ($common_orders->status != 1) {
+
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ не в статусе "Новый"');
+            return false;
+        }
+        if (count($common_orders->partnerOrders) == 0) {
+
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Заказ пуст');
+            return false;
+        }
 
         $user = ReferralsUser::find()
             ->joinWith('user')
@@ -45,7 +56,6 @@ trait ActionSaveCommonOrders
         if (empty($user)) {
 
             \Yii::$app->getSession()->setFlash('error', 'Произошла ошибка');
-
             return false;
         }
 

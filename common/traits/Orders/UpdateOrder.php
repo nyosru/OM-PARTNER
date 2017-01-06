@@ -18,7 +18,7 @@ class UpdateOrder
         foreach ($un_order['products'] as $key_back => &$product_back) {
             foreach ($client_order_products as $key_client => $product_client) {
 
-                if ($product_back[0] == $product_client[0] && $product_back[1] == $product_client[1]) {
+                if ($product_back[0] == $product_client[0] && $product_back[2] == $product_client[2]) {
                     $un_order['products'][$key_back][4] = ((int)$product_client[4] >= 0) ? $product_client[4] : 0;
                 }
             }
