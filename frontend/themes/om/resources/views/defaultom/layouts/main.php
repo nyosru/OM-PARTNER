@@ -161,7 +161,11 @@ $this->beginPage();
                         <div class="result_search_word" style="background: rgba(245, 245, 245, 0.84) none repeat scroll 0% 0%; z-index: 5000; overflow-y: auto; max-height: 300px; position: relative; width: 65%;"></div>
 
                     </div>
-
+                    <div class="progress progress-striped active" style="margin: 10px 0;display: none;">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;transition: none;">
+                            0%
+                        </div>
+                    </div>
                 </div>
 
                 <div  class=" partners-main-right bside">
