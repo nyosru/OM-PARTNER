@@ -5,6 +5,7 @@ use common\models\PartnersProducts;
 use common\models\PartnersProductsToCategories;
 use common\models\User;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 
 trait PreCheckProductsToOrder {
@@ -33,7 +34,22 @@ trait PreCheckProductsToOrder {
 		}
 
 		//Проверяем активность продукта, его наличие, и установленную цену == продукт существует и можно выполнять последующие проверки
-		if ($product['products_status'] = 1 && $product['products_quantity'] != 0 && $product['products_price'] != 0) {
+
+
+        if ($product['products_status'] = 1 && $product['products_quantity'] != 0 && $product['products_price'] != 0) {
+
+
+		    if($attr && isset($product['productsAttributes'])){
+              $indexattr =  ArrayHelper::index($product['productsAttributes'], 'options_values_id');
+              if(!isset($indexattr[$attr]['quantity']) || $indexattr[$attr]['quantity'] <= 0){
+                    $check = false;
+                    return [
+                        'result' => $check,
+                        'type' => 'notsizes',
+                        'message' => 'Данный размер отсутствует',
+                    ];
+                }
+            }
 
 			// Запрет категорий в регионах
 			// Проверяем передана ли нам категория товара и есть ли она у продукта, если категория не передана или отсутствует у продукта пропускаем эту проверку

@@ -518,7 +518,7 @@
                 requestdata = $.ajax({
                     _csrf:yii.getCsrfToken(),
                     method: 'post',
-                    url: "/site/product",
+                    url: "/product",
                     async: false,
                     data: {id: $id}
                 });
@@ -527,25 +527,25 @@
             }else{
                 $result.product = product_arr[$id];
             }
-            if(typeof (maindata_arr[$id]) == 'undefined'){
+            $keymaindata = $id+'-'+$attr;
+            if(typeof (maindata_arr[$keymaindata]) == 'undefined'){
                 maindata = $.ajax({
                     method:'post',
-                    url: "/site/pre-check-product-to-orders",
+                    url: "/pre-check-product-to-orders",
                     async: false,
                     data: {
-                        product: requestdata.responseJSON.product.products_id,
-                        category :requestdata.responseJSON.categories_id,
+                        product: $result.product.products.products_id,
+                        category :$result.product.categories_id,
                         attr :$attr,
                         count : $count,
                         skiptime: true
                     }
                 });
-                maindata_arr[$id] = new Object();
-                $result.maindata = maindata_arr[$id] = JSON.parse(maindata.responseText);
+                maindata_arr[$keymaindata] = new Object();
+                $result.maindata = maindata_arr[$keymaindata] = JSON.parse(maindata.responseText);
             }else{
-                $result.maindata = maindata_arr[$id];
+                $result.maindata = maindata_arr[$keymaindata];
             }
-
             return $result;
         }
 
