@@ -408,15 +408,6 @@ return array (
       '@kartik/slider' => $vendorDir . '/kartik-v/yii2-slider',
     ),
   ),
-  'skeeks/yii2-assets-auto-compress' => 
-  array (
-    'name' => 'skeeks/yii2-assets-auto-compress',
-    'version' => '1.2.2.0',
-    'alias' => 
-    array (
-      '@skeeks/yii2/assetsAuto' => $vendorDir . '/skeeks/yii2-assets-auto-compress',
-    ),
-  ),
   'kartik-v/yii2-field-range' => 
   array (
     'name' => 'kartik-v/yii2-field-range',
@@ -469,6 +460,15 @@ return array (
     'alias' => 
     array (
       '@yii/httpclient' => $vendorDir . '/yiisoft/yii2-httpclient',
+    ),
+  ),
+  'skeeks/yii2-assets-auto-compress' => 
+  array (
+    'name' => 'skeeks/yii2-assets-auto-compress',
+    'version' => '1.2.3.0',
+    'alias' => 
+    array (
+      '@skeeks/yii2/assetsAuto' => $vendorDir . '/skeeks/yii2-assets-auto-compress',
     ),
   ),
 );
