@@ -58,7 +58,8 @@ trait ActionAddProductToOrder
             ->asArray()->one()
         ;
 
-        if (empty($data_product)) {
+        if (!$data_product) {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка! Такого товара нет');
             return false;
         }
 
@@ -115,6 +116,7 @@ trait ActionAddProductToOrder
                 return $new_product_data;
             }
         } else {
+            \Yii::$app->getSession()->setFlash('error', 'Ошибка!');
             return false;
         }
     }

@@ -34,7 +34,7 @@ trait ActionDeleteOrderFromCommonOrdersLinks
         ;
 
         $order = PartnersOrders::find()
-            ->where(['id' => $order_id, 'status'=>1])
+            ->where(['id' => $order_id, 'status'=>[1, 0]])
             ->one()
         ;
 

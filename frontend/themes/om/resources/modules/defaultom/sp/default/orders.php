@@ -86,7 +86,7 @@
                                     $order_price = 0;
                                     foreach ($order_un['products'] as $product) {
                                         if(count($product) > 5) {
-                                            $order_price = $order_price + round($product[3] * $product[4]);
+                                            $order_price = $order_price + round($product[3]) * round($product[4]);
                                         }
                                     }
                                     if($model['name']){
@@ -130,7 +130,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="client-info-fr-price">
-                                                    <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">
+                                                    <div>Начальная цена заказа</div>
+                                                    <div class="client-price" style="font-size: 18px;color: #4A90E2;font-weight: 400;">
                                                         '.$order_price.' руб.
                                                     </div>
                                                 </div>
@@ -169,7 +170,20 @@
         $('#pjax_common').on('pjax:end', function(){
             refresh_list();
         });
+        function scrollToTopCustomScrollBar(pointer) {
+            $(pointer).mCustomScrollbar("scrollTo", $(pointer).position().top, {
+                // scroll as soon as clicked
+                timeout:0,
 
+                // scroll duration
+                scrollInertia:200
+            });
+            // disable original jumping
+            return false;
+        }
+        $("#grid").on("pjax:end", function() {
+            scrollToTopCustomScrollBar('#scroll1');
+        });
         var product_arr = new Object();
         var maindata_arr = new Object();
         var maindata = new Object();
@@ -372,11 +386,8 @@
                 success: function(data) {
                     checkAlerts();
                     if(data == true) {
-                        button_to_common_order.text('В заказе №'+id_common_order);
+                        $('.edit-line .panel-title').html('<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+ id_common_order);
                         common_order_detail.text('В объединенном заказе №:'+id_common_order);
-                        setTimeout(function() {
-                            button_to_common_order.text(old_text)
-                        }, 4000);
                     } else {
                         button_to_common_order.text('Ошибка!');
                         setTimeout(function() {
@@ -450,11 +461,16 @@
         function updateAllOrdersView(maindata, client_plate_update = false) {
             var final_order_price = 0;
             $.each(maindata.order.order['products'], function(index_order, product){
-                final_order_price += Math.round(product[3]) * Math.round(product[4]);
+
+                var product_data = requestProduct(product[0], product[2] , product[4]);
+                if(product_data.maindata.result == true){
+                    final_order_price += Math.round(product[3]) * Math.round(product[4]);
+                }
+
             });
 
             if(client_plate_update) {
-                $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('div').text(final_order_price +" руб.");
+                $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('.client-price').text(final_order_price +" руб.");
             }
 
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
@@ -468,37 +484,30 @@
             $('.final-product-price').text(Math.round(price) * Math.round(new_value) + " р.");
         });
 
-        function updateTotalOrder(){
-            var total = 0;
-            setTimeout(function() {
-                $x =    $('[class^="final-product-price"]');
-                $.each($x, function(){
-                    total = total + parseInt($(this).text());
-                });
-                $('[class="final_order_price"]').text('Итого: '+total+' р.');
-            }, 100);
-        }
-
         $(document).on('click', '.count-event', function(){
             var input_count = $(this).closest("#input-count-block").children("#input-count");
 
             setTimeout(function() {
                 var new_value = input_count.val();
                 var product_id = input_count.attr('data-prod');
-                var attr = input_count.attr('data-attr');
+                var data_attr = input_count.attr('data-attr');
                 var price = input_count.attr('data-price');
                 var index_product_card = input_count.attr('data-index-product');
-                updateUpdatedDataCountProducts(product_id, attr, new_value);
-                updateTotalOrder();
+                updateUpdatedDataCountProducts(product_id, data_attr, new_value);
+                updateAllOrdersView(updated_main_data, false);
                 $('.final-product-price'+index_product_card).text(Math.round(price) * Math.round(new_value) + " р.");
             }, 50);
 
         });
 
-        function updateUpdatedDataCountProducts(product_id, attr, new_value) {
+        function updateUpdatedDataCountProducts(product_id, data_attr, new_value) {
             $.each(updated_main_data.order.order['products'], function(index_product, product){
+                console.log(product);
                 if(typeof product !== 'undefined') {
-                    if (product[0] == product_id) {
+                    if (product[0] == product_id && product[2] == data_attr) {
+                        updated_main_data.order.order['products'][index_product][4] = new_value;
+                        return true;
+                    } else if (product[0] == product_id && (typeof (product[2]) == data_attr) || product[2] == '') {
                         updated_main_data.order.order['products'][index_product][4] = new_value;
                         return true;
                     }
@@ -558,7 +567,7 @@
             var data_model = parseInt(input_count.attr('data-model'));
 
             if (isNaN(val)){
-                alert('Не выбранно количество!');
+                alert('Не выбрано количество!');
                 return false;
             }
             $.ajax({
@@ -629,6 +638,7 @@
 
                         },
                         success: function (data) {
+                            console.log(data);
                             $('.preload').remove();
                             if (typeof (data) != "object") {
                                 alert('Ничего не найдено по вашему запросу');
@@ -637,6 +647,10 @@
                             if ($.isArray(data) && data.length <= 0) {
                                 alert('Ничего не найдено по вашему запросу');
                                 abort = true;
+                            }
+                            if(typeof (data.product.productsDescription) == "undefined") {
+                                alert('Ничего не найдено по вашему запросу');
+                                return false;
                             }
                             var  new_product = data.product;
                             if(new_product.productsAttributesDescr.length == 0){
@@ -783,6 +797,7 @@
 
 
         function renderOrder(data) {
+            scrollToTopCustomScrollBar('#scroll2');
             var user_name = '';
             var telephone = '';
             var user_email = data.refus.user.email;
@@ -817,13 +832,13 @@
                 }else{
                     $access = product_data.maindata.message;
                     $identypay = true;
+                    final_price += Math.round(this[3]) * Math.round(this[4]);
                 }
                 if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
                     $disable_for_stepping = '';
                 }else{
                     $disable_for_stepping = 'readonly';
                 }
-                final_price += Math.round(this[3]) * this[4];
                 $products +=     '<div style=""  class="product-card"> ' +
                     '<div class = "access '+$identypay+'" >'+$access+'</div><hr style="height: 10px;margin: 0px;" />'+
                     '<div class = "access '+$identypay+'" style="display:flex;" class="product-main-board"> ' +
@@ -997,6 +1012,7 @@
                 }else{
                     $access = product_data.maindata.message;
                     $identypay = true;
+                    final_price += Math.round(this[3]) * Math.round(this[4]);
                 }
                 if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
                     $disable_for_stepping = '';
@@ -1005,7 +1021,7 @@
                 }
                 var product = product_data.product;
                 var datacount = 0;
-                final_price += Math.round(this[3]) * this[4];
+
                 if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
                     product.productsAttributesDescr[this[6]] = new Object;
                 }

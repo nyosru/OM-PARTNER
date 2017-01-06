@@ -21,7 +21,7 @@ $script = <<< JS
         $("#checkSetFlash").click();
     }
 JS;
-$this->registerJs($script, yii\web\View::POS_END);
+$this->registerJs($script, yii\web\View::POS_HEAD);
 
 
 \yii\widgets\Pjax::end();
