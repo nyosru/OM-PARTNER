@@ -11,7 +11,7 @@ $form = ActiveForm::begin([
 ]);
 ?>
 <div class="modal fade" id="authform" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -23,9 +23,11 @@ $form = ActiveForm::begin([
                 <?= Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']); ?>
             </div>
             <div class="modal-footer">
-                <?= $form->field($model, 'rememberMe',['options'=>['style'=>['float'=>'left']]])->checkbox()->label('Запомнить меня'); ?>
-                <button type="submit" name="partners-settings-button" class="button" style="color: #ffffff;">Вход</button>
-                <a href="/signup" class="button" style="color: #ffffff;">Зарегистрироваться</a>
+                <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить меня'); ?>
+                <div class="group-btn">
+                    <button type="submit" name="partners-settings-button" class="button">Вход</button>
+                    <a href="/signup" class="button" style="color: #FFFFFF;">Зарегистрироваться</a>
+                </div>
             </div>
         </div>
     </div>

@@ -10953,7 +10953,7 @@ address {
 	right: 8px;
 }
 
-.button {
+button.button {
 	display: inline-block;
 	border: 0;
 	background: #fff;
@@ -10969,11 +10969,11 @@ address {
 	border: 2px solid #eee;
 }
 
-.sidebar .button {
+.sidebar button.button {
 	color: #fff;
 }
 
-.button:hover {
+button.button:hover {
 	background: #08c;
 	color: #fff;
 	border: 2px solid #08c;
