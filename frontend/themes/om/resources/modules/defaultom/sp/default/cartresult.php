@@ -64,7 +64,6 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 
             <?php
             foreach ($result['data']['saveproduct'] as $order_key => $order_value) {
-                echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе: '.$order_key.'</div>';
                 foreach ($order_value as $key => $value) {
 
                     ?>

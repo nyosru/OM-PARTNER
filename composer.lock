@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a65917c64c61c82e2a874d60ec3ee503",
-    "content-hash": "2de6a75d2184c3414fd9d2948702ef82",
+    "hash": "2800865eab9aab037297105bd171a3e3",
+    "content-hash": "a8db49b239b08b33a1e081d80bfff31c",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4924,16 +4924,16 @@
         },
         {
             "name": "skeeks/yii2-assets-auto-compress",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/skeeks-semenov/yii2-assets-auto-compress.git",
-                "reference": "7d0feeca90c317afbd4a2e3c8f0d1663c98c7fc3"
+                "reference": "18d80abd2bbce79e11fa1c0484ab72f08e772cb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skeeks-semenov/yii2-assets-auto-compress/zipball/7d0feeca90c317afbd4a2e3c8f0d1663c98c7fc3",
-                "reference": "7d0feeca90c317afbd4a2e3c8f0d1663c98c7fc3",
+                "url": "https://api.github.com/repos/skeeks-semenov/yii2-assets-auto-compress/zipball/18d80abd2bbce79e11fa1c0484ab72f08e772cb2",
+                "reference": "18d80abd2bbce79e11fa1c0484ab72f08e772cb2",
                 "shasum": ""
             },
             "require": {
@@ -4971,7 +4971,7 @@
                 "skeeks",
                 "yii"
             ],
-            "time": "2016-10-10 21:58:53"
+            "time": "2016-11-11 08:29:19"
         },
         {
             "name": "smarty/smarty",

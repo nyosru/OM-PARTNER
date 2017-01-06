@@ -84,10 +84,10 @@ $this->beginPage();
                     <div style="width: 33%;position: relative;display: inline-block;height: 100%;">
                         <div
                             style="margin: 24px 4px;position: absolute;bottom: 0px;top: 0px;right: 0px;left: 0px;font-size: 14px;font-weight: 400;text-align: right;line-height: 32px;">
-                            <div>
-                                Выйти <img style="padding: 0px 10px;"
-                                           src="/images/lksp/logout.png"/>
-                            </div>
+                            <a href="/lk/">
+                                В личный кабинет <img style="padding: 0px 10px;"
+                                                      src="/images/lksp/logout.png"/>
+                            </a>
                         </div>
                     </div>
                 </div>

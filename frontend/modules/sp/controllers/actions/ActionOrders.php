@@ -41,7 +41,7 @@ trait ActionOrders
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($ds)) {
-                $query->andWhere('date_added >= "' . $ds.' 23-59-59"');
+                $query->andWhere('date_added >= "' . $ds.' 00-00-01"');
             }
         }
 
@@ -81,7 +81,7 @@ trait ActionOrders
                     'desc' => ['partners_users_info.secondname' => SORT_DESC],
                 ],
                 'create_date'  => [
-                    'desc' => ['partners_orders.create_date' => SORT_DESC],
+                    'desc' => ['partners_orders.id' => SORT_DESC],
                 ],
                 'date_added'   => [
                     'desc' => ['partners_referrals_users.date_added' => SORT_DESC],
