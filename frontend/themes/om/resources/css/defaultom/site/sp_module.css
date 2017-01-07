@@ -159,8 +159,7 @@
     display: inline-block;
 }
 .client-info-fr-price {
-    text-align: center;
-    padding: 25px 10px 25px 0;
+    padding: 25px 0px;
     display: inline-block;
     float: right;
     width: 40%;
@@ -627,7 +626,7 @@
 .status-like
 {
     background:#ffea00 none repeat scroll 0 0;
-    color: black;
+    color: #000 !important;
 }
 .status-new
 {
@@ -745,28 +744,7 @@
     padding: 20px
 }
 
-.status-cancel {
-    background: #d8d8d8 none repeat scroll 0 0
-}
 
-.status-like {
-    background: #ffea00 none repeat scroll 0 0
-}
-
-.status-new {
-    background: #009f9c none repeat scroll 0 0
-}
-
-.status-order {
-    padding: 2px 5px;
-    border-radius: 4px;
-    color: #FFF;
-    font-weight: 400
-}
-
-.status-ordered {
-    background: #9c27b0 none repeat scroll 0 0
-}
 
 .status-payed {
     background: #ff5722 none repeat scroll 0 0
