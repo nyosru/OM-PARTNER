@@ -44,7 +44,7 @@ trait ActionIndex
             $valid->format = 'Y-m-d';
 
             if ($valid->validate($ds)) {
-                $model->andWhere(PartnersOrders::tableName().'.create_date >= "' . $ds.' 23-59-59"');
+                $model->andWhere(PartnersOrders::tableName().'.create_date >= "' . $ds.' 00-00-01"');
             }
         }
 
@@ -82,7 +82,7 @@ trait ActionIndex
             ],
             'attributes' => [
                 'create_date'  => [
-                    'desc' => ['partners_orders.create_date' => SORT_DESC],
+                    'desc' => ['partners_orders.id' => SORT_DESC],
                 ],
                 'status'       => [
                     'desc' => ['partners_orders.status' => SORT_DESC],
