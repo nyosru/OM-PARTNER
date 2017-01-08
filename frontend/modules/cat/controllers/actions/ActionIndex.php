@@ -9,7 +9,16 @@ trait ActionIndex
 
     public function actionIndex()
     {
-        $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/config.json');
+
+        $preview_toggle = Yii::$app->request->get('preview_toggle');
+
+        if($preview_toggle) {
+
+            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/preview_config.json');
+        } else {
+
+            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/config.json');
+        }
         $land_config = (array)json_decode($j, true);
 
         $model = new CatLandConfigForm();
