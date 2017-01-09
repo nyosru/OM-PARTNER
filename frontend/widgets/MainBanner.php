@@ -129,52 +129,52 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_26122016_1.png',
-                'referal'=> '/catalog?cat=1729',
+                'image' =>  'OM_28122016_1.png',
+                'referal'=> '/catalog?cat=835',
                 'term'=> '',
-                'alttext' => 'Блузы',
+                'alttext' => 'Сумки женские',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_26122016_2.png',
-                'referal'=> '/catalog?cat=1759',
+                'image' =>  'OM_28122016_2.png',
+                'referal'=> '/catalog?cat=1979',
                 'term'=> '',
-                'alttext' => 'Джинсы',
+                'alttext' => 'Ботильоны',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_26122016_3.png',
-                'referal'=> '/catalog?cat=1824',
+                'image' =>  'OM_28122016_3.png',
+                'referal'=> '/catalog?cat=1845',
                 'term'=> '',
-                'alttext' => 'Вязаные шапки',
+                'alttext' => 'Джемперы, пуловеры и свитеры',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_26122016_4.png',
-                'referal'=> '/catalog?cat=1792',
+                'image' => 'OM_28122016_4.png',
+                'referal'=> '/catalog?cat=2110',
                 'term'=> '',
-                'alttext' => 'Спортивные костюмы',
+                'alttext' => 'Часы',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_26122016_5.png',
-                'referal'=> '/catalog?cat=1751',
+                'image' => 'OM_28122016_5.png',
+                'referal'=> '/catalog?cat=1720',
                 'term'=> '',
-                'alttext' => 'Зимние куртки и пуховики',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_26122016_6.png',
+                'image' => 'OM_28122016_6.png',
                 'referal'=> '/dayproduct',
                 'alttext' => 'Новинки дня',
                 'out' => FALSE
