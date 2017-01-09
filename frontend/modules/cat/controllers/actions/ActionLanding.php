@@ -19,7 +19,7 @@ trait ActionLanding
         $config_file_extension = '.json';
         if(in_array($config_file_name . $config_file_extension, $scandir_cat_configs)) {
 
-            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/'.$config_file_name.'.json');
+            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/'.$config_file_name.$config_file_extension);
             $land_config = (array)json_decode($j, true);
         } else {
             throw new \yii\web\NotFoundHttpException(404);
