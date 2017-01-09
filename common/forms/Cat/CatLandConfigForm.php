@@ -60,4 +60,29 @@ class CatLandConfigForm extends Model
         return true;
     }
 
+    public function storeOrUpdatePreviewConfig()
+    {
+        if (!$this->validate()) {
+            return false;
+        }
+
+        $json_config = [
+          "header_tpl" => $this->header_tpl,
+          "header_config" => [
+              "header_title" => $this->header_title
+          ],
+          "content_tpl" => $this->header_tpl,
+          "content_config" => [
+            "content_list_products" => $this->content_list_products,
+            "special_offer"=> $this->special_offer,
+          ],
+          "footer_tpl" => $this->footer_tpl,
+        ];
+
+        if(file_put_contents(Yii::getAlias('@frontend') .'/runtime/cat/preview_config.json', json_encode($json_config))) {
+            return true;
+        }
+        return true;
+    }
+
 }
