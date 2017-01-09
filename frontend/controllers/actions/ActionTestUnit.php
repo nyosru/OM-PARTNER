@@ -28,7 +28,7 @@ trait ActionTestUnit
            // print_r($this->oksuppliers());
             //   $user=\common\models\User::find()->where(['partners_users.id'=>Yii::$app->user->getId()])->joinWith('userinfo')->one();
             //   $customer=Customers::find()->where(['customers_id'=>$user['userinfo']->customers_id])->one();
-            $x = Orders::find()->where(['orders_id'=>739825])->asArray()->limit('80')->orderBy('orders_id DESC')->all();
+            //$x = Orders::find()->where(['orders_id'=>739825])->asArray()->limit('80')->orderBy('orders_id DESC')->all();
             // Yii::$app->db->enableSlaves = FALSE;
             //  Yii::$app->db->enableSlaves = FALSE;
             //  Yii::$app->db->enableSlaves = FALSE;
@@ -87,9 +87,47 @@ trait ActionTestUnit
            // $x =  $x->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
 
 
+            $stat_set = Yii::$app->cache->buildKey('statistics_bd');
+            $stat_codes = Yii::$app->cache->get($stat_set);
+            $s = $stat_codes;
+            $l = 0;
+            foreach ($stat_codes as $key=>$value){
+                $url_set_key = Yii::$app->cache->buildKey($value['seed']);
+                $url_set = Yii::$app->cache->get($url_set_key);
+                $sour[$value['sources']][] = $value['seed'];
+                echo '<pre>';
+               // print_r($value);
+                if(count($url_set) > 1){
+                    $l += count($url_set);
+                    if($value['sources'] !== 'none'){
+                        $check_cart = TRUE;
+                    }
+                    $check_sources = FALSE;
+                    foreach ($url_set as $url_set_key=>$url_set_value){
+                        if(isset($url_set_value['sources'])){
+                            $check_sources = TRUE;
+                            $sour[$url_set_value['sources']][] = $value['seed'];
+                        }
+                    }
+                 //   print_r($url_set);
+                }else{
+                    $datetime1 = new \DateTime(date('Y-m-d H:i:s'));
+                    $datetime2 = new \DateTime($value['time']);
+                    $interval = $datetime1->diff($datetime2);
+                    if($interval->format('%a') > 1){
+                        Yii::$app->cache->delete($url_set_key);
+                        unset($s[$key]);
+                        Yii::$app->cache->set($stat_set,$s);
+                    }
+                }
+                echo '</pre>';
+            }
+
+            echo 'Сидов: '.count($s).' Записей:' .$l. ' Источников: '. count($sour);
+            echo '<pre>';
 
             Yii::$app->db->enableSlaves = FALSE;
-            $y = new Query();
+          //  $y = new Query();
              echo '<pre>';
           //  print_r($this->Catpath($_GET['id']));
         //    print_r($this->categoryChpu($_GET['id']));
@@ -97,7 +135,7 @@ trait ActionTestUnit
            // $y =  $y->select('*')->from('INFORMATION_SCHEMA.PROCESSLIST')->createCommand()->queryAll();
             echo '<pre>';
             echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
-            print_r($x);
+         //   print_r($x);
             //print_r($result);
             echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'.PHP_EOL;
          //   print_r($y);

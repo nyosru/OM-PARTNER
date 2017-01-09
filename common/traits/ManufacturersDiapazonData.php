@@ -9,7 +9,7 @@ Trait ManufacturersDiapazonData
 {
     public function manufacturers_diapazon($id)
     {
-        $keys = Yii::$app->cache->buildKey('ManDiapazon2-' . $id);
+        $keys = Yii::$app->cache->buildKey('ManDiapazon6-' . $id);
         if (($data = Yii::$app->cache->get($keys)) == FALSE) {
             $diapazon = new ManufacturersDiapazon();
             $List = [];
@@ -64,7 +64,7 @@ Trait ManufacturersDiapazonData
 
     public function manufacturers_diapazon_id()
     {
-        $keys = Yii::$app->cache->buildKey('ManDiapazonAll');
+        $keys = Yii::$app->cache->buildKey('ManDiapazonAll-9-');
         if (($data = Yii::$app->cache->get($keys)) == FALSE) {
             $diapazon = ManufacturersDiapazon::find()->select('manufacturers_id as time, week_day, start_time, stop_time')->asArray()->all();
             foreach ($diapazon as $key => $value) {
