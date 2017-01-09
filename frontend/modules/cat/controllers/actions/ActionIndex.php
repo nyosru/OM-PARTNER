@@ -17,7 +17,7 @@ trait ActionIndex
             $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/preview_config.json');
         } else {
             if ($config_name != 'preview_config') {
-                $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name);
+                $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name.'.json');
             }
         }
 
