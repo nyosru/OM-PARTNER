@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-1">
         <div class="header_bar" style="height: 55px;border-bottom: 1px solid rgb(204, 204, 204);">
+            <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;"><div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;" class="cart-count badge">5</div><a rel="nofollow" class="top-link" href="/glavnaya/cart"><i class="fa fa-shopping-cart" style="font-size: 28px; color: rgb(0, 165, 161);"></i></a></div>
             <div class="header_bar_img">
                 <img src="/images/logo/OM_code.png">
             </div>
