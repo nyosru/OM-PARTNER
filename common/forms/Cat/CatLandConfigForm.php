@@ -59,8 +59,12 @@ class CatLandConfigForm extends Model
             "footer_tpl"     => $this->footer_tpl,
         ];
 
+        if($config_name != $this->config_name) {
+            unlink(\Yii::getAlias('@runtime') . '/cat/'.$config_name);
+        }
+
         $config_file_extension = '.json';
-        if (file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . $config_file_extension,
+        if (file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $this->config_name . $config_file_extension,
             json_encode($json_config))) {
             return true;
         }
