@@ -63,9 +63,7 @@ trait ActionRegisterSP
                         ;
                         \Yii::$app->getSession()->setFlash('success', 'Успешно отправлено');
 
-                        return $this->render('sp/result-sp', ['type' => 'success',
-                                                              'text' => 'все отлично',
-                        ]);
+                        return $this->redirect('/lk/');
                     } else {
                         return $this->render('sp/result-sp', ['type' => 'success',
                                                               'text' => 'что то пошло не так',
