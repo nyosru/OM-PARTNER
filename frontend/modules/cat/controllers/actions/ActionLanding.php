@@ -8,22 +8,21 @@ trait ActionLanding
 
     public function actionLanding()
     {
-        $header_tpl = Yii::$app->request->get('h');
-        $content_tpl = Yii::$app->request->get('c');
-        $footer_tpl = Yii::$app->request->get('f');
+        $config_file_name = Yii::$app->request->get('c');
 
-        if(!$header_tpl || !$content_tpl || !$footer_tpl) {
-            echo 'ошибка';
-            return;
+        $scandir_cat_configs = array_diff(scandir(\Yii::getAlias('@runtime') . '/cat/'), ['..', '.']);
+
+        if(!$config_file_name) {
+            throw new \yii\web\NotFoundHttpException(404);
         }
 
-        $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/config.json');
-        $land_config = (array)json_decode($j, true);
+        $config_file_extension = '.json';
+        if(in_array($config_file_name . $config_file_extension, $scandir_cat_configs)) {
 
-        if(!empty($land_config) && count($land_config) > 0) {
-            $land_config['header_tpl'] = $header_tpl;
-            $land_config['content_tpl'] = $content_tpl;
-            $land_config['footer_tpl'] = $footer_tpl;
+            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/'.$config_file_name.'.json');
+            $land_config = (array)json_decode($j, true);
+        } else {
+            throw new \yii\web\NotFoundHttpException(404);
         }
 
         return $this->render('landing', ['land_config' => $land_config]);
