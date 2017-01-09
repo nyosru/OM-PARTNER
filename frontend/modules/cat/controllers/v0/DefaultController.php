@@ -2,6 +2,7 @@
 
 namespace frontend\modules\cat\controllers\v0;
 
+use frontend\modules\cat\controllers\actions\ActionDeleteConfig;
 use frontend\modules\cat\controllers\actions\ActionIndex;
 use frontend\modules\cat\controllers\actions\ActionLanding;
 use frontend\modules\cat\controllers\actions\ActionUpdateConfig;
@@ -13,6 +14,7 @@ class DefaultController extends Controller
     use ActionIndex;
     use ActionUpdateConfig;
     use ActionLanding;
+    use ActionDeleteConfig;
 
     public function behaviors()
     {
