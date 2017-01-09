@@ -134,6 +134,9 @@ $this->beginPage();
 
     #owl_lend_products .item:hover {box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);  }
 
+    .action_grid {
+        padding: 0px 10px;
+    }
     @media all and ( min-width: 600px ) {
 
         /* set col widths */
@@ -170,7 +173,18 @@ $this->beginPage();
 <body>
 <?php $this->beginBody(); ?>
 <?= \frontend\widgets\Alert::widget(); ?>
+
 <div class="wrapper">
+    <div class="row">
+        <div class="col-1">
+            <div class="header_bar" style="height: 55px;border-bottom: 1px solid rgb(204, 204, 204);">
+                <div class="header_bar_img">
+                    <img src="/images/logo/OM_code.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?= $content; ?>
 </div>
 
