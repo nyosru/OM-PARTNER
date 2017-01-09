@@ -13,6 +13,8 @@ trait ActionUpdateConfig
             $this->redirect(Yii::$app->request->referrer);
         }
 
+        $config_name = (string)Yii::$app->request->post('config_name');
+
         $catLandConfigForm = new CatLandConfigForm();
         $catLandConfigForm->load(Yii::$app->request->post());
 
@@ -25,7 +27,13 @@ trait ActionUpdateConfig
             }
         } else {
 
-            if($catLandConfigForm->storeOrUpdateConfig()) {
+            if(empty($config_name)) {
+
+                Yii::$app->session->setFlash('error', 'Ошибка! Нет названия для конфигурации');
+                return $this->redirect(['index', 'preview_toggle' => Yii::$app->request->post('preview_toggle')]);
+            }
+
+            if($catLandConfigForm->storeOrUpdateConfig($config_name)) {
                 Yii::$app->session->setFlash('success', 'Удача! Лендинг изменен');
             } else {
                 Yii::$app->session->setFlash('error', 'Произошла ошибка');
