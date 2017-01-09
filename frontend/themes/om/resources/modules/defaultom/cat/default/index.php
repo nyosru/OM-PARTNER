@@ -59,12 +59,18 @@
                 ;
                 ?>
 
-
+                <br>
                 <div class="form-group">
-                    <?= Html::input('hidden', 'preview_toggle' , '0') ?>
-                    <?= Html::submitButton('Сохранить настройку', ['class' => 'btn btn-primary']) ?>
-                    <?= Html::submitButton("Предпросмотр", ['class' => 'btn btn-primary', 'onClick' => "$(\"[name='preview_toggle']\").val('1')"]); ?>
+                    <div style="float: left;">
+                        <?= Html::submitButton('Сохранить настройку', ['class' => 'btn btn-primary']) ?>
+                    </div>
+                    <div style="float: right;">
+                        <?= Html::input('hidden', 'preview_toggle' , '0') ?>
+                        <?= Html::submitButton("Предпросмотр", ['class' => 'btn btn-primary', 'onClick' => "$(\"[name='preview_toggle']\").val('1')"]) ?>
+                        <?= Html::a("Сбросить",Yii::$app->urlManager->createUrl(['cat/index']), ['class' => 'btn btn-primary']) ?>
+                    </div>
                 </div>
+
 
                 <?php ActiveForm::end(); ?>
             </div>
