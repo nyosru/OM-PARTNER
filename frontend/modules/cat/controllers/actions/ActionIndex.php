@@ -11,13 +11,20 @@ trait ActionIndex
     {
 
         $preview_toggle = Yii::$app->request->get('preview_toggle');
+        $config_name = Yii::$app->request->get('c');
 
+        $scandir_cat_configs = array_diff(scandir(\Yii::getAlias('@runtime') . '/cat/'), ['..', '.']);
+        $scandir_cat_configs = array_values($scandir_cat_configs);
         if($preview_toggle) {
 
             $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/preview_config.json');
         } else {
-
-            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/config.json');
+            if(in_array($config_name, $scandir_cat_configs)) {
+                $exist_config_name = $config_name;
+            } else {
+                $exist_config_name = $scandir_cat_configs[0];
+            }
+            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/'. $exist_config_name);
         }
         $land_config = (array)json_decode($j, true);
 
