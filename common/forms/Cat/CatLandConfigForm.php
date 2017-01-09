@@ -33,10 +33,10 @@ class CatLandConfigForm extends Model
                     'footer_tpl',
                     'config_name',
                 ],
-                'string'
+                'string',
             ],
-            [['config_name',], 'match', 'pattern' => '/^[a-z]|[а-я]\w*$/i', 'message'=>'В названии должны быть только буквы'],
-            [['config_name'], 'required', 'message'=>'Обязательное поле']
+            [['config_name',], 'match', 'pattern' => '/^[a-z]|[а-я]\w*$/i', 'message' => 'В названии должны быть только буквы'],
+            [['config_name'], 'required', 'message' => 'Обязательное поле'],
         ];
     }
 
@@ -47,22 +47,24 @@ class CatLandConfigForm extends Model
         }
 
         $json_config = [
-          "header_tpl" => $this->header_tpl,
-          "header_config" => [
-              "header_title" => $this->header_title
-          ],
-          "content_tpl" => $this->header_tpl,
-          "content_config" => [
-            "content_list_products" => $this->content_list_products,
-            "special_offer"=> $this->special_offer,
-          ],
-          "footer_tpl" => $this->footer_tpl,
+            "header_tpl"     => $this->header_tpl,
+            "header_config"  => [
+                "header_title" => $this->header_title,
+            ],
+            "content_tpl"    => $this->header_tpl,
+            "content_config" => [
+                "content_list_products" => $this->content_list_products,
+                "special_offer"         => $this->special_offer,
+            ],
+            "footer_tpl"     => $this->footer_tpl,
         ];
-        
+
         $config_file_extension = '.json';
-        if(file_put_contents(Yii::getAlias('@frontend') .'/runtime/cat/'.$config_name.$config_file_extension, json_encode($json_config))) {
+        if (file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . $config_file_extension,
+            json_encode($json_config))) {
             return true;
         }
+
         return true;
     }
 
@@ -73,21 +75,23 @@ class CatLandConfigForm extends Model
         }
 
         $json_config = [
-          "header_tpl" => $this->header_tpl,
-          "header_config" => [
-              "header_title" => $this->header_title
-          ],
-          "content_tpl" => $this->header_tpl,
-          "content_config" => [
-            "content_list_products" => $this->content_list_products,
-            "special_offer"=> $this->special_offer,
-          ],
-          "footer_tpl" => $this->footer_tpl,
+            "header_tpl"     => $this->header_tpl,
+            "header_config"  => [
+                "header_title" => $this->header_title,
+            ],
+            "content_tpl"    => $this->header_tpl,
+            "content_config" => [
+                "content_list_products" => $this->content_list_products,
+                "special_offer"         => $this->special_offer,
+            ],
+            "footer_tpl"     => $this->footer_tpl,
         ];
 
-        if(file_put_contents(Yii::getAlias('@frontend') .'/runtime/cat/preview_config.json', json_encode($json_config))) {
+        if (file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/preview_config.json',
+            json_encode($json_config))) {
             return true;
         }
+
         return true;
     }
 
