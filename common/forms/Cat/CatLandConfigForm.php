@@ -8,6 +8,9 @@ use yii\base\Model;
 
 class CatLandConfigForm extends Model
 {
+
+    public $config_name;
+
     public $header_tpl;
     public $header_title;
 
@@ -28,10 +31,12 @@ class CatLandConfigForm extends Model
                     'content_list_products',
                     'special_offer',
                     'footer_tpl',
+                    'config_name',
                 ],
                 'string'
             ],
-
+            [['config_name',], 'match', 'pattern' => '/^[a-z]|[а-я]\w*$/i', 'message'=>'В названии должны быть только буквы'],
+            [['config_name'], 'required', 'message'=>'Обязательное поле']
         ];
     }
 
