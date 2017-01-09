@@ -19,7 +19,7 @@
                 use yii\helpers\Html;
                 use yii\widgets\ActiveForm;
 
-                $form = ActiveForm::begin(['method'=> 'post', 'id' => 'save_land_config', 'action' => 'preview-land']);
+                $form = ActiveForm::begin(['method' => 'post', 'id' => 'save_land_config', 'action' => 'update-config']);
 
                 echo $form->field($model, 'header_tpl')
                     ->label('Шапка')
@@ -59,11 +59,11 @@
                 ;
                 ?>
 
+
                 <div class="form-group">
-                    <?= Html::button('Предварительный просмотр', ['class' => 'btn btn-primary', 'name' => 'cat-lend-config']) ?>
-                </div>
-                <div class="form-group">
-                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::input('hidden', 'preview_toggle' , '0') ?>
+                    <?= Html::submitButton('Сохранить настройку', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton("Предпросмотр", ['class' => 'btn btn-primary', 'onClick' => "$(\"[name='preview_toggle']\").val('1')"]); ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -75,18 +75,7 @@
                     <h3 class="">Окно предпросмотра рекламной страницы</h3>
                 </div>
                 <div class="wrapper preview_zoom preview_window">
-                    <?php
-                    \yii\widgets\Pjax::begin([
-                        'id'              => 'cat-lend-config',
-                        'enablePushState' => false,
-                    ]);
-                    ?>
-
                     <?= \frontend\widgets\CatLandGenerator::widget($land_config) ?>
-
-                    <?php
-                    \yii\widgets\Pjax::end();
-                    ?>
                 </div>
             </div>
         </div>
