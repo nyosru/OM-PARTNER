@@ -1,12 +1,3 @@
-<div class="row">
-    <div class="col-1">
-        <div class="header_bar" style="height: 55px;border-bottom: 1px solid rgb(204, 204, 204);">
-            <div class="header_bar_img">
-                <img src="/images/logo/OM_code.png">
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container_95">
     <div class="row">
         <div class="col-1-2">
@@ -20,6 +11,10 @@
                 use yii\widgets\ActiveForm;
 
                 $form = ActiveForm::begin(['method' => 'post', 'id' => 'save_land_config', 'action' => 'update-config']);
+
+                echo $form->field($model, 'config_name')
+                    ->label('Название конфигурационного файла (без точек и запятых)')
+                ;
 
                 echo $form->field($model, 'header_tpl')
                     ->label('Шапка')
