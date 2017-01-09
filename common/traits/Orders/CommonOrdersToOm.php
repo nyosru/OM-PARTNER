@@ -108,7 +108,7 @@ trait CommonOrdersToOm
             return Json::encode( [
                 'result' => [
                     'code' => 0,
-                    'text' => 'Не возможно оформить пустой заказ',
+                    'text' => 'Невозможно оформить пустой заказ',
                     'data' => [
                         'paramorder' => [
                         ],
