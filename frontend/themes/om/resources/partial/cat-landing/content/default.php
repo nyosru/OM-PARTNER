@@ -5,50 +5,37 @@
 <div id="lend_products" style="">
     <div class="row">
         <div class="col-9-10 center">
-            <div id="owl_lend_products" class="owl-carousel owl-theme">
-                <?php foreach ($content_list_products as $product): ?>
+            <div id="owl_lend_products_product-card" class="owl-carousel owl-theme">
+                <?php foreach ($content_list_products as $value) : ?>
                     <div class="item">
-                        <div class="col-1">
-                            <div class="row">
-                                <div class="product-photo">
-                                    <div class="img-block">
-                                        <img src="/imagepreview?src=<?=$product['products_id']?>" alt="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row price-product-cat">
-                                <div class="strike" style="float: left">
-                                    <?=  round($product['products_old_price']) ?> руб.
-                                </div>
-                                <div class="new-price" style="float: right;">
-                                    <?= round($product['products_price'])?> руб.
-                                </div>
-                            </div>
-                        </div>
+                        <?= \frontend\widgets\ProductCard::widget([
+                            'product'     => $value,
+                            'description' => $value['productsDescription'],
+                            'attrib'      => $value['productsAttributes'],
+                            'attr_descr'  => $value['productsAttributesDescr'],
+                        ]); ?>
                     </div>
                 <?php endforeach; ?>
             </div>
         </div>
     </div>
-</div>
 
-<div class="special_header">
-    <h1>Специальное предложение на сегодня!</h1>
-</div>
+    <div class="special_header">
+        <h1>Специальное предложение на сегодня!</h1>
+    </div>
 
-<div class="row" style="box-shadow: 0px 3px 6px -2px rgba(0,0,0,0.75);">
-    <div class="col-1-3">
-        <div class="img-block">
-            <img src="http://remdta.ru/des/specpredlozhenie.png" alt="">
+    <div class="row" style="box-shadow: 0px 3px 6px -2px rgba(0,0,0,0.75);">
+        <div class="col-1-3">
+            <div class="img-block">
+                <img src="http://remdta.ru/des/specpredlozhenie.png" alt="">
+            </div>
+        </div>
+        <div class="col-2-3">
+            <div class="offer-body" style="padding-right: 25px">
+                <?= $special_offer ?>
+            </div>
         </div>
     </div>
-    <div class="col-2-3">
-        <div class="offer-body" style="padding-right: 25px">
-            <?= $special_offer ?>
-        </div>
-    </div>
-</div>
 
 <?php
 $script = <<< JS
