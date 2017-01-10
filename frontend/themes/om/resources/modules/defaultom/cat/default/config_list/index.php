@@ -1,4 +1,12 @@
 <div class="container_95">
+    <div class="row">
+        <div class="col-1">
+            <div style="float: right;">
+                <?= \yii\helpers\Html::a("Создать новый",Yii::$app->urlManager->createUrl(['cat/index']), ['class' => 'btn btn-primary']) ?>
+            </div>
+        </div>
+    </div>
+
     <?php
     $i = 0;
     echo \yii\grid\GridView::widget([
@@ -43,3 +51,5 @@
         ],
     ]); ?>
 </div>
+
+
