@@ -60,7 +60,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         <?php
 
         if($result['data']['saveproduct']) {
-            echo '<p style="padding:0px 15px;margin:30px 0px 10px 0px;color:#00a5a3;text-align:left;font-family:\'Roboto\', Arial;font-size:21px;">
+            echo '<p style="padding: 0px 10px;margin: -10px 0px 10px 0px;text-align:left;font-family:Roboto, Arial;font-size:21px;">
 				Товары в вашем заказе:
 			</p><ul style="list-style:none;width:100%;text-align:center;padding:0px;">';
             foreach ($result['data']['saveproduct'] as $order_key => $order_value) {
