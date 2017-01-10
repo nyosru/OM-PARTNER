@@ -60,10 +60,9 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         <?php
 
         if($result['data']['saveproduct']) {
-            echo '<p style="padding: 0px 10px;margin: -10px 0px 10px 0px;text-align:left;font-family:Roboto, Arial;font-size:21px;">
-				Товары в вашем заказе:
-			</p><ul style="list-style:none;width:100%;text-align:center;padding:0px;">';
+            echo '<ul style="list-style:none;width:100%;text-align:center;padding:0px;">';
             foreach ($result['data']['saveproduct'] as $order_key => $order_value) {
+                echo '<div style="border-radius: 4px 4px 0px 0px;padding: 10px; border: 1px solid rgb(204, 204, 204); border-bottom: none; text-align: center; font-weight: 400;">Товары в заказе: '.$order_key.'</div>';
                 foreach ($order_value as $key => $value) {
                     echo   '<li style="display:inline-block;border-radius:4px;width:100%;-moz-border-radius:4px;-webkit-border-radius:4px;padding:8px;border:1px solid #e4e4e4;min-width:340px;">
 					<table style="border:0;width:100%;" border="0">

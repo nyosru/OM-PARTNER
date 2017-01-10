@@ -676,7 +676,7 @@
                 str_html += "                     <div class=\"client-info-li-order\">";
                 str_html += "                         <div class=\"client-order\">";
                 str_html += "                             <div class=\"client-order-num\"> № "+partner_orders.id+"<\/div>";
-                str_html += "                             <div class=\"client-order-status "+ stat_class[partner_orders.status] +"\"><\/div>";
+                str_html += "                             <div data-sub-order-id=\""+partner_orders.id+"\" class=\"client-order-status "+ stat_class[partner_orders.status] +"\"><\/div>";
                 str_html += "                         <\/div>";
                 str_html += "                         <div class=\"client-name-in\">";
                 str_html += "                             "+user_name+"";
