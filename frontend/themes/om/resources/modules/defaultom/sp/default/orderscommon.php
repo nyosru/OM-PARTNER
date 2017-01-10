@@ -133,7 +133,7 @@
 
         <div id="col2">
             <div id="scroll2" style="height: 100%">
-                <div style="margin:25px;">
+                <div style="margin: 25px 25px 100px;">
                     <div style="width: 100%;  display:inline-block;" class="datacontainer">
                     <!-- renderOrders(data) -->
                     </div>
