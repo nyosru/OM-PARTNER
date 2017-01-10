@@ -55,17 +55,17 @@ trait ActionSendCommonOrders
                 $formmodel->comment);
 
 
-$script = <<< JS
 
+            $x = Json::decode($x);
+            if($x['result']['code'] == 200 && $x['result']['data']['paramorder']['number']) {
+                $script = <<< JS
             var client_status_block = $('[data-detail="'+$formmodel->idorder+'"]').find('.client-order-status');
             client_status_block.removeClass("status-new");
             client_status_block.addClass("status-proceed");
-             var orders_status_blocks = $(".client-order-status");
+             var orders_status_blocks = $('[data-order-id="'+$formmodel->idorder+'"]');
             orders_status_blocks.removeClass("status-new");
             orders_status_blocks.addClass("status-proceed");
 JS;
-            $x = Json::decode($x);
-            if($x['result']['code'] == 200 && $x['result']['data']['paramorder']['number']) {
                 echo '<script>';
                 echo $script;
                 echo '</script>';

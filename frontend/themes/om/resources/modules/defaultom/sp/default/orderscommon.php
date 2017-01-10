@@ -105,7 +105,7 @@
                                     <div class="client-info-fr-order">
                                         <div class="client-order">
                                             <div class="client-order-num">№ '.$model->id.'</div>
-                                            <div class="client-order-status '.$stat_class[$model->status].'"></div>
+                                            <div data-order-id="'.$model->id.'" class="client-order-status '.$stat_class[$model->status].'"></div>
                                         </div>
                                         <div class="client-name">
                                             '.$model->header.' ('.$total_count_products.' товаров)
