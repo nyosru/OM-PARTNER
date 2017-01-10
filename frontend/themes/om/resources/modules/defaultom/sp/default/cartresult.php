@@ -5,7 +5,11 @@ $this -> title = 'Обработка заказа';
 
 if($result['code'] == 200 && $result['data']['paramorder']['number']){
     ?>
-
+    <style>
+        .imageinorder{
+            width: 100%;
+        }
+        </style>
     <div>
         <div style="padding: 10px;  margin: 10px 0px;">
             Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>подтвержден автоматически.<br>
@@ -70,7 +74,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 						<tr>
 							<td rowspan="5" style="padding-right: 15px;width:50%;text-align:center;vertical-align:top;">
 								<div style="margin: 0 5px 0 0;  width: 100%">
-								<img style="width: 100%;" src="http://'.$_SERVER['HTTP_HOST'].BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'].'" /></div>
+								<img class="imageinorder" src="http://'.$_SERVER['HTTP_HOST'].BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'].'" /></div>
 							</td>
 						</tr>
 						<tr>
