@@ -5,11 +5,7 @@ $this -> title = 'Обработка заказа';
 
 if($result['code'] == 200 && $result['data']['paramorder']['number']){
     ?>
-    <style>
-        .imageinorder{
-            width: 100%;
-        }
-        </style>
+
     <div>
         <div style="padding: 10px;  margin: 10px 0px;">
             Ваш заказ <font color="#007BC1">№<?=$result['data']['paramorder']['number']?> от <?=date('d.m.Y',strtotime($result['data']['paramorder']['date']))?> </font>подтвержден автоматически.<br>
