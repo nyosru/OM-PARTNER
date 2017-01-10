@@ -56,7 +56,6 @@ trait ActionSendCommonOrders
 
 
 $script = <<< JS
-            console.log($x);
             var client_status_block = $('[data-detail="'+$formmodel->idorder+'"]').find('.client-order-status');
             client_status_block.removeClass("status-new");
             client_status_block.addClass("status-proceed");
@@ -73,7 +72,7 @@ JS;
 
 
             $x  = $this->render('cartresult', $x);
-            echo BaseHtmlPurifier::process($x);
+            echo $x;
        }else{
             $formmodel->renderForm();
             return;
