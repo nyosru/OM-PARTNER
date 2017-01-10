@@ -65,11 +65,11 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 			</p><ul style="list-style:none;width:100%;text-align:center;padding:0px;">';
             foreach ($result['data']['saveproduct'] as $order_key => $order_value) {
                 foreach ($order_value as $key => $value) {
-                    echo   '<li style="display:inline-block;margin:10px 15px;border-radius:4px;width:44%;-moz-border-radius:4px;-webkit-border-radius:4px;padding:8px;border:1px solid #e4e4e4;min-width:340px;">
+                    echo   '<li style="display:inline-block;border-radius:4px;width:100%;-moz-border-radius:4px;-webkit-border-radius:4px;padding:8px;border:1px solid #e4e4e4;min-width:340px;">
 					<table style="border:0;width:100%;" border="0">
 						<tr>
-							<td rowspan="5" style="width:80px;text-align:center;vertical-align:top;">
-								<div style="margin: 0 5px 0 0;"><img src="http://'.$_SERVER['HTTP_HOST'].BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'].'" style="max-width:80px;max-height:120px;"></div>
+							<td rowspan="5" style="padding-right: 15px;width:50%;text-align:center;vertical-align:top;">
+								<div style="margin: 0 5px 0 0;  width: 100%"><img style="width: 100%" src="http://'.$_SERVER['HTTP_HOST'].BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'].'" style="max-width:80px;max-height:120px;"></div>
 							</td>
 						</tr>
 						<tr>
