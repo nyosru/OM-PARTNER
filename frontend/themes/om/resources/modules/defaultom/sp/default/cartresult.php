@@ -60,34 +60,36 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
         <?php
 
         if($result['data']['saveproduct']) {
-            ?>
-
-            <?php
+            echo '<p style="padding:0px 15px;margin:30px 0px 10px 0px;color:#00a5a3;text-align:left;font-family:\'Roboto\', Arial;font-size:21px;">
+				Товары в вашем заказе:
+			</p><ul style="list-style:none;width:100%;text-align:center;padding:0px;">';
             foreach ($result['data']['saveproduct'] as $order_key => $order_value) {
                 foreach ($order_value as $key => $value) {
-
-                    ?>
-                    <div style="width: 100%;  border: 1px solid rgb(204, 204, 204);border-bottom: none;    padding: 10px 15px;">
-                        <div style="width: 50%;display: inline-block;vertical-align: top;">
-                        <img width="100"
-                             src="<?= BASEURL ?>/imagepreview?src=<?= $result['data']['origprod'][$value[0]['products_id']]['products_id'] ?>"/>
-                        </div>
-                        <div style="font-size:12px;display: inline-block;">
-                            Код товара:<?= $value[0]['products_model'] ?>
-                            <br/>
-                            <?= $result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name'] ?>
-                            <br/>
-                           Размер:<?= $value[1]['products_options_values'] ?>
-                            <br/>
-                        Количество:<?= $value[0]['products_quantity'] ?> шт.
-                       <br/>
-                            Цена: <?= round($value[0]['products_price'], 0) ?> Руб.
-                    </div>
-                    </div>
-                    <?php
-                    $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']] = true;
+                    echo   '<li style="display:inline-block;margin:10px 15px;border-radius:4px;width:44%;-moz-border-radius:4px;-webkit-border-radius:4px;padding:8px;border:1px solid #e4e4e4;min-width:340px;">
+					<table style="border:0;width:100%;" border="0">
+						<tr>
+							<td rowspan="5" style="width:80px;text-align:center;vertical-align:top;">
+								<div style="margin: 0 5px 0 0;"><img src="http://'.$_SERVER['HTTP_HOST'].BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'].'" style="max-width:80px;max-height:120px;"></div>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align:left;font-family:Roboto, Arial;color:#404040;"><span style="color:#429cd1;font-size:12px;">Код: '.$value[0]['products_model'].'</span> | '.$result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name'].'</td>
+						</tr>
+						<tr>
+							<td style="text-align:left;font-family:Roboto, Arial;color:#303030;font-size:14px;">'.$value[1]['products_options_values'].'</td>
+						</tr>
+						<tr>
+							<td style="text-align:left;font-family:Roboto, Arial;color:#303030;font-size:14px;">Сумма: <b style="font-size:24px;color:#000000;">'.($value[0]['products_quantity']*round($value[0]['products_price'], 1)).'</b> <span style="font-size:18px;color:#000000;">руб.</span></td>
+						</tr>
+						<tr>
+							<td style="text-align:left;font-family:Roboto, Arial;color:#303030;font-size:14px;">Кол-во: '.$value[0]['products_quantity'] .'шт. x '.round($value[0]['products_price'], 1).' руб.</td>
+						</tr>
+					</table>
+				</li>';
+                    $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
                 }
             }
+            echo '</ul>';
         }
         ?>
     </div>
