@@ -3,14 +3,10 @@ namespace frontend\modules\sp\controllers\actions;
 
 use common\forms\CommonOrders\SendToOMForm;
 use common\models\AddressBook;
-use common\models\CommonOrders;
 use common\models\Referrals;
 use Yii;
-use yii\data\ActiveDataProvider;
-use yii\data\Pagination;
 use yii\helpers\BaseHtmlPurifier;
 use yii\helpers\Json;
-use yii\validators\DateValidator;
 
 
 trait ActionSendCommonOrders
@@ -58,10 +54,19 @@ trait ActionSendCommonOrders
 
             $x = Json::decode($x);
             if($x['result']['code'] == 200 && $x['result']['data']['paramorder']['number']) {
-                $script = <<< JS
-            var client_status_block = $('[data-detail="'+$formmodel->idorder+'"]').find('.client-order-status');
+                foreach ( $x['result']['data'] as $order_key => $order_value) {
+                    $script_om = <<< JS
+            var client_status_block = $('[data-sub-order-id='+$order_key+']');
             client_status_block.removeClass("status-new");
             client_status_block.addClass("status-proceed");
+           
+JS;
+                    echo '<script>';
+                    echo $script_om;
+                    echo '</script>';
+                }
+
+                $script = <<< JS
              var orders_status_blocks = $('[data-order-id="'+$formmodel->idorder+'"]');
             orders_status_blocks.removeClass("status-new");
             orders_status_blocks.addClass("status-proceed");
