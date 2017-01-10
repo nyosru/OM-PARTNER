@@ -69,7 +69,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 					<table style="border:0;width:100%;" border="0">
 						<tr>
 							<td rowspan="5" style="padding-right: 15px;width:50%;text-align:center;vertical-align:top;">
-								<div style="margin: 0 5px 0 0;  width: 100%"><img style="width: 100%" src="http://'.$_SERVER['HTTP_HOST'].BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'].'" style="max-width:80px;max-height:120px;"></div>
+								<div style="margin: 0 5px 0 0;  width: 100%"><img style="width: 100%" src="http://'.$_SERVER['HTTP_HOST'].BASEURL.'/imagepreview?src='.$result['data']['origprod'][$value[0]['products_id']]['products_id'].'"></div>
 							</td>
 						</tr>
 						<tr>
