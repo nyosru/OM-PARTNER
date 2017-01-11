@@ -12,7 +12,7 @@ $this->title=$title;
     <div class="row" style="margin: 15px 0;">
         <?=$this->render('_navlk',['user'=>$cust])?>
         <div class="col-sm-9">
-            <?='<div>' . LinkPager::widget(['pagination' => $pagination]) . '</div><div style="overflow: hidden">'; ?>
+            <?php //LinkPager::widget(['pagination' => $pagination]); ?>
             <ul class="products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>" style="margin-top: -30px;">
                 <?php
                 foreach ($orderedproducts as $val) {
