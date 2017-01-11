@@ -512,9 +512,11 @@
                 if(typeof product !== 'undefined') {
                     if (product[0] == product_id && product[2] == data_attr) {
                         updated_main_data.order.order['products'][index_product][4] = new_value;
+                        maindata.order.order['products'][index_product][4] = new_value;
                         return true;
                     } else if (product[0] == product_id && (typeof (product[2]) == data_attr) || product[2] == '') {
                         updated_main_data.order.order['products'][index_product][4] = new_value;
+                        maindata.order.order['products'][index_product][4] = new_value;
                         return true;
                     }
                 }
@@ -577,7 +579,7 @@
                 },
                 success: function (products) {
                     if(products != false) {
-                       // maindata.order.order['products'] = products;
+                        maindata.order.order['products'] = products;
                         renderOrder(maindata);
                         updateAllOrdersView(maindata, true);
                         $.pjax.reload('#grid', {cache: false});
@@ -686,10 +688,12 @@
                                 return false;
                             }
                             var  new_product = data.product;
+                            var quant = '';
                             if(new_product.productsAttributesDescr.length == 0){
                                 new_product.productsAttributesDescr[0]= new Object;
                                 new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
                                 new_product.productsAttributesDescr[0].products_options_values_id = '';
+                                quant = new_product.products.products_quantity;
                             }
                             var product_html = '';
                             product_html += "<div style=\"\" class=\"product-card-common\">";
@@ -710,7 +714,8 @@
                             product_html += "                   <div class=\"select-style\">";
                             product_html += "                     <select id=\"pick_attr_value\">";
                             $.each(new_product.productsAttributesDescr, function (index, attribute) {
-                                product_html += "<option data-attr=\""+attribute.products_options_values_id+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
+                                quant = new_product.productsAttributes[attribute.products_options_values_id]["quantity"];
+                                product_html += "<option data-attr=\""+attribute.products_options_values_id+"\"  data-attr-count=\""+quant+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
                             });
 
                             product_html += "                     <\/select>";
