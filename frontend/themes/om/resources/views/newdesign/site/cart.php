@@ -10,28 +10,28 @@ $this -> title = 'Корзина';
 <div class="page-title">
     <h2>Товары в моей корзине</h2>
 </div>
+    <p>Последний раз вы заказывали: <?=$lastorders?></p>
 <div class="clearfix">
-    <button class="button pull-right" id="save-set">Сохранить корзину</button>
+    <button class="button pull-right" id="save-set" data-toggle="modal" data-target="#modal-save-cart">Сохранить корзину</button>
 </div>
+<form action="<?= BASEURL;?>/saveorder" method="post">
 <div class="table-responsive">
-    <form method="post" action="#">
-        <fieldset>
-            <table class="data-table cart-table" id="shopping-cart-table">
-                <thead>
-                <tr class="first last">
-                    <th></th>
-                    <th style="width: 33%;"><span class="nobr">Наименование</span></th>
-                    <th><span class="nobr">Размер</span></th>
-                    <th><span class="nobr">Цена</span></th>
-                    <th><span class="nobr">Количество</span></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </fieldset>
-    </form>
+    <fieldset>
+        <table class="data-table cart-table" id="shopping-cart-table">
+            <thead>
+            <tr class="first last">
+                <th></th>
+                <th style="width: 33%;"><span class="nobr">Наименование</span></th>
+                <th><span class="nobr">Размер</span></th>
+                <th><span class="nobr">Цена</span></th>
+                <th><span class="nobr">Количество</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </fieldset>
 </div>
 <!-- BEGIN CART COLLATERALS -->
 <div class="cart-collaterals row">
@@ -135,12 +135,12 @@ $this -> title = 'Корзина';
                     <td class="a-right"><span class="price" id="coupon-price"></span></td>
                 </tr>
                 <tr>
-                    <td>Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</td>
+                    <td>Упаковка<sup><i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик"></i></sup></td>
                     <td class="a-right"><span class="price" id="wrap-price"></span></td>
                 </tr>
                 <tr>
                     <td>Доставка</td>
-                    <td class="a-right"><span class="price" id="deliv-price">0 руб.</span></td>
+                    <td class="a-right"><span class="price" id="deliv-price">0 руб</span></td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -153,22 +153,47 @@ $this -> title = 'Корзина';
             <textarea class="form-control" rows="3" name="ordercomments" placeholder="Добавить комментарий к этому заказу"></textarea>
             <ul class="checkout">
                 <li>
-                    <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Подтвердить заказ</span></button>
+                    <button class="button btn-proceed-checkout" id="check-confirm" title="Подтвердить заказ" type="submit"><span>Подтвердить заказ</span></button>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 </div>
-
+</form>
 <!--cart-collaterals-->
 
 </div>
 
 </div>
 </div>
+    <div class="modal fade" id="modal-save-cart" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Сохранение корзины</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Введите комментарий для сохраняемой корзины:</label>
+                        <input id="comment-cart-save" type="text" class="form-control" style="width: 100%;">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="save-chk"> Сделать корзину публичной (вы сможете давать ссылки на нее другим)
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="save-set-btn" class="button">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <script>
+$('[data-toggle="tooltip"]').tooltip();
 /*
 РЕНДЕР ТОВАРА В КОРЗИНЕ
  */

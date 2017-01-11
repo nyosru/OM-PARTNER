@@ -319,12 +319,12 @@ $(document).on('click', '.countdisplay', function index_count_display() {
 });
 
 function changeCartCount(){
-    var cartCount=document.getElementsByClassName('cart-count');
-    var count=0;
-    $('.num-of-items').each(function () {
-        count+=parseInt($(this).children('#input-count').val());
-    });
-    cartCount[0].textContent=count;
+    //var cartCount=document.getElementsByClassName('cart-count');
+    //var count=0;
+    //$('.num-of-items').each(function () {
+    //    count+=parseInt($(this).children('#input-count').val());
+    //});
+    //cartCount[0].textContent=count;
 }
 
 $(document).on('keyup', '#input-count', function(){
@@ -1581,6 +1581,7 @@ function getProductCart(){
             }else{
                 alert('Ошибка');
             }
+            $('#modal-save-cart').modal('hide');
         });
 }
 $(document).on('click','#save-set-btn',function () {
