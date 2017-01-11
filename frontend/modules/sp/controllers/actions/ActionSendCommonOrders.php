@@ -3,10 +3,14 @@ namespace frontend\modules\sp\controllers\actions;
 
 use common\forms\CommonOrders\SendToOMForm;
 use common\models\AddressBook;
+use common\models\CommonOrders;
 use common\models\Referrals;
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\helpers\BaseHtmlPurifier;
 use yii\helpers\Json;
+use yii\validators\DateValidator;
 
 
 trait ActionSendCommonOrders
@@ -37,12 +41,12 @@ trait ActionSendCommonOrders
         $formmodel->load(Yii::$app->request->getBodyParams());
         if(Yii::$app->request->post('form')){
             $formmodel->idorder = (integer)Yii::$app->request->post('form');
-           $formmodel->renderForm();
-           return;
-       }elseif(Yii::$app->request->isPjax && !$formmodel->validate()){
             $formmodel->renderForm();
-           return;
-       }elseif(Yii::$app->request->isPjax && $formmodel->validate()){
+            return;
+        }elseif(Yii::$app->request->isPjax && !$formmodel->validate()){
+            $formmodel->renderForm();
+            return;
+        }elseif(Yii::$app->request->isPjax && $formmodel->validate()){
             $x = $this->CommonOrdersToOm(
                 $formmodel->idorder,
                 $formmodel->address,
@@ -54,19 +58,19 @@ trait ActionSendCommonOrders
 
             $x = Json::decode($x);
             if($x['result']['code'] == 200 && $x['result']['data']['paramorder']['number']) {
-                foreach ( $x['result']['data'] as $order_key => $order_value) {
+                foreach ($x['result']['data']['saveproduct'] as $key=>$value){
+                    $order = explode('/',$key)[0];
                     $script_om = <<< JS
-            var client_status_block = $('[data-sub-order-id='+$order_key+']');
-            client_status_block.removeClass("status-new");
-            client_status_block.addClass("status-proceed");
-           
+                    var client_status_block = $('[data-sub-order-id="'+$order+'"]');
+                    client_status_block.removeClass("status-new");
+                    client_status_block.addClass("status-proceed");
 JS;
                     echo '<script>';
                     echo $script_om;
                     echo '</script>';
                 }
-
                 $script = <<< JS
+          
              var orders_status_blocks = $('[data-order-id="'+$formmodel->idorder+'"]');
             orders_status_blocks.removeClass("status-new");
             orders_status_blocks.addClass("status-proceed");
@@ -79,10 +83,10 @@ JS;
 
             $x  = $this->render('cartresult', $x);
             echo BaseHtmlPurifier::process($x);
-       }else{
+        }else{
             $formmodel->renderForm();
             return;
-       }
+        }
 
     }
 }
