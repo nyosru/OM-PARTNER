@@ -41,12 +41,12 @@ trait ActionSendCommonOrders
         $formmodel->load(Yii::$app->request->getBodyParams());
         if(Yii::$app->request->post('form')){
             $formmodel->idorder = (integer)Yii::$app->request->post('form');
-           $formmodel->renderForm();
-           return;
-       }elseif(Yii::$app->request->isPjax && !$formmodel->validate()){
             $formmodel->renderForm();
-           return;
-       }elseif(Yii::$app->request->isPjax && $formmodel->validate()){
+            return;
+        }elseif(Yii::$app->request->isPjax && !$formmodel->validate()){
+            $formmodel->renderForm();
+            return;
+        }elseif(Yii::$app->request->isPjax && $formmodel->validate()){
             $x = $this->CommonOrdersToOm(
                 $formmodel->idorder,
                 $formmodel->address,
@@ -55,17 +55,26 @@ trait ActionSendCommonOrders
                 $formmodel->comment);
 
 
-$script = <<< JS
-            console.log($x);
-            var client_status_block = $('[data-detail="'+$formmodel->idorder+'"]').find('.client-order-status');
-            client_status_block.removeClass("status-new");
-            client_status_block.addClass("status-proceed");
-             var orders_status_blocks = $(".client-order-status");
+
+            $x = Json::decode($x);
+            if($x['result']['code'] == 200 && $x['result']['data']['paramorder']['number']) {
+                foreach ($x['result']['data']['saveproduct'] as $key=>$value){
+                    $order = explode('/',$key)[0];
+                    $script_om = <<< JS
+                    var client_status_block = $('[data-sub-order-id="'+$order+'"]');
+                    client_status_block.removeClass("status-new");
+                    client_status_block.addClass("status-proceed");
+JS;
+                    echo '<script>';
+                    echo $script_om;
+                    echo '</script>';
+                }
+                $script = <<< JS
+          
+             var orders_status_blocks = $('[data-order-id="'+$formmodel->idorder+'"]');
             orders_status_blocks.removeClass("status-new");
             orders_status_blocks.addClass("status-proceed");
 JS;
-            $x = Json::decode($x);
-            if($x['result']['code'] == 200 && $x['result']['data']['paramorder']['number']) {
                 echo '<script>';
                 echo $script;
                 echo '</script>';
@@ -74,10 +83,10 @@ JS;
 
             $x  = $this->render('cartresult', $x);
             echo BaseHtmlPurifier::process($x);
-       }else{
+        }else{
             $formmodel->renderForm();
             return;
-       }
+        }
 
     }
 }

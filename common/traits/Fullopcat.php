@@ -22,11 +22,21 @@ trait Fullopcat
 
             }
             $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();
-//            foreach ($f as $value) {
-//                if (in_array(intval($value['categories_id']), $checks)) {
-//
-//                }
-//            }
+            if(Yii::$app->params['customcat'] && isset($s) && ($customname = $this->customCatalog()['name']) == TRUE){
+                foreach ($s as $skey=>$sname){
+                    if(in_array($customname, $sname['categories_id'])){
+                        $s[$skey]['categories_name'] = $customname[$skey];
+                        unset($customname[$skey]);
+                    }
+                }
+                if($customname) {
+                    foreach ($customname as $customnamekey => $customnamevalue) {
+                        $s[] = [
+                            'categories_id'=>$customnamekey,
+                            'categories_name'=>$customnamevalue];
+                    }
+                }
+            }
             $catdataallow = $f;
             foreach ($s as $value) {
                 $catnamearr[$value['categories_id']] = $value['categories_name'];

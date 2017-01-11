@@ -164,6 +164,10 @@
 <?= $this->render('modals/add_new_commonorder.php')?>
 
 <script>
+    var product_arr = new Object();
+    var maindata_arr = new Object();
+    var maindata = new Object();
+    var updated_main_data = new Object();
     $(document).ready(function () {
 
         //add_new_commonorder.php после запроса обновить список
@@ -184,10 +188,14 @@
         $("#grid").on("pjax:end", function() {
             scrollToTopCustomScrollBar('#scroll1');
         });
-        var product_arr = new Object();
-        var maindata_arr = new Object();
-        var maindata = new Object();
-        var updated_main_data = new Object();
+
+
+        function update_main($main) {
+            maindata = $main;
+        }
+        function update_upd($upd) {
+            updated_main_data = $upd;
+        }
         inProgress = false;
 
         if($('.order-line').attr('data-order')){
@@ -253,7 +261,6 @@
                         inProgress = false;
                     }
                 }).done(function (data) {
-
                     maindata = data;
                     renderOrder(maindata);
                 });
@@ -285,7 +292,7 @@
                     if(typeof product !== 'undefined') {
                         if (product[0] == product_id && product[2] == attr && updated_main_data.id == order_id) {
                             updated_main_data.order.order['products'].splice(index_order, 1);
-
+                            maindata.order.order['products'].splice(index_order, 1);
                             return true;
                         }
                     }
@@ -336,7 +343,6 @@
             var request = $(".input-searcncommon-order").val();
             common_orders_list = requestCommon(act, request);
             renderCommonList(common_orders_list);
-
         }
         $(document).on('click', '.common-order', function(){
             refresh_list();
@@ -385,9 +391,10 @@
                 },
                 success: function(data) {
                     checkAlerts();
+                    $.pjax.reload('#grid', {cache: false});
                     if(data == true) {
                         $('.edit-line .panel-title').html('<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+ id_common_order);
-                        common_order_detail.text('В объединенном заказе №:'+id_common_order);
+                        common_order_detail.text('В объединенном заказе №: '+id_common_order);
                     } else {
                         button_to_common_order.text('Ошибка!');
                         setTimeout(function() {
@@ -470,7 +477,7 @@
             });
 
             if(client_plate_update) {
-                $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('.client-price').text(final_order_price +" руб.");
+             //   $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('.client-price').text(final_order_price +" руб.");
             }
 
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
@@ -502,7 +509,6 @@
 
         function updateUpdatedDataCountProducts(product_id, data_attr, new_value) {
             $.each(updated_main_data.order.order['products'], function(index_product, product){
-                console.log(product);
                 if(typeof product !== 'undefined') {
                     if (product[0] == product_id && product[2] == data_attr) {
                         updated_main_data.order.order['products'][index_product][4] = new_value;
@@ -557,7 +563,31 @@
             return $result;
 
         }
+        // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
+        $(document).on('click', '#save_order', function(){
+            $.ajax({
+                method: 'post',
+                url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",
+                data: {
+                    order_id: updated_main_data.id,
+                    products: Object.values(updated_main_data.order.order['products'])
+                },
+                dataType: 'json',
+                error: function (data) {
+                },
+                success: function (products) {
+                    if(products != false) {
+                       // maindata.order.order['products'] = products;
+                        renderOrder(maindata);
+                        updateAllOrdersView(maindata, true);
+                        $.pjax.reload('#grid', {cache: false});
+                    }
 
+                    checkAlerts();
+                    $.pjax.reload('#grid', {cache: false});
+                }
+            });
+        });
 
         $(document).on('click', '[confirm_product]', function(){
             var input_count = $("[new-product-input-count]");
@@ -573,7 +603,7 @@
             $.ajax({
                 method: 'post',
                 url: "<?=Yii::$app->urlManager->createUrl(['/sp/add-product-to-order'])?>",
-                async: false,
+                async: true,
                 dataType: 'json',
                 data: {
                     order_id: maindata.id,
@@ -583,40 +613,44 @@
                 },
                 error: function (data) {
                 },
-                success: function (data) {
-
-                    $("#overlay").remove();
-                    $("#modal-product").remove();
-
-                    checkAlerts();
-
-                    if(data === false) {
-                        return;
-                    }
-
-                    $is_a_match = false;
-                    $.each(maindata.order.order['products'], function(index_product, product){
-                        if(typeof product !== 'undefined') {
-                            if (product[0] == data[0] && product[2] == data[2]) {
-                                maindata.order.order['products'][index_product] = data;
-                                $is_a_match = true;
-                                return true;
-                            }
-                        }
-                    });
-                    if ($is_a_match == false) {
-                        if(maindata.order.order['products'] == null) {
-                            maindata.order.order['products'] = [];
-                        }
-                        maindata.order.order['products'].push(data);
-                    }
-                    renderOrderEdit(maindata);
-                    updateAllOrdersView(maindata, true);
-
-
+                    success: function (data) {
+                        console.log(data);
+                        update_test(data);
                 }
             });
         });
+
+        function update_test(data){
+            $("#overlay").remove();
+            $("#modal-product").remove();
+
+            checkAlerts();
+
+            if(data === false) {
+                return;
+            }
+
+            $is_a_match = false;
+            $.each(maindata.order.order['products'], function(index_product, product){
+                if(typeof product !== 'undefined') {
+                    if (product[0] == data[0] && product[2] == data[2]) {
+                        maindata.order.order['products'][index_product] = data;
+                        updated_main_data.order.order['products'][index_product] = data;
+                        $is_a_match = true;
+                    }
+                }
+            });
+            if ($is_a_match == false) {
+                if(maindata.order.order['products'] == null) {
+                    maindata.order.order['products'] = [];
+                    updated_main_data.order.order['products'] = [];
+                }
+                maindata.order.order['products'].push(data);
+                updated_main_data.order.order['products'].push(data);
+            }
+            renderOrderEdit(maindata);
+            updateAllOrdersView(maindata, true);
+        }
 
         $(document).on('click', '.search-models-button', function(){
             var abort = false;
@@ -638,7 +672,6 @@
 
                         },
                         success: function (data) {
-                            console.log(data);
                             $('.preload').remove();
                             if (typeof (data) != "object") {
                                 alert('Ничего не найдено по вашему запросу');
@@ -970,29 +1003,7 @@
             $('.preload').remove();
         }
 
-        // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
-        $(document).on('click', '#save_order', function(){
-            $.ajax({
-                method: 'post',
-                url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",
-                data: {
-                    order_id: updated_main_data.id,
-                    products: Object.values(updated_main_data.order.order['products'])
-                },
-                dataType: 'json',
-                error: function (data) {
-                },
-                success: function (products) {
-                    if(products != false) {
-                        maindata.order.order['products'] = products;
-                        renderOrder(maindata);
-                        updateAllOrdersView(maindata, true);
-                    }
 
-                    checkAlerts();
-                }
-            });
-        });
 
         function renderOrderEdit(data) {
             updated_main_data = JSON.parse(JSON.stringify(maindata));

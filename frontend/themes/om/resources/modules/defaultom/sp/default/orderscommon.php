@@ -105,7 +105,7 @@
                                     <div class="client-info-fr-order">
                                         <div class="client-order">
                                             <div class="client-order-num">№ '.$model->id.'</div>
-                                            <div class="client-order-status '.$stat_class[$model->status].'"></div>
+                                            <div data-order-id="'.$model->id.'" class="client-order-status '.$stat_class[$model->status].'"></div>
                                         </div>
                                         <div class="client-name">
                                             '.$model->header.' ('.$total_count_products.' товаров)
@@ -133,7 +133,7 @@
 
         <div id="col2">
             <div id="scroll2" style="height: 100%">
-                <div style="margin:25px;">
+                <div style="margin: 25px 25px 100px;">
                     <div style="width: 100%;  display:inline-block;" class="datacontainer">
                     <!-- renderOrders(data) -->
                     </div>
@@ -233,29 +233,32 @@
         var in_progress = false;
         var common_orders_list = new Object();
         var input_searcncommon_order = false;
-
+        function load_detail($id_detail){
+            $.ajax({
+                method:"post",
+                url: "<?=Yii::$app->urlManager->createUrl(['/sp/detail-common-orders'])?>",
+                data: {
+                    "_csrf":yii.getCsrfToken(),
+                    "id": $id_detail
+                },
+                cache: false,
+                async: true,
+                dataType: 'json',
+                beforeSend: function () {
+                    in_progress = false;
+                }
+            }).done(function (data) {
+                $('[data-detail="'+data.id+'"]').addClass('client-active');
+                orders_list = data;
+                renderOrders(orders_list);
+            });
+        }
         $(document).on("click", '.client-plate' ,function(){
             if(!in_progress){
+                $id = $(this).attr('data-detail');
                 $('.client-plate.client-active').removeClass('client-active');
                 in_progress = true;
-                $.ajax({
-                    method:"post",
-                    url: "<?=Yii::$app->urlManager->createUrl(['/sp/detail-common-orders'])?>",
-                    data: {
-                        "_csrf":yii.getCsrfToken(),
-                        "id": $(this).attr('data-detail')
-                    },
-                    cache: false,
-                    async: true,
-                    dataType: 'json',
-                    beforeSend: function () {
-                        in_progress = false;
-                    }
-                }).done(function (data) {
-                    $('[data-detail="'+data.id+'"]').addClass('client-active');
-                    orders_list = data;
-                    renderOrders(orders_list);
-                });
+                load_detail($id);
                 in_progress = false;
             }else{
                 alert('Выполняется запрос');
@@ -407,6 +410,8 @@
                         }, 2500);
                     }
                     checkAlerts();
+                    $.pjax.reload('#orders', {cache: false});
+                    load_detail($('[data-order]').attr('data-order'));
                 }
             });
         });
@@ -579,6 +584,7 @@
                         updateAllOrdersView(orders_list, true);
                     }
                     checkAlerts();
+                    $.pjax.reload('#orders', {cache: false});
                 }
             });
         });
@@ -676,7 +682,7 @@
                 str_html += "                     <div class=\"client-info-li-order\">";
                 str_html += "                         <div class=\"client-order\">";
                 str_html += "                             <div class=\"client-order-num\"> № "+partner_orders.id+"<\/div>";
-                str_html += "                             <div class=\"client-order-status "+ stat_class[partner_orders.status] +"\"><\/div>";
+                str_html += "                             <div data-sub-order-id=\""+partner_orders.id+"\" class=\"client-order-status "+ stat_class[partner_orders.status] +"\"><\/div>";
                 str_html += "                         <\/div>";
                 str_html += "                         <div class=\"client-name-in\">";
                 str_html += "                             "+user_name+"";

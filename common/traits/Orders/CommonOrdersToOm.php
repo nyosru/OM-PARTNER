@@ -151,7 +151,7 @@ trait CommonOrdersToOm
         if (($orders = Orders::findOne(['customers_id' => $userCustomer['customers_id']])) == FALSE) {
             $minprice = 5000;
         } else {
-            $minprice = 1000;
+            $minprice = 1500;
         }
 
         if ($validprice < $minprice) {
@@ -926,7 +926,7 @@ trait CommonOrdersToOm
                 'campaign'=>'new-om',
                 'content'=>'save-orders'
             ];
-            Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice' => (integer)$wrapp['products_price'],
+            Yii::$app->mailer->compose(['html' => 'ordercommon-save'], ['wrapprice' => (integer)$wrapp['products_price'],
                 'result' => [
                     'code' => 200,
                     'text' => '<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ ' . $numberorders . ' в магазине Одежда-Мастер оформлен</div>',
@@ -952,7 +952,7 @@ trait CommonOrdersToOm
                 ->setTo($orders->customers_email_address)
                 ->setSubject('Новый заказ"')
                 ->send();
-            Yii::$app->mailer->compose(['html' => 'orderom-save'], ['wrapprice' => (integer)$wrapp['products_price'],
+            Yii::$app->mailer->compose(['html' => 'ordercommon-save'], ['wrapprice' => (integer)$wrapp['products_price'],
                 'result' => [
                     'code' => 200,
                     'text' => '<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ ' . $numberorders . ' в магазине Одежда-Мастер оформлен</div>',
