@@ -25,50 +25,6 @@
 .special_header {display: flex; text-align: center; margin-bottom: 20px}
 .about_text { font-size: 16px;}
 
-#owl_lend_products {
-    display: flex;
-}
-#owl_lend_products .item{
-    display: flex;
-    background: #F5F5F5;
-    margin: 10px;
-    color: #FFF;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    text-align: center;
-    border: 1px solid #e3e3e3;
-    min-height: 450px;
-    border-radius: 2px;
-    min-width: 245px;
-    max-width: 300px;
-    padding: 20px;
-}
-#owl_lend_products .item .product-photo{
-    display: flex;
-    min-height: 350px;
-}
-#owl_lend_products .item .product-photo .img-block{
-    margin: auto 0;
-}
-#owl_lend_products .item .price-product-cat {
-    margin-top: 25px;
-    display: block;
-}
-#owl_lend_products .item .price-product-cat .strike{
-    font-size: 18px;
-    color: #9e9e9e;
-    font-weight: 300;
-    text-decoration: line-through;
-}
-#owl_lend_products .item .price-product-cat .new-price{
-    font-size: 18px;
-    font-weight: 500;
-    /*margin: -5px 5px;*/
-    color: black;
-}
-
-#owl_lend_products .item:hover {box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);  }
-
 .action_grid {
     display: inline-block;
     padding: 0px 10px;
