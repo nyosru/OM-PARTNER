@@ -387,7 +387,7 @@
                     checkAlerts();
                     if(data == true) {
                         $('.edit-line .panel-title').html('<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+ id_common_order);
-                        common_order_detail.text('В объединенном заказе №:'+id_common_order);
+                        common_order_detail.text('В объединенном заказе №: '+id_common_order);
                     } else {
                         button_to_common_order.text('Ошибка!');
                         setTimeout(function() {
