@@ -79,7 +79,7 @@ class CatLandGenerator extends \yii\bootstrap\Widget
         $data_products = PartnersProducts::find()
             ->where(['products_id' => $id_data])
             ->andWhere('products_quantity > 0')
-            ->andWhere('products_status = 1')
+            ->andWhere(['products_status' => 1])
             ->with('productsDescription')
             ->with('productsAttributes')
             ->with('productsAttributesDescr')
