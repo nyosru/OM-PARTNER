@@ -134,6 +134,11 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                             <div class="link news"><a href="/adminsite/default/coupons">Купоны</a></div>
                         </li>
                     </ul>
+                    <ul id="accordion" class="accordion">
+                        <li class="">
+                            <div class="link news"><a href="/adminsite/default/config-list">Рекламный ленд</a></div>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
