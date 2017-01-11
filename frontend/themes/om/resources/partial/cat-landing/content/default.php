@@ -3,7 +3,7 @@
 </div>
 
 <div id="lend_products" style="">
-    <div class="row">
+    <div class="row-e">
         <div class="col-9-10 center">
             <div id="owl_lend_products_product-card" class="owl-carousel owl-theme">
                 <?php foreach ($content_list_products as $value) : ?>
@@ -24,7 +24,7 @@
         <h1>Специальное предложение на сегодня!</h1>
     </div>
 
-    <div class="row" style="box-shadow: 0px 3px 6px -2px rgba(0,0,0,0.75);">
+    <div class="row-e" style="box-shadow: 0px 3px 6px -2px rgba(0,0,0,0.75);">
         <div class="col-1-3">
             <div class="img-block">
                 <img src="http://remdta.ru/des/specpredlozhenie.png" alt="">

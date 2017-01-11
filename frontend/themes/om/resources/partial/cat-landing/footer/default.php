@@ -1,5 +1,5 @@
 <footer class="col-1" style="margin-top: 25px;">
-    <div class="row" style="position: relative; height: 70px;">
+    <div class="row-e" style="position: relative; height: 70px;">
 
         <hr class="linebottom1" style="
             width: 55%;

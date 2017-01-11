@@ -1,15 +1,15 @@
 <?php
-namespace frontend\modules\cat\controllers\actions;
+namespace frontend\modules\adminsite\controllers\actions\cat;
 
 use common\forms\Cat\CatLandConfigForm;
 use Yii;
 
-trait ActionIndex
+trait ActionConfigure
 {
 
-    public function actionIndex()
+    public function actionConfigure()
     {
-
+        $this->layout = 'cat_configure';
         $preview_toggle = Yii::$app->request->get('preview_toggle');
         $config_name = Yii::$app->request->get('c');
 
@@ -40,7 +40,7 @@ trait ActionIndex
             ]);
         }
 
-        return $this->render('index', ['model' => $model, 'land_config' => $land_config]);
+        return $this->render('cat/configure/index', ['model' => $model, 'land_config' => $land_config]);
     }
 
 }

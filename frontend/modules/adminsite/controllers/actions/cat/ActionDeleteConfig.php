@@ -1,5 +1,5 @@
 <?php
-namespace frontend\modules\cat\controllers\actions;
+namespace frontend\modules\adminsite\controllers\actions\cat;
 
 use common\forms\Cat\CatLandConfigForm;
 use Yii;

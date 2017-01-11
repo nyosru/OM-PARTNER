@@ -12,11 +12,7 @@ use yii\web\Controller;
 
 class DefaultController extends Controller
 {
-    use ActionIndex;
-    use ActionUpdateConfig;
     use ActionLanding;
-    use ActionConfigList;
-    use ActionDeleteConfig;
 
     public function behaviors()
     {
@@ -25,7 +21,7 @@ class DefaultController extends Controller
 
     public function actions()
     {
-        $this->layout = 'main';
+        $this->layout = 'main_land';
         return 'Админка';
     }
 

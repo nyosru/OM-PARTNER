@@ -1,5 +1,6 @@
 <?php
-namespace frontend\modules\cat\controllers\actions;
+namespace frontend\modules\adminsite\controllers\actions\cat;
+
 
 use Yii;
 use yii\data\ArrayDataProvider;
@@ -27,7 +28,7 @@ trait ActionConfigList
                 'pageSize' => 20,
             ],
         ]);
-        return $this->render('config_list/index', ['arrayDataProvider' => $arrayDataProvider]);
+        return $this->render('cat/config_list/index', ['arrayDataProvider' => $arrayDataProvider]);
     }
 
 }

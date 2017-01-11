@@ -1,5 +1,5 @@
 <?php
-namespace frontend\modules\cat\controllers\actions;
+namespace frontend\modules\adminsite\controllers\actions\cat;
 
 use Yii;
 use \common\forms\Cat\CatLandConfigForm;
@@ -32,7 +32,7 @@ trait ActionUpdateConfig
 
         }
 
-        return $this->redirect(['index','c' => $catLandConfigForm->config_name, 'preview_toggle' => Yii::$app->request->post('preview_toggle')]);
+        return $this->redirect(['configure','c' => $catLandConfigForm->config_name, 'preview_toggle' => Yii::$app->request->post('preview_toggle')]);
     }
 
 }
