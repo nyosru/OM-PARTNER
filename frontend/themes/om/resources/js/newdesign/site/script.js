@@ -1566,11 +1566,7 @@ function getProductCart(){
     $elems=$('.input-count');
     $data=localStorage.getItem('cart-om');
     $comments=$('#comment-cart-save')[0].value;
-    if($('#save-chk').hasClass('chk-unchecked')){
-        $shara=0;
-    }else{
-        $shara=1;
-    }
+    $shara = $('#save-chk').prop('checked') ? 1:0;
     $baseduri = '/savecart';
     $.post($baseduri,{'data':$data,'public':$shara,'comments':$comments},
         function(data){

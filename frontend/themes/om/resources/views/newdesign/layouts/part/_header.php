@@ -32,6 +32,9 @@ use yii\bootstrap\ActiveForm;
                     <!-- End Default Welcome Message -->
                     <div class="links">
 <!--                        <div class="wishlist"><a title="My Wishlist" href="/selectedproduct"><span class="hidden-xs">Избранное</span></a></div>-->
+                        <div>
+                            <a  rel="nofollow"  href="/selectedproduct">Избранные</a>
+                        </div>
                         <?php
                         if(Yii::$app->user->isGuest){ ?>
                             <div>
@@ -58,7 +61,7 @@ use yii\bootstrap\ActiveForm;
                         <div class="top-cart-contain pull-right">
                             <!-- Top Cart -->
                             <div class="mini-cart">
-                                <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"><a href="#">My Cart <span>2</span></a></div>
+                                <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"><a href="#">My Cart <span class="cart-count">0</span></a></div>
                                 <div>
                                     <div class="top-cart-content">
                                         <div class="block-subtitle">
