@@ -336,7 +336,6 @@
             var request = $(".input-searcncommon-order").val();
             common_orders_list = requestCommon(act, request);
             renderCommonList(common_orders_list);
-
         }
         $(document).on('click', '.common-order', function(){
             refresh_list();
@@ -385,6 +384,7 @@
                 },
                 success: function(data) {
                     checkAlerts();
+                    $.pjax.reload('#grid', {cache: false});
                     if(data == true) {
                         $('.edit-line .panel-title').html('<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+ id_common_order);
                         common_order_detail.text('В объединенном заказе №: '+id_common_order);
@@ -470,7 +470,7 @@
             });
 
             if(client_plate_update) {
-                $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('.client-price').text(final_order_price +" руб.");
+             //   $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('.client-price').text(final_order_price +" руб.");
             }
 
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
@@ -612,7 +612,7 @@
                     }
                     renderOrderEdit(maindata);
                     updateAllOrdersView(maindata, true);
-
+                    $.pjax.reload('#grid', {cache: false});
 
                 }
             });
@@ -987,9 +987,11 @@
                         maindata.order.order['products'] = products;
                         renderOrder(maindata);
                         updateAllOrdersView(maindata, true);
+                        $.pjax.reload('#grid', {cache: false});
                     }
 
                     checkAlerts();
+                    $.pjax.reload('#grid', {cache: false});
                 }
             });
         });
