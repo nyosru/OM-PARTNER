@@ -1,27 +1,8 @@
 <?php
 use yii\helpers\Html;
 $this -> title = 'Корзина';
-
-$del_add='<select id="shipaddr" name="address">';
-foreach($addr as $key=>$value){
-    if($key != $default) {
-        $options .= '<option value="' . $key . '">' . $value . '</option>';
-    }else{
-        $first .= '<option value="' . $key . '">' . $value . '</option>';
-    }
-}
-
-
-
-$del_add .= $first;
-$del_add .= $options;
-$del_add .= '</select>';
-
 ?>
-<!-- layout: main-layout -->
 
-
-<!-- Main Container -->
 <section class="main-container col1-layout">
 <div class="main container">
 <div class="col-main">
@@ -55,93 +36,128 @@ $del_add .= '</select>';
 <!-- BEGIN CART COLLATERALS -->
 <div class="cart-collaterals row">
 <div class="col-sm-4">
-<div class="shipping">
-<h3>Estimate Shipping and Tax</h3>
-<div class="shipping-form">
-<form id="shipping-zip-form" method="post" action="#">
-<p>Enter your destination to get a shipping estimate.</p>
-<ul class="form-list">
-<li>
-<label class="required" for="country"><em>*</em>Country</label>
-<div class="input-box">
-<select title="Country" class="validate-select" id="country" name="country_id">
-<option value="Select">Select</option>
-<option value="AF">Afghanistan</option>
-<option selected="selected" value="US">United States</option>
-</select>
-</div>
-</li>
-<li>
-    <label for="region_id">State/Province</label>
-    <div class="input-box">
-        <select title="State/Province" name="region_id" id="region_id">
-            <option value="">Please select region, state or province</option>
-            <option value="1" title="Alabama">Alabama</option>
-            <option value="2" title="Alaska">Alaska</option>
-            <option value="3" title="American Samoa">American Samoa</option>
-            <option value="4" title="Arizona">Arizona</option>
-        </select>
-        <input type="text" class="input-text" title="State/Province" name="region" id="region">
+    <div class="shipping">
+        <h3>Информация</h3>
+        <div class="shipping-form">
+            <?php if(!Yii::$app->user->isGuest && $template == 'om' ){ ?>
+                <p>Я выбираю способ упаковки моего заказа:</p>
+                <div class="checkbox">
+                    <label>
+                        <input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки
+                    </label>
+                </div>
+                <hr>
+                <p>Адрес доставки:</p>
+                <div class="shipaddr" style="">
+                    <select id="shipaddr" name="address" class="form-control">
+                        <?php
+                        if(isset($addr[$default])){
+                            echo '<option value="' . $default . '">' . $addr[$default] . '</option>';
+                            unset($addr[$default]);
+                        }
+                        if(!empty($addr)){
+                            foreach($addr as $key=>$value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <hr>
+                <p>Я выбираю бесплатную доставку до компании:</p>
+                <div class="ship" style=""></div>
+<!--                <button class="button btn-lg lock-on" id="check-confirm" type="submit">Подтвердить заказ</button>-->
+            <?php } else if($template == 'sp') { ?>
+                <div class="address">
+                    <div class="name-item lable-info-item">
+                        Имя: <input disabled="" name="[userinfo]name" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="name" class="info-item" value="<?=htmlentities($userinfo['name']);?>">
+                    </div>
+                    <div class="secondname-item lable-info-item">
+                        Отчество: <input disabled="" name="[userinfo]secondname" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="secondname" class="info-item" value="<?=htmlentities($userinfo['secondname']);?>">
+                    </div>
+                    <div class="lastname-item lable-info-item">
+                        Фамилия: <input disabled="" name="[userinfo]lastname" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="lastname" class="info-item" value="<?=htmlentities($userinfo['lastname']);?>">
+                    </div>
+                    <div class="country-item lable-info-item">
+                        Страна: <input autocomplete="off" disabled="" name="[userinfo]country" title="Выберите из списка" data-placement="top" data-toggle="tooltip" data-name="country" class="info-item" value="<?=htmlentities($userinfo['country']);?>">
+                        <ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1"></ul>
+                    </div>
+                    <div class="state-item lable-info-item">
+                        Область: <input autocomplete="off" disabled="" name="[userinfo]state" title="Выберите из списка" data-placement="top" data-toggle="tooltip" data-name="state" class="info-item" value="<?=htmlentities($userinfo['state']);?>">
+                        <ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2"></ul>
+                    </div>
+                    <div class="city-item lable-info-item">
+                        Город: <input disabled="" name="[userinfo]city" title="Допустимые символы а-я,a-z,0-9,-,пробел" data-placement="top" data-toggle="tooltip" data-name="city" class="info-item" value="<?=htmlentities($userinfo['city']);?>">
+                    </div>
+                    <div class="adress-item lable-info-item">
+                        Адрес: <input disabled="" name="[userinfo]adress" title="Допустимые символы а-я,a-z,0-9,-,пробел,.,," data-placement="top" data-toggle="tooltip" data-name="adress" class="info-item" value="<?=htmlentities($userinfo['country']);?>">
+                    </div>
+                    <div class="postcode-item lable-info-item">
+                        Почтовый индекс: <input disabled="" name="[userinfo]postcode" title="Допустимые символы 0-9, пробел" data-placement="top" data-toggle="tooltip" data-name="postcode" class="info-item" value="124124">
+                    </div>
+                    <div class="telephone-item lable-info-item">
+                        Телефон: <input disabled="" name="[userinfo]telephone" title="Допустимые символы 0-9,-,пробел,),(,+" data-placement="top" data-toggle="tooltip" data-name="telephone" class="info-item" value="<?=htmlentities($userinfo['telephone']);?>">
+                    </div>
+                    <div class="order-accept">
+                            <strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе!</strong><br>
+                        Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с <a target="_blank" href="/page?article=offerta">договором оферты</a>
+                    </div>
+                </div>
+            <?php }else{ ?>
+                <div class="deliv-addr"><a href="<?=BASEURL?>/login" class="shipaddr" style="">Необходимо авторизоваться</a></div>
+            <?php } ?>
+        </div>
     </div>
-</li>
-<li>
-    <label for="postcode">Zip/Postal Code</label>
-    <div class="input-box">
-        <input type="text" name="estimate_postcode" id="postcode" class="input-text validate-postcode">
-    </div>
-</li>
-</ul>
-<div class="buttons-set11">
-    <button class="button get-quote" title="Get a Quote" type="button"><span>Get a Quote</span></button>
-</div>
-<!--buttons-set11-->
-</form>
-</div>
-</div>
 </div>
 <div class="col-sm-4">
     <div class="discount">
-        <h3>Discount Codes</h3>
-        <form method="post" action="#" id="discount-coupon-form">
-            <label for="coupon_code">Enter your coupon code if you have one.</label>
-            <input type="hidden" value="0" id="remove-coupone" name="remove">
-            <input type="text" name="coupon_code" id="coupon_code" class="input-text fullwidth">
-            <button value="Apply Coupon" class="button coupon " title="Apply Coupon" type="button"><span>Apply Coupon</span></button>
-        </form>
+        <h3>Промо-код на скидку</h3>
+        <div class="deliv-code" id="discount-coupon-form"></div>
     </div>
 </div>
 <div class="col-sm-4">
     <div class="totals">
-        <h3>Shopping Cart Total</h3>
+        <h3>Итог</h3>
         <div class="inner">
             <table class="table shopping-cart-table-total" id="shopping-cart-totals-table">
-                <tfoot>
-                <tr>
-                    <td colspan="1" class="a-left"><strong>Grand Total</strong></td>
-                    <td class="a-right"><strong><span class="price">$77.38</span></strong></td>
-                </tr>
-                </tfoot>
                 <tbody>
                 <tr>
-                    <td colspan="1" class="a-left"> Subtotal </td>
-                    <td class="a-right"><span class="price">$77.38</span></td>
+                    <td>Стоимость</td>
+                    <td class="a-right"><span class="price" id="gods-price"></span></td>
+                </tr>
+                <tr>
+                    <td>Скидка</td>
+                    <td class="a-right"><span class="price" id="coupon-price"></span></td>
+                </tr>
+                <tr>
+                    <td>Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</td>
+                    <td class="a-right"><span class="price" id="wrap-price"></span></td>
+                </tr>
+                <tr>
+                    <td>Доставка</td>
+                    <td class="a-right"><span class="price" id="deliv-price">0 руб.</span></td>
                 </tr>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td><strong>Всего к оплате</strong></td>
+                    <td class="a-right"><strong><span class="price" id="total-price"></span></strong></td>
+                </tr>
+                </tfoot>
             </table>
+            <textarea class="form-control" rows="3" name="ordercomments" placeholder="Добавить комментарий к этому заказу"></textarea>
             <ul class="checkout">
                 <li>
-                    <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Proceed to Checkout</span></button>
-                </li>
-                <li><br>
-                </li>
-                <li><a title="Checkout with Multiple Addresses" href="multiple_addresses.html">Checkout with Multiple Addresses</a> </li>
-                <li><br>
+                    <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Подтвердить заказ</span></button>
                 </li>
             </ul>
         </div>
     </div>
-    <!--inner-->
-
 </div>
 </div>
 
@@ -174,18 +190,18 @@ function renderCartProduct(product,params,item,i){
         disable_for_stepping = 'readonly';
     }
     var result =
-        '<tr data-calc="'+identypay+'" data-access="'+access+'" data-raw="'+i+'">' +
+        '<tr data-calc="'+identypay+'" data-access="'+access+'" data-raw="'+i+'" class="cart-row">' +
             '<td class="image">' +
                 '<a class="product-image" href="/product?id='+product.products.products_id+'" target="_blank">' +
                     '<img width="75"  alt="'+product.productsDescription.products_name+'" src="/imagepreview?src=' + product.products.products_id + '">' +
                 '</a>' +
             '</td>' +
             '<td>' +
-                '<h2 class="product-name"><a href="#">'+product.productsDescription.products_name+'</a></h2>' +
+                '<h2 class="product-name"><a href="/product?id='+product.products.products_id+'">'+product.productsDescription.products_name+'</a></h2>' +
                 '<span>Код: '+product.products.products_model+'</span>' + renderCommentsProduct(product,item,i) +
             '</td>' +
             '<td><div data-attr="' + item[2] + '" class="cart-attr">' + item[6] + '</div></td>' +
-            '<td><span class="price">' + parseInt(product.products.products_price) + ' руб.</span></td>' +
+            '<td><span class="price cart-prod-price">' + parseInt(product.products.products_price) + ' руб.</span></td>' +
             '<td class="num-of-items" data-raw="' + i + '">' +
                 '<div class="custom">' +
                     '<button id="del-count" class="reduced items-count del-count" type="button"><i class="icon-minus">&nbsp;</i></button>' +
@@ -200,6 +216,9 @@ function renderCartProduct(product,params,item,i){
 
     return result;
 }
+/*
+РЕНДЕР ПОЛЯ ВВОДА КОММЕНТАРИЯ К ТОВАРУ
+*/
 function renderCommentsProduct(product,item,i){
     var textareaName;
     if(typeof(product.productsAttributes[item[2]]) !=='undefined'){
@@ -284,116 +303,16 @@ $(window).on('load', function () {
 
             $('.cart-table tbody').append(renderCartProduct(requestdata.responseJSON.product, mandata.responseJSON,item,i));
         });
-        $innerhtml+='</div><div class="cart-column2" style="border:1px solid #ccc; float: left; width: 49%; border-radius: 4px;">';
-
-        <?php
-        if(!Yii::$app->user->isGuest && $template == 'om' ){
-        ?>
-        $innerhtml+= '<div class="wrap-cart" style=" border-bottom: 1px solid #ccc; padding:10px;">Я выбираю способ упаковки моего заказа:';
-        $innerhtml+=  '<div class=wrap-select ><input id="pack" name="wrap" type="radio" value="packages" checked="checked"/>Полиэтиленовые пакеты<br/><input id="box" name="wrap" type="radio" value="boxes" />Крафт-коробки</div></div>';
-        $innerhtml+=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;">Адрес доставки:<div class="shipaddr" style=""><?=$del_add?></div></div>';
-        $innerhtml+=   '<div class="deliv-cart" style="border-bottom: 1px solid #ccc; padding:10px;">Я выбираю бесплатную доставку до компании:<div class="ship" style=""></div></div>';
-        $innerhtml+=   '<div class="deliv-code" style="border-bottom: 1px solid #ccc; padding:10px;"></div>';
-        $innerhtml += '<button class="btn btn-lg btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-top: 5px;" id="check-confirm" type="submit">' +
-        'Подтвердить заказ' +
-        '</button>';
-        <?php
-        }else if($template == 'sp')
-        {
-        ?>
-        $innerhtml +=    '' +
-        '<div class="address" style="padding: 0px 10px;">' +
-        '<div class="name-item lable-info-item">' +
-        'Имя: ' +
-        '<input disabled="" name="[userinfo]name" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="name" class="info-item" value="<?=htmlentities($userinfo['name']);?>">' +
-        '</div>' +
-        '<div class="secondname-item lable-info-item">' +
-        'Отчество: ' +
-        '<input disabled="" name="[userinfo]secondname" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="secondname" class="info-item" value="<?=htmlentities($userinfo['secondname']);?>">' +
-        '</div>' +
-        '<div class="lastname-item lable-info-item">' +
-        'Фамилия: ' +
-        '<input disabled="" name="[userinfo]lastname" title="Допустимые символы а-я,a-z,-,пробел" data-placement="top" data-toggle="tooltip" data-name="lastname" class="info-item" value="<?=htmlentities($userinfo['lastname']);?>">' +
-        '</div>' +
-        '<div class="country-item lable-info-item">' +
-        'Страна: ' +
-        '<input autocomplete="off" disabled="" name="[userinfo]country" title="Выберите из списка" data-placement="top" data-toggle="tooltip" data-name="country" class="info-item" value="<?=htmlentities($userinfo['country']);?>">' +
-        '<ul class="dropdown-menu" id="country-drop" aria-labelledby="dropdownMenu1">' +
-        '</ul>' +
-        '</div>' +
-        '<div class="state-item lable-info-item">' +
-        'Область: ' +
-        '<input autocomplete="off" disabled="" name="[userinfo]state" title="Выберите из списка" data-placement="top" data-toggle="tooltip" data-name="state" class="info-item" value="<?=htmlentities($userinfo['state']);?>">' +
-        '<ul class="dropdown-menu" id="state-drop" aria-labelledby="dropdownMenu2">' +
-        '</ul>' +
-        '</div>' +
-        '<div class="city-item lable-info-item">' +
-        'Город: ' +
-        '<input disabled="" name="[userinfo]city" title="Допустимые символы а-я,a-z,0-9,-,пробел" data-placement="top" data-toggle="tooltip" data-name="city" class="info-item" value="<?=htmlentities($userinfo['city']);?>">' +
-        '</div>' +
-        '<div class="adress-item lable-info-item">' +
-        'Адрес: ' +
-        '<input disabled="" name="[userinfo]adress" title="Допустимые символы а-я,a-z,0-9,-,пробел,.,," data-placement="top" data-toggle="tooltip" data-name="adress" class="info-item" value="<?=htmlentities($userinfo['country']);?>">' +
-        '</div>' +
-        '<div class="postcode-item lable-info-item">' +
-        'Почтовый индекс: ' +
-        '<input disabled="" name="[userinfo]postcode" title="Допустимые символы 0-9, пробел" data-placement="top" data-toggle="tooltip" data-name="postcode" class="info-item" value="124124"></div>' +
-        '<div class="telephone-item lable-info-item">Телефон: <input disabled="" name="[userinfo]telephone" title="Допустимые символы 0-9,-,пробел,),(,+" data-placement="top" data-toggle="tooltip" data-name="telephone" class="info-item" value="<?=htmlentities($userinfo['telephone']);?>"></div>' +
-        '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! ' +
-        '</strong>' +
-        '<br>' +
-        'Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с ' +
-        '<a target="_blank" href="/page?article=offerta">' +
-        'договором оферты' +
-        '</a>.' +
-        '</div>' +
-        '<button class=" btn btn-lg btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;"type="submit">' +
-        'Подтвердить заказ' +
-        '</button>' +
-        '</div>';
-        <?php
-        }else{
-        ?>
-        $innerhtml +=   '<div class="deliv-addr" style="border-bottom: 1px solid #ccc; padding:10px;"><a href="<?=BASEURL?>/login" class="shipaddr" style="">Необходимо авторизоваться</a></div>';
-        <?php
-        }
-        ?>
-        $innerhtml+= '<div class="total-cart" style="padding:10px; overflow: hidden;">' +
-        '<div class="total-top" style="height: 25px;">Итого: </div>' +
-        '<div class="total-cost"><div style="width: 70%; float: left">Стоимость</div><div id="gods-price" style="width: 30%; float: right"></div></div>' +
-        '<div class="total-cost"><div style="width: 70%; float: left">Скидка</div><div id="coupon-price" style="width: 30%; float: right">0 руб</div></div>' +
-        '<div class="total-wrap"><div style="width: 70%; float: left">Упаковка(указана минимальная стоимость.Необходимое количество и размеры определит комплектовщик)</div><div id="wrap-price" style="width: 30%; float: right"></div></div>' +
-            //   '<div class="total-deliv"><div style="width: 70%; float: left">Доставка</div><div id="deliv-price" style="width: 30%; float: right">0 руб.</div></div>' +
-        '<div class="total-price"><div style="width: 55%; float: left">Всего к оплате</div><div id="total-price" style="width: 45%; float: right"><span style="font-size: 26px; font-weight: 600;"></span> руб.</div></div>' +
-
-        '</div>';
-        $innerhtml+=  '<div style="float: left; width: 100%;border-bottom: 1px solid #CCC;">' +
-        '<div class="panel panel-default" style="border: medium none; border-radius: 0px; margin: 0px;">'+
-        '<a class="collapsed" role="button" data-toggle="collapse'+$c+'" data-parent="#accordion" aria-expanded="false" aria-controls="collapseOne">' +
-        '<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
-        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
-        'Добавить комментарий к этому заказу <i class="fa fa-caret-down"></i>' +
-        '</div>' +
-        '</div>' +
-        '</a>'+
-        '<div style=" position: relative;    z-index: 999;" aria-expanded="false" id="" class="filter-cont panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">'+
-        '<div class="panel-body" style="padding: 0px 5px;">' +
-        '<div style="padding: 10px 0px;">' +
-        '<textarea name="ordercomments" style="width: 100%;" ></textarea>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
         if($i.length>0){
             <?php
             if($template){?>
-            $innerhtml+='<span class="cart-auth" style="display: block; overflow: hidden;">' +
-            '<a class="save-order" style="display: block;position: relative" href="<?=BASEURL;?>/cart?action=1">Оформить заказ</a>' +
-            '</span></form></div>';
+//            $innerhtml+='<span class="cart-auth" style="display: block; overflow: hidden;">' +
+//            '<a class="save-order" style="display: block;position: relative" href="<?//=BASEURL;?>///cart?action=1">Оформить заказ</a>' +
+//            '</span></form></div>';
             <?php }elseif(!Yii::$app->user->isGuest) { ?>
-            $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
+           // $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
             <?php }else { ?>
-            $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
+           // $innerhtml+='<span class="cart-auth"  style="display: block; overflow: hidden; float: right;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span></form></div>';
             <?php }?>
 
 
@@ -406,7 +325,7 @@ $(window).on('load', function () {
                             $inht += '<option class="shipping-confirm-option" data-pasp="' + this.wantpasport + '" value="' + index + '">' + this.value + '</option>';
                         }
                     });
-                    $('.ship').html('<div class="shipping">Cпособ доставки <select name="ship" class="shipping-confirm"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select></div>');
+                    $('.ship').html('<select name="ship" class="shipping-confirm form-control"><option class="shipping-confirm-option" value=""></option>' + $inht + '</select>');
                     $('.cart-auth').remove();
                     $.post(
                         "/site/paymentmethod",
@@ -418,10 +337,7 @@ $(window).on('load', function () {
                                         $inht += '<option class="shipping-confirm-option" value="' + this.name + '">' + this.name + '</option>';
                                     }
                                 });
-                                $('.ship').append('<div class="shipping">Cпособ оплаты <select  name="ship" id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select></div><div class="userinfo"></div>');
-                            } else {
-                                $('.ship').append('<div class="userinfo"></div>');
-
+                                $('.ship').append('<div class="shipping">Cпособ оплаты <select  name="ship" id="paymentmethod"><option class="paymentmethod-option" value=""></option>' + $inht + '</select>');
                             }
                         }
                     );
@@ -429,21 +345,13 @@ $(window).on('load', function () {
             );
         }
         else {
-            $innerhtml='<div style="text-align: center; padding: calc(100% / 4);">Ваша корзина пуста</div>';
+            //$innerhtml='<div style="text-align: center; padding: calc(100% / 4);">Ваша корзина пуста</div>';
         }
-        $('.bside').html($innerhtml);
+        //$('.bside').html($innerhtml);
     }
 
-//    if (JSON.parse(localStorage.getItem('cart-om'))) {
-//    <?php
-        //    if(!Yii::$app->user->isGuest){?>
-//        $(".bside").append('<span class="cart-auth" style="display: block; overflow: hidden;"><a class="save-order" style="display: block;position: relative" href="<?//=BASEURL;?>///cart?action=1">Оформить заказ</a></span>');
-//    <?php// }else { ?>
-//        $(".bside").append('<span class="cart-auth"  style="display: block; overflow: hidden;"><a class="auth-order" style="display: block;position: relative" href="/site/login">Купить</a></span>');
-//    <?php//}?>
-//    }
-
     getCoupon();
+
     function getCoupon() {
         $.ajax({
             type: "POST",
@@ -471,17 +379,6 @@ $('body').on('click', '#check-confirm', function() {
     }
 });
 
-//$(document).on('load change click','.num-of-items', );
-//$(document).on('ready', function () {
-//    var overprice=0;
-//    $indexes = $(".cart-row");
-//    $.each($indexes, function () {
-//        var c=((parseInt($(this).find('#input-c').val()))*(parseInt($(this).find('.cart-prod-price').html())));
-//        overprice+=c;
-//    });
-//    $('#gods-price').html(overprice+' руб');
-//    $('#total-price').html()
-//});
 var wrap=<?=$wrapprice?>;
 $(document).on('change click','.num-of-items',function () {
     countPrice();
@@ -512,10 +409,8 @@ function countPrice(){
         if(parseInt($(this).find('#input-count').val())<parseInt($(this).find('#input-count').attr('data-min'))){
             $(this).find('#input-count').val($(this).find('#input-count').attr('data-min'));
         }
-        $(this).attr('');
         if($(this).attr('data-calc') == "true") {
-            var c = ((parseFloat($(this).find('#input-count').val())) * (parseFloat($(this).find('.cart-prod-price').html())));
-            godsprice += c;
+            godsprice += ((parseFloat($(this).find('#input-count').val())) * (parseFloat($(this).find('.cart-prod-price').text())));
         }
     });
 
@@ -572,24 +467,6 @@ $(document).on('change', '.shipping-confirm, #shipaddr', function () {
     );
 
     changeDisableSubmit();
-});
-$(document).on('click', '.panel  > a',  function(){
-    if($(this).siblings().filter('.filter-cont').attr('class').indexOf('collapse in')+1) {
-        $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
-        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
-        'Добавить комментарий <i class="fa fa-caret-down"></i>' +
-        '</div>' +
-        ' </div>');
-        $(this).siblings().filter('.filter-cont').removeClass('in');
-    }else{
-        $(this).html('<div class="panel-heading no-border-bottom-rad" role="tab" id="headingOne" style="padding: 0px 10px;">' +
-        '<div class="panel-title no-border-bottom-rad" style="font-size: 12px;">' +
-        'Добавить комментарий <i class="fa fa-caret-up"></i>' +
-        '</div>' +
-        ' </div>');
-        $(this).find(':first-child').addClass('no-border-bottom-rad');
-        $(this).siblings().filter('.filter-cont').addClass('in');
-    }
 });
 
 function changeDisableSubmit() {
