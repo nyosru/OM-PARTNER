@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
 $this -> title = 'Корзина';
 ?>
 
@@ -14,7 +15,8 @@ $this -> title = 'Корзина';
 <div class="clearfix">
     <button class="button pull-right" id="save-set" data-toggle="modal" data-target="#modal-save-cart">Сохранить корзину</button>
 </div>
-<form action="<?= BASEURL;?>/saveorder" method="post">
+
+<?php $form = ActiveForm::begin(['method'=>'post','action' => '/saveorder']); ?>
 <div class="table-responsive">
     <fieldset>
         <table class="data-table cart-table" id="shopping-cart-table">
@@ -160,7 +162,7 @@ $this -> title = 'Корзина';
     </div>
 </div>
 </div>
-</form>
+<?php ActiveForm::end(); ?>
 <!--cart-collaterals-->
 
 </div>
@@ -399,7 +401,7 @@ $('body').on('click', '#check-confirm', function() {
     }
     else {
         $('.btn-tk-error').remove();
-        check();
+        //check();
         return true;
     }
 });

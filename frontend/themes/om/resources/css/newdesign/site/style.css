@@ -15199,3 +15199,12 @@ a#fancybox-close {
 .field-loginformom-rememberme .checkbox{
     margin: 0;
 }
+.page-cartresult .product-cart .row{
+    min-height: 170px;
+    padding: 10px 0;
+}
+.page-cartresult .product-cart img{
+    max-width: 100px;
+    margin: 0 auto;
+    display: block;
+}
