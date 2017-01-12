@@ -3,7 +3,11 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 $this -> title = 'Корзина';
 ?>
-
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;transition: none;">
+        0%
+    </div>
+</div>
 <section class="main-container col1-layout">
 <div class="main container">
 <div class="col-main">
@@ -306,29 +310,39 @@ $(window).on('load', function () {
             localStorage.removeItem('cart-om-date');
         }
         $c = 0;
-
+        var countProducts = $i.length;
         $.each($i, function (i,item) {
-            var requestdata = $.ajax({
-                method: 'post',
-                url: "/site/product",
-                async: false,
-                data: {id: item[0], _csrf: yii.getCsrfToken()}
-            });
+            var progress = Math.round(100 * (i + 1) / countProducts) + '%';
+            var delayTime = i*20;
+            setTimeout(function(){
+                var requestdata = $.ajax({
+                    method: 'post',
+                    url: "/site/product",
+                    async: false,
+                    data: {id: item[0], _csrf: yii.getCsrfToken()}
+                });
 
-            var mandata = $.ajax({
-                method: 'post',
-                url: "/site/pre-check-product-to-orders",
-                async: false,
-                data: {
-                    product: requestdata.responseJSON.product.products_id,
-                    category: requestdata.responseJSON.categories_id,
-                    attr: item[2],
-                    count: item[4],
-                    _csrf: yii.getCsrfToken()
+                var mandata = $.ajax({
+                    method: 'post',
+                    url: "/site/pre-check-product-to-orders",
+                    async: false,
+                    data: {
+                        product: requestdata.responseJSON.product.products_id,
+                        category: requestdata.responseJSON.categories_id,
+                        attr: item[2],
+                        count: item[4],
+                        _csrf: yii.getCsrfToken()
+                    }
+                });
+
+                $('.cart-table tbody').append(renderCartProduct(requestdata.responseJSON.product, mandata.responseJSON,item,i));
+                $('.progress .progress-bar').css({width: progress}).text(progress);
+                if (i == countProducts - 1) {
+                    setTimeout(function() {
+                        $('.progress').hide();
+                    },delayTime+200);
                 }
-            });
-
-            $('.cart-table tbody').append(renderCartProduct(requestdata.responseJSON.product, mandata.responseJSON,item,i));
+            },delayTime);
         });
         if($i.length>0){
             <?php
