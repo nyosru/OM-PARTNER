@@ -688,12 +688,13 @@
                                 return false;
                             }
                             var  new_product = data.product;
-                            var quant = '';
+                            var quant = true;
+                            var quant_allias = 0;
                             if(new_product.productsAttributesDescr.length == 0){
                                 new_product.productsAttributesDescr[0]= new Object;
                                 new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
                                 new_product.productsAttributesDescr[0].products_options_values_id = '';
-                                quant = new_product.products.products_quantity;
+                                quant = false;
                             }
                             var product_html = '';
                             product_html += "<div style=\"\" class=\"product-card-common\">";
@@ -714,8 +715,12 @@
                             product_html += "                   <div class=\"select-style\">";
                             product_html += "                     <select id=\"pick_attr_value\">";
                             $.each(new_product.productsAttributesDescr, function (index, attribute) {
-                                quant = new_product.productsAttributes[attribute.products_options_values_id]["quantity"];
-                                product_html += "<option data-attr=\""+attribute.products_options_values_id+"\"  data-attr-count=\""+quant+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
+                                if(quant == true) {
+                                    quant_allias = new_product.productsAttributes[attribute.products_options_values_id]["quantity"];
+                                }else{
+                                    quant_allias = new_product.products.products_quantity;
+                                }
+                                product_html += "<option data-attr=\""+attribute.products_options_values_id+"\"  data-attr-count=\""+quant_allias+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
                             });
 
                             product_html += "                     <\/select>";
@@ -781,7 +786,7 @@
                             product_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
                             product_html += "                      Сумма";
                             product_html += "                  <\/div>";
-                            product_html += "                  <div class=\"final-product-price\"";
+                            product_html += "                  <div new-product-price class=\"final-product-price\"";
                             product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
                             product_html += "                      0 р.";
                             product_html += "                  <\/div>";
@@ -806,6 +811,22 @@
                                 '<div id="overlay"></div>');
                             $("#modal-product").show();
                             $("#overlay").show();
+                            $('[new-product-input-count]').attr('data-count', $('#pick_attr_value option:selected')[0].getAttribute('data-attr-count'));
+                            $(document).on('change','#pick_attr_value', function () {
+                                $('[new-product-input-count]').attr('data-count', $('#pick_attr_value option:selected')[0].getAttribute('data-attr-count'));
+                                $count = $('[new-product-input-count]').val();
+                                $step=parseInt($('[new-product-input-count]').attr('data-step'));
+                                $countprodpos=parseInt($('[new-product-input-count]').attr('data-count'));
+                                if ($count == '') {
+                                    $count = 0;
+                                }
+                                if (isNaN(parseInt($count))) {
+                                    $count = -1;
+                                }
+                                $('[new-product-input-count]').val(Math.min(parseInt($count), $countprodpos));
+
+                                $('[new-product-price]').html(parseInt($('[new-product-input-count]').val())*parseInt($('[new-product-input-count]').attr('data-price'))+' р.');
+                            });
                             var cloud = function () {
                                 $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
                                     'position': 'inside'
