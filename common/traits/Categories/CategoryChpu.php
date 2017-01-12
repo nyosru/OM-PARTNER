@@ -11,6 +11,13 @@ trait  CategoryChpu
 
         if (preg_match('/^[0-9\s]+/', $value)){
             $cat = (integer)$value;
+            $chpu_preinit = explode('/',$cat);
+            if(count($chpu_preinit) > 4){
+                $output_res = array_slice($chpu_preinit, 0, 3);
+                $output_res[] = end($chpu_preinit);
+                $chpu_preinit = $output_res;
+            }
+            $chpu_preinit = implode('/',$chpu_preinit);
             $key_chpu_category = \Yii::$app->cache->buildKey('chpu-categories-normal-89-'.\Yii::$app->params['customcat']);
             if(($chpu_cache = \Yii::$app->cache->get($key_chpu_category)) == FALSE || !isset($chpu_cache['id'][$cat])){
                 $catdataarr = $this->categories_for_partners();
@@ -26,12 +33,18 @@ trait  CategoryChpu
                     }
                 }
                 $chpu = $this->Requrscat($catdatas, $cat, $catnamearr);
+                if(count($chpu) > 4){
+                    $output_res = array_slice($chpu, 0, 3);
+                    $output_res[] = end($chpu);
+                    $chpu = $output_res;
+                }
                 $resultchpu = [];
                 foreach ($chpu as $key => $value) {
                   //  $value['name'] = preg_replace("/[^a-zA-ZА-Яа-я0-9]/iu","_",mb_strtolower($value['name']));
                     $resultchpu['name'][] = RUtils::translit()->slugify($value['name']);
                 }
                 $chpu_cache = \Yii::$app->cache->get($key_chpu_category);
+
                 $chpu_string = implode('/',$resultchpu['name']);
                 $chpu_string_key = md5($chpu_string);
                 $chpu_cache['id'][$cat] = $chpu_string;
