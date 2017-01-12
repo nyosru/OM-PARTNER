@@ -170,7 +170,7 @@ trait CustomCatalog
                 ['categories_id' => 100158, 'parent_id' => 1949],
                 ['categories_id' => 100159, 'parent_id' => 1949],
                 ['categories_id' => 1948, 'parent_id' => 1909],
-                ['categories_id' => 100161, 'parent_id' => 1909],
+                ['categories_id' => 100161, 'parent_id' => 1948],
                 ['categories_id' => 100162, 'parent_id' => 1909],
                 ['categories_id' => 100163, 'parent_id' => 1909],
                 ['categories_id' => 1951, 'parent_id' => 1909],
