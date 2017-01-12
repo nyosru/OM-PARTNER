@@ -1,9 +1,16 @@
+$('[data-toggle="tooltip"]').tooltip();
+
 function getCookie(name) {
     var matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+$('.search-button-toggle').on('click',function(){
+    $(this).siblings('.search-button-toggle').toggleClass('hide');
+    $(this).toggleClass('hide');
+});
 
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
