@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use yii\data\Pagination;
 use yii\widgets\LinkPager;
 use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
 // return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec, 'params'=>array_merge($options,$params)];
 // $data[1] - всего товаров
 // $data[11] - сортировка
@@ -18,10 +19,7 @@ $countdisp = [60, 120, 180];
 
 if($params['count'] != $countdisp[0]){
     $count =  $start_url['count'] = $params['count'];
-}else{
-
 }
-
 
 
 $min_price =   $start_url['start_price'] = $params['start_price'];
@@ -139,7 +137,7 @@ if ($data[0] != 'Не найдено!') {
                                     } else {
                                         foreach($sortorder as $i=>$sortitem){
                                             if($data[11]==$sortitem[1] || $data[11]==$sortitem[2]){
-                                                echo '<a href="#">'.$sortitem[0].'<span class="right-arrow"></span></a>';
+                                                echo '<a href="#" onclick="return false">'.$sortitem[0].'<span class="right-arrow"></span></a>';
                                                 $sortorder_active = $sortorder[$i];
                                                 unset($sortorder[$i]);
                                             }
@@ -147,7 +145,7 @@ if ($data[0] != 'Не найдено!') {
                                     }
                                     echo '<ul>';
                                     foreach($sortorder as $sortitem){
-                                        echo '<li><a href="'.Url::to([$paste[0],'sort'=>$sortitem[1]]).'">'.$sortitem[0].'</a></li>';
+                                        echo '<li><a href="'.Url::to(ArrayHelper::merge($urlsrc,['sort'=>$sortitem[1]])).'">'.$sortitem[0].'</a></li>';
                                     }
                                     echo '</ul>';
                                     ?>
@@ -162,20 +160,28 @@ if ($data[0] != 'Не найдено!') {
                                     $sort_arrow = 'top';
                                     $sort_set_active = $sortorder_active[2];
                                 }
-                                echo '<a class="button-asc left" href="'.Url::to([$paste[0],'sort'=>$sort_set_active]).'" title="Изменить порядок сортировки"><span class="'.$sort_arrow.'_arrow"></span></a>';
+                                echo '<a class="button-asc left" href="'.Url::to(ArrayHelper::merge($urlsrc,['sort'=>$sort_set_active])).'" title="Изменить порядок сортировки"><span class="'.$sort_arrow.'_arrow"></span></a>';
                             }?>
                         </div>
                         <div class="pager">
                             <div id="limiter">
                                 <label>Показать: </label>
                                 <ul>
-                                    <li><a href="#">15<span class="right-arrow"></span></a>
-                                        <ul>
-                                            <li><a href="#">20</a></li>
-                                            <li><a href="#">30</a></li>
-                                            <li><a href="#">35</a></li>
-                                        </ul>
-                                    </li>
+                                    <?php
+                                    if(in_array($count,$countdisp)){
+                                        echo '<li><a onclick="return false" href="#">'.$count.'<span class="right-arrow"></span></a>';
+                                        unset($countdisp[array_search($count, $countdisp)]);
+                                    } else {
+                                        echo '<li><a onclick="return false" href="#">60<span class="right-arrow"></span></a>';
+                                        unset($countdisp[array_search(60, $countdisp)]);
+                                    }
+                                    echo '<ul>';
+                                    foreach($countdisp as $countdisp_item){
+                                        echo '<li><a href="'.Url::to(ArrayHelper::merge($urlsrc,['count'=>$countdisp_item])).'">'.$countdisp_item.'</a></li>';
+                                    }
+                                    echo '</ul>';
+                                    echo '</li>';
+                                    ?>
                                 </ul>
                             </div>
 
