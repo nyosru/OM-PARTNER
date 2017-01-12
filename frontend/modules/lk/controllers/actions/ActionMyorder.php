@@ -89,7 +89,7 @@ trait ActionMyorder
             'sort' => $sort,
             'pagination' => [
                 'params' => array_merge($_GET, ['view' => 'myorder']),
-                'defaultPageSize' => 20,
+                'defaultPageSize' => 5,
             ]
         ]);
         \Yii::$app->params['modules']['lk']['menu'] = $this->actionMenu() ;
