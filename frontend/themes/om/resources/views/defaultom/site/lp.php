@@ -274,7 +274,6 @@
 
     </div>
 
-
 </div>
 <div class="col-md-12" style="background: #fcfcfc none repeat scroll 0% 0%;">
     <h2 class="col-md-12 header-slide" style="font-weight: 300">
@@ -816,5 +815,7 @@ font-weight: 500; display: inline-block; background:#00a5a2;   width: 25%; color
     </a>
 </div>
 <?=\frontend\widgets\Metrics::widget();?>
+
+
 </body>
 </html>
