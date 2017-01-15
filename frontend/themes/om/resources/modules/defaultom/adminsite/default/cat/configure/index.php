@@ -9,7 +9,22 @@
             use yii\helpers\Html;
             use yii\widgets\ActiveForm;
 
-            $form = ActiveForm::begin(['method' => 'post', 'id' => 'save_land_config', 'action' => 'update-config']);
+            $banners_tpl = [
+                [
+                    'name'            => 'Главный',
+                    'id'              => 'main',
+                    'max_count_photo' => 6,
+                ],
+                [
+
+                    'name'            => 'Дисконтный',
+                    'id'              => 'discont',
+                    'max_count_photo' => 4,
+                ],
+            ];
+
+            $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'], 'method' => 'post', 'id' => 'save_land_config', 'action' => 'update-config']);
+
 
             echo $form->field($model, 'config_name')
                 ->label('Название конфигурационного файла (без точек и запятых)')
@@ -22,6 +37,24 @@
                 ], ['prompt' => 'Выберите вид'])
             ;
 
+            $banners_tpl_for_dropdown = [];
+            foreach ($banners_tpl as $key => $item) {
+                $banners_tpl_for_dropdown[$item['id']] = $item['name'];
+            }
+            echo $form->field($model, 'banners_tpl')
+                ->label('Баннер')
+                ->dropdownList(
+                    $banners_tpl_for_dropdown,
+                    ['prompt' => 'Выберите тип баннера', 'id' => 'banners_select']
+                )
+            ;
+
+            ?>
+
+            <div id="banners_tpl_photo_block" class="photo_block"></div>
+
+            <?php
+
             echo $form->field($model, 'header_title')
                 ->label('Заголовок')
             ;
@@ -33,7 +66,7 @@
                 ], ['prompt' => 'Выберите вид'])
             ;
             echo $form->field($model, 'content_list_products')
-                ->label('Отоборанные товары для контейнера (через запятую "," введите id товаров)')
+                ->label('Отобранные товары для контейнера (через запятую "," введите id товаров)')
             ;
 
             echo $form->field($model, 'special_offer')->label('Специальное предложение')->input('text')
@@ -84,3 +117,69 @@
         </div>
     </div>
 </div>
+
+
+<?php
+
+$banners_tpl_json = json_encode($banners_tpl);
+$script = <<<JS
+
+      var banners_tpl_json = $banners_tpl_json;
+      console.log(banners_tpl_json);
+      function find(arr, key, value) {
+        var res = null;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i][key] == value) {
+                return res = i;
+            }
+        }
+        return res;
+      }
+
+      function renderImages(count) {
+          $("#banners_tpl_photo_block").imageUpload("upload-one-cat-photo", {
+              uploadButtonText: "Загрузить",
+              previewImageSize: 200,
+              maxImageCount: count,
+              img_tpl: '\
+                    <div class="row-e img-dropBox-container">\
+                        <div class="col-1 input_field">\
+                            <input type="file" name="file" class="file-field"/>\
+                        </div>\
+                        <div class="col-4-10 u_img_block"><img/></div>\
+                            <div class="col-6-10 u_img_about">\
+                                <label for="img_description">Описание</label>\
+                                <input class="form-control" type="text" name="img_description">\
+                                <label for="img_url">Ссылка при клике на картинку</label>\
+                                <input class="form-control" type="text" name="img_url">\
+                            </div>\
+                    </div>\
+              ',
+              onSuccess: function (response) {
+                  var images_cfg = $("<input type='hidden' name='images_cfg'/>");
+                  $('.u_img_about').each(function (i_block){
+                      var desc = $(this).children("[name='img_description']").val();
+                      var url = $(this).children("[name='img_url']").val();
+                      
+                  });
+              }
+          });
+      }
+    
+      $('#banners_select').on('change', function () {
+          var i = find(banners_tpl_json, 'id', $(this).val());
+          if(i != null) {
+              var img_count = banners_tpl_json[i]['max_count_photo'];
+              renderImages(img_count);
+          } else {
+              renderImages(0);
+          }
+      });
+
+    
+	
+JS;
+
+$this->registerJs($script, yii\web\View::POS_READY);
+
+?>
