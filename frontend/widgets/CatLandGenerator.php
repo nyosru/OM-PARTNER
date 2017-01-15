@@ -64,7 +64,9 @@ class CatLandGenerator extends \yii\bootstrap\Widget
      */
     public function renderHeader()
     {
+        $main_banner_config = [];
         return $this->render('@partial/cat-landing/header/' . $this->header_tpl, [
+            'main_banner_config' => $main_banner_config,
             'header_config' => ($this->header_config['header_title']) ? $this->header_config['header_title'] : 'Тут должен быть заголовок',
         ]);
     }

@@ -13,6 +13,8 @@ class CatLandConfigForm extends Model
 
     public $header_tpl;
     public $header_title;
+    public $banners_tpl;
+    public $images_cfg;
 
     public $content_tpl;
     public $content_list_products;
@@ -32,6 +34,8 @@ class CatLandConfigForm extends Model
                     'special_offer',
                     'footer_tpl',
                     'config_name',
+                    'banners_tpl',
+                    'images_cfg',
                 ],
                 'string',
             ],
