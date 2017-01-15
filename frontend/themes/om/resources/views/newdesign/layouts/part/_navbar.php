@@ -356,12 +356,25 @@ use yii\bootstrap\ActiveForm;
                 </ul>
                 <!-- Search-col -->
                 <div class="search-box pull-right">
-                    <?php ActiveForm::begin(['action'=>'/catalog/','method'=>'get'])?>
+                    <?php
+                    if (Yii::$app->controller->action->id == 'discont' ||
+                        Yii::$app->controller->action->id == 'dayproduct' ||
+                        Yii::$app->controller->action->id == 'productsmonth' ||
+                        Yii::$app->controller->action->id == 'productscloth') {
+                    ?>
+                        <?php ActiveForm::begin(['action'=>'/'.Yii::$app->controller->action->id,'method'=>'get'])?>
+                            <input class="search" autocomplete="off" type="text" placeholder="Введите артикул или название" maxlength="70" name="searchword" id="search">
+                            <button type="submit" class="search-btn-bg"><span class="glyphicon glyphicon-search"></span>&nbsp;</button>
+                            <button type="button" class="search-btn-bg hide search-button-toggle" data-toggle="tooltip" data-placement="top" title="Общий поиск"><span class="glyphicon glyphicon-globe"></span>&nbsp;</button>
+                            <button type="button" class="search-btn-bg search-button-toggle" data-category="<?=Yii::$app->controller->action->id?>" data-toggle="tooltip" data-placement="top" title="Поиск внутри текущей категории"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;</button>
+                        <?php ActiveForm::end();?>
+                    <?php } else { ?>
+                        <?php ActiveForm::begin(['action'=>'/catalog/','method'=>'get'])?>
                         <input class="search" autocomplete="off" type="text" placeholder="Введите артикул или название" maxlength="70" name="searchword" id="search">
                         <button type="submit" class="search-btn-bg"><span class="glyphicon glyphicon-search"></span>&nbsp;</button>
-                        <button type="button" class="search-btn-bg hide search-button-toggle" data-toggle="tooltip" data-placement="top" title="Общий поиск"><span class="glyphicon glyphicon-globe"></span>&nbsp;</button>
-                        <button type="button" class="search-btn-bg search-button-toggle" data-toggle="tooltip" data-placement="top" title="Поиск внутри текущей категории"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;</button>
-                    <?php ActiveForm::end();?>
+                        <button type="button" class="search-btn-bg search-button-toggle" data-toggle="tooltip" data-placement="top" title="Общий поиск"><span class="glyphicon glyphicon-globe"></span>&nbsp;</button>
+                        <?php ActiveForm::end();?>
+                    <?php } ?>
                 </div>
                 <!-- End Search-col -->
 

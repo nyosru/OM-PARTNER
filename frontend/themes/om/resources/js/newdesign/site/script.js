@@ -7,9 +7,24 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+/*
+Переключение Глобальный поиск <-> Поиск по категории
+ */
 $('.search-button-toggle').on('click',function(){
-    $(this).siblings('.search-button-toggle').toggleClass('hide');
-    $(this).toggleClass('hide');
+    var parentForm = $(this).parents('form'),
+        siblingButton = $(this).siblings('.search-button-toggle');
+
+    if(siblingButton.length) {
+        siblingButton.toggleClass('hide');
+        $(this).toggleClass('hide');
+        
+        if($(this).data('category') == undefined){
+            var category = siblingButton.data('category');
+            parentForm.attr('action','/'+category);
+        } else {
+            parentForm.attr('action','/catalog/');
+        }
+    }
 });
 
 $(document).on('click', '.size', function () {
