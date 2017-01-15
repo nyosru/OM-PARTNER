@@ -21,11 +21,7 @@
     </div>
 </div>
 
-<div class="special_header">
-    <h1>Специальное предложение на сегодня!</h1>
-</div>
-
-<div class="row-e" style="box-shadow: 0px 3px 6px -2px rgba(0,0,0,0.75);">
+<div class="row-e" style="">
     <div class="col-1-3">
         <div class="img-block">
             <img src="http://remdta.ru/des/specpredlozhenie.png" alt="">
