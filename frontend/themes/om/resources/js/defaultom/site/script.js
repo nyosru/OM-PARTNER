@@ -1410,7 +1410,7 @@ function onAjaxSuccessinfo(data) {
     $('.address').remove();
     $('.pre-order').remove();
     //$('.cart-column2').append('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong><br>Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных, а также соглашаетесь с <a target="_blank" href="/page?article=offerta">договором оферты</a>.</div><button class=" btn btn-lg btn-info lock-on" style="border-radius: 4px; text-align: center; width: 100%; margin-bottom: 5px;" type="submit">Подтвердить заказ</button></div>');
-	  $('#check-confirm').before('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept">Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных.</div></div>');
+	  $('#check-confirm').before('<div class="address" style="padding: 0px 10px;">'+$inner + '<div class="order-accept">Нажимая кнопку "Подтвердить заказ" вы подтверждаете свое согласие на сбор и обработку ваших персональных данных. , а также соглашаетесь с <a target="_blank" href="/page?article=offerta">договором оферты</a><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! </strong></div></div>');
 	  $('.ui-dialog-titlebar').hide();
     $.ajax({
         type: "GET",

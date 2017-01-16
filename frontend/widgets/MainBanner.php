@@ -129,54 +129,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_22122106_1.png',
-                'referal'=> '/catalog?cat=2486',
+                'image' =>  'OM_12012017_1.png',
+                'referal'=> '/catalog?cat=1720',
                 'term'=> '',
-                'alttext' => 'Стильная домашняя одежда',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_22122106_2.png',
-                'referal'=> '/catalog?cat=1714',
+                'image' =>  'OM_12012017_2.png',
+                'referal'=> '/catalog?cat=1746',
                 'term'=> '',
-                'alttext' => 'Кофточки XXL',
+                'alttext' => 'Верхняя одежда',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_22122106_3.png',
-                'referal'=> '/catalog?cat=2054',
+                'image' =>  'OM_12012017_3.png',
+                'referal'=> '/catalog?cat=1758',
                 'term'=> '',
-                'alttext' => 'Зимние ароматы',
+                'alttext' => 'Джинсы',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_22122106_4.png',
-                'referal'=> '/catalog?cat=1421',
+                'image' => 'OM_12012017_4.png',
+                'referal'=> '/catalog?cat=1977',
                 'term'=> '',
-                'alttext' => 'Мягкие друзья',
+                'alttext' => 'Балетки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_22122106_5.png',
-                'referal'=> '/catalog?cat=1725',
+                'image' => 'OM_12012017_5.png',
+                'referal'=> '/catalog?cat=1873',
                 'term'=> '',
-                'alttext' => 'Новый год',
+                'alttext' => 'Кофты, кардиганы',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_22122106_6.png',
-                'referal'=> '/products-discount',
-                'alttext' => 'Цены ниже оптовых',
+                'image' => 'OM_12012017_6.png',
+                'referal'=> '/dayproduct',
+                'alttext' => 'Новинки дня',
                 'out' => FALSE
             ]
         ],

@@ -86,7 +86,7 @@
                                     $order_price = 0;
                                     foreach ($order_un['products'] as $product) {
                                         if(count($product) > 5) {
-                                            $order_price = $order_price + round($product[3] * $product[4]);
+                                            $order_price = $order_price + round($product[3]) * round($product[4]);
                                         }
                                     }
                                     if($model['name']){
@@ -130,7 +130,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="client-info-fr-price">
-                                                    <div style="font-size: 18px;color: #4A90E2;font-weight: 400;">
+                                                    <div>Начальная цена заказа</div>
+                                                    <div class="client-price" style="font-size: 18px;color: #4A90E2;font-weight: 400;">
                                                         '.$order_price.' руб.
                                                     </div>
                                                 </div>
@@ -163,17 +164,38 @@
 <?= $this->render('modals/add_new_commonorder.php')?>
 
 <script>
+    var product_arr = new Object();
+    var maindata_arr = new Object();
+    var maindata = new Object();
+    var updated_main_data = new Object();
     $(document).ready(function () {
 
         //add_new_commonorder.php после запроса обновить список
         $('#pjax_common').on('pjax:end', function(){
             refresh_list();
         });
+        function scrollToTopCustomScrollBar(pointer) {
+            $(pointer).mCustomScrollbar("scrollTo", $(pointer).position().top, {
+                // scroll as soon as clicked
+                timeout:0,
 
-        var product_arr = new Object();
-        var maindata_arr = new Object();
-        var maindata = new Object();
-        var updated_main_data = new Object();
+                // scroll duration
+                scrollInertia:200
+            });
+            // disable original jumping
+            return false;
+        }
+        $("#grid").on("pjax:end", function() {
+            scrollToTopCustomScrollBar('#scroll1');
+        });
+
+
+        function update_main($main) {
+            maindata = $main;
+        }
+        function update_upd($upd) {
+            updated_main_data = $upd;
+        }
         inProgress = false;
 
         if($('.order-line').attr('data-order')){
@@ -239,7 +261,6 @@
                         inProgress = false;
                     }
                 }).done(function (data) {
-
                     maindata = data;
                     renderOrder(maindata);
                 });
@@ -271,7 +292,7 @@
                     if(typeof product !== 'undefined') {
                         if (product[0] == product_id && product[2] == attr && updated_main_data.id == order_id) {
                             updated_main_data.order.order['products'].splice(index_order, 1);
-
+                            maindata.order.order['products'].splice(index_order, 1);
                             return true;
                         }
                     }
@@ -322,7 +343,6 @@
             var request = $(".input-searcncommon-order").val();
             common_orders_list = requestCommon(act, request);
             renderCommonList(common_orders_list);
-
         }
         $(document).on('click', '.common-order', function(){
             refresh_list();
@@ -371,12 +391,10 @@
                 },
                 success: function(data) {
                     checkAlerts();
+                    $.pjax.reload('#grid', {cache: false});
                     if(data == true) {
-                        button_to_common_order.text('В заказе №'+id_common_order);
-                        common_order_detail.text('В объединенном заказе №:'+id_common_order);
-                        setTimeout(function() {
-                            button_to_common_order.text(old_text)
-                        }, 4000);
+                        $('.edit-line .panel-title').html('<div class="common-order" style="text-align: center;padding: 10px;background: beige;"">В заказе № '+ id_common_order);
+                        common_order_detail.text('В объединенном заказе №: '+id_common_order);
                     } else {
                         button_to_common_order.text('Ошибка!');
                         setTimeout(function() {
@@ -450,11 +468,16 @@
         function updateAllOrdersView(maindata, client_plate_update = false) {
             var final_order_price = 0;
             $.each(maindata.order.order['products'], function(index_order, product){
-                final_order_price += Math.round(product[3]) * Math.round(product[4]);
+
+                var product_data = requestProduct(product[0], product[2] , product[4]);
+                if(product_data.maindata.result == true){
+                    final_order_price += Math.round(product[3]) * Math.round(product[4]);
+                }
+
             });
 
             if(client_plate_update) {
-                $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('div').text(final_order_price +" руб.");
+             //   $('[data-detail="'+maindata.id+'"]').find('.client-info-fr-price').find('.client-price').text(final_order_price +" руб.");
             }
 
             $('.final_order_price').text("Итого "+ final_order_price +" р.");
@@ -468,38 +491,32 @@
             $('.final-product-price').text(Math.round(price) * Math.round(new_value) + " р.");
         });
 
-        function updateTotalOrder(){
-            var total = 0;
-            setTimeout(function() {
-                $x =    $('[class^="final-product-price"]');
-                $.each($x, function(){
-                    total = total + parseInt($(this).text());
-                });
-                $('[class="final_order_price"]').text('Итого: '+total+' р.');
-            }, 100);
-        }
-
         $(document).on('click', '.count-event', function(){
             var input_count = $(this).closest("#input-count-block").children("#input-count");
 
             setTimeout(function() {
                 var new_value = input_count.val();
                 var product_id = input_count.attr('data-prod');
-                var attr = input_count.attr('data-attr');
+                var data_attr = input_count.attr('data-attr');
                 var price = input_count.attr('data-price');
                 var index_product_card = input_count.attr('data-index-product');
-                updateUpdatedDataCountProducts(product_id, attr, new_value);
-                updateTotalOrder();
+                updateUpdatedDataCountProducts(product_id, data_attr, new_value);
+                updateAllOrdersView(updated_main_data, false);
                 $('.final-product-price'+index_product_card).text(Math.round(price) * Math.round(new_value) + " р.");
             }, 50);
 
         });
 
-        function updateUpdatedDataCountProducts(product_id, attr, new_value) {
+        function updateUpdatedDataCountProducts(product_id, data_attr, new_value) {
             $.each(updated_main_data.order.order['products'], function(index_product, product){
                 if(typeof product !== 'undefined') {
-                    if (product[0] == product_id) {
+                    if (product[0] == product_id && product[2] == data_attr) {
                         updated_main_data.order.order['products'][index_product][4] = new_value;
+                        maindata.order.order['products'][index_product][4] = new_value;
+                        return true;
+                    } else if (product[0] == product_id && (typeof (product[2]) == data_attr) || product[2] == '') {
+                        updated_main_data.order.order['products'][index_product][4] = new_value;
+                        maindata.order.order['products'][index_product][4] = new_value;
                         return true;
                     }
                 }
@@ -517,7 +534,7 @@
                 requestdata = $.ajax({
                     _csrf:yii.getCsrfToken(),
                     method: 'post',
-                    url: "/site/product",
+                    url: "/product",
                     async: false,
                     data: {id: $id}
                 });
@@ -526,28 +543,53 @@
             }else{
                 $result.product = product_arr[$id];
             }
-            if(typeof (maindata_arr[$id]) == 'undefined'){
+            $keymaindata = $id+'-'+$attr;
+            if(typeof (maindata_arr[$keymaindata]) == 'undefined'){
                 maindata = $.ajax({
                     method:'post',
-                    url: "/site/pre-check-product-to-orders",
+                    url: "/pre-check-product-to-orders",
                     async: false,
                     data: {
-                        product: requestdata.responseJSON.product.products_id,
-                        category :requestdata.responseJSON.categories_id,
+                        product: $result.product.products.products_id,
+                        category :$result.product.categories_id,
                         attr :$attr,
                         count : $count,
                         skiptime: true
                     }
                 });
-                maindata_arr[$id] = new Object();
-                $result.maindata = maindata_arr[$id] = JSON.parse(maindata.responseText);
+                maindata_arr[$keymaindata] = new Object();
+                $result.maindata = maindata_arr[$keymaindata] = JSON.parse(maindata.responseText);
             }else{
-                $result.maindata = maindata_arr[$id];
+                $result.maindata = maindata_arr[$keymaindata];
             }
-
             return $result;
-        }
 
+        }
+        // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
+        $(document).on('click', '#save_order', function(){
+            $.ajax({
+                method: 'post',
+                url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",
+                data: {
+                    order_id: updated_main_data.id,
+                    products: Object.values(updated_main_data.order.order['products'])
+                },
+                dataType: 'json',
+                error: function (data) {
+                },
+                success: function (products) {
+                    if(products != false) {
+                        maindata.order.order['products'] = products;
+                        renderOrder(maindata);
+                        updateAllOrdersView(maindata, true);
+                        $.pjax.reload('#grid', {cache: false});
+                    }
+
+                    checkAlerts();
+                    $.pjax.reload('#grid', {cache: false});
+                }
+            });
+        });
 
         $(document).on('click', '[confirm_product]', function(){
             var input_count = $("[new-product-input-count]");
@@ -557,13 +599,13 @@
             var data_model = parseInt(input_count.attr('data-model'));
 
             if (isNaN(val)){
-                alert('Не выбранно количество!');
+                alert('Не выбрано количество!');
                 return false;
             }
             $.ajax({
                 method: 'post',
                 url: "<?=Yii::$app->urlManager->createUrl(['/sp/add-product-to-order'])?>",
-                async: false,
+                async: true,
                 dataType: 'json',
                 data: {
                     order_id: maindata.id,
@@ -573,40 +615,44 @@
                 },
                 error: function (data) {
                 },
-                success: function (data) {
-
-                    $("#overlay").remove();
-                    $("#modal-product").remove();
-
-                    checkAlerts();
-
-                    if(data === false) {
-                        return;
-                    }
-
-                    $is_a_match = false;
-                    $.each(maindata.order.order['products'], function(index_product, product){
-                        if(typeof product !== 'undefined') {
-                            if (product[0] == data[0] && product[2] == data[2]) {
-                                maindata.order.order['products'][index_product] = data;
-                                $is_a_match = true;
-                                return true;
-                            }
-                        }
-                    });
-                    if ($is_a_match == false) {
-                        if(maindata.order.order['products'] == null) {
-                            maindata.order.order['products'] = [];
-                        }
-                        maindata.order.order['products'].push(data);
-                    }
-                    renderOrderEdit(maindata);
-                    updateAllOrdersView(maindata, true);
-
-
+                    success: function (data) {
+                        console.log(data);
+                        update_test(data);
                 }
             });
         });
+
+        function update_test(data){
+            $("#overlay").remove();
+            $("#modal-product").remove();
+
+            checkAlerts();
+
+            if(data === false) {
+                return;
+            }
+
+            $is_a_match = false;
+            $.each(maindata.order.order['products'], function(index_product, product){
+                if(typeof product !== 'undefined') {
+                    if (product[0] == data[0] && product[2] == data[2]) {
+                        maindata.order.order['products'][index_product] = data;
+                        updated_main_data.order.order['products'][index_product] = data;
+                        $is_a_match = true;
+                    }
+                }
+            });
+            if ($is_a_match == false) {
+                if(maindata.order.order['products'] == null) {
+                    maindata.order.order['products'] = [];
+                    updated_main_data.order.order['products'] = [];
+                }
+                maindata.order.order['products'].push(data);
+                updated_main_data.order.order['products'].push(data);
+            }
+            renderOrderEdit(maindata);
+            updateAllOrdersView(maindata, true);
+        }
 
         $(document).on('click', '.search-models-button', function(){
             var abort = false;
@@ -637,11 +683,18 @@
                                 alert('Ничего не найдено по вашему запросу');
                                 abort = true;
                             }
+                            if(typeof (data.product.productsDescription) == "undefined") {
+                                alert('Ничего не найдено по вашему запросу');
+                                return false;
+                            }
                             var  new_product = data.product;
+                            var quant = true;
+                            var quant_allias = 0;
                             if(new_product.productsAttributesDescr.length == 0){
                                 new_product.productsAttributesDescr[0]= new Object;
                                 new_product.productsAttributesDescr[0].products_options_values_name = 'Без размера';
                                 new_product.productsAttributesDescr[0].products_options_values_id = '';
+                                quant = false;
                             }
                             var product_html = '';
                             product_html += "<div style=\"\" class=\"product-card-common\">";
@@ -662,7 +715,12 @@
                             product_html += "                   <div class=\"select-style\">";
                             product_html += "                     <select id=\"pick_attr_value\">";
                             $.each(new_product.productsAttributesDescr, function (index, attribute) {
-                                product_html += "<option data-attr=\""+attribute.products_options_values_id+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
+                                if(quant == true) {
+                                    quant_allias = new_product.productsAttributes[attribute.products_options_values_id]["quantity"];
+                                }else{
+                                    quant_allias = new_product.products.products_quantity;
+                                }
+                                product_html += "<option data-attr=\""+attribute.products_options_values_id+"\"  data-attr-count=\""+quant_allias+"\" data-attrname=\""+attribute.products_options_values_name+"\">"+attribute.products_options_values_name+"<\/option>";
                             });
 
                             product_html += "                     <\/select>";
@@ -728,7 +786,7 @@
                             product_html += "                      style=\"font-weight:300;font-size: 16px;padding: 10px 0px;color: #555;\">";
                             product_html += "                      Сумма";
                             product_html += "                  <\/div>";
-                            product_html += "                  <div class=\"final-product-price\"";
+                            product_html += "                  <div new-product-price class=\"final-product-price\"";
                             product_html += "                      style=\"font-weight: 400;font-size: 24px;padding: 10px 0px;\">";
                             product_html += "                      0 р.";
                             product_html += "                  <\/div>";
@@ -753,6 +811,22 @@
                                 '<div id="overlay"></div>');
                             $("#modal-product").show();
                             $("#overlay").show();
+                            $('[new-product-input-count]').attr('data-count', $('#pick_attr_value option:selected')[0].getAttribute('data-attr-count'));
+                            $(document).on('change','#pick_attr_value', function () {
+                                $('[new-product-input-count]').attr('data-count', $('#pick_attr_value option:selected')[0].getAttribute('data-attr-count'));
+                                $count = $('[new-product-input-count]').val();
+                                $step=parseInt($('[new-product-input-count]').attr('data-step'));
+                                $countprodpos=parseInt($('[new-product-input-count]').attr('data-count'));
+                                if ($count == '') {
+                                    $count = 0;
+                                }
+                                if (isNaN(parseInt($count))) {
+                                    $count = -1;
+                                }
+                                $('[new-product-input-count]').val(Math.min(parseInt($count), $countprodpos));
+
+                                $('[new-product-price]').html(parseInt($('[new-product-input-count]').val())*parseInt($('[new-product-input-count]').attr('data-price'))+' р.');
+                            });
                             var cloud = function () {
                                 $('.cloud-zoom, .cloud-zoom-gallery').CloudZoom({
                                     'position': 'inside'
@@ -782,6 +856,7 @@
 
 
         function renderOrder(data) {
+            scrollToTopCustomScrollBar('#scroll2');
             var user_name = '';
             var telephone = '';
             var user_email = data.refus.user.email;
@@ -816,13 +891,13 @@
                 }else{
                     $access = product_data.maindata.message;
                     $identypay = true;
+                    final_price += Math.round(this[3]) * Math.round(this[4]);
                 }
                 if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
                     $disable_for_stepping = '';
                 }else{
                     $disable_for_stepping = 'readonly';
                 }
-                final_price += Math.round(this[3]) * this[4];
                 $products +=     '<div style=""  class="product-card"> ' +
                     '<div class = "access '+$identypay+'" >'+$access+'</div><hr style="height: 10px;margin: 0px;" />'+
                     '<div class = "access '+$identypay+'" style="display:flex;" class="product-main-board"> ' +
@@ -954,29 +1029,7 @@
             $('.preload').remove();
         }
 
-        // СОХРАНЯЕМ ОБНОВЛЕННЫЕ ДАННЫЕ О ЗАКАЗЕ
-        $(document).on('click', '#save_order', function(){
-            $.ajax({
-                method: 'post',
-                url: "<?=Yii::$app->urlManager->createUrl(['/sp/save-one-order'])?>",
-                data: {
-                    order_id: updated_main_data.id,
-                    products: Object.values(updated_main_data.order.order['products'])
-                },
-                dataType: 'json',
-                error: function (data) {
-                },
-                success: function (products) {
-                    if(products != false) {
-                        maindata.order.order['products'] = products;
-                        renderOrder(maindata);
-                        updateAllOrdersView(maindata, true);
-                    }
 
-                    checkAlerts();
-                }
-            });
-        });
 
         function renderOrderEdit(data) {
             updated_main_data = JSON.parse(JSON.stringify(maindata));
@@ -996,6 +1049,7 @@
                 }else{
                     $access = product_data.maindata.message;
                     $identypay = true;
+                    final_price += Math.round(this[3]) * Math.round(this[4]);
                 }
                 if(product_data.product.products.products_quantity_order_min === '1'  || product_data.product.products.products_quantity_order_units === '1'){
                     $disable_for_stepping = '';
@@ -1004,7 +1058,7 @@
                 }
                 var product = product_data.product;
                 var datacount = 0;
-                final_price += Math.round(this[3]) * this[4];
+
                 if(typeof (product.productsAttributesDescr[this[6]]) == 'undefined'){
                     product.productsAttributesDescr[this[6]] = new Object;
                 }

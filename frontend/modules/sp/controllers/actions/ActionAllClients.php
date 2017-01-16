@@ -30,7 +30,7 @@ trait ActionAllClients
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($ds)) {
-                $query->andWhere('date_added >= "'.$ds.' 23-59-59"');
+                $query->andWhere('partners_users.created_at >= "'.strtotime($ds.' 00-00-01').'"');
             }
         }
 
@@ -40,7 +40,7 @@ trait ActionAllClients
             $valid = new DateValidator();
             $valid->format = 'Y-m-d';
             if ($valid->validate($de)) {
-                $query->andWhere('date_added <= "'.$de.' 23-59-59"');
+                $query->andWhere('partners_users.created_at <= "'.strtotime($de.' 23-59-59') .'"');
             }
         }
 
@@ -74,7 +74,7 @@ trait ActionAllClients
                     'desc' => ['partners_users_info.secondname' => SORT_DESC],
                 ],
                 'create_date'  => [
-                    'desc' => ['partners_orders.create_date' => SORT_DESC],
+                    'desc' => ['partners_orders.id' => SORT_DESC],
                 ],
                 'date_added'   => [
                     'desc' => ['partners_referrals_users.date_added' => SORT_DESC],

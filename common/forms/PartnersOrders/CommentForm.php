@@ -61,7 +61,7 @@ class CommentForm extends Model
             }
             return true;
         }else{
-            return $this->addError('order', 'Заказ не найден');
+            return $this->addError('order', 'Комментариии к данной позиции не доступны');
         }
     }
 
@@ -93,10 +93,10 @@ class CommentForm extends Model
             if($order_data->validate() && $order_data->save()){
                 return true;
             }else{
-                return $this->addError('comment', 'Заказ не сохранен');
+                return $this->addError('comment', 'Комментариии к данной позиции не доступны');
             }
         }else{
-            return $this->addError('comment', 'Заказ не найден');
+            return $this->addError('comment', 'Комментариии к данной позиции не доступны');
         }
     }
 
@@ -122,10 +122,10 @@ class CommentForm extends Model
             if($order_data->validate() && $order_data->save()){
                 return true;
             }else{
-                return $this->addError('comment', 'Заказ не сохранен');
+                return $this->addError('comment', 'Комментариии к данной позиции не доступны');
             }
         }else{
-            return $this->addError('comment', 'Заказ не найден');
+            return $this->addError('comment', 'Комментариии к данной позиции не доступны');
         }
     }
 

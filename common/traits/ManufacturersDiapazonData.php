@@ -9,7 +9,7 @@ Trait ManufacturersDiapazonData
 {
     public function manufacturers_diapazon($id)
     {
-        $keys = Yii::$app->cache->buildKey('ManDiapazon2-' . $id);
+        $keys = Yii::$app->cache->buildKey('ManDiapazon6-' . $id);
         if (($data = Yii::$app->cache->get($keys)) == FALSE) {
             $diapazon = new ManufacturersDiapazon();
             $List = [];
@@ -50,7 +50,7 @@ Trait ManufacturersDiapazonData
                     Yii::$app->cache->set($keys, $HTML, 7200);
                     return $data;
                 } else {
-                    $data = '<div><span style="color: red"><strong>Данный товар будет доступен для заказа с 09.01.16 с 16-00 . Приносим свои извинения за временные неудобства!</strong></span><div>';
+                    $data = '<div><span style="color: red"><strong>Данный товар не доступен для заказа . Приносим свои извинения за временные неудобства!</strong></span><div>';
                     Yii::$app->cache->set($keys, $data, 7200);
                     return $data;
                 }
@@ -64,7 +64,7 @@ Trait ManufacturersDiapazonData
 
     public function manufacturers_diapazon_id()
     {
-        $keys = Yii::$app->cache->buildKey('ManDiapazonAll');
+        $keys = Yii::$app->cache->buildKey('ManDiapazonAll-9-');
         if (($data = Yii::$app->cache->get($keys)) == FALSE) {
             $diapazon = ManufacturersDiapazon::find()->select('manufacturers_id as time, week_day, start_time, stop_time')->asArray()->all();
             foreach ($diapazon as $key => $value) {

@@ -308,13 +308,13 @@
                 <div style="height: 50%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/vest.png"></div>
-                        <div style="margin-top: 25px;">Куртки<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Куртки<br>от <?=$price['1835']['price']?>р.</div>
                     </div>
                 </div>
                 <div style="height: 50%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/pants.png"></div>
-                        <div style="margin-top: 25px;">Брюки<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Брюки<br>от <?=$price['1742']['price']?>р.</div>
                     </div>
                 </div>
             </div>
@@ -322,26 +322,61 @@
                 <div style="height: 33%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/dress.png"></div>
-                        <div style="margin-top: 25px;">Платья<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Платья<br>от <?=$price['1720']['price']?>р.</div>
                     </div>
                 </div>
                 <div style="height: 33%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/blouse.png"></div>
-                        <div style="margin-top: 25px;">Блузки<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Блузки<br>от <?=$price['1729']['price']?>р.</div>
                     </div>
                 </div>
                 <div style="height: 33%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/shirt.png"></div>
-                        <div style="margin-top: 25px;">Футболки<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Футболки<br>от <?=$price['1776']['price']?>р.</div>
                     </div>
                 </div>
             </div>
         </div>
         <div style="width: 39%; display: inline-block; position: relative; height: 100%;">
             <div style="position: absolute; z-index: 2; font-size: 40px; font-weight: 400; text-align: center; top: 0px; bottom: 0px; left: 0px; right: 0px;">
-                <img style="z-index: 72;" src="/images/lp/girl1.png">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <?php
+                        $indicate = '';
+                        $items = '';
+                        foreach ($images as $key=>$value){
+                            $class = '';
+                            if($key == 0){
+                                $class= 'active';
+                            }
+                            $indicate .=  '<li calss="'.$class.'" data-target="#myCarousel" data-slide-to="'.$key.'"></li>';
+                            $items .='<div class="item '.$class.'">'.
+                                '<div style="background: url('.$value.')  no-repeat 50% 0% /contain;width: 100%;height: 100%;z-index: 99999;overflow: visible;"></div>'.
+                            '</div>';
+                        }
+                        ?>
+                        <ol class="carousel-indicators">
+                           <?=$indicate?>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+
+                            <?=$items?>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" style="background: none;"  data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" style="background: none;" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
             </div>
         </div>
         <div style="width: 30%; height: 90%; display: inline-block;">
@@ -349,19 +384,19 @@
                 <div style="height: 33%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/brassiere.png"></div>
-                        <div style="margin-top: 25px;">Нижнее белье<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Нижнее белье<br>от <?=$price['1762']['price']?>р.</div>
                     </div>
                 </div>
                 <div style="height: 33%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/handbag.png"></div>
-                        <div style="margin-top: 25px;">Сумки<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Сумки<br>от <?=$price['2047']['price']?>р.</div>
                     </div>
                 </div>
                 <div style="height: 33%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/shoe.png"></div>
-                        <div style="margin-top: 25px;">Кеды<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Кеды<br>от <?=$price['1983']['price']?>р.</div>
                     </div>
                 </div>
             </div>
@@ -369,13 +404,13 @@
                 <div style="height: 50%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/stilettos.png"></div>
-                        <div style="margin-top: 25px;">Туфли<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Туфли<br>от <?=$price['1993']['price']?>р.</div>
                     </div>
                 </div>
                 <div style="height: 50%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/sunglasses.png"></div>
-                        <div style="margin-top: 25px;">Очки от солнца<br>от 98р.</div>
+                        <div style="margin-top: 25px;">Очки от солнца<br>от <?=$price['1275']['price']?>р.</div>
                     </div>
                 </div>
             </div>
@@ -618,11 +653,7 @@
     </div>
 </div>
 <div style="z-index: 1; height: 235px; font-size: 40px; font-weight: 400; text-align: center; position: relative; background: rgb(120, 211, 62) none repeat scroll 0% 0%; color: rgb(255, 255, 255);">
-    <a  href="/catalog?cat=1632" style="z-index: 1;height: 235px;font-size: 40px;font-weight: 400;text-align: center;position: relative;background: rgb(120, 211, 62) none repeat scroll 0% 0%;color: rgb(255, 255, 255);margin: auto;line-height: 6;">
-        Перейти в каталог товаров
-    </a>
     <img style="position: absolute; right: 0px; bottom: 0px;" src="/images/lp/girl2.png" />
 </div>
-
 
 </body></html>

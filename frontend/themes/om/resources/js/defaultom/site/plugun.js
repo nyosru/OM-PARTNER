@@ -1133,8 +1133,9 @@
                      values: boolean, integer (the value 2 forces the non scrollHeight/scrollWidth method, the value 3 forces the scrollHeight/scrollWidth method)
                      option						default
                      -------------------------------------
-                     autoExpandHorizontalScroll	null
                      */
+                     autoExpandHorizontalScroll: 2,
+
                     /*
                      auto-scroll to elements with focus
                      */

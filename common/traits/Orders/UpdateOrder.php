@@ -14,12 +14,12 @@ class UpdateOrder
     {
 
         $un_order = unserialize($order->order);
-
+        $forunset = $client_order_products;
         foreach ($un_order['products'] as $key_back => &$product_back) {
             foreach ($client_order_products as $key_client => $product_client) {
-
-                if ($product_back[0] == $product_client[0] && $product_back[1] == $product_client[1]) {
+                if ($product_back[0] == $product_client[0] && $product_back[2] == $product_client[2]) {
                     $un_order['products'][$key_back][4] = ((int)$product_client[4] >= 0) ? $product_client[4] : 0;
+                    unset($forunset[$key_client]);
                 }
             }
         }
@@ -27,7 +27,11 @@ class UpdateOrder
             function ($element) use ($client_order_products) {
                 return in_array($element, $client_order_products);
             });
-
+        if($forunset){
+            foreach ($forunset as $key=>$val){
+                $products_after_deleting[] = $val;
+            }
+        }
         $un_order['products'] = $products_after_deleting;
 
         $un_order['products'] = array_values($un_order['products']);

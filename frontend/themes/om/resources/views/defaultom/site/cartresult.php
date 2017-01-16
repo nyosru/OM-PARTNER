@@ -3,11 +3,6 @@ $this -> title = 'Обработка заказа';
 
 if($result['code'] == 200 && $result['data']['paramorder']['number']){
 
-	$result_for_js = [];
-	foreach ($result['data']['saveproduct'] as $item)
-		$result_for_js[ $item[0]['products_id'] ][ (int)$item[1]['vid'] ] = $item[0]['products_quantity'];
-	// если у товара нет атрибута (размера), то у него нет id атрибута, поэтому (int) превращает пустое значение
-	// в 0. Оно проверяется в js (1).
 	?>
 
 	<style>
@@ -186,43 +181,6 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 		?>
 		<script>
 			$(function(){
-				var resultProducts = <?php echo json_encode($result_for_js); ?>;
-				var cart = JSON.parse(localStorage.getItem('cart-om')).cart;
-
-				for (var i = 0; i < cart.length; i++) {
-					/* 1 */
-					if (cart[i][2] === '')
-						cart[i][2] = 0;
-
-					if (typeof resultProducts[ parseInt(cart[i][0]) ] !== 'undefined' && typeof resultProducts[ parseInt(cart[i][0]) ][ parseInt(cart[i][2]) ] !== 'undefined') {
-						cart.splice(i, 1);
-						i--;
-					}
-				}
-
-				if (cart.length > 0) {
-					var html = '<h3>К сожалению, эти товары в заказ не попали:</h3>';
-					html += '<table class="products"><tbody>';
-
-					for (var cartIndex in cart) {
-						html += '<tr class="fail-product"><td colspan="2">Товар удален или отсутствует</td></tr>';
-						html += '<tr>';
-						html += '<td><img width="100" src="/imagepreview?src=' + cart[cartIndex][0] + '" /></td>';
-						html += '<td>';
-						html += '<p>Код товара: ' + cart[cartIndex][1] + '</p>';
-						html += '<p>' + cart[cartIndex][7] + '</p>';
-						html += '<p>Размер: ' + cart[cartIndex][6] + '</p>';
-						html += '<p>Количество: ' + cart[cartIndex][4] + ' шт.</p>';
-						html += '<p>Цена: ' + cart[cartIndex][3] + 'Руб.</p>';
-						html += '</td>';
-						html += '</tr>';
-					}
-
-					html += '</tbody></table>';
-
-					$('table.products').after(html);
-				}
-
 				$productattr = <?= json_encode($delproductattr)?>;
 				$cart = JSON.parse(localStorage.getItem('cart-om')).cart;
 				$itemcart = new Object()
@@ -237,6 +195,7 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 				if($itemcart.cart.length > 0 ){
 					$ilocal = JSON.stringify($itemcart);
 					localStorage.setItem('cart-om', $ilocal);
+					alert('В вашей корзине остались товары которые сейчас недоступны для оформления.');
 				}else{
 					localStorage.removeItem('cart-om');
 					localStorage.removeItem('cart-om-date');

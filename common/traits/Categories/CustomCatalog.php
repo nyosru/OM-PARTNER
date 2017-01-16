@@ -9,1710 +9,3301 @@ trait CustomCatalog
     {
         return [
             'cat'=>[
-    ['categories_id' => 100000, 'parent_id' => 0],
-            ['categories_id' => 1632, 'parent_id' => 100000],
-        ['categories_id' => 1720, 'parent_id' => 1632],
-			['categories_id' => 3194, 'parent_id' => 1720],
-            ['categories_id' => 1724, 'parent_id' => 1720],
-			['categories_id' => 100005, 'parent_id' => 1720],
-            ['categories_id' => 1725, 'parent_id' => 1720],
-			['categories_id' => 100007, 'parent_id' => 1720],
-            ['categories_id' => 100008, 'parent_id' => 1720],
-			['categories_id' => 1727, 'parent_id' => 1720],
-            ['categories_id' => 1723, 'parent_id' => 1720],
-			['categories_id' => 1726, 'parent_id' => 1720],
-            ['categories_id' => 1722, 'parent_id' => 1720],
-		['categories_id' => 1746, 'parent_id' => 1632],
-        ['categories_id' => 100014, 'parent_id' => 1746],
-			['categories_id' => 2502, 'parent_id' => 1746],
-            ['categories_id' => 1799, 'parent_id' => 2502],
-			['categories_id' => 100017, 'parent_id' => 1746],
-            ['categories_id' => 100018, 'parent_id' => 1746],
-				['categories_id' => 1755, 'parent_id' => 100018],
+                ['categories_id' => 100000, 'parent_id' => 0],
+                ['categories_id' => 1632, 'parent_id' => 100000],
+                ['categories_id' => 1720, 'parent_id' => 1632],
+                ['categories_id' => 3194, 'parent_id' => 1720],
+                ['categories_id' => 1724, 'parent_id' => 1720],
+                ['categories_id' => 100005, 'parent_id' => 1720],
+                ['categories_id' => 1725, 'parent_id' => 1720],
+                ['categories_id' => 100007, 'parent_id' => 1720],
+                ['categories_id' => 100008, 'parent_id' => 1720],
+                ['categories_id' => 1727, 'parent_id' => 1720],
+                ['categories_id' => 1723, 'parent_id' => 1720],
+                ['categories_id' => 1726, 'parent_id' => 1720],
+                ['categories_id' => 1722, 'parent_id' => 1720],
+                ['categories_id' => 1746, 'parent_id' => 1632],
+                ['categories_id' => 100014, 'parent_id' => 1746],
+                ['categories_id' => 2502, 'parent_id' => 1746],
+                ['categories_id' => 1799, 'parent_id' => 2502],
+                ['categories_id' => 100017, 'parent_id' => 1746],
+                ['categories_id' => 100018, 'parent_id' => 1746],
+                ['categories_id' => 1755, 'parent_id' => 100018],
                 ['categories_id' => 1756, 'parent_id' => 100018],
-				['categories_id' => 100021, 'parent_id' => 100018],
+                ['categories_id' => 100021, 'parent_id' => 100018],
                 ['categories_id' => 1748, 'parent_id' => 100018],
-			['categories_id' => 1749, 'parent_id' => 1746],
-            ['categories_id' => 1750, 'parent_id' => 1746],
-			['categories_id' => 100025, 'parent_id' => 1746],
-            ['categories_id' => 100026, 'parent_id' => 1746],
-			['categories_id' => 1752, 'parent_id' => 1746],
-            ['categories_id' => 1753, 'parent_id' => 1746],
-			['categories_id' => 100029, 'parent_id' => 1746],
-            ['categories_id' => 100030, 'parent_id' => 1746],
-			['categories_id' => 100031, 'parent_id' => 1746],
-            ['categories_id' => 100032, 'parent_id' => 1746],
-			['categories_id' => 100033, 'parent_id' => 1746],
-            ['categories_id' => 1754, 'parent_id' => 1746],
-			['categories_id' => 100035, 'parent_id' => 1746],
-            ['categories_id' => 1731, 'parent_id' => 1632],
-		['categories_id' => 1729, 'parent_id' => 1632],
-        ['categories_id' => 1730, 'parent_id' => 1632],
-			['categories_id' => 1732, 'parent_id' => 1730],
-            ['categories_id' => 100040, 'parent_id' => 1730],
-		['categories_id' => 100041, 'parent_id' => 1632],
-        ['categories_id' => 1776, 'parent_id' => 100041],
-			['categories_id' => 1777, 'parent_id' => 100041],
-            ['categories_id' => 100044, 'parent_id' => 100041],
-			['categories_id' => 3243, 'parent_id' => 100041],
-            ['categories_id' => 100046, 'parent_id' => 1632],
-			['categories_id' => 1778, 'parent_id' => 100046],
-            ['categories_id' => 1779, 'parent_id' => 100046],
-			['categories_id' => 100049, 'parent_id' => 100046],
-            ['categories_id' => 100050, 'parent_id' => 100046],
-		['categories_id' => 1814, 'parent_id' => 1632],
-        ['categories_id' => 1787, 'parent_id' => 1632],
-			['categories_id' => 1789, 'parent_id' => 1787],
-            ['categories_id' => 1788, 'parent_id' => 1787],
-			['categories_id' => 1790, 'parent_id' => 1787],
-            ['categories_id' => 100056, 'parent_id' => 1632],
-			['categories_id' => 100057, 'parent_id' => 100056],
-            ['categories_id' => 1797, 'parent_id' => 100056],
-				['categories_id' => 1800, 'parent_id' => 1797],
+                ['categories_id' => 1749, 'parent_id' => 1746],
+                ['categories_id' => 1750, 'parent_id' => 1746],
+                ['categories_id' => 100025, 'parent_id' => 1746],
+                ['categories_id' => 100026, 'parent_id' => 1746],
+                ['categories_id' => 1752, 'parent_id' => 1746],
+                ['categories_id' => 1753, 'parent_id' => 1746],
+                ['categories_id' => 100029, 'parent_id' => 1746],
+                ['categories_id' => 100030, 'parent_id' => 1746],
+                ['categories_id' => 100031, 'parent_id' => 1746],
+                ['categories_id' => 100032, 'parent_id' => 1746],
+                ['categories_id' => 100033, 'parent_id' => 1746],
+                ['categories_id' => 1754, 'parent_id' => 1746],
+                ['categories_id' => 100035, 'parent_id' => 1746],
+                ['categories_id' => 1731, 'parent_id' => 1632],
+                ['categories_id' => 1729, 'parent_id' => 1632],
+                ['categories_id' => 1730, 'parent_id' => 1632],
+                ['categories_id' => 1732, 'parent_id' => 1730],
+                ['categories_id' => 100040, 'parent_id' => 1730],
+                ['categories_id' => 100041, 'parent_id' => 1632],
+                ['categories_id' => 1776, 'parent_id' => 100041],
+                ['categories_id' => 1777, 'parent_id' => 100041],
+                ['categories_id' => 100044, 'parent_id' => 100041],
+                ['categories_id' => 3243, 'parent_id' => 100041],
+                ['categories_id' => 100046, 'parent_id' => 1632],
+                ['categories_id' => 1778, 'parent_id' => 100046],
+                ['categories_id' => 1779, 'parent_id' => 100046],
+                ['categories_id' => 100049, 'parent_id' => 100046],
+                ['categories_id' => 100050, 'parent_id' => 100046],
+                ['categories_id' => 1814, 'parent_id' => 1632],
+                ['categories_id' => 1787, 'parent_id' => 1632],
+                ['categories_id' => 1789, 'parent_id' => 1787],
+                ['categories_id' => 1788, 'parent_id' => 1787],
+                ['categories_id' => 1790, 'parent_id' => 1787],
+                ['categories_id' => 100056, 'parent_id' => 1632],
+                ['categories_id' => 100057, 'parent_id' => 100056],
+                ['categories_id' => 1797, 'parent_id' => 100056],
+                ['categories_id' => 1800, 'parent_id' => 1797],
                 ['categories_id' => 1801, 'parent_id' => 1797],
-				['categories_id' => 1798, 'parent_id' => 1797],
+                ['categories_id' => 1798, 'parent_id' => 1797],
                 ['categories_id' => 100062, 'parent_id' => 1797],
-			['categories_id' => 100063, 'parent_id' => 100056],
-            ['categories_id' => 100064, 'parent_id' => 1632],
-			['categories_id' => 100065, 'parent_id' => 100064],
-            ['categories_id' => 100066, 'parent_id' => 100064],
-		['categories_id' => 1810, 'parent_id' => 1632],
-        ['categories_id' => 100068, 'parent_id' => 1810],
-			['categories_id' => 100069, 'parent_id' => 1810],
-            ['categories_id' => 100070, 'parent_id' => 1810],
-			['categories_id' => 100071, 'parent_id' => 1810],
-            ['categories_id' => 1812, 'parent_id' => 1810],
-		['categories_id' => 1740, 'parent_id' => 1632],
-        ['categories_id' => 1821, 'parent_id' => 1740],
-			['categories_id' => 1742, 'parent_id' => 1740],
-            ['categories_id' => 100076, 'parent_id' => 1740],
-			['categories_id' => 100077, 'parent_id' => 1740],
-            ['categories_id' => 100078, 'parent_id' => 1740],
-		['categories_id' => 100079, 'parent_id' => 1632],
-        ['categories_id' => 100080, 'parent_id' => 100079],
-			['categories_id' => 1744, 'parent_id' => 100079],
-            ['categories_id' => 100082, 'parent_id' => 100079],
-		['categories_id' => 1759, 'parent_id' => 1632],
-        ['categories_id' => 100084, 'parent_id' => 1759],
-		['categories_id' => 1780, 'parent_id' => 1632],
-        ['categories_id' => 1783, 'parent_id' => 1780],
-			['categories_id' => 1782, 'parent_id' => 1780],
-            ['categories_id' => 1781, 'parent_id' => 1780],
-			['categories_id' => 1786, 'parent_id' => 1780],
-            ['categories_id' => 100090, 'parent_id' => 1632],
-			['categories_id' => 1795, 'parent_id' => 100090],
-            ['categories_id' => 100092, 'parent_id' => 100090],
-			['categories_id' => 100093, 'parent_id' => 100090],
-            ['categories_id' => 100094, 'parent_id' => 100090],
-		['categories_id' => 1771, 'parent_id' => 1632],
-        ['categories_id' => 100096, 'parent_id' => 1771],
-			['categories_id' => 1772, 'parent_id' => 1771],
-            ['categories_id' => 1774, 'parent_id' => 1771],
-			['categories_id' => 100099, 'parent_id' => 1771],
-            ['categories_id' => 1773, 'parent_id' => 1771],
-			['categories_id' => 100101, 'parent_id' => 1771],
-            ['categories_id' => 2486, 'parent_id' => 1771],
-			['categories_id' => 100103, 'parent_id' => 1771],
-            ['categories_id' => 100104, 'parent_id' => 1771],
-		['categories_id' => 1791, 'parent_id' => 1632],
-        ['categories_id' => 1793, 'parent_id' => 1791],
-			['categories_id' => 100107, 'parent_id' => 1791],
-            ['categories_id' => 1792, 'parent_id' => 1791],
-			['categories_id' => 1804, 'parent_id' => 1791],
-            ['categories_id' => 1739, 'parent_id' => 100000],
-		['categories_id' => 1734, 'parent_id' => 1739],
-        ['categories_id' => 1735, 'parent_id' => 1734],
-			['categories_id' => 1737, 'parent_id' => 1734],
-            ['categories_id' => 1738, 'parent_id' => 1734],
-			['categories_id' => 1736, 'parent_id' => 1734],
-            ['categories_id' => 100116, 'parent_id' => 1734],
-		['categories_id' => 100117, 'parent_id' => 1739],
-        ['categories_id' => 100118, 'parent_id' => 1739],
-		['categories_id' => 100119, 'parent_id' => 1739],
-        ['categories_id' => 100120, 'parent_id' => 100000],
-		['categories_id' => 100121, 'parent_id' => 100120],
-        ['categories_id' => 992, 'parent_id' => 100121],
-			['categories_id' => 1565, 'parent_id' => 100121],
-            ['categories_id' => 765, 'parent_id' => 100120],
-		['categories_id' => 100125, 'parent_id' => 100120],
-        ['categories_id' => 100126, 'parent_id' => 100120],
-		['categories_id' => 100127, 'parent_id' => 100120],
-        ['categories_id' => 993, 'parent_id' => 100120],
-		['categories_id' => 2487, 'parent_id' => 100120],
-        ['categories_id' => 100130, 'parent_id' => 100120],
-	['categories_id' => 1762, 'parent_id' => 100000],
-    ['categories_id' => 1763, 'parent_id' => 1762],
-			['categories_id' => 1770, 'parent_id' => 1763],
-            ['categories_id' => 100134, 'parent_id' => 1762],
-		['categories_id' => 100135, 'parent_id' => 1762],
-        ['categories_id' => 1764, 'parent_id' => 1762],
-			['categories_id' => 100137, 'parent_id' => 1764],
-            ['categories_id' => 100138, 'parent_id' => 1764],
-			['categories_id' => 100139, 'parent_id' => 1764],
-            ['categories_id' => 1765, 'parent_id' => 1762],
-		['categories_id' => 1649, 'parent_id' => 1762],
-        ['categories_id' => 100142, 'parent_id' => 1762],
-		['categories_id' => 1769, 'parent_id' => 1762],
-        ['categories_id' => 1767, 'parent_id' => 1762],
-        ['categories_id' => 100145, 'parent_id' => 1762],
-        ['categories_id' => 1768, 'parent_id' => 1762],
-	['categories_id' => 100147, 'parent_id' => 100000],
-    ['categories_id' => 1909, 'parent_id' => 100147],
-			['categories_id' => 100149, 'parent_id' => 1909],
-            ['categories_id' => 100150, 'parent_id' => 1909],
-			['categories_id' => 100151, 'parent_id' => 1909],
-            ['categories_id' => 100152, 'parent_id' => 1909],
-			['categories_id' => 1947, 'parent_id' => 1909],
-            ['categories_id' => 100154, 'parent_id' => 1909],
-			['categories_id' => 100155, 'parent_id' => 1909],
-            ['categories_id' => 100156, 'parent_id' => 1909],
-			['categories_id' => 1949, 'parent_id' => 1909],
-            ['categories_id' => 100158, 'parent_id' => 1949],
-				['categories_id' => 100159, 'parent_id' => 1949],
+                ['categories_id' => 100063, 'parent_id' => 100056],
+                ['categories_id' => 100064, 'parent_id' => 1632],
+                ['categories_id' => 100065, 'parent_id' => 100064],
+                ['categories_id' => 100066, 'parent_id' => 100064],
+                ['categories_id' => 1810, 'parent_id' => 1632],
+                ['categories_id' => 100068, 'parent_id' => 1810],
+                ['categories_id' => 100069, 'parent_id' => 1810],
+                ['categories_id' => 100070, 'parent_id' => 1810],
+                ['categories_id' => 100071, 'parent_id' => 1810],
+                ['categories_id' => 1812, 'parent_id' => 1810],
+                ['categories_id' => 1740, 'parent_id' => 1632],
+                ['categories_id' => 1821, 'parent_id' => 1740],
+                ['categories_id' => 1742, 'parent_id' => 1740],
+                ['categories_id' => 100076, 'parent_id' => 1740],
+                ['categories_id' => 100077, 'parent_id' => 1740],
+                ['categories_id' => 100078, 'parent_id' => 1740],
+                ['categories_id' => 100079, 'parent_id' => 1632],
+                ['categories_id' => 100080, 'parent_id' => 100079],
+                ['categories_id' => 1744, 'parent_id' => 100079],
+                ['categories_id' => 100082, 'parent_id' => 100079],
+                ['categories_id' => 1759, 'parent_id' => 1632],
+                ['categories_id' => 100084, 'parent_id' => 1759],
+                ['categories_id' => 1780, 'parent_id' => 1632],
+                ['categories_id' => 1783, 'parent_id' => 1780],
+                ['categories_id' => 1782, 'parent_id' => 1780],
+                ['categories_id' => 1781, 'parent_id' => 1780],
+                ['categories_id' => 1786, 'parent_id' => 1780],
+                ['categories_id' => 100090, 'parent_id' => 1632],
+                ['categories_id' => 1795, 'parent_id' => 100090],
+                ['categories_id' => 100092, 'parent_id' => 100090],
+                ['categories_id' => 100093, 'parent_id' => 100090],
+                ['categories_id' => 100094, 'parent_id' => 100090],
+                ['categories_id' => 1771, 'parent_id' => 1632],
+                ['categories_id' => 100096, 'parent_id' => 1771],
+                ['categories_id' => 1772, 'parent_id' => 1771],
+                ['categories_id' => 1774, 'parent_id' => 1771],
+                ['categories_id' => 100099, 'parent_id' => 1771],
+                ['categories_id' => 1773, 'parent_id' => 1771],
+                ['categories_id' => 100101, 'parent_id' => 1771],
+                ['categories_id' => 2486, 'parent_id' => 1771],
+                ['categories_id' => 100103, 'parent_id' => 1771],
+                ['categories_id' => 100104, 'parent_id' => 1771],
+                ['categories_id' => 1791, 'parent_id' => 1632],
+                ['categories_id' => 1793, 'parent_id' => 1791],
+                ['categories_id' => 100107, 'parent_id' => 1791],
+                ['categories_id' => 1792, 'parent_id' => 1791],
+                ['categories_id' => 1804, 'parent_id' => 1791],
+                ['categories_id' => 1739, 'parent_id' => 100000],
+                ['categories_id' => 1734, 'parent_id' => 1739],
+                ['categories_id' => 1735, 'parent_id' => 1734],
+                ['categories_id' => 1737, 'parent_id' => 1734],
+                ['categories_id' => 1738, 'parent_id' => 1734],
+                ['categories_id' => 1736, 'parent_id' => 1734],
+                ['categories_id' => 100116, 'parent_id' => 1734],
+                ['categories_id' => 100117, 'parent_id' => 1739],
+                ['categories_id' => 100118, 'parent_id' => 1739],
+                ['categories_id' => 100119, 'parent_id' => 1739],
+                ['categories_id' => 100120, 'parent_id' => 100000],
+                ['categories_id' => 100121, 'parent_id' => 100120],
+                ['categories_id' => 992, 'parent_id' => 100121],
+                ['categories_id' => 1565, 'parent_id' => 100121],
+                ['categories_id' => 765, 'parent_id' => 100120],
+                ['categories_id' => 100125, 'parent_id' => 100120],
+                ['categories_id' => 100126, 'parent_id' => 100120],
+                ['categories_id' => 100127, 'parent_id' => 100120],
+                ['categories_id' => 993, 'parent_id' => 100120],
+                ['categories_id' => 2487, 'parent_id' => 100120],
+                ['categories_id' => 100130, 'parent_id' => 100120],
+                ['categories_id' => 1762, 'parent_id' => 100000],
+                ['categories_id' => 1763, 'parent_id' => 1762],
+                ['categories_id' => 1770, 'parent_id' => 1763],
+                ['categories_id' => 100134, 'parent_id' => 1762],
+                ['categories_id' => 100135, 'parent_id' => 1762],
+                ['categories_id' => 1764, 'parent_id' => 1762],
+                ['categories_id' => 100137, 'parent_id' => 1764],
+                ['categories_id' => 100138, 'parent_id' => 1764],
+                ['categories_id' => 100139, 'parent_id' => 1764],
+                ['categories_id' => 1765, 'parent_id' => 1762],
+                ['categories_id' => 1649, 'parent_id' => 1762],
+                ['categories_id' => 100142, 'parent_id' => 1762],
+                ['categories_id' => 1769, 'parent_id' => 1762],
+                ['categories_id' => 1767, 'parent_id' => 1762],
+                ['categories_id' => 100145, 'parent_id' => 1762],
+                ['categories_id' => 1768, 'parent_id' => 1762],
+                ['categories_id' => 100147, 'parent_id' => 100000],
+                ['categories_id' => 1909, 'parent_id' => 100147],
+                ['categories_id' => 100149, 'parent_id' => 1909],
+                ['categories_id' => 100150, 'parent_id' => 1909],
+                ['categories_id' => 100151, 'parent_id' => 1909],
+                ['categories_id' => 100152, 'parent_id' => 1909],
+                ['categories_id' => 1947, 'parent_id' => 1909],
+                ['categories_id' => 100154, 'parent_id' => 1909],
+                ['categories_id' => 100155, 'parent_id' => 1909],
+                ['categories_id' => 100156, 'parent_id' => 1909],
+                ['categories_id' => 1949, 'parent_id' => 1909],
+                ['categories_id' => 100158, 'parent_id' => 1949],
+                ['categories_id' => 100159, 'parent_id' => 1949],
                 ['categories_id' => 1948, 'parent_id' => 1909],
-				['categories_id' => 100161, 'parent_id' => 1909],
+                ['categories_id' => 100161, 'parent_id' => 1948],
                 ['categories_id' => 100162, 'parent_id' => 1909],
-			['categories_id' => 100163, 'parent_id' => 1909],
-            ['categories_id' => 1951, 'parent_id' => 1909],
-				['categories_id' => 100165, 'parent_id' => 1951],
+                ['categories_id' => 100163, 'parent_id' => 1909],
+                ['categories_id' => 1951, 'parent_id' => 1909],
+                ['categories_id' => 100165, 'parent_id' => 1951],
                 ['categories_id' => 100166, 'parent_id' => 1951],
-			['categories_id' => 100167, 'parent_id' => 1909],
-            ['categories_id' => 100168, 'parent_id' => 1909],
-		['categories_id' => 100169, 'parent_id' => 100147],
-        ['categories_id' => 3181, 'parent_id' => 100169],
-			['categories_id' => 1953, 'parent_id' => 100169],
-            ['categories_id' => 1954, 'parent_id' => 100169],
-		['categories_id' => 3275, 'parent_id' => 100147],
-        ['categories_id' => 2541, 'parent_id' => 3275],
-			['categories_id' => 100175, 'parent_id' => 3275],
-            ['categories_id' => 100176, 'parent_id' => 3275],
-		['categories_id' => 3094, 'parent_id' => 100147],
-        ['categories_id' => 1881, 'parent_id' => 100147],
-		['categories_id' => 100179, 'parent_id' => 100147],
-        ['categories_id' => 3258, 'parent_id' => 100179],
-			['categories_id' => 3244, 'parent_id' => 100179],
-            ['categories_id' => 3245, 'parent_id' => 100179],
-		['categories_id' => 100183, 'parent_id' => 100147],
-        ['categories_id' => 100184, 'parent_id' => 100183],
-			['categories_id' => 100185, 'parent_id' => 100183],
-            ['categories_id' => 1907, 'parent_id' => 100147],
-			['categories_id' => 2701, 'parent_id' => 1907],
-            ['categories_id' => 2700, 'parent_id' => 1907],
-			['categories_id' => 3090, 'parent_id' => 1907],
-            ['categories_id' => 3091, 'parent_id' => 1907],
-			['categories_id' => 2699, 'parent_id' => 1907],
-            ['categories_id' => 3093, 'parent_id' => 1907],
-			['categories_id' => 3205, 'parent_id' => 1907],
-            ['categories_id' => 3095, 'parent_id' => 1907]
+                ['categories_id' => 100167, 'parent_id' => 1909],
+                ['categories_id' => 100168, 'parent_id' => 1909],
+                ['categories_id' => 100169, 'parent_id' => 100147],
+                ['categories_id' => 3181, 'parent_id' => 100169],
+                ['categories_id' => 1953, 'parent_id' => 100169],
+                ['categories_id' => 1954, 'parent_id' => 100169],
+                ['categories_id' => 3275, 'parent_id' => 100147],
+                ['categories_id' => 2541, 'parent_id' => 3275],
+                ['categories_id' => 100175, 'parent_id' => 3275],
+                ['categories_id' => 100176, 'parent_id' => 3275],
+                ['categories_id' => 3094, 'parent_id' => 100147],
+                ['categories_id' => 1881, 'parent_id' => 100147],
+                ['categories_id' => 100179, 'parent_id' => 100147],
+                ['categories_id' => 3258, 'parent_id' => 100179],
+                ['categories_id' => 3244, 'parent_id' => 100179],
+                ['categories_id' => 3245, 'parent_id' => 100179],
+                ['categories_id' => 100183, 'parent_id' => 100147],
+                ['categories_id' => 100184, 'parent_id' => 100183],
+                ['categories_id' => 100185, 'parent_id' => 100183],
+                ['categories_id' => 1907, 'parent_id' => 100147],
+                ['categories_id' => 2701, 'parent_id' => 1907],
+                ['categories_id' => 2700, 'parent_id' => 1907],
+                ['categories_id' => 3090, 'parent_id' => 1907],
+                ['categories_id' => 3091, 'parent_id' => 1907],
+                ['categories_id' => 2699, 'parent_id' => 1907],
+                ['categories_id' => 3093, 'parent_id' => 1907],
+                ['categories_id' => 3205, 'parent_id' => 1907],
+                ['categories_id' => 3095, 'parent_id' => 1907],
+                ['categories_id' => 100195, 'parent_id' => 0],
+                ['categories_id' => 1668, 'parent_id' => 100195],
+                ['categories_id' => 1826, 'parent_id' => 1668],
+                ['categories_id' => 100198, 'parent_id' => 1826],
+                ['categories_id' => 100199, 'parent_id' => 1826],
+                ['categories_id' => 1831, 'parent_id' => 100199],
+                ['categories_id' => 1835, 'parent_id' => 100199],
+                ['categories_id' => 100202, 'parent_id' => 100199],
+                ['categories_id' => 1829, 'parent_id' => 100199],
+                ['categories_id' => 100204, 'parent_id' => 1826],
+                ['categories_id' => 100205, 'parent_id' => 1826],
+                ['categories_id' => 1832, 'parent_id' => 1826],
+                ['categories_id' => 100207, 'parent_id' => 1826],
+                ['categories_id' => 100208, 'parent_id' => 1826],
+                ['categories_id' => 1827, 'parent_id' => 1826],
+                ['categories_id' => 1833, 'parent_id' => 1826],
+                ['categories_id' => 100211, 'parent_id' => 1826],
+                ['categories_id' => 100212, 'parent_id' => 1826],
+                ['categories_id' => 100213, 'parent_id' => 1826],
+                ['categories_id' => 1834, 'parent_id' => 1826],
+                ['categories_id' => 100215, 'parent_id' => 1826],
+                ['categories_id' => 1679, 'parent_id' => 1668],
+                ['categories_id' => 2468, 'parent_id' => 1679],
+                ['categories_id' => 2469, 'parent_id' => 1679],
+                ['categories_id' => 1839, 'parent_id' => 1668],
+                ['categories_id' => 100220, 'parent_id' => 1839],
+                ['categories_id' => 100221, 'parent_id' => 1839],
+                ['categories_id' => 100222, 'parent_id' => 1668],
+                ['categories_id' => 100223, 'parent_id' => 100222],
+                ['categories_id' => 1838, 'parent_id' => 100222],
+                ['categories_id' => 100225, 'parent_id' => 100222],
+                ['categories_id' => 1879, 'parent_id' => 100225],
+                ['categories_id' => 100227, 'parent_id' => 100222],
+                ['categories_id' => 100228, 'parent_id' => 100222],
+                ['categories_id' => 1847, 'parent_id' => 1668],
+                ['categories_id' => 100230, 'parent_id' => 1668],
+                ['categories_id' => 100231, 'parent_id' => 100230],
+                ['categories_id' => 100232, 'parent_id' => 100230],
+                ['categories_id' => 100233, 'parent_id' => 1668],
+                ['categories_id' => 100234, 'parent_id' => 100233],
+                ['categories_id' => 1842, 'parent_id' => 100233],
+                ['categories_id' => 100236, 'parent_id' => 1668],
+                ['categories_id' => 100237, 'parent_id' => 100236],
+                ['categories_id' => 100238, 'parent_id' => 100236],
+                ['categories_id' => 100239, 'parent_id' => 100236],
+                ['categories_id' => 1846, 'parent_id' => 100236],
+                ['categories_id' => 100241, 'parent_id' => 100236],
+                ['categories_id' => 1848, 'parent_id' => 100241],
+                ['categories_id' => 1854, 'parent_id' => 1668],
+                ['categories_id' => 1849, 'parent_id' => 1668],
+                ['categories_id' => 1671, 'parent_id' => 1668],
+                ['categories_id' => 100246, 'parent_id' => 1668],
+                ['categories_id' => 100247, 'parent_id' => 100246],
+                ['categories_id' => 100248, 'parent_id' => 1668],
+                ['categories_id' => 100249, 'parent_id' => 1668],
+                ['categories_id' => 100250, 'parent_id' => 100249],
+                ['categories_id' => 1680, 'parent_id' => 100249],
+                ['categories_id' => 1850, 'parent_id' => 100249],
+                ['categories_id' => 1843, 'parent_id' => 100249],
+                ['categories_id' => 1856, 'parent_id' => 100249],
+                ['categories_id' => 100255, 'parent_id' => 1668],
+                ['categories_id' => 1677, 'parent_id' => 100255],
+                ['categories_id' => 1860, 'parent_id' => 100255],
+                ['categories_id' => 1852, 'parent_id' => 100255],
+                ['categories_id' => 3332, 'parent_id' => 100255],
+                ['categories_id' => 100260, 'parent_id' => 100195],
+                ['categories_id' => 1859, 'parent_id' => 100195],
+                ['categories_id' => 1678, 'parent_id' => 1859],
+                ['categories_id' => 1684, 'parent_id' => 1859],
+                ['categories_id' => 100264, 'parent_id' => 1684],
+                ['categories_id' => 100265, 'parent_id' => 1684],
+                ['categories_id' => 2490, 'parent_id' => 1859],
+                ['categories_id' => 2491, 'parent_id' => 1859],
+                ['categories_id' => 100268, 'parent_id' => 1859],
+                ['categories_id' => 100269, 'parent_id' => 1859],
+                ['categories_id' => 100270, 'parent_id' => 100269],
+                ['categories_id' => 100271, 'parent_id' => 1859],
+                ['categories_id' => 100272, 'parent_id' => 1859],
+                ['categories_id' => 3107, 'parent_id' => 1859],
+                ['categories_id' => 1674, 'parent_id' => 100195],
+                ['categories_id' => 100275, 'parent_id' => 0],
+                ['categories_id' => 100276, 'parent_id' => 100275],
+                ['categories_id' => 1904, 'parent_id' => 100276],
+                ['categories_id' => 1434, 'parent_id' => 1904],
+                ['categories_id' => 100279, 'parent_id' => 1434],
+                ['categories_id' => 100280, 'parent_id' => 1434],
+                ['categories_id' => 100281, 'parent_id' => 1434],
+                ['categories_id' => 100282, 'parent_id' => 1434],
+                ['categories_id' => 100283, 'parent_id' => 1434],
+                ['categories_id' => 100284, 'parent_id' => 1904],
+                ['categories_id' => 100285, 'parent_id' => 1904],
+                ['categories_id' => 100286, 'parent_id' => 1904],
+                ['categories_id' => 1916, 'parent_id' => 1904],
+                ['categories_id' => 1927, 'parent_id' => 1904],
+                ['categories_id' => 100289, 'parent_id' => 1904],
+                ['categories_id' => 1913, 'parent_id' => 100289],
+                ['categories_id' => 1930, 'parent_id' => 100289],
+                ['categories_id' => 100292, 'parent_id' => 100289],
+                ['categories_id' => 1931, 'parent_id' => 1904],
+                ['categories_id' => 100294, 'parent_id' => 1904],
+                ['categories_id' => 100295, 'parent_id' => 100294],
+                ['categories_id' => 100296, 'parent_id' => 100294],
+                ['categories_id' => 100297, 'parent_id' => 100294],
+                ['categories_id' => 100298, 'parent_id' => 100294],
+                ['categories_id' => 1928, 'parent_id' => 1904],
+                ['categories_id' => 100300, 'parent_id' => 1928],
+                ['categories_id' => 100301, 'parent_id' => 1928],
+                ['categories_id' => 100302, 'parent_id' => 1904],
+                ['categories_id' => 1920, 'parent_id' => 1904],
+                ['categories_id' => 1968, 'parent_id' => 1904],
+                ['categories_id' => 100305, 'parent_id' => 1968],
+                ['categories_id' => 2525, 'parent_id' => 1968],
+                ['categories_id' => 100307, 'parent_id' => 1904],
+                ['categories_id' => 100308, 'parent_id' => 100307],
+                ['categories_id' => 100309, 'parent_id' => 100307],
+                ['categories_id' => 100310, 'parent_id' => 100307],
+                ['categories_id' => 100311, 'parent_id' => 1904],
+                ['categories_id' => 100312, 'parent_id' => 100311],
+                ['categories_id' => 100313, 'parent_id' => 100311],
+                ['categories_id' => 100314, 'parent_id' => 100311],
+                ['categories_id' => 100315, 'parent_id' => 100311],
+                ['categories_id' => 100316, 'parent_id' => 100311],
+                ['categories_id' => 100317, 'parent_id' => 100311],
+                ['categories_id' => 100318, 'parent_id' => 100311],
+                ['categories_id' => 100319, 'parent_id' => 100311],
+                ['categories_id' => 1919, 'parent_id' => 100311],
+                ['categories_id' => 100321, 'parent_id' => 1904],
+                ['categories_id' => 100322, 'parent_id' => 100321],
+                ['categories_id' => 100323, 'parent_id' => 100321],
+                ['categories_id' => 100324, 'parent_id' => 100321],
+                ['categories_id' => 1926, 'parent_id' => 1904],
+                ['categories_id' => 100326, 'parent_id' => 1926],
+                ['categories_id' => 1962, 'parent_id' => 1904],
+                ['categories_id' => 1915, 'parent_id' => 1904],
+                ['categories_id' => 1905, 'parent_id' => 100276],
+                ['categories_id' => 1933, 'parent_id' => 1905],
+                ['categories_id' => 1937, 'parent_id' => 1905],
+                ['categories_id' => 1941, 'parent_id' => 1905],
+                ['categories_id' => 100333, 'parent_id' => 1905],
+                ['categories_id' => 100334, 'parent_id' => 100333],
+                ['categories_id' => 100335, 'parent_id' => 100333],
+                ['categories_id' => 100336, 'parent_id' => 100333],
+                ['categories_id' => 100337, 'parent_id' => 100333],
+                ['categories_id' => 100338, 'parent_id' => 100333],
+                ['categories_id' => 100339, 'parent_id' => 100333],
+                ['categories_id' => 100340, 'parent_id' => 100333],
+                ['categories_id' => 1943, 'parent_id' => 100333],
+                ['categories_id' => 100342, 'parent_id' => 1905],
+                ['categories_id' => 1934, 'parent_id' => 100342],
+                ['categories_id' => 1961, 'parent_id' => 100342],
+                ['categories_id' => 100345, 'parent_id' => 1905],
+                ['categories_id' => 1946, 'parent_id' => 1905],
+                ['categories_id' => 1936, 'parent_id' => 1905],
+                ['categories_id' => 100348, 'parent_id' => 1905],
+                ['categories_id' => 100349, 'parent_id' => 100348],
+                ['categories_id' => 100350, 'parent_id' => 100348],
+                ['categories_id' => 100351, 'parent_id' => 100348],
+                ['categories_id' => 100352, 'parent_id' => 100348],
+                ['categories_id' => 1967, 'parent_id' => 1905],
+                ['categories_id' => 100354, 'parent_id' => 1905],
+                ['categories_id' => 100355, 'parent_id' => 100354],
+                ['categories_id' => 100356, 'parent_id' => 100354],
+                ['categories_id' => 1940, 'parent_id' => 1905],
+                ['categories_id' => 100358, 'parent_id' => 1940],
+                ['categories_id' => 1944, 'parent_id' => 1905],
+                ['categories_id' => 2519, 'parent_id' => 1905],
+                ['categories_id' => 1908, 'parent_id' => 100276],
+                ['categories_id' => 2536, 'parent_id' => 1908],
+                ['categories_id' => 100363, 'parent_id' => 1908],
+                ['categories_id' => 100364, 'parent_id' => 1908],
+                ['categories_id' => 100365, 'parent_id' => 1908],
+                ['categories_id' => 2535, 'parent_id' => 1908],
+                ['categories_id' => 1360, 'parent_id' => 1908],
+                ['categories_id' => 2539, 'parent_id' => 1908],
+                ['categories_id' => 100369, 'parent_id' => 1908],
+                ['categories_id' => 100370, 'parent_id' => 100369],
+                ['categories_id' => 1362, 'parent_id' => 100369],
+                ['categories_id' => 1361, 'parent_id' => 100369],
+                ['categories_id' => 100373, 'parent_id' => 100369],
+                ['categories_id' => 100374, 'parent_id' => 100369],
+                ['categories_id' => 2537, 'parent_id' => 1908],
+                ['categories_id' => 100376, 'parent_id' => 1908],
+                ['categories_id' => 100377, 'parent_id' => 1908],
+                ['categories_id' => 100378, 'parent_id' => 100377],
+                ['categories_id' => 1308, 'parent_id' => 100377],
+                ['categories_id' => 100380, 'parent_id' => 100377],
+                ['categories_id' => 100381, 'parent_id' => 100377],
+                ['categories_id' => 2520, 'parent_id' => 1908],
+                ['categories_id' => 100383, 'parent_id' => 2520],
+                ['categories_id' => 100384, 'parent_id' => 2520],
+                ['categories_id' => 1623, 'parent_id' => 1908],
+                ['categories_id' => 100386, 'parent_id' => 100275],
+                ['categories_id' => 100387, 'parent_id' => 100386],
+                ['categories_id' => 100388, 'parent_id' => 100386],
+                ['categories_id' => 100389, 'parent_id' => 100386],
+                ['categories_id' => 100390, 'parent_id' => 100386],
+                ['categories_id' => 100391, 'parent_id' => 100386],
+                ['categories_id' => 100392, 'parent_id' => 100275],
+                ['categories_id' => 100393, 'parent_id' => 100392],
+                ['categories_id' => 100394, 'parent_id' => 100392],
+                ['categories_id' => 3239, 'parent_id' => 100392],
+                ['categories_id' => 100396, 'parent_id' => 100392],
+                ['categories_id' => 100397, 'parent_id' => 100392],
+                ['categories_id' => 100398, 'parent_id' => 100392],
+                ['categories_id' => 100399, 'parent_id' => 100392],
+                ['categories_id' => 100400, 'parent_id' => 100275],
+                ['categories_id' => 100401, 'parent_id' => 100400],
+                ['categories_id' => 1958, 'parent_id' => 100400],
+                ['categories_id' => 100403, 'parent_id' => 100275],
+                ['categories_id' => 1917, 'parent_id' => 100403],
+                ['categories_id' => 1938, 'parent_id' => 100403],
+                ['categories_id' => 100406, 'parent_id' => 0],
+                ['categories_id' => 1350, 'parent_id' => 100406],
+                ['categories_id' => 1693, 'parent_id' => 1350],
+                ['categories_id' => 3195, 'parent_id' => 1693],
+                ['categories_id' => 1718, 'parent_id' => 1693],
+                ['categories_id' => 1719, 'parent_id' => 1693],
+                ['categories_id' => 1863, 'parent_id' => 1693],
+                ['categories_id' => 1706, 'parent_id' => 1350],
+                ['categories_id' => 1466, 'parent_id' => 1706],
+                ['categories_id' => 1882, 'parent_id' => 1706],
+                ['categories_id' => 1883, 'parent_id' => 1706],
+                ['categories_id' => 100417, 'parent_id' => 1706],
+                ['categories_id' => 1697, 'parent_id' => 1350],
+                ['categories_id' => 100419, 'parent_id' => 1697],
+                ['categories_id' => 1864, 'parent_id' => 100419],
+                ['categories_id' => 2498, 'parent_id' => 100419],
+                ['categories_id' => 100422, 'parent_id' => 100419],
+                ['categories_id' => 2497, 'parent_id' => 100419],
+                ['categories_id' => 1865, 'parent_id' => 1697],
+                ['categories_id' => 100425, 'parent_id' => 1697],
+                ['categories_id' => 2500, 'parent_id' => 1697],
+                ['categories_id' => 100427, 'parent_id' => 1697],
+                ['categories_id' => 1463, 'parent_id' => 1697],
+                ['categories_id' => 1580, 'parent_id' => 1350],
+                ['categories_id' => 100430, 'parent_id' => 1350],
+                ['categories_id' => 100431, 'parent_id' => 100430],
+                ['categories_id' => 100432, 'parent_id' => 100430],
+                ['categories_id' => 100433, 'parent_id' => 100430],
+                ['categories_id' => 100434, 'parent_id' => 1350],
+                ['categories_id' => 100435, 'parent_id' => 100434],
+                ['categories_id' => 1470, 'parent_id' => 100434],
+                ['categories_id' => 100437, 'parent_id' => 100434],
+                ['categories_id' => 100438, 'parent_id' => 100434],
+                ['categories_id' => 1710, 'parent_id' => 1350],
+                ['categories_id' => 1472, 'parent_id' => 1710],
+                ['categories_id' => 1893, 'parent_id' => 1710],
+                ['categories_id' => 1902, 'parent_id' => 1710],
+                ['categories_id' => 1709, 'parent_id' => 1350],
+                ['categories_id' => 1490, 'parent_id' => 1709],
+                ['categories_id' => 2503, 'parent_id' => 1709],
+                ['categories_id' => 1469, 'parent_id' => 1350],
+                ['categories_id' => 100447, 'parent_id' => 1350],
+                ['categories_id' => 1867, 'parent_id' => 100447],
+                ['categories_id' => 1878, 'parent_id' => 100447],
+                ['categories_id' => 1877, 'parent_id' => 100447],
+                ['categories_id' => 1870, 'parent_id' => 1350],
+                ['categories_id' => 100452, 'parent_id' => 1350],
+                ['categories_id' => 100453, 'parent_id' => 100452],
+                ['categories_id' => 100454, 'parent_id' => 100452],
+                ['categories_id' => 100455, 'parent_id' => 100452],
+                ['categories_id' => 100456, 'parent_id' => 100452],
+                ['categories_id' => 1872, 'parent_id' => 100452],
+                ['categories_id' => 100458, 'parent_id' => 1350],
+                ['categories_id' => 100459, 'parent_id' => 100458],
+                ['categories_id' => 100460, 'parent_id' => 100458],
+                ['categories_id' => 1712, 'parent_id' => 1350],
+                ['categories_id' => 1965, 'parent_id' => 1712],
+                ['categories_id' => 1875, 'parent_id' => 1712],
+                ['categories_id' => 1964, 'parent_id' => 1712],
+                ['categories_id' => 1966, 'parent_id' => 1712],
+                ['categories_id' => 1707, 'parent_id' => 1350],
+                ['categories_id' => 1899, 'parent_id' => 1707],
+                ['categories_id' => 1897, 'parent_id' => 1707],
+                ['categories_id' => 1898, 'parent_id' => 1707],
+                ['categories_id' => 1896, 'parent_id' => 1707],
+                ['categories_id' => 1704, 'parent_id' => 1350],
+                ['categories_id' => 1476, 'parent_id' => 1704],
+                ['categories_id' => 1474, 'parent_id' => 1704],
+                ['categories_id' => 100474, 'parent_id' => 1704],
+                ['categories_id' => 2510, 'parent_id' => 1704],
+                ['categories_id' => 1462, 'parent_id' => 1704],
+                ['categories_id' => 100477, 'parent_id' => 1704],
+                ['categories_id' => 1475, 'parent_id' => 1704],
+                ['categories_id' => 1705, 'parent_id' => 1350],
+                ['categories_id' => 1467, 'parent_id' => 1705],
+                ['categories_id' => 1478, 'parent_id' => 1705],
+                ['categories_id' => 100482, 'parent_id' => 1705],
+                ['categories_id' => 2507, 'parent_id' => 1705],
+                ['categories_id' => 1611, 'parent_id' => 1705],
+                ['categories_id' => 1477, 'parent_id' => 1705],
+                ['categories_id' => 1696, 'parent_id' => 1350],
+                ['categories_id' => 1890, 'parent_id' => 1696],
+                ['categories_id' => 100488, 'parent_id' => 1696],
+                ['categories_id' => 1564, 'parent_id' => 1696],
+                ['categories_id' => 1608, 'parent_id' => 1696],
+                ['categories_id' => 100491, 'parent_id' => 1696],
+                ['categories_id' => 100492, 'parent_id' => 1696],
+                ['categories_id' => 1715, 'parent_id' => 1350],
+                ['categories_id' => 100494, 'parent_id' => 1715],
+                ['categories_id' => 2513, 'parent_id' => 1715],
+                ['categories_id' => 1695, 'parent_id' => 1350],
+                ['categories_id' => 1884, 'parent_id' => 1695],
+                ['categories_id' => 1888, 'parent_id' => 1695],
+                ['categories_id' => 1885, 'parent_id' => 1695],
+                ['categories_id' => 100500, 'parent_id' => 1350],
+                ['categories_id' => 1887, 'parent_id' => 1350],
+                ['categories_id' => 100502, 'parent_id' => 1887],
+                ['categories_id' => 100503, 'parent_id' => 1887],
+                ['categories_id' => 100504, 'parent_id' => 100406],
+                ['categories_id' => 100505, 'parent_id' => 100504],
+                ['categories_id' => 100506, 'parent_id' => 100505],
+                ['categories_id' => 100507, 'parent_id' => 100506],
+                ['categories_id' => 100508, 'parent_id' => 100506],
+                ['categories_id' => 100509, 'parent_id' => 100506],
+                ['categories_id' => 100510, 'parent_id' => 100506],
+                ['categories_id' => 100511, 'parent_id' => 100505],
+                ['categories_id' => 100512, 'parent_id' => 100505],
+                ['categories_id' => 100513, 'parent_id' => 100505],
+                ['categories_id' => 100514, 'parent_id' => 100505],
+                ['categories_id' => 100515, 'parent_id' => 100505],
+                ['categories_id' => 100516, 'parent_id' => 100504],
+                ['categories_id' => 100517, 'parent_id' => 100516],
+                ['categories_id' => 100518, 'parent_id' => 100516],
+                ['categories_id' => 100519, 'parent_id' => 100516],
+                ['categories_id' => 100520, 'parent_id' => 100504],
+                ['categories_id' => 100521, 'parent_id' => 100520],
+                ['categories_id' => 100522, 'parent_id' => 100504],
+                ['categories_id' => 100523, 'parent_id' => 100522],
+                ['categories_id' => 100524, 'parent_id' => 100522],
+                ['categories_id' => 100525, 'parent_id' => 100522],
+
+                ['categories_id' => 100526, 'parent_id' => 0],
+                ['categories_id' => 1976, 'parent_id' => 100526],
+                ['categories_id' => 1977, 'parent_id' => 1976],
+                ['categories_id' => 1993, 'parent_id' => 1976],
+                ['categories_id' => 100530, 'parent_id' => 1993],
+                ['categories_id' => 100531, 'parent_id' => 1993],
+                ['categories_id' => 100532, 'parent_id' => 1993],
+                ['categories_id' => 100533, 'parent_id' => 1976],
+                ['categories_id' => 100534, 'parent_id' => 1976],
+                ['categories_id' => 1979, 'parent_id' => 1976],
+                ['categories_id' => 1980, 'parent_id' => 1976],
+                ['categories_id' => 100537, 'parent_id' => 1976],
+                ['categories_id' => 1988, 'parent_id' => 100537],
+                ['categories_id' => 100539, 'parent_id' => 100537],
+                ['categories_id' => 1981, 'parent_id' => 1976],
+                ['categories_id' => 1982, 'parent_id' => 1976],
+                ['categories_id' => 1983, 'parent_id' => 1976],
+                ['categories_id' => 1984, 'parent_id' => 1976],
+                ['categories_id' => 1985, 'parent_id' => 1976],
+                ['categories_id' => 1986, 'parent_id' => 1976],
+                ['categories_id' => 1987, 'parent_id' => 1976],
+                ['categories_id' => 1990, 'parent_id' => 1976],
+                ['categories_id' => 1989, 'parent_id' => 1976],
+                ['categories_id' => 1991, 'parent_id' => 1976],
+                ['categories_id' => 100550, 'parent_id' => 1976],
+                ['categories_id' => 1992, 'parent_id' => 100550],
+                ['categories_id' => 100552, 'parent_id' => 100550],
+                ['categories_id' => 100553, 'parent_id' => 100550],
+                ['categories_id' => 100554, 'parent_id' => 100550],
+                ['categories_id' => 3210, 'parent_id' => 100550],
+                ['categories_id' => 1994, 'parent_id' => 1976],
+                ['categories_id' => 1995, 'parent_id' => 1976],
+                ['categories_id' => 100558, 'parent_id' => 1976],
+                ['categories_id' => 100559, 'parent_id' => 1976],
+                ['categories_id' => 100560, 'parent_id' => 1976],
+                ['categories_id' => 100561, 'parent_id' => 1976],
+                ['categories_id' => 1996, 'parent_id' => 100526],
+                ['categories_id' => 2002, 'parent_id' => 1996],
+                ['categories_id' => 1997, 'parent_id' => 1996],
+                ['categories_id' => 100565, 'parent_id' => 1996],
+                ['categories_id' => 1998, 'parent_id' => 1996],
+                ['categories_id' => 1999, 'parent_id' => 1996],
+                ['categories_id' => 2000, 'parent_id' => 1996],
+                ['categories_id' => 2005, 'parent_id' => 1996],
+                ['categories_id' => 100570, 'parent_id' => 1996],
+                ['categories_id' => 3390, 'parent_id' => 100570],
+                ['categories_id' => 100572, 'parent_id' => 100570],
+                ['categories_id' => 1597, 'parent_id' => 1996],
+                ['categories_id' => 2007, 'parent_id' => 1996],
+                ['categories_id' => 100575, 'parent_id' => 1996],
+                ['categories_id' => 2004, 'parent_id' => 100575],
+                ['categories_id' => 100577, 'parent_id' => 100575],
+                ['categories_id' => 100578, 'parent_id' => 100575],
+                ['categories_id' => 100579, 'parent_id' => 100575],
+                ['categories_id' => 100580, 'parent_id' => 100575],
+                ['categories_id' => 2001, 'parent_id' => 1996],
+                ['categories_id' => 100582, 'parent_id' => 1996],
+                ['categories_id' => 2006, 'parent_id' => 1996],
+                ['categories_id' => 2008, 'parent_id' => 100526],
+                ['categories_id' => 100585, 'parent_id' => 2008],
+                ['categories_id' => 100586, 'parent_id' => 100585],
+                ['categories_id' => 2009, 'parent_id' => 100585],
+                ['categories_id' => 100588, 'parent_id' => 100585],
+                ['categories_id' => 100589, 'parent_id' => 100585],
+                ['categories_id' => 100590, 'parent_id' => 100585],
+                ['categories_id' => 100591, 'parent_id' => 100585],
+                ['categories_id' => 100592, 'parent_id' => 100585],
+                ['categories_id' => 100593, 'parent_id' => 100585],
+                ['categories_id' => 100594, 'parent_id' => 100585],
+                ['categories_id' => 100595, 'parent_id' => 100585],
+                ['categories_id' => 100596, 'parent_id' => 100585],
+                ['categories_id' => 100597, 'parent_id' => 100596],
+                ['categories_id' => 100598, 'parent_id' => 100596],
+                ['categories_id' => 100599, 'parent_id' => 100585],
+                ['categories_id' => 100600, 'parent_id' => 100599],
+                ['categories_id' => 100601, 'parent_id' => 100599],
+                ['categories_id' => 100602, 'parent_id' => 100599],
+                ['categories_id' => 100603, 'parent_id' => 100599],
+                ['categories_id' => 100604, 'parent_id' => 100585],
+                ['categories_id' => 2021, 'parent_id' => 100585],
+                ['categories_id' => 100606, 'parent_id' => 100585],
+                ['categories_id' => 100607, 'parent_id' => 100585],
+                ['categories_id' => 100608, 'parent_id' => 100585],
+                ['categories_id' => 100609, 'parent_id' => 100585],
+                ['categories_id' => 100610, 'parent_id' => 2008],
+                ['categories_id' => 100611, 'parent_id' => 100610],
+                ['categories_id' => 100612, 'parent_id' => 100610],
+                ['categories_id' => 100613, 'parent_id' => 100610],
+                ['categories_id' => 100614, 'parent_id' => 100610],
+                ['categories_id' => 100615, 'parent_id' => 100610],
+                ['categories_id' => 100616, 'parent_id' => 100610],
+                ['categories_id' => 100617, 'parent_id' => 100610],
+                ['categories_id' => 100618, 'parent_id' => 100610],
+                ['categories_id' => 100619, 'parent_id' => 100610],
+                ['categories_id' => 100620, 'parent_id' => 100619],
+                ['categories_id' => 100621, 'parent_id' => 100619],
+                ['categories_id' => 100622, 'parent_id' => 100610],
+                ['categories_id' => 100623, 'parent_id' => 100622],
+                ['categories_id' => 100624, 'parent_id' => 100622],
+                ['categories_id' => 100625, 'parent_id' => 100622],
+                ['categories_id' => 100626, 'parent_id' => 100622],
+                ['categories_id' => 100627, 'parent_id' => 100610],
+                ['categories_id' => 100628, 'parent_id' => 100610],
+                ['categories_id' => 100629, 'parent_id' => 100610],
+                ['categories_id' => 100630, 'parent_id' => 100610],
+                ['categories_id' => 1562, 'parent_id' => 100526],
+                ['categories_id' => 100632, 'parent_id' => 1562],
+                ['categories_id' => 100633, 'parent_id' => 1562],
+                ['categories_id' => 100634, 'parent_id' => 1562],
+                ['categories_id' => 100635, 'parent_id' => 1562],
+                ['categories_id' => 100636, 'parent_id' => 1562],
+                ['categories_id' => 100637, 'parent_id' => 100526],
+                ['categories_id' => 100638, 'parent_id' => 100637],
+                ['categories_id' => 100639, 'parent_id' => 100637],
+                ['categories_id' => 100640, 'parent_id' => 0],
+                ['categories_id' => 2047, 'parent_id' => 100640],
+                ['categories_id' => 835, 'parent_id' => 2047],
+                ['categories_id' => 1112, 'parent_id' => 2047],
+                ['categories_id' => 1163, 'parent_id' => 2047],
+                ['categories_id' => 2548, 'parent_id' => 2047],
+                ['categories_id' => 2547, 'parent_id' => 2047],
+                ['categories_id' => 1681, 'parent_id' => 100640],
+                ['categories_id' => 100648, 'parent_id' => 1681],
+                ['categories_id' => 100649, 'parent_id' => 1681],
+                ['categories_id' => 100650, 'parent_id' => 1681],
+                ['categories_id' => 2551, 'parent_id' => 1681],
+                ['categories_id' => 2553, 'parent_id' => 1681],
+                ['categories_id' => 2552, 'parent_id' => 1681],
+                ['categories_id' => 1111, 'parent_id' => 100640],
+                ['categories_id' => 100655, 'parent_id' => 1111],
+                ['categories_id' => 100656, 'parent_id' => 1111],
+                ['categories_id' => 100657, 'parent_id' => 100656],
+                ['categories_id' => 100658, 'parent_id' => 100656],
+                ['categories_id' => 100659, 'parent_id' => 100640],
+                ['categories_id' => 100660, 'parent_id' => 100640],
+                ['categories_id' => 3009, 'parent_id' => 100660],
+                ['categories_id' => 100662, 'parent_id' => 100660],
+                ['categories_id' => 2555, 'parent_id' => 100640],
+                ['categories_id' => 100663, 'parent_id' => 2555],
+                ['categories_id' => 2554, 'parent_id' => 100640],
+                ['categories_id' => 3057, 'parent_id' => 100640],
+                ['categories_id' => 100667, 'parent_id' => 3057],
+                ['categories_id' => 100668, 'parent_id' => 3057],
+                ['categories_id' => 100669, 'parent_id' => 3057],
+                ['categories_id' => 932, 'parent_id' => 0],
+                ['categories_id' => 100671, 'parent_id' => 932],
+                ['categories_id' => 2120, 'parent_id' => 100671],
+                ['categories_id' => 100673, 'parent_id' => 2120],
+                ['categories_id' => 100674, 'parent_id' => 2120],
+                ['categories_id' => 939, 'parent_id' => 2120],
+                ['categories_id' => 940, 'parent_id' => 2120],
+                ['categories_id' => 100677, 'parent_id' => 100671],
+                ['categories_id' => 100678, 'parent_id' => 100677],
+                ['categories_id' => 100679, 'parent_id' => 100677],
+                ['categories_id' => 1819, 'parent_id' => 100677],
+                ['categories_id' => 100681, 'parent_id' => 100677],
+                ['categories_id' => 100682, 'parent_id' => 100677],
+                ['categories_id' => 2485, 'parent_id' => 100677],
+                ['categories_id' => 1815, 'parent_id' => 100671],
+                ['categories_id' => 100685, 'parent_id' => 1815],
+                ['categories_id' => 100686, 'parent_id' => 1815],
+                ['categories_id' => 100687, 'parent_id' => 1815],
+                ['categories_id' => 100688, 'parent_id' => 1815],
+                ['categories_id' => 1818, 'parent_id' => 1815],
+                ['categories_id' => 100690, 'parent_id' => 1815],
+                ['categories_id' => 1820, 'parent_id' => 1815],
+                ['categories_id' => 100692, 'parent_id' => 1815],
+                ['categories_id' => 1825, 'parent_id' => 1815],
+                ['categories_id' => 100694, 'parent_id' => 1815],
+                ['categories_id' => 100695, 'parent_id' => 1815],
+                ['categories_id' => 1823, 'parent_id' => 1815],
+                ['categories_id' => 100697, 'parent_id' => 100671],
+                ['categories_id' => 100698, 'parent_id' => 100671],
+                ['categories_id' => 865, 'parent_id' => 100698],
+                ['categories_id' => 100700, 'parent_id' => 100698],
+                ['categories_id' => 100701, 'parent_id' => 100671],
+                ['categories_id' => 100702, 'parent_id' => 100701],
+                ['categories_id' => 100703, 'parent_id' => 100701],
+                ['categories_id' => 100704, 'parent_id' => 100671],
+                ['categories_id' => 100705, 'parent_id' => 100704],
+                ['categories_id' => 100706, 'parent_id' => 100704],
+                ['categories_id' => 100707, 'parent_id' => 100704],
+                ['categories_id' => 100708, 'parent_id' => 100671],
+                ['categories_id' => 100709, 'parent_id' => 100708],
+                ['categories_id' => 100710, 'parent_id' => 100708],
+                ['categories_id' => 2128, 'parent_id' => 100671],
+                ['categories_id' => 2731, 'parent_id' => 100671],
+                ['categories_id' => 100713, 'parent_id' => 932],
+                ['categories_id' => 100714, 'parent_id' => 100713],
+                ['categories_id' => 1808, 'parent_id' => 100714],
+                ['categories_id' => 100716, 'parent_id' => 100714],
+                ['categories_id' => 1805, 'parent_id' => 100713],
+                ['categories_id' => 100718, 'parent_id' => 1805],
+                ['categories_id' => 100719, 'parent_id' => 1805],
+                ['categories_id' => 100720, 'parent_id' => 1805],
+                ['categories_id' => 100721, 'parent_id' => 1805],
+                ['categories_id' => 2482, 'parent_id' => 1805],
+                ['categories_id' => 100723, 'parent_id' => 1805],
+                ['categories_id' => 2483, 'parent_id' => 1805],
+                ['categories_id' => 100725, 'parent_id' => 1805],
+                ['categories_id' => 1809, 'parent_id' => 1805],
+                ['categories_id' => 100727, 'parent_id' => 100713],
+                ['categories_id' => 100728, 'parent_id' => 100713],
+                ['categories_id' => 873, 'parent_id' => 100728],
+                ['categories_id' => 100730, 'parent_id' => 100728],
+                ['categories_id' => 100731, 'parent_id' => 100713],
+                ['categories_id' => 100732, 'parent_id' => 100713],
+                ['categories_id' => 100733, 'parent_id' => 100732],
+                ['categories_id' => 100734, 'parent_id' => 100732],
+                ['categories_id' => 100735, 'parent_id' => 100713],
+                ['categories_id' => 100736, 'parent_id' => 100735],
+                ['categories_id' => 100737, 'parent_id' => 100735],
+                ['categories_id' => 2121, 'parent_id' => 100735],
+                ['categories_id' => 100739, 'parent_id' => 100713],
+                ['categories_id' => 100740, 'parent_id' => 100739],
+                ['categories_id' => 100741, 'parent_id' => 100739],
+                ['categories_id' => 3136, 'parent_id' => 100739],
+                ['categories_id' => 2126, 'parent_id' => 100713],
+                ['categories_id' => 100744, 'parent_id' => 100713],
+                ['categories_id' => 2124, 'parent_id' => 100744],
+                ['categories_id' => 100746, 'parent_id' => 100744],
+                ['categories_id' => 100747, 'parent_id' => 100744],
+                ['categories_id' => 1906, 'parent_id' => 932],
+                ['categories_id' => 100749, 'parent_id' => 1906],
+                ['categories_id' => 100750, 'parent_id' => 100749],
+                ['categories_id' => 100751, 'parent_id' => 100749],
+                ['categories_id' => 100752, 'parent_id' => 100749],
+                ['categories_id' => 100753, 'parent_id' => 100749],
+                ['categories_id' => 100754, 'parent_id' => 100749],
+                ['categories_id' => 100755, 'parent_id' => 100749],
+                ['categories_id' => 100756, 'parent_id' => 100749],
+                ['categories_id' => 100757, 'parent_id' => 100749],
+                ['categories_id' => 100758, 'parent_id' => 1906],
+                ['categories_id' => 100759, 'parent_id' => 100758],
+                ['categories_id' => 100760, 'parent_id' => 100758],
+                ['categories_id' => 100761, 'parent_id' => 1906],
+                ['categories_id' => 988, 'parent_id' => 100761],
+                ['categories_id' => 100763, 'parent_id' => 100761],
+                ['categories_id' => 479, 'parent_id' => 1906],
+                ['categories_id' => 1422, 'parent_id' => 1906],
+                ['categories_id' => 100766, 'parent_id' => 1422],
+                ['categories_id' => 100767, 'parent_id' => 1422],
+                ['categories_id' => 100768, 'parent_id' => 1906],
+                ['categories_id' => 100769, 'parent_id' => 1906],
+                ['categories_id' => 100770, 'parent_id' => 100769],
+                ['categories_id' => 100771, 'parent_id' => 100769],
+                ['categories_id' => 2127, 'parent_id' => 1906],
+                ['categories_id' => 1443, 'parent_id' => 1906],
+                ['categories_id' => 100774, 'parent_id' => 1443],
+                ['categories_id' => 100775, 'parent_id' => 1443],
+                ['categories_id' => 1538, 'parent_id' => 1906],
+                ['categories_id' => 100777, 'parent_id' => 1538],
+                ['categories_id' => 100778, 'parent_id' => 1538],
+                ['categories_id' => 100779, 'parent_id' => 932],
+                ['categories_id' => 100780, 'parent_id' => 100779],
+                ['categories_id' => 100780, 'parent_id' => 100779],
+                ['categories_id' => 100780, 'parent_id' => 100779],
+                ['categories_id' => 2118, 'parent_id' => 932],
+                ['categories_id' => 100784, 'parent_id' => 932],
+                ['categories_id' => 1313, 'parent_id' => 932],
+                ['categories_id' => 2117, 'parent_id' => 932],
+                ['categories_id' => 1310, 'parent_id' => 932],
+                ['categories_id' => 3010, 'parent_id' => 932],
+
+                ['categories_id'=>1549, 'parent_id'=>0],
+                ['categories_id' => 1554, 'parent_id' => 1549],
+                ['categories_id' => 2708, 'parent_id' => 1549],
+                ['categories_id' => 2564, 'parent_id' => 1549],
+                ['categories_id' => 2734, 'parent_id' => 1549],
+                ['categories_id' => 1553, 'parent_id' => 1549],
+                ['categories_id' => 1555, 'parent_id' => 1549],
+                ['categories_id' => 2563, 'parent_id' => 1555],
+                ['categories_id' => 3208, 'parent_id' => 1555],
+                ['categories_id' => 1302, 'parent_id' => 1549],
+                ['categories_id' => 999, 'parent_id' => 1549],
+                ['categories_id' => 998, 'parent_id' => 1549],
+                ['categories_id' => 1347, 'parent_id' => 1549],
+                ['categories_id' => 1556, 'parent_id' => 1549],
+                ['categories_id' => 1557, 'parent_id' => 1549],
 
 
-        ],
-        'name'=>[
+                ['categories_id'=>2048, 'parent_id'=>0],
+                ['categories_id'=>3116, 'parent_id'=>2048],
+                ['categories_id'=>3118, 'parent_id'=>3116],
+                ['categories_id'=>3117, 'parent_id'=>3116],
+                ['categories_id'=>2732, 'parent_id'=>2048],
+                ['categories_id'=>2733, 'parent_id'=>2732],
+                ['categories_id'=>3077, 'parent_id'=>2732],
+                ['categories_id'=>3253, 'parent_id'=>2732],
+                ['categories_id'=>3256, 'parent_id'=>2048],
+                ['categories_id'=>3257, 'parent_id'=>3256],
+                ['categories_id'=>2053, 'parent_id'=>2048],
+                ['categories_id'=>2089, 'parent_id'=>2053],
+                ['categories_id'=>2090, 'parent_id'=>2053],
+                ['categories_id'=>2091, 'parent_id'=>2053],
+                ['categories_id'=>2092, 'parent_id'=>2053],
+                ['categories_id'=>3069, 'parent_id'=>2048],
+                ['categories_id'=>3068, 'parent_id'=>2048],
+                ['categories_id'=>3070, 'parent_id'=>3068],
+                ['categories_id'=>3072, 'parent_id'=>3068],
+                ['categories_id'=>3418, 'parent_id'=>3068],
+                ['categories_id'=>2050, 'parent_id'=>2048],
+                ['categories_id'=>2058, 'parent_id'=>2050],
+                ['categories_id'=>2059, 'parent_id'=>2050],
+                ['categories_id'=>2060, 'parent_id'=>2050],
+                ['categories_id'=>2062, 'parent_id'=>2050],
+                ['categories_id'=>2063, 'parent_id'=>2050],
+                ['categories_id'=>2049, 'parent_id'=>2048],
+                ['categories_id'=>2100, 'parent_id'=>2049],
+                ['categories_id'=>2101, 'parent_id'=>2049],
+                ['categories_id'=>2102, 'parent_id'=>2049],
+                ['categories_id'=>3110, 'parent_id'=>2049],
+                ['categories_id'=>3111, 'parent_id'=>2049],
+                ['categories_id'=>3112, 'parent_id'=>2049],
+                ['categories_id'=>2052, 'parent_id'=>2048],
+                ['categories_id'=>2079, 'parent_id'=>2052],
+                ['categories_id'=>2081, 'parent_id'=>2052],
+                ['categories_id'=>2083, 'parent_id'=>2052],
+                ['categories_id'=>2084, 'parent_id'=>2052],
+                ['categories_id'=>2088, 'parent_id'=>2052],
+                ['categories_id'=>2085, 'parent_id'=>2052],
+                ['categories_id'=>2087, 'parent_id'=>2052],
+                ['categories_id'=>3115, 'parent_id'=>2052],
+                ['categories_id'=>2057, 'parent_id'=>2048],
+                ['categories_id'=>2095, 'parent_id'=>2057],
+                ['categories_id'=>2098, 'parent_id'=>2095],
+                ['categories_id'=>2099, 'parent_id'=>2095],
+                ['categories_id'=>2096, 'parent_id'=>2057],
+                ['categories_id'=>2097, 'parent_id'=>2057],
+                ['categories_id'=>3420, 'parent_id'=>2048],
+                ['categories_id'=>3421, 'parent_id'=>3420],
+                ['categories_id'=>3422, 'parent_id'=>3420],
+                ['categories_id'=>2055, 'parent_id'=>2048],
+                ['categories_id'=>3078, 'parent_id'=>2048],
+                ['categories_id'=>2054, 'parent_id'=>2048],
+                ['categories_id'=>1539, 'parent_id'=>2054],
+                ['categories_id'=>1540, 'parent_id'=>2054],
+                ['categories_id'=>2051, 'parent_id'=>2048],
+                ['categories_id'=>2071, 'parent_id'=>2051],
+                ['categories_id'=>2072, 'parent_id'=>2051],
+                ['categories_id'=>2073, 'parent_id'=>2051],
+                ['categories_id'=>2074, 'parent_id'=>2051],
+                ['categories_id'=>2075, 'parent_id'=>2051],
+                ['categories_id'=>2077, 'parent_id'=>2051],
+                ['categories_id'=>2076, 'parent_id'=>2051],
+                ['categories_id'=>3114, 'parent_id'=>2051],
+                ['categories_id'=>3228, 'parent_id'=>2051],
+                ['categories_id'=>3119, 'parent_id'=>2048],
+                ['categories_id'=>3120, 'parent_id'=>3119],
+                ['categories_id'=>3231, 'parent_id'=>3119],
+                ['categories_id'=>3100, 'parent_id'=>2048],
+                ['categories_id'=>3101, 'parent_id'=>3100],
+                ['categories_id'=>3102, 'parent_id'=>3100],
+                ['categories_id'=>3103, 'parent_id'=>3100],
+                ['categories_id'=>2056, 'parent_id'=>2048],
+                ['categories_id'=>2093, 'parent_id'=>2056],
+                ['categories_id'=>3099, 'parent_id'=>2056],
+                ['categories_id'=>2181, 'parent_id'=>2048],
+                ['categories_id'=>3125, 'parent_id'=>2181],
+                ['categories_id'=>2214, 'parent_id'=>2181],
+                ['categories_id'=>2213, 'parent_id'=>2181],
+                ['categories_id'=>2220, 'parent_id'=>2181],
+                ['categories_id'=>2204, 'parent_id'=>2048],
+                ['categories_id'=>2207, 'parent_id'=>2204],
+                ['categories_id'=>2211, 'parent_id'=>2204],
+                ['categories_id'=>3123, 'parent_id'=>2204],
+                ['categories_id'=>2210, 'parent_id'=>2204],
+                ['categories_id'=>2206, 'parent_id'=>2204],
+                ['categories_id'=>2205, 'parent_id'=>2204],
+                ['categories_id'=>2208, 'parent_id'=>2204],
+                ['categories_id'=>2209, 'parent_id'=>2204],
 
-        ]
+
+                ['categories_id'=>2065, 'parent_id'=>0],
+                ['categories_id'=>1315, 'parent_id'=>2065],
+                ['categories_id'=>1316, 'parent_id'=>2065],
+                ['categories_id'=>1355, 'parent_id'=>2065],
+                ['categories_id'=>1594, 'parent_id'=>1355],
+                ['categories_id'=>1620, 'parent_id'=>1355],
+                ['categories_id'=>2711, 'parent_id'=>1355],
+                ['categories_id'=>2712, 'parent_id'=>1355],
+                ['categories_id'=>1512, 'parent_id'=>2065],
+                ['categories_id'=>1513, 'parent_id'=>2065],
+                ['categories_id'=>1514, 'parent_id'=>2065],
+                ['categories_id'=>2565, 'parent_id'=>1514],
+                ['categories_id'=>2566, 'parent_id'=>1514],
+                ['categories_id'=>2710, 'parent_id'=>1514],
+                ['categories_id'=>3213, 'parent_id'=>1514],
+                ['categories_id'=>3214, 'parent_id'=>1514],
+                ['categories_id'=>1515, 'parent_id'=>2065],
+                ['categories_id'=>2573, 'parent_id'=>1515],
+                ['categories_id'=>2574, 'parent_id'=>1515],
+                ['categories_id'=>2575, 'parent_id'=>1515],
+                ['categories_id'=>2576, 'parent_id'=>1515],
+                ['categories_id'=>2577, 'parent_id'=>1515],
+                ['categories_id'=>2578, 'parent_id'=>1515],
+                ['categories_id'=>2579, 'parent_id'=>1515],
+                ['categories_id'=>2580, 'parent_id'=>1515],
+                ['categories_id'=>2581, 'parent_id'=>1515],
+                ['categories_id'=>2582, 'parent_id'=>1515],
+                ['categories_id'=>2583, 'parent_id'=>1515],
+                ['categories_id'=>2584, 'parent_id'=>1515],
+                ['categories_id'=>2585, 'parent_id'=>1515],
+                ['categories_id'=>2586, 'parent_id'=>1515],
+                ['categories_id'=>2587, 'parent_id'=>1515],
+                ['categories_id'=>2588, 'parent_id'=>1515],
+                ['categories_id'=>1517, 'parent_id'=>2065],
+                ['categories_id'=>1518, 'parent_id'=>2065],
+                ['categories_id'=>2598, 'parent_id'=>1518],
+                ['categories_id'=>2599, 'parent_id'=>1518],
+                ['categories_id'=>2600, 'parent_id'=>1518],
+                ['categories_id'=>2601, 'parent_id'=>1518],
+                ['categories_id'=>2604, 'parent_id'=>1518],
+                ['categories_id'=>2605, 'parent_id'=>1518],
+                ['categories_id'=>2606, 'parent_id'=>1518],
+                ['categories_id'=>2607, 'parent_id'=>1518],
+                ['categories_id'=>2608, 'parent_id'=>1518],
+                ['categories_id'=>2609, 'parent_id'=>1518],
+                ['categories_id'=>3217, 'parent_id'=>1518],
+                ['categories_id'=>3276, 'parent_id'=>1518],
+                ['categories_id'=>3316, 'parent_id'=>1518],
+                ['categories_id'=>3318, 'parent_id'=>1518],
+                ['categories_id'=>1521, 'parent_id'=>2065],
+                ['categories_id'=>2568, 'parent_id'=>1521],
+                ['categories_id'=>3106, 'parent_id'=>1521],
+                ['categories_id'=>3108, 'parent_id'=>1521],
+                ['categories_id'=>3232, 'parent_id'=>1521],
+                ['categories_id'=>3247, 'parent_id'=>1521],
+                ['categories_id'=>3250, 'parent_id'=>1521],
+                ['categories_id'=>3255, 'parent_id'=>1521],
+                ['categories_id'=>3259, 'parent_id'=>1521],
+                ['categories_id'=>3272, 'parent_id'=>1521],
+                ['categories_id'=>3273, 'parent_id'=>1521],
+                ['categories_id'=>3327, 'parent_id'=>1521],
+                ['categories_id'=>1541, 'parent_id'=>2065],
+                ['categories_id'=>2589, 'parent_id'=>1541],
+                ['categories_id'=>2590, 'parent_id'=>1541],
+                ['categories_id'=>2591, 'parent_id'=>1541],
+                ['categories_id'=>2592, 'parent_id'=>1541],
+                ['categories_id'=>2593, 'parent_id'=>1541],
+                ['categories_id'=>2594, 'parent_id'=>1541],
+                ['categories_id'=>2595, 'parent_id'=>1541],
+                ['categories_id'=>2596, 'parent_id'=>1541],
+                ['categories_id'=>2597, 'parent_id'=>1541],
+                ['categories_id'=>3183, 'parent_id'=>1541],
+                ['categories_id'=>3218, 'parent_id'=>1541],
+                ['categories_id'=>3220, 'parent_id'=>1541],
+                ['categories_id'=>3280, 'parent_id'=>1541],
+                ['categories_id'=>2066, 'parent_id'=>2065],
+                ['categories_id'=>833, 'parent_id'=>2066],
+                ['categories_id'=>967, 'parent_id'=>2066],
+                ['categories_id'=>1314, 'parent_id'=>2066],
+                ['categories_id'=>1323, 'parent_id'=>2066],
+                ['categories_id'=>1411, 'parent_id'=>2066],
+                ['categories_id'=>1412, 'parent_id'=>2066],
+                ['categories_id'=>1413, 'parent_id'=>2066],
+                ['categories_id'=>1416, 'parent_id'=>2066],
+                ['categories_id'=>2067, 'parent_id'=>2065],
+                ['categories_id'=>972, 'parent_id'=>2067],
+                ['categories_id'=>1331, 'parent_id'=>2067],
+                ['categories_id'=>2068, 'parent_id'=>2065],
+                ['categories_id'=>1563, 'parent_id'=>2068],
+                ['categories_id'=>2069, 'parent_id'=>2065],
+                ['categories_id'=>1372, 'parent_id'=>2069],
+                ['categories_id'=>2610, 'parent_id'=>2069],
+                ['categories_id'=>3260, 'parent_id'=>2069],
+                ['categories_id'=>2070, 'parent_id'=>2065],
+                ['categories_id'=>834, 'parent_id'=>2070],
+                ['categories_id'=>1115, 'parent_id'=>2070],
+                ['categories_id'=>2571, 'parent_id'=>2070],
+                ['categories_id'=>2572, 'parent_id'=>2070],
+                ['categories_id'=>2611, 'parent_id'=>2065],
+                ['categories_id'=>2613, 'parent_id'=>2611],
+                ['categories_id'=>2614, 'parent_id'=>2611],
+                ['categories_id'=>2617, 'parent_id'=>2065],
+                ['categories_id'=>2618, 'parent_id'=>2617],
+                ['categories_id'=>2619, 'parent_id'=>2617],
+                ['categories_id'=>2620, 'parent_id'=>2617],
+                ['categories_id'=>2621, 'parent_id'=>2617],
+                ['categories_id'=>2622, 'parent_id'=>2617],
+                ['categories_id'=>2623, 'parent_id'=>2617],
+                ['categories_id'=>2624, 'parent_id'=>2617],
+                ['categories_id'=>2626, 'parent_id'=>2065],
+                ['categories_id'=>2627, 'parent_id'=>2626],
+                ['categories_id'=>2628, 'parent_id'=>2626],
+                ['categories_id'=>2629, 'parent_id'=>2626],
+                ['categories_id'=>2630, 'parent_id'=>2626],
+                ['categories_id'=>2631, 'parent_id'=>2626],
+                ['categories_id'=>2632, 'parent_id'=>2626],
+                ['categories_id'=>2633, 'parent_id'=>2626],
+                ['categories_id'=>2634, 'parent_id'=>2626],
+                ['categories_id'=>2635, 'parent_id'=>2626],
+                ['categories_id'=>2636, 'parent_id'=>2626],
+                ['categories_id'=>2637, 'parent_id'=>2626],
+                ['categories_id'=>2638, 'parent_id'=>2626],
+                ['categories_id'=>2639, 'parent_id'=>2626],
+                ['categories_id'=>2640, 'parent_id'=>2626],
+                ['categories_id'=>2641, 'parent_id'=>2626],
+                ['categories_id'=>3137, 'parent_id'=>2626],
+                ['categories_id'=>3221, 'parent_id'=>2626],
+                ['categories_id'=>3246, 'parent_id'=>2626],
+                ['categories_id'=>3271, 'parent_id'=>2626],
+                ['categories_id'=>3419, 'parent_id'=>2626],
+                ['categories_id'=>2642, 'parent_id'=>2065],
+                ['categories_id'=>2643, 'parent_id'=>2642],
+                ['categories_id'=>2644, 'parent_id'=>2642],
+                ['categories_id'=>2646, 'parent_id'=>2642],
+                ['categories_id'=>2647, 'parent_id'=>2642],
+                ['categories_id'=>2649, 'parent_id'=>2642],
+                ['categories_id'=>2650, 'parent_id'=>2642],
+                ['categories_id'=>2707, 'parent_id'=>2642],
+                ['categories_id'=>3135, 'parent_id'=>2642],
+                ['categories_id'=>2651, 'parent_id'=>2065],
+                ['categories_id'=>2652, 'parent_id'=>2651],
+                ['categories_id'=>2653, 'parent_id'=>2651],
+                ['categories_id'=>2654, 'parent_id'=>2651],
+                ['categories_id'=>2655, 'parent_id'=>2065],
+                ['categories_id'=>2656, 'parent_id'=>2655],
+                ['categories_id'=>2657, 'parent_id'=>2655],
+                ['categories_id'=>2658, 'parent_id'=>2655],
+                ['categories_id'=>2659, 'parent_id'=>2655],
+                ['categories_id'=>2660, 'parent_id'=>2655],
+                ['categories_id'=>2662, 'parent_id'=>2655],
+                ['categories_id'=>2664, 'parent_id'=>2655],
+                ['categories_id'=>2665, 'parent_id'=>2655],
+                ['categories_id'=>2666, 'parent_id'=>2655],
+                ['categories_id'=>2667, 'parent_id'=>2655],
+                ['categories_id'=>2721, 'parent_id'=>2655],
+                ['categories_id'=>2726, 'parent_id'=>2655],
+                ['categories_id'=>2727, 'parent_id'=>2655],
+                ['categories_id'=>2728, 'parent_id'=>2655],
+                ['categories_id'=>3098, 'parent_id'=>2655],
+                ['categories_id'=>3215, 'parent_id'=>2655],
+                ['categories_id'=>3216, 'parent_id'=>2655],
+                ['categories_id'=>2669, 'parent_id'=>2065],
+                ['categories_id'=>2670, 'parent_id'=>2669],
+                ['categories_id'=>2671, 'parent_id'=>2669],
+                ['categories_id'=>2672, 'parent_id'=>2669],
+                ['categories_id'=>2673, 'parent_id'=>2669],
+                ['categories_id'=>2674, 'parent_id'=>2669],
+                ['categories_id'=>2675, 'parent_id'=>2065],
+                ['categories_id'=>2676, 'parent_id'=>2675],
+                ['categories_id'=>2677, 'parent_id'=>2675],
+                ['categories_id'=>2678, 'parent_id'=>2675],
+                ['categories_id'=>2679, 'parent_id'=>2675],
+                ['categories_id'=>2680, 'parent_id'=>2675],
+                ['categories_id'=>2681, 'parent_id'=>2675],
+                ['categories_id'=>3261, 'parent_id'=>2675],
+                ['categories_id'=>3270, 'parent_id'=>2675],
+                ['categories_id'=>3388, 'parent_id'=>2675],
+                ['categories_id'=>2682, 'parent_id'=>2065],
+                ['categories_id'=>2683, 'parent_id'=>2682],
+                ['categories_id'=>3143, 'parent_id'=>2682],
+                ['categories_id'=>3211, 'parent_id'=>2682],
+                ['categories_id'=>3212, 'parent_id'=>2682],
+                ['categories_id'=>2684, 'parent_id'=>2065],
+                ['categories_id'=>2685, 'parent_id'=>2684],
+                ['categories_id'=>2686, 'parent_id'=>2684],
+                ['categories_id'=>2869, 'parent_id'=>2684],
+                ['categories_id'=>3234, 'parent_id'=>2684],
+                ['categories_id'=>2814, 'parent_id'=>2065],
+                ['categories_id'=>3079, 'parent_id'=>2065],
+                ['categories_id'=>3147, 'parent_id'=>3079],
+                ['categories_id'=>3148, 'parent_id'=>3079],
+                ['categories_id'=>3269, 'parent_id'=>3079],
+                ['categories_id'=>3389, 'parent_id'=>3079],
+                ['categories_id'=>3109, 'parent_id'=>2065],
+                ['categories_id'=>3237, 'parent_id'=>2065],
+                ['categories_id'=>2146, 'parent_id'=>2065],
+                ['categories_id'=>2150, 'parent_id'=>2146],
+                ['categories_id'=>2153, 'parent_id'=>2146],
+                ['categories_id'=>3233, 'parent_id'=>2146],
+                ['categories_id'=>2040, 'parent_id'=>0],
+                ['categories_id'=>1406, 'parent_id'=>2040],
+                ['categories_id'=>2435, 'parent_id'=>1406],
+                ['categories_id'=>2436, 'parent_id'=>1406],
+                ['categories_id'=>2437, 'parent_id'=>1406],
+                ['categories_id'=>2438, 'parent_id'=>1406],
+                ['categories_id'=>2439, 'parent_id'=>1406],
+                ['categories_id'=>2743, 'parent_id'=>1406],
+                ['categories_id'=>2748, 'parent_id'=>1406],
+                ['categories_id'=>2753, 'parent_id'=>1406],
+                ['categories_id'=>2754, 'parent_id'=>1406],
+                ['categories_id'=>2755, 'parent_id'=>1406],
+                ['categories_id'=>2756, 'parent_id'=>1406],
+                ['categories_id'=>2757, 'parent_id'=>1406],
+                ['categories_id'=>2758, 'parent_id'=>1406],
+                ['categories_id'=>2759, 'parent_id'=>1406],
+                ['categories_id'=>3053, 'parent_id'=>1406],
+                ['categories_id'=>3084, 'parent_id'=>1406],
+                ['categories_id'=>1431, 'parent_id'=>2040],
+                ['categories_id'=>1446, 'parent_id'=>2040],
+                ['categories_id'=>2716, 'parent_id'=>1446],
+                ['categories_id'=>2717, 'parent_id'=>1446],
+                ['categories_id'=>2718, 'parent_id'=>1446],
+                ['categories_id'=>2722, 'parent_id'=>1446],
+                ['categories_id'=>2725, 'parent_id'=>1446],
+                ['categories_id'=>2831, 'parent_id'=>1446],
+                ['categories_id'=>2834, 'parent_id'=>1446],
+                ['categories_id'=>3080, 'parent_id'=>1446],
+                ['categories_id'=>3154, 'parent_id'=>1446],
+                ['categories_id'=>1533, 'parent_id'=>2040],
+                ['categories_id'=>2418, 'parent_id'=>1533],
+                ['categories_id'=>2421, 'parent_id'=>1533],
+                ['categories_id'=>2422, 'parent_id'=>1533],
+                ['categories_id'=>2423, 'parent_id'=>1533],
+                ['categories_id'=>2424, 'parent_id'=>1533],
+                ['categories_id'=>2425, 'parent_id'=>1533],
+                ['categories_id'=>2738, 'parent_id'=>1533],
+                ['categories_id'=>2746, 'parent_id'=>1533],
+                ['categories_id'=>2838, 'parent_id'=>1533],
+                ['categories_id'=>2839, 'parent_id'=>1533],
+                ['categories_id'=>2856, 'parent_id'=>1533],
+                ['categories_id'=>2857, 'parent_id'=>1533],
+                ['categories_id'=>2858, 'parent_id'=>1533],
+                ['categories_id'=>3202, 'parent_id'=>1533],
+                ['categories_id'=>1574, 'parent_id'=>2040],
+                ['categories_id'=>1421, 'parent_id'=>1574],
+                ['categories_id'=>2431, 'parent_id'=>1574],
+                ['categories_id'=>2432, 'parent_id'=>1574],
+                ['categories_id'=>2433, 'parent_id'=>1574],
+                ['categories_id'=>2740, 'parent_id'=>1574],
+                ['categories_id'=>1575, 'parent_id'=>2040],
+                ['categories_id'=>2817, 'parent_id'=>1575],
+                ['categories_id'=>2818, 'parent_id'=>1575],
+                ['categories_id'=>2819, 'parent_id'=>1575],
+                ['categories_id'=>2820, 'parent_id'=>1575],
+                ['categories_id'=>3087, 'parent_id'=>1575],
+                ['categories_id'=>3278, 'parent_id'=>1575],
+                ['categories_id'=>2107, 'parent_id'=>2040],
+                ['categories_id'=>2426, 'parent_id'=>2107],
+                ['categories_id'=>2427, 'parent_id'=>2107],
+                ['categories_id'=>2428, 'parent_id'=>2107],
+                ['categories_id'=>2429, 'parent_id'=>2107],
+                ['categories_id'=>2441, 'parent_id'=>2107],
+                ['categories_id'=>2442, 'parent_id'=>2107],
+                ['categories_id'=>2443, 'parent_id'=>2107],
+                ['categories_id'=>2444, 'parent_id'=>2107],
+                ['categories_id'=>2445, 'parent_id'=>2107],
+                ['categories_id'=>2446, 'parent_id'=>2107],
+                ['categories_id'=>2447, 'parent_id'=>2107],
+                ['categories_id'=>2713, 'parent_id'=>2107],
+                ['categories_id'=>2749, 'parent_id'=>2107],
+                ['categories_id'=>2108, 'parent_id'=>2040],
+                ['categories_id'=>2815, 'parent_id'=>2108],
+                ['categories_id'=>2816, 'parent_id'=>2108],
+                ['categories_id'=>2419, 'parent_id'=>2040],
+                ['categories_id'=>2420, 'parent_id'=>2419],
+                ['categories_id'=>2457, 'parent_id'=>2419],
+                ['categories_id'=>2458, 'parent_id'=>2419],
+                ['categories_id'=>2460, 'parent_id'=>2419],
+                ['categories_id'=>2860, 'parent_id'=>2419],
+                ['categories_id'=>2862, 'parent_id'=>2419],
+                ['categories_id'=>2434, 'parent_id'=>2040],
+                ['categories_id'=>2109, 'parent_id'=>2434],
+                ['categories_id'=>2826, 'parent_id'=>2434],
+                ['categories_id'=>2877, 'parent_id'=>2434],
+                ['categories_id'=>2878, 'parent_id'=>2434],
+                ['categories_id'=>2879, 'parent_id'=>2434],
+                ['categories_id'=>2880, 'parent_id'=>2434],
+                ['categories_id'=>2881, 'parent_id'=>2434],
+                ['categories_id'=>2882, 'parent_id'=>2434],
+                ['categories_id'=>2883, 'parent_id'=>2434],
+                ['categories_id'=>2449, 'parent_id'=>2040],
+                ['categories_id'=>2723, 'parent_id'=>2449],
+                ['categories_id'=>2833, 'parent_id'=>2449],
+                ['categories_id'=>3082, 'parent_id'=>2449],
+                ['categories_id'=>3083, 'parent_id'=>2449],
+                ['categories_id'=>3086, 'parent_id'=>2449],
+                ['categories_id'=>2461, 'parent_id'=>2040],
+                ['categories_id'=>2463, 'parent_id'=>2461],
+                ['categories_id'=>2465, 'parent_id'=>2461],
+                ['categories_id'=>2737, 'parent_id'=>2461],
+                ['categories_id'=>2739, 'parent_id'=>2461],
+                ['categories_id'=>2744, 'parent_id'=>2461],
+                ['categories_id'=>2745, 'parent_id'=>2461],
+                ['categories_id'=>2811, 'parent_id'=>2461],
+                ['categories_id'=>2827, 'parent_id'=>2461],
+                ['categories_id'=>2840, 'parent_id'=>2461],
+                ['categories_id'=>2868, 'parent_id'=>2461],
+                ['categories_id'=>3052, 'parent_id'=>2461],
+                ['categories_id'=>2747, 'parent_id'=>2040],
+                ['categories_id'=>2751, 'parent_id'=>2747],
+                ['categories_id'=>2752, 'parent_id'=>2747],
+                ['categories_id'=>2809, 'parent_id'=>2040],
+                ['categories_id'=>2466, 'parent_id'=>2809],
+                ['categories_id'=>2750, 'parent_id'=>2809],
+                ['categories_id'=>2810, 'parent_id'=>2809],
+                ['categories_id'=>2812, 'parent_id'=>2809],
+                ['categories_id'=>2813, 'parent_id'=>2809],
+                ['categories_id'=>2821, 'parent_id'=>2040],
+                ['categories_id'=>2448, 'parent_id'=>2821],
+                ['categories_id'=>2467, 'parent_id'=>2821],
+                ['categories_id'=>2822, 'parent_id'=>2821],
+                ['categories_id'=>2823, 'parent_id'=>2821],
+                ['categories_id'=>2828, 'parent_id'=>2040],
+                ['categories_id'=>2829, 'parent_id'=>2828],
+                ['categories_id'=>2830, 'parent_id'=>2828],
+                ['categories_id'=>2841, 'parent_id'=>2828],
+                ['categories_id'=>2842, 'parent_id'=>2828],
+                ['categories_id'=>2042, 'parent_id'=>0],
+                ['categories_id'=>1407, 'parent_id'=>2042],
+                ['categories_id'=>1438, 'parent_id'=>1407],
+                ['categories_id'=>1439, 'parent_id'=>1407],
+                ['categories_id'=>1440, 'parent_id'=>1407],
+                ['categories_id'=>1441, 'parent_id'=>1407],
+                ['categories_id'=>1482, 'parent_id'=>1407],
+                ['categories_id'=>1484, 'parent_id'=>1407],
+                ['categories_id'=>1485, 'parent_id'=>1407],
+                ['categories_id'=>1486, 'parent_id'=>1407],
+                ['categories_id'=>1487, 'parent_id'=>1407],
+                ['categories_id'=>3240, 'parent_id'=>1407],
+                ['categories_id'=>1526, 'parent_id'=>2042],
+                ['categories_id'=>2044, 'parent_id'=>1526],
+                ['categories_id'=>2045, 'parent_id'=>1526],
+                ['categories_id'=>1527, 'parent_id'=>2042],
+                ['categories_id'=>1528, 'parent_id'=>2042],
+                ['categories_id'=>1546, 'parent_id'=>1528],
+                ['categories_id'=>2397, 'parent_id'=>1528],
+                ['categories_id'=>2398, 'parent_id'=>1528],
+                ['categories_id'=>2399, 'parent_id'=>1528],
+                ['categories_id'=>2400, 'parent_id'=>1528],
+                ['categories_id'=>2401, 'parent_id'=>1528],
+                ['categories_id'=>2402, 'parent_id'=>1528],
+                ['categories_id'=>3097, 'parent_id'=>1528],
+                ['categories_id'=>3191, 'parent_id'=>1528],
+                ['categories_id'=>2023, 'parent_id'=>2042],
+                ['categories_id'=>2026, 'parent_id'=>2023],
+                ['categories_id'=>2031, 'parent_id'=>2023],
+                ['categories_id'=>2037, 'parent_id'=>2042],
+                ['categories_id'=>2038, 'parent_id'=>2037],
+                ['categories_id'=>2039, 'parent_id'=>2037],
+                ['categories_id'=>2041, 'parent_id'=>2037],
+                ['categories_id'=>2043, 'parent_id'=>2042],
+                ['categories_id'=>1516, 'parent_id'=>2043],
+                ['categories_id'=>1523, 'parent_id'=>2043],
+                ['categories_id'=>2393, 'parent_id'=>2042],
+                ['categories_id'=>2394, 'parent_id'=>2393],
+                ['categories_id'=>2395, 'parent_id'=>2393],
+                ['categories_id'=>2403, 'parent_id'=>2042],
+                ['categories_id'=>2404, 'parent_id'=>2403],
+                ['categories_id'=>2405, 'parent_id'=>2403],
+                ['categories_id'=>2406, 'parent_id'=>2403],
+                ['categories_id'=>2407, 'parent_id'=>2403],
+                ['categories_id'=>3274, 'parent_id'=>2403],
+                ['categories_id'=>2709, 'parent_id'=>2042],
+                ['categories_id'=>3138, 'parent_id'=>2709],
+                ['categories_id'=>3140, 'parent_id'=>2709],
+                ['categories_id'=>3149, 'parent_id'=>2709],
+                ['categories_id'=>3203, 'parent_id'=>2709],
+                ['categories_id'=>2729, 'parent_id'=>2042],
+                ['categories_id'=>2843, 'parent_id'=>2729],
+                ['categories_id'=>3385, 'parent_id'=>2729],
+                ['categories_id'=>2845, 'parent_id'=>2042],
+                ['categories_id'=>2846, 'parent_id'=>2845],
+                ['categories_id'=>2847, 'parent_id'=>2845],
+                ['categories_id'=>2848, 'parent_id'=>2845],
+                ['categories_id'=>2849, 'parent_id'=>2845],
+                ['categories_id'=>2850, 'parent_id'=>2042],
+                ['categories_id'=>2836, 'parent_id'=>2850],
+                ['categories_id'=>2837, 'parent_id'=>2850],
+                ['categories_id'=>2852, 'parent_id'=>2850],
+                ['categories_id'=>2853, 'parent_id'=>2850],
+                ['categories_id'=>2854, 'parent_id'=>2850],
+                ['categories_id'=>2855, 'parent_id'=>2850],
+                ['categories_id'=>2863, 'parent_id'=>2850],
+                ['categories_id'=>2864, 'parent_id'=>2042],
+                ['categories_id'=>2865, 'parent_id'=>2864],
+                ['categories_id'=>2866, 'parent_id'=>2864],
+                ['categories_id'=>3151, 'parent_id'=>2042],
+                ['categories_id'=>3152, 'parent_id'=>3151],
+                ['categories_id'=>3153, 'parent_id'=>3151],
+                ['categories_id'=>3014, 'parent_id'=>0],
+                ['categories_id'=>2687, 'parent_id'=>3014],
+                ['categories_id'=>3016, 'parent_id'=>2687],
+                ['categories_id'=>3017, 'parent_id'=>2687],
+                ['categories_id'=>2688, 'parent_id'=>3014],
+                ['categories_id'=>3022, 'parent_id'=>2688],
+                ['categories_id'=>3023, 'parent_id'=>2688],
+                ['categories_id'=>2730, 'parent_id'=>3014],
+                ['categories_id'=>3222, 'parent_id'=>2730],
+                ['categories_id'=>3018, 'parent_id'=>3014],
+                ['categories_id'=>3019, 'parent_id'=>3018],
+                ['categories_id'=>3020, 'parent_id'=>3018],
+                ['categories_id'=>3021, 'parent_id'=>3018],
+                ['categories_id'=>3046, 'parent_id'=>3018],
+                ['categories_id'=>3047, 'parent_id'=>3018],
+                ['categories_id'=>3027, 'parent_id'=>3014],
+                ['categories_id'=>3028, 'parent_id'=>3027],
+                ['categories_id'=>3029, 'parent_id'=>3027],
+                ['categories_id'=>3048, 'parent_id'=>3027],
+                ['categories_id'=>3030, 'parent_id'=>3014],
+                ['categories_id'=>3031, 'parent_id'=>3030],
+                ['categories_id'=>3032, 'parent_id'=>3030],
+                ['categories_id'=>3033, 'parent_id'=>3030],
+                ['categories_id'=>3034, 'parent_id'=>3014],
+                ['categories_id'=>3035, 'parent_id'=>3014],
+                ['categories_id'=>3049, 'parent_id'=>3014],
+                ['categories_id'=>3050, 'parent_id'=>3049],
+                ['categories_id'=>3051, 'parent_id'=>3049],
+                ['categories_id'=>2873, 'parent_id'=>0],
+                ['categories_id'=>2875, 'parent_id'=>2873],
+                ['categories_id'=>3375, 'parent_id'=>2875],
+                ['categories_id'=>3376, 'parent_id'=>2875],
+                ['categories_id'=>3377, 'parent_id'=>2875],
+                ['categories_id'=>3378, 'parent_id'=>2875],
+                ['categories_id'=>3197, 'parent_id'=>2873],
+                ['categories_id'=>2884, 'parent_id'=>0],
+                ['categories_id'=>1911, 'parent_id'=>2884],
+                ['categories_id'=>543, 'parent_id'=>1911],
+                ['categories_id'=>1536, 'parent_id'=>1911],
+                ['categories_id'=>1558, 'parent_id'=>1911],
+                ['categories_id'=>2996, 'parent_id'=>1911],
+                ['categories_id'=>2997, 'parent_id'=>1911],
+                ['categories_id'=>2998, 'parent_id'=>1911],
+                ['categories_id'=>2999, 'parent_id'=>1911],
+                ['categories_id'=>3000, 'parent_id'=>1911],
+                ['categories_id'=>3043, 'parent_id'=>1911],
+                ['categories_id'=>3044, 'parent_id'=>1911],
+                ['categories_id'=>2885, 'parent_id'=>2884],
+                ['categories_id'=>2887, 'parent_id'=>2885],
+                ['categories_id'=>2888, 'parent_id'=>2885],
+                ['categories_id'=>2889, 'parent_id'=>2885],
+                ['categories_id'=>2890, 'parent_id'=>2885],
+                ['categories_id'=>2891, 'parent_id'=>2885],
+                ['categories_id'=>2892, 'parent_id'=>2885],
+                ['categories_id'=>2893, 'parent_id'=>2885],
+                ['categories_id'=>2894, 'parent_id'=>2885],
+                ['categories_id'=>2895, 'parent_id'=>2885],
+                ['categories_id'=>2896, 'parent_id'=>2885],
+                ['categories_id'=>2897, 'parent_id'=>2885],
+                ['categories_id'=>2899, 'parent_id'=>2885],
+                ['categories_id'=>2900, 'parent_id'=>2885],
+                ['categories_id'=>2901, 'parent_id'=>2885],
+                ['categories_id'=>2902, 'parent_id'=>2885],
+                ['categories_id'=>2903, 'parent_id'=>2885],
+                ['categories_id'=>2904, 'parent_id'=>2885],
+                ['categories_id'=>2906, 'parent_id'=>2885],
+                ['categories_id'=>2976, 'parent_id'=>2885],
+                ['categories_id'=>3045, 'parent_id'=>2885],
+                ['categories_id'=>2886, 'parent_id'=>2884],
+                ['categories_id'=>2907, 'parent_id'=>2886],
+                ['categories_id'=>2909, 'parent_id'=>2886],
+                ['categories_id'=>2910, 'parent_id'=>2886],
+                ['categories_id'=>2911, 'parent_id'=>2886],
+                ['categories_id'=>2912, 'parent_id'=>2886],
+                ['categories_id'=>2913, 'parent_id'=>2884],
+                ['categories_id'=>2914, 'parent_id'=>2913],
+                ['categories_id'=>2915, 'parent_id'=>2913],
+                ['categories_id'=>2916, 'parent_id'=>2913],
+                ['categories_id'=>2917, 'parent_id'=>2913],
+                ['categories_id'=>2918, 'parent_id'=>2913],
+                ['categories_id'=>2919, 'parent_id'=>2913],
+                ['categories_id'=>2920, 'parent_id'=>2913],
+                ['categories_id'=>2921, 'parent_id'=>2913],
+                ['categories_id'=>2922, 'parent_id'=>2913],
+                ['categories_id'=>2923, 'parent_id'=>2913],
+                ['categories_id'=>2924, 'parent_id'=>2913],
+                ['categories_id'=>2925, 'parent_id'=>2913],
+                ['categories_id'=>2978, 'parent_id'=>2913],
+                ['categories_id'=>2981, 'parent_id'=>2913],
+                ['categories_id'=>2982, 'parent_id'=>2913],
+                ['categories_id'=>3001, 'parent_id'=>2913],
+                ['categories_id'=>3036, 'parent_id'=>2913],
+                ['categories_id'=>3037, 'parent_id'=>2913],
+                ['categories_id'=>3038, 'parent_id'=>2913],
+                ['categories_id'=>3039, 'parent_id'=>2913],
+                ['categories_id'=>3040, 'parent_id'=>2913],
+                ['categories_id'=>2926, 'parent_id'=>2884],
+                ['categories_id'=>2927, 'parent_id'=>2926],
+                ['categories_id'=>2928, 'parent_id'=>2926],
+                ['categories_id'=>2929, 'parent_id'=>2926],
+                ['categories_id'=>2930, 'parent_id'=>2926],
+                ['categories_id'=>2931, 'parent_id'=>2926],
+                ['categories_id'=>2932, 'parent_id'=>2926],
+                ['categories_id'=>2933, 'parent_id'=>2926],
+                ['categories_id'=>2935, 'parent_id'=>2926],
+                ['categories_id'=>2936, 'parent_id'=>2926],
+                ['categories_id'=>2937, 'parent_id'=>2926],
+                ['categories_id'=>2938, 'parent_id'=>2926],
+                ['categories_id'=>2939, 'parent_id'=>2926],
+                ['categories_id'=>2940, 'parent_id'=>2926],
+                ['categories_id'=>2941, 'parent_id'=>2926],
+                ['categories_id'=>2942, 'parent_id'=>2926],
+                ['categories_id'=>2979, 'parent_id'=>2926],
+                ['categories_id'=>2983, 'parent_id'=>2926],
+                ['categories_id'=>3013, 'parent_id'=>2926],
+                ['categories_id'=>3074, 'parent_id'=>2926],
+                ['categories_id'=>2943, 'parent_id'=>2884],
+                ['categories_id'=>2944, 'parent_id'=>2943],
+                ['categories_id'=>2945, 'parent_id'=>2943],
+                ['categories_id'=>2946, 'parent_id'=>2943],
+                ['categories_id'=>2947, 'parent_id'=>2943],
+                ['categories_id'=>2948, 'parent_id'=>2943],
+                ['categories_id'=>2949, 'parent_id'=>2943],
+                ['categories_id'=>2950, 'parent_id'=>2943],
+                ['categories_id'=>2951, 'parent_id'=>2943],
+                ['categories_id'=>2952, 'parent_id'=>2943],
+                ['categories_id'=>2953, 'parent_id'=>2943],
+                ['categories_id'=>3041, 'parent_id'=>2943],
+                ['categories_id'=>3060, 'parent_id'=>2943],
+                ['categories_id'=>3061, 'parent_id'=>2943],
+                ['categories_id'=>3062, 'parent_id'=>2943],
+                ['categories_id'=>2954, 'parent_id'=>2884],
+                ['categories_id'=>2955, 'parent_id'=>2954],
+                ['categories_id'=>2956, 'parent_id'=>2954],
+                ['categories_id'=>2957, 'parent_id'=>2954],
+                ['categories_id'=>2958, 'parent_id'=>2954],
+                ['categories_id'=>2959, 'parent_id'=>2954],
+                ['categories_id'=>2960, 'parent_id'=>2954],
+                ['categories_id'=>2961, 'parent_id'=>2954],
+                ['categories_id'=>2962, 'parent_id'=>2954],
+                ['categories_id'=>2963, 'parent_id'=>2954],
+                ['categories_id'=>2964, 'parent_id'=>2954],
+                ['categories_id'=>2965, 'parent_id'=>2954],
+                ['categories_id'=>2966, 'parent_id'=>2954],
+                ['categories_id'=>2967, 'parent_id'=>2954],
+                ['categories_id'=>2968, 'parent_id'=>2954],
+                ['categories_id'=>2969, 'parent_id'=>2954],
+                ['categories_id'=>2970, 'parent_id'=>2954],
+                ['categories_id'=>2971, 'parent_id'=>2954],
+                ['categories_id'=>2985, 'parent_id'=>2954],
+                ['categories_id'=>3042, 'parent_id'=>2954],
+                ['categories_id'=>2973, 'parent_id'=>2884],
+                ['categories_id'=>2988, 'parent_id'=>2884],
+                ['categories_id'=>2994, 'parent_id'=>2988],
+                ['categories_id'=>2995, 'parent_id'=>2988],
+                ['categories_id'=>3065, 'parent_id'=>2884],
+                ['categories_id'=>2155, 'parent_id'=>0],
+                ['categories_id'=>2156, 'parent_id'=>2155],
+                ['categories_id'=>2158, 'parent_id'=>2156],
+                ['categories_id'=>2160, 'parent_id'=>2156],
+                ['categories_id'=>2164, 'parent_id'=>2156],
+                ['categories_id'=>2166, 'parent_id'=>2156],
+                ['categories_id'=>2157, 'parent_id'=>2155],
+                ['categories_id'=>2170, 'parent_id'=>2157],
+                ['categories_id'=>2176, 'parent_id'=>2157],
+                ['categories_id'=>2177, 'parent_id'=>2157],
+                ['categories_id'=>2179, 'parent_id'=>2157],
+                ['categories_id'=>2180, 'parent_id'=>2157],
+                ['categories_id'=>3141, 'parent_id'=>2157],
+                ['categories_id'=>2720, 'parent_id'=>2155],
+                ['categories_id'=>3002, 'parent_id'=>2720],
+                ['categories_id'=>3003, 'parent_id'=>2720],
+                ['categories_id'=>3004, 'parent_id'=>2720],
+                ['categories_id'=>3005, 'parent_id'=>2720],
+                ['categories_id'=>3006, 'parent_id'=>2720],
+                ['categories_id'=>3007, 'parent_id'=>2720],
+                ['categories_id'=>3054, 'parent_id'=>2720],
+                ['categories_id'=>3058, 'parent_id'=>2720],
+                ['categories_id'=>3096, 'parent_id'=>2720],
+                ['categories_id'=>3105, 'parent_id'=>2720],
+                ['categories_id'=>3132, 'parent_id'=>2720],
+                ['categories_id'=>3248, 'parent_id'=>2720],
+                ['categories_id'=>3249, 'parent_id'=>2720],
+                ['categories_id'=>3386, 'parent_id'=>2720],
+                ['categories_id'=>3142, 'parent_id'=>2155],
+                ['categories_id'=>3252, 'parent_id'=>2155],
+                ['categories_id'=>2336, 'parent_id'=>0],
+                ['categories_id'=>2337, 'parent_id'=>2336],
+                ['categories_id'=>2339, 'parent_id'=>2337],
+                ['categories_id'=>2349, 'parent_id'=>2337],
+                ['categories_id'=>2351, 'parent_id'=>2336],
+                ['categories_id'=>2352, 'parent_id'=>2336],
+                ['categories_id'=>2353, 'parent_id'=>2352],
+                ['categories_id'=>2354, 'parent_id'=>2352],
+                ['categories_id'=>2355, 'parent_id'=>2352],
+                ['categories_id'=>2356, 'parent_id'=>2336],
+                ['categories_id'=>2357, 'parent_id'=>2356],
+                ['categories_id'=>2358, 'parent_id'=>2356],
+                ['categories_id'=>2359, 'parent_id'=>2356],
+                ['categories_id'=>2360, 'parent_id'=>2356],
+                ['categories_id'=>2365, 'parent_id'=>2356],
+                ['categories_id'=>2369, 'parent_id'=>2356],
+                ['categories_id'=>2370, 'parent_id'=>2356],
+                ['categories_id'=>2372, 'parent_id'=>2356],
+                ['categories_id'=>2376, 'parent_id'=>2356],
+                ['categories_id'=>3066, 'parent_id'=>2356],
+                ['categories_id'=>2381, 'parent_id'=>2336],
+                ['categories_id'=>2382, 'parent_id'=>2381],
+                ['categories_id'=>2385, 'parent_id'=>2381],
+                ['categories_id'=>1397, 'parent_id'=>0],
+                ['categories_id'=>1398, 'parent_id'=>1397],
+                ['categories_id'=>1400, 'parent_id'=>1397],
+                ['categories_id'=>1403, 'parent_id'=>1397],
+                ['categories_id'=>1405, 'parent_id'=>1397],
+                ['categories_id'=>1410, 'parent_id'=>1397],
+                ['categories_id'=>1544, 'parent_id'=>0],
+                ['categories_id'=>1543, 'parent_id'=>1544],
+                ['categories_id'=>1545, 'parent_id'=>1544],
+                ['categories_id'=>1566, 'parent_id'=>1544],
+                ['categories_id'=>2331, 'parent_id'=>1566],
+                ['categories_id'=>2332, 'parent_id'=>1566],
+                ['categories_id'=>2333, 'parent_id'=>1566],
+                ['categories_id'=>2334, 'parent_id'=>1566],
+                ['categories_id'=>2335, 'parent_id'=>1566],
+                ['categories_id'=>2760, 'parent_id'=>1566],
+                ['categories_id'=>2761, 'parent_id'=>1566],
+                ['categories_id'=>2762, 'parent_id'=>1566],
+                ['categories_id'=>2763, 'parent_id'=>1566],
+                ['categories_id'=>2764, 'parent_id'=>1544],
+                ['categories_id'=>2765, 'parent_id'=>2764],
+                ['categories_id'=>2766, 'parent_id'=>2764],
+                ['categories_id'=>2767, 'parent_id'=>2764],
+                ['categories_id'=>2768, 'parent_id'=>2764],
+                ['categories_id'=>2769, 'parent_id'=>2764],
+                ['categories_id'=>2770, 'parent_id'=>2764],
+                ['categories_id'=>2977, 'parent_id'=>2764],
+                ['categories_id'=>3394, 'parent_id'=>2764],
+                ['categories_id'=>2771, 'parent_id'=>1544],
+                ['categories_id'=>2772, 'parent_id'=>1544],
+                ['categories_id'=>2773, 'parent_id'=>1544],
+                ['categories_id'=>2774, 'parent_id'=>2773],
+                ['categories_id'=>2775, 'parent_id'=>2773],
+                ['categories_id'=>2777, 'parent_id'=>2773],
+                ['categories_id'=>2778, 'parent_id'=>2773],
+                ['categories_id'=>2779, 'parent_id'=>2773],
+                ['categories_id'=>3012, 'parent_id'=>2773],
+                ['categories_id'=>2780, 'parent_id'=>1544],
+                ['categories_id'=>2781, 'parent_id'=>1544],
+                ['categories_id'=>2782, 'parent_id'=>2781],
+                ['categories_id'=>2784, 'parent_id'=>2781],
+                ['categories_id'=>2785, 'parent_id'=>2781],
+                ['categories_id'=>2786, 'parent_id'=>2781],
+                ['categories_id'=>2787, 'parent_id'=>2781],
+                ['categories_id'=>2788, 'parent_id'=>2781],
+                ['categories_id'=>2789, 'parent_id'=>1544],
+                ['categories_id'=>2790, 'parent_id'=>2789],
+                ['categories_id'=>2792, 'parent_id'=>2789],
+                ['categories_id'=>2796, 'parent_id'=>2789],
+                ['categories_id'=>2797, 'parent_id'=>1544],
+                ['categories_id'=>2798, 'parent_id'=>2797],
+                ['categories_id'=>2799, 'parent_id'=>2797],
+                ['categories_id'=>2802, 'parent_id'=>2797],
+                ['categories_id'=>2804, 'parent_id'=>1544],
+                ['categories_id'=>2805, 'parent_id'=>2804],
+                ['categories_id'=>2806, 'parent_id'=>2804],
+                ['categories_id'=>2807, 'parent_id'=>2804],
+                ['categories_id'=>2808, 'parent_id'=>2804],
+                ['categories_id'=>2130, 'parent_id'=>0],
+                ['categories_id'=>2131, 'parent_id'=>2130],
+                ['categories_id'=>2133, 'parent_id'=>2131],
+                ['categories_id'=>3192, 'parent_id'=>2131],
+                ['categories_id'=>3193, 'parent_id'=>2131],
+                ['categories_id'=>2134, 'parent_id'=>2130],
+                ['categories_id'=>2135, 'parent_id'=>2134],
+                ['categories_id'=>2136, 'parent_id'=>2134],
+                ['categories_id'=>2138, 'parent_id'=>2134],
+                ['categories_id'=>2139, 'parent_id'=>2134],
+                ['categories_id'=>3167, 'parent_id'=>2134],
+                ['categories_id'=>3168, 'parent_id'=>2134],
+                ['categories_id'=>3169, 'parent_id'=>2134],
+                ['categories_id'=>3170, 'parent_id'=>2134],
+                ['categories_id'=>3171, 'parent_id'=>2134],
+                ['categories_id'=>3172, 'parent_id'=>2134],
+                ['categories_id'=>3173, 'parent_id'=>2134],
+                ['categories_id'=>3174, 'parent_id'=>2134],
+                ['categories_id'=>3175, 'parent_id'=>2134],
+                ['categories_id'=>3176, 'parent_id'=>2134],
+                ['categories_id'=>3177, 'parent_id'=>2134],
+                ['categories_id'=>3226, 'parent_id'=>2134],
+                ['categories_id'=>2140, 'parent_id'=>2130],
+                ['categories_id'=>2141, 'parent_id'=>2140],
+                ['categories_id'=>3206, 'parent_id'=>2140],
+                ['categories_id'=>3254, 'parent_id'=>2140],
+                ['categories_id'=>3317, 'parent_id'=>2140],
+                ['categories_id'=>2222, 'parent_id'=>0],
+                ['categories_id'=>1626, 'parent_id'=>2222],
+                ['categories_id'=>1627, 'parent_id'=>1626],
+                ['categories_id'=>1628, 'parent_id'=>1626],
+                ['categories_id'=>1629, 'parent_id'=>1626],
+                ['categories_id'=>2321, 'parent_id'=>1626],
+                ['categories_id'=>2323, 'parent_id'=>1626],
+                ['categories_id'=>2328, 'parent_id'=>1626],
+                ['categories_id'=>2329, 'parent_id'=>1626],
+                ['categories_id'=>2330, 'parent_id'=>1626],
+                ['categories_id'=>2223, 'parent_id'=>2222],
+                ['categories_id'=>2227, 'parent_id'=>2223],
+                ['categories_id'=>2228, 'parent_id'=>2223],
+                ['categories_id'=>2229, 'parent_id'=>2223],
+                ['categories_id'=>2230, 'parent_id'=>2223],
+                ['categories_id'=>2231, 'parent_id'=>2223],
+                ['categories_id'=>2232, 'parent_id'=>2223],
+                ['categories_id'=>2233, 'parent_id'=>2223],
+                ['categories_id'=>2234, 'parent_id'=>2223],
+                ['categories_id'=>2235, 'parent_id'=>2223],
+                ['categories_id'=>2236, 'parent_id'=>2223],
+                ['categories_id'=>2237, 'parent_id'=>2223],
+                ['categories_id'=>2238, 'parent_id'=>2223],
+                ['categories_id'=>2239, 'parent_id'=>2223],
+                ['categories_id'=>2241, 'parent_id'=>2223],
+                ['categories_id'=>2243, 'parent_id'=>2223],
+                ['categories_id'=>2244, 'parent_id'=>2223],
+                ['categories_id'=>2245, 'parent_id'=>2223],
+                ['categories_id'=>2246, 'parent_id'=>2223],
+                ['categories_id'=>2247, 'parent_id'=>2223],
+                ['categories_id'=>2248, 'parent_id'=>2223],
+                ['categories_id'=>2249, 'parent_id'=>2223],
+                ['categories_id'=>2250, 'parent_id'=>2223],
+                ['categories_id'=>2251, 'parent_id'=>2223],
+                ['categories_id'=>2252, 'parent_id'=>2223],
+                ['categories_id'=>2253, 'parent_id'=>2223],
+                ['categories_id'=>2254, 'parent_id'=>2223],
+                ['categories_id'=>2255, 'parent_id'=>2223],
+                ['categories_id'=>2257, 'parent_id'=>2223],
+                ['categories_id'=>2262, 'parent_id'=>2223],
+                ['categories_id'=>2263, 'parent_id'=>2223],
+                ['categories_id'=>2265, 'parent_id'=>2223],
+                ['categories_id'=>2268, 'parent_id'=>2223],
+                ['categories_id'=>2270, 'parent_id'=>2223],
+                ['categories_id'=>2271, 'parent_id'=>2223],
+                ['categories_id'=>3144, 'parent_id'=>2223],
+                ['categories_id'=>2224, 'parent_id'=>2222],
+                ['categories_id'=>2272, 'parent_id'=>2224],
+                ['categories_id'=>2274, 'parent_id'=>2224],
+                ['categories_id'=>2276, 'parent_id'=>2224],
+                ['categories_id'=>2277, 'parent_id'=>2224],
+                ['categories_id'=>2279, 'parent_id'=>2224],
+                ['categories_id'=>2281, 'parent_id'=>2224],
+                ['categories_id'=>2282, 'parent_id'=>2224],
+                ['categories_id'=>2284, 'parent_id'=>2224],
+                ['categories_id'=>2285, 'parent_id'=>2224],
+                ['categories_id'=>2286, 'parent_id'=>2224],
+                ['categories_id'=>2287, 'parent_id'=>2224],
+                ['categories_id'=>2288, 'parent_id'=>2224],
+                ['categories_id'=>2291, 'parent_id'=>2224],
+                ['categories_id'=>2293, 'parent_id'=>2224],
+                ['categories_id'=>2294, 'parent_id'=>2224],
+                ['categories_id'=>2295, 'parent_id'=>2224],
+                ['categories_id'=>2706, 'parent_id'=>2224],
+                ['categories_id'=>3196, 'parent_id'=>2224],
+                ['categories_id'=>2225, 'parent_id'=>2222],
+                ['categories_id'=>2300, 'parent_id'=>2225],
+                ['categories_id'=>2318, 'parent_id'=>2225],
+                ['categories_id'=>2320, 'parent_id'=>2225],
+                ['categories_id'=>2182, 'parent_id'=>2222],
+                ['categories_id'=>2183, 'parent_id'=>2182],
+                ['categories_id'=>2185, 'parent_id'=>2182],
+                ['categories_id'=>2188, 'parent_id'=>2182],
+                ['categories_id'=>2189, 'parent_id'=>2182],
+                ['categories_id'=>2191, 'parent_id'=>2182],
+                ['categories_id'=>2192, 'parent_id'=>2182],
+                ['categories_id'=>2193, 'parent_id'=>2182],
+                ['categories_id'=>2194, 'parent_id'=>2182],
+                ['categories_id'=>2196, 'parent_id'=>2182],
+                ['categories_id'=>2198, 'parent_id'=>2182],
+                ['categories_id'=>2199, 'parent_id'=>2182],
+                ['categories_id'=>3071, 'parent_id'=>2182],
+                ['categories_id'=>3129, 'parent_id'=>2182],
+                ['categories_id'=>3130, 'parent_id'=>2182],
+                ['categories_id'=>2200, 'parent_id'=>2222],
+                ['categories_id'=>2202, 'parent_id'=>2200],
+                ['categories_id'=>2203, 'parent_id'=>2200],
+                ['categories_id'=>2201, 'parent_id'=>2200],
+                ['categories_id'=>1104, 'parent_id'=>0],
+                ['categories_id'=>1106, 'parent_id'=>1104],
+                ['categories_id'=>1324, 'parent_id'=>1104],
+                ['categories_id'=>1326, 'parent_id'=>1104],
+                ['categories_id'=>1327, 'parent_id'=>1104],
+                ['categories_id'=>1328, 'parent_id'=>1104],
+                ['categories_id'=>1329, 'parent_id'=>1104],
+                ['categories_id'=>1430, 'parent_id'=>1104],
+                ['categories_id'=>1433, 'parent_id'=>1104],
+                ['categories_id'=>2450, 'parent_id'=>1104],
+                ['categories_id'=>2451, 'parent_id'=>1104],
+                ['categories_id'=>2452, 'parent_id'=>1104],
+                ['categories_id'=>2453, 'parent_id'=>1104],
+                ['categories_id'=>2455, 'parent_id'=>1104],
+                ['categories_id'=>3088, 'parent_id'=>1104],
+                ['categories_id'=>3089, 'parent_id'=>1104],
+                ['categories_id'=>3198, 'parent_id'=>1104],
+
+            ],
+            'name'=>[
+                100000  =>  'Женщинам',
+                1632    =>	'Одежда',
+                1720	=>	'Платья',
+                3194	=>	'Вечерние платья',
+                1724	=>  'Длинные платья',
+                100005  =>	'Платья миди',
+                1725	=>  'Короткие платья',
+                100007	=>	'Коктейльные платья',
+                100008	=>	'На выпускной',
+                1727	=>	'Сарафаны',
+                1723	=>	'Вязаные платья',
+                1726	=>	'Джинсовые платья',
+                1722	=>	'Трикотажные платья',
+                1746	=>	'Верхняя одежда',
+                100014	=>	'Шубы',
+                2502	=>  'Жилетки',
+                1799	=>  'Меховые жилетки',
+                100017	=>	'Дубленки',
+                100018	=>	'Куртки',
+                1755	=>	'Джинсовые куртки',
+                1756	=>  'Кожаные куртки',
+                100021	=>  'Зимние куртки',
+                1748	=>	'Демисезонные куртки',
+                1749	=>	'Пальто',
+                1750	=>	'Плащи',
+                100025	=>	'Полупальто',
+                100026	=>  'Пуховики',
+                1752	=>  'Ветровки',
+                1753	=>	'Парки',
+                100029	=>	'Пончо',
+                100030	=>	'Накидки',
+                100031	=>	'Дождевики',
+                100032	=>	'Бомберы',
+                100033	=>	'Аляски',
+                1754	=>	'Зимние костюмы',
+                100035	=>  'Зимние комбинезоны',
+                1731	=>	'Туники',
+                1729	=>  'Блузки',
+                1730	=>	'Рубашки',
+                1732	=>  'Рубашки с коротким рукавом',
+                100040	=>	'Рубашки с длинным рукавом',
+                100041	=>  'Футболки и лонгсливы',
+                1776	=>	'Футболки',
+                1777	=>	'Поло',
+                100044	=>	'Поло с длинным рукавом',
+                3243	=>	'Лонгсливы',
+                100046	=>	'Майки и топы',
+                1778	=>	'Майки',
+                1779	=>	'Топы',
+                100049	=>	'Тельняшки',
+                100050	=>	'Борцовки',
+                1814	=>	'Водолазки',
+                1787	=>	'Комбинезоны',
+                1789	=>	'С брюками',
+                1788	=>	'С шортами',
+                1790	=>	'Джинсовые',
+                100056	=>	'Жакеты и пиджаки',
+                100057	=>	'Жакеты',
+                1797	=>	'Жилеты',
+                1800	=>  'Вязаные жилеты',
+                1801	=>	'Джинсовые жилеты',
+                1798	=>	'Классические жилеты',
+                100062	=>  'Утепленные жилеты',
+                100063	=>	'Пиджаки',
+                100064	=>	'Толстовки',
+                100065	=>  'Худи',
+                100066	=>	'Свитшоты',
+                1810	=>	'Джемпера и кофты',
+                100068	=>  'Кофты',
+                100069	=>	'Свитера',
+                100070	=>	'Джемпера',
+                100071	=>	'Кардиганы',
+                1812	=>	'Болеро',
+                1740	=>	'Брюки и шорты',
+                1821	=>	'Шорты',
+                1742	=>	'Брюки',
+                100076	=>	'Бриджи',
+                100077	=>	'Капри',
+                100078	=>	'Рейтузы',
+                100079	=>	'Лосины и легинсы',
+                100080	=>	'Лосины',
+                1744	=>	'Легинсы',
+                100082	=>	'Джеггинсы',
+                1759	=>	'Джинсы',
+                100084	=>	'Бойфренды',
+                1780	=>	'Юбки',
+                1783	=>	'Длинные (Макси)',
+                1782	=>	'Средние (Миди)',
+                1781	=>  'Короткие (Мини)',
+                1786	=>	'Юбки-карандаш',
+                100090	=>	'Костюмы',
+                1795	=>	'С юбкой',
+                100092	=>	'С брюками',
+                100093	=>	'С шортами',
+                100094	=>	'Деловые костюмы',
+                1771	=>	'Домашняя одежда',
+                100096	=>	'Платья',
+                1772	=>	'Пижамы',
+                1774	=>  'Халаты',
+                100099	=>	'Пеньюары',
+                1773	=>	'Ночные сорочки',
+                100101	=>	'Туники',
+                2486	=>	'Костюмы',
+                100103	=>  'Брюки',
+                100104	=>	'Шорты',
+                1791	=>	'Спортивная одежда',
+                1793	=>	'Штаны',
+                100107	=>	'Легинсы',
+                1792	=>	'Костюмы',
+                1804	=>	'Олимпийки',
+                1739	=>	'Пляжная одежда',
+                1734	=>	'Купальники',
+                1735	=>  'Бикини',
+                1737	=>	'Бандо',
+                1738	=>	'Спортивные (Сплошные)',
+                1736	=>	'Танкини',
+                100116	=>	'С шортами',
+                100117	=>	'Плавки',
+                100118	=>	'Туники',
+                100119	=>	'Парео',
+                100120	=>	'Колготки и носки',
+                100121	=>	'Колготки',
+                992	    =>	'Классические',
+                1565	=>	'Фантазийные',
+                765	    =>	'Носки',
+                100125	=>	'Гольфы',
+                100126	=>	'Гетры',
+                100127	=>	'Гамаши',
+                993	    =>	'Чулки',
+                2487	=>	'Пояса для чулок',
+                100130	=>	'Следки',
+                1762	=>	'Нижнее белье',
+                1763	=>	'Бюстгальтеры',
+                1770	=>	'Аксессуары для бюстгальтеров',
+                100134	=>	'Бюстье',
+                100135	=>	'Майки бельевые',
+                1764	=>	'Трусы',
+                100137	=>	'Стринги',
+                100138	=>	'Панталоны',
+                100139	=>	'Слипы',
+                1765	=>  'Комплекты белья',
+                1649	=>  'Кружевное белье',
+                100142	=>	'Корсеты',
+                1769	=>  'Эротическое белье',
+                1767	=>  'Корректирующее белье',
+                100145	=>	'Боди',
+                1768	=>	'Термобелье',
+                100147	=>	'Будущие мамы и кормящие',
+                1909	=>	'Одежда для беременных',
+                100149	=>  'Комбинезоны',
+                100150	=>	'Майки',
+                100151	=>	'Блузки',
+                100152	=>	'Кофты',
+                1947	=>	'Брюки',
+                100154	=>	'Платья',
+                100155	=>	'Сарафаны',
+                100156	=>	'Туники',
+                1949	=>	'Домашняя одежда',
+                100158	=>	'Халаты',
+                100159	=>	'Сорочки',
+                1948	=>	'Верхняя одежда',
+                100161	=>	'Куртки',
+                100162	=>	'Костюмы',
+                100163	=>	'Джинсы',
+                1951	=>	'Нижнее белье',
+                100165	=>	'Бюстгальтеры',
+                100166	=>	'Трусы',
+                100167	=>	'Колготки',
+                100168	=>	'Лосины',
+                100169	=>	'Аксессуары для беременных',
+                3181	=>	'Бандажи',
+                1953	=>	'Подушки для беременных',
+                1954	=>	'Наволочки на подушки',
+                3275  =>"Рюкзаки и переноски",
+                2541  =>"Переноски слинг-шарфы",
+                100175 =>"Переноски",
+                100176 =>"Рюкзаки-кенгуру",
+                3094 =>"Коляски",
+                1881  =>"Товары в роддом",
+                100179 =>"Гигиена и уход",
+                3258 =>"Горки для купания",
+                3244 =>"Детские ванны",
+                3245  =>"Детские горшки",
+                100183 =>"Кормление",
+                100184 =>"Соски",
+                100185 =>"Пустышки",
+                1907  =>"Детская комната",
+                2701  =>"Одеяла",
+                2700  =>"Подушки",
+                3090  =>"Светильники и лампы",
+                3091  =>"Шезлонги и кресла-качалки",
+                2699 =>"Постельное белье",
+                3093 =>"Пеленальные столики",
+                3205 =>"Ростомеры",
+                3095 =>"Ходунки, прыгунки",
+                100195 =>"Мужчинам",
+                1668 =>"Одежда",
+                2203=>'Аксессуары',
+                2199=>'Аксессуары',
+                1826 =>"Верхняя одежда",
+                1859 => 'Нижнее  белье',
+                100198 =>"Дубленки",
+                100199 =>"Куртки",
+                1831 =>"Джинсовые куртки",
+                1835 =>"Кожаные куртки",
+                100202 =>"Зимние куртки",
+                1829 =>"Демисезонные куртки",
+                100204 =>"Пальто",
+                100205 =>"Плащи",
+                1832 =>"Жилетки",
+                100207 =>"Полупальто",
+                100208 =>"Пуховики",
+                1827 =>"Ветровки",
+                1833 =>"Парки",
+                100211 =>"Дождевики",
+                100212 =>"Бомберы",
+                100213 =>"Аляски",
+                1834 =>"Зимние костюмы",
+                100215 =>"Анораки",
+                1679 =>"Рубашки",
+                2468 =>"С длинным рукавом",
+                2469 =>"С коротким рукавом",
+                1839 =>"Рубашки поло",
+                100220 =>"С длинным рукавом",
+                100221 =>"С коротким рукавом",
+                100222 =>"Футболки и майки",
+                100223 =>"Футболки",
+                1838 =>"Лонгсливы",
+                100225 =>"Майки",
+                1879 =>"Майки с принтами",
+                100227 =>"Тельняшки",
+                100228 =>"Борцовки",
+                1847 =>"Водолазки",
+                100230 =>"Жакеты и пиджаки",
+                100231 =>"Жакеты",
+                100232 =>"Пиджаки",
+                100233 =>"Толстовки",
+                100234 =>"Худи",
+                1842 =>"Свитшоты",
+                100236 =>"Джемпера и кофты",
+                100237 =>"Кофты",
+                100238 =>"Свитера",
+                100239 =>"Джемперы",
+                1846 =>"Кардиганы",
+                100241 =>"Жилеты",
+                1848 =>"Вязаные жилеты",
+                1854 =>"Шорты",
+                1849 =>"Брюки",
+                1671 =>"Джинсы",
+                100246 =>"Костюмы",
+                100247 =>"Классические",
+                100248 =>"Комбинезоны",
+                100249 =>"Спортивная одежда",
+                100250 =>"Штаны",
+                1680 =>"Костюмы",
+                1850 =>"Брюки",
+                100663 => 'Чемоданы',
+                1843 =>"Олимпийки",
+                1856 =>"Шорты",
+                100255 =>"Домашняя одежда",
+                1677 =>"Пижамы",
+                1860 =>"Халаты",
+                1852 =>"Брюки",
+                3332 =>"Домашние костюмы",
+                100260 =>"Камуфляж",
+                100261 =>"Нижнее белье",
+                1678 =>"Плавки",
+                1684 =>"Трусы",
+                100264 =>"Боксеры",
+                100265 =>"Семейные",
+                2490 =>"Майки нательные",
+                2491 =>"Трико",
+                100268 =>"Термобелье",
+                100269 =>"Комплекты",
+                100270 =>"Майки и трусы",
+                100271 =>"Эротическое белье",
+                100272 =>"Кальсоны",
+                3107 =>"Корректирующее белье",
+                1674 =>"Носки",
+                100275 =>"Детям",
+                100276 =>"Одежда",
+                1904 =>"Для девочек",
+                1434 =>"Платья",
+                100279 =>"Вечерние платья",
+                100280 =>"Нарядные платья",
+                100281 =>"Бальные платья",
+                100282 =>"Боди",
+                100283 =>"Сарафаны",
+                100284 =>"Туники",
+                100285 =>"Блузки",
+                100286 =>"Рубашки",
+                1916 =>"Жилетки",
+                1927 =>"Толстовки",
+                100289 =>"Брюки и шорты",
+                1913 =>"Брюки",
+                1930 =>"Шорты",
+                100292 =>"Рейтузы",
+                1931 =>"Юбки",
+                100294 =>"Футболки и лонгсливы",
+                100295 =>"Футболки",
+                100296 =>"Поло",
+                100297 =>"Поло с длинным рукавом",
+                100298 =>"Лонгсливы",
+                1928 =>"Майки и топы",
+                100300 =>"Майки",
+                100301 =>"Топы",
+                100302 =>"Водолазки",
+                1920 =>"Комбинезоны",
+                1968 =>"Лосины и легинсы",
+                100305 =>"Лосины",
+                2525 =>"Легинсы",
+                100307 =>"Джемпера и кофты",
+                100308 =>"Кофты",
+                100309 =>"Кардиганы",
+                100310 =>"Свитера",
+                100311 =>"Верхняя одежда",
+                100312 =>"Шубы",
+                100313 =>"Куртки",
+                100314 =>"Пуховики",
+                100315 =>"Пальто",
+                100316 =>"Ветровки",
+                100317 =>"Парки",
+                100318 =>"Дождевики",
+                100319 =>"Зимние костюмы",
+                1919 =>"Комбинезоны",
+                100321 =>"Домашняя одежда",
+                100322 =>"Пижамы",
+                100323 =>"Халаты",
+                100324 =>"Ночные сорочки",
+                1926 =>"Спортивная одежда",
+                100326 =>"Костюмы",
+                1962 =>"Костюмы",
+                1915 =>"Джинсы",
+                1905 =>"Для мальчиков",
+                1933 =>"Рубашки",
+                1937 =>"Жилетки",
+                1941 =>"Толстовки",
+                100333 =>"Верхняя одежда",
+                100334 =>"Куртки",
+                100335 =>"Пуховики",
+                100336 =>"Пальто",
+                100337 =>"Ветровки",
+                100338 =>"Парки",
+                100339 =>"Дождевики",
+                100340 =>"Зимние костюмы",
+                1943 =>"Комбинезоны",
+                100342 =>"Брюки и шорты",
+                1934 =>"Брюки",
+                1961 =>"Шорты",
+                100345 =>"Водолазки",
+                1946 =>"Костюмы",
+                1936 =>"Джинсы",
+                100348 =>"Футболки и лонгсливы",
+                100349 =>"Футболки",
+                100350 =>"Поло",
+                100351 =>"Поло с длинным рукавом",
+                100352 =>"Лонгсливы",
+                1967 =>"Майки",
+                100354 =>"Домашняя одежда",
+                100355 =>"Пижамы",
+                100356 =>"Халаты",
+                1940 =>"Спортивная одежда",
+                100358 =>"Костюмы",
+                1944 =>"Комбинезоны",
+                2519 =>"Камуфляжная форма",
+                1908 =>"Для новорожденных",
+                2536 =>"Конверты",
+                100363 =>"Ползунки",
+                100364 =>"Штанишки",
+                100365 =>"Пинетки",
+                2535 =>"Распашонки",
+                1360 =>"Комплекты",
+                2539 =>"Подарочные наборы",
+                100369 =>"Аксессуары",
+                100370 =>"Шапки",
+                1362 =>"Слюнявчики",
+                1361 =>"Чепчики",
+                100373 =>"Косынки",
+                100374 =>"Рукавички",
+                2537 =>"Крестильное",
+                100376 =>"Коконы",
+                100377 =>"Ясельный трикотаж",
+                100378 =>"Трусы",
+                1308 =>"Боди",
+                100380 =>"Полотенце,-уголок",
+                100381 =>"Пеленки",
+                2520 =>"Верхняя одежда",
+                100383 =>"Пуховики",
+                100384 =>"Зимние комбинезоны",
+                1623 =>"Комбинезоны",
+                100386 =>"Колготки и носки",
+                100387 =>"Колготки",
+                100388 =>"Носки",
+                100389 =>"Гольфы",
+                100390 =>"Гетры",
+                100391 =>"Гамаши",
+                100392 =>"Нижнее белье",
+                100393 =>"Трусы",
+                100394 =>"Комплекты",
+                3239 =>"Термобелье",
+                100396 =>"Бюстгальтеры",
+                100397 =>"Майки нательные",
+                100398 =>"Кальсоны",
+                100399 =>"Трико",
+                100400 =>"Купальники и плавки",
+                100401 =>"Купальники",
+                1958 =>"Плавки",
+                100403 =>"Карнавальные костюмы",
+                1917 =>"Для девочек",
+                1938 =>"Для мальчиков",
+                100406 =>"Большие размеры",
+                1350 =>"Женская",
+                1693 =>"Платья",
+                3195 =>"Вечерние платья",
+                1718 =>"Длинные платья",
+                1719 =>"Короткие платья",
+                1863 =>"Сарафаны",
+                1706 =>"Футболки и лонгсливы",
+                1466 =>"Футболки",
+                1882 =>"Майки",
+                1883 =>"Топы",
+                100417 =>"Лонгсливы",
+                1697 =>"Верхняя одежда",
+                100419 =>"Куртки",
+                1864 =>"Демисезонные куртки",
+                2498 =>"Джинсовые куртки",
+                100422 =>"Зимние куртки",
+                2497 =>"Кожаные куртки",
+                1865 =>"Ветровки",
+                100425 =>"Пуховики",
+                2500 =>"Пальто",
+                100427 =>"Плащи",
+                1463 =>"Зимние костюмы",
+                1580 =>"Джинсы",
+                100430 =>"Жакеты и пиджаки",
+                100431 =>"Жакеты",
+                100432 =>"Пиджаки",
+                100433 =>"Блейзеры",
+                100434 =>"Костюмы",
+                100435 =>"Деловые",
+                1470 =>"С юбкой",
+                100437 =>"С брюками",
+                100438 =>"С шортами",
+                1710 =>"Спортивная одежда",
+                1472 =>"Костюмы",
+                1893 =>"Брюки",
+                1902 =>"Олимпийки",
+                1709 =>"Комбинезоны",
+                1490 =>"С брюками",
+                2503 =>"С шортами",
+                1469 =>"Туники",
+                100447 =>"Блузки и рубашки",
+                1867 =>"Блузки",
+                1878 =>"Рубашки",
+                1877 =>"Рубашки с коротким рукавом",
+                1870 =>"Водолазки",
+                100452 =>"Джемпера и кофты",
+                100453 =>"Кофты",
+                100454 =>"Свитера",
+                100455 =>"Джемперы",
+                100456 =>"Кардиганы",
+                1872 =>"Болеро",
+                100458 =>"Толстовки",
+                100459 =>"Худи",
+                100460 =>"Свитшоты",
+                1712 =>"Жилеты",
+                1965 =>"Вязанные",
+                1875 =>"Классические",
+                1964 =>"Утепленные",
+                1966 =>"Меховые",
+                1707 =>"Юбки",
+                1899 =>"Макси",
+                1897 =>"Мини",
+                1898 =>"Миди",
+                1896 =>"Юбка,-карандаш",
+                1704 =>"Нижнее белье",
+                1476 =>"Трусы",
+                1474 =>"Бюстгальтеры",
+                100474 =>"Боди",
+                2510 =>"Эротическое белье",
+                1462 =>"Корректирующее белье",
+                100477 =>"Корсеты",
+                1475 =>"Комплекты белья",
+                1705 =>"Домашняя одежда",
+                1467 =>"Халаты",
+                1478 =>"Пижамы",
+                100482 =>"Пеньюары",
+                2507 =>"Домашние костюмы",
+                1611 =>"Комплекты",
+                1477 =>"Ночные сорочки",
+                1696 =>"Брюки и шорты",
+                1890 =>"Брюки",
+                100488 =>"Лосины",
+                1564 =>"Легинсы",
+                1608 =>"Шорты",
+                100491 =>"Капри",
+                100492 =>"Бриджи",
+                1715 =>"Колготки и чулки",
+                100494 =>"Колготки",
+                2513 =>"Чулки",
+                1695 =>"Купальники",
+                1884 =>"Бикини",
+                1888 =>"Слитные",
+                1885 =>"Танкини",
+                100500 =>"Плавки",
+                1887 =>"Пляжная одежда",
+                100502 =>"Парео",
+                100503 =>"Туники",
+                100504 =>"Мужская",
+                100505 =>"Верхняя одежда",
+                100506 =>"Куртки",
+                100507 =>"Демисезонные куртки",
+                100508 =>"Джинсовые куртки",
+                100509 =>"Зимние куртки",
+                100510 =>"Кожаные куртки",
+                100511 =>"Ветровки",
+                100512 =>"Пуховики",
+                100513 =>"Пальто",
+                100514 =>"Плащи",
+                100515 =>"Зимние костюмы",
+                100516 =>"Джемпера и кофты",
+                100517 =>"Свитера",
+                100518 =>"Джемперы",
+                100519 =>"Кардиганы",
+                100520 =>"Нижнее белье",
+                100521 =>"Трусы",
+                100522 =>"Домашняя одежда",
+                100523 =>"Халаты",
+                100524 =>"Пижамы",
+                100525 =>"Трико",
+                100526 =>"Обувь",
+                1976 =>"Женская",
+                1977 =>"Балетки",
+                1993 =>"Туфли",
+                100530 =>"Свадебные",
+                100531 =>"Лодочки",
+                100532 =>"Вечерние",
+                100533 =>"Босоножки",
+                100534 =>"Сандалии",
+                1979 =>"Ботильоны",
+                1980 =>"Ботинки",
+                100537 =>"Резиновая обувь",
+                1988 =>"Резиновые сапоги",
+                100539 =>"Галоши",
+                1981 =>"Валенки",
+                1982 =>"Дутики",
+                1983 =>"Кеды",
+                1984 =>"Кроссовки",
+                1985 =>"Мокасины",
+                1986 =>"Шлепанцы",
+                1987 =>"Полусапожки",
+                1990 =>"Сапоги",
+                1989 =>"Сабо",
+                1991 =>"Слипоны",
+                100550 =>"Домашняя обувь",
+                1992 =>"Тапочки",
+                100552 =>"Угги",
+                100553 =>"Сапожки",
+                100554 =>"Чуни",
+                3210 =>"Бабуши",
+                1994 =>"Угги",
+                1995 =>"Унты",
+                100558 =>"Сникерсы",
+                100559 =>"Вьетнамки",
+                100560 =>"Ботфорты",
+                100561 =>"Сапожки",
+                1996 =>"Мужская",
+                2002 =>"Сандалии",
+                1997 =>"Ботинки",
+                100565 =>"Дутики",
+                1998 =>"Кеды",
+                1999 =>"Кроссовки",
+                2000 =>"Мокасины",
+                2005 =>"Полуботинки",
+                100570 =>"Резиновая обувь",
+                3390 =>"Резиновые сапоги",
+                100572 =>"Галоши",
+                1597 =>"Сапоги",
+                2007 =>"Слипоны",
+                100575 =>"Домашняя обувь",
+                2004 =>"Тапочки",
+                100577 =>"Угги",
+                100578 =>"Сапожки",
+                100579 =>"Чуни",
+                100580 =>"Бабуши",
+                2001 =>"Вьетнамки",
+                3420=>'Мужская косметика',
+                3421=>'Для бритья',
+                3422=>'Наборы',
+                100582 =>"Шлепанцы",
+                2006 =>"Топсайдеры",
+                2008 =>"Детская",
+                100585 =>"Для девочек",
+                100586 =>"Босоножки",
+                2009 =>"Балетки",
+                100588 =>"Чешки",
+                100589 =>"Сандалии",
+                100590 =>"Ботинки",
+                100591 =>"Валенки",
+                100592 =>"Дутики",
+                100593 =>"Кеды",
+                100594 =>"Кроссовки",
+                100595 =>"Мокасины",
+                100596 =>"Резиновая обувь",
+                100597 =>"Резиновые сапоги",
+                100598 =>"Галоши",
+                100599 =>"Домашняя обувь",
+                100600 =>"Тапочки",
+                100601 =>"Угги",
+                100602 =>"Чуни",
+                100603 =>"Сапожки",
+                100604 =>"Сапожки",
+                2021 =>"Туфли",
+                100606 =>"Угги",
+                100607 =>"Сникерсы",
+                100608 =>"Вьетнамки",
+                100609 =>"Шлепанцы",
+                100610 =>"Для мальчиков",
+                100611 =>"Чешки",
+                100612 =>"Сандалии",
+                100613 =>"Ботинки",
+                100614 =>"Валенки",
+                100615 =>"Дутики",
+                100616 =>"Кеды",
+                100617 =>"Кроссовки",
+                100618 =>"Мокасины",
+                100619 =>"Резиновая обувь",
+                100620 =>"Резиновые сапоги",
+                100621 =>"Галоши",
+                100622 =>"Домашняя обувь",
+                100623 =>"Тапочки",
+                100624 =>"Угги",
+                100625 =>"Чуни",
+                100626 =>"Сапожки",
+                100627 =>"Сапожки",
+                100628 =>"Угги",
+                100629 =>"Вьетнамки",
+                100630 =>"Шлепанцы",
+                1562 =>"Аксессуары для обуви",
+                100632 =>"Стельки",
+                100633 =>"Шнурки",
+                100634 =>"Ложки для обуви",
+                100635 =>"Сушилки",
+                100636 =>"Мешки для обуви",
+                100637 =>"Средства по уходу",
+                100638 =>"Крема",
+                100639 =>"Дезодорант",
+                100640 =>"Сумки",
+                2047 =>"Женские",
+                835 =>"Женские сумки",
+                1112 =>"Косметички",
+                1163 =>"Клатчи",
+                2548 =>"Рюкзаки",
+                2547 =>"Пляжные сумки",
+                1681 =>"Мужские",
+                100648 =>"Мужские сумки",
+                100649 =>"Клатчи",
+                100650 =>"Барсетки",
+                2551 =>"Портфели",
+                2553 =>"Рюкзаки",
+                2552 =>"Поясные сумки",
+                1111 =>"Детские сумки",
+                100655 =>"Портфели",
+                100656 =>"Рюкзаки",
+                100657 =>"Школьные",
+                100658 =>"Игрушки",
+                100659 =>"Наборы сумок",
+                100660 =>"Для ноутбуков",
+                3009 =>"Сумки",
+                100662 =>"Чехлы",
+                2555 =>"Дорожные сумки",
+                100664 =>"Чемоданы",
+                2554 =>"Спортивные сумки",
+                3057 =>"Хозяйственные сумки",
+                100667 =>"Авоськи",
+                100668 =>"Баулы",
+                100669 =>"Сумки тележки",
+                932 =>"Аксессуары",
+                100671 =>"Женские",
+                2120 =>"Аксессуары для волос",
+                100673 =>"Повязки",
+                100674 =>"Ободки",
+                939 =>"Резинки",
+                940 =>"Заколки",
+                100677 =>"Платки, шарфы, палантины",
+                100678 =>"Снуды",
+                100679 =>"Шали",
+                1819 =>"Шарфы",
+                100681 =>"Палантины",
+                100682 =>"Зажимы для платков",
+                2485 =>"Платки",
+                1815 =>"Головные уборы",
+                100685 =>"Косынки",
+                100686 =>"Бейсболки",
+                100687 =>"Кепки",
+                100688 =>"Банданы",
+                1818 =>"Шляпы",
+                100690 =>"Шляпки",
+                1820 =>"Береты",
+                100692 =>"Панамы",
+                1825 =>"Теплые наушники",
+                100694 =>"Шапки",
+                100695 =>"Помпоны",
+                1823 =>"Комплекты",
+                100697 =>"Солнцезащитные очки",
+                100698 =>"Часы и ремешки",
+                865 =>"Наручные часы",
+                100700 =>"Ремешки",
+                100701 =>"Перчатки и варежки",
+                100702 =>"Перчатки",
+                100703 =>"Варежки",
+                100704 =>"Ремни и пояса",
+                100705 =>"Ремни",
+                100706 =>"Пояса",
+                100707 =>"Пряжки",
+                100708 =>"Кошельки и портмоне",
+                100709 =>"Кошельки",
+                100710 =>"Портмоне",
+                2128 =>"Зеркальца",
+                2731 =>"Веера",
+                100713 =>"Мужские",
+                100714 =>"Шарфы и платки",
+                1808 =>"Шарфы",
+                100716	=>			'Нагрудные платки'	,
+                1805 =>"Головные уборы",
+                100718 =>"Косынки",
+                100719 =>"Бейсболки",
+                100720 =>"Кепки",
+                100721 =>"Банданы",
+                2482 =>"Шляпы",
+                100723 =>"Береты",
+                2483 =>"Панамы",
+                100725 =>"Шапки",
+                3419=>'Формы для льда',
+                1809 =>"Комплекты (шарф, шапка)",
+                100727 =>"Солнцезащитные очки",
+                100728 =>"Часы и ремешки",
+                873 =>"Наручные часы",
+                100730 =>"Ремешки",
+                100731 =>"Трости",
+                100732 =>"Перчатки и варежки",
+                100733 =>"Перчатки",
+                100734 =>"Варежки",
+                100735 =>"Ремни и подтяжки",
+                100736 =>"Ремни",
+                100737 =>"Пряжки",
+                2121 =>"Подтяжки",
+                100739 =>"Кошельки и портмоне",
+                100740 =>"Кошельки",
+                100741 =>"Портмоне",
+                3136 =>"Зажимы для денег",
+                2126 =>"Запонки",
+                100744 =>"Галстуки и бабочки",
+                2124 =>"Галстуки",
+                100746 =>"Бабочки",
+                100747 =>"Зажимы для галстука",
+                1906 =>"Детские",
+                3418=>'Чемоданы для мастеров',
+                100749 =>"Головные уборы",
+                100750 =>"Бейсболки",
+                100751 =>"Кепки",
+                100752 =>"Шапки",
+                100753 =>"Панамы",
+                100754 =>"Банданы",
+                100755 =>"Шляпы",
+                100756 =>"Косынки",
+                100757 =>"Береты",
+                100758 =>"Шарфы",
+                100759 =>"Снуды",
+                100760 =>"Шапки и шарфы",
+                100761 =>"Часы и ремешки",
+                988 =>"Наручные часы",
+                100763 =>"Ремешки",
+                479 =>"Зонты",
+                1422 =>"Перчатки и варежки",
+                100766 =>"Перчатки",
+                100767 =>"Варежки",
+                100768 =>"Кошельки",
+                100769 =>"Аксессуары для волос",
+                100770 =>"Заколки",
+                100771 =>"Резинки",
+                2127 =>"Носовые платки",
+                1443 =>"Подтяжки и ремни",
+                100774 =>"Подтяжки",
+                100775 =>"Ремни",
+                1538 =>"Галстуки и бабочки",
+                100777 =>"Галстуки",
+                100778 =>"Бабочки",
+                100779 =>"Зонты",
+                100780 =>"Зонты трость",
+                100781 =>"Полуавтоматы",
+                2130=> 'Строительные инструменты',
+                100782 =>"Автоматы",
+                2118 =>"Ключницы",
+                100784 =>"Монетницы",
+                1313 =>"Обложки для документов",
+                2117 =>"Визитницы",
+                1310 =>"Платки носовые",
+                3010 =>"Папки из кожи"
+            ],
+            'template' => [
+
+                100000 => ['name' => 'Ver 3	', 'param'=>['h8'=>'товары для женщин', 'l9'=>'женщина, товар', 'j10'=>'']],
+                1632 => ['name' => 'Ver 3	', 'param'=>['h8'=>'женская одежда', 'l9'=>'одежда, женский, женщина', 'j10'=>'женской одежды']],
+                1720 => ['name' => 'Ver 1	', 'param'=>['h8'=>'платья', 'l9'=>'платье', 'j10'=>'платьев']],
+                3194 => ['name' => 'Ver 1	', 'param'=>['h8'=>'вечерние платья', 'l9'=>'вечерний, платье', 'j10'=>'вечерних платьев']],
+                1724 => ['name' => 'Ver 1	', 'param'=>['h8'=>'длинные платья', 'l9'=>'длинный, платье, макси', 'j10'=>'длинных платьев']],
+                100005 => ['name' => 'Ver 1	', 'param'=>['h8'=>'платья миди', 'l9'=>'платье, миди, средний', 'j10'=>'платьев миди']],
+                1725 => ['name' => 'Ver 1	', 'param'=>['h8'=>'короткие платья', 'l9'=>'короткий, платье, мини', 'j10'=>'коротких платьев']],
+                100007 => ['name' => 'Ver 1	', 'param'=>['h8'=>'коктейльные платья', 'l9'=>'коктейльный, платье', 'j10'=>'коктейльных платьев']],
+                100008 => ['name' => 'Ver 1	', 'param'=>['h8'=>'платья на выпускной', 'l9'=>'платье, выпускной', 'j10'=>'платьев на выпускной']],
+                1727 => ['name' => 'Ver 1	', 'param'=>['h8'=>'сарафаны', 'l9'=>'сарафан', 'j10'=>'сарафанов']],
+                1723 => ['name' => 'Ver 1	', 'param'=>['h8'=>'вязаные платья', 'l9'=>'платье, вязаный', 'j10'=>'вязаных платьев']],
+                1726 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джинсовые платья', 'l9'=>'платье, джинсовый, джинс', 'j10'=>'джинсовых платьев']],
+                1722 => ['name' => 'Ver 1	', 'param'=>['h8'=>'трикотажные платья', 'l9'=>'платье, трикотаж, трикотажный', 'j10'=>'трикотажных платьев']],
+                1746 => ['name' => 'Ver 1.2	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100014 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шубы', 'l9'=>'шуба', 'j10'=>'шуб']],
+                2502 => ['name' => 'Ver 1	', 'param'=>['h8'=>'жилетки', 'l9'=>'жилетка', 'j10'=>'жилеток']],
+                1799 => ['name' => 'Ver 1	', 'param'=>['h8'=>'меховые жилетки', 'l9'=>'меховой, мех, жилетка', 'j10'=>'меховых жилеток']],
+                100017 => ['name' => 'Ver 1	', 'param'=>['h8'=>'дубленки', 'l9'=>'дубленка', 'j10'=>'дубленок']],
+                100018 => ['name' => 'Ver 1	', 'param'=>['h8'=>'куртки', 'l9'=>'куртка', 'j10'=>'курток']],
+                1755 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джинсовые куртки', 'l9'=>'куртка, джинсовый, джинс', 'j10'=>'джинсовых курток']],
+                1756 => ['name' => 'Ver 1	', 'param'=>['h8'=>'кожаные куртки', 'l9'=>'куртка, кожаный, кожа', 'j10'=>'кожаных курток']],
+                100021 => ['name' => 'Ver 1	', 'param'=>['h8'=>'зимние куртки', 'l9'=>'куртка, зима, зимний', 'j10'=>'зимних курток']],
+                1748 => ['name' => 'Ver 1	', 'param'=>['h8'=>'демисезонные куртки', 'l9'=>'куртка, демисезонный, межсезонье', 'j10'=>'демисезонных курток']],
+                1749 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пальто', 'l9'=>'пальто', 'j10'=>'пальто']],
+                1750 => ['name' => 'Ver 1	', 'param'=>['h8'=>'плащи', 'l9'=>'плащ', 'j10'=>'плащей']],
+                100025 => ['name' => 'Ver 1	', 'param'=>['h8'=>'полупальто', 'l9'=>'полупальто', 'j10'=>'полупальто']],
+                100026 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пуховики', 'l9'=>'пуховик', 'j10'=>'пуховиков']],
+                1752 => ['name' => 'Ver 1	', 'param'=>['h8'=>'ветровки', 'l9'=>'ветровка', 'j10'=>'ветровок']],
+                1753 => ['name' => 'Ver 1	', 'param'=>['h8'=>'парки', 'l9'=>'парка', 'j10'=>'парок']],
+                100029 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пончо', 'l9'=>'пончо', 'j10'=>'пончо']],
+                100030 => ['name' => 'Ver 1	', 'param'=>['h8'=>'накидки', 'l9'=>'накидка', 'j10'=>'накидок']],
+                100031 => ['name' => 'Ver 1	', 'param'=>['h8'=>'дождевики', 'l9'=>'дождевик', 'j10'=>'дождевиков']],
+                100032 => ['name' => 'Ver 1	', 'param'=>['h8'=>'бомберы', 'l9'=>'бомбер', 'j10'=>'бомберов']],
+                100033 => ['name' => 'Ver 1	', 'param'=>['h8'=>'аляски', 'l9'=>'аляска', 'j10'=>'алясок']],
+                1754 => ['name' => 'Ver 1	', 'param'=>['h8'=>'зимние костюмы', 'l9'=>'зимний, костюм', 'j10'=>'зимних костюмов']],
+                100035 => ['name' => 'Ver 1	', 'param'=>['h8'=>'зимние комбинезоны', 'l9'=>'зимний, комбинезон', 'j10'=>'зимних комбинезонов']],
+                1731 => ['name' => 'Ver 1	', 'param'=>['h8'=>'туники', 'l9'=>'туника', 'j10'=>'туник']],
+                1729 => ['name' => 'Ver 1	', 'param'=>['h8'=>'блузки', 'l9'=>'блузка, блуза', 'j10'=>'блузок']],
+                1730 => ['name' => 'Ver 1	', 'param'=>['h8'=>'рубашки', 'l9'=>'рубашка', 'j10'=>'рубашек']],
+                1732 => ['name' => 'Ver 1	', 'param'=>['h8'=>'рубашки с коротким рукавом', 'l9'=>'рубашка, короткий, рукав', 'j10'=>'рубашек с коротким рукавом']],
+                100040 => ['name' => 'Ver 1	', 'param'=>['h8'=>'рубашки с длинным рукавом', 'l9'=>'рубашка, длинный, рукав', 'j10'=>'рубашек с длинным рукавом']],
+                100041 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'футболки и лонгсливы', 'l9'=>'футболка, лонгслив', 'j10'=>'футболок и лонгсливов']],
+                1776 => ['name' => 'Ver 1	', 'param'=>['h8'=>'футболки', 'l9'=>'футболка', 'j10'=>'футболок']],
+                1777 => ['name' => 'Ver 1	', 'param'=>['h8'=>'футболки поло', 'l9'=>'футболка, поло', 'j10'=>'футболок поло']],
+                100044 => ['name' => 'Ver 1	', 'param'=>['h8'=>'поло с длинным рукавом', 'l9'=>'поло, длинный, рукав', 'j10'=>'поло с длинным рукавом']],
+                3243 => ['name' => 'Ver 1	', 'param'=>['h8'=>'лонгсливы', 'l9'=>'лонгслив', 'j10'=>'лонгсливов']],
+                100046 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'майки и топы', 'l9'=>'майка, топ', 'j10'=>'маек и топов']],
+                1778 => ['name' => 'Ver 1	', 'param'=>['h8'=>'майки', 'l9'=>'майка', 'j10'=>'маек']],
+                1779 => ['name' => 'Ver 1	', 'param'=>['h8'=>'топы', 'l9'=>'топ', 'j10'=>'топов']],
+                100049 => ['name' => 'Ver 1	', 'param'=>['h8'=>'тельняшки', 'l9'=>'тельняшка', 'j10'=>'тельняшек']],
+                100050 => ['name' => 'Ver 1	', 'param'=>['h8'=>'борцовки', 'l9'=>'борцовка', 'j10'=>'борцовок']],
+                1814 => ['name' => 'Ver 1	', 'param'=>['h8'=>'водолазки', 'l9'=>'водолазка', 'j10'=>'водолазок']],
+                1787 => ['name' => 'Ver 1	', 'param'=>['h8'=>'комбинезоны', 'l9'=>'комбинезон', 'j10'=>'комбинезонов']],
+                1789 => ['name' => 'Ver 1	', 'param'=>['h8'=>'комбинезоны с брюками', 'l9'=>'комбинезон, брюки', 'j10'=>'комбинезонов с брюками']],
+                1788 => ['name' => 'Ver 1	', 'param'=>['h8'=>'комбинезоны с шортами', 'l9'=>'комбинезон, шорты', 'j10'=>'комбинезонов с шортами']],
+                1790 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джинсовые комбинезоны', 'l9'=>'джинсовый, джинс, джинса, комбинезон', 'j10'=>'джинсовых комбинезонов']],
+                100056 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'жакеты и пиджаки', 'l9'=>'жакет, пиджак', 'j10'=>'жакетов и пиджаков']],
+                100057 => ['name' => 'Ver 1	', 'param'=>['h8'=>'жакеты', 'l9'=>'жакет', 'j10'=>'жакетов']],
+                1797 => ['name' => 'Ver 1	', 'param'=>['h8'=>'жилеты', 'l9'=>'жилет', 'j10'=>'жилетов']],
+                1800 => ['name' => 'Ver 1	', 'param'=>['h8'=>'вязаные жилеты', 'l9'=>'жилет, вязаный', 'j10'=>'вязаных жилетов']],
+                1801 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джинсовые жилеты', 'l9'=>'жилет, жинсовый, джинс', 'j10'=>'джинсовых жилетов']],
+                1798 => ['name' => 'Ver 1	', 'param'=>['h8'=>'классические жилеты', 'l9'=>'жилет, классический, классика', 'j10'=>'классических жилетов']],
+                100062 => ['name' => 'Ver 1	', 'param'=>['h8'=>'утепленные жилеты', 'l9'=>'жилет, утепленный, теплый', 'j10'=>'утепленных жилетов']],
+                100063 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пиджаки', 'l9'=>'пиджак', 'j10'=>'пиджаков']],
+                100064 => ['name' => 'Ver 1	', 'param'=>['h8'=>'толстовки', 'l9'=>'толстовка', 'j10'=>'толстовок']],
+                100065 => ['name' => 'Ver 1	', 'param'=>['h8'=>'худи', 'l9'=>'худи', 'j10'=>'худи']],
+                100066 => ['name' => 'Ver 1	', 'param'=>['h8'=>'свитшоты', 'l9'=>'свитшот', 'j10'=>'свитшотов']],
+                1810 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'джемпера и кофты', 'l9'=>'джемпер, кофта', 'j10'=>'джемперов и кофт']],
+                100068 => ['name' => 'Ver 1	', 'param'=>['h8'=>'кофты', 'l9'=>'кофта', 'j10'=>'кофт']],
+                100069 => ['name' => 'Ver 1	', 'param'=>['h8'=>'свитера', 'l9'=>'свитер', 'j10'=>'свитеров']],
+                100070 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джемпера', 'l9'=>'джемпер', 'j10'=>'джемперов']],
+                100071 => ['name' => 'Ver 1	', 'param'=>['h8'=>'кардиганы', 'l9'=>'кардиган', 'j10'=>'кардиганов']],
+                1812 => ['name' => 'Ver 1	', 'param'=>['h8'=>'болеро', 'l9'=>'болеро', 'j10'=>'болеро']],
+                1740 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'брюки и шорты', 'l9'=>'брюки, шорты', 'j10'=>'брюк и шорт']],
+                1821 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шорты', 'l9'=>'шорты', 'j10'=>'шорт']],
+                1742 => ['name' => 'Ver 1	', 'param'=>['h8'=>'брюки', 'l9'=>'брюки', 'j10'=>'брюк']],
+                100076 => ['name' => 'Ver 1	', 'param'=>['h8'=>'бриджи', 'l9'=>'бриджи', 'j10'=>'бриджей']],
+                100077 => ['name' => 'Ver 1	', 'param'=>['h8'=>'капри', 'l9'=>'капри', 'j10'=>'капри']],
+                100078 => ['name' => 'Ver 1	', 'param'=>['h8'=>'рейтузы', 'l9'=>'рейтузы', 'j10'=>'рейтуз']],
+                100079 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'лосины и легинсы', 'l9'=>'лосины, легинсы', 'j10'=>'лосин и легинсов']],
+                100080 => ['name' => 'Ver 1	', 'param'=>['h8'=>'лосины', 'l9'=>'лосины', 'j10'=>'лосин']],
+                1744 => ['name' => 'Ver 1	', 'param'=>['h8'=>'легинсы', 'l9'=>'легинсы', 'j10'=>'легинсов']],
+                100082 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джеггинсы', 'l9'=>'джеггинсы', 'j10'=>'джеггинсов']],
+                1759 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джинсы', 'l9'=>'джинсы, джинс', 'j10'=>'джинсов']],
+                100084 => ['name' => 'Ver 1	', 'param'=>['h8'=>'джинсы бойфренды', 'l9'=>'бойфренды, джинсы, джинс', 'j10'=>'джинсов бойфрендов']],
+                1780 => ['name' => 'Ver 1	', 'param'=>['h8'=>'юбки', 'l9'=>'юбка', 'j10'=>'юбок']],
+                1783 => ['name' => 'Ver 1	', 'param'=>['h8'=>'длинные юбки', 'l9'=>'длинный, юбка', 'j10'=>'длинных юбок']],
+                1782 => ['name' => 'Ver 1	', 'param'=>['h8'=>'юбки миди', 'l9'=>'средний, юбка, миди', 'j10'=>'юбок миди']],
+                1781 => ['name' => 'Ver 1	', 'param'=>['h8'=>'короткие юбки', 'l9'=>'короткий, юбка, мини', 'j10'=>'коротких юбок']],
+                1786 => ['name' => 'Ver 1	', 'param'=>['h8'=>'юбки-карандаш', 'l9'=>'юбка, карандаш', 'j10'=>'юбок-карандашей']],
+                100090 => ['name' => 'Ver 1	', 'param'=>['h8'=>'костюмы', 'l9'=>'костюм', 'j10'=>'костюмов']],
+                1795 => ['name' => 'Ver 1	', 'param'=>['h8'=>'костюмы с юбкой', 'l9'=>'костюм, юбка', 'j10'=>'костюмов с юбками']],
+                100092 => ['name' => 'Ver 1	', 'param'=>['h8'=>'костюмы с брюками', 'l9'=>'костюм, брюки', 'j10'=>'костюмов с брюками']],
+                100093 => ['name' => 'Ver 1	', 'param'=>['h8'=>'костюмы с шортами', 'l9'=>'костюм, шорты', 'j10'=>'костюмов с шортами']],
+                100094 => ['name' => 'Ver 1	', 'param'=>['h8'=>'деловые костюмы', 'l9'=>'деловой, костюм', 'j10'=>'деловых костюмов']],
+                1771 => ['name' => 'Ver 1.2	', 'param'=>['h8'=>'домашняя одежда', 'l9'=>'домашний, одежда', 'j10'=>'домашней одежды']],
+                100096 => ['name' => 'Ver 1	', 'param'=>['h8'=>'домашние платья', 'l9'=>'домашний, платье', 'j10'=>'домашних платьев']],
+                1772 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пижамы', 'l9'=>'пижама', 'j10'=>'пижам']],
+                1774 => ['name' => 'Ver 1	', 'param'=>['h8'=>'халаты', 'l9'=>'халат', 'j10'=>'халатов']],
+                100099 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пеньюары', 'l9'=>'пеньюар', 'j10'=>'пеньюаров']],
+                1773 => ['name' => 'Ver 1	', 'param'=>['h8'=>'ночные сорочки', 'l9'=>'ночной, сорочка', 'j10'=>'ночных сорочек']],
+                100101 => ['name' => 'Ver 1	', 'param'=>['h8'=>'домашние туники', 'l9'=>'туника', 'j10'=>'домашних туник']],
+                2486 => ['name' => 'Ver 1	', 'param'=>['h8'=>'костюмы домашние', 'l9'=>'костюм', 'j10'=>'костюмов домашних']],
+                100103 => ['name' => 'Ver 1	', 'param'=>['h8'=>'домашние брюки', 'l9'=>'брюки, домашний', 'j10'=>'домашних брюк']],
+                100104 => ['name' => 'Ver 1	', 'param'=>['h8'=>'домашние шорты', 'l9'=>'шорты, домашний', 'j10'=>'домашних шорт']],
+                1791 => ['name' => 'Ver 1.2	', 'param'=>['h8'=>'спортивная одежда', 'l9'=>'спортивный, одежда', 'j10'=>'спортивной одежды']],
+                1793 => ['name' => 'Ver 1	', 'param'=>['h8'=>'спортивные штаны', 'l9'=>'штаны', 'j10'=>'спортивных штанов']],
+                100107 => ['name' => 'Ver 1	', 'param'=>['h8'=>'спортивные легинсы', 'l9'=>'легинсы', 'j10'=>'спортивных легинсов']],
+                1792 => ['name' => 'Ver 1	', 'param'=>['h8'=>'спортивные костюмы', 'l9'=>'костюм', 'j10'=>'спортивных костюмов']],
+                1804 => ['name' => 'Ver 1	', 'param'=>['h8'=>'олимпийки', 'l9'=>'олимпийка', 'j10'=>'олимпиек']],
+                1739 => ['name' => 'Ver 1.2	', 'param'=>['h8'=>'женская пляжная одежда', 'l9'=>'пляжный, одежда, женский, женщина', 'j10'=>'пляжной одежды для женщин']],
+                1734 => ['name' => 'Ver 1	', 'param'=>['h8'=>'купальники', 'l9'=>'купальник', 'j10'=>'купальников']],
+                1735 => ['name' => 'Ver 1	', 'param'=>['h8'=>'купальники бикини', 'l9'=>'бикини, купальник', 'j10'=>'купальников бикини']],
+                1737 => ['name' => 'Ver 1	', 'param'=>['h8'=>'купальники бандо', 'l9'=>'бандо, купальник', 'j10'=>'купальников бандо']],
+                1738 => ['name' => 'Ver 1	', 'param'=>['h8'=>'спортивные купальники', 'l9'=>'спортивный, сплошной, купальник', 'j10'=>'спортивных (сплошных) купальников']],
+                1736 => ['name' => 'Ver 1	', 'param'=>['h8'=>'купальники танкини', 'l9'=>'танкини, купальник', 'j10'=>'купальников танкини']],
+                100116 => ['name' => 'Ver 1	', 'param'=>['h8'=>'купальники с шортами', 'l9'=>'шорты, купальник', 'j10'=>'купальников с шортами']],
+                100117 => ['name' => 'Ver 1	', 'param'=>['h8'=>'плавки', 'l9'=>'плавки', 'j10'=>'плавок']],
+                100118 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пляжные туники', 'l9'=>'туника', 'j10'=>'пляжных туник']],
+                100119 => ['name' => 'Ver 1	', 'param'=>['h8'=>'парео', 'l9'=>'парео', 'j10'=>'парео']],
+                100120 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'женские колготки и носки', 'l9'=>'колготки, носки, женский, женщина', 'j10'=>'колготок и носков для женщин']],
+                100121 => ['name' => 'Ver 1	', 'param'=>['h8'=>'колготки', 'l9'=>'колготки', 'j10'=>'колготок']],
+                992 => ['name' => 'Ver 1	', 'param'=>['h8'=>'классические колготки', 'l9'=>'классический, классика, колготки', 'j10'=>'классических колготок']],
+                1565 => ['name' => 'Ver 1	', 'param'=>['h8'=>'фантазийные колготки', 'l9'=>'фантазийный, фантазия, колготки', 'j10'=>'фантазийных колготок']],
+                765 => ['name' => 'Ver 1	', 'param'=>['h8'=>'носки', 'l9'=>'носки', 'j10'=>'носков']],
+                100125 => ['name' => 'Ver 1	', 'param'=>['h8'=>'гольфы', 'l9'=>'гольфы', 'j10'=>'гольфов']],
+                100126 => ['name' => 'Ver 1	', 'param'=>['h8'=>'гетры', 'l9'=>'гетры', 'j10'=>'гетров']],
+                100127 => ['name' => 'Ver 1	', 'param'=>['h8'=>'гамаши', 'l9'=>'гамаши', 'j10'=>'гамашей']],
+                993 => ['name' => 'Ver 1	', 'param'=>['h8'=>'чулки', 'l9'=>'чулки', 'j10'=>'чулок']],
+                2487 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пояса для чулок', 'l9'=>'пояс, чулки', 'j10'=>'поясов для чулок']],
+                100130 => ['name' => 'Ver 1	', 'param'=>['h8'=>'следки', 'l9'=>'следки', 'j10'=>'следков']],
+                1762 => ['name' => 'Ver 1.3	', 'param'=>['h8'=>'женское нижнее белье', 'l9'=>'нижний, белье, женский, женщина', 'j10'=>'женского нижнего белья']],
+                1763 => ['name' => 'Ver 1	', 'param'=>['h8'=>'бюстгальтеры', 'l9'=>'бюстгальтер', 'j10'=>'бюстгальтеров']],
+                1770 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'аксессуары для бюстгальтеров', 'l9'=>'аксессуар, бюстгальтер', 'j10'=>'аксессуаров для бюстгальтеров']],
+                100134 => ['name' => 'Ver 1.3	', 'param'=>['h8'=>'бюстье', 'l9'=>'бюстье', 'j10'=>'бюстье']],
+                100135 => ['name' => 'Ver 1	', 'param'=>['h8'=>'майки бельевые', 'l9'=>'майка, бельевой', 'j10'=>'маек бельевых']],
+                1764 => ['name' => 'Ver 1	', 'param'=>['h8'=>'трусы', 'l9'=>'трусы', 'j10'=>'трусов']],
+                100137 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'трусы стринги', 'l9'=>'стринги, трусы', 'j10'=>'стрингов']],
+                100138 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'трусы панталоны', 'l9'=>'панталоны, трусы', 'j10'=>'панталон']],
+                100139 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'трусы слипы', 'l9'=>'слипы, трусы', 'j10'=>'слипов']],
+                1765 => ['name' => 'Ver 1	', 'param'=>['h8'=>'комплекты нижнего белья', 'l9'=>'комплект, нижний, белье', 'j10'=>'комплектов нижнего белья']],
+                1649 => ['name' => 'Ver 1.3	', 'param'=>['h8'=>'трусы и майки', 'l9'=>'трусы, майка', 'j10'=>'трусов и маек']],
+                100142 => ['name' => 'Ver 1	', 'param'=>['h8'=>'корсеты', 'l9'=>'корсет', 'j10'=>'корсетов']],
+                1769 => ['name' => 'Ver 1.3	', 'param'=>['h8'=>'эротическое белье', 'l9'=>'эротический, белье', 'j10'=>'эротического белья']],
+                1767 => ['name' => 'Ver 1.3	', 'param'=>['h8'=>'корректирующее белье', 'l9'=>'корректирующий, белье', 'j10'=>'корректирующего белья']],
+                100145 => ['name' => 'Ver 1.3	', 'param'=>['h8'=>'боди', 'l9'=>'боди', 'j10'=>'боди']],
+                1768 => ['name' => 'Ver 1.3	', 'param'=>['h8'=>'термобелье', 'l9'=>'термобелье', 'j10'=>'термобелья']],
+                100147 => ['name' => 'Ver 3	', 'param'=>['h8'=>'товары для будущих мам и кормящих', 'l9'=>'товар, мама, кормящая', 'j10'=>'товаров для будущих мам и кормящих']],
+                1909 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'одежда для беременных', 'l9'=>'одежда, беременная', 'j10'=>'одежды для беременных']],
+                100149 => ['name' => 'Ver 7	', 'param'=>['h8'=>'комбинезоны', 'l9'=>'комбинезон', 'j10'=>'комбинезонов']],
+                100150 => ['name' => 'Ver 7	', 'param'=>['h8'=>'майки', 'l9'=>'майка', 'j10'=>'маек']],
+                100151 => ['name' => 'Ver 7	', 'param'=>['h8'=>'блузки', 'l9'=>'блузка, блуза', 'j10'=>'блузок']],
+                100152 => ['name' => 'Ver 7	', 'param'=>['h8'=>'кофты', 'l9'=>'кофта', 'j10'=>'кофт']],
+                1947 => ['name' => 'Ver 7	', 'param'=>['h8'=>'брюки', 'l9'=>'брюки', 'j10'=>'брюк']],
+                100154 => ['name' => 'Ver 7	', 'param'=>['h8'=>'платья', 'l9'=>'платье', 'j10'=>'платьев']],
+                100155 => ['name' => 'Ver 7	', 'param'=>['h8'=>'сарафаны', 'l9'=>'сарафан', 'j10'=>'сарафанов']],
+                100156 => ['name' => 'Ver 7	', 'param'=>['h8'=>'туники', 'l9'=>'туника', 'j10'=>'туник']],
+                1949 => ['name' => 'Ver 7	', 'param'=>['h8'=>'домашняя одежда', 'l9'=>'одежда, домашний', 'j10'=>'домашней одежды']],
+                100158 => ['name' => 'Ver 7	', 'param'=>['h8'=>'халаты', 'l9'=>'халат', 'j10'=>'халатов']],
+                100159 => ['name' => 'Ver 7	', 'param'=>['h8'=>'ночные сорочки', 'l9'=>'ночная, сорочка', 'j10'=>'ночных сорочек']],
+                1948 => ['name' => 'Ver 7	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100161 => ['name' => 'Ver 7	', 'param'=>['h8'=>'куртки', 'l9'=>'куртка', 'j10'=>'курток']],
+                100162 => ['name' => 'Ver 7	', 'param'=>['h8'=>'костюмы', 'l9'=>'костюм', 'j10'=>'костюмов']],
+                100163 => ['name' => 'Ver 7	', 'param'=>['h8'=>'джинсы', 'l9'=>'джинса', 'j10'=>'джинсов']],
+                1951 => ['name' => 'Ver 7	', 'param'=>['h8'=>'нижнее белье', 'l9'=>'нижний, белье', 'j10'=>'нижнего белья']],
+                100165 => ['name' => 'Ver 7	', 'param'=>['h8'=>'бюстгальтеры', 'l9'=>'бюстгальтер', 'j10'=>'бюстгальтеров']],
+                100166 => ['name' => 'Ver 7	', 'param'=>['h8'=>'трусы', 'l9'=>'трусы', 'j10'=>'трусов']],
+                100167 => ['name' => 'Ver 7	', 'param'=>['h8'=>'колготки', 'l9'=>'колготки', 'j10'=>'колготок']],
+                100168 => ['name' => 'Ver 7	', 'param'=>['h8'=>'лосины', 'l9'=>'лосины', 'j10'=>'лосин']],
+                100169 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'аксессуары для беременных', 'l9'=>'аксессуар, беременная', 'j10'=>'аксессуаров для беременных']],
+                3181 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'бандажи для беременных', 'l9'=>'бандаж, беременная', 'j10'=>'бандажей для беременных']],
+                1953 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'подушки для беременных', 'l9'=>'подушка, беременная', 'j10'=>'подушек для беременных']],
+                1954 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'наволочки на подушки для беременных', 'l9'=>'наволочка, подушка, беременная', 'j10'=>'новолочек на подушки для беременных']],
+                3275 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'рюкзаки и переноски для детей', 'l9'=>'рюкзак, переноска, детский, ребенок', 'j10'=>'рюкзаков и переносок для детей']],
+                2541 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'переноски слинг-шарфы', 'l9'=>'переноска, слинг, шарф', 'j10'=>'переносок слинг-шарфов']],
+                100175 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'переноски для детей', 'l9'=>'переноска, дети, ребенок', 'j10'=>'переносок для детей']],
+                100176 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'рюкзаки-кенгуру', 'l9'=>'рюкзак, кенгуру', 'j10'=>'рюкзаков кенгуру']],
+                3094 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'детские коляски', 'l9'=>'коляска, детский', 'j10'=>'колясок']],
+                1881 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'товары в роддом', 'l9'=>'товар, роддом', 'j10'=>'товаров в роддом']],
+                100179 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'Товары гигиены и ухода за детьми', 'l9'=>'товар, гигиена, уход', 'j10'=>'товаров гигиены и ухода']],
+                3258 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'детские горки для купания', 'l9'=>'горка, купание, детский', 'j10'=>'горок для купания детей']],
+                3244 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'детские ванны', 'l9'=>'ванна, детский', 'j10'=>'ванн для купания детей']],
+                3245 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'детские горшки', 'l9'=>'горшок, детский', 'j10'=>'горшков для детей']],
+                100183 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'товары для кормления', 'l9'=>'товар, кормление', 'j10'=>'товаров для кормления']],
+                100184 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'соски для кормления', 'l9'=>'соска, кормление', 'j10'=>'сосок для кормления']],
+                100185 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'пустышки', 'l9'=>'пустышка', 'j10'=>'пустышек']],
+                1907 => ['name' => 'Ver 3	', 'param'=>['h8'=>'товары в детскую комнату', 'l9'=>'товар, комната, ребенок, детский', 'j10'=>'товаров в детскую комнату']],
+                2701 => ['name' => 'Ver 6.2	', 'param'=>['h8'=>'детские одеяла', 'l9'=>'одеяло', 'j10'=>'одеял']],
+                2700 => ['name' => 'Ver 6.2	', 'param'=>['h8'=>'детские подушки', 'l9'=>'подушка', 'j10'=>'подушек']],
+                3090 => ['name' => 'Ver 6.2	', 'param'=>['h8'=>'детские светильники и лампы', 'l9'=>'светильник, лампа', 'j10'=>'светильников и ламп']],
+                3091 => ['name' => 'Ver 6.2	', 'param'=>['h8'=>'детские шезлонги и кресла-качалки', 'l9'=>'шезлонг, кресло, качалка', 'j10'=>'шезлонгов и кресел-качалок']],
+                2699 => ['name' => 'Ver 6.2	', 'param'=>['h8'=>'детское постельное белье', 'l9'=>'белье, постель', 'j10'=>'постельного белья']],
+                3093 => ['name' => 'Ver 6.3	', 'param'=>['h8'=>'пеленальные столики', 'l9'=>'столик, пеленальный', 'j10'=>'пеленальных столиков']],
+                3205 => ['name' => 'Ver 6.3	', 'param'=>['h8'=>'ростомеры', 'l9'=>'ростомер', 'j10'=>'ростомеров']],
+                3095 => ['name' => 'Ver 6.3	', 'param'=>['h8'=>'ходунки, прыгунки', 'l9'=>'ходунки, прыгунки', 'j10'=>'ходунков и прыгунков']],
+                100195 => ['name' => 'Ver 3	', 'param'=>['h8'=>'товары для мужчин', 'l9'=>'мужчина, товар', 'j10'=>'']],
+                1668 => ['name' => 'Ver 3	', 'param'=>['h8'=>'мужская одежда', 'l9'=>'одежда, мужской, мужчина', 'j10'=>'одежды для мужчин']],
+                1826 => ['name' => 'Ver 2.2	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100198 => ['name' => 'Ver 2	', 'param'=>['h8'=>'дубленки', 'l9'=>'дубленка', 'j10'=>'дубленок']],
+                100199 => ['name' => 'Ver 2	', 'param'=>['h8'=>'куртки', 'l9'=>'куртка', 'j10'=>'курток']],
+                1831 => ['name' => 'Ver 2	', 'param'=>['h8'=>'джинсовые куртки', 'l9'=>'куртка, джинсовый, джинс', 'j10'=>'джинсовых курток']],
+                1835 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кожаные куртки', 'l9'=>'куртка, кожаный, кожа', 'j10'=>'кожаных курток']],
+                100202 => ['name' => 'Ver 2	', 'param'=>['h8'=>'зимние куртки', 'l9'=>'куртка, зима, зимний', 'j10'=>'зимних курток']],
+                1829 => ['name' => 'Ver 2	', 'param'=>['h8'=>'демисезонные куртки', 'l9'=>'куртка, демисезонный, межсезонье', 'j10'=>'демисезонных курток']],
+                100204 => ['name' => 'Ver 2	', 'param'=>['h8'=>'пальто', 'l9'=>'пальто', 'j10'=>'пальто']],
+                100205 => ['name' => 'Ver 2	', 'param'=>['h8'=>'плащи', 'l9'=>'плащ', 'j10'=>'плащей']],
+                1832 => ['name' => 'Ver 2	', 'param'=>['h8'=>'жилетки', 'l9'=>'жилетка', 'j10'=>'жилеток']],
+                100207 => ['name' => 'Ver 2	', 'param'=>['h8'=>'полупальто', 'l9'=>'полупальто', 'j10'=>'полупальто']],
+                100208 => ['name' => 'Ver 2	', 'param'=>['h8'=>'пуховики', 'l9'=>'пуховик', 'j10'=>'пуховиков']],
+                1827 => ['name' => 'Ver 2	', 'param'=>['h8'=>'ветровки', 'l9'=>'ветровка', 'j10'=>'ветровок']],
+                1833 => ['name' => 'Ver 2	', 'param'=>['h8'=>'парки', 'l9'=>'парка', 'j10'=>'парок']],
+                100211 => ['name' => 'Ver 2	', 'param'=>['h8'=>'дождевики', 'l9'=>'дождевик', 'j10'=>'дождевиков']],
+                100212 => ['name' => 'Ver 2	', 'param'=>['h8'=>'бомберы', 'l9'=>'бомбер', 'j10'=>'бомберов']],
+                100213 => ['name' => 'Ver 2	', 'param'=>['h8'=>'аляски', 'l9'=>'аляска', 'j10'=>'алясок']],
+                1834 => ['name' => 'Ver 2	', 'param'=>['h8'=>'зимние костюмы', 'l9'=>'зимний, костюм', 'j10'=>'зимних костюмов']],
+                100215 => ['name' => 'Ver 2	', 'param'=>['h8'=>'анораки', 'l9'=>'анорак', 'j10'=>'анораков']],
+                1679 => ['name' => 'Ver 2	', 'param'=>['h8'=>'рубашки', 'l9'=>'рубашка', 'j10'=>'рубашек']],
+                2468 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'рубашки с длинным рукавом', 'l9'=>'рубашка, длинный, рукав', 'j10'=>'рубашек с длинным рукавом']],
+                2469 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'рубашки с коротким рукавом', 'l9'=>'рубашка, короткий, рукав', 'j10'=>'рубашек с коротким рукавом']],
+                1839 => ['name' => 'Ver 2	', 'param'=>['h8'=>'рубашки поло', 'l9'=>'рубашка, поло', 'j10'=>'рубашек поло']],
+                100220 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'поло с длинным рукавом', 'l9'=>'поло, длинный, рукав, рубашка', 'j10'=>'поло с длинным рукавом']],
+                100221 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'поло с коротким рукавом', 'l9'=>'поло, короткий, рукав, рубашка', 'j10'=>'поло с коротким рукавом']],
+                100222 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'футболки и майки', 'l9'=>'футболка, майка', 'j10'=>'футболок и маек']],
+                100223 => ['name' => 'Ver 2	', 'param'=>['h8'=>'футболки', 'l9'=>'футболка', 'j10'=>'футболок']],
+                1838 => ['name' => 'Ver 2	', 'param'=>['h8'=>'лонгсливы', 'l9'=>'лонгслив', 'j10'=>'лонгсливов']],
+                100225 => ['name' => 'Ver 2	', 'param'=>['h8'=>'майки', 'l9'=>'майка', 'j10'=>'маек']],
+                1879 => ['name' => 'Ver 2	', 'param'=>['h8'=>'майки с принтами', 'l9'=>'майка, принт', 'j10'=>'маек с принтами']],
+                100227 => ['name' => 'Ver 2	', 'param'=>['h8'=>'тельняшки', 'l9'=>'тельняшка', 'j10'=>'тельняшек']],
+                100228 => ['name' => 'Ver 2	', 'param'=>['h8'=>'борцовки', 'l9'=>'борцовка', 'j10'=>'борцовок']],
+                1847 => ['name' => 'Ver 2	', 'param'=>['h8'=>'водолазки', 'l9'=>'водолазка', 'j10'=>'водолазок']],
+                100230 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'жакеты и пиджаки', 'l9'=>'жакет, пиджак', 'j10'=>'жакетов и пиджаков']],
+                100231 => ['name' => 'Ver 2	', 'param'=>['h8'=>'жакеты', 'l9'=>'жакет', 'j10'=>'жакетов']],
+                100232 => ['name' => 'Ver 2	', 'param'=>['h8'=>'пиджаки', 'l9'=>'пиджак', 'j10'=>'пиджаков']],
+                100233 => ['name' => 'Ver 2	', 'param'=>['h8'=>'толстовки', 'l9'=>'толстовка', 'j10'=>'толстовок']],
+                100234 => ['name' => 'Ver 2	', 'param'=>['h8'=>'худи', 'l9'=>'худи', 'j10'=>'худи']],
+                1842 => ['name' => 'Ver 2	', 'param'=>['h8'=>'свитшоты', 'l9'=>'свитшот', 'j10'=>'свитшотов']],
+                100236 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'джемпера и кофты', 'l9'=>'джемпер, кофта', 'j10'=>'джемперов и кофт']],
+                100237 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кофты', 'l9'=>'кофта', 'j10'=>'кофт']],
+                100238 => ['name' => 'Ver 2	', 'param'=>['h8'=>'свитера', 'l9'=>'свитер', 'j10'=>'свитеров']],
+                100239 => ['name' => 'Ver 2	', 'param'=>['h8'=>'джемпера', 'l9'=>'джемпер', 'j10'=>'джемперов']],
+                1846 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кардиганы', 'l9'=>'кардиган', 'j10'=>'кардиганов']],
+                100241 => ['name' => 'Ver 2	', 'param'=>['h8'=>'жилеты', 'l9'=>'жилет', 'j10'=>'жилетов']],
+                1848 => ['name' => 'Ver 2	', 'param'=>['h8'=>'вязаные жилеты', 'l9'=>'жилет, вязаный', 'j10'=>'вязаных жилетов']],
+                1854 => ['name' => 'Ver 2	', 'param'=>['h8'=>'шорты', 'l9'=>'шорты', 'j10'=>'шорт']],
+                1849 => ['name' => 'Ver 2	', 'param'=>['h8'=>'брюки', 'l9'=>'брюки', 'j10'=>'брюк']],
+                1671 => ['name' => 'Ver 2	', 'param'=>['h8'=>'джинсы', 'l9'=>'джинсы, джинс', 'j10'=>'джинсов']],
+                100246 => ['name' => 'Ver 2	', 'param'=>['h8'=>'костюмы', 'l9'=>'костюм', 'j10'=>'костюмов']],
+                100247 => ['name' => 'Ver 2	', 'param'=>['h8'=>'классические костюмы', 'l9'=>'классический, костюм', 'j10'=>'классических костюмов']],
+                100248 => ['name' => 'Ver 2	', 'param'=>['h8'=>'комбинезоны', 'l9'=>'комбинезон', 'j10'=>'комбинезонов']],
+                100249 => ['name' => 'Ver 2.2	', 'param'=>['h8'=>'спортивная одежда', 'l9'=>'спортивный, одежда', 'j10'=>'спортивной одежды']],
+                100250 => ['name' => 'Ver 2	', 'param'=>['h8'=>'спортивные штаны', 'l9'=>'спортивный, штаны', 'j10'=>'спортивных штанов']],
+                1680 => ['name' => 'Ver 2	', 'param'=>['h8'=>'спортивные костюмы', 'l9'=>'спортивный, костюм', 'j10'=>'спортивных костюмов']],
+                1850 => ['name' => 'Ver 2	', 'param'=>['h8'=>'спортивные брюки', 'l9'=>'спортивный, брюки', 'j10'=>'спортивных брюк']],
+                1843 => ['name' => 'Ver 2	', 'param'=>['h8'=>'олимпийки', 'l9'=>'олимпика', 'j10'=>'олимпиек']],
+                1856 => ['name' => 'Ver 2	', 'param'=>['h8'=>'спортивные шорты', 'l9'=>'спортивный, шорты', 'j10'=>'спортивных шорт']],
+                100255 => ['name' => 'Ver 2.2	', 'param'=>['h8'=>'домашняя одежда', 'l9'=>'домашний, одежда', 'j10'=>'домашней одежды']],
+                1677 => ['name' => 'Ver 2	', 'param'=>['h8'=>'пижамы', 'l9'=>'пижама', 'j10'=>'пижам']],
+                1860 => ['name' => 'Ver 2	', 'param'=>['h8'=>'халаты', 'l9'=>'халат', 'j10'=>'халатов']],
+                1852 => ['name' => 'Ver 2	', 'param'=>['h8'=>'домашние брюки ', 'l9'=>'домашний, брюки ', 'j10'=>'повседневных брюк ']],
+                3332 => ['name' => 'Ver 2	', 'param'=>['h8'=>'домашние костюмы', 'l9'=>'домашний, костюм', 'j10'=>'домашних костюмов']],
+                100260 => ['name' => 'Ver 2.5	', 'param'=>['h8'=>'камуфляж', 'l9'=>'камуфляж', 'j10'=>'камуляжа']],
+                1677 => ['name' => 'Ver 2.3	', 'param'=>['h8'=>'мужское нижнее белье', 'l9'=>'нижний, белье, мужской, мужчина', 'j10'=>'нижнего белья для мужчин']],
+                1678 => ['name' => 'Ver 2	', 'param'=>['h8'=>'плавки', 'l9'=>'плавки', 'j10'=>'плавок']],
+                1684 => ['name' => 'Ver 2	', 'param'=>['h8'=>'трусы', 'l9'=>'трусы', 'j10'=>'трусов']],
+                100264 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'трусы боксеры', 'l9'=>'боксеры, трусы', 'j10'=>'трусов боксёров']],
+                100265 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'трусы семейные', 'l9'=>'семейный, трусы', 'j10'=>'трусов семейных']],
+                2490 => ['name' => 'Ver 2	', 'param'=>['h8'=>'майки нательные', 'l9'=>'майка, нательный', 'j10'=>'маек нательных']],
+                2491 => ['name' => 'Ver 2.3	', 'param'=>['h8'=>'трико', 'l9'=>'трико', 'j10'=>'трико']],
+                100268 => ['name' => 'Ver 2.3	', 'param'=>['h8'=>'термобелье', 'l9'=>'термобелье', 'j10'=>'термобелья']],
+                100269 => ['name' => 'Ver 2	', 'param'=>['h8'=>'комплекты нижнего белья', 'l9'=>'комплект, нижний, белье', 'j10'=>'комплектов нижнего белья']],
+                100270 => ['name' => 'Ver 2	', 'param'=>['h8'=>'майки и трусы', 'l9'=>'майка, трусы', 'j10'=>'маек и трусов']],
+                100271 => ['name' => 'Ver 2.3	', 'param'=>['h8'=>'эротическое белье', 'l9'=>'эротический, белье', 'j10'=>'эротического белья']],
+                100272 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кальсоны', 'l9'=>'кальсоны', 'j10'=>'кальсон']],
+                3107 => ['name' => 'Ver 2.3	', 'param'=>['h8'=>'корректирующее белье', 'l9'=>'корректирующий, белье', 'j10'=>'корректирующего белья']],
+                1674 => ['name' => 'Ver 2	', 'param'=>['h8'=>'носки', 'l9'=>'носки', 'j10'=>'носков']],
+                100275 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'детские товары', 'l9'=>'дети, товар, детский', 'j10'=>'товаров для детей оптом']],
+                100276 => ['name' => 'Ver 3	', 'param'=>['h8'=>'детская одежда', 'l9'=>'одежда, детский, дети', 'j10'=>'одежды для детей']],
+                1904 => ['name' => 'Ver 3.2	', 'param'=>['h8'=>'одежда для девочек', 'l9'=>'девочка, одежда, детский', 'j10'=>'одежды для девочек']],
+                1434 => ['name' => 'Ver 4	', 'param'=>['h8'=>'платья', 'l9'=>'платье', 'j10'=>'платьев']],
+                100279 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'вечерние платья', 'l9'=>'вечерний, платье', 'j10'=>'вечерних платьев']],
+                100280 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'нарядные платья', 'l9'=>'нарядный, платье', 'j10'=>'нарядных платьев']],
+                100281 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'бальные платья', 'l9'=>'бальный, платье', 'j10'=>'бальных платьев']],
+                100282 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'платья боди', 'l9'=>'боди, платье', 'j10'=>'платьев боди']],
+                100283 => ['name' => 'Ver 4	', 'param'=>['h8'=>'сарафаны', 'l9'=>'сарафан', 'j10'=>'сарафанов']],
+                100284 => ['name' => 'Ver 4	', 'param'=>['h8'=>'туники', 'l9'=>'туника', 'j10'=>'туник']],
+                100285 => ['name' => 'Ver 4	', 'param'=>['h8'=>'блузки', 'l9'=>'блузка, блуза', 'j10'=>'блузок']],
+                100286 => ['name' => 'Ver 4	', 'param'=>['h8'=>'рубашки', 'l9'=>'рубашка', 'j10'=>'рубашек']],
+                1916 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'жилетки', 'l9'=>'жилетка', 'j10'=>'жилеток']],
+                1927 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'толстовки', 'l9'=>'толстовка', 'j10'=>'толстовок']],
+                100289 => ['name' => 'Ver 4.4	', 'param'=>['h8'=>'брюки и шорты', 'l9'=>'брюки, шорты', 'j10'=>'брюк и шорт']],
+                1913 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'брюки', 'l9'=>'брюки', 'j10'=>'брюк']],
+                1930 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'шорты', 'l9'=>'шорты', 'j10'=>'шорт']],
+                100292 => ['name' => 'Ver 4	', 'param'=>['h8'=>'рейтузы', 'l9'=>'рейтузы', 'j10'=>'рейтуз']],
+                1931 => ['name' => 'Ver 4	', 'param'=>['h8'=>'юбки', 'l9'=>'юбка', 'j10'=>'юбок']],
+                100294 => ['name' => 'Ver 4.4	', 'param'=>['h8'=>'футболки и лонгсливы', 'l9'=>'футболка, лонгслив', 'j10'=>'футболок и лонгсливов']],
+                100295 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'футболки', 'l9'=>'футболка', 'j10'=>'футболок']],
+                100296 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'футболки поло', 'l9'=>'поло, футболка', 'j10'=>'футболок поло']],
+                100297 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'поло с длинным рукавом', 'l9'=>'поло, длинный, рукав', 'j10'=>'поло с длинным рукавом']],
+                100298 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'лонгсливы', 'l9'=>'лонгслив', 'j10'=>'лонгсливов']],
+                1928 => ['name' => 'Ver 4.4	', 'param'=>['h8'=>'майки и топы', 'l9'=>'майка, топ', 'j10'=>'маек и топов']],
+                100300 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'майки', 'l9'=>'майка', 'j10'=>'маек']],
+                100301 => ['name' => 'Ver 4	', 'param'=>['h8'=>'топы', 'l9'=>'топ', 'j10'=>'топов']],
+                100302 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'водолазки', 'l9'=>'водолазка', 'j10'=>'водолазок']],
+                1920 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'комбинезоны', 'l9'=>'комбинезон', 'j10'=>'комбинезонов']],
+                1968 => ['name' => 'Ver 4.4	', 'param'=>['h8'=>'лосины и легинсы', 'l9'=>'лосины, легинсы', 'j10'=>'лосин и легинсов']],
+                100305 => ['name' => 'Ver 4	', 'param'=>['h8'=>'лосины', 'l9'=>'лосины', 'j10'=>'лосин']],
+                2525 => ['name' => 'Ver 4	', 'param'=>['h8'=>'легинсы', 'l9'=>'легинсы', 'j10'=>'легинсов']],
+                100307 => ['name' => 'Ver 4.4	', 'param'=>['h8'=>'джемпера и кофты', 'l9'=>'джемпер, кофта', 'j10'=>'джемперов и кофт']],
+                100308 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'кофты', 'l9'=>'кофта', 'j10'=>'кофт']],
+                100309 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'кардиганы', 'l9'=>'кардиган', 'j10'=>'кардиганов']],
+                100310 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'свитера', 'l9'=>'свитер', 'j10'=>'свитеров']],
+                100311 => ['name' => 'Ver 4.3	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100312 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'шубы', 'l9'=>'шуба', 'j10'=>'шуб']],
+                100313 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'куртки', 'l9'=>'куртка', 'j10'=>'курток']],
+                100314 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'пуховики', 'l9'=>'пуховик', 'j10'=>'пуховиков']],
+                100315 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'пальто', 'l9'=>'пальто', 'j10'=>'пальто']],
+                100316 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'ветровки', 'l9'=>'ветровка', 'j10'=>'ветровок']],
+                100317 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'парки', 'l9'=>'парка', 'j10'=>'парок']],
+                100318 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'дождевики', 'l9'=>'дождевик', 'j10'=>'дождевиков']],
+                100319 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'зимние костюмы', 'l9'=>'зимний, костюм', 'j10'=>'зимних костюмов']],
+                1919 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'зимние комбинезоны', 'l9'=>'комбинезон', 'j10'=>'зимних комбинезонов']],
+                100321 => ['name' => 'Ver 4.3	', 'param'=>['h8'=>'домашняя одежда', 'l9'=>'домашний, одежда', 'j10'=>'домашней одежды']],
+                100322 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'пижамы', 'l9'=>'пижама', 'j10'=>'пижам']],
+                100323 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'халаты', 'l9'=>'халат', 'j10'=>'халатов']],
+                100324 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'ночные сорочки', 'l9'=>'ночной, сорочка', 'j10'=>'ночных сорочек']],
+                1926 => ['name' => 'Ver 4.3	', 'param'=>['h8'=>'спортивная одежда', 'l9'=>'спортивный, одежда', 'j10'=>'спортивной одежды']],
+                100326 => ['name' => 'Ver 4.5	', 'param'=>['h8'=>'спортивные костюмы', 'l9'=>'костюм', 'j10'=>'спортивных костюмов']],
+                1962 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'костюмы', 'l9'=>'костюм', 'j10'=>'костюмов']],
+                1915 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'джинсы', 'l9'=>'джинсы, джинс', 'j10'=>'джинсов']],
+                1905 => ['name' => 'Ver 3.2	', 'param'=>['h8'=>'одежда для мальчиков', 'l9'=>'мальчик, одежда, детский', 'j10'=>'одежды для мальчиков']],
+                1933 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'рубашки', 'l9'=>'рубашка', 'j10'=>'рубашек']],
+                1937 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'жилетки', 'l9'=>'жилетка', 'j10'=>'жилеток']],
+                1941 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'толстовки', 'l9'=>'толстовка', 'j10'=>'толстовок']],
+                100333 => ['name' => 'Ver 4.7	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100334 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'куртки', 'l9'=>'куртка', 'j10'=>'курток']],
+                100335 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'пуховики', 'l9'=>'пуховик', 'j10'=>'пуховиков']],
+                100336 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'пальто', 'l9'=>'пальто', 'j10'=>'пальто']],
+                100337 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'ветровки', 'l9'=>'ветровка', 'j10'=>'ветровок']],
+                100338 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'парки', 'l9'=>'парка', 'j10'=>'парок']],
+                100339 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'дождевики', 'l9'=>'дождевик', 'j10'=>'дождевиков']],
+                100340 => ['name' => 'Ver 4.9	', 'param'=>['h8'=>'зимние костюмы', 'l9'=>'зимний, костюм', 'j10'=>'зимних костюмов']],
+                1943 => ['name' => 'Ver 4.9	', 'param'=>['h8'=>'зимние комбинезоны', 'l9'=>'комбинезон', 'j10'=>'зимних комбинезонов']],
+                100342 => ['name' => 'Ver 4.8	', 'param'=>['h8'=>'брюки и шорты', 'l9'=>'брюки, шорты', 'j10'=>'брюк и шорт']],
+                1934 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'брюки', 'l9'=>'брюки', 'j10'=>'брюк']],
+                1961 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'шорты', 'l9'=>'шорты', 'j10'=>'шорт']],
+                100345 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'водолазки', 'l9'=>'водолазка', 'j10'=>'водолазок']],
+                1946 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'костюмы', 'l9'=>'костюм', 'j10'=>'костюмов']],
+                1936 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'джинсы', 'l9'=>'джинсы, джинс', 'j10'=>'джинсов']],
+                100348 => ['name' => 'Ver 4.8	', 'param'=>['h8'=>'футболки и лонгсливы', 'l9'=>'футболка, лонгслив', 'j10'=>'футболок и лонгсливов']],
+                100349 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'футболки', 'l9'=>'футболка', 'j10'=>'футболок']],
+                100350 => ['name' => 'Ver 4.9	', 'param'=>['h8'=>'футболки поло', 'l9'=>'поло, футболка', 'j10'=>'футболок поло']],
+                100351 => ['name' => 'Ver 4.8	', 'param'=>['h8'=>'поло с длинным рукавом', 'l9'=>'поло, длинный, рукав', 'j10'=>'поло с длинным рукавом']],
+                100352 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'лонгсливы', 'l9'=>'лонгслив', 'j10'=>'лонгсливов']],
+                1967 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'майки', 'l9'=>'майки', 'j10'=>'маек']],
+                100354 => ['name' => 'Ver 4.7	', 'param'=>['h8'=>'домашняя одежда', 'l9'=>'домашний, одежда', 'j10'=>'домашней одежды']],
+                100355 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'пижамы', 'l9'=>'пижама', 'j10'=>'пижам']],
+                100356 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'халаты', 'l9'=>'халат', 'j10'=>'халатов']],
+                1940 => ['name' => 'Ver 4.7	', 'param'=>['h8'=>'спортивная одежда', 'l9'=>'спортивный, одежда', 'j10'=>'спортивной одежды']],
+                100358 => ['name' => 'Ver 4.9	', 'param'=>['h8'=>'спортивные костюмы', 'l9'=>'костюм', 'j10'=>'спортивных костюмов']],
+                1944 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'комбинезоны', 'l9'=>'комбинезон', 'j10'=>'комбинезонов']],
+                2519 => ['name' => 'Ver 4.7	', 'param'=>['h8'=>'камуфляжная форма', 'l9'=>'камуфляжный, форма, камуфляж', 'j10'=>'камуфляжной формы']],
+                1908 => ['name' => 'Ver 3.2	', 'param'=>['h8'=>'одежда для новорожденных', 'l9'=>'новорожденный, одежда, детский', 'j10'=>'одежды для новорождённых']],
+                2536 => ['name' => 'Ver 5	', 'param'=>['h8'=>'конверты', 'l9'=>'конверт, выписка', 'j10'=>'конвертов']],
+                100363 => ['name' => 'Ver 5.2	', 'param'=>['h8'=>'ползунки', 'l9'=>'ползунки', 'j10'=>'ползунков']],
+                100364 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'штанишки', 'l9'=>'штанишки', 'j10'=>'штанишек']],
+                100365 => ['name' => 'Ver 5.2	', 'param'=>['h8'=>'пинетки', 'l9'=>'пинетки', 'j10'=>'пинеток']],
+                2535 => ['name' => 'Ver 5.2	', 'param'=>['h8'=>'распашонки', 'l9'=>'распашонки', 'j10'=>'распашонок']],
+                1360 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'комплекты', 'l9'=>'комплекты', 'j10'=>'комплектов']],
+                2539 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'подарочные наборы', 'l9'=>'подарочный, набор', 'j10'=>'подарочных наборов']],
+                100369 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'аксессуары', 'l9'=>'аксессуар', 'j10'=>'аксессуаров']],
+                100370 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'шапки', 'l9'=>'шапка', 'j10'=>'шапок']],
+                1362 => ['name' => 'Ver 5.2	', 'param'=>['h8'=>'слюнявчики', 'l9'=>'слюнявчик', 'j10'=>'слюнявчиков']],
+                1361 => ['name' => 'Ver 5.2	', 'param'=>['h8'=>'чепчики', 'l9'=>'чепчик', 'j10'=>'чепчиков']],
+                100373 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'косынки', 'l9'=>'косынка', 'j10'=>'косынок']],
+                100374 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'рукавички', 'l9'=>'рукавичка', 'j10'=>'рукавичек']],
+                2537 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'крестильное белье', 'l9'=>'крестильный, белье', 'j10'=>'крестильного белья']],
+                100376 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'коконы', 'l9'=>'кокон', 'j10'=>'коконов']],
+                100377 => ['name' => 'Ver 3	', 'param'=>['h8'=>'ясельный трикотаж', 'l9'=>'ясельный, трикотаж', 'j10'=>'ясельного трикотажа']],
+                100378 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'трусы', 'l9'=>'трусы', 'j10'=>'трусов']],
+                1308 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'боди', 'l9'=>'боди', 'j10'=>'боди']],
+                100380 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'полотенце-уголок', 'l9'=>'полотенце-уголок', 'j10'=>'полотенец уголков']],
+                100381 => ['name' => 'Ver 5.2	', 'param'=>['h8'=>'пеленки', 'l9'=>'пеленка', 'j10'=>'пеленок']],
+                2520 => ['name' => 'Ver 5.4	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100383 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'пуховики', 'l9'=>'пуховик', 'j10'=>'пуховиков']],
+                100384 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'зимние комбинезоны', 'l9'=>'комбинезон', 'j10'=>'зимних комбинезонов']],
+                1623 => ['name' => 'Ver 5.3	', 'param'=>['h8'=>'комбинезоны', 'l9'=>'комбинезон', 'j10'=>'комбинезонов']],
+                100386 => ['name' => 'Ver 6	', 'param'=>['h8'=>'детские колготки и носки', 'l9'=>'колготки, носки, детский, дети', 'j10'=>'колготок и носков для детей']],
+                100387 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'колготки', 'l9'=>'колготки', 'j10'=>'колготок']],
+                100388 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'носки', 'l9'=>'носки', 'j10'=>'носков']],
+                100389 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'гольфы', 'l9'=>'гольфы', 'j10'=>'гольфов']],
+                100390 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'гетры', 'l9'=>'гетры', 'j10'=>'гетров']],
+                100391 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'гамаши', 'l9'=>'гамаши', 'j10'=>'гамашей']],
+                100392 => ['name' => 'Ver 6	', 'param'=>['h8'=>'детское нижнее белье', 'l9'=>'нижний, белье, детский, дети', 'j10'=>'нижнего белья для детей']],
+                100393 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'трусы', 'l9'=>'трусы', 'j10'=>'трусов']],
+                100394 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'комплекты нижнего белья', 'l9'=>'комплект, нижний, белье', 'j10'=>'комплектов нижнего белья']],
+                3239 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'термобелье', 'l9'=>'термобелье', 'j10'=>'термобелья']],
+                100396 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'бюстгальтеры', 'l9'=>'бюстгальтер', 'j10'=>'бюстгальтеров']],
+                100397 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'майки нательные', 'l9'=>'майка', 'j10'=>'нательных маек']],
+                100398 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'кальсоны', 'l9'=>'кальсоны', 'j10'=>'кальсон']],
+                100399 => ['name' => 'Ver 4.82	', 'param'=>['h8'=>'трико', 'l9'=>'трико', 'j10'=>'трико']],
+                100400 => ['name' => 'Ver 6	', 'param'=>['h8'=>'детское нижнее белье', 'l9'=>'нижний, белье, детский, дети', 'j10'=>'нижнего белья для детей']],
+                100401 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'купальники', 'l9'=>'купальник', 'j10'=>'купальников']],
+                1958 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'плавки', 'l9'=>'плавки', 'j10'=>'плавок']],
+                100403 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'карнавальные костюмы', 'l9'=>'карнавальный, костюм', 'j10'=>'карнавальных костюмов']],
+                1917 => ['name' => 'Ver 4	', 'param'=>['h8'=>'карнавальные костюмы', 'l9'=>'карнавальный, костюм', 'j10'=>'карнавальных костюмов']],
+                1938 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'карнавальные костюмы', 'l9'=>'карнавальный, костюм', 'j10'=>'карнавальных костюмов']],
+                100406 => ['name' => 'Ver 3	', 'param'=>['h8'=>'одежда больших размеров', 'l9'=>'большой, размер, одежа', 'j10'=>'одежды больших размеров']],
+                1350 => ['name' => 'Ver 8	', 'param'=>['h8'=>'женская одежда', 'l9'=>'женский, одежда, большой, размер, полный', 'j10'=>'женской одежды для полных']],
+                1693 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'платья', 'l9'=>'платье', 'j10'=>'платьев']],
+                3195 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'вечерние платья', 'l9'=>'вечерний, платье', 'j10'=>'вечерних платьев']],
+                1718 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'длинные платья', 'l9'=>'длинный, платье', 'j10'=>'длинных платьев']],
+                1719 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'короткие платья', 'l9'=>'короткий, платье', 'j10'=>'коротких платьев']],
+                1863 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'сарафаны', 'l9'=>'сарафан', 'j10'=>'сарафанов']],
+                1706 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'футболки и лонгсливы', 'l9'=>'футболка, лонгслив', 'j10'=>'футболок и лонгсливов']],
+                1466 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'футболки', 'l9'=>'футболка', 'j10'=>'футболок']],
+                1882 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'майки', 'l9'=>'майка', 'j10'=>'маек']],
+                1883 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'топы', 'l9'=>'топ', 'j10'=>'топов']],
+                100417 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'лонгсливы', 'l9'=>'лонгслив', 'j10'=>'лонгсливов']],
+                1697 => ['name' => 'Ver 8.4	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100419 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'куртки', 'l9'=>'куртка', 'j10'=>'курток']],
+                1864 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'демисезонные куртки', 'l9'=>'демисезонный, куртка', 'j10'=>'демисезонных курток']],
+                2498 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'джинсовые куртки', 'l9'=>'джинсовый, джинс, куртка', 'j10'=>'джинсовых курток']],
+                100422 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'зимние куртки', 'l9'=>'зимний, куртка', 'j10'=>'зимних курток']],
+                2497 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'кожаные куртки', 'l9'=>'кожаный, куртка', 'j10'=>'кожаных курток']],
+                1865 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'ветровки', 'l9'=>'ветровка', 'j10'=>'ветровок']],
+                100425 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'пуховики', 'l9'=>'пуховик', 'j10'=>'пуховиков']],
+                2500 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'пальто', 'l9'=>'пальто', 'j10'=>'пальто']],
+                100427 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'плащи', 'l9'=>'плащ', 'j10'=>'плащей']],
+                1463 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'зимние костюмы', 'l9'=>'зимний, костюм', 'j10'=>'зимних костюмов']],
+                1580 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'джинсы', 'l9'=>'джинсы, джинс, джинса', 'j10'=>'джинсов']],
+                100430 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'жакеты и пиджаки', 'l9'=>'жакет, пиджак', 'j10'=>'жакетов и пиджаков']],
+                100431 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'жакеты', 'l9'=>'жакет', 'j10'=>'жакетов']],
+                100432 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'пиджаки', 'l9'=>'пиджак', 'j10'=>'пиджаков']],
+                100433 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'блейзеры', 'l9'=>'блейзер', 'j10'=>'блейзеров']],
+                100434 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'костюмы', 'l9'=>'костюм', 'j10'=>'костюмов']],
+                100435 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'деловые костюмы', 'l9'=>'деловой, костюм', 'j10'=>'деловых костюмов']],
+                1470 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'костюмы с юбкой', 'l9'=>'костюм, юбка', 'j10'=>'костюмов с юбками']],
+                100437 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'костюмы с брюками', 'l9'=>'костюм, брюки', 'j10'=>'костюмов с брюками']],
+                100438 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'костюмы с шортами', 'l9'=>'костюм, шорты', 'j10'=>'костюмов с шортами']],
+                1710 => ['name' => 'Ver 8.4	', 'param'=>['h8'=>'спортивная одежда', 'l9'=>'спортивный, одежда', 'j10'=>'спортивной одежды']],
+                1472 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'спортивные костюмы', 'l9'=>'спортивный, костюм', 'j10'=>'спортивных костюмов']],
+                1893 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'спортивные брюки', 'l9'=>'спортивный, брюки', 'j10'=>'спортивных брюк']],
+                1902 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'олимпийки', 'l9'=>'олимпийка', 'j10'=>'олимпиек']],
+                1709 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'комбинезоны', 'l9'=>'комбинезон', 'j10'=>'комбинезонов']],
+                1490 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'комбинезоны с брюками', 'l9'=>'комбинезон, брюки', 'j10'=>'комбинезонов с брюками']],
+                2503 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'комбинезоны с шортами', 'l9'=>'комбинезон, шорты', 'j10'=>'комбинезонов с шортами']],
+                1469 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'туники', 'l9'=>'туника', 'j10'=>'туник']],
+                100447 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'блузки и рубашки', 'l9'=>'блузка, рубашка', 'j10'=>'блузок и рубашек']],
+                1867 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'блузки', 'l9'=>'блузка, блуза', 'j10'=>'блузок']],
+                1878 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'рубашки', 'l9'=>'рубашка', 'j10'=>'рубашек']],
+                1877 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'рубашки с коротким рукавом', 'l9'=>'короткий, рукав, рубашка', 'j10'=>'рубашек с коротким рукавом']],
+                1870 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'водолазки', 'l9'=>'водолазка', 'j10'=>'водолазок']],
+                100452 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'джемпера и кофты', 'l9'=>'джемпер, кофта', 'j10'=>'джемперов и кофт']],
+                100453 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'кофты', 'l9'=>'кофта', 'j10'=>'кофт']],
+                100454 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'свитера', 'l9'=>'свитер', 'j10'=>'свитеров']],
+                100455 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'джемпера', 'l9'=>'джемпер', 'j10'=>'джемперов']],
+                100456 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'кардиганы', 'l9'=>'кардиган', 'j10'=>'кардиганов']],
+                1872 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'болеро', 'l9'=>'болеро', 'j10'=>'болеро']],
+                100458 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'толстовки', 'l9'=>'толстовка', 'j10'=>'толстовок']],
+                100459 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'худи', 'l9'=>'худи', 'j10'=>'худи']],
+                100460 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'свитшоты', 'l9'=>'свитшот', 'j10'=>'свитшотов']],
+                1712 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'жилеты', 'l9'=>'жилет', 'j10'=>'жилетов']],
+                1965 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'вязанные жилеты', 'l9'=>'вязанный, жилет', 'j10'=>'вязанных жилетов']],
+                1875 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'классические жилеты', 'l9'=>'классический, жилет', 'j10'=>'классических жилетов']],
+                1964 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'утепленные жилеты', 'l9'=>'утеплённый, жилет', 'j10'=>'утеплённых жилетов']],
+                1966 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'меховые жилеты', 'l9'=>'меховой, мех, жилет', 'j10'=>'меховых жилетов']],
+                1707 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'юбки', 'l9'=>'юбка', 'j10'=>'юбок']],
+                1899 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'длинные юбки', 'l9'=>'макси, длинный, юбка', 'j10'=>'длинных юбок']],
+                1897 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'короткие юбки', 'l9'=>'мини, короткий, юбка', 'j10'=>'коротких юбок']],
+                1898 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'юбки миди', 'l9'=>'миди, средний, юбка', 'j10'=>'юбок миди']],
+                1896 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'юбки-карандаш', 'l9'=>'юбка, карандаш', 'j10'=>'юбок-карандашей']],
+                1704 => ['name' => 'Ver 8.5	', 'param'=>['h8'=>'нижнее белье', 'l9'=>'нижний, белье', 'j10'=>'нижнего белья']],
+                1476 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'трусы', 'l9'=>'трусы', 'j10'=>'трусов']],
+                1474 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'бюстгальтеры', 'l9'=>'бюстгальтер', 'j10'=>'бюстгальтеров']],
+                100474 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'боди', 'l9'=>'боди', 'j10'=>'боди']],
+                2510 => ['name' => 'Ver 8.5	', 'param'=>['h8'=>'эротическое белье', 'l9'=>'эротический, белье', 'j10'=>'эротического белья']],
+                1462 => ['name' => 'Ver 8.5	', 'param'=>['h8'=>'корректирующее белье', 'l9'=>'корректирующий, белье', 'j10'=>'корректирующего белья']],
+                100477 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'корсеты', 'l9'=>'корсет', 'j10'=>'корсетов']],
+                1475 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'комплекты нижнего белья', 'l9'=>'комплект, нижний, белье', 'j10'=>'комплектов нижнего белья']],
+                1705 => ['name' => 'Ver 8.4	', 'param'=>['h8'=>'домашняя одежда', 'l9'=>'домашний, одежда', 'j10'=>'домашней одежды']],
+                1467 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'халаты', 'l9'=>'халат', 'j10'=>'халатов']],
+                1478 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'пижамы', 'l9'=>'пижама', 'j10'=>'пижам']],
+                100482 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'пеньюары', 'l9'=>'пеньюар', 'j10'=>'пеньюаров']],
+                2507 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'домашние костюмы', 'l9'=>'домашний, костюм', 'j10'=>'домашних костюмов']],
+                1611 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'домашние комплекты', 'l9'=>'комплект, домашний, одежда', 'j10'=>'домашних комплектов']],
+                1477 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'ночные сорочки', 'l9'=>'ночной, сорочка', 'j10'=>'ночных сорочек']],
+                1696 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'брюки и шорты', 'l9'=>'брюки, шорты', 'j10'=>'брюк и шорт']],
+                1890 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'брюки', 'l9'=>'брюки', 'j10'=>'брюк']],
+                100488 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'лосины', 'l9'=>'лосины', 'j10'=>'лосин']],
+                1564 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'легинсы', 'l9'=>'легинсы', 'j10'=>'легинсов']],
+                1608 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'шорты', 'l9'=>'шорты', 'j10'=>'шорт']],
+                100491 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'капри', 'l9'=>'капри', 'j10'=>'капри']],
+                100492 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'бриджи', 'l9'=>'бриджи', 'j10'=>'бриджей']],
+                1715 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'колготки и чулки', 'l9'=>'колготка, чулок', 'j10'=>'колготок и чулок']],
+                100494 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'колготки', 'l9'=>'колготки', 'j10'=>'колготок']],
+                2513 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'чулки', 'l9'=>'чулок', 'j10'=>'чулок']],
+                1695 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'купальники', 'l9'=>'купальник', 'j10'=>'купальников']],
+                1884 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'купальники бикини', 'l9'=>'бикини, купальник', 'j10'=>'купальников бикини']],
+                1888 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'слитные купальники', 'l9'=>'слитный, купальник', 'j10'=>'слитных купальников']],
+                1885 => ['name' => 'Ver 8.3	', 'param'=>['h8'=>'купальники танкини', 'l9'=>'танкини, купальник', 'j10'=>'купальников танкини']],
+                100500 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'плавки', 'l9'=>'плавки', 'j10'=>'плавок']],
+                1887 => ['name' => 'Ver 8.4	', 'param'=>['h8'=>'пляжная одежда', 'l9'=>'пляжный, одежда', 'j10'=>'пляжной одежды']],
+                100502 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'парео', 'l9'=>'парео', 'j10'=>'парео']],
+                100503 => ['name' => 'Ver 8.2	', 'param'=>['h8'=>'пляжные туники', 'l9'=>'туника', 'j10'=>'пляжных туник']],
+                100504 => ['name' => 'Ver 8	', 'param'=>['h8'=>'мужская одежда', 'l9'=>'мужской, одежда, большой, размер, полный', 'j10'=>'мужской одежды для полных']],
+                100505 => ['name' => 'Ver 8.8	', 'param'=>['h8'=>'верхняя одежда', 'l9'=>'верхний, одежда', 'j10'=>'верхней одежды']],
+                100506 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'куртки', 'l9'=>'куртка', 'j10'=>'курток']],
+                100507 => ['name' => 'Ver 8.7	', 'param'=>['h8'=>'демисезонные куртки', 'l9'=>'демисезонный, куртка', 'j10'=>'демисезонных курток']],
+                100508 => ['name' => 'Ver 8.7	', 'param'=>['h8'=>'джинсовые куртки', 'l9'=>'джинсовый, кутка', 'j10'=>'джинсовых курток']],
+                100509 => ['name' => 'Ver 8.7	', 'param'=>['h8'=>'зимние куртки', 'l9'=>'зимний, куртка', 'j10'=>'зимних курток']],
+                100510 => ['name' => 'Ver 8.7	', 'param'=>['h8'=>'кожаные куртки', 'l9'=>'кожаный, куртка', 'j10'=>'кожаных курток']],
+                100511 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'ветровки', 'l9'=>'ветровка', 'j10'=>'ветровок']],
+                100512 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'пуховики', 'l9'=>'пуховик', 'j10'=>'пуховиков']],
+                100513 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'пальто', 'l9'=>'пальто', 'j10'=>'пальто']],
+                100514 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'плащи', 'l9'=>'плащ', 'j10'=>'плащей']],
+                100515 => ['name' => 'Ver 8.7	', 'param'=>['h8'=>'зимние костюмы', 'l9'=>'зимний, костюм', 'j10'=>'зимних костюмов']],
+                100516 => ['name' => 'Ver 8.7	', 'param'=>['h8'=>'джемпера и кофты', 'l9'=>'джемпер, кофта', 'j10'=>'джемперов и кофт']],
+                100517 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'свитера', 'l9'=>'свитер', 'j10'=>'свитеров']],
+                100518 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'джемпера', 'l9'=>'джемпер', 'j10'=>'джемперов']],
+                100519 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'кардиганы', 'l9'=>'кардиган', 'j10'=>'кардиганов']],
+                100520 => ['name' => 'Ver 8.9	', 'param'=>['h8'=>'нижнее белье', 'l9'=>'нижний, белье', 'j10'=>'нижнего белья']],
+                100521 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'трусы', 'l9'=>'трусы', 'j10'=>'трусов']],
+                100522 => ['name' => 'Ver 8.8	', 'param'=>['h8'=>'домашняя одежда', 'l9'=>'домашний, одежда', 'j10'=>'домашней одежды']],
+                100523 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'халаты', 'l9'=>'халат', 'j10'=>'халатов']],
+                100524 => ['name' => 'Ver 8.6	', 'param'=>['h8'=>'пижамы', 'l9'=>'пижама', 'j10'=>'пижам']],
+                100525 => ['name' => 'Ver 8.9	', 'param'=>['h8'=>'трико', 'l9'=>'трико', 'j10'=>'трико']],
+                100526 => ['name' => 'Ver 3	', 'param'=>['h8'=>'обувь', 'l9'=>'обувь', 'j10'=>'обуви']],
+                1976 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'женская обувь', 'l9'=>'женская, обувь', 'j10'=>'женской обуви']],
+                1977 => ['name' => 'Ver 1	', 'param'=>['h8'=>'балетки', 'l9'=>'балетка', 'j10'=>'балеток']],
+                1993 => ['name' => 'Ver 1	', 'param'=>['h8'=>'туфли', 'l9'=>'туфля', 'j10'=>'туфлей']],
+                100530 => ['name' => 'Ver 1	', 'param'=>['h8'=>'свадебные туфли', 'l9'=>'свадебный, туфля', 'j10'=>'свадебных туфлей']],
+                100531 => ['name' => 'Ver 1	', 'param'=>['h8'=>'туфли лодочки', 'l9'=>'лодочки, туфля', 'j10'=>'туфлей лодочек']],
+                100532 => ['name' => 'Ver 1	', 'param'=>['h8'=>'вечерние туфли', 'l9'=>'вечерний, туфля', 'j10'=>'вечерних туфлей']],
+                100533 => ['name' => 'Ver 1	', 'param'=>['h8'=>'босоножки', 'l9'=>'босоножка', 'j10'=>'босоножек']],
+                100534 => ['name' => 'Ver 1	', 'param'=>['h8'=>'сандалии', 'l9'=>'сандалия', 'j10'=>'сандалий']],
+                1979 => ['name' => 'Ver 1	', 'param'=>['h8'=>'ботильоны', 'l9'=>'ботильон', 'j10'=>'ботильонов']],
+                1980 => ['name' => 'Ver 1	', 'param'=>['h8'=>'ботинки', 'l9'=>'ботинок', 'j10'=>'ботинок']],
+                100537 => ['name' => 'Ver 1.2	', 'param'=>['h8'=>'резиновая обувь', 'l9'=>'резиновый, обувь', 'j10'=>'резиновой обуви']],
+                1988 => ['name' => 'Ver 1	', 'param'=>['h8'=>'резиновые сапоги', 'l9'=>'резиновый, сапог', 'j10'=>'резиновых сапог']],
+                100539 => ['name' => 'Ver 1	', 'param'=>['h8'=>'галоши', 'l9'=>'галоша', 'j10'=>'галош']],
+                1981 => ['name' => 'Ver 1	', 'param'=>['h8'=>'валенки', 'l9'=>'валенок', 'j10'=>'валенок']],
+                1982 => ['name' => 'Ver 1	', 'param'=>['h8'=>'дутики', 'l9'=>'дутик', 'j10'=>'дутиков']],
+                1983 => ['name' => 'Ver 1	', 'param'=>['h8'=>'кеды', 'l9'=>'кеды', 'j10'=>'кед']],
+                1984 => ['name' => 'Ver 1	', 'param'=>['h8'=>'кроссовки', 'l9'=>'кроссовок', 'j10'=>'кроссовок']],
+                1985 => ['name' => 'Ver 1	', 'param'=>['h8'=>'мокасины', 'l9'=>'мокасины', 'j10'=>'мокасин']],
+                1986 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шлепанцы', 'l9'=>'шлепанцы', 'j10'=>'шлёпанцев']],
+                1987 => ['name' => 'Ver 1	', 'param'=>['h8'=>'полусапожки', 'l9'=>'полусапожок', 'j10'=>'полусапожек']],
+                1990 => ['name' => 'Ver 1	', 'param'=>['h8'=>'сапоги', 'l9'=>'сапог', 'j10'=>'сапог']],
+                1989 => ['name' => 'Ver 1	', 'param'=>['h8'=>'сабо', 'l9'=>'сабо', 'j10'=>'сабо']],
+                1991 => ['name' => 'Ver 1	', 'param'=>['h8'=>'слипоны', 'l9'=>'слипон', 'j10'=>'слипонов']],
+                100550 => ['name' => 'Ver 1.2	', 'param'=>['h8'=>'домашняя обувь', 'l9'=>'домашний, обувь', 'j10'=>'домашней обуви']],
+                1992 => ['name' => 'Ver 1	', 'param'=>['h8'=>'тапочки', 'l9'=>'тапочка', 'j10'=>'тапочек']],
+                100552 => ['name' => 'Ver 1	', 'param'=>['h8'=>'домашние угги', 'l9'=>'угги', 'j10'=>'домашних угг']],
+                100553 => ['name' => 'Ver 1	', 'param'=>['h8'=>'домашние сапожки', 'l9'=>'сапожок', 'j10'=>'домашних сапожек']],
+                100554 => ['name' => 'Ver 1	', 'param'=>['h8'=>'чуни', 'l9'=>'чуня', 'j10'=>'чунь']],
+                3210 => ['name' => 'Ver 1	', 'param'=>['h8'=>'бабуши', 'l9'=>'бабуши', 'j10'=>'бабуш']],
+                1994 => ['name' => 'Ver 1	', 'param'=>['h8'=>'угги', 'l9'=>'угги', 'j10'=>'угг']],
+                1995 => ['name' => 'Ver 1	', 'param'=>['h8'=>'унты', 'l9'=>'унты', 'j10'=>'унт']],
+                100558 => ['name' => 'Ver 1	', 'param'=>['h8'=>'сникерсы', 'l9'=>'сникерсы, сникеры', 'j10'=>'сникерсов']],
+                100559 => ['name' => 'Ver 1	', 'param'=>['h8'=>'вьетнамки', 'l9'=>'вьетнамка', 'j10'=>'вьетнамок']],
+                100560 => ['name' => 'Ver 1	', 'param'=>['h8'=>'ботфорты', 'l9'=>'ботфорты', 'j10'=>'ботфортов']],
+                100561 => ['name' => 'Ver 1	', 'param'=>['h8'=>'сапожки', 'l9'=>'сапожок', 'j10'=>'сапожек']],
+                1996 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'мужская обувь', 'l9'=>'мужской, обувь', 'j10'=>'мужской обуви']],
+                2002 => ['name' => 'Ver 2	', 'param'=>['h8'=>'сандалии', 'l9'=>'сандалия', 'j10'=>'сандалий']],
+                1997 => ['name' => 'Ver 2	', 'param'=>['h8'=>'ботинки', 'l9'=>'ботинок', 'j10'=>'ботинок']],
+                100565 => ['name' => 'Ver 2	', 'param'=>['h8'=>'дутики', 'l9'=>'дутик', 'j10'=>'дутиков']],
+                1998 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кеды', 'l9'=>'кеды', 'j10'=>'кед']],
+                1999 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кроссовки', 'l9'=>'кроссовок', 'j10'=>'кроссовок']],
+                2000 => ['name' => 'Ver 2	', 'param'=>['h8'=>'мокасины', 'l9'=>'мокасины', 'j10'=>'мокасин']],
+//2005 => ['name' => 'Ver 2', 'param'=>['h8'=>'', 'l9'=>'полуботинки', 'j10'=>'']],(туфли)	туфля, полуботинки	туфлей
+                100570 => ['name' => 'Ver 2.2	', 'param'=>['h8'=>'резиновая обувь', 'l9'=>'резиновый, обувь', 'j10'=>'резиновой обуви']],
+                3390 => ['name' => 'Ver 2	', 'param'=>['h8'=>'резиновые сапоги', 'l9'=>'резиновый, сапог', 'j10'=>'резиновых сапог']],
+                100572 => ['name' => 'Ver 2	', 'param'=>['h8'=>'галоши', 'l9'=>'галоша', 'j10'=>'галош']],
+                1597 => ['name' => 'Ver 2	', 'param'=>['h8'=>'сапоги', 'l9'=>'сапог', 'j10'=>'сапог']],
+                2007 => ['name' => 'Ver 2	', 'param'=>['h8'=>'слипоны', 'l9'=>'слипон', 'j10'=>'слипонов']],
+                100575 => ['name' => 'Ver 2.2	', 'param'=>['h8'=>'домашняя обувь', 'l9'=>'домашний, обувь', 'j10'=>'домашней обуви']],
+                2004 => ['name' => 'Ver 2	', 'param'=>['h8'=>'тапочки', 'l9'=>'тапочка', 'j10'=>'тапочек']],
+                100577 => ['name' => 'Ver 2	', 'param'=>['h8'=>'домашние угги', 'l9'=>'угги', 'j10'=>'домашних угг']],
+                100578 => ['name' => 'Ver 2	', 'param'=>['h8'=>'домашние сапожки', 'l9'=>'сапожок', 'j10'=>'домашних сапожек']],
+                100579 => ['name' => 'Ver 2	', 'param'=>['h8'=>'чуни', 'l9'=>'чуни', 'j10'=>'чунь']],
+                100580 => ['name' => 'Ver 2	', 'param'=>['h8'=>'бабуши', 'l9'=>'бабуши', 'j10'=>'бабуш']],
+                2001 => ['name' => 'Ver 2	', 'param'=>['h8'=>'вьетнамки', 'l9'=>'вьетнамка', 'j10'=>'вьетнамок']],
+                100582 => ['name' => 'Ver 2	', 'param'=>['h8'=>'шлепанцы', 'l9'=>'шлепанецы', 'j10'=>'шлёпанцев']],
+                2006 => ['name' => 'Ver 2	', 'param'=>['h8'=>'топсайдеры', 'l9'=>'топсайдер', 'j10'=>'топсайдеров']],
+                2008 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'детская обувь', 'l9'=>'детский, обувь, дети, ребенок', 'j10'=>'детской обуви']],
+                100585 => ['name' => 'Ver 4.32	', 'param'=>['h8'=>'обувь', 'l9'=>'обувь', 'j10'=>'обуви']],
+                100586 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'босоножки', 'l9'=>'босоножка', 'j10'=>'босоножек']],
+                2009 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'балетки', 'l9'=>'балетка', 'j10'=>'балеток']],
+                100588 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'чешки', 'l9'=>'чешки', 'j10'=>'чешек']],
+                100589 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'сандалии', 'l9'=>'сандалия', 'j10'=>'сандалий']],
+                100590 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'ботинки', 'l9'=>'ботинок', 'j10'=>'ботинок']],
+                100591 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'валенки', 'l9'=>'валенок', 'j10'=>'валенок']],
+                100592 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'дутики', 'l9'=>'дутик', 'j10'=>'дутиков']],
+                100593 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'кеды', 'l9'=>'кеды', 'j10'=>'кед']],
+                100594 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'кроссовки', 'l9'=>'кроссовок', 'j10'=>'кроссовок']],
+                100595 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'мокасины', 'l9'=>'мокасины', 'j10'=>'мокасин']],
+                100596 => ['name' => 'Ver 4.32	', 'param'=>['h8'=>'резиновая обувь', 'l9'=>'резиновый, обувь', 'j10'=>'резиновой обуви']],
+                100597 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'резиновые сапоги', 'l9'=>'резиновый, сапог', 'j10'=>'резиновых сапог']],
+                100598 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'галоши', 'l9'=>'галоша', 'j10'=>'галош']],
+                100599 => ['name' => 'Ver 4.32	', 'param'=>['h8'=>'домашняя обувь', 'l9'=>'домашний, обувь', 'j10'=>'домашней обуви']],
+                100600 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'тапочки', 'l9'=>'тапочка', 'j10'=>'тапочек']],
+                100601 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'домашние угги', 'l9'=>'угги', 'j10'=>'домашних угг']],
+                100602 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'чуни', 'l9'=>'чуни', 'j10'=>'чунь']],
+                100603 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'домашние сапожки', 'l9'=>'сапожок', 'j10'=>'домашних сапожек']],
+                100604 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'сапожки', 'l9'=>'сапожок', 'j10'=>'сапожек']],
+                2021 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'туфли', 'l9'=>'туфля', 'j10'=>'туфлей']],
+                100606 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'угги', 'l9'=>'угги', 'j10'=>'угг']],
+                100607 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'сникерсы', 'l9'=>'сникер, сникерс', 'j10'=>'сникерсов']],
+                100608 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'вьетнамки', 'l9'=>'вьетнамка', 'j10'=>'вьетнамок']],
+                100609 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'шлепанцы', 'l9'=>'шлепанец', 'j10'=>'шлёпанцев']],
+                100610 => ['name' => 'Ver 4.72	', 'param'=>['h8'=>'обувь', 'l9'=>'обувь', 'j10'=>'обуви']],
+                100611 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'чешки', 'l9'=>'чешки', 'j10'=>'чешек']],
+                100612 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'сандалии', 'l9'=>'сандалия', 'j10'=>'сандалий']],
+                100613 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'ботинки', 'l9'=>'ботинок', 'j10'=>'ботинок']],
+                100614 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'валенки', 'l9'=>'валенок', 'j10'=>'валенок']],
+                100615 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'дутики', 'l9'=>'дутик', 'j10'=>'дутиков']],
+                100616 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'кеды', 'l9'=>'кеды', 'j10'=>'кед']],
+                100617 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'кроссовки', 'l9'=>'кроссовок', 'j10'=>'кроссовок']],
+                100618 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'мокасины', 'l9'=>'мокасины', 'j10'=>'мокасин']],
+                100619 => ['name' => 'Ver 4.72	', 'param'=>['h8'=>'резиновая обувь', 'l9'=>'резиновый, обувь', 'j10'=>'резиновой обуви']],
+                100620 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'резиновые сапоги', 'l9'=>'резиновый, сапог', 'j10'=>'резиновых сапог']],
+                100621 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'галоши', 'l9'=>'галоша', 'j10'=>'галош']],
+                100622 => ['name' => 'Ver 4.72	', 'param'=>['h8'=>'домашняя обувь', 'l9'=>'домашний, обувь', 'j10'=>'домашней обуви']],
+                100623 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'тапочки', 'l9'=>'тапочка', 'j10'=>'тапочек']],
+                100624 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'домашние угги', 'l9'=>'угги', 'j10'=>'домашних угг']],
+                100625 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'чуни', 'l9'=>'чуни', 'j10'=>'чунь']],
+                100626 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'домашние сапожки', 'l9'=>'сапожок', 'j10'=>'домашних сапожек']],
+                100627 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'сапожки', 'l9'=>'сапожок', 'j10'=>'сапожек']],
+                100628 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'угги', 'l9'=>'угги', 'j10'=>'угг']],
+                100629 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'вьетнамки', 'l9'=>'вьетнамка', 'j10'=>'вьетнамок']],
+                100630 => ['name' => 'Ver 4.6	', 'param'=>['h8'=>'шлепанцы', 'l9'=>'шлепанец', 'j10'=>'шлёпанцев']],
+                1562 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'аксессуары для обуви', 'l9'=>'аксессуар, обувь', 'j10'=>'аксессуаров для обуви']],
+                100632 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'стельки для обуви', 'l9'=>'стелька, обувь', 'j10'=>'стелек для обуви']],
+                100633 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'шнурки для обуви', 'l9'=>'шнурок, обувь', 'j10'=>'шнурков для обуви']],
+                100634 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'ложки для обуви', 'l9'=>'ложка, обувь', 'j10'=>'ложек для обуви']],
+                100635 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'сушилки для обуви', 'l9'=>'сушилка, обувь', 'j10'=>'сушилок для обуви']],
+                100636 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'мешки для обуви', 'l9'=>'мешок, обувь', 'j10'=>'мешков для обуви']],
+                100637 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'средства по уходу за обувью', 'l9'=>'средство, уход, обувь', 'j10'=>'средств по ухода за обуви']],
+                100638 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'крема для обуви', 'l9'=>'крем, обувь', 'j10'=>'кремов для обуви']],
+                100639 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'дезодоранты для обуви', 'l9'=>'дезодорант, обувь', 'j10'=>'дезодорантов для обуви']],
+                100640 => ['name' => 'Ver 3	', 'param'=>['h8'=>'сумки', 'l9'=>'сумка', 'j10'=>'сумок']],
+                2047 => ['name' => 'Ver 3	', 'param'=>['h8'=>'женский каталог сумок', 'l9'=>'', 'j10'=>'']],
+                835 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'женские сумки', 'l9'=>'женский, сумка', 'j10'=>'женских сумок']],
+                1112 => ['name' => 'Ver 1	', 'param'=>['h8'=>'косметички', 'l9'=>'косметичка', 'j10'=>'косметичек']],
+                1163 => ['name' => 'Ver 1	', 'param'=>['h8'=>'клатчи', 'l9'=>'клатч', 'j10'=>'клатчей']],
+                2548 => ['name' => 'Ver 1	', 'param'=>['h8'=>'рюкзаки', 'l9'=>'рюкзак', 'j10'=>'рюкзаков']],
+                2547 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пляжные сумки', 'l9'=>'пляжный, сумка', 'j10'=>'пляжных сумок']],
+                1681 => ['name' => 'Ver 3	', 'param'=>['h8'=>'мужской каталог сумок', 'l9'=>'', 'j10'=>'']],
+                100648 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'мужские сумки', 'l9'=>'мужской, сумка', 'j10'=>'мужских сумок']],
+                100649 => ['name' => 'Ver 2	', 'param'=>['h8'=>'клатчи', 'l9'=>'клатч', 'j10'=>'клатчей']],
+                100650 => ['name' => 'Ver 2	', 'param'=>['h8'=>'барсетки', 'l9'=>'барсетка', 'j10'=>'барсеток']],
+                2551 => ['name' => 'Ver 2	', 'param'=>['h8'=>'портфели', 'l9'=>'портфель', 'j10'=>'портфелей']],
+                2553 => ['name' => 'Ver 2	', 'param'=>['h8'=>'рюкзаки', 'l9'=>'рюкзак', 'j10'=>'рюкзаков']],
+                2552 => ['name' => 'Ver 2	', 'param'=>['h8'=>'поясные сумки', 'l9'=>'поясной, сумка', 'j10'=>'поясных сумок']],
+                1111 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'детские сумки', 'l9'=>'детский, сумка', 'j10'=>'детских сумок']],
+                100655 => ['name' => 'Ver 3.22	', 'param'=>['h8'=>'портфели', 'l9'=>'портфель', 'j10'=>'портфелей']],
+                100656 => ['name' => 'Ver 3.22	', 'param'=>['h8'=>'рюкзаки', 'l9'=>'рюкзак', 'j10'=>'рюкзаков']],
+                100657 => ['name' => 'Ver 3.22	', 'param'=>['h8'=>'школьные рюкзаки', 'l9'=>'школьный, рюкзак, школа', 'j10'=>'школьных рюкзаков']],
+                100658 => ['name' => 'Ver 3.22	', 'param'=>['h8'=>'рюкзаки игрушки', 'l9'=>'игрушка, рюкзак', 'j10'=>'рюкзаков игрушек']],
+                100659 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'наборы сумок', 'l9'=>'набор, сумка', 'j10'=>'наборов сумок']],
+                100660 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'сумки и чехлы для ноутбуков', 'l9'=>'сумка, чехол, ноутбук', 'j10'=>'сумок и чехлов для ноутбуков']],
+                3009 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'сумки для ноутбуков', 'l9'=>'сумка, ноутбук', 'j10'=>'сумок для ноутбуков']],
+                100662 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'чехлы для ноутбуков', 'l9'=>'чехол, ноутбук', 'j10'=>'чехлов для ноутбуков']],
+                2555 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'дорожные сумки', 'l9'=>'сумка, дорожный', 'j10'=>'дорожных сумок']],
+                100664 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'чемоданы', 'l9'=>'чемодан', 'j10'=>'чемоданов']],
+                2554 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'спортивные сумки', 'l9'=>'сумка, спортивный, спорт', 'j10'=>'спортивных сумок']],
+                3057 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'хозяйственные сумки', 'l9'=>'сумка, хозяйственный, хозяйство', 'j10'=>'хозяйственных сумок']],
+                100667 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'авоськи', 'l9'=>'авоська', 'j10'=>'авосек']],
+                100668 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'баулы', 'l9'=>'баул', 'j10'=>'баулов']],
+                100669 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'сумки тележки', 'l9'=>'сумка, тележка', 'j10'=>'сумок тележек']],
+                932 => ['name' => 'Ver 3	', 'param'=>['h8'=>'аксессуары', 'l9'=>'аксессуар', 'j10'=>'аксессуаров']],
+                100671 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'женские аксессуары', 'l9'=>'женщина, женский, аксессуар', 'j10'=>'женских аксессуаров']],
+                2120 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'аксессуары для волос', 'l9'=>'женщина, женский, аксессуар, волосы', 'j10'=>'аксессуаров для волос']],
+                100673 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'повязки', 'l9'=>'повязка, волосы', 'j10'=>'повязек для волос']],
+                100674 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'ободки', 'l9'=>'ободки, волосы', 'j10'=>'ободков для волос']],
+                939 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'резинки', 'l9'=>'резинки, волосы', 'j10'=>'резинок для волос']],
+                940 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'заколки', 'l9'=>'заколки, волосы', 'j10'=>'заколок для волос']],
+                100677 => ['name' => 'Ver 1	', 'param'=>['h8'=>'платки, шарфы, палантины', 'l9'=>'платок, шарф, палантин, женский', 'j10'=>'платков, шарфов, палантинов']],
+                100678 => ['name' => 'Ver 1	', 'param'=>['h8'=>'снуды', 'l9'=>'снуд', 'j10'=>'снудов']],
+                100679 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шали', 'l9'=>'шаль', 'j10'=>'шалей']],
+                1819 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шарфы', 'l9'=>'шарф', 'j10'=>'шарфов']],
+                100681 => ['name' => 'Ver 1	', 'param'=>['h8'=>'палантины', 'l9'=>'палантин', 'j10'=>'палантинов']],
+                100682 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'зажимы для платков', 'l9'=>'зажим, платок', 'j10'=>'зажимов для платков']],
+                2485 => ['name' => 'Ver 1	', 'param'=>['h8'=>'платки', 'l9'=>'платок', 'j10'=>'платков']],
+                1815 => ['name' => 'Ver 1	', 'param'=>['h8'=>'головные уборы', 'l9'=>'головной, убор', 'j10'=>'головных уборов']],
+                100685 => ['name' => 'Ver 1	', 'param'=>['h8'=>'косынки', 'l9'=>'косынка', 'j10'=>'косынок']],
+                100686 => ['name' => 'Ver 1	', 'param'=>['h8'=>'бейсболки', 'l9'=>'бейсболка', 'j10'=>'бейсболок']],
+                100687 => ['name' => 'Ver 1	', 'param'=>['h8'=>'кепки', 'l9'=>'кепка', 'j10'=>'кепок']],
+                100688 => ['name' => 'Ver 1	', 'param'=>['h8'=>'банданы', 'l9'=>'бандана', 'j10'=>'бандан']],
+                1818 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шляпы', 'l9'=>'шляпа', 'j10'=>'шляп']],
+                100690 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шляпки', 'l9'=>'шляпка', 'j10'=>'шляпок']],
+                1820 => ['name' => 'Ver 1	', 'param'=>['h8'=>'береты', 'l9'=>'берет', 'j10'=>'беретов']],
+                100692 => ['name' => 'Ver 1	', 'param'=>['h8'=>'панамы', 'l9'=>'панама', 'j10'=>'панам']],
+                1825 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'тёплые наушники', 'l9'=>'теплый, наушник', 'j10'=>'тёплых наушников']],
+                100694 => ['name' => 'Ver 1	', 'param'=>['h8'=>'шапки', 'l9'=>'шапка', 'j10'=>'шапок']],
+                100695 => ['name' => 'Ver 1	', 'param'=>['h8'=>'помпоны', 'l9'=>'помпон', 'j10'=>'помпонов']],
+                1823 => ['name' => 'Ver 1	', 'param'=>['h8'=>'комплекты шарфов и шапок', 'l9'=>'комплект, шарф, шапка', 'j10'=>'комплектов шарфов и шапок']],
+                100697 => ['name' => 'Ver 1	', 'param'=>['h8'=>'солнцезащитные очки', 'l9'=>'солнцезащитный, очки', 'j10'=>'солнцезащитных очков']],
+                100698 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'часы и ремешки', 'l9'=>'часы, ремешок', 'j10'=>'часов и ремешков']],
+                865 => ['name' => 'Ver 1	', 'param'=>['h8'=>'наручные часы', 'l9'=>'наручный, часы', 'j10'=>'наручных часов']],
+                100700 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'ремешки для часов', 'l9'=>'ремешок, часы', 'j10'=>'ремешков для часов']],
+                100701 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'перчатки и варежки', 'l9'=>'перчатка, варежка', 'j10'=>'перчаток и варежек']],
+                100702 => ['name' => 'Ver 1	', 'param'=>['h8'=>'перчатки', 'l9'=>'перчатка', 'j10'=>'перчаток']],
+                100703 => ['name' => 'Ver 1	', 'param'=>['h8'=>'варежки', 'l9'=>'варежка', 'j10'=>'варежек']],
+                100704 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'ремни и пояса', 'l9'=>'ремень, пояс', 'j10'=>'ремней и поясов']],
+                100705 => ['name' => 'Ver 1	', 'param'=>['h8'=>'ремни', 'l9'=>'ремень', 'j10'=>'ремней']],
+                100706 => ['name' => 'Ver 1	', 'param'=>['h8'=>'пояса', 'l9'=>'пояс', 'j10'=>'поясов']],
+                100707 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'пряжки для ремней', 'l9'=>'пряжка, ремень', 'j10'=>'пряжек для ремней']],
+                100708 => ['name' => 'Ver 1.4	', 'param'=>['h8'=>'кошельки и портмоне', 'l9'=>'кошелек, портмоне', 'j10'=>'кошельков и портмоне']],
+                100709 => ['name' => 'Ver 1	', 'param'=>['h8'=>'кошельки', 'l9'=>'кошелек', 'j10'=>'кошельков']],
+                100710 => ['name' => 'Ver 1	', 'param'=>['h8'=>'портмоне', 'l9'=>'портмоне', 'j10'=>'портмоне']],
+                2128 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'зеркальца', 'l9'=>'зеркальце', 'j10'=>'зеркал']],
+                2731 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'веера', 'l9'=>'веер', 'j10'=>'вееров']],
+                100713 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'мужские аксессуары', 'l9'=>'мужчина, мужской, аксессуар', 'j10'=>'мужских аксессуаров']],
+                100714 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'шарфы и платки', 'l9'=>'шарф, платок', 'j10'=>'шарфов и платков']],
+                1808 => ['name' => 'Ver 2	', 'param'=>['h8'=>'шарфы', 'l9'=>'шарф', 'j10'=>'шарфов']],
+//	100716	Ver 2.4	нагрудные платки	нагрудный, платок	нагрудных платков
+                1805 => ['name' => 'Ver 2	', 'param'=>['h8'=>'головные уборы', 'l9'=>'головной, убор', 'j10'=>'головных уборов']],
+                100718 => ['name' => 'Ver 2	', 'param'=>['h8'=>'косынки', 'l9'=>'косынка', 'j10'=>'косынок']],
+                100719 => ['name' => 'Ver 2	', 'param'=>['h8'=>'бейсболки', 'l9'=>'бейсболка', 'j10'=>'бейсболок']],
+                100720 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кепки', 'l9'=>'кепка', 'j10'=>'кепок']],
+                100721 => ['name' => 'Ver 2	', 'param'=>['h8'=>'банданы', 'l9'=>'бандана', 'j10'=>'бандан']],
+                2482 => ['name' => 'Ver 2	', 'param'=>['h8'=>'шляпы', 'l9'=>'шляпа', 'j10'=>'шляп']],
+                100723 => ['name' => 'Ver 2	', 'param'=>['h8'=>'береты', 'l9'=>'берет', 'j10'=>'беретов']],
+                2483 => ['name' => 'Ver 2	', 'param'=>['h8'=>'панамы', 'l9'=>'панама', 'j10'=>'панам']],
+                100725 => ['name' => 'Ver 2	', 'param'=>['h8'=>'шапки', 'l9'=>'шапка', 'j10'=>'шапок']],
+                1809 => ['name' => 'Ver 2	', 'param'=>['h8'=>'комплекты шарфов и шапок', 'l9'=>'комплект, шарф, шапка', 'j10'=>'комплектов шарфов и шапок']],
+                100727 => ['name' => 'Ver 2	', 'param'=>['h8'=>'солнцезащитные очки', 'l9'=>'солнцезащитный, очки', 'j10'=>'солнцезащитных очков']],
+                100728 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'часы и ремешки', 'l9'=>'часы, ремешок', 'j10'=>'часов и ремешков']],
+                873 => ['name' => 'Ver 2	', 'param'=>['h8'=>'наручные часы', 'l9'=>'наручный, часы', 'j10'=>'наручных часов']],
+                100730 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'ремешки для часов', 'l9'=>'ремешок, часы', 'j10'=>'ремешков для часов']],
+                100731 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'трости', 'l9'=>'трость', 'j10'=>'тростей']],
+                100732 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'перчатки и варежки', 'l9'=>'перчатка, варежка', 'j10'=>'перчаток и варежек']],
+                100733 => ['name' => 'Ver 2	', 'param'=>['h8'=>'перчатки', 'l9'=>'перчатка', 'j10'=>'перчаток']],
+                100734 => ['name' => 'Ver 2	', 'param'=>['h8'=>'варежки', 'l9'=>'варежка', 'j10'=>'варежек']],
+                100735 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'ремни и пояса', 'l9'=>'ремень, пояс', 'j10'=>'ремней и поясов']],
+                100736 => ['name' => 'Ver 2	', 'param'=>['h8'=>'ремни', 'l9'=>'ремень', 'j10'=>'ремней']],
+                100737 => ['name' => 'Ver 2	', 'param'=>['h8'=>'пряжки для ремней', 'l9'=>'пряжка, ремень', 'j10'=>'пряжек для ремней']],
+                2121 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'подтяжки', 'l9'=>'подтяжки', 'j10'=>'подтяжек']],
+                100739 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'кошельки и портмоне', 'l9'=>'кошелек, портмоне', 'j10'=>'кошельков и портмоне']],
+                100740 => ['name' => 'Ver 2	', 'param'=>['h8'=>'кошельки', 'l9'=>'кошелек', 'j10'=>'кошельков']],
+                100741 => ['name' => 'Ver 2	', 'param'=>['h8'=>'портмоне', 'l9'=>'портмоне', 'j10'=>'портмоне']],
+                3136 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'зажимы для денег', 'l9'=>'зажим, деньги', 'j10'=>'зажимов для денег']],
+                2126 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'запонки', 'l9'=>'запонка', 'j10'=>'запонки']],
+                100744 => ['name' => 'Ver 2.4	', 'param'=>['h8'=>'галстуки и бабочки', 'l9'=>'галстук, бабочка', 'j10'=>'галстуков и бабочек']],
+                2124 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'галстуки', 'l9'=>'галстук', 'j10'=>'галстуков']],
+                100746 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'бабочки', 'l9'=>'бабочка', 'j10'=>'бабочек']],
+                100747 => ['name' => 'Ver 3.5	', 'param'=>['h8'=>'зажимы для галстука', 'l9'=>'зажим, галстук', 'j10'=>'зажимов для галстука']],
+                1906 => ['name' => 'Ver 3.22	', 'param'=>['h8'=>'аксессуары', 'l9'=>'аксессуар', 'j10'=>'аксессуаров']],
+                100749 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'головные уборы', 'l9'=>'головной, убор', 'j10'=>'головных уборов']],
+                100750 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'бейсболки', 'l9'=>'бейсболка', 'j10'=>'бейсболок']],
+                100751 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'кепки', 'l9'=>'кепка', 'j10'=>'кепок']],
+                100752 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'шапки', 'l9'=>'шапка', 'j10'=>'шапок']],
+                100753 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'панамы', 'l9'=>'панама', 'j10'=>'панам']],
+                100754 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'банданы', 'l9'=>'бандана', 'j10'=>'бандан']],
+                100755 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'шляпы', 'l9'=>'шляпа', 'j10'=>'шляп']],
+                100756 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'косынки', 'l9'=>'косынка', 'j10'=>'косынок']],
+                100757 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'береты', 'l9'=>'берет', 'j10'=>'беретов']],
+                100758 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'шарфы', 'l9'=>'шарф', 'j10'=>'шарфов']],
+                100759 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'снуды', 'l9'=>'снуд', 'j10'=>'снудов']],
+                100760 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'комплекты шапки и шарфы', 'l9'=>'шапка, шарф', 'j10'=>'комплектов шапок и шарфов']],
+                100761 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'часы и ремешки', 'l9'=>'часы, ремешок', 'j10'=>'часов и ремешков']],
+                988 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'наручные часы', 'l9'=>'наручный, часы', 'j10'=>'наручных часов']],
+                100763 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'ремешки для наручных часов', 'l9'=>'ремешок, наручный, часы', 'j10'=>'ремешков для наручных часов']],
+                479 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'зонты', 'l9'=>'зонт', 'j10'=>'зонтов']],
+                1422 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'перчатки и варежки', 'l9'=>'перчатка, варежка', 'j10'=>'перчаток и варежек']],
+                100766 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'перчатки', 'l9'=>'перчатка', 'j10'=>'перчаток']],
+                100767 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'варежки', 'l9'=>'варежка', 'j10'=>'варежек']],
+                100768 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'кошельки', 'l9'=>'кошелек', 'j10'=>'кошельков']],
+                100769 => ['name' => 'Ver 4.4	', 'param'=>['h8'=>'аксессуары для волос', 'l9'=>'аксессуар, волосы', 'j10'=>'аксессуаров для волос']],
+                100770 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'заколки', 'l9'=>'заколка', 'j10'=>'заколок']],
+                100771 => ['name' => 'Ver 4.2	', 'param'=>['h8'=>'резинки', 'l9'=>'резинка', 'j10'=>'резинок']],
+                2127 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'носовые платки', 'l9'=>'носовой, платок', 'j10'=>'носовых платков']],
+                1443 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'подтяжки и ремни', 'l9'=>'подтяжки, ремень', 'j10'=>'подтяжек и ремней']],
+                100774 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'подтяжки', 'l9'=>'подтяжки', 'j10'=>'подтяжек']],
+                100775 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'ремни', 'l9'=>'ремень', 'j10'=>'ремней']],
+                1538 => ['name' => 'Ver 4.8	', 'param'=>['h8'=>'галстуки и бабочки', 'l9'=>'галстук, бабочка', 'j10'=>'галстуков и бабочек']],
+                100777 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'галстуки', 'l9'=>'галстук', 'j10'=>'галстуков']],
+                100778 => ['name' => 'Ver 3.23	', 'param'=>['h8'=>'бабочки', 'l9'=>'бабочка', 'j10'=>'бабочек']],
+                100779 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'зонты', 'l9'=>'зонт', 'j10'=>'зонтов']],
+                100780 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'зонты трость', 'l9'=>'зонт, трость', 'j10'=>'зонтов тростей']],
+                100781 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'зонты полуавтоматы', 'l9'=>'полуавтомат, зонт', 'j10'=>'зонтов полуавтоматов']],
+                100782 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'зонты автоматы', 'l9'=>'автомат, зонт', 'j10'=>'зонтов автоматов']],
+                2118 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'ключницы', 'l9'=>'ключница', 'j10'=>'ключниц']],
+                100784 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'монетницы', 'l9'=>'монетница', 'j10'=>'монетниц']],
+                1313 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'обложки на документы', 'l9'=>'обложка, документ', 'j10'=>'обложек на документы']],
+                2117 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'визитницы', 'l9'=>'визитница', 'j10'=>'визитниц']],
+                1310 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'платки носовые', 'l9'=>'платок, носовой', 'j10'=>'платков носовых']],
+                3010 => ['name' => 'Ver 3.6	', 'param'=>['h8'=>'папки из кожи', 'l9'=>'папка, кожа', 'j10'=>'папок из кожи']]
+            ]
         ];
-        /*
 
-Мужчинам					new	100195
-	Одежда				1668	100196
-		Верхняя одежда			1826	100197
-			Дубленки		new	100198
-			Куртки		new	100199
-				Джинсовые куртки	1831	100200
-				Кожаные куртки	1835	100201
-				Зимние куртки	new	100202
-				Демисезонные куртки 	1829	100203
-			Пальто		new	100204
-			Плащи		new	100205
-			Жилетки		1832	100206
-			Полупальто		new	100207
-			Пуховики		new	100208
-			Ветровки		1827	100209
-			Парки		1833	100210
-			Дождевики		new	100211
-			Бомберы		new	100212
-			Аляски		new	100213
-			Зимние костюмы		1834	100214
-			Анораки		new	100215
-		Рубашки			1679	100216
-			С длинным рукавом		2468	100217
-			С коротким рукавом		2469	100218
-		Рубашки поло			1839	100219
-			С длинным рукавом		new	100220
-			С коротким рукавом		new	100221
-		Футболки и майки			new	100222
-			Футболки		new	100223
-			Лонгсливы		1838	100224
-			Майки		new	100225
-				Майки с принтами	1879	100226
-			Тельняшки		new	100227
-			Борцовки		new	100228
-		Водолазки			1847	100229
-		Жакеты и пиджаки			new	100230
-			Жакеты		new	100231
-			Пиджаки		new	100232
-		Толстовки			new	100233
-			Худи		new	100234
-			Свитшоты		1842	100235
-		Джемпера и кофты			new	100236
-			Кофты		new	100237
-			Свитера		new	100238
-			Джемперы		new	100239
-			Кардиганы		1846	100240
-			Жилеты		new	100241
-				Вязаные жилеты	1848	100242
-		Шорты			1854	100243
-		Брюки			1849	100244
-		Джинсы			1671	100245
-		Костюмы			new	100246
-			Классические 		new	100247
-		Комбинезоны			new	100248
-		Спортивная одежда			new	100249
-			Штаны		new	100250
-			Костюмы		1680	100251
-			Брюки		1850	100252
-			Олимпийки		1843	100253
-			Шорты		1856	100254
-		Домашняя одежда			new	100255
-			Пижамы		1677	100256
-			Халаты		1860	100257
-			Брюки 		1852	100258
-			Домашние костюмы		3332	100259
-	Камуфляж				new	100260
-	Нижнее белье				1677	100261
-		Плавки			1678	100262
-		Трусы			1684	100263
-			Боксеры		new	100264
-			Семейные		new	100265
-		Майки нательные			2490	100266
-		Трико			2491	100267
-		Термобелье			new	100268
-		Комплекты			new	100269
-			Майки и трусы		new	100270
-		Эротическое белье			new	100271
-		Кальсоны			new	100272
-		Корректирующее белье			3107	100273
-	Носки				1674	100274
-Детям					new	100275
-	Одежда				new	100276
-		Для девочек			1904	100277
-			Платья		1434	100278
-				Вечерние платья	new	100279
-				Нарядные платья	new	100280
-				Бальные платья	new	100281
-				Боди	new	100282
-				Сарафаны	new	100283
-			Туники		new	100284
-			Блузки		new	100285
-			Рубашки		new	100286
-			Жилетки		1916	100287
-			Толстовки		1927	100288
-			Брюки и шорты		new	100289
-				Брюки	1913	100290
-				Шорты	1930	100291
-				Рейтузы	new	100292
-			Юбки		1931	100293
-			Футболки и лонгсливы		new	100294
-				Футболки	new	100295
-				Поло	new	100296
-				Поло с длинным рукавом$	new	100297
-				Лонгсливы	new	100298
-			Майки и топы		1928	100299
-				Майки	new	100300
-				Топы	new	100301
-			Водолазки		new	100302
-			Комбинезоны		1920	100303
-			Лосины и легинсы		1968	100304
-				Лосины	new	100305
-				Легинсы	2525	100306
-			Джемпера и кофты		new	100307
-				Кофты	new	100308
-				Кардиганы	new	100309
-				Свитера	new	100310
-			Верхняя одежда		new	100311
-				Шубы	new	100312
-				Куртки	new	100313
-				Пуховики	new	100314
-				Пальто	new	100315
-				Ветровки	new	100316
-				Парки	new	100317
-				Дождевики	new	100318
-				Зимние костюмы	new	100319
-				Комбинезоны	1919	100320
-			Домашняя одежда		new	100321
-				Пижамы	new	100322
-				Халаты	new	100323
-				Ночные сорочки	new	100324
-			Спортивная одежда		1926	100325
-				Костюмы	new	100326
-			Костюмы		1962	100327
-			Джинсы		1915	100328
-		Для мальчиков			1905	100329
-			Рубашки		1933	100330
-			Жилетки		1937	100331
-			Толстовки		1941	100332
-			Верхняя одежда		new	100333
-				Куртки	new	100334
-				Пуховики	new	100335
-				Пальто	new	100336
-				Ветровки	new	100337
-				Парки	new	100338
-				Дождевики	new	100339
-				Зимние костюмы	new	100340
-				Комбинезоны	1943	100341
-			Брюки и шорты		new	100342
-				Брюки	1934	100343
-				Шорты	1961	100344
-			Водолазки		new	100345
-			Костюмы		1946	100346
-			Джинсы		1936	100347
-			Футболки и лонгсливы		new	100348
-				Футболки	new	100349
-				Поло	new	100350
-				Поло с длинным рукавом$	new	100351
-				Лонгсливы	new	100352
-			Майки		1967	100353
-			Домашняя одежда		new	100354
-				Пижамы	new	100355
-				Халаты	new	100356
-			Спортивная одежда		1940	100357
-				Костюмы	new	100358
-			Комбинезоны		1944	100359
-			Камуфляжная форма		2519	100360
-		Для новорожденных			1908	100361
-			Конверты		2536	100362
-			Ползунки		new	100363
-			Штанишки		new	100364
-			Пинетки		new	100365
-			Распашонки		2535	100366
-			Комплекты		1360	100367
-			Подарочные наборы		2539	100368
-			Аксессуары		new	100369
-				Шапки	new	100370
-				Слюнявчики	1362	100371
-				Чепчики	1361	100372
-				Косынки	new	100373
-				Рукавички	new	100374
-			Крестильное		2537	100375
-			Коконы		new	100376
-			Ясельный трикотаж		new	100377
-				Трусы	new	100378
-				Боди	1308	100379
-				Полотенце-уголок	new	100380
-				Пеленки	new	100381
-			Верхняя одежда		2520	100382
-				Пуховики	new	100383
-				Зимние комбинезоны	new	100384
-			Комбинезоны		1623	100385
-	Колготки и носки				new	100386
-		Колготки			new	100387
-		Носки			new	100388
-		Гольфы			new	100389
-		Гетры			new	100390
-		Гамаши			new	100391
-	Нижнее белье				new	100392
-		Трусы			new	100393
-		Комплекты			new	100394
-		Термобелье			3239	100395
-		Бюстгальтеры			new	100396
-		Майки нательные			new	100397
-		Кальсоны			new	100398
-		Трико			new	100399
-	Купальники и плавки				new	100400
-		Купальники			new	100401
-		Плавки			1958	100402
-	Карнавальные костюмы 				new	100403
-		Для девочек			1917	100404
-		Для мальчиков			1938	100405
-Большие размеры					new	100406
-	Женская				1350	100407
-		Платья			1693	100408
-			Вечерние платья		3195	100409
-			Длинные платья		1718	100410
-			Короткие платья		1719	100411
-			Сарафаны		1863	100412
-		Футболки и лонгсливы			1706	100413
-			Футболки		1466	100414
-			Майки		1882	100415
-			Топы		1883	100416
-			Лонгсливы		new	100417
-		Верхняя одежда			1697	100418
-			Куртки		new	100419
-				Демисезонные куртки	1864	100420
-				Джинсовые куртки	2498	100421
-				Зимние куртки	new	100422
-				Кожаные куртки	2497	100423
-			Ветровки		1865	100424
-			Пуховики		new	100425
-			Пальто		2500	100426
-			Плащи		new	100427
-			Зимние костюмы		1463	100428
-		Джинсы			1580	100429
-		Жакеты и пиджаки			new	100430
-			Жакеты		new	100431
-			Пиджаки		new	100432
-			Блейзеры		new	100433
-		Костюмы			new	100434
-			Деловые		new	100435
-			С юбкой		1470	100436
-			С брюками		new	100437
-			С шортами		new	100438
-		Спортивная одежда			1710	100439
-			Костюмы		1472	100440
-			Брюки		1893	100441
-			Олимпийки		1902	100442
-		Комбинезоны			1709	100443
-			С брюками		1490	100444
-			С шортами		2503	100445
-		Туники			1469	100446
-		Блузки и рубашки			new	100447
-			Блузки		1867	100448
-			Рубашки		1878	100449
-			Рубашки с коротким рукавом		1877	100450
-		Водолазки			1870	100451
-		Джемпера и кофты			new	100452
-			Кофты		new	100453
-			Свитера		new	100454
-			Джемперы		new	100455
-			Кардиганы		new	100456
-			Болеро		1872	100457
-		Толстовки			new	100458
-			Худи		new	100459
-			Свитшоты		new	100460
-		Жилеты			1712	100461
-			Вязанные		1965	100462
-			Классические		1875	100463
-			Утепленные		1964	100464
-			Меховые		1966	100465
-		Юбки			1707	100466
-			Макси		1899	100467
-			Мини		1897	100468
-			Миди		1898	100469
-			Юбка-карандаш		1896	100470
-		Нижнее белье			1704	100471
-			Трусы		1476	100472
-			Бюстгальтеры		1474	100473
-			Боди		new	100474
-			Эротическое белье		2510	100475
-			Корректирующее белье		1462	100476
-			Корсеты		new	100477
-			Комплекты белья 		1475	100478
-		Домашняя одежда			1705	100479
-			Халаты		1467	100480
-			Пижамы		1478	100481
-			Пеньюары		new	100482
-			Домашние костюмы		2507	100483
-			Комплекты		1611	100484
-			Ночные сорочки		1477	100485
-		Брюки и шорты			1696	100486
-			Брюки		1890	100487
-			Лосины		new	100488
-			Легинсы		1564	100489
-			Шорты		1608	100490
-			Капри		new	100491
-			Бриджи		new	100492
-		Колготки и чулки			1715	100493
-			Колготки		new	100494
-			Чулки		2513	100495
-		Купальники			1695	100496
-			Бикини		1884	100497
-			Слитные		1888	100498
-			Танкини		1885	100499
-		Плавки			new	100500
-		Пляжная одежда			1887	100501
-			Парео		new	100502
-			Туники		new	100503
-	Мужская				new	100504
-		Верхняя одежда			new	100505
-			Куртки		new	100506
-				Демисезонные куртки	new	100507
-				Джинсовые куртки	new	100508
-				Зимние куртки	new	100509
-				Кожаные куртки	new	100510
-			Ветровки		new	100511
-			Пуховики		new	100512
-			Пальто		new	100513
-			Плащи		new	100514
-			Зимние костюмы		new	100515
-		Джемпера и кофты			new	100516
-			Свитера		new	100517
-			Джемперы		new	100518
-			Кардиганы		new	100519
-		Нижнее белье			new	100520
-			Трусы		new	100521
-		Домашняя одежда			new	100522
-			Халаты		new	100523
-			Пижамы		new	100524
-			Трико		new	100525
-Обувь					new	100526
-	Женская				1976	100527
-		Балетки			1977	100528
-		Туфли			1993	100529
-			Свадебные		new	100530
-			Лодочки		new	100531
-			Вечерние		new	100532
-		Босоножки			new	100533
-		Сандалии			new	100534
-		Ботильоны			1979	100535
-		Ботинки			1980	100536
-		Резиновая обувь			new	100537
-			Резиновые сапоги		1988	100538
-			Галоши		new	100539
-		Валенки			1981	100540
-		Дутики			1982	100541
-		Кеды			1983	100542
-		Кроссовки			1984	100543
-		Мокасины			1985	100544
-		Шлепанцы			1986	100545
-		Полусапожки			1987	100546
-		Сапоги			1990	100547
-		Сабо			1989	100548
-		Слипоны			1991	100549
-		Домашняя обувь			new	100550
-			Тапочки		1992	100551
-			Угги		new	100552
-			Сапожки		new	100553
-			Чуни		new	100554
-			Бабуши		3210	100555
-		Угги			1994	100556
-		Унты			1995	100557
-		Сникерсы			new	100558
-		Вьетнамки			new	100559
-		Ботфорты			new	100560
-		Сапожки			new	100561
-	Мужская				1996	100562
-		Сандалии			2002	100563
-		Ботинки			1997	100564
-		Дутики			new	100565
-		Кеды			1998	100566
-		Кроссовки			1999	100567
-		Мокасины			2000	100568
-		Полуботинки			2005	100569
-		Резиновая обувь			new	100570
-			Резиновые сапоги		3390	100571
-			Галоши		new	100572
-		Сапоги			1597	100573
-		Слипоны			2007	100574
-		Домашняя обувь			new	100575
-			Тапочки		2004	100576
-			Угги		new	100577
-			Сапожки		new	100578
-			Чуни		new	100579
-			Бабуши		new	100580
-		Вьетнамки			2001	100581
-		Шлепанцы			new	100582
-		Топсайдеры			2006	100583
-	Детская				2008	100584
-		Для девочек			new	100585
-			Босоножки		new	100586
-			Балетки		2009	100587
-			Чешки		new	100588
-			Сандалии		new	100589
-			Ботинки		new	100590
-			Валенки		new	100591
-			Дутики		new	100592
-			Кеды		new	100593
-			Кроссовки		new	100594
-			Мокасины		new	100595
-			Резиновая обувь		new	100596
-				Резиновые сапоги	new	100597
-				Галоши	new	100598
-			Домашняя обувь		new	100599
-				Тапочки	new	100600
-				Угги	new	100601
-				Чуни	new	100602
-				Сапожки	new	100603
-			Сапожки		new	100604
-			Туфли		2021	100605
-			Угги		new	100606
-			Сникерсы		new	100607
-			Вьетнамки		new	100608
-			Шлепанцы		new	100609
-		Для мальчиков			new	100610
-			Чешки		new	100611
-			Сандалии		new	100612
-			Ботинки		new	100613
-			Валенки		new	100614
-			Дутики		new	100615
-			Кеды		new	100616
-			Кроссовки		new	100617
-			Мокасины		new	100618
-			Резиновая обувь		new	100619
-				Резиновые сапоги	new	100620
-				Галоши	new	100621
-			Домашняя обувь		new	100622
-				Тапочки	new	100623
-				Угги	new	100624
-				Чуни	new	100625
-				Сапожки	new	100626
-			Сапожки		new	100627
-			Угги		new	100628
-			Вьетнамки		new	100629
-			Шлепанцы		new	100630
-	Аксессуары для обуви				1562	100631
-		Стельки			new	100632
-		Шнурки			new	100633
-		Ложки для обуви			new	100634
-		Сушилки			new	100635
-		Мешки для обуви			new	100636
-	Средства по уходу				new	100637
-		Крема			new	100638
-		Дезодорант			new	100639
-Сумки					new	100640
-	Женские (noindex)				2047	100641
-		Женские сумки			835	100642
-		Косметички			1112	100643
-		Клатчи			1163	100644
-		Рюкзаки			2548	100645
-		Пляжные сумки			2547	100646
-	Мужские (noindex)				1681	100647
-		Мужские сумки			new	100648
-		Клатчи			new	100649
-		Барсетки			new	100650
-		Портфели			2551	100651
-		Рюкзаки			2553	100652
-		Поясные сумки			2552	100653
-	Детские сумки				1111	100654
-		Портфели			new	100655
-		Рюкзаки			new	100656
-			Школьные		new	100657
-			Игрушки		new	100658
-	Наборы сумок				new	100659
-	Для ноутбуков				new	100660
-		Сумки			3009	100661
-		Чехлы			new	100662
-	Дорожные сумки				2555	100663
-		Чемоданы			2555	100664
-	Спортивные сумки				2554	100665
-	Хозяйственные сумки				3057	100666
-		Авоськи			new	100667
-		Баулы			new	100668
-		Сумки тележки			new	100669
-Аксессуары					932	100670
-	Женские				new	100671
-		Аксессуары для волос			2120	100672
-			Повязки		new	100673
-			Ободки		new	100674
-			Резинки		939	100675
-			Заколки		940	100676
-		Платки, шарфы, палантины			new	100677
-			Снуды		new	100678
-			Шали		new	100679
-			Шарфы		1819	100680
-			Палантины		new	100681
-			Зажимы для платков		new	100682
-			Платки		2485	100683
-		Головные уборы			1815	100684
-			Косынки		new	100685
-			Бейсболки		new	100686
-			Кепки		new	100687
-			Банданы		new	100688
-			Шляпы		1818	100689
-			Шляпки		new	100690
-			Береты		1820	100691
-			Панамы		new	100692
-			Теплые наушники		1825	100693
-			Шапки		new	100694
-			Помпоны		new	100695
-			Комплекты		1823	100696
-		Солнцезащитные очки			new	100697
-		Часы и ремешки			new	100698
-			Наручные часы		865	100699
-			Ремешки		new	100700
-		Перчатки и варежки			new	100701
-			Перчатки		new	100702
-			Варежки		new	100703
-		Ремни и пояса			new	100704
-			Ремни		new	100705
-			Пояса		new	100706
-			Пряжки		new	100707
-		Кошельки и портмоне			new	100708
-			Кошельки		new	100709
-			Портмоне		new	100710
-		Зеркальца			2128	100711
-		Веера			2731	100712
-	Мужские				new	100713
-		Шарфы и платки			new	100714
-			Шарфы		1808	100715
-			Нагрудные платки			100716
-		Головные уборы			1805	100717
-			Косынки		new	100718
-			Бейсболки		new	100719
-			Кепки		new	100720
-			Банданы		new	100721
-			Шляпы		2482	100722
-			Береты		new	100723
-			Панамы		2483	100724
-			Шапки		new	100725
-			Комплекты (шарф, шапка)		1809	100726
-		Солнцезащитные очки			new	100727
-		Часы и ремешки			new	100728
-			Наручные часы		873	100729
-			Ремешки		new	100730
-		Трости			new	100731
-		Перчатки и варежки			new	100732
-			Перчатки		new	100733
-			Варежки		new	100734
-		Ремни и подтяжки			new	100735
-			Ремни		new	100736
-			Пряжки		new	100737
-			Подтяжки		2121	100738
-		Кошельки и портмоне			new	100739
-			Кошельки		new	100740
-			Портмоне		new	100741
-			Зажимы для денег		3136	100742
-		Запонки			2126	100743
-		Галстуки и бабочки			new	100744
-			Галстуки		2124	100745
-			Бабочки		new	100746
-			Зажимы для галстука		new	100747
-	Детские				1906	100748
-		Головные уборы			new	100749
-			Бейсболки		new	100750
-			Кепки		new	100751
-			Шапки		new	100752
-			Панамы		new	100753
-			Банданы		new	100754
-			Шляпы		new	100755
-			Косынки		new	100756
-			Береты		new	100757
-		Шарфы			new	100758
-			Снуды		new	100759
-			Шапки и шарфы		new	100760
-		Часы и ремешки			new	100761
-			Наручные часы		988	100762
-			Ремешки		new	100763
-		Зонты			479	100764
-		Перчатки и варежки			1422	100765
-			Перчатки		new	100766
-			Варежки		new	100767
-		Кошельки			new	100768
-		Аксессуары для волос			new	100769
-			Заколки		new	100770
-			Резинки		new	100771
-		Носовые платки			2127	100772
-		Подтяжки и ремни			1443	100773
-			Подтяжки		new	100774
-			Ремни		new	100775
-		Галстуки и бабочки			1538	100776
-			Галстуки		new	100777
-			Бабочки		new	100778
-	Зонты				new	100779
-		Зонты трость			new	100780
-		Полуавтоматы			new	100781
-		Автоматы			new	100782
-	Ключницы				2118	100783
-	Монетницы				new	100784
-	Обложки для документов				1313	100785
-	Визитницы				2117	100786
-	Платки носовые				1310	100787
-	Папки из кожи				3010	100788
-Бижутерия и украшения						100789
-	Гарнитуры					100790
-	Татуировки и пирсинг					100791
-	Цепи и подвески					100792
-	Шкатулки					100793
-	Броши					100794
-	Ювелирная бижутерия					100795
-		Диадемы				100796
-		Серьги, клипсы				100797
-	Браслеты					100798
-	Серьги, клипсы					100799
-	Кольца и перстни					100800
-	Накладные воротники					100801
-	Детская бижутерия					100802
-	Бусы, колье, ожерелье					100803
-Красота и здоровье						100804
-	Аппаратная косметология					100805
-		Мезотерапия				100806
-		Чистка и пиллинг				100807
-	Банные принадлежности					100808
-		Банные наборы				100809
-		Банные принадлежности				100810
-		Товары для бани				100811
-	Гигиена					100812
-		Влажные салфетки				100813
-	Декоративная косметика					100814
-		Для глаз				100815
-		Для губ				100816
-		Для лица				100817
-		Для ногтей				100818
-	Детская косметика					100819
-	Инструменты и аксессуары					100820
-		Аксессуары и дизайн ногтей				100821
-		Инструменты для маникюра и педикюра				100822
-		Чемоданы для мастеров				100823
-	Косметика для волос					100824
-		Аксессуары для окрашивания и стрижки				100825
-		Краски для волос				100826
-		Маски для волос				100827
-		Расчески и аксессуары для укладки волос				100828
-		Шампуни, бальзамы, кондиционеры				100829
-	Косметика для лица					100830
-		Маски для лица				100831
-		Подарочные наборы				100832
-		Уход за губами				100833
-		Уход за кожей век				100834
-		Уход за кожей лица				100835
-		Уход за ресницами				100836
-	Косметика для рук и ног					100837
-		Крем для ног				100838
-		Крем для рук				100839
-		Маска-перчатки для рук				100840
-		Маски для ног				100841
-		Носочки для педикюра				100842
-		Парафинотерапия				100843
-		Пилинги и скрабы для ног				100844
-		Пилинги и скрабы для рук				100845
-	Косметические приборы					100846
-		Косметические зеркала				100847
-		Косметические наборы				100848
-		Косметические принадлежности				100849
-			Для лица			100850
-			Для рук и ног			100851
-	Мужская косметика					100852
-		Для бритья				100853
-		Наборы				100854
-	Мыло ручной работы					100855
-	Ортопедические товары					100856
-	Парфюмерия					100857
-		Женский парфюм				100858
-		Мужской парфюм				100859
-	Средства по уходу за телом					100860
-		Антицеллюлитные средства				100861
-		Бритье и депиляция				100862
-		Гели для душа, скрабы, мыло				100863
-		Дезодоранты и антиперспиранты				100864
-		Наборы для тела				100865
-		Соли и пена для ванны				100866
-		Средства для интимной гигиены				100867
-		Средства для коррекции фигуры				100868
-		Уход за кожей и телом				100869
-	Товары для здоровья					100870
-		Биологически активные добавки				100871
-		Лечебные сборы				100872
-	Товары для похудения					100873
-		Необычное похудение				100874
-		Одежда для похудения				100875
-		Продукты для похудения				100876
-	Уход за полостью рта					100877
-		Зубная паста, отбеливание зубов				100878
-		Зубные щетки				100879
-	Техника для здоровья					100880
-		Аппараты для коррекции фигуры				100881
-		Весы напольные				100882
-		Гидромассажные ванночки для ног				100883
-		Другое для здоровья				100884
-	Массажеры					100885
-		Вакуумные массажеры				100886
-		Вибромассажеры				100887
-		Массажеры для глаз				100888
-		Массажеры для лица				100889
-		Массажеры для ног				100890
-		Массажеры для тела				100891
-		Массажные накидки				100892
-Дом и дача						100893
-	Биотуалеты					100894
-	Бытовая химия					100895
-		Ароматизаторы для белья				100896
-		Моющие средства				100897
-		Освежители воздуха				100898
-		Средства гигиены				100899
-	Все для шашлыка					100900
-		Аксессуары для мангала				100901
-		Мангалы, коптильни				100902
-		Решетки для барбекю				100903
-		Шампуры				100904
-	Гобеленовые изделия					100905
-	Для ванной и туалета					100906
-		Аксессуары для ванной и туалета				100907
-		Вантузы				100908
-		Ковры и коврики для ванной				100909
-		Сиденья, крышки для унитаза				100910
-		Шторы для ванной комнаты				100911
-	Инструменты для дома, дачи					100912
-	Интерьер дома					100913
-		Благовония				100914
-		Будильники				100915
-		Вазы				100916
-		Горшки и балконные ящики для цветов				100917
-		Декор стен				100918
-		Дополнения интерьера				100919
-		Зеркала				100920
-		Интерьерные наклейки				100921
-		Интерьерные часы				100922
-		Искусственные растения				100923
-		Картины и фоторамки				100924
-		Ковры и коврики				100925
-		Светильники				100926
-		Свечи и подсвечники				100927
-		Статуэтки				100928
-		Термометры, барометры				100929
-		Фотоальбомы				100930
-	Кухонные принадлежности					100931
-		Дуршлаги и сита				100932
-		Кухонная навеска				100933
-		Кухонные рейлинги и держатели				100934
-		Лапшерезки и аксессуары				100935
-		Миски				100936
-		Молотки для мяса				100937
-		Мясорубки ручные				100938
-		Наборы кухонных принадлежностей				100939
-		Открывалки и консервные ножи				100940
-		Подносы и подставки				100941
-		Прихватки				100942
-		Соковыжималки ручные				100943
-		Специальные приспособления				100944
-		Ступки и измельчители				100945
-		Таймеры и термометры				100946
-		Тёрки и овощерезки				100947
-	Кухонный текстиль					100948
-		Наборы				100949
-		Прихватки				100950
-		Скатерти				100951
-		Фартуки				100952
-	Матрасы, наматрасники					100953
-		Наматрасники				100954
-	Мебель					100955
-		Комоды				100956
-		Мягкая мебель				100957
-		Надувная мебель для дома				100958
-		Складная мебель				100959
-	Ножи					100960
-		Все для заточки и хранения ножей				100961
-		Кухонные ножницы и секаторы				100962
-		Наборы ножей				100963
-		Ножи кухонные				100964
-		Овощечистки				100965
-		Разделочные доски				100966
-		Специальные ножи				100967
-	Одеяла, подушки					100968
-		Одеяла				100969
-		Подушки и наперники				100970
-	Пледы					100971
-	Покрывала					100972
-	Полотенца					100973
-		Набор полотенец				100974
-		Полотенца банные				100975
-		Полотенца кухонные				100976
-		Полотенца с рисунком				100977
-	Постельное белье					100978
-		Наволочки				100979
-		Пододеяльники				100980
-		Постельное белье				100981
-		Постельное белье				100982
-		Постельное белье				100983
-		Постельное белье				100984
-		Постельное белье				100985
-		Простыни				100986
-	Посуда для приготовления пищи					100987
-		Баки пищевые				100988
-		Бочки				100989
-		Все для выпечки				100990
-		Ёмкости для хранения продуктов				100991
-		Казаны				100992
-		Кастрюли				100993
-		Ковши				100994
-		Котелки				100995
-		Крышки				100996
-		Кухонная утварь				100997
-		Кухонные комплекты				100998
-		Наборы посуды				100999
-		Посуда для приготовления на пару				101000
-		Посуда для СВЧ печей				101001
-		Сковороды				101002
-		Скороварки				101003
-		Сотейники				101004
-		Утятницы и Жаровни				101005
-		Фондю и Мармиты				101006
-		Формы для льда				101007
-	Посуда для сервировки					101008
-		Блюда и блюдца				101009
-		Бокалы				101010
-		Кофейные пары				101011
-		Кофейные сервизы				101012
-		Предметы сервировки стола				101013
-		Рюмки				101014
-		Стаканы				101015
-		Столовые приборы				101016
-		Столовые сервизы				101017
-		Тарелки				101018
-		Хрусталь				101019
-		Чайные пары				101020
-		Чайные сервизы				101021
-	Приготовление чая, кофе					101022
-		Заварочные чайники				101023
-		Кофе				101024
-		Кофемолки ручные				101025
-		Кружки и чашки				101026
-		Отдельные предметы				101027
-		Турки				101028
-		Френч-прессы				101029
-		Чайники				101030
-	Сад и огород					101031
-		Вилы, грабли, лопаты				101032
-		Грунт				101033
-		Декор для сада				101034
-		Лейки				101035
-		Парники				101036
-		Полезные аксессуары				101037
-		Садовая мебель				101038
-		Садовый инвентарь				101039
-		Удобрения				101040
-		Шланг садовый				101041
-		Ящики почтовые				101042
-	Средства от насекомых, грызунов					101043
-	Текстиль с электроподогревом					101044
-		Электроодеяла				101045
-		Электропростыни				101046
-	Термосы					101047
-		Термокружки				101048
-		Термосы для еды				101049
-		Термосы для напитков				101050
-	Уборка					101051
-		Ведра, тазы, контейнеры				101052
-		Губки, тряпки, салфетки				101053
-		Мешки, пакеты для мусора				101054
-		Перчатки хозяйственные				101055
-		Швабры, щетки, мопы, веники, совки				101056
-	Фильтры для воды					101057
-	Хозяйственные товары					101058
-		Баки универсальные				101059
-		Бумажные изделия				101060
-		Корзины для белья				101061
-		Корзины для мусора				101062
-		Крышки для банок				101063
-		Мебельная фурнитура				101064
-		Навесные замки				101065
-		Пакеты с ручками				101066
-		Прищепки				101067
-		Сушилки для белья				101068
-		Упаковочные материалы				101069
-		Утеплители				101070
-		Уход за одеждой и обувью				101071
-		Хранение и переноска продуктов				101072
-	Хранение вещей					101073
-		Аксессуары для хранения				101074
-		Вакуумные компрессионные пакеты				101075
-		Вешалки, крючки				101076
-		Канистры				101077
-		Контейнеры, боксы, коробки				101078
-		Корзины для игрушек				101079
-		Органайзеры				101080
-		Полки и корзины				101081
-		Чехлы, кофры, саше				101082
-	Шторы и тюль					101083
-		Карнизы, кольца для штор				101084
-		Тюль				101085
-		Шторы				101086
-	Электрооборудование					101087
-	Электрика					101088
-		Звонки и кнопки звонков				101089
-		Освещение				101090
-		Удлинители силовые				101091
-Игрушки и сувениры						101092
-	Детское творчество					101093
-		Поделки				101094
-		Бисероплетение				101095
-		Все для лепки				101096
-		Гравюра				101097
-		Рисование				101098
-		Модели для сборки				101099
-		Аппликация				101100
-		Вышивание				101101
-		Плетение				101102
-		Вязание				101103
-		Выжигание				101104
-		Выпиливание				101105
-		Квиллинг				101106
-		Оригами, кусудамы				101107
-		Наклейки, альбомы для наклеек				101108
-		Игровой песок				101109
-	Музыкальная игрушка					101110
-	Подарки и сувениры					101111
-		Необычные подарки				101112
-		Карты игральные				101113
-		Шкатулки				101114
-		Подарочные пакеты				101115
-		Амулеты				101116
-		Магниты, брелки				101117
-		Бизнес сувениры				101118
-		Копилки				101119
-		Конверты				101120
-	Для малышей					101121
-		Дуги, растяжки, подвески				101122
-		Мобили				101123
-		Погремушки, прорезыватели				101124
-		Игровые коврики				101125
-		Развивающие игрушки				101126
-		Книжки-игрушки				101127
-		Заводные игрушки				101128
-		Наборы для песочницы				101129
-		Неваляшки, юлы				101130
-		Игрушки для купания				101131
-		Каталки				101132
-		Резиновые игрушки				101133
-		Игрушки-забавы				101134
-		Сачки				101135
-	Куклы и мягкие игрушки					101136
-		Мягкие игрушки				101137
-		Куклы				101138
-		Одежда для кукол				101139
-		Аксессуары для кукол				101140
-		Кукольные театры				101141
-	Конструкторы					101142
-		Металлический конструктор				101143
-		Пластиковый конструктор				101144
-		Деревянный конструктор				101145
-		Магнитный конструктор				101146
-		Бумажный конструктор				101147
-		Мягкий конструктор				101148
-	Транспорт					101149
-		Р/У самолеты, вертолеты				101150
-		Р/У машины				101151
-		Р/У корабли, лодки				101152
-		Р/У прочая техника				101153
-		Самолеты, вертолеты				101154
-		Спецтехника				101155
-		Набор машинок				101156
-		Треки, гаражи				101157
-		Военная техника				101158
-		Водный транспорт				101159
-		Железные дороги				101160
-		Машинки				101161
-		Космическая техника				101162
-	Игрушечное оружие					101163
-		Пистолеты, бластеры, прочее				101164
-		Водяное оружие				101165
-	Подвижные игры					101166
-		Мыльные пузыри				101167
-		Мячи				101168
-		Запускалки				101169
-		Игровые домики				101170
-		Качели, лесенки				101171
-		Диаболо, Йо-йо				101172
-	Настольные игры, пазлы					101173
-		Пазлы				101174
-		Настольные игры				101175
-		Карточные игры				101176
-		Шахматы, шашки, нарды				101177
-		Лото, домино				101178
-		Настольный Футбол, Хоккей, Аэрохоккей				101179
-		Стратегические игры				101180
-		Экономические игры				101181
-		Настольный бильярд				101182
-	Товары для праздника					101183
-		Игры для вечеринки				101184
-		Товары для организации праздника				101185
-		Сервировка стола				101186
-		Праздничный интерьер				101187
-		Краски-грим				101188
-	Развивающие игрушки					101189
-		Головоломки, кубики				101190
-		Музыкальные инструменты				101191
-		Мозаика				101192
-		Калейдоскопы				101193
-		Алфавит, цифры				101194
-		Обучающие компьютеры				101195
-		Микроскопы, телескопы				101196
-		Наборы для исследований, опытов				101197
-		Доски для рисования, магнитные				101198
-		Учебные столики, парты				101199
-		Раскраски				101200
-	Игровые наборы					101201
-		Для девочек				101202
-		Для мальчиков				101203
-	Интерактивные, технологичные игрушки					101204
-		Интерактивные игрушки				101205
-		Роботы, трансформеры				101206
-		Фотоаппараты, камеры, проекторы				101207
-		Телефоны				101208
-		Рации, бинокли, шпионская техника				101209
-	Фигурки игровые и для дома					101210
-		Солдатики и рыцари				101211
-		Фигурки для дома				101212
-		Любимые герои				101213
-		Мир животных				101214
-	Детский транспорт					101215
-		Электромобили и мотоциклы				101216
-		Машины с педальным приводом				101217
-		Машины-каталки				101218
-		Качалки				101219
-Спорт и туризм						101220
-	Одежда для туризма, отдыха, рыбалки					101221
-		Маскхалаты и плащпалатки				101222
-		Камуфлированные куртки и жилеты				101223
-		Камуфлированные брюки и полукомбинезоны				101224
-		Тельняшки и футболки камуфлированные				101225
-		Камуфляжная форма для детей				101226
-		Камуфлированные костюмы				101227
-		Камуфлированное нательное белье				101228
-		Камуфлированные головные уборы				101229
-		Толстовки камуфлированные				101230
-		Сапоги				101231
-	Коньки роликовые					101232
-		Коньки роликовые детские				101233
-		Коньки роликовые взрослые				101234
-	Самокаты					101235
-	Туристическое снаряжение					101236
-		Туристические палатки				101237
-		Надувные кровати				101238
-		Туристические коврики, пенки				101239
-		Фонари				101240
-		Горелки, лампы, топливо				101241
-		Туристическая посуда				101242
-		Ножи				101243
-		Самозащита				101244
-		Туристические рюкзаки				101245
-	Товары для рыбалки					101246
-		Ящики рыболовные				101247
-		Приманки				101248
-	Бассейны, пляжный отдых					101249
-		Бассейны				101250
-		Насосы, фильтры, аксессуары для бассейнов				101251
-		Товары для пляжного отдыха				101252
-	Велосипеды и аксессуары					101253
-		Велоаксессуары				101254
-		Велосипеды детские				101255
-	Коньки					101256
-		Коньки детские				101257
-		Коньки взрослые				101258
-	Все для пикника и отдыха					101259
-		Мебель кемпинговая и туристическая				101260
-		Посуда для пикника				101261
-		Переносные холодильники				101262
-		Наборы для пикника				101263
-		Корзины для пикника				101264
-	Санки, салазки					101265
-		Снегокаты				101266
-		Санки-ватрушки				101267
-		Санки				101268
-		Ледянки				101269
-	Аксессуары для занятия спортом					101270
-		Защита				101271
-		Шейкеры и бутылки для воды				101272
-	Атлетика, фитнес					101273
-		Гимнастические мячи, массажеры				101274
-		Скакалки, обручи				101275
-		Утяжелители, гантели, диски				101276
-		Тренажеры, эспандеры, степперы				101277
-	Виды спорта					101278
-		Тенис и Настольный тенис				101279
-		Бадминтон				101280
-		Бокс				101281
-		Футбол				101282
-		Баскетбол				101283
-		Волейбол				101284
-		Хоккей, хоккей на траве				101285
-	Активный отдых					101286
-		Дартс, Кольцеброс				101287
-		Кегли, Городки, Боулинг				101288
-	Лыжи и аксессуары					101289
-		Лыжи				101290
-		Лыжная обувь и крепления				101291
-Хобби, увлечение						101292
-	Мыловарение					101293
-		Формы				101294
-		Масла, ароматизаторы, украшения				101295
-	Бисероплетение					101296
-		Бисер, бусины, стеклярус				101297
-		Наборы для бисероплетения				101298
-	Аксессуары для курения					101299
-		Бензин для зажигалок				101300
-	Скрапбукинг, квиллинг					101301
-		Бумага для скрапбукинга				101302
-		Украшения и декор				101303
-		Бумага для квиллинга				101304
-		Инструменты для скрапбукинга				101305
-		Инструменты для квиллинга				101306
-	Шитье					101307
-		Материалы для отделки				101308
-		Нитки швейные				101309
-		Принадлежности для шитья и кроя				101310
-	Вышивка					101311
-		Вышивка крестом и гладью				101312
-		Вышивка бисером				101313
-		Аксессуары для вышивки				101314
-	Наборы для раскрашивания по номерам					101315
-	Контейнеры для фурнитуры и ниток					101316
-	Изготовление украшений					101317
-		Бусины				101318
-		Фурнитура				101319
-Книги						101320
-	Книги для детей					101321
-		Детская литература				101322
-		Энциклопедии				101323
-		Дошкольное обучение				101324
-		Книги для родителей, воспитателей				101325
-	Разное					101326
-Офис и школа						101327
-	Товары для школы					101328
-		Рюкзаки и сумки				101329
-		Канцелярские товары				101330
-		Школьная форма				101331
-		Мешки для обуви				101332
-		Пеналы, косметички, тубусы				101333
-		Подставки для книг				101334
-		Дневники, расписание уроков, портфолио				101335
-		Одежда для уроков труда				101336
-		Обложки, папки для тетрадей				101337
-		Глобусы и карты				101338
-	Бумага и бумажные изделия					101339
-		Бумага для офисной техники				101340
-		Стикеры, бумага для заметок				101341
-		Самоклеящиеся этикетки и бумага				101342
-		Почтовые конверты и пакеты				101343
-		Бухгалтерские книги, бланки, формы				101344
-		Ролики и чековая лента				101345
-		Блокноты и бизнес-тетради				101346
-		Открытки, грамоты, дипломы				101347
-		Ежедневники и еженедельники				101348
-		Календари, планинги				101349
-		Записные и телефонные книги				101350
-		Альбомы, бумага для рисования				101351
-		Цветная бумага, картон				101352
-		Бумага для черчения				101353
-		Тетради				101354
-		Ватман				101355
-		Калька				101356
-		Папки для черчения и рисования				101357
-		Бизнес-органайзеры				101358
-		Холст для рисования				101359
-	Демонстрационное оборудование					101360
-		Доски				101361
-		Аксессуары для досок				101362
-		Демонстрационные системы				101363
-		Таблички и бейджи				101364
-		Рекламные стойки, подставки и накопители				101365
-	Принадлежности для рисования, черчения					101366
-		Гуашь				101367
-		Акварельные краски				101368
-		Фломастеры				101369
-		Пальчиковые краски				101370
-		Карандаши акварельные				101371
-		Карандаши цветные				101372
-		Акриловые краски				101373
-		Мелки восковые				101374
-		Кисти для рисования				101375
-		Циркули и готовальни				101376
-		Тушь чертежная				101377
-		Линейки и угольники				101378
-		Уголь для рисования				101379
-		Пастель				101380
-		Мел школьный для доски				101381
-		Чертежные доски и сумки				101382
-		Темперные краски				101383
-		Масляные краски				101384
-		Контурные и витражные краски				101385
-		Цветные мелки				101386
-		Палитры				101387
-	Письменные принадлежности					101388
-		Ручки гелевые				101389
-		Ручки роллеры				101390
-		Ручки линеры				101391
-		Ручки шариковые				101392
-		Ручки бизнес-класса, наборы ручек				101393
-		Футляры, подставки для ручек				101394
-		Стержни, чернила, тушь				101395
-		Текстовыделители				101396
-		Карандаши чернографитовые				101397
-		Карандаши механические				101398
-		Грифели для механических карандашей				101399
-		Маркеры для досок и флипчартов				101400
-		Маркеры нестираемые (перманентные)				101401
-		Ластики				101402
-		Точилки				101403
-		Карандаши для спецработ				101404
-		Рапидографы				101405
-		Маркеры специальные				101406
-		Ручки перьевые				101407
-	Папки, системы архивации					101408
-		Файлы и файловые папки				101409
-		Папки регистраторы				101410
-		Скоросшиватели				101411
-		Архивные папки и короба				101412
-		Папки-портфели				101413
-		Папки на кольцах				101414
-		Папки-планшеты				101415
-		Папки на резинках				101416
-		Разделители листов				101417
-		Картотеки, подвесная регистратура				101418
-		Папки с зажимом				101419
-		Папки-уголки				101420
-		Папки-конверты				101421
-		Папки адресные				101422
-	Канцелярские товары					101423
-		Дыроколы				101424
-		Зажимы для бумаг				101425
-		Клей				101426
-		Клейкие ленты, скотч				101427
-		Кнопки, скрепки				101428
-		Корректоры				101429
-		Ножницы, ножи канцелярские, шило				101430
-		Резинка для денег				101431
-		Лупы канцелярские				101432
-		Степлеры, антистеплеры и скобы				101433
-		Штемпельная продукция				101434
-		Корзины для бумаг				101435
-		Лотки и накопители для бумаг				101436
-		Настольные подставки и наборы				101437
-		Калькуляторы				101438
-		Визитницы				101439
-		Диспенсеры				101440
-		Подкладки для письма				101441
-		Подушки для смачивания пальцев				101442
-	Шкафы, сейфы, аптечки					101443
-	Чистящие средства для оргтехники					101444
-	Офисная техника					101445
-		Расходные материалы для переплета и ламинирования				101446
-		Пленки для печати				101447
-	Ролики, этикетки для принтеров					101448
-Электроника						101449
-	Портативная электроника					101450
-		Наушники				101451
-		Умные часы и браслеты				101452
-		Радиоприемники и радиочасы				101453
-		Аксессуары к портативной электронике				101454
-	Аудио и видеотехника					101455
-		Аудиотехника				101456
-		Подставки и кронштейны				101457
-		Универсальные пульты ДУ				101458
-		Антенны				101459
-		Батарейки и аккумуляторы				101460
-		Видеокамеры				101461
-	Аксессуары					101462
-		Боксы, стойки, конверты, портмоне для CD/DVD				101463
-		Коврики для мыши				101464
-		Чехлы для телефонов				101465
-		Чехлы для планшетов				101466
-		Зарядные устройства				101467
-		Кабели, переходники, адаптеры				101468
-		Подставки для телефонов				101469
-		Флешки, карты памяти, картридеры				101470
-		Защитные пленки				101471
-		Моноподы				101472
-		Объективы				101473
-		Подвески для сотовых телефонов				101474
-		Клавиатуры, мыши, геймпады				101475
-		Стилусы				101476
-	Фотоаппараты и аксессуары					101477
-	Специализированные средства					101478
-Автотовары						101479
-	Автоэлектроника					101480
-		Видеорегистраторы				101481
-		Автопылесосы				101482
-	Автокресла детские					101483
-	Автохолодильники					101484
-		Автохолодильники				101485
-		Аккумуляторы холода				101486
-		Аксессуары				101487
-	Аксессуары					101488
-		Автомобильные держатели				101489
-		Аксессуары для сотовых телефонов				101490
-		Автомобильные коврики				101491
-		Ароматизаторы				101492
-		Лопаты				101493
-		Очки водителя				101494
-		Полезные мелочи				101495
-		Снего / стеклоочистители				101496
-		Чехлы и накидки на сиденья				101497
-		Товары в дорогу				101498
-	Аудио/видеотехника					101499
-		Автомагнитолы				101500
-		Усилители и акустика				101501
-Спецодежда						101502
-	Брюки					101503
-	Медицинская одежда					101504
-	Одежда для сферы обслуживания					101505
-	Перчатки					101506
-	Рабочая форма					101507
-Зоотовары						101508
-	Одежда для животных					101509
-	Средства от паразитов					101510
-	Аксессуары для животных					101511
-		Аксессуары				101512
-		Домики, игровые комплексы				101513
-		Контейнеры для корма				101514
-		Лежанки				101515
-		Переноски, клетки				101516
-		Поилки				101517
-		Когтеточки				101518
-		Ошейники и поводки				101519
-		Вольеры				101520
-	Корм для животных					101521
-		Корм для собак				101522
-		Корм для кошек				101523
-		Корм для грызунов				101524
-		Корм для птиц				101525
-		Витамины и пищевые добавки				101526
-		Лакомства				101527
-		Корм для рыб				101528
-		Корм для черепах				101529
-	Игрушки					101530
-	Наполнитель					101531
-	Туалетные лотки, памперсы					101532
-		Для кошек				101533
-		Для грызунов				101534
-		Для собак				101535
-		Совки				101536
-		Памперсы				101537
-		Пеленки				101538
-	Гигиена					101539
-	Аксессуары для птиц					101540
-		Поилки, кормушки				101541
-		Клетки				101542
-		Игрушки				101543
-		Купалки				101544
-		Жердочки				101545
-		Гнезда				101546
-	Аксессуары для рыб и рептилий					101547
-		Аквариумы				101548
-		Черепашники				101549
-		Поилки, кормушки				101550
-	Груминг					101551
-		Щетки				101552
-		Когтерезы				101553
-		Ножницы				101554
-	Косметика					101555
-		Шампуни				101556
-		Спреи и духи				101557
-		Кондиционеры и бальзамы				101558
-		Уход за лапами				101559
-Строительные инструменты						101560
-	Электроинструменты					101561
-		Ударные дрели				101562
-		Электропилы				101563
-		Шлифовальные машины				101564
-	Ручной инструмент					101565
-		Ножи и ножовки				101566
-		Бокорезы, кусачки				101567
-		Ключи, шестигранники				101568
-		Отвертки				101569
-		Молотки, кувалды				101570
-		Топоры				101571
-		Клещи, плоскогубцы				101572
-		Ножницы по металлу				101573
-		Наборы инструментов				101574
-		Зажимы, струбницы				101575
-		Рулетки				101576
-		Измерительные инструменты				101577
-		Стамески				101578
-		Ящики для инструментов				101579
-		Валики для покраски, кисти				101580
-	Оснастка и расходные материалы					101581
-		Насадки				101582
-		Стержни для клеевых пистолетов				101583
-		Веревки, шпагаты				101584
-		Крепеж				101585
-Бытовая техника						101586
-	Климатическая техника					101587
-		Обогреватели				101588
-		Воздухоочистители				101589
-		Увлажнители				101590
-		Вентиляторы				101591
-		Водонагреватели				101592
-		Ароматизаторы воздуха				101593
-		Метеостанции				101594
-		Сушилки для рук				101595
-	Бытовая техника для кухни					101596
-		Блендеры и миксеры, измельчители				101597
-		Мультиварки, скороварки				101598
-		Мясорубки				101599
-		Кухонные комбайны				101600
-		Хлебопечки				101601
-		Соковыжималки				101602
-		Мороженицы и йогуртницы				101603
-		Пароварки				101604
-		Фритюрницы				101605
-		Сэндвичницы				101606
-		Вафельницы				101607
-		Орешницы				101608
-		Блинницы				101609
-		Пончик-мейкеры				101610
-		Яйцеварки				101611
-		Электросковороды				101612
-		Микроволновые печи				101613
-		Мини-печи и ростеры				101614
-		Настольные плитки				101615
-		Тостеры				101616
-		Аэрогрили и электрогрили				101617
-		Шашлычницы				101618
-		Кипятильники				101619
-		Электрочайники и термопоты				101620
-		Кофейное оборудование				101621
-		Кухонные весы и безмены				101622
-		Ломтерезки и электроножи				101623
-		Вакуумные упаковщики				101624
-		Сушилки для овощей				101625
-		Шоколадный фонтан				101626
-		Электромельницы для специй				101627
-		Электрические открывалки				101628
-		Очистка воды				101629
-		Аксессуары				101630
-		Малые кухонные приборы				101631
-	Бытовая техника для дома					101632
-		Пылесосы контейнерные				101633
-		Пылесосы моющиеся и с аквафильтром				101634
-		Минипылесосы				101635
-		Аксессуары для пылесосов				101636
-		Утюги				101637
-		Гладильные доски				101638
-		Сушилки для одежды				101639
-		Паровые швабры				101640
-		Пароочистители				101641
-		Стеклоочистители				101642
-		Аксессуары для пароочистителей				101643
-		Швейные машины				101644
-		Ручные машинки, мини				101645
-		Машинки для удаления катышков				101646
-		Сушилки для обуви				101647
-		Аксессуары для техники для дома				101648
-		Отпариватели				101649
-		Степлеры для запайки пакетов				101650
-	Крупная бытовая техника					101651
-		Стиральные машины				101652
-		Вытяжки подвесные				101653
-		Аксессуары для КБТ				101654
-	Уход за собой					101655
-		Электробритвы мужские				101656
-		Эпиляторы				101657
-		Фены				101658
-		Фен-щетки				101659
-		Стайлеры и щипцы				101660
-		Триммеры				101661
-		Машинки для стрижки				101662
-		Электробигуди				101663
-		Приборы для завивки ресниц				101664
-		Аксессуары для мужских бритв				101665
-		Аксессуары				101666
-		Приборы для маникюра и педикюра				101667
-		Другое для ухода за собой				101668
-		Сауны				101669
-	Уход за полостью рта					101670
-		Ирригаторы				101671
-		Аксессуары				101672
-		Электрические зубные щетки				101673
-Новый год						101674
-	Новогодние подарки					101675
-	Гирлянды электрические и фейеверки					101676
-	Дождик, мишура, подвески					101677
-	Елки					101678
-	Елочные украшения					101679
-	Игрушки и сувениры новогодние					101680
-	Карнавальные аксессуары					101681
-	Карнавальные костюмы					101682
-	Маски					101683
-	Новогодние сумки					101684
-	Плакаты, наклейки					101685
-	Свечи и подсвечники					101686
-	Символ года					101687
-	Упаковка для подарков					101688
-	Хлопушки, конфетти, серпантин, спреи					101689
-	Шарики					101690
-
-
-        ';
-*/
     }
 
 }

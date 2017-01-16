@@ -58,8 +58,9 @@ $contentutm = \frontend\widgets\UtmLinker::widget(['param'=>Yii::$app->params['p
         echo '<p style="padding:0px 15px;margin:30px 0px 10px 0px;color:#00a5a3;text-align:left;font-family:\'Roboto\', Arial;font-size:21px;">
 				Товары в вашем заказе:
 			</p><ul style="list-style:none;width:100%;text-align:center;padding:0px;">';
-        foreach ($result['data']['saveproduct'] as $key => $value) {
-          echo   '<li style="display:inline-block;margin:10px 15px;border-radius:4px;width:44%;-moz-border-radius:4px;-webkit-border-radius:4px;padding:8px;border:1px solid #e4e4e4;min-width:340px;">
+        foreach ($result['data']['saveproduct'] as $order_key => $order_value) {
+            foreach ($order_value as $key => $value) {
+                echo   '<li style="display:inline-block;margin:10px 15px;border-radius:4px;width:44%;-moz-border-radius:4px;-webkit-border-radius:4px;padding:8px;border:1px solid #e4e4e4;min-width:340px;">
 					<table style="border:0;width:100%;" border="0">
 						<tr>
 							<td rowspan="5" style="width:80px;text-align:center;vertical-align:top;">
@@ -80,7 +81,8 @@ $contentutm = \frontend\widgets\UtmLinker::widget(['param'=>Yii::$app->params['p
 						</tr>
 					</table>
 				</li>';
-            $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
+                $delproductattr[$value[0]['products_id']][$value[1]['products_options_values']]= true;
+               }
         }
         echo '</ul>';
     }

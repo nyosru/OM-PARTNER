@@ -153,19 +153,27 @@ class SendaysForm
 	 * @return array
 	 * @throws HttpException
 	 */
-	private function getForm(): array
-	{
-		$client = new Client(['baseUrl' => 'https://sendsay.ru/form/' . $this->serviceId . '/' . $this->formId . '/']);
-		$response = $client->createRequest()
-			->setFormat(Client::FORMAT_JSON)
-			->addHeaders(['accept' => 'application/json'])
-			->setMethod('GET')
-			->send();
+	private function getForm()
+    {
+        $sendays_form_key = 'sendaysform-' . $this->serviceId . '-' . $this->formId;
+        $sendays_form_key = Yii::$app->cache->buildKey($sendays_form_key);
+        if (($form = Yii::$app->cache->get($sendays_form_key)) == FALSE) {
+            $client = new Client(['baseUrl' => 'https://sendsay.ru/form/' . $this->serviceId . '/' . $this->formId . '/']);
+            $response = $client->createRequest()
+                ->setFormat(Client::FORMAT_JSON)
+                ->addHeaders(['accept' => 'application/json'])
+                ->setMethod('GET')
+                ->send();
+            if ($response->isOk && is_array($response->data)) {
+                Yii::$app->cache->set($sendays_form_key,$response->data, 10800);
+               return $response->data;
+            } else {
+                throw new HttpException(500);
+            }
 
-		if ($response->isOk && is_array($response->data))
-			return $response->data;
-		else
-			throw new HttpException(500);
+        }else{
+            return $form;
+        }
 	}
 
 	/**
