@@ -44,6 +44,27 @@ function setCookie(name, value, options) {
     }
 })(jQuery);
 
+$('.search-button-toggle').tooltip();
+/*
+ Переключение Глобальный поиск <-> Поиск по категории
+ */
+$('.search-button-toggle').on('click',function(){
+    var parentForm = $(this).parents('form'),
+        siblingButton = $(this).siblings('.search-button-toggle');
+
+    if(siblingButton.length) {
+        siblingButton.toggleClass('hide');
+        $(this).toggleClass('hide');
+
+        if($(this).data('category') == undefined){
+            var category = siblingButton.data('category');
+            parentForm.attr('action','/'+category);
+        } else {
+            parentForm.attr('action','/catalog/');
+        }
+    }
+});
+
 $(document).on('click', '.size', function () {
     $('.size-checked').removeClass('size-checked');
     $check = [];

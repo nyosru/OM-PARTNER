@@ -131,7 +131,7 @@ trait ActionSelectedProduct
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return $data;
             }
-            return $this->renderPartial('_ajax-selectedproduct',['model'=>$data]);
+            return $this->renderPartial('_ajax-selectedproduct',['data'=>$data]);
         } else {
             return $this->render('selectedproduct');
         }

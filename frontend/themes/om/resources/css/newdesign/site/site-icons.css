@@ -20,7 +20,7 @@
 */
  
  [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "site-icons";
+  /*font-family: "site-icons";*/
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -68,8 +68,8 @@
 .icon-rss-squared:before { content: '\e80f'; } /* '' */
 .icon-rss:before { content: '\e810'; } /* '' */
 .icon-ellipsis-vert:before { content: '\e811'; } /* '' */
-.icon-plus:before { content: '\e812'; } /* '' */
-.icon-minus:before { content: '\e813'; } /* '' */
+/*.icon-plus:before { content: '\e812'; }*/ /* '' */
+/*.icon-minus:before { content: '\e813'; }*/ /* '' */
 .icon-youtube-squared:before { content: '\e814'; } /* '' */
 .icon-gplus-squared:before { content: '\e815'; } /* '' */
 .icon-gplus:before { content: '\e816'; } /* '' */
