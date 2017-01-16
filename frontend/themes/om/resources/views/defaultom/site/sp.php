@@ -377,11 +377,11 @@
 
                         <!-- Left and right controls -->
                         <a class="left carousel-control" href="#myCarousel" role="button" style="background: none;"  data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span style="color: #26c281;" class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
                         <a class="right carousel-control" href="#myCarousel" style="background: none;" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span style="color: #26c281;" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
                     </div>

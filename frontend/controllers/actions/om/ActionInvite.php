@@ -25,9 +25,6 @@ trait ActionInvite
         $keys = Yii::$app->cache->buildKey($key_cache);
         $images = [
             [
-                'image'=>'/images/lp/girl1.png'
-            ],
-            [
                 'image'=>'http://odezhda-master.ru/images/apix/products/e67477f1ffca4bb49174f30058ffbf30.JPG',
                 'price'=>'98'
             ],
