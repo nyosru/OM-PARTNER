@@ -116,17 +116,39 @@ $this->beginPage();
                         $action = '/'.Yii::$app->params['chpu']['action'].'/';
                     }
                     ?>
-                    <form action="<?=$action?>">
-                        <input autocomplete="off" name="searchword"
-                               value="<?= \yii\helpers\BaseHtmlPurifier::process(Yii::$app->request->getQueryParam('searchword')) ?>"
-                               class="search no-shadow-form-control" placeholder="Введите артикул или название"
-                               style="height: 40px; float: left; width: 65%; color: rgb(119, 119, 119); background: transparent none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; margin-top: 0px;"
-                               type="text">
-                        <button class="btn btn-default data-j lock-on" type="submit"
-                                style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
-                            Найти
-                        </button>
-                    </form>
+                    <?php
+                    if (Yii::$app->controller->action->id == 'discont' ||
+                    Yii::$app->controller->action->id == 'dayproduct' ||
+                    Yii::$app->controller->action->id == 'productsmonth' ||
+                    Yii::$app->controller->action->id == 'productscloth') {
+                    ?>
+                        <form action="/<?=Yii::$app->controller->action->id?>">
+                            <input autocomplete="off" name="searchword"
+                                   value="<?= \yii\helpers\BaseHtmlPurifier::process(Yii::$app->request->getQueryParam('searchword')) ?>"
+                                   class="search no-shadow-form-control" placeholder="Введите артикул или название"
+                                   style="height: 40px; float: left; width: 65%; color: rgb(119, 119, 119); background: transparent none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; margin-top: 0px;"
+                                   type="text">
+
+                            <button type="button" class="btn hide search-button-toggle" data-toggle="tooltip" data-placement="top" title="Общий поиск"><span class="glyphicon glyphicon-globe"></span>&nbsp;</button>
+                            <button type="button" class="btn search-button-toggle" data-category="<?=Yii::$app->controller->action->id?>" data-toggle="tooltip" data-placement="top" title="Поиск внутри текущей категории"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;</button>
+                            <button class="btn btn-default data-j lock-on" type="submit"
+                                    style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
+                                Найти
+                            </button>
+                        </form>
+                    <?php } else { ?>
+                        <form action="/catalog/">
+                            <input autocomplete="off" name="searchword"
+                                   value="<?= \yii\helpers\BaseHtmlPurifier::process(Yii::$app->request->getQueryParam('searchword')) ?>"
+                                   class="search no-shadow-form-control" placeholder="Введите артикул или название"
+                                   style="height: 40px; float: left; width: 65%; color: rgb(119, 119, 119); background: transparent none repeat scroll 0% 0%; border: 1px solid rgb(204, 204, 204); border-radius: 4px; margin-top: 0px;"
+                                   type="text">
+                            <button class="btn btn-default data-j lock-on" type="submit"
+                                    style="width: 10%; height: 40px; position: relative; background-color: rgb(234, 81, 109); border-color: rgb(234, 81, 109); color: white; font-size: 1.2pc; left: -5px; margin-right: 0px; float: left;">
+                                Найти
+                            </button>
+                        </form>
+                    <?php } ?>
                     <a  rel="nofollow"  class="change-cart" href="<?=BASEURL?>/changecardview"></a>
                     <div class="logindiv" style="float: right; width: 25%; padding: 8px 0px; font-weight: 400;">
                         <?php

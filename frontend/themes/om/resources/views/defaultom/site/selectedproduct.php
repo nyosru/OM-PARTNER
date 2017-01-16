@@ -3,7 +3,6 @@
 $this -> title = 'Избранные продукты';
 
 ?>
-
     <script>
         $(window).on('load', function () {
             $amount_prod = 0;
@@ -33,7 +32,9 @@ $this -> title = 'Избранные продукты';
                     }
                 });
 
-                requestdata = $.ajax({
+                $('.progress').show();
+                
+                $.ajax({
                     method: 'post',
                     url: "/site/selectedproduct",
                     async: false,
@@ -41,31 +42,35 @@ $this -> title = 'Избранные продукты';
                     success: function (data) {
                         $bside = $('.bside').html();
                         $('.bside').html('');
+
+                        var count = data.length;
                         $.each(data, function(i,item){
-                            var subImg = [];
-                            if(typeof (this.subImage) != 'undefined'){
-                                subImg = this.subImage;
+                            var delayTime = i*20;
+                            setTimeout(function() {
+                                var progress = Math.round(100 * (i + 1) / count) + '%';
+                                $('.progress .progress-bar').css({width: progress}).text(progress);
+
+                                var subImg = [];
+                                if (typeof (this.subImage) != 'undefined') {
+                                    subImg = this.subImage;
+                                }
+                                if (getCookie('cardview') == 1) {
+                                    renderProduct2(item.products, item.productsDescription, item.productsAttributes, item['productsAttributesDescr'], '', item.catpath);
+                                    $('[itemid = "' + item.products['products_id'] + '"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; cursor: pointer; color: red; font-size: 25px; position: relative;z-index:25"><i  class="fa fa-times"></i></div>');
+                                } else {
+                                    renderProduct(item.products, item.productsDescription, item.productsAttributes, item['productsAttributesDescr'], '', item.catpath, true, suppliers, subImg);
+                                    $('[itemid = "' + item.products['products_id'] + '"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; position: absolute; cursor: pointer; color: red; font-size: 25px;z-index:25"><i  class="fa fa-times"></i></div>');
+                                }
+                            },delayTime);
+                            if (i == count - 1) {
+                                setTimeout(function() {
+                                    $('.progress').hide();
+                                    $('.bside').append($bside);
+                                },delayTime+200);
                             }
-                            if(getCookie('cardview')==1) {
-                                renderProduct2(item.products, item.productsDescription,item.productsAttributes, item['productsAttributesDescr'], '',item.catpath);
-                                $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; cursor: pointer; color: red; font-size: 25px; position: relative;z-index:25"><i  class="fa fa-times"></i></div>');
-                            }else{
-                                renderProduct(item.products, item.productsDescription, item.productsAttributes, item['productsAttributesDescr'], '',item.catpath,true,suppliers,subImg);
-                                $('[itemid = "'+item.products['products_id']+'"]').prepend('<div class="del-products" style="top: 5px; right: 10px; float: right; position: absolute; cursor: pointer; color: red; font-size: 25px;z-index:25"><i  class="fa fa-times"></i></div>');
-
-                            }
-
-
                         });
-                        $('.bside').append($bside);
                     }
                 });
-
-
-
-
-//
-
             }
         });
     </script>

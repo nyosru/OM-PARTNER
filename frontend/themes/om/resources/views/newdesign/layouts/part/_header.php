@@ -1,4 +1,8 @@
-<?php ?>
+<?php
+use yii\bootstrap\Modal;
+use yii\bootstrap\Html;
+use yii\bootstrap\ActiveForm;
+?>
 <!-- Header -->
 <header>
     <div class="header-container">
@@ -23,24 +27,41 @@
                     <!-- End Header Logo -->
                 </div>
                 <div class="col-lg-6 col-sm-5 col-xs-8 toplinks">
-
                     <!-- Default Welcome Message -->
 <!--                    <div class="welcome-msg hidden-xs">Default welcome msg! </div>-->
                     <!-- End Default Welcome Message -->
                     <div class="links">
-                        <div class="myaccount"><a title="My Account" href="/lk/"><span class="hidden-xs">Мой профиль</span></a></div>
-                        <div class="wishlist"><a title="My Wishlist" href="/selectedproduct"><span class="hidden-xs">Избранное</span></a></div>
-                        <div class="login"><a href="/login"><span class="hidden-xs">Вход</span></a></div>
+<!--                        <div class="wishlist"><a title="My Wishlist" href="/selectedproduct"><span class="hidden-xs">Избранное</span></a></div>-->
+                        <div>
+                            <a  rel="nofollow"  href="/selectedproduct">Избранные</a>
+                        </div>
+                        <?php
+                        if(Yii::$app->user->isGuest){ ?>
+                            <div>
+                                <a  rel="nofollow"  href="/signup"><span class="hidden-xs">Регистрация</span></a>
+                            </div>
+                            <div>
+                                <a  rel="nofollow" data-toggle="modal" data-target="#authform" href="#"><span class="hidden-xs">Вход</span></a>
+                            </div>
+                        <?php } else{ ?>
+                            <div>
+                                <a rel="nofollow"  href="/lk/"><span class="hidden-xs">Профиль</span></a>
+                            </div>
+                            <div>
+                                <a  rel="nofollow" href="/logout" data-method="post"><span class="hidden-xs">Выход</span>
+                            </div>
+                        <?php } ?>
 
                         <!-- links -->
                     </div>
                 </div>
+                <?=$this->render('_header-modal')?>
                 <div class="col-lg-4 col-sm-5 col-xs-12 right_menu">
                     <div class="menu_top">
                         <div class="top-cart-contain pull-right">
                             <!-- Top Cart -->
                             <div class="mini-cart">
-                                <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"><a href="#">My Cart <span>2</span></a></div>
+                                <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"><a href="#">My Cart <span class="cart-count">0</span></a></div>
                                 <div>
                                     <div class="top-cart-content">
                                         <div class="block-subtitle">
