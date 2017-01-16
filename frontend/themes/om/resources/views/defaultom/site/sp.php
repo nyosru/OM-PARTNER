@@ -348,13 +348,21 @@
                         $items = '';
                         foreach ($images as $key=>$value){
                             $class = '';
+                            $price = '';
                             if($key == 0){
                                 $class= 'active';
                             }
+                           if(isset($value['price'])){
+                               $price = '<div style="position: absolute;bottom: 20px;right: 20px;">
+                                            <img src="/images/logo/prices.png" />
+                                         <div style="position: absolute;top: 10%; left: 25%;  font-size: 36px; font-weight: 500; color: #FFF;">'.$value['price'].' р.</div>
+                                         </div>';
+                           }
                             $indicate .=  '<li calss="'.$class.'" data-target="#myCarousel" data-slide-to="'.$key.'"></li>';
                             $items .='<div class="item '.$class.'">'.
-                                '<div style="background: url('.$value.')  no-repeat 50% 0% /contain;width: 100%;height: 100%;z-index: 99999;overflow: visible;"></div>'.
-                            '</div>';
+                                '<div style="background: url('.$value['image'].')  no-repeat 50% 100% /contain;width: 100%;height: 100%;z-index: 99999;overflow: visible;"></div>'.
+                                $price.
+                                '</div>';
                         }
                         ?>
                         <ol class="carousel-indicators">
