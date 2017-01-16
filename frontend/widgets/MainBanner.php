@@ -129,7 +129,7 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_09012017_1.png',
+                'image' =>  'OM_12012017_1.png',
                 'referal'=> '/catalog?cat=1720',
                 'term'=> '',
                 'alttext' => 'Платья',
@@ -138,45 +138,45 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'medium2' => [
             [
-                'image' =>  'OM_09012017_2.png',
-                'referal'=> '/catalog?cat=1813',
+                'image' =>  'OM_12012017_2.png',
+                'referal'=> '/catalog?cat=1746',
                 'term'=> '',
-                'alttext' => 'Кофты, кардиганы',
+                'alttext' => 'Верхняя одежда',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_09012017_3.png',
-                'referal'=> '/catalog?cat=1982',
+                'image' =>  'OM_12012017_3.png',
+                'referal'=> '/catalog?cat=1758',
                 'term'=> '',
-                'alttext' => 'Дутики',
+                'alttext' => 'Джинсы',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_09012017_4.png',
-                'referal'=> '/catalog?cat=1830',
+                'image' => 'OM_12012017_4.png',
+                'referal'=> '/catalog?cat=1977',
                 'term'=> '',
-                'alttext' => 'Пуховики и зимние куртки',
+                'alttext' => 'Балетки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_09012017_5.png',
-                'referal'=> '/catalog?cat=1751',
+                'image' => 'OM_12012017_5.png',
+                'referal'=> '/catalog?cat=1873',
                 'term'=> '',
-                'alttext' => 'Зимние куртки и пуховики',
+                'alttext' => 'Кофты, кардиганы',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_09012017_6.png',
-                'referal'=> '/products-discount',
-                'alttext' => 'Скидки дня',
+                'image' => 'OM_12012017_6.png',
+                'referal'=> '/dayproduct',
+                'alttext' => 'Новинки дня',
                 'out' => FALSE
             ]
         ],
