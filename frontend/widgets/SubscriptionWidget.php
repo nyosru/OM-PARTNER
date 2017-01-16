@@ -14,7 +14,7 @@ class SubscriptionWidget extends \yii\base\Widget
 		parent::init();
 
 		$sf = new SendaysForm('odezhda_master' , 2);
-		$form = $sf->create(Url::to('/subscription'), 'post', true);
+		$form = $sf->create(Url::to('@partial/subscription'), 'post', true);
 
 		return $this->render('subscription', [
 			'form' => $form
