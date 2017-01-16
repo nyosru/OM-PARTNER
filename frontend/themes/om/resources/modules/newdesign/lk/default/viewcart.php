@@ -2,7 +2,6 @@
 use yii\helpers\Url;
 
 $this->title='Просмотр сохраненных корзин';
-$modalsaveset='<div style="height:40px;background-color: #E1F5E1;text-align: center;font-size: 24px;line-height: 1.7;">Сохранение корзины<div style="width:30px;float: right"><i style="cursor:pointer; color:#ea516d;" id="close-cart-save" class="fa fa-times" aria-hidden="true"></i></div></div><div><div style="width:90%;margin-left: 5%; height:40px;line-height:4;">Введите комментарий для сохраняемой корзины:</div><input id="comment-cart-save" class="no-shadow-form-control" style="width:90%; margin-left:5%;"></div><div style="width:90%; margin-left:5%; line-height: 4; height: 40px;">Сделать корзину публичной (вы сможете давать ссылки на нее другим)<i class="checkbox-overlay fa fa-check chk-unchecked" id="save-chk" style="margin-top:15px;margin-right:15px;"></i></div><div id="save-set-btn">Сохранить</div>';
 ?>
 <style>
     .page-lk .data-table .glyphicon{
@@ -38,12 +37,35 @@ $modalsaveset='<div style="height:40px;background-color: #E1F5E1;text-align: cen
 <script>
     $cartset=[];
 </script>
+<div class="modal fade" id="modal-save-cart" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Сохранение корзины</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Введите комментарий для сохраняемой корзины:</label>
+                    <input id="comment-cart-save" type="text" class="form-control" style="width: 100%;">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="save-chk"> Сделать корзину публичной (вы сможете давать ссылки на нее другим)
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="save-set-btn" class="button">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container page-lk">
     <div class="row" style="margin: 15px 0;">
         <?=$this->render('_navlk',['user'=>$cust])?>
         <div class="col-sm-9">
             <div class="row">
-                <div id="modal-save-set" style="display:none"><?=$modalsaveset?></div>
                 <div class="col-sm-6">
                     <form method="get" action="<?=BASEURL?>/showcart" style="margin-bottom:10px;">
                         <div class="input-group">
@@ -55,7 +77,7 @@ $modalsaveset='<div style="height:40px;background-color: #E1F5E1;text-align: cen
                     </form>
                 </div>
                 <div class="col-sm-6">
-                    <button style="line-height: 22px;" class="button pull-right" id="save-set">Сохранить текущую корзину</button>
+                    <button class="button pull-right" id="save-set" data-toggle="modal" data-target="#modal-save-cart">Сохранить текущую корзину</button>
                 </div>
             </div>
             <table class="data-table">
@@ -109,6 +131,9 @@ $modalsaveset='<div style="height:40px;background-color: #E1F5E1;text-align: cen
     </div>
 </div>
 <script>
+    $('#modal-save-cart').on('hidden.bs.modal', function (e) {
+        location.reload();
+    });
     function saveCartSet($cartset){
         $cartset=JSON.stringify($cartset);
         if (JSON.parse(localStorage.getItem('cart-set'))) {

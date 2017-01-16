@@ -3742,6 +3742,14 @@ div.size-desc:last-child{
     width: 80%;
     background: url(/images/logo/OM_logo.png) 0% 50% no-repeat;
 }
+.partners-main-right form .search-button-toggle{
+    margin-left: -159px;
+    padding-right: 8px;
+    line-height: 26px;
+    font-size: 21px;
+    background: transparent;
+    margin-top: 0;
+}
 @keyframes rotate {
     0% {
         transform: rotateZ(0deg);

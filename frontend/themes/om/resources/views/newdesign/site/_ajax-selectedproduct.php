@@ -1,21 +1,22 @@
-<ul class="products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>">
-    <?php
-    foreach ($model as $value) {
-        $class = (int)$_COOKIE['cardview'] == 1 ? 'item even':'item col-lg-4 col-md-3 col-sm-4 col-xs-6';
+<?php
+use yii\widgets\ListView;
+use yii\data\ArrayDataProvider;
 
-        echo '<li class="'.$class.'" data-product="'.$value['products']["products_id"].'">';
-        echo \frontend\widgets\ProductCardFabia::widget([
-            'template'=>(int)$_COOKIE['cardview'] == 1?'list':'grid',
-            'product'=>$value['products'],
-            'description'=>$value['productsDescription'],
-            'attrib'=>$value['productsAttributes'],
-            'attr_descr'=>$value['productsAttributesDescr'],
-            'catpath'=>$catpath,
-            'man_time'=>$man_time,
-            'category'=>$value['categories_id'],
-            'favorites'=> 1,
-        ]);
-        echo '</li>';
-    }
-    ?>
-</ul>
+$dataProvider = new ArrayDataProvider([
+    'allModels' => $data,
+    'pagination' => [
+        'pageSize' => 9,
+    ],
+]);
+
+$cardview = (int)$_COOKIE['cardview'] == 1 ? 'list' : 'grid';
+echo ListView::widget([
+    'dataProvider' => $dataProvider,
+    'itemView' => '_ajax-selectedproduct-list',
+    'layout' => "<div class='pager'><div class='pages'>{pager}</div></div><ul class='products-".$cardview."'>{items}</ul>",
+    'itemOptions' => [
+        'tag' => false,
+    ],
+]);
+
+?>
