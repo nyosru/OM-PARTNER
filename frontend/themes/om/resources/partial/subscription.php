@@ -146,6 +146,9 @@
 					$sc.find('form').remove();
 					$sc.find('.errors').remove();
 					$sc.find('.info').html('Спасибо!<br>Ваш запрос успешно отправлен.');
+				if(typeof(ga) != 'undefined'){
+                    ga('send', 'event', 'subscribtion', 'send', 'subs');
+                }
 				} else {
 					var errors = '<p>К сожалению возникли некоторые ошибки. Пожалуйста, исправьте их и мы продолжим.</p>';
 					$sc.find('.error').remove();
