@@ -4,10 +4,12 @@ use yii\jui\Slider;
 use frontend\widgets\Menuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\data\Pagination;
 use yii\widgets\LinkPager;
 use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
 // return ['data' => [$data, $count_arrs, $price_max, $productattrib, $start_arr, $end_arr, $countfilt, $start_price, $end_price, $prod_attr_query, $page, $sort, $cat_start, $searchword], 'catpath' => $catpath, 'man_time' => $man_time, 'spec'=>$spec, 'params'=>array_merge($options,$params)];
 // $data[1] - всего товаров
 // $data[11] - сортировка
@@ -17,10 +19,7 @@ $countdisp = [60, 120, 180];
 
 if($params['count'] != $countdisp[0]){
     $count =  $start_url['count'] = $params['count'];
-}else{
-
 }
-
 
 
 $min_price =   $start_url['start_price'] = $params['start_price'];
@@ -60,12 +59,8 @@ foreach ($start_url as $key=>$val){
         $urlsrc[$key] = $val;
     }
 }
-$urlsrc[] = $newurl;
 
-$pagination = new Pagination([
-    'defaultPageSize' => 60,
-    'totalCount' => $data[1],
-]);
+$urlsrc[] = $newurl;
 if ($data[0] != 'Не найдено!') {
 ?>
 <div class="breadcrumbs">
@@ -88,8 +83,34 @@ if ($data[0] != 'Не найдено!') {
         <div class="row">
             <div class=" col-sm-9 col-sm-push-3">
                 <article class="col-main">
+                    <?php
+                    $chpu = new \common\traits\Categories\CategoryChpuClass();
+                    if ($catpath['num'] != 0) {
+                        foreach ($catpath['num'] as $key => $catid) {
+                            $paste = [];
+                            if(Yii::$app->params['seourls'] == TRUE){
+                                if(!$chpu->categoryChpu($catid)){
+                                    $paste[0] = $urlsrc[0];
+                                    $paste['cat'] = $catid;
+                                }else{
+                                    $paste[0] =   Yii::$app->params['chpu']['action'].'/'.$chpu->categoryChpu($catid);
+                                }
+                            }else{
+                                $paste[0] = $urlsrc[0];
+                                $paste['cat'] = $catid;
+                            }
+                        }
+                    }
+                    ?>
                     <div class="page-title">
-                        <h2>Tops &amp; Tees</h2>
+                        <h2>
+                            <?php
+                            if($catpath['num'] != 0) {
+                                echo end($catpath['name']);
+                            }else{
+                                echo 'Каталог';
+                            }?>
+                        </h2>
                     </div>
 
                     <div class="toolbar">
@@ -116,7 +137,7 @@ if ($data[0] != 'Не найдено!') {
                                     } else {
                                         foreach($sortorder as $i=>$sortitem){
                                             if($data[11]==$sortitem[1] || $data[11]==$sortitem[2]){
-                                                echo '<a href="#">'.$sortitem[0].'<span class="right-arrow"></span></a>';
+                                                echo '<a href="#" onclick="return false">'.$sortitem[0].'<span class="right-arrow"></span></a>';
                                                 $sortorder_active = $sortorder[$i];
                                                 unset($sortorder[$i]);
                                             }
@@ -124,7 +145,7 @@ if ($data[0] != 'Не найдено!') {
                                     }
                                     echo '<ul>';
                                     foreach($sortorder as $sortitem){
-                                        echo '<li><a href="'.Url::current(['sort'=>$sortitem[1]]).'">'.$sortitem[0].'</a></li>';
+                                        echo '<li><a href="'.Url::to(ArrayHelper::merge($urlsrc,['sort'=>$sortitem[1]])).'">'.$sortitem[0].'</a></li>';
                                     }
                                     echo '</ul>';
                                     ?>
@@ -139,28 +160,40 @@ if ($data[0] != 'Не найдено!') {
                                     $sort_arrow = 'top';
                                     $sort_set_active = $sortorder_active[2];
                                 }
-                                echo '<a class="button-asc left" href="'.Url::current(['sort'=>$sort_set_active]).'" title="Изменить порядок сортировки"><span class="'.$sort_arrow.'_arrow"></span></a>';
+                                echo '<a class="button-asc left" href="'.Url::to(ArrayHelper::merge($urlsrc,['sort'=>$sort_set_active])).'" title="Изменить порядок сортировки"><span class="'.$sort_arrow.'_arrow"></span></a>';
                             }?>
                         </div>
                         <div class="pager">
                             <div id="limiter">
-                                <label>View: </label>
+                                <label>Показать: </label>
                                 <ul>
-                                    <li><a href="#">15<span class="right-arrow"></span></a>
-                                        <ul>
-                                            <li><a href="#">20</a></li>
-                                            <li><a href="#">30</a></li>
-                                            <li><a href="#">35</a></li>
-                                        </ul>
-                                    </li>
+                                    <?php
+                                    if(in_array($count,$countdisp)){
+                                        echo '<li><a onclick="return false" href="#">'.$count.'<span class="right-arrow"></span></a>';
+                                        unset($countdisp[array_search($count, $countdisp)]);
+                                    } else {
+                                        echo '<li><a onclick="return false" href="#">60<span class="right-arrow"></span></a>';
+                                        unset($countdisp[array_search(60, $countdisp)]);
+                                    }
+                                    echo '<ul>';
+                                    foreach($countdisp as $countdisp_item){
+                                        echo '<li><a href="'.Url::to(ArrayHelper::merge($urlsrc,['count'=>$countdisp_item])).'">'.$countdisp_item.'</a></li>';
+                                    }
+                                    echo '</ul>';
+                                    echo '</li>';
+                                    ?>
                                 </ul>
                             </div>
 
                             <div class="pages">
-                                <label>Page:</label>
+                                <label>Страница:</label>
                                 <?=LinkPager::widget([
-                                    'pagination' => $pagination,
-                                    'maxButtonCount' => 5,
+                                    'pagination' => new Pagination([
+                                        'defaultPageSize' => 60,
+                                        'totalCount' => $data[1],
+                                        'route' => $paste[0],
+                                    ]),
+                                    'maxButtonCount' => 3,
                                 ]); ?>
                             </div>
                         </div>
@@ -398,7 +431,7 @@ if ($data[0] != 'Не найдено!') {
                     <div class="block block-layered-nav">
                         <div class="block-title">Фильтр</div>
                         <div class="block-content">
-
+                            <form class="partners-main-right filter" action="">
                             <dl id="narrow-by-list">
                                 <dt class="odd">Цена</dt>
                                 <dd class="odd">
@@ -451,37 +484,60 @@ if ($data[0] != 'Не найдено!') {
                                 </dd>
                                 <dt class="odd">Размеры</dt>
                                 <dd class="odd">
-                                    <?php
-                                    $data[3] = \yii\helpers\ArrayHelper::index($data[3], 'products_options_values_name');
-                                    ksort($data[3],SORT_NATURAL);
-                                    foreach($data[3] as $key=>$value){
-                                        if($value['products_options_values_id'] == $prodatrquery){
-                                            $checked = 'fa-check';
-                                        }else{
-                                            $checked = '';
-                                        }
-                                        if($value['products_options_values_id']) {
-                                            echo '<div class="filter-item-size">';
-                                            echo '<div class="checkbox-overlay fa '.$checked.'" for="checkbox-hidden-group">'.
-                                                '<input id="checkbox-hidden-group"  class="checkbox-hidden-group" type="checkbox" class="prod_attr_query" value="'.$value['products_options_values_id'].
-                                                '" name = "prod_attr_query"'.
-                                                ' '. $checked.' /></div><span class="checkbox-hidden-group-label" style="display: inline; min-width: 100px; color: black; margin-left: 10px; font-weight: 300; font-size: 12px; padding-left: 20px; line-height: 1.7; max-width: calc(100% - 50px); overflow: hidden; float: left;">'.$value['products_options_values_name'].'</span>';
-                                            echo '</div>';
-                                        }
-                                    }
-
-                                    ?>
+                                    <div class="catalog-list-filter">
+                                        <?php
+                                        $data[3] = \yii\helpers\ArrayHelper::index($data[3], 'products_options_values_name');
+                                        ksort($data[3],SORT_NATURAL);
+                                        foreach($data[3] as $key=>$value){
+                                            if($value['products_options_values_id']) { ?>
+                                                <div class="checkbox-filter">
+                                                    <label>
+                                                        <?=Html::radio('prod_attr_query', $value['products_options_values_id'] == $prodatrquery ,[
+                                                            'value' => $value['products_options_values_id'],
+                                                        ]);?>
+                                                        <?=$value['products_options_values_name']?>
+                                                    </label>
+                                                </div>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </div>
                                 </dd>
-                                <dt class="last even">Size</dt>
-                                <dd class="last even">
-                                    <ol>
-                                        <li> <a href="#">S</a> (6) </li>
-                                        <li> <a href="#">M</a> (6) </li>
-                                        <li> <a href="#">L</a> (4) </li>
-                                        <li> <a href="#">XL</a> (4) </li>
-                                    </ol>
+                                <?php
+                                if($spec) {
+                                    foreach ($spec as $speckey => $specval) {
+                                        if ($speckey == '77' || $speckey == '4119' || $speckey == '74' ) { ?>
+                                            <dt class="odd"><?=$specval['name']?></dt>
+                                            <dd class="odd">
+                                                <div class="catalog-list-filter">
+                                                    <?php foreach ($specval['dataset'] as $keyr => $valuer) { ?>
+                                                        <?php if($valuer) { ?>
+                                                            <div class="checkbox-filter">
+                                                                <label>
+                                                                    <?=Html::checkbox('sfilt[]', is_array($valuer) && $valuer['products_options_values_id'] == $prodatrquery ,[
+                                                                        'value' => $keyr,
+                                                                    ]);?>
+                                                                    <?=$valuer?>
+                                                                </label>
+                                                            </div>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                </div>
+                                            </dd>
+                                        <?php } ?>
+                                    <?php } ?>
+                                <?php } ?>
+                                <dd class="odd">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <button class="button" type="submit">Применить</button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <a href="?cat=<?=$cat?>&amp;count=<?=$count?>&amp;start_price=&amp;end_price=1000000&amp;prod_attr_query=&amp;page=0&amp;sort=0&amp;searchword=" class="button reset-filter lock-on">Сбросить</a>
+                                        </div>
+                                    </div>
                                 </dd>
                             </dl>
+                            </form>
                         </div>
                     </div>
                     <div class="block block-cart">

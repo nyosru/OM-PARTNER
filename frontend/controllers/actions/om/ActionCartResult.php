@@ -28,7 +28,9 @@ trait ActionCartResult
     {
         if (($result = Yii::$app->session->get('order-succes')) == TRUE) {
             Yii::$app->session->set('order-succes', '');
-            $this->layout = 'cartlock';
+            if(Yii::$app->params['constantapp']['APP_THEMES'] != 'newdesign'){
+                $this->layout = 'cartlock';
+            }
             return $this->render('cartresult', $result);
         } else {
             return header('location:' . BASEURL . '/');
