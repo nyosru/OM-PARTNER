@@ -18,7 +18,14 @@ $this->beginPage();
 </head>
 <body>
 <script>
-    var seo_urls = <?=Yii::$app->params['seourls']?>
+    <?php
+    if(Yii::$app->params['seourls']){
+        echo 'var seo_urls = true;';
+    }else{
+        echo 'var seo_urls = false;';
+    }
+    ?>
+
 </script>
 <?php $this->beginBody(); ?>
 <?= $content ?>
