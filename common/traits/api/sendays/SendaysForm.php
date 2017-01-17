@@ -299,11 +299,13 @@ class SendaysForm
 		$errors = [];
 
 		foreach ($this->formData['obj']['fields'] as $item) {
-			if ($item['required']) {
-				$required_validator = new RequiredValidator();
-				$required_validator->validate($data[$item['name']], $errors[$item['name']][]);
-			}
-
+            if ($item['required']) {
+                $required_validator = new RequiredValidator();
+                $required_validator->validate($data[$item['name']], $errors[$item['name']][]);
+            } else {
+                if (trim($data[$item['name']]) === '')
+                    continue;
+  			}
 			switch ($item['type']) {
 				case 'text':
 					if ($item['max_length'] && strlen($data[$item['name']]) > $item['max_length'])
