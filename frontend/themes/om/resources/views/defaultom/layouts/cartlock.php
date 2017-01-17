@@ -37,7 +37,13 @@ $this->beginPage();
     <div class="preload"><div id="loaderImage"></div></div>
     <body style="font-family: Open Sans,Helvetica Neue,sans-serif, sans-serif; font-style: normal; font-weight: 300; min-width: 1280px; margin-left: auto; margin-right: auto; height: 100%; ">
     <script>
-        var seo_urls = <?=Yii::$app->params['seourls']?>
+        <?php
+        if(Yii::$app->params['seourls']){
+            echo 'var seo_urls = true;';
+        }else{
+            echo 'var seo_urls = false;';
+        }
+        ?>
     </script>
     <?php $this->beginBody(); ?>
     <?=\frontend\widgets\Metrics::widget();?>
