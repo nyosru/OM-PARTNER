@@ -144,15 +144,17 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 								<p>Цена: <?php echo round($value[0]['products_price'], 2); ?>Руб.</p>
 
 								<script>
-									ga("ec:addProduct", {
-										"id": "<?=$value[0]['products_id'];?>",
-										"name": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']);?>",
-										"category": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['categories_id']);?>",
-										"brand": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['manufacturers_id']);?>",
-										"variant": "none",
-										"price": "<?=round($value[0]['products_price'], 2);?>",
-										"coupon": "none",
-										"quantity": <?=$value[0]['products_quantity'];?>});
+                                    if(typeof(ga) != 'undefined') {
+                                        ga("ec:addProduct", {
+                                            "id": "<?=$value[0]['products_id'];?>",
+                                            "name": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['productsDescription']['products_name']);?>",
+                                            "category": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['categories_id']);?>",
+                                            "brand": "<?=htmlentities($result['data']['origprod'][$value[0]['products_id']]['manufacturers_id']);?>",
+                                            "variant": "none",
+                                            "price": "<?=round($value[0]['products_price'], 2);?>",
+                                            "coupon": "none",
+                                            "quantity": <?=$value[0]['products_quantity'];?>});
+                                    }
 								</script>
 							</td>
 						</tr>
@@ -166,16 +168,17 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
     <script>
     
    $(window).load(function(){
+       if(typeof(ga) != "undefined"){
     ga("ec:setAction", "purchase", {
-  "id": "'.$result['data']['paramorder']['number'].'",     
+  "id": "' . $result['data']['paramorder']['number'] . '",     
   "affiliation": "NewOM",
-  "revenue": "'.$result['data']['totalpricesaveproduct'].'",                 
+  "revenue": "' . $result['data']['totalpricesaveproduct'] . '",                 
   "tax": "0",                        
   "shipping": "0",                    
   "coupon": "none"            
 });
   ga("send", "event", "purchase");
-   });
+  } });
 </script>';
 		}
 		?>

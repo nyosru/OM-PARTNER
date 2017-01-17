@@ -8,5 +8,7 @@ $this -> title = 'Успешная регистрация';
 
 </div>
 <script>
-    ga("send", "event" , "register");
+    if(typeof(ga) != 'undefined') {
+        ga("send", "event", "register");
+    }
     </script>
