@@ -1568,7 +1568,7 @@ $(document).on('click','#overlay, #modal-close',function(){
 });
 
 function changeCart($inputc){
-    $ind=$inputc.parent().attr('data-raw');
+    $ind=$inputc.parents('tr').attr('data-raw');
     if (JSON.parse(localStorage.getItem('cart-om'))) {
         $item = JSON.parse(localStorage.getItem('cart-om'));
         if (typeof ($item.cart) == 'undefined') {

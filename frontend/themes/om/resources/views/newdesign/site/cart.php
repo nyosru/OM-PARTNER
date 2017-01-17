@@ -340,6 +340,7 @@ $(window).on('load', function () {
                 if (i == countProducts - 1) {
                     setTimeout(function() {
                         $('.progress').hide();
+                        countPrice();
                     },delayTime+200);
                 }
             },delayTime);
