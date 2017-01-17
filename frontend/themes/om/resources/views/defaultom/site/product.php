@@ -294,8 +294,9 @@ if(!$product['products']['products_image']){
             });
 
             $(".social").on('click', function () {
-                
-                ga("send", "event", $(this).attr("class").split(' ')[0], $(this).attr("class").split(' ')[1]);
+                if(typeof(ga) != 'undefined') {
+                    ga("send", "event", $(this).attr("class").split(' ')[0], $(this).attr("class").split(' ')[1]);
+                }
             })
         });
     </script>

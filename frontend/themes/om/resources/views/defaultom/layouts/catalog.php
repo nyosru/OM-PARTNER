@@ -283,7 +283,9 @@ if(($ga = Yii::$app->session->get('ga'))){
         ?>
         <script>
             $(window).load(function () {
-                ga('send', 'event' , '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
+                if(typeof(ga) != 'undefined') {
+                    ga('send', 'event', '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
+                }
             });
         </script>
         <?php
