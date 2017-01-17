@@ -76,10 +76,12 @@ class Metrics extends \yii\bootstrap\Widget
                         a.src = g;
                         m.parentNode.insertBefore(a, m)
                     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-                    ga('create', '<?=$googleanalitycs?>', 'auto');
-                    ga('send', 'pageview');
-                    ga('require', 'ec');
-                    ga('set', '&cu', 'RUB');
+                    if(typeof(ga) != 'undefined') {
+                        ga('create', '<?=$googleanalitycs?>', 'auto');
+                        ga('send', 'pageview');
+                        ga('require', 'ec');
+                        ga('set', '&cu', 'RUB');
+                    }
                 </script>
             <?php }
 
