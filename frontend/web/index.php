@@ -168,6 +168,11 @@ $application->params['constantapp']['APP_THEMES'] = $partner['APP_THEMES'];
 $application->params['constantapp']['APP_VERSION'] = $version;
 
 Yii::setAlias('partial', Yii::getAlias('@app/themes/'.$version['themesversion'].'/resources/partial'));
+if(!is_dir(dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES'])){
+    mkdir(dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES'], 0777, TRUE);
+}
+Yii::setAlias('softdata',  dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES']);
+
 $temlate_key = Yii::$app->cache->buildKey('templatepartners-domain-' . md5(
         $_SERVER['HTTP_HOST'].'-'.
         $partner['APP_VERSION'].'-'.
