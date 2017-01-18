@@ -6,6 +6,10 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
+$customh = \common\traits\PageGen\MetaGenClass::metaGen($this, 'v2', 'catalog' , end(Yii::$app->params['layoutset']['opencat']));
+if($customh){
+    Yii::$app->params['layoutset']['h1'] = $customh;
+}
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
@@ -34,8 +38,8 @@ $this->beginPage();
         echo 'var seo_urls = false;';
     }
     ?>
-
 </script>
+
 <?php $this->beginBody(); ?>
 <div class="wrap">
     <?php

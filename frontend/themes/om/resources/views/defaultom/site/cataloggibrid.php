@@ -102,11 +102,14 @@ if ($data[0] != 'Не найдено!') {
         }
     }
     echo '</div>';
+    $catname = 'Каталог';
     if($catpath['num'] != 0) {
-        $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">' . end($catpath['name']) . '</h3>';
-    }else{
-        $headbside .= '<h3 style="float: left; width: 100%; margin: 10px 0px 16px;">Каталог</h3>';
+      $catname =  end($catpath['name']);
     }
+    if(Yii::$app->params['layoutset']['h1']){
+        $catname = Yii::$app->params['layoutset']['h1'];
+    }
+    $headbside .= '<h1 style="float: left; width: 100%;">' . $catname . '</h1>';
     $headbside .=  '<form class="partners-main-right filter" action="">
                     <div class="panel panel-default">
                          <div class="filter-search" style="float: left; margin: 13px; font-size: 14px; width: 25%;">
