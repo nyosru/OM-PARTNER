@@ -1,12 +1,13 @@
 (function ($) {
     $.fn.imageUpload = function (url, options) {
         if (url) {
+            var global_res_data = [];
             var settings = $.extend({
                 uploadButtonText: 'Загрузить',
                 previewImageSize: 100,
-                maxImageCount: 1,
+                positions: [],
                 img_tpl: '<img>',
-                onSuccess: function (response) {
+                success: function (data) {
 
                 }
             }, options);
@@ -16,20 +17,14 @@
 					<div id="img-container">\
 					 	<ul id="img-list" style="padding-left: 0;"/>\
 					</div>\
-                    <div class="progress">\
-                        <div class="progress-bar progress-bar-striped active" role="progressbar"\
-                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">\
-                        </div>\
-                    </div>\
 					<button type="button" id="upload-images">' + settings.uploadButtonText + '</button>\
 				');
 
                 var imgList = $('ul#img-list');
-                imgList.displayFilesInputCount(settings.maxImageCount, settings.img_tpl);
+                imgList.displayFilesInputCount(settings.positions, settings.img_tpl);
                 var fileInput = $('.file-field');
                 var dropBox = $('.img-dropBox-container');
                 var uploadButton = $('#upload-images');
-                var uploadStatus = $('.progress-bar');
 
                 fileInput.bind({
                     change: function (e) {
@@ -57,44 +52,89 @@
                 });
 
 
-                uploadButton.click(function () {
-                    var formdata = new FormData;
+                function uploadImages(li, i) {
+                    var iterator = 0;
+                    if (i > 0) {
+                        iterator = i;
+                    }
+                    if ((li.length) == iterator) {
+                        settings.success(global_res_data);
+                        return true;
+                    }
 
-                    if (settings)
-                        for (var key in settings) {
-                            formdata.append(key, settings[key]);
-                        }
-                    imgList.children('li').each(function (indx) {
-                        formdata.append("file[]", $(this).get(0).file);
-                    });
+                    var formdata = new FormData();
 
+                    var li_first = li[iterator];
+                    var img = $(li_first).find('img');
 
+                    if ((typeof(img.attr('src')) != 'undefined') && (img.attr('src').indexOf('/images') + 1 > 0)) {
+                        var src_data = img.attr('src').split('/');
+                        formdata.append("file", src_data[src_data.length - 1]);
+                    } else {
+                        formdata.append("file", li_first.file);
+                    }
+                    formdata.append("position", $(li_first).attr('position'));
                     formdata.append('_csrf', yii.getCsrfToken());
+
                     xhr = new XMLHttpRequest();
                     xhr.open("POST", url);
-                    xhr.send(formdata);
                     xhr.onloadstart = function (event) {
-                        uploadStatus.addClass('progress-bar-striped');
-                        uploadStatus.removeClass('progress-bar-danger');
-                        uploadStatus.attr({'aria-valuenow': 0}).width('0%');
+                        settings.onLoadstart();
+                        $(li_first).css({'background': 'rgba(218, 215, 215, 0.3)'});
+                        $(li_first).find('.progress-bar').addClass('progress-bar-striped');
+                        $(li_first).find('.progress-bar').removeClass('progress-bar-danger');
+                        $(li_first).find('.progress-bar').attr({'aria-valuenow': 0}).width('0%');
                     };
                     xhr.onprogress = function (event) {
-                        console.log('Загружено на сервер ' + event.loaded + ' байт из ' + event.total);
-                        uploadStatus.attr({'aria-valuenow': event.loaded / (event.total / 100)}).width(event.loaded / (event.total / 100) + '%');
-                    };
-                    xhr.onerror = function (event) {
-                        uploadStatus.attr({'aria-valuenow': 100}).width(100 + '%');
-                        uploadStatus.removeClass('progress-bar-striped');
-                        uploadStatus.addClass('progress-bar-danger');
-                    };
-                    xhr.onload = function () {
-                        if (xhr.status === 200) {
-                            var data = JSON.parse(xhr.responseText);
-                            settings.onSuccess(data)
+                        console.log(event);
+                        if (typeof (li_first.file) != 'undefined') {
+                            console.log(li_first.file.size/1024);
+                            console.log(event.loaded / ((li_first.file.size/1024) / 100));
+                            $(li_first).find('.progress-bar').attr({'aria-valuenow': event.loaded / ((li_first.file.size/1024) / 100)}).width(event.loaded / ((li_first.file.size/1024) / 100) + '%');
                         } else {
-                            alert("Ошибка ответа сервера");
+                            $(li_first).find('.progress-bar').attr({'aria-valuenow': 100}).width(100 + '%');
                         }
                     };
+                    xhr.onerror = function (event) {
+                        $(li_first).css({'background': 'rgba(212, 74, 74, 0.3)'});
+                        $(li_first).find('.progress-bar').attr({'aria-valuenow': 100}).width(100 + '%');
+                        $(li_first).find('.progress-bar').removeClass('progress-bar-striped');
+                        $(li_first).find('.progress-bar').addClass('progress-bar-danger');
+                    };
+                    xhr.onload = function () {
+                        if (xhr.readyState == 4) {
+                            if (xhr.status == 200) {
+                                var data = JSON.parse(xhr.responseText);
+                                console.log(data);
+                                $(li_first).find('.progress-bar').attr({'aria-valuenow': 100}).width(100 + '%');
+                                if (data === false) {
+                                    $(li_first).css({'background': 'rgba(212, 74, 74, 0.3)'});
+                                    $(li_first).find('.progress-bar').removeClass('progress-bar-striped');
+                                    $(li_first).find('.progress-bar').addClass('progress-bar-danger');
+                                } else {
+                                    $(li_first).css({'background': 'rgba(77, 169, 49, 0.3)'});
+                                    global_res_data.push(data);
+                                }
+                                //рекурсия, пока не выполним все запросы.
+                                uploadImages(li, iterator + 1);
+                            } else {
+                                $(li_first).css({'background': 'rgba(212, 74, 74, 0.3)'});
+                                $(li_first).find('.progress-bar').attr({'aria-valuenow': 100}).width(100 + '%');
+                                $(li_first).find('.progress-bar').removeClass('progress-bar-striped');
+                                $(li_first).find('.progress-bar').addClass('progress-bar-danger');
+                            }
+                        }
+
+
+                    };
+                    xhr.send(formdata);
+
+
+                }
+
+                uploadButton.click(function () {
+                    global_res_data = [];
+                    uploadImages(imgList.find('li'));
                 });
             });
         }
@@ -110,7 +150,7 @@
         }
 
         var reader = new FileReader();
-        this.get(0).file = file[0];
+        this[0].file = file[0];
         reader.onload = (function (aImg) {
             return function (e) {
                 aImg.attr('src', e.target.result);
@@ -120,11 +160,12 @@
         reader.readAsDataURL(file[0]);
     };
 
-    $.fn.displayFilesInputCount = function (max_images, tpl) {
-        console.log($(tpl));
-        for (i = 0; i < max_images; i++) {
-            var li = $('<li/>').appendTo(this);
+    $.fn.displayFilesInputCount = function (positions, tpl) {
+        for (var key in positions) {
+            var li = $('<li position="' + positions[key] + '"/>').appendTo(this);
             $(tpl).appendTo(li);
         }
     };
+
+
 })(jQuery);
