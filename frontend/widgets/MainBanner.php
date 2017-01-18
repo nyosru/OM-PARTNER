@@ -175,8 +175,8 @@ class MainBanner extends \yii\bootstrap\Widget
         'long' => [
             [
                 'image' => 'OM_16012017_6.png',
-                'referal'=> '/dayproduct',
-                'alttext' => 'Новинки дня',
+                'referal'=> '/products-discount',
+                'alttext' => 'Скидки для всех',
                 'out' => FALSE
             ]
         ],
