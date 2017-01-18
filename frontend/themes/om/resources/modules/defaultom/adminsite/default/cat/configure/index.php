@@ -14,17 +14,35 @@
                     'name'            => 'Главный',
                     'id'              => 'main',
                     'max_count_photo' => 6,
+                    'positions' => [
+                        'medium1',
+                        'small1',
+                        'large',
+                        'medium2',
+                        'small2',
+                        'long',
+                    ]
                 ],
                 [
 
                     'name'            => 'Дисконтный',
                     'id'              => 'discont',
                     'max_count_photo' => 4,
+                    'positions' => [
+                        'discont1',
+                        'discont2',
+                        'discont3',
+                        'discont4',
+                    ]
                 ],
             ];
 
             $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'], 'method' => 'post', 'id' => 'save_land_config', 'action' => 'update-config']);
 
+            echo $form->field($model, 'images_cfg')
+                ->hiddenInput(['id' => 'images_cfg'])
+                ->label(false)
+            ;
 
             echo $form->field($model, 'config_name')
                 ->label('Название конфигурационного файла (без точек и запятых)')
@@ -122,10 +140,9 @@
 <?php
 
 $banners_tpl_json = json_encode($banners_tpl);
+$path = Yii::getAlias('@web/images/cat/');
 $script = <<<JS
-
       var banners_tpl_json = $banners_tpl_json;
-      console.log(banners_tpl_json);
       function find(arr, key, value) {
         var res = null;
         for (var i = 0; i < arr.length; i++) {
@@ -135,12 +152,13 @@ $script = <<<JS
         }
         return res;
       }
-
-      function renderImages(count) {
+      
+      function renderImages(positions) {
           $("#banners_tpl_photo_block").imageUpload("upload-one-cat-photo", {
-              uploadButtonText: "Загрузить",
+              uploadButtonText: "Загрузить новые",
               previewImageSize: 200,
-              maxImageCount: count,
+              positions: positions,
+              uploadStatusBarClass: '.progress-bar',
               img_tpl: '\
                     <div class="row-e img-dropBox-container">\
                         <div class="col-1 input_field">\
@@ -153,29 +171,63 @@ $script = <<<JS
                                 <label for="img_url">Ссылка при клике на картинку</label>\
                                 <input class="form-control" type="text" name="img_url">\
                             </div>\
+                            <div class="clearfix"/>\
+                            <div class="col-4-10 progress" style="background:#EDECEC">\
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"\
+                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">\
+                                </div>\
+                            </div>\
                     </div>\
               ',
-              onSuccess: function (response) {
-                  var images_cfg = $("<input type='hidden' name='images_cfg'/>");
-                  $('.u_img_about').each(function (i_block){
-                      var desc = $(this).children("[name='img_description']").val();
-                      var url = $(this).children("[name='img_url']").val();
-                      
-                  });
+              success: function (data) {
+                  
+
+                  var images_cfg = $("#images_cfg");
+                  images_cfg.val('');
+
+                  var data_img = [];
+                  for(var img_data_key in data) {
+                              var li = $("[position='"+data[img_data_key][0]+"']");
+                              var desc = li.find("[name='img_description']").val();
+                              var url = li.find("[name='img_url']").val();
+                              var img_pos = data[img_data_key][0];
+                              var img_name = data[img_data_key][1];
+                              var img_obj = new Object({
+                                  'position' : img_pos, 
+                                  'img' : img_name, 
+                                  'desc': desc, 
+                                  'url': url
+                              });
+                              data_img.push(img_obj);
+                  }
+                  images_cfg.val(JSON.stringify(data_img));
               }
           });
       }
-    
+          
+      var i = find(banners_tpl_json, 'id', $('#banners_select').val());
+      if(i != null) {
+          renderImages(banners_tpl_json[i]['positions']);
+          var data_img = JSON.parse($('#images_cfg').val());
+           for(i = 0; i < data_img.length; i++) {
+               $('#img-list').find('li').each(function (i_block){
+                   if(i_block == i) {
+                       $(this).find("[name='img_description']").val(data_img[i].desc);
+                       $(this).find("[name='img_url']").val(data_img[i].url);
+                       var img = $(this).find("img").attr({'src': '/images/cat/' + data_img[i]['img'], 'width': 200});
+                   }
+               });
+           }
+      } 
+      
       $('#banners_select').on('change', function () {
           var i = find(banners_tpl_json, 'id', $(this).val());
           if(i != null) {
-              var img_count = banners_tpl_json[i]['max_count_photo'];
-              renderImages(img_count);
+              renderImages(banners_tpl_json[i]['positions']);
           } else {
               renderImages(0);
           }
       });
-
     
 	
 JS;
