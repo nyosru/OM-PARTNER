@@ -16,11 +16,11 @@
 </div>
 
 <div class="special_header">
-    <h1><?= ($header_config) ?: 'Специальное предложение' ?></h1>
+    <h1><?= ($header_title) ?: 'Специальное предложение' ?></h1>
 </div>
 
 <!-- banner -->
-<?= \frontend\widgets\MainBanner::widget($main_banner_config); ?>
+<?= \frontend\widgets\MainBanner::widget($banner_config); ?>
 <div class="clearfix"></div>
 <!-- end banner -->
 
