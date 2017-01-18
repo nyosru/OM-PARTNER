@@ -129,52 +129,52 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_12012017_1.png',
-                'referal'=> '/catalog?cat=1720',
+                'image' =>  'OM_16012017_1.png',
+                'referal'=> '/catalog?cat=1725',
                 'term'=> '',
-                'alttext' => 'Платья',
+                'alttext' => 'Короткие платья',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_12012017_2.png',
-                'referal'=> '/catalog?cat=1746',
+                'image' =>  'OM_16012017_2.png',
+                'referal'=> '/catalog?cat=1731',
                 'term'=> '',
-                'alttext' => 'Верхняя одежда',
+                'alttext' => 'Туники',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_12012017_3.png',
-                'referal'=> '/catalog?cat=1758',
+                'image' =>  'OM_16012017_3.png',
+                'referal'=> '/catalog?cat=1751',
                 'term'=> '',
-                'alttext' => 'Джинсы',
+                'alttext' => 'Зимние куртки и пуховики',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_12012017_4.png',
-                'referal'=> '/catalog?cat=1977',
+                'image' => 'OM_16012017_4.png',
+                'referal'=> '/catalog?cat=1574',
                 'term'=> '',
-                'alttext' => 'Балетки',
+                'alttext' => 'Куклы и мягкие игрушки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_12012017_5.png',
-                'referal'=> '/catalog?cat=1873',
+                'image' => 'OM_16012017_5.png',
+                'referal'=> '/catalog?cat=1729',
                 'term'=> '',
-                'alttext' => 'Кофты, кардиганы',
+                'alttext' => 'Блузы',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_12012017_6.png',
+                'image' => 'OM_16012017_6.png',
                 'referal'=> '/dayproduct',
                 'alttext' => 'Новинки дня',
                 'out' => FALSE

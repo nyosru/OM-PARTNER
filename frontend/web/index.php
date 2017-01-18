@@ -177,9 +177,9 @@ $temlate_key = Yii::$app->cache->buildKey('templatepartners-domain-' . md5(
     ));
 $template_data = Yii::$app->cache->get($temlate_key);
 if(!$template_data){
-    if(!is_dir(dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES'])){
-        mkdir(dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES'], 0777, TRUE);
-    }
+//    if(!is_dir(dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES'])){
+//        mkdir(dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES'], 0777, TRUE);
+//    }
     $partnersettings = new PartnersSettings();
     $partnerset = $partnersettings->LoadSet();
     Yii::$app->assetManager->appendTimestamp = true;
@@ -200,7 +200,7 @@ if(!$template_data){
     $theme = $template_data['theme'];
     $partnerset = $template_data['partnerset'];
 }
-Yii::setAlias('softdata',  dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES']);
+//Yii::setAlias('softdata',  dirname(dirname(__DIR__)) . '/softdata/'.$partner['APP_ID'].'/'.$partner['APP_VERSION'].'/'.$partner['APP_THEMES']);
 
 $application->params['partnersset'] = $partnerset;
 $application->setViewPath('@app/themes/'.$version['themesversion'].'/resources/views/' . $theme);
