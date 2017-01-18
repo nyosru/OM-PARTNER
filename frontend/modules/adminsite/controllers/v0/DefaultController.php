@@ -31,6 +31,7 @@ use frontend\modules\adminsite\controllers\actions\cat\ActionConfigure;
 use frontend\modules\adminsite\controllers\actions\cat\ActionDeleteConfig;
 use frontend\modules\adminsite\controllers\actions\cat\ActionUpdateConfig;
 use frontend\modules\adminsite\controllers\actions\cat\ActionConfigList;
+use frontend\modules\adminsite\controllers\actions\cat\ActionUploadOneCatPhoto;
 use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
@@ -67,6 +68,7 @@ class DefaultController extends Controller
         ActionConfigure,
         ActionConfigList,
         ActionUpdateConfig,
+        ActionUploadOneCatPhoto,
         ActionDeleteConfig;
 
     public function behaviors()
@@ -107,6 +109,7 @@ class DefaultController extends Controller
                             'config-list',
                             'update-config',
                             'delete-config',
+                            'upload-one-cat-photo',
                         ],
                         'allow'   => true,
                     ],
