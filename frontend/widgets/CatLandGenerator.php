@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use common\models\PartnersProducts;
+use common\models\Referrals;
 
 class CatLandGenerator extends \yii\bootstrap\Widget
 {
@@ -62,12 +63,31 @@ class CatLandGenerator extends \yii\bootstrap\Widget
     /**
      * @return string
      */
+
     public function renderHeader()
     {
-        $main_banner_config = [];
+        $mainBanner = new MainBanner();
+        $template = $mainBanner->template[$this->header_config['banner_config']['template']];
+        if($template) {
+            $data = [
+                'custom_path' => '/images/cat/',
+                'template'    => $template,
+                'position'    => [],
+            ];
+            foreach ($this->header_config['banner_config']['images'] as $i_key => $image) {
+                $data['position'][$image['position']][] = [
+                    'image'   => $image['img'],
+                    'referal' => $image['url'],
+                    'alttext' => $image['desc'],
+                ];
+            }
+        } else {
+            $data = [];
+        }
+
         return $this->render('@partial/cat-landing/header/' . $this->header_tpl, [
-            'main_banner_config' => $main_banner_config,
-            'header_config' => ($this->header_config['header_title']) ? $this->header_config['header_title'] : 'Тут должен быть заголовок',
+            'banner_config' => $data,
+            'header_title'  => ($this->header_config['header_title']) ? $this->header_config['header_title'] : 'Тут должен быть заголовок',
         ]);
     }
 
