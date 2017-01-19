@@ -260,8 +260,8 @@ $script = <<<JS
            for(i = 0; i < data_img.length; i++) {
                $('#img-list').find('li').each(function (i_block){
                    if(i_block == i) {
-                       $(this).find("[name='img_description']").val(data_img[i].desc);
-                       $(this).find("[name='img_url']").val(data_img[i].url);
+                       $(this).find("[name='img_description']").val(data_img[i]['desc']);
+                       $(this).find("[name='img_url']").val(data_img[i]['url']);
                        var img = $(this).find("img").attr({'src': '/images/cat/' + data_img[i]['img'], 'width': 200});
                    }
                });
