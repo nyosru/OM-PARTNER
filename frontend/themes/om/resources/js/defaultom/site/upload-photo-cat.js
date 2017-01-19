@@ -79,7 +79,6 @@
                     xhr = new XMLHttpRequest();
                     xhr.open("POST", url);
                     xhr.onloadstart = function (event) {
-                        settings.onLoadstart();
                         $(li_first).css({'background': 'rgba(218, 215, 215, 0.3)'});
                         $(li_first).find('.progress-bar').addClass('progress-bar-striped');
                         $(li_first).find('.progress-bar').removeClass('progress-bar-danger');
