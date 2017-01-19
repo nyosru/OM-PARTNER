@@ -334,7 +334,11 @@ body.o-cat-main {
 }
 
 #img-list li .input_field {
-    padding: 10px 0 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 10px 0 10px;
 }
 
 #img-list li .u_img_block {
