@@ -136,7 +136,22 @@
     </div>
 </div>
 
+<div id="banner-gallery" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Галерея изображений для баннера</h4>
+            </div>
+            <div class="modal-body" style="overflow-y: auto; max-height: 600px;flex-wrap: wrap;display: flex;flex-direction: row; justify-content:center;">
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <?php
 
 $banners_tpl_json = json_encode($banners_tpl);
@@ -153,6 +168,36 @@ $script = <<<JS
         return res;
       }
       
+      var data_img_exist = false;
+      var last_clicked_btn = {};
+      $(document).on('click', '.open-modal-images-list', function() {
+          last_clicked_btn = this;
+          if(data_img_exist) {
+              return true;
+          }
+          $.ajax({
+            type: "GET",
+            url: "list-uploaded-images",
+            dataType: "json",
+            success: function (data) {
+                data_img_exist = true;
+                $('#banner-gallery').find('.modal-body').renderImgInBlock(data);
+            }
+          });
+      });
+      
+      $.fn.renderImgInBlock = function(data_img) {
+        for (var key in data_img) {
+            $('<div class="banner-gallery__img"><img src="'+data_img[key]+'" alt="" width="220"></div>').appendTo(this)
+        }
+      };
+      $(document).on('click', '.banner-gallery__img', function() {
+          var src = $(this).find('img').attr('src');
+          var li = $(last_clicked_btn).closest('li');
+          li.find('img').attr({'src' : src});
+          $('#banner-gallery').modal('hide') 
+      });
+      
       function renderImages(positions) {
           $("#banners_tpl_photo_block").imageUpload("upload-one-cat-photo", {
               uploadButtonText: "Загрузить новые",
@@ -163,6 +208,9 @@ $script = <<<JS
                     <div class="row-e img-dropBox-container">\
                         <div class="col-1 input_field">\
                             <input type="file" name="file" class="file-field"/>\
+                            <button type="button" class="btn btn-primary btn-md open-modal-images-list" data-toggle="modal" data-target="#banner-gallery">\
+                                    Выбрать из уже загруженых\
+                                  </button>\
                         </div>\
                         <div class="col-4-10 u_img_block"><img/></div>\
                             <div class="col-6-10 u_img_about">\
