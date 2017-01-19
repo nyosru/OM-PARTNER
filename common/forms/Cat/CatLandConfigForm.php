@@ -23,8 +23,8 @@ class CatLandConfigForm extends Model
 
     public $footer_tpl;
 
-    private $urlCat = '@webroot/images/cat/';
-    private $valid_formats = ["jpg", "png", "gif", "jpeg"];
+    protected $path_save_pictures = '@webroot/images/cat/';
+    protected $valid_formats = ["jpg", "png", "gif", "jpeg"];
 
     public function rules()
     {
@@ -46,6 +46,11 @@ class CatLandConfigForm extends Model
             [['config_name',], 'match', 'pattern' => '/^[a-z]|[а-я]\w*$/i', 'message' => 'В названии должны быть только буквы'],
             [['config_name'], 'required', 'message' => 'Обязательное поле'],
         ];
+    }
+
+    public function getPathSavePictures()
+    {
+       return $this->path_save_pictures;
     }
 
     public function storeOrUpdateConfig($config_name)
@@ -125,7 +130,7 @@ class CatLandConfigForm extends Model
         }
 
         $url_files = [];
-        $path = Yii::getAlias($this->urlCat);
+        $path = Yii::getAlias($this->path_save_pictures);
         foreach ($files as $file) {
 
             if (!strlen($file->name)) {
