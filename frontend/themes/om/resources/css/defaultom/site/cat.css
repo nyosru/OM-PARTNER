@@ -354,6 +354,11 @@ body.o-cat-main {
     padding: 10px;
 }
 
+.banner-gallery__img {
+    cursor: pointer;
+    margin: 15px;
+}
+
 @media all and ( min-width: 600px ) {
 
     /* set col widths */
