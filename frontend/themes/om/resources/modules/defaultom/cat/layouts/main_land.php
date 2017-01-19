@@ -6,8 +6,8 @@
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html >
+<html lang="en" class="o-cat-main">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -19,7 +19,7 @@ $this->beginPage();
     <?php $this->head(); ?>
 </head>
 
-<body>
+<body class="o-cat-main">
 <?php $this->beginBody(); ?>
 <?= \frontend\widgets\Alert::widget(); ?>
 
