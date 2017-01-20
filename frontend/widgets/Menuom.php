@@ -42,8 +42,8 @@ class Menuom extends \yii\bootstrap\Widget
        'exhtml'=>[
            'open'=>'<span>+ </span>',
            'close'=>'<span>- </span>',
-           'root'=>' ',
-           'last'=> '&nbsp;'
+           'root'=>['enable' => true, 'open'=>'<span>+ </span>', 'close'=>'<span>- </span>'],
+           'last'=>['enable' => true, 'open'=>'<span>+ </span>', 'close'=>'<span>- </span>'],
        ],
         'active'=>[
             'tag'=> 'open',
@@ -131,10 +131,10 @@ class Menuom extends \yii\bootstrap\Widget
                     } else {
                         $checked = '';
                     }
-                    if ($parent_id == 0) {
-                        $exhtml = $this->options['exhtml']['root'];
-                    } elseif (!$arr[$arr[$parent_id][$i]['categories_id']]) {
-                        $exhtml = $this->options['exhtml']['last'];
+                    if ($parent_id == 0 && $this->options['exhtml']['root']['enable'] == FALSE) {
+                        $exhtml = '';
+                    } elseif (!$arr[$arr[$parent_id][$i]['categories_id']] && $this->options['exhtml']['last']['enable'] == FALSE) {
+                        $exhtml = '';
                     } elseif (in_array($catdesc, $opencat)) {
                         $exhtml = $this->options['exhtml']['close'];
                     } else {
