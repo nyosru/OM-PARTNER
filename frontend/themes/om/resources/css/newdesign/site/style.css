@@ -15232,3 +15232,28 @@ a#fancybox-close {
     -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,1);
     box-shadow: 0px 0px 3px 0px rgba(0,0,0,1);
 }
+.box-category > ul > li > ul > li .subDropdown{
+    top: 3px;
+}
+.box-category > ul > li > ul > li > ul > li .subDropdown{
+    top: 0;
+}
+.box-category > ul > li > ul >li ul{
+    padding-left: 10px;
+    padding-top: 5px;
+}
+.box-category > ul > li a.active {
+    font-weight: 600;
+}
+.cart-available .available-true{
+    color: rgba(0, 255, 0, 0.20);
+}
+.cart-table tr[data-calc="true"]{
+    background-color: rgba(0, 255, 0, 0.20);
+}
+.cart-available .available-false{
+    color: rgba(255, 0, 0, 0.20);
+}
+.cart-table tr[data-calc="false"]{
+    background-color: rgba(255, 0, 0, 0.20);
+}

@@ -17,6 +17,10 @@ $this -> title = 'Корзина';
 </div>
     <p>Последний раз вы заказывали: <?=$lastorders?></p>
 <div class="clearfix">
+    <ul class="cart-available nav pull-left">
+        <li><span class="glyphicon glyphicon-stop available-true"></span> Товар доступен</li>
+        <li><span class="glyphicon glyphicon-stop available-false"></span> Товар не доступен</li>
+    </ul>
     <button class="button pull-right" id="save-set" data-toggle="modal" data-target="#modal-save-cart">Сохранить корзину</button>
 </div>
 

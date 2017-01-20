@@ -122,7 +122,8 @@ $(document).on('click', '.del-count', function () {
 });
 
 
-$(document).on('click', '.del-product', function () {
+$(document).on('click', '.del-product', function (e) {
+    e.preventDefault();
     var trProduct = $(this).parents('tr');
     $delrow = trProduct.attr('data-raw');
     $new_cart = new Object();

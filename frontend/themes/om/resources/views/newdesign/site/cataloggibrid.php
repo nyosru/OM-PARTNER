@@ -254,21 +254,6 @@ if ($data[0] != 'Не найдено!') {
                                     $layoutset =   [0];
                                 };
                             ?>
-                            <style>
-                                .box-category > ul > li > ul > li .subDropdown{
-                                    top: 3px;
-                                }
-                                .box-category > ul > li > ul > li > ul > li .subDropdown{
-                                    top: 0;
-                                }
-                                .box-category > ul > li > ul >li ul{
-                                    padding-left: 10px;
-                                    padding-top: 5px;
-                                }
-                                .box-category > ul > li a.active {
-                                    font-weight: 600;
-                                }
-                            </style>
                             <?= Menuom::widget([ 'chpu' =>Yii::$app->params['seourls'],'property' => ['id' => 'main', 'target' => '0', 'opencat' => $layoutset]]); ?>
                         </div>
                         <!--box-content box-category-->
