@@ -25,11 +25,9 @@ class Menuom extends \yii\bootstrap\Widget
     private $rend;
     public $chpu = FALSE;
     public $output2 = '';
-
-
     public $tpl = [
         'wrap'=>'<div id="{$id}">{$menu}</div>',
-        'block'=>'<ul  class="accordion" {$style} data-categories="{$categories}" data-parent="{$parentid}">{$sub}</ul>',
+        'block'=>'<ul  class="accordion" {$style} data-level="{$level}" data-categories="{$categories}" data-parent="{$parentid}">{$sub}</ul>',
         'link'=>'<li class="{$open}">
                     <div class="link {$checked}"  data-cat="{$catdesc}">
                         {$exhtml}
@@ -50,7 +48,8 @@ class Menuom extends \yii\bootstrap\Widget
         'active'=>[
             'tag'=> 'open',
             'anchor'=> 'checked'
-        ]
+        ],
+        'start_level'=>0
     ];
 
     public function init()
@@ -82,6 +81,9 @@ class Menuom extends \yii\bootstrap\Widget
         if(isset($this->property['active']['anchor'])){
             $this->options['active']['anchor'] = $this->property['active']['anchor'];
         }
+        if(isset($this->property['start_level'])){
+            $this->options['start_level'] = $this->property['start_level'];
+        }
         $this->id = $this->property['id'];
     }
 
@@ -89,7 +91,7 @@ class Menuom extends \yii\bootstrap\Widget
     public function run()
     {
         $id = $this->id;
-        $menu = $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat);
+        $menu = $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
         preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
         foreach ($match[1] as $key=>$value){
             if(isset($$value)) {
@@ -100,7 +102,7 @@ class Menuom extends \yii\bootstrap\Widget
        return preg_replace($patterns, $replace ,$this->tpl['wrap']);
     }
 
-    public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [])
+    public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [], $level)
     {
         $s = '';
         $x = '';
@@ -146,7 +148,7 @@ class Menuom extends \yii\bootstrap\Widget
                     if(!$catnamearr["$catdesc"]){
                         $catnamearr["$catdesc"] = 'NoNaMe'.$catdesc;
                     }
-                    $subcat = $this->view_catphp($arr, $catdesc, $catnamearr, $allow_cat, $opencat);
+                    $subcat = $this->view_catphp($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
                     $name = $catnamearr["$catdesc"];
                     $uri =  BASEURL . '/catalog'.$uri;
                     preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['link'],$match);
