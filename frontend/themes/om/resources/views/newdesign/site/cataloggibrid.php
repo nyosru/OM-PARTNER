@@ -68,9 +68,30 @@ if ($data[0] != 'Не найдено!') {
         <div class="row">
             <div class="col-xs-12">
                 <ul>
-                    <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>→ </span></li>
-                    <li class=""> <a title="Go to Home Page" href="grid.html">Women</a><span>→ </span></li>
-                    <li class="category13"><strong>Tops &amp; Tees</strong></li>
+                    <?php
+                    $chpu = new \common\traits\Categories\CategoryChpuClass();
+                    if ($catpath['num'] != 0) {
+                        foreach ($catpath['num'] as $key => $catid) {
+                            $paste = [];
+                            if(Yii::$app->params['seourls'] == TRUE){
+                                if(!$chpu->categoryChpu($catid)){
+                                    $paste[0] = $urlsrc[0];
+                                    $paste['cat'] = $catid;
+                                }else{
+                                    $paste[0] =   Yii::$app->params['chpu']['action'].'/'.$chpu->categoryChpu($catid);
+                                }
+                            }else{
+                                $paste[0] = $urlsrc[0];
+                                $paste['cat'] = $catid;
+                            }
+                            if(count($catpath['num'])-1==$key){
+                                echo '<li><strong>'.$catpath['name'][$key].'</strong></li>';
+                            } else {
+                                echo '<li><a href="' . Url::toRoute($paste) . '">' . $catpath['name'][$key] . '</a><span>→ </span></li>';
+                            }
+                        }
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
