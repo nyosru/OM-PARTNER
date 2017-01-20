@@ -44,6 +44,9 @@ class Menuom extends \yii\bootstrap\Widget
     public function run()
     {
         parent::run();
+        if(Yii::$app->params['constantapp']['APP_THEMES'] == 'newdesign'){
+            return $this->view_cat($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat,1);
+        }
         return '<div id="' . $this->id . '">' . $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat) . '</div>';
     }
 
@@ -103,5 +106,59 @@ class Menuom extends \yii\bootstrap\Widget
         return $this->output2;
     }
 
+    /*
+     * Для newdesign
+     */
+    public function view_cat($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [],$lvl)
+    {
+        if ($opencat == NULL) {
+            $opencat = [];
+        }
+
+        if (empty($arr[$parent_id])) {
+            return $this->output2;
+        }
+
+        $this->output2 .= '<ul data-categories="' . $arr[$parent_id]['categories_id'] . '" data-parent="' . $arr[$parent_id]['parent_id'] . '">';
+        for ($i = 0; $i < count($arr[$parent_id]); $i++) {
+            $item_category = $arr[$parent_id][$i];
+            $open = in_array($item_category['categories_id'], $opencat);
+            if ($item_category == '') {
+                continue;
+            }
+
+            // если открыта категория, остальные категории первого уровня не подгружаем
+            if($opencat[0]!=$item_category['categories_id'] && $lvl==1 && end($opencat)){
+                continue;
+            }
+
+            if ($open) {
+                $openli = 'active';
+                $exthtml = ' <span class="subDropdown minus">';
+            } else {
+                $openli = '';
+                $exthtml = ' <span class="subDropdown plus">';
+            }
+
+            // если категория не имеет дочерних
+            if (empty($arr[$item_category['categories_id']])) {
+                $exthtml = '';
+            }
+
+            $categoryChpu = $this->categoryChpu($item_category['categories_id']);
+            if(!$categoryChpu || $this->chpu == FALSE){
+                $uri = '?cat=' . $item_category['categories_id'] ;
+            }else{
+                $uri = '/'.$categoryChpu;
+            }
+            $this->output2 .= '<li><a class="' . $openli . '" data-cat="' . $item_category['categories_id'] . '" href="' . BASEURL . '/catalog'.$uri.'">' . $catnamearr[$item_category['categories_id']] . $exthtml.'</a>';
+            if($open) {
+                $this->view_cat($arr, $item_category['categories_id'], $catnamearr, $allow_cat, $opencat, 2);
+            }
+            $this->output2 .= '</li>';
+        }
+        $this->output2 .= '</ul>';
+        return $this->output2;
+    }
 
 }

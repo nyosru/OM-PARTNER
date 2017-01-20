@@ -4,6 +4,7 @@ namespace frontend\controllers\actions\om;
 use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsOptionVal;
 use common\models\PartnersProductsToCategories;
+use frontend\widgets\Menuom;
 use Yii;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
@@ -12,6 +13,11 @@ trait ActionCatalog
 {
     public function actionCatalog()
     {
+        $ajax_category = Yii::$app->request->post('category_id');
+        if(Yii::$app->request->isAjax && !empty($ajax_category)){
+            return Menuom::widget(['chpu' =>Yii::$app->params['seourls'],'property' => ['target' => $ajax_category, 'opencat' => [0]]]);
+        }
+
         if (Yii::$app->request->isGet) {
             $cat_start = (integer)(Yii::$app->request->getQueryParam('cat'));
             $start_price = (integer)(Yii::$app->request->getQueryParam('start_price'));

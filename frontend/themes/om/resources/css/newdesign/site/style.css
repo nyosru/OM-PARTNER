@@ -6678,7 +6678,7 @@ ul#magicat li .open-close, .block-layered-nav dt .toggleBtn {
 
 .box-category > ul > li ul {
 	display: none;
-	padding-left: 0px !important;
+	padding-left: 0px;
 	padding-bottom: 10px;
 	padding-right: 0px !important
 }
@@ -6734,7 +6734,7 @@ ul#magicat li .open-close, .block-layered-nav dt .toggleBtn {
 .box-category > ul > li ul > li ul > li a {
 	text-decoration: none;
 	font-size: 13px !important;
-	margin: 4px 8px !important;
+	margin: 4px 8px;
 	padding: 0px 16px !important;
 	border-bottom: 0px solid #eaeaea;
 }
