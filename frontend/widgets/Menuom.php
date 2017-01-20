@@ -22,7 +22,6 @@ class Menuom extends \yii\bootstrap\Widget
     private $id;
     private $startcat;
     private $opencat;
-    private $rend;
     public $chpu = FALSE;
     public $output2 = '';
     public $tpl = [
@@ -50,7 +49,8 @@ class Menuom extends \yii\bootstrap\Widget
             'anchor'=> 'checked'
         ],
         'start_level'=>0,
-        'generator'=>'standart'
+        'generator'=>'standart',
+        'baseuri' => '/catalog'
     ];
 
     public function init()
@@ -172,9 +172,9 @@ class Menuom extends \yii\bootstrap\Widget
                     if(!$catnamearr["$catdesc"]){
                         $catnamearr["$catdesc"] = 'NoNaMe'.$catdesc;
                     }
-                    $subcat = $this->menuGen_standart($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
+                    $subcat = $this->menuGenStandart($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
                     $name = $catnamearr["$catdesc"];
-                    $uri =  BASEURL . '/catalog'.$uri;
+                    $uri =  BASEURL.$this->options['baseuri'].$uri;
                     preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['link'],$match);
                     $replace = [];
                     $patterns = [];
