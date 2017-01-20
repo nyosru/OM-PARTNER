@@ -84,6 +84,9 @@ if ($data[0] != 'Не найдено!') {
                                 $paste[0] = $urlsrc[0];
                                 $paste['cat'] = $catid;
                             }
+                            if(count($catpath['num'])>=1 && $catpath['num'][0]!=0 && $key==0){
+                                echo '<li><a href="/catalog/">Каталог</a><span>→ </span></li>';
+                            }
                             if(count($catpath['num'])-1==$key){
                                 echo '<li><strong>'.$catpath['name'][$key].'</strong></li>';
                             } else {
