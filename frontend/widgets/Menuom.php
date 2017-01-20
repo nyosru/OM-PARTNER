@@ -42,8 +42,8 @@ class Menuom extends \yii\bootstrap\Widget
        'exhtml'=>[
            'open'=>'<span>+ </span>',
            'close'=>'<span>- </span>',
-           'root'=>['enable' => true, 'open'=>'<span>+ </span>', 'close'=>'<span>- </span>'],
-           'last'=>['enable' => true, 'open'=>'<span>+ </span>', 'close'=>'<span>- </span>'],
+           'root'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
+           'last'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
        ],
         'active'=>[
             'tag'=> 'open',
@@ -136,9 +136,23 @@ class Menuom extends \yii\bootstrap\Widget
                     } elseif (!$arr[$arr[$parent_id][$i]['categories_id']] && $this->options['exhtml']['last']['enable'] == FALSE) {
                         $exhtml = '';
                     } elseif (in_array($catdesc, $opencat)) {
-                        $exhtml = $this->options['exhtml']['close'];
+                        if($this->options['exhtml']['root']['enable'] == TRUE && $parent_id == 0){
+                            $open_tag =  $this->options['exhtml']['root']['close'];
+                        }elseif($this->options['exhtml']['last']['enable'] == TRUE && !$arr[$arr[$parent_id][$i]['categories_id']]){
+                            $open_tag =  $this->options['exhtml']['last']['close'];
+                        }else{
+                            $open_tag = $this->options['exhtml']['close'];
+                        }
+                        $exhtml = $open_tag ;
                     } else {
-                        $exhtml = $this->options['exhtml']['open'];
+                        if($this->options['exhtml']['root']['enable'] == TRUE && $parent_id == 0){
+                            $open_tag =  $this->options['exhtml']['root']['open'];
+                        }elseif($this->options['exhtml']['last']['enable'] == TRUE && !$arr[$arr[$parent_id][$i]['categories_id']]){
+                            $open_tag =  $this->options['exhtml']['last']['open'];
+                        }else{
+                            $open_tag = $this->options['exhtml']['open'];
+                        }
+                        $exhtml = $open_tag ;
                     }
                     if(!$this->categoryChpu($catdesc) || $this->chpu == FALSE){
                         $uri = '?cat=' . $catdesc ;
