@@ -95,7 +95,7 @@ class Menuom extends \yii\bootstrap\Widget
     public function run()
     {
         $id = $this->id;
-        $generate = 'menuGen_'.$this->options['generator'];
+        $generate = 'menuGen'.mb_convert_case($this->options['generator'], MB_CASE_TITLE);
         if(method_exists($this,$generate)){
             $menu = $this->$generate($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
             preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
@@ -112,7 +112,7 @@ class Menuom extends \yii\bootstrap\Widget
 
     }
 
-    public function menuGen_standart($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [], $level)
+    public function menuGenStandart($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [], $level)
     {
         $s = '';
         $x = '';
