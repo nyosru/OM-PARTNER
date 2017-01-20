@@ -49,7 +49,8 @@ class Menuom extends \yii\bootstrap\Widget
             'tag'=> 'open',
             'anchor'=> 'checked'
         ],
-        'start_level'=>0
+        'start_level'=>0,
+        'generator'=>'standart'
     ];
 
     public function init()
@@ -63,6 +64,9 @@ class Menuom extends \yii\bootstrap\Widget
         $this->cat_array = $this->reformat_cat_array($this->categories, $this->cat, $this->checks);
         $this->startcat = $this->property['target'];
         $this->opencat = $this->property['opencat'];
+        if(isset($this->property['generator'])){
+            $this->options['generator'] = $this->property['generator'];
+        }
         if(isset($this->property['exhtml']['open'])){
             $this->options['exhtml']['open'] = $this->property['exhtml']['open'];
         }
@@ -91,18 +95,24 @@ class Menuom extends \yii\bootstrap\Widget
     public function run()
     {
         $id = $this->id;
-        $menu = $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
-        preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
-        foreach ($match[1] as $key=>$value){
-            if(isset($$value)) {
-                $replace[] = $$value;
-                $patterns[] = '/{\$' . $value . '}/iu';
+        $generate = 'menuGen_'.$this->options['generator'];
+        if(method_exists($this,$generate)){
+            $menu = $this->$generate($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
+            preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
+            foreach ($match[1] as $key=>$value){
+                if(isset($$value)) {
+                    $replace[] = $$value;
+                    $patterns[] = '/{\$' . $value . '}/iu';
+                }
             }
+            return preg_replace($patterns, $replace ,$this->tpl['wrap']);
+        }else{
+            return FALSE;
         }
-       return preg_replace($patterns, $replace ,$this->tpl['wrap']);
+
     }
 
-    public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [], $level)
+    public function menuGen_standart($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [], $level)
     {
         $s = '';
         $x = '';
@@ -162,7 +172,7 @@ class Menuom extends \yii\bootstrap\Widget
                     if(!$catnamearr["$catdesc"]){
                         $catnamearr["$catdesc"] = 'NoNaMe'.$catdesc;
                     }
-                    $subcat = $this->view_catphp($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
+                    $subcat = $this->menuGen_standart($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
                     $name = $catnamearr["$catdesc"];
                     $uri =  BASEURL . '/catalog'.$uri;
                     preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['link'],$match);
