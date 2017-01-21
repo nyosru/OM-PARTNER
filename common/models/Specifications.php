@@ -128,6 +128,14 @@ class Specifications extends ActiveRecordExt
     }
 
     /**
+     * @return ActiveQuery
+     */
+    public function getProductsSpecifications()
+    {
+        return $this->hasMany(ProductsSpecifications::className(), ['specification_values_id' => 'specification_values_id'])->via('values');
+    }
+
+    /**
      * Прихреначит эту спецификацию к категории
      * @param PartnersCategories $category
      */
