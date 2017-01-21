@@ -380,6 +380,7 @@ a {
 }
 
 .search-box {
+    position: relative;
 	margin: 8px auto 0 auto;
 	right: 0;
 	background: #fff;
@@ -12827,10 +12828,15 @@ a#fancybox-close {
 		width: 170px;
 	}
 
-	.search-btn-bg {
-		position: absolute;
-		padding: 6px 3px;
-	}
+    .search-btn-bg {
+        position: absolute;
+        padding: 6px 3px;
+        top: 0;
+        right: 15px;
+    }
+    .search-btn-bg.search-button-toggle{
+        right: 0;
+    }
 
 	nav {
 		width: 100%;
@@ -13657,10 +13663,15 @@ a#fancybox-close {
 		width: 175px;
 	}
 
-	.search-btn-bg {
-		position: absolute;
-		padding: 6px 3px;
-	}
+    .search-btn-bg {
+        position: absolute;
+        padding: 6px 3px;
+        top: 0;
+        right: 15px;
+    }
+    .search-btn-bg.search-button-toggle{
+        right: 0;
+    }
 
 	nav {
 		width: 100%;
@@ -14221,9 +14232,14 @@ a#fancybox-close {
 	}
 
 	.search-btn-bg {
-		position: absolute;
+        position: absolute;
 		padding: 6px 3px;
+        top: 0;
+        right: 15px;
 	}
+    .search-btn-bg.search-button-toggle{
+        right: 0;
+    }
 
 	#nav ul.level0 > li {
 		width: 30%;
@@ -14818,10 +14834,15 @@ a#fancybox-close {
 		width: 230px;
 	}
 
-	.search-btn-bg {
-		position: absolute;
-		padding: 6px 3px;
-	}
+    .search-btn-bg {
+        position: absolute;
+        padding: 6px 3px;
+        top: 0;
+        right: 15px;
+    }
+    .search-btn-bg.search-button-toggle{
+        right: 0;
+    }
 
 	#nav .level0-wrapper, #nav.classic .parent > ul {
 		padding-top: 15px;
