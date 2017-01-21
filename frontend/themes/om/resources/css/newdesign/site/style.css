@@ -10779,6 +10779,10 @@ address {
 	width: 40px;
 	height: 40px;
 	line-height: 40px;
+    font-size: 18px;
+    display: inline-block !important;
+    text-align: center;
+    padding: 0;
 }
 
 .social a:hover {
@@ -10797,8 +10801,36 @@ address {
 	padding: 0;
 }
 
+
 .social .fb a:hover {
 	background: #3c5b9b !important;
+}
+
+
+.social .ok a:before {
+    content: "\f263";
+    font-family: FontAwesome;
+}
+.social .ok a:hover {
+    background: #eba201;
+}
+.social .vk a{
+    line-height: 37px;
+}
+.social .vk a:before {
+    content: "\f189";
+    font-family: FontAwesome;
+}
+.social .vk a:hover {
+    background: #3c5b9b;
+}
+
+.social .in a:before {
+    content: "\f16d";
+    font-family: FontAwesome;
+}
+.social .in a:hover {
+    background: #b9398a;
 }
 
 .social .tw a:before {

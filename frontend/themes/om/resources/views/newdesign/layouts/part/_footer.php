@@ -54,13 +54,10 @@
                         <div class="social">
                             <h4>Follow Us</h4>
                             <ul class="link">
+                                <li class="vk pull-left"><a href="#"></a></li>
+                                <li class="ok pull-left"><a href="#"></a></li>
                                 <li class="fb pull-left"><a href="#"></a></li>
-                                <li class="tw pull-left"><a href="#"></a></li>
-                                <li class="googleplus pull-left"><a href="#"></a></li>
-                                <li class="rss pull-left"><a href="#"></a></li>
-                                <li class="pintrest pull-left"><a href="#"></a></li>
-                                <li class="linkedin pull-left"><a href="#"></a></li>
-                                <li class="youtube pull-left"><a href="#"></a></li>
+                                <li class="in pull-left"><a href="#"></a></li>
                             </ul>
                         </div>
                         <div class="payment-accept">
