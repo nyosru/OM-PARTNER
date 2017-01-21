@@ -197,39 +197,11 @@ $this->title = $title;
         <div class="slider-items-products">
             <div id="brand-logo-slider" class="product-flexslider hidden-buttons">
                 <div class="slider-items slider-width-col6">
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo3.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo2.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo1.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo4.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo5.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo6.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo1.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
-                    <!-- Item -->
-                    <div class="item"><a href="#"><img src="/images/new/b-logo4.png" alt="Image"></a> </div>
-                    <!-- End Item -->
-
+                    <?php foreach ($brands as $brandkey=>$brandvalue){
+                        if(($result = glob('images/brands/'.$brandvalue['specification_values_id'].'.{jpg,png,gif}', GLOB_BRACE )) == TRUE && $result[0]){ ?>
+                        <div class="item"><a href="/catalog?sfilt[]=<?=$brandvalue['specification_values_id']?>"><img src="/<?=$result[0]?>" alt="<?=htmlentities($brandvalue['specification_value'])?>"></a> </div>
+                    <?php }
+                    } ?>
                 </div>
             </div>
         </div>

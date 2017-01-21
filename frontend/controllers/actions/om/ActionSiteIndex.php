@@ -18,7 +18,13 @@ trait ActionSiteIndex
         }
         $newproducts = $this->NewProducts(60, 'ef1923ef-', 600);
         $dataproducts = $this->FeaturedProducts(60, 'wdaww7dqsef-', 450);
-        return $this->render('indexpage', ['dataproducts' => $dataproducts, 'newproducts' => $newproducts,'title'=>$title]);
+
+        return $this->render('indexpage', [
+            'dataproducts' => $dataproducts,
+            'newproducts' => $newproducts,
+            'title'=>$title,
+            'brands'=> $this->findBrands(12)
+        ]);
     }
 }
 

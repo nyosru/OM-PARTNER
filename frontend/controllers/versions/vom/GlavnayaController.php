@@ -30,6 +30,7 @@ use common\traits\Shipping\ShippingMethod;
 use common\traits\ThemeResources;
 use common\traits\Trim_Tags;
 use common\traits\View_cat;
+use common\traits\Brands;
 use frontend\controllers\actions\ActionAddSearch;
 use frontend\controllers\actions\ActionCart;
 use frontend\controllers\actions\ActionSubscription;
@@ -138,6 +139,7 @@ class GlavnayaController extends Controller
         LuxSuppliers,
         OrdersStatusData,
         ManufacturersDiapazonData,
+        Brands,
         ActionSiteIndex,
         ActionSuppliers,
         ActionSiteRequest,
