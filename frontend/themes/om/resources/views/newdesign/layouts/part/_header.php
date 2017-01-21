@@ -61,7 +61,7 @@ use yii\bootstrap\ActiveForm;
                         <div class="top-cart-contain pull-right">
                             <!-- Top Cart -->
                             <div class="mini-cart">
-                                <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"><a href="#">My Cart <span class="cart-count">0</span></a></div>
+                                <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"><a href="#">Корзина <span class="cart-count">0</span></a></div>
                                 <div>
                                     <div class="top-cart-content">
                                         <div class="block-subtitle">
@@ -109,25 +109,6 @@ use yii\bootstrap\ActiveForm;
                             </div>
                         </div>
                     </div>
-                    <!-- Header Language -->
-                    <div class="lang-curr">
-                        <div class="form-language">
-                            <ul class="lang">
-                                <li class=""><a href="" title="English"><img src="/images/new/english.png" alt="English" /> <span>English</span></a></li>
-                                <li class=""><a href="" title="Francais"><img src="/images/new/francais.png" alt="Francais" /> <span>francais</span></a></li>
-                                <li class=""><a href="" title="German"><img src="/images/new/german.png" alt="German" /> <span>german</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="form-currency">
-                            <ul class="currencies_list">
-                                <li class=""><a class="" title="Dollar" href="#">$</a></li>
-                                <li class=""><a class="" title="Euro" href="#">&euro;</a></li>
-                                <li class=""><a class="" title="Pound" href="#">&pound;</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- End Header Currency -->
                 </div>
             </div>
         </div>
