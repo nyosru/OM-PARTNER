@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 use yii\jui\Slider;
-use frontend\widgets\Menuom;
+use frontend\widgets\NewMenuom;
 use frontend\widgets\ProductCard;
 use frontend\widgets\ProductCard2;
 use yii\helpers\Html;
@@ -257,7 +257,7 @@ if ($data[0] != 'Не найдено!') {
                                     $layoutset =   [0];
                                 };
                             ?>
-                            <?= Menuom::widget([ 'chpu' =>Yii::$app->params['seourls'],'property' => ['id' => 'main', 'target' => '0', 'opencat' => $layoutset]]); ?>
+                            <?= NewMenuom::widget([ 'chpu' =>Yii::$app->params['seourls'],'property' => ['id' => 'main', 'target' => '0', 'opencat' => $layoutset]]); ?>
                         </div>
                         <!--box-content box-category-->
                     </div>

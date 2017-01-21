@@ -9,7 +9,7 @@ use common\traits\Reformat_cat_array;
 use yii\helpers\Html;
 use Yii;
 
-class Menuom extends \yii\bootstrap\Widget
+class NewMenuom extends \yii\bootstrap\Widget
 {
     use  Reformat_cat_array,Categories_for_partner, CategoryChpu, RecursCat, CustomCatalog;
     public $property;
