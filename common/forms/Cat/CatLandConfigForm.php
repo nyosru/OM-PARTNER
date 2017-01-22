@@ -113,7 +113,7 @@ class CatLandConfigForm extends Model
         return false;
     }
 
-    public function storeOrUpdatePreviewConfig()
+    public function storeOrUpdatePreviewConfig($config_name)
     {
         if (!$this->validate()) {
             return false;
@@ -136,12 +136,13 @@ class CatLandConfigForm extends Model
             "footer_tpl"     => $this->footer_tpl,
         ];
 
-        if (file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/preview_config.json',
-            json_encode($json_config))) {
-            return true;
-        }
 
-        return true;
+        if (Yii::$app->cache->set('preview_config'. $this->config_name, json_encode($json_config), 604800)) {
+            return true;
+        } else {
+            Yii::$app->session->setFlash('error', 'Произошла ошибка');
+            return false;
+        }
     }
 
     public function saveImages($files = [])

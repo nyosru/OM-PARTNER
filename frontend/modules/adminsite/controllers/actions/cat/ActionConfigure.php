@@ -15,13 +15,15 @@ trait ActionConfigure
         $config_name = Yii::$app->request->get('c');
 
         if ($preview_toggle) {
-            $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/preview_config.json');
+            $j = Yii::$app->cache->get('preview_config'.$config_name);
+                if (!$j) {
+                    $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . '.json');
+                }
         } else {
             if ($config_name != 'preview_config') {
                 $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . '.json');
             }
         }
-
         $land_config = [];
         if (isset($j) && $j) {
             $land_config = (array)json_decode($j, true);

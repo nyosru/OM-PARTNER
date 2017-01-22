@@ -19,7 +19,7 @@ trait ActionUpdateConfig
 
         if(Yii::$app->request->post('preview_toggle') == true) {
 
-            if($catLandConfigForm->storeOrUpdatePreviewConfig()) {
+            if($catLandConfigForm->storeOrUpdatePreviewConfig($exist_cfg_name)) {
                 Yii::$app->session->setFlash('success', 'Режим предпросмотра');
             } else {
                 Yii::$app->session->setFlash('error', 'Произошла ошибка');
