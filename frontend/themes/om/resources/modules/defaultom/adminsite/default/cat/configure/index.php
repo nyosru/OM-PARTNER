@@ -194,7 +194,7 @@ $script = <<<JS
       $(document).on('click', '.banner-gallery__img', function() {
           var src = $(this).find('img').attr('src');
           var li = $(last_clicked_btn).closest('li');
-          li.find('img').attr({'src' : src});
+          li.find('img').attr({'src' : src, 'width': 200});
           $('#banner-gallery').modal('hide') 
       });
       
