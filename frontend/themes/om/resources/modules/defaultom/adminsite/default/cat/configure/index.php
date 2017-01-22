@@ -1,14 +1,17 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+?>
 <div class="row-e">
+    <div class="col-1">
+        <?= Html::a('<i class="fa fa-arrow-left" aria-hidden="true"></i> Назад', 'config-list', []) ?>
+    </div>
     <div class="col-1-2">
         <div class="header center">
             <h3 class="">Настройки лендинга</h3>
         </div>
         <div style="max-width: 600px; margin: 0 auto;">
             <?php
-
-            use yii\helpers\Html;
-            use yii\widgets\ActiveForm;
-
             $banners_tpl = [
                 [
                     'name'            => 'Главный',
