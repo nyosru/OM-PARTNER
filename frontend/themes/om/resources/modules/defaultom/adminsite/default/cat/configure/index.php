@@ -66,7 +66,7 @@ use yii\widgets\ActiveForm;
                 ->label('Баннер')
                 ->dropdownList(
                     $banners_tpl_for_dropdown,
-                    ['prompt' => 'Выберите тип баннера', 'id' => 'banners_select']
+                    ['prompt' => 'Стандартный (определен программой)', 'id' => 'banners_select']
                 )
             ;
 
