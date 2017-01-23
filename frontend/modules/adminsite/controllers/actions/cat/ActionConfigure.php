@@ -14,23 +14,22 @@ trait ActionConfigure
         $preview_toggle = Yii::$app->request->get('preview_toggle');
         $config_name = Yii::$app->request->get('c');
 
+        $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . '.json');
+
         if ($preview_toggle) {
-            $j = Yii::$app->cache->get('preview_config'.$config_name);
-                if (!$j) {
-                    $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . '.json');
-                }
-        } else {
-            if ($config_name != 'preview_config') {
-                $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . '.json');
+            $j_prev = Yii::$app->cache->get('preview_config' . $config_name);
+            if ($j_prev) {
+                $j = $j_prev;
             }
         }
+
         $land_config = [];
         if (isset($j) && $j) {
             $land_config = (array)json_decode($j, true);
         }
         $special_offer = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/store/special_offer' . '.json');
         $special_offer = (array)json_decode($special_offer, true);
-        if(count($special_offer) == 0) {
+        if (count($special_offer) == 0) {
             $special_offer = [];
         }
 
@@ -49,6 +48,7 @@ trait ActionConfigure
                 'footer_tpl'            => $land_config['footer_tpl'],
             ]);
         }
+
         return $this->render('cat/configure/index',
             ['model' => $model, 'land_config' => $land_config, 'special_offer' => $special_offer]);
     }
