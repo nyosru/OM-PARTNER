@@ -4,6 +4,7 @@ namespace frontend\widgets;
 use common\traits\Categories\CategoryChpu;
 use common\traits\Categories\CustomCatalog;
 use common\traits\Categories_for_partner;
+use frontend\widgets\MainBanner;
 use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
 use yii\helpers\Html;
@@ -25,6 +26,7 @@ class NewMenuom extends \yii\bootstrap\Widget
     private $rend;
     public $chpu = FALSE;
     public $output2 = '';
+    public $html = true;
 
     public function init()
     {
@@ -45,7 +47,11 @@ class NewMenuom extends \yii\bootstrap\Widget
     {
         parent::run();
         if(Yii::$app->params['constantapp']['APP_THEMES'] == 'newdesign'){
-            return $this->view_cat($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat,1);
+            if($this->property['type']!='images') {
+                return $this->view_cat($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, 1);
+            } else {
+                return $this->view_cat_images($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, 1);
+            }
         }
         return '<div id="' . $this->id . '">' . $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat) . '</div>';
     }
@@ -104,6 +110,39 @@ class NewMenuom extends \yii\bootstrap\Widget
             $this->output2 .= '</ul>';
         }
         return $this->output2;
+    }
+
+    /*
+     * Для newdesign
+     */
+    public function view_cat_images($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = []){
+        for ($i = 0; $i < count($arr[$parent_id]); $i++) {
+            $item_category = $arr[$parent_id][$i];
+            if ($item_category == '')
+                continue;
+
+            $categoryChpu = $this->categoryChpu($item_category['categories_id']);
+            if(!$categoryChpu || $this->chpu == FALSE){
+                $url = '?cat=' . $item_category['categories_id'] ;
+            }else{
+                $url = '/'.$categoryChpu;
+            }
+
+            $result[$i] = [
+                //'image' =>  'cat-'.$item_category['categories_id'],
+                'image' =>  'cat-1544.png',
+                'referal'=> BASEURL . '/catalog' . $url,
+                'alttext' => $catnamearr[$item_category['categories_id']],
+            ];
+        }
+        $html = MainBanner::widget([
+            'template'=>'top-banner',
+            'banners' => [
+                'top-banner' => $result,
+            ],
+            'path_image' => '/images/categories/',
+        ]);
+        return $html;
     }
 
     /*

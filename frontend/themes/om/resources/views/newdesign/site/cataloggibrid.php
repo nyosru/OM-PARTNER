@@ -102,7 +102,19 @@ if ($data[0] != 'Не найдено!') {
 </div>
 <section class="main-container col2-left-layout bounceInUp">
     <?=\frontend\widgets\MainBanner::widget(['template'=>'category-slider']);?>
-
+    <?php if ($catpath['num'][0] == 0) { ?>
+        <div class="top-banner-section">
+            <div class="container">
+                <div class="row">
+                    <?=NewMenuom::widget([
+                        'chpu' =>Yii::$app->params['seourls'],
+                        'html' => false,
+                        'property' => ['target' => '0','type'=>'images']
+                    ])?>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
     <div class="container">
         <div class="row">
             <div class=" col-sm-9 col-sm-push-3">
@@ -244,7 +256,7 @@ if ($data[0] != 'Не найдено!') {
             </div>
             <div class="col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9">
                 <aside class="col-left sidebar">
-
+                    <?php if ($catpath['num'][0] != 0) { ?>
                     <div class="side-nav-categories">
                         <div class="block-title"> Категории </div>
                         <!--block-title-->
@@ -261,6 +273,7 @@ if ($data[0] != 'Не найдено!') {
                         </div>
                         <!--box-content box-category-->
                     </div>
+                    <?php } ?>
 
 
                     <div class="block block-layered-nav">

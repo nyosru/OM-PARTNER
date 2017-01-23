@@ -133,7 +133,13 @@ $this->title = $title;
 
 
 <!-- banner -->
-<?=\frontend\widgets\MainBanner::widget(['template'=>'top-banner']);?>
+<div class="top-banner-section">
+    <div class="container">
+        <div class="row">
+            <?=\frontend\widgets\MainBanner::widget(['template'=>'top-banner','path_image' => '/images/banners/']);?>
+        </div>
+    </div>
+</div>
 <!-- end banner -->
 
 <!-- Featured Slider -->

@@ -14,6 +14,7 @@ class MainBanner extends \yii\bootstrap\Widget
     const ROTATE_ROLL = 'roll';
     const IMAGE_PATH = '/images/banners/';
     public $utm_enable = FALSE;
+    public $path_image = '';
     public $utm = [
         'campagin' => '',
         'source'=> 'sait_main',
@@ -297,6 +298,7 @@ class MainBanner extends \yii\bootstrap\Widget
         if(gettype($this->template) == 'string'){
             return $this->render('main-banner/'.$this->template,[
                 'banners' => $this->banners[$this->template],
+                'path_image' => $this->path_image,
             ]);
         }
         return $this->render('main-banner/default',[
