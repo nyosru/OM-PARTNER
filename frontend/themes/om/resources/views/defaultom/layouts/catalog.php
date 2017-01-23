@@ -6,10 +6,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
-$customh = \common\traits\PageGen\MetaGenClass::metaGen($this, 'v2', 'catalog' , end(Yii::$app->params['layoutset']['opencat']));
-if($customh){
-    Yii::$app->params['layoutset']['h1'] = $customh;
-}
+
 AppAsset::register($this);
 rmrevin\yii\fontawesome\AssetBundle::register($this);
 $this->beginPage();
@@ -78,7 +75,7 @@ $this->beginPage();
                 if(!(int)Yii::$app->request->getQueryParam('cat')){
                    $cat = 0;
                 }
-                $keyCache = Yii::$app->cache->buildKey('Right-13lkj234lkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['customcat'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
+                $keyCache = Yii::$app->cache->buildKey('Right-13lkj2334lkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['customcat'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
                 if($this->beginCache($keyCache, ['duration' => 86400])) { ?>
                     <div class="partners-main-left-cont">
                        <?= \frontend\widgets\RightTopMenuLinks::widget() ?>
