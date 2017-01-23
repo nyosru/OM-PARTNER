@@ -8,7 +8,7 @@
                 <span>8 800-123-45-67</span>
             </div>
             <div class="header-top-row__info__lk">
-                <span class="header-top-row__info__lk__btn btn_arrow-down">Личный кабинет</span>
+                <span class="header-top-row__info__lk__btn btn_arrow-down"><a href="<?= BASEURL ?>">Личный кабинет</a></span>
             </div>
         </div>
     </div>
@@ -25,14 +25,20 @@
             </div>
         </div>
         <div class="col-4-10">
-            <div class="header-actions-bar__search">
-                <form style="width: 100%;height: 100%; ">
-                    <input class="header-actions-bar__shopping-basket__input" type="text">
-                </form>
-                <div class="header-actions-bar__shopping-basket__submit">
-                    <span>Найти</span>
+            <form action="<?= BASEURL ?>/catalog" style="width: 100%; height: 100%">
+
+                <div class="header-actions-bar__search">
+                    <input name="cat" value="0"
+                           style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
+                    <input name="count" value="60"
+                           style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
+                    <input name="searchword" class="header-actions-bar__shopping-basket__input"
+                           placeholder="Введите артикул или название" type="text">
+                    <div class="header-actions-bar__shopping-basket__submit">
+                        <span>Найти</span>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="col-3-10">
             <div class="header-actions-bar__shopping-basket">
