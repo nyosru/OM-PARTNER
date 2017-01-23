@@ -92,7 +92,7 @@ class CatLandConfigForm extends Model
             $file_special_offers[] = $this->special_offer;
         }
 
-        if (!file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/special_offers' . $config_file_extension,
+        if (!file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/special_offers/special_offer' . $config_file_extension,
             json_encode($file_special_offers))
         ) {
             Yii::$app->session->setFlash('error', 'Ошибка, данные не сохранены');
