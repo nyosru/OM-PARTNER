@@ -227,11 +227,12 @@ $script = <<<JS
       
       $(document).on('click', '.modal_special_offer', function() {
           $(this).renderSpecialOffer();
-          $('#special_offers').modal('hide') 
+          $('#special_offers').modal('hide');
       });
       $.fn.renderSpecialOffer = function() {
         var redactor_editor_field = $('.field-catlandconfigform-special_offer').find('.redactor-editor');
-        redactor_editor_field.html($(this.html()));
+        $('#catlandconfigform-special_offer').val(this.html());
+        redactor_editor_field.html(this.html());
       };
       $(document).on('click', '.banner-gallery__img', function() {
           var src = $(this).find('img').attr('src');
