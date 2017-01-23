@@ -15331,3 +15331,14 @@ a#fancybox-close {
 .om-icon-newgoods{
     background-image: url("/images/icons/features/newgoods.png");
 }
+.page-allcategories .box-category>ul{
+    box-shadow: none;
+}
+.page-allcategories .box-category>ul>li{
+    display: block;
+    padding: 0 20px;
+}
+.page-allcategories .box-category>ul>li>a{
+    font-size: 22px;
+    font-weight: 600;
+}

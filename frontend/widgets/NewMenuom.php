@@ -27,6 +27,7 @@ class NewMenuom extends \yii\bootstrap\Widget
     public $chpu = FALSE;
     public $output2 = '';
     public $html = true;
+    public $recursion = false;
 
     public function init()
     {
@@ -113,7 +114,7 @@ class NewMenuom extends \yii\bootstrap\Widget
     }
 
     /*
-     * Для newdesign
+     * Для newdesign banners
      */
     public function view_cat_images($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = []){
         for ($i = 0; $i < count($arr[$parent_id]); $i++) {
@@ -191,7 +192,7 @@ class NewMenuom extends \yii\bootstrap\Widget
                 $uri = '/'.$categoryChpu;
             }
             $this->output2 .= '<li><a class="' . $openli . '" data-cat="' . $item_category['categories_id'] . '" href="' . BASEURL . '/catalog'.$uri.'">' . $catnamearr[$item_category['categories_id']] . $exthtml.'</a>';
-            if($open) {
+            if($open || $this->recursion) {
                 $this->view_cat($arr, $item_category['categories_id'], $catnamearr, $allow_cat, $opencat, 2);
             }
             $this->output2 .= '</li>';
