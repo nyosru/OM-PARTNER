@@ -77,20 +77,24 @@ $this->beginPage();
                 </div>
                 <div  class="partners-main-left"  id="scroll1"
                       style="position: fixed; width: 16.5%;  min-width: 211px; z-index: 99; height: calc(100% - 75px);">
-                    <?php if($this->beginCache('Right-13l234kjlkh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['customcat'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.(int)Yii::$app->request->getQueryParam('cat'), ['duration' => 86400])) { ?>
-                        <div class="partners-main-left-cont">
-                            <?= \frontend\widgets\RightTopMenuLinks::widget();
-                            if(isset(Yii::$app->params['layoutset']['opencat'])){
-                                $layoutset =   Yii::$app->params['layoutset']['opencat'];
-                            }else{
-                                $layoutset =   [0];
-                            };
-                            ?>
 
-                            <?= Menuom::widget([ 'chpu' =>Yii::$app->params['seourls'],'property' => ['id' => 'main', 'target' => '0', 'opencat' => $layoutset]]); ?>
-                        </div>
-                        <?= \frontend\widgets\RightBottomMenuLinks::widget() ?>
-                        <?php $this->endCache();
+                    <?php
+                    $keyCache = Yii::$app->cache->buildKey('Right-13lkj9823kh2-'.Yii::$app->params['seourls'].'-'.Yii::$app->params['customcat'].'-'.Yii::$app->params['constantapp']['APP_ID'].'-'.implode('/',Yii::$app->params['layoutset']['opencat']));
+                    if(($cache = Yii::$app->cache->get($keyCache)) == FALSE) {
+                        if(isset(Yii::$app->params['layoutset']['opencat'])){
+                            $layoutset =   Yii::$app->params['layoutset']['opencat'];
+                        }else{
+                            $layoutset=   [0];
+                        };
+                        $cache = '<div class="partners-main-left-cont">';
+                        $cache .= ''.\frontend\widgets\RightTopMenuLinks::widget();
+                        $cache .= ''.Menuom::widget([ 'chpu' =>Yii::$app->params['seourls'],'property' => ['id' => 'main', 'target' => '0', 'opencat' => $layoutset]]);
+                        $cache .= '</div>';
+                    $cache .= ''.\frontend\widgets\RightBottomMenuLinks::widget();
+                    Yii::$app->cache->set($keyCache, $cache, 86400);
+                    echo $cache;
+                    }else{
+                    echo $cache;
                     }?>
                 </div>
                 <div class="partners-main-left-cont" style="height: 55px; border-bottom: 1px solid rgb(204, 204, 204);"></div>
