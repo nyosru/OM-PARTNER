@@ -14,6 +14,10 @@ trait ActionConfigList
         $scandir_cat_configs = array_diff(scandir(\Yii::getAlias('@runtime') . '/cat/'), ['..', '.']);
         $scandir_cat_configs = array_values($scandir_cat_configs);
 
+        // удаляем папку для предпросмотра, чтобы не мозолил глаза
+        $preview_key = array_search('special_offers', $scandir_cat_configs);
+        unset($scandir_cat_configs[$preview_key]);
+
         foreach ($scandir_cat_configs as $key => $name) {
             $scandir_cat_configs[$key] = stristr($name, '.', true);
         }
