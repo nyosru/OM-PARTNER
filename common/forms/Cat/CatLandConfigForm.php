@@ -92,10 +92,18 @@ class CatLandConfigForm extends Model
             $file_special_offers[] = $this->special_offer;
         }
 
+        if(!file_exists(Yii::getAlias('@frontend') . '/runtime/cat/special_offers/special_offer'.$config_file_extension)) {
+            if (!mkdir(Yii::getAlias('@frontend') . '/runtime/cat/special_offers', 0777, true)) {
+                Yii::$app->session->setFlash('error', 'Ошибка, данные не сохранены');
+
+                return false;
+            }
+        }
+
         if (!file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/special_offers/special_offer' . $config_file_extension,
             json_encode($file_special_offers))
         ) {
-            Yii::$app->session->setFlash('error', 'Ошибка, данные не сохранены');
+            Yii::$app->session->setFlash('error', 'qweОшибка, данные не сохранены');
 
             return false;
         }
