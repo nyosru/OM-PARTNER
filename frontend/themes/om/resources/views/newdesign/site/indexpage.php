@@ -91,34 +91,34 @@ $this->title = $title;
 
 <!-- header banner  -->
 <div class="header-banner">
-    <div class="assetBlock">
-        <p><a href="#">Только сегодня <span>коньки</span> по супернизким ценам &gt; </a></p>
-    </div>
+<!--    <div class="assetBlock">-->
+<!--        <p><a href="#">Только сегодня <span>коньки</span> по супернизким ценам &gt; </a></p>-->
+<!--    </div>-->
     <div class="our-features-box">
         <div class="container">
             <ul>
                 <li>
                     <div class="feature-box">
-                        <div class="icon-truck"></div>
-                        <div class="content">Самые низкие цены</div>
+                        <div class="om-icon om-icon-minorder"></div>
+                        <div class="content" style="margin-top: 3px;">Минимальный заказ всего от 5000 руб</div>
                     </div>
                 </li>
                 <li>
                     <div class="feature-box">
-                        <div class="icon-support"></div>
-                        <div class="content">Более 1,000,000 заказов</div>
+                        <div class="om-icon om-icon-lowprice"></div>
+                        <div class="content" style="margin-top: 3px;">Наценка на товары минимальная</div>
                     </div>
                 </li>
                 <li>
                     <div class="feature-box">
-                        <div class="icon-money"></div>
-                        <div class="content">Более 300,000 товаров</div>
+                        <div class="om-icon om-icon-newgoods"></div>
+                        <div class="content">До 2000 новинок ежедневно</div>
                     </div>
                 </li>
                 <li class="last">
                     <div class="feature-box">
-                        <div class="icon-return"></div>
-                        <div class="content">Новинки каждый день</div>
+                        <div class="om-icon om-icon-delivery"></div>
+                        <div class="content">Доставка по России и СНГ</div>
                     </div>
                 </li>
             </ul>

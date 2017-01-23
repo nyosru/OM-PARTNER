@@ -15310,3 +15310,24 @@ a#fancybox-close {
 .cart-table tr[data-calc="false"]{
     background-color: rgba(255, 0, 0, 0.20);
 }
+.feature-box .om-icon{
+    display: block;
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.om-icon-minorder{
+    background-image: url("/images/icons/features/minorder.png");
+}
+.om-icon-delivery{
+    background-image: url("/images/icons/features/delivery.png");
+}
+.om-icon-lowprice{
+    background-image: url("/images/icons/features/lowprice.png");
+}
+.om-icon-newgoods{
+    background-image: url("/images/icons/features/newgoods.png");
+}

@@ -37,9 +37,18 @@ trait ThemeResources
                         while (false !== ($file = readdir($resdir))) {
                             $cssar = explode('.', $file);
                             if (end($cssar) == 'css') {
+                                if($cssar[0] == 'style'){
+                                    $main_css = $csspathpub[1] . '/' . $file . '?v=' . filemtime($resourcespath . '/css/' . $csspath . '/' . $side . '/' . $file);
+                                    continue;
+                                }
                                 $css[] = $csspathpub[1] . '/' . $file . '?v=' . filemtime($resourcespath . '/css/' . $csspath . '/' . $side . '/' . $file);
                             };
                         }
+                        // style.css подключаем последним
+                        if(!empty($main_css)){
+                            array_push($css, $main_css);
+                        }
+
                     }
                 }
                 if (!$jspath) {
