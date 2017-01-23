@@ -38,12 +38,12 @@ class Menuom extends \yii\bootstrap\Widget
                </li>'
     ];
     public $options = [
-       'exhtml'=>[
-           'open'=>'<span>+ </span>',
-           'close'=>'<span>- </span>',
-           'root'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
-           'last'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
-       ],
+        'exhtml'=>[
+            'open'=>'<span>+ </span>',
+            'close'=>'<span>- </span>',
+            'root'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
+            'last'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
+        ],
         'active'=>[
             'tag'=> 'open',
             'anchor'=> 'checked'
@@ -99,13 +99,13 @@ class Menuom extends \yii\bootstrap\Widget
         if(method_exists($this,$generate)){
             $menu = $this->$generate($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
             preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
+            $menu_html = $this->tpl['wrap'];
             foreach ($match[1] as $key=>$value){
                 if(isset($$value)) {
-                    $replace[] = $$value;
-                    $patterns[] = '/{\$' . $value . '}/iu';
+                    $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
                 }
             }
-            return preg_replace($patterns, $replace ,$this->tpl['wrap']);
+            return $menu_html;
         }else{
             return FALSE;
         }
@@ -164,7 +164,7 @@ class Menuom extends \yii\bootstrap\Widget
                         }
                         $exhtml = $open_tag ;
                     }
-                    if(!$this->categoryChpu($catdesc) || $this->chpu == FALSE){
+                    if(Yii::$app->params['seourls'] == FALSE && !$this->categoryChpu($catdesc) || $this->chpu == FALSE){
                         $uri = '?cat=' . $catdesc ;
                     }else{
                         $uri = '/'.$this->categoryChpu($catdesc);
@@ -176,15 +176,13 @@ class Menuom extends \yii\bootstrap\Widget
                     $name = $catnamearr["$catdesc"];
                     $uri =  BASEURL.$this->options['baseuri'].$uri;
                     preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['link'],$match);
-                    $replace = [];
-                    $patterns = [];
+                    $menu_html_sub = $this->tpl['link'];
                     foreach ($match[1] as $key=>$value){
                         if(isset($$value)) {
-                            $replace[] = $$value;
-                            $patterns[] = '/{\$' . $value . '}/iu';
+                            $menu_html_sub = str_replace('{$' . $value . '}', $$value , $menu_html_sub);
                         }
                     }
-                    $s .= preg_replace($patterns, $replace ,$this->tpl['link']);
+                    $s .= $menu_html_sub;
                 }
             }
             $sub = $s;
@@ -192,14 +190,14 @@ class Menuom extends \yii\bootstrap\Widget
             $parentid = $arr[$parent_id]['parent_id'] ;
             $x .= ''.$s;
             preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['block'],$match);
+            $menu_html = $this->tpl['block'];
             foreach ($match[1] as $key=>$value){
                 if(isset($$value)) {
-                    $replace[] = $$value;
-                    $patterns[] = '/{\$' . $value . '}/iu';
+                    $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
                 }
             }
         }
-        return preg_replace($patterns, $replace ,$this->tpl['block']);
+        return $menu_html;
     }
 
 }
