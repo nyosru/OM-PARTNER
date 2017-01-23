@@ -28,6 +28,11 @@ trait ActionConfigure
         if (isset($j) && $j) {
             $land_config = (array)json_decode($j, true);
         }
+        $special_offer = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/store/special_offer' . '.json');
+        $special_offer = (array)json_decode($special_offer, true);
+        if(count($special_offer) == 0) {
+            $special_offer = [];
+        }
 
         $model = new CatLandConfigForm();
 
@@ -45,7 +50,7 @@ trait ActionConfigure
             ]);
         }
         return $this->render('cat/configure/index',
-            ['model' => $model, 'land_config' => $land_config]);
+            ['model' => $model, 'land_config' => $land_config, 'special_offer' => $special_offer]);
     }
 
 }

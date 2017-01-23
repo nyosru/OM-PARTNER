@@ -81,29 +81,25 @@ class CatLandConfigForm extends Model
 
         $config_file_extension = '.json';
 
-        $file_special_offers = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/store/special_offers' . $config_file_extension);
+        $file_special_offers = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/store/special_offer' . $config_file_extension);
         $file_special_offers = (array)json_decode($file_special_offers, true);
-
-        if (!is_array($file_special_offers)) {
-            $file_special_offers = [];
-        }
 
         if (!in_array($this->special_offer, $file_special_offers)) {
             $file_special_offers[] = $this->special_offer;
         }
 
-        if(!file_exists(Yii::getAlias('@frontend') . '/runtime/cat/special_offers/special_offer'.$config_file_extension)) {
-            if (!mkdir(Yii::getAlias('@frontend') . '/runtime/cat/special_offers', 0777, true)) {
+        if(!file_exists(Yii::getAlias('@frontend') . '/runtime/cat/store/special_offer'.$config_file_extension)) {
+            if (!mkdir(Yii::getAlias('@frontend') . '/runtime/cat/store', 0777, true)) {
                 Yii::$app->session->setFlash('error', 'Ошибка, данные не сохранены');
 
                 return false;
             }
         }
 
-        if (!file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/special_offers/special_offer' . $config_file_extension,
+        if (!file_put_contents(Yii::getAlias('@frontend') . '/runtime/cat/store/special_offer' . $config_file_extension,
             json_encode($file_special_offers))
         ) {
-            Yii::$app->session->setFlash('error', 'qweОшибка, данные не сохранены');
+            Yii::$app->session->setFlash('error', 'Ошибка, данные не сохранены');
 
             return false;
         }
