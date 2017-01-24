@@ -17,7 +17,7 @@ trait ActionConfigure
         $j = file_get_contents(Yii::getAlias('@frontend') . '/runtime/cat/' . $config_name . '.json');
 
         if ($preview_toggle) {
-            $j_prev = Yii::$app->cache->get('preview_config' . $config_name);
+            $j_prev = Yii::$app->session->get('preview_config' . $config_name);
             if ($j_prev) {
                 $j = $j_prev;
             }
