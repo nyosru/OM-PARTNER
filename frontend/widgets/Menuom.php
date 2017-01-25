@@ -6,6 +6,7 @@ use common\traits\Categories\CustomCatalog;
 use common\traits\Categories_for_partner;
 use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
+use yii\helpers\BaseHtmlPurifier;
 use yii\helpers\Html;
 use Yii;
 
@@ -26,7 +27,7 @@ class Menuom extends \yii\bootstrap\Widget
     public $output2 = '';
     public $tpl = [
         'wrap'=>'<div id="{$id}">{$menu}</div>',
-        'block'=>'<ul  class="accordion" {$style} data-level="{$level}" data-categories="{$categories}" data-parent="{$parentid}">{$sub}</ul>',
+        'block'=>'<ul  class="accordion" {$style} data-level="{$level}" data-categories="{$categories}" data-parent="{$parentid}">{$content}</ul>',
         'link'=>'<li class="{$open}">
                     <div class="link {$checked}"  data-cat="{$catdesc}">
                         {$exhtml}
@@ -50,7 +51,8 @@ class Menuom extends \yii\bootstrap\Widget
         ],
         'start_level'=>0,
         'generator'=>'standart',
-        'baseuri' => '/catalog'
+        'baseuri' => '/catalog',
+        'limit'=> 3
     ];
 
     public function init()
@@ -96,26 +98,23 @@ class Menuom extends \yii\bootstrap\Widget
     {
         $id = $this->id;
         $generate = 'menuGen'.mb_convert_case($this->options['generator'], MB_CASE_TITLE);
-        if(method_exists($this,$generate)){
-            $menu = $this->$generate($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
-            preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
-            $menu_html = $this->tpl['wrap'];
-            foreach ($match[1] as $key=>$value){
-                if(isset($$value)) {
-                    $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
-                }
+        $menu = $this->$generate($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
+        preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
+        $menu_html = $this->tpl['wrap'];
+        foreach ($match[1] as $key=>$value){
+            if(isset($$value)) {
+                $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
             }
-            return $menu_html;
-        }else{
-            return FALSE;
         }
+        return $menu_html;
 
     }
 
     public function menuGenStandart($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [], $level)
     {
-        $s = '';
-        $x = '';
+        if($level > $this->options['limit']){
+            return '';
+        }
         if ($opencat == NULL) {
             $opencat = [];
         }
@@ -127,9 +126,21 @@ class Menuom extends \yii\bootstrap\Widget
             } else {
                 $style = 'style="display: none;"';
             }
+
+            $categories =  $arr[$parent_id]['categories_id'];
+            $parentid = $arr[$parent_id]['parent_id'] ;
+            preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['block'],$match);
+            $menu_html = $this->tpl['block'];
+            foreach ($match[1] as $key=>$value){
+                if(isset($$value)) {
+                    $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
+                }
+            }
+            $partblock = explode('{$content}',$menu_html);
+            $this->output2 .= $partblock[0];
             for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                 $catdesc = $arr[$parent_id][$i]['categories_id'];
-                if (!$arr[$parent_id][$i] == '') {
+                if ($arr[$parent_id][$i]) {
                     if (in_array($catdesc, $opencat)) {
                         $open = $this->options['active']['tag'];
                     } else {
@@ -172,7 +183,6 @@ class Menuom extends \yii\bootstrap\Widget
                     if(!$catnamearr["$catdesc"]){
                         $catnamearr["$catdesc"] = 'NoNaMe'.$catdesc;
                     }
-                    $subcat = $this->menuGenStandart($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
                     $name = $catnamearr["$catdesc"];
                     $uri =  BASEURL.$this->options['baseuri'].$uri;
                     preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['link'],$match);
@@ -182,22 +192,15 @@ class Menuom extends \yii\bootstrap\Widget
                             $menu_html_sub = str_replace('{$' . $value . '}', $$value , $menu_html_sub);
                         }
                     }
-                    $s .= $menu_html_sub;
+                    $part = explode('{$subcat}',$menu_html_sub);
+                    $this->output2 .= $part[0];
+                    $this->menuGenStandart($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
+                    $this->output2 .= $part[1];
                 }
             }
-            $sub = $s;
-            $categories =  $arr[$parent_id]['categories_id'];
-            $parentid = $arr[$parent_id]['parent_id'] ;
-            $x .= ''.$s;
-            preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['block'],$match);
-            $menu_html = $this->tpl['block'];
-            foreach ($match[1] as $key=>$value){
-                if(isset($$value)) {
-                    $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
-                }
-            }
+            $this->output2 .= $partblock[1];
         }
-        return $menu_html;
+        return $this->output2;
     }
 
 }
