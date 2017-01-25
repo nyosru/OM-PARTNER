@@ -147,7 +147,7 @@ $this->beginPage();
                             </button>
                         </form>
                     <?php } else { ?>
-                        <form action="/catalog/">
+                        <form action="/catalog">
                             <input autocomplete="off" name="searchword"
                                    value="<?= \yii\helpers\BaseHtmlPurifier::process(Yii::$app->request->getQueryParam('searchword')) ?>"
                                    class="search no-shadow-form-control" placeholder="Введите артикул или название"
