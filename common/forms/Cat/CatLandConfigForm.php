@@ -141,12 +141,9 @@ class CatLandConfigForm extends Model
         ];
 
 
-        if (Yii::$app->session->set('preview_config'. $this->config_name, json_encode($json_config))) {
-            return true;
-        } else {
-            Yii::$app->session->setFlash('error', 'Произошла ошибка');
-            return false;
-        }
+        Yii::$app->session->set('preview_config'. $this->config_name, json_encode($json_config));
+        return true;
+
     }
 
     public function saveImages($files = [])
