@@ -6,7 +6,6 @@ use common\traits\Categories\CustomCatalog;
 use common\traits\Categories_for_partner;
 use common\traits\RecursCat;
 use common\traits\Reformat_cat_array;
-use yii\helpers\BaseHtmlPurifier;
 use yii\helpers\Html;
 use Yii;
 
@@ -44,6 +43,8 @@ class Menuom extends \yii\bootstrap\Widget
 
     public function run()
     {
+        parent::run();
+        return '<div id="' . $this->id . '">' . $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat) . '</div>';
     }
 
     public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [])
@@ -59,10 +60,10 @@ class Menuom extends \yii\bootstrap\Widget
             } else {
                 $style = 'style="display: none;"';
             }
-
+            $this->output2 .= '<ul  class="accordion" ' . $style . ' data-categories="' . $arr[$parent_id]['categories_id'] . '" data-parent="' . $arr[$parent_id]['parent_id'] . '">';
             for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                 $catdesc = $arr[$parent_id][$i]['categories_id'];
-                if ($arr[$parent_id][$i]) {
+                if (!$arr[$parent_id][$i] == '') {
                     if (in_array($catdesc, $opencat)) {
                         $openli = 'open';
                     } else {
@@ -87,11 +88,17 @@ class Menuom extends \yii\bootstrap\Widget
                     if(!$this->categoryChpu($catdesc) || $this->chpu == FALSE){
                         $uri = '?cat=' . $catdesc ;
                     }else{
-                       $uri = '/'.$this->categoryChpu($catdesc);
+                        $uri = '/'.$this->categoryChpu($catdesc);
                     }
                     if(!$catnamearr["$catdesc"]){
                         $catnamearr["$catdesc"] = 'NoNaMe'.$catdesc;
                     }
+                    $this->output2 .= '<li class=" ' . $openli . '"><div class="link ' . $aclass . '"  data-cat="' . $catdesc . '"> ' . $exthtml . '<a class="lock-on ' . $aclass . '" href="' . BASEURL . '/catalog'.$uri.'">' . $catnamearr["$catdesc"] . '</a></div>';
+                    $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);
+                    $this->output2 .= '</li>';
+                }
+            }
+            $this->output2 .= '</ul>';
         }
         return $this->output2;
     }
