@@ -56,6 +56,7 @@ foreach ($start_url as $key=>$val){
 $url = new \yii\helpers\Url();
 
 $urlsrc[] = $newurl;
+$customh = \common\traits\PageGen\MetaGenClass::metaGen($this, 'v2', 'catalog' , $cat);
 
 if ($data[0] != 'Не найдено!') {
     echo '<div class="partners-main-right bside">';
@@ -106,8 +107,8 @@ if ($data[0] != 'Не найдено!') {
     if($catpath['num'] != 0) {
       $catname =  end($catpath['name']);
     }
-    if(Yii::$app->params['layoutset']['h1']){
-        $catname = Yii::$app->params['layoutset']['h1'];
+    if($customh){
+        $catname = $customh;
     }
     $headbside .= '<h1 style="float: left; width: 100%;">' . $catname . '</h1>';
     $headbside .=  '<form class="partners-main-right filter" action="">
@@ -340,10 +341,10 @@ if ($data[0] != 'Не найдено!') {
         $thistitle = 'Результаты поиска';
     } elseif ($cat == 0) {
         $thistitle = 'Каталог';
-    } else {
+    } elseif(!$this->title) {
         $thistitle = implode(', ', $catpath['name']);
+        $this->title = $thistitle . ' : Самый большой выбор по самым низким ценам в интернет магазине Одежда Мастер - Страница -' . ($page + 1);
     }
-    $this->title = $thistitle . ' : Самый большой выбор по самым низким ценам в интернет магазине Одежда Мастер - Страница -' . ($page + 1);
     echo $innerhtml;
 
     // echo '<div class="productloader" style="padding: 1px 8px; color: rgb(79, 79, 79); margin: 4px; clear: both; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: center;">Loader</div>';

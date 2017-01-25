@@ -22,9 +22,36 @@ class Menuom extends \yii\bootstrap\Widget
     private $id;
     private $startcat;
     private $opencat;
-    private $rend;
     public $chpu = FALSE;
     public $output2 = '';
+    public $tpl = [
+        'wrap'=>'<div id="{$id}">{$menu}</div>',
+        'block'=>'<ul  class="accordion" {$style} data-level="{$level}" data-categories="{$categories}" data-parent="{$parentid}">{$sub}</ul>',
+        'link'=>'<li class="{$open}">
+                    <div class="link {$checked}"  data-cat="{$catdesc}">
+                        {$exhtml}
+                        <a class="lock-on {$checked}" href="{$uri}">
+                            {$name}
+                        </a>
+                    </div>
+                    {$subcat}
+               </li>'
+    ];
+    public $options = [
+        'exhtml'=>[
+            'open'=>'<span>+ </span>',
+            'close'=>'<span>- </span>',
+            'root'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
+            'last'=>['enable' => FALSE, 'open'=>'<span>>> </span>', 'close'=>'<span>> </span>'],
+        ],
+        'active'=>[
+            'tag'=> 'open',
+            'anchor'=> 'checked'
+        ],
+        'start_level'=>0,
+        'generator'=>'standart',
+        'baseuri' => '/catalog'
+    ];
 
     public function init()
     {
@@ -37,18 +64,58 @@ class Menuom extends \yii\bootstrap\Widget
         $this->cat_array = $this->reformat_cat_array($this->categories, $this->cat, $this->checks);
         $this->startcat = $this->property['target'];
         $this->opencat = $this->property['opencat'];
+        if(isset($this->property['generator'])){
+            $this->options['generator'] = $this->property['generator'];
+        }
+        if(isset($this->property['exhtml']['open'])){
+            $this->options['exhtml']['open'] = $this->property['exhtml']['open'];
+        }
+        if(isset($this->property['exhtml']['close'])){
+            $this->options['exhtml']['close'] = $this->property['exhtml']['close'];
+        }
+        if(isset($this->property['exhtml']['root'])){
+            $this->options['exhtml']['root'] = $this->property['exhtml']['root'];
+        }
+        if(isset($this->property['exhtml']['last'])){
+            $this->options['exhtml']['last'] = $this->property['exhtml']['last'];
+        }
+        if(isset($this->property['active']['tag'])){
+            $this->options['active']['tag'] = $this->property['active']['tag'];
+        }
+        if(isset($this->property['active']['anchor'])){
+            $this->options['active']['anchor'] = $this->property['active']['anchor'];
+        }
+        if(isset($this->property['start_level'])){
+            $this->options['start_level'] = $this->property['start_level'];
+        }
         $this->id = $this->property['id'];
     }
 
 
     public function run()
     {
-        parent::run();
-        return '<div id="' . $this->id . '">' . $this->view_catphp($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat) . '</div>';
+        $id = $this->id;
+        $generate = 'menuGen'.mb_convert_case($this->options['generator'], MB_CASE_TITLE);
+        if(method_exists($this,$generate)){
+            $menu = $this->$generate($this->cat_array['cat'], $this->startcat, $this->cat_array['name'], $this->check, $this->opencat, $this->options['start_level']);
+            preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['wrap'],$match);
+            $menu_html = $this->tpl['wrap'];
+            foreach ($match[1] as $key=>$value){
+                if(isset($$value)) {
+                    $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
+                }
+            }
+            return $menu_html;
+        }else{
+            return FALSE;
+        }
+
     }
 
-    public function view_catphp($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [])
+    public function menuGenStandart($arr, $parent_id = 0, $catnamearr, $allow_cat, $opencat = [], $level)
     {
+        $s = '';
+        $x = '';
         if ($opencat == NULL) {
             $opencat = [];
         }
@@ -60,48 +127,77 @@ class Menuom extends \yii\bootstrap\Widget
             } else {
                 $style = 'style="display: none;"';
             }
-            $this->output2 .= '<ul  class="accordion" ' . $style . ' data-categories="' . $arr[$parent_id]['categories_id'] . '" data-parent="' . $arr[$parent_id]['parent_id'] . '">';
             for ($i = 0; $i < count($arr[$parent_id]); $i++) {
                 $catdesc = $arr[$parent_id][$i]['categories_id'];
                 if (!$arr[$parent_id][$i] == '') {
                     if (in_array($catdesc, $opencat)) {
-                        $openli = 'open';
+                        $open = $this->options['active']['tag'];
                     } else {
-                        $openli = '';
+                        $open = '';
                     }
                     $xcat = count($opencat) - 1;
                     if ($catdesc == $opencat[$xcat]) {
-                        $aclass = 'checked';
+                        $checked = $this->options['active']['anchor'];
                     } else {
-                        $aclass = '';
+                        $checked = '';
                     }
-                    if ($parent_id == 0) {
-                        $exthtml = '';
-                    } elseif (!$arr[$arr[$parent_id][$i]['categories_id']]) {
-                        $exthtml = '&nbsp;';
+                    if ($parent_id == 0 && $this->options['exhtml']['root']['enable'] == FALSE) {
+                        $exhtml = '';
+                    } elseif (!$arr[$arr[$parent_id][$i]['categories_id']] && $this->options['exhtml']['last']['enable'] == FALSE) {
+                        $exhtml = '';
                     } elseif (in_array($catdesc, $opencat)) {
-                        $exthtml = '- ';
+                        if($this->options['exhtml']['root']['enable'] == TRUE && $parent_id == 0){
+                            $open_tag =  $this->options['exhtml']['root']['close'];
+                        }elseif($this->options['exhtml']['last']['enable'] == TRUE && !$arr[$arr[$parent_id][$i]['categories_id']]){
+                            $open_tag =  $this->options['exhtml']['last']['close'];
+                        }else{
+                            $open_tag = $this->options['exhtml']['close'];
+                        }
+                        $exhtml = $open_tag ;
                     } else {
-                        $exthtml = '+ ';
+                        if($this->options['exhtml']['root']['enable'] == TRUE && $parent_id == 0){
+                            $open_tag =  $this->options['exhtml']['root']['open'];
+                        }elseif($this->options['exhtml']['last']['enable'] == TRUE && !$arr[$arr[$parent_id][$i]['categories_id']]){
+                            $open_tag =  $this->options['exhtml']['last']['open'];
+                        }else{
+                            $open_tag = $this->options['exhtml']['open'];
+                        }
+                        $exhtml = $open_tag ;
                     }
-
-                    if(!$this->categoryChpu($catdesc) || $this->chpu == FALSE){
+                    if(Yii::$app->params['seourls'] == FALSE && !$this->categoryChpu($catdesc) || $this->chpu == FALSE){
                         $uri = '?cat=' . $catdesc ;
                     }else{
-                       $uri = '/'.$this->categoryChpu($catdesc);
+                        $uri = '/'.$this->categoryChpu($catdesc);
                     }
                     if(!$catnamearr["$catdesc"]){
                         $catnamearr["$catdesc"] = 'NoNaMe'.$catdesc;
                     }
-                    $this->output2 .= '<li class=" ' . $openli . '"><div class="link ' . $aclass . '"  data-cat="' . $catdesc . '"> ' . $exthtml . '<a class="lock-on ' . $aclass . '" href="' . BASEURL . '/catalog'.$uri.'">' . $catnamearr["$catdesc"] . '</a></div>';
-                    $this->view_catphp($arr, $arr[$parent_id][$i]['categories_id'], $catnamearr, $allow_cat, $opencat);
-                    $this->output2 .= '</li>';
+                    $subcat = $this->menuGenStandart($arr, $catdesc, $catnamearr, $allow_cat, $opencat, $level+1);
+                    $name = $catnamearr["$catdesc"];
+                    $uri =  BASEURL.$this->options['baseuri'].$uri;
+                    preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['link'],$match);
+                    $menu_html_sub = $this->tpl['link'];
+                    foreach ($match[1] as $key=>$value){
+                        if(isset($$value)) {
+                            $menu_html_sub = str_replace('{$' . $value . '}', $$value , $menu_html_sub);
+                        }
+                    }
+                    $s .= $menu_html_sub;
                 }
             }
-            $this->output2 .= '</ul>';
+            $sub = $s;
+            $categories =  $arr[$parent_id]['categories_id'];
+            $parentid = $arr[$parent_id]['parent_id'] ;
+            $x .= ''.$s;
+            preg_match_all('/{\$(\w*\d*\_*)}/iu',$this->tpl['block'],$match);
+            $menu_html = $this->tpl['block'];
+            foreach ($match[1] as $key=>$value){
+                if(isset($$value)) {
+                    $menu_html = str_replace('{$' . $value . '}', $$value , $menu_html);
+                }
+            }
         }
-        return $this->output2;
+        return $menu_html;
     }
-
 
 }
