@@ -21,7 +21,7 @@ class MainBanner extends \yii\bootstrap\Widget
         'term'=> '',
         'content'=> ''
     ];
-
+    public $custom_path = '';
     public $banners = [
         'top-banner' => [
             [
@@ -300,12 +300,12 @@ class MainBanner extends \yii\bootstrap\Widget
             ]);
         }
         return $this->render('main-banner/default',[
-            'template'=>$this->template['main'],
+            'template'=> $this->template['main'] ?: $this->template,
             'position'=> $this->position,
             'ROTATE_NONE' => self::ROTATE_NONE,
             'ROTATE_RAND' => self::ROTATE_RAND,
             'ROTATE_ROLL' => self::ROTATE_ROLL,
-            'IMAGE_PATH' => self::IMAGE_PATH,
+            'IMAGE_PATH' => $this->custom_path ?: self::IMAGE_PATH,
             'utm_enable' => $this->utm_enable,
             'utm' => $this->utm,
         ]);

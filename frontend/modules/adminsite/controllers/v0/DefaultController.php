@@ -27,6 +27,12 @@ use frontend\modules\adminsite\controllers\actions\ActionSavesettings;
 use frontend\modules\adminsite\controllers\actions\ActionTemplateimage;
 use frontend\modules\adminsite\controllers\actions\ActionUserControl;
 use frontend\modules\adminsite\controllers\actions\ActionCoupons;
+use frontend\modules\adminsite\controllers\actions\cat\ActionConfigure;
+use frontend\modules\adminsite\controllers\actions\cat\ActionDeleteConfig;
+use frontend\modules\adminsite\controllers\actions\cat\ActionListUploadedImages;
+use frontend\modules\adminsite\controllers\actions\cat\ActionUpdateConfig;
+use frontend\modules\adminsite\controllers\actions\cat\ActionConfigList;
+use frontend\modules\adminsite\controllers\actions\cat\ActionUploadOneCatPhoto;
 use Yii;
 use yii\db\Exception;
 use yii\web\Controller;
@@ -59,7 +65,13 @@ class DefaultController extends Controller
         ActionDocuments,
         ActionOrderRevert,
         ActionMainpageset,
-        Trim_Tags;
+        Trim_Tags,
+        ActionConfigure,
+        ActionConfigList,
+        ActionUpdateConfig,
+        ActionUploadOneCatPhoto,
+        ActionListUploadedImages,
+        ActionDeleteConfig;
 
     public function behaviors()
     {
@@ -68,55 +80,61 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'roles' => [
+                        'roles'   => [
 
-                            'admin'
+                            'admin',
 
                         ],
-                                    'actions' => [
-                                        'index',
-                                        'coupons',
-                                        'orderupdate',
-                                        'mainpageset',
-                                        'orderrevert',
-                                        'usercontrol',
-                                        'newspage',
-                                        'documents',
-                                        'requestpage',
-                                        'commentspage',
-                                        'commentscontrol',
-                                        'newsupdate',
-                                        'savesettings',
-                                        'requestusers',
-                                        'requestnews',
-                                        'requestupdate',
-                                        'requestorders',
-                                        'delegate',
-                                        'cancelorder',
-                                        'templateimage',
-                                        'partnerscategories'
-                                    ],
-                        'allow' => true,
+                        'actions' => [
+                            'index',
+                            'coupons',
+                            'orderupdate',
+                            'mainpageset',
+                            'orderrevert',
+                            'usercontrol',
+                            'newspage',
+                            'documents',
+                            'requestpage',
+                            'commentspage',
+                            'commentscontrol',
+                            'newsupdate',
+                            'savesettings',
+                            'requestusers',
+                            'requestnews',
+                            'requestupdate',
+                            'requestorders',
+                            'delegate',
+                            'cancelorder',
+                            'templateimage',
+                            'partnerscategories',
+                            'configure',
+                            'config-list',
+                            'update-config',
+                            'delete-config',
+                            'upload-one-cat-photo',
+                            'list-uploaded-images',
+                        ],
+                        'allow'   => true,
                     ],
                     [
-                        'roles' => [
+                        'roles'   => [
 
-                            'author'
+                            'author',
 
                         ],
-                                    'actions' => [
-                                        'index',
-                                        'requestusers',
-                                        'newspage',
-                                        'requestorders',
-                                        'commentspage',
-                                        'requestpage'
-                                    ],
-                        'allow' => true,
+                        'actions' => [
+                            'index',
+                            'requestusers',
+                            'newspage',
+                            'requestorders',
+                            'commentspage',
+                            'requestpage',
+                        ],
+                        'allow'   => true,
                     ],
 
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -129,6 +147,7 @@ class DefaultController extends Controller
     public function actions()
     {
         $this->layout = 'main';
+
         return 'Админка';
     }
 }
