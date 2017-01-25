@@ -89,61 +89,6 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
     NavBar::end();
     ?>
     <div class="container" id="partners-main">
-        <div class="container" id="partners-main-left-back-admin">
-            <div id="partners-main-left">
-                <div id="partners-main-left-cont">
-                    <div class="header-catalog"><i class="fa fa-bars"></i> МЕНЮ
-                    </div>
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link users"><a href="/adminsite/">Настройки</a></div>
-                        </li>
-                    </ul>
-                    <!--                    <ul id="accordion" class="accordion">-->
-                    <!--                        <li class="">-->
-                    <!--                            <div class="link users"><a href="/admin/default/mainpageset">Главная</a></div>-->
-                    <!--                        </li>-->
-                    <!--                    </ul>-->
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link users"><a href="/adminsite/default/requestusers">Пользователи</a></div>
-                        </li>
-                    </ul>
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link users"><a href="/adminsite/default/requestorders">Заказы</a></div>
-                        </li>
-                    </ul>
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link news"><a href="/adminsite/default/newspage">Новости</a></div>
-                        </li>
-                    </ul>
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link news"><a href="/adminsite/default/commentspage">Комментарии</a></div>
-                        </li>
-                    </ul>
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link news"><a href="/adminsite/default/requestpage">Заявки</a></div>
-                        </li>
-                    </ul>
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link news"><a href="/adminsite/default/coupons">Купоны</a></div>
-                        </li>
-                    </ul>
-                    <ul id="accordion" class="accordion">
-                        <li class="">
-                            <div class="link news"><a href="/adminsite/default/config-list">Рекламный ленд</a></div>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-        <div class="container-fluid" id="partners-main-right-back-admin">
             <div id="partners-main-right" class="bside">
                 <?php if(!empty(Yii::$app->getSession()->getFlash('error'))) {?>
                     <div class="alert alert-danger alert-dismissable">
@@ -159,7 +104,6 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
                 <?php }?>
                 <?= $content ?>
             </div>
-        </div>
     </div>
     <div style="height: 60px"></div>
     <footer class="footer">
@@ -171,7 +115,7 @@ $name = Yii::$app->params['constantapp']['APP_NAME'];
     </footer>
 
     <?php $this->endBody();
-    if (Yii::$app->params['adminasset']->registerAssetFiles($this)) {
+    if (Yii::$app->params['assetsite']->registerAssetFiles($this)) {
 
     } else {
 
