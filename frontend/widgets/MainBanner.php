@@ -129,54 +129,54 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_16012017_1.png',
-                'referal'=> '/catalog?cat=1725',
+                'image' =>  'OM_20012017_1.png',
+                'referal'=> '/catalog?cat=1758',
                 'term'=> '',
-                'alttext' => 'Короткие платья',
+                'alttext' => 'Джинсы',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_16012017_2.png',
-                'referal'=> '/catalog?cat=1731',
+                'image' =>  'OM_20012017_2.png',
+                'referal'=> '/catalog?cat=1720',
                 'term'=> '',
-                'alttext' => 'Туники',
+                'alttext' => 'Платья',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_16012017_3.png',
-                'referal'=> '/catalog?cat=1751',
+                'image' =>  'OM_20012017_3.png',
+                'referal'=> '/catalog?cat=1979',
                 'term'=> '',
-                'alttext' => 'Зимние куртки и пуховики',
+                'alttext' => 'Ботильоны',
                 'out' => FALSE
             ]
         ],
         'small2' => [
             [
-                'image' => 'OM_16012017_4.png',
-                'referal'=> '/catalog?cat=1574',
+                'image' => 'OM_20012017_4.png',
+                'referal'=> '/catalog?cat=2047',
                 'term'=> '',
-                'alttext' => 'Куклы и мягкие игрушки',
+                'alttext' => 'Женские сумки, рюкзаки',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_16012017_5.png',
-                'referal'=> '/catalog?cat=1729',
+                'image' => 'OM_20012017_5.png',
+                'referal'=> '/catalog?cat=1728&sfilt%5B%5D=15502',
                 'term'=> '',
-                'alttext' => 'Блузы',
+                'alttext' => 'Блузки, рубашки, туники',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_16012017_6.png',
-                'referal'=> '/products-discount',
-                'alttext' => 'Скидки для всех',
+                'image' => 'OM_20012017_6.png',
+                'referal'=> '/catalog?cat=3453',
+                'alttext' => '14 февраля',
                 'out' => FALSE
             ]
         ],
