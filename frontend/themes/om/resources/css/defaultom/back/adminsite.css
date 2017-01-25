@@ -1,0 +1,26 @@
+/* grid */
+.row-e {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+}
+
+.row-e > [class*="col-"] {
+    padding: 0px 10px ;
+}
+
+.row-e > [class*="col-"]:first-child {
+    padding-left: 0px ;
+}
+
+.row-e > [class*="col-"]:last-child {
+    padding-right: 0px ;
+}
+
+.center {margin: 0 auto; text-align: center}
+
+.action_grid {
+    display: inline-block;
+    padding: 0px 10px;
+}
+
