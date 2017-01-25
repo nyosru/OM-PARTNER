@@ -1,0 +1,1 @@
+<?= \frontend\widgets\CatLandGenerator::widget($land_config) ?>
