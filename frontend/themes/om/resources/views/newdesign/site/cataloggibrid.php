@@ -100,10 +100,10 @@ if ($data[0] != 'Не найдено!') {
         </div>
     </div>
 </div>
-<section class="main-container col2-left-layout bounceInUp">
+<section class="main-container col2-left-layout">
     <?=\frontend\widgets\MainBanner::widget(['template'=>'category-slider']);?>
     <?php if ($catpath['num'][0] == 0) { ?>
-        <div class="top-banner-section">
+        <div class="top-banner-section categories-images">
             <div class="container">
                 <div class="row">
                     <?=NewMenuom::widget([

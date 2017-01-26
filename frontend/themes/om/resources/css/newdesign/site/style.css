@@ -15342,3 +15342,11 @@ a#fancybox-close {
     font-size: 22px;
     font-weight: 600;
 }
+.categories-images .col{
+    margin: 3px;
+}
+.categories-images .col:hover{
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
