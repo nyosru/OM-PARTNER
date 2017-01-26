@@ -2,6 +2,7 @@
 <?php
 use yii\bootstrap\Carousel;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 $this->title = $product['productsDescription']['products_name'];
 
@@ -13,60 +14,49 @@ $this->registerMetaTag(['content' => 'http://odezhda-master.ru/images/'.$product
 $this->registerMetaTag(['content' => 'Одежда Мастер. Интернет-магазин', 'property' => 'og:site_name',]);
 $this->registerMetaTag(['content' => 'Цена: '.(integer)$product['products']['products_price'].' рублей. '.Html::encode($product['productsDescription']['products_description']), 'property' => 'og:description',]);
 
-$prodinfoattr='<div class="size-block">';
+$product_size_input=[];
+$data_attr = [
+    'prod' => $product['products']['products_id'],
+    'model' => $product['products']['products_model'],
+    'price' => $product['products']['products_price'],
+    'image' => $product['products']['products_image'],
+    'name' => $product['productsDescription']['products_name'],
+    'min' => $product['products']['products_quantity_order_min'],
+    'step' => $product['products']['products_quantity_order_units'],
+    'count' => $product['products']['products_quantity'],
+    'attrname' => '',
+    'attr' => '',
+];
 if (count($product['productsAttributesDescr']) > 0) {
-    $numInFirstColumn=(int)(count($product['productsAttributesDescr'])/2);
     $countproductreal = 0;
     $sizeCounter=0;
     $product['productsAttributesDescr']=\yii\helpers\ArrayHelper::index($product['productsAttributesDescr'],'products_options_values_name');
     $product['productsAttributes']=\yii\helpers\ArrayHelper::index($product['productsAttributes'],'options_values_id');
 
     ksort($product['productsAttributesDescr'],SORT_NATURAL);
-    $prodinfoattr.='<div class="size-column1">';
     foreach ($product['productsAttributesDescr'] as $item) {
-        if($sizeCounter==($numInFirstColumn)){
-            $prodinfoattr.='</div><div class="size-column2">';
-        }
         $date = $product['products.products_date_added'];
         if($product['productsAttributes'][$item['products_options_values_id']] && $product['productsAttributes'][$item['products_options_values_id']]['quantity'] > 0) {
-            $prodinfoattr .= '<div class="size-desc"><div class="pr_op_va_name">' .
-                $item['products_options_values_name'] . '</div><div><div id="del-count">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:25%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' .
-                $product['products']['products_id'] . '" data-model="' .
-                $product['products']['products_model'] . '" data-price="' .
-                $product['products']['products_price'] . '" data-image="' .
-                $product['products']['products_image'] . '" data-attrname="' .
-                $item['products_options_values_name'] . '" data-attr="' .
-                $item['products_options_values_id'] . '"data-name="' .
-                $product['productsDescription']['products_name'] . '"data-min="' .
-                $product['products']['products_quantity_order_min'] . '"data-step="' .
-                $product['products']['products_quantity_order_units'] . '" data-count="' .
-                $product['productsAttributes'][$item['products_options_values_id']]['quantity'] .
-                '" type="text" placeholder="0" /><div id="add-count">+</div></div></div>';
+            $data_attr = ArrayHelper::merge($data_attr,[
+                'attrname' => $item['products_options_values_name'],
+                'attr' => $item['products_options_values_id'],
+                'count' => $product['productsAttributes'][$item['products_options_values_id']]['quantity'],
+            ]);
+            $product_size_input[] = [
+                'label' => $data_attr['attrname'],
+                'input' => Html::textInput('','',['data'=>$data_attr, 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0]),
+            ];
             $countproductreal += $product['productsAttributes'][$item['products_options_values_id']]['quantity'];
             $sizeCounter++;
         }
     }
-    if($countproductreal > 0) {
-        $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
-    }else{
-        $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; background: #E9516D; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">Продано</div>';
-    }
-
-    $prodinfoattr .= '</div></div></div>'.$cart_html;
 } else {
     $date = $product['products']['products_date_added'];
-    $prodinfoattr .= '<div class="size-desc" style="color: black;padding:0px; margin:0 0 24px 0; font-size: 12px; position: relative; max-width: 200px;width: 170px;"><div id="del-count" style="position: absolute; left: 0px; bottom: 1px;">-</div><input id="input-count" class="no-shadow-form-control" style="display:inline; width:55%;padding:0; height:23px; text-align:center; top:-1px;" data-prod="' . $product['products']['products_id'] . '" data-model="' . $product['products']['products_model'] . '" data-price="' .
-        $product['products']['products_price'] . '" data-image="' . $product['products']['products_image'] . '" data-attrname="" data-attr="" data-name="'.
-        $product['productsDescription']['products_name'].'"data-min="'.$product['products']['products_quantity_order_min'].'"data-step="'.$product['products']['products_quantity_order_units'].'" data-count="'.$product['products']['products_quantity'].'" type="text" placeholder="Количество" /><div id="add-count" style="position: absolute; right: 0px; bottom: 1px;">+</div></div>';
-
-
-    if($product['products']['products_quantity'] > 0) {
-        $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">В корзину</div>';
-    }else{
-        $cart_html = '<div class="cart-lable" data-sale="'.$product['products']['products_id'].'" style="position:relative ;bottom:0; left: 0; background: #E9516D; width: 163px; height: 43px; padding: 0px;text-transform: none; font-weight: 300; font-size: 14px; line-height:3;">Продано</div>';
-    }
-
-    $prodinfoattr .= '</div>'.$cart_html;
+    $countproductreal = $product['products']['products_quantity'];
+    $product_size_input[] = [
+        'label' => '',
+        'input' => Html::textInput('','',['data'=>$data_attr, 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0]),
+    ];
 }
 
 $items=array();
@@ -103,92 +93,107 @@ if(!$product['products']['products_image']){
 <div class="product-view">
 <div class="product-next-prev"> <a class="product-next" href="#"><span></span></a> <a class="product-prev" href="#"><span></span></a> </div>
 <div class="product-essential">
-    <form action="#" method="post" id="product_addtocart_form">
-        <input name="form_key" value="6UbXroakyQlbfQzK" type="hidden">
-        <div class="product-img-box col-sm-5 col-xs-12">
-            <div class="new-label new-top-left"> New </div>
-            <div class="product-image">
-                <div class="large-image">
-                    <a href="http://odezhda-master.ru/images/<?=$imsrc[0]?>" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20" >
-                        <img src="http://odezhda-master.ru/images/<?=$imsrc[0]?>" alt="<?=$product['productsDescription']['products_name']?>">
-                    </a>
-                </div>
-                <div class="flexslider flexslider-thumb">
-                    <ul class="previews-list slides">
-                        <?php
-                        foreach($imsrc as $key => $img){
-                            echo '<li><a href="/images/'.$img.'" class="cloud-zoom-gallery" rel="useZoom: \'zoom1\', smallImage: \'/imagepreview?src='.$im[$key].'\' "><img src="/imagepreview?src='.$im[$key].'"/></a></li>';
-                        }
-                        ?>
-                    </ul>
-                </div>
+    <div class="product-img-box col-sm-5 col-xs-12">
+        <div class="new-label new-top-left"> New </div>
+        <div class="product-image">
+            <div class="large-image">
+                <a href="http://odezhda-master.ru/images/<?=$imsrc[0]?>" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20" >
+                    <img src="http://odezhda-master.ru/images/<?=$imsrc[0]?>" alt="<?=$product['productsDescription']['products_name']?>">
+                </a>
             </div>
-            <!-- end: more-images -->
-        </div>
-        <div class="product-shop col-sm-7 col-xs-12">
-            <div class="product-name">
-                <h1><?=$product['productsDescription']['products_name']?></h1>
-            </div>
-
-
-            <div class="price-block">
-                <?php if((integer)($product['products']["products_old_price"])){ ?>
-                    <div class="price-box">
-                        <p class="old-price">
-                            <span class="price-label"></span>
-                            <span class="price"><?=round($product['products']["products_old_price"])?> р.</span>
-                        </p>
-                        <p class="special-price">
-                            <span class="price-label"></span>
-                            <span class="price"><?=round($product['products']["products_price"])?> р.</span>
-                        </p>
-                    </div>
-                <?php } else { ?>
-                    <div class="price-box">
-                        <span class="regular-price">
-                            <span class="price"><?=round($product['products']["products_price"])?> р.</span>
-                        </span>
-                    </div>
-                <?php } ?>
-            </div>
-
-            <div class="short-description">
-                <h2>Подробное описание</h2>
-                <p><?=$product['productsDescription']['products_description']?></p>
-            </div>
-
-            <div class="add-to-box">
-                <div class="add-to-cart">
-                    <div class="pull-left">
-                        <div class="custom pull-left">
-                            <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
-                            <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
-                            <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
-                        </div>
-                    </div>
-
-                    <button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Add to Cart" type="button"><span><i class="icon-basket"></i> Add to Cart</span></button>
-
-                </div>
-                <div class="email-addto-box">
-                    <ul class="add-to-links">
-                        <li> <a class="link-wishlist selected-product"  data-product="<?=$product['products_id']?>" href="#"><span>В избранное</span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="social">
-                <ul class="link">
-                    <li class="fb"><a href="#"></a></li>
-                    <li class="tw"><a href="#"></a></li>
-                    <li class="googleplus"><a href="#"></a></li>
-                    <li class="rss"><a href="#"></a></li>
-                    <li class="pintrest"><a href="#"></a></li>
-                    <li class="linkedin"><a href="#"></a></li>
-                    <li class="youtube"><a href="#"></a></li>
+            <div class="flexslider flexslider-thumb">
+                <ul class="previews-list slides">
+                    <?php
+                    foreach($imsrc as $key => $img){
+                        echo '<li><a href="/images/'.$img.'" class="cloud-zoom-gallery" rel="useZoom: \'zoom1\', smallImage: \'/imagepreview?src='.$im[$key].'\' "><img src="/imagepreview?src='.$im[$key].'"/></a></li>';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
-    </form>
+        <!-- end: more-images -->
+    </div>
+    <div class="product-shop col-sm-7 col-xs-12">
+        <div class="product-name">
+            <h1><?=$product['productsDescription']['products_name']?></h1>
+        </div>
+
+
+        <div class="price-block">
+            <?php if((integer)($product['products']["products_old_price"])){ ?>
+                <div class="price-box">
+                    <p class="old-price">
+                        <span class="price-label"></span>
+                        <span class="price"><?=round($product['products']["products_old_price"])?> р.</span>
+                    </p>
+                    <p class="special-price">
+                        <span class="price-label"></span>
+                        <span class="price"><?=round($product['products']["products_price"])?> р.</span>
+                    </p>
+                </div>
+            <?php } else { ?>
+                <div class="price-box">
+                    <span class="regular-price">
+                        <span class="price"><?=round($product['products']["products_price"])?> р.</span>
+                    </span>
+                </div>
+            <?php } ?>
+        </div>
+
+        <div class="short-description">
+            <h2>Подробное описание</h2>
+            <p><?=$product['productsDescription']['products_description']?></p>
+        </div>
+
+        <div class="add-to-box">
+            <div class="add-to-cart">
+                <?php if(count($product_size_input) != 1 && !empty($product_size_input[0]['label'])) {?>
+                    <p>Размеры в наличии:</p>
+                    <div class="row add-to-cart-inputs">
+                        <?php foreach($product_size_input as $item){ ?>
+                            <div class="col-md-4">
+                                <div class="label-product"><?=$item['label']?></div>
+                                <div class="custom">
+                                    <button id="del-count" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
+                                    <?=$item['input']?>
+                                    <button id="add-count" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } else { ?>
+                    <div class="pull-left" style="margin-right: 10px;">
+                        <div class="custom pull-left">
+                            <button id="del-count" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
+                            <?=$product_size_input[0]['input']?>
+                            <button id="add-count" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if($countproductreal > 0) { ?>
+                    <button class="button btn-cart cart-lable disabled" data-sale="<?=$product['products']['products_id']?>"><span><i class="icon-basket"></i> Добавить в корзину</span></button>
+                <?php }else{ ?>
+                    <button class="button btn-cart cart-lable disabled" data-sale="<?=$product['products']['products_id']?>"><span><i class="icon-basket"></i> Продано</span></button>
+                <?php } ?>
+            </div>
+            <div class="email-addto-box">
+                <ul class="add-to-links">
+                    <li> <a class="link-wishlist selected-product"  data-product="<?=$product['products_id']?>" href="#"><span>В избранное</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="social">
+            <ul class="link">
+                <li class="fb"><a href="#"></a></li>
+                <li class="tw"><a href="#"></a></li>
+                <li class="googleplus"><a href="#"></a></li>
+                <li class="rss"><a href="#"></a></li>
+                <li class="pintrest"><a href="#"></a></li>
+                <li class="linkedin"><a href="#"></a></li>
+                <li class="youtube"><a href="#"></a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 <div class="product-collateral col-lg-12 col-sm-12 col-xs-12">
     <div class="add_info">
@@ -198,7 +203,7 @@ if(!$product['products']['products_image']){
         </ul>
         <div id="productTabContent" class="tab-content">
             <div class="tab-pane fade in active" id="product_tabs_description">
-                <div class="std"><p><?=$product['productsDescription']['products_description']?></p></div>
+                <div class="std"><p style="white-space: pre-wrap;"><?=$product['productsDescription']['products_description']?></p></div>
             </div>
             <div class="tab-pane fade" id="reviews_tabs">
                 <div class="box-collateral box-reviews" id="customer-reviews">
@@ -429,3 +434,29 @@ if(!$product['products']['products_image']){
     </div>
 </section>
 <!-- Related Products Slider End -->
+<script>
+    /*
+    Кнопка "В корзину" активна только при выбранных размерах
+     */
+    function btnState(){
+        setTimeout(function(){
+            var countProducts = 0;
+            $('.input-text.qty').each(function(){
+                if($(this).val()!=''){
+                    countProducts += parseInt($(this).val());
+                }
+            });
+            if(countProducts > 0){
+                $('.cart-lable').removeClass('disabled');
+            } else {
+                $('.cart-lable').addClass('disabled');
+            }
+        },100);
+    }
+    $(document).on('click', '.items-count', function(){
+        btnState();
+    });
+    $(document).on('keyup', '.input-text qty', function(){
+        btnState();
+    });
+</script>

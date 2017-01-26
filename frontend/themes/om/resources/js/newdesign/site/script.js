@@ -173,7 +173,7 @@ $(document).on('click', '.cart-lable', function () {
         $item_add = $(this)[0];
         $item.cart = [];
         $item_add.value = $(this).val();
-        // console.log($item_add);
+
         if($item_add.value > 0) {
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
@@ -181,11 +181,6 @@ $(document).on('click', '.cart-lable', function () {
                 if(localStorage.getItem('cart-om-date')){
                     $timecart =  new Date;
                     $timecart = localStorage.getItem('cart-om-date');
-                    // if($timenow.getTime() - $timecart > 604800000){
-                    //     localStorage.removeItem('cart-om');
-                    //     localStorage.removeItem('cart-om-date');
-                    //     return false;
-                    // }
                 }else{
                     localStorage.setItem('cart-om-date', $timenow.getTime());
                 }
@@ -198,28 +193,6 @@ $(document).on('click', '.cart-lable', function () {
             }
             x = 0;
             if ($item.cart.length > 0) {
-                if($noanimate == false) {
-                    $noanimate = true;
-                    $($(this).parent().parent())
-                        .clone()
-                        .css({
-                            'position': 'absolute',
-                            'z-index': '11100',
-                            top: $(this).parent().parent().offset()['top'],
-                            left: $(this).parent().parent().offset()['left']
-                        })
-                        .appendTo("body")
-                        .animate({
-                            opacity: 0.05,
-                            left: $(".cart-count").offset()['left'],
-                            top: $(".cart-count").offset()['top'],
-                            width: 20,
-                        }, 1000, function () {
-                            $(this).remove();
-                            $noanimate = false;
-                        });
-
-                }
                 $.each($item.cart, function () {
                     if ($item_add.getAttribute('data-prod') == this[0] && $item_add.getAttribute('data-model') == this[1] && $item_add.getAttribute('data-attr') == this[2]) {
                         $now_count = $item_add.getAttribute('data-count');
@@ -228,45 +201,9 @@ $(document).on('click', '.cart-lable', function () {
                     }
                 });
             } else {
-                $noanimate = true;
-                $($(this).parent().parent())
-                    .clone()
-                    .css({
-                        'position': 'absolute',
-                        'z-index': '11100',
-                        top: $(this).parent().parent().offset()['top'],
-                        left: $(this).parent().parent().offset()['left']
-                    })
-                    .appendTo("body")
-                    .animate({
-                        opacity: 0.05,
-                        left: $(".cart-count").offset()['left'],
-                        top: $(".cart-count").offset()['top'],
-                        width: 20,
-                    }, 1000, function () {
-                        $(this).remove();
-                        $noanimate = false;
-                    });
                 $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'),  {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }, { "count":  $item_add.getAttribute('data-count') }];
             }
             if (x == 0) {
-                $($(this).parent().parent())
-                    .clone()
-                    .css({
-                        'position': 'absolute',
-                        'z-index': '11100',
-                        top: $(this).parent().parent().offset()['top'],
-                        left: $(this).parent().parent().offset()['left']
-                    })
-                    .appendTo("body")
-                    .animate({
-                        opacity: 0.05,
-                        left: $(".cart-count").offset()['left'],
-                        top: $(".cart-count").offset()['top'],
-                        width: 20,
-                    }, 1000, function () {
-                        $(this).remove();
-                    });
                 $item.cart[$i] = [$item_add.getAttribute('data-prod'), $item_add.getAttribute('data-model'), $item_add.getAttribute('data-attr'), $item_add.getAttribute('data-price'), $item_add.value, $item_add.getAttribute('data-image'), $item_add.getAttribute('data-attrname'), $item_add.getAttribute('data-name'), {"step":  $item_add.getAttribute('data-min') }, { "min":  $item_add.getAttribute('data-step') }, { "count":  $item_add.getAttribute('data-count') }];
             }
             $ilocal = JSON.stringify($item);
@@ -279,8 +216,8 @@ $(document).on('click', '.cart-lable', function () {
 
             });
             $(".cart-count").html($amount_prod);
-
-        } });
+        }
+    });
 });
 $(document).on('click', '.selected-product', function (e) {
     e.preventDefault();
