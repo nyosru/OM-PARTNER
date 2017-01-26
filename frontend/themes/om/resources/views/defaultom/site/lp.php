@@ -452,14 +452,6 @@
                 </div>
                 <div class="col-md-4 mid-item">
                     <div class="item-head">
-                        «Деловые линии»
-                    </div>
-                    <div class="item">
-                        <a href=" http://www.dellin.ru/" > http://www.dellin.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
                         «ОПТИМА»
                     </div>
                     <div class="item">
@@ -518,14 +510,6 @@
                 </div>
                 <div class="col-md-4 mid-item">
                     <div class="item-head">
-                        «Деловые линии»
-                    </div>
-                    <div class="item">
-                        <a href="http://www.dellin.ru/" >http://www.dellin.ru/</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mid-item">
-                    <div class="item-head">
                         «Служба доставки Экспресс-Курьер»
                     </div>
                     <div class="item">
@@ -576,7 +560,7 @@
                     Сопроводительные документы для ТК оформляются нами при подготовке Вашего заказа к отправке.
                 </div>
                 <div class="item4">
-                    Грузы ТК: "Первая Экспедиционная компания", "КИТ", "Почта России", "Служба доставки Экспресс-Курьер", "Деловые линии", "ЭНЕРГИЯ", ЕМС почта России  отправляются из г. ИВАНОВО
+                    Грузы ТК: "Первая Экспедиционная компания", "КИТ", "Почта России", "Служба доставки Экспресс-Курьер",  "ЭНЕРГИЯ", ЕМС почта России  отправляются из г. ИВАНОВО
                 </div>
                 <div class="item4">
                     Грузы ТК: "ОПТИМА", "Севертранс",  из г. МОСКВЫ    </div>
