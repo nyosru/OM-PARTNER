@@ -102,7 +102,7 @@ if ($data[0] != 'Не найдено!') {
 </div>
 <section class="main-container col2-left-layout">
     <?=\frontend\widgets\MainBanner::widget(['template'=>'category-slider']);?>
-    <?php if ($catpath['num'][0] == 0) { ?>
+    <?php if ($catpath['num'][0] == 0 && empty(Yii::$app->request->get())) { ?>
         <div class="top-banner-section categories-images">
             <div class="container">
                 <div class="row">
@@ -114,7 +114,7 @@ if ($data[0] != 'Не найдено!') {
                 </div>
             </div>
         </div>
-    <?php } ?>
+    <?php } else { ?>
     <div class="container">
         <div class="row">
             <div class=" col-sm-9 col-sm-push-3">
@@ -421,6 +421,7 @@ if ($data[0] != 'Не найдено!') {
             </div>
         </div>
     </div>
+    <?php } ?>
 </section>
 <?php
 } else {
