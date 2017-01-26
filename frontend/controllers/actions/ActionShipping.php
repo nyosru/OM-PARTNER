@@ -20,7 +20,7 @@ trait ActionShipping
                 ],
                 'flat1_flat1' => [
                     'value' => 'Бесплатная доставка до ТК Деловые Линии, из г.Иваново',
-                    'active' => '1',
+                    'active' => '0',
                     'wantpasport' => '1'],
                 'flat3_flat3' => [
                     'value' => 'Бесплатная доставка до ТК ПЭК, из г.Иваново',
