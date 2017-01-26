@@ -1,6 +1,7 @@
 <?php
 use frontend\assets\AppAsset;
 use yii\helpers\Html;
+use frontend\widgets\SlizaWidget;
 /* @var $this \yii\web\View */
 /* @var $content string */
 AppAsset::register($this);
@@ -61,6 +62,8 @@ $this->beginPage();
     $this->endBody();
     Yii::$app->params['assetsite']->registerAssetFiles($this);
     ?>
+
+    <?=SlizaWidget::widget(['id'=>123,'hash'=>'test'])?>
     </body>
     </html>
 <?php $this->endPage() ?>
