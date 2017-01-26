@@ -100,13 +100,13 @@ $this->title = $title;
                 <li>
                     <div class="feature-box">
                         <div class="om-icon om-icon-minorder"></div>
-                        <div class="content" style="margin-top: 3px;">Минимальный заказ всего от 5000 руб</div>
+                        <div class="content">Заказ всего от 5000 руб</div>
                     </div>
                 </li>
                 <li>
                     <div class="feature-box">
                         <div class="om-icon om-icon-lowprice"></div>
-                        <div class="content" style="margin-top: 3px;">Наценка на товары минимальная</div>
+                        <div class="content">Минимальная наценка</div>
                     </div>
                 </li>
                 <li>
