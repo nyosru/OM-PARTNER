@@ -7,7 +7,7 @@ use Yii;
 use yii\bootstrap\Carousel;
 
 
-class GensBanner extends \yii\bootstrap\Widget
+class GenBanners extends \yii\bootstrap\Widget
 {
     const ROTATE_NONE = '';
     const ROTATE_RAND = 'random';
