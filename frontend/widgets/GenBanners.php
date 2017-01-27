@@ -48,6 +48,14 @@ class GenBanners extends \yii\bootstrap\Widget
                         'text' => 'Подзаголовок',
                         'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
                         'button' => 'Кнопка',
+                    ],
+                    [
+                        'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                        'image' =>  'OM_26012017_2.png',
+                        'referal'=> '/catalog?cat=1987',
+                        'term'=> '',
+                        'alttext' => 'Полусапожки',
+                        'out' => FALSE
                     ]
                 ]
             ],
@@ -149,7 +157,7 @@ class GenBanners extends \yii\bootstrap\Widget
             foreach ($this->tpl_part['wrap'][1] as $key => $value) {
                 if (isset($$value)) {
                     $html = str_replace('{' . $value . '}', $$value, $html);
-                }elseif (self::CLEAN == TRUE){
+                }elseif (self::CLEAN == TRUE && $value != 'block'){
                     $html = str_replace('{' . $value . '}', '', $html);
                 }
             }
@@ -175,82 +183,82 @@ class GenBanners extends \yii\bootstrap\Widget
                         $container_html = str_replace('{' . $valuecont . '}', $$valuecont, $container_html);
                     }
                 }
-                    $partcontainer = explode('{items}', $container_html);
-                    $this->out .= $partcontainer[0];
-                    //  $this->out .= '<div id="' . $this->tpl['positions'][$value]['id'] . '"  ' . $this->tpl['positions'][$value]['style'] . '  data-position="' . $value . '">';
-                    $result = '';
-                    $item = [];
-                    foreach ($this->tpl['positions'][$value]['items'] as $key => $value) {
-                        $refer = '';
-                        $out_param = '';
-                        if ($value['out']) {
-                            $out_param = ' target="_blank" ';
-                            $refer = $value['referal'];
-                        } else {
-                            $refer = BASEURL . $value['referal'];
-                        }
-                        $utm_link = '';
-                        if ($this->utm_enable === TRUE) {
-                            $utm['term'] = $value['term'];
-                            $utm['content'] = $value['image'];
-                            $utm_link = UtmLinker::widget([
-                                'param' => $utm
-                            ]);
-                            $divider = '?';
-                            if (mb_substr_count($refer, '?')) {
-                                $divider = '&amp;';
-                            }
-                        }
-                        $item_html = $value['template'];
-                        preg_match_all('/{(\w*\d*\_*)}/iu', $item_html, $match);
-                        $referal = $refer . $divider . $utm_link . '" ' . $out_param;
-                        $style = "display: block;max-width: 100%;height: auto;";
-                        $image = self::IMAGE_PATH . $value['image'];
-                        $alt = $value['alttext'];
-                        $header = $value['header'];
-                        $text = $value['text'];
-                        $button = $value['button'];
-                        $description = $value['description'];
-                        foreach ($match[1] as $keyitem => $valueitem) {
-                            if (isset($$valueitem)) {
-                                $item_html = str_replace('{' . $valueitem . '}', $$valueitem, $item_html);
-                            } elseif (self::CLEAN == TRUE) {
-                                $item_html = str_replace('{' . $valueitem . '}', '', $item_html);
-                            }
-                        }
-
-                        $item[] = $item_html;
+                $partcontainer = explode('{items}', $container_html);
+                $this->out .= $partcontainer[0];
+                //  $this->out .= '<div id="' . $this->tpl['positions'][$value]['id'] . '"  ' . $this->tpl['positions'][$value]['style'] . '  data-position="' . $value . '">';
+                $result = '';
+                $item = [];
+                foreach ($this->tpl['positions'][$value]['items'] as $keyr => $valuer) {
+                    $refer = '';
+                    $out_param = '';
+                    if ($valuer['out']) {
+                        $out_param = ' target="_blank" ';
+                        $refer = $valuer['referal'];
+                    } else {
+                        $refer = BASEURL . $valuer['referal'];
                     }
-                    switch ($value['roll']) {
-                        case self::ROTATE_ROLL : {
-                            $result = Carousel::widget([
-                                'items' => $item,
-                                'showIndicators' => FALSE,
-                                'controls' => FALSE,
-                                'options' => [
-                                    'class' => 'slide',
-                                    'data-ride' => 'carousel',
-                                ],
-                                'clientOptions' => [
-                                    'interval' => 3000,
-                                    'pause' => 'load',
-
-                                ]
-                            ]);
-                            break;
-                        }
-                        case self::ROTATE_RAND: {
-                            $rf = shuffle($item);
-                            $result = array_shift($item);
-                            break;
-                        }
-                        default: {
-                            $result = array_shift($item);
-                            break;
+                    $utm_link = '';
+                    if ($this->utm_enable === TRUE) {
+                        $utm['term'] = $valuer['term'];
+                        $utm['content'] = $valuer['image'];
+                        $utm_link = UtmLinker::widget([
+                            'param' => $utm
+                        ]);
+                        $divider = '?';
+                        if (mb_substr_count($refer, '?')) {
+                            $divider = '&amp;';
                         }
                     }
-                    $this->out .= $result;
-                    $this->out .= $partcontainer[1];
+                    $item_html = $valuer['template'];
+                    preg_match_all('/{(\w*\d*\_*)}/iu', $item_html, $match);
+                    $referal = $refer . $divider . $utm_link . '" ' . $out_param;
+                    $style = "display: block;max-width: 100%;height: auto;";
+                    $image = self::IMAGE_PATH . $valuer['image'];
+                    $alt = $valuer['alttext'];
+                    $header = $valuer['header'];
+                    $text = $valuer['text'];
+                    $button = $valuer['button'];
+                    $description = $valuer['description'];
+                    foreach ($match[1] as $keyitem => $valueitem) {
+                        if (isset($$valueitem)) {
+                            $item_html = str_replace('{' . $valueitem . '}', $$valueitem, $item_html);
+                        } elseif (self::CLEAN == TRUE) {
+                            $item_html = str_replace('{' . $valueitem . '}', '', $item_html);
+                        }
+                    }
+                    $item[] = $item_html;
+
+                }
+                switch ($this->tpl['positions'][$value]['roll']) {
+                    case self::ROTATE_ROLL : {
+                        $result = Carousel::widget([
+                            'items' => $item,
+                            'showIndicators' => FALSE,
+                            'controls' => FALSE,
+                            'options' => [
+                                'class' => 'slide',
+                                'data-ride' => 'carousel',
+                            ],
+                            'clientOptions' => [
+                                'interval' => 3000,
+                                'pause' => 'load',
+
+                            ]
+                        ]);
+                        break;
+                    }
+                    case self::ROTATE_RAND: {
+                        $rf = shuffle($item);
+                        $result = array_shift($item);
+                        break;
+                    }
+                    default: {
+                        $result = array_shift($item);
+                        break;
+                    }
+                }
+                $this->out .= $result;
+                $this->out .= $partcontainer[1];
             }else {
 
             }
