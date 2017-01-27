@@ -13,7 +13,9 @@ class GenBanners extends \yii\bootstrap\Widget
     const ROTATE_RAND = 'random';
     const ROTATE_ROLL = 'roll';
     const IMAGE_PATH = '/images/banners/';
+    const CLEAN = TRUE;
     public $utm_enable = FALSE;
+    public $out = '';
     public $generator = 'standart';
     public $id = 'main-index';
     public $utm = [
@@ -24,282 +26,119 @@ class GenBanners extends \yii\bootstrap\Widget
         'content'=> ''
     ];
     public $custom_path = '';
-    public $tpl = [
-        'wrap' => '<div id="{id}" class="{class}" style="{style}">{block}</div>',
-        'block' => '<ul  class="accordion" {style} data-level="{level}" data-categories="{categories}" data-parent="{parentid}">{position}</ul>',
+    private $tpl = [
+        'wrap' => '<div id="{id}" data-block="wrap-banners" class="{class}" style="{style}">{block}</div>',
+        'block' => '<div data-block="block-banners" >{medium1}{small1}{large}{medium2}{small2}{long}</div>',
+        'container' => '<div id="{id}"  {style}  data-position="{position}">{items}</div>',
         'positions' => [
-            '<li class="{open}"><div class="link {checked}"  data-cat="{catdesc}">{exhtml}<a class="lock-on {checked}" href="{uri}">{name}</a></div>{subcat}</li>'
-        ]
-    ];
-    public $banners = [
-        'top-banner' => [
-            [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> '/catalog?cat=1729',
-                'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
-                'out' => FALSE
-            ], [
-                'image' =>  'OM_14122016_2.png',
-                'referal'=> '/product?id=1774488',
-                'term'=> '',
-                'alttext' => 'Уютные кофточки',
-                'out' => FALSE
-            ], [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> '/catalog?cat=1729',
-                'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
-                'out' => FALSE
-            ],
-        ],
-        'top-slider' => [
-            [
-                'image' => 'OM_14122016_5.png',
-                'referal'=> '/catalog?cat=1725',
-                'term'=> '',
-                'alttext' => 'В новый год на корпоратив',
-                'out' => FALSE
-            ], [
-                'image' =>  'OM_14122016_2.png',
-                'referal'=> '/product?id=1774488',
-                'term'=> '',
-                'alttext' => 'Уютные кофточки',
-                'out' => FALSE
-            ], [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> '/catalog?cat=1729',
-                'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
-                'out' => FALSE
-            ],
-        ],
-        'offer-slider' => [
-            [
-                'h1' => 'Заголовок',
-                'h2' => 'Подзаголовок',
-                'p' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
-                'button' => 'Кнопка',
-                'referal'=> '/catalog?cat=1725',
-                'out' => FALSE
-            ], [
-                'h1' => 'Hello hotness!',
-                'h2' => 'Summer collection',
-                'p' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus.
-                    Fusce condimentum eleifend enim a feugiat.',
-                'button' => 'View More',
-                'referal'=> '/catalog?cat=1725',
-                'out' => FALSE
-            ],
-        ],
-        'social' => [
-            [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> 'http://vk.com/',
-                'alttext' => 'ВК',
-            ], [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> 'http://fb.com/',
-                'alttext' => 'FB',
-            ], [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> 'http://tw.com/',
-                'alttext' => 'TW',
-            ], [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> 'http://ok.com/',
-                'alttext' => 'OK',
-            ],
-        ],
-        'category-slider' => [
-            [
-                'image' => 'OM_14122016_6.png',
-                'referal'=> '/catalog?cat=1725',
-                'term'=> '',
-                'alttext' => 'В новый год на корпоратив',
-                'out' => FALSE
-            ], [
-                'image' => 'OM_14122016_6.png',
-                'referal'=> '/product?id=1774488',
-                'term'=> '',
-                'alttext' => 'Уютные кофточки',
-                'out' => FALSE
-            ], [
-                'image' => 'OM_14122016_6.png',
-                'referal'=> '/catalog?cat=1729',
-                'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
-                'out' => FALSE
-            ],
-        ],
-    ];
-
-    public $position = [
-
-        'medium1' => [
-            [
-                'image' =>  'OM_26012017_1.png',
-                'referal'=> '/catalog?cat=3453',
-                'term'=> '',
-                'alttext' => '14 февраля',
-                'out' => FALSE
-            ]
-        ],
-        'medium2' => [
-            [
-                'image' =>  'OM_26012017_2.png',
-                'referal'=> '/catalog?cat=1987',
-                'term'=> '',
-                'alttext' => 'Полусапожки',
-                'out' => FALSE
-            ]
-        ],
-        'small1' => [
-            [
-                'image' =>  'OM_26012017_3.png',
-                'referal'=> '/catalog?cat=1979',
-                'term'=> '',
-                'alttext' => 'Ботильоны',
-                'out' => FALSE
-            ]
-        ],
-        'small2' => [
-            [
-                'image' => 'OM_26012017_4.png',
-                'referal'=> '/catalog?cat=1765',
-                'term'=> '',
-                'alttext' => 'Комплекты белья',
-                'out' => FALSE
-            ],
-        ],
-        'large' => [
-            [
-                'image' => 'OM_26012017_5.png',
-                'referal'=> '/catalog?cat=1749',
-                'term'=> '',
-                'alttext' => 'Пальто',
-                'out' => FALSE
-            ],
-        ],
-        'long' => [
-            [
-                'image' => 'OM_26012017_6.png',
-                'referal'=> '/catalog?cat=2047',
-                'alttext' => '2047',
-                'out' => FALSE
-            ]
-        ],
-        'discont1' => [
-            [
-                'image' => 'B_19072016_1.png',
-                'referal'=> '/product?id=902601',
-                'alttext' => 'Лодка Intex 68347 Seahawk 200',
-                'out' => FALSE
-            ],
-        ],
-        'discont2' => [
-            [
-                'image' => 'B_19072016_2.png',
-                'referal'=> '/product?id=902491',
-                'alttext' => 'Бассейн Intex 28200/56997 на опорах',
-                'out' => FALSE
-            ],
-        ],
-        'discont3' => [
-            [
-                'image' => 'B_19072016_3.png',
-                'referal'=> '/product?id=1461925',
-                'alttext' => 'Игровой центр-бассейн',
-                'out' => FALSE
-            ],
-        ],
-        'discont4' => [
-            [
-                'image' => 'B_19072016_4.png',
-                'referal'=> '/product?id=1398409',
-                'alttext' => 'Матрас-кровать CLASSIC DOWNY',
-                'out' => FALSE
-            ],
-        ],
-    ];
-
-    public $template = [
-        'main' => [
-            '1' => [
+            'medium1' => [
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
-                'position'=> 'medium1',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_NONE,
+                'items'=>[
+                    [
+                        'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                        'image' =>  'OM_26012017_1.png',
+                        'referal'=> '/catalog?cat=3453',
+                        'term'=> '',
+                        'alttext' => '14 февраля',
+                        'out' => FALSE,
+                        'header' => 'Заголовок',
+                        'text' => 'Подзаголовок',
+                        'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                        'button' => 'Кнопка',
+                    ]
+                ]
             ],
-            '2' => [
+            'small1' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
-                'position'=> 'small1',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_NONE,
+                'items'=> [
+                    [
+                        'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                        'image' =>  'OM_26012017_3.png',
+                        'referal'=> '/catalog?cat=1979',
+                        'term'=> '',
+                        'alttext' => 'Ботильоны',
+                        'out' => FALSE
+                    ]
+
+                ]
             ],
-            '3' => [
+            'large' => [
                 'id'=>'index-card-3',
                 'class'=>'sort data-j index-sort banner-card',
-                'position'=> 'large',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_NONE,
+                'items'=> [
+                    [
+                        'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                        'image' => 'OM_26012017_5.png',
+                        'referal'=> '/catalog?cat=1749',
+                        'term'=> '',
+                        'alttext' => 'Пальто',
+                        'out' => FALSE
+                    ]
+                ]
             ],
-            '4' => [
+            'medium2' => [
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
-                'position'=> 'medium2',
                 'style'=>'style="float:right"',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_NONE,
+                'items'=> [
+                    [
+                        'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                        'image' =>  'OM_26012017_2.png',
+                        'referal'=> '/catalog?cat=1987',
+                        'term'=> '',
+                        'alttext' => 'Полусапожки',
+                        'out' => FALSE
+                    ]
+                ]
             ],
-
-            '5' => [
+            'small2' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
-                'position'=> 'small2',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_NONE,
+                'items'=> [
+                    [
+                        'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                        'image' => 'OM_26012017_4.png',
+                        'referal'=> '/catalog?cat=1765',
+                        'term'=> '',
+                        'alttext' => 'Комплекты белья',
+                        'out' => FALSE
+                    ]
+                ]
             ],
-
-            '6' => [
+            'long' => [
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
-                'position'=> 'long',
                 'style'=>'style="width: calc(100% - 10px);"',
-                'roll' => self::ROTATE_NONE
+                'roll' => self::ROTATE_NONE,
+                'items'=> [
+                    [
+                        'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                        'image' => 'OM_26012017_6.png',
+                        'referal'=> '/catalog?cat=2047',
+                        'alttext' => '2047',
+                        'out' => FALSE
+                    ]
+                ]
             ]
-        ],
-        'discont' => [
-            '1' => [
-                'id'=>'index-card-6',
-                'class'=>'data-j index-card banner-card',
-                'position'=> 'discont1',
-                'style'=>''
-            ],
-            '2' => [
-                'id'=>'index-card-6',
-                'class'=>'data-j index-card banner-card',
-                'position'=> 'discont2',
-                'style'=>''
-            ],
-            '3' => [
-                'id'=>'index-card-6',
-                'class'=>'sort data-j index-sort banner-card',
-                'position'=> 'discont3',
-                'style'=>''
-            ],
-            '4' => [
-                'id'=>'index-card-6',
-                'class'=>'data-j index-card banner-card',
-                'position'=> 'discont4',
-                'style'=>'style="float:right"'
-            ],
         ]
     ];
+    private $tpl_part = [];
     public function init()
     {
-
+        preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['wrap'], $this->tpl_part['wrap']);
+        preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['block'], $this->tpl_part['block']);
+        preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['container'], $this->tpl_part['container']);
     }
     public function run()
     {
@@ -310,6 +149,8 @@ class GenBanners extends \yii\bootstrap\Widget
             foreach ($this->tpl_part['wrap'][1] as $key => $value) {
                 if (isset($$value)) {
                     $html = str_replace('{' . $value . '}', $$value, $html);
+                }elseif (self::CLEAN == TRUE){
+                    $html = str_replace('{' . $value . '}', '', $html);
                 }
             }
             $partmenu = explode('{block}', $html);
@@ -319,67 +160,101 @@ class GenBanners extends \yii\bootstrap\Widget
         }
     }
 
-    public function bannersGenStandart(){
-        foreach ($this->template as $key=>$value){
-            echo '<div id="'.$value['id'].'"  '.$value['style'].'  data-position="'.$key.'">';
-            $result = '';
-            $item = [];
-            foreach ($this->position[$value['position']] as $key=>$value){
-                $refer = '';
-                $out_param = '';
-                if($value['out']){
-                    $out_param = ' target="_blank" ';
-                    $refer = $value['referal'];
-                }else{
-                    $refer = BASEURL.$value['referal'];
-                }
-                $utm_link = '';
-                if($this->utm_enable === TRUE){
-                    $utm['term'] = $value['term'];
-                    $utm['content'] = $value['image'];
-                    $utm_link = UtmLinker::widget([
-                        'param' => $utm
-                    ]);
-                    $divider = '?';
-                    if(mb_substr_count($refer, '?')){
-                        $divider = '&amp;';
+    public function bannersGenStandart()
+    {
+        $this->out = '';
+        $html = $this->tpl['block'];
+        foreach ($this->tpl_part['block'][1] as $key => $value) {
+            if (isset($this->tpl['positions'][$value])) {
+                $id = $this->tpl['positions'][$value]['id'];
+                $style = $this->tpl['positions'][$value]['style'];
+                $position =  $value ;
+                $container_html = $this->tpl['container'];
+                foreach ($this->tpl_part['container'][1] as $keycont => $valuecont) {
+                    if (isset($$valuecont)) {
+                        $container_html = str_replace('{' . $valuecont . '}', $$valuecont, $container_html);
                     }
                 }
+                    $partcontainer = explode('{items}', $container_html);
+                    $this->out .= $partcontainer[0];
+                    //  $this->out .= '<div id="' . $this->tpl['positions'][$value]['id'] . '"  ' . $this->tpl['positions'][$value]['style'] . '  data-position="' . $value . '">';
+                    $result = '';
+                    $item = [];
+                    foreach ($this->tpl['positions'][$value]['items'] as $key => $value) {
+                        $refer = '';
+                        $out_param = '';
+                        if ($value['out']) {
+                            $out_param = ' target="_blank" ';
+                            $refer = $value['referal'];
+                        } else {
+                            $refer = BASEURL . $value['referal'];
+                        }
+                        $utm_link = '';
+                        if ($this->utm_enable === TRUE) {
+                            $utm['term'] = $value['term'];
+                            $utm['content'] = $value['image'];
+                            $utm_link = UtmLinker::widget([
+                                'param' => $utm
+                            ]);
+                            $divider = '?';
+                            if (mb_substr_count($refer, '?')) {
+                                $divider = '&amp;';
+                            }
+                        }
+                        $item_html = $value['template'];
+                        preg_match_all('/{(\w*\d*\_*)}/iu', $item_html, $match);
+                        $referal = $refer . $divider . $utm_link . '" ' . $out_param;
+                        $style = "display: block;max-width: 100%;height: auto;";
+                        $image = self::IMAGE_PATH . $value['image'];
+                        $alt = $value['alttext'];
+                        $header = $value['header'];
+                        $text = $value['text'];
+                        $button = $value['button'];
+                        $description = $value['description'];
+                        foreach ($match[1] as $keyitem => $valueitem) {
+                            if (isset($$valueitem)) {
+                                $item_html = str_replace('{' . $valueitem . '}', $$valueitem, $item_html);
+                            } elseif (self::CLEAN == TRUE) {
+                                $item_html = str_replace('{' . $valueitem . '}', '', $item_html);
+                            }
+                        }
 
-                $item[] = '<a href="'.$refer. $divider.$utm_link.'" '.$out_param.'>'.
-                    '<img style="display: block;max-width: 100%;height: auto;" src="'.self::IMAGE_PATH.$value['image'].'"  alt="'.$value['alttext'].'">'.
-                    '</a>';
-            }
-            switch($value['roll']){
-                case self::ROTATE_ROLL :{
-                    $result =  Carousel::widget([
-                        'items' => $item,
-                        'showIndicators' => FALSE,
-                        'controls' => FALSE,
-                        'options'=>[
-                            'class'=>'slide',
-                            'data-ride' => 'carousel',
-                        ],
-                        'clientOptions'=>[
-                            'interval'=>3000,
-                            'pause'=> 'load',
+                        $item[] = $item_html;
+                    }
+                    switch ($value['roll']) {
+                        case self::ROTATE_ROLL : {
+                            $result = Carousel::widget([
+                                'items' => $item,
+                                'showIndicators' => FALSE,
+                                'controls' => FALSE,
+                                'options' => [
+                                    'class' => 'slide',
+                                    'data-ride' => 'carousel',
+                                ],
+                                'clientOptions' => [
+                                    'interval' => 3000,
+                                    'pause' => 'load',
 
-                        ]
-                    ]);
-                    break;
-                }
-                case self::ROTATE_RAND:{
-                    $rf = shuffle($item);
-                    $result =  array_shift($item);
-                    break;
-                }
-                default:{
-                    $result =   array_shift($item);
-                    break;
-                }
+                                ]
+                            ]);
+                            break;
+                        }
+                        case self::ROTATE_RAND: {
+                            $rf = shuffle($item);
+                            $result = array_shift($item);
+                            break;
+                        }
+                        default: {
+                            $result = array_shift($item);
+                            break;
+                        }
+                    }
+                    $this->out .= $result;
+                    $this->out .= $partcontainer[1];
+            }else {
+
             }
-            echo $result;
-            echo '</div>';
         }
+        return $this->out;
     }
 }
