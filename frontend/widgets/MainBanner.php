@@ -129,25 +129,25 @@ class MainBanner extends \yii\bootstrap\Widget
 
         'medium1' => [
             [
-                'image' =>  'OM_20012017_1.png',
-                'referal'=> '/catalog?cat=1758',
+                'image' =>  'OM_26012017_1.png',
+                'referal'=> '/catalog?cat=3453',
                 'term'=> '',
-                'alttext' => 'Джинсы',
+                'alttext' => '14 февраля',
                 'out' => FALSE
             ]
         ],
         'medium2' => [
             [
-                'image' =>  'OM_20012017_2.png',
-                'referal'=> '/catalog?cat=1720',
+                'image' =>  'OM_26012017_2.png',
+                'referal'=> '/catalog?cat=1987',
                 'term'=> '',
-                'alttext' => 'Платья',
+                'alttext' => 'Полусапожки',
                 'out' => FALSE
             ]
         ],
         'small1' => [
             [
-                'image' =>  'OM_20012017_3.png',
+                'image' =>  'OM_26012017_3.png',
                 'referal'=> '/catalog?cat=1979',
                 'term'=> '',
                 'alttext' => 'Ботильоны',
@@ -156,27 +156,27 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'small2' => [
             [
-                'image' => 'OM_20012017_4.png',
-                'referal'=> '/catalog?cat=2047',
+                'image' => 'OM_26012017_4.png',
+                'referal'=> '/catalog?cat=1765',
                 'term'=> '',
-                'alttext' => 'Женские сумки, рюкзаки',
+                'alttext' => 'Комплекты белья',
                 'out' => FALSE
             ],
         ],
         'large' => [
             [
-                'image' => 'OM_20012017_5.png',
-                'referal'=> '/catalog?cat=1728&sfilt%5B%5D=15502',
+                'image' => 'OM_26012017_5.png',
+                'referal'=> '/catalog?cat=1749',
                 'term'=> '',
-                'alttext' => 'Блузки, рубашки, туники',
+                'alttext' => 'Пальто',
                 'out' => FALSE
             ],
         ],
         'long' => [
             [
-                'image' => 'OM_20012017_6.png',
-                'referal'=> '/catalog?cat=3453',
-                'alttext' => '14 февраля',
+                'image' => 'OM_26012017_6.png',
+                'referal'=> '/catalog?cat=2047',
+                'alttext' => '2047',
                 'out' => FALSE
             ]
         ],
