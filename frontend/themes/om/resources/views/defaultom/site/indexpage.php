@@ -11,7 +11,7 @@ use yii\caching\Cache;
 use yii\filters\AccessControl;
 use yii\web\User;
 $this->title = $title;
-echo \frontend\widgets\MainBanner::widget();
+echo \frontend\widgets\GenBanners::widget();
 ?>
 
 
