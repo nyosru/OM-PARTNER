@@ -1,0 +1,385 @@
+<?php
+
+namespace frontend\widgets;
+
+
+use Yii;
+use yii\bootstrap\Carousel;
+
+
+class GensBanner extends \yii\bootstrap\Widget
+{
+    const ROTATE_NONE = '';
+    const ROTATE_RAND = 'random';
+    const ROTATE_ROLL = 'roll';
+    const IMAGE_PATH = '/images/banners/';
+    public $utm_enable = FALSE;
+    public $generator = 'standart';
+    public $id = 'main-index';
+    public $utm = [
+        'campagin' => '',
+        'source'=> 'sait_main',
+        'medium'=> 'banner_main',
+        'term'=> '',
+        'content'=> ''
+    ];
+    public $custom_path = '';
+    public $tpl = [
+        'wrap' => '<div id="{id}" class="{class}" style="{style}">{block}</div>',
+        'block' => '<ul  class="accordion" {style} data-level="{level}" data-categories="{categories}" data-parent="{parentid}">{position}</ul>',
+        'positions' => [
+            '<li class="{open}"><div class="link {checked}"  data-cat="{catdesc}">{exhtml}<a class="lock-on {checked}" href="{uri}">{name}</a></div>{subcat}</li>'
+        ]
+    ];
+    public $banners = [
+        'top-banner' => [
+            [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_2.png',
+                'referal'=> '/product?id=1774488',
+                'term'=> '',
+                'alttext' => 'Уютные кофточки',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ],
+        ],
+        'top-slider' => [
+            [
+                'image' => 'OM_14122016_5.png',
+                'referal'=> '/catalog?cat=1725',
+                'term'=> '',
+                'alttext' => 'В новый год на корпоратив',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_2.png',
+                'referal'=> '/product?id=1774488',
+                'term'=> '',
+                'alttext' => 'Уютные кофточки',
+                'out' => FALSE
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ],
+        ],
+        'offer-slider' => [
+            [
+                'h1' => 'Заголовок',
+                'h2' => 'Подзаголовок',
+                'p' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                'button' => 'Кнопка',
+                'referal'=> '/catalog?cat=1725',
+                'out' => FALSE
+            ], [
+                'h1' => 'Hello hotness!',
+                'h2' => 'Summer collection',
+                'p' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus.
+                    Fusce condimentum eleifend enim a feugiat.',
+                'button' => 'View More',
+                'referal'=> '/catalog?cat=1725',
+                'out' => FALSE
+            ],
+        ],
+        'social' => [
+            [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://vk.com/',
+                'alttext' => 'ВК',
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://fb.com/',
+                'alttext' => 'FB',
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://tw.com/',
+                'alttext' => 'TW',
+            ], [
+                'image' =>  'OM_14122016_1.png',
+                'referal'=> 'http://ok.com/',
+                'alttext' => 'OK',
+            ],
+        ],
+        'category-slider' => [
+            [
+                'image' => 'OM_14122016_6.png',
+                'referal'=> '/catalog?cat=1725',
+                'term'=> '',
+                'alttext' => 'В новый год на корпоратив',
+                'out' => FALSE
+            ], [
+                'image' => 'OM_14122016_6.png',
+                'referal'=> '/product?id=1774488',
+                'term'=> '',
+                'alttext' => 'Уютные кофточки',
+                'out' => FALSE
+            ], [
+                'image' => 'OM_14122016_6.png',
+                'referal'=> '/catalog?cat=1729',
+                'term'=> '',
+                'alttext' => 'Нарядный образ на работу',
+                'out' => FALSE
+            ],
+        ],
+    ];
+
+    public $position = [
+
+        'medium1' => [
+            [
+                'image' =>  'OM_26012017_1.png',
+                'referal'=> '/catalog?cat=3453',
+                'term'=> '',
+                'alttext' => '14 февраля',
+                'out' => FALSE
+            ]
+        ],
+        'medium2' => [
+            [
+                'image' =>  'OM_26012017_2.png',
+                'referal'=> '/catalog?cat=1987',
+                'term'=> '',
+                'alttext' => 'Полусапожки',
+                'out' => FALSE
+            ]
+        ],
+        'small1' => [
+            [
+                'image' =>  'OM_26012017_3.png',
+                'referal'=> '/catalog?cat=1979',
+                'term'=> '',
+                'alttext' => 'Ботильоны',
+                'out' => FALSE
+            ]
+        ],
+        'small2' => [
+            [
+                'image' => 'OM_26012017_4.png',
+                'referal'=> '/catalog?cat=1765',
+                'term'=> '',
+                'alttext' => 'Комплекты белья',
+                'out' => FALSE
+            ],
+        ],
+        'large' => [
+            [
+                'image' => 'OM_26012017_5.png',
+                'referal'=> '/catalog?cat=1749',
+                'term'=> '',
+                'alttext' => 'Пальто',
+                'out' => FALSE
+            ],
+        ],
+        'long' => [
+            [
+                'image' => 'OM_26012017_6.png',
+                'referal'=> '/catalog?cat=2047',
+                'alttext' => '2047',
+                'out' => FALSE
+            ]
+        ],
+        'discont1' => [
+            [
+                'image' => 'B_19072016_1.png',
+                'referal'=> '/product?id=902601',
+                'alttext' => 'Лодка Intex 68347 Seahawk 200',
+                'out' => FALSE
+            ],
+        ],
+        'discont2' => [
+            [
+                'image' => 'B_19072016_2.png',
+                'referal'=> '/product?id=902491',
+                'alttext' => 'Бассейн Intex 28200/56997 на опорах',
+                'out' => FALSE
+            ],
+        ],
+        'discont3' => [
+            [
+                'image' => 'B_19072016_3.png',
+                'referal'=> '/product?id=1461925',
+                'alttext' => 'Игровой центр-бассейн',
+                'out' => FALSE
+            ],
+        ],
+        'discont4' => [
+            [
+                'image' => 'B_19072016_4.png',
+                'referal'=> '/product?id=1398409',
+                'alttext' => 'Матрас-кровать CLASSIC DOWNY',
+                'out' => FALSE
+            ],
+        ],
+    ];
+
+    public $template = [
+        'main' => [
+            '1' => [
+                'id'=>'index-card-5',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'medium1',
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
+            ],
+            '2' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'small1',
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
+            ],
+            '3' => [
+                'id'=>'index-card-3',
+                'class'=>'sort data-j index-sort banner-card',
+                'position'=> 'large',
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
+            ],
+            '4' => [
+                'id'=>'index-card-5',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'medium2',
+                'style'=>'style="float:right"',
+                'roll' => self::ROTATE_NONE
+            ],
+
+            '5' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'small2',
+                'style'=>'',
+                'roll' => self::ROTATE_NONE
+            ],
+
+            '6' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'long',
+                'style'=>'style="width: calc(100% - 10px);"',
+                'roll' => self::ROTATE_NONE
+            ]
+        ],
+        'discont' => [
+            '1' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'discont1',
+                'style'=>''
+            ],
+            '2' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'discont2',
+                'style'=>''
+            ],
+            '3' => [
+                'id'=>'index-card-6',
+                'class'=>'sort data-j index-sort banner-card',
+                'position'=> 'discont3',
+                'style'=>''
+            ],
+            '4' => [
+                'id'=>'index-card-6',
+                'class'=>'data-j index-card banner-card',
+                'position'=> 'discont4',
+                'style'=>'style="float:right"'
+            ],
+        ]
+    ];
+    public function init()
+    {
+
+    }
+    public function run()
+    {
+        $generate = 'bannersGen'.mb_convert_case($this->generator, MB_CASE_TITLE);
+        if(method_exists($this,$generate)){
+            $id = $this->id;
+            $html = $this->tpl['wrap'];
+            foreach ($this->tpl_part['wrap'][1] as $key => $value) {
+                if (isset($$value)) {
+                    $html = str_replace('{' . $value . '}', $$value, $html);
+                }
+            }
+            $partmenu = explode('{block}', $html);
+            return $partmenu[0] . $this->$generate() .$partmenu[1];
+        }else{
+            return 'Недоступный тип баннера';
+        }
+    }
+
+    public function bannersGenStandart(){
+        foreach ($this->template as $key=>$value){
+            echo '<div id="'.$value['id'].'"  '.$value['style'].'  data-position="'.$key.'">';
+            $result = '';
+            $item = [];
+            foreach ($this->position[$value['position']] as $key=>$value){
+                $refer = '';
+                $out_param = '';
+                if($value['out']){
+                    $out_param = ' target="_blank" ';
+                    $refer = $value['referal'];
+                }else{
+                    $refer = BASEURL.$value['referal'];
+                }
+                $utm_link = '';
+                if($this->utm_enable === TRUE){
+                    $utm['term'] = $value['term'];
+                    $utm['content'] = $value['image'];
+                    $utm_link = UtmLinker::widget([
+                        'param' => $utm
+                    ]);
+                    $divider = '?';
+                    if(mb_substr_count($refer, '?')){
+                        $divider = '&amp;';
+                    }
+                }
+
+                $item[] = '<a href="'.$refer. $divider.$utm_link.'" '.$out_param.'>'.
+                    '<img style="display: block;max-width: 100%;height: auto;" src="'.self::IMAGE_PATH.$value['image'].'"  alt="'.$value['alttext'].'">'.
+                    '</a>';
+            }
+            switch($value['roll']){
+                case self::ROTATE_ROLL :{
+                    $result =  Carousel::widget([
+                        'items' => $item,
+                        'showIndicators' => FALSE,
+                        'controls' => FALSE,
+                        'options'=>[
+                            'class'=>'slide',
+                            'data-ride' => 'carousel',
+                        ],
+                        'clientOptions'=>[
+                            'interval'=>3000,
+                            'pause'=> 'load',
+
+                        ]
+                    ]);
+                    break;
+                }
+                case self::ROTATE_RAND:{
+                    $rf = shuffle($item);
+                    $result =  array_shift($item);
+                    break;
+                }
+                default:{
+                    $result =   array_shift($item);
+                    break;
+                }
+            }
+            echo $result;
+            echo '</div>';
+        }
+    }
+}
