@@ -93,7 +93,7 @@ class Menuom extends \yii\bootstrap\Widget
         $generate = 'menuGen'.mb_convert_case($this->settingsopt['generator'], MB_CASE_TITLE);
         if(method_exists($this,$generate)){
             $menu_html = $this->tpl['wrap'];
-            foreach ($this->tpl_part['block'][1] as $key => $value) {
+            foreach ($this->tpl_part['wrap'][1] as $key => $value) {
                 if (isset($$value)) {
                     $menu_html = str_replace('{' . $value . '}', $$value, $menu_html);
                 }
