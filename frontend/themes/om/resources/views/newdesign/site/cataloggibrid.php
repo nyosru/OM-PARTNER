@@ -441,7 +441,7 @@ if ($data[0] != 'Не найдено!') {
         return countPrice;
     }
 
-    $(document).on('click','.hover-variants button.items-count',function(){
+    $(document).on('click','.catalog-product-item button.items-count',function(){
         var productBlock = $(this).parents('.catalog-product-item'),
             inputs = productBlock.find('.input-text'),
             price = productBlock.find('.catalog-price>span');

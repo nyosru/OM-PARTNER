@@ -4107,12 +4107,14 @@ li .list {
 }
 
 .products-list .product-shop .btn-cart {
-	background: #08c;
+    background: #71bae0;
 	padding: 6px 12px;
 	color: #fff;
 	border: none;
 }
-
+.products-list .product-shop .btn-cart.active {
+    background: #08c;
+}
 .products-list .product-shop .btn-cart span {
 	font-size: 12px;
 	font-weight: normal;
@@ -4960,17 +4962,23 @@ a.button.detail-bnt span {
 .hover-variants .custom button.items-count .icon-minus:before {
     font-size: 12px;
 }
-.hover-variants .custom input{
+.catalog-product-item .custom input{
     padding: 0 5px 1px;
-    height: 30px;
     border: 1px #ddd solid;
     text-align: center;
-    width: 30px;
     color: #aaa;
     vertical-align: top;
     margin: 0;
     background-color: #fff;
     border-radius: 2px;
+}
+.products-list .catalog-product-item .custom input{
+    height: 40px;
+    width: 40px;
+}
+.products-grid .catalog-product-item .custom input{
+    height: 30px;
+    width: 30px;
 }
 .custom button.items-count:hover {
 	background-color: #08c;
@@ -15459,5 +15467,9 @@ a#fancybox-close {
     z-index: 110;
 }
 .catalog-product-item .hover-variants label{
+    font-weight: 600;
+}
+.catalog-product-item .product-variants label{
+    font-size: 16px;
     font-weight: 600;
 }
