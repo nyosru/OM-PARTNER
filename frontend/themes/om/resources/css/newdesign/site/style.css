@@ -4911,6 +4911,9 @@ a.button.detail-bnt span {
     font-size: 18px;
     margin-bottom: 7px;
 }
+.hover-variants .add-to-cart-inputs .label-product{
+    font-size: 14px;
+}
 .button-up:hover {
 	background: #333 url(/images/new/icon_arrow_up.png) no-repeat 15px 15px;
 }
@@ -4941,7 +4944,34 @@ a.button.detail-bnt span {
 	padding: 13px 12px 10px 12px;
 	line-height: normal;
 }
-
+.hover-variants .add-to-cart-inputs .label-product{
+    max-width: 100%;
+}
+.hover-variants .custom button.items-count{
+    font-size: 8px;
+    padding: 8px 5px;
+}
+.hover-variants .catalog-price{
+    font-weight: 600;
+    text-align: center;
+    font-size: 16px;
+}
+.hover-variants .custom button.items-count .icon-plus:before,
+.hover-variants .custom button.items-count .icon-minus:before {
+    font-size: 12px;
+}
+.hover-variants .custom input{
+    padding: 0 5px 1px;
+    height: 30px;
+    border: 1px #ddd solid;
+    text-align: center;
+    width: 30px;
+    color: #aaa;
+    vertical-align: top;
+    margin: 0;
+    background-color: #fff;
+    border-radius: 2px;
+}
 .custom button.items-count:hover {
 	background-color: #08c;
 	border: 1px #08c solid;
@@ -5194,7 +5224,16 @@ a.button.detail-bnt span {
 	padding: 9px 10px 9px 10px;
 	color: #fff;
 }
-
+.products-grid .item:hover .actions button.button.btn-cart.cart-lable {
+    background: #ffffff;
+    color: #333;
+    border: 1px solid #ddd;
+}
+.products-grid .item .actions button.button.btn-cart.cart-lable.active {
+    background: #08c;
+    color: #fff;
+    border: 1px solid #08c;
+}
 .products-grid .actions button.button.btn-cart span {
 	font-family: 'Roboto', sans-serif;
 	font-size: 11px;
@@ -15369,4 +15408,56 @@ a#fancybox-close {
     -moz-box-shadow: 0 0 10px #ccc;
     -webkit-box-shadow: 0 0 10px #ccc;
     box-shadow: 0 0 10px #ccc;
+}
+.category-products .product-sizes{
+    padding: 3px 10px;
+}
+.category-products .product-sizes>span{
+    display: block;
+    text-align: left;
+    color: #b5b5b5;
+    font-size: 11px;
+    margin-bottom: 3px;
+}
+.category-products .product-sizes .product-sizes-list{
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+.category-products .product-sizes .product-sizes-list:after{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+
+}
+.products-grid .item .item-inner.catalog-product-item{
+    position: relative;
+}
+.catalog-product-item .hover-variants{
+    position: absolute;
+    display: none;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    border: 1px solid #eaeaea;
+    border-bottom: none;
+    padding: 20px 10px;
+    padding-bottom: 0;
+    background-color: rgba(255,255,255,0.95);
+    z-index: 110;
+}
+.catalog-product-item .hover-variants label{
+    font-weight: 600;
 }

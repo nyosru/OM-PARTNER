@@ -254,7 +254,7 @@ trait ActionProduct
                 return ['product' => $data, 'spec' => $spec,'catpath' => $catpath, 'images'=>$prodimages];
             } elseif (Yii::$app->request->isGet) {
                 $man_time = $this->manufacturers_diapazon_id();
-                return $this->render('product', ['product' => $data, 'catpath' => $catpath, 'spec' => $spec,  'images'=>$prodimages, 'relprod' => $relProduct, 'man_time' => $man_time]);
+                return $this->render('product', ['product' => $data, 'product_sizes'=>$this->product_variants($data), 'catpath' => $catpath, 'spec' => $spec,  'images'=>$prodimages, 'relprod' => $relProduct, 'man_time' => $man_time]);
             } else {
                 return $this->redirect('/');
             }

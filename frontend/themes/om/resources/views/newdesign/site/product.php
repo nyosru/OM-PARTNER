@@ -3,6 +3,7 @@
 use yii\bootstrap\Carousel;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+use common\traits\Products\ProductVariants;
 
 $this->title = $product['productsDescription']['products_name'];
 
@@ -13,51 +14,6 @@ $this->registerMetaTag(['content' => Html::encode($_SERVER['SERVER_NAME'].BASEUR
 $this->registerMetaTag(['content' => 'http://odezhda-master.ru/images/'.$product['products']['products_image'], 'property' => 'og:image',]);
 $this->registerMetaTag(['content' => 'Одежда Мастер. Интернет-магазин', 'property' => 'og:site_name',]);
 $this->registerMetaTag(['content' => 'Цена: '.(integer)$product['products']['products_price'].' рублей. '.Html::encode($product['productsDescription']['products_description']), 'property' => 'og:description',]);
-
-$product_size_input=[];
-$data_attr = [
-    'prod' => $product['products']['products_id'],
-    'model' => $product['products']['products_model'],
-    'price' => $product['products']['products_price'],
-    'image' => $product['products']['products_image'],
-    'name' => $product['productsDescription']['products_name'],
-    'min' => $product['products']['products_quantity_order_min'],
-    'step' => $product['products']['products_quantity_order_units'],
-    'count' => $product['products']['products_quantity'],
-    'attrname' => '',
-    'attr' => '',
-];
-if (count($product['productsAttributesDescr']) > 0) {
-    $countproductreal = 0;
-    $sizeCounter=0;
-    $product['productsAttributesDescr']=\yii\helpers\ArrayHelper::index($product['productsAttributesDescr'],'products_options_values_name');
-    $product['productsAttributes']=\yii\helpers\ArrayHelper::index($product['productsAttributes'],'options_values_id');
-
-    ksort($product['productsAttributesDescr'],SORT_NATURAL);
-    foreach ($product['productsAttributesDescr'] as $item) {
-        $date = $product['products.products_date_added'];
-        if($product['productsAttributes'][$item['products_options_values_id']] && $product['productsAttributes'][$item['products_options_values_id']]['quantity'] > 0) {
-            $data_attr = ArrayHelper::merge($data_attr,[
-                'attrname' => $item['products_options_values_name'],
-                'attr' => $item['products_options_values_id'],
-                'count' => $product['productsAttributes'][$item['products_options_values_id']]['quantity'],
-            ]);
-            $product_size_input[] = [
-                'label' => $data_attr['attrname'],
-                'input' => Html::textInput('','',['data'=>$data_attr, 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0]),
-            ];
-            $countproductreal += $product['productsAttributes'][$item['products_options_values_id']]['quantity'];
-            $sizeCounter++;
-        }
-    }
-} else {
-    $date = $product['products']['products_date_added'];
-    $countproductreal = $product['products']['products_quantity'];
-    $product_size_input[] = [
-        'label' => '',
-        'input' => Html::textInput('','',['data'=>$data_attr, 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0]),
-    ];
-}
 
 $items=array();
 $i=0;
@@ -147,15 +103,15 @@ if(!$product['products']['products_image']){
 
         <div class="add-to-box">
             <div class="add-to-cart">
-                <?php if(count($product_size_input) != 1 && !empty($product_size_input[0]['label'])) {?>
+                <?php if($product_sizes['isset_variants']) {?>
                     <p>Размеры в наличии:</p>
                     <div class="row add-to-cart-inputs">
-                        <?php foreach($product_size_input as $item){ ?>
+                        <?php foreach($product_sizes['sizes'] as $item){ ?>
                             <div class="col-md-4">
                                 <div class="label-product"><?=$item['label']?></div>
                                 <div class="custom">
                                     <button id="del-count" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
-                                    <?=$item['input']?>
+                                    <?=Html::textInput('','',['data'=>$item['data_attr'], 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0])?>
                                     <button id="add-count" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
                                 </div>
                             </div>
@@ -165,12 +121,12 @@ if(!$product['products']['products_image']){
                     <div class="pull-left" style="margin-right: 10px;">
                         <div class="custom pull-left">
                             <button id="del-count" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
-                            <?=$product_size_input[0]['input']?>
+                            <?=Html::textInput('','',['data'=>$product_sizes['sizes']['data_attr'], 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0])?>
                             <button id="add-count" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
                         </div>
                     </div>
                 <?php } ?>
-                <?php if($countproductreal > 0) { ?>
+                <?php if($product_sizes['count_product'] > 0) { ?>
                     <button class="button btn-cart cart-lable disabled" data-sale="<?=$product['products']['products_id']?>"><span><i class="icon-basket"></i> Добавить в корзину</span></button>
                 <?php }else{ ?>
                     <button class="button btn-cart cart-lable disabled" data-sale="<?=$product['products']['products_id']?>"><span><i class="icon-basket"></i> Продано</span></button>

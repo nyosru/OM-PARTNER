@@ -1,5 +1,8 @@
-
-    <div class="item-inner">
+<?php
+use yii\helpers\ArrayHelper;
+use yii\bootstrap\Html;
+?>
+    <div class="item-inner catalog-product-item" data-id="<?=$product['products_id']?>">
         <div class="item-img">
             <div class="item-img-info">
                 <a class="product-image" title="<?=$name?>" href="<?=$product_link?>">
@@ -12,6 +15,12 @@
             <div class="info-inner">
                 <div class="item-title"> <a title="<?=$name?>" href="<?=$product_link?>"><?=$name?></a> </div>
                 <div class="item-content">
+                    <?php if($sizes['isset_variants']){ ?>
+                        <div class="product-sizes">
+                            <span>Доступные размеры</span>
+                            <div class="product-sizes-list"><?=implode('&nbsp;&nbsp;',ArrayHelper::getColumn($sizes['sizes'],'label'))?></div>
+                        </div>
+                    <?php } ?>
                     <?=$this->render('_price',[
                         'price' => $product['products_price'],
                         'old_price' => $product['products_old_price'],
@@ -23,10 +32,36 @@
                             <a class="link-wishlist selected-product" title="В избранное" data-product="<?=$product['products_id']?>" href="#"></a>
                         <?php } ?>
                         <div class="add_cart">
-                            <button class="button btn-cart" type="button"><span>В корзину</span></button>
+                            <button class="button btn-cart" data-sale="<?=$product['products_id']?>" type="button"><span>В корзину</span></button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="hover-variants">
+            <?php if($sizes['isset_variants']) {?>
+                <label>Размеры</label>
+                <div class="row add-to-cart-inputs">
+                    <?php foreach($sizes['sizes'] as $item){ ?>
+                        <div class="col-lg-6">
+                            <div class="label-product"><?=$item['label']?></div>
+                            <div class="custom">
+                                <button id="del-count" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
+                                <?=Html::textInput('','',['data'=>$item['data_attr'], 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0])?>
+                                <button id="add-count" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } else { ?>
+                <div class="pull-left" style="margin-right: 10px;">
+                    <div class="custom pull-left">
+                        <button id="del-count" class="reduced items-count" type="button"><i class="icon-minus">&nbsp;</i></button>
+                        <?=Html::textInput('','',['data'=>$sizes['sizes']['data_attr'], 'class'=>'input-text qty','id'=>'input-count','placeholder'=>0])?>
+                        <button id="add-count" class="increase items-count" type="button"><i class="icon-plus">&nbsp;</i></button>
+                    </div>
+                </div>
+            <?php } ?>
+            <div class="catalog-price"><span>0</span> р.</div>
         </div>
     </div>

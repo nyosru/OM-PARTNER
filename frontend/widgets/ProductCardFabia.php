@@ -1,6 +1,7 @@
 <?php
 namespace frontend\widgets;
 
+use common\traits\Products\ProductVariants;
 use yii;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\Html;
@@ -11,6 +12,8 @@ use yii\helpers\Url;
  */
 class ProductCardFabia extends \yii\bootstrap\Widget
 {
+    use ProductVariants;
+
     public $product;
     public $description;
     public $attrib;
@@ -26,6 +29,7 @@ class ProductCardFabia extends \yii\bootstrap\Widget
     public $name;
     public $main_image;
     public $product_link;
+    public $sizes = [];
 
     public function init()
     {
@@ -42,6 +46,15 @@ class ProductCardFabia extends \yii\bootstrap\Widget
                     break;
             }
         }
+        //размеры товара
+        if(!empty($this->attr_descr)){
+
+        }
+        $this->sizes = $this->product_variants([
+            'products' => $this->product,
+            'productsAttributes' => $this->attrib,
+            'productsAttributesDescr' => $this->attr_descr,
+        ]);
     }
 
     public function run()

@@ -430,6 +430,44 @@ if ($data[0] != 'Не найдено!') {
 ?>
 
     <script>
+    function countCatalogPrice(inputs){
+        var countPrice = 0;
+        inputs.each(function(){
+            var countProduct = $(this).val();
+            if(countProduct!='' && parseInt(countProduct)>0){
+                countPrice += parseInt($(this).attr('data-price')*countProduct);
+            }
+        });
+        return countPrice;
+    }
+
+    $(document).on('click','.hover-variants button.items-count',function(){
+        var productBlock = $(this).parents('.catalog-product-item'),
+            inputs = productBlock.find('.input-text'),
+            price = productBlock.find('.catalog-price>span');
+        setTimeout(function(){
+            var countPrice = countCatalogPrice(inputs);
+            price.text(countPrice);
+            if(countPrice>0){
+                productBlock.find('.cart-lable').addClass('active');
+            } else {
+                productBlock.find('.cart-lable').removeClass('active');
+            }
+        },5);
+
+    });
+
+    /*
+    Показать список размеров
+     */
+    $(document).on('click','.btn-cart:not(.cart-lable)',function(){
+        var productBlock = $(this).parents('.catalog-product-item');
+        $('.hover-variants').slideUp();
+        $('.btn-cart.cart-lable').removeClass('cart-lable');
+        $(this).addClass('cart-lable');
+        productBlock.find('.hover-variants').slideDown();
+    });
+
     $(document).on('slide', '#price-slider',function( event, ui){
         $('#min-ev-price').val(ui.values[0]);
         $('#max-ev-price').val(ui.values[1]);

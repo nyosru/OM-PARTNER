@@ -22,6 +22,7 @@ use common\traits\OrdersStatusData;
 use common\traits\Products\FeaturedProducts;
 use common\traits\Products\GenerateFileChpu;
 use common\traits\Products\NewProducts;
+use common\traits\Products\ProductVariants;
 use common\traits\Products\PreCheckProductsToOrder;
 use common\traits\Products\RelatedProducts;
 use common\traits\RecursCat;
@@ -140,6 +141,7 @@ class GlavnayaController extends Controller
         OrdersStatusData,
         ManufacturersDiapazonData,
         Brands,
+        ProductVariants,
         ActionSiteIndex,
         ActionSuppliers,
         ActionSiteRequest,
