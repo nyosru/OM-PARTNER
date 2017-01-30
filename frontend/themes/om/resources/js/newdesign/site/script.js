@@ -1,3 +1,18 @@
+/*
+Уведомления
+ */
+function notyAlert(alertText,type) {
+    noty({
+        text        : alertText,
+        type        : type,
+        dismissQueue: true,
+        layout      : 'bottomRight',
+        theme       : 'relax',
+        timeout     : 3000,
+        progressBar : true
+    });
+}
+
 $('[data-toggle="tooltip"]').tooltip();
 
 function getCookie(name) {
@@ -168,6 +183,7 @@ $(document).on('click', '.cart-lable', function () {
     $cart_add_obj = $('[data-prod='+$id_product+']').filter('input');
     $checkzero = 0;
     $noanimate = false;
+    var sumValue = 0;
     $.each($cart_add_obj, function () {
         var $item = new Object();
         $item_add = $(this)[0];
@@ -175,6 +191,7 @@ $(document).on('click', '.cart-lable', function () {
         $item_add.value = $(this).val();
 
         if($item_add.value > 0) {
+            sumValue += parseInt($item_add.value);
             $checkzero = 1;
             if (JSON.parse(localStorage.getItem('cart-om'))) {
                 $timenow  =  new Date;
@@ -198,6 +215,9 @@ $(document).on('click', '.cart-lable', function () {
                         $now_count = $item_add.getAttribute('data-count');
                         this[4] = Math.min($now_count,(parseInt(this[4]) + parseInt($item_add.value)));
                         x = 1;
+                        if($now_count<parseInt(this[4]) + parseInt($item_add.value)){
+                            notyAlert('Максимальное количество товара уже в корзине','warning');
+                        }
                     }
                 });
             } else {
@@ -215,9 +235,16 @@ $(document).on('click', '.cart-lable', function () {
                 $amount_prod = $amount_prod + parseInt(this[4]);
 
             });
-            $(".cart-count").html($amount_prod);
+            var cartCount = $(".cart-count");
+            if(parseInt(cartCount.text()) < $amount_prod){
+                notyAlert('Товар добавлен в корзину','information');
+            }
+            cartCount.html($amount_prod);
         }
     });
+    if(sumValue == 0) {
+        notyAlert('Укажите количество товара', 'warning');
+    }
 });
 $(document).on('click', '.selected-product', function (e) {
     e.preventDefault();
