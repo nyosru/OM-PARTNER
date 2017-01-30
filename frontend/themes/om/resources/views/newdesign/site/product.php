@@ -69,7 +69,41 @@ if(!$product['products']['products_image']){
 <div class="row">
 
 <div class="product-view">
-<div class="product-next-prev"> <a class="product-next" href="#"><span></span></a> <a class="product-prev" href="#"><span></span></a> </div>
+<?php if(is_array($relprod) && !empty($relprod)) { ?>
+    <?php
+    $session = Yii::$app->session;
+    $session_name = 'relprod_'.$product['categories_id'];
+    if(empty($session[$session_name])){
+        $relprod_ids = [];
+        foreach ($relprod as $key=>$item) {
+            $relprod_ids[$key] = (int)$item['products_id'];
+        }
+        $session[$session_name] = $relprod_ids;
+    }
+    $relprod_index = array_search($product['products_id'], $session[$session_name]);
+
+    if($relprod_index !== FALSE){
+        if($relprod_index==0){
+            $next_product = 1;
+            $prev_product = count($session[$session_name]) - 1;
+        } elseif ($relprod_index == count($session[$session_name])) {
+            $next_product = 0;
+            $prev_product = $relprod_index - 1;
+        } else {
+            $next_product = $relprod_index + 1;
+            $prev_product = $relprod_index - 1;
+        }
+    } else {
+        $next_product = 1;
+        $prev_product = 0;
+    }
+
+    ?>
+    <div class="product-next-prev">
+        <a class="product-next" href="<?=Url::to(['product','id'=>$session[$session_name][$next_product]])?>"><span></span></a>
+        <a class="product-prev" href="<?=Url::to(['product','id'=>$session[$session_name][$prev_product]])?>"><span></span></a>
+    </div>
+<?php } ?>
 <div class="product-essential">
     <div class="product-img-box col-sm-5 col-xs-12">
         <div class="new-label new-top-left"> New </div>
