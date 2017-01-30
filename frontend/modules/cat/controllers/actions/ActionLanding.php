@@ -10,7 +10,6 @@ trait ActionLanding
     {
         $this->layout = 'main_land';
         $config_file_name = Yii::$app->request->get('c');
-
         $scandir_cat_configs = array_diff(scandir(\Yii::getAlias('@runtime') . '/cat/'), ['..', '.']);
 
         if(!$config_file_name) {
@@ -25,7 +24,6 @@ trait ActionLanding
         } else {
             throw new \yii\web\NotFoundHttpException(404);
         }
-
         return $this->render('landing', ['land_config' => $land_config]);
     }
 

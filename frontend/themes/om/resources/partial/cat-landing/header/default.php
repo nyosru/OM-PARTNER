@@ -1,48 +1,71 @@
 <div class="header-top-row">
+    <div  class="col-1">
+        <div class="header-top-row__info" style="justify-content: flex-start;">
+            <div class="col-4-10">
+                <?php if (
+                    ($logotype = Yii::$app->params['partnersset']['logotype']['value']) !== FALSE
+                    &&  Yii::$app->params['partnersset']['logotype']['active'] == 1){
+                    echo  str_replace('</p>', '', str_replace('<p>', '', $logotype));
+                } else {
+                    $logotype = '';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
     <div class="col-1">
         <div class="header-top-row__info" style="">
             <div class="header-top-row__info__date-period">
                 <span>Пн - Пт 9:00 - 19:00</span>
             </div>
             <div class="header-top-row__info__phone-number">
-                <span>8 800-123-45-67</span>
+                <span>
+                    <?php
+                    if (isset(Yii::$app->params['partnersset']['contacts']['telephone']['value']) && Yii::$app->params['partnersset']['contacts']['telephone']['active'] == 1) {
+                        echo Yii::$app->params['partnersset']['contacts']['telephone']['value'];
+                    }
+                    ?>
+                </span>
             </div>
             <div class="header-top-row__info__lk">
-                <span class="header-top-row__info__lk__btn btn_arrow-down"><a href="<?= BASEURL ?>">Личный кабинет</a></span>
+                <span class="header-top-row__info__lk__btn btn_arrow-down">
+                      <?php
+                      if (Yii::$app->user->isGuest) {
+                          echo '<div style="float: right;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i>';
+                          $model = new \common\models\LoginFormOM();
+                          \yii\bootstrap\Modal::begin([
+                              'id' => 'authform',
+                              'header' => 'Вход на Одежда-Мастер',
+                              'toggleButton' => ['label' => 'Вход', 'tag' => 'a', 'style' => 'float: left; margin: 4px; cursor:pointer;'],
+                          ]);
+                          $form = \yii\bootstrap\ActiveForm::begin([
+                              'action' => BASEURL . '/login',
+                              'id' => 'login-form'
+                          ]);
+                          echo $form->field($model, 'username', ['inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;']])->label('Электронная почта');
+                          echo $form->field($model, 'password', ['inputOptions' => ['class' => 'no-shadow-form-control', 'style' => 'height:36px;']])->passwordInput()->label('<span style="float: left;">Пароль</span><span style="float: right; text-decoration: underline;">' . \yii\helpers\Html::a('Забыли пароль?', [BASEURL . '/request-password-reset']) . '</span>');
+                          echo ' <div style="color:#999;margin:1em 0">';
+                          echo \yii\bootstrap\Html::a('Зарегистрироваться', [BASEURL . '/signup'], ['class' => 'btn', 'rel'=>'nofollow', 'style' => 'height: 36px; color: rgb(0, 0, 0); position: absolute; right: 30px; text-decoration: underline;']);
+                          echo \yii\bootstrap\Html::submitButton('Вход', ['class' => 'btn', 'name' => 'partners-settings-button', 'style' => 'height: 36px; color: rgb(255, 255, 255); position: absolute; left: 30px; background: rgb(0, 165, 161) none repeat scroll 0% 0%;']);
+                          echo '</div>';
+                          echo $form->field($model, 'rememberMe', ['options' => ['style' => 'margin-top:80px']])->checkbox()->label('Запомнить меня');
+
+                          \yii\bootstrap\ActiveForm::end();
+
+                          \yii\bootstrap\Modal::end();
+
+
+                          echo '</div>';
+                          echo '<div style="float: right;"><a rel="nofollow" href="' . BASEURL . '/signup"><span style="float: left; margin: 4px;">Регистрация</span></a></div>';
+                      } else {
+                          echo '<div style="float: right;"><a rel="nofollow"  href="' . BASEURL . '/logout" data-method="post"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE879;</i><span style="float: left; margin: 4px;">Выход</span></a></div>';
+                          echo '<div style="float: right;"><a rel="nofollow"  href="' . BASEURL . '/lk/"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i><span style="float: left; margin: 4px;">Профиль</span></a></div>';
+                      }
+                      ?>
+                </span>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="o-container col-95">
-
-    <div class="header-actions-bar">
-        <div class="col-3-10" style="background: black">
-            <div class="header-actions-bar__logo">
-                <div class="header-actions-bar__logo__img">
-                    <img src="" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="col-4-10">
-            <form action="<?= BASEURL ?>/catalog" style="width: 100%; height: 100%">
-
-                <div class="header-actions-bar__search">
-                    <input name="cat" value="0"
-                           style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
-                    <input name="count" value="60"
-                           style="color: rgb(119, 119, 119); height: 40px; float: left; width: 65%;" type="hidden">
-                    <input name="searchword" class="header-actions-bar__shopping-basket__input"
-                           placeholder="Введите артикул или название" type="text">
-                    <div class="header-actions-bar__shopping-basket__submit">
-                        <span>Найти</span>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-3-10">
             <div class="header-actions-bar__shopping-basket">
-                <div class="top-link-cont" style="padding: 12px 9px; float: right; text-align: right;">
+                <div style="padding: 0px 9px;">
                     <div style="background: rgb(255, 191, 8) none repeat scroll 0% 0%; font-size: 12px; float: right; position: relative; right: 35px;"
                          class="cart-count badge">5
                     </div>
@@ -52,7 +75,9 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="o-container col-95">
     <div class="header-nav-bar">
             <div class="header-nav-bar__list">
                 <div class="header-nav-bar__list_b list_disc">
