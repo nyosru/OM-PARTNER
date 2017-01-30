@@ -60,23 +60,6 @@ $this->title = 'Избранные продукты';
                         </ul>
                     </div>
                 </div>
-                <div class="block block-compare">
-                    <div class="block-title ">Compare Products (2)</div>
-                    <div class="block-content">
-                        <ol id="compare-items">
-                            <li class="item odd">
-                                <input type="hidden" value="2173" class="compare-item-id">
-                                <a class="btn-remove1" title="Remove This Item" href="#"></a> <a href="#" class="product-name"> Sofa with Box-Edge Polyester Wrapped Cushions</a> </li>
-                            <li class="item last even">
-                                <input type="hidden" value="2174" class="compare-item-id">
-                                <a class="btn-remove1" title="Remove This Item" href="#"></a> <a href="#" class="product-name"> Sofa with Box-Edge Down-Blend Wrapped Cushions</a> </li>
-                        </ol>
-                        <div class="ajax-checkout">
-                            <button type="submit" title="Submit" class="button button-compare"><span>Compare</span></button>
-                            <button type="submit" title="Submit" class="button button-clear"><span>Clear</span></button>
-                        </div>
-                    </div>
-                </div>
             </aside>
         </div>
     </div>

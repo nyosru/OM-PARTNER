@@ -1703,3 +1703,41 @@ $(document).on('click','.del-products',function(){
     $ilocal = JSON.stringify($item);
     localStorage.setItem('selected-product-om', $ilocal);
 });
+
+function countCatalogPrice(inputs){
+    var countPrice = 0;
+    inputs.each(function(){
+        var countProduct = $(this).val();
+        if(countProduct!='' && parseInt(countProduct)>0){
+            countPrice += parseInt($(this).attr('data-price')*countProduct);
+        }
+    });
+    return countPrice;
+}
+
+$(document).on('click','.catalog-product-item button.items-count',function(){
+    var productBlock = $(this).parents('.catalog-product-item'),
+        inputs = productBlock.find('.input-text'),
+        price = productBlock.find('.catalog-price>span');
+    setTimeout(function(){
+        var countPrice = countCatalogPrice(inputs);
+        price.text(countPrice);
+        if(countPrice>0){
+            productBlock.find('.cart-lable').addClass('active');
+        } else {
+            productBlock.find('.cart-lable').removeClass('active');
+        }
+    },5);
+
+});
+
+/*
+ Показать список размеров
+ */
+$(document).on('click','.catalog-product-item .btn-cart:not(.cart-lable)',function(){
+    var productBlock = $(this).parents('.catalog-product-item');
+    $('.hover-variants').slideUp();
+    $('.btn-cart.cart-lable').removeClass('cart-lable');
+    $(this).addClass('cart-lable');
+    productBlock.find('.hover-variants').slideDown();
+});

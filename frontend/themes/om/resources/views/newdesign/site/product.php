@@ -73,7 +73,13 @@ if(!$product['products']['products_image']){
         <div class="product-name">
             <h1><?=$product['productsDescription']['products_name']?></h1>
         </div>
-
+        <div class="info-block">
+            <ul>
+                <li>Код: <strong><?=$product['products']['products_model']?></strong></li>
+                <li style="border: none;">Мин. опт. зака: <?=$product['products']['products_quantity_order_min']?> шт.</li>
+                <li>Заказано: <?=$product['products']['products_ordered']?> шт.</li>
+            </ul>
+        </div>
 
         <div class="price-block">
             <?php if((integer)($product['products']["products_old_price"])){ ?>
@@ -140,13 +146,11 @@ if(!$product['products']['products_image']){
         </div>
         <div class="social">
             <ul class="link">
+                <li class="vk"><a href="#"></a></li>
+                <li class="ok"><a href="#"></a></li>
                 <li class="fb"><a href="#"></a></li>
                 <li class="tw"><a href="#"></a></li>
                 <li class="googleplus"><a href="#"></a></li>
-                <li class="rss"><a href="#"></a></li>
-                <li class="pintrest"><a href="#"></a></li>
-                <li class="linkedin"><a href="#"></a></li>
-                <li class="youtube"><a href="#"></a></li>
             </ul>
         </div>
     </div>
@@ -154,12 +158,27 @@ if(!$product['products']['products_image']){
 <div class="product-collateral col-lg-12 col-sm-12 col-xs-12">
     <div class="add_info">
         <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
-            <li class="active"> <a href="#product_tabs_description" data-toggle="tab">Полное описание</a> </li>
+            <li> <a href="#product_tabs_description" data-toggle="tab">Полное описание</a> </li>
+            <li class="active"> <a href="#product_tabs_specification" data-toggle="tab">Характеристики</a> </li>
             <li> <a href="#reviews_tabs" data-toggle="tab">Отзывы</a> </li>
         </ul>
         <div id="productTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="product_tabs_description">
+            <div class="tab-pane fade" id="product_tabs_description">
                 <div class="std"><p style="white-space: pre-wrap;"><?=$product['productsDescription']['products_description']?></p></div>
+            </div>
+            <div class="tab-pane fade in active" id="product_tabs_specification">
+                <?php if(is_array($spec['productsSpecification'])){ ?>
+                    <ul class="product-specification">
+                        <?php foreach ($spec['productsSpecification'] as $key => $value) { ?>
+                            <li>
+                                <?=$spec['specificationDescription'][$value['specifications_id']]['specification_name']?>:
+                                <strong><?=$spec['specificationValuesDescription'][$value['specification_values_id']]['specification_value']?></strong>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                <?php } else { ?>
+                    <p>У товара отсутствуют характеристики</p>
+                <?php } ?>
             </div>
             <div class="tab-pane fade" id="reviews_tabs">
                 <div class="box-collateral box-reviews" id="customer-reviews">
