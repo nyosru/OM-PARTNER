@@ -23,7 +23,7 @@ class Menuom extends \yii\bootstrap\Widget
     public $output2 = '';
 
     public $tpl = [
-        'wrap' => '<div data-wrap="1" id="{id}">{menu}</div>',
+        'wrap' => '<div  id="{id}">{menu}</div>',
         'block' => '<ul  class="accordion" {style} data-level="{level}" data-categories="{categories}" data-parent="{parentid}">{sub}</ul>',
         'link' => '<li class="{open}"><div class="link {checked}"  data-cat="{catdesc}">{exhtml}<a class="lock-on {checked}" href="{uri}">{name}</a></div>{subcat}</li>'
     ];
@@ -56,6 +56,9 @@ class Menuom extends \yii\bootstrap\Widget
         $this->cat_array = $this->reformat_cat_array($categories, $cat, $checks);
         $this->startcat = $this->property['target'];
         $this->opencat = $this->property['opencat'];
+        if (isset($this->property['id'])) {
+            $this->id = $this->property['id'];
+        }
         if (isset($this->property['generator'])) {
             $this->settingsopt['generator'] = $this->property['generator'];
         }
