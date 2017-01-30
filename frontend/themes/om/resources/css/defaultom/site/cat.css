@@ -71,12 +71,14 @@ body.o-cat-main {
     color: #545454;
     font-size: 14px;
     font-weight: 600;
+    line-height: 28px;
 }
 
 .header-top-row__info__phone-number span {
     color: #4a90e2;
     font-size: 15px;
     font-weight: 600;
+    line-height: 28px;
 }
 
 .header-top-row__info__lk {
@@ -179,14 +181,14 @@ body.o-cat-main {
     border: 2px solid #f0f0f0;
     border-radius: 4px;
     min-height: 86px;
-    margin-bottom: 22px;
+    margin: 22px 5px;
 }
 
 .header-nav-bar__list {
     display: flex;
     flex-wrap: wrap;
     align-content: space-around;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
     align-items: flex-start;
     padding-left: 15px;
