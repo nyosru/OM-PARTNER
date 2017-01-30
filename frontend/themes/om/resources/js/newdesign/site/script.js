@@ -1728,7 +1728,15 @@ $(document).on('click','.catalog-product-item button.items-count',function(){
             productBlock.find('.cart-lable').removeClass('active');
         }
     },5);
+});
 
+/*
+ Скрыть список размеров
+ */
+$(document).on('click','.hover-variants .close',function(){
+    var productBlock = $(this).parents('.catalog-product-item');
+    productBlock.find('.cart-lable').removeClass('cart-lable');
+    productBlock.find('.hover-variants').slideUp();
 });
 
 /*

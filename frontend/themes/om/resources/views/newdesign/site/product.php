@@ -42,7 +42,7 @@ if(!$product['products']['products_image']){
                                     $paste[0] = $urlsrc[0];
                                     $paste['cat'] = $catid;
                                 }else{
-                                    $paste[0] =   Yii::$app->params['chpu']['action'].'/'.$chpu->categoryChpu($catid);
+                                    $paste[0] =  'catalog/'.$chpu->categoryChpu($catid);
                                 }
                             }else{
                                 $paste[0] = $urlsrc[0];
@@ -180,16 +180,13 @@ if(!$product['products']['products_image']){
 <div class="product-collateral col-lg-12 col-sm-12 col-xs-12">
     <div class="add_info">
         <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
-            <li> <a href="#product_tabs_description" data-toggle="tab">Полное описание</a> </li>
             <li class="active"> <a href="#product_tabs_specification" data-toggle="tab">Характеристики</a> </li>
+            <li> <a href="#product_tabs_description" data-toggle="tab">Полное описание</a> </li>
             <li> <a href="#reviews_tabs" data-toggle="tab">Отзывы</a> </li>
         </ul>
         <div id="productTabContent" class="tab-content">
-            <div class="tab-pane fade" id="product_tabs_description">
-                <div class="std"><p style="white-space: pre-wrap;"><?=$product['productsDescription']['products_description']?></p></div>
-            </div>
             <div class="tab-pane fade in active" id="product_tabs_specification">
-                <?php if(is_array($spec['productsSpecification'])){ ?>
+                <?php if(is_array($spec['productsSpecification']) && !empty($spec['productsSpecification'])){ ?>
                     <ul class="product-specification">
                         <?php foreach ($spec['productsSpecification'] as $key => $value) { ?>
                             <li>
@@ -201,6 +198,9 @@ if(!$product['products']['products_image']){
                 <?php } else { ?>
                     <p>У товара отсутствуют характеристики</p>
                 <?php } ?>
+            </div>
+            <div class="tab-pane fade" id="product_tabs_description">
+                <div class="std"><p style="white-space: pre-wrap;"><?=$product['productsDescription']['products_description']?></p></div>
             </div>
             <div class="tab-pane fade" id="reviews_tabs">
                 <div class="box-collateral box-reviews" id="customer-reviews">

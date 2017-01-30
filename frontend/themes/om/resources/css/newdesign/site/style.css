@@ -4906,7 +4906,7 @@ a.button.detail-bnt span {
     margin-bottom: 10px;
 }
 .add-to-cart-inputs .label-product{
-    max-width: 147px;
+    max-width: 112px;
     font-weight: 600;
     text-align: center;
     display: block;
@@ -4946,6 +4946,12 @@ a.button.detail-bnt span {
 	padding: 13px 12px 10px 12px;
 	line-height: normal;
 }
+.add-to-cart-inputs .custom button.items-count{
+    padding: 8px 6px 6px 7px;
+}
+.product-shop .add-to-cart-inputs .custom button.items-count{
+    padding: 7px 6px 5px 6px;
+}
 .hover-variants .add-to-cart-inputs .label-product{
     max-width: 100%;
 }
@@ -4968,15 +4974,17 @@ a.button.detail-bnt span {
     text-align: center;
     color: #aaa;
     vertical-align: top;
+    height: 40px;
+    width: 40px;
     margin: 0;
     background-color: #fff;
     border-radius: 2px;
 }
-.products-list .catalog-product-item .custom input{
-    height: 40px;
-    width: 40px;
-}
 .products-grid .catalog-product-item .custom input{
+    height: 30px;
+    width: 30px;
+}
+.add-to-cart-inputs .custom input{
     height: 30px;
     width: 30px;
 }
@@ -8702,7 +8710,7 @@ ol#compare-items li.last {
 
 .product-tabs li.active a {
 	background: none repeat scroll 0 0 #fff;
-	color: #08c;
+	color: #333;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: bold;
 	padding: 12px;

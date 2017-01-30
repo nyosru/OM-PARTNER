@@ -38,6 +38,7 @@ use yii\helpers\ArrayHelper;
             </div>
         </div>
         <div class="hover-variants">
+            <button type="button" class="close" style="margin-top: -15px;">&times;</button>
             <?=$this->render('_variants',['sizes'=>$sizes])?>
             <div class="catalog-price"><span>0</span> р.</div>
         </div>
