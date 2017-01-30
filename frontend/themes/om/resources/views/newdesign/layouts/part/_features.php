@@ -1,28 +1,28 @@
 <!-- service -->
-<div class="our-features-box">
+<div class="our-features-box" style="background-color: #08c;">
     <ul>
         <li>
             <div class="feature-box">
-                <div class="icon-truck"></div>
-                <div class="content">FREE SHIPPING on order over $99</div>
+                <div class="om-icon om-icon-minorder"></div>
+                <div class="content">Заказ всего от 5000 руб</div>
             </div>
         </li>
         <li>
             <div class="feature-box">
-                <div class="icon-support"></div>
-                <div class="content">Need Help +1 800 123 1234</div>
+                <div class="om-icon om-icon-lowprice"></div>
+                <div class="content">Минимальная наценка</div>
             </div>
         </li>
         <li>
             <div class="feature-box">
-                <div class="icon-money"></div>
-                <div class="content">Money Back Guarantee</div>
+                <div class="om-icon om-icon-newgoods"></div>
+                <div class="content">До 2000 новинок ежедневно</div>
             </div>
         </li>
         <li class="last">
             <div class="feature-box">
-                <div class="icon-return"></div>
-                <div class="content">30 days return Service</div>
+                <div class="om-icon om-icon-delivery"></div>
+                <div class="content">Доставка по России и СНГ</div>
             </div>
         </li>
     </ul>

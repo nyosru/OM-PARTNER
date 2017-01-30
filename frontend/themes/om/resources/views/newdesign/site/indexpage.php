@@ -91,9 +91,6 @@ $this->title = $title;
 
 <!-- header banner  -->
 <div class="header-banner">
-<!--    <div class="assetBlock">-->
-<!--        <p><a href="#">Только сегодня <span>коньки</span> по супернизким ценам &gt; </a></p>-->
-<!--    </div>-->
     <div class="our-features-box">
         <div class="container">
             <ul>
@@ -224,59 +221,6 @@ $this->title = $title;
 
 <!--End Social -->
 
-<!-- About -->
-<section class="latest-blog">
-    <div class="container">
-        <div class="new_title center">
-            <h2>Коротко о нас</h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                <?php
-                            if (Yii::$app->user->can('admin')) {
-                            }
-                            $page = 'seoindex';
-                            $data = \common\models\PartnersPage::find()->where(['partners_id' => Yii::$app->params['constantapp']['APP_ID'], 'type'=>'stringpost','name' => $page])->one();
-                            if ($data) {
-                                echo '<div id="my-textarea-id">';
-                                echo stripcslashes($data->content);
-                                 echo '</div>';
-                            } else {
-                                ?>
-                            <div id="my-textarea-id"></div>
-
-                            <?php } ?>
-                            <?php if (Yii::$app->user->can('admin')) {
-
-                                echo \vova07\imperavi\Widget::widget([
-                                    'selector' => '#my-textarea-id',
-                                    'settings' => [
-                                        'lang' => 'ru',
-                                        'minHeight' => 200,
-                                        'plugins' => ['fontsize','fontcolor']
-                                    ]
-
-                                ]); ?>
-                                <button class="savehtml">Сохранить</button>
-                                <script>
-                                    $(document).on('click', '.savehtml', function() {
-                                        $html = $('#my-textarea-id').html();
-
-
-                                        $.post(
-                                            '/site/savepage',
-                                            { html: $html,
-                                                article: 'seoindex'}
-                                        );
-                                        alert('Изменения сохранены');
-                                    });
-                                </script>
-                            <?php } ?>
-            </div>
-        </div>
-    </div>
-</section>
-<!--End About -->
 
 <!--    <div id="main-spec">-->
 <!--        <div id="index-card-4">Специальные предложения</div>-->
