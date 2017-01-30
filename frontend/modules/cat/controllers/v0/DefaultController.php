@@ -22,7 +22,7 @@ class DefaultController extends Controller
     public function actions()
     {
         $this->layout = 'main_land';
-        return 'Админка';
+        return '';
     }
 
 }
