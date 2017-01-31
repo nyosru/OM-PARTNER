@@ -11,7 +11,124 @@ use yii\caching\Cache;
 use yii\filters\AccessControl;
 use yii\web\User;
 $this->title = $title;
-echo \frontend\widgets\GenBanners::widget();
+echo \frontend\widgets\GenBanners::widget([
+        'id' => 'main-index',
+        'tpl'=>[
+            'wrap' => '<div id="{id}" data-block="wrap-banners" class="{class}" style="{style}">{block}</div>',
+            'block' => '<div data-block="block-banners" >{medium1}{small1}{large}{medium2}{small2}{long}</div>',
+            'container' => '<div id="{id}"  {style}  data-position="{position}">{items}</div>',
+            'positions' => [
+                'medium1' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => 'none',
+                    'items'=>[
+                        [
+                            'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_1.png',
+                            'referal'=> '/catalog?cat=3453',
+                            'term'=> '',
+                            'alttext' => '14 февраля',
+                            'out' => FALSE,
+                            'header' => 'Заголовок',
+                            'text' => 'Подзаголовок',
+                            'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                            'button' => 'Кнопка',
+                        ],
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'small1' => [
+                    'id'=>'index-card-6',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => 'none',
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_3.png',
+                            'referal'=> '/catalog?cat=1979',
+                            'term'=> '',
+                            'alttext' => 'Ботильоны',
+                            'out' => FALSE
+                        ]
+
+                    ]
+                ],
+                'large' => [
+                    'id'=>'index-card-3',
+                    'class'=>'sort data-j index-sort banner-card',
+                    'style'=>'',
+                    'roll' => 'none',
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' => 'OM_26012017_5.png',
+                            'referal'=> '/catalog?cat=1749',
+                            'term'=> '',
+                            'alttext' => 'Пальто',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'medium2' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="float:right"',
+                    'roll' => 'none',
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'small2' => [
+                    'id'=>'index-card-6',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => '',
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' => 'OM_26012017_4.png',
+                            'referal'=> '/catalog?cat=1765',
+                            'term'=> '',
+                            'alttext' => 'Комплекты белья',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'long' => [
+                    'id'=>'index-card-6',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="width: calc(100% - 10px);"',
+                    'roll' => '',
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' => 'OM_26012017_6.png',
+                            'referal'=> '/catalog?cat=2047',
+                            'alttext' => '2047',
+                            'out' => FALSE
+                        ]
+                    ]
+                ]
+            ]
+        ]
+]);
 ?>
 
 
