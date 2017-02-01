@@ -3,6 +3,9 @@ html.o-cat-main {
 }
 
 body.o-cat-main {
+    max-width: 1366px;
+    text-align: center;
+    margin: auto;
     background: white !important;
 }
 

@@ -1,8 +1,10 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use frontend\widgets\GenBanners;
 
 ?>
+
     <div class="row-e">
         <div class="col-1">
             <?= Html::a('<i class="fa fa-arrow-left" aria-hidden="true"></i> Назад', 'config-list', []) ?>
@@ -13,43 +15,18 @@ use yii\widgets\ActiveForm;
             </div>
             <div style="max-width: 600px; margin: 0 auto;">
                 <?php
-                $banners_tpl = [
-                    [
-                        'name'            => 'Главный',
-                        'id'              => 'main',
-                        'max_count_photo' => 6,
-                        'positions'       => [
-                            'medium1',
-                            'small1',
-                            'large',
-                            'medium2',
-                            'small2',
-                            'long',
-                        ],
-                    ],
-                    [
-
-                        'name'            => 'Дисконтный',
-                        'id'              => 'discont',
-                        'max_count_photo' => 4,
-                        'positions'       => [
-                            'discont1',
-                            'discont2',
-                            'discont3',
-                            'discont4',
-                        ],
-                    ],
-                ];
-
+                $banners_tpl = array_values($model->loadBannersSet());
                 $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'], 'method' => 'post', 'id' => 'save_land_config', 'action' => 'update-config']);
 
                 echo $form->field($model, 'images_cfg')
                     ->hiddenInput(['id' => 'images_cfg'])
                     ->label(false)
                 ;
-
+                echo $form->field($model, 'visible_name')
+                    ->label('Название конфигурации')
+                ;
                 echo $form->field($model, 'config_name')
-                    ->label('Название конфигурационного файла (без точек и запятых)')
+                    ->label('Url лэндинга (без точек и запятых)')
                 ;
 
                 echo $form->field($model, 'header_tpl')
@@ -60,7 +37,7 @@ use yii\widgets\ActiveForm;
                 ;
 
                 $banners_tpl_for_dropdown = [];
-                foreach ($banners_tpl as $key => $item) {
+                foreach ($model->getTemplateList() as $key => $item) {
                     $banners_tpl_for_dropdown[$item['id']] = $item['name'];
                 }
                 echo $form->field($model, 'banners_tpl')
@@ -68,8 +45,7 @@ use yii\widgets\ActiveForm;
                     ->dropdownList(
                         $banners_tpl_for_dropdown,
                         ['prompt' => 'Стандартный (определен программой)', 'id' => 'banners_select']
-                    )
-                ;
+                    );
 
                 ?>
 
@@ -128,8 +104,6 @@ use yii\widgets\ActiveForm;
                                 ->getQueryParam('c')], ['class' => 'btn btn-primary']) ?>
                     </div>
                 </div>
-
-
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
@@ -159,9 +133,9 @@ use yii\widgets\ActiveForm;
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /#banner-gallery modal -->
+            </div>
+        </div>
+    </div>
 
 
     <div id="special_offers" class="modal fade">
@@ -182,9 +156,9 @@ use yii\widgets\ActiveForm;
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 <?php
 
 $banners_tpl_json = json_encode($banners_tpl);
@@ -271,12 +245,11 @@ $script = <<<JS
                     </div>\
               ',
               success: function (data) {
-                  
-
                   var images_cfg = $("#images_cfg");
                   images_cfg.val('');
 
                   var data_img = [];
+                  console.log(data);
                   for(var img_data_key in data) {
                               var li = $("[position='"+data[img_data_key][0]+"']");
                               var desc = li.find("[name='img_description']").val();
@@ -324,5 +297,6 @@ $script = <<<JS
 JS;
 
 $this->registerJs($script, yii\web\View::POS_READY);
+
 
 ?>

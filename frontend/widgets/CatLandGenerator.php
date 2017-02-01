@@ -18,7 +18,7 @@ class CatLandGenerator extends \yii\bootstrap\Widget
      */
     public $content_tpl = '';
     public $content_config = [];
-
+    public $visible_name;
     /**
      * @var string
      */
@@ -66,20 +66,16 @@ class CatLandGenerator extends \yii\bootstrap\Widget
 
     public function renderHeader()
     {
-        $mainBanner = new MainBanner();
-        $template = $mainBanner->template[$this->header_config['banner_config']['template']];
+        $template = $this->header_config['banner_config']['template'];
         if($template) {
             $data = [
                 'custom_path' => '/images/cat/',
                 'template'    => $template,
-                'position'    => [],
             ];
             foreach ($this->header_config['banner_config']['images'] as $i_key => $image) {
-                $data['position'][$image['position']][] = [
-                    'image'   => $image['img'],
-                    'referal' => $image['url'],
-                    'alttext' => $image['desc'],
-                ];
+                $data['template']['positions'][$image['position']]['items'][0]['image' ]= $image['img'];
+                $data['template']['positions'][$image['position']]['items'][0]['referal' ]= $image['url'];
+                $data['template']['positions'][$image['position']]['items'][0]['alttext' ]= $image['desc'];
             }
         } else {
             $data = [];

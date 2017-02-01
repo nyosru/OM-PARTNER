@@ -28,7 +28,7 @@
                 </span>
             </div>
             <div class="header-top-row__info__lk">
-                <span class="header-top-row__info__lk__btn btn_arrow-down">
+                <span class="header-top-row__info__lk__btn">
                       <?php
                       if (Yii::$app->user->isGuest) {
                           echo '<div style="float: right;"><i class="mdi" style="color: rgb(254, 213, 23); font-size: 24px; float: left;">&#xE7FF;</i>';
@@ -126,7 +126,9 @@
     </div>
 
 <!-- banner -->
-<?= \frontend\widgets\MainBanner::widget($banner_config); ?>
+
+
+<?= \frontend\widgets\GenBanners::widget(['tpl'=>$banner_config['template'], 'path'=>$banner_config['custom_path']]); ?>
 <div class="clearfix"></div>
 <!-- end banner -->
 

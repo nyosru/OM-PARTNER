@@ -3,18 +3,18 @@
     <div id="lend_products">
         <div class="row-e">
             <div class="col-1 center">
-                <div id="owl_lend_products_product-card" class="owl-carousel owl-theme">
+<!--                <div id="owl_lend_products_product-card" class="owl-carousel owl-theme">-->
                     <?php foreach ($content_list_products as $value) : ?>
-                        <div class="item">
+<!--                        <div class="item">-->
                             <?= \frontend\widgets\ProductCard::widget([
                                 'product'     => $value,
                                 'description' => $value['productsDescription'],
                                 'attrib'      => $value['productsAttributes'],
                                 'attr_descr'  => $value['productsAttributesDescr'],
                             ]); ?>
-                        </div>
+<!--                        </div>-->
                     <?php endforeach; ?>
-                </div>
+<!--                </div>-->
             </div>
         </div>
     </div>
