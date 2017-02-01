@@ -34,17 +34,17 @@ class CatLandGenerator extends \yii\bootstrap\Widget
         $scandir_content_tpl = array_diff(scandir(\Yii::getAlias('@partial') . '/cat-landing/content'), ['..', '.']);
         $scandir_footer_tpl = array_diff(scandir(\Yii::getAlias('@partial') . '/cat-landing/footer'), ['..', '.']);
 
-        if (empty($this->header_tpl) || $this->header_tpl === null || !in_array($this->header_tpl,
+        if (empty($this->header_tpl) || $this->header_tpl === null || !in_array($this->header_tpl.'.php',
                 $scandir_header_tpl)
         ) {
             $this->header_tpl = $default_tpl_file;
         }
-        if (empty($this->content_tpl) || $this->content_tpl === null || !in_array($this->content_tpl,
+        if (empty($this->content_tpl) || $this->content_tpl === null || !in_array($this->content_tpl.'.php',
                 $scandir_content_tpl)
         ) {
             $this->content_tpl = $default_tpl_file;
         }
-        if (empty($this->footer_tpl) || $this->footer_tpl === null || !in_array($this->footer_tpl,
+        if (empty($this->footer_tpl) || $this->footer_tpl === null || !in_array($this->footer_tpl.'.php',
                 $scandir_footer_tpl)
         ) {
             $this->footer_tpl = $default_tpl_file;
@@ -82,7 +82,7 @@ class CatLandGenerator extends \yii\bootstrap\Widget
         }
         return $this->render('@partial/cat-landing/header/' . $this->header_tpl, [
             'banner_config' => $data,
-            'header_title'  => ($this->header_config['header_title']) ? $this->header_config['header_title'] : 'Тут должен быть заголовок',
+            'header_title'  => ($this->header_config['header_title']) ? $this->header_config['header_title'] : '',
         ]);
     }
 
@@ -106,7 +106,7 @@ class CatLandGenerator extends \yii\bootstrap\Widget
 
         return $this->render('@partial/cat-landing/content/' . $this->content_tpl, [
             'content_list_products' => $data_products,
-            'special_offer'         => ($this->content_config['special_offer']) ? $this->content_config['special_offer'] : 'Тут должен быть заголовок',
+            'special_offer'         => ($this->content_config['special_offer']) ? $this->content_config['special_offer'] : '',
         ]);
     }
 
