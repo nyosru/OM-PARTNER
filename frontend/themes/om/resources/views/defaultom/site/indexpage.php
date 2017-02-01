@@ -10,6 +10,7 @@ use yii\jui\Slider;
 use yii\caching\Cache;
 use yii\filters\AccessControl;
 use yii\web\User;
+use frontend\widgets\GenBanners;
 $this->title = $title;
 echo \frontend\widgets\GenBanners::widget([
         'id' => 'main-index',
@@ -22,14 +23,14 @@ echo \frontend\widgets\GenBanners::widget([
                     'id'=>'index-card-5',
                     'class'=>'data-j index-card banner-card',
                     'style'=>'',
-                    'roll' => 'none',
+                    'roll' => GenBanners::ROTATE_NONE,
                     'items'=>[
                         [
                             'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_26012017_1.png',
-                            'referal'=> '/catalog?cat=3453',
+                            'image' =>  'OM_31012017_1.png',
+                            'referal'=> '/catalog?cat=1580',
                             'term'=> '',
-                            'alttext' => '14 февраля',
+                            'alttext' => 'Джинсы',
                             'out' => FALSE,
                             'header' => 'Заголовок',
                             'text' => 'Подзаголовок',
@@ -38,7 +39,7 @@ echo \frontend\widgets\GenBanners::widget([
                         ],
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_26012017_2.png',
+                            'image' =>  'OM_31012017_2.png',
                             'referal'=> '/catalog?cat=1987',
                             'term'=> '',
                             'alttext' => 'Полусапожки',
@@ -50,14 +51,14 @@ echo \frontend\widgets\GenBanners::widget([
                     'id'=>'index-card-6',
                     'class'=>'data-j index-card banner-card',
                     'style'=>'',
-                    'roll' => 'none',
+                    'roll' => GenBanners::ROTATE_NONE,
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_26012017_3.png',
-                            'referal'=> '/catalog?cat=1979',
+                            'image' =>  'OM_31012017_3.png',
+                            'referal'=> '/catalog?cat=1350',
                             'term'=> '',
-                            'alttext' => 'Ботильоны',
+                            'alttext' => 'Большие размеры',
                             'out' => FALSE
                         ]
 
@@ -67,14 +68,14 @@ echo \frontend\widgets\GenBanners::widget([
                     'id'=>'index-card-3',
                     'class'=>'sort data-j index-sort banner-card',
                     'style'=>'',
-                    'roll' => 'none',
+                    'roll' => GenBanners::ROTATE_NONE,
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' => 'OM_26012017_5.png',
-                            'referal'=> '/catalog?cat=1749',
+                            'image' => 'OM_31012017_5.png',
+                            'referal'=> '/catalog?cat=1720',
                             'term'=> '',
-                            'alttext' => 'Пальто',
+                            'alttext' => 'Платья',
                             'out' => FALSE
                         ]
                     ]
@@ -83,14 +84,14 @@ echo \frontend\widgets\GenBanners::widget([
                     'id'=>'index-card-5',
                     'class'=>'data-j index-card banner-card',
                     'style'=>'style="float:right"',
-                    'roll' => 'none',
+                    'roll' => GenBanners::ROTATE_NONE,
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_26012017_2.png',
-                            'referal'=> '/catalog?cat=1987',
+                            'image' =>  'OM_31012017_2.png',
+                            'referal'=> '/catalog?cat=1752',
                             'term'=> '',
-                            'alttext' => 'Полусапожки',
+                            'alttext' => 'Легкие куртки и ветровки',
                             'out' => FALSE
                         ]
                     ]
@@ -99,14 +100,14 @@ echo \frontend\widgets\GenBanners::widget([
                     'id'=>'index-card-6',
                     'class'=>'data-j index-card banner-card',
                     'style'=>'',
-                    'roll' => '',
+                    'roll' => GenBanners::ROTATE_NONE,
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' => 'OM_26012017_4.png',
-                            'referal'=> '/catalog?cat=1765',
+                            'image' => 'OM_31012017_4.png',
+                            'referal'=> '/catalog?cat=1987',
                             'term'=> '',
-                            'alttext' => 'Комплекты белья',
+                            'alttext' => 'Полусапожки',
                             'out' => FALSE
                         ]
                     ]
@@ -115,13 +116,13 @@ echo \frontend\widgets\GenBanners::widget([
                     'id'=>'index-card-6',
                     'class'=>'data-j index-card banner-card',
                     'style'=>'style="width: calc(100% - 10px);"',
-                    'roll' => '',
+                    'roll' => GenBanners::ROTATE_NONE,
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' => 'OM_26012017_6.png',
-                            'referal'=> '/catalog?cat=2047',
-                            'alttext' => '2047',
+                            'image' => 'OM_31012017_6.png',
+                            'referal'=> '/catalog?cat=3454',
+                            'alttext' => '23 Февраля',
                             'out' => FALSE
                         ]
                     ]
