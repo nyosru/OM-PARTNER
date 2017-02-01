@@ -3,6 +3,7 @@ namespace frontend\modules\adminsite\controllers\actions\cat;
 
 use common\forms\Cat\CatLandConfigForm;
 use common\models\Referrals;
+use frontend\widgets\GenBanners;
 use Yii;
 
 trait ActionConfigure
@@ -37,6 +38,7 @@ trait ActionConfigure
 
         if (!empty($land_config) && count($land_config) > 0) {
             $model = new CatLandConfigForm([
+                'visible_name'          => $land_config['visible_name'],
                 'config_name'           => $config_name,
                 'header_tpl'            => $land_config['header_tpl'],
                 'header_title'          => $land_config['header_config']['header_title'],

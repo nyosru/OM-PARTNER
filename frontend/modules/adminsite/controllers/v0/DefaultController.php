@@ -28,6 +28,7 @@ use frontend\modules\adminsite\controllers\actions\ActionTemplateimage;
 use frontend\modules\adminsite\controllers\actions\ActionUserControl;
 use frontend\modules\adminsite\controllers\actions\ActionCoupons;
 use frontend\modules\adminsite\controllers\actions\cat\ActionConfigure;
+use frontend\modules\adminsite\controllers\actions\cat\ActionCopyConfig;
 use frontend\modules\adminsite\controllers\actions\cat\ActionDeleteConfig;
 use frontend\modules\adminsite\controllers\actions\cat\ActionListUploadedImages;
 use frontend\modules\adminsite\controllers\actions\cat\ActionUpdateConfig;
@@ -71,6 +72,7 @@ class DefaultController extends Controller
         ActionUpdateConfig,
         ActionUploadOneCatPhoto,
         ActionListUploadedImages,
+        ActionCopyConfig,
         ActionDeleteConfig;
 
     public function behaviors()
@@ -110,6 +112,7 @@ class DefaultController extends Controller
                             'configure',
                             'config-list',
                             'update-config',
+                            'copy-config',
                             'delete-config',
                             'upload-one-cat-photo',
                             'list-uploaded-images',

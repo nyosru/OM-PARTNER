@@ -25,8 +25,8 @@ class GenBanners extends \yii\bootstrap\Widget
         'term'=> '',
         'content'=> ''
     ];
-    public $custom_path = '';
-    private $tpl = [
+    public $path = '';
+    public $tpl = [
         'wrap' => '<div id="{id}" data-block="wrap-banners" class="{class}" style="{style}">{block}</div>',
         'block' => '<div data-block="block-banners" >{medium1}{small1}{large}{medium2}{small2}{long}</div>',
         'container' => '<div id="{id}"  {style}  data-position="{position}">{items}</div>',
@@ -35,7 +35,7 @@ class GenBanners extends \yii\bootstrap\Widget
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE,
+                'roll' => GenBanners::ROTATE_NONE,
                 'items'=>[
                     [
                         'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
@@ -63,7 +63,7 @@ class GenBanners extends \yii\bootstrap\Widget
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE,
+                'roll' => GenBanners::ROTATE_NONE,
                 'items'=> [
                     [
                         'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
@@ -80,7 +80,7 @@ class GenBanners extends \yii\bootstrap\Widget
                 'id'=>'index-card-3',
                 'class'=>'sort data-j index-sort banner-card',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE,
+                'roll' => GenBanners::ROTATE_NONE,
                 'items'=> [
                     [
                         'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
@@ -96,7 +96,7 @@ class GenBanners extends \yii\bootstrap\Widget
                 'id'=>'index-card-5',
                 'class'=>'data-j index-card banner-card',
                 'style'=>'style="float:right"',
-                'roll' => self::ROTATE_NONE,
+                'roll' => GenBanners::ROTATE_NONE,
                 'items'=> [
                     [
                         'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
@@ -112,7 +112,7 @@ class GenBanners extends \yii\bootstrap\Widget
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'style'=>'',
-                'roll' => self::ROTATE_NONE,
+                'roll' => GenBanners::ROTATE_NONE,
                 'items'=> [
                     [
                         'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
@@ -128,7 +128,7 @@ class GenBanners extends \yii\bootstrap\Widget
                 'id'=>'index-card-6',
                 'class'=>'data-j index-card banner-card',
                 'style'=>'style="width: calc(100% - 10px);"',
-                'roll' => self::ROTATE_NONE,
+                'roll' => GenBanners::ROTATE_NONE,
                 'items'=> [
                     [
                         'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
@@ -144,6 +144,9 @@ class GenBanners extends \yii\bootstrap\Widget
     private $tpl_part = [];
     public function init()
     {
+        if(!$this->path){
+            $this->path = GenBanners::IMAGE_PATH;
+        }
         preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['wrap'], $this->tpl_part['wrap']);
         preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['block'], $this->tpl_part['block']);
         preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['container'], $this->tpl_part['container']);
@@ -213,7 +216,7 @@ class GenBanners extends \yii\bootstrap\Widget
                     preg_match_all('/{(\w*\d*\_*)}/iu', $item_html, $match);
                     $referal = $refer . $divider . $utm_link . '" ' . $out_param;
                     $style = "display: block;max-width: 100%;height: auto;";
-                    $image = self::IMAGE_PATH . $valuer['image'];
+                    $image = $this->path . $valuer['image'];
                     $alt = $valuer['alttext'];
                     $header = $valuer['header'];
                     $text = $valuer['text'];
