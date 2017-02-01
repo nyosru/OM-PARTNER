@@ -6,7 +6,7 @@ function notyAlert(alertText,type) {
         text        : alertText,
         type        : type,
         dismissQueue: true,
-        layout      : 'bottomRight',
+        layout      : 'topRight',
         theme       : 'relax',
         timeout     : 3000,
         progressBar : true

@@ -235,7 +235,7 @@ if ($data[0] != 'Не найдено!') {
                         </div>
                     </div>
                     <div class="category-products">
-                        <ul class="products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>" style="padding: 0;">
+                        <ul class="clearfix products-<?=(int)$_COOKIE['cardview'] == 1?'list':'grid'?>" style="padding: 0;">
                             <?php
                             foreach ($data[0] as $value) {
                                 if((int)$_COOKIE['cardview'] == 1){
@@ -250,6 +250,18 @@ if ($data[0] != 'Не найдено!') {
                             ?>
 
                         </ul>
+                    </div>
+                    <div class="pager" style="margin: 15px 0;">
+                        <div class="pages">
+                            <?=LinkPager::widget([
+                                'pagination' => new Pagination([
+                                    'defaultPageSize' => 60,
+                                    'totalCount' => $data[1],
+                                    'route' => $paste[0],
+                                ]),
+                                'maxButtonCount' => 3,
+                            ]); ?>
+                        </div>
                     </div>
                 </article>
                 <!--	///*///======    End article  ========= //*/// -->
