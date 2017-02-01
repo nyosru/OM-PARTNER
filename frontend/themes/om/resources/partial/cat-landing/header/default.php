@@ -132,7 +132,7 @@
 <div class="clearfix"></div>
 <!-- end banner -->
 
-<div class="col-1 special_header_c-h2"><?= ($header_title) ?: 'Специальное предложение' ?></div>
+<div class="col-1 special_header_c-h2"><?= ($header_title) ?: '' ?></div>
 <div class="clearfix"></div>
 
 </div>

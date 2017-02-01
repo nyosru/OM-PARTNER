@@ -85,6 +85,7 @@ use frontend\widgets\GenBanners;
                     ->label('Подвал')
                     ->dropdownList([
                         'default' => 'Стандартный',
+                        'empty' => 'Выключить',
                     ], ['prompt' => 'Выберите вид'])
                 ;
                 ?>
