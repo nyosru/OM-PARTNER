@@ -126,7 +126,9 @@
     </div>
 
 <!-- banner -->
-<?= \frontend\widgets\MainBanner::widget($banner_config); ?>
+
+
+<?= \frontend\widgets\GenBanners::widget(['tpl'=>$banner_config['template'], 'path'=>$banner_config['custom_path']]); ?>
 <div class="clearfix"></div>
 <!-- end banner -->
 

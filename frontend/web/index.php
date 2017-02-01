@@ -226,7 +226,7 @@ if(Yii::$app->params['seourls'] == TRUE) {
             '<action:catalog>/<page:[0-9]*>' => '<action:catalog>',
             '<action:catalog>/<cat_start:[a-z-0-9-/]+>/<page:[0-9]*>' => '/catalog',
             '<action:catalog>/<cat_start:[a-z-0-9-/]*>' => '/catalog',
-
+            '<module:cat>/<action:landing>/<c:[a-z-0-9-]*>' => '/cat/landing',
             '<action:product>/<productid:[a-z-0-9-]*>' => '/product'
         ]);
         $req = \Yii::$app->urlManager->parseRequest(\Yii::$app->request);
@@ -234,18 +234,29 @@ if(Yii::$app->params['seourls'] == TRUE) {
             ||
             $req[1]['action'] == 'products-discount'
             ||
+            $req[1]['action'] == 'landing'
+            ||
             $req[1]['action'] == 'product')) {
             \Yii::$app->params['chpu'] = $req[1];
-            \Yii::$app->request->setPathInfo($req[1]['action']);
+            $module = '';
+            if(isset($req[1]['action'])){
+                $module = $req[1]['module'].'/';
+            }
+            \Yii::$app->request->setPathInfo($module.$req[1]['action']);
             \Yii::$app->request->url = $req[1]['action'];
-        } else if(preg_match('/\/(catalog|products-discount|product)$/iu',$req[0], $success)){
+        } else if(preg_match('/\/(cat\/landing|catalog|products-discount|product)$/iu',$req[0], $success)){
+            $module = '';
+            if(isset($req[1]['action'])){
+                $module = $req[1]['module'].'/';
+            }
             $req[1]['action'] = $success[1];
             \Yii::$app->params['chpu'] = $req[1];
-            \Yii::$app->request->setPathInfo($success[1]);
+            \Yii::$app->request->setPathInfo($module.$success[1]);
             \Yii::$app->request->url = $success[1];
         }
     });
 }
+
 $application->run();
 
 

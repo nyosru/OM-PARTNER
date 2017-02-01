@@ -2385,7 +2385,9 @@ div.float:hover {
 #index-card-3 {
     width: calc(100% / 2 - 10px)
 }
-
+#index-card-7{
+    width: calc(100% / 3 - 10px)
+}
 .top-link:hover, .top-link:focus, .top-link:active {
     color:#007BC1;
     text-decoration: none;
@@ -2437,7 +2439,7 @@ div.float:hover {
     padding: 0;
 }
 
-#index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
+#index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6, #index-card-7 {
     margin: 5px
 }
 
@@ -2445,7 +2447,7 @@ div.float:hover {
     box-shadow: 0 0 1px 0 #AFBCAA
 }
 
-#index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6 {
+#index-card-1, #index-card-2, #index-card-3, #index-card-4, #index-card-5, #index-card-6, #index-card-7 {
     border-radius: 2px
 }
 
@@ -2463,7 +2465,12 @@ div.float:hover {
     min-height: 160px;
     height: 160px
 }
-
+#index-card-7 {
+    float: left;
+    padding: 20px;
+    overflow: hidden;
+    min-height: 160px;
+}
 #index-card-3 {
     float:right;
     padding: 0;

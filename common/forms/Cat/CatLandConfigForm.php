@@ -3,6 +3,7 @@
 namespace common\forms\Cat;
 
 use Yii;
+use frontend\widgets\GenBanners;
 use yii\base\Model;
 
 
@@ -15,7 +16,7 @@ class CatLandConfigForm extends Model
     public $header_title;
     public $banners_tpl;
     public $images_cfg;
-
+    public $visible_name;
     public $content_tpl;
     public $content_list_products;
     public $special_offer;
@@ -25,12 +26,357 @@ class CatLandConfigForm extends Model
     protected $path_save_pictures = '@webroot/images/cat/';
     protected $valid_formats = ["jpg", "png", "gif", "jpeg"];
 
+    private $banners_settings = [
+        'main' => [
+            'name'            => 'Комби',
+            'id'              => 'main',
+            'wrap' => '<div id="{id}" data-block="wrap-banners" class="{class}" style="{style}">{block}</div>',
+            'block' => '<div data-block="block-banners" >{medium1}{small1}{large}{medium2}{small2}{long}</div>',
+            'container' => '<div id="{id}"  {style}  data-position="{position}">{items}</div>',
+            'positions' => [
+                'medium1' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=>[
+                        [
+                            'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_1.png',
+                            'referal'=> '/catalog?cat=3453',
+                            'term'=> '',
+                            'alttext' => '14 февраля',
+                            'out' => FALSE,
+                            'header' => 'Заголовок',
+                            'text' => 'Подзаголовок',
+                            'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                            'button' => 'Кнопка',
+                        ],
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'small1' => [
+                    'id'=>'index-card-6',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_3.png',
+                            'referal'=> '/catalog?cat=1979',
+                            'term'=> '',
+                            'alttext' => 'Ботильоны',
+                            'out' => FALSE
+                        ]
+
+                    ]
+                ],
+                'large' => [
+                    'id'=>'index-card-3',
+                    'class'=>'sort data-j index-sort banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' => 'OM_26012017_5.png',
+                            'referal'=> '/catalog?cat=1749',
+                            'term'=> '',
+                            'alttext' => 'Пальто',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'medium2' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="float:right"',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'small2' => [
+                    'id'=>'index-card-6',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' => 'OM_26012017_4.png',
+                            'referal'=> '/catalog?cat=1765',
+                            'term'=> '',
+                            'alttext' => 'Комплекты белья',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'long' => [
+                    'id'=>'index-card-6',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="width: calc(100% - 10px);"',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' => 'OM_26012017_6.png',
+                            'referal'=> '/catalog?cat=2047',
+                            'alttext' => '2047',
+                            'out' => FALSE
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'tyu' => [
+            'name'            => '4 в ряд',
+            'id'              => 'tyu',
+            'wrap' => '<div id="{id}" data-block="wrap-banners" class="{class}" style="{style}">{block}</div>',
+            'block' => '<div data-block="block-banners" >{medium1}{medium2}{medium3}{medium4}</div>',
+            'container' => '<div id="{id}"  {style}  data-position="{position}">{items}</div>',
+            'positions' => [
+                'medium1' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=>[
+                        [
+                            'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_1.png',
+                            'referal'=> '/catalog?cat=3453',
+                            'term'=> '',
+                            'alttext' => '14 февраля',
+                            'out' => FALSE,
+                            'header' => 'Заголовок',
+                            'text' => 'Подзаголовок',
+                            'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                            'button' => 'Кнопка',
+                        ],
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'medium2' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="float:right"',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'medium3' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=>[
+                        [
+                            'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_1.png',
+                            'referal'=> '/catalog?cat=3453',
+                            'term'=> '',
+                            'alttext' => '14 февраля',
+                            'out' => FALSE,
+                            'header' => 'Заголовок',
+                            'text' => 'Подзаголовок',
+                            'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                            'button' => 'Кнопка',
+                        ],
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'medium4' => [
+                    'id'=>'index-card-5',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="float:right"',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'discont' =>[
+            'name'            => '3 в ряд',
+            'id'              => 'discont',
+            'wrap' => '<div id="{id}" data-block="wrap-banners" class="{class}" style="{style}">{block}</div>',
+            'block' => '<div data-block="block-banners" >{medium1}{medium2}{medium3}</div>',
+            'container' => '<div id="{id}"  {style}  data-position="{position}">{items}</div>',
+            'positions' => [
+                'medium1' => [
+                    'id'=>'index-card-7',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=>[
+                        [
+                            'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_1.png',
+                            'referal'=> '/catalog?cat=3453',
+                            'term'=> '',
+                            'alttext' => '14 февраля',
+                            'out' => FALSE,
+                            'header' => 'Заголовок',
+                            'text' => 'Подзаголовок',
+                            'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                            'button' => 'Кнопка',
+                        ],
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'medium2' => [
+                    'id'=>'index-card-7',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="float:right"',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=> [
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ],
+                'medium3' => [
+                    'id'=>'index-card-7',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=>[
+                        [
+                            'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_1.png',
+                            'referal'=> '/catalog?cat=3453',
+                            'term'=> '',
+                            'alttext' => '14 февраля',
+                            'out' => FALSE,
+                            'header' => 'Заголовок',
+                            'text' => 'Подзаголовок',
+                            'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                            'button' => 'Кнопка',
+                        ],
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'triple' =>[
+            'name'            => '1 на всю длинну',
+            'id'              => 'triple',
+            'wrap' => '<div id="{id}" data-block="wrap-banners" class="{class}" style="{style}">{block}</div>',
+            'block' => '<div data-block="block-banners" >{medium1}{medium2}{medium3}</div>',
+            'container' => '<div id="{id}"  {style}  data-position="{position}">{items}</div>',
+            'positions' => [
+                'medium1' => [
+                    'id'=>'index-card-6',
+                    'class'=>'data-j index-card banner-card',
+                    'style'=>'style="width: calc(100% - 10px);"',
+                    'roll' => GenBanners::ROTATE_NONE,
+                    'items'=>[
+                        [
+                            'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_1.png',
+                            'referal'=> '/catalog?cat=3453',
+                            'term'=> '',
+                            'alttext' => '14 февраля',
+                            'out' => FALSE,
+                            'header' => 'Заголовок',
+                            'text' => 'Подзаголовок',
+                            'description' => 'Тестовый текст должен быть достаточно длинным. Может быть даже чуть длиннее. Ну и еще немножко.',
+                            'button' => 'Кнопка',
+                        ],
+                        [
+                            'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
+                            'image' =>  'OM_26012017_2.png',
+                            'referal'=> '/catalog?cat=1987',
+                            'term'=> '',
+                            'alttext' => 'Полусапожки',
+                            'out' => FALSE
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        'nobanners' =>[
+            'name'            => 'Без баннеров',
+            'id'              => 'nobanners',
+            'wrap' => '{block}',
+            'block' => '',
+            'container' => '{items}',
+            'positions' => [
+            ]
+        ]
+    ];
+
     public function rules()
     {
         return [
             [
                 [
                     'header_tpl',
+                    'visible_name',
                     'header_title',
                     'content_tpl',
                     'content_list_products',
@@ -42,7 +388,7 @@ class CatLandConfigForm extends Model
                 ],
                 'string',
             ],
-            [['config_name',], 'match', 'pattern' => '/^[a-z]|[а-я]\w*$/i', 'message' => 'В названии должны быть только буквы'],
+            [['config_name',], 'match', 'pattern' => '/^[a-z]|[а-я][0-9]\w*$/i', 'message' => 'В url должны быть только буквы и цифры'],
             [['config_name'], 'required', 'message' => 'Обязательное поле'],
         ];
     }
@@ -57,13 +403,13 @@ class CatLandConfigForm extends Model
         if (!$this->validate()) {
             return false;
         }
-
         $json_config = [
+            "visible_name"     => $this->visible_name,
             "header_tpl"     => $this->header_tpl,
             "header_config"  => [
                 "header_title"  => $this->header_title,
                 "banner_config" => [
-                    'template' => $this->banners_tpl,
+                    'template' => $this->getTemplate($this->banners_tpl),
                     'images'   => json_decode($this->images_cfg),
                 ],
             ],
@@ -74,7 +420,6 @@ class CatLandConfigForm extends Model
             ],
             "footer_tpl"     => $this->footer_tpl,
         ];
-
         if (!empty($config_name) && $config_name != $this->config_name) {
             unlink(\Yii::getAlias('@runtime') . '/cat/' . $config_name);
         }
@@ -124,11 +469,12 @@ class CatLandConfigForm extends Model
         }
 
         $json_config = [
+            "visible_name"     => $this->visible_name,
             "header_tpl"     => $this->header_tpl,
             "header_config"  => [
                 "header_title"  => $this->header_title,
                 "banner_config" => [
-                    'template' => $this->banners_tpl,
+                    'template' => $this->getTemplate($this->banners_tpl),
                     'images'   => json_decode($this->images_cfg),
                 ],
             ],
@@ -204,6 +550,25 @@ class CatLandConfigForm extends Model
         }
 
         return $url_files;
+    }
+    public function loadBannersSet()
+    {
+        return $this->banners_settings;
+
+    }
+    public function getTemplate($config_name = 'main')
+    {
+       return $this->loadBannersSet()[$config_name];
+
+    }
+    public function getTemplateList()
+    {
+        $result = [];
+        foreach ($this->loadBannersSet() as $key=>$value){
+            $result[$value['id']]['id'] = $value['id'];
+            $result[$value['id']]['name'] = $value['name'];
+        };
+        return $result;
     }
 
 }

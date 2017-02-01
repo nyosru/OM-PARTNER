@@ -161,7 +161,7 @@
 
     $.fn.displayFilesInputCount = function (positions, tpl) {
         for (var key in positions) {
-            var li = $('<li position="' + positions[key] + '"/>').appendTo(this);
+            var li = $('<li position="' + key + '"/>').appendTo(this);
             $(tpl).appendTo(li);
         }
     };

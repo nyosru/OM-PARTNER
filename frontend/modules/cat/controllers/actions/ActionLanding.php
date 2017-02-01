@@ -9,7 +9,12 @@ trait ActionLanding
     public function actionLanding()
     {
         $this->layout = 'main_land';
-        $config_file_name = Yii::$app->request->get('c');
+        if(\Yii::$app->params['chpu']['action'] == 'landing'){
+            $config_file_name = \Yii::$app->params['chpu']['c'];
+        }else{
+            $config_file_name = Yii::$app->request->get('c');
+        }
+
         $scandir_cat_configs = array_diff(scandir(\Yii::getAlias('@runtime') . '/cat/'), ['..', '.']);
 
         if(!$config_file_name) {
