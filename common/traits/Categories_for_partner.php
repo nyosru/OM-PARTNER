@@ -30,8 +30,14 @@ Trait Categories_for_partner
                 $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0 and categories_id NOT IN (327,1354) and parent_id NOT IN(327,1354)')->createCommand()->queryAll();
             }
 
+            if(count($custom_category_tree['name']) == 0) {
+                $customname = $this->customCatalog()['name'];
+            } else {
+                $customname = $custom_category_tree['name'];
+            }
+
             $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();
-            if(Yii::$app->params['customcat'] && isset($s) && ($customname = $custom_category_tree['name']) == TRUE){
+            if(Yii::$app->params['customcat'] && isset($s) && $customname == TRUE){
                 foreach ($s as $skey=>$sname){
                   if(in_array($customname, $sname['categories_id'])){
                       $s[$skey]['categories_name'] = $customname[$skey];
