@@ -292,6 +292,7 @@
             margin-bottom:0px;
         }
     </style>
+    <?=\frontend\widgets\Metrics::widget();?>
 </head>
 <body style="min-width: 1440px;no-repeat 50% 0%;margin:auto;font-family: Roboto ,Helvetica Neue,sans-serif, sans-serif;font-style: normal;font-weight: 300;">
 <?= \frontend\widgets\Alert::widget() ?>
@@ -663,5 +664,23 @@
 <div style="z-index: 1; height: 235px; font-size: 40px; font-weight: 400; text-align: center; position: relative; background: rgb(120, 211, 62) none repeat scroll 0% 0%; color: rgb(255, 255, 255);">
     <img style="position: absolute; right: 0px; bottom: 0px;" src="/images/lp/girl2.png" />
 </div>
-
+<?php
+if(($ga = Yii::$app->session->get('ga'))){
+    foreach ($ga as $gakey=>$gavalue){
+        ?>
+        <script>
+            $(window).load(function () {
+                if(typeof(ga) != 'undefined') {
+                    ga('send', 'event', '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
+                }
+            });
+        </script>
+        <?php
+    }
+    $ga = Yii::$app->session->set('ga', []);
+}
+echo \frontend\widgets\StatWidget::widget();
+echo \frontend\widgets\MailCounter::widget();
+echo  \frontend\widgets\ReTargetVKWidget::widget();
+?>
 </body></html>
