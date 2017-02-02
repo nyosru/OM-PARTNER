@@ -21,7 +21,7 @@ trait ActionInvite
         $model->load(Yii::$app->request->post());
         $check = false;
 
-        $key_cache = 'dawawfawf';
+        $key_cache = 'fththfth45345345';
         $keys = Yii::$app->cache->buildKey($key_cache);
         $images = [
             [
@@ -39,10 +39,6 @@ trait ActionInvite
             [
                 'image'=>'http://odezhda-master.ru/images/apix/products/10e3ea05c57e424a9987b9dac9f9ca87.JPG',
                 'price'=>'98'
-            ],
-            [
-                'image'=>'http://odezhda-master.ru/images/apix/products/1f4288a20da7404d8feab03afcf5df13.jpg',
-                'price'=>'126'
             ],
             [
                 'image'=>'http://odezhda-master.ru/images/apix/products/d947ad909f5642a392de77cb98ffd2fa.JPG',
@@ -103,7 +99,7 @@ trait ActionInvite
             ]
         ];
         if(($price_max = Yii::$app->cache->get($keys)) == FALSE) {
-            $cat_arr = [1720, 1835, 1729, 1742, 1776, 1762, 1993, 2047, 1275, 1983];
+            $cat_arr = [1720, 1835, 1729, 1742, 1776, 1762, 1993, 835, 1275, 1983];
             $hide_man = $this->hide_manufacturers_for_partners();
             foreach ($hide_man as $value) {
                 $list[] = $value['manufacturers_id'];
@@ -111,7 +107,7 @@ trait ActionInvite
             $hide_man = implode(',', $list);
             foreach ($cat_arr as $key => $value) {
                 // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                $price_max[$value] = PartnersProductsToCategories::find()->select('MIN(`products_price`) as price, products.products_id as id')->JoinWith('products')->where('categories_id = ' . $value . ' and products.manufacturers_id NOT IN (' . $hide_man . ')   and products.products_quantity > 0  and products.products_price != 0     and products_status=1 and  death_reason = "" ')->asArray()->one();
+                $price_max[$value] = PartnersProductsToCategories::find()->select('MIN(`products_price`) as price, products.products_id as id')->JoinWith('products')->where('categories_id = ' . $value . ' and products.manufacturers_id NOT IN (' . $hide_man . ')   and products.products_quantity > 0  and products.products_price > 0     and products_status=1 and  death_reason = "" ')->asArray()->one();
                 //  $price_max[$value]['prices'] = PartnersProductsToCategories::find()->select('`products_price` as price')->JoinWith('products')->where('categories_id IN (' . $cat . ') and products.manufacturers_id NOT IN (' . $hide_man . ')   and products.products_quantity > 0  and products.products_price != 0     and products_status=1 and  death_reason = "" ')->asArray()->all();
                 $price_max[$value]['cat'] = $value;
                 $price_max[$value] = array_merge($price_max[$value], PartnersCatDescription::find()->select('categories_name as name')->where('categories_id = ' . $value)->asArray()->one());
