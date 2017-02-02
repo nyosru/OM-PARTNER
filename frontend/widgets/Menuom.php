@@ -83,6 +83,9 @@ class Menuom extends \yii\bootstrap\Widget
         if (isset($this->property['start_level'])) {
             $this->settingsopt['start_level'] = $this->property['start_level'];
         }
+        if (isset($this->property['limit'])) {
+            $this->settingsopt['limit'] = $this->property['limit'];
+        }
         preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['wrap'], $this->tpl_part['wrap']);
         preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['block'], $this->tpl_part['block']);
         preg_match_all('/{(\w*\d*\_*)}/iu', $this->tpl['link'], $this->tpl_part['link']);

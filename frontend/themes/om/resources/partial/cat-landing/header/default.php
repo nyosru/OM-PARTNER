@@ -77,52 +77,19 @@
     </div>
 </div>
 
+
 <div class="o-container col-95">
     <div class="header-nav-bar">
-            <div class="header-nav-bar__list">
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a list_a-new" href="#">Новинки</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Женщинам</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Мужчинам</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Детям</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Обувь</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Сумки</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Аксессуары</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Бижутерия и украшения</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Дом и дача</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Красота и здоровье</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Игрушки</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Спорт и туризм</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Хобби и увлечения</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Книги</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Офис ишкола</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Электроника</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Автотовары</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Спецодежда</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Зоотовары</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a" href="#">Бренды</a></div>
-                <div class="header-nav-bar__list_b list_disc">
-                    <a class="header-nav-bar__list_a list_a list_a-discount" href="#">Распродажа</a></div>
-            </div>
+        <?php
+        echo \frontend\widgets\Menuom::widget([
+            'chpu' =>Yii::$app->params['seourls'],
+            'tpl' => [
+                'wrap' => '<div class="header-nav-bar__list">{menu}</div>',
+                'block' => '{sub}',
+                'link' => '<div class="header-nav-bar__list_b list_disc"><a class="header-nav-bar__list_a list_a list_a-new" href="{uri}">{name}</a></div>'
+            ],
+            'property'=>['limit'=>0,'id' => 'main', 'target' => '0']]);
+        ?>
     </div>
 
 <!-- banner -->
