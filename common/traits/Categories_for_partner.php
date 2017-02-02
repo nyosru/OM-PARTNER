@@ -15,14 +15,23 @@ Trait Categories_for_partner
         $data = Yii::$app->cache->get($key);
         if ($data['data'] == FALSE) {
 
+            $custom_category_tree = file_get_contents(\Yii::getAlias('@frontend') . '/runtime/category-tree/custom_tree.json');
+            if($custom_category_tree) {
+                $custom_category_tree = (array)json_decode($custom_category_tree, true);
+            }
+
             if(Yii::$app->params['customcat']){
-                $f = $this->customCatalog()['cat'];
+                if($custom_category_tree) {
+                    $f = $custom_category_tree['cat'];
+                } else {
+                    $f = $this->customCatalog()['cat'];
+                }
             }else{
                 $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0 and categories_id NOT IN (327,1354) and parent_id NOT IN(327,1354)')->createCommand()->queryAll();
-
             }
+
             $s = $categoriesd->find()->select(['categories_id', 'categories_name'])->createCommand()->queryAll();
-            if(Yii::$app->params['customcat'] && isset($s) && ($customname = $this->customCatalog()['name']) == TRUE){
+            if(Yii::$app->params['customcat'] && isset($s) && ($customname = $custom_category_tree['name']) == TRUE){
                 foreach ($s as $skey=>$sname){
                   if(in_array($customname, $sname['categories_id'])){
                       $s[$skey]['categories_name'] = $customname[$skey];
