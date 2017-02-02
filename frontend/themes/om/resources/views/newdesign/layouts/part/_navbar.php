@@ -1,5 +1,369 @@
 <?php
 use yii\bootstrap\ActiveForm;
+use frontend\widgets\NewMenuom;
+$menu = [];
+$menu['zhenshhinam'] = [
+    [
+        'id' => 1720,
+        'name' => 'Платья',
+        'url' => '/catalog/zhenshhinam/odezhda/platya',
+        'children' => [
+            'Длинные платья',
+            'Вечерние платья',
+            'Короткие платья',
+            'Платья миди',
+            'Трикотажные платья',
+            'Сарафаны',
+            'Вязаные платья',
+            'На выпускной',
+        ]
+    ], [
+        'id' => 1746,
+        'name' => 'Верхняя одежда',
+        'url' => '/catalog/zhenshhinam/odezhda/verxnyaya-odezhda',
+        'children' => [
+            'Шубы',
+            'Жилетки',
+            'Дубленки',
+            'Куртки',
+            'Пальто',
+            'Пуховики',
+            'Парки',
+            'Зимние комбинезоны',
+        ]
+    ], [
+        'id' => 1632,
+        'name' => 'Блузки, кофты',
+        'url' => '#',
+        'children' => [
+            'Блузки',
+            'Рубашки',
+            'Футболки и лонгсливы',
+            'Майки и топы',
+            'Водолазки',
+            'Жакеты и пиджаки',
+            'Толстовки',
+            'Джемпера и кофты',
+        ]
+    ], [
+        'id' => 1632,
+        'name' => 'Брюки, юбки',
+        'url' => '#',
+        'children' => [
+            'Брюки и шорты',
+            'Комбинезоны',
+            'Лосины и легинсы',
+            'Джинсы',
+            'Юбки',
+            'Костюмы',
+        ]
+    ], [
+        'id' => [100000,1632],
+        'name' => '',
+        'url' => '',
+        'children' => [
+            'Колготки и носки',
+            'Нижнее белье',
+            'Пляжная одежда',
+            'Домашняя одежда',
+            'Будущие мамы и кормящие',
+            'Спортивная одежда',
+        ]
+    ],
+];
+$menu['muzhchinam'] = [
+    [
+        'id' => 1826,
+        'name' => 'Верхняя одежда',
+        'url' => '/catalog/muzhchinam/odezhda/verxnyaya-odezhda',
+        'children' => [
+            'Дубленки',
+            'Куртки',
+            'Пальто',
+            'Жилетки',
+            'Полупальто',
+            'Пуховики',
+            'Ветровки',
+            'Парки',
+        ],
+    ], [
+        'id' => 1859,
+        'name' => 'Нижнее белье',
+        'url' => '/catalog/muzhchinam/nizhnee-bele',
+        'children' => [
+            'Трусы',
+            'Майки нательные',
+            'Трико',
+            'Термобелье',
+            'Комплекты',
+            'Эротическое белье',
+            'Кальсоны',
+            'Корректирующее белье',
+        ],
+    ], [
+        'id' => 1668,
+        'name' => '',
+        'url' => '',
+        'children' => [
+            'Рубашки',
+            'Рубашки поло',
+            'Футболки и майки',
+            'Водолазки',
+            'Жакеты и пиджаки',
+            'Толстовки',
+            'Джемпера и кофты',
+            'Комбинезоны',
+        ],
+    ], [
+        'id' => [100195,1668,1859],
+        'name' => '',
+        'url' => '',
+        'children' => [
+            'Шорты',
+            'Брюки',
+            'Джинсы',
+            'Спортивная одежда',
+            'Домашняя одежда',
+            'Плавки',
+            'Носки',
+            'Камуфляж',
+        ],
+    ],
+];
+$menu['detyam'] = [
+    [
+        'id' => 100276,
+        'name' => 'Одежда',
+        'url' => '/catalog/detyam/odezhda',
+        'children' => [
+            'Для девочек',
+            'Для мальчиков',
+            'Для новорожденных',
+        ],
+    ], [
+        'id' => 100386,
+        'name' => 'Колготки и носки',
+        'url' => '/catalog/detyam/kolgotki-i-noski',
+        'children' => [
+            'Колготки',
+            'Носки',
+            'Гольфы',
+            'Гетры',
+        ],
+    ], [
+        'id' => [100400,100275],
+        'name' => 'Нижнее белье',
+        'url' => '/catalog/detyam/nizhnee-bele',
+        'children' => [
+            'Купальники и плавки',
+            'Купальники',
+            'Плавки',
+        ],
+    ],
+];
+$menu['obuv'] = [
+    [
+        'id' => 1976,
+        'name' => 'Женская',
+        'url' => '/catalog/obuv/zhenskaya',
+        'children' => [
+            'Туфли',
+            'Босоножки',
+            'Ботинки',
+            'Резиновая обувь',
+            'Кроссовки',
+            'Полусапожки',
+            'Сапоги',
+            'Домашняя обувь',
+        ],
+    ], [
+        'id' => 1996,
+        'name' => 'Мужская',
+        'url' => '/catalog/obuv/muzhskaya',
+        'children' => [
+            'Сандалии',
+            'Ботинки',
+            'Кроссовки',
+            'Мокасины',
+            'Полуботинки',
+            'Резиновая обувь',
+            'Сапоги',
+            'Домашняя обувь',
+        ],
+    ], [
+        'id' => 2008,
+        'name' => 'Детская',
+        'url' => '/catalog/obuv/detskaya',
+        'children' => [
+            'Для девочек',
+            'Для мальчиков',
+        ],
+    ], [
+        'id' => [1562,100526],
+        'name' => 'Аксессуары',
+        'url' => '/catalog/obuv/aksessuary-dlya-obuvi',
+        'children' => [
+            'Стельки',
+            'Шнурки',
+            'Ложки для обуви',
+            'Сушилки',
+            'Мешки для обуви',
+            'Средства по уходу',
+        ],
+    ],
+];
+$menu['sumki'] = [
+    [
+        'label' => 'Женские',
+        'url' => '/catalog/sumki/zhenskie',
+    ],[
+        'label' => 'Мужские',
+        'url' => '/catalog/sumki/muzhskie',
+    ],[
+        'label' => 'Детские сумки',
+        'url' => '/catalog/sumki/detskie-sumki',
+    ],[
+        'label' => 'Наборы сумок',
+        'url' => '/catalog/sumki/nabory-sumok',
+    ],[
+        'label' => 'Для ноутбуков',
+        'url' => '/catalog/sumki/dlya-noutbukov',
+    ],[
+        'label' => 'Дорожные сумки',
+        'url' => '/catalog/sumki/dorozhnye-sumki',
+    ],[
+        'label' => 'Спортивные сумки',
+        'url' => '/catalog/sumki/sportivnye-sumki',
+    ],[
+        'label' => 'Хозяйственные сумки',
+        'url' => '/catalog/sumki/xozyajstvennye-sumki',
+    ],
+];
+$menu['aksessuary'] = [
+    [
+        'id' => 100671,
+        'name' => 'Женские',
+        'url' => '/catalog/aksessuary/zhenskie',
+        'children' => [
+            'Платки, шарфы, палантины',
+            'Головные уборы',
+            'Перчатки и варежки',
+            'Аксессуары для волос',
+            'Солнцезащитные очки',
+            'Часы и ремешки',
+            'Ремни и пояса',
+            'Кошельки и портмоне',
+        ],
+    ],[
+        'id' => 100713,
+        'name' => 'Мужские',
+        'url' => '/catalog/aksessuary/muzhskie',
+        'children' => [
+            'Шарфы и платки',
+            'Головные уборы',
+            'Солнцезащитные очки',
+            'Часы и ремешки',
+            'Перчатки и варежки',
+            'Ремни и подтяжки',
+            'Кошельки и портмоне',
+            'Галстуки и бабочки',
+        ],
+    ],[
+        'id' => 1906,
+        'name' => 'Детские',
+        'url' => '/catalog/aksessuary/detskie',
+        'children' => [
+            'Головные уборы',
+            'Шарфы',
+            'Часы и ремешки',
+            'Зонты',
+            'Перчатки и варежки',
+            'Кошельки',
+            'Аксессуары для волос',
+            'Носовые платки',
+        ],
+    ],[
+        'id' => 932,
+        'name' => 'Разное',
+        'url' => '#',
+        'children' => [
+            'Зонты',
+            'Ключницы',
+            'Монетницы',
+            'Обложки для документов',
+            'Визитницы',
+            'Платки носовые',
+            'Папки из кожи',
+        ],
+    ],[
+        'id' => 1549,
+        'name' => 'Украшения, бижутерия',
+        'url' => '/catalog/ukrasheniya-bizhuteriya',
+        'children' => [
+            'Гарнитуры',
+            'Татуировки и пирсинг',
+            'Броши',
+            'Браслеты',
+            'Серьги, клипсы',
+            'Кольца и перстни',
+            'Детская бижутерия',
+            'Бусы, колье, ожерелье',
+        ],
+    ],
+];
+$menu[0] = [
+    [
+        'id' => 0,
+        'name' => '',
+        'url' => '',
+        'children' => [
+            'Дом и дача',
+            'Игрушки, сувениры',
+            'Спорт, туризм',
+            'Хобби, увлечение',
+        ],
+    ],[
+        'id' => 0,
+        'name' => '',
+        'url' => '',
+        'children' => [
+            'Книги',
+            'Офис и школа',
+            'Электроника',
+            'Автотовары',
+        ],
+    ],[
+        'id' => 0,
+        'name' => '',
+        'url' => '',
+        'children' => [
+            'Спецодежда',
+            'Зоотовары',
+            'Строительные инструменты',
+            'Бытовая техника',
+        ],
+    ],
+];
+$menu['stock'] = [
+    [
+        'label' => 'Новинки одежды',
+        'url' => '#',
+        'img' => '/images/new/menu_man_sunglass.png',
+    ],[
+        'label' => 'Новинки обуви',
+        'url' => '#',
+        'img' => '/images/new/menu_man_sunglass.png',
+    ],[
+        'label' => 'Другие новинки',
+        'url' => '#',
+        'img' => '/images/new/menu_man_sunglass.png',
+    ],[
+        'label' => 'Скидки',
+        'url' => '#',
+        'img' => '/images/new/menu_man_sunglass.png',
+    ],
+];
+
 ?>
 <!-- Navbar -->
 <nav>
@@ -10,345 +374,280 @@ use yii\bootstrap\ActiveForm;
             </div>
             <div class="nav-inner col-lg-12">
                 <ul id="nav" class="hidden-xs">
-                    <li class="level0 parent drop-menu"><a href="#"><span>Главная</span></a>
-                        <ul class="level1">
-                            <li class="level1 nav-11-1 first"> <a href="grid.html"> <span>Grid </span> </a> </li>
-                            <li class="level1 nav-11-2"> <a href="list.html"> <span>List </span> </a> </li>
-                            <li class="level1 nav-11-3"> <a href="product_detail.html"> <span>Product Detail </span> </a> </li>
-                            <li class="level1 nav-11-4"> <a href="shopping_cart.html"> <span>Shopping Cart </span> </a> </li>
-                            <li class="level1 nav-11-5"> <a href="checkout.html"> <span>Checkout </span> </a>
-                                <ul class="level1">
-                                    <li class="level2 nav-11-4-1 first">
-                                        <a href="checkout_billing_info.html"><span>Billing Info</span></a></li>
-                                    <li class="level2 nav-11-4-2 last"><a href="checkout_method.html"><span>Checkout Method</span></a></li>
-                                </ul>
-                            </li>
-                            <li class="level1 nav-11-6"> <a href="wishlist.html"> <span>Wishlist</span> </a> </li>
-                            <li class="level1 nav-11-7"> <a href="dashboard.html"> <span>Dashboard </span> </a> </li>
-                            <li class="level1 nav-11-8"> <a href="multiple_addresses.html"> <span>Multiple Addresses</span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="about_us.html"> <span>About us </span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="compare.html"> <span>Compare </span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="delivery.html"> <span>Delivery </span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="faq.html"> <span>FAQ </span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="quick_view.html"> <span>Quick View </span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="newsletter.html"> <span>Newsletter </span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="contact_us.html"> <span>Contact Us </span> </a> </li>
-                            <li class="level1 nav-11-9"> <a href="sitemap.html"> <span>Sitemap </span> </a> </li>
-                            <li class="level1 nav-11-10"> <a href="blog.html"> <span>Blog </span> </a>
-                                <ul class="level1">
-                                    <li class="level2 nav-11-10-1 last"><a href="blog_detail.html"><span>Blog Detail</span></a></li>
-                                </ul>
-                            </li>
-
-                            <li class="level1 nav-11-14 last"> <a href="404error.html"> <span>404 Error Page </span> </a> </li>
-                        </ul>
+                    <li class="mega-menu">
+                        <a href="/catalog/zhenshhinam" class="level-top"><span>Женщинам</span></a>
+                        <div class="level0-wrapper dropdown-6col">
+                            <div class="container">
+                                <div class="level0-wrapper2">
+                                    <div class="nav-block nav-block-center">
+                                        <ul class="level0">
+                                            <?php foreach($menu['zhenshhinam'] as $item){ ?>
+                                                <li class="<?=empty($item['name'])?'li2':'';?>">
+                                                    <?php if(!empty($item['name'])) { ?>
+                                                        <a href="<?=$item['url']?>"><span><?=$item['name']?></span></a>
+                                                    <?php } ?>
+                                                    <?php if(!empty($item['children'])) { ?>
+                                                        <ul class="<?=empty($item['name'])?'bold-ul':'';?>">
+                                                            <?= NewMenuom::widget([
+                                                                'chpu' =>Yii::$app->params['seourls'],
+                                                                'property' => [
+                                                                    'target' => $item['id'],
+                                                                    'allow' => $item['children'],
+                                                                    'type' => 'top-menu'
+                                                                ]
+                                                            ]); ?>
+                                                        </ul>
+                                                    <?php } ?>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-add">
+                                        <div class="push_item">
+                                            <div class="push_img"><a href="#"><img alt="sunglass" src="/images/new/menu_man_sunglass.png"></a></div>
+                                        </div>
+                                        <div class="push_item">
+                                            <div class="push_img"><a href="#"><img alt="watch" src="/images/new/menu_man_sunglass.png"></a></div>
+                                        </div>
+                                        <div class="push_item">
+                                            <div class="push_img"><a href="#"><img alt="jeans" src="/images/new/menu_man_sunglass.png"></a></div>
+                                        </div>
+                                        <div class="push_item push_item_last">
+                                            <div class="push_img"><a href="#"><img alt="shoes" src="/images/new/menu_man_sunglass.png"></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                    <li class="mega-menu"><a href="grid.html" class="level-top"><span>Женщинам</span></a>
+                    <li class="mega-menu">
+                        <a href="/catalog/muzhchinam" class="level-top"><span>Мужчинам</span></a>
                         <div class="level0-wrapper dropdown-6col">
                             <div class="container">
                                 <div class="level0-wrapper2">
                                     <div class="col-1">
                                         <div class="nav-block nav-block-center">
                                             <ul class="level0">
-                                                <li class="level1 nav-6-1 parent item"><a href="grid.html" class=""><span>Stylish Bag</span></a>
-                                                    <ul class="level1">
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html" class=""><span>Clutch Handbags</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html" class=""><span>Diaper Bags</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html" class=""><span>Bags</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html" class=""><span>Hobo handbags</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Material Bag</span></a>
-                                                    <ul class="level1">
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Beaded Handbags</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Fabric Handbags</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Handbags</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Leather Handbags</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Shoes</span></a>
-                                                    <ul class="level1">
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Flat Shoes</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Flat Sandals</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Boots</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Heels</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Jwellery</span></a>
-                                                    <ul class="level1">
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Bracelets</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Necklaces &amp; Pendent</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Pendants</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Pins &amp; Brooches</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Dresses</span></a>
-                                                    <ul class="level1">
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Casual Dresses</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Evening</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Designer</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Party</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Swimwear</span></a>
-                                                    <ul class="level1">
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Swimsuits</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Beach Clothing</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Clothing</span></a></li>
-                                                        <li class="level2 nav-6-1-1"><a href="grid.html"><span>Bikinis</span></a></li>
-                                                    </ul>
-                                                </li>
+                                                <?php foreach($menu['muzhchinam'] as $item){ ?>
+                                                    <li>
+                                                        <?php if(!empty($item['name'])) { ?>
+                                                            <a href="<?=$item['url']?>"><span><?=$item['name']?></span></a>
+                                                        <?php } ?>
+                                                        <?php if(!empty($item['children'])) { ?>
+                                                            <ul class="<?=empty($item['name'])?'bold-ul':'';?>">
+                                                                <?= NewMenuom::widget([
+                                                                    'chpu' =>Yii::$app->params['seourls'],
+                                                                    'property' => [
+                                                                        'target' => $item['id'],
+                                                                        'allow' => $item['children'],
+                                                                        'type' => 'top-menu'
+                                                                    ]
+                                                                ]); ?>
+                                                            </ul>
+                                                        <?php } ?>
+                                                    </li>
+                                                <?php } ?>
                                             </ul>
                                         </div>
                                     </div>
-                                    <!--nav-block nav-block-center-->
                                     <div class="col-2">
                                         <div class="menu_image"><a href="#" title=""><img src="/images/new/menu_image.jpg" alt="menu_image"></a></div>
                                         <div class="menu_image1"><a href="#" title=""><img src="/images/new/menu_image.jpg" alt="menu_image"></a></div>
                                     </div>
                                 </div>
-                                <!--level0-wrapper2--> </div>
-                        </div>
-                    </li>
-                    <li class="mega-menu"><a href="grid.html" class="level-top"><span>Мужчинам</span></a>
-                        <div class="level0-wrapper dropdown-6col">
-                            <div class="container">
-                                <div class="level0-wrapper2">
-                                    <div class="nav-block nav-block-center">
-                                        <ul class="level0">
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html" class=""><span>Shoes</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Sport Shoes</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Casual Shoes</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Leather Shoes</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>canvas shoes</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Dresses</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Casual Dresses</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Evening</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Designer</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Party</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Jackets</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Coats</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Formal Jackets</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Leather Jackets</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Blazers</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Watches</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Fasttrack</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Casio</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Titan</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Tommy-Hilfiger</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Sunglasses</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Ray Ban</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Fasttrack</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Police</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Oakley</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Accesories</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Backpacks</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Wallets</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Laptops Bags</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Belts</span></a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!--level0-wrapper2-->
-                                    <div class="nav-add">
-                                        <div class="push_item">
-                                            <div class="push_img"><a href="#"><img alt="sunglass" src="/images/new/menu_man_sunglass.png"></a></div>
-                                            <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>
-                                        </div>
-                                        <div class="push_item">
-                                            <div class="push_img"><a href="#"><img alt="watch" src="/images/new/menu_man_sunglass.png"></a></div>
-                                            <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>
-                                        </div>
-                                        <div class="push_item">
-                                            <div class="push_img"><a href="#"><img alt="jeans" src="/images/new/menu_man_sunglass.png"></a></div>
-                                            <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>
-                                        </div>
-                                        <div class="push_item push_item_last">
-                                            <div class="push_img"><a href="#"><img alt="shoes" src="/images/new/menu_man_sunglass.png"></a></div>
-                                            <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </li>
-<!--                    <li class="mega-menu"><a href="grid.html" class="level-top"><span>Электроника</span></a>-->
-<!--                        <div class="level0-wrapper dropdown-6col">-->
-<!--                            <div class="container">-->
-<!--                                <div class="level0-wrapper2">-->
-<!--                                    <div class="nav-block nav-block-center">-->
-<!--                                        <ul class="level0">-->
-<!--                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Mobiles</span></a>-->
-<!--                                                <ul class="level1">-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Samsung</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Nokia</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>IPhone</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Sony</span></a></li>-->
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                            <li class="level1 nav-6-1 parent item"><a href="grid.html" class=""><span>Accesories</span></a>-->
-<!--                                                <ul class="level1">-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Mobile Memory Cards</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Cases &amp; Covers</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Mobile Headphones</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Bluetooth Headsets</span></a></li>-->
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Cameras</span></a>-->
-<!--                                                <ul class="level1">-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Camcorders</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Point &amp; Shoot</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Digital SLR</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Camera Accesories</span></a></li>-->
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Audio &amp; Video</span></a>-->
-<!--                                                <ul class="level1">-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>MP3 Players</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>IPods</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Speakers</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Video Players</span></a></li>-->
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Computer</span></a>-->
-<!--                                                <ul class="level1">-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>External Hard Disk</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Pendrives</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Headphones</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>PC Components</span></a></li>-->
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Appliances</span></a>-->
-<!--                                                <ul class="level1">-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Vaccum Cleaners</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Indoor Lighting</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Kitchen Tools</span></a></li>-->
-<!--                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Water Purifier</span></a></li>-->
-<!--                                                </ul>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <!--level0-wrapper2-->
-<!--                                <div class="nav-add">-->
-<!--                                    <div class="push_item">-->
-<!--                                        <div class="push_img"><a href="#"><img alt="phone" src="/images/new/menu_ele_phone.png"></a></div>-->
-<!--                                        <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="push_item">-->
-<!--                                        <div class="push_img"><a href="#"><img alt="camera" src="/images/new/menu_ele_phone.png"></a></div>-->
-<!--                                        <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="push_item">-->
-<!--                                        <div class="push_img"><a href="#"><img alt="ipod" src="/images/new/menu_ele_phone.png"></a></div>-->
-<!--                                        <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>-->
-<!--                                    </div>-->
-<!--                                    <div class="push_item push_item_last">-->
-<!--                                        <div class="push_img"><a href="#"><img alt="laptop" src="/images/new/menu_ele_phone.png"></a></div>-->
-<!--                                        <div class="push_text">Lorem Ipsum is simply dummy text of the printing</div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </li>-->
-                    <li class="mega-menu"><a class="level-top" href="grid.html"><span>Аксессуары</span></a>
+                    <li class="mega-menu">
+                        <a class="level-top" href="/catalog/detyam"><span>Детям</span></a>
                         <div class="level0-wrapper dropdown-6col">
                             <div class="container">
                                 <div class="level0-wrapper2">
                                     <div class="nav-block nav-block-center grid12-8 itemgrid itemgrid-4col">
                                         <ul class="level0">
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Living Room</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Racks &amp; Cabinets</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Sofas</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Chairs</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Tables</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html" class=""><span>Dining &amp; Bar</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Dining Table Sets</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Serving Trolleys</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Bar Counters</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Dining Cabinets</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Bedroom</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Beds</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Chest of Drawers</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Wardrobes &amp; Almirahs</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Nightstands</span></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="level1 nav-6-1 parent item"><a href="grid.html"><span>Kitchen</span></a>
-                                                <ul class="level1">
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Kitchen Racks</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Kitchen Fillings</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Wall Units</span></a></li>
-                                                    <li class="level2 nav-6-1-1"><a href="grid.html"><span>Benches &amp; Stools</span></a></li>
-                                                </ul>
-                                            </li>
+                                            <?php foreach($menu['detyam'] as $item){ ?>
+                                                <li>
+                                                    <?php if(!empty($item['name'])) { ?>
+                                                        <a href="<?=$item['url']?>"><span><?=$item['name']?></span></a>
+                                                    <?php } ?>
+                                                    <?php if(!empty($item['children'])) { ?>
+                                                        <ul>
+                                                            <?= NewMenuom::widget([
+                                                                'chpu' =>Yii::$app->params['seourls'],
+                                                                'property' => [
+                                                                    'target' => $item['id'],
+                                                                    'allow' => $item['children'],
+                                                                    'type' => 'top-menu'
+                                                                ]
+                                                            ]); ?>
+                                                        </ul>
+                                                    <?php } ?>
+                                                </li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
-                                    <!--nav-block nav-block-center-->
-                                    <div class="nav-block nav-block-right std grid12-4"><a href="#"><img src="/images/new/menu_furniture_2.png" alt="furniture"></a> </div>
-                                    <!--nav-block nav-block-right std grid12-4--> </div>
+                                    <div class="nav-block nav-block-right std grid12-4">
+                                        <a href="#"><img src="/images/new/menu_furniture_2.png" alt="furniture"></a>
+                                    </div>
+                                </div>
                             </div>
-                            <!--level0-wrapper2-->
                         </div>
                     </li>
-                    <li class="level0 nav-8 level-top"><a href="grid.html" class="level-top"><span>Детям</span></a></li>
-                    <li class="nav-custom-link mega-menu"><a class="level-top" href="#"><span>Все категории</span></a>
+                    <li class="mega-menu">
+                        <a class="level-top" href="/catalog/bolshie-razmery"><span>Большие размеры</span></a>
+                        <div class="level0-wrapper dropdown-6col">
+                            <div class="container">
+                                <div class="level0-wrapper2">
+                                    <div class="nav-block">
+                                        <div class="row" style="width: 100%;">
+                                            <div class="col-xs-6">
+                                                <a href="/catalog/bolshie-razmery/zhenskaya"><img style="width: 100%;" src="/images/new/menu_furniture_2.png" alt="furniture"></a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <a href="/catalog/bolshie-razmery/muzhskaya"><img style="width: 100%;" src="/images/new/menu_furniture_2.png" alt="furniture"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-menu">
+                        <a class="level-top" href="/catalog/obuv"><span>Обувь</span></a>
+                        <div class="level0-wrapper dropdown-6col">
+                            <div class="container">
+                                <div class="level0-wrapper2">
+                                    <div class="col-1">
+                                        <div class="nav-block nav-block-center">
+                                            <ul class="level0">
+                                                <?php foreach($menu['obuv'] as $item){ ?>
+                                                    <li>
+                                                        <?php if(!empty($item['name'])) { ?>
+                                                            <a href="<?=$item['url']?>"><span><?=$item['name']?></span></a>
+                                                        <?php } ?>
+                                                        <?php if(!empty($item['children'])) { ?>
+                                                            <ul>
+                                                                <?= NewMenuom::widget([
+                                                                    'chpu' =>Yii::$app->params['seourls'],
+                                                                    'property' => [
+                                                                        'target' => $item['id'],
+                                                                        'allow' => $item['children'],
+                                                                        'type' => 'top-menu'
+                                                                    ]
+                                                                ]); ?>
+                                                            </ul>
+                                                        <?php } ?>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="menu_image"><a href="#" title=""><img src="/images/new/menu_image.jpg" alt="menu_image"></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-menu">
+                        <a href="/catalog/sumki" class="level-top"><span>Сумки</span></a>
+                        <div class="level0-wrapper dropdown-6col">
+                            <div class="container">
+                                <div class="level0-wrapper2">
+                                    <div class="nav-add">
+                                        <?php foreach($menu['sumki'] as $item){ ?>
+                                            <div class="push_item" style="margin-bottom: 10px;">
+                                                <div class="push_img">
+                                                    <a href="<?=$item['url']?>">
+                                                        <img alt="<?=$item['label']?>" src="/images/new/menu_man_sunglass.png">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-menu">
+                        <a href="/catalog/aksessuary" class="level-top"><span>Аксессуары</span></a>
+                        <div class="level0-wrapper dropdown-6col">
+                            <div class="container">
+                                <div class="level0-wrapper2">
+                                    <div class="nav-block nav-block-center grid5">
+                                        <ul class="level0">
+                                            <?php foreach($menu['aksessuary'] as $item){ ?>
+                                                <li>
+                                                    <?php if(!empty($item['name'])) { ?>
+                                                        <a href="<?=$item['url']?>"><span><?=$item['name']?></span></a>
+                                                    <?php } ?>
+                                                    <?php if(!empty($item['children'])) { ?>
+                                                        <ul>
+                                                            <?= NewMenuom::widget([
+                                                                'chpu' =>Yii::$app->params['seourls'],
+                                                                'property' => [
+                                                                    'target' => $item['id'],
+                                                                    'allow' => $item['children'],
+                                                                    'type' => 'top-menu'
+                                                                ]
+                                                            ]); ?>
+                                                        </ul>
+                                                    <?php } ?>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mega-menu">
+                        <a class="level-top" href="#"><span>Разное</span></a>
+                        <div class="level0-wrapper dropdown-6col">
+                            <div class="container">
+                                <div class="level0-wrapper2">
+                                    <div class="nav-block nav-block-center grid12-8 itemgrid itemgrid-4col">
+                                        <ul class="level0">
+                                            <?php foreach($menu[0] as $item){ ?>
+                                                <li>
+                                                    <?php if(!empty($item['name'])) { ?>
+                                                        <a href="<?=$item['url']?>"><span><?=$item['name']?></span></a>
+                                                    <?php } ?>
+                                                    <?php if(!empty($item['children'])) { ?>
+                                                        <ul class="<?=empty($item['name'])?'bold-ul':'';?>">
+                                                            <?= NewMenuom::widget([
+                                                                'chpu' =>Yii::$app->params['seourls'],
+                                                                'property' => [
+                                                                    'target' => $item['id'],
+                                                                    'allow' => $item['children'],
+                                                                    'type' => 'top-menu'
+                                                                ]
+                                                            ]); ?>
+                                                        </ul>
+                                                    <?php } ?>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                    <div class="nav-block nav-block-right std grid12-4">
+                                        <a href="#"><img src="/images/new/menu_furniture_2.png" alt="furniture"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-custom-link mega-menu">
+                        <a class="level-top" href="#"><span>Акции</span></a>
                         <div class="level0-wrapper custom-menu">
                             <div class="header-nav-dropdown-wrapper clearer">
-                                <div class="grid12-3">
-                                    <h4 class="heading">GET 20% OFF, 48 HOURS ONLY!</h4>
-                                    <div class="heart-icon">&nbsp;</div>
-                                    <p>Our designed to deliver almost everything you want to do online.</p>
-                                    <div><img  src="/images/new/custom-img1.jpg" alt=""></div>
-                                </div>
-                                <div class="grid12-3">
-                                    <h4 class="heading">GET 20% OFF, 48 HOURS ONLY!</h4>
-                                    <a href="#">
-                                        <div class="icon-star"></div>
-                                    </a>
-                                    <p>Responsive design is a Web design to provide an optimal navigation.</p>
-                                    <div><img  src="/images/new/custom-img1.jpg" alt=""></div>
-                                </div>
-                                <div class="grid12-3">
-                                    <h4 class="heading">GET 20% OFF, 48 HOURS ONLY!</h4>
-                                    <a href="#">
-                                        <div class="custom-icon"></div>
-                                    </a>
-                                    <p>Our font delivery service is built upon a reliable, global network of servers.</p>
-                                    <div><img  src="/images/new/custom-img1.jpg" alt=""></div>
-                                </div>
-                                <div class="grid12-3">
-                                    <h4 class="heading">GET 20% OFF, 48 HOURS ONLY!</h4>
-                                    <a href="#">
-                                        <div class="icon-custom-grid"></div>
-                                    </a>
-                                    <p>Smart Product Grid is uses maximum available width of the screen.</p>
-                                    <div><img  src="/images/new/custom-img1.jpg" alt=""></div>
-                                </div>
+                                <?php foreach($menu['stock'] as $item){ ?>
+                                    <div class="grid12-3">
+                                        <h4 class="heading"><?=$item['label']?></h4>
+                                        <a href="<?=$item['url']?>">
+                                            <img style="width: 100%;" src="<?=$item['img']?>" alt="<?=$item['label']?>">
+                                        </a>
+                                    </div>
+                                <?php } ?>
                                 <br>
                             </div>
                         </div>

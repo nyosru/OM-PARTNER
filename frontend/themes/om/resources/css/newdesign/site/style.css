@@ -1140,7 +1140,7 @@ nav {
 
 #nav > li > a > span {
 	display: inline-block;
-	padding: 0 15px;
+    padding: 0 10px;
 	border-right: 1px #e5e5e5 solid
 }
 
@@ -1476,7 +1476,7 @@ ul.level1 {
 }
 
 #nav .col-1 ul.level0 > li {
-	width: 30%;
+    width: 22%;
 }
 
 .col-2 img:hover {
@@ -1512,7 +1512,9 @@ ul.level1 {
 	vertical-align: top;
 	width: 15%;
 }
-
+#nav ul.level0 > li.li2 {
+    width: 30%;
+}
 #nav ul.level0 > li.last {
 	display: inline-block;
 	float: none;
@@ -1530,6 +1532,7 @@ ul.level1 {
 	padding: 5px 0px 6px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+    white-space: pre;
 }
 
 /* 2nd level+ */
@@ -1663,9 +1666,11 @@ ul.level1 {
 }
 
 #nav .grid12-8 ul.level0 > li {
-	width: 22.5%;
+    width: 30.5%;
 }
-
+#nav .grid5 ul.level0 > li {
+    width: 18%;
+}
 .grid13-8 {
 	display: inline;
 	float: left;
@@ -15003,7 +15008,7 @@ a#fancybox-close {
 	}
 
 	#nav .grid12-8 ul.level0 > li {
-		width: 22% !important;
+        width: 30.5% !important;
 	}
 
 	.nav-block-center {
@@ -15513,4 +15518,13 @@ a#fancybox-close {
 .product-specification>li{
     margin: 10px 0;
     font-size: 12px;
+}
+.mega-menu ul{
+    padding: 0;
+}
+#nav .nav-block .bold-ul>li{
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 3px 0;
 }
