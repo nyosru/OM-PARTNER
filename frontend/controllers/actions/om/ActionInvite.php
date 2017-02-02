@@ -155,7 +155,7 @@ trait ActionInvite
                 'event' => 'register'
             ];
             Yii::$app->session->set('ga', $ga);
-            return  $this->redirect('/register-success');
+            return  $this->redirect('/reg-ref-user-success');
         }
         if ($model->errors && Yii::$app->request->post()) {
             foreach ($model->errors as $err) {
