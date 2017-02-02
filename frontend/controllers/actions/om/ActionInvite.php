@@ -116,8 +116,6 @@ trait ActionInvite
             }
             Yii::$app->cache->set($key_cache, $price_max, 86400);
         }
-
-
         if (($referral_url = Yii::$app->request->getQueryParam('sp')) == false && empty($model->email)) {
             if (($referral_url = Yii::$app->session->get('referral')) == false) {
                 if (($referral_url = Yii::$app->session->getCookieParams()['referral']) == false) {
@@ -152,6 +150,12 @@ trait ActionInvite
             $newref->status = 1;
             $newref->save();
             \Yii::$app->getSession()->setFlash('success', 'Успешно отправлено');
+            $ga =  Yii::$app->session->get('ga');
+            $ga[] = [
+                'event' => 'register'
+            ];
+            Yii::$app->session->set('ga', $ga);
+            return  $this->redirect('/register-success');
         }
         if ($model->errors && Yii::$app->request->post()) {
             foreach ($model->errors as $err) {
