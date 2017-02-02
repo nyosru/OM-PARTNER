@@ -30,7 +30,7 @@ Trait Categories_for_partner
                 $f = $categoriess->find()->select(['categories_id', 'parent_id'])->where('categories_status != 0 and categories_id NOT IN (327,1354) and parent_id NOT IN(327,1354)')->createCommand()->queryAll();
             }
 
-            if(count($custom_category_tree['name']) == 0) {
+            if(!isset($custom_category_tree['name']) || count($custom_category_tree['name']) == 0) {
                 $customname = $this->customCatalog()['name'];
             } else {
                 $customname = $custom_category_tree['name'];
