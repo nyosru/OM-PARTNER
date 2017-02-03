@@ -22,13 +22,15 @@ use common\models\OrdersTotal;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 
-trait ActionRegisterSuccess
+trait ActionRegRefUserSuccess
 {
-    public function actionRegisterSuccess()
+    public function actionRegRefUserSuccess()
     {
-        
         $this->layout = 'main';
-        return $this->render('registersuccess');
-
+        if(($data = Yii::$app->session->get('messageset')) == TRUE){
+           // Yii::$app->session->remove('messageset');
+            return $this->render('registerreferral',['data'=>$data]);
+        }
+        return $this->redirect('/');
     }
 }

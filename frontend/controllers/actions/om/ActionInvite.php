@@ -132,7 +132,7 @@ trait ActionInvite
         }
 
 
-        $referral = Referrals::find()->where(['referral_url' => $referral_url])->asArray()->one();
+        $referral = Referrals::find()->where(['referral_url' => $referral_url])->joinWith('user')->joinWith('userinfo')->asArray()->one();
         if ($referral_url && $referral) {
             $check = true;
         } else {
@@ -149,12 +149,25 @@ trait ActionInvite
             $newref->referral_id = $referral['id'];
             $newref->status = 1;
             $newref->save();
-            \Yii::$app->getSession()->setFlash('success', 'Успешно отправлено');
             $ga =  Yii::$app->session->get('ga');
             $ga[] = [
                 'event' => 'register'
             ];
+
             Yii::$app->session->set('ga', $ga);
+            Yii::$app->session->set('messageset', [
+                'user'=>[
+                    'email' => $newuser['email'],
+                ],
+                'referral'=>[
+                    'name' => $referral['userinfo']['name'],
+                    'secondname' => $referral['userinfo']['secondname'],
+                    'lastname' => $referral['userinfo']['lastname'],
+                    'email' => $referral['user']['email'],
+                    'percent' => $referral['percent'],
+                    'telephone' => $referral['userinfo']['telephone'],
+                ]
+            ]);
             return  $this->redirect('/reg-ref-user-success');
         }
         if ($model->errors && Yii::$app->request->post()) {

@@ -80,7 +80,10 @@ class Referrals extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
-
+    public function getUserinfo()
+    {
+        return $this->hasOne(PartnersUsersInfo::className(), ['id' => 'id'])->via('user');
+    }
     /**
      * @return \yii\db\ActiveQuery
      */
