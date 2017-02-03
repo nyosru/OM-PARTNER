@@ -19,6 +19,8 @@ use common\models\PartnersProductsAttributes;
 use common\models\PartnersProductsToCategories;
 use common\models\PartnersToRegion;
 use common\models\PartnersUsersInfo;
+use common\models\Referrals;
+use common\models\ReferralsUser;
 use common\models\SelerAnket;
 use common\models\SpsrZones;
 use common\models\User;
@@ -176,7 +178,7 @@ trait OrdersToReferrer
                 ]
             ]);
         }
-
+        $refinfo = ReferralsUser::find()->where(['partners_referrals_users.user_id'=>$user['id']])->joinWith('referral')->asArray()->one();
         Yii::$app->mailer->htmlLayout = 'layouts-om/html';
         Yii::$app->params['params']['utm'] = [
             'source' => 'email',
@@ -191,7 +193,8 @@ trait OrdersToReferrer
                 'text' => '<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ ' . $numberorders . ' в магазине Одежда-Мастер оформлен</div>',
                 'data' => [
                     'paramorder' => [
-                        'delivery' => 'Партнерская доставка',
+                        'delivery' => 'Доставка через СП',
+                        'refpercent'=>$refinfo['referral']['percent'],
                         'number' =>  $numberorders ,
                         'date' => $nowdate,
                         'wrap' => '',
@@ -216,8 +219,9 @@ trait OrdersToReferrer
                 'text' => '<div style="font-size: xx-large; padding-left: 10px;">Ваш заказ ' . $numberorders . ' в магазине Одежда-Мастер оформлен</div>',
                 'data' => [
                     'paramorder' => [
-                        'delivery' => 'Партнерская доставка',
+                        'delivery' => 'Доставка через СП',
                         'number' =>  $numberorders ,
+                        'refpercent'=>$refinfo['referral']['percent'],
                         'date' => $nowdate,
                         'wrap' => '',
                         'name' => $user['userinfo']['lastname']. ' '.$user['userinfo']['name']. ' '.$user['userinfo']['secondname'] ,
@@ -241,8 +245,9 @@ trait OrdersToReferrer
                 'text' => 'Спасибо, Ваш заказ оформлен',
                 'data' => [
                     'paramorder' => [
-                        'delivery' => 'Партнерская доставка',
+                        'delivery' => 'Доставка через СП',
                         'number' =>  $numberorders ,
+                        'refpercent'=>$refinfo['referral']['percent'],
                         'date' => $nowdate,
                         'wrap' => '',
                         'name' => $user['userinfo']['lastname']. ' '.$user['userinfo']['name']. ' '.$user['userinfo']['secondname'] ,
