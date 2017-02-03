@@ -369,10 +369,9 @@ a {
 .logo {
 	vertical-align: middle;
 	cursor: pointer;
-	margin-top: 15px;
 	text-align: left;
 	display: inline-block;
-	padding-bottom: 15px;
+	padding: 5px 0;
 }
 
 .header-container .right_menu {
@@ -15527,4 +15526,12 @@ a#fancybox-close {
     font-weight: 600;
     font-size: 16px;
     padding: 3px 0;
+}
+.rev_slider.fullwidthabanner a{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }

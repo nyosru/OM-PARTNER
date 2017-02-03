@@ -26,19 +26,19 @@ class MainBanner extends \yii\bootstrap\Widget
     public $banners = [
         'top-banner' => [
             [
-                'image' =>  'OM_14122016_1.png',
+                'image' =>  'om_371_221_1.png',
                 'referal'=> '/catalog?cat=1729',
                 'term'=> '',
                 'alttext' => 'Нарядный образ на работу',
                 'out' => FALSE
             ], [
-                'image' =>  'OM_14122016_2.png',
+                'image' =>  'om_371_221_2.png',
                 'referal'=> '/product?id=1774488',
                 'term'=> '',
                 'alttext' => 'Уютные кофточки',
                 'out' => FALSE
             ], [
-                'image' =>  'OM_14122016_1.png',
+                'image' =>  'om_371_221_3.png',
                 'referal'=> '/catalog?cat=1729',
                 'term'=> '',
                 'alttext' => 'Нарядный образ на работу',
@@ -47,22 +47,16 @@ class MainBanner extends \yii\bootstrap\Widget
         ],
         'top-slider' => [
             [
-                'image' => 'OM_14122016_5.png',
-                'referal'=> '/catalog?cat=1725',
+                'image' => 'om_1200_600_1.png',
+                'referal'=> '/catalog/zhenshhinam/odezhda/bluzki',
                 'term'=> '',
-                'alttext' => 'В новый год на корпоратив',
+                'alttext' => 'Блузы. Элегантный стиль',
                 'out' => FALSE
             ], [
-                'image' =>  'OM_14122016_2.png',
-                'referal'=> '/product?id=1774488',
+                'image' =>  'om_1200_600_2.png',
+                'referal'=> '/catalog/zhenshhinam/odezhda/platya',
                 'term'=> '',
-                'alttext' => 'Уютные кофточки',
-                'out' => FALSE
-            ], [
-                'image' =>  'OM_14122016_1.png',
-                'referal'=> '/catalog?cat=1729',
-                'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
+                'alttext' => 'Платья на весну',
                 'out' => FALSE
             ],
         ],

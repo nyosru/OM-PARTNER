@@ -23,7 +23,7 @@ use yii\bootstrap\ActiveForm;
                         $logotype = '';
                     }
                     ?>
-                    <div  class="logo"><a title="<?=Yii::$app->params['constantapp']['APP_NAME']?>" href="/"><?=$logotype?></a></div>
+                    <div  class="logo"><a title="<?=Yii::$app->params['constantapp']['APP_NAME']?>" href="/"><img alt="Magento Commerce" src="/images/logo/logo-om-new.jpg"></a></div>
                     <!-- End Header Logo -->
                 </div>
                 <div class="col-lg-6 col-sm-5 col-xs-8 toplinks">
@@ -96,16 +96,8 @@ use yii\bootstrap\ActiveForm;
                                         <div class="actions">
                                             <button class="btn-checkout" title="Checkout" type="button"><span>Checkout</span></button>
                                             <a href="#" class="view-cart" ><span>View Cart</span></a> </div>
-                                        <!--actions-->
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Top Cart -->
-                            <div id="ajaxconfig_info"><a href="#/"></a>
-                                <input value="" type="hidden">
-                                <input id="enable_module" value="1" type="hidden">
-                                <input class="effect_to_cart" value="1" type="hidden">
-                                <input class="title_shopping_cart" value="Go to shopping cart" type="hidden">
                             </div>
                         </div>
                     </div>

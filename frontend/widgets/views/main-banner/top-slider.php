@@ -4,9 +4,10 @@
             <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
                 <ul>
                     <?php foreach ($banners as $banner) { ?>
-                    <li data-transition='random' data-slotamount='7' data-masterspeed='1000'
-                        data-thumb='/images/banners/<?= $banner['image'] ?>'>
+                    <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='/images/banners/<?= $banner['image'] ?>'>
                         <img src="/images/banners/<?= $banner['image'] ?>" alt="<?= $banner['alttext'] ?>"  data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat'>
+                        <a href="<?=$banner['referal']?>">
+                        </a>
                         <!--
                         <div class="info">
                             <div class='tp-caption ExtraLargeTitle sft  tp-resizeme ' data-x='0' data-y='165'
