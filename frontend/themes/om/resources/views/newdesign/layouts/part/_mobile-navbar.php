@@ -1,21 +1,10 @@
+<?php
+use frontend\widgets\NewMenuom;
+?>
 <div id="mobile-menu">
     <ul>
         <li>
-            <!-- search -->
-            <div class="mm-search">
-                <form name="search">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
-                        </div>
-                        <input type="text" class="form-control simple" placeholder="Search ..." name="srch-term" id="srch-term">
-                    </div>
-                </form>
-            </div>
-            <!-- end search -->
-        </li>
-        <li>
-            <div class="home"><a href="index.html"><i class="icon-home"></i>Home</a> </div>
+            <div class="home"><a href="/"><i class="icon-home"></i>Главная</a> </div>
         </li>
         <li><a href="#">Pages</a>
             <ul>

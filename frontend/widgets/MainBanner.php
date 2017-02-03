@@ -27,21 +27,21 @@ class MainBanner extends \yii\bootstrap\Widget
         'top-banner' => [
             [
                 'image' =>  'om_371_221_1.png',
-                'referal'=> '/catalog?cat=1729',
+                'referal'=> '/catalog/bolshie-razmery/zhenskaya',
                 'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
+                'alttext' => 'Большие размеры',
                 'out' => FALSE
             ], [
                 'image' =>  'om_371_221_2.png',
-                'referal'=> '/product?id=1774488',
+                'referal'=> '/catalog/zhenshhinam/odezhda/sportivnaya-odezhda',
                 'term'=> '',
-                'alttext' => 'Уютные кофточки',
+                'alttext' => 'Спортивные костюмы',
                 'out' => FALSE
             ], [
                 'image' =>  'om_371_221_3.png',
-                'referal'=> '/catalog?cat=1729',
+                'referal'=> '/catalog/muzhchinam/odezhda',
                 'term'=> '',
-                'alttext' => 'Нарядный образ на работу',
+                'alttext' => 'Мужская одежда',
                 'out' => FALSE
             ],
         ],

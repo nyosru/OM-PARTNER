@@ -23,7 +23,7 @@ use yii\bootstrap\ActiveForm;
                         $logotype = '';
                     }
                     ?>
-                    <div  class="logo"><a title="<?=Yii::$app->params['constantapp']['APP_NAME']?>" href="/"><img alt="Magento Commerce" src="/images/logo/logo-om-new.jpg"></a></div>
+                    <div  class="logo"><a title="<?=Yii::$app->params['constantapp']['APP_NAME']?>" href="/"><img alt="Magento Commerce" src="/images/logo/logo-om-new.png"></a></div>
                     <!-- End Header Logo -->
                 </div>
                 <div class="col-lg-6 col-sm-5 col-xs-8 toplinks">
