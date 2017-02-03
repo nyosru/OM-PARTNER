@@ -95,7 +95,11 @@ $text = [
                                         echo $name;
                                         ?>
                                     </div>
-
+                                    <div class="client-name">
+                                        <?php
+                                        echo $user->user->username;
+                                        ?>
+                                    </div>
                                     <?php if ($user->order && count($user->order) > 0) :
                                         $order = $user->order[0];
                                         $final_order_price = 0;

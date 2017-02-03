@@ -66,6 +66,7 @@ use frontend\controllers\actions\om\ActionPreCheckProductToOrders;
 use frontend\controllers\actions\om\ActionProductsDiscount;
 use frontend\controllers\actions\om\ActionRegisterSP;
 use frontend\controllers\actions\om\ActionRegisterSuccess;
+use frontend\controllers\actions\om\ActionRegRefUserSuccess;
 use frontend\controllers\actions\om\ActionSaveCart;
 use frontend\controllers\actions\om\ActionSaveClaim;
 use frontend\controllers\actions\om\ActionSavepage;
@@ -224,6 +225,7 @@ class GlavnayaController extends Controller
         ActionSubscription,
         GenerateFileChpu,
         MetaGen,
+        ActionRegRefUserSuccess,
         AggregateCatalogData;
 
 

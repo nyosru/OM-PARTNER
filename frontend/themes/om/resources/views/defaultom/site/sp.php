@@ -292,6 +292,7 @@
             margin-bottom:0px;
         }
     </style>
+    <?=\frontend\widgets\Metrics::widget();?>
 </head>
 <body style="min-width: 1440px;no-repeat 50% 0%;margin:auto;font-family: Roboto ,Helvetica Neue,sans-serif, sans-serif;font-style: normal;font-weight: 300;">
 <?= \frontend\widgets\Alert::widget() ?>
@@ -348,12 +349,12 @@
                         $items = '';
                         foreach ($images as $key=>$value){
                             $class = '';
-                            $price = '';
+                            $pricehtml = '';
                             if($key == 0){
                                 $class= 'active';
                             }
                            if(isset($value['price'])){
-                               $price = '<div style="position: absolute;bottom: 20px;right: 20px;">
+                               $pricehtml = '<div style="position: absolute;bottom: 20px;right: 20px;">
                                             <img src="/images/logo/prices.png" />
                                          <div style="position: absolute;top: 10%; left: 25%;  font-size: 36px; font-weight: 500; color: #FFF;">'.$value['price'].' р.</div>
                                          </div>';
@@ -361,7 +362,7 @@
                             $indicate .=  '<li calss="'.$class.'" data-target="#myCarousel" data-slide-to="'.$key.'"></li>';
                             $items .='<div class="item '.$class.'">'.
                                 '<div style="background: url('.$value['image'].')  no-repeat 50% 100% /contain;width: 100%;height: 100%;z-index: 99999;overflow: visible;"></div>'.
-                                $price.
+                                $pricehtml.
                                 '</div>';
                         }
                         ?>
@@ -398,7 +399,7 @@
                 <div style="height: 33%; position: relative;">
                     <div style="position: absolute; bottom: 0px; right: 0px; left: 0px; top: 0%; height: 200px; margin: auto; font-size: 19px; line-height: 30px;">
                         <div><img src="/images/lp/handbag.png"></div>
-                        <div style="margin-top: 25px;">Сумки<br>от <?=$price['2047']['price']?>р.</div>
+                        <div style="margin-top: 25px;">Сумки<br>от <?=$price['835']['price']?>р.</div>
                     </div>
                 </div>
                 <div style="height: 33%; position: relative;">
@@ -637,7 +638,7 @@
 </div>
 <div style="background:rgb(250, 40, 90); z-index: 1; height: 290px; font-size: 40px; font-weight: 400; text-align: center; position: relative;">
     <div style="border-radius: 4px; display: inline-block; left: 60px; position: absolute; text-align: left; font-size: 48px; top: 70px; color: rgb(255, 255, 255);">
-        Начни экономить<br> до 100% на покупках!
+        Начни экономить<br> от 100% на покупках!
     </div>
     <div style="border-radius: 4px;position: absolute;display: inline-block;top: 0px;bottom: 0px;height: 50%;margin: auto;">
         <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'form-invite-down']); ?>
@@ -663,5 +664,23 @@
 <div style="z-index: 1; height: 235px; font-size: 40px; font-weight: 400; text-align: center; position: relative; background: rgb(120, 211, 62) none repeat scroll 0% 0%; color: rgb(255, 255, 255);">
     <img style="position: absolute; right: 0px; bottom: 0px;" src="/images/lp/girl2.png" />
 </div>
-
+<?php
+if(($ga = Yii::$app->session->get('ga'))){
+    foreach ($ga as $gakey=>$gavalue){
+        ?>
+        <script>
+            $(window).load(function () {
+                if(typeof(ga) != 'undefined') {
+                    ga('send', 'event', '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
+                }
+            });
+        </script>
+        <?php
+    }
+    $ga = Yii::$app->session->set('ga', []);
+}
+echo \frontend\widgets\StatWidget::widget();
+echo \frontend\widgets\MailCounter::widget();
+echo  \frontend\widgets\ReTargetVKWidget::widget();
+?>
 </body></html>

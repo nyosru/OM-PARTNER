@@ -101,8 +101,15 @@ if ($_COOKIE['info-modal'] !== '1') {?>
 <?php if(isset($referal['id'])){?>
 <div class="" style="float: left; font-size: 24px; font-weight: 500; padding: 20px;">
     Вы принимаете участие в реферальной программе
-    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваш реферальный ид</span><span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;"> <?= $referal['id']; ?></span>
-    <br/><span style="font-size: 18px; color: rgb(204, 204, 204);">Ваша реферальная ссылка </span><span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">  http://<?=$_SERVER['HTTP_HOST']?><?=BASEURL?>/invite?sp=<?=$referal['referral_url']; ?></span>
+    <br/>
+    <span style="font-size: 18px; color: rgb(204, 204, 204);">Ваш реферальный ид</span>
+    <span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;"> <?= $referal['id']; ?></span>
+    <br/>
+        <?php echo  Html::hiddenInput(\Yii::$app->getRequest()->csrfParam, \Yii::$app->getRequest()->getCsrfToken(), []);?>
+        <span style="font-size: 18px; color: rgb(204, 204, 204);">Размер организационного сбора, % </span><span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;"><input data-js="set-percent" value="<?= $referal['percent']; ?>" max="50" min="0" type="number"/></span>
+        <span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;"><button data-js="set-percent-submit" type="submit">Сохранить</button></span>
+    <br/>
+    <span style="font-size: 18px; color: rgb(204, 204, 204);">Ваша реферальная ссылка </span><span style="font-size: 18px; color: rgb(0, 123, 193); font-weight: 300;">  http://<?=$_SERVER['HTTP_HOST']?><?=BASEURL?>/invite?sp=<?=$referal['referral_url']; ?></span>
 </div>
 <?php }?>
 <div class="orders-metro" style="float: left; width: 100%;">
@@ -449,3 +456,19 @@ if ($_COOKIE['info-modal'] !== '1') {?>
         </div>
     </div>
 </div>
+<script>
+    $(window).ready(function () {
+        $(document).on('click', '[data-js="set-percent-submit"]', function () {
+            $x = $('[data-js="set-percent"]').val();
+            $.ajax(
+                {
+                    method: 'post',
+                    url:'/sp/set-percent',
+                    data:{'percent': $x},
+                    success: function (data) {
+                        alert(data);
+                    }
+            })
+        });
+    });
+</script>
