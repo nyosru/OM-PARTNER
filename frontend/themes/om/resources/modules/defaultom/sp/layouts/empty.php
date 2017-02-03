@@ -24,6 +24,7 @@ $this->beginPage();
     <?= \yii\helpers\Html::csrfMetaTags() ?>
     <title><?= \yii\helpers\Html::encode($this->title) ?></title>
     <?php $this->head(); ?>
+    <?=\frontend\widgets\Metrics::widget();?>
 </head>
 <body
         style="    position: fixed;background:#FFF;font-family: Roboto,Helvetica Neue,sans-serif;font-style: normal;font-weight: 300;min-width: 1440px;color:#333;margin-left: auto;margin-right: auto;height: 100%;">
@@ -33,6 +34,25 @@ $this->beginPage();
 $this->endBody();
 Yii::$app->params['assetsite']->registerAssetFiles($this);
 
+?>
+<?php
+if(($ga = Yii::$app->session->get('ga'))){
+    foreach ($ga as $gakey=>$gavalue){
+        ?>
+        <script>
+            $(window).load(function () {
+                if(typeof(ga) != 'undefined') {
+                    ga('send', 'event', '<?=$gavalue['event']?>', '<?=$gavalue['location']?>')
+                }
+            });
+        </script>
+        <?php
+    }
+    $ga = Yii::$app->session->set('ga', []);
+}
+echo \frontend\widgets\StatWidget::widget();
+echo \frontend\widgets\MailCounter::widget();
+echo  \frontend\widgets\ReTargetVKWidget::widget();
 ?>
 </body>
 </html>

@@ -34,10 +34,6 @@ trait ActionSpLanding
                 'price'=>'98'
             ],
             [
-                'image'=>'http://odezhda-master.ru/images/apix/products/1f4288a20da7404d8feab03afcf5df13.jpg',
-                'price'=>'126'
-            ],
-            [
                 'image'=>'http://odezhda-master.ru/images/apix/products/d947ad909f5642a392de77cb98ffd2fa.JPG',
                 'price'=>'126'
             ],
@@ -95,10 +91,10 @@ trait ActionSpLanding
                 'price'=>'322'
             ]
         ];
-        $key_cache = 'dawawfawf';
+        $key_cache = 'fththfth45345345';
         $keys = Yii::$app->cache->buildKey($key_cache);
         if(($price_max = Yii::$app->cache->get($keys)) == FALSE) {
-            $cat_arr = [1720, 1835, 1729, 1742, 1776, 1762, 1993, 2047, 1275, 1983];
+            $cat_arr = [1720, 1835, 1729, 1742, 1776, 1762, 1993, 835, 1275, 1983];
             $hide_man = $this->hide_manufacturers_for_partners();
             foreach ($hide_man as $value) {
                 $list[] = $value['manufacturers_id'];
