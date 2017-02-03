@@ -188,6 +188,7 @@ $del_add .= '</select>';
                 'Почтовый индекс: ' +
                 '<input disabled="" name="[userinfo]postcode" title="Допустимые символы 0-9, пробел" data-placement="top" data-toggle="tooltip" data-name="postcode" class="info-item" value="124124"></div>' +
                 '<div class="telephone-item lable-info-item">Телефон: <input disabled="" name="[userinfo]telephone" title="Допустимые символы 0-9,-,пробел,),(,+" data-placement="top" data-toggle="tooltip" data-name="telephone" class="info-item" value="<?=htmlentities($userinfo['telephone']);?>"></div>' +
+                '<div data-js="refpercent" data-value="<?=$refpercent?>" ><b>Организационный сбор вашего СП: <?=$refpercent?>%</b></div>'+
                 '<div class="order-accept"><strong>Убедительная просьба проверить свой заказ, так как после подтверждения заказа Вами, мы не можем добавлять, удалять или менять размер у позиции в заказе! ' +
                 '</strong>' +
                 '<br>' +

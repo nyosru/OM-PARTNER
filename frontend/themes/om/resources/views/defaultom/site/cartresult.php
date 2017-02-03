@@ -89,21 +89,28 @@ if($result['code'] == 200 && $result['data']['paramorder']['number']){
 	<?php
 	$pack['packages']=['name'=>'Полиэтиленовые пакеты', 'price'=>'0'];
 	$pack['boxes']=['name'=>'Крафт-коробки', 'price'=>$wrapprice];
-	if($result['data']['paramorder']['delivery']) {
+
+    if($result['data']['paramorder']['refpercent']) {
+        echo '<div class="desc-attr"><span class="key">Процент организатора: </span>'.$pack[$result['data']['paramorder']['wrap']]['name'].'</div>';
+    }
+	if($pack[$result['data']['paramorder']['wrap']]['name']) {
 		echo '<div class="desc-attr"><span class="key">Вариант упаковки: </span>'.$pack[$result['data']['paramorder']['wrap']]['name'].'</div>';
 	}
 	if($result['data']['totalpricesaveproduct']) {
 		echo '<div class="desc-attr"><span class="key">Вариант доставки: </span>'.$result['data']['paramorder']['delivery'].'</div>';
 	}
 	if($result['data']['totalpricesaveproduct']) {
-		echo '<div class="desc-attr"><span class="key">Итого: </span>'.((float)$result['data']['totalpricesaveproduct']-(float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
+		echo '<div class="desc-attr"><span class="key">Итого: </span>'.((integer)$result['data']['totalpricesaveproduct']-(float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
 	}
 	if($result['data']['totalpricesaveproduct']) {
-		echo '<div class="desc-attr"><span class="key">Упаковка: </span>'.((float)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
+		echo '<div class="desc-attr"><span class="key">Упаковка: </span>'.((integer)$pack[$result['data']['paramorder']['wrap']]['price']).' Руб.</div>';
 	}
 	if($result['data']['totalpricesaveproduct']) {
-		echo '<div class="desc-attr"><span class="key">Всего к оплате: </span>'.((float)$result['data']['totalpricesaveproduct']).' Руб.</div>';
+		echo '<div class="desc-attr"><span class="key">Всего к оплате: </span>'.((integer)$result['data']['totalpricesaveproduct']).' Руб.</div>';
 	}
+    if($result['data']['paramorder']['refpercent']) {
+        echo '<div class="desc-attr"><span class="key">Всего к оплате с учетом орг сбора: </span>'.((integer)($result['data']['totalpricesaveproduct']+($result['data']['totalpricesaveproduct']/100*$result['data']['paramorder']['refpercent']))).' Руб.</div>';
+    }
 	if($result['data']['totalpricesaveproduct']) {
 		echo '<div class="desc-attr"><span class="key">ФИО: </span>'.$result['data']['paramorder']['name'].'</div>';
 	}

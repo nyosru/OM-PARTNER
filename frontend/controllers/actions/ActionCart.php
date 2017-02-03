@@ -8,6 +8,7 @@ use common\models\Orders;
 use common\models\PartnersOrders;
 use common\models\PartnersProducts;
 use common\models\PartnersUsersInfo;
+use common\models\Referrals;
 use common\models\ReferralsUser;
 use Yii;
 trait ActionCart
@@ -46,8 +47,9 @@ trait ActionCart
                 break;
             }
             default:
-                if(ReferralsUser::find()->where(['user_id'=>Yii::$app->user->getId()])->exists()){
-                     $template = 'sp';
+                if(($userref = ReferralsUser::find()->where(['user_id'=>Yii::$app->user->getId()])->asArray()->one()) == TRUE){
+                    $referral = Referrals::find()->where(['id'=>$userref['referral_id']])->asArray()->one();
+                    $template = 'sp';
                     $wrapart = Configuration::find()->where(['configuration_key' => 'ORDERS_PACKAGING_OPTIONS'])->asArray()->one();
                     $wrap = PartnersProducts::find()->where(['products_model' => $wrapart['configuration_value']])->one();
                     $wrap = (integer)$wrap->products_price;
@@ -78,7 +80,7 @@ trait ActionCart
                 }
 
 
-                return $this->render('cart', ['addr' => $addr, 'userinfo' =>$userinfo ,'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders,'template'=>$template]);
+                return $this->render('cart', ['addr' => $addr, 'userinfo' =>$userinfo ,'default' => $default['default'], 'wrapprice' => $wrap, 'lastorders'=>$lastorders,'template'=>$template, 'refpercent'=>$referral['percent']]);
         }
     }
 }
