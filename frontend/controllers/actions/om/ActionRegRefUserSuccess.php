@@ -27,6 +27,10 @@ trait ActionRegRefUserSuccess
     public function actionRegRefUserSuccess()
     {
         $this->layout = 'main';
-        return $this->render('registerreferral',['user'=>[],'referal'=>[]]);
+        if(($data = Yii::$app->session->get('messageset')) == TRUE){
+            Yii::$app->session->remove('messageset');
+            return $this->render('registerreferral',['data'=>$data]);
+        }
+        return $this->redirect('/');
     }
 }
