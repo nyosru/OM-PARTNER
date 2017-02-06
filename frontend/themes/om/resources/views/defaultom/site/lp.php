@@ -13,9 +13,9 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,100,100italic,300,300italic,500,400italic,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script
-        src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
@@ -452,6 +452,14 @@
                 </div>
                 <div class="col-md-4 mid-item">
                     <div class="item-head">
+                        «Деловые линии»
+                    </div>
+                    <div class="item">
+                        <a href=" http://www.dellin.ru/" > http://www.dellin.ru/</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mid-item">
+                    <div class="item-head">
                         «ОПТИМА»
                     </div>
                     <div class="item">
@@ -510,6 +518,14 @@
                 </div>
                 <div class="col-md-4 mid-item">
                     <div class="item-head">
+                        «Деловые линии»
+                    </div>
+                    <div class="item">
+                        <a href="http://www.dellin.ru/" >http://www.dellin.ru/</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mid-item">
+                    <div class="item-head">
                         «Служба доставки Экспресс-Курьер»
                     </div>
                     <div class="item">
@@ -560,7 +576,7 @@
                     Сопроводительные документы для ТК оформляются нами при подготовке Вашего заказа к отправке.
                 </div>
                 <div class="item4">
-                    Грузы ТК: "Первая Экспедиционная компания", "КИТ", "Почта России", "Служба доставки Экспресс-Курьер",  "ЭНЕРГИЯ", ЕМС почта России  отправляются из г. ИВАНОВО
+                    Грузы ТК: "Первая Экспедиционная компания", "КИТ", "Почта России", "Служба доставки Экспресс-Курьер", "Деловые линии", "ЭНЕРГИЯ", ЕМС почта России  отправляются из г. ИВАНОВО
                 </div>
                 <div class="item4">
                     Грузы ТК: "ОПТИМА", "Севертранс",  из г. МОСКВЫ    </div>
