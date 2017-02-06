@@ -439,7 +439,7 @@ if(!$product['products']['products_image']){
             <div class="new_title center">
                 <h2>Похожие товары</h2>
             </div>
-            <div id="related-products-slider" class="product-flexslider hidden-buttons">
+            <div id="featured-slider" class="product-flexslider hidden-buttons">
                 <div class="slider-items slider-width-col4 products-grid">
                     <?php
                     if(is_array($relprod)) {
@@ -447,6 +447,7 @@ if(!$product['products']['products_image']){
                             echo '<div class="item">';
                             echo \frontend\widgets\ProductCardFabia::widget([
                                 'template'=>'grid',
+                                'css'=>['imageHeight'=>'205px'],
                                 'product'=>$val['products'],
                                 'description'=>$val['productsDescription'],
                                 'attrib'=>$val['productsAttributes'],
