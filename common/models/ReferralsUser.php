@@ -70,7 +70,10 @@ class ReferralsUser extends \yii\db\ActiveRecord
         return $this->hasOne(Referrals::className(), ['id' => 'referral_id']);
     }
 
-
+    public function getReferralUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id'])->via('referral');
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

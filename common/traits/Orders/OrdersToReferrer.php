@@ -178,7 +178,7 @@ trait OrdersToReferrer
                 ]
             ]);
         }
-        $refinfo = ReferralsUser::find()->where(['partners_referrals_users.user_id'=>$user['id']])->joinWith('referral')->asArray()->one();
+        $refinfo = ReferralsUser::find()->where(['partners_referrals_users.user_id'=>$user['id']])->joinWith('referral')->joinWith('referralUser')->asArray()->one();
         Yii::$app->mailer->htmlLayout = 'layouts-om/html';
         Yii::$app->params['params']['utm'] = [
             'source' => 'email',
@@ -186,7 +186,6 @@ trait OrdersToReferrer
             'campaign' => 'new-om',
             'content' => 'save-orders'
         ];
-
         Yii::$app->mailer->compose(['html' => 'orderom-save'], [
             'result' => [
                 'code' => 200,
@@ -209,7 +208,7 @@ trait OrdersToReferrer
                 ]
             ]
         ])
-            ->setFrom('odezhdamaster@gmail.com')
+            ->setFrom($refinfo['referralUser']['email'])
             ->setTo($user['email'])
             ->setSubject('Новый заказ"')
             ->send();
@@ -235,8 +234,8 @@ trait OrdersToReferrer
                 ]
             ]
         ])
-            ->setFrom('odezhdamaster@gmail.com')
-            ->setTo('desure85@gmail.com')
+            ->setFrom($user['email'])
+            ->setTo($refinfo['referralUser']['email'])
             ->setSubject('Новый заказ"')
             ->send();
         Yii::$app->session->set('order-succes', [
