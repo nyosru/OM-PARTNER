@@ -3,7 +3,6 @@ namespace common\patch;
 
 use yii\rbac\DbManager;
 
-
 Class RbacDbManager extends DbManager
 {
     public $db = 'db';
