@@ -13,7 +13,6 @@ return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'PHPTAL' => array($vendorDir . '/phptal/phptal/classes'),
-    'PHPParser' => array($vendorDir . '/nikic/php-parser/lib'),
     'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'MikeVanRiel' => array($vendorDir . '/mikevanriel/text-to-latex/src', $vendorDir . '/mikevanriel/text-to-latex/tests/unit'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
