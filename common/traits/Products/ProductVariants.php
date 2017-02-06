@@ -20,7 +20,7 @@ trait ProductVariants
             'model' => $product['products']['products_model'],
             'price' => $product['products']['products_price'],
             'image' => $product['products']['products_image'],
-            'name' => $product['productsDescription']['products_name'],
+            'name' => $product['description']['products_name'],
             'min' => $product['products']['products_quantity_order_min'],
             'step' => $product['products']['products_quantity_order_units'],
             'count' => $product['products']['products_quantity'],

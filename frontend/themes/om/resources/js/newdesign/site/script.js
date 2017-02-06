@@ -139,29 +139,23 @@ $(document).on('click', '.del-count', function () {
 
 $(document).on('click', '.del-product', function (e) {
     e.preventDefault();
-    var trProduct = $(this).parents('tr');
-    $delrow = trProduct.attr('data-raw');
+    var element = $(this).parents("[data-raw]");
+    $delrow = element.attr('data-raw');
     $new_cart = new Object();
     $item = JSON.parse(localStorage.getItem('cart-om'));
     $item.cart.splice($delrow, 1);
     $ilocal = JSON.stringify($item);
     localStorage.setItem('cart-om', $ilocal);
-    trProduct.remove();
+    element.remove();
     $str = $('.cart-row');
     $str2=$('.num-of-items');
     $.each($str, function(i,item){
         $(this).attr('data-raw',i);
         $(this).children().find('.num-of-items').attr('data-raw',i);
     });
-    // $.each($str2, function(i,item){
-    //     $(this).attr('data-raw',i);
-    // });
-
-    //$amount_prod == $item.cart.length;
-    //$(".cart-count").html($amount_prod);
-    //$(".cart-price").html($cart_price + ' руб.');
     changeOveralPrice();
     changeCartCount();
+    parseForCartTop();
 });
 function changeOveralPrice(){
     var godsprice = 0;
@@ -235,11 +229,12 @@ $(document).on('click', '.cart-lable', function () {
                 $amount_prod = $amount_prod + parseInt(this[4]);
 
             });
-            var cartCount = $(".cart-count");
+            var cartCount = $(".mini-cart>.basket .cart-count");
             if(parseInt(cartCount.text()) < $amount_prod){
                 notyAlert('Товар добавлен в корзину','information');
             }
             cartCount.html($amount_prod);
+            parseForCartTop();
         }
     });
     if(sumValue == 0) {
@@ -1776,3 +1771,44 @@ $(document).on('click','.catalog-product-item .btn-cart:not(.cart-lable)',functi
     $(this).addClass('cart-lable');
     productBlock.find('.hover-variants').slideDown();
 });
+
+/*
+Всплывающая корзина в шапке
+ */
+parseForCartTop();
+function parseForCartTop(){
+    if (JSON.parse(localStorage.getItem('cart-om'))) {
+        var cartOm = JSON.parse(localStorage.getItem('cart-om')),
+            cart = cartOm.cart,
+            totalSum = 0,
+            countProducts = 0;
+        $('#cart-sidebar').empty();
+        $.each(cart,function(i){
+            countProducts += parseInt(this[4]);
+            totalSum += (parseInt(this[4])*parseInt(this[3]));
+            $('#cart-sidebar').append(renderCartTop(i,this[0],this[7],this[4],this[3],this[6],this[5]));
+        });
+        $('#total-price-cart').text(totalSum+' р.');
+        $('.cart-count').text(countProducts);
+    }
+}
+function renderCartTop(index,id,name,count,price,size,img){
+    if(size!=''){
+        size = ' ['+size+']';
+    }
+    return ''+
+    '<li class="item" data-product="'+id+'" data-raw="'+index+'"> ' +
+        '<div class="item-inner">' +
+            '<a class="product-image" title="'+name+'" href="/product?id='+id+'">' +
+                '<img alt="'+name+'" src="/imagepreview?src='+id+'">' +
+            '</a>' +
+            '<div class="product-details"> ' +
+                '<div class="access">' +
+                    '<a class="btn-remove1 del-product" title="Удалить" data-product="'+id+'" href="#">Удалить</a> ' +
+                '</div>' +
+                '<strong>'+count+'</strong> x <span class="price">'+parseInt(price)+' р.</span> ' +
+                '<p class="product-name"><a href="/product?id='+id+'">'+name+size+'</a></p> ' +
+            '</div> ' +
+        '</div> ' +
+    '</li>';
+}

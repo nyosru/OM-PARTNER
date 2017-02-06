@@ -127,6 +127,9 @@ if(!$product['products']['products_image']){
                     foreach($imsrc as $key => $img){
                         $big_img = 'http://odezhda-master.ru/images/'.$img;
                         $small_img = '/imagepreview?src='.$im[$key];
+                        if(count($imsrc)==1){
+                            $small_img = $big_img;
+                        }
                         echo '<li><a href="'.$big_img.'" class="cloud-zoom-gallery" rel="useZoom: \'zoom1\', smallImage: \''.$big_img.'\' "><img src="'.$small_img.'"/></a></li>';
                     }
                     ?>

@@ -375,7 +375,7 @@ a {
 }
 
 .header-container .right_menu {
-	margin-top: 13px;
+    margin-top: 7px;
 }
 
 .search-box {
@@ -797,6 +797,8 @@ ul.currencies_list li a:hover {
 
 ul#cart-sidebar {
 	padding: 10px 15px 0px;
+    max-height: 440px;
+    overflow-y: auto;
 }
 
 /* top cart  */
@@ -911,8 +913,16 @@ div#checkout-step-review {
 	display: inline-block;
 	background: #eee;
 	color: #666;
+    -webkit-transition: all 400ms ease;
+    -moz-transition: all 400ms ease;
+    -ms-transition: all 400ms ease;
+    -o-transition: all 400ms ease;
+    transition: all 400ms ease;
 }
-
+.mini-cart .view-cart:hover{
+    background-color: #08c;
+    color: #ffffff;
+}
 .mini-cart .view-cart:before {
 	content: '\f07a';
 	font-family: FontAwesome;
@@ -14264,7 +14274,7 @@ a#fancybox-close {
 	}
 
 	.top-cart-content {
-		top: -6px;
+        top: -10px;
 	}
 
 	.toplinks .links {
@@ -15093,7 +15103,7 @@ a#fancybox-close {
 
 	.top-cart-content {
 		right: 0px;
-		top: -8px;
+        top: -12px;
 	}
 
 	.header-container .right_menu {

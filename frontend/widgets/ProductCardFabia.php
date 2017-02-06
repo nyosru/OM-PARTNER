@@ -53,6 +53,7 @@ class ProductCardFabia extends \yii\bootstrap\Widget
         }
         $this->sizes = $this->product_variants([
             'products' => $this->product,
+            'description' => $this->description,
             'productsAttributes' => $this->attrib,
             'productsAttributesDescr' => $this->attr_descr,
         ]);
