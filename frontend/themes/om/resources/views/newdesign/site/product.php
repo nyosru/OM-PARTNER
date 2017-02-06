@@ -19,7 +19,15 @@ $this->registerMetaTag(['content' => 'Цена: '.(integer)$product['products'][
 $items=array();
 $i=0;
 $im=array($product['products']['products_id']);
+if($images){
+    foreach($images as $img_key => $img_val){
+        $sub[] = $product['products']['products_id'].'&amp;sub='.$img_key;
+    }
+}
+$im = array_merge($im, $sub);
+
 $imsrc=array($product['products']['products_image']);
+$imsrc=array_merge($imsrc, $images);
 if(!$product['products']['products_image']){
     $imsrc = array();
 }
@@ -117,7 +125,9 @@ if(!$product['products']['products_image']){
                 <ul class="previews-list slides">
                     <?php
                     foreach($imsrc as $key => $img){
-                        echo '<li><a href="/images/'.$img.'" class="cloud-zoom-gallery" rel="useZoom: \'zoom1\', smallImage: \'/imagepreview?src='.$im[$key].'\' "><img src="/imagepreview?src='.$im[$key].'"/></a></li>';
+                        $big_img = 'http://odezhda-master.ru/images/'.$img;
+                        $small_img = '/imagepreview?src='.$im[$key];
+                        echo '<li><a href="'.$big_img.'" class="cloud-zoom-gallery" rel="useZoom: \'zoom1\', smallImage: \''.$big_img.'\' "><img src="'.$small_img.'"/></a></li>';
                     }
                     ?>
                 </ul>
