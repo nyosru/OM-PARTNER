@@ -43,7 +43,7 @@ trait ActionProduct
         if ($id > 0 ){
             $x = PartnersProducts::find()
                 ->where([$param => trim($id)]);
-            $data = end($this->aggregateProductsData($x, 'producn', 86400));
+            $data = end($this->aggregateProductsData($x, 'productn', 86400));
             $prodimages = array_values($data['subImage']);
             $spec = PartnersProductsToCategories::find()
                 ->where(['products_to_categories.products_id' => $id])
