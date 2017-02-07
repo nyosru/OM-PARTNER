@@ -2,6 +2,7 @@
 namespace common\traits;
 
 use common\models\CouponRedeemTrack;
+use common\models\Orders;
 use common\models\PartnersProductsToCategories;
 use Yii;
 use common\models\Coupons;
@@ -31,6 +32,8 @@ trait Coupon
             } elseif ($total_price<$coupon->coupon_minimum_order){
                 $message['error'] = 'Для действия купона сумма заказа должна превышать '.round($coupon->coupon_minimum_order).' руб.';
             } elseif ($this->restrictUser($coupon->restrict_to_customers,$customers_id)){
+                $message['error'] = 'Вы не можете использовать этот купон';
+            }elseif($coupon->newcomers_only && Orders::find()->where(['customers_id' => $customers_id, 'orders_status'=>[3,4,5]])->exists()){
                 $message['error'] = 'Вы не можете использовать этот купон';
             }
         }
