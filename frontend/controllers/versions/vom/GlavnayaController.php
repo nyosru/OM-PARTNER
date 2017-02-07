@@ -20,6 +20,7 @@ use common\traits\Orders\OrdersToOm;
 use common\traits\Orders\OrdersToReferrer;
 use common\traits\OrdersStatusData;
 use common\traits\PageGen\MetaGen;
+use common\traits\Products\AggregateProductsData;
 use common\traits\Products\FeaturedProducts;
 use common\traits\Products\GenerateFileChpu;
 use common\traits\Products\NewProducts;
@@ -225,6 +226,7 @@ class GlavnayaController extends Controller
         ActionSubscription,
         GenerateFileChpu,
         MetaGen,
+        AggregateProductsData,
         ActionRegRefUserSuccess,
         AggregateCatalogData;
 
