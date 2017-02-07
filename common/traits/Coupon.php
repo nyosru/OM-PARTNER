@@ -33,7 +33,7 @@ trait Coupon
                 $message['error'] = 'Для действия купона сумма заказа должна превышать '.round($coupon->coupon_minimum_order).' руб.';
             } elseif ($this->restrictUser($coupon->restrict_to_customers,$customers_id)){
                 $message['error'] = 'Вы не можете использовать этот купон';
-            }elseif($coupon->newcomers_only && ($orders = Orders::findOne(['customers_id' => $customers_id])) == TRUE){
+            }elseif($coupon->newcomers_only && Orders::find()->where(['customers_id' => $customers_id, 'orders_status'=>[3,4,5]])->exists()){
                 $message['error'] = 'Вы не можете использовать этот купон';
             }
         }
