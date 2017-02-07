@@ -215,11 +215,12 @@ if(!$product['products']['products_image']){
         </div>
         <div class="social">
             <ul class="link">
-                <li class="vk"><a href="#"></a></li>
-                <li class="ok"><a href="#"></a></li>
-                <li class="fb"><a href="#"></a></li>
-                <li class="tw"><a href="#"></a></li>
-                <li class="googleplus"><a href="#"></a></li>
+                <?php $link_soc = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>
+                <li class="vk"><a target="_blank" href="http://vk.com/share.php?url=<?=$link_soc?>"></a></li>
+                <li class="ok"><a target="_blank" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=urlencode($link_soc)?>"></a></li>
+                <li class="fb"><a target="_blank" href="http://www.facebook.com/sharer.php?s=100&p[url]=<?=$link_soc?>"></a></li>
+                <li class="tw"><a target="_blank" href="http://twitter.com/share?url=<?=$link_soc?>&title=<?=$description['products_description']?>"></a></li>
+                <li class="googleplus"><a target="_blank" href="https://plus.google.com/share?url=<?=$link_soc?>"></a></li>
             </ul>
         </div>
     </div>
