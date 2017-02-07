@@ -15552,3 +15552,9 @@ a#fancybox-close {
     top: 0;
     left: 0;
 }
+.button.reset-filter{
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    color: #ffffff;
+}

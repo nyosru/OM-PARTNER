@@ -1788,6 +1788,9 @@ function parseForCartTop(){
             totalSum += (parseInt(this[4])*parseInt(this[3]));
             $('#cart-sidebar').append(renderCartTop(i,this[0],this[7],this[4],this[3],this[6],this[5]));
         });
+        if(cart.length == 0){
+            $('#cart-sidebar').append('<li class="item"><strong>В корзине отсутствуют товары</strong></li>');
+        }
         $('#total-price-cart').text(totalSum+' р.');
         $('.cart-count').text(countProducts);
     }

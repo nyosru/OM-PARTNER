@@ -36,9 +36,6 @@ $this->title = 'Избранные продукты';
                     <div class="my-wishlist clearfix">
 
                     </div>
-                    <div class="buttons-set">
-                        <p class="back_link"><a href="<?=Yii::$app->request->referrer?>"><small>« </small>Back</a></p>
-                    </div>
                 </div>
             </div>
             <aside class="col-right sidebar col-sm-3">

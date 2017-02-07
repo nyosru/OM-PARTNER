@@ -1,42 +1,106 @@
+<?php
+use yii\bootstrap\Nav;
+$links = [
+    [
+        'name' => 'О магазине',
+        'ul' => [
+            [
+                'label' => 'О нас',
+                'url' => '#',
+            ],[
+                'label' => 'Как сделать заказ',
+                'url' => '#',
+            ],[
+                'label' => 'Процесс сборки заказа',
+                'url' => '#',
+            ],[
+                'label' => 'Оплата',
+                'url' => '#',
+            ],[
+                'label' => 'Доставка',
+                'url' => '#',
+            ],[
+                'label' => 'Гарантии, обмен, возврат',
+                'url' => '#',
+            ],[
+                'label' => 'Расписание работы магазина',
+                'url' => '#',
+            ],[
+                'label' => 'Пиктограммы на карточках товаров',
+                'url' => '#',
+            ],[
+                'label' => 'Контакты',
+                'url' => '#',
+            ],
+        ],
+    ],[
+        'name' => 'Информация',
+        'ul' => [
+            [
+                'label' => 'Отзывы',
+                'url' => '#',
+            ],[
+                'label' => 'Организаторам совместных покупок',
+                'url' => '#',
+            ],[
+                'label' => 'Скачать прайс-лист',
+                'url' => '#',
+            ],[
+                'label' => 'Размерная сетка',
+                'url' => '#',
+            ],[
+                'label' => 'Наши модели',
+                'url' => '#',
+            ],[
+                'label' => 'Частые вопросы',
+                'url' => '#',
+            ],[
+                'label' => 'Заявка на сотрудничество',
+                'url' => '#',
+            ],
+        ],
+    ],[
+        'name' => 'Разделы сайта',
+        'ul' => [
+            [
+                'label' => 'Распродажа',
+                'url' => '#',
+            ],[
+                'label' => 'Новинки дня',
+                'url' => '#',
+            ],[
+                'label' => 'Все новинки',
+                'url' => '#',
+            ],[
+                'label' => 'Все скидки',
+                'url' => '#',
+            ],[
+                'label' => 'Бренды',
+                'url' => '#',
+            ],[
+                'label' => 'Все категории',
+                'url' => '#',
+            ],
+        ],
+    ],
+];
+?>
 <!-- Footer -->
 <footer>
     <div class="footer-inner">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-xs-12 col-lg-8">
-                    <div class="footer-column pull-left">
-                        <h4>Shopping Guide</h4>
-                        <ul class="links">
-                            <li class="first"><a href="#" title="How to buy">How to buy</a></li>
-                            <li><a href="faq.html" title="FAQs">FAQs</a></li>
-                            <li><a href="#" title="Payment">Payment</a></li>
-                            <li><a href="#" title="Shipment&lt;/a&gt;">Shipment</a></li>
-                            <li><a href="#" title="Where is my order?">Where is my order?</a></li>
-                            <li class="last"><a href="#" title="Return policy">Return policy</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column pull-left">
-                        <h4>Style Advisor</h4>
-                        <ul class="links">
-                            <li class="first"><a title="Your Account" href="login.html">Your Account</a></li>
-                            <li><a title="Information" href="#">Information</a></li>
-                            <li><a title="Addresses" href="#">Addresses</a></li>
-                            <li><a title="Addresses" href="#">Discount</a></li>
-                            <li><a title="Orders History" href="#">Orders History</a></li>
-                            <li class="last"><a title=" Additional Information" href="#">Additional Information</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column pull-left">
-                        <h4>Information</h4>
-                        <ul class="links">
-                            <li class="first"><a href="sitemap.html" title="Site Map">Site Map</a></li>
-                            <li><a href="#" title="Search Terms">Search Terms</a></li>
-                            <li><a href="#" title="Advanced Search">Advanced Search</a></li>
-                            <li><a href="contact_us.html" title="Contact Us">Contact Us</a></li>
-                            <li><a href="#" title="Suppliers">Suppliers</a></li>
-                            <li class=" last"><a href="#" title="Our stores" class="link-rss">Our stores</a></li>
-                        </ul>
-                    </div>
+                    <?php foreach($links as $link){ ?>
+                        <div class="footer-column pull-left">
+                            <h4><?=$link['name']?></h4>
+                            <ul class="links">
+                            <?php foreach($link['ul'] as $li) {?>
+                                <li><a href="<?=$li['url']?>" title="<?=$li['label']?>"><?=$li['label']?></a></li>
+                            <?php } ?>
+                            </ul>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div class="col-xs-12 col-lg-4">
                     <div class="footer-column-last">
@@ -52,7 +116,7 @@
                             </form>
                         </div>
                         <div class="social">
-                            <h4>Follow Us</h4>
+                            <h4>Подпишитесь на нас</h4>
                             <ul class="link">
                                 <li class="vk pull-left"><a href="#"></a></li>
                                 <li class="ok pull-left"><a href="#"></a></li>
@@ -71,25 +135,10 @@
     <div class="footer-middle">
         <div class="container">
             <div class="row">
-                <div><img src="/images/new/footer-logo.png" alt=""></div>
+                <div><img src="/images/logo/logo-om-new.png" alt=""></div>
                 <address>
                     <i class="icon-location-arrow"></i> 123 Main Street, Anytown, CA 12345  USA <i class="icon-mobile-phone"></i><span> +(408) 394-7557</span> <i class="icon-envelope"></i><span> abc@magikcommerce.com</span>
                 </address>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-5 col-xs-12 coppyright">&copy; 2015 Magikcommerce. All Rights Reserved.</div>
-                <div class="col-sm-7 col-xs-12 company-links">
-                    <ul class="links">
-                        <li><a title="Magento Themes" href="#">Magento Themes</a></li>
-                        <li><a title="Premium Themes" href="#">Premium Themes</a></li>
-                        <li><a title="Responsive Themes" href="#">Responsive Themes</a></li>
-                        <li class="last"><a title="Magento Extensions" href="#">Magento Extensions</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

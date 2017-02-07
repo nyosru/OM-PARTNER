@@ -91,6 +91,9 @@ $this->title = $title;
 
 <!-- header banner  -->
 <div class="header-banner">
+    <div class="assetBlock">
+        <p><a href="#">MENLOOK DAYS: UP TO <span>50%</span> OFF NEW SEASON ARRIVALS &gt; </a></p>
+    </div>
     <div class="our-features-box">
         <div class="container">
             <ul>

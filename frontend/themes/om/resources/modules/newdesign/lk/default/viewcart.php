@@ -111,6 +111,9 @@ $this->title='Просмотр сохраненных корзин';
                                 <div class="cart-set-content" data-row="<?=$k?>" style="display: none"><?=$body?></div>
                             </td>
                         </tr>
+                        <script>
+                            $cartset[<?=$k?>]=<?=$body?>;
+                        </script>
                     <?php } ?>
                 </tbody>
             </table>
@@ -205,13 +208,14 @@ $this->title='Просмотр сохраненных корзин';
             $set = JSON.parse(localStorage.getItem('cart-set'));
             $.each($set[$row]['cart'],function($i,$item){
                 $count++;
-            })
+            });
             $set = JSON.stringify($set[$row]);
             localStorage.setItem('cart-om', $set);
             console.log('Корзина сохранена');
         }
         $count+=$count2;
         $('.cart-count').html($count);
+        parseForCartTop();
     }
 
     $(document).on('click','.add-cart-set',function(){

@@ -15,7 +15,9 @@ $this -> title = 'Корзина';
 <div class="page-title">
     <h2>Товары в моей корзине</h2>
 </div>
-    <p>Последний раз вы заказывали: <?=$lastorders?></p>
+    <?php if($lastorders != '-') {?>
+        <p>Последний раз вы заказывали: <?=$lastorders?></p>
+    <?php } ?>
 <div class="clearfix">
     <ul class="cart-available nav pull-left">
         <li><span class="glyphicon glyphicon-stop available-true"></span> Товар доступен</li>
@@ -391,9 +393,9 @@ $(window).on('load', function () {
             );
         }
         else {
-            //$innerhtml='<div style="text-align: center; padding: calc(100% / 4);">Ваша корзина пуста</div>';
+            var cartBlock = $('.col-main>.cart');
+            cartBlock.html('<div class="page-title"><h2>Ваша корзина пуста</h2></div>');
         }
-        //$('.bside').html($innerhtml);
     }
 
     getCoupon();
