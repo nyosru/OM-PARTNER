@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  * @property string $coupon_active
  * @property string $date_created
  * @property string $date_modified
+ * @property boolean $newcomers_only
  */
 class Coupons extends \yii\db\ActiveRecord
 {
@@ -66,6 +67,7 @@ class Coupons extends \yii\db\ActiveRecord
             [['restrict_to_customers'], 'string'],
             [['coupon_type', 'coupon_active'], 'string', 'max' => 1],
             [['coupon_code'],'unique'],
+            [['newcomers_only'], 'boolean'],
             [['coupon_code', 'restrict_to_products', 'restrict_to_categories'], 'string', 'max' => 255],
         ];
     }
@@ -91,6 +93,7 @@ class Coupons extends \yii\db\ActiveRecord
             'coupon_active' => 'Активен',
             'date_created' => 'Дата создания',
             'date_modified' => 'Дата изменения',
+            'newcomers_only' => 'Флаг. Только для новых клиентов'
         ];
     }
 }

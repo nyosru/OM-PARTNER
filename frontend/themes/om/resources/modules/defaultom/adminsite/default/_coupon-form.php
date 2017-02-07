@@ -24,6 +24,7 @@ use yii\helpers\Html;
     <?= $form->field($model, 'restrict_to_categories')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'restrict_to_customers')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'coupon_active')->checkbox(['id'=>'checkbox-form-id_'.$model->coupon_id]) ?>
+    <?= $form->field($model, 'newcomers_only')->checkbox(['id'=>'checkbox-form-id_'.$model->coupon_id]) ?>
     <div class="form-group">
         <label class="control-label">Период действия купона</label>
         <?=DatePicker::widget([
