@@ -57,7 +57,7 @@ trait AggregateCatalogData
         if(isset(\Yii::$app->params['chpu']['cat_start'])){
             $params['cat_start'] = $this->categoryChpu(\Yii::$app->params['chpu']['cat_start']);
         }
-        if(isset(\Yii::$app->params['chpu']['page'])){
+        if(isset(\Yii::$app->params['chpu']['page']) && !Yii::$app->request->isAjax){
             $params['page'] = Yii::$app->params['chpu']['page'];
         }
         $integer = function($value) {
@@ -398,93 +398,18 @@ trait AggregateCatalogData
                 } else {
                     $prod_search_query_filt = '';
                 }
-                $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ,products_model as model')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->where('  categories_id IN (' . $cat . ') and products_status = 1  and  death_reason = "" ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt .  $studio_query_filt.$discont_query_filt. '  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $manufacturers_query_filt . $prod_day_query_filt . $sfilt_query_filt, $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order)->asArray()->all();
-                $for_int = 0;
-                foreach ($prod as $values) {
-                    $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
-                    $dataprod = Yii::$app->cache->get($keyprod);
-                    if($values['last'] != FALSE){
-                        $lastset = $values['last'];
-                    }else{
-                        $lastset = $values['add_date'];
-                    }
-                    if ( $dataprod['data'] && $lastset == $dataprod['last'] && $values['quantity'] == $dataprod['quantity'] && $values['price'] == $dataprod['price']  && $values['model'] == $dataprod['model']) {
-                    } else {
-                        $for_int++;
-                        $nodata[] = $values['prod'];
-                    }
-                }
-                if (count($nodata) > 0) {
-                    if (function_exists('pinba_tag_set')) {
-                        pinba_tag_set('product-reload', $for_int);
-                    }
-                    $prodarr = implode(',', $nodata);
-                    $datar = PartnersProductsToCategories::find()
-                        ->where('products.products_id IN (' . $prodarr . ')')
-                        ->joinWith('products')
-                        ->joinWith('productsDescription')
-                        ->joinWith('productsAttributes')
-                        ->joinWith('productsAttributesDescr')
-                        ->joinWith('productsSpecification')
-                        ->joinWith('specificationValuesDescription')
-                        ->joinWith('specificationDescription')
-                        ->joinWith('subImage')
-                        ->groupBy(['products.`products_id` DESC'])->asArray()->all();
-                    foreach ($datar as $valuesr) {
-                        $d1 = strtotime($valuesr['products']['products_last_modified']);
-                        $d2 = strtotime($valuesr['products']['products_date_added']);
-
-                        if ($valuesr['products']['products_last_modified'] != FALSE) {
-                            $last = $valuesr['products']['products_last_modified'];
-                        } else {
-                            $last = $valuesr['products']['products_date_added'];
-                        }
-                        if($valuesr['productsSpecification']){
-                            $valuesr['productsSpecification'] = ArrayHelper::index($valuesr['productsSpecification'], 'specifications_id');
-                        }
-                        if(isset($valuesr['specificationDescription'])) {
-                            $valuesr['specificationDescription'] = ArrayHelper::index($valuesr['specificationDescription'], 'specifications_id');
-                        }
-                        if($valuesr['specificationValuesDescription']){
-                            $valuesr['specificationValuesDescription'] = ArrayHelper::index($valuesr['specificationValuesDescription'], 'specification_values_id');
-                        }
-                        if($valuesr['productsSpecification']['74']['specification_values_id']){
-                            $spec = $valuesr['productsSpecification']['74']['specification_values_id'];
-                            $spec_code = $valuesr['specificationValuesDescription'][$spec]['specification_value'];
-                        }else{
-                            $spec_code = '';
-                        }
-                        if(Yii::$app->params['seourls']== TRUE) {
-                            $colorcache = '';
-                            if ($valuesr['specificationValuesDescription'][$valuesr['productsSpecification']['4119']['specification_values_id']]['specification_value']) {
-                                $colorcache = RUtils::translit()->slugify($valuesr['specificationValuesDescription'][$valuesr['productsSpecification']['4119']['specification_values_id']]['specification_value']);
-                            }
-                            $brandcache = '';
-                            if ($valuesr['specificationValuesDescription'][$valuesr['productsSpecification']['77']['specification_values_id']]['specification_value']) {
-                                $brandcache = RUtils::translit()->slugify($valuesr['specificationValuesDescription'][$valuesr['productsSpecification']['77']['specification_values_id']]['specification_value']);
-                            }
-                            $valuesr['products']['product_seo'] = $this->generateFileChpu($valuesr['productsDescription']['products_name'], $valuesr['products']['products_id'], $colorcache, $brandcache);
-                        }if (($orderedQuantity =  $valuesr['products']['products_ordered']) == 0) {
-                            preg_match('/\d/', md5("{$valuesr['products']['products_id']}"), $matches);
-                            if (empty($orderedQuantity = $matches[0])) {
-                                $valuesr['products']['ordered_real'] = $valuesr['products']['products_ordered'];
-                                $valuesr['products']['products_ordered'] = 5;
-                            } else {
-                                $valuesr['products']['ordered_real'] = $valuesr['products']['products_ordered'];
-                                $valuesr['products']['products_ordered'] = (int)$orderedQuantity;
-                            }
-                        }
-
-                        $valuesr['products']['season_code'] =  $spec_code;
-                        $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
-                        Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price'], 'model' => $valuesr['products']['products_model']], 86400);
-                    }
-                }
-                foreach ($prod as $keyin => $values) {
-                    $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
-                    $dataprod = Yii::$app->cache->get($keyprod);
-                    $data[] = $dataprod['data'];
-                }
+                $prod = PartnersProductsToCategories::find()
+                    ->JoinWith('products')
+                    ->JoinWith('productsDescription')
+                    ->JoinWith('productsAttributes')
+                    ->JoinWith('productsAttributesDescr')
+                    ->joinWith('productsSpecification')
+                    ->where('  categories_id IN (' . $cat . ') and products_status = 1  and  death_reason = "" ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt .  $studio_query_filt.$discont_query_filt. '  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $manufacturers_query_filt . $prod_day_query_filt . $sfilt_query_filt, $arfilt)
+                    ->limit($count)
+                    ->offset($start_arr)
+                    ->distinct()
+                    ->orderBy($order);
+                $data = $this->aggregateProductsData($prod, 'productn', 86400);
                 $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
                 $stats = Yii::$app->cache->get($statickey);
                 $statickeyspec = Yii::$app->cache->buildKey('specification3554545sa-' . $cat_start);
@@ -580,84 +505,7 @@ trait AggregateCatalogData
             } else {
                 $data = 'Не найдено!';
             }
-            if (is_array($data[0])) {
-                foreach ($data as $key => $dataval) {
-                    if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
-                        $data[$key]['products']['products_price'] = intval($data[$key]['products']['products_price']) + (intval($data[$key]['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
-                    }
-                    $data[$key]['catpath'] = $this->Catpath($data[$key]['categories_id'], 'namenum');
 
-                    unset(
-                        $data[$key]['old_categories_id'],
-                        $data[$key]['products']['country_id'],
-                        $data[$key]['products']['date_checked'],
-                        $data[$key]['products']['imagenew'],
-                        $data[$key]['products']['products_image_lrg'],
-                        $data[$key]['products']['products_image_med'],
-                        $data[$key]['products']['products_image_sm_1'],
-                        $data[$key]['products']['products_image_sm_2'],
-                        $data[$key]['products']['products_image_sm_3'],
-                        $data[$key]['products']['products_image_sm_4'],
-                        $data[$key]['products']['products_image_sm_5'],
-                        $data[$key]['products']['products_image_sm_6'],
-                        $data[$key]['products']['products_image_xl_1'],
-                        $data[$key]['products']['products_image_xl_2'],
-                        $data[$key]['products']['products_image_xl_3'],
-                        $data[$key]['products']['products_image_xl_4'],
-                        $data[$key]['products']['products_image_xl_5'],
-                        $data[$key]['products']['products_image_xl_6'],
-                        //$data[$key]['products']['products_old_price'],
-
-                        $data[$key]['products']['price_coll'],
-                        $data[$key]['products']['products_sort_order'],
-                        $data[$key]['products']['products_tax_class_id'],
-                        $data[$key]['products']['products_to_xml'],
-                        $data[$key]['products']['products_weight'],
-                        $data[$key]['products']['raschet_pribil'],
-                        $data[$key]['products']['removable'],
-                        $data[$key]['products']['products_date_available'],
-                        $data[$key]['products']['products_date_view']
-                    );
-                    foreach ($data[$key]['productsAttributes'] as $keyattr => $valueattr) {
-                        unset(
-                            $data[$key]['productsAttributes'][$keyattr]['options_id'],
-                            // $data[$key]['productsAttributes'][$keyattr]['options_values_price'],
-                            $data[$key]['productsAttributes'][$keyattr]['price_prefix'],
-                            $data[$key]['productsAttributes'][$keyattr]['product_attributes_one_time'],
-                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_id'],
-                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_units'],
-                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_units_price'],
-                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight'],
-                            $data[$key]['productsAttributes'][$keyattr]['products_attributes_weight_prefix'],
-                            $data[$key]['productsAttributes'][$keyattr]['products_options_sort_order'],
-                            $data[$key]['productsAttributes'][$keyattr]['sub_options_values_id']
-                        );
-                    }
-                    foreach ($data[$key]['productsAttributesDescr'] as $keyattrdesc => $valueattrdesc) {
-                        unset(
-                            $data[$key]['productsAttributesDescr'][$keyattrdesc]['language_id'],
-                            $data[$key]['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
-                        );
-                    }
-                    unset(
-                        $data[$key]['productsDescription']['language_id'],
-                        $data[$key]['productsDescription']['products_head_desc_tag'],
-                        $data[$key]['productsDescription']['products_head_keywords_tag'],
-                        $data[$key]['productsDescription']['products_head_title_tag'],
-                        $data[$key]['productsDescription']['products_tab_1'],
-                        $data[$key]['productsDescription']['products_tab_2'],
-                        $data[$key]['productsDescription']['products_tab_3'],
-                        $data[$key]['productsDescription']['products_tab_4'],
-                        $data[$key]['productsDescription']['products_tab_5'],
-                        $data[$key]['productsDescription']['products_tab_6'],
-                        $data[$key]['productsDescription']['products_url'],
-                        $data[$key]['productsDescription']['products_viewed']
-                    );
-                    $data[$key]['productsAttributes'] = ArrayHelper::index($data[$key]['productsAttributes'], 'options_values_id');
-                }
-            } else {
-                $data = 'Не найдено!';
-            }
 
             $countfilt = count($data);
             if ($count_arrs <= $count) {
