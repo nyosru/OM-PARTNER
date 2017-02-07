@@ -398,7 +398,17 @@ trait AggregateCatalogData
                 } else {
                     $prod_search_query_filt = '';
                 }
-                $prod = PartnersProductsToCategories::find()->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ,products_model as model')->JoinWith('products')->JoinWith('productsDescription')->JoinWith('productsAttributes')->JoinWith('productsAttributesDescr')->joinWith('productsSpecification')->where('  categories_id IN (' . $cat . ') and products_status = 1  and  death_reason = "" ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt .  $studio_query_filt.$discont_query_filt. '  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $manufacturers_query_filt . $prod_day_query_filt . $sfilt_query_filt, $arfilt)->limit($count)->offset($start_arr)->distinct()->orderBy($order);
+                $prod = PartnersProductsToCategories::find()
+                    ->JoinWith('products')
+                    ->JoinWith('productsDescription')
+                    ->JoinWith('productsAttributes')
+                    ->JoinWith('productsAttributesDescr')
+                    ->joinWith('productsSpecification')
+                    ->where('  categories_id IN (' . $cat . ') and products_status = 1  and  death_reason = "" ' . $prod_search_query_filt . $prod_attr_query_filt . $start_price_query_filt . $end_price_query_filt .  $studio_query_filt.$discont_query_filt. '  and  products.products_quantity > 0  and  products.products_price != 0  and products.manufacturers_id NOT IN (' . $hide_man . ') and products_date_added < :now and products_last_modified < :now' . $manufacturers_query_filt . $prod_day_query_filt . $sfilt_query_filt, $arfilt)
+                    ->limit($count)
+                    ->offset($start_arr)
+                    ->distinct()
+                    ->orderBy($order);
                 $data = $this->aggregateProductsData($prod, 'productn', 86400);
                 $statickey = Yii::$app->cache->buildKey('static2' . $init_key_static);
                 $stats = Yii::$app->cache->get($statickey);

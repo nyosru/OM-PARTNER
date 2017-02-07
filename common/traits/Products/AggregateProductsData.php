@@ -21,7 +21,7 @@ trait AggregateProductsData
     public function aggregateProductsData($products = [], $cachekey ='productn', $cachetime = 86400)
     {
         $data = [];
-        $products = $products->asArray()->all();
+        $products = $products->select('products.products_id as prod, products.products_price as price, products.products_last_modified as last, products_date_added as add_date,products_quantity as quantity ,products_model as model')->asArray()->all();
         $for_int = 0;
         foreach ($products as $values) {
             $keyprod = Yii::$app->cache->buildKey('productn-' . $values['prod']);
