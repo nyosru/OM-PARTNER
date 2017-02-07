@@ -99,6 +99,81 @@ trait AggregateProductsData
                     }
                 }
 
+
+                if (isset(Yii::$app->params['partnersset']['discount']['value']) && Yii::$app->params['partnersset']['discount']['active'] == 1) {
+                    $valuesr['products']['products_price'] = intval($valuesr['products']['products_price']) + (intval($valuesr['products']['products_price']) / 100 * intval(Yii::$app->params['partnersset']['discount']['value']));
+                }
+                $valuesr['catpath'] = $this->Catpath($valuesr['categories_id'], 'namenum');
+
+                unset(
+                    $valuesr['old_categories_id'],
+                    $valuesr['products']['country_id'],
+                    $valuesr['products']['date_checked'],
+                    $valuesr['products']['imagenew'],
+                    $valuesr['products']['products_image_lrg'],
+                    $valuesr['products']['products_image_med'],
+                    $valuesr['products']['products_image_sm_1'],
+                    $valuesr['products']['products_image_sm_2'],
+                    $valuesr['products']['products_image_sm_3'],
+                    $valuesr['products']['products_image_sm_4'],
+                    $valuesr['products']['products_image_sm_5'],
+                    $valuesr['products']['products_image_sm_6'],
+                    $valuesr['products']['products_image_xl_1'],
+                    $valuesr['products']['products_image_xl_2'],
+                    $valuesr['products']['products_image_xl_3'],
+                    $valuesr['products']['products_image_xl_4'],
+                    $valuesr['products']['products_image_xl_5'],
+                    $valuesr['products']['products_image_xl_6'],
+                    //$valuesr['products']['products_old_price'],
+
+                    $valuesr['products']['price_coll'],
+                    $valuesr['products']['products_sort_order'],
+                    $valuesr['products']['products_tax_class_id'],
+                    $valuesr['products']['products_to_xml'],
+                    $valuesr['products']['products_weight'],
+                    $valuesr['products']['raschet_pribil'],
+                    $valuesr['products']['removable'],
+                    $valuesr['products']['products_date_available'],
+                    $valuesr['products']['products_date_view']
+                );
+                foreach ($valuesr['productsAttributes'] as $keyattr => $valueattr) {
+                    unset(
+                        $valuesr['productsAttributes'][$keyattr]['options_id'],
+                        // $valuesr['productsAttributes'][$keyattr]['options_values_price'],
+                        $valuesr['productsAttributes'][$keyattr]['price_prefix'],
+                        $valuesr['productsAttributes'][$keyattr]['product_attributes_one_time'],
+                        $valuesr['productsAttributes'][$keyattr]['products_attributes_id'],
+                        $valuesr['productsAttributes'][$keyattr]['products_attributes_units'],
+                        $valuesr['productsAttributes'][$keyattr]['products_attributes_units_price'],
+                        $valuesr['productsAttributes'][$keyattr]['products_attributes_weight'],
+                        $valuesr['productsAttributes'][$keyattr]['products_attributes_weight_prefix'],
+                        $valuesr['productsAttributes'][$keyattr]['products_options_sort_order'],
+                        $valuesr['productsAttributes'][$keyattr]['sub_options_values_id']
+                    );
+                }
+                foreach ($valuesr['productsAttributesDescr'] as $keyattrdesc => $valueattrdesc) {
+                    unset(
+                        $valuesr['productsAttributesDescr'][$keyattrdesc]['language_id'],
+                        $valuesr['productsAttributesDescr'][$keyattrdesc]['products_options_values_thumbnail']
+                    );
+                }
+                unset(
+                    $valuesr['productsDescription']['language_id'],
+                    $valuesr['productsDescription']['products_head_desc_tag'],
+                    $valuesr['productsDescription']['products_head_keywords_tag'],
+                    $valuesr['productsDescription']['products_head_title_tag'],
+                    $valuesr['productsDescription']['products_tab_1'],
+                    $valuesr['productsDescription']['products_tab_2'],
+                    $valuesr['productsDescription']['products_tab_3'],
+                    $valuesr['productsDescription']['products_tab_4'],
+                    $valuesr['productsDescription']['products_tab_5'],
+                    $valuesr['productsDescription']['products_tab_6'],
+                    $valuesr['productsDescription']['products_url'],
+                    $valuesr['productsDescription']['products_viewed']
+                );
+                $valuesr['productsAttributes'] = ArrayHelper::index($valuesr['productsAttributes'], 'options_values_id');
+
+
                 $valuesr['products']['season_code'] =  $spec_code;
                 $keyprod = Yii::$app->cache->buildKey('productn-' . $valuesr['products_id']);
                 Yii::$app->cache->set($keyprod, ['data' => $valuesr, 'last' => $last, 'quantity' => $valuesr['products']['products_quantity'], 'price' => $valuesr['products']['products_price'], 'model' => $valuesr['products']['products_model']], 86400);
