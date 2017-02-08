@@ -44,7 +44,9 @@ trait ActionProduct
             $x = PartnersProducts::find()
                 ->where([$param => trim($id)]);
             $data = end($this->aggregateProductsData($x, 'productn', 86400));
-            $prodimages = array_values($data['subImage']);
+            foreach ($data['subImage'] as $imkey=>$imvalue){
+                $prodimages[] = $imvalue['image_file'];
+            }
             $spec = PartnersProductsToCategories::find()
                 ->where(['products_to_categories.products_id' => $id])
                 ->joinWith('productsSpecification')
@@ -55,7 +57,18 @@ trait ActionProduct
                 $spec['specificationDescription'] = ArrayHelper::index($spec['specificationDescription'], 'specifications_id');
                 $spec['specificationValuesDescription'] = ArrayHelper::index($spec['specificationValuesDescription'], 'specification_values_id');
             }
-            $catpath = $data['catpath'];
+            if(!$data['catpath']){
+                if ($data['categories_id'] == 0 || $data['categories_id'] == 327 || $data['categories_id'] == 1354) {
+                    $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
+                } else {
+                    $catpath = $this->Catpath($data['categories_id'], 'namenum');
+                }
+                if(!$catpath){
+                    $catpath = ['num' => ['0' => 0], 'name' => ['0' => 'Каталог']];
+                }
+            }else{
+                $catpath = $data['catpath'];
+            }
             $relProduct = $this->RelatedProducts( $data['categories_id'], 45, 'rejjhkml',3200);
             if (Yii::$app->request->isPost) {
                 $data['productsAttributesDescr'] = ArrayHelper::index($data['productsAttributesDescr'], 'products_options_values_name');
