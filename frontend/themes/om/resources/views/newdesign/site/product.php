@@ -155,17 +155,17 @@ if(!$product['products']['products_image']){
                 <div class="price-box">
                     <p class="old-price">
                         <span class="price-label"></span>
-                        <span class="price"><?=round($product['products']["products_old_price"])?> р.</span>
+                        <span class="price"><?=round($product['products']["products_old_price"])?> &#8381;</span>
                     </p>
                     <p class="special-price">
                         <span class="price-label"></span>
-                        <span class="price"><?=round($product['products']["products_price"])?> р.</span>
+                        <span class="price"><?=round($product['products']["products_price"])?> &#8381;</span>
                     </p>
                 </div>
             <?php } else { ?>
                 <div class="price-box">
                     <span class="regular-price">
-                        <span class="price"><?=round($product['products']["products_price"])?> р.</span>
+                        <span class="price"><?=round($product['products']["products_price"])?> &#8381;</span>
                     </span>
                 </div>
             <?php } ?>

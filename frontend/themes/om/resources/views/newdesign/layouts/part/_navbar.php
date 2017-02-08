@@ -671,7 +671,6 @@ $menu['stock'] = [
                         <?php ActiveForm::begin(['action'=>'/catalog/','method'=>'get'])?>
                         <input class="search" autocomplete="off" type="text" placeholder="Введите артикул или название" maxlength="70" name="searchword" id="search">
                         <button type="submit" class="search-btn-bg"><span class="glyphicon glyphicon-search"></span>&nbsp;</button>
-                        <button type="button" class="search-btn-bg search-button-toggle" data-toggle="tooltip" data-placement="top" title="Общий поиск"><span class="glyphicon glyphicon-globe"></span>&nbsp;</button>
                         <?php ActiveForm::end();?>
                     <?php } ?>
                 </div>

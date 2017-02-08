@@ -390,7 +390,7 @@ a {
 
 #search {
 	margin: 0;
-	width: 250px;
+    width: 200px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	height: 26px;
@@ -4346,6 +4346,7 @@ a.button.detail-bnt span {
 	padding: 0;
 	float: none;
 	display: inline-block;
+    vertical-align: middle;
 }
 
 .product-view-compact .rating {
@@ -4929,6 +4930,12 @@ a.button.detail-bnt span {
 }
 .hover-variants .add-to-cart-inputs .label-product{
     font-size: 14px;
+}
+#featured-slider .hover-variants .col-lg-6{
+    width: 100%;
+}
+#featured-slider .catalog-product-item .hover-variants {
+    bottom: 47px;
 }
 .button-up:hover {
 	background: #333 url(/images/new/icon_arrow_up.png) no-repeat 15px 15px;
@@ -14955,12 +14962,12 @@ a#fancybox-close {
 	}
 
 	.search-box {
-		width: 260px;
+        width: 170px;
 	}
 
 	#search {
 		padding: 3px 6px;
-		width: 230px;
+        width: 140px;
 	}
 
     .search-btn-bg {
@@ -15541,8 +15548,8 @@ a#fancybox-close {
 }
 #nav .nav-block .bold-ul>li{
     text-transform: uppercase;
-    font-size: 16px;
-    padding: 3px 0;
+    font-size: 12px;
+    padding: 6px 0;
 }
 .rev_slider.fullwidthabanner a{
     display: block;
@@ -15557,4 +15564,7 @@ a#fancybox-close {
     font-size: 12px;
     text-align: center;
     color: #ffffff;
+}
+.product-image .large-image{
+
 }

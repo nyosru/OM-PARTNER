@@ -1791,7 +1791,7 @@ function parseForCartTop(){
         if(cart.length == 0){
             $('#cart-sidebar').append('<li class="item"><strong>В корзине отсутствуют товары</strong></li>');
         }
-        $('#total-price-cart').text(totalSum+' р.');
+        $('#total-price-cart').html(totalSum+' &#8381;');
         $('.cart-count').text(countProducts);
     }
 }
@@ -1809,7 +1809,7 @@ function renderCartTop(index,id,name,count,price,size,img){
                 '<div class="access">' +
                     '<a class="btn-remove1 del-product" title="Удалить" data-product="'+id+'" href="#">Удалить</a> ' +
                 '</div>' +
-                '<strong>'+count+'</strong> x <span class="price">'+parseInt(price)+' р.</span> ' +
+                '<strong>'+count+'</strong> x <span class="price">'+parseInt(price)+' &#8381;</span> ' +
                 '<p class="product-name"><a href="/product?id='+id+'">'+name+size+'</a></p> ' +
             '</div> ' +
         '</div> ' +
