@@ -1,4 +1,4 @@
-<?php if((integer)($old_price)){ ?>
+<?php if((integer)($old_price) && $old_price > $price){ ?>
     <div class="price-box">
         <p class="old-price">
             <span class="price-label"></span>

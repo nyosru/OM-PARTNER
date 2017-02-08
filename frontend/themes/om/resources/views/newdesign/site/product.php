@@ -56,8 +56,11 @@ if(!$product['products']['products_image']){
                                 $paste[0] = $urlsrc[0];
                                 $paste['cat'] = $catid;
                             }
-                            if(count($catpath['num'])>=1 && $catpath['num'][0]!=0 && $key==0){
+                            if(count($catpath['num'])>=1 && $key==0){
                                 echo '<li><a href="/catalog/">Каталог</a><span>→ </span></li>';
+                            }
+                            if(count($catpath['num'])==1 && $catpath['num'][0]==0){
+                                break;
                             }
                             echo '<li><a href="' . Url::toRoute($paste) . '">' . $catpath['name'][$key] . '</a><span>→ </span></li>';
                         }
@@ -151,7 +154,7 @@ if(!$product['products']['products_image']){
         </div>
 
         <div class="price-block">
-            <?php if((integer)($product['products']["products_old_price"])){ ?>
+            <?php if((integer)($product['products']["products_old_price"]) && $product['products']["products_old_price"] > $product['products']["products_price"]){ ?>
                 <div class="price-box">
                     <p class="old-price">
                         <span class="price-label"></span>
