@@ -27,10 +27,10 @@ echo \frontend\widgets\GenBanners::widget([
                     'items'=>[
                         [
                             'template'=>'<a href="{referal}"><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_31012017_1.png',
-                            'referal'=> '/catalog?cat=1580',
+                            'image' =>  'OM_02022017_1.png',
+                            'referal'=> '/catalog?cat=1729',
                             'term'=> '',
-                            'alttext' => 'Джинсы',
+                            'alttext' => 'Блузы',
                             'out' => FALSE,
                             'header' => 'Заголовок',
                             'text' => 'Подзаголовок',
@@ -39,7 +39,7 @@ echo \frontend\widgets\GenBanners::widget([
                         ],
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_31012017_2.png',
+                            'image' =>  'OM_02022017_2.png',
                             'referal'=> '/catalog?cat=1987',
                             'term'=> '',
                             'alttext' => 'Полусапожки',
@@ -55,10 +55,10 @@ echo \frontend\widgets\GenBanners::widget([
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_31012017_3.png',
-                            'referal'=> '/catalog?cat=1350',
+                            'image' =>  'OM_02022017_3.png',
+                            'referal'=> '/catalog?cat=1752',
                             'term'=> '',
-                            'alttext' => 'Большие размеры',
+                            'alttext' => 'Легкие куртки и ветровки',
                             'out' => FALSE
                         ]
 
@@ -72,7 +72,7 @@ echo \frontend\widgets\GenBanners::widget([
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' => 'OM_31012017_5.png',
+                            'image' => 'OM_02022017_5.png',
                             'referal'=> '/catalog?cat=1720',
                             'term'=> '',
                             'alttext' => 'Платья',
@@ -88,10 +88,10 @@ echo \frontend\widgets\GenBanners::widget([
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' =>  'OM_31012017_2.png',
-                            'referal'=> '/catalog?cat=1752',
+                            'image' =>  'OM_02022017_2.png',
+                            'referal'=> '/catalog?cat=1765',
                             'term'=> '',
-                            'alttext' => 'Легкие куртки и ветровки',
+                            'alttext' => 'Комплекты белья',
                             'out' => FALSE
                         ]
                     ]
@@ -104,10 +104,10 @@ echo \frontend\widgets\GenBanners::widget([
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' => 'OM_31012017_4.png',
-                            'referal'=> '/catalog?cat=1987',
+                            'image' => 'OM_02022017_4.png',
+                            'referal'=> '/catalog?cat=3453',
                             'term'=> '',
-                            'alttext' => 'Полусапожки',
+                            'alttext' => '14 февраля',
                             'out' => FALSE
                         ]
                     ]
@@ -120,9 +120,9 @@ echo \frontend\widgets\GenBanners::widget([
                     'items'=> [
                         [
                             'template'=>'<a href="{referal}"><div>{header}</div><div>{text}</div><div>{button}</div><img style="{style}" src="{image}" alt="{alt}"></a>',
-                            'image' => 'OM_31012017_6.png',
-                            'referal'=> '/catalog?cat=3454',
-                            'alttext' => '23 Февраля',
+                            'image' => 'OM_02022017_6.png',
+                            'referal'=> '/catalog?cat=2048',
+                            'alttext' => 'Красота и здоровье',
                             'out' => FALSE
                         ]
                     ]
