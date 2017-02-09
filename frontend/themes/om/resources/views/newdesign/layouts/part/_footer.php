@@ -105,12 +105,12 @@ $links = [
                 <div class="col-xs-12 col-lg-4">
                     <div class="footer-column-last">
                         <div class="newsletter-wrap">
-                            <h4>Sign up for emails</h4>
+                            <h4>Подпишитесь на нашу рассылку</h4>
                             <form id="newsletter-validate-detail" method="post" action="#">
                                 <div id="container_form_news">
                                     <div id="container_form_news2">
-                                        <input type="text" class="input-text required-entry validate-email" value="Enter your email address" onFocus=" this.value='' " title="Sign up for our newsletter" id="newsletter" name="email">
-                                        <button class="button subscribe" title="Subscribe" type="submit"><span>Subscribe</span></button>
+                                        <input type="text" class="input-text required-entry validate-email" value="Введите свой e-mail" onFocus=" this.value='' " title="Подписаться на рассылку" id="newsletter" name="email">
+                                        <button class="button subscribe" title="Subscribe" type="submit"><span>Подписаться</span></button>
                                     </div>
                                 </div>
                             </form>
@@ -118,10 +118,8 @@ $links = [
                         <div class="social">
                             <h4>Подпишитесь на нас</h4>
                             <ul class="link">
-                                <li class="vk pull-left"><a href="#"></a></li>
-                                <li class="ok pull-left"><a href="#"></a></li>
-                                <li class="fb pull-left"><a href="#"></a></li>
-                                <li class="in pull-left"><a href="#"></a></li>
+                                <li class="vk pull-left"><a href="https://vk.com/om__ru"></a></li>
+                                <li class="ok pull-left"><a href="https://ok.ru/group/54344823341165"></a></li>
                             </ul>
                         </div>
                         <div class="payment-accept">

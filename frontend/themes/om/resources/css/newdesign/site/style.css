@@ -10412,6 +10412,7 @@ button.subscribe:before {
 	filter: none;
 	overflow: hidden;
 	padding: 9px 18px;
+    padding-top: 10px;
 	cursor: pointer;
 	font-weight: bold;
 	-webkit-border-radius: 2px;
@@ -10443,7 +10444,7 @@ button.subscribe:before {
 	font-family: 'Roboto', sans-serif;
 	border: none;
 	padding: 8px 10px;
-	width: 62% !important;
+	width: 54% !important;
 }
 
 footer {
@@ -10529,6 +10530,7 @@ footer .footer-column a:before {
 	line-height: 20px;
 	color: #666;
 	margin-right: 5px;
+    margin-left: -10px;
 }
 
 .footer-column-last {
@@ -10568,7 +10570,8 @@ footer p {
 
 footer .footer-column a {
 	display: block;
-	color: #aaa
+	color: #aaa;
+    padding-left: 10px;
 }
 
 footer a {
