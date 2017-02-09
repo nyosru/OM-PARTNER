@@ -60,7 +60,7 @@ use yii\bootstrap\ActiveForm;
                                     <div class="top-cart-content">
                                         <div class="block-subtitle">
                                             <div class="top-subtotal">
-                                                Товары: <span class="cart-count">0</span> <span class="price" id="total-price-cart">$259.99</span>
+                                                Товары: <span class="cart-count">0</span> <span class="price total-price-cart">0</span>
                                             </div>
                                             <div class="pull-right">
                                                 <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle">

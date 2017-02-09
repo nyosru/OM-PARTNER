@@ -400,33 +400,19 @@ if ($data[0] != 'Не найдено!') {
                             </form>
                         </div>
                     </div>
-                    <div class="block block-cart">
-                        <div class="block-title ">My Cart</div>
+                    <div class="block block-cart" id="cart-catalog-left">
+                        <div class="block-title ">Моя корзина</div>
                         <div class="block-content">
                             <div class="summary">
-                                <p class="amount">There are <a href="#">2 items</a> in your cart.</p>
-                                <p class="subtotal"> <span class="label">Cart Subtotal:</span> <span class="price">$27.99</span> </p>
+                                <p class="amount">Количество товаров: <span class="cart-count">0</span></p>
+                                <p class="subtotal"> <span class="label">Сумма:</span> <span class="price total-price-cart">0</span> </p>
                             </div>
-                            <div class="ajax-checkout">
-                                <button class="button button-checkout" title="Submit" type="submit"><span>Checkout</span></button>
-                            </div>
-                            <p class="block-subtitle">Recently added item(s) </p>
+                            <p class="block-subtitle">Товары в корзине</p>
                             <ul>
-                                <li class="item"> <a href="product_detail.html" title="Fisher-Price Bubble Mower" class="product-image"><img src="products-images/product23.jpg" alt="Fisher-Price Bubble Mower"></a>
-                                    <div class="product-details">
-                                        <div class="access"> <a href="#" title="Remove This Item" class="btn-remove1"> <span class="icon"></span> Remove </a> </div><strong>1</strong> x <span class="price">$19.99</span>
-                                        <p class="product-name"> <a href="product_detail.html">Sample Product</a> </p>
-                                    </div>
-                                </li>
-                                <li class="item last"> <a href="product_detail.html" title="Prince Lionheart Jumbo Toy Hammock" class="product-image"><img src="products-images/product22.jpg" alt="Prince Lionheart Jumbo Toy Hammock"></a>
-                                    <div class="product-details">
-                                        <div class="access"> <a href="#" title="Remove This Item" class="btn-remove1"> <span class="icon"></span> Remove </a> </div><strong>1</strong> x <span class="price">$8.00</span>
-                                        <p class="product-name"> <a href="product_detail.html"> Sample Product</a> </p>
 
-                                        <!--access clearfix-->
-                                    </div>
-                                </li>
                             </ul>
+                            <div class="actions">
+                                <a href="/cart" class="view-cart"><span>Перейти к корзине</span></a> </div>
                         </div>
                     </div>
                 </aside>

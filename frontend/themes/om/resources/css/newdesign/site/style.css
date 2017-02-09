@@ -899,7 +899,8 @@ div#checkout-step-review {
 	background: #f6f6f6
 }
 
-.mini-cart .view-cart {
+.mini-cart .view-cart,
+.block-cart .view-cart{
 	background: none repeat scroll 0 0 transparent;
 	border: medium none;
 	cursor: pointer;
@@ -912,18 +913,20 @@ div#checkout-step-review {
 	text-align: center;
 	display: inline-block;
 	background: #eee;
-	color: #666;
+	color: #666 !important;
     -webkit-transition: all 400ms ease;
     -moz-transition: all 400ms ease;
     -ms-transition: all 400ms ease;
     -o-transition: all 400ms ease;
     transition: all 400ms ease;
 }
-.mini-cart .view-cart:hover{
+.mini-cart .view-cart:hover,
+.block-cart .view-cart:hover{
     background-color: #08c;
-    color: #ffffff;
+    color: #ffffff !important;
 }
-.mini-cart .view-cart:before {
+.mini-cart .view-cart:before,
+.block-cart .view-cart:before {
 	content: '\f07a';
 	font-family: FontAwesome;
 	font-size: 16px;
@@ -15570,4 +15573,8 @@ a#fancybox-close {
 }
 .product-image .large-image{
 
+}
+#cart-catalog-left ul{
+    max-height: 440px;
+    overflow-y: auto;
 }

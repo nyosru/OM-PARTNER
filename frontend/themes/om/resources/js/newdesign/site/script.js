@@ -1783,15 +1783,19 @@ function parseForCartTop(){
             totalSum = 0,
             countProducts = 0;
         $('#cart-sidebar').empty();
+        $('#cart-catalog-left').show();
+        $('#cart-catalog-left ul').empty();
         $.each(cart,function(i){
             countProducts += parseInt(this[4]);
             totalSum += (parseInt(this[4])*parseInt(this[3]));
             $('#cart-sidebar').append(renderCartTop(i,this[0],this[7],this[4],this[3],this[6],this[5]));
+            $('#cart-catalog-left ul').append(renderCartTop(i,this[0],this[7],this[4],this[3],this[6],this[5]));
         });
         if(cart.length == 0){
             $('#cart-sidebar').append('<li class="item"><strong>В корзине отсутствуют товары</strong></li>');
+            $('#cart-catalog-left').hide();
         }
-        $('#total-price-cart').html(totalSum+' &#8381;');
+        $('.total-price-cart').html(totalSum+' &#8381;');
         $('.cart-count').text(cart.length);
     }
 }
